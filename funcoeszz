@@ -349,7 +349,7 @@ zzzz ()
 			### Todos os comandos necessários estão instalados?
 			
 			local comando tipo_comando comandos_faltando
-			local comandos='awk- bc cat chmod- clear- cp cpp- cut diff- du- find- grep lynx mv od- play- ps- rm sed sleep sort tr uniq'
+			local comandos='awk- bc cat chmod- clear- cp cpp- cut diff- du- find- grep lynx mv od- play- ps- rm sed sleep sort tail- tr uniq'
 
 			for comando in $comandos
 			do
@@ -1927,10 +1927,10 @@ zzcontapalavra ()
 # Uso: zzlinha [número | -t texto] [arquivo(s)]
 # Ex.: zzlinha /etc/passwd           # mostra uma linha qualquer, aleatória
 #      zzlinha 9 /etc/passwd         # mostra a linha 9 do arquivo
+#      zzlinha -2 /etc/passwd        # mostra a penúltima linha do arquivo
 #      zzlinha -t root /etc/passwd   # mostra uma das linhas com "root"
 #      cat /etc/passwd | zzlinha     # o arquivo pode vir da entrada padrão
 # ----------------------------------------------------------------------------
-# TODO números negativos (conta à partir do fim)
 zzlinha ()
 {
 	zzzz -h linha $1 && return
@@ -1945,7 +1945,7 @@ zzlinha ()
 	fi
 	
 	# Talvez o $1 é o número da linha desejada?
-	if zztool testa_numero "$1"
+	if zztool testa_numero_sinal "$1"
 	then
 		n=$1
 		shift
@@ -1957,9 +1957,19 @@ zzlinha ()
 		# Nota: Suporte a múltiplos arquivos e entrada padrão (STDIN)
 		for arquivo in "${@:--}"
 		do
-			sed -n ${n}p "$arquivo"
+			# O arquivo existe?
+			zztool arquivo_legivel "$arquivo" || continue
+			
+			if [ "$n" -lt 0 ] 
+			then
+				tail -n ${n#-} "$arquivo" | sed 1q
+			else
+				sed -n ${n}p "$arquivo"
+			fi
 		done
 	else
+		# TODO: usar zztool multi_stdin e arquivo_legivel
+		
 		# Se foi informado um padrão (ou nenhum argumento),
 		# primeiro grepa as linhas, depois mostra uma linha
 		# aleatória deste resultado.
