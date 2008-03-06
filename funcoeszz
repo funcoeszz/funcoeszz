@@ -10,7 +10,7 @@
 # LICENÇA    : GPL
 # CHANGELOG  : www.funcoeszz.net/changelog.html
 #
-ZZVERSAO=8.3
+ZZVERSAO=8.4b
 ZZUTF=1
 #
 ##############################################################################
@@ -1154,6 +1154,7 @@ zzss ()
 
 # ----------------------------------------------------------------------------
 # Conversão de telefones contendo letras para apenas números.
+# Autor: Rodolfo de Faria <rodolfo faria (a) fujifilm com br>
 # Uso: zzfoneletra telefone
 # Ex.: zzfoneletra 2345-LINUX              # Retorna 2345-54689
 #      echo 5555-HELP | zzfoneletra        # Retorna 5555-4357
