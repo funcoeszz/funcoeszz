@@ -704,7 +704,7 @@ zzbeep ()
 	zzzz -h beep $1 && return
 	
 	local minutos frequencia
-	 
+	
 	# Sem argumentos, apenas restaura a "configuração de fábrica" do beep
 	[ "$1" ] || {
 		printf '\033[10;750]\033[11;100]\a'
@@ -1197,7 +1197,7 @@ zzdos2unix ()
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue
 		
-		# Remove o famigerado CR \r ^M 
+		# Remove o famigerado CR \r ^M
 		cp "$arquivo" "$tmp" &&
 		tr -d '\015' < "$tmp" > "$arquivo"
 		
@@ -1475,7 +1475,7 @@ zzarrumanome ()
 				s/[\"']//g
 				
 				# Hífens no início do nome são proibidos
-  				s/^-/_/
+				s/^-/_/
 				
 				# Remove acentos
 				y/àáâãäåèéêëìíîïòóôõöùúûü/aaaaaaeeeeiiiiooooouuuu/
@@ -1670,7 +1670,7 @@ zzdiffpalavra ()
 	
 	# Usa o diff para comparar as diferenças e formata a saída,
 	# agrupando as palavras para facilitar a leitura do resultado
-	diff -U 100 "$tmp1" "$tmp2" | 
+	diff -U 100 "$tmp1" "$tmp2" |
 		sed 's/^ /=/' |
 		sed '
 			# Script para agrupar linhas consecutivas de um mesmo tipo.
@@ -1960,7 +1960,7 @@ zzlinha ()
 			# O arquivo existe?
 			zztool arquivo_legivel "$arquivo" || continue
 			
-			if [ "$n" -lt 0 ] 
+			if [ "$n" -lt 0 ]
 			then
 				tail -n ${n#-} "$arquivo" | sed 1q
 			else
@@ -1991,7 +1991,7 @@ zzlinha ()
 
 # ----------------------------------------------------------------------------
 # Calculadora.
-# Os operadores principais são + - / * ^ %, veja outros em "man bc". 
+# Os operadores principais são + - / * ^ %, veja outros em "man bc".
 # Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
 # Uso: zzcalcula número operação número
 # Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
@@ -2181,7 +2181,7 @@ zzdata ()
 # Uso: zzhora [-r] hh:mm [+|- hh:mm]
 # Ex.: zzhora 8:30 + 17:25        # preciso somar duas horas!
 #      zzhora 12:00 - agora       # quando falta para o almoço?
-#      zzhora -12:00 + -5:00      # horas negativas!!!
+#      zzhora -12:00 + -5:00      # horas negativas!
 #      zzhora 1000                # quanto é 1000 minutos?
 #      zzhora -r 5:30 - 8:00      # que horas ir dormir para acordar às 5:30?
 #      zzhora -r agora + 57:00    # e daqui 57 horas, será quando?
@@ -2267,6 +2267,7 @@ zzhora ()
 	[ $mm -le 9 ] && mm=0$mm
 	[ $hh_dia -le 9 ] && hh_dia=0$hh_dia
 	
+	#TODO: usar um exemplo com horas negativas
 	# Decide como mostrar o resultado para o usuário.
 	#
 	# Relativo:
@@ -2441,7 +2442,7 @@ zzcpf ()
 			return
 		fi
 		
-		# Apaga os dois último dígitos
+		# Apaga os dois últimos dígitos
 		base=${cpf%??}
 	else
 		# Não foi informado nenhum CPF, vamos gerar um escolhendo
@@ -2898,9 +2899,9 @@ zzmoeda ()
 # zzbovespa ()
 # {
 # 	zzzz -h bovespa $1 && return
-# 
+#
 # 	local url='http://www.bovespa.com.br/'
-# 
+#
 # 	[ "$1" ] || {
 # 		$ZZWWWDUMP "$url/Indices/CarteiraP.asp?Indice=Ibovespa" |
 # 			sed '/^ *Cód/,/^$/!d'
@@ -2924,12 +2925,12 @@ zzmoeda ()
 # 					s/\n/   /
 # 					b
 # 				}
-# 
+#
 # 				/^IBO/ N
 # 				N
 # 				s/\n/  /g
 # 				/^<.-- /d
-# 
+#
 # 				:a
 # 				s/^\([^0-9]\{1,10\}\)\([0-9][0-9]*\)/\1 \2/
 # 				ta'
@@ -2994,7 +2995,7 @@ zzwikipedia ()
 			/^   Wikipedia does not have an article with this exact name./q
 			s/^\[edit\] //
 			s/^\[editar\] //
-			 
+			
 			# Guarda URL da página e mostra no final, após Categorias
 			/^   Obtido em "/ { H; d; }
 			/^   Retrieved from "/ { H; d; }
@@ -3018,7 +3019,7 @@ zzwikipedia ()
 # 	local url='http://www.receita.fazenda.gov.br/Scripts/srf/irpf'
 # 	local ano=$1
 # 	local z=${ano#200}
-# 
+#
 # 	# Verificação dos parâmetros
 # 	[ "$2" ] || { zztool uso irpf; return; }
 # 	
@@ -3042,14 +3043,14 @@ zzwikipedia ()
 # zzcep ()
 # {
 # 	zzzz -h cep $1 && return
-# 
+#
 # 	local r c
 # 	local url='http://www.correios.com.br/servicos/cep'
 # 	local e="$1"
-# 
+#
 # 	# Verificação dos parâmetros
 # 	[ "$3" ] || { zztool uso cep; return; }
-# 
+#
 # 	c=$(echo "$2"| sed "$ZZSEDURL")
 # 	shift
 # 	shift
@@ -3075,29 +3076,29 @@ zzwikipedia ()
 # zzdetranpr ()
 # {
 # 	zzzz -h detranpr $1 && return
-# 
+#
 # 	local url='http://celepar7.pr.gov.br/detran_novo/consultas/veiculos/deb_novo.asp'
-# 
+#
 # 	# Verificação dos parâmetros
 # 	[ "$1" ] || { zztool uso detranpr; return; }
-# 
+#
 # 	# Faz a consulta e filtra o resultado (usando magia negra)
 # 	$ZZWWWDUMP "$url?ren=$1" |
 # 		sed 's/^  *//' |
 # 		sed '
 # 			# Remove linhas em branco
 # 			/^$/ d
-# 
+#
 # 			# Transforma barra horizontal em linha em branco
 # 			s/___*//
-# 
+#
 # 			# Apaga a lixarada
 # 			1,/^Data: / d
 # 			/^Informa..es do Ve.culo/ d
 # 			/^Discrimina..o dos D.bitos/ d
 # 			/\[BUTTON\]/,$ d
 # 			/^Discrimina..o das Multas/,/^Resumo das Multas/ d
-# 
+#
 # 			# Quebra a linha para dados da segunda coluna da tabela
 # 			s/Renavam:/@&/
 # 			s/Ano de Fab/@&/
@@ -3168,7 +3169,7 @@ zzloteria ()
 		
 		dump=$($ZZWWWDUMP "$url/$tipo/${tipo}_pesquisa.asp" |
 			tr -d \\n |
-			sed 's/  */ /g ; s/^ //') 
+			sed 's/  */ /g ; s/^ //')
 		
 		# O número do concurso é sempre o primeiro campo
 		numero_concurso=$(echo "$dump" | cut -d '|' -f 1)
@@ -3472,7 +3473,7 @@ zzwhoisbr ()
 	[ "$1" ] || { zztool uso whoisbr; return; }
 
 	# Faz a consulta e filtra o resultado
-	$ZZWWWDUMP "$url?qr=$dominio" | 
+	$ZZWWWDUMP "$url?qr=$dominio" |
 		sed '
 			s/^  *//
 			1,/^%/d
@@ -4059,7 +4060,7 @@ zzgoogle ()
 # 	
 # 	local padrao=$(echo "$*" | sed "$ZZSEDURL")
 # 	local url=http://letssingit.com/cgi-exe/am.cgi
-# 
+#
 # 	# Verificação dos parâmetros
 # 	[ "$1" ] || { zztool uso letrademusica; return; }
 # 	
@@ -4085,10 +4086,10 @@ zzgoogle ()
 # 	
 # 	local a c h
 # 	local url='http://tudoparana.globo.com/gazetadopovo/cadernog'
-# 
+#
 # 	# Verificação dos parâmetros
 # 	[ "$1" ] || { zztool uso tv; return; }
-# 
+#
 # 	h=$(echo $2 | sed 's/^\(..\).*/\1/;s/[^0-9]//g')
 # 	h="($h|$((h+1))|$((h+2)))"
 # 	h=$(echo $h | sed 's/24/00/;s/25/01/;s/26/02/;s/\<[0-9]\>/0&/g;s@[(|)]@\\\\&@g')
@@ -4173,7 +4174,7 @@ zzpronuncia ()
 		# Extrai o nome do arquivo no site do dicionário
 		wav_file=$(
 			$ZZWWWHTML "$url?va=$palavra" |
-  			sed -n "/.*audio.pl?\([a-z0-9]*\.wav\)=$palavra.*/{s//\1/p;q;}")
+			sed -n "/.*audio.pl?\([a-z0-9]*\.wav\)=$palavra.*/{s//\1/p;q;}")
 
 		# Ops, não extraiu nada
 		if test -z "$wav_file"
@@ -4387,13 +4388,13 @@ zzhoracerta ()
 # 	local subj=zznextel
 # 	local from="$1"
 # 	local to="$2"
-# 
+#
 # 	# Verificação dos parâmetros
 # 	[ "$3" ] || { zztool uso nextel; return; }
-# 
+#
 # 	shift; shift
 # 	msg=$(echo "$*" | sed "$ZZSEDURL")
-# 
+#
 # 	echo "to=$to&from=$from&subject=$subj&message=$msg&count=0&Enviar=Enviar" |
 # 		$ZZWWWPOST "$url" |
 # 		sed '1,/^ *CENTRAL/d ; s/.*Individual/ / ; N ; q'
