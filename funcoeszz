@@ -2428,7 +2428,7 @@ zzcpf ()
 	local i n somatoria digito1 digito2 cpf base
 
 	# Remove pontuação do CPF informado, deixando apenas números
-	cpf="$(echo $* | tr -d -c 0-9)"
+	cpf="$(echo $* | tr -d -c 0123456789)"
 	
 	# Extrai os números da base do CPF:
 	# Os 9 primeiros, sem os dois dígitos verificadores.
@@ -2559,7 +2559,7 @@ zzcnpj ()
 	# apenas com uma máscara numérica maior, devido à quantidade
 	# maior de dígitos do CNPJ em relação ao CPF.
 
-	cnpj="$(echo $* | tr -d -c 0-9)"
+	cnpj="$(echo $* | tr -d -c 0123456789)"
 	
 	if [ "$cnpj" ]
 	then
