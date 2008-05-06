@@ -1164,7 +1164,7 @@ zzfoneletra ()
 	zzzz -h foneletra $1 && return
 
 	# Um Sed faz tudo, é uma tradução letra a letra
-	zztool multi_stdin $* |
+	zztool multi_stdin "$@" |
 	 	zzmaiusculas |
 	 	sed y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/22233344455566677778889999/
 }
@@ -2002,7 +2002,7 @@ zzcalcula ()
 {
 	zzzz -h calcula $1 && return
 	
-	local parametros=$(zztool multi_stdin $*)
+	local parametros=$(zztool multi_stdin "$@")
 
 	# Entrada de números com vírgulas ou pontos, saída sempre com vírgulas
 	echo "scale=2;$parametros" | sed y/,/./ | bc | sed y/./,/
