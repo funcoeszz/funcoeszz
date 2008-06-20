@@ -2986,6 +2986,7 @@ zzwikipedia ()
 			/^Views$/,$ d
 			/^Vistas$/,$ d
 			/^   #Wikipedia (/d
+			/^   #Editar Wikipedia /d
 			/^From Wikipedia,/d
 			/^Origem: Wikipédia,/d
 			/^   Jump to: /d
