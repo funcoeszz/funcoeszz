@@ -4528,6 +4528,8 @@ zzdicportugues ()
 			/$ini/,/$fim/ {
 				/$ini/d
 				/$fim/d
+				/Duplo clique nas palavras/d
+				/^ *$/d
 				p
 			}" |
 		sed '
