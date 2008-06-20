@@ -4137,7 +4137,7 @@ zzsigla ()
 		grep '\*\*\*\*' |
 		sed '
 			s/more info from.*//
-			s/\[go\.gif\]//
+			s/\[[a-z0-9]*\.gif\]//
 			s/  *$//
 			s/^ *\*\** *//'
 }
