@@ -2005,8 +2005,8 @@ zzshuffle ()
 		do
 		 	echo "$RANDOM $linha"
 		done |
-		 	sort |
-		 	cut -d ' ' -f 2-
+	 	sort |
+	 	cut -d ' ' -f 2-
 }
 
 
