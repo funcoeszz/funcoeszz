@@ -4431,10 +4431,8 @@ zzdicbabelfish ()
 	zzzz -h dicbabelfish $1 && return
 	
 	local padrao
-	local url='http://babelfish.altavista.com/babelfish/tr'
-	local extra='ienc=iso-8859-1&doit=done&tt=urltext&intl=1'
-	local ini='^.*<div style=padding[^>]*>'
-	local fim='^<\/div>'
+	local url='http://babelfish.yahoo.com/translate_txt'
+	local extra='ei=UTF-8&eo=UTF-8&doit=done&fr=bf-home&intl=1&tt=urltext'
 	local lang=en_pt
 
 	# Verificação dos parâmetros
@@ -4451,16 +4449,12 @@ zzdicbabelfish ()
 	fi
 
 	padrao=$(echo "$*" | sed "$ZZSEDURL")
-	$ZZWWWHTML "$url?$extra&urltext=$padrao&lp=$lang" |
-		sed -n "
-			/$ini/,/$fim/ {
-				/$fim/d
-				/^$/d
-				/$ini/ {
-					s/<[^>]*>//g
-					s/^...//p
-				}
-			}"
+	$ZZWWWHTML "$url?$extra&trtext=$padrao&lp=$lang" |
+		sed -n '
+			/<div id="result">/ {
+		 		s/<[^>]*>//g
+				s/^ *//p
+			}'
 }
 
 
