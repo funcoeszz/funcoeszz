@@ -3662,7 +3662,7 @@ zznoticiaslinux ()
 		zztool eco "* BR Linux ($url):"
 		$ZZWWWHTML "$url" |
 			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
-			sed 's/&#822[01];/"/' |
+			sed 's/&#822[01];/"/g' |
 			$limite
 	fi
 	
