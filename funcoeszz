@@ -4519,7 +4519,15 @@ zzdicbabylon ()
 			/SEARCH RESULT/,/<\/td>/!d
 			s/^[$tab ]*//
 			s/<[^>]*>//g
-			/^$/d"
+			/^$/d" |
+
+		# O padrão é o resultado vir em latin-1
+		if test $ZZUTF = 1
+		then
+			iconv -f iso-8859-1 -t utf-8 /dev/stdin
+		else
+			cat -
+		fi
 }
 
 
