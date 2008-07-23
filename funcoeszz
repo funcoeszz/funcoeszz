@@ -3496,6 +3496,7 @@ zzdicasl ()
 	# Faz a consulta e filtra o resultado
 	zztool eco "$url"
 	$ZZWWWHTML "$url" |
+		zztool texto_em_iso |
 		grep -i $opcao_grep "$*" |
 		sed -n 's@^<LI><A HREF=\([^>]*\)> *\([^ ].*\)</A>@\1: \2@p'
 }
