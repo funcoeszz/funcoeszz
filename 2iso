@@ -1,0 +1,19 @@
+#!/bin/bash
+
+infile="funcoeszz"
+outfile="funcoeszz-iso"
+
+# Converte o codigo das ZZ para latin-1
+iconv -f UTF-8 -t ISO-8859-1 "$infile" > "$outfile"
+
+# Desliga a variavel global ZZUTF, usada por varias funcoes
+"$infile" trocapalavra 'ZZUTF=1' 'ZZUTF=0' "$outfile"
+
+# Define a codificacao em $ZZWWW*, zzgoogle e zzbabelfish
+"$infile" trocapalavra '=UTF-8' '=ISO-8859-1' "$outfile"
+
+# Torna executavel
+chmod +x "$outfile"
+
+# Mostra que fez
+ls -l "$infile" "$outfile"
