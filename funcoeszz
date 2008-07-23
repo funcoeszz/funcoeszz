@@ -3639,6 +3639,7 @@ zznoticiaslinux ()
 					s/<[^>]*>//gp
 				}' |
 			sed 's/^[[:blank:]]*//' |
+			zztool texto_em_utf8 |
 			$limite
 	fi
 	
@@ -3654,6 +3655,7 @@ zznoticiaslinux ()
 		
 		$ZZWWWHTML "$url/index.rdf" |
 			sed -n '1,/<item>/d;s@.*<title>\(.*\)</title>@\1@p' |
+			zztool texto_em_utf8 |
 			$limite
 	fi
 	
@@ -3680,6 +3682,7 @@ zznoticiaslinux ()
 		$ZZWWWHTML "$url" |
 			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
 			sed 's/&#822[01];/"/g' |
+			zztool texto_em_utf8 |
 			$limite
 	fi
 	
@@ -3691,6 +3694,7 @@ zznoticiaslinux ()
 		zztool eco "* UnderLinux ($url):"
 		$ZZWWWHTML "$url" |
 			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
+			zztool texto_em_utf8 |
 			$limite
 	fi
 	
@@ -3702,6 +3706,7 @@ zznoticiaslinux ()
 		zztool eco "* Notícias Linux ($url):"
 		$ZZWWWHTML "$url" |
 			sed -n '/<[hH]3>/{s/<[^>]*>//g;s/^[[:blank:]]*//g;p;}' |
+			zztool texto_em_iso |
 			$limite
 	fi
 }
