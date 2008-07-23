@@ -335,7 +335,7 @@ zzzz ()
 				# Um xunxo bonito: filtra a saída da zzajuda, mostrando
 				# apenas a função informada.
 				zzajuda |
-					grep -C9 "^$padrao\b" |
+					grep -C15 "^$padrao\b" |
 					sed -n "
 						H
 						/^---/ {
@@ -1247,7 +1247,7 @@ zzrot47 ()
 # ----------------------------------------------------------------------------
 zzalfabeto ()
 {
-	zzzz -h ansi2html $1 && return
+	zzzz -h alfabeto $1 && return
 
 	local char letra
 
