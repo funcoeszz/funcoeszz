@@ -3634,10 +3634,7 @@ zznoticiaslinux ()
 					s,</a>.*,,
 					s/<[^>]*>//gp
 				}
-				/clearfix/ {
-			 		n
-					s/<[^>]*>//gp
-				}' |
+				/^      <a href=/ s/<[^>]*>//gp' |
 			sed 's/^[[:blank:]]*//' |
 			zztool texto_em_utf8 |
 			$limite
