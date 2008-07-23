@@ -3918,7 +3918,7 @@ zzsecurity ()
 	[ "$1" ] && distros="$(echo $* | zzminusculas)"
 	
 	# Debian
-	if zztool grep_var debian $distros
+	if zztool grep_var debian "$distros"
 	then
 		url='http://www.debian.org'
 		echo
@@ -3933,7 +3933,7 @@ zzsecurity ()
 	fi
 
 	# Slackware
-	if zztool grep_var slackware $distros
+	if zztool grep_var slackware "$distros"
 	then
 		echo
 		zztool eco '** Atualizações Slackware'
@@ -3948,7 +3948,7 @@ zzsecurity ()
 	fi
 
 	# Gentoo
-	if zztool grep_var gentoo $distros
+	if zztool grep_var gentoo "$distros"
 	then
 		echo
 		zztool eco '** Atualizações Gentoo'
@@ -3966,7 +3966,7 @@ zzsecurity ()
 	fi
 
 	# Mandriva
-	if zztool grep_var mandriva $distros
+	if zztool grep_var mandriva "$distros"
 	then
 		echo
 		zztool eco '** Atualizações Mandriva'
@@ -3983,7 +3983,7 @@ zzsecurity ()
 	fi
 
 	# Suse
-	if zztool grep_var suse $distros
+	if zztool grep_var suse "$distros"
 	then
 		echo
 		zztool eco '** Atualizações Suse'
@@ -3995,7 +3995,7 @@ zzsecurity ()
 	fi
 
 	# Fedora
-	if zztool grep_var fedora $distros
+	if zztool grep_var fedora "$distros"
 	then
 		echo
 		zztool eco '** Atualizações Fedora'
@@ -4007,7 +4007,7 @@ zzsecurity ()
 	fi
 
 	# FreeBSD
-	if zztool grep_var freebsd $distros
+	if zztool grep_var freebsd "$distros"
 	then
 		echo
 		zztool eco '** Atualizações FreeBSD'
@@ -4024,7 +4024,7 @@ zzsecurity ()
 	fi
 	
 	# Ubuntu
-	if zztool grep_var ubuntu $distros
+	if zztool grep_var ubuntu "$distros"
 	then
 		url='http://www.ubuntu.com/taxonomy/term/2/0/feed'
 		echo
