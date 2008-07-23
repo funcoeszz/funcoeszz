@@ -4537,14 +4537,7 @@ zzdicbabylon ()
 			s/^[$tab ]*//
 			s/<[^>]*>//g
 			/^$/d" |
-
-		# O padrão é o resultado vir em latin-1
-		if test $ZZUTF = 1
-		then
-			iconv -f iso-8859-1 -t utf-8 /dev/stdin
-		else
-			cat -
-		fi
+		zztool texto_em_iso
 }
 
 
