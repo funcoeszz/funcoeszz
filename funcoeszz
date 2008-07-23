@@ -371,7 +371,7 @@ zzzz ()
 			do
 				# Este é um comando essencial ou opcional?
 				tipo_comando='ESSENCIAL'
-				if zztool grep_var - $comando
+				if zztool grep_var - "$comando"
 				then
 					tipo_comando='opcional'
 					comando=${comando%-}
@@ -393,7 +393,7 @@ zzzz ()
 			then
 				echo
 				zztool eco "**Atenção**"
-				if zztool grep_var ESSENCIAL $comandos_faltando
+				if zztool grep_var ESSENCIAL "$comandos_faltando"
 				then
 					echo 'Há pelo menos um comando essencial faltando.'
 					echo 'Você precisa instalá-lo para usar as Funções ZZ.'
@@ -633,12 +633,12 @@ zzbyte ()
 		zztool uso byte
 		return
 	fi
-	if ! zztool grep_var $entrada $unidades
+	if ! zztool grep_var $entrada "$unidades"
 	then
 		echo "Unidade inválida '$entrada'"
 		return
 	fi
-	if ! zztool grep_var $saida .$unidades
+	if ! zztool grep_var $saida ".$unidades"
 	then
 		echo "Unidade inválida '$saida'"
 		return
@@ -3622,7 +3622,7 @@ zznoticiaslinux ()
 	[ "$1" ] && sites="$1"
 	
 	# Yahoo
-	if zztool grep_var y $sites
+	if zztool grep_var y "$sites"
 	then
 		url='http://br.news.yahoo.com/tecnologia/linux'
 		echo
@@ -3641,7 +3641,7 @@ zznoticiaslinux ()
 	fi
 	
 	# Viva o Linux
-	if zztool grep_var v $sites
+	if zztool grep_var v "$sites"
 	then
 		url='http://www.vivaolinux.com.br'
 		echo
@@ -3657,7 +3657,7 @@ zznoticiaslinux ()
 	fi
 	
 	# Cipsga
-	if zztool grep_var c $sites
+	if zztool grep_var c "$sites"
 	then
 		url='http://www.cipsga.org.br'
 		echo
@@ -3671,7 +3671,7 @@ zznoticiaslinux ()
 	fi
 	
 	# Br Linux
-	if zztool grep_var b $sites
+	if zztool grep_var b "$sites"
 	then
 		url='http://br-linux.org/feed/'
 		echo
@@ -3684,7 +3684,7 @@ zznoticiaslinux ()
 	fi
 	
 	# UnderLinux
-	if zztool grep_var u $sites
+	if zztool grep_var u "$sites"
 	then
 		url='http://feeds.feedburner.com/underlinux'
 		echo
@@ -3696,7 +3696,7 @@ zznoticiaslinux ()
 	fi
 	
 	# Notícias Linux
-	if zztool grep_var n $sites
+	if zztool grep_var n "$sites"
 	then
 		url='http://www.noticiaslinux.com.br'
 		echo
@@ -3736,7 +3736,7 @@ zzlinuxnews ()
 	[ "$1" ] && sites="$1"
 
 	# Freshmeat
-	if zztool grep_var f $sites
+	if zztool grep_var f "$sites"
 	then
 		url='http://freshmeat.net'
 		echo
@@ -3747,7 +3747,7 @@ zzlinuxnews ()
 	fi
 
 	# Slashdot
-	if zztool grep_var s $sites
+	if zztool grep_var s "$sites"
 	then
 		url='http://slashdot.org'
 		echo
@@ -3759,7 +3759,7 @@ zzlinuxnews ()
 	fi
 
 	# Newsforge
-	if zztool grep_var n $sites
+	if zztool grep_var n "$sites"
 	then
 		url='http://www.newsforge.com'
 		echo
@@ -3771,7 +3771,7 @@ zzlinuxnews ()
 	fi
 
 	# Linux Today
-	if zztool grep_var t $sites
+	if zztool grep_var t "$sites"
 	then
 		url='http://linuxtoday.com/backend/biglt.rss'
 		echo
@@ -3782,7 +3782,7 @@ zzlinuxnews ()
 	fi
 
 	# LWN
-	if zztool grep_var w $sites
+	if zztool grep_var w "$sites"
 	then
 		url='http://lwn.net/Articles'
 		echo
@@ -3793,7 +3793,7 @@ zzlinuxnews ()
 	fi
 
 	# OS News
-	if zztool grep_var o $sites
+	if zztool grep_var o "$sites"
 	then
 		url='http://osnews.com'
 		echo
@@ -3832,7 +3832,7 @@ zznoticiassec ()
 	[ "$1" ] && sites="$1"
 
 	# LinuxSecurity Brasil
-	if zztool grep_var b $sites
+	if zztool grep_var b "$sites"
 	then
 		url='http://www.linuxsecurity.com.br/share.php'
 		echo
@@ -3844,7 +3844,7 @@ zznoticiassec ()
 	fi
 
 	# Linux Security
-	if zztool grep_var s $sites
+	if zztool grep_var s "$sites"
 	then
 		url='http://www.linuxsecurity.com/linuxsecurity_advisories.rdf'
 		echo
@@ -3855,7 +3855,7 @@ zznoticiassec ()
 	fi
 
 	# CERT/CC
-	if zztool grep_var c $sites
+	if zztool grep_var c "$sites"
 	then
 		url='http://www.us-cert.gov/channels/techalerts.rdf'
 		echo
@@ -3866,7 +3866,7 @@ zznoticiassec ()
 	fi
 
 	# Linux Today - Security
-	if zztool grep_var t $sites
+	if zztool grep_var t "$sites"
 	then
 		url='http://linuxtoday.com/security/index.html'
 		echo
@@ -3877,7 +3877,7 @@ zznoticiassec ()
 	fi
 
 	# Security Focus
-	if zztool grep_var f $sites
+	if zztool grep_var f "$sites"
 	then
 		url='http://www.securityfocus.com/bid'
 		echo
