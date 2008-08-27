@@ -1619,14 +1619,16 @@ zzarrumanome ()
 		
 		# $novo é o nome arrumado com a magia negra no Sed
 		novo=$(
-			echo $antigo | # Sem aspas para aproveitar o 'squeeze'
+			echo "$antigo" |
+			tr -s '\t ' ' ' |  # Squeeze: TABs e espaços viram um espaço
 			zzminusculas |
 			sed -e "
 				# Remove aspas
 				s/[\"']//g
 				
-				# Hífens no início do nome são proibidos
-				s/^-/_/
+				# Remove espaços do início e do fim
+				s/^  *//
+				s/  *$//
 				
 				# Remove acentos
 				y/àáâãäåèéêëìíîïòóôõöùúûü/aaaaaaeeeeiiiiooooouuuu/
@@ -1640,7 +1642,13 @@ zzarrumanome ()
 				
 				# Remove sublinhados antes e depois de pontos e hífens
 				s/_\([.-]\)/\1/g
-				s/\([.-]\)_/\1/g"
+				s/\([.-]\)_/\1/g
+
+				# Hífens no início do nome são proibidos
+				s/^-/_/
+				
+				# Não permite nomes vazios
+				s/^$/_/"
 		)
 		
 		# Se der problema com a codificação, é o y/// do Sed anterior quem estoura
