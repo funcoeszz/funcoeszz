@@ -1,0 +1,47 @@
+#!/bin/bash
+debug=0
+values=2
+
+tests=(
+''	''	r	^Uso:.*
+1.0	''	r	^Uso:.*
+1,0	''	r	^Uso:.*
+0	1.0	r	^Uso:.*
+0	1,0	r	^Uso:.*
+x	''	r	^Uso:.*
+1	x	r	^Uso:.*
+
+# desce
+-5	''	t	"1\n0\n-1\n-2\n-3\n-4\n-5"
+-1	''	t	"1\n0\n-1"
+-0	''	t	"1\n0"
+0	''	t	"1\n0"
++0	''	t	"1\n0"
+
+# meio
+1	''	t	1
++1	''	t	1
+
+# sobe
+5	''	t	"1\n2\n3\n4\n5"
+
+# desce faixa
+10	5	t	"10\n9\n8\n7\n6\n5"
+2	0	t	"2\n1\n0"
+2	+0	t	"2\n1\n0"
+2	-0	t	"2\n1\n0"
+2	-2	t	"2\n1\n0\n-1\n-2"
+-5	-10	t	"-5\n-6\n-7\n-8\n-9\n-10"
+0	-2	t	"0\n-1\n-2"
+
+# sobe faixa
+5	10	t	"5\n6\n7\n8\n9\n10"
+0	2	t	"0\n1\n2"
++0	2	t	"+0\n1\n2"	# soh nessa situacao o sinal fica :/
+-0	2	t	"-0\n1\n2"	# idem
+-2	2	t	"-2\n-1\n0\n1\n2"
+-10	-5	t	"-10\n-9\n-8\n-7\n-6\n-5"
+-2	0	t	"-2\n-1\n0"
+
+)
+. _lib

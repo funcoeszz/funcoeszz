@@ -1,0 +1,109 @@
+#!/bin/bash
+debug=0
+values=4
+tests=(
+uso	zztool	''	''	t	"Uso: zztool ferramenta [argumentos]"
+index_var	tan	testando	''	t	4
+arquivo_vago	tool	''	''	r	"Arquivo tool j. existe. Abortando."
+arquivo_legivel	_fake_	''	''	r	"N.o consegui ler o arquivo _fake_"
+
+# ZZCOR=0
+eco	testando	''	''	t	"testando"
+)
+. _lib
+
+
+############################################################################
+
+# Testes personalizados
+
+ZZCOR=1
+
+compara_texto()
+{
+	local result=$(eval "$zz $comando")
+	if test "$ok" != "$result"
+	then
+		echo "ERROR: $comando"
+		echo "expected '$ok', got '$result'"
+	fi
+}
+compara_exitcode()
+{
+	local result=$(eval "$zz $comando"; echo $?)
+	if test "$ok" != "$result"
+	then
+		echo "ERROR: $comando"
+		echo "expected '$ok', got '$result'"
+	fi
+}
+
+# eco
+comando="tool eco testando"; ok="[36;1mtestando[m"
+compara_texto
+
+# acha
+comando="tool acha tan testando"; ok="tes[36;1mtan[mdo"
+compara_texto
+
+# grep_var
+ok=0; comando="tool grep_var ana banana"; compara_exitcode
+ok=1; comando="tool grep_var XXX banana"; compara_exitcode
+
+# testa_numero
+ok=0; comando="tool testa_numero 9"    ; compara_exitcode
+ok=0; comando="tool testa_numero 9999" ; compara_exitcode
+ok=1; comando="tool testa_numero XXX"  ; compara_exitcode
+ok=1; comando="tool testa_numero -9"   ; compara_exitcode
+
+# testa_numero_sinal
+ok=0; comando="tool testa_numero_sinal 9"    ; compara_exitcode
+ok=0; comando="tool testa_numero_sinal 9999" ; compara_exitcode
+ok=0; comando="tool testa_numero_sinal +9999"; compara_exitcode
+ok=0; comando="tool testa_numero_sinal -9999"; compara_exitcode
+ok=1; comando="tool testa_numero_sinal XXX"  ; compara_exitcode
+ok=1; comando="tool testa_numero_sinal 9.9"  ; compara_exitcode
+ok=1; comando="tool testa_numero_sinal ++9"  ; compara_exitcode
+
+# testa_binario
+ok=0; comando="tool testa_binario 0"    ; compara_exitcode
+ok=0; comando="tool testa_binario 1"    ; compara_exitcode
+ok=0; comando="tool testa_binario 0000" ; compara_exitcode
+ok=0; comando="tool testa_binario 0110" ; compara_exitcode
+ok=1; comando="tool testa_binario 2"    ; compara_exitcode
+ok=1; comando="tool testa_binario +010" ; compara_exitcode
+ok=1; comando="tool testa_binario -010" ; compara_exitcode
+
+# testa_ip
+ok=0; comando="tool testa_ip 0.0.0.0"            ; compara_exitcode
+ok=0; comando="tool testa_ip 99.99.99.99"        ; compara_exitcode
+ok=0; comando="tool testa_ip 255.255.255.255"    ; compara_exitcode
+ok=0; comando="tool testa_ip 1.11.111.0"         ; compara_exitcode
+ok=0; comando="tool testa_ip 0.99.100.199"       ; compara_exitcode
+ok=0; comando="tool testa_ip 200.249.250.255"    ; compara_exitcode
+ok=1; comando="tool testa_ip 000.000.000.000"    ; compara_exitcode
+ok=1; comando="tool testa_ip 256.256.256.256"    ; compara_exitcode
+ok=1; comando="tool testa_ip 999.999.999.999"    ; compara_exitcode
+ok=1; comando="tool testa_ip 0000.0000.0000.0000"; compara_exitcode
+ok=1; comando="tool testa_ip 0.0.0"              ; compara_exitcode
+ok=1; comando="tool testa_ip 0.0"                ; compara_exitcode
+ok=1; comando="tool testa_ip 0"                  ; compara_exitcode
+
+# trim
+comando="tool trim '   testando   '"; ok="testando"
+compara_texto
+
+# multi_stdin
+ok=testando
+result=$(echo testando | "$zz" tool multi_stdin)
+if test "$ok" != "$result"
+then
+	echo "ERROR: echo testando | tool multi_stdin"
+	echo "expected '$ok', got '$result'"
+fi
+result=$("$zz" tool multi_stdin testando)
+if test "$ok" != "$result"
+then
+	echo "ERROR: tool multi_stdin testando"
+	echo "expected '$ok', got '$result'"
+fi

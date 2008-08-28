@@ -1,0 +1,12 @@
+#!/bin/bash
+debug=0
+values=1
+
+echo ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ > _tmp1
+echo abcdefghijklmnopqrstuvwxyzàáâãäåèéêëìíîïòóôõöùúûüçñ > _tmp2
+
+tests=(
+_tmp2	a	_tmp2	# nada a mudar
+_tmp1	a	_tmp2	# set completo
+)
+. _lib

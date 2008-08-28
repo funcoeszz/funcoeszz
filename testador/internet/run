@@ -1,0 +1,147 @@
+#!/bin/bash
+#
+# Optional argument: test name
+
+onetest=$1
+debug=0
+zz="../../funcoeszz"
+
+tests="
+# TODO
+# pronuncia:a::apple::rm -f /tmp/zz.apple.wav
+# detransp (com renavam)
+# chavepgp-vazio:a::XXXvazioXXX:
+# testar todas as funções com padrões que não retornam resultados (vazios)
+# testar todas as funções com uso incorreto
+# detransp:l:0:1234:
+
+chavepgp:a::Guido van Rossum:
+dicasl:a::procmail:
+dicbabelfish:a::drum:sed '/^ *$/d'
+dicbabylon:a::drum:sed '/^ *$/d'
+dicjargon:a::drum:sed '/^ *$/d'
+dicportugues:a::estorvo:sed '/^ *$/d'
+dolar:a:::sed 's/[0-9]/9/g;s/[+-]//g;s/99*:99*/DATAHORA/;s|99*/99*/9999|DATAHORA|;s/99*,99*$/VARIACAO/;s/9,999*/DINHEIRO/g'
+dominiopais:a::.cx:
+freshmeat:a::kde:grep '/kde$'
+google:a::-n 1 sedsed:
+horacerta:a::rio grande do sul:sed 's/[0-9][0-9]\\\{0,1\\\}:[0-9][0-9] [AP]M/HORA/;s/.*200[89]/   DATA/'
+howto:a::apache:sed /SSL/q
+ipinternet:r:^[0-9]{1,3}\\\.[0-9]{1,3}\\\.[0-9]{1,3}\\\.[0-9]{1,3}$::
+linuxnews-freshmeat:l:7:f:
+linuxnews-linuxtoday:l:7:t:
+linuxnews-linuxweeklynews:l:7:w:
+linuxnews-newsforge:l:7:n:
+linuxnews-osnews:l:7:o:
+linuxnews-slashdot:l:7:s:
+locale:a::-c pt:
+loteria-duplasena:a::duplasena:sed 's/[0-9]/9/g;s/\\\(99*\\\.\\\)*99*,99/DINHEIRO/'
+loteria-lotofacil:a::lotofacil:sed 's/[0-9]/9/g;s/\\\(99*\\\.\\\)*99*,99/DINHEIRO/'
+loteria-lotomania:a::lotomania:sed 's/[0-9]/9/g;s/\\\(99*\\\.\\\)*99*,99/DINHEIRO/'
+loteria-megasena:a::megasena:sed 's/[0-9]/9/g;s/\\\(99*\\\.\\\)*99*,99/DINHEIRO/'
+loteria-quina:a::quina:sed 's/[0-9]/9/g;s/\\\(99*\\\.\\\)*99*,99/DINHEIRO/'
+moeda:a::chile:sed 's/[0-9]/9/g;s/-*\\\(99*\\\.\\\)*99*[,.]999*/DINHEIRO/g;s/99*:99*/DATAHORA/;s|99*/99*/9999|DATAHORA|;s/  */ /g'
+natal:r:^.Feliz Natal. em ..* ...::
+noticiaslinux-brlinux:l:7:b:
+noticiaslinux-cipsga:l:7:c:
+noticiaslinux-noticiaslinux:l:7:n:
+noticiaslinux-underlinux:l:7:u:
+noticiaslinux-vivaolinux:l:7:v:
+noticiaslinux-yahoo:l:7:y:
+noticiassec-certcc:l:7:c:
+noticiassec-linuxsecurity:l:7:s:
+noticiassec-linuxsecuritybrasil:l:7:b:
+noticiassec-linuxtodaysecurity:l:7:t:
+noticiassec-securityfocus:l:7:f:
+ramones:l:1:::
+rpmfind:a::sed:grep freshmeat/
+security-debian:l:8:debian:
+security-fedora:l:8:fedora:
+security-freebsd:l:8:freebsd:
+security-gentoo:l:8:gentoo:
+security-mandriva:l:8:mandriva:
+security-slackware:l:8:slackware:
+security-ubuntu:l:8:ubuntu:
+security-suse:l:8:suse:
+sigla:a::DVD:
+tempo:l:15:brazil sbpa:grep -v 'Sky conditions'
+whoisbr:a::globo.com.br:sed 5q
+wikipedia:a::-pt Alfredo Kojima
+"
+
+# Go to tests folder
+cd $(dirname "$0")
+
+# Remove all cache files
+rm -f ${ZZTMP:-emptyempty}.*
+
+# Clean old mess
+rm -f *.out
+
+# Run every activated test
+export ZZCOR=0
+i=0
+IFS=:
+echo "$tests" | grep -v '^#\|^$' | while read name mode patt args filter
+do
+
+	# Maybe we got the test name on the command line?
+	[ "$onetest" ] && {
+	 	echo "$name" | grep -qs ^$onetest$ || continue
+	}
+
+	i=$((i+1))
+	
+	# Show current test name
+	ZZCOR=1 $zz tool eco $i. $name
+
+	# Preparing...
+	funcname=$(echo $name | cut -d - -f 1)
+	[ "$filter" ] || filter="cat -"
+
+	# Debug
+	[ $debug = 1 ] && echo "+ $zz $funcname $args | $filter"
+
+	# Save results
+	eval "$zz $funcname $args | $filter" > $name.out
+	
+	# Compare the results
+	case $mode in
+	a)
+
+		# ISO-8859-1:
+		# iconv -f utf-8 -t iso-8859-1 $name.ok > $name.ok.iso
+		# result=$(diff -u $name.ok.iso $name.out)
+
+		result=$(diff -u $name.ok $name.out)
+		if echo "$result" | grep -qs .
+		then
+			echo "ERRO: Texto diferente"
+			echo "$result"
+		else
+			rm $name.out
+		fi
+	;;
+	r)
+		if cat $name.out | egrep -q "$patt"
+		then
+			rm $name.out
+		else
+			echo "ERRO: Regex nao casou: '$patt' em $name.out"
+			cat $name.out
+		fi
+	;;
+	l)
+		linhas=$(cat $name.out | wc -l | tr -dc 0-9)
+		if test $linhas = $patt
+		then
+			rm $name.out
+		else
+			echo "ERRO: Numero de linhas ($patt) incorreto em $name.out"
+			cat $name.out
+		fi
+	;;
+	esac
+		
+	# echo "$name ($mode $patt) $zz $funcname $args | $filter"
+done

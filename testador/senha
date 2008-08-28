@@ -1,0 +1,15 @@
+#!/bin/bash
+debug=0
+values=1
+tests=(
+0	t	''
+1	r	'^[A-Za-z0-9]$'
+8	r	'^[A-Za-z0-9]{8}$'
+62	r	'^[A-Za-z0-9]{62}$'
+''	r	'^[A-Za-z0-9]{6}$' # default
+
+FOO	r	^Uso:.*
+-8	r	^Uso:.*
+63	r	"O tamanho m.ximo da senha . 62"
+)
+. _lib

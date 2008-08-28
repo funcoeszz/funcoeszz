@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Nota para testadores em sistemas ISO-8859-1:
+# - Renomeie o arquivo funcoeszz-iso para funcoeszz
+# - Converta os seguintes arquivos de UTF-8 para ISO-8859-1:
+#   testador: foneletra, maiusculas, minusculas
+#   testador/internet: dicjargon.ok, dicportugues.ok, whoisbr.ok, wikipedia.ok
+#
+# Para converter cada arquivos, use:
+#   iconv -f UTF-8 -t ISO-8859-1 arquivo > arquivo-iso
+#   mv arquivo-iso arquivo
+
+ignore="LEIAME funcoeszz funcoeszz-iso ansi2html ansi2html.out arrumanome.out cores.out internet run stats"
+onetest=$1
+zz="../funcoeszz"
+
+# Go to tests folder
+cd $(dirname "$0")
+
+# Remove all cache files
+rm -f ${ZZTMP:-emptyempty}.*
+
+i=0
+for f in [a-z]*; do
+
+	# Ignore this file?
+	echo $ignore | tr ' ' \\n | grep -q "^$f$" && continue
+
+	# Maybe we got the test name on the command line?
+	[ "$onetest" ] && {
+	 	echo "$f" | grep -qs ^$onetest$ || continue
+	}
+
+	i=$((i+1))
+	
+	# Run the test for this file
+ 	ZZCOR=1 "$zz" tool eco $i. $f
+	bash $f
+done

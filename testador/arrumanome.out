@@ -1,0 +1,8 @@
+[-n] foo/  a   -> foo/a
+[-n] foo/!@#$%&*( )+=[]{}<>^~,:;?\| -> foo/_
+[-n] foo/' -> foo/_
+[-n] foo/--help -> foo/_-help
+[-n] foo/RAMONES  -  I Don't Care (live) .MP3 -> foo/ramones-i_dont_care_live.mp3
+[-n] foo/a - a . a -> foo/a-a.a
+[-n] foo/a====a -> foo/a_a
+[-n] foo/don't "do" it -> foo/dont_do_it

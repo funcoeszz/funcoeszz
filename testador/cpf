@@ -1,0 +1,14 @@
+#!/bin/bash
+debug=0
+values=1
+tests=(
+123456789	r "CPF inv.lido \(deve ter 11 d.gitos\)"
+123456789012	r "CPF inv.lido \(deve ter 11 d.gitos\)"
+12345678900	r "CPF inv.lido \(deveria terminar em 09\)"
+12345678909	r "CPF v.lido"
+123.456.789-09	r "CPF v.lido"
+'123 456 789 09'	r "CPF v.lido"
+'z123	4_5=6*7@8+9?0a9'	r "CPF v.lido"
+''		r "[0-9]{3}\.[0-9]{3}\.[0-9]{3}-[0-9]{2}"
+)
+. _lib
