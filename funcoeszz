@@ -3670,7 +3670,8 @@ zzwhoisbr ()
 			/^remarks/,$d
 			/^%/d
 			/^alterado/d
-			/atualizado /d'
+			/atualizado /d
+			/^$/d'
 }
 
 
