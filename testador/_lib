@@ -10,7 +10,7 @@ values=${values:-1}
 
 # now the fun begins
 zz=../funcoeszz
-export ZZCOR=0
+[ "$color" != 1 ] && export ZZCOR=0 || export ZZCOR=1
 num_tests=${#tests[*]}
 i=-1
 
