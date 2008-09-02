@@ -10,7 +10,7 @@
 #   iconv -f UTF-8 -t ISO-8859-1 arquivo > arquivo-iso
 #   mv arquivo-iso arquivo
 
-ignore="LEIAME funcoeszz funcoeszz-iso ansi2html ansi2html.out arrumanome.out cores.out internet run stats"
+ignore="LEIAME ansi2html.out arrumanome.out cores.out internet run stats"
 onetest=$1
 zz="../funcoeszz"
 
