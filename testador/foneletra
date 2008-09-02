@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 debug=0
 values=1
 tests=(

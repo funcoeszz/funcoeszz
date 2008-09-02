@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Nota para testadores em sistemas ISO-8859-1:
 # - Renomeie o arquivo funcoeszz-iso para funcoeszz

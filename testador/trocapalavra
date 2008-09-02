@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 temp="_trocapalavra"
 cp _dados $temp

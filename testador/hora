@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 now=$(  date +'%H:%M (0d %kh %Mm)' | sed 's/  / /;s/0\(.m\)/\1/') # %k bugged
 now_r=$(date +'%H:%M (hoje)')
 debug=0

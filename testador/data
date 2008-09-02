@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 debug=0
 values=3
 now=$(date +%d/%m/%Y)

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 file="DSC00077.JPG"
 touch "$file"

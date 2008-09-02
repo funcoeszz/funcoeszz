@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 infile="funcoeszz"
 outfile="funcoeszz-iso"
