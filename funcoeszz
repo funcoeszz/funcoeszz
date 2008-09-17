@@ -4520,7 +4520,7 @@ zzpronuncia ()
 	local wav_file wav_dir wav_url
 	local palavra=$1
 	local cache="$ZZTMP.$palavra.wav"
-	local url='http://www.m-w.com/cgi-bin/dictionary'
+	local url='http://www.m-w.com/dictionary'
 	local url2='http://cougar.eb.com/soundc11'
 
 	# Verificação dos parâmetros
@@ -4538,7 +4538,7 @@ zzpronuncia ()
 	then
 		# Extrai o nome do arquivo no site do dicionário
 		wav_file=$(
-			$ZZWWWHTML "$url?va=$palavra" |
+			$ZZWWWHTML "$url/$palavra" |
 			sed -n "/.*audio.pl?\([a-z0-9]*\.wav\)=$palavra.*/{s//\1/p;q;}")
 
 		# Ops, não extraiu nada
