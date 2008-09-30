@@ -4387,11 +4387,11 @@ zzgoogle ()
 	# corretas, o filtros limpa os lixos e formata o resultado.
 	
 	$ZZWWWHTML "$url?q=$padrao&num=$limite&ie=UTF-8&oe=UTF-8&hl=pt-BR" |
-		sed 's/class=g/\
-/g' |
+		sed 's/class=g>/\
+@/g' |
 		sed '
-			/^><a href="\([^"]*\)" class=l>/!d
-			s/^><a href="//
+			/^@<h3 class=r><a href="\([^"]*\)" class=l>/!d
+			s/^@<h3 class=r><a href="//
 			s/" class=l>/ /
 			s/<\/a>.*//
 			
@@ -4403,6 +4403,7 @@ zzgoogle ()
 			s/&lt;/</g
 			s/&quot;/"/g
 			s/&nbsp;/ /g
+			s/&amp;/\&/g
 			
 			s/\([^ ]*\) \(.*\)/\2\
   \1\
