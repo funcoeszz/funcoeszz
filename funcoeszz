@@ -1060,7 +1060,7 @@ zzansi2html ()
 			s/;7;/;/g
 			
 			# Normaliza os separadores
-			s/;;;*/;/
+			s/;;;*/;/g
 			s/^;//
 			s/;$//
 	
