@@ -5084,6 +5084,10 @@ then
 			echo "Funções ZZ v$ZZVERSAO"
 		;;
 	
+		-*)
+			echo "Opção inválida '$1' (tente --help)"
+		;;
+		
 		# Chama a função informada em $1, caso ela exista
 		*)
 			func="$1"
