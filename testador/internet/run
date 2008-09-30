@@ -54,7 +54,7 @@ noticiassec-linuxsecuritybrasil:l:7:b:
 noticiassec-linuxtodaysecurity:l:7:t:
 noticiassec-securityfocus:l:7:f:
 ramones:l:1:::
-rpmfind:a::sed:grep freshmeat/
+rpmfind:a::sed:grep redhat/9/
 security-debian:l:8:debian:
 security-fedora:l:8:fedora:
 security-freebsd:l:8:freebsd:
