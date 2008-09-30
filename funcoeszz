@@ -955,7 +955,7 @@ zzecho ()
 	then
 		printf "$*$quebra_linha"
 	else
-		printf "\033[$fundo$letra$negrito$pisca${sublinhado}m$*$quebra_linha\033[m"
+		printf "\033[$fundo$letra$negrito$pisca${sublinhado}m$*\033[m$quebra_linha"
 	fi
 }
 
