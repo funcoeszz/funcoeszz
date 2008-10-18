@@ -25,10 +25,11 @@ ZZUTF=1
 # padrão das funções. Basta defini-las em seu .bashrc ou na própria linha de
 # comando antes de chamar as funções. São elas:
 #
-#      $ZZCOR    - Liga/Desliga as mensagens coloridas (1 e 0)
-#      $ZZPATH   - Caminho completo para o arquivo das funções
-#      $ZZEXTRA  - Caminho completo para o arquivo com funções adicionais
-#      $ZZTMPDIR - Diretório para armazenar arquivos temporários
+#      $ZZCOR      - Liga/Desliga as mensagens coloridas (1 e 0)
+#      $ZZPATH     - Caminho completo para o arquivo das funções
+#      $ZZEXTRA    - Caminho completo para o arquivo com funções adicionais
+#      $ZZEXTRADIR - Caminho completo para o diretório com funções adicionais
+#      $ZZTMPDIR   - Diretório para armazenar arquivos temporários
 #
 # Nota: Se você é paranóico com segurança, configure a ZZTMPDIR para
 #       um diretório dentro do seu HOME.
@@ -41,6 +42,7 @@ ZZUTF=1
 ZZCOR_DFT=1                       # colorir mensagens? 1 liga, 0 desliga
 ZZPATH_DFT="/usr/bin/funcoeszz"   # rota absoluta deste arquivo
 ZZEXTRA_DFT="$HOME/.zzextra"      # rota absoluta do arquivo de extras
+ZZEXTRADIR_DFT="$HOME/zzextra"    # rota absoluta do diretório de extras
 ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 #
 #
@@ -76,13 +78,15 @@ ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
 [ "$ZZPATH" ] || echo 'AVISO: $ZZPATH vazia. zzajuda e zzzz não funcionarão'
 [ "${ZZPATH#/}" = "$ZZPATH" ] && ZZPATH="$PWD/${ZZPATH#./}"
 [ "$ZZEXTRA" ] || ZZEXTRA=$ZZEXTRA_DFT
+[ "$ZZEXTRADIR" ] || ZZEXTRADIR=$ZZEXTRADIR_DFT
 [ -f "$ZZEXTRA" ] || ZZEXTRA=
+[ -d "$ZZEXTRADIR" ] || ZZEXTRADIR=
 #
 ### Últimos ajustes
 #
 ZZCOR="${ZZCOR:-$ZZCOR_DFT}"
 ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}/zz"
-unset ZZCOR_DFT ZZPATH_DFT ZZEXTRA_DFT ZZTMPDIR_DFT
+unset ZZCOR_DFT ZZPATH_DFT ZZEXTRA_DFT ZZEXTRADIR_DFT ZZTMPDIR_DFT
 #
 #
 ##############################################################################
@@ -528,28 +532,18 @@ zzzz ()
 			zztool acha '^[^)]*)' "( cores) $info_cor"
 			zztool acha '^[^)]*)' "(   tmp) $ZZTMP"
 			zztool acha '^[^)]*)' "(bashrc) $info_instalado"
-			zztool acha '^[^)]*)' "(extras) ${ZZEXTRA:-nenhum}"
+			zztool acha '^[^)]*)' "(extras) ${ZZEXTRA}${ZZEXTRA:+ }${ZZEXTRADIR}"
 			zztool acha '^[^)]*)' "(  site) $url_site"
-						
+			
 			# Lista de todas as funções
-			for arquivo_zz in "$ZZPATH" "$ZZEXTRA"
-			do
-				if [ "$arquivo_zz" -a -f "$arquivo_zz" ]
-				then
-					echo
-					zztool eco "(( funções disponíveis ${extra:+EXTRA }))"
-					# Nota: zzzz --tcshrc procura por " fu"
-					
-					# Sed mágico que extrai e formata os nomes de funções
-					# limitando as linhas em 60 colunas
-					sed -n '/^zz\([a-z0-9]\{1,\}\) *(.*/s//\1/p' "$arquivo_zz" |
-						sort |
-						sed -e ':a' -e '$b' -e 'N; s/\n/, /; /.\{60\}/{p;d;};ba'
-						
-					# Flag tosca para identificar a segunda volta do loop
-					extra=1
-				fi
-			done
+			echo
+			zztool eco "(( funções disponíveis ))" # Nota: zzzz --tcshrc procura por " fu"
+			set |
+				# Seds mágicos para extrair e formatar os nomes de funções,
+				# limitando as linhas em 60 colunas
+			 	sed -n 's/^zz\([^ ]*\) *().*/\1/p' |
+				sort |
+				sed -e ':a' -e '$b' -e 'N; s/\n/, /; /.\{60\}/{p;d;};ba'
 		;;
 	esac
 }
@@ -5066,8 +5060,18 @@ zznatal ()
 
 # ----------------------------------------------------------------------------
 ## Incluindo as funções extras
+
+# Arquivo de funções
 [ "$ZZEXTRA" -a -f "$ZZEXTRA" ] && source "$ZZEXTRA"
 
+# Diretório com funções
+if test -n "$ZZEXTRADIR" -a -d "$ZZEXTRADIR"
+then
+	for arquivo in "${ZZEXTRADIR%/}"/*
+	do
+ 		test -f "$arquivo" && source "$arquivo"
+	done
+fi
 
 # ----------------------------------------------------------------------------
 ## Lidando com a chamada pelo executável
