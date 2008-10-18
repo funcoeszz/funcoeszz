@@ -1,0 +1,22 @@
+# ----------------------------------------------------------------------------
+# Exibe a descrição referente a função informada, caso não seja passado o
+#   nome, será exibida informações acerca do $(). Se usado o argumento -s,
+#   será exibida somente a sintaxe.
+# Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
+# Versão: 1
+# Uso: zzjquery funcao
+#      zzjquery -s funcao
+# Ex.: zzjquery gt
+# ----------------------------------------------------------------------------
+zzjquery ()
+{
+	zzzz -h jquery $1 && return
+
+	local er
+	local er1="s/\s*<h1>\([\$.]*$2(.*\)<\/h1>\s*/- \1/p;"
+	local er2="/\s*<h1>\([\$.]*$1(.*\)<\/h1>/{s//\1:/p;n;s/\s*<p>\|<\/p>/ /g;p;n;:a;/<\/\?p>\|<h2>/!{ s/^\s*/  /g;p;n;ba;}}"
+	
+	[ "$1" = '-s' ] && er="$er1" || er="$er2"
+
+	$ZZWWWHTML "http://visualjquery.com/1.1.2.html" | sed -nu "$er"
+}

@@ -1,0 +1,19 @@
+# ----------------------------------------------------------------------------
+# Lista as urls de uma dada tag de um determinado usuário,
+#   se não informada a tag, será listada as últimas urls.
+# Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
+# Versão: 1
+# Uso: zzdelicious usuario
+#      zzdelicious usuario tag
+# Ex.: zzdelicious felipensp php
+# ----------------------------------------------------------------------------
+zzdelicious ()
+{
+	zzzz -h delicious $1 && return
+
+ 	[ "$1" ] || { echo 'uso: zzdelicious usuario tag'; return; }
+
+ 	$ZZWWWHTML "http://del.icio.us/$1/$2" |
+		sed -e '/<h4/!d' |
+ 		sed -n 's/\s*<h4 class="desc"><a href="\([^"]*\)" rel="nofollow">\([^<]*\)<\/a>/\2: \1/p'
+}

@@ -1,0 +1,22 @@
+# ----------------------------------------------------------------------------
+# Mostra a programação dos cinco canais do telecine        
+# Autor: Frederico Freire Boaventura <anonymous (a) galahad com br>
+# Versão: 1
+# Uso: zztelecine
+# ----------------------------------------------------------------------------
+zztelecine ()
+{
+	zzzz -h telecine $1 && return
+
+	local URL="http://globosat.globo.com/telecine/servicos/programacao.asp"
+
+	$ZZWWWDUMP "$URL" |
+	 	sed '
+			1,2d
+			/^$/d
+			s/^  \+//g
+			/^.\(prog_\|[0-9]\)/!d
+			s/.prog_\(.*\)\..*$/\ntelecine \1\n/g
+			s/\[i_noar.gif\]/\*\*\*/' |
+		uniq
+}

@@ -1,0 +1,23 @@
+# ----------------------------------------------------------------------------
+# http://sourceforge.net
+# Mostra uma lista com o ranking das linguagens baseado no número de
+# projetos hospedados no site SourceForge.
+# Autor: Cesar Gimenes <crgimenes (a) terra com br>
+# Versão: 1
+# Uso: zzranking
+# Ex.: zzranking
+# TODO: Parâmetro para mostrar o ranking completo.
+# ----------------------------------------------------------------------------
+zzranking ()
+{
+	zzzz -h ranking $1 && return
+
+	local URL="http://sourceforge.net/softwaremap/trove_list.php?form_cat=160"
+
+	$ZZWWWDUMP "$URL" |
+		grep projects\) |
+  		sed -r 's@ {9}(.*)\(([0-9]*) projects\)@\2\t\1@' |
+  		sort -r -n |
+  		sed -n '1,20p'
+}
+

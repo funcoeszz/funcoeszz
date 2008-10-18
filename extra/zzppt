@@ -1,0 +1,48 @@
+#----------------------------------------------------------------------------
+# http://www.poupatempo.sp.gov.br
+# Mostra a agenda dos postos Poupatempo Moveis
+# Autor: Vinícius Venâncio Leite  <vv.leite (a) gmail com>
+# Versão: 1
+# Uso: zzppt
+#----------------------------------------------------------------------------
+zzppt ()
+{
+	zzzz -h ppt $1 && return
+
+	local URL="http://www.poupatempo.sp.gov.br/posto_movel/unidades.asp?mostrar="
+
+	echo -e "\033[33;01m=== Grande Sao Paulo I ===\033[m"
+	echo -e "\033[01m"
+	$ZZWWWDUMP "$URL"g1 | sed -n '/[Dd]e [0-9][0-9] de /,/^$/p'
+	echo -e "\033[m"
+
+	echo -e "\033[33;01m=== Grande Sao Paulo II ===\033[m"
+	echo -e "\033[01m"
+	$ZZWWWDUMP "$URL"g2 | sed -n '/[Dd]e [0-9][0-9] de /,/^$/p'
+	echo -e "\033[m"
+
+	echo -e "\033[33;01m=== Grande Sao Paulo III ===\033[m"
+	echo -e "\033[01m"
+	$ZZWWWDUMP "$URL"g3 | sed -n '/[Dd]e [0-9][0-9] de /,/^$/p'
+	echo -e "\033[m"
+
+	echo -e "\033[33;01m=== Movel Interior 1 - Registro ===\033[m"
+	echo -e "\033[01m"
+	$ZZWWWDUMP "$URL"i1 | sed -n '/[Dd]e [0-9][0-9] de /,/^$/p'
+	echo -e "\033[m"
+
+	echo -e "\033[33;01m=== Movel Interior 2 - Sorocaba ===\033[m"
+	echo -e "\033[01m"
+	$ZZWWWDUMP "$URL"i2 | sed -n '/[Dd]e [0-9][0-9] de /,/^$/p'
+	echo -e "\033[m"
+
+	echo -e "\033[33;01m=== Movel Interior 3 - Marilia ===\033[m"
+	echo -e "\033[01m"
+	$ZZWWWDUMP "$URL"i3 | sed -n '/[Dd]e [0-9][0-9] de /,/^$/p'
+	echo -e "\033[m"
+
+	echo -e "\033[33;01m=== Movel Interior 4 - Aracatuba ===\033[m"
+	echo -e "\033[01m"
+	$ZZWWWDUMP "$URL"i4 | sed -n '/[Dd]e [0-9][0-9] de /,/^$/p'
+	echo -e "\033[m"
+}

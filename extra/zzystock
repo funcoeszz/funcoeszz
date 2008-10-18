@@ -1,0 +1,18 @@
+#---------------------------------------------------------------------------
+# http://finance.yahoo.com
+# Busca a cotação de uma ação no Yahoo!
+# Autor: Eustáquio Rangel "TaQ" <eustaquiorangel (a) yahoo com>
+# Versão: 1
+# Uso: zzystock código
+# Ex:  zzystock SCOX
+#---------------------------------------------------------------------------
+zzystock ()
+{
+	zzzz -h ystock $1 && return
+
+	local URL='http://finance.yahoo.com/q?s='
+
+	[ "$1" ] || { echo 'uso: zzystock simbolo'; return; }
+
+	$ZZWWWDUMP "$URL$1" | egrep "*\($1\)"
+}

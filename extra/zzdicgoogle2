@@ -1,0 +1,31 @@
+# ----------------------------------------------------------------------------
+# Usa a ferramenta de tradução do Google
+# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
+# Versão: 3
+# Licença: GPLv2
+# Uso: zzdicgoogle palavra
+# Ex.: zzdicgoogle teste
+#      zzdicgoogle um teste simples
+#      zzdicgoogle este é com acento
+# ----------------------------------------------------------------------------
+zzdicgoogle ()
+{
+	zzzz -h dicgoogle $1 && return
+
+	# Variaveis locais
+	local padrao
+	local url='http://translate.google.com/translate_t'
+	local lang_de='pt'
+	local lang_para='en'
+	local codificacao_entrada='UTF-8'
+	local codificacao_saida='UFT-8'
+
+	padrao=$(echo "$*" | sed "$ZZSEDURL" )
+
+	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
+	# e limpa essa linha para estar somente o texto desejado.
+	$ZZWWWHTML "$url?ie=$codificacao_entrada&oe=$codificacao_saida&text=$padrao&sl=$lang_de&tl=$lang_para" |
+		awk 'gsub("<[^/]", "\n&")' |
+		egrep -i '<div id=result_box' | 
+		sed 's/<[^>]*>//g'	
+}

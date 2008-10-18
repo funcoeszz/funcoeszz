@@ -1,0 +1,31 @@
+# ----------------------------------------------------------------------------
+# Mostra os filmes da semana na TV aberta
+# Autor: Vinícius Venâncio Leite  <vv.leite (a) gmail com>
+# Versão: 3
+# Uso: zzfilme
+# ----------------------------------------------------------------------------
+zzfilme ()
+{
+	zzzz -h globo $1 && return
+
+	local URL="http://exclusivo.terra.com.br/interna/0,,OI284815-EI1489,00.html"
+
+	$ZZWWWDUMP "$URL" |
+		sed -n '
+			s/^ \+//
+			/Filmes da semana da TV/,/^$/p' |
+		sed -e '
+			s/\.$/\n/	
+			/^\(\Segunda\|Terça\|Quarta\|Quinta\|Sexta\|Sábado\|Domingo\)/ {
+				h
+				s/.*/=========================/
+				p
+				x
+			}
+			/^\(\Segunda\|Terça\|Quarta\|Quinta\|Sexta\|Sábado\|Domingo\)/ {
+				p
+				s/.*/=========================/
+			}' |
+			
+		uniq
+}

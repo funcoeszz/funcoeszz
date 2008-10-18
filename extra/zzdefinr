@@ -1,0 +1,24 @@
+# ----------------------------------------------------------------------------
+# http://definr.com
+# Busca o significado de um termo, palavra ou expressão no site Definr
+# Autor: Felipe Arruda <felipemiguel (a) gmail com>
+# Versão: 1
+# Uso: zzdefinr termo
+# Ex.: zzdefinr headphone
+#      zzdefinr in force
+# ----------------------------------------------------------------------------
+zzdefinr ()
+{
+	zzzz -h definr $1 && return
+
+	local word="$@"
+
+	word=$(echo $word | sed 's/ /%20/g')
+
+	$ZZWWWHTML "http://definr.com/$word" |
+		sed '
+			/<div id="meaning">/,/<\/div>/!d
+			s/<[^>]*>//g
+			s/&nbsp;/ /g
+			/^$/d'
+}

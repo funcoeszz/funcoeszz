@@ -1,0 +1,18 @@
+# ----------------------------------------------------------------------------
+# Consulta débitos do veículo, como licenciamento, IPVA e multas (detran-ES)
+# Autor: "Kl0nEz" <kl0nez (a) wifi org br>
+# Versão: 1
+# Uso: zzdetranes número-renavam
+# Ex.: zzdetranes 123456789
+# ----------------------------------------------------------------------------
+zzdetranes ()
+{
+	zzzz -h detranes $1 && return
+
+	local URL='http://www2.detran.es.gov.br:8080'
+	local request="ANO=2005&RENAVAM=$1&SALVO_InfoRule=DetranES_Licenciamento(ANO,RENAVAM,PLACA)"
+
+	[ "$1" ] || { echo 'uso: zzdetranes número-renavam'; return; }
+
+	echo "$request" | $ZZWWWPOST "$URL"
+}

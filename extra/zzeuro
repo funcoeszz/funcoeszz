@@ -1,0 +1,19 @@
+# ----------------------------------------------------------------------------
+# http://cotacoes.agronegocios-e.com.br/
+# Busca a cotação atual do EURO com relação ao Dólar e ao Real
+# Autor: Kyller Costa Gorgônio <kyllercg (a) gmail com>
+# Versão: 1
+# Uso: zzeuro
+# Ex.: zzeuro
+# ----------------------------------------------------------------------------
+zzeuro ()
+{
+	zzzz -h euro $1 && return
+
+	$ZZWWWDUMP 'http://cotacoes.agronegocios-e.com.br/investimentos/conteudoi.asp?option=dolar&title=%20Euro' |
+		sed '
+			s/^ *//
+			/Compra/,/Euro x D/!d
+			/^D.*/d
+			s/Compra/                 Compra/g'
+}

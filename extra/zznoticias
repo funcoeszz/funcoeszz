@@ -1,0 +1,28 @@
+# ----------------------------------------------------------------------------
+# Busca noticias sobre assuntos diversos na internet
+# Autor: Frederico Freire Boaventura <anonymous (a) galahad com br>
+# Versão: 1
+# Uso: zznoticias
+#      zznoticias {bra|mun|eco|pol|esp}
+# ----------------------------------------------------------------------------
+zznoticias ()
+{
+	zzzz -h noticias $1 && return
+
+	local h d m y a
+	h=`date +%H`
+	d=`date +%d | sed 's/^0//'`
+	m=`date +%m | sed 's/^0//'`
+	y=`date +%Y`
+	a=${1:-"mun"}
+	a=$(echo $a | sed 's/bra/Brasil/;s/mun/Mundo/;s/eco/Economia/;s/pol/Politica/;s/esp/Esportes/')
+	[ "$h" == "00" ] && d=$(($d-1))
+	local URL="http://noticias.correioweb.com.br/ultimas.htm?notas=$a&dia_novo=$d&novo_mes=$m&novo_ano=$y"
+	
+	$ZZWWWDUMP "$URL" |
+		sed '
+			s/^  \+//g
+			/^.\([0-9]\)/!d
+			/^.\([0-9][h\|\/]\)/!d'
+	echo -en "\nfonte: $URL\n"
+}

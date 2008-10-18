@@ -1,0 +1,17 @@
+#----------------------------------------------------------------------------
+# Mostra a programação Rede Globo do dia
+# Autor: Vinícius Venâncio Leite  <vv.leite (a) gmail com>
+# Versão: 1
+# Uso: zzglobo
+#----------------------------------------------------------------------------
+zzglobo ()
+{
+	zzzz -h globo $1 && return
+
+	local DATA=`date +%d`
+	local URL="http://exclusivo.terra.com.br/interna/0,,OI275630-EI1491,00.html"
+
+	$ZZWWWDUMP "$URL" |
+		sed -n "/ $DATA de /,/0[234].*/p" |
+		uniq
+}

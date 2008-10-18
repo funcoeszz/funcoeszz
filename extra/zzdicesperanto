@@ -1,0 +1,26 @@
+# ----------------------------------------------------------------------------
+# http://wwwtios.cs.utwente.nl/traduk/
+# Dicionário de Esperanto em inglês, português e alemão, com busca por palavra
+# nas duas direções. O padrão é português-esperanto.
+# Autor: Fernando Aires <fernandoaires (a) gmail com>
+# Versão: 1
+# Uso: zzdicesperanto [idioma] palavra
+# Ex.: zzdicesperanto esperança
+#      zzdicesperanto EO-PT espero
+# ----------------------------------------------------------------------------
+zzdicesperanto ()
+{
+	zzzz -h dicesperanto $1 && return
+
+	local L='PT-EO'
+	local I='DE-EO EN-EO EO-DE EO-EN EO-PT PT-EO '
+
+	[ "$1" ] || { echo -e "zzdicesperanto [idioma] palavra\n\nIdiomas: $I\n" && return; }
+	[ "${I% $1 *}" != "$I" ] && L=$1 && shift
+
+	$ZZWWWDUMP "http://wwwtios.cs.utwente.nl/traduk/$L/Traduku/?$1" |
+		grep -v ^THE_ |
+		grep -v ___ |
+		grep -v /cxefpagxo\] |
+		grep -v Traduku:\ $1
+}

@@ -1,0 +1,44 @@
+#----------------------------------------------------------------------------
+# http://www.dict.org
+# Busca definições em inglês de palavras da língua inglesa no
+# dicionário DICT.org
+# Autor: Luciano ES
+# Versão: 1
+# Uso: zzenglish palavra-em-inglês
+#----------------------------------------------------------------------------
+zzenglish ()
+{
+ 	zzzz -h english $1 && return
+
+	local url="http://www.dict.org/bin/Dict/"
+	local query="Form=Dict1&Query=$1&Strategy=*&Database=*&submit=Submit query"
+
+	echo "$query" | 
+		$ZZWWWPOST "$url" | 
+		sed "
+			# pega o trecho da página que nos interessa
+			/.\+\([0-9]\+ definitions\? found.\+\)/,/_______________/!d
+			s/___\+//
+
+			# protege os colchetes dos sinônimos contra o cinza escuro
+			s/\[syn:/@SINONIMO@/g
+
+			# aplica cinza escuro em todos os colchetes (menos sinônimos)
+			s/\[/$(printf '\033[0;30;1m')[/g
+
+			# aplica verde nos colchetes dos sinônimos
+			s/@SINONIMO@/$(printf '\033[0;32;1m')[syn:/g
+
+			# \"fecha\" as cores de todos os sinônimos
+			s/\]/]$(printf '\033[m')/g
+
+			# pinta a pronúncia de amarelo - pode estar delimitada por \\ ou //
+			s/\(\\\\[^\\]\+\\\\\)/$(printf '\033[0;33;1m')\\1\\$(printf '\033[m')/g
+			s|\(/[^/]\+/\)|$(printf '\033[0;33;1m')\1$(printf '\033[m')|g
+
+			# cabeçalho para tornar a separação entre várias consultas mais visível no terminal
+			/[0-9]\+ definitions\? found/{h;s/.*/==================== DICT.ORG ====================/;p;x;}" |
+
+		# formatação: 124 colunas - senão fica tudo muito estreito e LONGO
+		fmt -w 124
+}

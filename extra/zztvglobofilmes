@@ -1,0 +1,42 @@
+#----------------------------------------------------------------------------
+# http://redeglobo.globo.com
+# Mostra os filmes que vão passar na Rede Globo hoje
+# Autor: Luciano ES
+# Versão: 1
+# Uso: zztvglobofilmes
+#----------------------------------------------------------------------------
+zztvglobofilmes ()
+{
+	zzzz -h tvglobofilmes $1 && return
+
+	# programação do dia:
+	local URL='http://redeglobo.globo.com/TVG/0,,GG196-3914,00.html'
+
+	# arquivos temporários:
+	local ARQTMP='/tmp/zz.tvglobo.txt'
+	local ARQTMP_='/tmp/zz.tvglobo_.txt'
+	
+	local nomesessao='\(Sess.\+o da Tarde\|Tela Quente\|Sess.\+o Brasil\|Intercine\|Coruj.\+o\|Cinema Especial\|Sess.\+o de S.\+bado\|Supercine\|Temperatura M.\+xima\|Domingo Maior\|Sess.\+o de Gala\)'
+
+	# baixa página
+	$ZZWWWHTML "$URL" |
+
+	# localiza quais linhas têm links dos filmes
+	sed "/href.\+${nomesessao}/!d" | sed 's/.*\(http.\+html\).*/\1/g' > $ARQTMP_
+
+	# loop
+	for i in $(cat $ARQTMP_); do 
+		$ZZWWWDUMP "$i" > $ARQTMP
+		cat $ARQTMP |
+		 	sed "/${nomesessao}/,/[A-Z]\{4,\}/!d" |
+		 	fmt -s -w 124 |
+			sed "
+				/${nomesessao}/{h;s/.*/ /;p;x;}
+				s/${nomesessao}/$(printf '\033[0;32;1m')\1$(printf '\033[m')/g
+				/.*[A-ZÀ-Ý]\{4,\}.*/N;s/\n//
+				s/\([A-ZÀ-Ý]\{4,\} \) +/\1/g"
+	done
+
+	rm -f $ARQTMP
+	rm -f $ARQTMP_
+}
