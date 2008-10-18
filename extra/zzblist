@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Mostra se o IP passado está em alguma blacklist  (SBL, PBL e XBL)
+# Mostra se o IP passado está em alguma blacklist  (SBL, PBL e XBL).
 # Autor: Vinícius Venâncio Leite  <vv.leite (a) gmail com>
 # Versão: 1
 # Uso: zzblist IP

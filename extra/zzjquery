@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
-# Exibe a descrição referente a função informada, caso não seja passado o
-#   nome, será exibida informações acerca do $(). Se usado o argumento -s,
-#   será exibida somente a sintaxe.
+# Exibe a descrição da função JQuery informada.
+# Caso não seja passado o nome, serão exibidas informações acerca do $().
+# Se usado o argumento -s, será exibida somente a sintaxe.
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
 # Versão: 1
 # Uso: zzjquery funcao

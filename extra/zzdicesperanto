@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # http://wwwtios.cs.utwente.nl/traduk/
-# Dicionário de Esperanto em inglês, português e alemão, com busca por palavra
-# nas duas direções. O padrão é português-esperanto.
+# Dicionário de Esperanto em inglês, português e alemão.
+# Possui busca por palavra nas duas direções. O padrão é português-esperanto.
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Versão: 1
 # Uso: zzdicesperanto [idioma] palavra

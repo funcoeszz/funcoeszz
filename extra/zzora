@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://ora-code.com
-# Retorna a descrição do erro Oracle (ORA-NNNNN)
+# Retorna a descrição do erro Oracle (ORA-NNNNN).
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Versão: 1
 # Uso: zzora num_erro_oracle

@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
-# Lista as urls de uma dada tag de um determinado usuário,
-#   se não informada a tag, será listada as últimas urls.
+# Lista as URLs de uma dada tag de um determinado usuário.
+# Obs.: Se não informada a tag, serão listadas as últimas URLs.
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
 # Versão: 1
 # Uso: zzdelicious usuario

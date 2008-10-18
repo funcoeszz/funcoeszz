@@ -1,7 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://sourceforge.net
-# Mostra uma lista com o ranking das linguagens baseado no número de
-# projetos hospedados no site SourceForge.
+# Ranking das linguagens de programação, pelo núm. de projetos no SourceForge.
 # Autor: Cesar Gimenes <crgimenes (a) terra com br>
 # Versão: 1
 # Uso: zzranking

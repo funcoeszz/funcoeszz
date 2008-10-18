@@ -1,16 +1,16 @@
 # ----------------------------------------------------------------------------
-# Usa a ferramenta de tradução do Google
+# Usa a ferramenta de tradução do Google.
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Versão: 3
 # Licença: GPLv2
-# Uso: zzdicgoogle palavra
-# Ex.: zzdicgoogle teste
-#      zzdicgoogle um teste simples
-#      zzdicgoogle este é com acento
+# Uso: zzdicgoogle2 palavra
+# Ex.: zzdicgoogle2 teste
+#      zzdicgoogle2 um teste simples
+#      zzdicgoogle2 este é com acento
 # ----------------------------------------------------------------------------
-zzdicgoogle ()
+zzdicgoogle2 ()
 {
-	zzzz -h dicgoogle $1 && return
+	zzzz -h dicgoogle2 $1 && return
 
 	# Variaveis locais
 	local padrao
