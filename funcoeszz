@@ -229,11 +229,11 @@ zztool ()
 # ----------------------------------------------------------------------------
 zzajuda ()
 {
-
 	zzzz -h ajuda $1 && return
 
 	# Salva a configuração original de cores
 	local zzcor_orig=$ZZCOR
+	local tmp="$ZZTMP.ajuda.$$"	
 
 	# Desliga cores para os paginadores antigos
 	if [ "$PAGER" = 'less' -o "$PAGER" = 'more' ]
@@ -241,8 +241,16 @@ zzajuda ()
 		ZZCOR=0
 	fi
 
-	# Mostra ajuda das funções padrão e das extras
-	cat $ZZPATH $ZZEXTRA |
+	# Compõe um único arquivo com todas as funções (padrão e extra)
+	cat "$ZZPATH" > "$tmp"
+	echo "# ------------------------------" >> "$tmp"
+	echo "# #### E X T R A" >> "$tmp"
+	echo "# ------------------------------" >> "$tmp"
+	cat "${ZZEXTRA:-XXvazioXX}" >> "$tmp" 2>/dev/null
+	cat "${ZZEXTRADIR:-XXvazioXX}"/zz* >> "$tmp" 2>/dev/null
+
+	# Extrai e formata o texto de ajuda de todas as funções
+	cat "$tmp" |
 
 		# Magia negra para extrair somente os textos de descrição
 		sed '
@@ -251,7 +259,7 @@ zzajuda ()
 				G
 				p
 			}
-			/^# --*$/,/^# --*$/ {
+			/^# -----* *$/,/^# -----* *$/ {
 				s/-\{20,\}/-------/
 				s/^# //p
 			}
@@ -5058,7 +5066,7 @@ zznatal ()
 }
 
 
-# ----------------------------------------------------------------------------
+##----------------------------------------------------------------------------
 ## Incluindo as funções extras
 
 # Arquivo de funções
@@ -5073,7 +5081,7 @@ then
 	done
 fi
 
-# ----------------------------------------------------------------------------
+##----------------------------------------------------------------------------
 ## Lidando com a chamada pelo executável
 
 # Se há parâmetros, é porque o usuário está nos chamando pela
