@@ -6,8 +6,8 @@
 # Versão: 1
 # Uso: zzranking
 # Ex.: zzranking
-# TODO: Parâmetro para mostrar o ranking completo.
 # ----------------------------------------------------------------------------
+# TODO: Parâmetro para mostrar o ranking completo.
 zzranking ()
 {
 	zzzz -h ranking $1 && return

@@ -4,7 +4,7 @@
 # Autor: Frederico Freire Boaventura <anonymous (a) galahad com br>
 # Versão: 1
 # Uso: zzrastreamento <codigo_da_encomenda>
-# ---------------------------------------------------------------------------- 
+# ----------------------------------------------------------------------------
 zzrastreamento ()
 {
 	zzzz -h rastreamento $1 && return
