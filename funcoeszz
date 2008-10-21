@@ -225,34 +225,28 @@ zztool ()
 
 # ----------------------------------------------------------------------------
 # Mostra uma tela de ajuda com explicação e sintaxe de todas as funções.
-# Uso: zzajuda
+# Opções: --lista  lista de todas as funções, com sua descrição
+#         --uso    resumo de todas as funções, com a sintaxe de uso
+# Uso: zzajuda [--lista|--uso]
+# Ex.: zzajuda
+#      zzajuda --lista
 # ----------------------------------------------------------------------------
 zzajuda ()
 {
 	zzzz -h ajuda $1 && return
 
-	# Salva a configuração original de cores
-	local zzcor_orig=$ZZCOR
-	local tmp="$ZZTMP.ajuda.$$"	
+	local zzcor_pager
+	local tmp="$ZZTMP.ajuda.$$"
 
-	# Desliga cores para os paginadores antigos
-	if [ "$PAGER" = 'less' -o "$PAGER" = 'more' ]
-	then
-		ZZCOR=0
-	fi
-
-	# Compõe um único arquivo com todas as funções (padrão e extra)
-	cat "$ZZPATH" > "$tmp"
-	echo "# ------------------------------" >> "$tmp"
-	echo "# #### E X T R A" >> "$tmp"
-	echo "# ------------------------------" >> "$tmp"
-	cat "${ZZEXTRA:-XXvazioXX}" >> "$tmp" 2>/dev/null
-	cat "${ZZEXTRADIR:-XXvazioXX}"/zz* >> "$tmp" 2>/dev/null
-
-	# Extrai e formata o texto de ajuda de todas as funções
-	cat "$tmp" |
-
-		# Magia negra para extrair somente os textos de descrição
+	# Compõe um único bloco de texto com todas as funções (padrão e extra)
+	(
+		cat "$ZZPATH"
+		echo "# ------------------------------"
+		echo "# #### E X T R A"
+		echo "# ------------------------------"
+		cat "${ZZEXTRA}" "${ZZEXTRADIR:-XXvazioXX}"/zz* 2>/dev/null
+	) |
+		# Formata o bloco deixando apenas os cabeçalhos das funções
 		sed '
 			1 {
 				s/.*/** Ajuda das Funções ZZ (tecla Q sai)/
@@ -265,12 +259,73 @@ zzajuda ()
 			}
 			d' |
 		uniq |
-		sed 's/^-\{7\}/&&&&&&&&&&&/' |
-		zztool acha 'zz[a-z0-9]\{2,\}' |
-		${PAGER:-less -r}
+		# Padroniza as linhas separadoras com exatamente 77 hífens (7x11)
+		sed 's/^-\{7\}/&&&&&&&&&&&/' > "$tmp"
 		
-	# Restaura configuração de cores
-	ZZCOR=$zzcor_orig
+	# Já foram coletadas as informações sobre todas as funções, vamos ao processamento
+
+	case "$1" in
+		--uso)
+			# Lista com sintaxe de uso, basta pescar as linhas Uso:
+			sed -n 's/^Uso: zz/zz/p' "$tmp" |
+				sort |
+				zztool acha '^zz[^ ]*'
+		;;
+		--lista)
+			# Lista de todas as funções no formato: nome descrição
+			sed -n '
+				# Primeiro extraímos a descrição da função,
+				# que é a primeira linha após o -----------
+				#
+				/^----*$/ {
+
+					# Vá para a próxima linha
+					n
+
+					# Ignora início de seção
+					/^####/	d
+
+					# Ignora a linha com a URL do site (se tiver)
+					/^http:/ n
+
+					# Remove ponto final da frase
+					s/\.$//
+
+					# Guarda a descrição para usar depois
+					h
+				}
+
+				# O nome da função é extraído da linha Uso:
+				/^Uso: / {
+					# Isola o nome da função
+					s///
+					s/ .*//
+				
+					# Padding: o nome deve ter 15 caracteres
+					:pad
+					s/^.\{1,14\}$/& /
+					t pad
+
+					# Junta a descrição (guardada previamente)
+					G
+					s/\n/ /p
+				}' "$tmp" |
+				sort |
+				zztool acha '^zz[^ ]*'
+		;;
+		*)
+			# Desliga cores para os paginadores antigos
+			[ "$PAGER" = 'less' -o "$PAGER" = 'more' ] && zzcor_pager=0
+		
+			# Mostra a ajuda de todas as funções, paginando
+			cat "$tmp" |
+				ZZCOR=${zzcor_pager:-$ZZCOR} zztool acha 'zz[a-z0-9]\{2,\}' |
+				${PAGER:-less -r}
+		;;
+	esac
+
+	# Remove o arquivo temporário
+	rm "$tmp"
 }
 
 
