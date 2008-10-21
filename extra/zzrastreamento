@@ -2,7 +2,7 @@
 # http://www.correios.com.br
 # Acompanha uma encomenda nacional via rastreamento dos Correios.
 # Autor: Frederico Freire Boaventura <anonymous (a) galahad com br>
-# Versão: 1
+# Versão: 2
 # Uso: zzrastreamento <codigo_da_encomenda>
 # ----------------------------------------------------------------------------
 zzrastreamento ()
@@ -11,11 +11,12 @@ zzrastreamento ()
 
 	[ "$1" ] || { echo "uso: zzrastreamento <codigo_da_encomenda>"; return; }
 
-	local COD="$1"
-	local URL=" http://websro.correios.com.br/sro_bin/txect01$.QueryList?P_LINGUA=001&P_TIPO=001&P_COD_UNI=${COD}"
-	local ZZWWWDUMP=$(echo $ZZWWWDUMP -stdin -force_html -nocolor | sed -e 's/-crawl//')
+	local url='http://websro.correios.com.br/sro_bin/txect01$.QueryList'
+	local codigo="$1"
 
-	$ZZWWWHTML "$URL" |
-	 	sed -e '1,56d ; /^<\(hr \|p\|input \|\/BODY\|\/HTML\|font \|br\).*/d' |
-	 	$ZZWWWDUMP 
+	$ZZWWWDUMP "$url?P_LINGUA=001&P_TIPO=001&P_COD_UNI=$codigo" |
+		sed '
+			/ Data /,/___/ !d
+			/___/d
+			s/^   //'
 }
