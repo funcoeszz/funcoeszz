@@ -1,0 +1,53 @@
+# ----------------------------------------------------------------------------
+# Sistema simples de lembretes: cria, apaga e mostra.
+# Autor: Aurélio Jargas <verde (a) aurelio net>
+# Versão: 1
+# Uso: zzlembrete [texto]|[número [d]]
+# Ex.: zzlembrete                      # Mostra todos
+#      zzlembrete 5                    # Mostra o 5º lembrete
+#      zzlembrete 5d                   # Deleta o 5º lembrete
+#      zzlembrete Almoço com a sogra   # Adiciona lembrete
+# ----------------------------------------------------------------------------
+zzlembrete ()
+{
+	zzzz -h lembrete $1 && return
+
+	local arquivo="$HOME/.zzlembrete"
+    	local tmp="$ZZTMP.lembrete.$$"
+	local numero
+
+	# Assegura-se que o arquivo de lembretes existe
+	test -f "$arquivo" || touch "$arquivo"
+	
+	# Sem argumentos, mostra todos os lembretes
+	if test -z "$1"
+	then
+		cat -n "$arquivo"
+
+	# Tem argumentos, que podem ser para mostrar, apagar ou adicionar
+	elif echo "$*" | tr -s '\t ' ' ' | grep -q '^ *[0-9]\{1,\} *d\{0,1\} *$'
+	then
+		# Extrai o número da linha
+		numero=$(echo $* | tr -d -c 0123456789)
+		
+		if zztool grep_var d "$*"
+		then
+			# zzlembrete 5d: Apaga linha 5
+		        cp "$arquivo" "$tmp" &&
+		 	sed "${numero:-0} d" "$tmp" > "$arquivo" || {
+			        echo "Ops, deu algum erro no arquivo $arquivo"
+			        echo "Uma cópia dele está em $tmp"
+			        return
+			}
+		else
+			# zzlembrete 5: Mostra linha 5
+			cat -n "$arquivo" | sed -n "$numero p"
+		fi
+	else
+		# zzlembrete texto: Adiciona o texto
+		echo "$*" >> "$arquivo" || {
+			echo "Ops, não consegui adicionar esse lembrete"
+			return
+		}
+	fi
+}
