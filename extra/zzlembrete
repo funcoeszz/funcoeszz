@@ -41,7 +41,7 @@ zzlembrete ()
 			}
 		else
 			# zzlembrete 5: Mostra linha 5
-			cat -n "$arquivo" | sed -n "$numero p"
+			cat "$arquivo" | sed -n "$numero p"
 		fi
 	else
 		# zzlembrete texto: Adiciona o texto
