@@ -180,6 +180,10 @@ zztool ()
 			local nnn="\([0-9]\{1,2\}\|1[0-9][0-9]\|2[0-4][0-9]\|25[0-5]\)" # 0-255
 			echo "$2" | grep "^$nnn\.$nnn\.$nnn\.$nnn$" >/dev/null
 		;;
+		testa_data)
+			# Testa se $2 é uma data (dd/mm/aaaa)
+			echo "$2" | grep "^[0123]\{0,1\}[0-9]/[01]\{0,1\}[0-9]/[0-9]\{1,\}" >/dev/null
+		;;
 		multi_stdin)
 			# Mostra na tela os argumentos *ou* a STDIN, nesta ordem
 			# Útil para funções/comandos aceitarem dados das duas formas:
@@ -2501,8 +2505,7 @@ zzdata ()
 			[ "$primeira_data" ] && data1=$data || data2=$data
 		else
 			# Valida o formato da data
-			# TODO Muito fraquinho, usar regex (zztool)
-			if [ "${data##*[^0-9/]}" != "$data" ]
+			if ! ( zztool testa_data "$data" || zztool testa_numero "$data" )
 			then
 				echo "Data inválida '$data'"
 				return
