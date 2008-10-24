@@ -25,7 +25,7 @@ zzlembrete ()
 		cat -n "$arquivo"
 
 	# Tem argumentos, que podem ser para mostrar, apagar ou adicionar
-	elif echo "$*" | tr -s '\t ' ' ' | grep -q '^ *[0-9]\{1,\} *d\{0,1\} *$'
+	elif echo "$*" | tr -s '\t ' ' ' | grep '^ *[0-9]\{1,\} *d\{0,1\} *$' >/dev/null
 	then
 		# Extrai o número da linha
 		numero=$(echo $* | tr -d -c 0123456789)
