@@ -17,8 +17,8 @@ zzpascoa ()
 
 	# Se o ano não for informado, usa o atual
 	test -z "$ano" && ano=$(date +%Y)
-	
-	# Verificações básicas
+
+	# Verificação básica
 	if ! zztool testa_numero $ano
 	then
 		zztool uso pascoa
@@ -63,6 +63,6 @@ zzpascoa ()
 	# Adiciona zeros à esquerda, se necessário
 	[ $dia -lt 10 ] && dia="0$dia"
 	[ $mes -lt 10 ] && mes="0$mes"
-	
+
 	echo "$dia/$mes/$ano"	
 }

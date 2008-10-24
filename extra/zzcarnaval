@@ -16,8 +16,8 @@ zzcarnaval ()
 
 	# Se o ano não for informado, usa o atual
 	test -z "$ano" && ano=$(date +%Y)
-	
-	# Verificações básicas
+
+	# Verificação básica
 	if ! zztool testa_numero $ano
 	then
 		zztool uso carnaval
