@@ -88,13 +88,27 @@ zzcinemais ()
 		grep -A 11 +[1-8] |
 		sed 's/\[.*//g')"
 
+	hora=`date +%Hh%M | cut -d'h' -f1`
+	minuto=`date +%Hh%M | cut -d'h' -f2`
+ 
 	for i in $sessoes; do 
 		if [[ $i =~ \+[1-8] ]]; then 
 			echo -e "\n$i |\c " 
 		elif [[ $i =~ Liv\.|[0-9][0-9]a  ]]; then
-			echo -ne "\033[G\033[24C| $i \c "
+			echo -ne "\033[G\033[24C| $i |      - \c "
 		elif [[ $i =~ Dub|Leg  ]]; then
-			echo -ne "\033[G\033[30C| $i \c "
+			echo -ne "\033[G\033[31C| $i \c "
+		elif [[ $i =~ [0-9][0-9][Hh][0-9][0-9][A-K^]* ]];then 
+			ih=`echo $i | cut -d'h' -f1`
+			im=`echo $i | cut -d'h' -f2 | sed 's/,//g;s/\^[A-K]*//g'`
+
+			if [ "$hora" -lt "$ih"  ];then
+				zzecho -n -l verde -N "$i "
+			elif [ "$hora" -eq "$ih" -a "$minuto" -lt "$im" ];then
+				zzecho -n -l verde -N "$i "
+			else
+				zzecho -n -l vermelho -N "$i "
+			fi
 		elif [[ $i =~ Obs ]]; then
 			echo -ne "\n$i"
 		else
