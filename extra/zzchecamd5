@@ -1,16 +1,16 @@
 # ----------------------------------------------------------------------------
-# Checa o md5sum de isos baixadas da net. A funcao checa a iso no 
-# diretorio corrente (./)
+# Checa o md5sum de arquivos baixados da net. A funcao checa o arquivo
+# no diretorio corrente (./)
 # Autor: Marcell S. Martini <marcellmartini (a) gmail.com>
-# Versão: 1
+# Versão: 2
 # Licença: GPLv2
-# Uso: zzchecamd5 iso md5sum
+# Uso: zzchecamd5 arquivo md5sum
 # Ex.: zzchecamd5 ./ubuntu-8.10-alternate-i386.iso f9e0494e91abb2de4929ef6e957f7753
 # ----------------------------------------------------------------------------
 zzchecamd5(){
 
 	# Variaveis locais
-        local iso valor_md5 md5_site
+        local arquivo valor_md5 md5_site
 
 	# Help da funcao zzchecamd5
 	zzzz -h checamd5 $1 && return
@@ -21,18 +21,18 @@ zzchecamd5(){
 		return 1
 	fi
 
-	# Foi passado o caminho errado da iso
+	# Foi passado o caminho errado do arquivo
 	if [ ! -f $1  ];then
 		echo "Nao foi encontrado: $1"
 		return 1
 	fi
 
 	# Setando variaveis
-        iso=./$1
-        valor_md5="`md5sum $iso | cut -d' ' -f1`"
+        arquivo=./$1
+        valor_md5="`md5sum $arquivo | cut -d' ' -f1`"
         md5_site=$2
 
-	# Verifica se a iso nao foi baixada corrompida
+	# Verifica se o arquivo nao foi corrompido
         if [ "$md5_site" = "$valor_md5" ]; then
                 echo "Imagem OK" 
         else
