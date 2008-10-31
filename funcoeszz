@@ -2767,6 +2767,51 @@ zzhora ()
 
 
 # ----------------------------------------------------------------------------
+# Mostra qual o dia da semana de uma data qualquer.
+# Obs.: Se a data não for informada, usa a data atual.
+# Autor: Aurélio Jargas <verde (a) aurelio net>
+# Versão: 1
+# Uso: zzdiadasemana [data]
+# Ex.: zzdiadasemana
+#      zzdiadasemana 31/12/2000
+# ----------------------------------------------------------------------------
+zzdiadasemana ()
+{
+	zzzz -h diadasemana $1 && return
+
+	local delta dia
+	local dias="quinta- sexta- sábado domingo segunda- terça- quarta-"
+	local data="$1"
+
+	# Se a data não foi informada, usa a atual
+	test -z "$data" && data=$(date +%d/%m/%Y)
+
+	# Valida o formato da data
+	if ! zztool testa_data "$data"
+	then
+		echo "Data inválida '$data', deve ser dd/mm/aaaa"
+		return
+	fi
+
+	# O cálculo se baseia na data ZERO (01/01/1970), que é quinta-feira.
+	# Basta dividir o delta (intervalo de dias até a data ZERO) por 7.
+	# O resto da divisão é o dia da semana, sendo 0=quinta e 6=quarta.
+	#
+	# A função zzdata considera 01/01/1970 a data zero, e se chamada
+	# apenas com uma data, retorna o número de dias de diferença para
+	# o dia zero. O número será negativo se o ano for inferior a 1970.
+	# 
+	delta=$(zzdata $data)
+	dia=$(( ${delta#-} % 7))  # remove o sinal negativo (se tiver)
+
+	# O cut tem índice inicial um e não zero, por isso dia+1
+	echo $dias |
+	 	cut -d ' ' -f $((dia+1)) |
+	 	sed 's/-/-feira/'
+}
+
+
+# ----------------------------------------------------------------------------
 # Faz várias conversões como: caracteres, temperatura e distância.
 #          cf = (C)elsius      para (F)ahrenheit
 #          fc = (F)ahrenheit   para (C)elsius
