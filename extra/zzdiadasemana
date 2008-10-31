@@ -21,7 +21,7 @@ zzdiadasemana ()
 	# Valida o formato da data
 	if ! zztool testa_data "$data"
 	then
-		echo "Data inválida '$data'"
+		echo "Data inválida '$data', deve ser dd/mm/aaaa"
 		return
 	fi
 

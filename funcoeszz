@@ -182,7 +182,7 @@ zztool ()
 		;;
 		testa_data)
 			# Testa se $2 é uma data (dd/mm/aaaa)
-			echo "$2" | grep "^[0123]\{0,1\}[0-9]/[01]\{0,1\}[0-9]/[0-9]\{1,\}" >/dev/null
+			echo "$2" | grep "^[0123][0-9]/[01][0-9]/[0-9]\{1,\}" >/dev/null
 		;;
 		multi_stdin)
 			# Mostra na tela os argumentos *ou* a STDIN, nesta ordem
@@ -2507,7 +2507,7 @@ zzdata ()
 			# Valida o formato da data
 			if ! ( zztool testa_data "$data" || zztool testa_numero "$data" )
 			then
-				echo "Data inválida '$data'"
+				echo "Data inválida '$data', deve ser dd/mm/aaaa"
 				return
 			fi
 		fi
