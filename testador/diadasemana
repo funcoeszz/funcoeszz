@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+debug=0
+values=1
+tests=(
+
+# Fev 2008, ano bissexto
+01/02/2008	t	sexta-feira
+02/02/2008	t	sábado
+03/02/2008	t	domingo
+04/02/2008	t	segunda-feira
+05/02/2008	t	terça-feira
+06/02/2008	t	quarta-feira
+07/02/2008	t	quinta-feira
+08/02/2008	t	sexta-feira
+09/02/2008	t	sábado
+10/02/2008	t	domingo
+11/02/2008	t	segunda-feira
+12/02/2008	t	terça-feira
+13/02/2008	t	quarta-feira
+14/02/2008	t	quinta-feira
+15/02/2008	t	sexta-feira
+16/02/2008	t	sábado
+17/02/2008	t	domingo
+18/02/2008	t	segunda-feira
+19/02/2008	t	terça-feira
+20/02/2008	t	quarta-feira
+21/02/2008	t	quinta-feira
+22/02/2008	t	sexta-feira
+23/02/2008	t	sábado
+24/02/2008	t	domingo
+25/02/2008	t	segunda-feira
+26/02/2008	t	terça-feira
+27/02/2008	t	quarta-feira
+28/02/2008	t	quinta-feira
+29/02/2008	t	sexta-feira
+
+# Sem os zeros (por enquanto não é suportado)
+1/2/2008	r	'^Data inv.lida .*'
+01/2/2008	r	'^Data inv.lida .*'
+1/02/2008	r	'^Data inv.lida .*'
+
+# Erros
+1970		r	'^Data inv.lida .*'
+-2000 		r	'^Data inv.lida .*'
+foo 		r	'^Data inv.lida .*'
+29.02.2008	r	'^Data inv.lida .*'
+
+)
+. _lib
