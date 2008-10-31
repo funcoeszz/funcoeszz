@@ -2769,8 +2769,6 @@ zzhora ()
 # ----------------------------------------------------------------------------
 # Mostra qual o dia da semana de uma data qualquer.
 # Obs.: Se a data não for informada, usa a data atual.
-# Autor: Aurélio Jargas <verde (a) aurelio net>
-# Versão: 1
 # Uso: zzdiadasemana [data]
 # Ex.: zzdiadasemana
 #      zzdiadasemana 31/12/2000
@@ -2815,8 +2813,6 @@ zzdiadasemana ()
 # Mostra a data do domingo de Páscoa para qualquer ano.
 # Obs.: Se o ano não for informado, usa o atual.
 # Regra: Primeiro domingo após a primeira lua cheia a partir de 21 de março.
-# Autor: Aurélio Jargas <verde (a) aurelio net>
-# Versão: 1
 # Uso: zzpascoa [ano]
 # Ex.: zzpascoa
 #      zzpascoa 1999
