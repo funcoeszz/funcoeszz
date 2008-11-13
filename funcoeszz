@@ -242,6 +242,18 @@ zzajuda ()
 	local zzcor_pager
 	local tmp="$ZZTMP.ajuda.$$"
 
+	# Verifica se o arquivo das funções existe e é legível
+	if ! test -r "$ZZPATH"
+	then
+	 	(
+		echo "Ops! Não encontrei as Funções ZZ no arquivo '$ZZPATH'."
+		echo 'Informe a localização correta na variável $ZZPATH.'
+		echo
+		echo 'Exemplo: export ZZPATH="$HOME/bin/funcoeszz"'
+		) >&2
+		return 1
+	fi
+
 	# Compõe um único bloco de texto com todas as funções (padrão e extra)
 	(
 		cat "$ZZPATH"
