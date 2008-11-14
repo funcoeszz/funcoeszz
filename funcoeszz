@@ -5274,7 +5274,7 @@ zzdictodos ()
 
 
 # ----------------------------------------------------------------------------
-# http://aurelio.net/doc/misc/ramones.txt
+# http://aurelio.net/doc/ramones.txt
 # Mostra uma frase aleatória, das letras de músicas da banda punk Ramones.
 # Obs.: Informe uma palavra se quiser frases sobre algum assunto especifico.
 # Uso: zzramones [palavra]
@@ -5285,7 +5285,7 @@ zzramones ()
 {
 	zzzz -h ramones $1 && return
 
-	local url='http://aurelio.net/doc/misc/ramones.txt'
+	local url='http://aurelio.net/doc/ramones.txt'
 	local cache=$ZZTMP.ramones
 	local padrao=$1
 
