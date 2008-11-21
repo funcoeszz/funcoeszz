@@ -1,0 +1,30 @@
+# ----------------------------------------------------------------------------
+# Mostra a data de Corpus Christi para qualquer ano.
+# Obs.: Se o ano não for informado, usa o atual.
+# Regra: 60 dias depois do domingo de Páscoa.
+# Uso: zzcorpuschristi [ano]
+# Ex.: zzcorpuschristi
+#      zzcorpuschristi 2009
+# ----------------------------------------------------------------------------
+zzcorpuschristi ()
+{
+        zzzz -h corpuschristi $1 && return
+
+        local ano="$1"
+
+        # Se o ano não for informado, usa o atual
+        test -z "$ano" && ano=$(date +%Y)
+
+        # Verificação básica
+        if ! zztool testa_numero $ano
+        then
+                zztool uso corpuschristi
+                return
+        fi
+
+        # Ah, como é fácil quando se tem as ferramentas certas ;)
+        # e quando já temos o código e só precisamos mudar os numeros
+        # tambem é bom :D ;)
+        zzdata $(zzpascoa $ano) + 60
+}
+
