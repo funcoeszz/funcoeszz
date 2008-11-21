@@ -2,47 +2,94 @@
 # Verifica se a data passada por parametro é um feriado ou nao. Caso nao seja
 # passado nenhuma data é pego a data atual. Pode-se configurar uma variavel 
 # de ambiente para os feriados regionais. A variavel é ZZFERIADO, colocar a 
-# data sendo o dd/mm Ex.: 20/11
+# data sendo o dd/mm:descrição Ex.: 20/11:Conciencia negra
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail.com>
-# Versão: 1
+# Versão: 2
 # Licença: GPLv2
-# Uso: zzferiado [data]
+# Uso: zzferiado -l [ano] | [data]
 # Ex.: zzferiado 25/12/2008
+#      zzferiado -l
+#      zzferiado -l 2010
 # ----------------------------------------------------------------------------
 zzferiado ()
 {
 	zzzz -h feriado $1 && return
 
-	local feriado mensagem carnaval
-	local hoje feriados data
-
-	# Uma coisa interessante, como data pode ser usada com /(20/11/2008)
-	# podemos usar o basename e dirname para pegar o que quizermos
-	# Ex.: dirname 25/12/2008 ->  25/12
-	#      basename 25/12/2008 -> 2008
-	#
-	# Configura as variaveis. Para feriados Estaduais ou regionais
-	# Existe a variavel de ambiente ZZFERIADO que pode ser configurada
-	# no $HOME/.bashrc e colocar as datas com dia/mes
-	[ "$ZZFERIADO" ] || ZZFERIADO=
-	carnaval=$(dirname $(zzcarnaval $(date '+%Y') ) ) 
-	feriados="01/01 06/04 21/04 01/05 07/09 12/10 02/11 25/12 $carnaval $ZZFERIADO"
+	local feriados carnaval corpuschristi
+	local hoje data sextapaixao ano listar FILE
+	local dia diasemana descricao
 
 	hoje=$(date '+%d/%m/%Y')
-	data=${1:-$hoje}
-	data=$(dirname $data)
+	FILE=/tmp/$$.zzferiado
 
-	# Verifica ѕe a data escolhida é feriado
-	feriado=$(echo "$feriados" | grep $data)
+	# Verifica se foi passado o parametro -l
+	if [ "$1" = "-l" ]; then
+		# Se não for passado $2 pega o ano atual
+		ano=${2:-$(basename $hoje)}
 
-	if [ "${feriado}x" != "x"  ];then
-		echo "É feriado: $data/`date '+%Y'`"
+		# Seta a flag listar
+		listar=1
+
+		# Teste da variavel ano
+		if ! zztool testa_numero $ano; then
+			zztool uso feriado
+			return
+		fi
 	else
-		echo "Não é feriado: $data/`date '+%Y'`"
+		# Se nao for passada a data é pega a data de hoje
+		data=${1:-$hoje}
+
+		# Verifica se a data é valida
+		if ! zztool testa_data $data; then
+        	        zztool uso feriado
+        	        return 
+        	fi
+
+		# Uma coisa interessante, como data pode ser usada com /(20/11/2008)
+		# podemos usar o basename e dirname para pegar o que quizermos
+		# Ex.: dirname 25/12/2008 ->  25/12
+		#      basename 25/12/2008 -> 2008
+		#
+		# Pega só o dia e o mes no formato: dd/mm
+		data=$(dirname $data)
+		ano=$(basename ${1:-$hoje})
 	fi
 
-	
-}
+	# Para feriados Estaduais ou regionais Existe a variavel de 
+	# ambiente ZZFERIADO que pode ser configurada no $HOME/.bashrc e 
+	# colocar as datas com dia/mes
+	carnaval=$(dirname $(zzcarnaval $ano ) ) 
+	sextapaixao=$(dirname $(zzsextapaixao $ano ) )
+	corpuschristi=$(dirname $(zzcorpuschristi $ano ) )
+	feriados="01/01:Confraternização Universal $carnaval:Carnaval $sextapaixao:Sexta-ferida da Paixao 21/04:Tiradentes 01/05:Dia do Trabalho $corpuschristi:Corpu Christi 07/09:Independência do Brasil 12/10:Nossa Sra. Aparecida 02/11:Finados 15/11:Proclamação da República 25/12:Natal $ZZFERIADO"
 
+	# Verifica ѕe a data escolhida é feriado
+
+	if [ "$listar" = "1" ]; then
+		# Passa os dados para arquivo para trata-los
+		echo $feriados | sed 's# \([0-3]\)#\n\1#g' > $FILE
+
+		# Pega os dados do arquivo trata e imprime a lista
+		while read LINHA; do
+			dia=$(echo $LINHA | cut -d: -f1)
+			diasemana=$(zzdiadasemana $dia/$ano)
+			descricao=$(echo $LINHA | cut -d: -f2)
+			printf "%s %-15s %s\n" "$dia" "$diasemana" "$descricao"
+		done < "$FILE"
+
+		# Apaga arquivo temporario
+		rm -f $FILE
+	else
+		# Virifica se a data está dentro da lista de feriados
+		# e imprime o resultado
+		if zztool grep_var "$data" "$feriados"; then
+			echo "É feriado: $data/$ano"
+		else
+			echo "Não é feriado: $data/$ano"
+		fi
+	fi
+
+	return 0	
+}
 
