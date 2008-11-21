@@ -1,0 +1,48 @@
+# ----------------------------------------------------------------------------
+# Verifica se a data passada por parametro é um feriado ou nao. Caso nao seja
+# passado nenhuma data é pego a data atual. Pode-se configurar uma variavel 
+# de ambiente para os feriados regionais. A variavel é ZZFERIADO, colocar a 
+# data sendo o dd/mm Ex.: 20/11
+#
+# Autor: Marcell S. Martini <marcellmartini (a) gmail.com>
+# Versão: 1
+# Licença: GPLv2
+# Uso: zzferiado [data]
+# Ex.: zzferiado 25/12/2008
+# ----------------------------------------------------------------------------
+zzferiado ()
+{
+	zzzz -h feriado $1 && return
+
+	local feriado mensagem carnaval
+	local hoje feriados data
+
+	# Uma coisa interessante, como data pode ser usada com /(20/11/2008)
+	# podemos usar o basename e dirname para pegar o que quizermos
+	# Ex.: dirname 25/12/2008 ->  25/12
+	#      basename 25/12/2008 -> 2008
+	#
+	# Configura as variaveis. Para feriados Estaduais ou regionais
+	# Existe a variavel de ambiente ZZFERIADO que pode ser configurada
+	# no $HOME/.bashrc e colocar as datas com dia/mes
+	[ "$ZZFERIADO" ] || ZZFERIADO=
+	carnaval=$(dirname $(zzcarnaval $(date '+%Y') ) ) 
+	feriados="01/01 06/04 21/04 01/05 07/09 12/10 02/11 25/12 $carnaval $ZZFERIADO"
+
+	hoje=$(date '+%d/%m/%Y')
+	data=${1:-$hoje}
+	data=$(dirname $data)
+
+	# Verifica ѕe a data escolhida é feriado
+	feriado=$(echo "$feriados" | grep $data)
+
+	if [ "${feriado}x" != "x"  ];then
+		echo "É feriado: $data/`date '+%Y'`"
+	else
+		echo "Não é feriado: $data/`date '+%Y'`"
+	fi
+
+	
+}
+
+
