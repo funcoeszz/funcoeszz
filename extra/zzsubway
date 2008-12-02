@@ -1,0 +1,53 @@
+# ----------------------------------------------------------------------------
+# Mostra uma sugestão de sanduíche para pedir na lanchonete Subway.
+# Obs.: Se não gostar da sugestão, chame a função novamente para ter outra.
+# Autor: Aurélio Jargas <verde (a) aurelio net>
+# Versão: 1
+# Uso: zzsubway
+# Ex.: zzsubway
+# ----------------------------------------------------------------------------
+zzsubway ()
+{
+	zzzz -h subway $1 && return
+
+	local linha quantidade categoria opcoes
+
+	# O formato é quantidade:categoria:opção1:...:opçãoN
+	cardapio="\
+	1:recheio:(1) B.M.T. Italiano:(2) Atum:(3) Vegetariano:(4) Frutos do Mar Subway:(5) Frango Teriaki:(6) Peru, Presunto & Bacon:(7) Almôndegas:(8) Carne e Queijo:(9) Peru, Presunto & Roast Beef:(10) Peito de Peru:(11) Rosbife:(12) Peito de Peru e Presunto
+	1:pão:italiano:integral:parmesão e orégano:gergelim:três queijos:integral com aveia e mel
+	1:tamanho:15 cm:30 cm
+	1:tostado:sim:não
+	1:queijo:suíço:cheddar:prato
+	1:extra:nenhum:bacon:dobro de queijo:dobro de recheio
+	*:salada:tomate:alface:azeitona preta:cebola:pimentão:picles:rúcula:pepino
+	1:molho:italiano:parmesão:caesar:french:chipotle:mostarda e mel:sweet onion
+	*:condim.:mostarda:maionese:azeite de oliva:sal:orégano:pimenta do reino:pimenta calabresa"
+
+	echo "$cardapio" | while read linha; do
+		quantidade=$(echo "$linha" | cut -d : -f 1 | tr -d '\t')
+		categoria=$( echo "$linha" | cut -d : -f 2)
+		opcoes=$(    echo "$linha" | cut -d : -f 3- | tr : '\n')
+	
+		# Que tipo de ingrediente mostraremos agora? Recheio? Pão? Tamanho? ...
+		printf "%s\t: " "$categoria"
+
+		# Quantos ingredientes opcionais colocaremos no pão?
+		# O asterisco indica "qualquer quantidade", então é escolhido um
+		# número qualquer dentre as opções disponíveis.
+		if test "$quantidade" = '*'
+		then
+			quantidade=$(echo "$opcoes" | sed -n '$=')
+			quantidade=$((RANDOM % quantidade + 1))
+		fi
+
+		# Hora de mostrar os ingredientes.
+		# Escolhidos ao acaso (zzshuffle), são pegos N itens ($quantidade).
+		# Obs.: Múltiplos itens são mostrados em uma única linha (paste+sed).
+		echo "$opcoes" |
+			zzshuffle |
+		 	head -n $quantidade |
+		 	paste -s -d : - |
+		 	sed 's/:/, /g'
+	done
+}
