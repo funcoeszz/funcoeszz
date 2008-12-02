@@ -13,12 +13,12 @@ zzlembrete ()
 	zzzz -h lembrete $1 && return
 
 	local arquivo="$HOME/.zzlembrete"
-    	local tmp="$ZZTMP.lembrete.$$"
+	local tmp="$ZZTMP.lembrete.$$"
 	local numero
 
 	# Assegura-se que o arquivo de lembretes existe
 	test -f "$arquivo" || touch "$arquivo"
-	
+
 	# Sem argumentos, mostra todos os lembretes
 	if test -z "$1"
 	then
@@ -29,7 +29,7 @@ zzlembrete ()
 	then
 		# Extrai o número da linha
 		numero=$(echo $* | tr -d -c 0123456789)
-		
+
 		if zztool grep_var d "$*"
 		then
 			# zzlembrete 5d: Apaga linha 5
