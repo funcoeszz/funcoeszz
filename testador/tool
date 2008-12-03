@@ -89,6 +89,64 @@ ok=1; comando="tool testa_ip 0.0.0"              ; compara_exitcode
 ok=1; comando="tool testa_ip 0.0"                ; compara_exitcode
 ok=1; comando="tool testa_ip 0"                  ; compara_exitcode
 
+# testa_data
+# O ano é livre
+ok=0; comando="tool testa_data 01/01/0" ; compara_exitcode
+ok=0; comando="tool testa_data 01/01/1" ; compara_exitcode
+ok=0; comando="tool testa_data 01/01/10" ; compara_exitcode
+ok=0; comando="tool testa_data 01/01/100" ; compara_exitcode
+ok=0; comando="tool testa_data 01/01/1000" ; compara_exitcode
+ok=0; comando="tool testa_data 01/01/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 01/01/9999" ; compara_exitcode
+# Limites mensais
+ok=0; comando="tool testa_data 31/01/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 29/02/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 31/03/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 30/04/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 31/05/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 30/06/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 31/07/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 31/08/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 30/09/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 31/10/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 30/11/2000" ; compara_exitcode
+ok=0; comando="tool testa_data 31/12/2000" ; compara_exitcode
+# Datas com um dígito no dia ou mês são proibidas por enquanto
+ok=1; comando="tool testa_data 1/01/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 5/05/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 9/09/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 01/1/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 05/5/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 09/9/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 1/1/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 5/5/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 9/9/2000" ; compara_exitcode
+# Fora do limite
+ok=1; comando="tool testa_data 32/01/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 30/02/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 32/03/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 31/04/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 32/05/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 31/06/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 32/07/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 32/08/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 31/09/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 32/10/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 31/11/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 32/12/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 39/01/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 01/13/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 01/19/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 00/01/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 01/00/2000" ; compara_exitcode
+ok=1; comando="tool testa_data 99/99/2000" ; compara_exitcode
+# Não pega datas parciais
+ok=1; comando="tool testa_data 31/12"      ; compara_exitcode
+ok=1; comando="tool testa_data 931/12/2000"; compara_exitcode
+ok=1; comando="tool testa_data +31/12/2000"; compara_exitcode
+ok=1; comando="tool testa_data 31/12/2000+"; compara_exitcode
+ok=1; comando="tool testa_data +31/12/2000+"; compara_exitcode
+
 # testa_hora
 ok=0; comando="tool testa_hora  0:00" ; compara_exitcode
 ok=0; comando="tool testa_hora  1:01" ; compara_exitcode
@@ -130,9 +188,11 @@ ok=1; comando="tool testa_hora 24:59" ; compara_exitcode
 ok=1; comando="tool testa_hora  4:60" ; compara_exitcode
 ok=1; comando="tool testa_hora  4:99" ; compara_exitcode
 ok=1; comando="tool testa_hora 99:99" ; compara_exitcode
+# Não pega horas parciais
 ok=1; comando="tool testa_hora 911:11"  ; compara_exitcode
 ok=1; comando="tool testa_hora 11:119"  ; compara_exitcode
 ok=1; comando="tool testa_hora 911:119" ; compara_exitcode
+# Delimitador (com ou sem)
 ok=1; comando="tool testa_hora 2359"    ; compara_exitcode
 ok=1; comando="tool testa_hora :"       ; compara_exitcode
 

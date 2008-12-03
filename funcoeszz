@@ -182,7 +182,10 @@ zztool ()
 		;;
 		testa_data)
 			# Testa se $2 é uma data (dd/mm/aaaa)
-			echo "$2" | grep "^[0123][0-9]/[01][0-9]/[0-9]\{1,\}" >/dev/null
+			local d29='\(0[1-9]\|[12][0-9]\)/\(0[1-9]\|1[012]\)'
+			local d30='30/\(0[13-9]\|1[012]\)'
+			local d31='31/\(0[13578]\|1[02]\)'
+			echo "$2" | grep "^\($d29\|$d30\|$d31\)/[0-9]\{1,\}$" >/dev/null
 		;;
 		testa_hora)
 			# Testa se $2 é uma hora (hh:mm)
