@@ -89,6 +89,53 @@ ok=1; comando="tool testa_ip 0.0.0"              ; compara_exitcode
 ok=1; comando="tool testa_ip 0.0"                ; compara_exitcode
 ok=1; comando="tool testa_ip 0"                  ; compara_exitcode
 
+# testa_hora
+ok=0; comando="tool testa_hora  0:00" ; compara_exitcode
+ok=0; comando="tool testa_hora  1:01" ; compara_exitcode
+ok=0; comando="tool testa_hora  2:02" ; compara_exitcode
+ok=0; comando="tool testa_hora  3:03" ; compara_exitcode
+ok=0; comando="tool testa_hora  4:04" ; compara_exitcode
+ok=0; comando="tool testa_hora  5:05" ; compara_exitcode
+ok=0; comando="tool testa_hora  6:06" ; compara_exitcode
+ok=0; comando="tool testa_hora  7:07" ; compara_exitcode
+ok=0; comando="tool testa_hora  8:08" ; compara_exitcode
+ok=0; comando="tool testa_hora  9:09" ; compara_exitcode
+ok=0; comando="tool testa_hora 00:00" ; compara_exitcode
+ok=0; comando="tool testa_hora 01:01" ; compara_exitcode
+ok=0; comando="tool testa_hora 02:02" ; compara_exitcode
+ok=0; comando="tool testa_hora 03:03" ; compara_exitcode
+ok=0; comando="tool testa_hora 04:04" ; compara_exitcode
+ok=0; comando="tool testa_hora 05:05" ; compara_exitcode
+ok=0; comando="tool testa_hora 06:06" ; compara_exitcode
+ok=0; comando="tool testa_hora 07:07" ; compara_exitcode
+ok=0; comando="tool testa_hora 08:08" ; compara_exitcode
+ok=0; comando="tool testa_hora 09:09" ; compara_exitcode
+ok=0; comando="tool testa_hora 10:10" ; compara_exitcode
+ok=0; comando="tool testa_hora 11:11" ; compara_exitcode
+ok=0; comando="tool testa_hora 12:12" ; compara_exitcode
+ok=0; comando="tool testa_hora 13:13" ; compara_exitcode
+ok=0; comando="tool testa_hora 14:14" ; compara_exitcode
+ok=0; comando="tool testa_hora 15:15" ; compara_exitcode
+ok=0; comando="tool testa_hora 16:16" ; compara_exitcode
+ok=0; comando="tool testa_hora 17:17" ; compara_exitcode
+ok=0; comando="tool testa_hora 18:18" ; compara_exitcode
+ok=0; comando="tool testa_hora 19:19" ; compara_exitcode
+ok=0; comando="tool testa_hora 20:20" ; compara_exitcode
+ok=0; comando="tool testa_hora 21:21" ; compara_exitcode
+ok=0; comando="tool testa_hora 22:22" ; compara_exitcode
+ok=0; comando="tool testa_hora 23:23" ; compara_exitcode
+ok=0; comando="tool testa_hora 23:59" ; compara_exitcode
+ok=1; comando="tool testa_hora 24:00" ; compara_exitcode
+ok=1; comando="tool testa_hora 24:59" ; compara_exitcode
+ok=1; comando="tool testa_hora  4:60" ; compara_exitcode
+ok=1; comando="tool testa_hora  4:99" ; compara_exitcode
+ok=1; comando="tool testa_hora 99:99" ; compara_exitcode
+ok=1; comando="tool testa_hora 911:11"  ; compara_exitcode
+ok=1; comando="tool testa_hora 11:119"  ; compara_exitcode
+ok=1; comando="tool testa_hora 911:119" ; compara_exitcode
+ok=1; comando="tool testa_hora 2359"    ; compara_exitcode
+ok=1; comando="tool testa_hora :"       ; compara_exitcode
+
 # trim
 comando="tool trim '   testando   '"; ok="testando"
 compara_texto
