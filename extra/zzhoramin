@@ -1,16 +1,14 @@
-#-------------------------------------------------------------------------------
-#
+# ------------------------------------------------------------------------------
 # Converte hora em minuto
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail.com>
 # Versão: 1
 # Licença: GPLv2
-# Uso:  zzhoramin [hh:mm]
-# Ex.:  zzhoramin 
-#       zzhoramin 10:53
-#       zzhoramin -10:53
-#
-#-------------------------------------------------------------------------------
+# Uso: zzhoramin [hh:mm]
+# Ex.: zzhoramin 
+#      zzhoramin 10:53
+#      zzhoramin -10:53
+# ------------------------------------------------------------------------------
 zzhoramin () {
 
 	zzzz -h horamin $1 && return
