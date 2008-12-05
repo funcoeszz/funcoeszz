@@ -1,0 +1,44 @@
+#-------------------------------------------------------------------------------
+#
+# Converte hora em minuto
+#
+# Autor: Marcell S. Martini <marcellmartini (a) gmail.com>
+# Versão: 1
+# Licença: GPLv2
+# Uso:  zzhoramin [hh:mm]
+# Ex.:  zzhoramin 
+#       zzhoramin 10:53
+#       zzhoramin -10:53
+#
+#-------------------------------------------------------------------------------
+zzhoramin () {
+
+	zzzz -h horamin $1 && return
+
+	local mintotal hh mm hora operacao
+
+	operacao='+'
+
+	# Testa se o parametro passado é uma hora valida
+	if ! zztool testa_hora ${1#-}; then
+                hora=$(zzhora agora | cut -d' ' -f1)
+        else
+                hora=$1
+        fi
+
+	# Verifica se a hora é positiva ou negativa
+	if [ "${hora#-}" != "$hora" ]; then
+		operacao='-'
+	fi
+
+	# passa a hora para hh e minuto para mm
+	hh=${hora%%:*}
+	mm=${hora##*:}
+
+	# faz o calculo
+	mintotal=$(expr $hh \* 60 $operacao $mm)
+
+	# Tcharã!!!!
+	echo $mintotal
+
+}
