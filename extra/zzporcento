@@ -5,7 +5,7 @@
 # Se informados um número e uma porcentagem, mostra os valores da porcentagem.
 #
 # Autor: Aurélio Jargas <verde (a) aurelio net>
-# Versão: 3
+# Versão: 4
 # Uso: zzporcento valor [valor|porcentagem%]
 # Ex.: zzporcento 500           # Tabela de porcentagens de 500
 #      zzporcento 500.0000      # Tabela para número fracionário (.)
@@ -24,9 +24,13 @@ zzporcento ()
 
 	local valor1=$1
 	local valor2=$2
-	local separador=','
 	local escala=0
+	local separador=','
 	local tabela='200 150 125 100 90 80 75 70 60 50 40 30 25 20 15 10 9 8 7 6 5 4 3 2 1'
+
+	# Remove os pontos dos dinheiros para virarem fracionários (1.234,00 > 1234,00)
+	zztool testa_dinheiro $valor1 && valor1=$(echo $valor1 | sed 's/\.//g')
+	zztool testa_dinheiro $valor2 && valor2=$(echo $valor2 | sed 's/\.//g')
 
 	### Vamos analisar o primeiro valor
 	
@@ -39,15 +43,6 @@ zzporcento ()
 
 		# Sempre usar o ponto como separador interno (para os cálculos)
 		valor1=$(echo $valor1 | sed 'y/,/./')
-
-	# Dinheiro
-	elif zztool testa_dinheiro $valor1
-	then
-		escala=2
-		separador=','
-
-		# Sempre usar o ponto como separador interno (para os cálculos)
-		valor1=$(echo $valor1 | sed 's/\.//g ; s/,/./')
 
 	# Número inteiro ou erro
 	elif ! zztool testa_numero $valor1
@@ -94,12 +89,6 @@ zzporcento ()
 		then
 			separador=$(echo $valor2 | tr -d 0-9)
 			valor2=$(echo $valor2 | sed 'y/,/./')
-
-		# Dinheiro
-		elif zztool testa_dinheiro $valor2
-		then
-			separador=','
-			valor2=$(echo $valor2 | sed 's/\.//g ; s/,/./')
 
 		# Número normal ou erro
 		elif ! zztool testa_numero $valor2
