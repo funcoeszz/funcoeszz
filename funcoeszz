@@ -171,6 +171,16 @@ zztool ()
 			# Testa se $2 é um número (pode ter sinal: -2 +2)
 			echo "$2" | grep '^[+-]\{0,1\}[0-9]\{1,\}$' >/dev/null
 		;;
+		testa_numero_fracionario)
+			# Testa se $2 é um número fracionário (1.234 ou 1,234)
+			# regex: \d+[,.]\d+
+			echo "$2" | grep '^[0-9]\{1,\}[,.][0-9]\{1,\}$' >/dev/null
+		;;
+		testa_dinheiro)
+			# Testa se $2 é um valor monetário (1.234,56 ou 1234,56)
+			# regex: (  \d{1,3}(\.\d\d\d)+  |  \d+  ),\d\d
+			echo "$2" | grep '^\([0-9]\{1,3\}\(\.[0-9][0-9][0-9]\)\{1,\}\|[0-9]\{1,\}\),[0-9][0-9]$' >/dev/null
+		;;
 		testa_binario)
 			# Testa se $2 é um número binário
 			echo "$2" | grep '^[01]\{1,\}$' >/dev/null
