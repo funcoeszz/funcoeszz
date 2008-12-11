@@ -1,14 +1,14 @@
 # ----------------------------------------------------------------------------
 # Calcula porcentagens.
 # Autor: Aurélio Jargas <verde (a) aurelio net>
-# Versão: 1
+# Versão: 2
 # Uso: zzporcento valor [porcentagem%]
 # Ex.: zzporcento 500                  # Tabela de porcentagens
-#      zzporcento 500.000              # Tabela para número fracionário (.)
-#      zzporcento 500,000              # Tabela para número fracionário (,)
+#      zzporcento 500.0000             # Tabela para número fracionário (.)
+#      zzporcento 500,0000             # Tabela para número fracionário (,)
 #      zzporcento 5.000,00             # Tabela para valor monetário
 #      zzporcento 500,00 25%           # Mostra quanto é 25% de 500,00
-#      zzporcento 500,00 200%          # Mostra quanto é 200% de 500,00
+#      zzporcento 500,00 2,5%          # Mostra quanto é 2,5% de 500,00
 # ----------------------------------------------------------------------------
 zzporcento ()
 {
@@ -48,6 +48,25 @@ zzporcento ()
 		return
 	fi
 
+	# A porcentagem informada é válida?
+	if test $# -eq 2
+	then
+		if zztool testa_numero_fracionario $porcentagem
+		then
+			# Se o valor é inteiro (escala=0) e a porcentagem fracionária,
+			# é preciso forçar uma escala para que o resultado apareça correto.
+			test $escala -eq 0 && escala=2 valor=$valor.00
+			
+			# Sempre usar o ponto como separador interno (para os cálculos)			
+			porcentagem=$(echo $porcentagem | sed 'y/,/./')
+			
+		elif ! zztool testa_numero $porcentagem
+		then
+			echo "O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5."
+			return
+		fi
+	fi
+
 	# Ok. Dados coletados, analisados e formatados. Agora é hora dos cálculos.
 
 	# Mostra tabela
@@ -68,6 +87,6 @@ zzporcento ()
 		printf "%s%%\t%s\n"  $porcentagem $(echo "scale=$escala; $valor*$porcentagem/100" | bc)
 	fi |
 
-	# Restaura o separador original
-	sed "y/./$separador/"
+	# Assegura 0.123 (em vez de .123) e restaura o separador original
+	sed "s/\([^0-9]\)\./\10./ ; y/./$separador/"
 }
