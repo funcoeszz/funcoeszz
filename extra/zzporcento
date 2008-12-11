@@ -1,0 +1,73 @@
+# ----------------------------------------------------------------------------
+# Calcula porcentagens.
+# Autor: Aurélio Jargas <verde (a) aurelio net>
+# Versão: 1
+# Uso: zzporcento valor [porcentagem%]
+# Ex.: zzporcento 500                  # Tabela de porcentagens
+#      zzporcento 500.000              # Tabela para número fracionário (.)
+#      zzporcento 500,000              # Tabela para número fracionário (,)
+#      zzporcento 5.000,00             # Tabela para valor monetário
+#      zzporcento 500,00 25%           # Mostra quanto é 25% de 500,00
+#      zzporcento 500,00 200%          # Mostra quanto é 200% de 500,00
+# ----------------------------------------------------------------------------
+zzporcento ()
+{
+	zzzz -h porcento $1 && return
+
+	local i
+
+	local valor=$1
+	local porcentagem=${2%%%} # retira o caractere %
+	local separador=','
+	local escala=0
+	local tabela='200 150 125 100 90 80 75 70 60 50 40 30 25 20 15 10 9 8 7 6 5 4 3 2 1'
+
+	# Número fracionário (1.2345 ou 1,2345)
+	if zztool testa_numero_fracionario $valor
+	then
+		separador=$(echo $valor | tr -d 0-9)
+		escala=$(echo $valor | sed 's/.*[.,]//')
+		escala=${#escala}
+
+		# Sempre usar o ponto como separador interno (para os cálculos)
+		valor=$(echo $valor | sed 'y/,/./')
+
+	# Dinheiro
+	elif zztool testa_dinheiro $valor
+	then
+		escala=2
+		separador=','
+
+		# Sempre usar o ponto como separador interno (para os cálculos)
+		valor=$(echo $valor | sed 's/\.//g ; s/,/./')
+
+	# Número normal ou erro
+	elif ! zztool testa_numero $valor
+	then
+		zztool uso porcento
+		return
+	fi
+
+	# Ok. Dados coletados, analisados e formatados. Agora é hora dos cálculos.
+
+	# Mostra tabela
+	if test $# -eq 1
+	then
+		for i in $tabela
+		do
+			printf "%s%%\t%s\n" $i $(echo "scale=$escala; $valor*$i/100" | bc)
+		done
+
+	# Mostra porcentagem
+	elif test $# -eq 2
+	then
+		printf "%s%%\t%s\n" +$porcentagem $(echo "scale=$escala; $valor+$valor*$porcentagem/100" | bc)
+		printf "%s%%\t%s\n"  100          $valor
+		printf "%s%%\t%s\n" -$porcentagem $(echo "scale=$escala; $valor-$valor*$porcentagem/100" | bc)
+		echo
+		printf "%s%%\t%s\n"  $porcentagem $(echo "scale=$escala; $valor*$porcentagem/100" | bc)
+	fi |
+
+	# Restaura o separador original
+	sed "y/./$separador/"
+}
