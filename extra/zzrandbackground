@@ -67,7 +67,7 @@ zzrandbackground () {
 	# Ok parametros tratados, vamos pegar
 	# as imagens dentro do "$caminho"
 	papeisdeparede=$(
-				find $caminho -type f -exec file {} \; | 
+				find -L $caminho -type f -exec file {} \; | 
 				grep -i image | 
 				cut -d: -f1
 			)
