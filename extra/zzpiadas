@@ -1,0 +1,12 @@
+# ----------------------------------------------------------------------------
+# http://www.xalexandre.com.br/ 
+# Mostra uma piada aleiatoriamente.
+# Autor: Alexandre Brodt Fernandes - http://www.xalexandre.com.br
+# Versão: 1
+# Uso: zzpiada
+# ----------------------------------------------------------------------------
+zzpiada ()
+{
+    zzzz -h piada $1 && return
+        $ZZWWWDUMP 'http://www.xalexandre.com.br/piadasAleiatorias/'
+}
