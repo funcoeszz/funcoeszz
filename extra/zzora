@@ -2,28 +2,31 @@
 # http://ora-code.com
 # Retorna a descrição do erro Oracle (ORA-NNNNN).
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
-# Versão: 1
-# Uso: zzora num_erro_oracle
+# Versão: 2
+# Uso: zzora numero_erro
 # Ex.: zzora 1234
 # ----------------------------------------------------------------------------
+
 zzora ()
 { 
 	zzzz -h ora $1 && return
 
-	local txt 
+	[ $# != 1 ] && zztool uso ora && return 1 # deve receber apenas um argumento
+	! zztool testa_numero "$1" && zztool uso ora && return 1 # e este argumento deve ser numérico
+
 	local url="http://ora-$1.ora-code.com"
 
-	[ "$1" ] || { echo "uso: zzora num_erro_oracle"; return;}
-
-	txt=`echo "$*"| sed "$ZZSEDURL"`
-	[ "$txt" ] || return 0
+	$ZZWWWDUMP "$url" | sed '
+		s/  //g
+		s/^ //g
+		/Subject Replies/,$d
+		1,5d
+		s/^Cause:/\nCause:/g
+		s/^Action:/\nAction:/g
+		/Google Search/,$d
+		/^o /d
+		/\[1.gif\]/,$d
+		s/^$*//'
 	
-	$ZZWWWHTML "$url" | sed '
-		/<b>Cause:<\/b>/!d
-		s|.*<table border=0><tr><td valign=top nowrap><b>||
-		s|<\/table>.*||
-		s|<[/]\?br>||g
-		s|<[/]\?.>||g
-		s|<[/]\?..>| |g
-		s|<td valign=top>|\n\n|g'
+	return 0
 }
