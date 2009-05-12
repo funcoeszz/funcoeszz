@@ -1,46 +1,61 @@
 # ----------------------------------------------------------------------------
 # http://www.ucicinemas.com.br
 # Exibe a programação dos cinemas UCI de sua cidade
-# As cidades disponíveis atualmente são: Curitiba, Fortaleza, Juiz de Fora, 
-#      Recife, Ribeirão Preto, Rio de Janeiro,  Rio de Janeiro, Santana,
-#      São Paulo, Salvador
-# Obs.: não use acentos: digite "Sao Paulo" ao invés de "São Paulo"
-#
+# Se não for passado nenhum parâmetro, são listadas as cidades e cinemas.
+# Obs.: não utilize acentos: digite "Sao Paulo", e não "São Paulo"
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
-# Versão: 1
-# Uso: zzcineuci cidade
+# Versão: 2
+# Uso: zzcineuci [cidade | codigo_cinema]
 # Ex.: zzcineuci recife
+#      zzcineuci 14
 # ----------------------------------------------------------------------------
 
 zzcineuci ()
 {
 	zzzz -h cineuci $1 && return
 	
-	[ $# = 0 ] && zztool uso cineuci && return
+	[ $# -gt 1 ] && zztool uso cineuci && return
+	
+	if [ $# = 0 ]; then # mostra opções
+		printf "Cidades e cinemas disponíveis\n=============================\n"
+		printf "Curitiba:\n\t01) UCI Estação\n\t15) UCI Palladium\n"
+		printf "Fortaleza:\n\t10) Multiplex UCI Ribeiro Iguatemi Fortaleza\n"
+		printf "Juiz de Fora:\n\t12) UCI Kinoplex Independência\n"
+		printf "Recife:\n\t04) Multiplex UCI Ribeiro Recife\n\t05) Multiplex UCI Ribeiro Tacaruna\n\t14) UCI Kinoplex Shop Plaza Casa Forte Recife\n"
+		printf "Santana:\n\t13) UCI Santana Parque Shopping\n"
+		printf "São Paulo:\n\t08) UCI Jardim Sul\n\t09) UCI Anália Franco\n"
+		printf "Ribeirão Preto:\n\t02) UCI Ribeirão\n"
+		printf "Rio de Janeiro:\n\t07) UCI New York City Center\n\t11) UCI Kinoplex NorteShopping\n"
+		printf "Salvador:\n\t03) Multiplex Iguatemi Salvador\n\t06) UCI Aeroclube\n"
+		return 0
+	fi
 
-	local url="http://www.ucicinemas.com.br/programacao/programacao_interna.asp?cinema="
+	local url="http://www.ucicinemas.com.br/programacao/programacao_interna.asp?cinema="	
 	local cidade=`echo $* | sed 's/ /_/g' | tr [:upper:] [:lower:]` #converte nome da cidade para minúscula e retira espaços
 	local codigo codigos
 	
-	case $cidade in
-		curitiba) codigos="1 15" ;;
-		fortaleza) codigos="10" ;;
-		juiz_de_fora) codigos="12" ;;
-		recife) codigos="4 5 14" ;;
-		ribeirao_preto) codigos="2" ;;
-		rio_de_janeiro)	codigos="7 11" ;;
-		santana) codigos="13" ;;
-		sao_paulo) codigos="8 9";;
-		salvador) codigos="3 6";;
-	esac
+	if zztool testa_numero ${cidade}; then # passou código
+		[ "$cidade" -ge 1 -a "$cidade" -le 15 ] && codigos="$cidade" # testa se código é válido
+	else # passou nome da cidade
+		case $cidade in
+			curitiba) codigos="1 15" ;;
+			fortaleza) codigos="10" ;;
+			juiz_de_fora) codigos="12" ;;
+			recife) codigos="4 5 14" ;;
+			ribeirao_preto) codigos="2" ;;
+			rio_de_janeiro)	codigos="7 11" ;;
+			santana) codigos="13" ;;
+			sao_paulo) codigos="8 9";;
+			salvador) codigos="3 6";;
+		esac
+	fi
 	
-	[ -z "$codigos" ] && return 1 # se não recebeu cidade válida, sai
+	[ -z "$codigos" ] && return 1 # se não recebeu cidade ou código válido, sai
 	
 	for codigo in $codigos
 	do
 		$ZZWWWDUMP "$url$codigo" | sed '
-			1,29d
-			30s/$/\n=========================================\n/
+			1,/\[bt_programacao_bolso\.gif\]/d
 			/(.*)/d
 			/Hor.*:/d
 			/CONTATO/d
@@ -48,7 +63,10 @@ zzcineuci ()
 			s/\[setinha\.png\] Tudo sobre.*$//g
 			/\[/d
 			s/^   //g
-			s/ Sala /\nSala /g'
+			s/ Sala /\nSala /g
+			/^Multiplex .*/s/$/\n=========================================\n/g
+			/^UCI .*/s/$/\n=========================================\n/g' | tac | sed '1,3d' | tac
+		echo 
 	done
 	return 0
 }
