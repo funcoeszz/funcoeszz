@@ -36,7 +36,10 @@ Renato_Machado;renatomachado;rmachado
 Sérgio_Abranches;sergioabranches;ecopolitica"
 
 RSS="http://imagens.globoradio.globo.com/cbn/rss/comentaristas/"
-MP3="http://download3.globo.com/sgr-mp3/cbn/"
+#MP3="http://download3.globo.com/sgr-$EXT/cbn/"
+#EXT="mp3"
+MP3="mms://wm-sgr-ondemand.globo.com/_aberto/sgr/1/cbn/"
+EXT="wma"
 
 #Verificacao dos parâmetros
 [ "$1" ] || { zztool uso cbn; return; }
@@ -126,9 +129,9 @@ fi
 			esac
 		fi
 		zzecho -l verde "(q) para próximo; CTRL+C para sair"
-	#	echo $MP3`date +%Y`/colunas/$autor$dois$datafile.mp3
+		#echo $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT
    		echo $titulo - $data 
-		mplayer $MP3`date +%Y`/colunas/$autor$dois$datafile.mp3 1>/dev/null 2>/dev/null || return
+		mplayer $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT 1>/dev/null 2>/dev/null || return
 	done
 	if [ "$Tlinhas" == "0" ]
 	then
