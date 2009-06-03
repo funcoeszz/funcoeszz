@@ -4,11 +4,13 @@
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Versão: 1
 # Desde: 16 de Abril de 2009
-# Uso: zzcbn [-c COMENTARISTA] [-d data]
+# Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]
 # Uso: zzcbn -lista
 # Ex.: zzcbn -c max -d ontem
 #      zzcbn -c mauro -d tudo 
-#      zzcbn -c juca -d 13/05/09  
+#      zzcbn -c juca -d 13/05/09
+#      zzcbn -c miriam
+#      zzcbm -mp3 -c max  
 # ----------------------------------------------------------------------------
 zzcbn ()
 {
@@ -56,7 +58,6 @@ fi
 # Opções de linha de comando
         while [ "${1#-}" != "$1" ]
 	do
-	
 		case "$1" in
 			-c)
 				shift
@@ -65,6 +66,10 @@ fi
 			-d)
 				shift
 				data="$1"
+				;;
+			-mp3)
+				EXT="mp3"
+				MP3="http://download3.globo.com/sgr-$EXT/cbn/"
 				;;
 			*) 
 				zzecho -l vermelha "Opção inválida!!"
