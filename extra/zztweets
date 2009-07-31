@@ -1,0 +1,32 @@
+#!/bin/bash
+# ----------------------------------------------------------------------------
+# Busca os últimos 5 tweets de um usuário
+# Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
+# Versão: 1
+# Uso: zztweets @username
+# Ex.: zztweets @oreio
+# ----------------------------------------------------------------------------
+function zztweets ()
+{
+	zzzz -h zztweets $1 && return
+
+	[ "$1" ] || { echo -e "Uso: zztweets @username" && return; }
+
+	local twitter_url="http://twitter.com"
+	local twitter_name=$(echo $1|tr -d "@")
+	local twitter_result_raw twitter_result_show 
+
+	twitter_result_raw=$($ZZWWWDUMP $twitter_url/$twitter_name) 
+
+	twitter_result_show=$(echo "$twitter_result_raw"| grep "^ *[1-5]\. ")
+	[ ! -z "$twitter_result_show" ] && echo "$twitter_result_show" && return
+
+	twitter_result_show=$(echo "$twitter_result_raw"| grep "That page doesn't exist!")
+	[ ! -z "$twitter_result_show" ] && echo "Usuário @$twitter_name não encontrado!" && return
+
+	echo "O Twitter não pôde responder essa requisição"
+	return
+
+
+}    # ----------  end of function zztweets  ----------
+
