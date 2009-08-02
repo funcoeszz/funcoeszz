@@ -2,7 +2,7 @@
 # http://globoesporte.globo.com
 # Mostra a tabela atualizada do Campeonato Brasileiro - Série A.
 # Autor: Alexandre Brodt Fernandes - http://www.xalexandre.com.br
-# Versão: 1
+# Versão: 1.1
 # Uso: zzbrasileirao
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
@@ -12,5 +12,5 @@ zzbrasileirao ()
 	echo -e '\033[32m                            P  J       V       E       D       GP      GC      SG      % \033[m'
 	$ZZWWWDUMP 'http://globoesporte.globo.com/Esportes/Futebol/Classificacao/0,,ESP0-9827,00.html' |
 	 	sed -n '55,74p'
-	echo -e '\n   \033[32mP\033[montos \033[31m-\033[m \033[32mJ\033[mogos \033[31m-\033[m \033[32mV\033[mitórias \033[31m-\033[m \033[32mE\033[mmpates \033[31m-\033[m \033[32mD\033[merrotas \033[31m-\033[m \033[32mG\033[mols \033[32mP\033[mr&oatilde; \033[31m-\033[m \033[32mG\033[mols \033[32mC\033[montra \033[31m-\033[m \033[32mS\033[maldo de \033[32mG\033[mols \033[31m-\033[m \033[32m%\033[mAproveitamento'
+	echo -e '\n   \033[32mP\033[montos \033[31m-\033[m \033[32mJ\033[mogos \033[31m-\033[m \033[32mV\033[mitórias \033[31m-\033[m \033[32mE\033[mmpates \033[31m-\033[m \033[32mD\033[merrotas \033[31m-\033[m \033[32mG\033[mols \033[32mP\033[mró \033[31m-\033[m \033[32mG\033[mols \033[32mC\033[montra \033[31m-\033[m \033[32mS\033[maldo de \033[32mG\033[mols \033[31m-\033[m \033[32m%\033[mAproveitamento'
 }
