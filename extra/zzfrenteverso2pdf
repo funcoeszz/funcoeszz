@@ -1,0 +1,80 @@
+# ----------------------------------------------------------------------------
+# Combina 2 arquivos, frentes.pdf e versos.pdf, em um unico frenteverso.pdf.
+# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
+# Desde: 17 de Setembro de 2009
+# Versão: 1
+# Requer: pdftk
+# Uso: zzfrenteverso2pdf [-r] [-d diretorio]
+# Opções:
+#         -r, --reverso   informa ordem reversa no arquivo versos.pdf.
+#         -d, --diretorio informa o diretorio de entrada/saida. Padrao = ".".
+# Ex.: zzfrenteverso2pdf
+#      zzfrenteverso2pdf -r
+#      zzfrenteverso2pdf -r -d "/tmp/dir_teste"
+# ----------------------------------------------------------------------------
+zzfrenteverso2pdf ()
+{
+	#set -x
+	
+	zzzz -h zzfrenteverso2pdf $1 && return
+	
+	# Declara variaveis.
+	local n_frentes n_versos dif n_pag numberlist ini_verso n_pag_verso
+	local sinal="+"
+	local dir="."
+	local arq_frentes="frentes.pdf"
+	local arq_versos="versos.pdf"
+	
+	# Determina o diretorio que estao os arquivos a serem mesclados.
+	# Opcoes de linha de comando
+	while [ $# -ge 1 ]
+	do
+		case "$1" in
+			-r | --reverso) sinal="-" ;;
+			-d | --diretorio)
+				[ "$2" ] || { zztool uso zzfrenteverso2pdf; return; }
+				dir=$2
+				shift
+				;;
+			*) { zztool uso zzfrenteverso2pdf; return; } ;;
+		esac
+		shift
+	done
+	
+	# Verifica se os arquivos existem.
+	if [ ! -s "$dir/$arq_frentes" -o ! -s "$dir/$arq_versos" ] ; then
+		echo "ERRO: Um dos arquivos $dir/$arq_frentes ou $dir/$arq_versos nao existe!"
+		return 1
+	fi
+	
+	# Determina o numero de paginas de cada arquivo.
+	n_frentes=`pdftk "$dir/$arq_frentes" dump_data | grep "NumberOfPages" | cut -d" " -f2`
+	n_versos=`pdftk "$dir/$arq_versos" dump_data | grep "NumberOfPages" | cut -d" " -f2`
+	
+	# Verifica a compatibilidade do numero de paginas entre os dois arquivos.
+	dif=`expr $n_frentes - $n_versos`
+	if [ $dif -lt 0 -o $dif -gt 1 ] ; then
+		echo "CUIDADO: O numero de paginas dos arquivos nao parecem compativeis!"
+	fi
+	
+	# Cria ordenacao das paginas.
+	n_pag=1
+	numberlist=""
+	if [ "$sinal" = "-" ] ; then
+		ini_verso=`expr $n_versos + 1`
+	else
+		ini_verso=0
+	fi
+	while [ $n_pag -le $n_frentes ] ; do
+		numberlist="$numberlist A$n_pag"
+		n_pag_verso=`expr $ini_verso $sinal $n_pag`
+		if [ $n_pag -le $n_versos ]; then
+			numberlist="$numberlist B$n_pag_verso"
+		fi 
+		n_pag=$(($n_pag + 1))
+	done 
+	
+	# Cria arquivo mesclado.
+	pdftk A="$dir/$arq_frentes" B="$dir/$arq_versos" cat $numberlist output "$dir/frenteverso.pdf" dont_ask
+	
+}

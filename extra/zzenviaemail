@@ -1,0 +1,92 @@
+﻿# ----------------------------------------------------------------------------
+# Envia email via ssmtp.
+# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
+# Desde: 17 de Setembro de 2009
+# Versão: 1
+# Requer: ssmtp
+# Uso: zzenviaemail -f email -t emails [-c emails] [-b emails] -s subject -m mensagem
+# Opções:
+#         -f, --from     informa email do remetente.
+#         -t, --to       informa email dos destinatarios diretos separados por virgula SOMENTE (sem espaco).
+#         -c, --cc       informa email dos destinatarios em copia separados por virgula SOMENTE (sem espaco).
+#         -b, --bcc      informa email dos destinatarios em copia oculta separados por virgula SOMENTE (sem espaco).
+#         -s, --subject  informa o assunto do email.
+#         -e, --mensagem informa o caminho do arquivo que contem a mensagem/corpo do email.
+# Ex.: zzenviaemail -f quem_envia@dominio.com -t quem_recebe@dominio.com -s "Teste de e-mail" -m "./arq_msg.eml"
+# ----------------------------------------------------------------------------
+zzenviaemail ()
+{
+	#set -x
+	
+	zzzz -h zzenviaemail $1 && return
+	
+	# Verifica numero minimo de parametros.
+	if [ $# -lt 8 ] ; then
+		{ zztool uso zzenviaemail; return; }
+	fi
+	
+	# Declara variaveis.
+	local fromail tomail ccmail bccmail subject msgbody
+	local envia_data=`date +"%Y%m%d_%H%M%S_%N"`
+	local script_eml="~/.zzenviaemail_$envia_data.eml"
+	
+	# Opcoes de linha de comando
+	while [ $# -ge 1 ]
+	do
+		case "$1" in
+			-f | --from)
+				[ "$2" ] || { zztool uso zzenviaemail; return; }
+				fromail=$2
+				shift
+				;;
+			-t | --to)
+				[ "$2" ] || { zztool uso zzenviaemail; return; }
+				tomail=$2
+				shift
+				;;
+			-c | --cc)
+				[ "$2" ] || { zztool uso zzenviaemail; return; }
+				ccmail=$2
+				shift
+				;;
+			-b | --bcc)
+				[ "$2" ] || { zztool uso zzenviaemail; return; }
+				bccmail=$2
+				shift
+				;;
+			-s | --subject)
+				[ "$2" ] || { zztool uso zzenviaemail; return; }
+				subject=$2
+				shift
+				;;
+			-m | --mensagem)
+				[ "$2" ] || { zztool uso zzenviaemail; return; }
+				mensagem=$2
+				shift
+				;;
+			*) { zztool uso zzenviaemail; return; } ;;
+		esac
+		shift
+	done
+	
+	# Verifica se o arquivo existe.
+	if [ ! -s "$mensagem" ] ; then
+		echo "ERRO: Arquivo $mensagem nao existe!"
+		return 1
+	fi
+
+    # Monta e-mail padrao para envio via SMTP.
+	echo "From: ${fromail} <${fromail}>" > ${script_eml}
+    echo "To: ${tomail}" >> ${script_eml}
+    echo "Cc: ${ccmail}" >> ${script_eml}
+    echo "Bcc: ${bccmail}" >> ${script_eml}
+    echo "Subject: ${subject}" >> ${script_eml}
+    cat ${mensagem} >> ${script_eml}
+    for i in ${tomail} ${ccmail} ${bccmail};
+	do
+		ssmtp -F ${1} ${i} < ${script_eml}
+	done
+    if [ -s "${script_eml}" ] ; then
+		rm -f "${script_eml}"
+	fi
+}
