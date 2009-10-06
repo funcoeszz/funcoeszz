@@ -15,7 +15,7 @@
 #      zzbolsas --lista ^BVSP
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
-# Versão: 1
+# Versão: 2
 # TODO: filtrar um texto por todas as ações de todas as bolsas
 # ----------------------------------------------------------------------------
 zzbolsas ()
@@ -129,7 +129,8 @@ zzbolsas ()
 					$ZZWWWDUMP "$url/q?s=$bolsa"|
 					sed -n "/($bolsa)/p;/:$bolsa/p;/^ *$/d;/Última transação:/,/\[Chart\]/p"|
 					sed "/\[Chart\]/d;s/.*(\(.*\):$bolsa.*$/\1/"|
-					sed 's/^ */\t/g;s/\([0-9]\+\),\([0-9]\+\)/\1§\2/g;s/\([0-9]\+\)\.\([0-9]\+\)/\1,\2/g;s/\([0-9]\+\)§\([0-9]\+\)/\1\.\2/g'
+					sed 's/^ */   /g;s/\([0-9]\+\),\([0-9]\+\)/\1§\2/g;s/\([0-9]\+\)\.\([0-9]\+\)/\1,\2/g;s/\([0-9]\+\)§\([0-9]\+\)/\1\.\2/g'|
+					sed '/Variação do dia/,$s/: /:   /g'
 					 #/Dividendos e rendimentos/p"
 				fi
 				;;
@@ -168,15 +169,22 @@ zzbolsas ()
 				yyyy=${2##*/}
 				mm=${2#*/}
 				mm=${mm%/*}
-				mm=$(($mm - 1))
+				#mm=${mm#0}
+				#mm=$(($mm - 1))
+				mm=$(echo "scale=0;${mm}-1"|bc)
 				dd=${2%%/*}
 				yyyy=$(echo "2*10^(3-${#yyyy})"|bc)$yyyy
 				yyyy=${yyyy#0}
-				zztool eco "$dd/$(($mm + 1))/$yyyy"
+				zztool eco "${dd}/$((${mm} + 1))/${yyyy}"
 				bolsa=$(echo "$1"|zzmaiusculas)
-					$ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
+					# Emprestando as variaves pag, pags e pag_atual efeito esético apenas
+					pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
 					sed -n "/($bolsa)/p;/Data Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'| 
-					sed 's/^ */\t/g;s/\([0-9]\+\),\([0-9]\+\)/\1§\2/g;s/\([0-9]\+\)\.\([0-9]\+\)/\1,\2/g;s/\([0-9]\+\)§\([0-9]\+\)/\1\.\2/g'
+					sed 's/^ */ /g;s/\([0-9]\+\),\([0-9]\+\)/\1§\2/g;s/\([0-9]\+\)\.\([0-9]\+\)/\1,\2/g;s/\([0-9]\+\)§\([0-9]\+\)/\1\.\2/g')
+					pags=$(echo "$pag" | sed -n '2p' | sed 's/ [A-Z]/\n\t&/g;s/Fechamento ajustado/Ajustado/'| sed '/^ *$/d' | awk '{printf "  %-12s\n", $1}')
+					pag_atual=$(echo "$pag" | sed -n '3p' | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d')
+					echo "$pag" | sed -n '1p'
+					paste <(echo "$pags") <(echo "$pag_atual")
 			
 			# Pesquisa o texto nas açôes (código e nomes) de todas bolsas
 			#elif ([ "$1" = "-p" ])
