@@ -4,19 +4,18 @@
 # Sem parametros mostra a lista de bolsas disponíveis(códigos)
 # Com o parametro -l apenas mostra as bolsas disponíveis e seus nomes
 # Com o parametro sendo um código de bolsa ou ação mostra sua última
-# cotação. Se for seguido de uma data, pesquisa a cotação deste dia.
+# cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
 # Com o parametro sendo  um código de bolsa seguido de um texto qualquer
 # pesquisa-o no nome ou código das ações disponíves na bolsa citada.
 # Com o parametro -l seguido do código da bolsa, lista as ações(códigos)
 # Com o parametro --lista seguido do código da bolsa, lista 
 # as ações com nome e última cotação
-# Uso: zzbolsas [--l|--lista] [bolsa|ação] [data|pesquisa]
+# Uso: zzbolsas [--l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
 # Ex.: zzbolsas
 #      zzbolsas --lista ^BVSP
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
-# Versão: 2
-# TODO: filtrar um texto por todas as ações de todas as bolsas
+# Versão: 3
 # ----------------------------------------------------------------------------
 zzbolsas ()
 {
@@ -29,7 +28,7 @@ zzbolsas ()
 	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SML'
 	local amex='^XAX ^IIX ^NWX ^XMI'
 	local ind_nac='^IBX50 ^IVBX ^IGCX'
-	local bolsa pag pags pag_atual
+	local bolsa pag pags pag_atual data1 data2 vartemp
 
 	case $# in
 		0)
@@ -123,7 +122,7 @@ zzbolsas ()
 				if ( zztool grep_var "^" "$1" )
 				then
 					$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/p;/Valor do índice:/,/Em 52 semanas:/p"|tr ',.' '.,'
+					sed -n "/($bolsa)/p;/Valor do índice:/,/Em 52 semanas:/p"|tr '.,' ',.'
 				else
 				# Última cotação da ação
 					$ZZWWWDUMP "$url/q?s=$bolsa"|
@@ -136,7 +135,7 @@ zzbolsas ()
 				;;
 			esac
 		;;
-		2)
+		2 | 3)
 			# Lista as ações de uma bolsa especificada
 			if (([ "$1" = "-l" ]||[ "$1" = "--lista" ]) && zztool grep_var "^" "$2" )
 			then
@@ -158,33 +157,57 @@ zzbolsas ()
 						sed -n 's/^ *//g;/Símbolo /,/Primeiro/p'|
 						sed '/Símbolo /d;/Primeiro/d;/^[ ]*$/d'|
 						awk '{printf "%s  ",$1}';echo
-						#awk '{print $1}'|paste - - - - -
-						#awk '{printf "%s  ",$1}';echo
 					fi
 				done
 			
 			# Valores de uma bolsa ou ação em uma data especificada (histórico)
-			elif ( $(zztool testa_data "$2")  && $(zztool grep_var / "$2"))
+			elif ($(zztool testa_data "$2") && $(zztool grep_var / "$2"))
 			then
 				yyyy=${2##*/}
 				mm=${2#*/}
 				mm=${mm%/*}
-				#mm=${mm#0}
-				#mm=$(($mm - 1))
 				mm=$(echo "scale=0;${mm}-1"|bc)
 				dd=${2%%/*}
 				yyyy=$(echo "2*10^(3-${#yyyy})"|bc)$yyyy
 				yyyy=${yyyy#0}
-				zztool eco "${dd}/$((${mm} + 1))/${yyyy}"
+				data1="${dd}/$((${mm} + 1))/${yyyy}"
 				bolsa=$(echo "$1"|zzmaiusculas)
-					# Emprestando as variaves pag, pags e pag_atual efeito esético apenas
+					# Emprestando as variaves pag, pags e pag_atual efeito estéico apenas
 					pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
 					sed -n "/($bolsa)/p;/Data Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'| 
-					sed 's/^ */ /g;s/\([0-9]\+\),\([0-9]\+\)/\1§\2/g;s/\([0-9]\+\)\.\([0-9]\+\)/\1,\2/g;s/\([0-9]\+\)§\([0-9]\+\)/\1\.\2/g')
+					sed 's/^ */ /g')
 					pags=$(echo "$pag" | sed -n '2p' | sed 's/ [A-Z]/\n\t&/g;s/Fechamento ajustado/Ajustado/'| sed '/^ *$/d' | awk '{printf "  %-12s\n", $1}')
-					pag_atual=$(echo "$pag" | sed -n '3p' | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d')
+					pag_atual=$(echo "$pag" | sed -n '3p' | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' | tr '.,' ',.' | awk '{printf " %14s\n", $1}')
 					echo "$pag" | sed -n '1p'
-					paste <(echo "$pags") <(echo "$pag_atual")
+					
+					if ($(zztool grep_var "/" "$3") && $(zztool testa_data "$3") && [ $# -eq 3 ])
+					then
+						yyyy=${3##*/}
+						mm=${3#*/}
+						mm=${mm%/*}
+						mm=$(echo "scale=0;${mm}-1"|bc)
+						dd=${3%%/*}
+						yyyy=$(echo "2*10^(3-${#yyyy})"|bc)$yyyy
+						yyyy=${yyyy#0}
+						data2="${dd}/$((${mm} + 1))/${yyyy}"
+						pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
+						sed -n "/($bolsa)/p;/Data Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'| 
+						sed 's/^ */ /g' | sed -n '3p' | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' |
+						tr '.,' ',.'| awk '{printf " %14s\n", $1}')
+						paste <(printf "  %-12s" "Data") <(echo "      $data1") <(echo "      $data2") <(echo "     Variação") <(echo "Var (%)")
+						
+						vartemp=$(while read data1 data2
+						do
+							echo "$data1 $data2"| 
+							awk '{ printf "%13.2f\t", $2-$1; if ($1 != 0) {printf "%5.2f%", (($2-$1)/$1)*100}; print ""}' 2>/dev/null|
+							tr '.' ','
+						done < <(paste <(echo "$pag_atual"|tr -d '.'|tr ',' '.') <(echo "$pag"|tr -d '.'|tr ',' '.')))
+						
+						paste <(echo "$pags") <(echo "$pag_atual") <(echo "$pag") <(echo "$vartemp")
+					else
+						paste <(printf "  %-12s" "Data") <(echo "      $data1")
+						paste <(echo "$pags") <(echo "$pag_atual")
+					fi
 			
 			# Pesquisa o texto nas açôes (código e nomes) de todas bolsas
 			#elif ([ "$1" = "-p" ])
