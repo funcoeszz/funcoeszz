@@ -1,0 +1,22 @@
+#!/bin/bash
+source /usr/bin/funcoeszz
+ZZPATH=$PWD/zzminiurl
+
+# ----------------------------------------------------------------------------
+# Encurta URL
+# Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
+# Versão: 1.2
+# Uso: zzminiurl www.siteparaencurtar.com.br
+# Ex.: zzminiurl www.funcoeszz.net
+# ----------------------------------------------------------------------------
+zzminiurl()
+{
+	if [ ! $1 ]; then
+		zzzz -h zzminiurl -h | grep Uso
+	elif [ $1 == '-h' -o $1 == '--help' ]; then
+		zzzz -h zzminiurl -h | grep Uso
+	else
+     	local URL=$1
+       	curl http://bit.ly/?s=\&keyword=\&url=$URL 2> /dev/null | sed '/shortened-url/!d;s/.*".*".*"\(.*\)".*/\1/'
+fi
+}
