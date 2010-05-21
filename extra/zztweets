@@ -1,4 +1,3 @@
-#!/bin/bash
 # ----------------------------------------------------------------------------
 # Busca os últimos 5 tweets de um usuário
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
@@ -6,7 +5,7 @@
 # Uso: zztweets @username
 # Ex.: zztweets @oreio
 # ----------------------------------------------------------------------------
-function zztweets ()
+zztweets ()
 {
 	zzzz -h zztweets $1 && return
 
@@ -26,7 +25,5 @@ function zztweets ()
 
 	echo "O Twitter não pôde responder essa requisição"
 	return
-
-
-}    # ----------  end of function zztweets  ----------
+}
 
