@@ -1,7 +1,3 @@
-#!/bin/bash
-source /usr/bin/funcoeszz
-ZZPATH=$PWD/zzminiurl
-
 # ----------------------------------------------------------------------------
 # Encurta URL
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
