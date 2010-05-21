@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
-# Coloca um relÛgio digital (hh:mm:ss) no canto superior direito do terminal
+# Coloca um rel√≥gio digital (hh:mm:ss) no canto superior direito do terminal
 # Autor: Arkanon <arkanon (a) lsd org br>
-# Vers„o: 1
+# Vers√£o: 1
 # Uso: zzrelansi [-s|--stop]
 # Ex.: zzrelansi
 # ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@ zzrelansi()
   case $1 in
   -s|--stop)
     shopt -q
-    # TODO: 'zzrelansi -s' apresenta na tela o cÛdigo do loop em bg
+    # TODO: 'zzrelansi -s' apresenta na tela o c√≥digo do loop em bg
     rm -f $lock
     sleep 1
     tput sc
@@ -24,7 +24,7 @@ zzrelansi()
   *)
     if [ -e $lock ]
     then
-      echo "RelANSI j· foi executado pelo processo $$"
+      echo "RelANSI j√° foi executado pelo processo $$"
     else
       touch $lock
       while [ -e $lock ]
