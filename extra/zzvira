@@ -1,0 +1,39 @@
+# ----------------------------------------------------------------------------
+# Vira um texto, de trás pra frente (rev) ou de ponta-cabeça.
+# Ideia original de: http://www.revfad.com/flip.html (valeu @andersonrizada)
+# Autor: Aurélio Jargas <verde (a) aurelio net>
+# Versão: 1
+# Uso: zzvira [-X] texto
+# Ex.: zzvira Inverte tudo             # odut etrevnI
+#      zzvira -X De pernas pro ar      # ɹɐ oɹd sɐuɹǝd ǝp
+# ----------------------------------------------------------------------------
+zzvira ()
+{
+	zzzz -h vira $1 && return
+
+	local rasteira
+	
+	if test "$1" = '-X'
+	then
+		rasteira=1
+		shift
+	fi
+
+	# Lê texto do usuário
+	zztool multi_stdin "$@" |
+
+	# Vira o texto de trás pra frente (rev)
+	sed '/\n/!G;s/\(.\)\(.*\n\)/&\2\1/;//D;s/.//' |
+	
+	if [ "$rasteira" ]
+	then
+		zzsemacento |
+		zzminusculas |
+			sed 'y@abcdefghijklmnopqrstuvwxyz._!?(){}<>@ɐqɔpǝɟƃɥıɾʞlɯuodbɹsʇnʌʍxʎz˙‾¡¿)(}{><@' |
+			sed "y/'/,/" |
+			sed 's/\[/X/g ; s/]/[/g ; s/X/]/g'
+	else
+		cat -
+	fi
+}
+
