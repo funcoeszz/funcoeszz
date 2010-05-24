@@ -4,8 +4,7 @@
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Versão: 1
 # Desde: 16 de Abril de 2009
-# Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]
-# Uso: zzcbn -lista
+# Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn -lista
 # Ex.: zzcbn -c max -d ontem
 #      zzcbn -c mauro -d tudo 
 #      zzcbn -c juca -d 13/05/09
