@@ -1,4 +1,4 @@
-﻿# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Informa a extensao de um arquivo. Caso nao exista, retorna vazio "".
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 21 de Setembro de 2009
@@ -13,15 +13,6 @@
 #         -f, --file     informa o arquivo para verificar a extensao.
 # Ex.: zzextensao "/tmp/arquivo.txt"       # resulta em "txt"
 # Ex.: zzextensao "/tmp/arquivo"           # resulta em ""
-# ----------------------------------------------------------------------------
-# Versao 20091010:
-#  Troca do versionamento de numeral para tipo data.
-#  Mudanca dos return codes, utilizando 1 para erros de chamada.
-#  Insercao do modo verbose.
-#  Insercao da opcao de help.
-#  Insercao da opcao de versao.
-#  Mudanca da verificacao dos parametros minimos com contagem.
-#  Modificacao onde aparece o nome da funcao por ${FUNCNAME}.
 # ----------------------------------------------------------------------------
 zzextensao ()
 {
