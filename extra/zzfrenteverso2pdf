@@ -1,42 +1,73 @@
-# ----------------------------------------------------------------------------
+﻿# ----------------------------------------------------------------------------
 # Combina 2 arquivos, frentes.pdf e versos.pdf, em um unico frenteverso.pdf.
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 17 de Setembro de 2009
-# Versão: 1
+# Licenca: GPL v2
+# Versao: 20100128
 # Requer: pdftk
-# Uso: zzfrenteverso2pdf [-r] [-d diretorio]
-# Opções:
-#         -r, --reverso   informa ordem reversa no arquivo versos.pdf.
-#         -d, --diretorio informa o diretorio de entrada/saida. Padrao = ".".
+# Uso: zzfrenteverso2pdf [-rf] [-rv] [-d diretorio]
+# Opcoes:
+#         -rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.
+#         -rv, --versosreversos   informa ordem reversa no arquivo versos.pdf.
+#         -d , --diretorio informa o diretorio de entrada/saida. Padrao = ".".
+#         -h, --help     exibe a ajuda.
+#         -v, --verbose  exibe informacoes para debug durante o processamento.
+#         -V, --version  exibe a versao.
 # Ex.: zzfrenteverso2pdf
-#      zzfrenteverso2pdf -r
-#      zzfrenteverso2pdf -r -d "/tmp/dir_teste"
+#      zzfrenteverso2pdf -rf
+#      zzfrenteverso2pdf -rv -d "/tmp/dir_teste"
+# ----------------------------------------------------------------------------
+# Versao 20100128:
+#  Troca do versionamento de numeral para tipo data.
+#  Modificacao onde aparece o nome da funcao por ${FUNCNAME}.
+#  Mudanca dos return codes, utilizando 1 para erros de chamada.
+#  Insercao do modo verbose.
+#  Insercao da opcao de help.
+#  Insercao da opcao de versao.
+# Versao 20091124:
+#  Insercao da opcao de frentes reversas.
+#  Alteracao da opcao de versos reversos.
 # ----------------------------------------------------------------------------
 zzfrenteverso2pdf ()
 {
 	#set -x
 	
-	zzzz -h zzfrenteverso2pdf $1 && return
+	zzzz -h "${FUNCNAME}" $1 && return
 	
 	# Declara variaveis.
-	local n_frentes n_versos dif n_pag numberlist ini_verso n_pag_verso
-	local sinal="+"
+	local n_frentes n_versos dif n_pag_frente n_pag_verso
+	local sinal_frente="+"
+	local sinal_verso="+"
 	local dir="."
 	local arq_frentes="frentes.pdf"
 	local arq_versos="versos.pdf"
+	local ini_frente=0
+	local ini_verso=0
+	local numberlist=""
+	local n_pag=1
 	
 	# Determina o diretorio que estao os arquivos a serem mesclados.
 	# Opcoes de linha de comando
 	while [ $# -ge 1 ]
 	do
 		case "$1" in
-			-r | --reverso) sinal="-" ;;
+			-rf | --frentesreversas) sinal_frente="-" ;;
+			-rv | --versosreversos) sinal_verso="-" ;;
 			-d | --diretorio)
-				[ "$2" ] || { zztool uso zzfrenteverso2pdf; return; }
+				[ "$2" ] || { zztool uso "${FUNCNAME}"; return; }
 				dir=$2
 				shift
 				;;
-			*) { zztool uso zzfrenteverso2pdf; return; } ;;
+			-h | --help)
+				{ zztool uso "${FUNCNAME}"; set +x; return ; }
+				;;
+			-v | --verbose)
+				set -x
+				;;
+			-V | --version)
+				{ cat "${ZZEXTRADIR}/${FUNCNAME}" | cut -c3- | grep "^Versao:" ; set +x; return; }
+				;;
+			*) { zztool uso "${FUNCNAME}"; set +x; return 1; } ;;
 		esac
 		shift
 	done
@@ -58,16 +89,17 @@ zzfrenteverso2pdf ()
 	fi
 	
 	# Cria ordenacao das paginas.
-	n_pag=1
-	numberlist=""
-	if [ "$sinal" = "-" ] ; then
-		ini_verso=`expr $n_versos + 1`
-	else
-		ini_verso=0
+	if [ "$sinal_frente" = "-" ] ; then
+		ini_frente=`expr $n_frentes + 1`
 	fi
+	if [ "$sinal_verso" = "-" ] ; then
+		ini_verso=`expr $n_versos + 1`
+	fi
+
 	while [ $n_pag -le $n_frentes ] ; do
-		numberlist="$numberlist A$n_pag"
-		n_pag_verso=`expr $ini_verso $sinal $n_pag`
+		n_pag_frente=`expr $ini_frente $sinal_frente $n_pag`
+		numberlist="$numberlist A$n_pag_frente"
+		n_pag_verso=`expr $ini_verso $sinal_verso $n_pag`
 		if [ $n_pag -le $n_versos ]; then
 			numberlist="$numberlist B$n_pag_verso"
 		fi 
