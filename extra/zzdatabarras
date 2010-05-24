@@ -1,0 +1,60 @@
+# ----------------------------------------------------------------------------
+# Transforma data do formato DDMMYYYY para DD/MM/YYYY.
+# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
+# Desde: 28 de Janeiro de 2010
+# Licenca: GPL v2
+# Versao: 20100128
+# Requer: 
+# Uso: zzdatabarras -d "data"
+# Opcoes:
+#         -d, --data     data no formato DDMMYYYY.
+#         -h, --help     exibe a ajuda.
+#         -v, --verbose  exibe informacoes para debug durante o processamento.
+#         -V, --version  exibe a versao.
+# Ex.: zzdatabarras -d 28012010               # resposta: "28/01/2010"
+# ----------------------------------------------------------------------------
+# Versao 20100128:
+#  Criacao da funcao.
+# ----------------------------------------------------------------------------
+zzdatabarras ()
+{
+	#set -x
+	
+	zzzz -h "${FUNCNAME}" $1 && return
+	
+	# Declara variaveis.
+	local data_barras_1 data_barras_2 data_barras_3 data_barras_4
+	
+	# Opcoes de linha de comando
+	while [ $# -ge 1 ]
+	do
+		case "$1" in
+			-d | --data)
+				[ "$2" ] || { zztool uso "${FUNCNAME}"; return; }
+				data=$2
+				shift
+				;;
+			-h | --help)
+				{ zztool uso "${FUNCNAME}"; set +x; return ; }
+				;;
+			-v | --verbose)
+				set -x
+				;;
+			-V | --version)
+				{ cat "${ZZEXTRADIR}/${FUNCNAME}" | cut -c3- | grep "^Versao:" ; set +x; return; }
+				;;
+			*) { zztool uso "${FUNCNAME}"; set +x; return 1; } ;;
+		esac
+		shift
+	done
+	
+	if [ ${#data} -ne 8 ]
+		then { zztool uso "${FUNCNAME}"; set +x; return 1; }
+	fi
+	data_barras_1=`echo ${data} | cut -c1-2`
+	data_barras_2=`echo ${data} | cut -c3-4`
+	data_barras_3=`echo ${data} | cut -c5-8`
+	data_barras_4=`echo ${data} | cut -c9-`
+	echo "${data_barras_1}/${data_barras_2}/${data_barras_3}${data_barras_4}"
+
+}
