@@ -1,0 +1,75 @@
+﻿# ----------------------------------------------------------------------------
+# Informa a extensao de um arquivo. Caso nao exista, retorna vazio "".
+# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
+# Desde: 21 de Setembro de 2009
+# Licenca: GPL v2
+# Versao: 20091010
+# Requer: 
+# Uso: zzextensao [-h] [-v] [-V] -f arquivo
+# Opcoes:
+#         -h, --help     exibe a ajuda.
+#         -v, --verbose  exibe informacoes para debug durante o processamento.
+#         -V, --version  exibe a versao.
+#         -f, --file     informa o arquivo para verificar a extensao.
+# Ex.: zzextensao "/tmp/arquivo.txt"       # resulta em "txt"
+# Ex.: zzextensao "/tmp/arquivo"           # resulta em ""
+# ----------------------------------------------------------------------------
+# Versao 20091010:
+#  Troca do versionamento de numeral para tipo data.
+#  Mudanca dos return codes, utilizando 1 para erros de chamada.
+#  Insercao do modo verbose.
+#  Insercao da opcao de help.
+#  Insercao da opcao de versao.
+#  Mudanca da verificacao dos parametros minimos com contagem.
+#  Modificacao onde aparece o nome da funcao por ${FUNCNAME}.
+# ----------------------------------------------------------------------------
+zzextensao ()
+{
+	zzzz -h "${FUNCNAME}" $1 && return
+	
+	# Declara variaveis.
+	local nome_arquivo extensao arquivo
+	local nparam=0
+	
+	# Opcoes de linha de comando
+	while [ $# -ge 1 ]
+	do
+		case "$1" in
+			-f | --file)
+				[ "$2" ] || { zztool uso "${FUNCNAME}"; set +x; return 1; }
+				arquivo=$2
+				nparam=$(($nparam + 1))
+				shift
+				;;
+			-h | --help)
+				{ zztool uso "${FUNCNAME}"; set +x; return ; }
+				;;
+			-v | --verbose)
+				set -x
+				;;
+			-V | --version)
+				{ cat "${ZZEXTRADIR}/${FUNCNAME}" | cut -c3- | grep "^Versao:" ; set +x; return; }
+				;;
+			*) { zztool uso "${FUNCNAME}"; set +x; return 1; } ;;
+		esac
+		shift
+	done
+	
+	# Verifica numero minimo de parametros.
+	if [ "${nparam}" != 1 ] ; then
+		{ zztool uso "${FUNCNAME}"; set +x; return 1; }
+	fi
+	
+	# Verifica se o arquivo existe mesmo.
+	zztool arquivo_existe "$arquivo"
+	
+	# Extrai a extensao.
+	nome_arquivo=`echo "$arquivo" | awk 'BEGIN { FS = "/" } END { print $NF }'`
+	extensao=`echo "$nome_arquivo" | awk 'BEGIN { FS = "." } END { print $NF }'`
+	if [ "$extensao" = "$nome_arquivo" -o ".$extensao" = "$nome_arquivo" ] ; then
+		extensao=""
+	fi
+	echo "$extensao"
+	
+	set +x
+}
