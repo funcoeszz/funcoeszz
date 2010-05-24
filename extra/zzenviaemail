@@ -18,17 +18,6 @@
 #         -e, --mensagem informa o caminho do arquivo que contem a mensagem/corpo do email.
 # Ex.: zzenviaemail -f quem_envia@dominio.com -t quem_recebe@dominio.com -s "Teste de e-mail" -m "./arq_msg.eml"
 # ----------------------------------------------------------------------------
-# Versao 20091010:
-#  Troca do versionamento de numeral para tipo data.
-#  Mudanca dos return codes, utilizando 1 para erros de chamada.
-#  Insercao do modo verbose.
-#  Insercao da opcao de help.
-#  Insercao da opcao de versao.
-#  Mudanca da verificacao dos parametros minimos com contagem.
-#  Modificacao onde aparece o nome da funcao por ${FUNCNAME}.
-#  Verificacao do arquivo de entrada atraves de zztool arquivo_existe.
-#  Mudanca do local de salvamento do arq temporario de /tmp para ZZTMPDIR.
-# ----------------------------------------------------------------------------
 zzenviaemail ()
 {
 	zzzz -h "${FUNCNAME}" $1 && return
