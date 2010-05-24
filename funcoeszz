@@ -5359,7 +5359,7 @@ zznatal ()
 # Diretório com funções
 if test -n "$ZZEXTRADIR" -a -d "$ZZEXTRADIR"
 then
-	for arquivo in "${ZZEXTRADIR%/}"/*
+	for arquivo in "${ZZEXTRADIR%/}"/zz*
 	do
  		test -f "$arquivo" && source "$arquivo"
 	done
