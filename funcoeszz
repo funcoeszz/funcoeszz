@@ -2312,7 +2312,7 @@ zzmaiores ()
 		# Estou escondendo o erro para caso o * ou o .* não expandam
 		# Bash2: nullglob, dotglob
 		resultado=$(
-			du $recursivo $pastas 2>/dev/null |
+			du $recursivo "$@" 2>/dev/null |
 				sort -nr |
 				sed "$limite q"
 		)
