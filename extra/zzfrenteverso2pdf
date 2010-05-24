@@ -1,4 +1,4 @@
-﻿# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Combina 2 arquivos, frentes.pdf e versos.pdf, em um unico frenteverso.pdf.
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 17 de Setembro de 2009
@@ -16,17 +16,6 @@
 # Ex.: zzfrenteverso2pdf
 #      zzfrenteverso2pdf -rf
 #      zzfrenteverso2pdf -rv -d "/tmp/dir_teste"
-# ----------------------------------------------------------------------------
-# Versao 20100128:
-#  Troca do versionamento de numeral para tipo data.
-#  Modificacao onde aparece o nome da funcao por ${FUNCNAME}.
-#  Mudanca dos return codes, utilizando 1 para erros de chamada.
-#  Insercao do modo verbose.
-#  Insercao da opcao de help.
-#  Insercao da opcao de versao.
-# Versao 20091124:
-#  Insercao da opcao de frentes reversas.
-#  Alteracao da opcao de versos reversos.
 # ----------------------------------------------------------------------------
 zzfrenteverso2pdf ()
 {
