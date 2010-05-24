@@ -277,7 +277,7 @@ zzajuda ()
 		echo "# ------------------------------"
 		echo "# #### E X T R A"
 		echo "# ------------------------------"
-		cat "${ZZEXTRA}" "${ZZEXTRADIR:-XXvazioXX}"/zz* 2>/dev/null
+		cat "${ZZEXTRA}" 2>/dev/null
 	) |
 		# Formata o bloco deixando apenas os cabeçalhos das funções
 		sed '
@@ -287,13 +287,15 @@ zzajuda ()
 				p
 			}
 			/^# -----* *$/,/^# -----* *$/ {
-				s/-\{20,\}/-------/
 				s/^# //p
 			}
 			d' |
-		uniq |
+		# As funções extra já estão com a ajuda formatada
+		cat - "$ZZTMP.ajuda-extra" 2>/dev/null |
 		# Padroniza as linhas separadoras com exatamente 77 hífens (7x11)
-		sed 's/^-\{7\}/&&&&&&&&&&&/' > "$tmp"
+		sed 's/^\(-\{7\}\).*/\1\1\1\1\1\1\1\1\1\1\1/' |
+		# Remove linhas separadoras duplicadas
+		uniq > "$tmp"
 		
 	# Já foram coletadas as informações sobre todas as funções, vamos ao processamento
 
@@ -5361,8 +5363,23 @@ if test -n "$ZZEXTRADIR" -a -d "$ZZEXTRADIR"
 then
 	for arquivo in "${ZZEXTRADIR%/}"/zz*
 	do
- 		test -f "$arquivo" && source "$arquivo"
-	done
+ 		if test -f "$arquivo"
+	 	then
+			# Inclui a função
+			source "$arquivo"
+			
+			# Salva o texto de ajuda
+			echo '-------'
+			sed -n '
+				/^[^#]/ q
+				/^$/ q
+				/^# *-----*/ d
+				s/^# \{0,1\}//
+				p
+			' "$arquivo"
+		fi
+	done > "$ZZTMP.ajuda-extra"
+	echo '-------' >> "$ZZTMP.ajuda-extra"
 fi
 
 ##----------------------------------------------------------------------------
