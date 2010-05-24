@@ -1,0 +1,21 @@
+# ----------------------------------------------------------------------------
+# Tira os acentos de todas as letras. Por exemplo áéíóú vira aeiou.
+# Autor: Aurélio Jargas <verde (a) aurelio net>
+# Versão: 1
+# Uso: zzsemacento texto
+# Ex.: zzsemacento AÇÃO maçã 1ª bênção      # ACAO maca 1a bencao
+# ----------------------------------------------------------------------------
+zzsemacento ()
+{
+	zzzz -h semacento $1 && return
+
+	# Lê texto do usuário
+	zztool multi_stdin "$@" |
+
+	# Remove acentos
+	sed '
+		y/àáâãäåèéêëìíîïòóôõöùúûü/aaaaaaeeeeiiiiooooouuuu/
+		y/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜ/AAAAAAEEEEIIIIOOOOOUUUU/
+		y/çÇñÑß¢Ð£Øø§µÝý¥¹²³ªº/cCnNBcDLOoSuYyY123ao/
+	'
+}
