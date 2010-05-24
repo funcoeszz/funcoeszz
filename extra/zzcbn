@@ -9,7 +9,7 @@
 #      zzcbn -c mauro -d tudo 
 #      zzcbn -c juca -d 13/05/09
 #      zzcbn -c miriam
-#      zzcbm -mp3 -c max  
+#      zzcbn -mp3 -c max  
 # ----------------------------------------------------------------------------
 zzcbn ()
 {
