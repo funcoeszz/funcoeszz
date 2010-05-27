@@ -16,6 +16,6 @@ zzsemacento ()
 	sed '
 		y/àáâãäåèéêëìíîïòóôõöùúûü/aaaaaaeeeeiiiiooooouuuu/
 		y/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜ/AAAAAAEEEEIIIIOOOOOUUUU/
-		y/çÇñÑß¢Ð£Øø§µÝý¥¹²³ªº/cCnNBcDLOoSuYyY123ao/
+		y/çÇñÑß¢Ðð£Øø§µÝý¥¹²³ªº/cCnNBcDdLOoSuYyY123ao/
 	'
 }
