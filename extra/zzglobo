@@ -1,17 +1,17 @@
 # ----------------------------------------------------------------------------
 # Mostra a programação Rede Globo do dia.
 # Autor: Vinícius Venâncio Leite  <vv.leite (a) gmail com>
-# Versão: 1
+# Versão: 1.3
 # Uso: zzglobo
 # ----------------------------------------------------------------------------
 zzglobo ()
 {
 	zzzz -h globo $1 && return
 
-	local DATA=`date +%d`
-	local URL="http://exclusivo.terra.com.br/interna/0,,OI275630-EI1491,00.html"
+	local DATA=`date +%d | sed 's/^0//'`
+	local URL="http://diversao.terra.com.br/tv/noticias/0,,OI3512347-EI13439,00-Programacao+da+TV+Globo.html"
 
 	$ZZWWWDUMP "$URL" |
-		sed -n "/ $DATA de /,/0[234].*/p" |
+		sed -n "/[Segunda|Terça|Quarta|Quinta|Sexta|Sábado|Domingo], $DATA de /,/[Segunda|Terça|Quarta|Quinta|Sexta|Sábado|Domingo], .*/p" | sed '$d' |
 		uniq
 }
