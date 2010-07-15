@@ -3792,7 +3792,7 @@ zzdetransp ()
 {
 	zzzz -h detransp $1 && return
 
-	local url='http://www1.ssp.sp.gov.br/multas/detran/resultMultas.asp'
+	local url='http://www.detran.sp.gov.br/multas-site/detran/resultMultas.asp'
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso detransp; return; }
