@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Autor: Marcell S. Martini <marcellmartini (a) gmail.com>
-# Versão: 4
+# Versão: 5
 # Licença: GPLv2
 #
 # http://www.cinemais.com.br
@@ -10,7 +10,7 @@
 #   Cuiaba                 -  10
 #   Guaratingueta          -  21
 #   Milenium               -  29
-#   TVlandia               -  20
+#   Manaus Plaza           -  20
 #   Marilia                -  17
 #   Patos de Minas         -  11
 #   Ribeirao Preto         -  13
@@ -50,7 +50,7 @@ zzcinemais ()
 				codigo=29
 				zztool eco "Milenium-AM:"
 			;;
-			ManausPlaza)
+			Manaus_Plaza)
 				codigo=20
 				zztool eco "Manaus Plaza-AM:"
 			;;
