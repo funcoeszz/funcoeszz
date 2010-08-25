@@ -370,7 +370,8 @@ zzajuda ()
 #         --teste     testa se a codificação e os pré-requisitos estão OK
 #         --bashrc    instala as funções no ~/.bashrc
 #         --tcshrc    instala as funções no ~/.tcshrc
-# Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc]
+#         --zshrc     instala as funções no ~/.zshrc
+# Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc]
 # Ex.: zzzz
 #      zzzz --teste
 # ----------------------------------------------------------------------------
@@ -381,6 +382,7 @@ zzzz ()
 	local arquivo_aliases arquivo_zz extra
 	local bashrc="$HOME/.bashrc"
 	local tcshrc="$HOME/.tcshrc"
+	local zshrc="$HOME/.zshrc"
 	local url_site='http://funcoeszz.net'
 	local url_exe="$url_site/funcoeszz"
 	local instal_msg='Instalacao das Funcoes ZZ (www.funcoeszz.net)'
@@ -603,6 +605,35 @@ zzzz ()
 			for func in $(ZZCOR=0 zzzz | sed '1,/^(( fu/d; /^(/d; s/,//g')
 			do
 				echo "alias zz$func 'funcoeszz zz$func'" >> "$arquivo_aliases"
+			done
+			echo
+			echo "Aliases atualizados no $arquivo_aliases"
+		;;
+
+		# Cria aliases para as funções no arquivo .zshrc
+		--zshrc)
+			arquivo_aliases="$HOME/.zzzshrc"
+			
+			# Chama o arquivo dos aliases no final do .tcshrc
+			if ! grep "^[^#]*$arquivo_aliases" "$zshrc" >/dev/null 2>&1
+			then
+				(
+					echo
+					echo "# $instal_msg"
+					echo "source $arquivo_aliases"
+					echo "export ZZPATH=$ZZPATH"
+				) >> "$zshrc"
+				echo 'Feito!'
+				echo "As Funções ZZ foram instaladas no $zshrc"
+			else
+				echo "Nada a fazer. As Funções ZZ já estão no $zshrc"
+			fi
+			
+			# Cria o arquivo de aliases
+			echo > $arquivo_aliases
+			for func in $(ZZCOR=0 zzzz | sed '1,/^(( fu/d; /^(/d; s/,//g')
+			do
+				echo "alias zz$func='funcoeszz zz$func'" >> "$arquivo_aliases"
 			done
 			echo
 			echo "Aliases atualizados no $arquivo_aliases"
