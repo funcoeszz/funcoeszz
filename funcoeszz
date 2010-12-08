@@ -5196,11 +5196,16 @@ zzdicbabylon ()
 	
 	$ZZWWWHTML "http://online.babylon.com/cgi-bin/trans.cgi?lang=$idioma&word=$1" |
 		sed "
-			/SEARCH RESULT/,/<\/td>/!d
+			/OT_CopyrightStyle/,$ d
+			/definition/,/<\/div>/!d
+			/GA_google/d
 			s/^[$tab ]*//
 			s/<[^>]*>//g
-			/^$/d" |
-		zztool texto_em_iso
+			/^$/d
+			N;s/\n/ /
+			s/      / /
+			" |
+		zztool texto_em_utf8
 }
 
 
