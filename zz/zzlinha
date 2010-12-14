@@ -1,0 +1,60 @@
+# ----------------------------------------------------------------------------
+# Mostra uma linha de um texto, aleatória ou informada pelo número.
+# Obs.: Se passado um argumento, restringe o sorteio às linhas com o padrão.
+# Uso: zzlinha [número | -t texto] [arquivo(s)]
+# Ex.: zzlinha /etc/passwd           # mostra uma linha qualquer, aleatória
+#      zzlinha 9 /etc/passwd         # mostra a linha 9 do arquivo
+#      zzlinha -2 /etc/passwd        # mostra a penúltima linha do arquivo
+#      zzlinha -t root /etc/passwd   # mostra uma das linhas com "root"
+#      cat /etc/passwd | zzlinha     # o arquivo pode vir da entrada padrão
+# ----------------------------------------------------------------------------
+zzlinha ()
+{
+	zzzz -h linha $1 && return
+
+	local arquivo n padrao resultado num_linhas
+
+	# Opções de linha de comando
+	if [ "$1" = '-t' ]
+	then
+		padrao="$2"
+		shift; shift
+	fi
+	
+	# Talvez o $1 é o número da linha desejada?
+	if zztool testa_numero_sinal "$1"
+	then
+		n=$1
+		shift
+	fi
+
+	if [ "$n" ]
+	then
+		# Se foi informado um número, mostra essa linha.
+		# Nota: Suporte a múltiplos arquivos e entrada padrão (STDIN)
+		for arquivo in "${@:--}"
+		do
+			# O arquivo existe?
+			zztool arquivo_legivel "$arquivo" || continue
+			
+			if [ "$n" -lt 0 ]
+			then
+				tail -n ${n#-} "$arquivo" | sed 1q
+			else
+				sed -n ${n}p "$arquivo"
+			fi
+		done
+	else
+		# TODO: usar zztool multi_stdin e arquivo_legivel
+		
+		# Se foi informado um padrão (ou nenhum argumento),
+		# primeiro grepa as linhas, depois mostra uma linha
+		# aleatória deste resultado.
+		# Nota: Suporte a múltiplos arquivos e entrada padrão (STDIN)
+		resultado=$(grep -h -i -- "${padrao:-.}" "${@:--}")
+		num_linhas=$(echo "$resultado" | sed -n '$=')
+		n=$(( (RANDOM % num_linhas) + 1))
+		[ $n -eq 0 ] && n=1
+		echo "$resultado" | sed -n ${n}p
+	fi
+}

@@ -1,0 +1,25 @@
+# ----------------------------------------------------------------------------
+# http://www.detran.sp.gov.br
+# Consulta débitos do veículo, como licenciamento, IPVA e multas (Detran-SP).
+# Autor: Elton Simões Baptista <elton (a) inso com br>
+# Uso: zzdetransp número-renavam
+# Ex.: zzdetransp 123456789
+# ----------------------------------------------------------------------------
+zzdetransp ()
+{
+	zzzz -h detransp $1 && return
+
+	local url='http://www.detran.sp.gov.br/multas-site/detran/resultMultas.asp'
+
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso detransp; return; }
+	
+	# Faz a consulta e filtra o resultado
+	echo "renavam=$1&submit=Pesquisar" |
+		$ZZWWWPOST "$url" |
+		sed '
+			1d
+			s/^  *//
+			/^\[/d
+			/^Esta pesquisa tem /, $ d'
+}

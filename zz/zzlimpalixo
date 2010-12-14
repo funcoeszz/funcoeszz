@@ -1,0 +1,29 @@
+# ----------------------------------------------------------------------------
+# Retira linhas em branco e comentários.
+# Para ver rapidamente quais opções estão ativas num arquivo de configuração.
+# Além do tradicional #, reconhece comentários de arquivos .vim.
+# Obs.: Aceita dados vindos da entrada padrão (STDIN).
+# Uso: zzlimpalixo [arquivos]
+# Ex.: zzlimpalixo ~/.vimrc
+#      cat /etc/inittab | zzlimpalixo
+# ----------------------------------------------------------------------------
+zzlimpalixo ()
+{
+	zzzz -h limpalixo $1 && return
+
+	local comentario='#'
+
+	# Reconhecimento de comentários do Vim
+	case "$1" in
+		*.vim | *.vimrc*)
+			comentario='"'
+		;;
+	esac
+
+	# Remove comentários e linhas em branco
+	cat "${@:--}" |
+		sed "
+			/^[[:blank:]]*$comentario/ d
+			/^[[:blank:]]*$/ d" |
+		uniq
+}

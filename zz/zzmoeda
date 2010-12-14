@@ -1,0 +1,81 @@
+# ----------------------------------------------------------------------------
+# http://br.invertia.com
+# Busca a cotação de várias moedas (mais de 100!) em relação ao dólar.
+# Com a opção -t, mostra TODAS as moedas, sem ela, apenas as principais.
+# É possível passar várias palavras de pesquisa para filtrar o resultado.
+# Obs.: Hora GMT, Dólares por unidade monetária para o Euro e a Libra.
+# Uso: zzmoeda [-t] [pesquisa]
+# Ex.: zzmoeda
+#      zzmoeda -t
+#      zzmoeda euro libra
+#      zzmoeda -t peso
+# ----------------------------------------------------------------------------
+zzmoeda ()
+{
+	zzzz -h moeda $1 && return
+
+	local extra dados formato linha
+	local url='http://br.invertia.com/mercados/divisas'
+	local padrao='.'
+
+	# Devemos mostrar todas as moedas?
+	if [ "$1" = '-t' ]
+	then
+		extra='divisasregion.aspx?idtel=TODAS'
+		shift
+	fi
+	
+	# Prepara o filtro para pesquisar todas as palavras informadas (OU)
+	[ "$1" ] && padrao=$(echo $* | sed 's/ /\\|/g')
+
+	# Faz a consulta e filtra o resultado
+	dados=$(
+		$ZZWWWDUMP "$url/$extra" |
+		sed '
+			# Limpeza
+			/IFRAME:/d
+			s/\[.*]//
+			s/^  *//
+			/[0-9][0-9]$/!d
+			
+			# Apaga variação (deixa apenas variação-%)
+			s/\(.*\) -\{0,1\}[0-9][0-9]*,[0-9]\{4\}/\1/
+			
+			# Adiciona '-' nas colunas vazias de compra
+			/[0-9][,.][0-9]\{4\}.*[0-9][,.][0-9]\{4\}/!s/[0-9][0-9]*[,.][0-9]\{4\}/-  &/
+
+			# Tira espaço da sigla do Peso Mexicano (MXP 24H)
+			s/ \([24][48]H\) /-\1 /
+
+			# Separa os campos por @, do fim ao início da linha
+			s/  */ /g
+			s/\(.*\) /\1@/
+			s/\(.*\) /\1@/
+			s/\(.*\) /\1@/
+			s/\(.*\) /\1@/
+			s/\(.*\) /\1@/
+			
+			# Manda o nome da moeda lá pro final da linha
+			# No início desalinha, o printf %s conta UTF errado
+			s/\([^@]*\)@\(.*\)/\2@\1/
+			
+			# Espaços viram _ para não atrapalharem
+			y/ /_/' |
+		tr @ \\t |
+		grep -i "$padrao"
+	)
+	
+	# Pescamos algo?
+	[ "$dados" ] || return
+	
+	# Sim! Então formate uma tabela bonitinha com o resultado
+	formato='%-7s %12s %12s %6s %11s  %s'
+
+	printf "$formato\n" Sigla Compra Venda Var.% Hora Moeda
+	
+	echo "$dados" |
+		while read linha
+		do
+			printf "$formato\n" $linha | tr _ ' '
+		done
+}

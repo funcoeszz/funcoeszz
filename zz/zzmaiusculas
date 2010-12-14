@@ -1,0 +1,15 @@
+# ----------------------------------------------------------------------------
+# Conversão de letras entre minúsculas e MAIÚSCULAS, inclusive acentuadas.
+# Uso: zzmaiusculas [arquivo]
+# Uso: zzminusculas [arquivo]
+# Ex.: zzmaiusculas /etc/passwd
+#      echo NÃO ESTOU GRITANDO | zzminusculas
+# ----------------------------------------------------------------------------
+zzmaiusculas ()
+{
+	zzzz -h maiusculas $1 && return
+	
+	sed '
+		y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
+	 	y/àáâãäåèéêëìíîïòóôõöùúûüçñ/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ/' "$@"
+}

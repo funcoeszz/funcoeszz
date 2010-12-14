@@ -1,0 +1,18 @@
+# ----------------------------------------------------------------------------
+# Calculadora.
+# Os operadores principais são + - / * ^ %, veja outros em "man bc".
+# Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
+# Uso: zzcalcula número operação número
+# Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
+#      zzcalcula '2^2*(4-1)'          # 2 ao quadrado vezes 4 menos 1
+#      echo 2 + 2 | zzcalcula         # lendo da entrada padrão (STDIN)
+# ----------------------------------------------------------------------------
+zzcalcula ()
+{
+	zzzz -h calcula $1 && return
+	
+	local parametros=$(zztool multi_stdin "$@")
+
+	# Entrada de números com vírgulas ou pontos, saída sempre com vírgulas
+	echo "scale=2;$parametros" | sed y/,/./ | bc | sed y/./,/
+}

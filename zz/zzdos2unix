@@ -1,0 +1,42 @@
+# ----------------------------------------------------------------------------
+# Converte arquivos texto no formato Windows/DOS (CR+LF) para o Unix (LF).
+# Obs.: Também remove a permissão de execução do arquivo, caso presente.
+# Uso: zzdos2unix arquivo(s)
+# Ex.: zzdos2unix frases.txt
+# ----------------------------------------------------------------------------
+zzdos2unix ()
+{
+	zzzz -h dos2unix $1 && return
+
+	local arquivo
+	local tmp="$ZZTMP.dos2unix.$$"
+
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso dos2unix; return; }
+	
+	for arquivo in "$@"
+	do
+		# O arquivo existe?
+		zztool arquivo_legivel "$arquivo" || continue
+		
+		# Remove o famigerado CR \r ^M
+		cp "$arquivo" "$tmp" &&
+		tr -d '\015' < "$tmp" > "$arquivo"
+		
+		# Segurança
+		if [ $? -ne 0 ]
+		then
+			echo "Ops, algum erro ocorreu em $arquivo"
+			echo "Seu arquivo original está guardado em $tmp"
+			return
+		fi
+		
+		# Remove a permissão de execução, comum em arquivos DOS
+		chmod -x "$arquivo"
+		
+ 		echo "Convertido $arquivo"
+	done
+	
+	# Remove o arquivo temporário
+	rm "$tmp"
+}

@@ -1,0 +1,20 @@
+# ----------------------------------------------------------------------------
+# http://freshmeat.net
+# Procura por programas na base do site Freshmeat.
+# Uso: zzfreshmeat programa
+# Ex.: zzfreshmeat tetris
+# ----------------------------------------------------------------------------
+zzfreshmeat ()
+{
+	zzzz -h freshmeat $1 && return
+	
+	local url='http://freshmeat.net/search/'
+	local padrao=$1
+	
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso freshmeat; return; }
+	
+	# Faz a consulta e filtra o resultado
+	$ZZWWWLIST "$url?q=$padrao" |
+		sed -n 's@.*\(http.*freshmeat.net/projects/.*\)/@\1@p'
+}

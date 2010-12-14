@@ -1,0 +1,48 @@
+# ----------------------------------------------------------------------------
+# http://www.iana.org/cctld/cctld-whois.htm
+# Busca a descrição de um código de país da internet (.br, .ca etc).
+# Uso: zzdominiopais [.]código|texto
+# Ex.: zzdominiopais .br
+#      zzdominiopais br
+#      zzdominiopais republic
+# ----------------------------------------------------------------------------
+zzdominiopais ()
+{
+	zzzz -h dominiopais $1 && return
+
+	local url='http://www.iana.org/root-whois/index.html'
+	local cache="$ZZTMP.dominiopais"
+	local cache_sistema='/usr/share/zoneinfo/iso3166.tab'
+	local padrao=$1
+
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso dominiopais; return; }
+	
+	# Se o padrão inicia com ponto, retira-o e casa somente códigos
+	if [ "${padrao#.}" != "$padrao" ]
+	then
+		padrao="^${padrao#.}"
+	fi
+
+	# Primeiro tenta encontrar no cache do sistema
+	if test -f "$cache_sistema"
+	then
+		# O formato padrão de saída é BR - Brazil
+		grep -i "$padrao" $cache_sistema |
+			tr -s '\t ' ' ' |
+			sed '/^#/d ; / - /!s/ / - /'
+		return
+	fi
+
+	# Ops, não há cache do sistema, então tentamos o cache da Internet
+
+	# Se o cache está vazio, baixa listagem da Internet
+	if ! test -s "$cache"
+	then
+		$ZZWWWDUMP "$url" |
+			sed -n 's/^  *\.// ; s/country-code/-/p' > "$cache"
+	fi
+
+	# Pesquisa no cache
+	grep -i "$padrao" "$cache"
+}

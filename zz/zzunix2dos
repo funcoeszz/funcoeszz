@@ -1,0 +1,39 @@
+# ----------------------------------------------------------------------------
+# Converte arquivos texto no formato Unix (LF) para o Windows/DOS (CR+LF).
+# Uso: zzunix2dos arquivo(s)
+# Ex.: zzunix2dos frases.txt
+# ----------------------------------------------------------------------------
+zzunix2dos ()
+{
+	zzzz -h unix2dos $1 && return
+
+	local arquivo
+	local tmp="$ZZTMP.unix2dos.$$"
+	local control_m=$(printf '\r') # ^M / CR
+
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso unix2dos; return; }
+	
+	for arquivo in "$@"
+	do
+		# O arquivo existe?
+		zztool arquivo_legivel "$arquivo" || continue
+		
+		# Adiciona um único CR no final de cada linha
+		cp "$arquivo" "$tmp" &&
+		sed "s/$control_m*$/$control_m/" "$tmp" > "$arquivo"
+		
+		# Segurança
+		if [ $? -ne 0 ]
+		then
+			echo "Ops, algum erro ocorreu em $arquivo"
+			echo "Seu arquivo original está guardado em $tmp"
+			return
+		fi
+				
+ 		echo "Convertido $arquivo"
+	done
+	
+	# Remove o arquivo temporário
+	rm "$tmp"
+}

@@ -1,0 +1,44 @@
+# ----------------------------------------------------------------------------
+# http://www.ibiblio.org
+# Procura documentos do tipo HOWTO.
+# Uso: zzhowto [--atualiza] palavra
+# Ex.: zzhowto apache
+#      zzhowto --atualiza
+# ----------------------------------------------------------------------------
+zzhowto ()
+{
+	zzzz -h howto $1 && return
+
+	local padrao
+	local cache="$ZZTMP.howto"
+	local url='http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/'
+
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso howto; return; }
+
+	# Força atualização da listagem apagando o cache
+	if [ "$1" = '--atualiza' ]
+	then
+		rm -f "$cache"
+		shift
+	fi
+
+	padrao=$1
+	
+	# Se o cache está vazio, baixa listagem da Internet
+	if ! test -s "$cache"
+	then
+		$ZZWWWHTML "$url" |
+			sed -n '/alt="\[TXT\]"/ {
+				s/^.*href="\([^"]*\).*/\1/
+				p
+			}' > "$cache"
+	fi
+	
+	# Pesquisa o termo (se especificado)
+	if [ "$padrao" ]
+	then
+		zztool eco "$url"
+		grep -i "$padrao" "$cache"
+	fi
+}

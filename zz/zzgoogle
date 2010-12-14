@@ -1,0 +1,59 @@
+# ----------------------------------------------------------------------------
+# http://google.com
+# Pesquisa no Google diretamente pela linha de comando.
+# Uso: zzgoogle [-n <número>] palavra(s)
+# Ex.: zzgoogle receita de bolo de abacaxi
+#      zzgoogle -n 5 ramones papel higiênico cachorro
+# ----------------------------------------------------------------------------
+# FIXME: zzgoogle rato roeu roupa rei roma [PPS], [PDF]
+zzgoogle ()
+{
+	zzzz -h google $1 && return
+
+	local padrao
+	local limite=10
+	local url='http://www.google.com.br/search'
+
+	# Opções de linha de comando
+	if [ "$1" = '-n' ]
+	then
+		limite=$2
+		shift; shift
+	fi
+
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso google; return; }
+
+	# Prepara o texto a ser pesquisado
+	padrao=$(echo "$*" | sed "$ZZSEDURL")
+	[ "$padrao" ] || return 0
+	
+	# Pesquisa, baixa os resultados e filtra
+	#
+	# O Google condensa tudo em um única longa linha, então primeiro é preciso
+	# inserir quebras de linha antes de cada resultado. Identificadas as linhas
+	# corretas, o filtros limpa os lixos e formata o resultado.
+	
+	$ZZWWWHTML "$url?q=$padrao&num=$limite&ie=UTF-8&oe=UTF-8&hl=pt-BR" |
+		sed 's/class=g>/\
+@/g' |
+		sed '
+			/^@<h3 class=r><a href="\([^"]*\)" class=l>/!d
+			s/^@<h3 class=r><a href="//
+			s/" class=l>/ /
+			s/<\/a>.*//
+			
+			# Remove tags HTML
+			s/<[^>]*>//g
+			
+			# Restaura os caracteres especiais
+			s/&gt;/>/g
+			s/&lt;/</g
+			s/&quot;/"/g
+			s/&nbsp;/ /g
+			s/&amp;/\&/g
+			
+			s/\([^ ]*\) \(.*\)/\2\
+  \1\
+/'
+}

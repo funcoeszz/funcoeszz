@@ -1,0 +1,31 @@
+# ----------------------------------------------------------------------------
+# http://www.ibb.org.br/vidanet
+# A mensagem "Feliz Natal" em vários idiomas.
+# Uso: zznatal [palavra]
+# Ex.: zznatal                   # busca um idioma aleatório
+#      zznatal russo             # Feliz Natal em russo
+# ----------------------------------------------------------------------------
+zznatal ()
+{
+	zzzz -h natal $1 && return
+
+	local url='http://www.ibb.org.br/vidanet/outras/msg239.htm'
+	local cache=$ZZTMP.natal
+	local padrao=$1
+
+	# Se o cache está vazio, baixa listagem da Internet
+	if ! test -s "$cache"
+	then
+		$ZZWWWDUMP "$url" | sed '
+			/^      /!d
+			/\[/d
+			s/^  *//
+			/^Outras/d
+			s/^(/Chinês  &/
+			s/  */: /' > "$cache"
+	fi
+
+	# Mostra uma linha qualquer (com o padrão, se informado)
+	echo -n '"Feliz Natal" em '
+	zzlinha -t "${padrao:-.}" "$cache"
+}

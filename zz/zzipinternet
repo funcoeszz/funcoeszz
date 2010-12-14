@@ -1,0 +1,16 @@
+# ----------------------------------------------------------------------------
+# http://www.whatismyip.com
+# Mostra o seu número IP (externo) na Internet.
+# Uso: zzipinternet
+# Ex.: zzipinternet
+# ----------------------------------------------------------------------------
+zzipinternet ()
+{
+	zzzz -h ipinternet $1 && return
+
+	local url='http://whatismyip.com/automation/n09230945.asp'
+
+	# O resultado já vem pronto!
+	$ZZWWWHTML "$url"
+	echo
+}

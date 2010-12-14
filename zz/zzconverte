@@ -1,0 +1,87 @@
+# ----------------------------------------------------------------------------
+# Faz várias conversões como: caracteres, temperatura e distância.
+#          cf = (C)elsius      para (F)ahrenheit
+#          fc = (F)ahrenheit   para (C)elsius
+#          ck = (C)elsius      para (K)elvin
+#          kc = (K)elvin       para (C)elsius
+#          fk = (F)ahrenheit   para (K)elvin
+#          kf = (K)elvin       para (F)ahrenheit
+#          km = (K)Quilômetros para (M)ilhas
+#          mk = (M)ilhas       para (K)Quilômetros
+#          db = (D)ecimal      para (B)inário
+#          bd = (B)inário      para (D)ecimal
+#          cd = (C)aractere    para (D)ecimal
+#          dc = (D)ecimal      para (C)aractere
+#          dh = (D)ecimal      para (H)exadecimal
+#          hd = (H)exadecimal  para (D)ecimal
+# Uso: zzconverte <cf|fc|ck|kc|fk|kf|mk|km|db|bd|cd|dh|hd> número
+# Ex.: zzconverte cf 5
+#      zzconverte dc 65
+#      zzconverte db 32
+# ----------------------------------------------------------------------------
+zzconverte ()
+{
+	zzzz -h converte $1 && return
+
+	local s2='scale=2'
+	local operacao=$1
+	
+	# Verificação dos parâmetros
+	[ "$2" ] || { zztool uso converte; return; }
+	
+	shift
+	while [ "$1" ]
+	do
+		case "$operacao" in
+			cf)
+				echo "$1 C = $(echo "$s2;($1*9/5)+32"     | bc) F"
+			;;
+			fc)
+		 		echo "$1 F = $(echo "$s2;($1-32)*5/9"     | bc) C"
+			;;
+			ck)
+				echo "$1 C = $(echo "$s2;$1+273.15"       | bc) K"
+			;;
+			kc)
+		 		echo "$1 K = $(echo "$s2;$1-273.15"       | bc) C"
+			;;
+			kf)
+			 	echo "$1 K = $(echo "$s2;($1*1.8)-459.67" | bc) F"
+			;;
+			fk)
+				echo "$1 F = $(echo "$s2;($1+459.67)/1.8" | bc) K"
+			;;
+			km)
+			 	echo "$1 km = $(echo "$s2;$1*0.6214"      | bc) milhas"
+			;;
+			mk)
+			 	echo "$1 milhas = $(echo "$s2;$1*1.609"   | bc) km"
+			;;
+			db)
+			 	echo "obase=2;$1" | bc -l
+			;;
+			bd)
+			 	echo "$((2#$1))"
+			;;
+			cd)
+			 	echo -n "$1" |
+			 		od -d |
+			 		tr -s '\t ' ' ' |
+					cut -d' ' -f2- |
+					sed 's/ *$// ; 1q'
+			;;
+			dc)
+			 	awk "BEGIN { printf(\"%c\n\", $1) }"
+			
+				# XXX " TextMate syntax gotcha (não remover)
+			;;
+			dh)
+				printf '%X\n' "$1"
+			;;
+			hd)
+				printf '%d\n' "0x$1"
+			;;
+		esac
+		shift
+	done
+}

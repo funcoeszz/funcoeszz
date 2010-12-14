@@ -1,0 +1,36 @@
+# ----------------------------------------------------------------------------
+# http://funcoeszz.net/locales.txt
+# Busca o código do idioma (locale). Por exemplo, português é pt_BR.
+# Com a opção -c, pesquisa somente nos códigos e não em sua descrição.
+# Uso: zzlocale [-c] código|texto
+# Ex.: zzlocale chinese
+#      zzlocale -c pt
+# ----------------------------------------------------------------------------
+zzlocale ()
+{
+	zzzz -h locale $1 && return
+	
+	local url='http://funcoeszz.net/locales.txt'
+	local cache="$ZZTMP.locale"
+	local padrao="$1"
+
+	# Opções de linha de comando
+	if [ "$1" = '-c' ]
+	then
+		# Padrão de pesquisa válido para última palavra da linha (código)
+		padrao="$2[^ ]*$"
+		shift
+	fi
+
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso locale; return; }
+	
+	# Se o cache está vazio, baixa listagem da Internet
+	if ! test -s "$cache"
+	then
+		$ZZWWWDUMP "$url" > "$cache"
+	fi
+		
+	# Faz a consulta
+	grep -i -- "$padrao" "$cache"
+}

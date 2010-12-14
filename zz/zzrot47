@@ -1,0 +1,16 @@
+# ----------------------------------------------------------------------------
+# Codifica/decodifica um texto utilizando a cifra ROT47
+# Uso: zzrot47 texto
+# Ex.: zzrot47 texto secreto               # Retorna: E6IE@ D64C6E@
+#      zzrot47 E6IE@ D64C6E@               # Retorna: texto secreto
+#      echo texto secreto | zzrot47        # Retorna: E6IE@ D64C6E@
+# ----------------------------------------------------------------------------
+zzrot47 ()
+{
+	zzzz -h rot47 $1 && return
+
+	# Um tr faz tudo, é uma tradução letra a letra
+	# Obs.: Os colchetes são parte da tabela, o tr não funcionará no Solaris
+	zztool multi_stdin "$@" |
+		tr '!-~' 'P-~!-O'
+}
