@@ -164,6 +164,13 @@ zztool ()
 			
 			# TODO Usar em *todas* as funções que lêem arquivos
 		;;
+		num_linhas)
+			# Informa o número de linhas, sem formatação 
+			shift
+			zztool file_stdin "$@" |
+				wc -l |
+				tr -d ' \t'
+		;;
 		testa_numero)
 			# Testa se $2 é um número positivo
 			echo "$2" | grep '^[0-9]\{1,\}$' >/dev/null
@@ -217,6 +224,34 @@ zztool ()
 			else
 					cat -
 			fi
+		;;
+		file_stdin)
+			# Mostra na tela o conteúdo do arquivo *ou* da STDIN, nesta ordem
+			# Útil para funções/comandos aceitarem dados das duas formas:
+			#     cat arquivo | funcao
+			# ou
+			#     funcao arquivo
+			shift
+			if [ "$1" ]
+			then
+				 	cat "$*"
+			else
+					cat -
+			fi
+		;;
+		list2lines)
+			# Limpa lista da STDIN (um,dois,tres) e volta um por linha
+			sed 's/[;,]/ /g' |
+				tr -s '\t ' '  ' |
+				tr ' ' '\n' |
+				grep .
+		;;
+		lines2list)
+			# Recebe linhas em STDIN e volta: linha1 linha2 linha3.
+			# Ignora linhas em branco e remove espaços desnecessários.
+			grep . |
+				tr '\n' ' ' |
+				sed 's/^ // ; s/ $//'
 		;;
 		trim)
 			shift
