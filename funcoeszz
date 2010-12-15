@@ -29,6 +29,7 @@ ZZUTF=1
 #      $ZZPATH     - Caminho completo para o arquivo principal (funcoeszz)
 #      $ZZDIR      - Caminho completo para o diretório com as funções
 #      $ZZTMPDIR   - Diretório para armazenar arquivos temporários
+#      $ZZOFF      - Lista das funções que você não quer carregar
 #
 # Nota: Se você é paranóico com segurança, configure a ZZTMPDIR para
 #       um diretório dentro do seu HOME.
@@ -611,6 +612,18 @@ zzzz ()
 			 	sed -n 's/^zz\([^ ]*\) *().*/\1/p' |
 				sort |
 				sed -e ':a' -e '$b' -e 'N; s/\n/, /; /.\{60\}/{s/$/,/p;d;};ba'
+			
+			if test -n "$ZZOFF"
+			then
+				echo
+				zztool eco "(( funções desativadas ))"
+				echo $ZZOFF |
+					tr ',' ' ' |
+					tr -s ' ' '\n' |
+					sed 's/^zz//' |
+					sort |
+					sed -e ':a' -e '$b' -e 'N; s/\n/, /; /.\{60\}/{s/$/,/p;d;};ba'
+			fi
 		;;
 	esac
 }
@@ -627,7 +640,7 @@ zzzz ()
 > "$ZZAJUDA"
 
 # Padroniza as linhas separadoras com exatamente 77 hífens (7x11)
-separadorzz=$(echo '-------' | sed 's/.*/&&&&&&&&&&&/')
+zz_separador=$(echo '-------' | sed 's/.*/&&&&&&&&&&&/')
 
 # Salva o texto de ajuda das funções deste arquivo
 if test -r "$ZZPATH"
@@ -635,7 +648,7 @@ then
 	cat "$ZZPATH" |
 		sed -n '
 			/^# -----* *$/,/^# -----* *$/ {
-				s/^# -----* *$/'$separadorzz'/p
+				s/^# -----* *$/'$zz_separador'/p
 				s/^# \{0,1\}//
 				p
 			}' |
@@ -668,20 +681,26 @@ fi
 # Diretório com as funções
 if test -n "$ZZDIR" -a -d "$ZZDIR"
 then
+
+	# Massageia a lista: espaços ao redor, sem prefixo zz, sem vírgulas
+	zz_off=$(echo " $ZZOFF " | sed 's/,/ /g ; s/ zz/ /g')
+
 	for arquivo in "${ZZDIR%/}"/zz*
 	do
  		if test -f "$arquivo"
 	 	then
+			# Nome da função (remove path)
+			zz_nome="${arquivo##*/}"
 
-			# Ignora funções desativadas
-			grep -q 'DESATIVADA:' "$arquivo" && continue
-				
+			# Ignora algumas funções
+			zztool grep_var " ${zz_nome#zz} " " $zz_off " && continue
+
 			# Inclui a função
 			source "$arquivo"
 			
 			# Salva o seu texto de ajuda
-			echo "$separadorzz"
-			echo "${arquivo##*/}"
+			echo "$zz_separador"
+			echo "$zz_nome"
 			sed -n '
 				/^[^#]/ q
 				/^# *-----*/ d
@@ -690,9 +709,11 @@ then
 			' "$arquivo"
 		fi
 	done >> "$ZZAJUDA"
-	echo "$separadorzz" >> "$ZZAJUDA"
+	echo "$zz_separador" >> "$ZZAJUDA"
 fi
-unset separadorzz
+unset zz_nome
+unset zz_off
+unset zz_separador
 
 ##----------------------------------------------------------------------------
 ## Lidando com a chamada pelo executável
