@@ -665,10 +665,10 @@ zzzz ()
 			zztool eco "(( funções disponíveis ))" # Nota: zzzz --tcshrc procura por " fu"
 			set |
 				# Seds mágicos para extrair e formatar os nomes de funções,
-				# limitando as linhas em 60 colunas
+				# limitando as linhas em cerca de 60 colunas
 			 	sed -n 's/^zz\([^ ]*\) *().*/\1/p' |
 				sort |
-				sed -e ':a' -e '$b' -e 'N; s/\n/, /; /.\{60\}/{p;d;};ba'
+				sed -e ':a' -e '$b' -e 'N; s/\n/, /; /.\{60\}/{s/$/,/p;d;};ba'
 		;;
 	esac
 }
