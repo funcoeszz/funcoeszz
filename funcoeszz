@@ -694,6 +694,7 @@ then
 			
 			# Salva o texto de ajuda
 			echo '-------'
+			echo "${arquivo##*/}"
 			sed -n '
 				/^[^#]/ q
 				/^$/ q
