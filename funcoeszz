@@ -82,6 +82,7 @@ ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
 #
 ZZCOR="${ZZCOR:-$ZZCOR_DFT}"
 ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}/zz"
+ZZAJUDA="$ZZTMP.ajuda"
 unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 #
 #
@@ -93,6 +94,7 @@ unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 #
 
 # ----------------------------------------------------------------------------
+# zztool
 # Miniferramentas para auxiliar as funções.
 # Uso: zztool ferramenta [argumentos]
 # ----------------------------------------------------------------------------
@@ -245,6 +247,7 @@ zztool ()
 
 
 # ----------------------------------------------------------------------------
+# zzajuda
 # Mostra uma tela de ajuda com explicação e sintaxe de todas as funções.
 # Opções: --lista  lista de todas as funções, com sua descrição
 #         --uso    resumo de todas as funções, com a sintaxe de uso
@@ -259,88 +262,29 @@ zzajuda ()
 	local zzcor_pager
 	local tmp="$ZZTMP.ajuda.$$"
 
-	# Verifica se o arquivo das funções existe e é legível
-	if ! test -r "$ZZPATH"
-	then
-	 	(
-		echo "Ops! Não encontrei as Funções ZZ no arquivo '$ZZPATH'."
-		echo 'Informe a localização correta na variável $ZZPATH.'
-		echo
-		echo 'Exemplo: export ZZPATH="$HOME/bin/funcoeszz"'
-		) >&2
-		return 1
-	fi
-
-	# Compõe um único bloco de texto com todas as funções padrão
-	(
-		cat "$ZZPATH"
-	) |
-		# Formata o bloco deixando apenas os cabeçalhos das funções
-		sed '
-			1 {
-				s/.*/** Ajuda das Funções ZZ (tecla Q sai)/
-				G
-				p
-			}
-			/^# -----* *$/,/^# -----* *$/ {
-				s/^# //p
-			}
-			d' |
-		# As funções já estão com a ajuda formatada
-		cat - "$ZZTMP.ajuda" 2>/dev/null |
-		# Padroniza as linhas separadoras com exatamente 77 hífens (7x11)
-		sed 's/^\(-\{7\}\).*/\1\1\1\1\1\1\1\1\1\1\1/' |
-		# Remove linhas separadoras duplicadas
-		uniq > "$tmp"
-		
-	# Já foram coletadas as informações sobre todas as funções, vamos ao processamento
-
 	case "$1" in
 		--uso)
 			# Lista com sintaxe de uso, basta pescar as linhas Uso:
-			sed -n 's/^Uso: zz/zz/p' "$tmp" |
+			sed -n 's/^Uso: zz/zz/p' "$ZZAJUDA" |
 				sort |
 				zztool acha '^zz[^ ]*'
 		;;
 		--lista)
 			# Lista de todas as funções no formato: nome descrição
-			sed -n '
-				# Primeiro extraímos a descrição da função,
-				# que é a primeira linha após o -----------
-				#
-				/^----*$/ {
-
-					# Vá para a próxima linha
-					n
-
-					# Ignora início de seção
-					/^####/	d
-
-					# Ignora a linha com a URL do site (se tiver)
-					/^http:/ n
-
-					# Remove ponto final da frase
-					s/\.$//
-
-					# Guarda a descrição para usar depois
-					h
-				}
-
-				# O nome da função é extraído da linha Uso:
-				/^Uso: / {
-					# Isola o nome da função
-					s///
-					s/ .*//
+			grep -A2 ^zz "$ZZAJUDA" |
+				grep -v ^http |
+				sed '
+					/^zz/ {
+						# Padding: o nome deve ter 15 caracteres
+						:pad
+						s/^.\{1,14\}$/& /
+						t pad
 				
-					# Padding: o nome deve ter 15 caracteres
-					:pad
-					s/^.\{1,14\}$/& /
-					t pad
-
-					# Junta a descrição (guardada previamente)
-					G
-					s/\n/ /p
-				}' "$tmp" |
+						# Junta a descrição (próxima linha)
+						N
+						s/\n/ /
+					}' |
+				grep ^zz |
 				sort |
 				zztool acha '^zz[^ ]*'
 		;;
@@ -349,18 +293,16 @@ zzajuda ()
 			[ "$PAGER" = 'less' -o "$PAGER" = 'more' ] && zzcor_pager=0
 		
 			# Mostra a ajuda de todas as funções, paginando
-			cat "$tmp" |
+			cat "$ZZAJUDA" |
 				ZZCOR=${zzcor_pager:-$ZZCOR} zztool acha 'zz[a-z0-9]\{2,\}' |
 				${PAGER:-less -r}
 		;;
 	esac
-
-	# Remove o arquivo temporário
-	rm "$tmp"
 }
 
 
 # ----------------------------------------------------------------------------
+# zzzz
 # Mostra informações sobre as funções, como versão e localidade.
 # Opções: --atualiza  baixa a versão mais nova das funções
 #         --teste     testa se a codificação e os pré-requisitos estão OK
@@ -674,7 +616,48 @@ zzzz ()
 }
 
 
+##############################################################################
 #
+#                             Texto de ajuda
+#                             --------------
+#
+#
+
+# Limpa conteúdo do arquivo de ajuda
+> "$ZZAJUDA"
+
+# Padroniza as linhas separadoras com exatamente 77 hífens (7x11)
+separadorzz=$(echo '-------' | sed 's/.*/&&&&&&&&&&&/')
+
+# Salva o texto de ajuda das funções deste arquivo
+if test -r "$ZZPATH"
+then
+	cat "$ZZPATH" |
+		sed -n '
+			/^# -----* *$/,/^# -----* *$/ {
+				s/^# -----* *$/'$separadorzz'/p
+				s/^# \{0,1\}//
+				p
+			}' |
+		uniq |
+		sed '$ { /^---/ d; }' >> "$ZZAJUDA"
+fi
+
+
+# # Verifica se o arquivo das funções existe e é legível
+# if ! test -r "$ZZPATH"
+# then
+#  	(
+# 	echo "Ops! Não encontrei as Funções ZZ no arquivo '$ZZPATH'."
+# 	echo 'Informe a localização correta na variável $ZZPATH.'
+# 	echo
+# 	echo 'Exemplo: export ZZPATH="$HOME/bin/funcoeszz"'
+# 	) >&2
+# 	return 1
+# fi
+
+
+	
 ##############################################################################
 #
 #                          Carregamento das funções
@@ -689,23 +672,27 @@ then
 	do
  		if test -f "$arquivo"
 	 	then
+
+			# Ignora funções desativadas
+			grep -q 'DESATIVADA:' "$arquivo" && continue
+				
 			# Inclui a função
 			source "$arquivo"
 			
-			# Salva o texto de ajuda
-			echo '-------'
+			# Salva o seu texto de ajuda
+			echo "$separadorzz"
 			echo "${arquivo##*/}"
 			sed -n '
 				/^[^#]/ q
-				/^$/ q
 				/^# *-----*/ d
 				s/^# \{0,1\}//
 				p
 			' "$arquivo"
 		fi
-	done > "$ZZTMP.ajuda"
-	echo '-------' >> "$ZZTMP.ajuda"
+	done >> "$ZZAJUDA"
+	echo "$separadorzz" >> "$ZZAJUDA"
 fi
+unset separadorzz
 
 ##----------------------------------------------------------------------------
 ## Lidando com a chamada pelo executável
