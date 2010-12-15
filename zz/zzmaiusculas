@@ -1,9 +1,7 @@
 # ----------------------------------------------------------------------------
-# Conversão de letras entre minúsculas e MAIÚSCULAS, inclusive acentuadas.
+# Converte todas as letras para MAIÚSCULAS, inclusive acentuadas.
 # Uso: zzmaiusculas [arquivo]
-# Uso: zzminusculas [arquivo]
 # Ex.: zzmaiusculas /etc/passwd
-#      echo NÃO ESTOU GRITANDO | zzminusculas
 # ----------------------------------------------------------------------------
 zzmaiusculas ()
 {
