@@ -693,7 +693,7 @@ then
 			zz_nome="${arquivo##*/}"
 
 			# Ignora algumas funções
-			zztool grep_var " ${zz_nome#zz} " " $zz_off " && continue
+			zztool grep_var " ${zz_nome#zz} " "$zz_off" && continue
 
 			# Inclui a função
 			source "$arquivo"
