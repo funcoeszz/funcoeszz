@@ -240,15 +240,16 @@ zztool ()
 			fi
 		;;
 		list2lines)
-			# Limpa lista da STDIN (um,dois,tres) e volta um por linha
+			# Limpa lista da STDIN e retorna um item por linha
+			# Lista: um dois três | um, dois, três | um;dois;três
 			sed 's/[;,]/ /g' |
 				tr -s '\t ' '  ' |
 				tr ' ' '\n' |
 				grep .
 		;;
 		lines2list)
-			# Recebe linhas em STDIN e volta: linha1 linha2 linha3.
-			# Ignora linhas em branco e remove espaços desnecessários.
+			# Recebe linhas em STDIN e retorna: linha1 linha2 linha3
+			# Ignora linhas em branco e remove espaços desnecessários
 			grep . |
 				tr '\n' ' ' |
 				sed 's/^ // ; s/ $//'
@@ -353,7 +354,8 @@ zzzz ()
 {
 	local nome_func arg_func padrao
 	local info_instalado info_cor info_utf8 versao_remota
-	local arquivo_aliases arquivo_zz extra
+	local arquivo_aliases arquivo_zz
+	local n_on n_off
 	local bashrc="$HOME/.bashrc"
 	local tcshrc="$HOME/.tcshrc"
 	local zshrc="$HOME/.zshrc"
@@ -443,7 +445,7 @@ zzzz ()
 			### Todos os comandos necessários estão instalados?
 			
 			local comando tipo_comando comandos_faltando
-			local comandos='awk- bc cat chmod- clear- cp cpp- cut diff- du- find- grep iconv- lynx mv od- play- ps- rm sed sleep sort tail- tr uniq'
+			local comandos='awk- bc cat chmod- clear- cp cpp- cut diff- du- find- fmt grep iconv- lynx mv od- play- ps- rm sed sleep sort tail- tr uniq'
 
 			for comando in $comandos
 			do
@@ -639,25 +641,36 @@ zzzz ()
 			zztool acha '^[^)]*)' "(  site) $url_site"
 			
 			# Lista de todas as funções
-			echo
-			zztool eco "(( funções disponíveis ))" # Nota: zzzz --tcshrc procura por " fu"
+
+			# ON: lista das funções zz* ativas na shell atual
 			set |
-				# Seds mágicos para extrair e formatar os nomes de funções,
-				# limitando as linhas em cerca de 60 colunas
 			 	sed -n 's/^zz\([^ ]*\) *().*/\1/p' |
-				sort |
-				sed -e ':a' -e '$b' -e 'N; s/\n/, /; /.\{60\}/{s/$/,/p;d;};ba'
+				sort > "$ZZTMP.on"
+
+			# OFF: lista das funções guardadas em $ZZOFF
+			echo "$ZZOFF" |
+				zztool list2lines |
+				sed 's/^zz//' |
+				sort > "$ZZTMP.off"
+
+			n_on=$(zztool num_linhas "$ZZTMP.on")
+			n_off=$(zztool num_linhas "$ZZTMP.off")
+
+			echo
+			zztool eco "(( $n_on funções disponíveis ))"
+			cat "$ZZTMP.on" |
+				zztool lines2list |
+				sed 's/ /, /g' |
+				fmt -w 70				
 			
 			if test -n "$ZZOFF"
 			then
 				echo
-				zztool eco "(( funções desativadas ))"
-				echo $ZZOFF |
-					tr ',' ' ' |
-					tr -s ' ' '\n' |
-					sed 's/^zz//' |
-					sort |
-					sed -e ':a' -e '$b' -e 'N; s/\n/, /; /.\{60\}/{s/$/,/p;d;};ba'
+				zztool eco "(( $n_off funções desativadas ))"
+				cat "$ZZTMP.off" |
+					zztool lines2list |
+					sed 's/ /, /g' |
+					fmt -w 70				
 			fi
 		;;
 	esac
@@ -717,8 +730,8 @@ fi
 if test -n "$ZZDIR" -a -d "$ZZDIR"
 then
 
-	# Massageia a lista: espaços ao redor, sem prefixo zz, sem vírgulas
-	zz_off=$(echo " $ZZOFF " | sed 's/,/ /g ; s/ zz/ /g')
+	# Massageia a lista: um por linha, sem prefixo zz
+	zz_off=$(echo "$ZZOFF" | zztool list2lines | sed 's/^zz//')
 
 	for arquivo in "${ZZDIR%/}"/zz*
 	do
@@ -728,7 +741,7 @@ then
 			zz_nome="${arquivo##*/}"
 
 			# Ignora algumas funções
-			zztool grep_var " ${zz_nome#zz} " "$zz_off" && continue
+			echo "$zz_off" | grep -q "^${zz_nome#zz}$" && continue
 
 			# Inclui a função
 			source "$arquivo"
