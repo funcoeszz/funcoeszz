@@ -297,7 +297,6 @@ zzajuda ()
 	zzzz -h ajuda $1 && return
 
 	local zzcor_pager
-	local tmp="$ZZTMP.ajuda.$$"
 
 	case "$1" in
 		--uso)
@@ -779,6 +778,7 @@ then
 		echo 'Exemplo: export ZZDIR="$HOME/zz"'
 		) >&2
 		exit 1
+		# Posso usar exit porque a chamada é pelo executável, e não source
 	fi
 	
 	# Primeira metade deste arquivo, até #@
