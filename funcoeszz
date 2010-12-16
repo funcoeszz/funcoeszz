@@ -550,12 +550,12 @@ zzzz ()
 		
 			if ! grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
 			then
-				(
-				echo
-				echo "# $instal_msg"
-				echo "export ZZPATH=$ZZPATH"
-				echo "source $ZZPATH"
-				) >> "$bashrc"
+				cat - >> "$bashrc" <<-EOS
+				
+				# $instal_msg
+				export ZZPATH=$ZZPATH
+				source $ZZPATH
+				EOS
 				
 				echo 'Feito!'
 				echo "As Funções ZZ foram instaladas no $bashrc"
@@ -571,12 +571,12 @@ zzzz ()
 			# Chama o arquivo dos aliases no final do .tcshrc
 			if ! grep "^[^#]*$arquivo_aliases" "$tcshrc" >/dev/null 2>&1
 			then
-				(
-				echo
-				echo "# $instal_msg"
-				echo "setenv ZZPATH $ZZPATH"
-				echo "source $arquivo_aliases"
-				) >> "$tcshrc"
+				cat - >> "$tcshrc" <<-EOS
+				
+				# $instal_msg
+				setenv ZZPATH $ZZPATH
+				source $arquivo_aliases
+				EOS
 
 				echo 'Feito!'
 				echo "As Funções ZZ foram instaladas no $tcshrc"
@@ -601,12 +601,12 @@ zzzz ()
 			# Chama o arquivo dos aliases no final do .tcshrc
 			if ! grep "^[^#]*$arquivo_aliases" "$zshrc" >/dev/null 2>&1
 			then
-				(
-				echo
-				echo "# $instal_msg"
-				echo "export ZZPATH=$ZZPATH"
-				echo "source $arquivo_aliases"
-				) >> "$zshrc"
+				cat - >> "$zshrc" <<-EOS
+				
+				# $instal_msg
+				export ZZPATH=$ZZPATH
+				source $arquivo_aliases
+				EOS
 
 				echo 'Feito!'
 				echo "As Funções ZZ foram instaladas no $zshrc"
