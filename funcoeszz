@@ -62,6 +62,7 @@ ZZWWWPOST='lynx -post-data -nolist -width=300 -accept_all_cookies -display_chars
 ZZWWWHTML='lynx -source'
 ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
 ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
+ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
 
 
 #
@@ -353,7 +354,7 @@ zzajuda ()
 zzzz ()
 {
 	local nome_func arg_func padrao
-	local info_instalado info_cor info_utf8 versao_remota
+	local info_instalado info_cor info_utf8 info_base versao_remota
 	local arquivo_aliases arquivo_zz
 	local n_on n_off
 	local bashrc="$HOME/.bashrc"
@@ -631,6 +632,9 @@ zzzz ()
 				info_instalado='não instalado'
 			fi
 			
+			# Formata funções essenciais
+			info_base=$(echo $ZZBASE | sed 's/ /, /g')
+			
 			# Informações, uma por linha
 			zztool acha '^[^)]*)' "(script) $ZZPATH"
 			zztool acha '^[^)]*)' "( pasta) $ZZDIR"
@@ -638,6 +642,7 @@ zzzz ()
 			zztool acha '^[^)]*)' "( cores) $info_cor"
 			zztool acha '^[^)]*)' "(   tmp) $ZZTMP"
 			zztool acha '^[^)]*)' "(bashrc) $info_instalado"
+			zztool acha '^[^)]*)' "(  base) $info_base"
 			zztool acha '^[^)]*)' "(  site) $url_site"
 			
 			# Lista de todas as funções
