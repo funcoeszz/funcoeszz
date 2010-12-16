@@ -298,6 +298,13 @@ zzajuda ()
 
 	local zzcor_pager
 
+	if test ! -r "$ZZAJUDA"
+	then
+		echo "Ops! Não encontrei o texto de ajuda em '$ZZAJUDA'." >&2
+		echo "Para recriá-lo basta executar o script 'funcoeszz' sem argumentos." >&2
+		return
+	fi
+	
 	case "$1" in
 		--uso)
 			# Lista com sintaxe de uso, basta pescar as linhas Uso:
