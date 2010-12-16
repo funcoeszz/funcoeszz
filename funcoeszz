@@ -551,10 +551,10 @@ zzzz ()
 			if ! grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
 			then
 				(
-					echo
-					echo "# $instal_msg"
-					echo "source $ZZPATH"
-					echo "export ZZPATH=$ZZPATH"
+				echo
+				echo "# $instal_msg"
+				echo "export ZZPATH=$ZZPATH"
+				echo "source $ZZPATH"
 				) >> "$bashrc"
 				
 				echo 'Feito!'
@@ -572,11 +572,12 @@ zzzz ()
 			if ! grep "^[^#]*$arquivo_aliases" "$tcshrc" >/dev/null 2>&1
 			then
 				(
-					echo
-					echo "# $instal_msg"
-					echo "source $arquivo_aliases"
-					echo "setenv ZZPATH $ZZPATH"
+				echo
+				echo "# $instal_msg"
+				echo "setenv ZZPATH $ZZPATH"
+				echo "source $arquivo_aliases"
 				) >> "$tcshrc"
+
 				echo 'Feito!'
 				echo "As Funções ZZ foram instaladas no $tcshrc"
 			else
@@ -601,11 +602,12 @@ zzzz ()
 			if ! grep "^[^#]*$arquivo_aliases" "$zshrc" >/dev/null 2>&1
 			then
 				(
-					echo
-					echo "# $instal_msg"
-					echo "source $arquivo_aliases"
-					echo "export ZZPATH=$ZZPATH"
+				echo
+				echo "# $instal_msg"
+				echo "export ZZPATH=$ZZPATH"
+				echo "source $arquivo_aliases"
 				) >> "$zshrc"
+
 				echo 'Feito!'
 				echo "As Funções ZZ foram instaladas no $zshrc"
 			else
