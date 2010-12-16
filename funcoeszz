@@ -553,7 +553,8 @@ zzzz ()
 				cat - >> "$bashrc" <<-EOS
 				
 				# $instal_msg
-				export ZZPATH="$ZZPATH"
+				export ZZDIR="$ZZDIR"  # pasta com as funcoes
+				export ZZPATH="$ZZPATH"  # script
 				source "\$ZZPATH"				
 				EOS
 				
@@ -574,6 +575,7 @@ zzzz ()
 				cat - >> "$tcshrc" <<-EOS
 				
 				# $instal_msg
+				setenv ZZDIR $ZZDIR
 				setenv ZZPATH $ZZPATH
 				source $arquivo_aliases
 				EOS
@@ -604,6 +606,7 @@ zzzz ()
 				cat - >> "$zshrc" <<-EOS
 				
 				# $instal_msg
+				export ZZDIR=$ZZDIR
 				export ZZPATH=$ZZPATH
 				source $arquivo_aliases
 				EOS
