@@ -681,9 +681,12 @@ zzzz ()
 				echo "Para recriá-la basta executar o script 'funcoeszz' sem argumentos."
 			fi
 			
-			# Só mostra se encontrar o arquivo e ele tiver ao menos uma zz
-			if test -r "$ZZTMP.off" && grep -q zz "$ZZTMP.off"
+			# Só mostra se encontrar o arquivo...
+			if test -r "$ZZTMP.off"
 			then
+			 	# ...e se ele tiver ao menos uma zz
+				grep -q zz "$ZZTMP.off" || return
+				
 				echo
 				n_off=$(zztool num_linhas "$ZZTMP.off")
 				zztool eco "(( $n_off funções desativadas ))"
