@@ -647,32 +647,23 @@ zzzz ()
 			
 			# Lista de todas as funções
 
-			# ON: lista das funções zz* ativas na shell atual
-			set |
-			 	sed -n 's/^zz\([^ ]*\) *().*/\1/p' |
-				sort > "$ZZTMP.on"
-
-			# OFF: lista das funções guardadas em $ZZOFF
-			echo "$ZZOFF" |
-				zztool list2lines |
-				sed 's/^zz//' |
-				sort > "$ZZTMP.off"
-
 			n_on=$(zztool num_linhas "$ZZTMP.on")
 			n_off=$(zztool num_linhas "$ZZTMP.off")
 
 			echo
 			zztool eco "(( $n_on funções disponíveis ))"
 			cat "$ZZTMP.on" |
+				sed 's/^zz//' |
 				zztool lines2list |
 				sed 's/ /, /g' |
 				fmt -w 70				
 			
-			if test -n "$ZZOFF"
+			if grep -q zz "$ZZTMP.off"
 			then
 				echo
 				zztool eco "(( $n_off funções desativadas ))"
 				cat "$ZZTMP.off" |
+					sed 's/^zz//' |
 					zztool lines2list |
 					sed 's/ /, /g' |
 					fmt -w 70				
@@ -710,63 +701,87 @@ then
 fi
 
 
-# # Verifica se o arquivo das funções existe e é legível
-# if ! test -r "$ZZPATH"
-# then
-#  	(
-# 	echo "Ops! Não encontrei as Funções ZZ no arquivo '$ZZPATH'."
-# 	echo 'Informe a localização correta na variável $ZZPATH.'
-# 	echo
-# 	echo 'Exemplo: export ZZPATH="$HOME/bin/funcoeszz"'
-# 	) >&2
-# 	return 1
-# fi
-
-
-	
 ##############################################################################
 #
 #                          Carregamento das funções
 #                          ------------------------
 #
+# O carregamento é feito em dois passos para ficar mais robusto:
+# 1. Obtenção da lista completa de funções, ativadas e desativadas.
+# 2. Carga de cada função ativada, salvando o texto de ajuda.
 #
 
-# Diretório com as funções
+### Passo 1
+
+# Limpa arquivos temporários que guardam as listagens
+> "$ZZTMP.on"
+> "$ZZTMP.off"
+
+# A pasta das funções existe?
 if test -n "$ZZDIR" -a -d "$ZZDIR"
 then
-
-	# Massageia a lista: um por linha, sem prefixo zz
+	# Melhora a lista off: um por linha, sem prefixo zz
 	zz_off=$(echo "$ZZOFF" | zztool list2lines | sed 's/^zz//')
 
-	for arquivo in "${ZZDIR%/}"/zz*
+	# Primeiro salva a lista de funções disponíveis
+	for zz_arquivo in "${ZZDIR%/}"/zz*
 	do
- 		if test -f "$arquivo"
+		# Só ativa funções que podem ser lidas
+ 		if test -r "$zz_arquivo"
 	 	then
-			# Nome da função (remove path)
-			zz_nome="${arquivo##*/}"
+			zz_nome="${zz_arquivo##*/}"  # remove path
 
-			# Ignora algumas funções
-			echo "$zz_off" | grep -q "^${zz_nome#zz}$" && continue
-
-			# Inclui a função
-			source "$arquivo"
-			
-			# Salva o seu texto de ajuda
-			echo "$zz_separador"
-			echo "$zz_nome"
-			sed -n '
-				/^[^#]/ q
-				/^# *-----*/ d
-				s/^# \{0,1\}//
-				p
-			' "$arquivo"
+			# O usuário desativou esta função?
+			echo "$zz_off" | grep -q "^${zz_nome#zz}$" ||
+				# Tudo certo, essa vai ser carregada
+				echo "$zz_nome"
 		fi
-	done >> "$ZZAJUDA"
-	echo "$zz_separador" >> "$ZZAJUDA"
+	done >> "$ZZTMP.on"
+
+	# Lista das funções desativadas (OFF = Todas - ON)
+	(
+	cd "$ZZDIR" &&
+	 	ls -1 zz* |
+	 	grep -v -f "$ZZTMP.on"
+	) >> "$ZZTMP.off"
 fi
+
+# echo ON ; cat "$ZZTMP.on"  | zztool lines2list
+# echo OFF; cat "$ZZTMP.off" | zztool lines2list
+# exit
+
+### Passo 2
+
+# Carregamento das funções ativas
+while read zz_nome
+do
+	zz_arquivo="${ZZDIR%/}"/$zz_nome
+
+	# Inclui a função na shell atual
+	source "$zz_arquivo"
+
+	# Salva o seu texto de ajuda
+	echo "$zz_separador"
+	echo "$zz_nome"
+	sed -n '
+		/^[^#]/ q
+		/^# *-----*/ d
+		s/^# \{0,1\}//
+		p
+	' "$zz_arquivo" 
+done < "$ZZTMP.on" >> "$ZZAJUDA"
+
+echo "$zz_separador" >> "$ZZAJUDA"
+
+### Carregamento terminado, funções já estão disponíveis
+
+# Limpa variáveis temporárias
+# Nota: prefixo zz_ para não conflitar com variáveis da shell atual
+unset zz_arquivo
 unset zz_nome
 unset zz_off
 unset zz_separador
+
 
 ##----------------------------------------------------------------------------
 ## Lidando com a chamada pelo executável
