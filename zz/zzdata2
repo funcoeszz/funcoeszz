@@ -10,19 +10,19 @@
 # Licenca: GPL v2
 # Versao: 20091010
 # Requer: 
-# Uso: zzdata data|num [+|- data|num [D|M|Y]]
+# Uso: zzdata2 data|num [+|- data|num [D|M|Y]]
 # Opcoes:
 #         data|num  data inicial.
 #         +|-       operacao a realizar (adicao|subtracao).
 #         D|M|Y     unidade em caso de operacao com numero(D=dia, M=mes, Y=ano).
-# Ex.: zzdata 22/12/1999 + 69
-#      zzdata hoje - 5
-#      zzdata 01/03/2000 - 11/11/1999
-#      zzdata hoje - dd/mm/aaaa         <---- use sua data de nascimento
-#      zzdata 01/03/2000 - 1 M          # subtrai 1 mes. resp: 01/02/2000
-#      zzdata 30/03/2008 - 1 M          # resp: 19/02/2008 (ano bissexto)
+# Ex.: zzdata2 22/12/1999 + 69
+#      zzdata2 hoje - 5
+#      zzdata2 01/03/2000 - 11/11/1999
+#      zzdata2 hoje - dd/mm/aaaa         <---- use sua data de nascimento
+#      zzdata2 01/03/2000 - 1 M          # subtrai 1 mes. resp: 01/02/2000
+#      zzdata2 30/03/2008 - 1 M          # resp: 19/02/2008 (ano bissexto)
 # ----------------------------------------------------------------------------
-zzdata ()
+zzdata2 ()
 {
 	zzzz -h ${FUNCNAME} $1 && return
 
