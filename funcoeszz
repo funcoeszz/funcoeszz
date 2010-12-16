@@ -662,27 +662,38 @@ zzzz ()
 					egrep -v "$(echo $ZZBASE | sed 's/ /|/g')" |
 					sort > "$ZZTMP.on"
 			fi
-
-			n_on=$(zztool num_linhas "$ZZTMP.on")
-			n_off=$(zztool num_linhas "$ZZTMP.off")
-
-			echo
-			zztool eco "(( $n_on funções disponíveis ))"
-			cat "$ZZTMP.on" |
-				sed 's/^zz//' |
-				zztool lines2list |
-				sed 's/ /, /g' |
-				fmt -w 70				
 			
-			if grep -q zz "$ZZTMP.off"
+			if test -r "$ZZTMP.on"
 			then
 				echo
+				n_on=$(zztool num_linhas "$ZZTMP.on")
+				zztool eco "(( $n_on funções disponíveis ))"
+				cat "$ZZTMP.on" |
+					sed 's/^zz//' |
+					zztool lines2list |
+					sed 's/ /, /g' |
+					fmt -w 70
+			else
+				echo
+				echo "Não consegui obter a lista de funções disponíveis."
+				echo "Para recriá-la basta executar o script 'funcoeszz' sem argumentos."
+			fi
+			
+			# Só mostra se encontrar o arquivo e ele tiver ao menos uma zz
+			if test -r "$ZZTMP.off" && grep -q zz "$ZZTMP.off"
+			then
+				echo
+				n_off=$(zztool num_linhas "$ZZTMP.off")
 				zztool eco "(( $n_off funções desativadas ))"
 				cat "$ZZTMP.off" |
 					sed 's/^zz//' |
 					zztool lines2list |
 					sed 's/ /, /g' |
 					fmt -w 70				
+			else
+				echo
+				echo "Não consegui obter a lista de funções desativadas."
+				echo "Para recriá-la basta executar o script 'funcoeszz' sem argumentos."
 			fi
 		;;
 	esac
