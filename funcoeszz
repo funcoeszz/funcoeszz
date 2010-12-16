@@ -779,21 +779,22 @@ then
 			cat - <<-FIM
 
 				Uso: funcoeszz <função> [<parâmetros>]
-				     funcoeszz <função> --help
 
-				Dica: Inclua as Funções ZZ no seu login shell,
-				      e depois chame-as diretamente pelo nome:
+				Lista de funções:
+				    funcoeszz zzzz
+				    funcoeszz zzajuda --lista
 
-				    prompt$ funcoeszz zzzz --bashrc
-				    prompt$ source ~/.bashrc
-				    prompt$ zz<TAB><TAB>
+				Ajuda:
+				    funcoeszz zzajuda
+				    funcoeszz zzcores -h
+				    funcoeszz zzcalcula -h
 
-				Lista das funções:
+				Instalação:
+				    funcoeszz zzzz --bashrc
+				    source ~/.bashrc
+				    zz<TAB><TAB>
 
-				    prompt$ funcoeszz zzzz
-				
 				Saiba mais:
-				
 				    http://funcoeszz.net
 
 			FIM
