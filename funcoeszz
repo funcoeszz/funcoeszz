@@ -553,8 +553,8 @@ zzzz ()
 				cat - >> "$bashrc" <<-EOS
 				
 				# $instal_msg
-				export ZZPATH=$ZZPATH
-				source $ZZPATH
+				export ZZPATH="$ZZPATH"
+				source "\$ZZPATH"				
 				EOS
 				
 				echo 'Feito!'
