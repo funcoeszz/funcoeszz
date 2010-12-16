@@ -82,7 +82,8 @@ ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
 ### Últimos ajustes
 #
 ZZCOR="${ZZCOR:-$ZZCOR_DFT}"
-ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}/zz"
+ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}"
+ZZTMP="${ZZTMP%/}/zz"  # prefixo comum a todos os arquivos temporários
 ZZAJUDA="$ZZTMP.ajuda"
 unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 #
