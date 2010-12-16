@@ -75,10 +75,9 @@ ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
 #
 [ "${0##*/}" = 'bash' -o "${0#-}" != "$0" ] || ZZPATH="$0"
 [ "$ZZPATH" ] || ZZPATH=$ZZPATH_DFT
-[ "$ZZPATH" ] || echo 'AVISO: $ZZPATH vazia. zzajuda e zzzz não funcionarão'
 [ "${ZZPATH#/}" = "$ZZPATH" ] && ZZPATH="$PWD/${ZZPATH#./}"
+
 [ "$ZZDIR" ] || ZZDIR=$ZZDIR_DFT
-[ -d "$ZZDIR" ] || ZZDIR=
 #
 ### Últimos ajustes
 #
@@ -770,17 +769,15 @@ fi
 # Vamos juntar todas as funções em um único arquivo?
 if test "$1" = '--tudo-em-um'
 then
-	# Verifica se o arquivo das funções existe e é legível
-	if ! test -r "$ZZPATH"
+	# Verifica se a pasta das funções existe
+	if test -z "$ZZDIR" -o ! -d "$ZZDIR"
 	then
-	 	(
-		echo "Ops! Não encontrei as Funções ZZ no arquivo '$ZZPATH'."
-		echo 'Informe a localização correta na variável $ZZPATH.'
+		(
+		echo "Ops! Não encontrei as funções na pasta '$ZZDIR'."
+		echo 'Informe a localização correta na variável $ZZDIR.'
 		echo
-		echo 'Exemplo: export ZZPATH="$HOME/bin/funcoeszz"'
+		echo 'Exemplo: export ZZDIR="$HOME/zz"'
 		) >&2
-		
-		# Posso usar exit porque a chamada é pelo executável, e não source
 		exit 1
 	fi
 	
