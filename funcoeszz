@@ -646,6 +646,16 @@ zzzz ()
 			zztool acha '^[^)]*)' "(  site) $url_site"
 			
 			# Lista de todas as funções
+			
+			# Sem $ZZDIR, provavelmente usando --tudo-em-um
+			# Tentarei obter a lista de funções carregadas na shell atual
+			if test -z "$ZZDIR"
+			then
+				set |
+					sed -n '/^zz[a-z0-9]/ s/ *().*//p' |
+					egrep -v "$(echo $ZZBASE | sed 's/ /|/g')" |
+					sort > "$ZZTMP.on"
+			fi
 
 			n_on=$(zztool num_linhas "$ZZTMP.on")
 			n_off=$(zztool num_linhas "$ZZTMP.off")
@@ -672,6 +682,8 @@ zzzz ()
 	esac
 }
 
+# A linha seguinte é usada pela opção --tudo-em-um
+#@
 
 ##############################################################################
 #
@@ -709,6 +721,9 @@ fi
 # O carregamento é feito em dois passos para ficar mais robusto:
 # 1. Obtenção da lista completa de funções, ativadas e desativadas.
 # 2. Carga de cada função ativada, salvando o texto de ajuda.
+#
+# Com a opção --tudo-em-um, o passo 2 é alterado para mostrar o conteúdo
+# da função em vez de carregá-la.
 #
 
 ### Passo 1
@@ -751,6 +766,47 @@ fi
 # exit
 
 ### Passo 2
+
+# Vamos juntar todas as funções em um único arquivo?
+if test "$1" = '--tudo-em-um'
+then
+	# Verifica se o arquivo das funções existe e é legível
+	if ! test -r "$ZZPATH"
+	then
+	 	(
+		echo "Ops! Não encontrei as Funções ZZ no arquivo '$ZZPATH'."
+		echo 'Informe a localização correta na variável $ZZPATH.'
+		echo
+		echo 'Exemplo: export ZZPATH="$HOME/bin/funcoeszz"'
+		) >&2
+		
+		# Posso usar exit porque a chamada é pelo executável, e não source
+		exit 1
+	fi
+	
+	# Primeira metade deste arquivo, até #@
+	sed '/^#@$/q' "$ZZPATH"
+	
+	# Mostra cada função (ativa), inserindo seu nome na linha 2 do cabeçalho
+	while read zz_nome
+	do
+		zz_arquivo="${ZZDIR%/}"/$zz_nome
+		
+		sed 1q "$zz_arquivo"
+		echo "# $zz_nome"
+		sed 1d "$zz_arquivo"
+	done < "$ZZTMP.on"
+	
+	# Desliga suporte ao diretório de funções
+	echo
+	echo 'ZZDIR='
+	
+	# Segunda metade deste arquivo, depois de #@
+	sed '1,/^#@$/d' "$ZZPATH"
+	
+	# Tá feito, simbora.
+	exit 0
+fi
 
 # Carregamento das funções ativas
 while read zz_nome
