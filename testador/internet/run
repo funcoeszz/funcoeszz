@@ -101,7 +101,6 @@ loteria-quina:a::quina:sed 's/[0-9]/9/g;s/\\\(99*\\\.\\\)*99*,99/DINHEIRO/'
 moeda:a::chile:sed 's/[0-9]/9/g;s/-*\\\(99*\\\.\\\)*99*[,.]999*/DINHEIRO/g;s/99*:99*/DATAHORA/;s|99*/99*/9999|DATAHORA|;s/  */ /g'
 natal:r:^.Feliz Natal. em ..* ...::
 noticiaslinux-brlinux:l:7:b:
-noticiaslinux-cipsga:l:7:c:
 noticiaslinux-noticiaslinux:l:7:n:
 noticiaslinux-underlinux:l:7:u:
 noticiaslinux-vivaolinux:l:7:v:

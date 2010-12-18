@@ -5,8 +5,8 @@
 #       parâmetro, para informar quais sites você quer pesquisar:
 #
 #         Y)ahoo Linux         B)r Linux
-#         C)ipsga              N)otícias linux
 #         V)iva o Linux        U)nder linux
+#         N)otícias linux
 #
 # Uso: zznoticiaslinux [sites]
 # Ex.: zznoticiaslinux
@@ -56,20 +56,6 @@ zznoticiaslinux ()
 		$ZZWWWHTML "$url/index.rdf" |
 			sed -n '1,/<item>/d;s@.*<title>\(.*\)</title>@\1@p' |
 			zztool texto_em_utf8 |
-			$limite
-	fi
-	
-	# Cipsga
-	if zztool grep_var c "$sites"
-	then
-		url='http://www.cipsga.org.br'
-		echo
-		zztool eco "* CIPSGA ($url):"
-		$ZZWWWDUMP "$url" |
-			cat -s |
-		 	sed '1,/vantagens exclusivas/d' |
-		  	sed -n '/^$/{ n; p; }' |
-		 	sed '/^$/q ; s/^  *//' |
 			$limite
 	fi
 	
