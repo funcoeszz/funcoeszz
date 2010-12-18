@@ -38,12 +38,12 @@ zzlinuxnews ()
 	# Slashdot
 	if zztool grep_var s "$sites"
 	then
-		url='http://slashdot.org'
+		url='http://rss.slashdot.org/Slashdot/slashdot'
 		echo
 		zztool eco "* SlashDot ($url):"
 		$ZZWWWHTML "$url" |
-			sed -n '/<div class="title">/,/<\/div>/{/slashdot/{
-		  s/<[^>]*>//g;s/^[[:blank:]]*//;p;};}' |
+			sed '/<title>/!d ; s@.*<title>@@ ; s@</title>.*@@p' |
+			uniq |
 			$limite
 	fi
 
