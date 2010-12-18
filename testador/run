@@ -1,14 +1,51 @@
 #!/usr/bin/env bash
-
-# Nota para testadores em sistemas ISO-8859-1:
+#
+# testador/run
+#
+# Uso:
+#   ./run            # fazer todos os testes
+#   ./run senha      # testar somente a zzsenha
+#
+# Se o teste foi OK, nada será mostrado na tela.
+# Se o teste falhou, o erro será mostrado.
+#
+# Os arquivos .out guardam o texto esperado como resultado.
+# Os arquivos _dados e _empty são usados como fonte de dados em alguns testes.
+# O arquivo _lib traz algumas ferramentas para facilitar a escrita de testes.
+#
+# Exemplo de execução com todos os testes OK:
+#   $ ./run
+#   1. alfabeto
+#   2. ansi2html
+#   3. arrumanome
+#   4. ascii
+#   ...
+#   51. trocapalavra
+#   52. uniq
+#   $
+#
+# Exemplo de execução de uma única função OK:
+#   $ ./run senha
+#   1. senha
+#   $
+#
+# Para adicionar um teste novo:
+# - Crie um arquivo com o nome da função, sem o prefixo zz.
+# - Este arquivo deve ser um script autônomo que testa a função.
+# - Não precisa dar chmod +x no script, ele será executado via "sh script"
+# - Para chamar a função durante o teste, use: ../funcoeszz zzminhafuncao
+# - O script não deve retornar nada na tela caso os testes estejam OK.
+# - O script deve mostrar na tela quando um erro ocorrer.
+#
+# Notas para rodar o testador em sistemas ISO-8859-1:
 # - Renomeie o arquivo funcoeszz-iso para funcoeszz
 # - Converta os seguintes arquivos de UTF-8 para ISO-8859-1:
 #   testador: foneletra, maiusculas, minusculas
 #   testador/internet: dicjargon.ok, dicportugues.ok, whoisbr.ok, wikipedia.ok
-#
-# Para converter cada arquivos, use:
+# - Para converter cada arquivo, use:
 #   iconv -f UTF-8 -t ISO-8859-1 arquivo > arquivo-iso
 #   mv arquivo-iso arquivo
+#
 
 ignore="LEIAME ansi2html.out arrumanome.out cores.out internet run stats"
 onetest=$1

@@ -1,11 +1,70 @@
 #!/usr/bin/env bash
 #
-# Optional argument: test name
+# testador/interenet/run
+#
+# Uso:
+#   ./run            # fazer todos os testes
+#   ./run dolar      # testar somente a zzdolar
+#
+# Se o teste foi OK, nada será mostrado na tela.
+# Se o teste falhou, o erro será mostrado.
+#
+# Os arquivos .ok guardam o texto esperado como resultado.
+# Os arquivos .out guardam o resultado incorreto, caso o teste tenha falhado.
+#
+# Exemplo de execução com todos os testes OK:
+#   $ ./run
+#   1. chavepgp
+#   2. dicasl
+#   3. dicbabelfish
+#   4. dicbabylon
+#   ...
+#   51. whois
+#   52. wikipedia
+#   $
+#
+# Exemplo de execução de uma única função OK:
+#   $ ./run dolar
+#   1. dolar
+#   $
+
 
 onetest=$1
 debug=0
 zz="../../funcoeszz"
 
+# Aqui estão cadastrados todos os testes.
+# Linhas que iniciam com # são ignoradas, útil para desligar um teste.
+#
+# Para adicionar um teste:
+#
+# Crie uma linha nova para o teste, mantendo a ordem alfabética da lista.
+#
+# O formato é: NOME:TIPO:PADRÃO:ARGUMENTO:COMANDO
+#
+#      NOME  Nome da função, sem o prefixo zz.
+#      TIPO  Letra que identifica o tipo do teste, pode ser:
+#            a - Arquivo: compara o resultado com o arquivo NOME.ok
+#            r - Regex: tenta casar a regex PADRÃO no resultado
+#            l - Linha: o número de linhas do resultado deve ser PADRÃO
+#    PADRÃO  Regex, número de linhas ou vazio, conforme TIPO do teste.
+# ARGUMENTO  Argumento(s) para a função a ser testada.
+#   COMANDO  Comando para filtrar o resultado do teste antes da comparação.
+#
+# Caso seja um teste do tipo (a), crie o arquivo NOME.ok cujo conteúdo deve
+# ser o resultado esperado do teste.
+#
+# Use testes do tipo (a) quando o resultado da função for sempre o mesmo
+#   texto, sem alterações. Use o campo COMANDO para filtrar com sed/grep as
+#   pequenas variações que podem ocorrer (veja o teste freshmeat).
+#
+# Use testes do tipo (r) quando o resultado for variável, mas de padrão
+#   conhecido, para você poder casar com regex. Veja o teste ipinternet.
+#
+# Use testes do tipo (l) quando o resultado for variável e imprevisível,
+#   como notícias de um feed, onde apenas o número de linhas é constante.
+#   Veja os testes linuxnews-* e noticiaslinux-*.
+#
 tests="
 # TODO
 # pronuncia:a::apple::rm -f /tmp/zz.apple.wav

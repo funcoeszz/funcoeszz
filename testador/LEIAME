@@ -18,7 +18,7 @@ Simplesmente execute o script run:
 	$
 	
 O nome de cada função testada aparecerá na tela. Se houver algum
-durante o teste, ele será mostrado.
+erro durante o teste, ele será mostrado.
 	
 Para testar as funções que utilizam a Internet, o procedimento
 é o mesmo. Entre no diretório e rode o script run:
@@ -31,7 +31,8 @@ Para testar as funções que utilizam a Internet, o procedimento
 	...
 	$
 
-
+Leia os comentários dentro dos arquivos 'run' para entender melhor
+como funcionam os testes e poder adicionar testes novos.
 
 Atenção
 -------
