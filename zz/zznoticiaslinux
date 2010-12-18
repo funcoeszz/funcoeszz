@@ -64,10 +64,10 @@ zznoticiaslinux ()
 	then
 		url='http://br-linux.org/feed/'
 		echo
-		zztool eco "* BR Linux ($url):"
+		zztool eco "* BR-Linux ($url):"
 		$ZZWWWHTML "$url" |
 			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
-			sed 's/&#822[01];/"/g' |
+			sed 's/&#822[01];/"/g ; s/&#8211;/-/g' |
 			zztool texto_em_utf8 |
 			$limite
 	fi
