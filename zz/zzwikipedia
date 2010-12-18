@@ -35,10 +35,11 @@ zzwikipedia ()
 			# Limpeza do conteúdo
 			/^Views$/,$ d
 			/^Vistas$/,$ d
+			/^Ferramentas pessoais$/,$ d
 			/^   #Wikipedia (/d
 			/^   #Editar Wikipedia /d
-			/^From Wikipedia,/d
-			/^Origem: Wikipédia,/d
+			/^   From Wikipedia,/d
+			/^   Origem: Wikipédia,/d
 			/^   Jump to: /d
 			/^   Ir para: /d
 			/^   This article does not cite any references/d
@@ -48,8 +49,9 @@ zzwikipedia ()
 			s/^\[editar\] //
 			
 			# Guarda URL da página e mostra no final, após Categorias
-			/^   Obtido em "/ { H; d; }
+			# Também adiciona linha em branco antes de Categorias
+			/^   Obtid[ao] de "/ { H; d; }
 			/^   Retrieved from "/ { H; d; }
-			/^   Categor[a-z]*: /G' |
+			/^   Categor[a-z]*: / { G; x; s/.*//; G; }' |
 		cat -s
 }
