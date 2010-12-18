@@ -27,11 +27,11 @@ zzlinuxnews ()
 	# Freshmeat
 	if zztool grep_var f "$sites"
 	then
-		url='http://freshmeat.net'
+		url='http://freshmeat.net/?format=atom'
 		echo
 		zztool eco "* FreshMeat ($url):"
 		$ZZWWWHTML "$url" |
-			sed '/href="\/releases/!d;s/<[^>]*>//g;s/&nbsp;//g;s/^ *- //' |
+			sed -n '1,/<entry>/d;s@.*<title>\(.*\)</title>@\1@p' |
 			$limite
 	fi
 
