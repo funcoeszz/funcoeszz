@@ -90,7 +90,6 @@ ipinternet:r:^[0-9]{1,3}\\\.[0-9]{1,3}\\\.[0-9]{1,3}\\\.[0-9]{1,3}$::
 linuxnews-freshmeat:l:7:f:
 linuxnews-linuxtoday:l:7:t:
 linuxnews-linuxweeklynews:l:7:w:
-linuxnews-newsforge:l:7:n:
 linuxnews-osnews:l:7:o:
 linuxnews-slashdot:l:7:s:
 locale:a::-c pt:

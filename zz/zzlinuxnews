@@ -6,11 +6,11 @@
 #
 #          F)reshMeat         Linux T)oday
 #          S)lashDot          Linux W)eekly News
-#          N)ewsForge         O)S News
+#          O)S News
 #
 # Uso: zzlinuxnews [sites]
 # Ex.: zzlinuxnews
-#      zzlinuxnews fsn
+#      zzlinuxnews fs
 # ----------------------------------------------------------------------------
 zzlinuxnews ()
 {
@@ -44,18 +44,6 @@ zzlinuxnews ()
 		$ZZWWWHTML "$url" |
 			sed -n '/<div class="title">/,/<\/div>/{/slashdot/{
 		  s/<[^>]*>//g;s/^[[:blank:]]*//;p;};}' |
-			$limite
-	fi
-
-	# Newsforge
-	if zztool grep_var n "$sites"
-	then
-		url='http://www.newsforge.com'
-		echo
-		zztool eco "* NewsForge - ($url):"
-		$ZZWWWHTML "$url" |
-			sed -n '/<h3>/{ n; s/<[^>]*>//gp; }' |
-			sed 's/^  *//' |
 			$limite
 	fi
 
