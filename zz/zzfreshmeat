@@ -16,5 +16,8 @@ zzfreshmeat ()
 	
 	# Faz a consulta e filtra o resultado
 	$ZZWWWLIST "$url?q=$padrao" |
-		sed -n 's@.*\(http.*freshmeat.net/projects/.*\)/@\1@p'
+		sed -n 's@.*\(http://freshmeat.net/projects/.*\)@\1@p' |
+		grep -v '/projects/new' |
+		sort |
+		uniq
 }
