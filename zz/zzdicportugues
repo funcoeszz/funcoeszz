@@ -11,11 +11,20 @@ zzdicportugues ()
 	local url='http://dicio.com.br/pesquisa.php'
 	local ini='^Significado de '
 	local fim='^Definição de '
+	local padrao=$(echo $* | sed "$ZZSEDURL")
+
+	# TODO XXX Não consegui fazer funcionar com palavras acentuadas :(
+	# O site é iso-8859-1.
+	# padrao="maçã"
+	# padrao=$(echo maçã | iconv -f utf-8 -t iso-8859-1)
+	# padrao='ma&ccedil;&agrave;'
+	# padrao='ma%E7%E3'
+	# ZZWWWDUMP='lynx -dump -nolist -width=300 -accept_all_cookies -assume_unrec_charset=iso-8859-1'
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso dicportugues; return; }
 
-	$ZZWWWDUMP "$url?q=$1" |
+	$ZZWWWDUMP "$url?q=$padrao" |
 		sed -n "
 			/$ini/,/$fim/ {
 				/$ini/d
