@@ -79,7 +79,7 @@ dicasl:a::procmail:
 dicbabelfish:a::drum:sed '/^ *$/d'
 dicbabylon:a::drum:sed '/^ *$/d'
 dicjargon:a::drum:sed '/^ *$/d'
-dicportugues:a::estorvo:sed '/^ *$/d'
+dicportugues:a::estorvo:
 dolar:a:::sed 's/[0-9]/9/g;s/[+-]//g;s/99*:99*/DATAHORA/;s|99*/99*/9999|DATAHORA|;s/99*,99*$/VARIACAO/;s/9,999*/DINHEIRO/g'
 dominiopais:a::.cx:
 freshmeat:a::kde:grep '/kde$'

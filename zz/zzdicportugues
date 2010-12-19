@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
-# http://www.portoeditora.pt/dol
-# Dicionário de português (de Portugal).
+# http://www.dicio.com.br
+# Dicionário de português.
 # Uso: zzdicportugues palavra
 # Ex.: zzdicportugues bolacha
 # ----------------------------------------------------------------------------
@@ -8,34 +8,19 @@ zzdicportugues ()
 {
 	zzzz -h dicportugues $1 && return
 
-	local url='http://www.priberam.pt/dlpo/definir_resultados.aspx'
-	local ini='^\(Não \)\{0,1\}[Ff]oi\{0,1\}\(ram\)\{0,1\} encontrad'
-	local fim='^Imprimir *$'
-
-	# TODO Verificar alternativa brasileira (enviada por Luciano ES)
-	# local URL=http://www.agal-gz.org/estraviz/modules.php
-	# local parm='name=Dictionary&file=pesquisar&searchType=exact&dicSearch=maçã'
+	local url='http://dicio.com.br/pesquisa.php'
+	local ini='^Significado de '
+	local fim='^Definição de '
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso dicportugues; return; }
 
-	$ZZWWWDUMP "$url?pal=$1" |
+	$ZZWWWDUMP "$url?q=$1" |
 		sed -n "
-			s/^ *//
-			/^$/d
-			s/\[transparent.gif]//
 			/$ini/,/$fim/ {
 				/$ini/d
 				/$fim/d
-				/Duplo clique nas palavras/d
-				/^ *$/d
+				s/^ *//
 				p
-			}" |
-		sed '
-			/\(.*\.\),$/ {
-		 		s//[\1]/
-				H
-				s/.*//
-				x
-			}' # \n + [categoria]
+			}"
 }
