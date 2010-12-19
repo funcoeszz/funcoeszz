@@ -28,10 +28,13 @@ zzhoracerta ()
 	fi
 	
 	# Se o cache está vazio, baixa listagem da Internet
+	# De: <li><a href="current_time_in_AR-JY.aspx">Jujuy</a></li>
+	# Para: AR-JY -- Jujuy
 	if ! test -s "$cache"
 	then
 		$ZZWWWHTML "$url/country.html" |
-			sed -n 's/.*current_time_in_\([^.]*\)\.aspx">\([^<]*\)<.*/\1 -- \2/p' > "$cache"
+			grep 'current_time_in_' |
+			sed 's/.*_time_in_// ; s/\.aspx">/ -- / ; s/<.*//' > "$cache"
 	fi
 
 	# Se nenhum parâmetro for passado, são listados os países disponíveis		
