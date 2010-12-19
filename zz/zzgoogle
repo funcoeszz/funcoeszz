@@ -35,11 +35,11 @@ zzgoogle ()
 	# corretas, o filtros limpa os lixos e formata o resultado.
 	
 	$ZZWWWHTML "$url?q=$padrao&num=$limite&ie=UTF-8&oe=UTF-8&hl=pt-BR" |
-		sed 's/class=g>/\
+		sed 's/<h3 class="r">/\
 @/g' |
 		sed '
-			/^@<h3 class=r><a href="\([^"]*\)" class=l>/!d
-			s/^@<h3 class=r><a href="//
+			/^@<a href="\([^"]*\)" class=l>/!d
+			s/^@<a href="//
 			s/" class=l>/ /
 			s/<\/a>.*//
 			
