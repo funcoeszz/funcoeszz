@@ -104,8 +104,18 @@ zzsecurity ()
 		zztool eco '** Atualizações Fedora'
 		url='http://www.linuxsecurity.com/content/blogcategory/89/102/'
 		echo "$url"
-		$ZZWWWDUMP "$url" |
-			sed -n 's/^ *\([Ff]edora *[0-9]\{1,\} *[Uu]pdate.*:.*\) *$/\1/p' |
+		$ZZWWWHTML "$url" |
+			sed -n '
+				/contentpagetitle/ {
+					# O título está na próxima linha
+					n
+					# Remove TABs e espaços do início
+					s/^[^A-Za-z0-9]*//
+					# Remove </a>
+					s|</a>||
+					# Mostra o resultado
+					p
+				}' |
 			$limite
 	fi
 
