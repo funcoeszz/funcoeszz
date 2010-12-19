@@ -10,7 +10,7 @@ zzloteria ()
 {
 	zzzz -h loteria $1 && return
 
-	local dump numero_concurso data resultado acumulado tipo
+	local dump numero_concurso data resultado acumulado tipo sufixo
 	local url='http://www1.caixa.gov.br/loterias/loterias'
 	local tipos='quina megasena duplasena lotomania lotofacil'
 	
@@ -29,7 +29,14 @@ zzloteria ()
 		# - O resultado são vários campos separados por pipe |
 		# - Cada tipo de loteria traz os dados em posições (e formatos) diferentes :/
 		
-		dump=$($ZZWWWDUMP "$url/$tipo/${tipo}_pesquisa.asp" |
+		if test "$tipo" = 'duplasena'
+		then
+			sufixo='_pesquisa_new.asp'
+		else
+			sufixo='_pesquisa.asp'
+		fi
+		
+		dump=$($ZZWWWDUMP "$url/$tipo/$tipo$sufixo" |
 			tr -d \\n |
 			sed 's/  */ /g ; s/^ //')
 		
