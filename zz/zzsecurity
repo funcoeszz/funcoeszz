@@ -139,11 +139,11 @@ zzsecurity ()
 	# Ubuntu
 	if zztool grep_var ubuntu "$distros"
 	then
-		url='http://www.ubuntu.com/taxonomy/term/2/0/feed'
+		url='http://www.ubuntu.com/usn/rss.xml'
 		echo
 		zztool eco '** Atualizações Ubuntu'
 		echo "$url"
-		$ZZWWWDUMP "$url" |
+		$ZZWWWHTML "$url" |
 			sed -n '/item/,$ s@.*<title>\(.*\)</title>@\1@p' |
 			$limite
 	fi
