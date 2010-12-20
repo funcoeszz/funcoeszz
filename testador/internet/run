@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# testador/interenet/run
+# testador/internet/run
 #
 # Uso:
 #   ./run            # fazer todos os testes
