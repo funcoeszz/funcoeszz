@@ -57,7 +57,7 @@ for f in zz/* off/*; do grep -q '^# Ex\.: ' $f || echo $f; done
 
 echo ----------------------------------------------------------------
 echo "* Funções com campo inválido"
-campos='Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos'
+campos='Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos|Nota'
 for f in zz/* off/*
 do
 	wrong=$(
@@ -154,6 +154,10 @@ do
 			/^# Versão: / n
 			/^# Licença: /! { s/^/Esperava Licença:, veio /p; q; }
 			n
+			
+			# Mais campos opcionais no final
+			/^# Requisitos: / n
+			/^# Nota: / n
 			
 			# -----------------------------
 			/^# -\{76\}$/! { s/^/Esperava -----------, veio /p; q; }

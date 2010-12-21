@@ -2,9 +2,9 @@
 # Exibe a descrição da função JQuery informada.
 # Caso não seja passado o nome, serão exibidas informações acerca do $().
 # Se usado o argumento -s, será exibida somente a sintaxe.
-# Uso: zzjquery funcao
-#      zzjquery -s funcao
+# Uso: zzjquery [-s] funcao
 # Ex.: zzjquery gt
+#      zzjquery -s gt
 #
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
 # Desde: 2007-12-04
