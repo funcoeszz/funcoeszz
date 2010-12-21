@@ -1,0 +1,87 @@
+#!/bin/bash
+
+cd $(dirname "$0")
+
+echo ----------------------------------------------------------------
+echo "* Funções que não são UTF-8"
+file zz/* off/* | egrep -v 'UTF-8'
+
+echo ----------------------------------------------------------------
+echo "* Funções com nome estranho"
+ls -1 zz/* off/* | grep -v '/zz[a-z0-9]*$'
+
+echo ----------------------------------------------------------------
+echo "* Funções cuja primeira linha é estranha"
+for f in zz/* off/*; do sed 1q $f | egrep -q '^# -{76}$' || echo $f; done
+
+echo ----------------------------------------------------------------
+echo "* Funções cujo início não é 'zznome ()\n'"
+for f in zz/* off/*; do grep -q "^zz[a-z0-9]* ()$" $f || echo $f; done
+
+echo ----------------------------------------------------------------
+echo "* Funções que não terminam em '}'"
+for f in zz/* off/*; do tail -1 $f | grep -q "^}$" || echo $f; done
+
+echo ----------------------------------------------------------------
+echo "* Funções cujo nome não bate com o nome do arquivo"
+for f in zz/* off/*; do grep -q "^$(basename $f) " $f || echo $f; done
+
+echo ----------------------------------------------------------------
+echo "* Funções sem o campo Autor:"
+for f in zz/* off/*; do grep -q '^# Autor: ' $f || echo $f; done
+
+echo ----------------------------------------------------------------
+echo "* Funções sem o campo Desde:"
+for f in zz/* off/*; do grep -q '^# Desde: ' $f || echo $f; done
+
+echo ----------------------------------------------------------------
+echo "* Funções sem o campo Licença:"
+for f in zz/* off/*; do grep -q '^# Licença: ' $f || echo $f; done
+
+echo ----------------------------------------------------------------
+echo "* Funções sem o campo Uso:"
+for f in zz/* off/*; do grep -q '^# Uso: ' $f || echo $f; done
+
+echo ----------------------------------------------------------------
+echo "* Funções sem o campo Ex.:"
+for f in zz/* off/*; do grep -q '^# Ex\.: ' $f || echo $f; done
+
+echo ----------------------------------------------------------------
+echo "* Funções com a descrição sem ponto final"
+for f in zz/* off/*; do
+	sed -n '2 {
+		/^# ------/ n
+		/^# http/ n
+		# Deve acabar em ponto final
+		/\.$/! p
+		}' $f
+done
+
+echo ----------------------------------------------------------------
+echo "* Funções com a descrição com mais de um ponto ."
+for f in zz/* off/*; do
+	test "$f" = zz/zzranking && continue  # tem 2 pontos mas é OK
+	sed -n '2 {
+		/^# ------/ n
+		/^# http/ n
+		# Pontos no meio da frase
+		/\. [A-Za-z]/ p
+		}' $f
+done
+
+echo ----------------------------------------------------------------
+echo "* Funções com o campo Desde: em formato incorreto"
+for f in zz/* off/*
+do
+	wrong=$(grep '^# Desde:' $f | egrep -v ': [0-9]{4}-[0-9]{2}-[0-9]{2}$')
+	test -n "$wrong" && echo "$f: $wrong"
+done
+
+echo ----------------------------------------------------------------
+echo "* Funções com cabeçalho >78 colunas"
+for f in zz/* off/*
+do
+	wrong=$(grep '^# ' $f | egrep '^.{79}')
+	test -n "$wrong" && echo "$f: $wrong"
+done
+
