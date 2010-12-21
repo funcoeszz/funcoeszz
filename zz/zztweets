@@ -28,4 +28,3 @@ zztweets ()
 	echo "O Twitter não pôde responder essa requisição"
 	return
 }
-

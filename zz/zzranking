@@ -20,4 +20,3 @@ zzranking ()
   		sort -r -n |
   		sed -n '1,20p'
 }
-

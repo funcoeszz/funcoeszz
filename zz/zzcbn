@@ -145,4 +145,3 @@ fi
 	rm /tmp/comentarios
 	rm /tmp/coment
 }
-

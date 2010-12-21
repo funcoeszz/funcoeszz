@@ -40,4 +40,3 @@ zzdicgoogle ()
 		sed -n "s/$INI\([^<]*\)$FIM/\1/p"
 	echo " ";
 }
-
