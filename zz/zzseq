@@ -1,15 +1,17 @@
 # ----------------------------------------------------------------------------
 # Mostra uma seqüência numérica, um número por linha.
 # Obs.: Emulação do comando seq, presente no Linux.
-# Uso: zzseq [número-inicial] número-final
-# Ex.: zzseq 5
-#      zzseq 10 5
+# Uso: zzseq [número-inicial [passo]] número-final
+# Ex.: zzseq 10                   # de 1 até 10
+#      zzseq 5 10                 # de 5 até 10
+#      zzseq 10 5                 # de 10 até 5 (regressivo)
+#      zzseq 0 2 10               # de 0 até 10, indo de 2 em 2
+#      zzseq 10 -2 0              # de 10 até 0, indo de 2 em 2
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2002-12-06
 # Licença: GPL
 # ----------------------------------------------------------------------------
-# TODO aceitar terceiro parâmetro, igual no Linux: 10 -2 0 (início step fim)
 zzseq ()
 {
 	zzzz -h seq $1 && return
@@ -17,29 +19,43 @@ zzseq ()
 	local operacao='+'
 	local inicio=1
 	local fim=$1
+	local passo=1
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso seq; return; }
 	
 	# Se houver dois números, vai "do primeiro ao segundo"
 	[ "$2" ] && inicio=$1 fim=$2
+	
+	# Se houver três números, vai "do primeiro ao terceiro em saltos"
+	[ "$3" ] && inicio=$1 passo=$2 fim=$3
 
 	# Verificações básicas
 	if ! (zztool testa_numero_sinal "$inicio" &&
-	      zztool testa_numero_sinal "$fim")
+	      zztool testa_numero_sinal "$passo" &&
+	      zztool testa_numero_sinal "$fim" &&
+	      test $passo -ne 0)
 	then
 		zztool uso seq
 		return
 	fi
 	
+	# Internamente o passo deve ser sempre positivo para simplificar
+	# Assim mesmo que o usuário faça 0 -2 10, vai funcionar
+	[ $passo -lt 0 ] && passo=$((0 - passo))
+	
 	# Se o primeiro for maior que o segundo, a contagem é regressiva
 	[ $inicio -gt $fim ] && operacao='-'
 	
 	# Loop que mostra o número e aumenta/diminui a contagem
-	while [ $inicio -ne $fim ]
+	i=$inicio
+	while (test $inicio -lt $fim -a $i -le $fim ||
+	       test $inicio -gt $fim -a $i -ge $fim)
 	do
-		echo $inicio
-		eval "inicio=\$((inicio $operacao 1))" # +1 ou -1
+		echo $i
+		eval "i=\$((i $operacao passo))" # +n ou -n
 	done
-	echo $inicio
+	
+	# Caso especial: início e fim são iguais
+	test $inicio -eq $fim && echo $inicio
 }
