@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------
 # http://www.google.com.br/language_tools
 # Tradução de textos entre vários idiomas, feita pelo Google.
-#   As línguas são especificadas por um par de símbolos separados por '|'.
-#   O padrão é traduzir do Inglês para o Português (ou seja, "en|pt").
-#   Os pares disponíveis atualmente são:
+# As línguas são especificadas por um par de símbolos separados por '|'.
+# O padrão é traduzir do Inglês para o Português (ou seja, "en|pt").
+# Os pares disponíveis atualmente são:
 #
 #      en|de en|es en|fr en|it en|ja en|ko en|pt en|zh-CN
 #      de|en de|fr es|en fr|en fr|de it|en ja|en ko|en pt|en zh-CN|en

@@ -56,12 +56,12 @@ echo "* Funções sem o campo Ex.:"
 for f in zz/* off/*; do grep -q '^# Ex\.: ' $f || echo $f; done
 
 echo ----------------------------------------------------------------
-echo "* Funções com campo inválido"
-campos='Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos|Nota'
+echo "* Funções com campo desconhecido"
+campos='Obs\.|Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos|Nota'
 for f in zz/* off/*
 do
 	wrong=$(
-		egrep '^# [A-Z][a-z]+: ' $f |
+		egrep '^# [A-Z][a-z.]+: ' $f |
 		cut -d : -f 1 |
 		sed 's/^# //' |
 		egrep -v "$campos" |
