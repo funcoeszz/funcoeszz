@@ -1,4 +1,3 @@
-# DESATIVADA: Agora a consulta é travada com CAPTCHA
 # ----------------------------------------------------------------------------
 # http://www.pr.gov.br/detran
 # Consulta débitos do veículo, como licenciamento, IPVA e multas (Detran-PR).
@@ -8,6 +7,7 @@
 # Uso: zzdetranpr número-renavam
 # Ex.: zzdetranpr 123456789
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2008-03-01 Agora a consulta é travada com CAPTCHA
 zzdetranpr ()
 {
 	zzzz -h detranpr $1 && return

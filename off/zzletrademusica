@@ -1,4 +1,3 @@
-# DESATIVADA: Não funciona. É preciso encontrar outro site e fazer o filtro.
 # ----------------------------------------------------------------------------
 # http://letssingit.com
 # Busca letras de músicas, procurando pelo nome da música.
@@ -9,6 +8,7 @@
 # Ex.: zzletrademusica punkrock
 #      zzletrademusica kkk took my baby
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2008-03-01 Não funciona. É preciso encontrar outro site.
 zzletrademusica ()
 {
 	zzzz -h letrademusica $1 && return

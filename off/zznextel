@@ -1,4 +1,3 @@
-# DESATIVADA: Agora a consulta é travada com CAPTCHA
 # ----------------------------------------------------------------------------
 # http://www.nextel.com.br
 # Envia uma mensagem para um telefone NEXTEL (via rádio).
@@ -9,6 +8,7 @@
 # Uso: zznextel de para mensagem
 # Ex.: zznextel aurélio 554178787878 minha mensagem mala
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2008-03-01 Agora a consulta é travada com CAPTCHA
 zznextel ()
 {
 	zzzz -h nextel $1 && return

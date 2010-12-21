@@ -1,4 +1,3 @@
-# DESATIVADA: Agora o site dos Correios usa AJAX :(
 # ----------------------------------------------------------------------------
 # http://www.correios.com.br/servicos/cep
 # Busca o CEP de qualquer rua de qualquer cidade do país ou vice-versa.
@@ -9,6 +8,7 @@
 # Ex.: zzcep PR curitiba rio gran
 #      zzcep RJ 'Rio de Janeiro' Vinte de
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2008-03-01 Agora o site dos Correios usa AJAX :(
 zzcep ()
 {
 	zzzz -h cep $1 && return

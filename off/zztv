@@ -1,4 +1,3 @@
-# DESATIVADA: Não funciona (404).
 # ----------------------------------------------------------------------------
 # http://tudoparana.globo.com/gazetadopovo/cadernog/tv.html
 # Consulta a programação do dia dos canais abertos da TV.
@@ -12,6 +11,7 @@
 #      zztv . 00         # todos os canais, depois da meia-noite
 #      zztv .            # todos os canais, o dia todo
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2008-03-01 Não funciona (404).
 zztv ()
 {
 	zzzz -h tv $1 && return
