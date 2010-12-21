@@ -17,6 +17,7 @@
 #    --names                 Nomes de pessoas, em inglês
 #    --lapd                  Polícia de Los Angeles (EUA)
 #
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Uso: zzalfabeto [--TIPO] [palavra]
 # Ex.: zzalfabeto --militar
 #      zzalfabeto --militar cambio

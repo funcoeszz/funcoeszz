@@ -1,6 +1,8 @@
 # ----------------------------------------------------------------------------
 # http://www.m-w.com
 # Fala a pronúncia correta de uma palavra em inglês.
+# Autor: Thobias Salazar Trevisan, www.thobias.org
+# Desde: 2002-04-10
 # Uso: zzpronuncia palavra
 # Ex.: zzpronuncia apple
 # ----------------------------------------------------------------------------

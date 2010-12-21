@@ -2,6 +2,8 @@
 # http://www1.caixa.gov.br/loterias
 # Consulta os resultados da quina, megasena, duplasena, lotomania e lotofácil.
 # Obs.: Se nenhum argumento for passado, todas as loterias são mostradas.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2004-05-18
 # Uso: zzloteria [quina | megasena | duplasena | lotomania | lotofacil]
 # Ex.: zzloteria
 #      zzloteria quina megasena

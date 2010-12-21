@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Tira os acentos de todas as letras. Por exemplo áéíóú vira aeiou.
-# Autor: Aurélio Jargas <verde (a) aurelio net>
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Versão: 1
 # Uso: zzsemacento texto
 # Ex.: zzsemacento AÇÃO maçã 1ª bênção      # ACAO maca 1a bencao

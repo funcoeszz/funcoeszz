@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # http://sistemas.anatel.gov.br/SIPT/Atualizacao/N_ConsultaTarifas/tela.asp
 # Busca as tarifas das operadoras no plano básico para ligações DDD.
-# Autor: Rafael Machado Casali <rmcasali (a) mtm ufsc br>
+# Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Versão: 2
 # Desde: 14 de Abril de 2005
 # Uso: zzanatel DDD_Origem Prefixo_Origem DDD_Destino Prefixo_Destino

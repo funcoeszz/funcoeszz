@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Gera uma senha aleatória de N caracteres formada por letras e números.
 # Obs.: A senha gerada não possui caracteres repetidos.
+# Autor: Thobias Salazar Trevisan, www.thobias.org
 # Uso: zzsenha [n]     (padrão n=6)
 # Ex.: zzsenha
 #      zzsenha 8

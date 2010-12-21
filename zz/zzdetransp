@@ -2,6 +2,7 @@
 # http://www.detran.sp.gov.br
 # Consulta débitos do veículo, como licenciamento, IPVA e multas (Detran-SP).
 # Autor: Elton Simões Baptista <elton (a) inso com br>
+# Desde: 2001-12-06
 # Uso: zzdetransp número-renavam
 # Ex.: zzdetransp 123456789
 # ----------------------------------------------------------------------------

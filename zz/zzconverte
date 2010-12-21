@@ -14,6 +14,7 @@
 #          dc = (D)ecimal      para (C)aractere
 #          dh = (D)ecimal      para (H)exadecimal
 #          hd = (H)exadecimal  para (D)ecimal
+# Autor: Thobias Salazar Trevisan, www.thobias.org
 # Uso: zzconverte <cf|fc|ck|kc|fk|kf|mk|km|db|bd|cd|dh|hd> número
 # Ex.: zzconverte cf 5
 #      zzconverte dc 65

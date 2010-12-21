@@ -2,6 +2,8 @@
 # http://funcoeszz.net/locales.txt
 # Busca o código do idioma (locale). Por exemplo, português é pt_BR.
 # Com a opção -c, pesquisa somente nos códigos e não em sua descrição.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2005-06-30
 # Uso: zzlocale [-c] código|texto
 # Ex.: zzlocale chinese
 #      zzlocale -c pt

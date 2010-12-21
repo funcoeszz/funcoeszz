@@ -4,7 +4,7 @@
 # Se informados dois números, mostra a porcentagem relativa entre eles.
 # Se informados um número e uma porcentagem, mostra os valores da porcentagem.
 #
-# Autor: Aurélio Jargas <verde (a) aurelio net>
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Versão: 4
 # Uso: zzporcento valor [valor|porcentagem%]
 # Ex.: zzporcento 500           # Tabela de porcentagens de 500

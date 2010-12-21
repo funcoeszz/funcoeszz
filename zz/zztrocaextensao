@@ -1,6 +1,8 @@
 # ----------------------------------------------------------------------------
 # Troca a extensão dos arquivos especificados.
 # Com a opção -n, apenas mostra o que será feito, mas não executa.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-05-15
 # Uso: zztrocaextensao [-n] antiga nova arquivo(s)
 # Ex.: zztrocaextensao -n .doc .txt *          # tire o -n para renomear!
 # ----------------------------------------------------------------------------

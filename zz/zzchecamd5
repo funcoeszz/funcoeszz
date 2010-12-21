@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # Checa o md5sum de arquivos baixados da net.
 # Nota: A funcao checa o arquivo no diretorio corrente (./)
-# Autor: Marcell S. Martini <marcellmartini (a) gmail.com>
+# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Versão: 2
 # Licença: GPLv2
 # Uso: zzchecamd5 arquivo md5sum

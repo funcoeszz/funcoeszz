@@ -2,6 +2,8 @@
 # Faz cálculos com horários.
 # A opção -r torna o cálculo relativo à primeira data, por exemplo:
 #   02:00 - 03:30 = -01:30 (sem -r) e 22:30 (com -r)
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-02-22
 # Uso: zzhora [-r] hh:mm [+|- hh:mm]
 # Ex.: zzhora 8:30 + 17:25        # preciso somar duas horas!
 #      zzhora 12:00 - agora       # quando falta para o almoço?

@@ -3,6 +3,8 @@
 # Opções: -r  busca recursiva nos subdiretórios
 #         -f  busca somente os arquivos e não diretórios
 #         -n  número de resultados (o padrão é 10)
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2001-08-28
 # Uso: zzmaiores [-r] [-f] [-n <número>] [dir1 dir2 ...]
 # Ex.: zzmaiores
 #      zzmaiores /etc /tmp

@@ -3,6 +3,8 @@
 # http://www.nextel.com.br
 # Envia uma mensagem para um telefone NEXTEL (via rádio).
 # Obs.: O número especificado é o número próprio do telefone (não o ID!).
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2002-03-15
 # Uso: zznextel de para mensagem
 # Ex.: zznextel aurélio 554178787878 minha mensagem mala
 # ----------------------------------------------------------------------------

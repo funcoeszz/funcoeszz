@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Sistema simples de lembretes: cria, apaga e mostra.
-# Autor: Aurélio Jargas <verde (a) aurelio net>
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-10-23
 # Versão: 1
 # Uso: zzlembrete [texto]|[número [d]]
 # Ex.: zzlembrete                      # Mostra todos

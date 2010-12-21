@@ -1,5 +1,7 @@
 # ----------------------------------------------------------------------------
 # Troca o conteúdo de dois arquivos, mantendo suas permissões originais.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-06-12
 # Uso: zztrocaarquivos arquivo1 arquivo2
 # Ex.: zztrocaarquivos /etc/fstab.bak /etc/fstab
 # ----------------------------------------------------------------------------

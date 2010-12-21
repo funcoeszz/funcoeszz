@@ -3,6 +3,8 @@
 # Tradução de UMA PALAVRA em inglês para vários idiomas.
 # Francês, alemão, japonês, italiano, hebreu, espanhol, holandês e português.
 # Se nenhum idioma for informado, o padrão é o português.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-02-22
 # Uso: zzdicbabylon [idioma] palavra   #idioma:dut fre ger heb ita jap ptg spa
 # Ex.: zzdicbabylon hardcore
 #      zzdicbabylon jap tree

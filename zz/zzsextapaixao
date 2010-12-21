@@ -2,6 +2,9 @@
 # Mostra a data da sexta-feira da paixao para qualquer ano.
 # Obs.: Se o ano não for informado, usa o atual.
 # Regra: 2 dias antes do domingo de Páscoa.
+# Requisitos: zztool, zzdata, zzpascoa
+# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
+# Desde: 2008-11-21
 # Uso: zzsextapaixao [ano]
 # Ex.: zzsextapaixao
 #      zzsextapaixao 2008

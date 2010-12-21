@@ -3,6 +3,8 @@
 # Para ver rapidamente quais opções estão ativas num arquivo de configuração.
 # Além do tradicional #, reconhece comentários de arquivos .vim.
 # Obs.: Aceita dados vindos da entrada padrão (STDIN).
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-04-24
 # Uso: zzlimpalixo [arquivos]
 # Ex.: zzlimpalixo ~/.vimrc
 #      cat /etc/inittab | zzlimpalixo

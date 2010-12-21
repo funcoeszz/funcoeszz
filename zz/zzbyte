@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------
 # Conversão entre grandezas de bytes (mega, giga, tera, etc).
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Uso: zzbyte N [unidade-entrada] [unidade-saida]  # BKMGTPEZY
 # Ex.: zzbyte 2048                    # Quanto é 2048 bytes?  -- 2K
 #      zzbyte 2048 K                  # Quanto é 2048KB?      -- 2M

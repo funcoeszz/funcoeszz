@@ -2,6 +2,7 @@
 # http://... - vários
 # Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
 # Suportados: Debian Fedora FreeBSD Gentoo Mandriva Slackware Suse Ubuntu.
+# Autor: Thobias Salazar Trevisan, www.thobias.org
 # Uso: zzsecurity [distros]
 # Ex.: zzsecutiry
 #      zzsecurity fedora

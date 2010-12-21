@@ -1,6 +1,8 @@
 # ----------------------------------------------------------------------------
 # Mostra todas as combinações de cores possíveis no console.
 # Também mostra os códigos ANSI para obter tais combinações.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2001-12-11
 # Uso: zzcores
 # ----------------------------------------------------------------------------
 zzcores ()

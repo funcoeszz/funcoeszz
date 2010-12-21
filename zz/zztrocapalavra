@@ -1,6 +1,8 @@
 # ----------------------------------------------------------------------------
 # Troca uma palavra por outra, nos arquivos especificados.
 # Obs.: Além de palavras, é possível usar expressões regulares.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-05-04
 # Uso: zztrocapalavra antiga nova arquivo(s)
 # Ex.: zztrocapalavra excessão exceção *.txt
 # ----------------------------------------------------------------------------

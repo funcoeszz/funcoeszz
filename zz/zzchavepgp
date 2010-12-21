@@ -1,6 +1,8 @@
 # ----------------------------------------------------------------------------
 # http://pgp.mit.edu
 # Busca a identificação da chave PGP, fornecido o nome ou e-mail da pessoa.
+# Autor: Rodrigo Missiaggia
+# Desde: 2001-10-01
 # Uso: zzchavepgp nome|e-mail
 # Ex.: zzchavepgp Carlos Oliveira da Silva
 #      zzchavepgp carlos@dominio.com.br

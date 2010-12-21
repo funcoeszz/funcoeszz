@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # http://www.ibiblio.org
 # Procura documentos do tipo HOWTO.
+# Autor: Thobias Salazar Trevisan, www.thobias.org
 # Uso: zzhowto [--atualiza] palavra
 # Ex.: zzhowto apache
 #      zzhowto --atualiza

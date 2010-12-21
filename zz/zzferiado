@@ -4,7 +4,7 @@
 # de ambiente para os feriados regionais. A variavel é ZZFERIADO, colocar a 
 # data sendo o dd/mm:descrição Ex.: 20/11:Conciencia negra
 #
-# Autor: Marcell S. Martini <marcellmartini (a) gmail.com>
+# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Versão: 3
 # Licença: GPLv2
 # Uso: zzferiado -l [ano] | [data]

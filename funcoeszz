@@ -98,6 +98,8 @@ unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 # ----------------------------------------------------------------------------
 # zztool
 # Miniferramentas para auxiliar as funções.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-03-01
 # Uso: zztool ferramenta [argumentos]
 # ----------------------------------------------------------------------------
 zztool ()
@@ -289,6 +291,8 @@ zztool ()
 # Mostra uma tela de ajuda com explicação e sintaxe de todas as funções.
 # Opções: --lista  lista de todas as funções, com sua descrição
 #         --uso    resumo de todas as funções, com a sintaxe de uso
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-05-04
 # Uso: zzajuda [--lista|--uso]
 # Ex.: zzajuda
 #      zzajuda --lista
@@ -353,6 +357,8 @@ zzajuda ()
 #         --bashrc    instala as funções no ~/.bashrc
 #         --tcshrc    instala as funções no ~/.tcshrc
 #         --zshrc     instala as funções no ~/.zshrc
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2002-01-07
 # Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc]
 # Ex.: zzzz
 #      zzzz --teste

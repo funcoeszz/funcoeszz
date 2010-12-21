@@ -1,6 +1,8 @@
 # ----------------------------------------------------------------------------
 # Acha as funções de uma biblioteca da linguagem C (arquivos .h).
 # Obs.: O diretório padrão de procura é o /usr/include.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-12-15
 # Uso: zzcinclude nome-biblioteca
 # Ex.: zzcinclude stdio
 #      zzcinclude /minha/rota/alternativa/stdio.h

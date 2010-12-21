@@ -4,6 +4,7 @@
 # Se nenhum parâmetro for passado, são listados as localidades disponíveis.
 # O parâmetro pode ser tanto a sigla quando o nome da localidade.
 # A opção -s realiza a busca somente na sigla.
+# Autor: Thobias Salazar Trevisan, www.thobias.org
 # Uso: zzhoracerta [-s] local
 # Ex.: zzhoracerta rio grande do sul
 #      zzhoracerta -s br

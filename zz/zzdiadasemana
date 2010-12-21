@@ -1,6 +1,8 @@
 # ----------------------------------------------------------------------------
 # Mostra qual o dia da semana de uma data qualquer.
 # Obs.: Se a data não for informada, usa a data atual.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-10-24
 # Uso: zzdiadasemana [data]
 # Ex.: zzdiadasemana
 #      zzdiadasemana 31/12/2000

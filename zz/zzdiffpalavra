@@ -2,6 +2,8 @@
 # Mostra a diferença entre dois textos, palavra por palavra.
 # Útil para conferir revisões ortográficas ou mudanças pequenas em frases.
 # Obs.: Se tiver muitas *linhas* diferentes, use o comando diff.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2001-07-23
 # Uso: zzdiffpalavra arquivo1 arquivo2
 # Ex.: zzdiffpalavra texto-orig.txt texto-novo.txt
 # ----------------------------------------------------------------------------

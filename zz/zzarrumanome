@@ -5,6 +5,8 @@
 # Opções: -n  apenas mostra o que será feito, não executa
 #         -d  também renomeia diretórios
 #         -r  funcionamento recursivo (entra nos diretórios)
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2001-07-23
 # Uso: zzarrumanome [-n] [-d] [-r] arquivo(s)
 # Ex.: zzarrumanome *
 #      zzarrumanome -n -d -r .                   # tire o -n para renomear!

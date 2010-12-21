@@ -6,6 +6,7 @@
 # Idiomas: de (alemão)    eo (esperanto)  es (espanhol)  fr (francês)
 #          it (italiano)  ja (japonês)    la (latin)     pt (português)
 #
+# Autor: Thobias Salazar Trevisan, www.thobias.org
 # Uso: zzwikipedia [-idioma] palavra(s)
 # Ex.: zzwikipedia sed
 #      zzwikipedia Linus Torvalds

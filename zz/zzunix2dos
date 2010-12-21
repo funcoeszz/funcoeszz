@@ -1,5 +1,7 @@
 # ----------------------------------------------------------------------------
 # Converte arquivos texto no formato Unix (LF) para o Windows/DOS (CR+LF).
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-02-22
 # Uso: zzunix2dos arquivo(s)
 # Ex.: zzunix2dos frases.txt
 # ----------------------------------------------------------------------------

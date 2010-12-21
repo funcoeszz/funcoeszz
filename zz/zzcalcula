@@ -2,6 +2,8 @@
 # Calculadora.
 # Os operadores principais são + - / * ^ %, veja outros em "man bc".
 # Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-05-04
 # Uso: zzcalcula número operação número
 # Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
 #      zzcalcula '2^2*(4-1)'          # 2 ao quadrado vezes 4 menos 1

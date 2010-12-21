@@ -2,6 +2,8 @@
 # http://br.invertia.com
 # Busca a cotação do dia do dólar (comercial, paralelo e turismo).
 # Obs.: As cotações são atualizadas de 10 em 10 minutos.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-02-22
 # Uso: zzdolar
 # ----------------------------------------------------------------------------
 zzdolar ()
