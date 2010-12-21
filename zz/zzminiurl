@@ -8,7 +8,7 @@
 # Uso: zzminiurl www.siteparaencurtar.com.br
 # Ex.: zzminiurl www.funcoeszz.net
 # ----------------------------------------------------------------------------
-zzminiurl()
+zzminiurl ()
 {
 	if [ ! $1 ]; then
 		zzzz -h zzminiurl -h | grep Uso

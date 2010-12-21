@@ -13,7 +13,8 @@
 # Ex.: zzrandbackground /media/wallpaper/ 
 #      zzrandbackground -l /media/wallpaper/ 5
 # ----------------------------------------------------------------------------
-zzrandbackground () {
+zzrandbackground ()
+{
 
 	zzzz -h randbackground $1 && return
 

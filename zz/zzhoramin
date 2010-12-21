@@ -9,7 +9,8 @@
 #      zzhoramin 10:53
 #      zzhoramin -10:53
 # ----------------------------------------------------------------------------
-zzhoramin () {
+zzhoramin ()
+{
 
 	zzzz -h horamin $1 && return
 

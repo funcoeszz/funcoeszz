@@ -7,7 +7,7 @@
 # Uso: zzrelansi [-s|--stop]
 # Ex.: zzrelansi
 # ----------------------------------------------------------------------------
-zzrelansi()
+zzrelansi ()
 {
   zzzz -h relansi $1 && return
   local lock="/tmp/relansi-$$"
