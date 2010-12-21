@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://sourceforge.net
 # Ranking das linguagens de programação, pelo núm. de projetos no SourceForge.
+# Uso: zzranking
+# Ex.: zzranking
+#
 # Autor: Cesar Gimenes <crgimenes (a) terra com br>
 # Desde: 2005-11-03
 # Versão: 1
 # Licença: GPL
-# Uso: zzranking
-# Ex.: zzranking
 # ----------------------------------------------------------------------------
 # TODO: Parâmetro para mostrar o ranking completo.
 zzranking ()

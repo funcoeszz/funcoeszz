@@ -1,11 +1,12 @@
 # ----------------------------------------------------------------------------
 # Coloca um relógio digital (hh:mm:ss) no canto superior direito do terminal.
+# Uso: zzrelansi [-s|--stop]
+# Ex.: zzrelansi
+#
 # Autor: Arkanon <arkanon (a) lsd org br>
 # Desde: 2009-09-17
 # Versão: 1
 # Licença: GPL
-# Uso: zzrelansi [-s|--stop]
-# Ex.: zzrelansi
 # ----------------------------------------------------------------------------
 zzrelansi ()
 {

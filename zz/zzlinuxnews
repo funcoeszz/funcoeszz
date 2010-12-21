@@ -8,12 +8,13 @@
 #          S)lashDot          Linux W)eekly News
 #          O)S News
 #
-# Autor: Thobias Salazar Trevisan, www.thobias.org
-# Desde: 2002-11-07
-# Licença: GPL
 # Uso: zzlinuxnews [sites]
 # Ex.: zzlinuxnews
 #      zzlinuxnews fs
+#
+# Autor: Thobias Salazar Trevisan, www.thobias.org
+# Desde: 2002-11-07
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzlinuxnews ()
 {

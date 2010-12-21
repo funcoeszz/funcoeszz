@@ -1,10 +1,6 @@
 # ----------------------------------------------------------------------------
 # Informa a extensão de um arquivo.
 # Obs.: Caso não exista, retorna vazio "".
-# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
-# Desde: 2009-09-21
-# Versão: 20091010
-# Licença: GPLv2
 # Opções:
 #   -h, --help     exibe a ajuda.
 #   -v, --verbose  exibe informações para debug durante o processamento.
@@ -12,7 +8,12 @@
 #   -f, --file     informa o arquivo para verificar a extensão.
 # Uso: zzextensao [-h] [-v] [-V] -f arquivo
 # Ex.: zzextensao "/tmp/arquivo.txt"       # resulta em "txt"
-# Ex.: zzextensao "/tmp/arquivo"           # resulta em ""
+#      zzextensao "/tmp/arquivo"           # resulta em ""
+#
+# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
+# Desde: 2009-09-21
+# Versão: 20091010
+# Licença: GPLv2
 # ----------------------------------------------------------------------------
 zzextensao ()
 {

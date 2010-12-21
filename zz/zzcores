@@ -1,11 +1,12 @@
 # ----------------------------------------------------------------------------
 # Mostra todas as combinações de cores possíveis no console.
 # Também mostra os códigos ANSI para obter tais combinações.
+# Uso: zzcores
+# Ex.: zzcores
+#
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-11
 # Licença: GPL
-# Uso: zzcores
-# Ex.: zzcores
 # ----------------------------------------------------------------------------
 zzcores ()
 {

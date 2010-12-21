@@ -5,21 +5,22 @@
 # para numero inteiro (N dias passados desde Epoch) e vice-versa.
 # zzdata pode subtrair, ou somar meses e anos tambem. Eh so especificar!
 # Obs.: Leva em conta os anos bissextos     (Epoch = 01/01/1970, editavel)
-# Autor: Aurélio Marinho Jargas, www.aurelio.net, modificada por Itamar
-# Desde: 2010-05-26
-# Licença: GPLv2
-# Versão: 20091010
-# Uso: zzdata2 data|num [+|- data|num [D|M|Y]]
 # Opcoes:
 #         data|num  data inicial.
 #         +|-       operacao a realizar (adicao|subtracao).
 #         D|M|Y     unidade em caso de operacao com numero(D=dia, M=mes, Y=ano).
+# Uso: zzdata2 data|num [+|- data|num [D|M|Y]]
 # Ex.: zzdata2 22/12/1999 + 69
 #      zzdata2 hoje - 5
 #      zzdata2 01/03/2000 - 11/11/1999
 #      zzdata2 hoje - dd/mm/aaaa         <---- use sua data de nascimento
 #      zzdata2 01/03/2000 - 1 M          # subtrai 1 mes. resp: 01/02/2000
 #      zzdata2 30/03/2008 - 1 M          # resp: 19/02/2008 (ano bissexto)
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net, modificada por Itamar
+# Desde: 2010-05-26
+# Licença: GPLv2
+# Versão: 20091010
 # ----------------------------------------------------------------------------
 zzdata2 ()
 {

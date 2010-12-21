@@ -1,14 +1,15 @@
 # ----------------------------------------------------------------------------
 # Sistema simples de lembretes: cria, apaga e mostra.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2008-10-22
-# Versão: 1
-# Licença: GPL
 # Uso: zzlembrete [texto]|[número [d]]
 # Ex.: zzlembrete                      # Mostra todos
 #      zzlembrete 5                    # Mostra o 5º lembrete
 #      zzlembrete 5d                   # Deleta o 5º lembrete
 #      zzlembrete Almoço com a sogra   # Adiciona lembrete
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-10-22
+# Versão: 1
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzlembrete ()
 {

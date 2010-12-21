@@ -4,10 +4,6 @@
 # Se informados dois números, mostra a porcentagem relativa entre eles.
 # Se informados um número e uma porcentagem, mostra os valores da porcentagem.
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2008-12-11
-# Versão: 4
-# Licença: GPL
 # Uso: zzporcento valor [valor|porcentagem%]
 # Ex.: zzporcento 500           # Tabela de porcentagens de 500
 #      zzporcento 500.0000      # Tabela para número fracionário (.)
@@ -17,6 +13,11 @@
 #      zzporcento 500 1000      # Mostra a porcentagem de 1000 para 500 (200%)
 #      zzporcento 500,00 25%    # Mostra quanto é 25% de 500,00
 #      zzporcento 500,00 2,5%   # Mostra quanto é 2,5% de 500,00
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-12-11
+# Versão: 4
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzporcento ()
 {

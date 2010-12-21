@@ -2,13 +2,14 @@
 # http://www.dicas-l.unicamp.br
 # Procura por dicas sobre determinado assunto na lista Dicas-L.
 # Obs.: As opções do grep podem ser usadas (-i já é padrão).
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2001-08-08
-# Licença: GPL
 # Uso: zzdicasl [opção-grep] palavra(s)
 # Ex.: zzdicasl ssh
 #      zzdicasl -w vi
 #      zzdicasl -vEw 'windows|unix|emacs'
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2001-08-08
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzdicasl ()
 {

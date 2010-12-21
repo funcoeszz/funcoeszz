@@ -1,10 +1,5 @@
 # ----------------------------------------------------------------------------
 # Envia email via ssmtp.
-# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
-# Desde: 2009-09-17
-# Versão: 20091010
-# Licença: GPLv2
-# Requisitos: ssmtp
 # Opções:
 #   -h, --help     exibe a ajuda.
 #   -v, --verbose  exibe informações para debug durante o processamento.
@@ -17,6 +12,12 @@
 #   -e, --mensagem arquivo que contém a mensagem/corpo do email.
 # Uso: zzenviaemail [-hvV] -f email -t emails [-c emails] [-b emails] -s subject -m mensagem
 # Ex.: zzenviaemail -f quem_envia@dominio.com -t quem_recebe@dominio.com -s "Teste de e-mail" -m "./arq_msg.eml"
+#
+# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
+# Desde: 2009-09-17
+# Versão: 20091010
+# Licença: GPLv2
+# Requisitos: ssmtp
 # ----------------------------------------------------------------------------
 zzenviaemail ()
 {

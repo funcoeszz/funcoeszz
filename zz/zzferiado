@@ -3,14 +3,15 @@
 # Caso não seja passado nenhuma data é pego a data atual.
 # Pode-se configurar a variável ZZFERIADO para os feriados regionais.
 # O formato é o dd/mm:descrição, por exemplo: 20/11:Conciência negra.
-# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
-# Desde: 2008-11-21
-# Versão: 3
-# Licença: GPLv2
 # Uso: zzferiado -l [ano] | [data]
 # Ex.: zzferiado 25/12/2008
 #      zzferiado -l
 #      zzferiado -l 2010
+#
+# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
+# Desde: 2008-11-21
+# Versão: 3
+# Licença: GPLv2
 # ----------------------------------------------------------------------------
 zzferiado ()
 {

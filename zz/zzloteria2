@@ -2,14 +2,15 @@
 # Consulta os resultados da quina, megasena, duplasena, lotomania,  lotofácil, federal e timemania.
 # Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o concurso
 #       Se nenhum argumento for passado, todas as loterias são mostradas.
+# Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | federal | timemania] concurso]
+# Ex.: zzloteria2
+#      zzloteria2 quina megasena
+#
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzseq2
-# Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | federal | timemania] concurso]
-# Ex.: zzloteria2
-#      zzloteria2 quina megasena
 # ----------------------------------------------------------------------------
 zzloteria2 ()
 {

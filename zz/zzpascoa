@@ -2,12 +2,13 @@
 # Mostra a data do domingo de Páscoa para qualquer ano.
 # Obs.: Se o ano não for informado, usa o atual.
 # Regra: Primeiro domingo após a primeira lua cheia a partir de 21 de março.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2008-10-23
-# Licença: GPL
 # Uso: zzpascoa [ano]
 # Ex.: zzpascoa
 #      zzpascoa 1999
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-10-23
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzpascoa ()
 {

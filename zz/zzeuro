@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://cotacoes.agronegocios-e.com.br/
 # Busca a cotação atual do EURO com relação ao Dólar e ao Real.
+# Uso: zzeuro
+# Ex.: zzeuro
+#
 # Autor: Kyller Costa Gorgônio <kyllercg (a) gmail com>
 # Desde: 2006-01-10
 # Versão: 1
 # Licença: GPL
-# Uso: zzeuro
-# Ex.: zzeuro
 # ----------------------------------------------------------------------------
 zzeuro ()
 {

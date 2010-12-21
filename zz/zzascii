@@ -2,13 +2,14 @@
 # Mostra a tabela ASCII com todos os caracteres imprimíveis (32-126,161-255).
 # O formato utilizando é: <decimal> <hexa> <octal> <ascii>.
 # O número de colunas e a largura da tabela são configuráveis.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2002-12-06
-# Licença: GPL
 # Uso: zzascii [colunas] [largura]
 # Ex.: zzascii
 #      zzascii 4
 #      zzascii 7 100
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2002-12-06
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzascii ()
 {

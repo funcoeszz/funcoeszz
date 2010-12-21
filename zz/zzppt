@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://www.poupatempo.sp.gov.br
 # Mostra a agenda dos postos Poupatempo Móveis.
+# Uso: zzppt
+# Ex.: zzppt
+#
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2007-11-30
 # Versão: 1.1
 # Licença: GPL
-# Uso: zzppt
-# Ex.: zzppt
 # ----------------------------------------------------------------------------
 zzppt ()
 {

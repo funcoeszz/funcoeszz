@@ -2,14 +2,15 @@
 # Protetor de tela (Screen Saver) para console, com cores e temas.
 # Temas: mosaico, espaco, olho, aviao, jacare, alien, rosa, peixe, siri.
 # Obs.: Aperte Ctrl+C para sair.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2003-06-12
-# Licença: GPL
 # Uso: zzss [--rapido|--fundo] [--tema <tema>] [texto]
 # Ex.: zzss
 #      zzss fui ao banheiro
 #      zzss --rapido /
 #      zzss --fundo --tema peixe
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2003-06-12
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzss ()
 {

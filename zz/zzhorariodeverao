@@ -3,12 +3,13 @@
 # Obs.: Ano de 2008 em diante. Se o ano não for informado, usa o atual.
 # Regra: 3º domingo de outubro/fevereiro, exceto carnaval (4º domingo).
 # Requisitos: zztool, zzcarnaval, zzdata, zzdiadasemana
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2008-10-24
-# Licença: GPL
 # Uso: zzhorariodeverao [ano]
 # Ex.: zzhorariodeverao
 #      zzhorariodeverao 2009
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-10-24
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzhorariodeverao ()
 {

@@ -2,12 +2,13 @@
 # http://www.google.com
 # Retorno da função "define:" do Google.
 # Obs.: O idioma padrão é "all".
+# Uso: zzdefine palavra_ou_sigla
+# Ex.: zzdefine imho
+#
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Desde: 2005-05-23
 # Versão: 1
 # Licença: GPL
-# Uso: zzdefine palavra_ou_sigla
-# Ex.: zzdefine imho
 # ----------------------------------------------------------------------------
 zzdefine ()
 {

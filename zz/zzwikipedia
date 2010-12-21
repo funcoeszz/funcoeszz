@@ -6,13 +6,14 @@
 # Idiomas: de (alemão)    eo (esperanto)  es (espanhol)  fr (francês)
 #          it (italiano)  ja (japonês)    la (latin)     pt (português)
 #
-# Autor: Thobias Salazar Trevisan, www.thobias.org
-# Desde: 2004-10-28
-# Licença: GPL
 # Uso: zzwikipedia [-idioma] palavra(s)
 # Ex.: zzwikipedia sed
 #      zzwikipedia Linus Torvalds
 #      zzwikipedia -pt Linus Torvalds
+#
+# Autor: Thobias Salazar Trevisan, www.thobias.org
+# Desde: 2004-10-28
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzwikipedia ()
 {

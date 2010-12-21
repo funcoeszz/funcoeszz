@@ -1,11 +1,12 @@
 # ----------------------------------------------------------------------------
 # Mostra se o IP passado está em alguma blacklist  (SBL, PBL e XBL).
+# Uso: zzblist IP
+# Ex.: zzblist 200.199.198.197
+#
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2008-10-16
 # Versão: 1
 # Licença: GPL
-# Uso: zzblist IP
-# Ex.: zzblist 200.199.198.197
 # ----------------------------------------------------------------------------
 zzblist ()
 {

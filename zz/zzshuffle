@@ -1,11 +1,12 @@
 # ----------------------------------------------------------------------------
 # Desordena as linhas de um texto (ordem aleatória).
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2008-06-19
-# Licença: GPL
 # Uso: zzshuffle [arquivo(s)]
 # Ex.: zzshuffle /etc/passwd         # desordena o arquivo de usuários
 #      cat /etc/passwd | zzlinha     # o arquivo pode vir da entrada padrão
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-06-19
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzshuffle ()
 {

@@ -2,12 +2,13 @@
 # Mostra a data da terça-feira de Carnaval para qualquer ano.
 # Obs.: Se o ano não for informado, usa o atual.
 # Regra: 47 dias antes do domingo de Páscoa.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2008-10-23
-# Licença: GPL
 # Uso: zzcarnaval [ano]
 # Ex.: zzcarnaval
 #      zzcarnaval 1999
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-10-23
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzcarnaval ()
 {

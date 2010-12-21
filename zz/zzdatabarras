@@ -1,9 +1,5 @@
 # ----------------------------------------------------------------------------
 # Transforma data do formato DDMMYYYY para DD/MM/YYYY.
-# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
-# Desde: 2010-01-28
-# Versão: 20100128
-# Licença: GPLv2
 # Opções:
 #   -d, --data     data no formato DDMMYYYY.
 #   -h, --help     exibe a ajuda.
@@ -11,6 +7,11 @@
 #   -V, --version  exibe a versão.
 # Uso: zzdatabarras -d "data"
 # Ex.: zzdatabarras -d 28012010               # resposta: "28/01/2010"
+#
+# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
+# Desde: 2010-01-28
+# Versão: 20100128
+# Licença: GPLv2
 # ----------------------------------------------------------------------------
 zzdatabarras ()
 {

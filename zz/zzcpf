@@ -1,12 +1,14 @@
 # ----------------------------------------------------------------------------
 # Gera um CPF válido aleatório ou valida um CPF informado.
 # Obs.: O CPF informado pode estar formatado (pontos e hífen) ou não.
-# Desde: 2004-12-23
-# Licença: GPL
 # Uso: zzcpf [cpf]
 # Ex.: zzcpf 123.456.789-09          # valida o CPF
 #      zzcpf 12345678909             # com ou sem formatadores
 #      zzcpf                         # gera um CPF válido
+#
+# Autor: Aurélio ou Thobias
+# Desde: 2004-12-23
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzcpf ()
 {

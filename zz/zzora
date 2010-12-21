@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://ora-code.com
 # Retorna a descrição do erro Oracle (ORA-NNNNN).
+# Uso: zzora numero_erro
+# Ex.: zzora 1234
+#
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2005-11-03
 # Versão: 2
 # Licença: GPL
-# Uso: zzora numero_erro
-# Ex.: zzora 1234
 # ----------------------------------------------------------------------------
 
 zzora ()

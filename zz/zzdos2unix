@@ -1,11 +1,12 @@
 # ----------------------------------------------------------------------------
 # Converte arquivos texto no formato Windows/DOS (CR+LF) para o Unix (LF).
 # Obs.: Também remove a permissão de execução do arquivo, caso presente.
+# Uso: zzdos2unix arquivo(s)
+# Ex.: zzdos2unix frases.txt
+#
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
 # Licença: GPL
-# Uso: zzdos2unix arquivo(s)
-# Ex.: zzdos2unix frases.txt
 # ----------------------------------------------------------------------------
 zzdos2unix ()
 {

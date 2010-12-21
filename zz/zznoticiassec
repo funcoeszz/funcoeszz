@@ -8,12 +8,13 @@
 #       Linux S)ecurity           Security F)ocus
 #       C)ERT/CC
 #
-# Autor: Thobias Salazar Trevisan, www.thobias.org
-# Desde: 2003-07-13
-# Licença: GPL
 # Uso: zznoticiassec [sites]
 # Ex.: zznoticiassec
 #      zznoticiassec bcf
+#
+# Autor: Thobias Salazar Trevisan, www.thobias.org
+# Desde: 2003-07-13
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zznoticiassec ()
 {

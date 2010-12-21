@@ -1,13 +1,14 @@
 # ----------------------------------------------------------------------------
 # Converte horas em minutos.
-# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
-# Desde: 2008-12-05
-# Versão: 1
-# Licença: GPLv2
 # Uso: zzhoramin [hh:mm]
 # Ex.: zzhoramin 
 #      zzhoramin 10:53
 #      zzhoramin -10:53
+#
+# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
+# Desde: 2008-12-05
+# Versão: 1
+# Licença: GPLv2
 # ----------------------------------------------------------------------------
 zzhoramin ()
 {

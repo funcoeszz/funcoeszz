@@ -1,13 +1,14 @@
 # ----------------------------------------------------------------------------
 # http://www.verba.org
 # Exibe todas as conjugações de um verbo.
+# Uso: zzconjuga verbo
+# Ex.: zzconjuga propalar
+#
 # Autor: Leslie Harlley Watter <leslie (a) watter org>
 # Nota: Colaboração de José Inácio Coelho <jinacio (a) yahoo com>
 # Desde: 2003-08-05
 # Versão: 1
 # Licença: GPL
-# Uso: zzconjuga verbo
-# Ex.: zzconjuga propalar
 # ----------------------------------------------------------------------------
 zzconjuga ()
 {

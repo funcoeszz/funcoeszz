@@ -1,14 +1,15 @@
 # ----------------------------------------------------------------------------
 # Conversão entre grandezas de bytes (mega, giga, tera, etc).
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2008-03-01
-# Licença: GPL
 # Uso: zzbyte N [unidade-entrada] [unidade-saida]  # BKMGTPEZY
 # Ex.: zzbyte 2048                    # Quanto é 2048 bytes?  -- 2K
 #      zzbyte 2048 K                  # Quanto é 2048KB?      -- 2M
 #      zzbyte 7 K M                   # Quantos megas em 7KB? -- 0.006M
 #      zzbyte 7 G B                   # Quantos bytes em 7GB? -- 7516192768B
 #      for u in b k m g t p e z y; do zzbyte 2 t $u; done
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-03-01
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzbyte ()
 {

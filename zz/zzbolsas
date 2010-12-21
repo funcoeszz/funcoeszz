@@ -10,13 +10,14 @@
 # Com o parâmetro -l seguido do código da bolsa, lista as ações (códigos).
 # Com o parâmetro --lista seguido do código da bolsa, lista as ações com
 # nome e última cotação.
+# Uso: zzbolsas [--l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
+# Ex.: zzbolsas
+#      zzbolsas --lista ^BVSP
+#
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
 # Versão: 3
 # Licença: GPL
-# Uso: zzbolsas [--l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
-# Ex.: zzbolsas
-#      zzbolsas --lista ^BVSP
 # ----------------------------------------------------------------------------
 zzbolsas ()
 {

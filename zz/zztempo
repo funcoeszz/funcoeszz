@@ -4,13 +4,14 @@
 # Se nenhum parâmetro for passado, são listados os países disponíveis.
 # Se só o país for especificado, são listadas as suas localidades.
 # As siglas também podem ser usadas, por exemplo SBPA = Porto Alegre.
-# Autor: Thobias Salazar Trevisan, www.thobias.org
-# Desde: 2004-02-19
-# Licença: GPL
 # Uso: zztempo <país> <localidade>
 # Ex.: zztempo 'United Kingdom' 'London City Airport'
 #      zztempo brazil 'Curitiba Aeroporto'
 #      zztempo brazil SBPA
+#
+# Autor: Thobias Salazar Trevisan, www.thobias.org
+# Desde: 2004-02-19
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zztempo ()
 {

@@ -3,13 +3,15 @@
 # Útil para mostrar a saída do terminal em sites e blogs, sem perder as cores.
 # Obs.: Exemplos de texto ANSI estão na saída das funções zzcores e zzecho.
 # Obs.: Use o comando script para guardar a saída do terminal em um arquivo.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2008-09-02
-# Licença: GPL
 # Uso: zzansi2html [arquivo]
 # Ex.: zzecho --letra verde -s -p -N testando | zzansi2html
 #      ls --color /etc | zzansi2html > ls.html
 #      zzcores | zzansi2html > cores.html
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-09-02
+# Versão: 1
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzansi2html ()
 {

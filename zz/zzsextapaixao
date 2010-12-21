@@ -3,12 +3,13 @@
 # Obs.: Se o ano não for informado, usa o atual.
 # Regra: 2 dias antes do domingo de Páscoa.
 # Requisitos: zztool, zzdata, zzpascoa
-# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
-# Desde: 2008-11-21
-# Licença: GPL
 # Uso: zzsextapaixao [ano]
 # Ex.: zzsextapaixao
 #      zzsextapaixao 2008
+#
+# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
+# Desde: 2008-11-21
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzsextapaixao ()
 {

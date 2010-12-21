@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://migre.me
 # Encurta uma URL utilizando o site migre.me.
+# Uso: zzminiurl www.siteparaencurtar.com.br
+# Ex.: zzminiurl www.funcoeszz.net
+#
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2010-04-26
 # Versão: 2.0
 # Licença: GPL
-# Uso: zzminiurl www.siteparaencurtar.com.br
-# Ex.: zzminiurl www.funcoeszz.net
 # ----------------------------------------------------------------------------
 zzminiurl ()
 {

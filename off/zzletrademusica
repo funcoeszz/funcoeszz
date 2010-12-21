@@ -2,12 +2,13 @@
 # http://letssingit.com
 # Busca letras de músicas, procurando pelo nome da música.
 # Obs.: Se encontrar mais de uma, mostra a lista de possibilidades.
-# Autor: Thobias Salazar Trevisan, www.thobias.org
-# Desde: 2002-04-23
-# Licença: GPL
 # Uso: zzletrademusica texto
 # Ex.: zzletrademusica punkrock
 #      zzletrademusica kkk took my baby
+#
+# Autor: Thobias Salazar Trevisan, www.thobias.org
+# Desde: 2002-04-23
+# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2008-03-01 Não funciona. É preciso encontrar outro site.
 zzletrademusica ()

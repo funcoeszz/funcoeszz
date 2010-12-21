@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://google.com
 # Pesquisa no Google diretamente pela linha de comando.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2003-04-03
-# Licença: GPL
 # Uso: zzgoogle [-n <número>] palavra(s)
 # Ex.: zzgoogle receita de bolo de abacaxi
 #      zzgoogle -n 5 ramones papel higiênico cachorro
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2003-04-03
+# Licença: GPL
 # ----------------------------------------------------------------------------
 # FIXME: zzgoogle rato roeu roupa rei roma [PPS], [PDF]
 zzgoogle ()

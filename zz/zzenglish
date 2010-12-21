@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://www.dict.org
 # Busca definições em inglês de palavras da língua inglesa em DICT.org.
+# Uso: zzenglish palavra-em-inglês
+# Ex.: zzenglish drum
+#
 # Autor: Luciano ES
 # Desde: 2008-09-07
 # Versão: 1
 # Licença: GPL
-# Uso: zzenglish palavra-em-inglês
-# Ex.: zzenglish drum
 # ----------------------------------------------------------------------------
 zzenglish ()
 {

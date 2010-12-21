@@ -2,13 +2,14 @@
 # http://wwwtios.cs.utwente.nl/traduk/
 # Dicionário de Esperanto em inglês, português e alemão.
 # Possui busca por palavra nas duas direções. O padrão é português-esperanto.
+# Uso: zzdicesperanto [idioma] palavra
+# Ex.: zzdicesperanto esperança
+#      zzdicesperanto EO-PT espero
+#
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Desde: 2005-05-20
 # Versão: 1
 # Licença: GPL
-# Uso: zzdicesperanto [idioma] palavra
-# Ex.: zzdicesperanto esperança
-#      zzdicesperanto EO-PT espero
 # ----------------------------------------------------------------------------
 zzdicesperanto ()
 {

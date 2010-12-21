@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # Checa o md5sum de arquivos baixados da net.
 # Nota: A função checa o arquivo no diretório corrente (./)
+# Uso: zzchecamd5 arquivo md5sum
+# Ex.: zzchecamd5 ./ubuntu-8.10.iso f9e0494e91abb2de4929ef6e957f7753
+#
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-10-31
 # Versão: 2
 # Licença: GPLv2
-# Uso: zzchecamd5 arquivo md5sum
-# Ex.: zzchecamd5 ./ubuntu-8.10.iso f9e0494e91abb2de4929ef6e957f7753
 # ----------------------------------------------------------------------------
 zzchecamd5 ()
 {

@@ -1,10 +1,11 @@
 # ----------------------------------------------------------------------------
 # Converte todas as letras para minúsculas, inclusive acentuadas.
+# Uso: zzminusculas [arquivo]
+# Ex.: echo NÃO ESTOU GRITANDO | zzminusculas
+#
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2003-06-12
 # Licença: GPL
-# Uso: zzminusculas [arquivo]
-# Ex.: echo NÃO ESTOU GRITANDO | zzminusculas
 # ----------------------------------------------------------------------------
 zzminusculas ()
 {

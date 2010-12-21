@@ -16,6 +16,10 @@ echo "* Funções com nome estranho"
 ls -1 zz/* off/* | grep -v '/zz[a-z0-9]*$'
 
 echo ----------------------------------------------------------------
+echo "* Funções com erro"
+for f in zz/* off/*; do (source $f); done
+
+echo ----------------------------------------------------------------
 echo "* Funções cuja primeira linha é estranha"
 for f in zz/* off/*; do sed 1q $f | egrep -q '^# -{76}$' || echo $f; done
 
@@ -52,10 +56,23 @@ echo "* Funções sem o campo Ex.:"
 for f in zz/* off/*; do grep -q '^# Ex\.: ' $f || echo $f; done
 
 echo ----------------------------------------------------------------
+echo "* Funções com campo inválido"
+campos='Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos'
+for f in zz/* off/*
+do
+	wrong=$(
+		egrep '^# [A-Z][a-z]+: ' $f |
+		cut -d : -f 1 |
+		sed 's/^# //' |
+		egrep -v "$campos" |
+		sed 1q)  # só mostra o primeiro pra não poluir
+	test -n "$wrong" && echo "$f: $wrong"
+done
+
+echo ----------------------------------------------------------------
 echo "* Funções com a descrição sem ponto final"
 for f in zz/* off/*; do
 	sed -n '2 {
-		/^# ------/ n
 		/^# http/ n
 		# Deve acabar em ponto final
 		/\.$/! p
@@ -67,7 +84,6 @@ echo "* Funções com a descrição com mais de um ponto ."
 for f in zz/* off/*; do
 	test "$f" = zz/zzranking && continue  # tem 2 pontos mas é OK
 	sed -n '2 {
-		/^# ------/ n
 		/^# http/ n
 		# Pontos no meio da frase
 		/\. [A-Za-z]/ p
@@ -75,7 +91,7 @@ for f in zz/* off/*; do
 done
 
 echo ----------------------------------------------------------------
-echo "* Funções com o campo Desde: em formato incorreto"
+echo "* Funções com a data inválida no campo Desde:"
 for f in zz/* off/*
 do
 	wrong=$(grep '^# Desde:' $f | egrep -v ': [0-9]{4}-[0-9]{2}-[0-9]{2}$')
@@ -83,10 +99,73 @@ do
 done
 
 echo ----------------------------------------------------------------
+echo "* Funções com o cabeçalho mal formatado"
+for f in zz/* off/*
+do
+	wrong=$(sed -n '
+	
+		# Script sed que vai lendo o cabeçalho linha a linha e
+		# verifica se ele está no formato padrão, com as linhas
+		# ao redor e com os campos na ordem correta.
+		# Checa apenas o nome e posição do campo, não seu conteúdo.
+		
+		1 {
+			# -----------------------------
+			/^# -\{76\}$/! { s/^/Esperava -----------, veio /p; q; }
+		}
+		2 {
+			# Um http:// é opcional na linha 2
+			/^# http:/ n
+			
+			# Depois vem texto sem forma, que é a descrição
+			# Pode durar várias linhas
+			:loop
+			
+			# Se chegou no fim do arquivo, deu pau
+			$ { s/^/Esperava Uso, veio EOF: /p; q; }
+			n
+			
+			# Só sai do loop quando chegar no campo Uso, obrigatório
+			/^# Uso: /b loopend
+			b loop
+			:loopend
+			n
+			
+			# Depois do Uso vem Ex.:, obrigatório
+			/^# Ex\.: /! { s/^/Esperava Ex.:, veio /p; q; }
+			n
+			
+			# O exemplo pode durar várias linhas, iniciadas por espaços
+			:loopexem
+			/^#      [^ ]/ {
+				n
+				b loopexem
+			}
+			
+			# Então vem uma linha em branco para separar
+			/^#$/! { s/^/Esperava #, veio /p; q; }
+			n
+
+			# Campos obrigatórios em sequencia. Versão: é opcional
+			/^# Autor: /! { s/^/Esperava Autor:, veio /p; q; }
+			n
+			/^# Desde: /! { s/^/Esperava Desde:, veio /p; q; }
+			n
+			/^# Versão: / n
+			/^# Licença: /! { s/^/Esperava Licença:, veio /p; q; }
+			n
+			
+			# -----------------------------
+			/^# -\{76\}$/! { s/^/Esperava -----------, veio /p; q; }
+		}' $f)
+		test -n "$wrong" && echo "$f" && echo "$wrong"		
+done
+
+echo ----------------------------------------------------------------
 echo "* Funções com cabeçalho >78 colunas"
 for f in zz/* off/*
 do
 	wrong=$(grep '^# ' $f | egrep '^.{79}')
-	test -n "$wrong" && echo "$f: $wrong"
+	test -n "$wrong" && echo "$f" && echo "$wrong"
 done
 

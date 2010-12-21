@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://www.xalexandre.com.br/ 
 # Mostra uma piada aleatória.
+# Uso: zzpiada
+# Ex.: zzpiada
+#
 # Autor: Alexandre Brodt Fernandes - http://www.xalexandre.com.br
 # Desde: 2008-12-29
 # Versão: 1
 # Licença: GPL
-# Uso: zzpiada
-# Ex.: zzpiada
 # ----------------------------------------------------------------------------
 zzpiada ()
 {

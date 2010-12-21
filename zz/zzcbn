@@ -1,16 +1,17 @@
 # ----------------------------------------------------------------------------
 # http://cbn.globoradio.com.br
 # Busca e toca os últimos comentários dos comentaristas da radio CBN.
-# Autor: Rafael Machado Casali <rmcasali (a) gmail com>
-# Desde: 2009-04-16
-# Versão: 1
-# Licença: GPL
 # Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn -lista
 # Ex.: zzcbn -c max -d ontem
 #      zzcbn -c mauro -d tudo 
 #      zzcbn -c juca -d 13/05/09
 #      zzcbn -c miriam
 #      zzcbn -mp3 -c max  
+#
+# Autor: Rafael Machado Casali <rmcasali (a) gmail com>
+# Desde: 2009-04-16
+# Versão: 1
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzcbn ()
 {

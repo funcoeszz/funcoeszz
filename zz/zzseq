@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # Mostra uma seqüência numérica, um número por linha.
 # Obs.: Emulação do comando seq, presente no Linux.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2002-12-06
-# Licença: GPL
 # Uso: zzseq [número-inicial] número-final
 # Ex.: zzseq 5
 #      zzseq 10 5
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2002-12-06
+# Licença: GPL
 # ----------------------------------------------------------------------------
 # TODO aceitar terceiro parâmetro, igual no Linux: 10 -2 0 (início step fim)
 zzseq ()

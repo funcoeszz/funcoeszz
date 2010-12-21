@@ -3,12 +3,13 @@
 # Útil para lembrar de eventos próximos no mesmo dia.
 # Sem argumentos, restaura o 'beep' para o seu tom e duração originais.
 # Obs.: A sirene tem 4 toques, sendo 2 tons no modo texto e apenas 1 no Xterm.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2000-04-24
-# Licença: GPL
 # Uso: zzbeep [números]
 # Ex.: zzbeep 0
 #      zzbeep 1 5 15    # espere 1 minuto, depois mais 5, e depois 15
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2000-04-24
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzbeep ()
 {

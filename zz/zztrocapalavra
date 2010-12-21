@@ -1,11 +1,12 @@
 # ----------------------------------------------------------------------------
 # Troca uma palavra por outra, nos arquivos especificados.
 # Obs.: Além de palavras, é possível usar expressões regulares.
+# Uso: zztrocapalavra antiga nova arquivo(s)
+# Ex.: zztrocapalavra excessão exceção *.txt
+#
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
 # Licença: GPL
-# Uso: zztrocapalavra antiga nova arquivo(s)
-# Ex.: zztrocapalavra excessão exceção *.txt
 # ----------------------------------------------------------------------------
 # TODO -r (ver zzarrumanome)
 zztrocapalavra ()

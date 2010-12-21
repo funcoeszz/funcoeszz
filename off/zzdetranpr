@@ -1,11 +1,12 @@
 # ----------------------------------------------------------------------------
 # http://www.pr.gov.br/detran
 # Consulta débitos do veículo, como licenciamento, IPVA e multas (Detran-PR).
+# Uso: zzdetranpr número-renavam
+# Ex.: zzdetranpr 123456789
+#
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2001-02-14
 # Licença: GPL
-# Uso: zzdetranpr número-renavam
-# Ex.: zzdetranpr 123456789
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2008-03-01 Agora a consulta é travada com CAPTCHA
 zzdetranpr ()

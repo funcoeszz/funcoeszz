@@ -1,15 +1,16 @@
 # ----------------------------------------------------------------------------
 # Mostra uma linha de um texto, aleatória ou informada pelo número.
 # Obs.: Se passado um argumento, restringe o sorteio às linhas com o padrão.
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2004-12-23
-# Licença: GPL
 # Uso: zzlinha [número | -t texto] [arquivo(s)]
 # Ex.: zzlinha /etc/passwd           # mostra uma linha qualquer, aleatória
 #      zzlinha 9 /etc/passwd         # mostra a linha 9 do arquivo
 #      zzlinha -2 /etc/passwd        # mostra a penúltima linha do arquivo
 #      zzlinha -t root /etc/passwd   # mostra uma das linhas com "root"
 #      cat /etc/passwd | zzlinha     # o arquivo pode vir da entrada padrão
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2004-12-23
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzlinha ()
 {

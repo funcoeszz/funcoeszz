@@ -8,14 +8,15 @@
 #      en|de en|es en|fr en|it en|ja en|ko en|pt en|zh-CN
 #      de|en de|fr es|en fr|en fr|de it|en ja|en ko|en pt|en zh-CN|en
 #
+# Uso: zzdicgoogle [línguas] texto
+# Ex.: zzdicgoogle the book is on the table
+#      zzdicgoogle 'fr|en' le livre est sur la table
+#
 # Autor: Rodrigo Bernardo Pimentel <rbp (a) isnomore net>
 # Nota: Colaboração de Humberto Sartini <betinho_pg (a) yahoo com br>
 # Desde: 2003-12-20
 # Versão: 3
 # Licença: GPL
-# Uso: zzdicgoogle [línguas] texto
-# Ex.: zzdicgoogle the book is on the table
-#      zzdicgoogle 'fr|en' le livre est sur la table
 # ----------------------------------------------------------------------------
 zzdicgoogle ()
 {

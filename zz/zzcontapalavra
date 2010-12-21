@@ -3,12 +3,13 @@
 # Obs.: É diferente do grep -c, que não conta várias palavras na mesma linha.
 # Opções: -i  ignora a diferença de maiúsculas/minúsculas
 #         -p  busca parcial, conta trechos de palavras
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
-# Desde: 2003-10-02
-# Licença: GPL
 # Uso: zzcontapalavra [-i|-p] palavra arquivo(s)
 # Ex.: zzcontapalavra root /etc/passwd
 #      zzcontapalavra -i -p a /etc/passwd      # Compare com grep -ci a
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2003-10-02
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzcontapalavra ()
 {

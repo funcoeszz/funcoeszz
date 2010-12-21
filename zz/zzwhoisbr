@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://registro.br
 # Mostra informações sobre domínios brasileiros (.com.br, .org.br, etc).
-# Autor: Marcelo Subtil Marçal
-# Desde: 2001-12-14
-# Licença: GPL
 # Uso: zzwhoisbr domínio
 # Ex.: zzwhoisbr abc.com.br
 #      zzwhoisbr www.abc.com.br
+#
+# Autor: Marcelo Subtil Marçal
+# Desde: 2001-12-14
+# Licença: GPL
 # ----------------------------------------------------------------------------
 zzwhoisbr ()
 {
