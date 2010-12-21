@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Desordena as linhas de um texto (ordem aleatória)
+# Desordena as linhas de um texto (ordem aleatória).
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Uso: zzshuffle [arquivo(s)]
 # Ex.: zzshuffle /etc/passwd         # desordena o arquivo de usuários

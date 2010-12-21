@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Busca os últimos 5 tweets de um usuário
+# Busca os últimos 5 tweets de um usuário.
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Versão: 1
 # Uso: zztweets @username

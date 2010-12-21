@@ -1,8 +1,9 @@
 # ----------------------------------------------------------------------------
-# Muda aleatoriamente o background do gnome. -l faz o script entrar em loop
-# ATENCAO: o caminho deve conter o ultimo / para que funcione: 
-#	/wallpaper/ <- funciona
-#	/wallpaper  <- não funciona
+# Muda aleatoriamente o background do GNOME.
+# A opção -l faz o script entrar em loop.
+# ATENÇÃO: o caminho deve conter a última / para que funcione: 
+#   /wallpaper/ <- funciona
+#   /wallpaper  <- não funciona
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Versão: 1

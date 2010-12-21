@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Envia mensagens para o twitter direto do console
+# Envia mensagens para o twitter direto do console.
 # URL: http://www.inf.ufpr.br/erlf07/zztwitter
 # Autor: Edson Ramiro <erlfilho (a) gmail com> 
 # Uso: zztwitter [mensagem]

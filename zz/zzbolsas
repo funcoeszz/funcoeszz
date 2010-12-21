@@ -1,21 +1,20 @@
 # ----------------------------------------------------------------------------
 # http://br.finance.yahoo.com
-# Pesquisa índices de bolsas e cotações de ações
-# Sem parametros mostra a lista de bolsas disponíveis(códigos)
-# Com o parametro -l apenas mostra as bolsas disponíveis e seus nomes
-# Com o parametro sendo um código de bolsa ou ação mostra sua última
+# Pesquisa índices de bolsas e cotações de ações.
+# Sem parâmetros mostra a lista de bolsas disponíveis (códigos).
+# Com o parâmetro -l apenas mostra as bolsas disponíveis e seus nomes.
+# Com o parâmetro sendo um código de bolsa ou ação mostra sua última
 # cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
-# Com o parametro sendo  um código de bolsa seguido de um texto qualquer
+# Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
 # pesquisa-o no nome ou código das ações disponíves na bolsa citada.
-# Com o parametro -l seguido do código da bolsa, lista as ações(códigos)
-# Com o parametro --lista seguido do código da bolsa, lista 
-# as ações com nome e última cotação
+# Com o parâmetro -l seguido do código da bolsa, lista as ações (códigos).
+# Com o parâmetro --lista seguido do código da bolsa, lista as ações com
+# nome e última cotação.
+# Autor: Itamar <itamarnet (a) yahoo com br>
+# Versão: 3
 # Uso: zzbolsas [--l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
 # Ex.: zzbolsas
 #      zzbolsas --lista ^BVSP
-#
-# Autor: Itamar <itamarnet (a) yahoo com br>
-# Versão: 3
 # ----------------------------------------------------------------------------
 zzbolsas ()
 {

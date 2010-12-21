@@ -1,9 +1,10 @@
 # ----------------------------------------------------------------------------
-# Informa a extensão de um arquivo. Caso não exista, retorna vazio "".
+# Informa a extensão de um arquivo.
+# Obs.: Caso não exista, retorna vazio "".
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-21
-# Licença: GPL v2
 # Versão: 20091010
+# Licença: GPLv2
 # Opções:
 #   -h, --help     exibe a ajuda.
 #   -v, --verbose  exibe informações para debug durante o processamento.

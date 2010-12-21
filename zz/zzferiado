@@ -1,9 +1,8 @@
 # ----------------------------------------------------------------------------
-# Verifica se a data passada por parametro é um feriado ou nao. Caso nao seja
-# passado nenhuma data é pego a data atual. Pode-se configurar uma variavel 
-# de ambiente para os feriados regionais. A variavel é ZZFERIADO, colocar a 
-# data sendo o dd/mm:descrição Ex.: 20/11:Conciencia negra
-#
+# Verifica se a data passada por parâmetro é um feriado ou não.
+# Caso não seja passado nenhuma data é pego a data atual.
+# Pode-se configurar a variável ZZFERIADO para os feriados regionais.
+# O formato é o dd/mm:descrição, por exemplo: 20/11:Conciência negra.
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Versão: 3
 # Licença: GPLv2

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Coloca um relógio digital (hh:mm:ss) no canto superior direito do terminal
+# Coloca um relógio digital (hh:mm:ss) no canto superior direito do terminal.
 # Autor: Arkanon <arkanon (a) lsd org br>
 # Versão: 1
 # Uso: zzrelansi [-s|--stop]

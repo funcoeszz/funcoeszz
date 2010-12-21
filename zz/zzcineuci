@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://www.ucicinemas.com.br
-# Exibe a programação dos cinemas UCI de sua cidade
+# Exibe a programação dos cinemas UCI de sua cidade.
 # Se não for passado nenhum parâmetro, são listadas as cidades e cinemas.
 # Obs.: não utilize acentos: digite "Sao Paulo", e não "São Paulo"
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
