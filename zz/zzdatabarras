@@ -2,8 +2,8 @@
 # Transforma data do formato DDMMYYYY para DD/MM/YYYY.
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2010-01-28
-# Licença: GPL v2
 # Versão: 20100128
+# Licença: GPLv2
 # Opções:
 #   -d, --data     data no formato DDMMYYYY.
 #   -h, --help     exibe a ajuda.

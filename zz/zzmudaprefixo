@@ -2,7 +2,7 @@
 # Move os arquivos que tem um prefixo comum para um novo prefixo.
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-21
-# Licença: GPL v2
+# Licença: GPLv2
 # Versão: 1
 # Opções:
 #   -a, --antigo informa o prefixo antigo a ser trocado.

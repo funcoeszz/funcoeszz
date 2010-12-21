@@ -2,8 +2,8 @@
 # Combina 2 arquivos, frentes.pdf e versos.pdf, em um único frenteverso.pdf.
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-17
-# Licença: GPL v2
 # Versão: 20100128
+# Licença: GPLv2
 # Requer: pdftk
 # Uso: zzfrenteverso2pdf [-rf] [-rv] [-d diretorio]
 # Opções:
