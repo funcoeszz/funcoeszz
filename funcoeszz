@@ -739,6 +739,12 @@ zz_separador=$(echo '-------' | sed 's/.*/&&&&&&&&&&&/')
 if test -r "$ZZPATH"
 then
 	cat "$ZZPATH" |
+		# Primeiro remove a metadata: Autor, Desde, Versão, etc 
+		sed '
+			/^#$/,/^# -----* *$/ {
+				/^# -----* *$/! d
+			}' |
+		# Agora mostra o cabeçalho, sem comentários e com separador padrão
 		sed -n '
 			/^# -----* *$/,/^# -----* *$/ {
 				s/^# -----* *$/'$zz_separador'/p
@@ -856,9 +862,16 @@ do
 	echo "$zz_separador"
 	echo "$zz_nome"
 	sed -n '
-		/^[^#]/ q
+		# Remove linhas com metadata: Autor, Desde, Versão, etc
+		/^#$/ q
+		
+		# Remove linhas separadoras (pois já usa $zz_separador)
 		/^# *-----*/ d
+		
+		# Apaga o caractere de comentário #
 		s/^# \{0,1\}//
+		
+		# Finalmente, mostra a linha limpa
 		p
 	' "$zz_arquivo" 
 done < "$ZZTMP.on" >> "$ZZAJUDA"
