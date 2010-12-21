@@ -2,15 +2,14 @@
 # Transforma data do formato DDMMYYYY para DD/MM/YYYY.
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2010-01-28
-# Licenca: GPL v2
-# Versao: 20100128
-# Requer: 
+# Licença: GPL v2
+# Versão: 20100128
+# Opções:
+#   -d, --data     data no formato DDMMYYYY.
+#   -h, --help     exibe a ajuda.
+#   -v, --verbose  exibe informações para debug durante o processamento.
+#   -V, --version  exibe a versão.
 # Uso: zzdatabarras -d "data"
-# Opcoes:
-#         -d, --data     data no formato DDMMYYYY.
-#         -h, --help     exibe a ajuda.
-#         -v, --verbose  exibe informacoes para debug durante o processamento.
-#         -V, --version  exibe a versao.
 # Ex.: zzdatabarras -d 28012010               # resposta: "28/01/2010"
 # ----------------------------------------------------------------------------
 zzdatabarras ()

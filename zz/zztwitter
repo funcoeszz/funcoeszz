@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------
-# http://www.inf.ufpr.br/erlf07/zztwitter
 # Envia mensagens para o twitter direto do console
+# URL: http://www.inf.ufpr.br/erlf07/zztwitter
 # Autor: Edson Ramiro <erlfilho (a) gmail com> 
 # Uso: zztwitter [mensagem]
-# Ex.: zztwitter Enviar mensagens direto do console eh mais facil.
+# Ex.: zztwitter Enviar mensagens direto do console é mais fácil.
 #      zztwitter bla bla bla ...
 # ----------------------------------------------------------------------------
 zztwitter ()
@@ -15,13 +15,14 @@ zztwitter ()
     local TWITTER="http://twitter.com/statuses/update.xml"
 
     if [ $( echo $* | wc -m ) -gt 140 ]; then 
-        echo -e "Mensagem muito grande.\nCom $(echo $* | wc -m) caracteres para maximo de 140." 
+        echo "Mensagem muito grande."
+		echo "Com $(echo $* | wc -m) caracteres para máximo de 140." 
     elif [ $(echo $* | wc -m) -lt 2 ]; then
-        echo "Cade a mensagem?"
+        echo "Cadê a mensagem?"
     else
-        [ -z $USUARIO ] && echo -ne "\nUsuario: " && read USUARIO
+        [ -z $USUARIO ] && echo -ne "\nUsuário: " && read USUARIO
         [ -z $SENHA ] && echo -ne "\nSenha: " && read -s SENHA 
         curl --silent -u $USUARIO:$SENHA -d status="$*" $TWITTER 1>/dev/null  
-        [ $? -ne 0 ] && echo "Mensagem nao enviada." || echo "Ok! Enviado."
+        [ $? -ne 0 ] && echo "Mensagem não enviada." || echo "Ok! Enviado."
     fi
 }
