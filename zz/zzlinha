@@ -2,6 +2,7 @@
 # Mostra uma linha de um texto, aleatória ou informada pelo número.
 # Obs.: Se passado um argumento, restringe o sorteio às linhas com o padrão.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2004-12-23
 # Licença: GPL
 # Uso: zzlinha [número | -t texto] [arquivo(s)]
 # Ex.: zzlinha /etc/passwd           # mostra uma linha qualquer, aleatória

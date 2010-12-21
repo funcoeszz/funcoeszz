@@ -5,6 +5,7 @@
 # É possível passar várias palavras de pesquisa para filtrar o resultado.
 # Obs.: Hora GMT, Dólares por unidade monetária para o Euro e a Libra.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2004-03-29
 # Licença: GPL
 # Uso: zzmoeda [-t] [pesquisa]
 # Ex.: zzmoeda

@@ -3,6 +3,7 @@
 # Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
 # Suportados: Debian Fedora FreeBSD Gentoo Mandriva Slackware Suse Ubuntu.
 # Autor: Thobias Salazar Trevisan, www.thobias.org
+# Desde: 2004-12-23
 # Licença: GPL
 # Uso: zzsecurity [distros]
 # Ex.: zzsecutiry

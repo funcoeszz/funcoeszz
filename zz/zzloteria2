@@ -3,9 +3,10 @@
 # Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o concurso
 #       Se nenhum argumento for passado, todas as loterias são mostradas.
 # Autor: Itamar <itamarnet (a) yahoo com br>
+# Desde: 2009-10-04
 # Versão: 1
 # Licença: GPL
-# Requer: Função extra zzseq2
+# Requisitos: zzseq2
 # Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | federal | timemania] concurso]
 # Ex.: zzloteria2
 #      zzloteria2 quina megasena

@@ -4,7 +4,7 @@
 # Desde: 2009-09-17
 # Versão: 20100128
 # Licença: GPLv2
-# Requer: pdftk
+# Requisitos: pdftk
 # Uso: zzfrenteverso2pdf [-rf] [-rv] [-d diretorio]
 # Opções:
 #   -rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.

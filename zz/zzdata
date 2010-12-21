@@ -5,6 +5,7 @@
 # para número inteiro (N dias passados desde Epoch) e vice-versa.
 # Obs.: Leva em conta os anos bissextos     (Epoch = 01/01/1970, editável)
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2003-02-07
 # Licença: GPL
 # Uso: zzdata data|num [+|- data|num]
 # Ex.: zzdata 22/12/1999 + 69

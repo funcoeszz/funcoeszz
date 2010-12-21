@@ -2,11 +2,12 @@
 # Lista as URLs de uma dada tag de um determinado usuário.
 # Obs.: Se não informada a tag, serão listadas as últimas URLs.
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
+# Desde: 2007-12-04
 # Versão: 1
 # Licença: GPL
-# Uso: zzdelicious usuario
-#      zzdelicious usuario tag
-# Ex.: zzdelicious felipensp php
+# Uso: zzdelicious usuario [tag]
+# Ex.: zzdelicious felipensp
+#      zzdelicious felipensp php
 # ----------------------------------------------------------------------------
 zzdelicious ()
 {

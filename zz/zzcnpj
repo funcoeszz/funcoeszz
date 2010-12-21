@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Gera um CNPJ válido aleatório ou valida um CNPJ informado.
 # Obs.: O CNPJ informado pode estar formatado (pontos e hífen) ou não.
+# Desde: 2004-12-23
 # Licença: GPL
 # Uso: zzcnpj [cnpj]
 # Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ

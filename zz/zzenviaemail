@@ -4,7 +4,7 @@
 # Desde: 2009-09-17
 # Versão: 20091010
 # Licença: GPLv2
-# Requer: ssmtp
+# Requisitos: ssmtp
 # Opções:
 #   -h, --help     exibe a ajuda.
 #   -v, --verbose  exibe informações para debug durante o processamento.

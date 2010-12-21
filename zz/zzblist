@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Mostra se o IP passado está em alguma blacklist  (SBL, PBL e XBL).
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
+# Desde: 2008-10-16
 # Versão: 1
 # Licença: GPL
 # Uso: zzblist IP
