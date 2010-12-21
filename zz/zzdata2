@@ -6,7 +6,7 @@
 # zzdata pode subtrair, ou somar meses e anos tambem. Eh so especificar!
 # Obs.: Leva em conta os anos bissextos     (Epoch = 01/01/1970, editavel)
 # Autor: Aurélio Marinho Jargas, www.aurelio.net, modificada por Itamar
-# Desde: 22 de Fevereiro de 2000
+# Desde: 2000-02-22
 # Licenca: GPL v2
 # Versao: 20091010
 # Requer: 

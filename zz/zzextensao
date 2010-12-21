@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # Informa a extensao de um arquivo. Caso nao exista, retorna vazio "".
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
-# Desde: 21 de Setembro de 2009
+# Desde: 2009-09-21
 # Licenca: GPL v2
 # Versao: 20091010
 # Requer: 
