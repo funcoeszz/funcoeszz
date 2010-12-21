@@ -4,6 +4,7 @@
 # Busca letras de músicas, procurando pelo nome da música.
 # Obs.: Se encontrar mais de uma, mostra a lista de possibilidades.
 # Autor: Thobias Salazar Trevisan, www.thobias.org
+# Licença: GPL
 # Uso: zzletrademusica texto
 # Ex.: zzletrademusica punkrock
 #      zzletrademusica kkk took my baby

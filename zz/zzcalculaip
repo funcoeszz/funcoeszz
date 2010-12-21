@@ -2,6 +2,7 @@
 # Calcula os endereços de rede e broadcast à partir do IP e máscara da rede.
 # Obs.: Se não for especificado a máscara, é assumido a 255.255.255.0.
 # Autor: Thobias Salazar Trevisan, www.thobias.org
+# Licença: GPL
 # Uso: zzcalculaip ip [netmask]
 # Ex.: zzcalculaip 127.0.0.1 24
 #      zzcalculaip 10.0.0.0/8

@@ -4,6 +4,7 @@
 #       Se nenhum argumento for passado, todas as loterias são mostradas.
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Versão: 1
+# Licença: GPL
 # Requer: Função extra zzseq2
 # Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | federal | timemania] concurso]
 # Ex.: zzloteria2

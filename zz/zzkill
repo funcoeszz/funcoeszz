@@ -3,6 +3,7 @@
 # Com a opção -n, apenas mostra o que será feito, mas não executa.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-15
+# Licença: GPL
 # Uso: zzkill [-n] comando [comando2 ...]
 # Ex.: zzkill netscape
 #      zzkill netsc soffice startx

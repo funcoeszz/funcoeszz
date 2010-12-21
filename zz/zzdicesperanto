@@ -4,6 +4,7 @@
 # Possui busca por palavra nas duas direções. O padrão é português-esperanto.
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Versão: 1
+# Licença: GPL
 # Uso: zzdicesperanto [idioma] palavra
 # Ex.: zzdicesperanto esperança
 #      zzdicesperanto EO-PT espero

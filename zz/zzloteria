@@ -4,6 +4,7 @@
 # Obs.: Se nenhum argumento for passado, todas as loterias são mostradas.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2004-05-18
+# Licença: GPL
 # Uso: zzloteria [quina | megasena | duplasena | lotomania | lotofacil]
 # Ex.: zzloteria
 #      zzloteria quina megasena

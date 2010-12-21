@@ -4,6 +4,7 @@
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Versão: 2
 # Desde: 2005-04-14
+# Licença: GPL
 # Uso: zzanatel DDD_Origem Prefixo_Origem DDD_Destino Prefixo_Destino
 # Ex.: zzanatel 48 224 12 3943
 # ----------------------------------------------------------------------------

@@ -3,6 +3,7 @@
 # O formato utilizando é: <decimal> <hexa> <octal> <ascii>.
 # O número de colunas e a largura da tabela são configuráveis.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Licença: GPL
 # Uso: zzascii [colunas] [largura]
 # Ex.: zzascii
 #      zzascii 4

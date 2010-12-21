@@ -3,6 +3,7 @@
 # Ideia original de: http://www.revfad.com/flip.html (valeu @andersonrizada)
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Versão: 1
+# Licença: GPL
 # Uso: zzvira [-X] texto
 # Ex.: zzvira Inverte tudo             # odut etrevnI
 #      zzvira -X De pernas pro ar      # ɹɐ oɹd sɐuɹǝd ǝp

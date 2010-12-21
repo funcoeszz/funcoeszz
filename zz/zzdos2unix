@@ -3,6 +3,7 @@
 # Obs.: Também remove a permissão de execução do arquivo, caso presente.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
+# Licença: GPL
 # Uso: zzdos2unix arquivo(s)
 # Ex.: zzdos2unix frases.txt
 # ----------------------------------------------------------------------------

@@ -6,6 +6,7 @@
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Versão: 4
+# Licença: GPL
 # Uso: zzporcento valor [valor|porcentagem%]
 # Ex.: zzporcento 500           # Tabela de porcentagens de 500
 #      zzporcento 500.0000      # Tabela para número fracionário (.)

@@ -4,6 +4,7 @@
 # Com a opção -c, pesquisa somente nos códigos e não em sua descrição.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2005-06-30
+# Licença: GPL
 # Uso: zzlocale [-c] código|texto
 # Ex.: zzlocale chinese
 #      zzlocale -c pt

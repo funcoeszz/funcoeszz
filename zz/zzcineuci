@@ -5,6 +5,7 @@
 # Obs.: não utilize acentos: digite "Sao Paulo", e não "São Paulo"
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Versão: 2
+# Licença: GPL
 # Uso: zzcineuci [cidade | codigo_cinema]
 # Ex.: zzcineuci recife
 #      zzcineuci 14

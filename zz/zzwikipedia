@@ -7,6 +7,7 @@
 #          it (italiano)  ja (japonês)    la (latin)     pt (português)
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
+# Licença: GPL
 # Uso: zzwikipedia [-idioma] palavra(s)
 # Ex.: zzwikipedia sed
 #      zzwikipedia Linus Torvalds

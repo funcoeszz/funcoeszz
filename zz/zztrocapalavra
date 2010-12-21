@@ -3,6 +3,7 @@
 # Obs.: Além de palavras, é possível usar expressões regulares.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
+# Licença: GPL
 # Uso: zztrocapalavra antiga nova arquivo(s)
 # Ex.: zztrocapalavra excessão exceção *.txt
 # ----------------------------------------------------------------------------

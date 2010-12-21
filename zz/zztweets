@@ -2,6 +2,7 @@
 # Busca os últimos 5 tweets de um usuário.
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Versão: 1
+# Licença: GPL
 # Uso: zztweets @username
 # Ex.: zztweets @oreio
 # ----------------------------------------------------------------------------

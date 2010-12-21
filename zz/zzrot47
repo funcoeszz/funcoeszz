@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Codifica/decodifica um texto utilizando a cifra ROT47.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Licença: GPL
 # Uso: zzrot47 texto
 # Ex.: zzrot47 texto secreto               # Retorna: E6IE@ D64C6E@
 #      zzrot47 E6IE@ D64C6E@               # Retorna: texto secreto

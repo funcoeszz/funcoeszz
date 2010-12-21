@@ -4,6 +4,7 @@
 # Se usado o argumento -s, será exibida somente a sintaxe.
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
 # Versão: 1
+# Licença: GPL
 # Uso: zzjquery funcao
 #      zzjquery -s funcao
 # Ex.: zzjquery gt

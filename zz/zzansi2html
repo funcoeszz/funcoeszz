@@ -5,6 +5,7 @@
 # Obs.: Use o comando script para guardar a saída do terminal em um arquivo.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2008-09-09
+# Licença: GPL
 # Uso: zzansi2html [arquivo]
 # Ex.: zzecho --letra verde -s -p -N testando | zzansi2html
 #      ls --color /etc | zzansi2html > ls.html

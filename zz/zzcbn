@@ -4,6 +4,7 @@
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Versão: 1
 # Desde: 2009-04-16
+# Licença: GPL
 # Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn -lista
 # Ex.: zzcbn -c max -d ontem
 #      zzcbn -c mauro -d tudo 

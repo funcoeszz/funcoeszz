@@ -2,6 +2,7 @@
 # Retira as linhas repetidas, consecutivas ou não.
 # Obs.: Não altera a ordem original das linhas, diferente do sort|uniq.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Licença: GPL
 # Uso: zzuniq [arquivo]
 # Ex.: zzuniq /etc/inittab
 #      cat /etc/inittab | zzuniq

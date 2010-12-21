@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Converte todas as letras para minúsculas, inclusive acentuadas.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Licença: GPL
 # Uso: zzminusculas [arquivo]
 # Ex.: echo NÃO ESTOU GRITANDO | zzminusculas
 # ----------------------------------------------------------------------------

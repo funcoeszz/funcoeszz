@@ -2,6 +2,7 @@
 # http://www.ibb.org.br/vidanet
 # A mensagem "Feliz Natal" em vários idiomas.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Licença: GPL
 # Uso: zznatal [palavra]
 # Ex.: zznatal                   # busca um idioma aleatório
 #      zznatal russo             # Feliz Natal em russo

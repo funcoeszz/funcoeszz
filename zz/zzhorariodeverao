@@ -5,6 +5,7 @@
 # Requisitos: zztool, zzcarnaval, zzdata, zzdiadasemana
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-24
+# Licença: GPL
 # Uso: zzhorariodeverao [ano]
 # Ex.: zzhorariodeverao
 #      zzhorariodeverao 2009

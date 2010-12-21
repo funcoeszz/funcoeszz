@@ -6,6 +6,7 @@
 #         -d  número de dígitos para o número
 #         -p  prefixo padrão para os arquivos
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Licença: GPL
 # Uso: zznomefoto [-n] [-i N] [-d N] [-p TXT] arquivo(s)
 # Ex.: zznomefoto -n *                        # tire o -n para renomear!
 #      zznomefoto -n -p churrasco- *.JPG      # tire o -n para renomear!

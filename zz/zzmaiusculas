@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Converte todas as letras para MAIÚSCULAS, inclusive acentuadas.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Licença: GPL
 # Uso: zzmaiusculas [arquivo]
 # Ex.: zzmaiusculas /etc/passwd
 # ----------------------------------------------------------------------------

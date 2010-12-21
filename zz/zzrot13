@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Codifica/decodifica um texto utilizando a cifra ROT13.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Licença: GPL
 # Uso: zzrot13 texto
 # Ex.: zzrot13 texto secreto               # Retorna: grkgb frpergb
 #      zzrot13 grkgb frpergb               # Retorna: texto secreto

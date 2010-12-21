@@ -3,6 +3,7 @@
 # Encurta uma URL utilizando o site migre.me.
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Versão: 2.0
+# Licença: GPL
 # Uso: zzminiurl www.siteparaencurtar.com.br
 # Ex.: zzminiurl www.funcoeszz.net
 # ----------------------------------------------------------------------------

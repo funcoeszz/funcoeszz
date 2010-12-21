@@ -3,6 +3,7 @@
 # Busca a cotação de uma ação no Yahoo!.
 # Autor: Eustáquio Rangel "TaQ" <eustaquiorangel (a) yahoo com>
 # Versão: 1
+# Licença: GPL
 # Uso: zzystock código
 # Ex.: zzystock SCOX
 # ----------------------------------------------------------------------------

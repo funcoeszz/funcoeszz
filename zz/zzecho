@@ -10,6 +10,7 @@
 # Obs.: \t, \n e amigos são sempre interpretados (igual ao echo -e).
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
+# Licença: GPL
 # Uso: zzecho [-f cor] [-l cor] [-p] [-s] [-N] [-n] [texto]
 # Ex.: zzecho -l amarelo Texto em amarelo
 #      zzecho -f azul -l branco -N Texto branco em negrito, com fundo azul

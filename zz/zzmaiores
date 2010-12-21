@@ -5,6 +5,7 @@
 #         -n  número de resultados (o padrão é 10)
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-28
+# Licença: GPL
 # Uso: zzmaiores [-r] [-f] [-n <número>] [dir1 dir2 ...]
 # Ex.: zzmaiores
 #      zzmaiores /etc /tmp

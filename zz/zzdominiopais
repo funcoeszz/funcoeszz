@@ -3,6 +3,7 @@
 # Busca a descrição de um código de país da internet (.br, .ca etc).
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-15
+# Licença: GPL
 # Uso: zzdominiopais [.]código|texto
 # Ex.: zzdominiopais .br
 #      zzdominiopais br

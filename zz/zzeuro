@@ -3,6 +3,7 @@
 # Busca a cotação atual do EURO com relação ao Dólar e ao Real.
 # Autor: Kyller Costa Gorgônio <kyllercg (a) gmail com>
 # Versão: 1
+# Licença: GPL
 # Uso: zzeuro
 # Ex.: zzeuro
 # ----------------------------------------------------------------------------

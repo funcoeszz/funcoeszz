@@ -3,6 +3,7 @@
 # Obs.: Se a data não for informada, usa a data atual.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-24
+# Licença: GPL
 # Uso: zzdiadasemana [data]
 # Ex.: zzdiadasemana
 #      zzdiadasemana 31/12/2000

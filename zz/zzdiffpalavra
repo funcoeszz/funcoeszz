@@ -4,6 +4,7 @@
 # Obs.: Se tiver muitas *linhas* diferentes, use o comando diff.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2001-07-23
+# Licença: GPL
 # Uso: zzdiffpalavra arquivo1 arquivo2
 # Ex.: zzdiffpalavra texto-orig.txt texto-novo.txt
 # ----------------------------------------------------------------------------

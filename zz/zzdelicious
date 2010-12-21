@@ -3,6 +3,7 @@
 # Obs.: Se não informada a tag, serão listadas as últimas URLs.
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
 # Versão: 1
+# Licença: GPL
 # Uso: zzdelicious usuario
 #      zzdelicious usuario tag
 # Ex.: zzdelicious felipensp php

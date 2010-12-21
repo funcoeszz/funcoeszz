@@ -3,6 +3,7 @@
 # Retorna a descrição do erro Oracle (ORA-NNNNN).
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Versão: 2
+# Licença: GPL
 # Uso: zzora numero_erro
 # Ex.: zzora 1234
 # ----------------------------------------------------------------------------

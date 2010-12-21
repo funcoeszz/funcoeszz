@@ -4,6 +4,7 @@
 # Busca o CEP de qualquer rua de qualquer cidade do país ou vice-versa.
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-11-08
+# Licença: GPL
 # Uso: zzcep estado cidade rua
 # Ex.: zzcep PR curitiba rio gran
 #      zzcep RJ 'Rio de Janeiro' Vinte de

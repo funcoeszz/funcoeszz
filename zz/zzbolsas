@@ -12,6 +12,7 @@
 # nome e última cotação.
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Versão: 3
+# Licença: GPL
 # Uso: zzbolsas [--l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
 # Ex.: zzbolsas
 #      zzbolsas --lista ^BVSP

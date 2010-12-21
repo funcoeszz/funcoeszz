@@ -12,6 +12,7 @@
 # Nota: Colaboração de Humberto Sartini <betinho_pg (a) yahoo com br>
 # Versão: 3
 # Desde: 2003-12-20
+# Licença: GPL
 # Uso: zzdicgoogle [línguas] texto
 # Ex.: zzdicgoogle the book is on the table
 #      zzdicgoogle 'fr|en' le livre est sur la table

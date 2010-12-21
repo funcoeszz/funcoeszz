@@ -6,6 +6,7 @@
 #   Identificadores: B)and, C)nt, E)ducativa, G)lobo, R)ecord, S)bt, cU)ltura
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
+# Licença: GPL
 # Uso: zztv canal [horário]
 # Ex.: zztv bsu 19       # band, sbt e cultura, depois das 19:00
 #      zztv . 00         # todos os canais, depois da meia-noite

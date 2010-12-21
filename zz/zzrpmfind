@@ -4,6 +4,7 @@
 # Obs.: A arquitetura padrão de procura é a i386.
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-02-22
+# Licença: GPL
 # Uso: zzrpmfind pacote [distro] [arquitetura]
 # Ex.: zzrpmfind sed
 #      zzrpmfind lilo mandr i586

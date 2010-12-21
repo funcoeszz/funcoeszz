@@ -3,6 +3,7 @@
 # Busca o significado de um termo, palavra ou expressão no site Definr.
 # Autor: Felipe Arruda <felipemiguel (a) gmail com>
 # Versão: 1
+# Licença: GPL
 # Uso: zzdefinr termo
 # Ex.: zzdefinr headphone
 #      zzdefinr in force
