@@ -4,6 +4,7 @@
 # Com a opção -t, mostra TODAS as moedas, sem ela, apenas as principais.
 # É possível passar várias palavras de pesquisa para filtrar o resultado.
 # Obs.: Hora GMT, Dólares por unidade monetária para o Euro e a Libra.
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Licença: GPL
 # Uso: zzmoeda [-t] [pesquisa]
 # Ex.: zzmoeda
