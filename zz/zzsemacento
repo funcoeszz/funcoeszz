@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Tira os acentos de todas as letras (áéíóú vira aeiou).
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2010-05-24
 # Versão: 1
 # Licença: GPL
 # Uso: zzsemacento texto

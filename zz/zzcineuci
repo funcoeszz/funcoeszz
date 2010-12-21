@@ -4,6 +4,7 @@
 # Se não for passado nenhum parâmetro, são listadas as cidades e cinemas.
 # Obs.: não utilize acentos: digite "Sao Paulo", e não "São Paulo"
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
+# Desde: 2009-05-04
 # Versão: 2
 # Licença: GPL
 # Uso: zzcineuci [cidade | codigo_cinema]

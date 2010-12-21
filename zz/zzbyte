@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # Conversão entre grandezas de bytes (mega, giga, tera, etc).
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-03-01
 # Licença: GPL
 # Uso: zzbyte N [unidade-entrada] [unidade-saida]  # BKMGTPEZY
 # Ex.: zzbyte 2048                    # Quanto é 2048 bytes?  -- 2K

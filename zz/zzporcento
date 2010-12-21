@@ -5,6 +5,7 @@
 # Se informados um número e uma porcentagem, mostra os valores da porcentagem.
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2008-12-11
 # Versão: 4
 # Licença: GPL
 # Uso: zzporcento valor [valor|porcentagem%]

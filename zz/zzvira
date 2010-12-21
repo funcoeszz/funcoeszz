@@ -2,6 +2,7 @@
 # Vira um texto, de trás pra frente (rev) ou de ponta-cabeça.
 # Ideia original de: http://www.revfad.com/flip.html (valeu @andersonrizada)
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2010-05-24
 # Versão: 1
 # Licença: GPL
 # Uso: zzvira [-X] texto

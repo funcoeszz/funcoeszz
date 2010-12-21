@@ -2,6 +2,7 @@
 # Envia mensagens para o twitter direto do console.
 # URL: http://www.inf.ufpr.br/erlf07/zztwitter
 # Autor: Edson Ramiro <erlfilho (a) gmail com> 
+# Desde: 2009-09-24
 # Licença: GPL
 # Uso: zztwitter [mensagem]
 # Ex.: zztwitter Enviar mensagens direto do console é mais fácil.
