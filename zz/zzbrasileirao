@@ -3,7 +3,9 @@
 # Mostra a tabela atualizada do Campeonato Brasileiro - Série A e Série B.
 # Autor: Alexandre Brodt Fernandes - http://www.xalexandre.com.br
 # Versão: 2.0
-# Uso: zzbrasileirao a ou zzbrasileirao b
+# Uso: zzbrasileirao [a | b]
+# Ex.: zzbrasileirao a
+#      zzbrasileirao b
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {

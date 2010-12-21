@@ -4,6 +4,7 @@
 # Autor: Luciano ES
 # Versão: 1
 # Uso: zzenglish palavra-em-inglês
+# Ex.: zzenglish drum
 # ----------------------------------------------------------------------------
 zzenglish ()
 {
