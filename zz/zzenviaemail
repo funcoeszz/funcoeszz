@@ -2,20 +2,20 @@
 # Envia email via ssmtp.
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 17 de Setembro de 2009
-# Licenca: GPL v2
-# Versao: 20091010
+# Licença: GPL v2
+# Versão: 20091010
 # Requer: ssmtp
-# Uso: zzenviaemail [-h] [-v] [-V] -f email -t emails [-c emails] [-b emails] -s subject -m mensagem
-# Opcoes:
-#         -h, --help     exibe a ajuda.
-#         -v, --verbose  exibe informacoes para debug durante o processamento.
-#         -V, --version  exibe a versao.
-#         -f, --from     informa email do remetente.
-#         -t, --to       informa email dos destinatarios diretos separados por virgula SOMENTE (sem espaco).
-#         -c, --cc       informa email dos destinatarios em copia separados por virgula SOMENTE (sem espaco).
-#         -b, --bcc      informa email dos destinatarios em copia oculta separados por virgula SOMENTE (sem espaco).
-#         -s, --subject  informa o assunto do email.
-#         -e, --mensagem informa o caminho do arquivo que contem a mensagem/corpo do email.
+# Opções:
+#   -h, --help     exibe a ajuda.
+#   -v, --verbose  exibe informações para debug durante o processamento.
+#   -V, --version  exibe a versão.
+#   -f, --from     email do remetente.
+#   -t, --to       email dos destinatários (separe com vírgulas, sem espaço).
+#   -c, --cc       email dos destinatários em cópia (vírgulas, sem espaço).
+#   -b, --bcc      emails em cópia oculta (vírgulas, sem espaço).
+#   -s, --subject  o assunto do email.
+#   -e, --mensagem arquivo que contém a mensagem/corpo do email.
+# Uso: zzenviaemail [-hvV] -f email -t emails [-c emails] [-b emails] -s subject -m mensagem
 # Ex.: zzenviaemail -f quem_envia@dominio.com -t quem_recebe@dominio.com -s "Teste de e-mail" -m "./arq_msg.eml"
 # ----------------------------------------------------------------------------
 zzenviaemail ()

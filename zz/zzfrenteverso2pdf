@@ -1,18 +1,18 @@
 # ----------------------------------------------------------------------------
-# Combina 2 arquivos, frentes.pdf e versos.pdf, em um unico frenteverso.pdf.
+# Combina 2 arquivos, frentes.pdf e versos.pdf, em um único frenteverso.pdf.
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 17 de Setembro de 2009
-# Licenca: GPL v2
-# Versao: 20100128
+# Licença: GPL v2
+# Versão: 20100128
 # Requer: pdftk
 # Uso: zzfrenteverso2pdf [-rf] [-rv] [-d diretorio]
-# Opcoes:
-#         -rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.
-#         -rv, --versosreversos   informa ordem reversa no arquivo versos.pdf.
-#         -d , --diretorio informa o diretorio de entrada/saida. Padrao = ".".
-#         -h, --help     exibe a ajuda.
-#         -v, --verbose  exibe informacoes para debug durante o processamento.
-#         -V, --version  exibe a versao.
+# Opções:
+#   -rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.
+#   -rv, --versosreversos   informa ordem reversa no arquivo versos.pdf.
+#    -d, --diretorio        informa o diretório de entrada/saída. Padrao=".".
+#    -h, --help             exibe a ajuda.
+#    -v, --verbose          exibe informações de debug durante a execução.
+#    -V, --version          exibe a versão.
 # Ex.: zzfrenteverso2pdf
 #      zzfrenteverso2pdf -rf
 #      zzfrenteverso2pdf -rv -d "/tmp/dir_teste"
