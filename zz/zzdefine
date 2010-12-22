@@ -1,9 +1,10 @@
 # ----------------------------------------------------------------------------
 # http://www.google.com
 # Retorno da função "define:" do Google.
-# Obs.: O idioma padrão é "all".
-# Uso: zzdefine palavra_ou_sigla
+# Idiomas disponíveis: en pt es de fr it. O idioma padrão é "all".
+# Uso: zzdefine [idioma] palavra_ou_sigla
 # Ex.: zzdefine imho
+#      zzdefine pt imho
 #
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Desde: 2005-05-23
@@ -19,9 +20,8 @@ zzdefine ()
 	[ "$1" ] || { echo -e "zzdefine [idioma] palavra_ou_sigla\n\nIdiomas: $I" && return; }
 	[ "${I% $1 *}" != "$I" ] && L=$1 && shift
 
-	$ZZWWWDUMP "http://www.google.com/search?q=define:$1&hl=pt-br&ie=UTF-8&defl=$L" |
-		grep -v ___ |
-		grep -v 'Mostrar definições encontradas em' |
-		grep -v 'Ferramentas de idiomas' |
-		tail -n+8
+	$ZZWWWDUMP -width=78 "http://www.google.com/search?q=define:$1&hl=pt-br&ie=UTF-8&defl=$L" |
+		sed '1, /^ *Web$/ d' |
+		sed '/Encontrar definições de imho em:/,$ d' |
+		sed '/Página Inicial do Google/,$ d'
 }
