@@ -35,12 +35,6 @@ zzchecamd5 ()
 	valor_md5="`md5sum $arquivo | cut -d' ' -f1`"
 	md5_site=$2
 
-	#TODO no mac o comando é só md5 e a saída é diferente:
-	# $ md5 index.t2t
-	# MD5 (index.t2t) = ade57099fb04ee33bbe59623f9b1a0f4
-	# $ cat index.t2t | md5
-	# ade57099fb04ee33bbe59623f9b1a0f4	
-
 	# Verifica se o arquivo nao foi corrompido
 	if [ "$md5_site" = "$valor_md5" ]; then
 		echo "Imagem OK" 
