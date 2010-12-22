@@ -18,7 +18,7 @@ zzconjuga ()
 
 	$ZZWWWDUMP "http://www.verba.org/owa-v/verba_dba.verba_pt.select_page?query_verba=$1" |
   		sed '1,/^   Idioma:/d' |
-		sed -r 's/\[[0-9]+\]//g' |
+		sed 's/\[[0-9]\{1,\}\]//g' |
 		sed '/^Refer/,$d' |
   		sed 's/Tradução// ; s/Definição+Contexto//';
 }
