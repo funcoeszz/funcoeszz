@@ -14,38 +14,25 @@ zzppt ()
 	zzzz -h ppt $1 && return
 
 	local URL="http://www.poupatempo.sp.gov.br/posto_movel/unidades.asp?mostrar="
-	echo -e "\033[33;01m=== Grande Sao Paulo I ===\033[m"
-	echo -e "\033[01m"
+
+	zztool eco "=== Grande São Paulo I ==="
 	$ZZWWWDUMP "$URL"g1 | sed -n '/\([Uu]nidade temporariamente\)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] de \)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] a \)/,/[Dd]isque [Pp]oupatempo\:/p'
-	echo -e "\033[m"
 
-	echo -e "\033[33;01m=== Grande Sao Paulo II ===\033[m"
-	echo -e "\033[01m"
+	zztool eco "=== Grande São Paulo II ==="
 	$ZZWWWDUMP "$URL"g2 | sed -n '/\([Uu]nidade temporariamente\)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] de \)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] a \)/,/[Dd]isque [Pp]oupatempo\:/p'
-	echo -e "\033[m"
 
-	echo -e "\033[33;01m=== Grande Sao Paulo III ===\033[m"
-	echo -e "\033[01m"
+	zztool eco "=== Grande São Paulo III ==="
 	$ZZWWWDUMP "$URL"g3 | sed -n '/\([Uu]nidade temporariamente\)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] de \)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] a \)/,/[Dd]isque [Pp]oupatempo\:/p'
-	echo -e "\033[m"
 
-	echo -e "\033[33;01m=== Movel Interior 1 - Registro ===\033[m"
-	echo -e "\033[01m"
+	zztool eco "=== Móvel Interior 1 - Registro ==="
 	$ZZWWWDUMP "$URL"i1 | sed -n '/\([Uu]nidade temporariamente\)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] de \)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] a \)/,/[Dd]isque [Pp]oupatempo\:/p'
-	echo -e "\033[m"
 
-	echo -e "\033[33;01m=== Movel Interior 2 - Sorocaba ===\033[m"
-	echo -e "\033[01m"
+	zztool eco "=== Móvel Interior 2 - Sorocaba ==="
 	$ZZWWWDUMP "$URL"i2 | sed -n '/\([Uu]nidade temporariamente\)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] de \)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] a \)/,/[Dd]isque [Pp]oupatempo\:/p'
-	echo -e "\033[m"
 
-	echo -e "\033[33;01m=== Movel Interior 3 - Marilia ===\033[m"
-	echo -e "\033[01m"
+	zztool eco "=== Móvel Interior 3 - Marília ==="
 	$ZZWWWDUMP "$URL"i3 | sed -n '/\([Uu]nidade temporariamente\)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] de \)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] a \)/,/[Dd]isque [Pp]oupatempo\:/p'
-	echo -e "\033[m"
 
-	echo -e "\033[33;01m=== Movel Interior 4 - Aracatuba ===\033[m"
-	echo -e "\033[01m"
+	zztool eco "=== Móvel Interior 4 - Araçatuba ==="
 	$ZZWWWDUMP "$URL"i4 | sed -n '/\([Uu]nidade temporariamente\)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] de \)/,/[Dd]isque [Pp]oupatempo\:/p ; /\([Dd]e [0-9][0-9] a \)/,/[Dd]isque [Pp]oupatempo\:/p'
-	echo -e "\033[m"
 }
