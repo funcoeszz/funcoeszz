@@ -8,6 +8,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2010-12-22 O endereço está retornando um IFRAME.
 zzdetranes ()
 {
 	zzzz -h detranes $1 && return
