@@ -333,7 +333,7 @@ zzajuda ()
 						s/^.\{1,14\}$/& /
 						t pad
 				
-						# Junta a descrição (próxima linha)
+						# Junta a descricao (proxima linha)
 						N
 						s/\n/ /
 					}' |
@@ -729,37 +729,33 @@ zzzz ()
 #
 #
 
+# Função temporária para extrair o texto de ajuda do cabeçalho das funções
+# Passe o arquivo com as funções como parâmetro
+_extrai_ajuda() {
+	# Extrai somente os cabeçalhos, já removendo o # do início
+	sed -n '/^# -----* *$/, /^# -----* *$/ s/^# \{0,1\}//p' "$1" |
+		# Agora remove trechos que não podem aparecer na ajuda
+		sed '
+			# Apaga a metadata (Autor, Desde, Versao, etc)
+			/^Autor:/, /^------/ d
+			
+			# Apaga a linha em branco apos Ex.:
+			/^Ex\.:/, /^------/ {
+				/^ *$/d
+			}'
+}
+
 # Limpa conteúdo do arquivo de ajuda
 > "$ZZAJUDA"
 
-# Padroniza as linhas separadoras com exatamente 77 hífens (7x11)
-zz_separador=$(echo '-------' | sed 's/.*/&&&&&&&&&&&/')
-
 # Salva o texto de ajuda das funções deste arquivo
-if test -r "$ZZPATH"
-then
-	cat "$ZZPATH" |
-		# Primeiro remove a metadata: Autor, Desde, Versão, etc 
-		sed '
-			/^#$/,/^# -----* *$/ {
-				/^# -----* *$/! d
-			}' |
-		# Agora mostra o cabeçalho, sem comentários e com separador padrão
-		sed -n '
-			/^# -----* *$/,/^# -----* *$/ {
-				s/^# -----* *$/'$zz_separador'/p
-				s/^# \{0,1\}//
-				p
-			}' |
-		uniq |
-		sed '$ { /^---/ d; }' >> "$ZZAJUDA"
-fi
+test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 
 
 ##############################################################################
 #
-#                          Carregamento das funções
-#                          ------------------------
+#                    Carregamento das funções do $ZZDIR
+#                    ----------------------------------
 #
 # O carregamento é feito em dois passos para ficar mais robusto:
 # 1. Obtenção da lista completa de funções, ativadas e desativadas.
@@ -799,7 +795,7 @@ then
 	# Lista das funções desativadas (OFF = Todas - ON)
 	(
 	cd "$ZZDIR" &&
-	 	ls -1 zz* |
+ 	ls -1 zz* |
 	 	grep -v -f "$ZZTMP.on"
 	) >> "$ZZTMP.off"
 fi
@@ -850,7 +846,7 @@ then
 	exit 0
 fi
 
-# Carregamento das funções ativas
+# Carregamento das funções ativas, salvando texto de ajuda
 while read zz_nome
 do
 	zz_arquivo="${ZZDIR%/}"/$zz_nome
@@ -858,34 +854,24 @@ do
 	# Inclui a função na shell atual
 	source "$zz_arquivo"
 
-	# Salva o seu texto de ajuda
-	echo "$zz_separador"
-	echo "$zz_nome"
-	sed -n '
-		# Remove linhas com metadata: Autor, Desde, Versão, etc
-		/^#$/ q
-		
-		# Remove linhas separadoras (pois já usa $zz_separador)
-		/^# *-----*/ d
-		
-		# Apaga o caractere de comentário #
-		s/^# \{0,1\}//
-		
-		# Finalmente, mostra a linha limpa
-		p
-	' "$zz_arquivo" 
+	# Extrai o texto de ajuda
+	_extrai_ajuda "$zz_arquivo" |
+		# Insere o nome da função na segunda linha
+	 	sed "2 { h; s/.*/$zz_nome/; G; }"
+	
 done < "$ZZTMP.on" >> "$ZZAJUDA"
 
-echo "$zz_separador" >> "$ZZAJUDA"
+# Separador final do arquivo, com exatamente 77 hífens (7x11)
+echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
 
 ### Carregamento terminado, funções já estão disponíveis
 
-# Limpa variáveis temporárias
+# Limpa variáveis e funções temporárias
 # Nota: prefixo zz_ para não conflitar com variáveis da shell atual
 unset zz_arquivo
 unset zz_nome
 unset zz_off
-unset zz_separador
+unset _extrai_ajuda
 
 
 ##----------------------------------------------------------------------------
