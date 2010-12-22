@@ -1,59 +1,25 @@
 # ----------------------------------------------------------------------------
 # Informa a extensão de um arquivo.
-# Obs.: Caso não exista, retorna vazio "".
-# Opções:
-#   -h, --help     exibe a ajuda.
-#   -v, --verbose  exibe informações para debug durante o processamento.
-#   -V, --version  exibe a versão.
-#   -f, --file     informa o arquivo para verificar a extensão.
-# Uso: zzextensao [-h] [-v] [-V] -f arquivo
-# Ex.: zzextensao "/tmp/arquivo.txt"       # resulta em "txt"
-#      zzextensao "/tmp/arquivo"           # resulta em ""
+# Obs.: Caso o arquivo não possua extensão, retorna vazio "".
+# Uso: zzextensao arquivo
+# Ex.: zzextensao /tmp/arquivo.txt       # resulta em "txt"
+#      zzextensao /tmp/arquivo           # resulta em ""
 #
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-21
-# Versão: 20091010
+# Versão: 20101222
 # Licença: GPLv2
 # ----------------------------------------------------------------------------
 zzextensao ()
 {
-	zzzz -h "${FUNCNAME}" $1 && return
+	zzzz -h extensao $1 && return
 	
 	# Declara variaveis.
 	local nome_arquivo extensao arquivo
-	local nparam=0
 	
-	# Opcoes de linha de comando
-	while [ $# -ge 1 ]
-	do
-		case "$1" in
-			-f | --file)
-				[ "$2" ] || { zztool uso "${FUNCNAME}"; set +x; return 1; }
-				arquivo=$2
-				nparam=$(($nparam + 1))
-				shift
-				;;
-			-h | --help)
-				{ zztool uso "${FUNCNAME}"; set +x; return ; }
-				;;
-			-v | --verbose)
-				set -x
-				;;
-			-V | --version)
-				{ cat "${ZZEXTRADIR}/${FUNCNAME}" | cut -c3- | grep "^Versao:" ; set +x; return; }
-				;;
-			*) { zztool uso "${FUNCNAME}"; set +x; return 1; } ;;
-		esac
-		shift
-	done
-	
-	# Verifica numero minimo de parametros.
-	if [ "${nparam}" != 1 ] ; then
-		{ zztool uso "${FUNCNAME}"; set +x; return 1; }
-	fi
-	
-	# Verifica se o arquivo existe mesmo.
-	zztool arquivo_existe "$arquivo"
+	[ "$1" ] || zztool uso extensao
+
+	arquivo="$1"
 	
 	# Extrai a extensao.
 	nome_arquivo=`echo "$arquivo" | awk 'BEGIN { FS = "/" } END { print $NF }'`
@@ -62,6 +28,4 @@ zzextensao ()
 		extensao=""
 	fi
 	echo "$extensao"
-	
-	set +x
 }
