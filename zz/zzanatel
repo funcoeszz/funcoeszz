@@ -2,7 +2,7 @@
 # http://sistemas.anatel.gov.br/SIPT/Atualizacao/N_ConsultaTarifas/tela.asp
 # Busca as tarifas das operadoras no plano básico para ligações DDD.
 # Uso: zzanatel DDD_Origem Prefixo_Origem DDD_Destino Prefixo_Destino
-# Ex.: zzanatel 48 224 12 3943
+# Ex.: zzanatel 48 3224 12 3943
 #
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2005-04-14
