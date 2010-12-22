@@ -2,7 +2,7 @@
 # Verifica se a data passada por parâmetro é um feriado ou não.
 # Caso não seja passado nenhuma data é pego a data atual.
 # Pode-se configurar a variável ZZFERIADO para os feriados regionais.
-# O formato é o dd/mm:descrição, por exemplo: 20/11:Conciência negra.
+# O formato é o dd/mm:descrição, por exemplo: 20/11:Consciência negra.
 # Uso: zzferiado -l [ano] | [data]
 # Ex.: zzferiado 25/12/2008
 #      zzferiado -l
@@ -24,7 +24,7 @@ zzferiado ()
 
 	hoje=$(date '+%d/%m/%Y')
 
-	# Verifica se foi passado o parametro -l
+	# Verifica se foi passado o parâmetro -l
 	if [ "$1" = "-l" ]; then
 		# Se não for passado $2 pega o ano atual
 		ano=${2:-$(basename $hoje)}
@@ -32,13 +32,13 @@ zzferiado ()
 		# Seta a flag listar
 		listar=1
 
-		# Teste da variavel ano
+		# Teste da variável ano
 		if ! zztool testa_numero $ano; then
 			zztool uso feriado
 			return
 		fi
 	else
-		# Se nao for passada a data é pega a data de hoje
+		# Se não for passada a data é pega a data de hoje
 		data=${1:-$hoje}
 
 		# Verifica se a data é valida
@@ -48,7 +48,7 @@ zzferiado ()
         	fi
 
 		# Uma coisa interessante, como data pode ser usada com /(20/11/2008)
-		# podemos usar o basename e dirname para pegar o que quizermos
+		# podemos usar o basename e dirname para pegar o que quisermos
 		# Ex.: dirname 25/12/2008 ->  25/12
 		#      basename 25/12/2008 -> 2008
 		#
@@ -57,7 +57,7 @@ zzferiado ()
 		ano=$(basename ${1:-$hoje})
 	fi
 
-	# Para feriados Estaduais ou regionais Existe a variavel de 
+	# Para feriados Estaduais ou regionais Existe a variável de 
 	# ambiente ZZFERIADO que pode ser configurada no $HOME/.bashrc e 
 	# colocar as datas com dd/mm:descricao
 	carnaval=$(dirname $(zzcarnaval $ano ) ) 
@@ -68,19 +68,19 @@ zzferiado ()
 	# Verifica ѕe lista ou nao, caso negativo verifica se a data escolhida é feriado
 	if [ "$listar" = "1" ]; then
 
-		# Variavel que contem os caracteres de controle para que a listagem
+		# Variável que contem os caracteres de controle para que a listagem
 		# possa sair formatada corretamente
 		pulaparacoluna22="\033[22G"
 
 		# Pega os dados, coloca 1 por linha, inverte dd/mm para mm/dd,
 		# ordena, inverte mm/dd para dd/mm
-		echo $feriados |\
+		echo $feriados |
                 sed '   
                         s# \([0-3]\)#\n\1#g
                         s#\(..\)/\(..\)#\2/\1#g
-                ' |\
-                sort -n |\
-                sed 's#\(..\)/\(..\)#\2/\1#g' |\
+                ' |
+                sort -n |
+                sed 's#\(..\)/\(..\)#\2/\1#g' |
 		while read LINHA; do
 			dia=$(echo $LINHA | cut -d: -f1)
 			diasemana=$(zzdiadasemana $dia/$ano)
@@ -88,7 +88,7 @@ zzferiado ()
 			echo -e "$dia $diasemana $pulaparacoluna22 $descricao"
 		done 
 	else
-		# Virifica se a data está dentro da lista de feriados
+		# Verifica se a data está dentro da lista de feriados
 		# e imprime o resultado
 		if zztool grep_var "$data" "$feriados"; then
 			echo "É feriado: $data/$ano"
