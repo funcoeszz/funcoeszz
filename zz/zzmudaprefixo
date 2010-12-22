@@ -9,7 +9,7 @@
 #
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-21
-# Versão: 1
+# Versão: 2
 # Licença: GPLv2
 # ----------------------------------------------------------------------------
 zzmudaprefixo ()
@@ -53,7 +53,7 @@ zzmudaprefixo ()
 	do
 		# Verifica se eh arquivo mesmo.
 		if [ -f "${antigo}${sufixo}" -a ! -s "${novo}${sufixo}" ] ; then
-			mv "${antigo}${sufixo}" "${novo}${sufixo}"
+			mv -v "${antigo}${sufixo}" "${novo}${sufixo}"
 		else
 			echo "CUIDADO: Arquivo ${antigo}${sufixo} nao foi movido para ${novo}${sufixo} porque ou nao eh ordinario, ou destino ja existe!"
 		fi
