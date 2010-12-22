@@ -3,7 +3,7 @@
 # Dicionário de Esperanto em inglês, português e alemão.
 # Possui busca por palavra nas duas direções. O padrão é português-esperanto.
 # Uso: zzdicesperanto [idioma] palavra
-# Ex.: zzdicesperanto esperança
+# Ex.: zzdicesperanto disquete
 #      zzdicesperanto EO-PT espero
 #
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
