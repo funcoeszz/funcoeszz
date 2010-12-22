@@ -4,9 +4,7 @@
 #   -rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.
 #   -rv, --versosreversos   informa ordem reversa no arquivo versos.pdf.
 #    -d, --diretorio        informa o diretório de entrada/saída. Padrao=".".
-#    -h, --help             exibe a ajuda.
 #    -v, --verbose          exibe informações de debug durante a execução.
-#    -V, --version          exibe a versão.
 # Uso: zzfrenteverso2pdf [-rf] [-rv] [-d diretorio]
 # Ex.: zzfrenteverso2pdf
 #      zzfrenteverso2pdf -rf
@@ -14,15 +12,13 @@
 #
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-17
-# Versão: 20100128
+# Versão: 20101222
 # Licença: GPLv2
 # Requisitos: pdftk
 # ----------------------------------------------------------------------------
 zzfrenteverso2pdf ()
 {
-	#set -x
-	
-	zzzz -h "${FUNCNAME}" $1 && return
+	zzzz -h frenteverso2pdf $1 && return
 	
 	# Declara variaveis.
 	local n_frentes n_versos dif n_pag_frente n_pag_verso
@@ -44,20 +40,14 @@ zzfrenteverso2pdf ()
 			-rf | --frentesreversas) sinal_frente="-" ;;
 			-rv | --versosreversos) sinal_verso="-" ;;
 			-d | --diretorio)
-				[ "$2" ] || { zztool uso "${FUNCNAME}"; return; }
+				[ "$2" ] || { zztool uso frenteverso2pdf; return; }
 				dir=$2
 				shift
-				;;
-			-h | --help)
-				{ zztool uso "${FUNCNAME}"; set +x; return ; }
 				;;
 			-v | --verbose)
 				set -x
 				;;
-			-V | --version)
-				{ cat "${ZZEXTRADIR}/${FUNCNAME}" | cut -c3- | grep "^Versao:" ; set +x; return; }
-				;;
-			*) { zztool uso "${FUNCNAME}"; set +x; return 1; } ;;
+			*) { zztool uso frenteverso2pdf; set +x; return 1; } ;;
 		esac
 		shift
 	done
