@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------
 # Busca notícias sobre assuntos diversos na internet.
+# Se não informado um argumento, o padrão é "mun".
 # Uso: zznoticias [ bra | mun | eco | pol | esp ]
 # Ex.: zznoticias bra
 #      zznoticias eco
@@ -13,15 +14,18 @@ zznoticias ()
 {
 	zzzz -h noticias $1 && return
 
-	local h d m y a
+	local h d m y a URL
+
 	h=`date +%H`
 	d=`date +%d | sed 's/^0//'`
 	m=`date +%m | sed 's/^0//'`
 	y=`date +%Y`
+
 	a=${1:-"mun"}
 	a=$(echo $a | sed 's/bra/Brasil/;s/mun/Mundo/;s/eco/Economia/;s/pol/Politica/;s/esp/Esportes/')
 	[ "$h" == "00" ] && d=$(($d-1))
-	local URL="http://noticias.correioweb.com.br/ultimas.htm?notas=$a&dia_novo=$d&novo_mes=$m&novo_ano=$y"
+	
+	URL="http://noticias.correioweb.com.br/ultimas.htm?notas=$a&dia_novo=$d&novo_mes=$m&novo_ano=$y"
 	
 	$ZZWWWDUMP "$URL" |
 		sed '
