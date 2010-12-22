@@ -18,6 +18,7 @@
 #      zzbolsas ^BVSP loja       # Procura ações com "loja" no nome ou código
 #      zzbolsas ^BVSP            # Cotação do índice Bovespa
 #      zzbolsas PETR4.SA         # Cotação das ações da Petrobrás
+#      zzbolsas PETR4.SA 21/12/2010  # Cotação da Petrobrás nesta data
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
