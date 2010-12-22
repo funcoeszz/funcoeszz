@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Mostra uma seqüência numérica, um número por linha.
-# Obs.: Emulação do comando seq, presente no Linux, com alguma melhorias adicionais.
+# Obs.: Emulação do comando seq, presente no Linux, com melhorias adicionais.
 # Uso: zzseq2 [número-inicial [step]] número-final [prefixo [sufixo]]
 # Ex.: zzseq2 5
 #      zzseq2 10 2 5 "Numero " ")"
