@@ -1,13 +1,14 @@
 # ----------------------------------------------------------------------------
 # Converte horas em minutos.
+# Obs.: Se não informada a hora, usa o horário atual para o cálculo.
 # Uso: zzhoramin [hh:mm]
-# Ex.: zzhoramin 
-#      zzhoramin 10:53
-#      zzhoramin -10:53
+# Ex.: zzhoramin
+#      zzhoramin 10:53       # Retorna 653
+#      zzhoramin -10:53      # Retorna -653
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-12-05
-# Versão: 1
+# Versão: 2
 # Licença: GPLv2
 # ----------------------------------------------------------------------------
 zzhoramin ()
@@ -19,7 +20,7 @@ zzhoramin ()
 
 	operacao='+'
 
-	# Testa se o parametro passado é uma hora valida
+	# Testa se o parâmetro passado é uma hora valida
 	if ! zztool testa_hora ${1#-}; then
                 hora=$(zzhora agora | cut -d' ' -f1)
         else
@@ -35,7 +36,7 @@ zzhoramin ()
 	hh=${hora%%:*}
 	mm=${hora##*:}
 
-	# faz o calculo
+	# faz o cálculo
 	mintotal=$(expr $hh \* 60 $operacao $mm)
 
 	# Tcharã!!!!
