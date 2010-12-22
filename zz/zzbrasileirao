@@ -16,7 +16,7 @@ zzbrasileirao ()
 
 	[ "$1" ] || { zztool uso brasileirao; return; }
 
-	local brasileirao_url="http://globoesporte.globo.com/Esportes/Futebol/Classificacao/0,,ESP0-98"
+	local url="http://globoesporte.globo.com/Esportes/Futebol/Classificacao/0,,ESP0-98"
 
 	if [ $1 = "a" ] || [ ! $1 = "a" ] || [ ! $1 = "b"]; then
 		serie="27,00.html"
@@ -28,7 +28,7 @@ zzbrasileirao ()
 	fi
 
 	echo -e "\033[32m $spc                   P  J       V       E       D       GP      GC      SG      % \033[m"
-	$ZZWWWDUMP $brasileirao_url$serie |
+	$ZZWWWDUMP $url$serie |
 	 	sed -n "55,74p"
 	echo -e "\n   \033[32mP\033[montos \033[31m-\033[m \033[32mJ\033[mogos \033[31m-\033[m \033[32mV\033[mitórias \033[31m-\033[m \033[32mE\033[mmpates \033[31m-\033[m \033[32mD\033[merrotas \033[31m-\033[m \033[32mG\033[mols \033[32mP\033[mró \033[31m-\033[m \033[32mG\033[mols \033[32mC\033[montra \033[31m-\033[m \033[32mS\033[maldo de \033[32mG\033[mols \033[31m-\033[m \033[32m%\033[mAproveitamento"
 }
