@@ -7,56 +7,58 @@
 
 cd $(dirname "$0")
 
-echo ----------------------------------------------------------------
-echo "* Funções que não são UTF-8"
+eco() { echo -e "\033[36;1m$*\033[m"; }
+
+eco ----------------------------------------------------------------
+eco "* Funções que não são UTF-8"
 file zz/* off/* | egrep -v 'UTF-8'
 
-echo ----------------------------------------------------------------
-echo "* Funções com nome estranho"
+eco ----------------------------------------------------------------
+eco "* Funções com nome estranho"
 ls -1 zz/* off/* | grep -v '/zz[a-z0-9]*$'
 
-echo ----------------------------------------------------------------
-echo "* Funções com erro"
+eco ----------------------------------------------------------------
+eco "* Funções com erro"
 for f in zz/* off/*; do (source $f); done
 
-echo ----------------------------------------------------------------
-echo "* Funções cuja primeira linha é estranha"
+eco ----------------------------------------------------------------
+eco "* Funções cuja primeira linha é estranha"
 for f in zz/* off/*; do sed 1q $f | egrep -q '^# -{76}$' || echo $f; done
 
-echo ----------------------------------------------------------------
-echo "* Funções cujo início não é 'zznome ()\n'"
+eco ----------------------------------------------------------------
+eco "* Funções cujo início não é 'zznome ()\n'"
 for f in zz/* off/*; do grep -q "^zz[a-z0-9]* ()$" $f || echo $f; done
 
-echo ----------------------------------------------------------------
-echo "* Funções que não terminam em '}'"
+eco ----------------------------------------------------------------
+eco "* Funções que não terminam em '}'"
 for f in zz/* off/*; do tail -1 $f | grep -q "^}$" || echo $f; done
 
-echo ----------------------------------------------------------------
-echo "* Funções cujo nome não bate com o nome do arquivo"
+eco ----------------------------------------------------------------
+eco "* Funções cujo nome não bate com o nome do arquivo"
 for f in zz/* off/*; do grep -q "^$(basename $f) " $f || echo $f; done
 
-echo ----------------------------------------------------------------
-echo "* Funções sem o campo Autor:"
+eco ----------------------------------------------------------------
+eco "* Funções sem o campo Autor:"
 for f in zz/* off/*; do grep -q '^# Autor: ' $f || echo $f; done
 
-echo ----------------------------------------------------------------
-echo "* Funções sem o campo Desde:"
+eco ----------------------------------------------------------------
+eco "* Funções sem o campo Desde:"
 for f in zz/* off/*; do grep -q '^# Desde: ' $f || echo $f; done
 
-echo ----------------------------------------------------------------
-echo "* Funções sem o campo Licença:"
+eco ----------------------------------------------------------------
+eco "* Funções sem o campo Licença:"
 for f in zz/* off/*; do grep -q '^# Licença: ' $f || echo $f; done
 
-echo ----------------------------------------------------------------
-echo "* Funções sem o campo Uso:"
+eco ----------------------------------------------------------------
+eco "* Funções sem o campo Uso:"
 for f in zz/* off/*; do grep -q '^# Uso: ' $f || echo $f; done
 
-echo ----------------------------------------------------------------
-echo "* Funções sem o campo Ex.:"
+eco ----------------------------------------------------------------
+eco "* Funções sem o campo Ex.:"
 for f in zz/* off/*; do grep -q '^# Ex\.: ' $f || echo $f; done
 
-echo ----------------------------------------------------------------
-echo "* Funções com campo desconhecido"
+eco ----------------------------------------------------------------
+eco "* Funções com campo desconhecido"
 campos='Obs\.|Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos|Nota'
 for f in zz/* off/*
 do
@@ -69,8 +71,8 @@ do
 	test -n "$wrong" && echo "$f: $wrong"
 done
 
-echo ----------------------------------------------------------------
-echo "* Funções com a descrição sem ponto final"
+eco ----------------------------------------------------------------
+eco "* Funções com a descrição sem ponto final"
 for f in zz/* off/*; do
 	sed -n '2 {
 		/^# http/ n
@@ -79,8 +81,8 @@ for f in zz/* off/*; do
 		}' $f
 done
 
-echo ----------------------------------------------------------------
-echo "* Funções com a descrição com mais de um ponto ."
+eco ----------------------------------------------------------------
+eco "* Funções com a descrição com mais de um ponto ."
 for f in zz/* off/*; do
 	test "$f" = zz/zzranking && continue  # tem 2 pontos mas é OK
 	sed -n '2 {
@@ -90,16 +92,16 @@ for f in zz/* off/*; do
 		}' $f
 done
 
-echo ----------------------------------------------------------------
-echo "* Funções com a data inválida no campo Desde:"
+eco ----------------------------------------------------------------
+eco "* Funções com a data inválida no campo Desde:"
 for f in zz/* off/*
 do
 	wrong=$(grep '^# Desde:' $f | egrep -v ': [0-9]{4}-[0-9]{2}-[0-9]{2}$')
 	test -n "$wrong" && echo "$f: $wrong"
 done
 
-echo ----------------------------------------------------------------
-echo "* Funções com o cabeçalho mal formatado"
+eco ----------------------------------------------------------------
+eco "* Funções com o cabeçalho mal formatado"
 for f in zz/* off/*
 do
 	wrong=$(sed -n '
@@ -165,8 +167,8 @@ do
 		test -n "$wrong" && echo "$f" && echo "$wrong"		
 done
 
-echo ----------------------------------------------------------------
-echo "* Funções com cabeçalho >78 colunas"
+eco ----------------------------------------------------------------
+eco "* Funções com cabeçalho >78 colunas"
 for f in zz/* off/*
 do
 	wrong=$(grep '^# ' $f | egrep '^.{79}')
