@@ -24,7 +24,7 @@
 # ----------------------------------------------------------------------------
 zzdata2 ()
 {
-	zzzz -h ${FUNCNAME} $1 && return
+	zzzz -h data2 $1 && return
 
 	local yyyy mm dd dias_ano data dias i n y op muda_ano
 	local epoch=1970
@@ -41,7 +41,7 @@ zzdata2 ()
 	# Alterado o numero de parametros para ate 4.
 	# Porem, para manter a compatibilidade com versoes anteriores, aceita-se 3.
 	# Ou seja, para somar ou subtrair dias nao precisa informar "d".
-	[ $# -eq 3 -o $# -eq 1 -o $# -eq 4 ] || { zztool uso ${FUNCNAME}; return 1; }
+	[ $# -eq 3 -o $# -eq 1 -o $# -eq 4 ] || { zztool uso data2; return 1; }
 
 	# Esse bloco gigante define $n1 e $n2 baseado nas datas $data1 e $data2.
 	# A data eh transformada em um numero inteiro (dias desde $epoch).
