@@ -7,9 +7,10 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2008-10-07
-# Versão: 2.0
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2010-12-22 URL ok, mas os dados parecem vir por AJAX agora :(
 zzbrasileirao ()
 {
 	zzzz -h brasileirao $1 && return
