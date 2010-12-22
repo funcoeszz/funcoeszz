@@ -10,9 +10,9 @@
 # ----------------------------------------------------------------------------
 zztweets ()
 {
-	zzzz -h zztweets $1 && return
+	zzzz -h tweets $1 && return
 
-	[ "$1" ] || { echo -e "Uso: zztweets @username" && return; }
+	[ "$1" ] || { zztool uso tweets; return; }
 
 	local twitter_url="http://twitter.com"
 	local twitter_name=$(echo $1|tr -d "@")
