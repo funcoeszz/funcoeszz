@@ -9,6 +9,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2010-12-22 Filtro quebrado. A saída aparece bagunçada.
 zztelecine ()
 {
 	zzzz -h telecine $1 && return
