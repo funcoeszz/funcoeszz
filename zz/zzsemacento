@@ -1,7 +1,8 @@
 # ----------------------------------------------------------------------------
 # Tira os acentos de todas as letras (áéíóú vira aeiou).
 # Uso: zzsemacento texto
-# Ex.: zzsemacento AÇÃO maçã 1ª bênção      # ACAO maca 1a bencao
+# Ex.: zzsemacento AÇÃO 1ª bênção           # Retorna: ACAO 1a bencao
+#      echo AÇÃO 1ª bênção | zzsemacento    # Retorna: ACAO 1a bencao
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2010-05-24
