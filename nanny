@@ -209,6 +209,15 @@ do
 	test -n "$wrong" && echo "$f"  # && echo "$wrong"
 done
 
+eco ----------------------------------------------------------------
+eco "* Funções desativadas sem data e motivo para o desligamento"
+for f in off/*
+do
+	# # DESATIVADA: 2002-10-30 O programa acabou.
+	egrep -q '^# DESATIVADA: [0-9]{4}-[0-9]{2}-[0-9]{2} .{10,}' $f || echo $f
+done
+
+
 
 # Outros:
 #
