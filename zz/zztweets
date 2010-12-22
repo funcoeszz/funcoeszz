@@ -14,17 +14,17 @@ zztweets ()
 
 	[ "$1" ] || { zztool uso tweets; return; }
 
-	local twitter_url="http://twitter.com"
-	local twitter_name=$(echo $1 | tr -d "@")
-	local twitter_result_raw twitter_result_show 
+	local url="http://twitter.com"
+	local name=$(echo $1 | tr -d "@")
+	local result_raw result_show 
 
-	twitter_result_raw=$($ZZWWWDUMP $twitter_url/$twitter_name) 
+	result_raw=$($ZZWWWDUMP $url/$name) 
 
-	twitter_result_show=$(echo "$twitter_result_raw"| grep "^ *[1-5]\. ")
-	test -n "$twitter_result_show" && echo "$twitter_result_show" && return
+	result_show=$(echo "$result_raw"| grep "^ *[1-5]\. ")
+	test -n "$result_show" && echo "$result_show" && return
 
-	twitter_result_show=$(echo "$twitter_result_raw"| grep "That page doesn't exist!")
-	test -n "$twitter_result_show" && echo "Usuário @$twitter_name não encontrado!" && return
+	result_show=$(echo "$result_raw"| grep "That page doesn't exist!")
+	test -n "$result_show" && echo "Usuário @$name não encontrado!" && return
 
 	echo "O Twitter não pôde responder essa requisição"
 	return
