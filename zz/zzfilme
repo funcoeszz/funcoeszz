@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzfilme ()
 {
-	zzzz -h globo $1 && return
+	zzzz -h filme $1 && return
 
 	local URL="http://exclusivo.terra.com.br/interna/0,,OI284815-EI1489,00.html"
 
