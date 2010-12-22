@@ -9,6 +9,7 @@
 # Desde: 2009-09-24
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2010-12-22 <error code="53">Basic authentication is not supported</error>
 zztwitter ()
 {
     zzzz -h twitter $1 && return
@@ -25,7 +26,7 @@ zztwitter ()
     else
         [ -z $USUARIO ] && echo -ne "\nUsuário: " && read USUARIO
         [ -z $SENHA ] && echo -ne "\nSenha: " && read -s SENHA 
-        curl --silent -u $USUARIO:$SENHA -d status="$*" $TWITTER 1>/dev/null  
+        curl --silent -u $USUARIO:$SENHA -d status="$*" $TWITTER #1>/dev/null  
         [ $? -ne 0 ] && echo "Mensagem não enviada." || echo "Ok! Enviado."
     fi
 }
