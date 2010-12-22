@@ -1,8 +1,10 @@
 # ----------------------------------------------------------------------------
 # Mata processos pelo nome do seu comando de origem.
 # Com a opção -n, apenas mostra o que será feito, mas não executa.
-# Uso: zzkill [-n] comando [comando2 ...]
-# Ex.: zzkill netscape
+# Se nenhum argumento for informado, mostra a lista de processos ativos.
+# Uso: zzkill [-n] [comando [comando2 ...]]
+# Ex.: zzkill
+#      zzkill netscape
 #      zzkill netsc soffice startx
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
