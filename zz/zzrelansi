@@ -10,35 +10,38 @@
 # ----------------------------------------------------------------------------
 zzrelansi ()
 {
-  zzzz -h relansi $1 && return
-  local lock="/tmp/relansi-$$"
-  trap "rm -f $lock" 0 1 2 3 15
-  case $1 in
-  -s|--stop)
-    shopt -q
-    # TODO: 'zzrelansi -s' apresenta na tela o código do loop em bg
-    rm -f $lock
-    sleep 1
-    tput sc
-    tput cup 0 $[`tput cols`-8]
-    echo "        "
-    tput rc
-    ;;
-  *)
-    if [ -e $lock ]
-    then
-      echo "RelANSI já foi executado pelo processo $$"
-    else
-      touch $lock
-      while [ -e $lock ]
-      do
-        tput sc
-        tput cup 0 $[`tput cols`-8]
-        date +'%H:%M:%S'
-        tput rc
-        sleep 1
-      done &
-    fi
-    ;;
-  esac
+	zzzz -h relansi $1 && return
+	
+	local lock="/tmp/relansi-$$"
+	
+	trap "rm -f $lock" 0 1 2 3 15
+	
+	case $1 in
+	-s|--stop)
+		shopt -q
+		# TODO: 'zzrelansi -s' apresenta na tela o código do loop em bg
+		rm -f $lock
+		sleep 1
+		tput sc
+		tput cup 0 $[`tput cols`-8]
+		echo "				"
+		tput rc
+	;;
+	*)
+		if test -e $lock
+		then
+			echo "RelANSI já foi executado pelo processo $$"
+		else
+			touch $lock
+			while test -e $lock
+			do
+				tput sc
+				tput cup 0 $[`tput cols`-8]
+				date +'%H:%M:%S'
+				tput rc
+				sleep 1
+			done &
+		fi
+	;;
+	esac
 }
