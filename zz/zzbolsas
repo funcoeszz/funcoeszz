@@ -13,7 +13,8 @@
 # Uso: zzbolsas [-l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
 # Ex.: zzbolsas                  # Lista das bolsas (códigos)
 #      zzbolsas -l               # Lista das bolsas (nomes)
-#      zzbolsas --lista ^BVSP    # Lista as ações da Bovespa
+#      zzbolsas --lista ^BVSP    # Lista as ações do índice Bovespa
+#      zzbolsas ^BVSP            # Cotação do índice Bovespa
 #      zzbolsas PETR4.SA         # Cotação das ações da Petrobrás
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
@@ -127,7 +128,10 @@ zzbolsas ()
 				if zztool grep_var "^" "$1"
 				then
 					$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/p;/Valor do índice:/,/Em 52 semanas:/p"|tr '.,' ',.'
+					sed -n "/($bolsa)/p;/Valor do índice:/,/Em 52 semanas:/p"|tr '.,' ',.' |
+					sed '/As pessoas que viram/d' |
+					sed '/Cotações atrasadas. salvo indicação/q'
+					
 				else
 				# Última cotação da ação
 					$ZZWWWDUMP "$url/q?s=$bolsa"|
