@@ -176,6 +176,23 @@ do
 done
 
 eco ----------------------------------------------------------------
+eco "* Funções que não usam 'zzzz -h'"
+ok="zztool"
+for f in zz/*  # off/*
+do
+	echo " $ok " | grep -q " $(basename $f) " && continue
+	grep -q 'zzzz -h ' $f || echo $f
+done
+
+eco ----------------------------------------------------------------
+eco "* Funções cuja chamada 'zzzz -h' está incorreta"
+for f in zz/*  # off/*
+do
+	# zzzz -h cores $1 && return
+	fgrep -q "zzzz -h $(basename $f | sed 's/^zz//') \$1 && return" $f || echo $f
+done
+
+eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zztool uso'"  # pois é válido chamá-las sem argumentos
 ok="zzalfabeto zzansi2html zzascii zzbeep zzbolsas zzcalcula zzcnpj zzcores zzcpf zzdiadasemana zzdolar zzeuro zzfilme zzfoneletra zzglobo zzhoracerta zzhoramin zzipinternet zzjquery zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzminusculas zzmoeda zznatal zznoticias zznoticiaslinux zznoticiassec zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzshuffle zzsubway zztelecine zztempo zztwitter zzuniq zzvira"
 for f in zz/*  # off/*
