@@ -28,66 +28,66 @@ zzcinemais ()
 {
 	zzzz -h cinemais $1 && return
 	
+	[ "$1" ] || { zztool uso cinemais; return; }
+	
 	local codigo cidade sessoes
 
-	if [ "${*}x" != "x" -a "$1" != "-h" ];then
+	cidade=$(echo $* | sed 's/ /_/g')
 
-		cidade=$(echo $* | sed 's/ /_/g')
-
-		case "$cidade" in
-			Anapolis)
-				codigo=32
-				zztool eco "Anápolis-GO:"
-			;;
-			Cuiaba)
-				codigo=10
-				zztool eco "Cuiabá-MT:"
-			;;
-			Guaratingueta)
-				codigo=21
-				zztool eco "Guaratinguetá-SP:"
-			;;
-			Milenium)
-				codigo=29
-				zztool eco "Milenium-AM:"
-			;;
-			Manaus_Plaza)
-				codigo=20
-				zztool eco "Manaus Plaza-AM:"
-			;;
-			Marilia)
-				codigo=17
-				zztool eco "Marília-SP:"
-			;;
-			Patos_de_Minas)
-				codigo=11
-				zztool eco "Pato de Minas-MG:"
-			;;
-			Sao_Jose_do_Rio_Preto)
-				codigo=13
-				zztool eco "São José do Rio Preto-SP:"
-			;;
-			Sertaozinho)
-				codigo=28
-				zztool eco "Sertãozinho-SP:"
-			;;
-			Tangara_da_Serra)
-				codigo=12
-				zztool eco "Tangará da Serra-SP:"
-			;;
-			Uberaba)
-				codigo=9
-				zztool eco "Uberaba-SP:"
-			;;
-			Uberlandia)
-				codigo=8
-				zztool eco "Uberlândia-SP:"
-			;;
-		esac
-	else
-		codigo=29
-		zztool eco "Milenium-AM:"
-	fi
+	case "$cidade" in
+		Anapolis)
+			codigo=32
+			zztool eco "Anápolis-GO:"
+		;;
+		Cuiaba)
+			codigo=10
+			zztool eco "Cuiabá-MT:"
+		;;
+		Guaratingueta)
+			codigo=21
+			zztool eco "Guaratinguetá-SP:"
+		;;
+		Milenium)
+			codigo=29
+			zztool eco "Milenium-AM:"
+		;;
+		Manaus_Plaza)
+			codigo=20
+			zztool eco "Manaus Plaza-AM:"
+		;;
+		Marilia)
+			codigo=17
+			zztool eco "Marília-SP:"
+		;;
+		Patos_de_Minas)
+			codigo=11
+			zztool eco "Pato de Minas-MG:"
+		;;
+		Sao_Jose_do_Rio_Preto)
+			codigo=13
+			zztool eco "São José do Rio Preto-SP:"
+		;;
+		Sertaozinho)
+			codigo=28
+			zztool eco "Sertãozinho-SP:"
+		;;
+		Tangara_da_Serra)
+			codigo=12
+			zztool eco "Tangará da Serra-SP:"
+		;;
+		Uberaba)
+			codigo=9
+			zztool eco "Uberaba-SP:"
+		;;
+		Uberlandia)
+			codigo=8
+			zztool eco "Uberlândia-SP:"
+		;;
+		*)
+			echo "Cidade não cadastrada. Use a opção -h para ver a lista de cidades."
+			return
+		;;
+	esac
 
 	sessoes=$(
 			$ZZWWWHTML "http://www.cinemais.com.br/programacao/cinema.php?cod=$codigo" | 
