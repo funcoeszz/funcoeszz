@@ -16,7 +16,7 @@ zzdelicious ()
 
  	[ "$1" ] || { zztool uso delicious; return; }
 
- 	$ZZWWWHTML "http://del.icio.us/$1/$2" |
+ 	$ZZWWWHTML "http://www.delicious.com/$1/$2" |
 		sed -e '/<h4/!d' |
  		sed -n 's/\s*<h4 class="desc"><a href="\([^"]*\)" rel="nofollow">\([^<]*\)<\/a>/\2: \1/p'
 }
