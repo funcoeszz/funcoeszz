@@ -10,9 +10,11 @@
 # Com o parâmetro -l seguido do código da bolsa, lista as ações (códigos).
 # Com o parâmetro --lista seguido do código da bolsa, lista as ações com
 # nome e última cotação.
-# Uso: zzbolsas [--l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
-# Ex.: zzbolsas
-#      zzbolsas --lista ^BVSP
+# Uso: zzbolsas [-l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
+# Ex.: zzbolsas                  # Lista das bolsas (códigos)
+#      zzbolsas -l               # Lista das bolsas (nomes)
+#      zzbolsas --lista ^BVSP    # Lista as ações da Bovespa
+#      zzbolsas PETR4.SA         # Cotação das ações da Petrobrás
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
@@ -132,7 +134,8 @@ zzbolsas ()
 					sed -n "/($bolsa)/p;/:$bolsa/p;/^ *$/d;/Última transação:/,/\[Chart\]/p"|
 					sed "/\[Chart\]/d;s/.*(\(.*\):$bolsa.*$/\1/"|
 					sed 's/^ */   /g;s/\([0-9]\+\),\([0-9]\+\)/\1§\2/g;s/\([0-9]\+\)\.\([0-9]\+\)/\1,\2/g;s/\([0-9]\+\)§\([0-9]\+\)/\1\.\2/g'|
-					sed '/Variação do dia/,$s/: /:   /g'
+					sed '/Variação do dia/,$s/: /:   /g' |
+					sed '/Cotações atrasadas, salvo indicação/q'
 					 #/Dividendos e rendimentos/p"
 				fi
 				;;
@@ -153,7 +156,8 @@ zzbolsas ()
 						# Listar as ações com descrição e suas últimas posições
 						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
 						sed -n 's/^ *//g;/Símbolo /,/Primeiro/p'|
-						sed '/Símbolo /d;/Primeiro/d;/^[ ]*$/d'
+						sed '/Símbolo /d;/Primeiro/d;/^[ ]*$/d' |
+						sed '/^Tudo / q'
 					else
 						# Lista apenas os códigos das ações
 						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
