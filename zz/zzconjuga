@@ -14,7 +14,7 @@ zzconjuga ()
 {
 	zzzz -h conjuga $1 && return
 
-	[ "$1" ] || { echo 'uso: zzconjuga verbo'; return; }
+	[ "$1" ] || { zztool uso conjuga; return; }
 
 	$ZZWWWDUMP "http://www.verba.org/owa-v/verba_dba.verba_pt.select_page?query_verba=$1" |
   		sed '1,/^   Idioma:/d' |

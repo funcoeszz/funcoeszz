@@ -15,7 +15,7 @@ zzdetranes ()
 	local URL='http://www2.detran.es.gov.br:8080'
 	local request="ANO=2005&RENAVAM=$1&SALVO_InfoRule=DetranES_Licenciamento(ANO,RENAVAM,PLACA)"
 
-	[ "$1" ] || { echo 'uso: zzdetranes número-renavam'; return; }
+	[ "$1" ] || { zztool uso detranes; return; }
 
 	echo "$request" | $ZZWWWPOST "$URL"
 }

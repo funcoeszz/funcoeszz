@@ -15,9 +15,10 @@ zzdefine ()
 {
 	zzzz -h define $1 && return
 
+	[ "$1" ] || { zztool uso define; return; }
+	
 	local L='all' I='en pt es de fr it all '
 
-	[ "$1" ] || { echo -e "zzdefine [idioma] palavra_ou_sigla\n\nIdiomas: $I" && return; }
 	[ "${I% $1 *}" != "$I" ] && L=$1 && shift
 
 	$ZZWWWDUMP -width=78 "http://www.google.com/search?q=define:$1&hl=pt-br&ie=UTF-8&defl=$L" |

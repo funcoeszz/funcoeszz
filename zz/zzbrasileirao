@@ -14,7 +14,7 @@ zzbrasileirao ()
 {
 	zzzz -h brasileirao $1 && return
 
-	[ "$1" ] || { echo -e "Uso: zzbrasileirao SÉRIE" && return; }
+	[ "$1" ] || { zztool uso brasileirao; return; }
 
 	local brasileirao_url="http://globoesporte.globo.com/Esportes/Futebol/Classificacao/0,,ESP0-98"
 

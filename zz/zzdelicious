@@ -14,7 +14,7 @@ zzdelicious ()
 {
 	zzzz -h delicious $1 && return
 
- 	[ "$1" ] || { echo 'uso: zzdelicious usuario tag'; return; }
+ 	[ "$1" ] || { zztool uso delicious; return; }
 
  	$ZZWWWHTML "http://del.icio.us/$1/$2" |
 		sed -e '/<h4/!d' |

@@ -15,10 +15,11 @@ zzdicesperanto ()
 {
 	zzzz -h dicesperanto $1 && return
 
+	[ "$1" ] || { zztool uso dicesperanto; return; }
+	
 	local L='PT-EO'
 	local I='DE-EO EN-EO EO-DE EO-EN EO-PT PT-EO '
 
-	[ "$1" ] || { echo -e "zzdicesperanto [idioma] palavra\n\nIdiomas: $I\n" && return; }
 	[ "${I% $1 *}" != "$I" ] && L=$1 && shift
 
 	$ZZWWWDUMP "http://wwwtios.cs.utwente.nl/traduk/$L/Traduku/?$1" |

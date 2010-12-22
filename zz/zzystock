@@ -15,7 +15,7 @@ zzystock ()
 
 	local URL='http://finance.yahoo.com/q?s='
 
-	[ "$1" ] || { echo 'uso: zzystock simbolo'; return; }
+	[ "$1" ] || { zztool uso ystock; return; }
 
 	$ZZWWWDUMP "$URL$1" | egrep "*\($1\)"
 }

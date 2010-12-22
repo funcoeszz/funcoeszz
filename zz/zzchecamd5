@@ -20,7 +20,7 @@ zzchecamd5 ()
 
 	# Faltou argumento mostrar como se usa a zzchecamd5
 	if [ "$#" != "2" ];then
-		zztool uso zzchecamd5
+		zztool uso checamd5
 		return 1
 	fi
 

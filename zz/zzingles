@@ -17,7 +17,7 @@ zzingles ()
 	# Faltou argumento mostrar como se usa a zzingles
 
         if [ "$#" == "0" ];then
-                zztool uso zzingles
+                zztool uso ingles
                 return 1
         fi
 

@@ -22,12 +22,7 @@ zzdicgoogle ()
 {
 	zzzz -h dicgoogle $1 && return
 
-	[ "$1" ] || {
-		echo -e "zzdicgoogle [línguas] texto
-		línguas = en|de en|es en|fr en|it en|ja en|ko
-		          en|pt en|zh-CN de|en de|fr es|en fr|en
-		          fr|de it|en ja|en ko|en pt|en zh-CN|en" && return
-	}
+	[ "$1" ] || { zztool uso dicgoogle; return; }
 
 	local URL='http://translate.google.com/translate_t'
 	local P='en|pt'

@@ -13,7 +13,10 @@ zzanatel ()
 {
 	zzzz -h anatel $1 && return
 
-	local URL='http://sistemas.anatel.gov.br/SIPT/Atualizacao/N_ConsultaTarifas/tela.asp' 
+	[ "$1" ] || { zztool uso anatel; return; }
+	
+	local URL='http://sistemas.anatel.gov.br/SIPT/Atualizacao/N_ConsultaTarifas/tela.asp'
+	
 	case "`date +%u`" in
 		0)
 			PERIODO='d';;

@@ -13,7 +13,7 @@ zzrastreamento ()
 {
 	zzzz -h rastreamento $1 && return
 
-	[ "$1" ] || { echo "uso: zzrastreamento <codigo_da_encomenda>"; return; }
+	[ "$1" ] || { zztool uso rastreamento; return; }
 
 	local url='http://websro.correios.com.br/sro_bin/txect01$.QueryList'
 	local codigo="$1"

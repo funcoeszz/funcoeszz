@@ -12,13 +12,10 @@ zzblist ()
 {
 	zzzz -h blist $1 && return
 
+	[ "$1" ] || { zztool uso blist; return; }
+
 	local URL="http://www.spamblock.com.br/rblcheck.php?ip="
 
-	if test -z "$1"
-	then
-		zzblist --help
-	else
-		$ZZWWWDUMP "$URL"$1 | grep [Rr]elat.rio
-		$ZZWWWDUMP "$URL"$1 | sed -n '/O IP /,/^$/p'
-	fi
+	$ZZWWWDUMP "$URL"$1 | grep [Rr]elat.rio
+	$ZZWWWDUMP "$URL"$1 | sed -n '/O IP /,/^$/p'
 }
