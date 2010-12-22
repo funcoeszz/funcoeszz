@@ -9,7 +9,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
-# TODO: Parâmetro para mostrar o ranking completo.
+# DESATIVADA: 2010-12-22 URL não encontrada (404)
 zzranking ()
 {
 	zzzz -h ranking $1 && return
@@ -21,4 +21,6 @@ zzranking ()
   		sed -r 's@ {9}(.*)\(([0-9]*) projects\)@\2\t\1@' |
   		sort -r -n |
   		sed -n '1,20p'
+
+	# TODO: Parâmetro para mostrar o ranking completo.
 }
