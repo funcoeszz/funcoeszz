@@ -127,6 +127,10 @@ do
 			$ { s/^/Esperava Uso, veio EOF: /p; q; }
 			n
 			
+			# Se encontrar algum campo opcional aqui, reclame
+			/^# Requisitos: / { s/^/Deveria vir depois de Licença: -- /p; q; }
+			/^# Versão: /     { s/^/Deveria vir depois de Desde: -- /p; q; }
+			
 			# Só sai do loop quando chegar no campo Uso, obrigatório
 			/^# Uso: /b loopend
 			b loop

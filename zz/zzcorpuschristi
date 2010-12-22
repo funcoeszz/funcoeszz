@@ -2,7 +2,6 @@
 # Mostra a data de Corpus Christi para qualquer ano.
 # Obs.: Se o ano não for informado, usa o atual.
 # Regra: 60 dias depois do domingo de Páscoa.
-# Requisitos: zztool, zzdata, zzpascoa
 # Uso: zzcorpuschristi [ano]
 # Ex.: zzcorpuschristi
 #      zzcorpuschristi 2009
@@ -10,6 +9,7 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-11-21
 # Licença: GPL
+# Requisitos: zzdata, zzpascoa
 # ----------------------------------------------------------------------------
 zzcorpuschristi ()
 {
