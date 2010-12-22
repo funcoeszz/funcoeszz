@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
-# Usa a ferramenta de tradução do Google.
-# Uso: zzdicgoogle2 palavra
+# Traduz de português para inglês usando o Google Tradutor.
+# Uso: zzdicgoogle2 palavras
 # Ex.: zzdicgoogle2 teste
 #      zzdicgoogle2 um teste simples
 #      zzdicgoogle2 este é com acento
