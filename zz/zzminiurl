@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # http://migre.me
 # Encurta uma URL utilizando o site migre.me.
-# Uso: zzminiurl www.siteparaencurtar.com.br
+# Uso: zzminiurl URL
 # Ex.: zzminiurl www.funcoeszz.net
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
@@ -11,13 +11,12 @@
 # ----------------------------------------------------------------------------
 zzminiurl ()
 {
-	if [ ! $1 ]; then
-		zzzz -h zzminiurl -h | grep Uso
-	elif [ $1 == '-h' -o $1 == '--help' ]; then
-		zzzz -h zzminiurl -h
-	else
-		local URL=$1
-       		curl http://migre.me/api.txt?url=$URL 2> /dev/null | sed 's/IP:.*//'
-		echo -e '\n'
-	fi
+	zzzz -h miniurl $1 && return
+	
+	[ "$1" ] || { zztool uso miniurl; return; }
+	
+	local URL="$1"
+	
+   	curl "http://migre.me/api.txt?url=$URL" 2> /dev/null |
+		sed 's/IP:.*//'
 }
