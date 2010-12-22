@@ -22,11 +22,11 @@ eco "* Funções com erro"
 for f in zz/* off/*; do (source $f); done
 
 eco ----------------------------------------------------------------
-eco "* Funções cuja primeira linha é estranha"
-for f in zz/* off/*; do sed 1q $f | egrep -q '^# -{76}$' || echo $f; done
+eco "* Funções cuja linha separadora é estranha"
+for f in zz/* off/*; do test $(egrep -c '^# -{76}$' $f) = 2 || echo $f; done
 
 eco ----------------------------------------------------------------
-eco "* Funções cujo início não é 'zznome ()\n'"
+eco "* Funções cujo início não é 'zznome ()\\\n'"
 for f in zz/* off/*; do grep -q "^zz[a-z0-9]* ()$" $f || echo $f; done
 
 eco ----------------------------------------------------------------
