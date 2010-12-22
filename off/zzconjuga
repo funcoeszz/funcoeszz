@@ -10,6 +10,7 @@
 # Licença: GPL
 # Nota: Colaboração de José Inácio Coelho <jinacio (a) yahoo com>
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2010-12-22 "This domain is for sale." :(
 zzconjuga ()
 {
 	zzzz -h conjuga $1 && return
