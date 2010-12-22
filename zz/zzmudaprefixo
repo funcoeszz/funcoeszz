@@ -17,11 +17,11 @@ zzmudaprefixo ()
 
 	#set -x
 	
-	zzzz -h zzmudaprefixo $1 && return
+	zzzz -h mudaprefixo $1 && return
 	
 	# Verifica numero minimo de parametros.
 	if [ $# -lt 4 ] ; then
-		{ zztool uso zzmudaprefixo; return; }
+		{ zztool uso mudaprefixo; return; }
 	fi
 	
 	# Declara variaveis.
@@ -32,16 +32,16 @@ zzmudaprefixo ()
 	do
 		case "$1" in
 			-a | --antigo)
-				[ "$2" ] || { zztool uso zzmudaprefixo; return; }
+				[ "$2" ] || { zztool uso mudaprefixo; return; }
 				antigo=$2
 				shift
 				;;
 			-n | --novo)
-				[ "$2" ] || { zztool uso zzmudaprefixo; return; }
+				[ "$2" ] || { zztool uso mudaprefixo; return; }
 				novo=$2
 				shift
 				;;
-			*) { zztool uso zzmudaprefixo; return; } ;;
+			*) { zztool uso mudaprefixo; return; } ;;
 		esac
 		shift
 	done
