@@ -18,6 +18,7 @@
 # Desde: 2009-10-04
 # Versão: 3
 # Licença: GPL
+# Requisitos: zzmaiusculas
 # ----------------------------------------------------------------------------
 zzbolsas ()
 {
@@ -121,7 +122,7 @@ zzbolsas ()
 			*)
 				bolsa=$(echo "$1"|zzmaiusculas)
 				# Último índice da bolsa citada
-				if ( zztool grep_var "^" "$1" )
+				if zztool grep_var "^" "$1"
 				then
 					$ZZWWWDUMP "$url/q?s=$bolsa"|
 					sed -n "/($bolsa)/p;/Valor do índice:/,/Em 52 semanas:/p"|tr '.,' ',.'
@@ -139,7 +140,7 @@ zzbolsas ()
 		;;
 		2 | 3)
 			# Lista as ações de uma bolsa especificada
-			if (([ "$1" = "-l" ]||[ "$1" = "--lista" ]) && zztool grep_var "^" "$2" )
+			if test "$1" = "-l" -o "$1" = "--lista" && zztool grep_var "^" "$2"
 			then
 				bolsa=$(echo "$2"|zzmaiusculas)
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeiro/p;/Primeiro/q'|sed "s/^ *//g;s/.*of *\([0-9]\+\) .*/\1/")
@@ -147,7 +148,7 @@ zzbolsas ()
 				#pags=$((($pag_final-1)/50 ))
 				for ((pag=0;pag<=$pags;pag++))
 				do
-					if ([ "$1" = "--lista" ])
+					if test "$1" = "--lista"
 					then
 						# Listar as ações com descrição e suas últimas posições
 						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
@@ -163,7 +164,7 @@ zzbolsas ()
 				done
 			
 			# Valores de uma bolsa ou ação em uma data especificada (histórico)
-			elif ($(zztool testa_data "$2") && $(zztool grep_var / "$2"))
+			elif zztool testa_data "$2" && zztool grep_var / "$2"
 			then
 				yyyy=${2##*/}
 				mm=${2#*/}
@@ -182,7 +183,7 @@ zzbolsas ()
 					pag_atual=$(echo "$pag" | sed -n '3p' | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' | tr '.,' ',.' | awk '{printf " %14s\n", $1}')
 					echo "$pag" | sed -n '1p'
 					
-					if ($(zztool grep_var "/" "$3") && $(zztool testa_data "$3") && [ $# -eq 3 ])
+					if zztool grep_var "/" "$3" && zztool testa_data "$3" && test $# -eq 3
 					then
 						yyyy=${3##*/}
 						mm=${3#*/}
@@ -212,7 +213,7 @@ zzbolsas ()
 					fi
 			
 			# Pesquisa o texto nas açôes (código e nomes) de todas bolsas
-			#elif ([ "$1" = "-p" ])
+			#elif test "$1" = "-p"
 			#then
 			#					
 			# Pesquisa o texto nas ações (código e nomes) da bolsa atual
