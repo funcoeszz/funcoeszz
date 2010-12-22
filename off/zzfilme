@@ -8,6 +8,7 @@
 # Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2010-12-22 Cada dia da semana agora é um link para uma nova URL
 zzfilme ()
 {
 	zzzz -h filme $1 && return
