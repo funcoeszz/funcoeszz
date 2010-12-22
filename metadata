@@ -14,9 +14,9 @@ tab=$(echo -e '\t')
 
 case "$1" in
 	autor | a)
-		IFS=':'
+		IFS="$tab"
 		grep '# Autor:' zz/* off/* |
-		sed "s/:# Autor: /:/" |
+		sed "s/:# Autor: /$tab/" |
 		while read funcao meta
 		do
 			printf "%-22s %s\n" $funcao $meta
