@@ -12,7 +12,7 @@
 # Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
-
+# DESATIVADA: 2010-12-22 URL não encontrada (404)
 zzcineuci ()
 {
 	zzzz -h cineuci $1 && return
