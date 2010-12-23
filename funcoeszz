@@ -864,6 +864,19 @@ done < "$ZZTMP.on" >> "$ZZAJUDA"
 # Separador final do arquivo, com exatamente 77 hífens (7x11)
 echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
 
+# Descarregamento das funções ZZOFF, caso usando --tudo-em-um
+# Necessário pois TODAS as funções já foram carregadas por estar neste arquivo
+#XXX Infelizmente elas continuam aparecendo na ajuda (zzajuda, zzajuda --lista)
+if test -z "$ZZDIR" -a -n "$ZZOFF"
+then
+	for funcao in $(echo "$ZZOFF" | zztool list2lines | sed 's/^zz// ; s/^/zz/')
+	do
+		zztool grep_var $funcao "$ZZBASE" && continue  # Não desliga as essenciais
+		unset $funcao
+	done
+fi
+
+
 ### Carregamento terminado, funções já estão disponíveis
 
 # Limpa variáveis e funções temporárias
