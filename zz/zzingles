@@ -14,7 +14,7 @@ zzingles ()
 {
 	zzzz -h ingles $1 && return
 
-	[ "$1" ] || { zztool uso dicgoogle; return; }
+	[ "$1" ] || { zztool uso ingles; return; }
 
 	# Variaveis locais
 	local padrao
