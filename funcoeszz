@@ -429,21 +429,15 @@ zzzz ()
 			# Se o usuário informou a opção de ajuda, mostre o texto
 			if [ "$arg_func" = '-h' -o "$arg_func" = '--help'  ]
 			then
-				padrao="Uso: [^ ]*zz$nome_func \{0,1\}"
-
 				# Um xunxo bonito: filtra a saída da zzajuda, mostrando
 				# apenas a função informada.
-				zzajuda |
-					grep -C15 "^$padrao\b" |
-					sed -n "
-						H
-						/^---/ {
-						 	x
-							/zz$nome_func/ {
-							 	s/----*//gp
-								q
-							}
-						}"
+				echo
+				ZZCOR=0 zzajuda |
+					sed -n "/^zz$nome_func$/,/^----*$/ {
+						s/^----*$//
+						p
+					}" |
+					zztool acha zz$nome_func
 				return 0
 			else
 			
