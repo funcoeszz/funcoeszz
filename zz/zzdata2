@@ -3,7 +3,7 @@
 # Que dia vai ser daqui 45 dias? Quantos dias ha entre duas datas? zzdata!
 # Quando chamada com apenas um parametro funciona como conversor de data
 # para numero inteiro (N dias passados desde Epoch) e vice-versa.
-# zzdata pode subtrair, ou somar meses e anos tambem. Eh so especificar!
+# A zzdata pode subtrair, ou somar meses e anos tambem. Eh so especificar!
 # Obs.: Leva em conta os anos bissextos     (Epoch = 01/01/1970, editavel)
 # Opcoes:
 #         data|num  data inicial.
