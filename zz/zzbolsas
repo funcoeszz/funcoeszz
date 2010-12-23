@@ -88,41 +88,41 @@ zzbolsas ()
 					sed 's/[0-9]*,*[0-9]*\.[0-9].*//g'|
 					awk '{ printf " %-10s ", $1; for(i=2; i<=NF-1; i++) printf "%s ",$i; print $NF}'
 					printf " %-10s " "$dj";$ZZWWWDUMP "$url/q?s=$dj"|
-					sed -n "/($dj)/p"|sed "s/^ *//;s/ *($dj)//"
+					sed -n "/($dj)/{p;q;}"|sed "s/^ *//;s/ *($dj)//"
 
 				zztool eco "\nNYSE :"
 				for bolsa in $new_york;
 				do
 					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/p"|sed "s/^ *//;s/ *($bolsa)//"
+					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nNasdaq :"
 				for bolsa in $nasdaq;
 				do
 					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/p"|sed "s/^ *//;s/ *($bolsa)//"
+					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nStandard & Poors :"
 				for bolsa in $sp;
 				do
 					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/p"|sed "s/^ *//;s/ *($bolsa)//"
+					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nAmex :"
 				for bolsa in $amex;
 				do
 					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/p"|sed "s/^ *//;s/ *($bolsa)//"
+					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nOutros Índices Nacionais :"
 				for bolsa in $ind_nac;
 				do
 					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/p"|sed "s/^ *//;s/ *($bolsa)//"
+					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
 				done
 			;;
 			*)
@@ -153,26 +153,26 @@ zzbolsas ()
 			if test "$1" = "-l" -o "$1" = "--lista" && zztool grep_var "^" "$2"
 			then
 				bolsa=$(echo "$2"|zzmaiusculas)
-				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeiro/p;/Primeiro/q'|sed "s/^ *//g;s/.*of *\([0-9]\+\) .*/\1/")
+				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.*of *\([0-9]\+\) .*/\1/")
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
-				#pags=$((($pag_final-1)/50 ))
+				
 				for ((pag=0;pag<=$pags;pag++))
 				do
 					if test "$1" = "--lista"
 					then
 						# Listar as ações com descrição e suas últimas posições
 						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
-						sed -n 's/^ *//g;/Símbolo /,/Primeiro/p'|
-						sed '/Símbolo /d;/Primeiro/d;/^[ ]*$/d' |
-						sed '/^Tudo / q'
+						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p'|
+						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d'
+						
 					else
 						# Lista apenas os códigos das ações
 						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
-						sed -n 's/^ *//g;/Símbolo /,/Primeiro/p'|
-						sed '/Símbolo /d;/Primeiro/d;/^[ ]*$/d'|
-						awk '{printf "%s  ",$1}' |
-						sed 's/Tudo  .*//'
-						echo
+						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p'|
+						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d'|
+						awk '{printf "%s  ",$1}'
+						
+						if test "$pag" = "$pags";then echo;fi
 					fi
 				done
 			
@@ -232,14 +232,14 @@ zzbolsas ()
 			# Pesquisa o texto nas ações (código e nomes) da bolsa atual
 			else
 				bolsa=$(echo "$1"|zzmaiusculas)
-				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeiro/p;/Primeiro/q'|sed 's/^ *//g;s/.*of *\([0-9]\+\) .*/\1/')
+				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.*of *\([0-9]\+\) .*/\1/')
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
 				#pags=$((($pag_final-1)/50 ))
 				for ((pag=0;pag<=$pags;pag++))
 				do
 					$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
-					sed -n 's/^ *//g;/Símbolo /,/Primeiro/p'|
-					sed '/Símbolo /d;/Primeiro/d;/^[ ]*$/d'|
+					sed -n 's/^ *//g;/Símbolo /,/Primeira/p'|
+					sed '/Símbolo /d;/Primeira/d;/^[ ]*$/d'|
 					grep -i "$2"
 				done
 			fi
