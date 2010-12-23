@@ -1,10 +1,14 @@
 # ----------------------------------------------------------------------------
 # http://translate.google.com
-# Traduz de português para inglês usando o Google Tradutor.
-# Uso: zztradutor palavras
-# Ex.: zztradutor teste
-#      zztradutor um teste simples
-#      zztradutor este é com acento
+# Google Tradutor, para traduzir frases para vários idiomas.
+# Caso não especificado o idioma, a tradução será português -> inglês.
+# Uso: zztradutor [de-para] palavras
+# Ex.: zztradutor o livro está na mesa      # the book is on the table
+#      zztradutor pt-en livro               # book
+#      zztradutor pt-es livro               # libro
+#      zztradutor pt-de livro               # Buch
+#      zztradutor de-pt Buch                # livro
+#      zztradutor de-es Buch                # Libro
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
@@ -22,12 +26,19 @@ zztradutor ()
 	local padrao
 	local url='http://translate.google.com/?'
 	local lang_de='pt'
-	local lang_para='fr'
+	local lang_para='en'
 	local charset_de='ISO-8859-1'
 	local charset_para='UTF-8'
 
-	padrao=$(echo "$*" | sed "$ZZSEDURL" )
+	if echo "$1" | grep '^[a-z][a-z]-[a-z][a-z]$' >/dev/null
+	then
+		lang_de=${1%-??}
+		lang_para=${1#??-}
+		shift
+	fi
 
+	padrao=$(echo "$*" | sed "$ZZSEDURL")
+	
 	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
 	# e limpa essa linha para estar somente o texto desejado.
 	$ZZWWWHTML "${url}tr=$lang_de&hl=$lang_para&text=$padrao" |
