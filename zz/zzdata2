@@ -8,7 +8,7 @@
 # Opcoes:
 #         data|num  data inicial.
 #         +|-       operacao a realizar (adicao|subtracao).
-#         D|M|Y     unidade em caso de operacao com numero(D=dia, M=mes, Y=ano).
+#         D|M|Y     unidade em operacao com numero (D=dia, M=mes, Y=ano).
 # Uso: zzdata2 data|num [+|- data|num [D|M|Y]]
 # Ex.: zzdata2 22/12/1999 + 69
 #      zzdata2 hoje - 5
