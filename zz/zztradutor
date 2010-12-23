@@ -65,6 +65,9 @@ zztradutor ()
 
 	padrao=$(echo "$*" | sed "$ZZSEDURL")
 	
+	# Exceção para o chinês, que usa um código diferente
+	test $lang_para = 'cn' && lang_para='zh-CN'
+	
 	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
 	# e limpa essa linha para estar somente o texto desejado.
 	$ZZWWWHTML "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |
