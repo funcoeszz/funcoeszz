@@ -864,16 +864,31 @@ done < "$ZZTMP.on" >> "$ZZAJUDA"
 # Separador final do arquivo, com exatamente 77 hífens (7x11)
 echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
 
-# Descarregamento das funções ZZOFF, caso usando --tudo-em-um
-# Necessário pois TODAS as funções já foram carregadas por estar neste arquivo
-#XXX Infelizmente elas continuam aparecendo na ajuda (zzajuda, zzajuda --lista)
+
+# Modo --tudo-em-um
+# Todas as funções já foram carregadas por estarem dentro deste arquivo.
+# Agora faremos o desligamento "manual" das funções ZZOFF.
+#
 if test -z "$ZZDIR" -a -n "$ZZOFF"
 then
-	for funcao in $(echo "$ZZOFF" | zztool list2lines | sed 's/^zz// ; s/^/zz/')
-	do
-		zztool grep_var $funcao "$ZZBASE" && continue  # Não desliga as essenciais
-		unset $funcao
-	done
+
+	# Lista de funções a desligar: uma por linha, com prefixo zz, exceto ZZBASE
+	zz_off=$(
+		echo "$ZZOFF" |
+		zztool list2lines |
+		sed 's/^zz// ; s/^/zz/' |
+		egrep -v "$(echo $ZZBASE | sed 's/ /|/g')"
+	)
+
+	# Desliga todas em uma só linha (note que não usei aspas)
+	unset $zz_off
+	
+	# Agora apaga os textos da ajuda, montando um script em sed e aplicando
+	# Veja issue 5 para mais detalhes.
+	zz_sed=$(echo "$zz_off" | sed 's@.*@/^&$/,/^----*$/d;@')  # /^zzfoo$/,/^----*$/d
+	cp "$ZZAJUDA" "$ZZAJUDA.2" &&
+	sed "$zz_sed" "$ZZAJUDA.2" > "$ZZAJUDA"
+	rm "$ZZAJUDA.2"
 fi
 
 
@@ -884,6 +899,7 @@ fi
 unset zz_arquivo
 unset zz_nome
 unset zz_off
+unset zz_sed
 unset _extrai_ajuda
 
 
