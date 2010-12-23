@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-infile="funcoeszz"
-outfile="funcoeszz-iso"
+infile="./funcoeszz-10.12.sh"
+outfile="./funcoeszz-iso-10.12.sh"
 
 # Converte o codigo das ZZ para latin-1
-iconv -f UTF-8 -t ISO-8859-1 "$infile" > "$outfile"
+iconv -c -f UTF-8 -t ISO-8859-1 "$infile" > "$outfile"
 
 # Desliga a variavel global ZZUTF, usada por varias funcoes
 "$infile" trocapalavra 'ZZUTF=1' 'ZZUTF=0' "$outfile"
