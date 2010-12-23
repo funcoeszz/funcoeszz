@@ -1,4 +1,5 @@
 # ----------------------------------------------------------------------------
+# http://translate.google.com
 # Traduz de português para inglês usando o Google Tradutor.
 # Uso: zzingles palavras
 # Ex.: zzingles teste
@@ -9,6 +10,7 @@
 # Desde: 2008-09-02
 # Versão: 4
 # Licença: GPLv2
+# Requisitos: iconv
 # ----------------------------------------------------------------------------
 zzingles ()
 {
