@@ -14,7 +14,7 @@ zznatal ()
 	zzzz -h natal $1 && return
 
 	local url='http://www.ibb.org.br/vidanet/outras/msg239.htm'
-	local cache=$ZZTMP.natal
+	local cache="$ZZTMP.natal"
 	local padrao=$1
 
 	# Se o cache está vazio, baixa listagem da Internet

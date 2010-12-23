@@ -15,7 +15,7 @@ zzramones ()
 	zzzz -h ramones $1 && return
 
 	local url='http://aurelio.net/doc/ramones.txt'
-	local cache=$ZZTMP.ramones
+	local cache="$ZZTMP.ramones"
 	local padrao=$1
 
 	# Se o cache está vazio, baixa listagem da Internet

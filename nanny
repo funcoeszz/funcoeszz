@@ -224,6 +224,10 @@ do
 	egrep -q '^# DESATIVADA: [0-9]{4}-[0-9]{2}-[0-9]{2} .{10,}' $f || echo $f
 done
 
+eco ----------------------------------------------------------------
+eco "* Funções que não colocaram aspas ao redor de \$ZZTMP"
+grep ZZTMP off/* zz/* | grep -v '"'
+
 
 
 # Outros:
