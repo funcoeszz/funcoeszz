@@ -2,7 +2,7 @@
 # http://www.dict.org
 # Busca definições em inglês de palavras da língua inglesa em DICT.org.
 # Uso: zzenglish palavra-em-inglês
-# Ex.: zzenglish drum
+# Ex.: zzenglish momentum
 #
 # Autor: Luciano ES
 # Desde: 2008-09-07
@@ -22,14 +22,14 @@ zzenglish ()
 		$ZZWWWPOST "$url" | 
 		sed "
 			# pega o trecho da página que nos interessa
-			/.\+\([0-9]\+ definitions\? found.\+\)/,/_______________/!d
-			s/___\+//
+			/[0-9]\{1,\} definitions\{0,1\} found/,/_______________/!d
+			s/____*//
 
 			# protege os colchetes dos sinônimos contra o cinza escuro
 			s/\[syn:/@SINONIMO@/g
 
 			# aplica cinza escuro em todos os colchetes (menos sinônimos)
-			s/\[/$(printf '\033[0;30;1m')[/g
+			s/\[/$(printf '\033[0;34m')[/g
 
 			# aplica verde nos colchetes dos sinônimos
 			s/@SINONIMO@/$(printf '\033[0;32;1m')[syn:/g
@@ -38,12 +38,14 @@ zzenglish ()
 			s/\]/]$(printf '\033[m')/g
 
 			# pinta a pronúncia de amarelo - pode estar delimitada por \\ ou //
-			s/\(\\\\[^\\]\+\\\\\)/$(printf '\033[0;33;1m')\\1\\$(printf '\033[m')/g
+			s/\(\\\\[^\\]\{1,\}\\\\\)/$(printf '\033[0;33;1m')\\1\\$(printf '\033[m')/g
 			s|\(/[^/]\+/\)|$(printf '\033[0;33;1m')\1$(printf '\033[m')|g
 
 			# cabeçalho para tornar a separação entre várias consultas mais visível no terminal
-			/[0-9]\+ definitions\? found/{h;s/.*/==================== DICT.ORG ====================/;p;x;}" |
-
-		# formatação: 124 colunas - senão fica tudo muito estreito e LONGO
-		fmt -w 124
+			/[0-9]\{1,\} definitions\{0,1\} found/ {
+				H
+				s/.*/==================== DICT.ORG ====================/
+				p
+				x
+			}"
 }
