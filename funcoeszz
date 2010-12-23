@@ -562,10 +562,11 @@ zzzz ()
 		
 			if ! grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
 			then
+				# export ZZDIR="$ZZDIR"  # pasta com as funcoes
 				cat - >> "$bashrc" <<-EOS
 				
 				# $instal_msg
-				export ZZDIR="$ZZDIR"  # pasta com as funcoes
+				export ZZOFF=""  # desligue funcoes indesejadas
 				export ZZPATH="$ZZPATH"  # script
 				source "\$ZZPATH"				
 				EOS
@@ -584,10 +585,10 @@ zzzz ()
 			# Chama o arquivo dos aliases no final do .tcshrc
 			if ! grep "^[^#]*$arquivo_aliases" "$tcshrc" >/dev/null 2>&1
 			then
+				# setenv ZZDIR $ZZDIR
 				cat - >> "$tcshrc" <<-EOS
 				
 				# $instal_msg
-				setenv ZZDIR $ZZDIR
 				setenv ZZPATH $ZZPATH
 				source $arquivo_aliases
 				EOS
@@ -615,10 +616,10 @@ zzzz ()
 			# Chama o arquivo dos aliases no final do .tcshrc
 			if ! grep "^[^#]*$arquivo_aliases" "$zshrc" >/dev/null 2>&1
 			then
+				# export ZZDIR=$ZZDIR
 				cat - >> "$zshrc" <<-EOS
 				
 				# $instal_msg
-				export ZZDIR=$ZZDIR
 				export ZZPATH=$ZZPATH
 				source $arquivo_aliases
 				EOS
