@@ -63,8 +63,8 @@ zzloteria ()
 				# O resultado vem separado em campos distintos. Exemplo:
 				# |01|04|07|08|09|10|12|14|15|16|21|22|23|24|25|
 				
-				data=$(     echo "$dump" | cut -d '|' -f 35)
-				acumulado=$(echo "$dump" | cut -d '|' -f 54,55)
+				data=$(     echo "$dump" | cut -d '|' -f 39)
+				acumulado=$(echo "$dump" | cut -d '|' -f 58,59)
 				resultado=$(echo "$dump" | cut -d '|' -f 4-18 |
 					sed 's/|/@/10 ; s/|/@/5 ; s/|/ - /g' |
 					tr @ '\n'
