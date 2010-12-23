@@ -10,7 +10,7 @@
 # Desde: 2009-10-04
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzseq2
+# Requisitos: zzseq
 # ----------------------------------------------------------------------------
 zzloteria2 ()
 {
@@ -72,7 +72,7 @@ zzloteria2 ()
 			 		sed 's/|/@/10 ; s/|/ - /g' |
 					tr @ '\n'
 				)
-				faixa=$(zzseq2 20 1 16 "\t" " ptos")
+				faixa=$(zzseq -f "\t%d ptos\n" 20 1 16)
 				faixa=$(echo "${faixa}\n\t 0 ptos")
 				resultado_num=$(echo "$dump" | cut -d '|' -f 28,30,32,34,36,38 | tr '|' '\n')
 				resultado_val=$(echo "$dump" | cut -d '|' -f 29,31,33,35,37,39 | tr '|' '\n')
@@ -86,7 +86,7 @@ zzloteria2 ()
 					sed 's/|/@/10 ; s/|/@/5 ; s/|/ - /g' |
 					tr @ '\n'
 				)
-				faixa=$(zzseq2 15 1 11 "\t" " ptos")
+				faixa=$(zzseq -f "\t%d ptos\n" 15 1 11)
 				resultado_num=$(echo "$dump" | cut -d '|' -f 19,21,23,25,27 | tr '|' '\n')
 				resultado_val=$(echo "$dump" | cut -d '|' -f 20,22,24,26,28 | tr '|' '\n')
 				dump=$(    echo "$dump" | sed 's/.*Estimativa de Pr//')
@@ -156,7 +156,7 @@ zzloteria2 ()
 					sed 's/^ - //'
 				)
 				
-				resultado=$(paste <(zzseq2 1 1 5 "" "º Prêmio") <(echo "$resultado_num") <(echo "$resultado_val"))
+				resultado=$(paste <(zzseq -f "%dº Prêmio\n" 1 1 5) <(echo "$resultado_num") <(echo "$resultado_val"))
 				unset faixa resultado_num resultado_val
 			;;
 			timemania)
@@ -169,7 +169,7 @@ zzloteria2 ()
 					sed 's/^ - //'
 				)
 				resultado=$(echo -e ${resultado}"\nTime: "$(echo "$dump" | cut -d '|' -f 9))
-				faixa=$(zzseq2 7 1 3 "\t" " ptos")
+				faixa=$(zzseq -f "\t%d ptos\n" 7 1 3)
 				resultado_num=$(echo "$dump" | cut -d '|' -f 10,12,14,16,18 | tr '|' '\n')
 				resultado_val=$(echo "$dump" | cut -d '|' -f 11,13,15,17,19 | tr '|' '\n')
 			;;
