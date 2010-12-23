@@ -30,12 +30,13 @@ zztradutor ()
 	local charset_de='ISO-8859-1'
 	local charset_para='UTF-8'
 
-	if echo "$1" | grep '^[a-z][a-z]-[a-z][a-z]$' >/dev/null
-	then
-		lang_de=${1%-??}
-		lang_para=${1#??-}
-		shift
-	fi
+	case "$1" in 
+		[a-z][a-z]-[a-z][a-z])
+			lang_de=${1%-??}
+			lang_para=${1#??-}
+			shift
+		;;
+	esac
 
 	padrao=$(echo "$*" | sed "$ZZSEDURL")
 	
