@@ -595,10 +595,17 @@ zzzz ()
 			
 			# Cria o arquivo de aliases
 			echo > $arquivo_aliases
-			for func in $(ZZCOR=0 zzzz | sed '1,/^(( fu/d; /^(/d; s/,//g')
+			for func in $( ZZCOR=0 zzzz |  grep -v '^(' | sed 's/,//g' )
 			do
 				echo "alias zz$func 'funcoeszz zz$func'" >> "$arquivo_aliases"
 			done
+
+			# alias para funcoes base
+			for func in $( ZZCOR=0 zzzz | grep 'base)'|sed 's/(.*)//;s/,//g' )
+			do
+				echo "alias $func='funcoeszz $func'" >> "$arquivo_aliases"
+			done
+
 			echo
 			echo "Aliases atualizados no $arquivo_aliases"
 		;;
@@ -607,7 +614,7 @@ zzzz ()
 		--zshrc)
 			arquivo_aliases="$HOME/.zzzshrc"
 			
-			# Chama o arquivo dos aliases no final do .tcshrc
+			# Chama o arquivo dos aliases no final do .zshrc
 			if ! grep "^[^#]*$arquivo_aliases" "$zshrc" >/dev/null 2>&1
 			then
 				# export ZZDIR=$ZZDIR
@@ -626,10 +633,17 @@ zzzz ()
 			
 			# Cria o arquivo de aliases
 			echo > $arquivo_aliases
-			for func in $(ZZCOR=0 zzzz | sed '1,/^(( fu/d; /^(/d; s/,//g')
+			for func in $( ZZCOR=0 zzzz | grep -v '^(' | sed 's/,//g' )
 			do
 				echo "alias zz$func='funcoeszz zz$func'" >> "$arquivo_aliases"
 			done
+	
+			# alias para funcoes base
+			for func in $( ZZCOR=0 zzzz | grep 'base)'|sed 's/(.*)//;s/,//g' )
+			do
+				echo "alias $func='funcoeszz $func'" >> "$arquivo_aliases"
+			done
+
 			echo
 			echo "Aliases atualizados no $arquivo_aliases"
 		;;
