@@ -1,16 +1,19 @@
 # ----------------------------------------------------------------------------
-# Consulta os resultados da quina, megasena, duplasena, lotomania,  lotofácil, federal e timemania.
-# Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o concurso
+# Consulta os resultados da quina, megasena, duplasena, lotomania, lotofácil,
+# federal e timemania.
+# Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o
+# concurso
 #       Se nenhum argumento for passado, todas as loterias são mostradas.
-# Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | federal | timemania] concurso]
+# Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | 
+# federal | timemania | loteca] concurso]
 # Ex.: zzloteria2
 #      zzloteria2 quina megasena
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 1
+# Versão: 2
 # Licença: GPL
-# Requisitos: zzseq
+# Requisitos: zzseq zzsemacento
 # ----------------------------------------------------------------------------
 zzloteria2 ()
 {
@@ -19,7 +22,7 @@ zzloteria2 ()
 	local dump numero_concurso data resultado acumulado tipo
 	local resultado_val resultado_num num_con sufixo faixa
 	local url='http://www1.caixa.gov.br/loterias/loterias'
-	local tipos='quina megasena duplasena lotomania lotofacil federal timemania'
+	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
 	
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente
 	zztool testa_numero "$2"
@@ -54,9 +57,17 @@ zzloteria2 ()
 			;;
 		esac
 		
-		dump=$($ZZWWWDUMP "$url/$tipo/${tipo}${sufixo}$num_con" |
-			tr -d \\n |
-			sed 's/  */ /g ; s/^ //')
+		#case "$tipo" in
+		#	loteca)
+		#		dump=$($ZZWWWDUMP "$url/$tipo/${tipo}${sufixo}$num_con" |
+		#			sed 's/  */ /g ; s/^ //')
+		#	;;
+		#	*)
+				dump=$($ZZWWWDUMP "$url/$tipo/${tipo}${sufixo}$num_con" |
+					tr -d \\n |
+					sed 's/  */ /g ; s/^ //')
+		#	;;
+		#esac
 		
 		# O número do concurso é sempre o primeiro campo
 		numero_concurso=$(echo "$dump" | cut -d '|' -f 1)
@@ -172,6 +183,33 @@ zzloteria2 ()
 				faixa=$(zzseq -f "\t%d ptos\n" 7 1 3)
 				resultado_num=$(echo "$dump" | cut -d '|' -f 10,12,14,16,18 | tr '|' '\n')
 				resultado_val=$(echo "$dump" | cut -d '|' -f 11,13,15,17,19 | tr '|' '\n')
+			;;
+			loteca)
+				dump=$(     echo "$dump" | sed 's/[A-Z]|[A-Z]/-/g')
+				data=$(     echo "$dump" | cut -d '|' -f 8)
+				acumulado=$(echo "$dump" | cut -d '|' -f 11-12 )
+				acumulado="${acumulado}_Acumulado para a 1ª faixa "$(echo "$dump" | cut -d '|' -f 7 )
+				acumulado="${acumulado}_"$(echo "$dump" | cut -d '|' -f 10 )
+				acumulado=$(echo "${acumulado}" | sed 's/_/\n   /g;s/ Valor //' )
+				resultado=$(printf "$dump" | cut -d '|' -f 4 |
+				sed 's/ [0-9] [0-9]* /\n &/g;s/ [0-9]\{2\} [0-9]*/\n&/g' | sed '1d' | zzsemacento |
+				awk '{ 
+					printf "Jogo %02d ", $1
+						Time=""
+						for (i = 3; i < NF-1; i++)
+							{
+							Time = Time " " $i
+							if (index($i,"/")>0)
+								{
+								if (i < NF-2)  printf "%-24s %2s X %-2s", Time, $2, $(NF-1)
+								if (i == NF-2) printf "%24s", Time
+								Time=""
+								}
+							}
+					printf " %-3s\n", $(NF)
+					}')
+				faixa=$(zzseq -f '\t%d\n' 14 13)
+				resultado_num=$(echo "$dump" | cut -d '|' -f 5 | sed 's/ [12]º (1[34] acertos)/\n/g;'|sed '1d' | sed 's/[0-9] /&\t/g')
 			;;
 		esac
 		
