@@ -196,7 +196,11 @@ zzloteria2 ()
 								Time=""
 								}
 							}
-					printf " %-3s\n", $(NF)
+					if ( $2 > $(NF-1)) printf " %s\n", "- Col.  1 " 
+					if ( $2 == $(NF-1)) printf " %s\n", "- Col. Meio"
+					if ( $2 < $(NF-1)) printf " %s\n", "- Col.  2"
+					#printf " %-3s\n", $(NF)
+					
 					}')
 				faixa=$(zzseq -f '\t%d\n' 14 13)
 				resultado_num=$(echo "$dump" | cut -d '|' -f 5 | sed 's/ [12]º (1[34] acertos)/\n/g;'|sed '1d' | sed 's/[0-9] /&\t/g')
