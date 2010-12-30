@@ -196,7 +196,7 @@ zzloteria2 ()
 								Time=""
 								}
 							}
-					if ( length(Time)>0 ) printf "%2s X %-2s", $2, $(NF-1)
+					if ( length(Time)>0 ) printf "%2s X %-2s %-47s ", $2, $(NF-1), "(" Time " )"
 					if ( $2 > $(NF-1) ) printf " %s\n", "- Col.  1 " 
 					if ( $2 == $(NF-1) ) printf " %s\n", "- Col. Meio"
 					if ( $2 < $(NF-1) ) printf " %s\n", "- Col.  2"
