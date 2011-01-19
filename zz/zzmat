@@ -7,7 +7,7 @@
 # mmc mdc somatoria produtoria media fat arranjo combinacao pa pa2 pg
 # area volume eq2g d2p egr egc egc3p ege
 # converte sen cos tan csc sec cot
-# abs det conf_eq
+# log ln abs det conf_eq
 # Mais detalhes: zzmat função
 #
 # Uso: zzmat funcoes [número] [número]
@@ -146,6 +146,28 @@ zzmat ()
 			echo " Se não for definido retorna em radianos."
 			echo " Valores devem estar entre -1 e 1, para arco-seno e arco-cosseno"
 			echo " Uso: zzmat $1 número [g|rad|gr] {graus|radianos|grado}"
+			return 1
+		fi
+	;;
+	"log"|"ln")
+		if ([ "$#" -ge "2" ] && [ "$#" -le "3" ] && zzmat testa_num $2)
+		then
+			local num1 num2
+			num1=$(echo $2|tr ',' '.')
+			zzmat testa_num "$3" && num2=$(echo $3|tr ',' '.')
+			if [ "$num2" ]
+			then
+				num="l($num1)/l($num2)"
+			elif [ "$1" = "log" ]
+			then
+				num="l($num1)/l(10)"
+			else
+				num="l($num1)"
+			fi
+		else
+			echo " zzmat log: Logaritmo base 10"
+			echo " zzmat ln: Logaritmo Natural base e"
+			echo " Uso: zzmat $1 numero [base]"
 			return 1
 		fi
 	;;
