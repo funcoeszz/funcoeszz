@@ -17,7 +17,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -510,15 +510,15 @@ zzmat ()
 						do
 							if [ "$1" = "pa" ]
 							then
-								valor=$(echo "$num_inicial + ($razao * $passo)"|
-								bc -l|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+								valor=$(echo "$num_inicial + ($razao * $passo)"|bc -l|
+								awk '{printf "%.6f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 							elif [ "$1" = "pa2" ]
 							then
-								valor=$(echo "$valor + ($razao * $passo)"|
-								bc -l|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+								valor=$(echo "$valor + ($razao * $passo)"|bc -l|
+								awk '{printf "%.6f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 							else
-								valor=$(echo "$num_inicial * $razao^$passo"|
-								bc -l|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+								valor=$(echo "$num_inicial * $razao^$passo"|bc -l|
+								awk '{printf "%.6f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 							fi
 							echo -n " $valor"
 							passo=$(($passo+1))
@@ -545,10 +545,10 @@ zzmat ()
 							if ($1 == 0) {print "1"}
 							if ($1 < 0)  {print "0"}}')
 			
-			vert_x=$(echo "$2 $3"|tr ',' '.'|awk '{valor=((-1 * $2)/(2 * $1)); print valor}'|
+			vert_x=$(echo "$2 $3"|tr ',' '.'|awk '{valor=((-1 * $2)/(2 * $1)); printf "%.6f\n", valor}'|
 			sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			
-			vert_y=$(echo "$2 $delta"|tr ',' '.'|awk '{valor=((-1 * $2)/(4 * $1)); print valor}'|
+			vert_y=$(echo "$2 $delta"|tr ',' '.'|awk '{valor=((-1 * $2)/(4 * $1)); printf "%.6f\n", valor}'|
 			sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			
 			case $num_raiz in
@@ -556,11 +556,11 @@ zzmat ()
 			"1") raiz1=$vert_x;;
 			"2")
 				raiz1=$(echo "$2 $3 $delta"|tr ',' '.'|
-				awk '{valor=((-1 * $2)-sqrt($3))/(2 * $1); print valor}'|
+				awk '{valor=((-1 * $2)-sqrt($3))/(2 * $1); printf "%.6f\n", valor}'|
 				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 				
 				raiz2=$(echo "$2 $3 $delta"|tr ',' '.'|
-				awk '{valor=((-1 * $2)+sqrt($3))/(2 * $1); print valor}'|
+				awk '{valor=((-1 * $2)+sqrt($3))/(2 * $1); printf\n "%.6f", valor}'|
 				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			;;
 			esac
