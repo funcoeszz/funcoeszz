@@ -560,7 +560,7 @@ zzmat ()
 				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 				
 				raiz2=$(echo "$2 $3 $delta"|tr ',' '.'|
-				awk '{valor=((-1 * $2)+sqrt($3))/(2 * $1); printf\n "%.6f", valor}'|
+				awk '{valor=((-1 * $2)+sqrt($3))/(2 * $1); printf "%.6f\n", valor}'|
 				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			;;
 			esac
