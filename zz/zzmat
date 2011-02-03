@@ -27,6 +27,7 @@ zzmat ()
 
 	local funcao num
 	local pi=3.1415926535897932384626433832795
+	local LANG=en
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso mat; return; }
@@ -115,9 +116,9 @@ zzmat ()
 		fi
 	;;
 	"asen"|"acos"|"atan")
-		if (([ "$#" -eq "2" ] || [ "$#" -eq "3" ]) && zzmat testa_num $2)
+		if (([ "$#" -ge "2" ] && [ "$#" -le "4" ]) && zzmat testa_num $2)
 		then
-			local num1 num2 num3
+			local num1 num2 num3 sinal
 			num1=$(echo "$2"|tr ',' '.')
 			[ "$1" != "atan" ] && num2=$(echo "$num1"|awk '{if ($1>1 || $1<-1) print "erro"}')
 			if [ "$num2" = "erro" ]
@@ -125,8 +126,15 @@ zzmat ()
 				zzmat $1 -h;return 1
 			fi
 			
+			echo "$num1"|grep '^-' >/dev/null && sinal="-" || unset sinal
+			num1=$(zzmat abs $num1)
+			
 			case $1 in
-			"atan") num2=$(echo "a(${num1})"|bc -l);;
+			"atan")
+				num2=$(echo "a(${num1})"|bc -l)
+				[ "$sinal" ] && num2=$(echo "($pi)-($num2)"|bc -l)
+				echo "$4"|grep '2' >/dev/null && num2=$(echo "($num2)+($pi)"|bc -l)
+			;;
 			"asen")
 				num3=$(echo "sqrt(1-${num1}^2)"|bc -l|awk '{printf "%.6f\n", $1}')
 				if [ "$num3" = "0.000000" ]
@@ -135,6 +143,8 @@ zzmat ()
 				else
 					num2=$(echo "a(${num1}/sqrt(1-${num1}^2))"|bc -l)
 				fi
+				[ "$sinal" ] && num2=$(echo "($pi)+($num2)"|bc -l)
+				echo "$4"|grep '2' >/dev/null && num2=$(echo "$sinal($pi)-($num2)"|bc -l)
 			;;
 			"acos")
 				num3=$(echo "$num1"|bc -l|awk '{printf "%.6f\n", $1}')
@@ -144,8 +154,12 @@ zzmat ()
 				else
 					num2=$(echo "a(sqrt(1-${num1}^2)/${num1})"|bc -l)
 				fi
+				[ "$sinal" ] && num2=$(echo "($pi)-($num2)"|bc -l)
+				echo "$4"|grep '2' >/dev/null && num2=$(echo "2*($pi)-($num2)"|bc -l)
 			;;
 			esac
+			
+			echo "$4"|grep 'r' >/dev/null && num2=$(echo "($num2)-2*($pi)"|bc -l)
 			
 			case $3 in
 			"g") num="$(zzmat converte rg $num2)";;
@@ -159,8 +173,10 @@ zzmat ()
 	atan: Arco-Tangente"
 			echo " Retorna o angulo em radianos, graus ou grado."
 			echo " Se não for definido retorna em radianos."
-			echo " Valores devem estar entre -1 e 1, para arco-seno e arco-cosseno"
-			echo " Uso: zzmat $1 número [g|rad|gr] {graus|radianos|grado}"
+			echo " Valores devem estar entre -1 e 1, para arco-seno e arco-cosseno."
+			echo " Caso a opção seja '2' retorna o segundo ângulo possível do valor."
+			echo " E se for 'r' retorna o ângulo no sentido invertido (replementar)."
+			echo " Uso: zzmat $1 número [[g|rad|gr] [opção]]"
 			return 1
 		fi
 	;;
