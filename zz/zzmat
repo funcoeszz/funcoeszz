@@ -143,8 +143,8 @@ zzmat ()
 				else
 					num2=$(echo "a(${num1}/sqrt(1-${num1}^2))"|bc -l)
 				fi
+				echo "$4"|grep '2' >/dev/null && num2=$(echo "($pi)-($num2)"|bc -l)
 				[ "$sinal" ] && num2=$(echo "($pi)+($num2)"|bc -l)
-				echo "$4"|grep '2' >/dev/null && num2=$(echo "$sinal($pi)-($num2)"|bc -l)
 			;;
 			"acos")
 				num3=$(echo "$num1"|bc -l|awk '{printf "%.6f\n", $1}')
