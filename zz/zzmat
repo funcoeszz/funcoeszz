@@ -1,5 +1,7 @@
 # ----------------------------------------------------------------------------
 # Uma coletânea de funções matemática simples
+# Se o primeiro argumento for um '-p' seguido de número sem espaço
+# define a precisão dos resultados ( casas decimais), o padrão é 6
 # Em cada função foi colocado um help um pouco mais detalhado,
 # pois ficou muito extenso colocar no help do zzmat apenas.
 #
@@ -10,10 +12,11 @@
 # log ln abs det conf_eq
 # Mais detalhes: zzmat função
 #
-# Uso: zzmat funcoes [número] [número]
+# Uso: zzmat [-pnumero] funcoes [número] [número]
 # Ex.: zzmat mmc 8 12
 #      zzmat media 5[2] 7 4[3]
 #      zzmat somatoria 3 9 2x+3
+#      zzmat p3 sen 60g
 #
 # Autor: Itamar
 # Desde: 2011-01-19
@@ -24,13 +27,26 @@
 zzmat ()
 {
 	zzzz -h mat $1 && return
-
-	local funcao num
+	
+	local funcao num precisao
 	local pi=3.1415926535897932384626433832795
 	local LANG=en
-
+	
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso mat; return; }
+	
+	#Definindo a precisão dos resultados qdo é pertinente
+	#Valor padrão é 6.
+	echo "$1" | grep '^-p' >/dev/null
+	if [ "$?" = "0" ]
+	then
+		precisao="${1#-p}"
+		zztool testa_numero $precisao || precisao="6"
+		shift 1
+	else
+		precisao="6"
+	fi
+	
 	
 	funcao="$1"
 	
@@ -91,12 +107,12 @@ zzmat ()
 				esac
 				
 				case $1 in
-				"sen") num1=$(echo "$num2"|awk '{printf "%.6f", sin($1)}');;
-				"cos") num1=$(echo "$num2"|awk '{printf "%.6f", cos($1)}');;
-				"tan") num1=$(echo "$num2"|awk '{div=sprintf("%.6f", cos($1));if (div!="0.000000") printf "%.6f", sin($1)/cos($1);}');;
-				"sec") num1=$(echo "$num2"|awk '{div=sprintf("%.6f", cos($1));if (div!="0.000000") printf "%.6f", 1/cos($1);}');;
-				"csc") num1=$(echo "$num2"|awk '{div=sprintf("%.6f", sin($1));if (div!="0.000000") printf "%.6f", 1/sin($1);}');;
-				"cot") num1=$(echo "$num2"|awk '{div=sprintf("%.6f", sin($1));if (div!="0.000000") printf "%.6f", cos($1)/sin($1);}');;
+				"sen") num1=$(echo "$num2"|awk '{printf "%.'${precisao}'f", sin($1)}');;
+				"cos") num1=$(echo "$num2"|awk '{printf "%.'${precisao}'f", cos($1)}');;
+				"tan") num1=$(echo "$num2"|awk '{div=sprintf("%.6f", cos($1));if (div!="0.000000") printf "%.'${precisao}'f", sin($1)/cos($1);}');;
+				"sec") num1=$(echo "$num2"|awk '{div=sprintf("%.6f", cos($1));if (div!="0.000000") printf "%.'${precisao}'f", 1/cos($1);}');;
+				"csc") num1=$(echo "$num2"|awk '{div=sprintf("%.6f", sin($1));if (div!="0.000000") printf "%.'${precisao}'f", 1/sin($1);}');;
+				"cot") num1=$(echo "$num2"|awk '{div=sprintf("%.6f", sin($1));if (div!="0.000000") printf "%.'${precisao}'f", cos($1)/sin($1);}');;
 				esac
 				
 				[ "$num1" ] && num="$num1"
@@ -136,7 +152,7 @@ zzmat ()
 				echo "$4"|grep '2' >/dev/null && num2=$(echo "($num2)+($pi)"|bc -l)
 			;;
 			"asen")
-				num3=$(echo "sqrt(1-${num1}^2)"|bc -l|awk '{printf "%.6f\n", $1}')
+				num3=$(echo "sqrt(1-${num1}^2)"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}')
 				if [ "$num3" = "0.000000" ]
 				then
 					num2=$(echo "$pi/2"|bc -l)
@@ -147,7 +163,7 @@ zzmat ()
 				[ "$sinal" ] && num2=$(echo "($pi)+($num2)"|bc -l)
 			;;
 			"acos")
-				num3=$(echo "$num1"|bc -l|awk '{printf "%.6f\n", $1}')
+				num3=$(echo "$num1"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}')
 				if [ "$num3" = "0.000000" ]
 				then
 					num2=$(echo "$pi/2"|bc -l)
@@ -527,14 +543,14 @@ zzmat ()
 							if [ "$1" = "pa" ]
 							then
 								valor=$(echo "$num_inicial + ($razao * $passo)"|bc -l|
-								awk '{printf "%.6f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+								awk '{printf "%.'${precisao}'f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 							elif [ "$1" = "pa2" ]
 							then
 								valor=$(echo "$valor + ($razao * $passo)"|bc -l|
-								awk '{printf "%.6f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+								awk '{printf "%.'${precisao}'f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 							else
 								valor=$(echo "$num_inicial * $razao^$passo"|bc -l|
-								awk '{printf "%.6f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+								awk '{printf "%.'${precisao}'f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 							fi
 							echo -n " $valor"
 							passo=$(($passo+1))
@@ -561,10 +577,10 @@ zzmat ()
 							if ($1 == 0) {print "1"}
 							if ($1 < 0)  {print "0"}}')
 			
-			vert_x=$(echo "$2 $3"|tr ',' '.'|awk '{valor=((-1 * $2)/(2 * $1)); printf "%.6f\n", valor}'|
+			vert_x=$(echo "$2 $3"|tr ',' '.'|awk '{valor=((-1 * $2)/(2 * $1)); printf "%.'${precisao}'f\n", valor}'|
 			sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			
-			vert_y=$(echo "$2 $delta"|tr ',' '.'|awk '{valor=((-1 * $2)/(4 * $1)); printf "%.6f\n", valor}'|
+			vert_y=$(echo "$2 $delta"|tr ',' '.'|awk '{valor=((-1 * $2)/(4 * $1)); printf "%.'${precisao}'f\n", valor}'|
 			sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			
 			case $num_raiz in
@@ -572,11 +588,11 @@ zzmat ()
 			"1") raiz1=$vert_x;;
 			"2")
 				raiz1=$(echo "$2 $3 $delta"|tr ',' '.'|
-				awk '{valor=((-1 * $2)-sqrt($3))/(2 * $1); printf "%.6f\n", valor}'|
+				awk '{valor=((-1 * $2)-sqrt($3))/(2 * $1); printf "%.'${precisao}'f\n", valor}'|
 				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 				
 				raiz2=$(echo "$2 $3 $delta"|tr ',' '.'|
-				awk '{valor=((-1 * $2)+sqrt($3))/(2 * $1); printf "%.6f\n", valor}'|
+				awk '{valor=((-1 * $2)+sqrt($3))/(2 * $1); printf "%.'${precisao}'f\n", valor}'|
 				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			;;
 			esac
@@ -697,15 +713,15 @@ zzmat ()
 			*) saida="rad";;
 			esac
 			
-			teta=$(echo "$teta"|awk '{printf "%.4f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
-			fi=$(echo "$fi"|awk '{printf "%.4f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+			teta=$(echo "$teta"|awk '{printf "%.'${precisao}'f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+			fi=$(echo "$fi"|awk '{printf "%.'${precisao}'f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			
 			if [ "$tipo" = "-c" ]
 			then
-				valor=$(echo "sqrt(${valor}^2-$z1^2)"|bc -l|awk '{printf "%.4f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+				valor=$(echo "sqrt(${valor}^2-$z1^2)"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 				echo "${valor},${teta}${saida},${z1}"
 			else
-				valor=$(echo "$valor"|bc -l|awk '{printf "%.4f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+				valor=$(echo "$valor"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 				echo "${valor},${teta}${saida},${fi}${saida}"
 			fi
 		else
@@ -917,6 +933,6 @@ zzmat ()
 		return 1
 	elif [ "$num" ]
 	then
-		echo "$num"|bc -l|awk '{printf "%.6f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/'
+		echo "$num"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}'|sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/'
 	fi
 }
