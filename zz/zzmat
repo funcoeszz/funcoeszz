@@ -16,7 +16,7 @@
 # Ex.: zzmat mmc 8 12
 #      zzmat media 5[2] 7 4[3]
 #      zzmat somatoria 3 9 2x+3
-#      zzmat p3 sen 60g
+#      zzmat -p3 sen 60g
 #
 # Autor: Itamar
 # Desde: 2011-01-19
@@ -153,7 +153,7 @@ zzmat ()
 			;;
 			"asen")
 				num3=$(echo "sqrt(1-${num1}^2)"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}')
-				if [ "$num3" = "0.000000" ]
+				if [ "$num3" = $(printf '%0.'${precisao}'f' 0|tr ',' '.') ]
 				then
 					num2=$(echo "$pi/2"|bc -l)
 				else
@@ -164,7 +164,7 @@ zzmat ()
 			;;
 			"acos")
 				num3=$(echo "$num1"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}')
-				if [ "$num3" = "0.000000" ]
+				if [ "$num3" = $(printf '%0.'${precisao}'f' 0|tr ',' '.') ]
 				then
 					num2=$(echo "$pi/2"|bc -l)
 				else
