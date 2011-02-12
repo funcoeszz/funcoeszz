@@ -9,10 +9,9 @@
 #
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2009-05-04
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
-# DESATIVADA: 2010-12-22 URL não encontrada (404)
 zzcineuci ()
 {
 	zzzz -h cineuci $1 && return
@@ -21,24 +20,24 @@ zzcineuci ()
 	
 	if [ $# = 0 ]; then # mostra opções
 		printf "Cidades e cinemas disponíveis\n=============================\n"
-		printf "Curitiba:\n\t01) UCI Estação\n\t15) UCI Palladium\n"
-		printf "Fortaleza:\n\t10) Multiplex UCI Ribeiro Iguatemi Fortaleza\n"
-		printf "Juiz de Fora:\n\t12) UCI Kinoplex Independência\n"
-		printf "Recife:\n\t04) Multiplex UCI Ribeiro Recife\n\t05) Multiplex UCI Ribeiro Tacaruna\n\t14) UCI Kinoplex Shop Plaza Casa Forte Recife\n"
-		printf "Santana:\n\t13) UCI Santana Parque Shopping\n"
-		printf "São Paulo:\n\t08) UCI Jardim Sul\n\t09) UCI Anália Franco\n"
-		printf "Ribeirão Preto:\n\t02) UCI Ribeirão\n"
-		printf "Rio de Janeiro:\n\t07) UCI New York City Center\n\t11) UCI Kinoplex NorteShopping\n"
-		printf "Salvador:\n\t03) Multiplex Iguatemi Salvador\n\t06) UCI Aeroclube\n"
+		printf "\nCuritiba:\n\t01) UCI Estação\n\t15) UCI Palladium\n"
+		printf "\nFortaleza:\n\t10) Multiplex UCI Ribeiro Iguatemi Fortaleza\n"
+		printf "\nJuiz de Fora:\n\t12) UCI Kinoplex Independência\n"
+		printf "\nRecife:\n\t04) Multiplex UCI Ribeiro Recife\n\t05) Multiplex UCI Ribeiro Tacaruna\n\t14) UCI Kinoplex Shop Plaza Casa Forte Recife\n"
+		printf "\nSantana:\n\t13) UCI Santana Parque Shopping\n"
+		printf "\nSão Paulo:\n\t08) UCI Jardim Sul\n\t09) UCI Anália Franco\n"
+		printf "\nRibeirão Preto:\n\t02) UCI Ribeirão\n"
+		printf "\nRio de Janeiro:\n\t07) UCI New York City Center\n\t11) UCI Kinoplex NorteShopping\n"
+		printf "\nSalvador:\n\t03) Multiplex Iguatemi Salvador\n\t06) UCI Aeroclube\n\t17) UCI Orient Paralela\n"
 		return 0
 	fi
 
-	local url="http://www.ucicinemas.com.br/programacao/programacao_interna.asp?cinema="	
+	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="	
 	local cidade=`echo $* | sed 's/ /_/g' | tr [:upper:] [:lower:]` #converte nome da cidade para minúscula e retira espaços
 	local codigo codigos
 	
 	if zztool testa_numero ${cidade}; then # passou código
-		[ "$cidade" -ge 1 -a "$cidade" -le 15 ] && codigos="$cidade" # testa se código é válido
+		[ "$cidade" -ge 1 -a "$cidade" -le 17 ] && codigos="$cidade" # testa se código é válido
 	else # passou nome da cidade
 		case $cidade in
 			curitiba) codigos="1 15" ;;
@@ -49,7 +48,7 @@ zzcineuci ()
 			rio_de_janeiro)	codigos="7 11" ;;
 			santana) codigos="13" ;;
 			sao_paulo) codigos="8 9";;
-			salvador) codigos="3 6";;
+			salvador) codigos="3 6 17";;
 		esac
 	fi
 	
@@ -58,18 +57,15 @@ zzcineuci ()
 	for codigo in $codigos
 	do
 		$ZZWWWDUMP "$url$codigo" | sed '
-			1,/\[bt_programacao_bolso\.gif\]/d
-			/(.*)/d
-			/Hor.*:/d
-			/CONTATO/d
-			/Copyright/d
-			s/\[setinha\.png\] Tudo sobre.*$//g
-			/\[/d
-			s/^   //g
-			s/ Sala /\nSala /g
-			/^Multiplex .*/s/$/\n=========================================\n/g
-			/^UCI .*/s/$/\n=========================================\n/g' | tac | sed '1,3d' | tac
-		echo 
+			1s/^/================================================/
+			3s/^/================================================\n/
+			s/^  Horários/Horários/g
+			s/^  Sala /Sala /g
+			/^Sala /s/$/\n/g
+			s/^[ ]*//g
+			s/\n\nHorários/\n/g
+			/^$/d
+			'
 	done
 	return 0
 }
