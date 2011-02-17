@@ -399,7 +399,7 @@ zzmat ()
 				mmc=$((${num1}*${num2}/${mdc}))
 			    fi
 			    shift
-			    num1=${!subfuncao}
+			    [ "subfuncao" = "mdc" ] && num1="$mdc" || num1="$mmc"
 			done
 			
 			case $subfuncao in
@@ -811,6 +811,12 @@ zzmat ()
 			y2=$(echo "$3"|cut -f2 -d,)
 			x3=$(echo "$4"|cut -f1 -d,)
 			y3=$(echo "$4"|cut -f2 -d,)
+			
+			if ([ $(zzmat det $x1 $y1 1 $x2 $y2 1 $x3 $y3 1) -eq 0 ])
+			then
+				echo "Pontos formam uma reta."
+				return 1
+			fi
 			
 			if (! zzmat testa_num $x1 || ! zzmat testa_num $x2 || ! zzmat testa_num $x3)
 			then
