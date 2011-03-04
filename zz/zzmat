@@ -222,6 +222,27 @@ zzmat ()
 			return 1
 		fi
 	;;
+	"raiz")
+		if ([ "$#" -eq "3" ] && zzmat testa_num "$3")
+		then
+			local num1
+			case "$2" in
+			"quadrada") num1=2;;
+			"cubica")   num1=3;;
+			*)          num1="$2";;
+			esac
+			if zztool testa_numero $(zzmat abs "$num1")
+			then
+				num=$(echo "$num1 $3"|awk '{printf "%.'${precisao}'f\n", $2^(1/$1)}')
+			else
+				echo " Uso: zzmat $1 <quadrada|cubica|numero> numero"
+			fi
+		else
+			echo " zzmat $1: Raiz enesima de um número"
+			echo " Uso: zzmat $1 <quadrada|cubica|numero> numero"
+			return 1
+		fi
+	;;
 	"area")
 		if ([ "$#" -ge "2" ])
 		then
@@ -915,9 +936,9 @@ zzmat ()
 				x=$(echo "$1"|cut -f1 -d,)
 				zztool grep_var "," $1 && y=$(echo "$1"|cut -f2 -d,)
 				zztool grep_var "," $1 && z=$(echo "$1"|cut -f3 -d,)
-				eq=$(echo $equacao| sed "s/^[x]/$x/;s/\([(+-]\)x/\1($x)/g;s/\([0-9]\)x/\1\*($x)/g"|
-						    sed "s/^[y]/$y/;s/\([(+-]\)y/\1($y)/g;s/\([0-9]\)y/\1\*($y)/g"|
-						    sed "s/^[z]/$z/;s/\([(+-]\)z/\1($z)/g;s/\([0-9]\)z/\1\*($z)/g")
+				eq=$(echo $equacao| sed "s/^[x]/$x/;s/\([(+-]\)x/\1($x)/g;s/\([0-9]\)x/\1\*($x)/g;s/x/$x/g"|
+						    sed "s/^[y]/$y/;s/\([(+-]\)y/\1($y)/g;s/\([0-9]\)y/\1\*($y)/g;s/y/$y/g"|
+						    sed "s/^[z]/$z/;s/\([(+-]\)z/\1($z)/g;s/\([0-9]\)z/\1\*($z)/g;s/z/$z/g")
 				echo "$eq" | bc -l
 				unset x y z eq
 				shift
