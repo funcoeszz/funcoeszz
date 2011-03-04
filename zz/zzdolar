@@ -7,6 +7,7 @@
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdolar ()
@@ -20,7 +21,7 @@ zzdolar ()
 			# Pois é, eu também não... Mas funciona :)
 
 			s/^ *//
-			/Data:/,/Turismo/!d
+			/Data:/,/Ptax/!d
 			/percent/d
 			s/  */ /g
 			s/.*Data: \(.*\)/\1 compra   venda   hora/
@@ -28,11 +29,13 @@ zzdolar ()
 			s@^\([0-9][0-9]\)/\([0-9]/\)@\1/0\2@
 			s/^D.lar //
 			s/- Corretora//
+			s/- BACEN//
 			s/ SP//g
 			s/ [-+]\{0,1\}[0-9.,]\{1,\}  *%$//
 			s/al /& /
 			s/lo /&   /
-			s/mo /&	/
+			s/mo /& /
+			s/ax /&      /
 			s/ \([0-9]\) / \1.000 /
 			s/\.[0-9]\>/&0/g
 			s/\.[0-9][0-9]\>/&0/g
