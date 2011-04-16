@@ -1,0 +1,62 @@
+# ----------------------------------------------------------------------------
+# http://www.dicio.com.br
+# Dicionário de português.
+# Uso: zzdicportugues palavra
+# Ex.: zzdicportugues bolacha
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net - modicado por Itamar
+# Desde: 2011-04-16
+# Versão: 2
+# Licença: GPL
+# Requisitos: zzsemacento zzminusculas
+# ----------------------------------------------------------------------------
+zzdicportugues2 ()
+{
+	zzzz -h dicportugues2 $1 && return
+
+	local url='http://dicio.com.br'
+	local ini='^Significado de '
+	local fim='^Definição de '
+	local palavra=$(echo "$1"| zzminusculas)
+	local padrao=$(echo "$palavra" | zzsemacento)
+	local contador=1
+	local resultado
+	
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso dicportugues2; return; }
+	
+	# Verificando se a palavra confere na pesquisa
+	until [ "$resultado" = "$palavra" ]
+	do
+	    resultado=$(
+	    $ZZWWWDUMP "$url/$padrao" |
+		sed -n "
+		/$ini/{
+			s/$ini//
+			s/ *$//
+			p
+			}" |
+		zzminusculas
+		)
+	    [ "$resultado" ] || { zztool eco "Palavra não encontrada"; return 1; }
+	    
+	    # Incrementando o contador no padrão
+	    padrao=$(echo "$padrao"|sed 's/_[0-9]*$//')
+	    let contador++
+	    padrao=${padrao}_${contador}
+	done
+	
+	# Restabelecendo o contador
+	padrao=$(echo "$padrao"|sed 's/_[0-9]*$//')
+	let contador--
+	padrao=$(echo "${padrao}_${contador}"|sed 's/_1$//')
+	
+	$ZZWWWDUMP "$url/$padrao" |
+		sed -n "
+		/$ini/,/$fim/ {
+			/$ini/d
+			/$fim/d
+			s/^ *//
+			p
+			}"
+}
