@@ -1,8 +1,17 @@
 # ----------------------------------------------------------------------------
 # http://www.dicio.com.br
 # Dicionário de português.
-# Uso: zzdicportugues palavra
-# Ex.: zzdicportugues bolacha
+# Definição de palavras e conjugação verbal
+# Fornecendo uma "palavra" como argumento retorna seu significado e sinônimo.
+# Se for seguida do termo "def", retorna suas definições.
+# Se for seguida do termo "conj", retorna todas as formas de conjugação.
+# Pode-se filtrar pelos modos de conjugação, fornecendo após o "conj" o modo
+# desejado:
+# ind (indicativo), sub (subjuntivo), imp (imperativo), inf (infinitivo)
+#
+# Uso: zzdicportugues2 palavra [def|conj [ind|sub|imp|inf]]
+# Ex.: zzdicportugues2 bolacha
+#      zzdicportugues2 verbo conj sub
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net - modicado por Itamar
 # Desde: 2011-04-16
@@ -51,12 +60,47 @@ zzdicportugues2 ()
 	let contador--
 	padrao=$(echo "${padrao}_${contador}"|sed 's/_1$//')
 	
-	$ZZWWWDUMP "$url/$padrao" |
+	case "$2" in
+	"def") ini='^Definição de '; fim=' escrita ao contrário: ' ;;
+	"conj")
+	    ini='Infinitivo:'; fim='por .* eles$'
+	    case "$3" in
+		"ind") ini='^INDICATIVO'; fim='^SUBJUNTIVO' ;;
+		"sub") ini='^SUBJUNTIVO'; fim='^IMPERATIVO' ;;
+		"imp") ini='^IMPERATIVO'; fim='^INFINITIVO' ;;
+		"inf") ini='^INFINITIVO' ;;
+	    esac
+	;;
+	esac
+	
+	case "$2" in
+	"conj")
+	    $ZZWWWDUMP "$url/$padrao" |
+		sed -n "
+		/$ini/,/$fim/ {
+			/^INDICATIVO/d
+			/^SUBJUNTIVO/d
+			/^IMPERATIVO/d
+			/^INFINITIVO/d
+			/^ *$/d
+			s/^ *//
+			s/^\*/\n&/
+			s/ do \(Indicativo\|Subjuntivo\)/&\n/
+			s/\* Imperativo \(Afirmativo\|Negativo\)/&\n/
+			s/\* Infinitivo Pessoal/&\n/
+			s/^[a-z]/ &/g
+			p
+			}"
+	;;
+	*)
+	    $ZZWWWDUMP "$url/$padrao" |
 		sed -n "
 		/$ini/,/$fim/ {
 			/$ini/d
-			/$fim/d
-			s/^ *//
+			/^Definição de /d
 			p
-			}"
+			}
+		/Infinitivo:/,/Particípio passado:/p"
+	;;
+	esac
 }
