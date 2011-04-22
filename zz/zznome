@@ -1,0 +1,35 @@
+# ----------------------------------------------------------------------------
+# http://www.significado.origem.nom.br/
+# Dicionário de nomes, com sua origem, numerologia e arcanos do tarot.
+#
+# Uso: zznome nome
+# Ex.: zznome maria
+#
+# Autor: Itamar
+# Desde: 2011-04-22
+# Versão: 1
+# Licença: GPL
+# Requisitos: zzsemacento zzminusculas
+# ----------------------------------------------------------------------------
+zznome()
+{
+	zzzz -h nome $1 && return
+
+	local url='http://www.significado.origem.nom.br'
+	local ini='^Origem do Nome '
+	local fim='^VEJA TAMBÉM'
+	local nome=$(echo "$1"| zzminusculas | zzsemacento)
+
+	
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso nome; return; }
+	
+	$ZZWWWDUMP "$url/nomes/?q=$nome" |
+		sed -n "
+		/$ini/,/$fim/ {
+			/$fim/d
+			/\[[0-9]\{1,\}\.jpg\]/d
+			s/^ *//g
+			p
+			}"
+}
