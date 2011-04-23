@@ -1,13 +1,16 @@
 # ----------------------------------------------------------------------------
 # http://www.significado.origem.nom.br/
 # Dicionário de nomes, com sua origem, numerologia e arcanos do tarot.
+# Pode-se filtrar por significado, origem, letra (primeira letra), 
+# marca (no mundo), numerologia, tarot - como segundo argumento (opcional).
 #
-# Uso: zznome nome
-# Ex.: zznome maria
+# Uso: zznome nome [significado|origem|letra|marca|numerologia|tarot]
+# Ex.: zznome maria 
+#      zznome josé origem
 #
 # Autor: Itamar
 # Desde: 2011-04-22
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
@@ -19,10 +22,29 @@ zznome()
 	local ini='^Origem do Nome '
 	local fim='^VEJA TAMBÉM'
 	local nome=$(echo "$1"| zzminusculas | zzsemacento)
-
 	
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso nome; return; }
+	
+	case "$2" in
+		"origem") ini='Qual a origem do nome '; fim='^ *$';;
+		"significado") ini='Qual o significado do nome '; fim='^ *$';;
+		"letra")
+			ini='Analise da Primeira Letra do Nome:'
+			fim='Sua marca no mundo!'
+		;;
+		"marca")
+			ini='Sua marca no mundo!'
+			fim='Significado - Numerologia - Expressão'
+		;;
+		"numerologia")
+			ini='Significado - Numerologia - Expressão'
+			fim=' - Arcanos do Tarot'
+		;;
+		"tarot")
+			ini=' - Arcanos do Tarot'
+		;;
+	esac
 	
 	$ZZWWWDUMP "$url/nomes/?q=$nome" |
 		sed -n "
