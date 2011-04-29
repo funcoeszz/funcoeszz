@@ -41,7 +41,7 @@ zzwikipedia ()
 			/^Vistas$/,$ d
 			/^Ferramentas pessoais$/,$ d
 			/^   #Wikipedia (/d
-			/^   #Editar Wikipedia /d
+			/^   #Editar Wikip.dia /d
 			/^   From Wikipedia,/d
 			/^   Origem: Wikipédia,/d
 			/^   Jump to: /d
