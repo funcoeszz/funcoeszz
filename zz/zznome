@@ -28,25 +28,25 @@ zznome ()
 	[ "$1" ] || { zztool uso nome; return; }
 	
 	case "$2" in
-		"origem") ini='Qual a origem do nome '; fim='^ *$';;
-		"significado") ini='Qual o significado do nome '; fim='^ *$';;
-		"letra")
+		origem) ini='Qual a origem do nome '; fim='^ *$';;
+		significado) ini='Qual o significado do nome '; fim='^ *$';;
+		letra)
 			ini='Analise da Primeira Letra do Nome:'
 			fim='Sua marca no mundo!'
 		;;
-		"marca")
+		marca)
 			ini='Sua marca no mundo!'
 			fim='Significado - Numerologia - Expressão'
 		;;
-		"numerologia")
+		numerologia)
 			ini='Significado - Numerologia - Expressão'
 			fim=' - Arcanos do Tarot'
 		;;
-		"tarot")
+		tarot)
 			ini=' - Arcanos do Tarot'
 			fim='^VEJA TAMBÉM'
 		;;
-		"tudo")
+		tudo)
 			ini='^Origem do Nome '
 			fim='^VEJA TAMBÉM'
 		;;
