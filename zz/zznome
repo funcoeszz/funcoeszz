@@ -15,7 +15,7 @@
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
-zznome()
+zznome ()
 {
 	zzzz -h nome $1 && return
 
