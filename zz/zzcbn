@@ -84,23 +84,23 @@ fi
         autor=`echo $linha | cut -d';' -f 3`
 #        [ "$data" ] || data=`LANG=en.US date "+%d %b %Y"`
 #	echo "$RSS`echo $linha | cut -d';' -f 2`.xml"
-	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml"  | sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" | sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > /tmp/comentarios
+	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml"  | sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" | sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$ZZTMP.comentarios"
 	
-	zzecho -l ciano `cat /tmp/comentarios | sed -n '1p'`
+	zzecho -l ciano `cat "$ZZTMP.comentarios" | sed -n '1p'`
 
 	case  "$data" in 
 		"ontem")
 			datafile=`date -d "yesterday" +%y%m%d`
 		        data=`LANG=en date -d "yesterday" "+%d %b %Y"`
-			cat /tmp/comentarios | sed -n "/$data/{H;x;p;};h" > /tmp/coment
+			cat "$ZZTMP.comentarios" | sed -n "/$data/{H;x;p;};h" > "$ZZTMP.coment"
 		;;
 	 	"tudo")
-			cat /tmp/comentarios | sed '1d' > /tmp/coment
+			cat "$ZZTMP.comentarios" | sed '1d' > "$ZZTMP.coment"
 		;;
 		"")
 			datafile=`date '+%y%m%d'`
 		        data=`LANG=en date "+%d %b %Y"`
-			cat /tmp/comentarios | sed -n "/$data/{H;x;p;};h" > /tmp/coment
+			cat "$ZZTMP.comentarios" | sed -n "/$data/{H;x;p;};h" > "$ZZTMP.coment"
 		;;
 		*)
 			if ! ( zztool testa_data "$data" || zztool testa_numero "$data" )
@@ -111,17 +111,17 @@ fi
      			data="`echo $data | sed 's/\([0-9]*\)\/\([0-9]*\)\/\([0-9]*\)/\3-\2-\1/g'`"
 			datafile=`date -d $data +%y%m%d`
 		        data=`LANG=en date -d $data "+%d %b %Y"`
-			cat /tmp/comentarios | sed -n "/$data/{H;x;p;};h" > /tmp/coment
+			cat "$ZZTMP.comentarios" | sed -n "/$data/{H;x;p;};h" > "$ZZTMP.coment"
 
 
 	esac
-	Tlinhas=`cat /tmp/coment| sed -n '$='`
+	Tlinhas=`cat "$ZZTMP.coment"| sed -n '$='`
 	[ "$Tlinhas" ] ||  { zzecho -l vermelho "Sem comentários"; return; } 
 	for ((l=1;$l<=$Tlinhas;l=$l+2))
 	do
 		P=`expr $l + 1`
-		titulo=`cat /tmp/coment| sed "$l!d"`
-		data=`cat /tmp/coment| sed "$P!d"`
+		titulo=`cat "$ZZTMP.coment"| sed "$l!d"`
+		data=`cat "$ZZTMP.coment"| sed "$P!d"`
    		datafile=`date -d "$data" "+%y%m%d"`
    		hora=`LANG=en date -d "$data" "+%p"`
    		data=`LANG=en date -d "$data" "+%d %b %Y %H:%m"`
@@ -143,6 +143,6 @@ fi
 	then
 		zzecho -l vermelho "Sem comentários"
 	fi
-	rm -f /tmp/comentarios
-	rm -f /tmp/coment
+	rm -f "$ZZTMP.comentarios"
+	rm -f "$ZZTMP.coment"
 }

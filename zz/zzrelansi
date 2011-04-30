@@ -12,7 +12,7 @@ zzrelansi ()
 {
 	zzzz -h relansi $1 && return
 	
-	local lock="/tmp/relansi-$$"
+	local lock="$ZZTMP.relansi-$$"
 	
 	trap "rm -f $lock" 0 1 2 3 15
 	
