@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Uma coletânea de funções matemática simples
+# Uma coletânea de funções matemáticas simples.
 # Se o primeiro argumento for um '-p' seguido de número sem espaço
 # define a precisão dos resultados ( casas decimais ), o padrão é 6
 # Em cada função foi colocado um pequeno help um pouco mais detalhado,
