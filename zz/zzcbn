@@ -143,6 +143,6 @@ fi
 	then
 		zzecho -l vermelho "Sem comentários"
 	fi
-	rm /tmp/comentarios
-	rm /tmp/coment
+	rm -f /tmp/comentarios
+	rm -f /tmp/coment
 }

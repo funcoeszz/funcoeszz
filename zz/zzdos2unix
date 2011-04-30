@@ -42,5 +42,5 @@ zzdos2unix ()
 	done
 	
 	# Remove o arquivo temporário
-	rm "$tmp"
+	rm -f "$tmp"
 }

@@ -39,5 +39,5 @@ zzunix2dos ()
 	done
 	
 	# Remove o arquivo temporário
-	rm "$tmp"
+	rm -f "$tmp"
 }
