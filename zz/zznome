@@ -22,14 +22,20 @@ zznome ()
 	local url='http://www.significado.origem.nom.br'
 	local ini='^Origem do Nome '
 	local fim='Analise da Primeira Letra do Nome:'
-	local nome=$(echo "$1"| zzminusculas | zzsemacento)
+	local nome=$(echo "$1" | zzminusculas | zzsemacento)
 	
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso nome; return; }
 	
 	case "$2" in
-		origem) ini='Qual a origem do nome '; fim='^ *$';;
-		significado) ini='Qual o significado do nome '; fim='^ *$';;
+		origem)
+		 	ini='Qual a origem do nome '
+			fim='^ *$'
+		;;
+		significado)
+			ini='Qual o significado do nome '
+			fim='^ *$'
+		;;
 		letra)
 			ini='Analise da Primeira Letra do Nome:'
 			fim='Sua marca no mundo!'
