@@ -148,7 +148,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Ubuntu'
 		echo "$url"
 		$ZZWWWHTML "$url" |
-			sed -n '/item/,$ s@.*<title>\(.*\)</title>@\1@p' |
+			sed -n '/item/,$ s@.*<title>\(.*\)@\1@p' |
 			$limite
 	fi
 }
