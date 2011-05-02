@@ -31,18 +31,12 @@ zznoticiaslinux ()
 	# Yahoo
 	if zztool grep_var y "$sites"
 	then
-		url='http://br.news.yahoo.com/tecnologia/linux'
+		url='http://br.noticias.yahoo.com/rss/linux'
 		echo
 		zztool eco "* Yahoo Linux ($url):"
 		$ZZWWWHTML "$url" |
-			sed -n '
-				/topheadline/ {
-					n
-					s,</a>.*,,
-					s/<[^>]*>//gp
-				}
-				/^      <a href=/ s/<[^>]*>//gp' |
-			sed 's/^[[:blank:]]*//' |
+			tr '<' '\n' |
+			sed -n '/^item>/,$ s@^title>@@p' |
 			zztool texto_em_utf8 |
 			$limite
 	fi
