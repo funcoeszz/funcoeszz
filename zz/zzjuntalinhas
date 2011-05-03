@@ -1,0 +1,45 @@
+# ----------------------------------------------------------------------------
+# Junta várias linhas em uma só, podendo escolher o separador (padrão é Tab).
+# Funciona como o paste -s, mas traz melhorias:
+# - Trata corretamente arquivos no formato Windows (CR+LF)
+# - Lê arquivos ISO-8859-1 sem erros no Mac (o paste dá o mesmo erro do tr)
+# - O separador pode ser uma string, não está limitado a um caractere
+#
+# Uso: zzjuntalinhas [-d separador] arquivo(s)
+# Ex.: zzjuntalinhas arquivo.txt
+#      zzjuntalinhas -d : arquivo.txt
+#      cat arquivo.txt | zzjuntalinhas -d '@@@'
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2011-05-02
+# Versão: 1
+# Licença: GPL
+# Requisitos: zzdos2unix
+# ----------------------------------------------------------------------------
+zzjuntalinhas ()
+{
+	zzzz -h juntalinhas $1 && return
+
+	local separador=$(printf '\t')  # tab
+	
+	# Opções de linha de comando
+	if [ "$1" = '-d' ]
+	then
+		separador="$2"
+		shift
+		shift
+	fi
+
+	zztool file_stdin "$@" |
+		zzdos2unix |
+		sed -n "
+			# Carrega todo o arquivo no buffer
+			H
+			$ x
+			$ s/^\n//
+			
+			# Troca as quebras de linha pelo separador
+			$ s/\n/$separador/g
+			$ p
+			"
+}
