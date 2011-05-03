@@ -16,7 +16,7 @@ zzmaiores ()
 {
 	zzzz -h maiores $1 && return
 
-	local pastas recursivo modo
+	local pastas recursivo modo tab resultado
 	local limite=10
 
 	# Opções de linha de comando
