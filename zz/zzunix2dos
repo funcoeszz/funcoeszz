@@ -13,7 +13,7 @@ zzunix2dos ()
 
 	local arquivo
 	local tmp="$ZZTMP.unix2dos.$$"
-	local control_m=$(printf '\r') # ^M / CR
+	local control_m=$(printf '\r')  # ^M, CR, \r
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso unix2dos; return; }
