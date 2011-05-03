@@ -262,6 +262,22 @@ ok=1; comando="tool testa_hora :"       ; compara_exitcode
 comando="tool trim '   testando   '"; ok="testando"
 compara_texto
 
+# endereco_sed
+comando='tool endereco_sed $     '; ok='$'           ; compara_texto
+comando='tool endereco_sed 0     '; ok='0'           ; compara_texto
+comando='tool endereco_sed 1     '; ok='1'           ; compara_texto
+comando='tool endereco_sed 99    '; ok='99'          ; compara_texto
+comando='tool endereco_sed 999   '; ok='999'         ; compara_texto
+comando='tool endereco_sed -1    '; ok='/-1/'        ; compara_texto
+comando='tool endereco_sed a$    '; ok='/a$/'        ; compara_texto
+comando='tool endereco_sed a     '; ok='/a/'         ; compara_texto
+comando='tool endereco_sed ^a.*$ '; ok='/^a.*$/'     ; compara_texto
+comando='tool endereco_sed /     '; ok='/\//'        ; compara_texto
+comando='tool endereco_sed /a/   '; ok='/\/a\//'     ; compara_texto
+comando='tool endereco_sed /a/b/c'; ok='/\/a\/b\/c/' ; compara_texto
+comando='tool endereco_sed a b c '; ok='/a b c/'     ; compara_texto
+
+
 # multi_stdin
 ok=testando
 result=$(echo testando | "$zz" tool multi_stdin)

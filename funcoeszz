@@ -266,6 +266,21 @@ zztool ()
 			zztool multi_stdin "$@" |
 		 		sed 's/^[[:blank:]]*// ; s/[[:blank:]]*$//'
 		;;
+		endereco_sed)
+			# Formata um texto para ser usado como endereço no sed.
+			# Números e $ não são alterados, resto fica /entre barras/
+			#     foo     -> /foo/
+			#     foo/bar -> /foo\/bar/
+			shift
+			local texto="$*"
+			
+			if zztool testa_numero "$texto" || test "$texto" = '$'
+			then
+				echo "$texto"  # 1, 99, $
+			else
+				echo "$texto" | sed 's:/:\\\/:g ; s:.*:/&/:'
+			fi
+		;;
 		terminal_utf8)
 			echo "$LC_ALL $LC_CTYPE $LANG" | grep -i utf >/dev/null
 		;;
