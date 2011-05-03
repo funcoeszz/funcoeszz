@@ -227,9 +227,9 @@ zztool ()
 			shift
 			if [ "$1" ]
 			then
-				 	echo "$*"
+				echo "$*"
 			else
-					cat -
+				cat -
 			fi
 		;;
 		file_stdin)
@@ -241,9 +241,9 @@ zztool ()
 			shift
 			if [ "$1" ]
 			then
-				 	cat "$*"
+				cat "$*"
 			else
-					cat -
+				cat -
 			fi
 		;;
 		list2lines)
