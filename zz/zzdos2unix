@@ -3,6 +3,7 @@
 # Obs.: Também remove a permissão de execução do arquivo, caso presente.
 # Uso: zzdos2unix arquivo(s)
 # Ex.: zzdos2unix frases.txt
+#      cat arquivo.txt | zzdos2unix
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
@@ -16,9 +17,17 @@ zzdos2unix ()
 	local tmp="$ZZTMP.dos2unix.$$"
 	local control_m=$(printf '\r')  # ^M, CR, \r
 
-	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso dos2unix; return; }
-	
+	# Sem argumentos, lê/grava em STDIN/STDOUT
+	if test -z $1
+	then
+		sed "s/$control_m*$//"
+		
+		# Facinho, terminou já
+		return
+	fi
+
+	# Usuário passou uma lista de arquivos
+	# Os arquivos serão sobrescritos, todo cuidado é pouco
 	for arquivo in "$@"
 	do
 		# O arquivo existe?
