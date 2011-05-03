@@ -14,6 +14,7 @@ zzdos2unix ()
 
 	local arquivo
 	local tmp="$ZZTMP.dos2unix.$$"
+	local control_m=$(printf '\r')  # ^M, CR, \r
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso dos2unix; return; }
@@ -23,9 +24,9 @@ zzdos2unix ()
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue
 		
-		# Remove o famigerado CR \r ^M
+		# Remove o \r
 		cp "$arquivo" "$tmp" &&
-		tr -d '\015' < "$tmp" > "$arquivo"
+		sed "s/$control_m*$//" "$tmp" > "$arquivo"
 		
 		# Segurança
 		if [ $? -ne 0 ]
