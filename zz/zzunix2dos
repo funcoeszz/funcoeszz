@@ -2,6 +2,7 @@
 # Converte arquivos texto no formato Unix (LF) para o Windows/DOS (CR+LF).
 # Uso: zzunix2dos arquivo(s)
 # Ex.: zzunix2dos frases.txt
+#      cat arquivo.txt | zzunix2dos
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
@@ -15,9 +16,17 @@ zzunix2dos ()
 	local tmp="$ZZTMP.unix2dos.$$"
 	local control_m=$(printf '\r')  # ^M, CR, \r
 
-	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso unix2dos; return; }
+	# Sem argumentos, lê/grava em STDIN/STDOUT
+	if test -z $1
+	then
+		sed "s/$control_m*$/$control_m/"
+		
+		# Facinho, terminou já
+		return
+	fi
 	
+	# Usuário passou uma lista de arquivos
+	# Os arquivos serão sobrescritos, todo cuidado é pouco
 	for arquivo in "$@"
 	do
 		# O arquivo existe?
