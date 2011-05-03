@@ -27,7 +27,7 @@ zzunix2dos ()
 	
 	# Usuário passou uma lista de arquivos
 	# Os arquivos serão sobrescritos, todo cuidado é pouco
-	for arquivo in "$@"
+	for arquivo
 	do
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue

@@ -32,8 +32,8 @@ zztrocaextensao ()
 	# Tiro no pé? Não, obrigado
 	[ "$ext1" = "$ext2" ] && return
 	
-	# Para cada arquivo informado...
-	for arquivo in "$@"
+	# Para cada arquivo que o usuário informou...
+	for arquivo
 	do
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue

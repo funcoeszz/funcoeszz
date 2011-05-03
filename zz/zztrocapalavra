@@ -28,7 +28,9 @@ zztrocapalavra ()
 	nova_escapada=$(  echo "$nova"   | sed 's,/,\\/,g')
 
 	shift; shift
-	for arquivo in "$@"
+
+	# Para cada arquivo que o usuário informou...
+	for arquivo
 	do
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue

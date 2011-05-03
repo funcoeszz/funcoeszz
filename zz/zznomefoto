@@ -63,7 +63,7 @@ zznomefoto ()
 	fi
 	
 	# Para cada arquivo que o usuário informou...
-	for arquivo in "$@"
+	for arquivo
 	do
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue

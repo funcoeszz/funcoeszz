@@ -37,7 +37,7 @@ zzarrumanome ()
 	[ "$1" ] || { zztool uso arrumanome; return; }
 	
 	# Para cada arquivo que o usuário informou...
-	for arquivo in "$@"
+	for arquivo
 	do
 		# Tira a barra no final do nome da pasta
 		[ "$arquivo" != / ] && arquivo=${arquivo%/}
