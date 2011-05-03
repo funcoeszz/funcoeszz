@@ -17,7 +17,7 @@ zzunix2dos ()
 	local control_m=$(printf '\r')  # ^M, CR, \r
 
 	# Sem argumentos, lê/grava em STDIN/STDOUT
-	if test -z $1
+	if test $# -eq 1
 	then
 		sed "s/$control_m*$/$control_m/"
 		
