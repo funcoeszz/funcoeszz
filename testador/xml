@@ -10,7 +10,7 @@ cat > _tmp1 <<EOS
 	<para>
 		Meu parágrafo, com <strong>negrito</strong> e <em>itálico</em>.
 	</para>
-	<escape>&lt;&gt;&amp;&#8220;&#8221;&#8243;&#8216;&#8217;&#8230;&#8211;&#8212;&#215;&#8594;</escape>
+	<escape>&quot;&amp;&apos;&lt;&gt;</escape>
 </section>
 </xml>
 EOS
@@ -31,8 +31,8 @@ tests=(
 --tag	para	--untag	--unescape _tmp1	t	' 		Meu parágrafo, com negrito e itálico. 	'
 
 # unescape
---tag	escape	--unescape _tmp1	''	t	"<escape><>\"\"\"\"''...--x-></escape>"
-# untag ocorre antes do unescape, por isso os <> não são afetados
---tag	escape	--unescape --untag	_tmp1	t	"<>\"\"\"\"''...--x->"
+--tag	escape	--unescape _tmp1	''	t	"<escape>\"&'<></escape>"
+# untag ocorre antes do unescape, por isso o <> não é afetado
+--tag	escape	--unescape --untag	_tmp1	t	"\"&'<>"
 )
 . _lib

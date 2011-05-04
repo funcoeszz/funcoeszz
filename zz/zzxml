@@ -16,7 +16,7 @@
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzjuntalinhas
 # ----------------------------------------------------------------------------
@@ -127,7 +127,8 @@ zzxml ()
 		# --untag
 		if test $untag -eq 1
 		then
-			sed 's/<[^>]*>//g'
+			# Caso especial: <![CDATA[Foo bar.]]>
+			sed 's/<!\[CDATA\[//g ; s/]]>//g ; s/<[^>]*>//g'
 		else
 			cat -
 		fi |
@@ -136,21 +137,11 @@ zzxml ()
 		if test $unescape -eq 1
 		then
 			sed "
+				s/&quot;/\"/g
+				s/&amp;/\&/g
+				s/&apos;/'/g
 				s/&lt;/</g
 				s/&gt;/>/g
-				s/&amp;/\"/g
-
-				# Chars Unicode viram chars ASCII
-				s/&#8220;/\"/g
-				s/&#8221;/\"/g
-				s/&#8243;/\"/g
-				s/&#8216;/'/g
-				s/&#8217;/'/g
-				s/&#8230;/.../g
-				s/&#8211;/-/g
-				s/&#8212;/-/g
-				s/&#215;/x/g
-				s/&#8594;/->/g
 				"
 		else
 			cat -
