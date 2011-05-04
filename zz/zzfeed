@@ -103,8 +103,8 @@ zzfeed ()
 			cat "$tmp" |
 				zzxml --tag $tag_mae |
 				zzxml --tag 'title' --untag |
-				zzunescape --html |
 				sed "$limite q" |
+				zzunescape --html |
 				zztool trim
 		else
 			### Não é um feed, pode ser um site normal.
