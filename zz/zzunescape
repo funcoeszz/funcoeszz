@@ -1,5 +1,7 @@
 # ----------------------------------------------------------------------------
-# Restaura caracteres codificados como entidades HTML e XML (&lt; &amp; ...).
+# Restaura caracteres codificados como entidades HTML e XML (&lt; &#62; ...).
+# Entende entidades (&gt;), códigos decimais (&#62;) e hexadecimais (&#x3E;).
+#
 # Opções: --html  Restaura caracteres HTML
 #         --xml   Restaura caracteres XML
 #
