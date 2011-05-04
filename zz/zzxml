@@ -1,0 +1,158 @@
+# ----------------------------------------------------------------------------
+# Parser simples (e limitado) para arquivos XML/HTML.
+# Obs.: Este parser é usado pelas Funções ZZ, não serve como parser genérico.
+# Obs.: Necessário pois não há ferramenta portável para lidar com XML no Unix.
+#
+# Opções: --tidy      Reorganiza o código, deixando uma tag por linha
+#         --tag       Extrai (grep) uma tag específica
+#         --untag     Remove todas as tags, deixando apenas texto
+#         --unescape  Converte as entidades &foo; para caracteres normais
+#
+# Uso: zzxml [--tidy] [--tag NOME] [--untag] [--unescape] [arquivo(s)]
+# Ex.: zzxml --tidy arquivo.xml
+#      zzxml --untag --unescape arquivo.xml                     # xml -> txt
+#      zzxml --tag title --untag --unescape arquivo.xml         # títulos
+#      cat arquivo.xml | zzxml --tag item | zzxml --tag title   # aninhado
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2011-05-03
+# Versão: 1
+# Licença: GPL
+# Requisitos: zzjuntalinhas
+# ----------------------------------------------------------------------------
+zzxml ()
+{
+	zzzz -h xml $1 && return
+
+	local tag
+	local tidy=0
+	local untag=0
+	local unescape=0
+
+	# Opções de linha de comando
+	while [ "${1#-}" != "$1" ]
+	do
+		case "$1" in
+			--tidy    ) shift; tidy=1;;
+			--untag   ) shift; untag=1;;
+			--unescape) shift; unescape=1;;
+			--tag     ) shift; tidy=1 tag="$1"; shift;;
+			       --*) echo "Opção inválida $1"; return 1;;
+			         *) break;;
+		esac
+	done
+
+	# O código seguinte é um grande filtro, com diversos blocos de comando
+	# IF interligados via pipe (logo após o FI). Cada IF pode aplicar um
+	# filtro (sed, grep, etc) ao código XML, ou passá-lo adiante inalterado
+	# (cat -). Por esta natureza, a ordem dos filtros importa. O tidy deve
+	# ser sempre o primeiro, para organizar. O unescape deve ser o último,
+	# pois ele pode fazer surgir < e > no código.
+	#
+	# Essa estrutura toda de IFs interligados é bizarra e não tenho certeza
+	# se funciona em versões bem antigas do bash, mas acredito que sim. Fiz
+	# assim para evitar ficar lendo e gravando arquivos temporários para
+	# cada filtro. Como está, é tudo um grande fluxo de texto, que não usa
+	# arquivos externos. Mas se esta função precisar crescer, todo este
+	# esquema precisará ser revisto.
+
+	# Arquivos do usuário como parâmetros ou STDIN
+	zztool file_stdin "$@" |
+
+		# --tidy
+		if test $tidy -eq 1
+		then
+			# Deixa somente uma tag por linha.
+			# Tags multilinha ficam em somente uma linha.
+			# Várias tags em uma mesma linha ficam multilinha.
+			# Isso facilita a extração de dados com grep, sed, awk...
+			#
+			#   ANTES                    DEPOIS
+			#   --------------------------------------------------------
+			#   <a                       <a href="foo.html" title="Foo">
+			#   href="foo.html"
+			#   title="Foo">
+			#   --------------------------------------------------------
+			#   <p>Foo <b>bar</b></p>    <p>
+			#                            Foo 
+			#                            <b>
+			#                            bar
+			#                            </b>
+			#                            </p>
+
+			zzjuntalinhas -d ' ' |
+			sed '
+				# quebra linha na abertura da tag
+				s/</\
+</g
+				# quebra linha após fechamento da tag
+				s/>/>\
+/g' |
+			# Rejunta o conteúdo do <![CDATA[...]]>, que pode ter tags
+			zzjuntalinhas -i '^<!\[CDATA\[' -f ']]>$' -d '' |
+
+			# Remove linhas em branco (as que adicionamos)
+			sed '/^$/d'
+		else
+			cat -
+		fi |
+
+		# --tag
+		# É sempre usada em conjunto com --tidy (automaticamente)
+		if test -n "$tag"
+		then
+			sed -n "
+				# Tags de uma linha
+				# <foo bar='1' />
+				/^<$tag[> ].*\/>$/ p
+
+				# Tags multilinha
+				# <p>Foo
+				# <b>bar
+				# </b>
+				# </p>
+				/^<$tag[> ]/, /^<\/$tag>/ {
+					H
+					/^<\/$tag>/ {
+						s/.*//
+						x
+						s/\n//g
+						p
+					}
+				}"
+		else
+			cat -
+		fi |
+
+		# --untag
+		if test $untag -eq 1
+		then
+			sed 's/<[^>]*>//g'
+		else
+			cat -
+		fi |
+
+		# --unescape
+		if test $unescape -eq 1
+		then
+			sed "
+				s/&lt;/</g
+				s/&gt;/>/g
+				s/&amp;/\"/g
+
+				# Chars Unicode viram chars ASCII
+				s/&#8220;/\"/g
+				s/&#8221;/\"/g
+				s/&#8243;/\"/g
+				s/&#8216;/'/g
+				s/&#8217;/'/g
+				s/&#8230;/.../g
+				s/&#8211;/-/g
+				s/&#8212;/-/g
+				s/&#215;/x/g
+				s/&#8594;/->/g
+				"
+		else
+			cat -
+		fi
+}
