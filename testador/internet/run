@@ -82,6 +82,9 @@ dicjargon:a::drum:sed '/^ *$/d'
 dicportugues:a::estorvo:
 dolar:a:::sed 's/[0-9]/9/g;s/[+-]//g;s/99*:99*/DATAHORA/;s|99*/99*/9999|DATAHORA|;s/99*,99*$/VARIACAO/;s/9,999*/DINHEIRO/g'
 dominiopais:a::.cx:
+feed-1:a::aurelio.net:
+feed-2:a::aurelio.net aurelio.net:
+feed-3:l:7:-n 7 aurelio.net/feed/:
 freshmeat:a::kde:grep '/kde$'
 google:a::-n 1 sedsed:
 horacerta:a::rio grande do sul:sed 's/[0-9][0-9]\\\{0,1\\\}:[0-9][0-9] [AP]M/HORA/;s/.*, 201[0-5]$/   DATA/;s/Brasilia \\\(Summer \\\)\\\{0,1\\\}Time (BRS\\\{0,1\\\}T) -0[32]00 UTC/Brasilia UTC/'
