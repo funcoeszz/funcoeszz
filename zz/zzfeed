@@ -124,7 +124,7 @@ zzfeed ()
 					s/['\"]//g"
 		fi
 
-		# rm -f "$tmp"
+		rm -f "$tmp"
 
 		# Linha em branco para separar resultados
 		[ $# -gt 1 ] && echo
