@@ -47,7 +47,7 @@
 #   mv arquivo-iso arquivo
 #
 
-ignore="LEIAME ansi2html.out arrumanome.out cores.out internet run stats"
+ignore="LEIAME ansi2html.out arrumanome.out cores.out internet run stats unicode2ascii.txt"
 onetest=$1
 zz="../funcoeszz"
 
