@@ -1,16 +1,16 @@
 # ----------------------------------------------------------------------------
 # Gera uma senha aleatória de N caracteres únicos (não repetidos).
 # Obs.: Sem opções, a senha é gerada usando letras e números.
-# 
+#
 # Opções: -p, --pro   Usa letras, números e símbolos para compor a senha
 #         -n, --num   Usa somente números para compor a senha
-# 
+#
 # Uso: zzsenha [--pro|--num] [n]     (padrão n=8)
 # Ex.: zzsenha
 #      zzsenha 10
 #      zzsenha --num 9
 #      zzsenha --pro 30
-# 
+#
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
 # Versão: 2
