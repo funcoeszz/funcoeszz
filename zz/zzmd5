@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Calcula o código MD5 de arquivos ou de um texto via STDIN.
+# Calcula o código MD5 dos arquivos informados, ou de um texto via STDIN.
 # Obs.: Wrapper portável para os comandos md5 (Mac) e md5sum (Linux).
 #
 # Uso: zzmd5 [arquivo(s)]
