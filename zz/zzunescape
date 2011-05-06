@@ -308,8 +308,6 @@ zzunescape ()
 		esac
 	done
 
-	# Arquivos do usuário como parâmetros ou STDIN
-	zztool file_stdin "$@" |
-		# Faz a conversão
-		sed "$filtro"
+	# Faz a conversão
+	sed "$filtro" "$@"  # Arquivos via STDIN ou argumentos
 }
