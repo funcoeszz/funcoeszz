@@ -239,12 +239,7 @@ zztool ()
 			# ou
 			#     funcao arquivo
 			shift
-			if [ "$1" ]
-			then
-				cat "$*"
-			else
-				cat -
-			fi
+			sed -n p "$@"  # comando nulo, simula um cat
 		;;
 		list2lines)
 			# Limpa lista da STDIN e retorna um item por linha
