@@ -201,7 +201,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zztool uso'"  # pois é válido chamá-las sem argumentos
-ok="zzalfabeto zzansi2html zzascii zzbeep zzbolsas zzcalcula zzcnpj zzcores zzcpf zzdiadasemana zzdolar zzdos2unix zzeuro zzfilme zzfoneletra zzglobo zzhoracerta zzhoramin zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zznatal zznoticias zznoticiaslinux zznoticiassec zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzshuffle zzsubway zztelecine zztempo zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
+ok="zzalfabeto zzansi2html zzascii zzbeep zzbolsas zzcalcula zzcnpj zzcontapalavras zzcores zzcpf zzdiadasemana zzdolar zzdos2unix zzeuro zzfilme zzfoneletra zzglobo zzhoracerta zzhoramin zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zznatal zznoticias zznoticiaslinux zznoticiassec zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzshuffle zzsubway zztelecine zztempo zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
 for f in zz/*  # off/*
 do
 	echo " $ok " | grep -q " $(basename $f) " && continue
