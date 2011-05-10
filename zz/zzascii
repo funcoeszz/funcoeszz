@@ -18,8 +18,30 @@ zzascii ()
 	local referencias decimais decimal hexa octal caractere
 	local num_colunas=${1:-5}
 	local largura=${2:-78}
+	local max_colunas=20
+	local max_largura=500
 	local linha=0
 	
+	# Verificações básicas
+	if ! zztool testa_numero "$num_colunas" ||
+	   ! zztool testa_numero "$largura" ||
+	   test $num_colunas -eq 0 ||
+	   test $largura -eq 0
+	then
+		zztool uso ascii
+		return
+	fi
+	if test $num_colunas -gt $max_colunas
+	then
+		echo "O número máximo de colunas é $max_colunas"
+		return
+	fi
+	if test $largura -gt $max_largura
+	then
+		echo "A largura máxima é de $max_largura"
+		return
+	fi
+
 	# Estamos em um terminal UTF-8?
 	if zztool terminal_utf8
 	then

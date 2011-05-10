@@ -69,7 +69,19 @@ saida3="95 caracteres, 4 colunas, 24 linhas, 60 de largura
     55 37 067 7    79 4F 117 O   103 67 147 g"
 
 tests=(
+# erro
+a	''	r	^Uso:.*
+-1	''	r	^Uso:.*
+0	''	r	^Uso:.*
+10	a	r	^Uso:.*
+10	-1	r	^Uso:.*
+10	0	r	^Uso:.*
 
+# max
+1000	''	t	"O número máximo de colunas é 20"
+10	1000	t	"A largura máxima é de 500"
+
+# ok
 ''	''	t	"$saida1"
 6	''	t	"$saida2"
 4	60	t	"$saida3"
