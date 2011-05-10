@@ -178,6 +178,11 @@ zztool ()
 				wc -l |
 				tr -d ' \t'
 		;;
+		testa_ano)
+			# Testa se $2 é um ano válido: 0-9999
+			# Ano maior que 9999 pesa no processamento
+			echo "$2" | grep '^[0-9]\{1,4\}$' >/dev/null
+		;;
 		testa_numero)
 			# Testa se $2 é um número positivo
 			echo "$2" | grep '^[0-9]\{1,\}$' >/dev/null
@@ -1310,7 +1315,7 @@ zzcarnaval ()
 	test -z "$ano" && ano=$(date +%Y)
 
 	# Verificação básica
-	if ! zztool testa_numero $ano
+	if ! zztool testa_ano $ano
 	then
 		zztool uso carnaval
 		return
@@ -1660,7 +1665,7 @@ zzcorpuschristi ()
         test -z "$ano" && ano=$(date +%Y)
 
         # Verificação básica
-        if ! zztool testa_numero $ano
+        if ! zztool testa_ano $ano
         then
                 zztool uso corpuschristi
                 return
@@ -2653,7 +2658,7 @@ zzhorariodeverao ()
 	test -z "$ano" && ano=$(date +%Y)
 
 	# Verificação básica
-	if ! zztool testa_numero $ano
+	if ! zztool testa_ano $ano
 	then
 		zztool uso horariodeverao
 		return
@@ -3994,7 +3999,7 @@ zzpascoa ()
 	test -z "$ano" && ano=$(date +%Y)
 
 	# Verificação básica
-	if ! zztool testa_numero $ano
+	if ! zztool testa_ano $ano
 	then
 		zztool uso pascoa
 		return
@@ -4422,7 +4427,7 @@ zzsextapaixao ()
         test -z "$ano" && ano=$(date +%Y)
 
         # Verificação básica
-        if ! zztool testa_numero $ano
+        if ! zztool testa_ano $ano
         then
                 zztool uso sextapaixao
                 return
