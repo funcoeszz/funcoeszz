@@ -121,6 +121,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 // It contains just the needed functions for the online version
 // See @scriptgen
 $funcoeszz = './funcoeszz';
+$logfile = './log.txt';
 
 // POST
 $stdin = $_POST['stdin'];
@@ -319,6 +320,13 @@ if ($method == 'GET') {
 /////////////////////////////////////////////////////////////////////
 // Button pressed
 if ($method == 'POST') {
+
+	// Security: Log execution (function name only, not data)
+	date_default_timezone_set('America/Sao_Paulo');
+	$timestamp = date('Y-m-d H:i:s');
+	$fd = fopen($logfile, 'a');
+	fwrite($fd, "$timestamp $zzfunc\n");
+	fclose($fd);
 
 	// Security checking: only execute allowed zz functions
 	if (!in_array($zzfunc, $available)) {
