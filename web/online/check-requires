@@ -1,0 +1,17 @@
+#!/bin/bash
+# 2011-05-09, Aurelio Jargas
+# License: MIT
+
+cd $(dirname $0) || exit 1
+
+all=$(grep ^zz funcoeszz | cut -d ' ' -f 1)
+required=$(grep '^# Requisitos:' funcoeszz | sed 's/.*: //; s/, */@/g' | tr @ '\n' | sort | uniq)
+
+for zz in $required
+do
+	if ! grep -q "^$zz$" <(echo "$all")
+	then
+		echo "Faltou $zz, remover de index.php ZZOFF="
+		echo "    grep -A 2 '^# Requisitos:.*$zz' funcoeszz  # ver quem requer essa"
+	fi
+done
