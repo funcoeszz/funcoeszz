@@ -1,0 +1,1830 @@
+.TH "Funções ZZ" 1 "" ""
+
+
+.SH zzajuda
+
+.nf
+Mostra uma tela de ajuda com explicação e sintaxe de todas as funções.
+Opções: --lista  lista de todas as funções, com sua descrição
+      --uso    resumo de todas as funções, com a sintaxe de uso
+Uso: zzajuda [--lista|--uso]
+Ex.: zzajuda
+   zzajuda --lista
+
+.fi
+
+
+.SH zzalfabeto
+
+.nf
+Central de alfabetos (romano, militar, radiotelefônico, OTAN, RAF, etc).
+Obs.: Sem argumentos mostra a tabela completa, senão traduz uma palavra.
+
+Tipos reconhecidos:
+
+ --militar | --radio | --fone | --otan | --icao | --ansi
+                         Alfabeto radiotelefônico internacional
+ --romano | --latino     A B C D E F...
+ --royal-navy            Marinha Real - Reino Unido, 1914-1918
+ --signalese             Primeira Guerra, 1914-1918
+ --raf24                 Força Aérea Real - Reino Unido, 1924-1942
+ --raf42                 Força Aérea Real - Reino Unido, 1942-1943
+ --raf                   Força Aérea Real - Reino Unido, 1943-1956
+ --us                    Alfabeto militar norte-americano, 1941-1956
+ --portugal              Lugares de Portugal
+ --names                 Nomes de pessoas, em inglês
+ --lapd                  Polícia de Los Angeles (EUA)
+
+Uso: zzalfabeto [--TIPO] [palavra]
+Ex.: zzalfabeto --militar
+   zzalfabeto --militar cambio
+
+.fi
+
+
+.SH zzanatel
+
+.nf
+http://sistemas.anatel.gov.br/SIPT/Atualizacao/N_ConsultaTarifas/tela.asp
+Busca as tarifas das operadoras no plano básico para ligações DDD.
+Uso: zzanatel DDD_Origem Prefixo_Origem DDD_Destino Prefixo_Destino
+Ex.: zzanatel 48 3224 12 3943
+
+.fi
+
+
+.SH zzansi2html
+
+.nf
+Converte para HTML o texto colorido do terminal (códigos ANSI).
+Útil para mostrar a saída do terminal em sites e blogs, sem perder as cores.
+Obs.: Exemplos de texto ANSI estão na saída das funções zzcores e zzecho.
+Obs.: Use o comando script para guardar a saída do terminal em um arquivo.
+Uso: zzansi2html [arquivo]
+Ex.: zzecho --letra verde -s -p -N testando | zzansi2html
+   ls --color /etc | zzansi2html > ls.html
+   zzcores | zzansi2html > cores.html
+
+.fi
+
+
+.SH zzarrumanome
+
+.nf
+Renomeia arquivos do diretório atual, arrumando nomes estranhos.
+Obs.: Ele deixa tudo em minúsculas, retira acentuação e troca espaços em
+    branco, símbolos e pontuação pelo sublinhado _.
+Opções: -n  apenas mostra o que será feito, não executa
+      -d  também renomeia diretórios
+      -r  funcionamento recursivo (entra nos diretórios)
+Uso: zzarrumanome [-n] [-d] [-r] arquivo(s)
+Ex.: zzarrumanome *
+   zzarrumanome -n -d -r .                   # tire o -n para renomear!
+   zzarrumanome "DOCUMENTO MALÃO!.DOC"       # fica documento_malao.doc
+   zzarrumanome "RAMONES - Don't Go.mp3"     # fica ramones-dont_go.mp3
+
+.fi
+
+
+.SH zzascii
+
+.nf
+Mostra a tabela ASCII com todos os caracteres imprimíveis (32-126,161-255).
+O formato utilizando é: <decimal> <hexa> <octal> <ascii>.
+O número de colunas e a largura da tabela são configuráveis.
+Uso: zzascii [colunas] [largura]
+Ex.: zzascii
+   zzascii 4
+   zzascii 7 100
+
+.fi
+
+
+.SH zzbeep
+
+.nf
+Aguarda N minutos e dispara uma sirene usando o 'speaker'.
+Útil para lembrar de eventos próximos no mesmo dia.
+Sem argumentos, restaura o 'beep' para o seu tom e duração originais.
+Obs.: A sirene tem 4 toques, sendo 2 tons no modo texto e apenas 1 no Xterm.
+Uso: zzbeep [números]
+Ex.: zzbeep 0
+   zzbeep 1 5 15    # espere 1 minuto, depois mais 5, e depois 15
+
+.fi
+
+
+.SH zzblist
+
+.nf
+Mostra se o IP passado está em alguma blacklist  (SBL, PBL e XBL).
+Uso: zzblist IP
+Ex.: zzblist 200.199.198.197
+
+.fi
+
+
+.SH zzbolsas
+
+.nf
+http://br.finance.yahoo.com
+Pesquisa índices de bolsas e cotações de ações.
+Sem parâmetros mostra a lista de bolsas disponíveis (códigos).
+Com o parâmetro -l apenas mostra as bolsas disponíveis e seus nomes.
+Com o parâmetro sendo um código de bolsa ou ação mostra sua última
+cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
+Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
+pesquisa-o no nome ou código das ações disponíves na bolsa citada.
+Com o parâmetro -l seguido do código da bolsa, lista as ações (códigos).
+Com o parâmetro --lista seguido do código da bolsa, lista as ações com
+nome e última cotação.
+Uso: zzbolsas [-l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
+Ex.: zzbolsas                  # Lista das bolsas (códigos)
+   zzbolsas -l               # Lista das bolsas (nomes)
+   zzbolsas -l ^BVSP         # Lista as ações do índice Bovespa (código)
+   zzbolsas --lista ^BVSP    # Lista as ações do índice Bovespa (nomes)
+   zzbolsas ^BVSP loja       # Procura ações com "loja" no nome ou código
+   zzbolsas ^BVSP            # Cotação do índice Bovespa
+   zzbolsas PETR4.SA         # Cotação das ações da Petrobrás
+   zzbolsas PETR4.SA 21/12/2010  # Cotação da Petrobrás nesta data
+
+.fi
+
+
+.SH zzbyte
+
+.nf
+Conversão entre grandezas de bytes (mega, giga, tera, etc).
+Uso: zzbyte N [unidade-entrada] [unidade-saida]  # BKMGTPEZY
+Ex.: zzbyte 2048                    # Quanto é 2048 bytes?  -- 2K
+   zzbyte 2048 K                  # Quanto é 2048KB?      -- 2M
+   zzbyte 7 K M                   # Quantos megas em 7KB? -- 0.006M
+   zzbyte 7 G B                   # Quantos bytes em 7GB? -- 7516192768B
+   for u in b k m g t p e z y; do zzbyte 2 t $u; done
+
+.fi
+
+
+.SH zzcalcula
+
+.nf
+Calculadora.
+Os operadores principais são + - / * ^ %, veja outros em "man bc".
+Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
+Uso: zzcalcula número operação número
+Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
+   zzcalcula '2^2*(4-1)'          # 2 ao quadrado vezes 4 menos 1
+   echo 2 + 2 | zzcalcula         # lendo da entrada padrão (STDIN)
+
+.fi
+
+
+.SH zzcalculaip
+
+.nf
+Calcula os endereços de rede e broadcast à partir do IP e máscara da rede.
+Obs.: Se não for especificado a máscara, é assumido a 255.255.255.0.
+Uso: zzcalculaip ip [netmask]
+Ex.: zzcalculaip 127.0.0.1 24
+   zzcalculaip 10.0.0.0/8
+   zzcalculaip 192.168.10.0 255.255.255.240
+   zzcalculaip 10.10.10.0
+
+.fi
+
+
+.SH zzcarnaval
+
+.nf
+Mostra a data da terça-feira de Carnaval para qualquer ano.
+Obs.: Se o ano não for informado, usa o atual.
+Regra: 47 dias antes do domingo de Páscoa.
+Uso: zzcarnaval [ano]
+Ex.: zzcarnaval
+   zzcarnaval 1999
+
+.fi
+
+
+.SH zzcbn
+
+.nf
+http://cbn.globoradio.com.br
+Busca e toca os últimos comentários dos comentaristas da radio CBN.
+Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn -lista
+Ex.: zzcbn -c max -d ontem
+   zzcbn -c mauro -d tudo 
+   zzcbn -c juca -d 13/05/09
+   zzcbn -c miriam
+   zzcbn -mp3 -c max  
+
+.fi
+
+
+.SH zzchavepgp
+
+.nf
+http://pgp.mit.edu
+Busca a identificação da chave PGP, fornecido o nome ou e-mail da pessoa.
+Uso: zzchavepgp nome|e-mail
+Ex.: zzchavepgp Carlos Oliveira da Silva
+   zzchavepgp carlos@dominio.com.br
+
+.fi
+
+
+.SH zzchecamd5
+
+.nf
+Checa o md5sum de arquivos baixados da net.
+Nota: A função checa o arquivo no diretório corrente (./)
+Uso: zzchecamd5 arquivo md5sum
+Ex.: zzchecamd5 ./ubuntu-8.10.iso f9e0494e91abb2de4929ef6e957f7753
+
+.fi
+
+
+.SH zzcinclude
+
+.nf
+Acha as funções de uma biblioteca da linguagem C (arquivos .h).
+Obs.: O diretório padrão de procura é o /usr/include.
+Uso: zzcinclude nome-biblioteca
+Ex.: zzcinclude stdio
+   zzcinclude /minha/rota/alternativa/stdio.h
+
+.fi
+
+
+.SH zzcinemais
+
+.nf
+http://www.cinemais.com.br
+Busca horários das sessões dos filmes no site do Cinemais.
+Cidades disponíveis:
+Anapolis               -  32
+Cuiaba                 -  10
+Guaratingueta          -  21
+Milenium               -  29
+Manaus Plaza           -  20
+Marilia                -  17
+Patos de Minas         -  11
+Ribeirao Preto         -  13
+Sao Jose do Rio Preto  -  30
+Sertaozinho            -  28
+Tangara da Serra       -  12
+Uberaba                -   9
+Uberlandia             -   8
+
+Uso: zzcinemais [cidade]
+Ex.: zzcinemais Uberaba
+
+.fi
+
+
+.SH zzcineuci
+
+.nf
+http://www.ucicinemas.com.br
+Exibe a programação dos cinemas UCI de sua cidade.
+Se não for passado nenhum parâmetro, são listadas as cidades e cinemas.
+Obs.: não utilize acentos: digite "Sao Paulo", e não "São Paulo"
+Uso: zzcineuci [cidade | codigo_cinema]
+Ex.: zzcineuci recife
+   zzcineuci 14
+
+.fi
+
+
+.SH zzcnpj
+
+.nf
+Gera um CNPJ válido aleatório ou valida um CNPJ informado.
+Obs.: O CNPJ informado pode estar formatado (pontos e hífen) ou não.
+Uso: zzcnpj [cnpj]
+Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ
+   zzcnpj 12345678000195          # com ou sem formatadores
+   zzcnpj                         # gera um CNPJ válido
+
+.fi
+
+
+.SH zzcontapalavra
+
+.nf
+Conta o número de vezes que uma palavra aparece num arquivo.
+Obs.: É diferente do grep -c, que não conta várias palavras na mesma linha.
+Opções: -i  ignora a diferença de maiúsculas/minúsculas
+      -p  busca parcial, conta trechos de palavras
+Uso: zzcontapalavra [-i|-p] palavra arquivo(s)
+Ex.: zzcontapalavra root /etc/passwd
+   zzcontapalavra -i -p a /etc/passwd      # Compare com grep -ci a
+
+.fi
+
+
+.SH zzcontapalavras
+
+.nf
+Conta o número de vezes que cada palavra aparece em um texto.
+
+Opções: -i       Trata maiúsculas e minúsculas como iguais, FOO = Foo = foo
+      -n NÚM   Mostra apenas as NÚM palavras mais frequentes
+
+Uso: zzcontapalavras [arquivo(s)]
+Ex.: zzcontapalavras arquivo.txt
+   zzcontapalavras -i arquivo.txt
+   zzcontapalavras -i -n 10 /etc/passwd
+   cat arquivo.txt | zzcontapalavras
+
+.fi
+
+
+.SH zzconverte
+
+.nf
+Faz várias conversões como: caracteres, temperatura e distância.
+       cf = (C)elsius      para (F)ahrenheit
+       fc = (F)ahrenheit   para (C)elsius
+       ck = (C)elsius      para (K)elvin
+       kc = (K)elvin       para (C)elsius
+       fk = (F)ahrenheit   para (K)elvin
+       kf = (K)elvin       para (F)ahrenheit
+       km = (K)Quilômetros para (M)ilhas
+       mk = (M)ilhas       para (K)Quilômetros
+       db = (D)ecimal      para (B)inário
+       bd = (B)inário      para (D)ecimal
+       cd = (C)aractere    para (D)ecimal
+       dc = (D)ecimal      para (C)aractere
+       dh = (D)ecimal      para (H)exadecimal
+       hd = (H)exadecimal  para (D)ecimal
+Uso: zzconverte <cf|fc|ck|kc|fk|kf|mk|km|db|bd|cd|dh|hd> número
+Ex.: zzconverte cf 5
+   zzconverte dc 65
+   zzconverte db 32
+
+.fi
+
+
+.SH zzcores
+
+.nf
+Mostra todas as combinações de cores possíveis no console.
+Também mostra os códigos ANSI para obter tais combinações.
+Uso: zzcores
+Ex.: zzcores
+
+.fi
+
+
+.SH zzcorpuschristi
+
+.nf
+Mostra a data de Corpus Christi para qualquer ano.
+Obs.: Se o ano não for informado, usa o atual.
+Regra: 60 dias depois do domingo de Páscoa.
+Uso: zzcorpuschristi [ano]
+Ex.: zzcorpuschristi
+   zzcorpuschristi 2009
+
+.fi
+
+
+.SH zzcpf
+
+.nf
+Gera um CPF válido aleatório ou valida um CPF informado.
+Obs.: O CPF informado pode estar formatado (pontos e hífen) ou não.
+Uso: zzcpf [cpf]
+Ex.: zzcpf 123.456.789-09          # valida o CPF
+   zzcpf 12345678909             # com ou sem formatadores
+   zzcpf                         # gera um CPF válido
+
+.fi
+
+
+.SH zzdata
+
+.nf
+Faz cálculos com datas e/ou converte data->num e num->data.
+Que dia vai ser daqui 45 dias? Quantos dias há entre duas datas? zzdata!
+Quando chamada com apenas um parâmetro funciona como conversor de data
+para número inteiro (N dias passados desde Epoch) e vice-versa.
+Obs.: Leva em conta os anos bissextos     (Epoch = 01/01/1970, editável)
+Uso: zzdata data|num [+|- data|num]
+Ex.: zzdata 22/12/1999 + 69
+   zzdata hoje - 5
+   zzdata 01/03/2000 - 11/11/1999
+   zzdata hoje - dd/mm/aaaa         <---- use sua data de nascimento
+
+.fi
+
+
+.SH zzdata2
+
+.nf
+Faz calculos com datas e/ou converte data->num e num->data.
+Que dia vai ser daqui 45 dias? Quantos dias ha entre duas datas? zzdata!
+Quando chamada com apenas um parametro funciona como conversor de data
+para numero inteiro (N dias passados desde Epoch) e vice-versa.
+A zzdata pode subtrair, ou somar meses e anos tambem. Eh so especificar!
+Obs.: Leva em conta os anos bissextos     (Epoch = 01/01/1970, editavel)
+Opcoes:
+      data|num  data inicial.
+      +|-       operacao a realizar (adicao|subtracao).
+      D|M|Y     unidade em operacao com numero (D=dia, M=mes, Y=ano).
+Uso: zzdata2 data|num [+|- data|num [D|M|Y]]
+Ex.: zzdata2 22/12/1999 + 69
+   zzdata2 hoje - 5
+   zzdata2 01/03/2000 - 11/11/1999
+   zzdata2 hoje - dd/mm/aaaa         <---- use sua data de nascimento
+   zzdata2 01/03/2000 - 1 M          # subtrai 1 mes. resp: 01/02/2000
+   zzdata2 30/03/2008 - 1 M          # resp: 19/02/2008 (ano bissexto)
+
+.fi
+
+
+.SH zzdatabarras
+
+.nf
+Transforma data do formato DDMMYYYY para DD/MM/YYYY.
+Opções:
+-d, --data     data no formato DDMMYYYY.
+-v, --verbose  exibe informações para debug durante o processamento.
+Uso: zzdatabarras -d data
+Ex.: zzdatabarras -d 28012010               # resposta: "28/01/2010"
+
+.fi
+
+
+.SH zzdefine
+
+.nf
+http://www.google.com
+Retorno da função "define:" do Google.
+Idiomas disponíveis: en pt es de fr it. O idioma padrão é "all".
+Uso: zzdefine [idioma] palavra_ou_sigla
+Ex.: zzdefine imho
+   zzdefine pt imho
+
+.fi
+
+
+.SH zzdefinr
+
+.nf
+http://definr.com
+Busca o significado de um termo, palavra ou expressão no site Definr.
+Uso: zzdefinr termo
+Ex.: zzdefinr headphone
+   zzdefinr in force
+
+.fi
+
+
+.SH zzdelicious
+
+.nf
+Lista as URLs de uma dada tag de um determinado usuário.
+Obs.: Se não informada a tag, serão listadas as últimas URLs.
+Uso: zzdelicious usuario [tag]
+Ex.: zzdelicious felipensp
+   zzdelicious felipensp php
+
+.fi
+
+
+.SH zzdetransp
+
+.nf
+http://www.detran.sp.gov.br
+Consulta débitos do veículo, como licenciamento, IPVA e multas (Detran-SP).
+Uso: zzdetransp número-renavam
+Ex.: zzdetransp 123456789
+
+.fi
+
+
+.SH zzdiadasemana
+
+.nf
+Mostra qual o dia da semana de uma data qualquer.
+Obs.: Se a data não for informada, usa a data atual.
+Uso: zzdiadasemana [data]
+Ex.: zzdiadasemana
+   zzdiadasemana 31/12/2000
+
+.fi
+
+
+.SH zzdicasl
+
+.nf
+http://www.dicas-l.unicamp.br
+Procura por dicas sobre determinado assunto na lista Dicas-L.
+Obs.: As opções do grep podem ser usadas (-i já é padrão).
+Uso: zzdicasl [opção-grep] palavra(s)
+Ex.: zzdicasl ssh
+   zzdicasl -w vi
+   zzdicasl -vEw 'windows|unix|emacs'
+
+.fi
+
+
+.SH zzdicbabelfish
+
+.nf
+http://babelfish.altavista.digital.com
+Faz traduções de palavras/frases/textos entre idiomas.
+Basta especificar quais os idiomas de origem e destino e a frase.
+Obs.: Se os idiomas forem omitidos, a tradução será inglês -> português.
+
+Idiomas: pt_en pt_fr es_en es_fr it_en it_fr de_en de_fr
+       fr_en fr_de fr_el fr_it fr_pt fr_nl fr_es
+       ja_en ko_en zh_en zt_en el_en el_fr nl_en nl_fr ru_en
+       en_zh en_zt en_nl en_fr en_de en_el en_it en_ja
+       en_ko en_pt en_ru en_es
+
+Uso: zzdicbabelfish [idiomas] palavra(s)
+Ex.: zzdicbabelfish my dog is green
+   zzdicbabelfish pt_en falcão é massa
+   zzdicbabelfish en_de my hovercraft if full of eels
+
+.fi
+
+
+.SH zzdicbabylon
+
+.nf
+http://www.babylon.com
+Tradução de UMA PALAVRA em inglês para vários idiomas.
+Francês, alemão, japonês, italiano, hebreu, espanhol, holandês e português.
+Se nenhum idioma for informado, o padrão é o português.
+Uso: zzdicbabylon [idioma] palavra   #idioma:dut fre ger heb ita jap ptg spa
+Ex.: zzdicbabylon hardcore
+   zzdicbabylon jap tree
+
+.fi
+
+
+.SH zzdicesperanto
+
+.nf
+http://wwwtios.cs.utwente.nl/traduk/
+Dicionário de Esperanto em inglês, português e alemão.
+Possui busca por palavra nas duas direções. O padrão é português-esperanto.
+Uso: zzdicesperanto [idioma] palavra
+Ex.: zzdicesperanto disquete
+   zzdicesperanto EO-PT espero
+
+.fi
+
+
+.SH zzdicjargon
+
+.nf
+http://catb.org/jargon/
+Dicionário de jargões de informática, em inglês.
+Uso: zzdicjargon palavra(s)
+Ex.: zzdicjargon vi
+   zzdicjargon all your base are belong to us
+
+.fi
+
+
+.SH zzdicportugues
+
+.nf
+http://www.dicio.com.br
+Dicionário de português.
+Uso: zzdicportugues palavra
+Ex.: zzdicportugues bolacha
+
+.fi
+
+
+.SH zzdicportugues2
+
+.nf
+http://www.dicio.com.br
+Dicionário de português.
+Definição de palavras e conjugação verbal
+Fornecendo uma "palavra" como argumento retorna seu significado e sinônimo.
+Se for seguida do termo "def", retorna suas definições.
+Se for seguida do termo "conj", retorna todas as formas de conjugação.
+Pode-se filtrar pelos modos de conjugação, fornecendo após o "conj" o modo
+desejado:
+ind (indicativo), sub (subjuntivo), imp (imperativo), inf (infinitivo)
+
+Uso: zzdicportugues2 palavra [def|conj [ind|sub|imp|inf]]
+Ex.: zzdicportugues2 bolacha
+   zzdicportugues2 verbo conj sub
+
+.fi
+
+
+.SH zzdictodos
+
+.nf
+Usa todas as funções de dicionário e tradução de uma vez.
+Uso: zzdictodos palavra
+Ex.: zzdictodos Linux
+
+.fi
+
+
+.SH zzdiffpalavra
+
+.nf
+Mostra a diferença entre dois textos, palavra por palavra.
+Útil para conferir revisões ortográficas ou mudanças pequenas em frases.
+Obs.: Se tiver muitas *linhas* diferentes, use o comando diff.
+Uso: zzdiffpalavra arquivo1 arquivo2
+Ex.: zzdiffpalavra texto-orig.txt texto-novo.txt
+
+.fi
+
+
+.SH zzdolar
+
+.nf
+http://br.invertia.com
+Busca a cotação do dia do dólar (comercial, paralelo e turismo).
+Obs.: As cotações são atualizadas de 10 em 10 minutos.
+Uso: zzdolar
+Ex.: zzdolar
+
+.fi
+
+
+.SH zzdominiopais
+
+.nf
+http://www.iana.org/cctld/cctld-whois.htm
+Busca a descrição de um código de país da internet (.br, .ca etc).
+Uso: zzdominiopais [.]código|texto
+Ex.: zzdominiopais .br
+   zzdominiopais br
+   zzdominiopais republic
+
+.fi
+
+
+.SH zzdos2unix
+
+.nf
+Converte arquivos texto no formato Windows/DOS (CR+LF) para o Unix (LF).
+Obs.: Também remove a permissão de execução do arquivo, caso presente.
+Uso: zzdos2unix arquivo(s)
+Ex.: zzdos2unix frases.txt
+   cat arquivo.txt | zzdos2unix
+
+.fi
+
+
+.SH zzecho
+
+.nf
+Mostra textos coloridos, sublinhados e piscantes no terminal (códigos ANSI).
+Opções: -f, --fundo       escolhe a cor de fundo
+      -l, --letra       escolhe a cor da letra
+      -p, --pisca       texto piscante
+      -s, --sublinhado  texto sublinhado
+      -N, --negrito     texto em negrito (brilhante em alguns terminais)
+      -n, --nao-quebra  não quebra a linha no final, igual ao echo -n
+Cores: preto vermelho verde amarelo azul roxo ciano branco
+Obs.: \et, \en e amigos são sempre interpretados (igual ao echo -e).
+Uso: zzecho [-f cor] [-l cor] [-p] [-s] [-N] [-n] [texto]
+Ex.: zzecho -l amarelo Texto em amarelo
+   zzecho -f azul -l branco -N Texto branco em negrito, com fundo azul
+   zzecho -p -s Texto piscante e sublinhado
+
+.fi
+
+
+.SH zzenglish
+
+.nf
+http://www.dict.org
+Busca definições em inglês de palavras da língua inglesa em DICT.org.
+Uso: zzenglish palavra-em-inglês
+Ex.: zzenglish momentum
+
+.fi
+
+
+.SH zzenviaemail
+
+.nf
+Envia email via ssmtp.
+Opções:
+-h, --help     exibe a ajuda.
+-v, --verbose  exibe informações para debug durante o processamento.
+-V, --version  exibe a versão.
+-f, --from     email do remetente.
+-t, --to       email dos destinatários (separe com vírgulas, sem espaço).
+-c, --cc       email dos destinatários em cópia (vírgulas, sem espaço).
+-b, --bcc      emails em cópia oculta (vírgulas, sem espaço).
+-s, --subject  o assunto do email.
+-e, --mensagem arquivo que contém a mensagem/corpo do email.
+Uso: zzenviaemail -f email -t email [-c email] [-b email] -s assunto -m msg
+Ex.: zzenviaemail -f quem_envia@dominio.com -t quem_recebe@dominio.com \e
+   -s "Teste de e-mail" -m "./arq_msg.eml"
+
+.fi
+
+
+.SH zzeuro
+
+.nf
+http://cotacoes.agronegocios-e.com.br/
+Busca a cotação atual do EURO com relação ao Dólar e ao Real.
+Uso: zzeuro
+Ex.: zzeuro
+
+.fi
+
+
+.SH zzextensao
+
+.nf
+Informa a extensão de um arquivo.
+Obs.: Caso o arquivo não possua extensão, retorna vazio "".
+Uso: zzextensao arquivo
+Ex.: zzextensao /tmp/arquivo.txt       # resulta em "txt"
+   zzextensao /tmp/arquivo           # resulta em ""
+
+.fi
+
+
+.SH zzfeed
+
+.nf
+Leitor de Feeds RSS e Atom.
+Se informar a URL de um feed, são mostradas suas últimas notícias.
+Se informar a URL de um site, mostra a URL do(s) Feed(s).
+Obs.: Use a opção -n para limitar o número de resultados (Padrão é 10).
+
+Uso: zzfeed [-n número] URL...
+Ex.: zzfeed http://aurelio.net/feed/
+   zzfeed -n 5 aurelio.net/feed/          # O http:// é opcional
+   zzfeed aurelio.net funcoeszz.net       # Mostra URL dos feeds
+
+.fi
+
+
+.SH zzferiado
+
+.nf
+Verifica se a data passada por parâmetro é um feriado ou não.
+Caso não seja passado nenhuma data é pego a data atual.
+Pode-se configurar a variável ZZFERIADO para os feriados regionais.
+O formato é o dd/mm:descrição, por exemplo: 20/11:Consciência negra.
+Uso: zzferiado -l [ano] | [data]
+Ex.: zzferiado 25/12/2008
+   zzferiado -l
+   zzferiado -l 2010
+
+.fi
+
+
+.SH zzfoneletra
+
+.nf
+Conversão de telefones contendo letras para apenas números.
+Uso: zzfoneletra telefone
+Ex.: zzfoneletra 2345-LINUX              # Retorna 2345-54689
+   echo 5555-HELP | zzfoneletra        # Retorna 5555-4357
+
+.fi
+
+
+.SH zzfrenteverso2pdf
+
+.nf
+Combina 2 arquivos, frentes.pdf e versos.pdf, em um único frenteverso.pdf.
+Opções:
+-rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.
+-rv, --versosreversos   informa ordem reversa no arquivo versos.pdf.
+ -d, --diretorio        informa o diretório de entrada/saída. Padrao=".".
+ -v, --verbose          exibe informações de debug durante a execução.
+Uso: zzfrenteverso2pdf [-rf] [-rv] [-d diretorio]
+Ex.: zzfrenteverso2pdf
+   zzfrenteverso2pdf -rf
+   zzfrenteverso2pdf -rv -d "/tmp/dir_teste"
+
+.fi
+
+
+.SH zzfreshmeat
+
+.nf
+http://freshmeat.net
+Procura por programas na base do site Freshmeat.
+Uso: zzfreshmeat programa
+Ex.: zzfreshmeat tetris
+
+.fi
+
+
+.SH zzglobo
+
+.nf
+Mostra a programação Rede Globo do dia.
+Uso: zzglobo
+Ex.: zzglobo
+
+.fi
+
+
+.SH zzgoogle
+
+.nf
+http://google.com
+Pesquisa no Google diretamente pela linha de comando.
+Uso: zzgoogle [-n <número>] palavra(s)
+Ex.: zzgoogle receita de bolo de abacaxi
+   zzgoogle -n 5 ramones papel higiênico cachorro
+
+.fi
+
+
+.SH zzgravatar
+
+.nf
+http://www.gravatar.com
+Monta a URL completa para o Gravatar do email informado.
+
+Opções: -t, --tamanho N      Tamanho do avatar (padrão 80, máx 512)
+      -d, --default TIPO   Tipo do avatar substituto, se não encontrado
+
+Se não houver um avatar para o email, a opção --default informa que tipo
+de avatar substituto será usado em seu lugar:
+  mm          Mistery Man, a silhueta de uma pessoa (não muda)
+  identicon   Padrão geométrico, muda conforme o email
+  monsterid   Monstros, muda cores e rostos
+  wavatar     Rostos, muda características e cores
+  retro       Rostos pixelados, tipo videogame antigo 8-bits
+Veja exemplos em http://gravatar.com/site/implement/images/
+
+Uso: zzgravatar [--tamanho N] [--default tipo] email
+Ex.: zzgravatar fulano@dominio.com.br
+   zzgravatar -t 128 -d mm fulano@dominio.com.br
+   zzgravatar --tamanho 256 --default retro fulano@dominio.com.br
+
+.fi
+
+
+.SH zzhora
+
+.nf
+Faz cálculos com horários.
+A opção -r torna o cálculo relativo à primeira data, por exemplo:
+02:00 - 03:30 = -01:30 (sem -r) e 22:30 (com -r)
+Uso: zzhora [-r] hh:mm [+|- hh:mm]
+Ex.: zzhora 8:30 + 17:25        # preciso somar duas horas!
+   zzhora 12:00 - agora       # quando falta para o almoço?
+   zzhora -12:00 + -5:00      # horas negativas!
+   zzhora 1000                # quanto é 1000 minutos?
+   zzhora -r 5:30 - 8:00      # que horas ir dormir para acordar às 5:30?
+   zzhora -r agora + 57:00    # e daqui 57 horas, será quando?
+
+.fi
+
+
+.SH zzhoracerta
+
+.nf
+http://www.worldtimeserver.com
+Mostra a hora certa de um determinado local.
+Se nenhum parâmetro for passado, são listados as localidades disponíveis.
+O parâmetro pode ser tanto a sigla quando o nome da localidade.
+A opção -s realiza a busca somente na sigla.
+Uso: zzhoracerta [-s] local
+Ex.: zzhoracerta rio grande do sul
+   zzhoracerta -s br
+   zzhoracerta rio
+   zzhoracerta us-ny
+
+.fi
+
+
+.SH zzhoramin
+
+.nf
+Converte horas em minutos.
+Obs.: Se não informada a hora, usa o horário atual para o cálculo.
+Uso: zzhoramin [hh:mm]
+Ex.: zzhoramin
+   zzhoramin 10:53       # Retorna 653
+   zzhoramin -10:53      # Retorna -653
+
+.fi
+
+
+.SH zzhorariodeverao
+
+.nf
+Mostra as datas de início e fim do horário de verão.
+Obs.: Ano de 2008 em diante. Se o ano não for informado, usa o atual.
+Regra: 3º domingo de outubro/fevereiro, exceto carnaval (4º domingo).
+Uso: zzhorariodeverao [ano]
+Ex.: zzhorariodeverao
+   zzhorariodeverao 2009
+
+.fi
+
+
+.SH zzhowto
+
+.nf
+http://www.ibiblio.org
+Procura documentos do tipo HOWTO.
+Uso: zzhowto [--atualiza] palavra
+Ex.: zzhowto apache
+   zzhowto --atualiza
+
+.fi
+
+
+.SH zzipinternet
+
+.nf
+http://www.whatismyip.com
+Mostra o seu número IP (externo) na Internet.
+Uso: zzipinternet
+Ex.: zzipinternet
+
+.fi
+
+
+.SH zzjquery
+
+.nf
+Exibe a descrição da função JQuery informada.
+Caso não seja passado o nome, serão exibidas informações acerca do $().
+Se usado o argumento -s, será exibida somente a sintaxe.
+Uso: zzjquery [-s] funcao
+Ex.: zzjquery gt
+   zzjquery -s gt
+
+.fi
+
+
+.SH zzjuntalinhas
+
+.nf
+Junta várias linhas em uma só, podendo escolher o início, fim e separador.
+
+Melhorias em relação ao comando paste -s:
+- Trata corretamente arquivos no formato Windows (CR+LF)
+- Lê arquivos ISO-8859-1 sem erros no Mac (o paste dá o mesmo erro do tr)
+- O separador pode ser uma string, não está limitado a um caractere
+- Opções -i e -f para delimitar somente um trecho a ser juntado
+
+Opções: -d sep        Separador a ser colocado entre as linhas (padrão: Tab)
+      -i, --inicio  Início do trecho a ser juntado (número ou regex)
+      -f, --fim     Fim do trecho a ser juntado (número ou regex)
+
+Uso: zzjuntalinhas [-d separador] [-i texto] [-f texto] arquivo(s)
+Ex.: zzjuntalinhas arquivo.txt
+   zzjuntalinhas -d @@@ arquivo.txt             # junta toda as linhas
+   zzjuntalinhas -d : -i 10 -f 20 arquivo.txt   # junta linhas 10 a 20
+   zzjuntalinhas -d : -i 10 arquivo.txt         # junta linha 10 em diante
+   cat /etc/named.conf | zzjuntalinhas -d '' -i '^[a-z]' -f '^}'
+
+.fi
+
+
+.SH zzkill
+
+.nf
+Mata processos pelo nome do seu comando de origem.
+Com a opção -n, apenas mostra o que será feito, mas não executa.
+Se nenhum argumento for informado, mostra a lista de processos ativos.
+Uso: zzkill [-n] [comando [comando2 ...]]
+Ex.: zzkill
+   zzkill netscape
+   zzkill netsc soffice startx
+
+.fi
+
+
+.SH zzlembrete
+
+.nf
+Sistema simples de lembretes: cria, apaga e mostra.
+Uso: zzlembrete [texto]|[número [d]]
+Ex.: zzlembrete                      # Mostra todos
+   zzlembrete 5                    # Mostra o 5º lembrete
+   zzlembrete 5d                   # Deleta o 5º lembrete
+   zzlembrete Almoço com a sogra   # Adiciona lembrete
+
+.fi
+
+
+.SH zzlimpalixo
+
+.nf
+Retira linhas em branco e comentários.
+Para ver rapidamente quais opções estão ativas num arquivo de configuração.
+Além do tradicional #, reconhece comentários de arquivos .vim.
+Obs.: Aceita dados vindos da entrada padrão (STDIN).
+Uso: zzlimpalixo [arquivos]
+Ex.: zzlimpalixo ~/.vimrc
+   cat /etc/inittab | zzlimpalixo
+
+.fi
+
+
+.SH zzlinha
+
+.nf
+Mostra uma linha de um texto, aleatória ou informada pelo número.
+Obs.: Se passado um argumento, restringe o sorteio às linhas com o padrão.
+Uso: zzlinha [número | -t texto] [arquivo(s)]
+Ex.: zzlinha /etc/passwd           # mostra uma linha qualquer, aleatória
+   zzlinha 9 /etc/passwd         # mostra a linha 9 do arquivo
+   zzlinha -2 /etc/passwd        # mostra a penúltima linha do arquivo
+   zzlinha -t root /etc/passwd   # mostra uma das linhas com "root"
+   cat /etc/passwd | zzlinha     # o arquivo pode vir da entrada padrão
+
+.fi
+
+
+.SH zzlinux
+
+.nf
+http://www.kernel.org/kdist/finger_banner
+Mostra as versões disponíveis do Kernel Linux.
+Uso: zzlinux
+Ex.: zzlinux
+
+.fi
+
+
+.SH zzlinuxnews
+
+.nf
+http://... - vários
+Busca as últimas notícias sobre linux em sites em inglês.
+Obs.: Cada site tem uma letra identificadora que pode ser passada como
+    parâmetro, para informar quais sites você quer pesquisar:
+
+       F)reshMeat         Linux T)oday
+       S)lashDot          Linux W)eekly News
+       O)S News
+
+Uso: zzlinuxnews [sites]
+Ex.: zzlinuxnews
+   zzlinuxnews fs
+
+.fi
+
+
+.SH zzlocale
+
+.nf
+http://funcoeszz.net/locales.txt
+Busca o código do idioma (locale) - por exemplo, português é pt_BR.
+Com a opção -c, pesquisa somente nos códigos e não em sua descrição.
+Uso: zzlocale [-c] código|texto
+Ex.: zzlocale chinese
+   zzlocale -c pt
+
+.fi
+
+
+.SH zzloteria
+
+.nf
+http://www1.caixa.gov.br/loterias
+Consulta os resultados da quina, megasena, duplasena, lotomania e lotofácil.
+Obs.: Se nenhum argumento for passado, todas as loterias são mostradas.
+Uso: zzloteria [quina | megasena | duplasena | lotomania | lotofacil]
+Ex.: zzloteria
+   zzloteria quina megasena
+
+.fi
+
+
+.SH zzloteria2
+
+.nf
+Consulta os resultados da quina, megasena, duplasena, lotomania, lotofácil,
+federal e timemania.
+Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o
+concurso
+    Se nenhum argumento for passado, todas as loterias são mostradas.
+Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | 
+federal | timemania | loteca] concurso]
+Ex.: zzloteria2
+   zzloteria2 quina megasena
+
+.fi
+
+
+.SH zzmaiores
+
+.nf
+Acha os maiores arquivos/diretórios do diretório atual (ou outros).
+Opções: -r  busca recursiva nos subdiretórios
+      -f  busca somente os arquivos e não diretórios
+      -n  número de resultados (o padrão é 10)
+Uso: zzmaiores [-r] [-f] [-n <número>] [dir1 dir2 ...]
+Ex.: zzmaiores
+   zzmaiores /etc /tmp
+   zzmaiores -r -n 5 ~
+
+.fi
+
+
+.SH zzmaiusculas
+
+.nf
+Converte todas as letras para MAIÚSCULAS, inclusive acentuadas.
+Uso: zzmaiusculas [arquivo]
+Ex.: zzmaiusculas /etc/passwd
+
+.fi
+
+
+.SH zzmat
+
+.nf
+Uma coletânea de funções matemáticas simples.
+Se o primeiro argumento for um '-p' seguido de número sem espaço
+define a precisão dos resultados ( casas decimais ), o padrão é 6
+Em cada função foi colocado um pequeno help um pouco mais detalhado,
+pois ficou muito extenso colocar no help do zzmat apenas.
+
+Funções matemáticas disponíveis.
+mmc mdc somatoria produtoria media fat arranjo combinacao pa pa2 pg
+area volume eq2g d2p egr egc egc3p ege
+converte sen cos tan csc sec cot
+log ln abs det conf_eq
+Mais detalhes: zzmat função
+
+Uso: zzmat [-pnumero] funcoes [número] [número]
+Ex.: zzmat mmc 8 12
+   zzmat media 5[2] 7 4[3]
+   zzmat somatoria 3 9 2x+3
+   zzmat -p3 sen 60g
+
+.fi
+
+
+.SH zzmd5
+
+.nf
+Calcula o código MD5 dos arquivos informados, ou de um texto via STDIN.
+Obs.: Wrapper portável para os comandos md5 (Mac) e md5sum (Linux).
+
+Uso: zzmd5 [arquivo(s)]
+Ex.: zzmd5 arquivo.txt
+   cat arquivo.txt | zzmd5
+
+.fi
+
+
+.SH zzminiurl
+
+.nf
+http://migre.me
+Encurta uma URL utilizando o site migre.me.
+Obs.: Se a URL não tiver protocolo no início, será colocado http://
+Uso: zzminiurl URL
+Ex.: zzminiurl http://www.funcoeszz.net
+   zzminiurl www.funcoeszz.net         # O http:// no início é opcional
+
+.fi
+
+
+.SH zzminusculas
+
+.nf
+Converte todas as letras para minúsculas, inclusive acentuadas.
+Uso: zzminusculas [arquivo]
+Ex.: echo NÃO ESTOU GRITANDO | zzminusculas
+
+.fi
+
+
+.SH zzmoeda
+
+.nf
+http://br.invertia.com
+Busca a cotação de várias moedas (mais de 100!) em relação ao dólar.
+Com a opção -t, mostra TODAS as moedas, sem ela, apenas as principais.
+É possível passar várias palavras de pesquisa para filtrar o resultado.
+Obs.: Hora GMT, Dólares por unidade monetária para o Euro e a Libra.
+Uso: zzmoeda [-t] [pesquisa]
+Ex.: zzmoeda
+   zzmoeda -t
+   zzmoeda euro libra
+   zzmoeda -t peso
+
+.fi
+
+
+.SH zzmudaprefixo
+
+.nf
+Move os arquivos que tem um prefixo comum para um novo prefixo.
+Opções:
+-a, --antigo informa o prefixo antigo a ser trocado.
+-n, --novo   informa o prefixo novo a ser trocado.
+Uso: zzmudaprefixo -a antigo -n novo
+Ex.: zzmudaprefixo -a "antigo_prefixo" -n "novo_prefixo"
+   zzmudaprefixo -a "/tmp/antigo_prefixo" -n "/tmp/novo_prefixo"
+
+.fi
+
+
+.SH zznatal
+
+.nf
+http://www.ibb.org.br/vidanet
+A mensagem "Feliz Natal" em vários idiomas.
+Uso: zznatal [palavra]
+Ex.: zznatal                   # busca um idioma aleatório
+   zznatal russo             # Feliz Natal em russo
+
+.fi
+
+
+.SH zznome
+
+.nf
+http://www.significado.origem.nom.br/
+Dicionário de nomes, com sua origem, numerologia e arcanos do tarot.
+Pode-se filtrar por significado, origem, letra (primeira letra), tarot
+marca (no mundo), numerologia ou tudo - como segundo argumento (opcional).
+Por padrão lista origem e significado.
+
+Uso: zznome nome [significado|origem|letra|marca|numerologia|tarot|tudo]
+Ex.: zznome maria 
+   zznome josé origem
+
+.fi
+
+
+.SH zznomefoto
+
+.nf
+Renomeia arquivos do diretório atual, arrumando a seqüência numérica.
+Obs.: Útil para passar em arquivos de fotos baixadas de uma câmera.
+Opções: -n  apenas mostra o que será feito, não executa
+      -i  define a contagem inicial
+      -d  número de dígitos para o número
+      -p  prefixo padrão para os arquivos
+Uso: zznomefoto [-n] [-i N] [-d N] [-p TXT] arquivo(s)
+Ex.: zznomefoto -n *                        # tire o -n para renomear!
+   zznomefoto -n -p churrasco- *.JPG      # tire o -n para renomear!
+   zznomefoto -n -d 4 -i 500 *.JPG        # tire o -n para renomear!
+
+.fi
+
+
+.SH zznoticiaslinux
+
+.nf
+http://... - vários
+Busca as últimas notícias sobre Linux em sites nacionais.
+Obs.: Cada site tem uma letra identificadora que pode ser passada como
+    parâmetro, para informar quais sites você quer pesquisar:
+
+      Y)ahoo Linux         B)r Linux
+      V)iva o Linux        U)nder linux
+      N)otícias linux
+
+Uso: zznoticiaslinux [sites]
+Ex.: zznoticiaslinux
+   zznoticiaslinux yn
+
+.fi
+
+
+.SH zznoticiassec
+
+.nf
+http://... - vários
+Busca as últimas notícias em sites especializados em segurança.
+Obs.: Cada site tem uma letra identificadora que pode ser passada como
+    parâmetro, para informar quais sites você quer pesquisar:
+
+    Linux Security B)rasil    Linux T)oday - Security
+    Linux S)ecurity           Security F)ocus
+    C)ERT/CC
+
+Uso: zznoticiassec [sites]
+Ex.: zznoticiassec
+   zznoticiassec bcf
+
+.fi
+
+
+.SH zzora
+
+.nf
+http://ora-code.com
+Retorna a descrição do erro Oracle (ORA-NNNNN).
+Uso: zzora numero_erro
+Ex.: zzora 1234
+
+.fi
+
+
+.SH zzpascoa
+
+.nf
+Mostra a data do domingo de Páscoa para qualquer ano.
+Obs.: Se o ano não for informado, usa o atual.
+Regra: Primeiro domingo após a primeira lua cheia a partir de 21 de março.
+Uso: zzpascoa [ano]
+Ex.: zzpascoa
+   zzpascoa 1999
+
+.fi
+
+
+.SH zzpiada
+
+.nf
+http://www.xalexandre.com.br/ 
+Mostra uma piada diferente cada vez que é chamada.
+Uso: zzpiada
+Ex.: zzpiada
+
+.fi
+
+
+.SH zzporcento
+
+.nf
+Calcula porcentagens.
+Se informado um número, mostra sua tabela de porcentagens.
+Se informados dois números, mostra a porcentagem relativa entre eles.
+Se informados um número e uma porcentagem, mostra os valores da porcentagem.
+
+Uso: zzporcento valor [valor|porcentagem%]
+Ex.: zzporcento 500           # Tabela de porcentagens de 500
+   zzporcento 500.0000      # Tabela para número fracionário (.)
+   zzporcento 500,0000      # Tabela para número fracionário (,)
+   zzporcento 5.000,00      # Tabela para valor monetário
+   zzporcento 500 25        # Mostra a porcentagem de 25 para 500 (5%)
+   zzporcento 500 1000      # Mostra a porcentagem de 1000 para 500 (200%)
+   zzporcento 500,00 25%    # Mostra quanto é 25% de 500,00
+   zzporcento 500,00 2,5%   # Mostra quanto é 2,5% de 500,00
+
+.fi
+
+
+.SH zzpronuncia
+
+.nf
+http://www.m-w.com
+Fala a pronúncia correta de uma palavra em inglês.
+Uso: zzpronuncia palavra
+Ex.: zzpronuncia apple
+
+.fi
+
+
+.SH zzramones
+
+.nf
+http://aurelio.net/doc/ramones.txt
+Mostra uma frase aleatória, das letras de músicas da banda punk Ramones.
+Obs.: Informe uma palavra se quiser frases sobre algum assunto especifico.
+Uso: zzramones [palavra]
+Ex.: zzramones punk
+   zzramones
+
+.fi
+
+
+.SH zzrandbackground
+
+.nf
+Muda aleatoriamente o background do GNOME.
+A opção -l faz o script entrar em loop.
+ATENÇÃO: o caminho deve conter a última / para que funcione: 
+/wallpaper/ <- funciona
+/wallpaper  <- não funciona
+
+Uso: zzrandbackground -l <caminho_wallpapers> <segundo>
+Ex.: zzrandbackground /media/wallpaper/ 
+   zzrandbackground -l /media/wallpaper/ 5
+
+.fi
+
+
+.SH zzrastreamento
+
+.nf
+http://www.correios.com.br
+Acompanha encomendas via rastreamento dos Correios.
+Uso: zzrastreamento <código_da_encomenda> ...
+Ex.: zzrastreamento RK995267899BR
+   zzrastreamento RK995267899BR RA995267899CN
+
+.fi
+
+
+.SH zzrelansi
+
+.nf
+Coloca um relógio digital (hh:mm:ss) no canto superior direito do terminal.
+Uso: zzrelansi [-s|--stop]
+Ex.: zzrelansi
+
+.fi
+
+
+.SH zzrot13
+
+.nf
+Codifica/decodifica um texto utilizando a cifra ROT13.
+Uso: zzrot13 texto
+Ex.: zzrot13 texto secreto               # Retorna: grkgb frpergb
+   zzrot13 grkgb frpergb               # Retorna: texto secreto
+   echo texto secreto | zzrot13        # Retorna: grkgb frpergb
+
+.fi
+
+
+.SH zzrot47
+
+.nf
+Codifica/decodifica um texto utilizando a cifra ROT47.
+Uso: zzrot47 texto
+Ex.: zzrot47 texto secreto               # Retorna: E6IE@ D64C6E@
+   zzrot47 E6IE@ D64C6E@               # Retorna: texto secreto
+   echo texto secreto | zzrot47        # Retorna: E6IE@ D64C6E@
+
+.fi
+
+
+.SH zzrpmfind
+
+.nf
+http://rpmfind.net/linux
+Procura por pacotes RPM em várias distribuições de Linux.
+Obs.: A arquitetura padrão de procura é a i386.
+Uso: zzrpmfind pacote [distro] [arquitetura]
+Ex.: zzrpmfind sed
+   zzrpmfind lilo mandr i586
+
+.fi
+
+
+.SH zzsecurity
+
+.nf
+http://... - vários
+Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
+Suportados: Debian Fedora FreeBSD Gentoo Mandriva Slackware Suse Ubuntu.
+Uso: zzsecurity [distros]
+Ex.: zzsecutiry
+   zzsecurity fedora
+   zzsecurity debian gentoo
+
+.fi
+
+
+.SH zzsemacento
+
+.nf
+Tira os acentos de todas as letras (áéíóú vira aeiou).
+Uso: zzsemacento texto
+Ex.: zzsemacento AÇÃO 1ª bênção           # Retorna: ACAO 1a bencao
+   echo AÇÃO 1ª bênção | zzsemacento    # Retorna: ACAO 1a bencao
+
+.fi
+
+
+.SH zzsenha
+
+.nf
+Gera uma senha aleatória de N caracteres únicos (não repetidos).
+Obs.: Sem opções, a senha é gerada usando letras e números.
+
+Opções: -p, --pro   Usa letras, números e símbolos para compor a senha
+      -n, --num   Usa somente números para compor a senha
+
+Uso: zzsenha [--pro|--num] [n]     (padrão n=8)
+Ex.: zzsenha
+   zzsenha 10
+   zzsenha --num 9
+   zzsenha --pro 30
+
+.fi
+
+
+.SH zzseq
+
+.nf
+Mostra uma seqüência numérica, um número por linha, ou outro formato.
+É uma emulação do comando seq, presente no Linux.
+Opções:
+-f    Formato de saída (printf) para cada número, o padrão é '%d\en'
+Uso: zzseq [-f formato] [número-inicial [passo]] número-final
+Ex.: zzseq 10                   # de 1 até 10
+   zzseq 5 10                 # de 5 até 10
+   zzseq 10 5                 # de 10 até 5 (regressivo)
+   zzseq 0 2 10               # de 0 até 10, indo de 2 em 2
+   zzseq 10 -2 0              # de 10 até 0, indo de 2 em 2
+   zzseq -f '%d:' 5           # 1:2:3:4:5:
+   zzseq -f '%0.4d:' 5        # 0001:0002:0003:0004:0005:
+   zzseq -f '(%d)' 5          # (1)(2)(3)(4)(5)
+   zzseq -f 'Z' 5             # ZZZZZ
+
+.fi
+
+
+.SH zzsextapaixao
+
+.nf
+Mostra a data da sexta-feira da paixao para qualquer ano.
+Obs.: Se o ano não for informado, usa o atual.
+Regra: 2 dias antes do domingo de Páscoa.
+Uso: zzsextapaixao [ano]
+Ex.: zzsextapaixao
+   zzsextapaixao 2008
+
+.fi
+
+
+.SH zzshuffle
+
+.nf
+Desordena as linhas de um texto (ordem aleatória).
+Uso: zzshuffle [arquivo(s)]
+Ex.: zzshuffle /etc/passwd         # desordena o arquivo de usuários
+   cat /etc/passwd | zzshuffle   # o arquivo pode vir da entrada padrão
+
+.fi
+
+
+.SH zzsigla
+
+.nf
+http://www.acronymfinder.com
+Dicionário de siglas, sobre qualquer assunto (como DVD, IMHO, WYSIWYG).
+Obs.: Há um limite diário de consultas por IP, pode parar temporariamente.
+Uso: zzsigla sigla
+Ex.: zzsigla RTFM
+
+.fi
+
+
+.SH zzss
+
+.nf
+Protetor de tela (Screen Saver) para console, com cores e temas.
+Temas: mosaico, espaco, olho, aviao, jacare, alien, rosa, peixe, siri.
+Obs.: Aperte Ctrl+C para sair.
+Uso: zzss [--rapido|--fundo] [--tema <tema>] [texto]
+Ex.: zzss
+   zzss fui ao banheiro
+   zzss --rapido /
+   zzss --fundo --tema peixe
+
+.fi
+
+
+.SH zzsubway
+
+.nf
+Mostra uma sugestão de sanduíche para pedir na lanchonete Subway.
+Obs.: Se não gostar da sugestão, chame a função novamente para ter outra.
+Uso: zzsubway
+Ex.: zzsubway
+
+.fi
+
+
+.SH zztempo
+
+.nf
+http://weather.noaa.gov/
+Mostra as condições do tempo (clima) em um determinado local.
+Se nenhum parâmetro for passado, são listados os países disponíveis.
+Se só o país for especificado, são listadas as suas localidades.
+As siglas também podem ser usadas, por exemplo SBPA = Porto Alegre.
+Uso: zztempo <país> <localidade>
+Ex.: zztempo 'United Kingdom' 'London City Airport'
+   zztempo brazil 'Curitiba Aeroporto'
+   zztempo brazil SBPA
+
+.fi
+
+
+.SH zztool
+
+.nf
+.fi
+
+
+.SH zztradutor
+
+.nf
+http://translate.google.com
+Google Tradutor, para traduzir frases para vários idiomas.
+Caso não especificado o idioma, a tradução será português -> inglês.
+Use a opção --lista para ver todos os idiomas disponíveis.
+
+Alguns idiomas populares são:
+   pt = português         fr = francês
+   en = inglês            it = italiano
+   es = espanhol          de = alemão
+
+Uso: zztradutor [de-para] palavras
+Ex.: zztradutor o livro está na mesa    # the book is on the table
+   zztradutor pt-en livro             # book
+   zztradutor pt-es livro             # libro
+   zztradutor pt-de livro             # Buch
+   zztradutor de-pt Buch              # livro
+   zztradutor de-es Buch              # Libro
+   zztradutor --lista                 # Lista todos os idiomas
+   zztradutor --lista eslo            # Procura por "eslo" nos idiomas
+
+.fi
+
+
+.SH zztrocaarquivos
+
+.nf
+Troca o conteúdo de dois arquivos, mantendo suas permissões originais.
+Uso: zztrocaarquivos arquivo1 arquivo2
+Ex.: zztrocaarquivos /etc/fstab.bak /etc/fstab
+
+.fi
+
+
+.SH zztrocaextensao
+
+.nf
+Troca a extensão dos arquivos especificados.
+Com a opção -n, apenas mostra o que será feito, mas não executa.
+Uso: zztrocaextensao [-n] antiga nova arquivo(s)
+Ex.: zztrocaextensao -n .doc .txt *          # tire o -n para renomear!
+
+.fi
+
+
+.SH zztrocapalavra
+
+.nf
+Troca uma palavra por outra, nos arquivos especificados.
+Obs.: Além de palavras, é possível usar expressões regulares.
+Uso: zztrocapalavra antiga nova arquivo(s)
+Ex.: zztrocapalavra excessão exceção *.txt
+
+.fi
+
+
+.SH zztweets
+
+.nf
+Busca os últimos 5 tweets de um usuário.
+Uso: zztweets @username
+Ex.: zztweets @oreio
+
+.fi
+
+
+.SH zzunescape
+
+.nf
+Restaura caracteres codificados como entidades HTML e XML (&lt; &#62; ...).
+Entende entidades (&gt;), códigos decimais (&#62;) e hexadecimais (&#x3E;).
+
+Opções: --html  Restaura caracteres HTML
+      --xml   Restaura caracteres XML
+
+Uso: zzunescape [--html] [--xml] [arquivo(s)]
+Ex.: zzunescape --xml arquivo.xml
+   zzunescape --html arquivo.html
+   cat arquivo.html | zzunescape --html
+
+.fi
+
+
+.SH zzunicode2ascii
+
+.nf
+Converte caracteres Unicode (UTF-8) para seus similares ASCII (128).
+
+Uso: zzunicode2ascii [arquivo(s)]
+Ex.: zzunicode2ascii arquivo.txt
+   cat arquivo.txt | zzunicode2ascii
+
+.fi
+
+
+.SH zzuniq
+
+.nf
+Retira as linhas repetidas, consecutivas ou não.
+Obs.: Não altera a ordem original das linhas, diferente do sort|uniq.
+Uso: zzuniq [arquivo]
+Ex.: zzuniq /etc/inittab
+   cat /etc/inittab | zzuniq
+
+.fi
+
+
+.SH zzunix2dos
+
+.nf
+Converte arquivos texto no formato Unix (LF) para o Windows/DOS (CR+LF).
+Uso: zzunix2dos arquivo(s)
+Ex.: zzunix2dos frases.txt
+   cat arquivo.txt | zzunix2dos
+
+.fi
+
+
+.SH zzvira
+
+.nf
+Vira um texto, de trás pra frente (rev) ou de ponta-cabeça.
+Ideia original de: http://www.revfad.com/flip.html (valeu @andersonrizada)
+Uso: zzvira [-X] texto
+Ex.: zzvira Inverte tudo             # odut etrevnI
+   zzvira -X De pernas pro ar      # ɹɐ oɹd sɐuɹǝd ǝp
+
+.fi
+
+
+.SH zzwhoisbr
+
+.nf
+http://registro.br
+Mostra informações sobre domínios brasileiros (.com.br, .org.br, etc).
+Uso: zzwhoisbr domínio
+Ex.: zzwhoisbr abc.com.br
+   zzwhoisbr www.abc.com.br
+
+.fi
+
+
+.SH zzwikipedia
+
+.nf
+http://www.wikipedia.org
+Procura na Wikipédia, a enciclopédia livre.
+Obs.: Se nenhum idioma for especificado, é utilizado o português.
+
+Idiomas: de (alemão)    eo (esperanto)  es (espanhol)  fr (francês)
+       it (italiano)  ja (japonês)    la (latin)     pt (português)
+
+Uso: zzwikipedia [-idioma] palavra(s)
+Ex.: zzwikipedia sed
+   zzwikipedia Linus Torvalds
+   zzwikipedia -pt Linus Torvalds
+
+.fi
+
+
+.SH zzxml
+
+.nf
+Parser simples (e limitado) para arquivos XML/HTML.
+Obs.: Este parser é usado pelas Funções ZZ, não serve como parser genérico.
+Obs.: Necessário pois não há ferramenta portável para lidar com XML no Unix.
+
+Opções: --tidy      Reorganiza o código, deixando uma tag por linha
+      --tag       Extrai (grep) uma tag específica
+      --untag     Remove todas as tags, deixando apenas texto
+      --unescape  Converte as entidades &foo; para caracteres normais
+
+Uso: zzxml [--tidy] [--tag NOME] [--untag] [--unescape] [arquivo(s)]
+Ex.: zzxml --tidy arquivo.xml
+   zzxml --untag --unescape arquivo.xml                     # xml -> txt
+   zzxml --tag title --untag --unescape arquivo.xml         # títulos
+   cat arquivo.xml | zzxml --tag item | zzxml --tag title   # aninhado
+
+.fi
+
+
+.SH zzzz
+
+.nf
+Mostra informações sobre as funções, como versão e localidade.
+Opções: --atualiza  baixa a versão mais nova das funções
+      --teste     testa se a codificação e os pré-requisitos estão OK
+      --bashrc    instala as funções no ~/.bashrc
+      --tcshrc    instala as funções no ~/.tcshrc
+      --zshrc     instala as funções no ~/.zshrc
+Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc]
+Ex.: zzzz
+   zzzz --teste
+
+.fi
+
+
+.\" man code generated by txt2tags 2.6.641 (http://txt2tags.org)
+.\" cmdline: txt2tags manpage.t2t
