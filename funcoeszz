@@ -178,6 +178,11 @@ zztool ()
 				wc -l |
 				tr -d ' \t'
 		;;
+		testa_ano)
+			# Testa se $2 é um ano válido: 0-9999
+			# Ano maior que 9999 pesa no processamento
+			echo "$2" | grep '^[0-9]\{1,4\}$' >/dev/null
+		;;
 		testa_numero)
 			# Testa se $2 é um número positivo
 			echo "$2" | grep '^[0-9]\{1,\}$' >/dev/null

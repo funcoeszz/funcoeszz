@@ -23,7 +23,7 @@ zzhorariodeverao ()
 	test -z "$ano" && ano=$(date +%Y)
 
 	# Verificação básica
-	if ! zztool testa_numero $ano
+	if ! zztool testa_ano $ano
 	then
 		zztool uso horariodeverao
 		return

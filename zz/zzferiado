@@ -33,7 +33,7 @@ zzferiado ()
 		listar=1
 
 		# Teste da variável ano
-		if ! zztool testa_numero $ano; then
+		if ! zztool testa_ano $ano; then
 			zztool uso feriado
 			return
 		fi
