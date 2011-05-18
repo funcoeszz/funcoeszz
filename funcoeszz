@@ -387,7 +387,7 @@ zzajuda ()
 zzzz ()
 {
 	local nome_func arg_func padrao
-	local info_instalado info_cor info_utf8 info_base versao_remota
+	local info_instalado info_instalado_zsh info_cor info_utf8 info_base versao_remota
 	local arquivo_aliases arquivo_zz
 	local n_on n_off
 	local bashrc="$HOME/.bashrc"
@@ -679,6 +679,14 @@ zzzz ()
 				info_instalado='não instalado'
 			fi
 			
+			# As funções estão instaladas no zshrc?
+			if grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$zshrc" >/dev/null 2>&1
+			then
+				info_instalado_zsh="$zshrc"
+			else
+				info_instalado_zsh='não instalado'
+			fi
+
 			# Formata funções essenciais
 			info_base=$(echo $ZZBASE | sed 's/ /, /g')
 			
@@ -689,6 +697,7 @@ zzzz ()
 			zztool acha '^[^)]*)' "( cores) $info_cor"
 			zztool acha '^[^)]*)' "(   tmp) $ZZTMP"
 			zztool acha '^[^)]*)' "(bashrc) $info_instalado"
+			zztool acha '^[^)]*)' "( zshrc) $info_instalado_zsh"
 			zztool acha '^[^)]*)' "(  base) $info_base"
 			zztool acha '^[^)]*)' "(  site) $url_site"
 			
