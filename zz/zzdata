@@ -12,16 +12,18 @@
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2003-02-07
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdata ()
 {
 	zzzz -h data $1 && return
 
-	local yyyy mm dd dias_ano data dias i n y op
+	local yyyy mm dd dias_ano data dias i n y op dias_neste_mes
 	local epoch=1970
 	local primeira_data=1
-	local dias_mes='31 28 31 30 31 30 31 31 30 31 30 31'
+	local dias_mes='31 28 31 30 31 30 31 31 30 31 30 31'     # jan-dez
+	local dias_mes_rev='31 30 31 30 31 31 30 31 30 31 28 31' # dez-jan
 	local data1=$1
 	local operacao=$2
 	local data2=$3
@@ -55,7 +57,7 @@ zzdata ()
 			[ "$primeira_data" ] && data1=$data || data2=$data
 		else
 			# Valida o formato da data
-			if ! ( zztool testa_data "$data" || zztool testa_numero "$data" )
+			if ! ( zztool testa_data "$data" || zztool testa_numero_sinal "$data" )
 			then
 				echo "Data inválida '$data', deve ser dd/mm/aaaa"
 				return
@@ -126,10 +128,38 @@ zzdata ()
 	
 	# Como não caímos no IF anterior, então o resultado será uma data.
 	# É preciso converter o número inteiro para dd/mm/aaaa.
-	
-	y=$epoch
-	mm=1
-	dd=$((dias+1))
+	#
+	# Se o número inteiro for positivo, temos uma data DEPOIS de Epoch
+	# Se o número inteiro for negativo, temos uma data ANTES de Epoch
+	#      03/01/1970 = 2
+	#      02/01/1970 = 1
+	#      01/01/1970 = 0
+	#      31/12/1969 = -1
+	#      30/12/1969 = -2
+
+	if [ $dias -ge 0 ]
+	then
+		# POSITIVO
+		# Inicia em 01/01/1970 e avança no tempo
+		y=$epoch          # ano
+		mm=1              # mês
+		operacao='+'      # direção
+	else
+		# NEGATIVO
+		# Inicia em 31/12/1969 e retrocede no tempo
+		y=$((epoch - 1))  # ano
+		mm=12             # mês
+		operacao='-'      # direção
+		
+		# Valor negativo complica, vamos positivar (abs)
+		dias=$((0 - dias))
+		
+		# Os meses vão andar de trás pra frente
+		dias_mes="$dias_mes_rev"
+	fi
+
+	# O número da Epoch é zero-based, agora vai virar one-based
+	dd=$(($dias $operacao 1))
 	
 	# Dias -> Ano
 	while :
@@ -139,9 +169,18 @@ zzdata ()
 		zztool testa_ano_bissexto $y && dias_ano=366
 		
 		# Vai descontando os dias de cada ano para saber quantos anos cabem
-		[ $dd -le $dias_ano ] && break
+
+		# Não muda o ano se o número de dias for insuficiente
+		[ $dd -lt $dias_ano ] && break
+
+		# Se for exatamente igual ao total de dias, não muda o
+		# ano se estivermos indo adiante no tempo (> Epoch).
+		# Caso contrário vai mudar pois cairemos no último dia
+		# do ano anterior.
+		[ $dd -eq $dias_ano -a $operacao = '+' ] && break
+
 		dd=$((dd-dias_ano))
-		y=$((y+1))
+		y=$(($y $operacao 1))
 	done
 	yyyy=$y
 	
@@ -152,12 +191,28 @@ zzdata ()
 		[ $dias_ano -eq 366 -a $i -eq 28 ] && i=29
 	
 		# Calcula quantos meses cabem nos dias que sobraram
-		[ $dd -le $i ] && break
+		
+		# Não muda o mês se o número de dias for insuficiente
+		[ $dd -lt $i ] && break
+		
+		# Se for exatamente igual ao total de dias, não muda o
+		# mês se estivermos indo adiante no tempo (> Epoch).
+		# Caso contrário vai mudar pois cairemos no último dia
+		# do mês anterior.
+		[ $dd -eq $i -a $operacao = '+' ] && break
+		
 		dd=$((dd-i))
-		mm=$((mm+1))
+		mm=$(($mm $operacao 1))
 	done
+	dias_neste_mes=$i
 	
-	# Restaura o zero dos meses menores que 10
+	# Ano e mês estão OK, agora sobraram apenas os dias
+	
+	# Se estivermos antes de Epoch, os número de dias indica quanto
+	# devemos caminhar do último dia do mês até o primeiro
+	[ $operacao = '-' ] && dd=$(($dias_neste_mes - $dd))
+	
+	# Restaura o zero dos meses e dias menores que 10
 	[ $dd -le 9 ] && dd=0$dd
 	[ $mm -le 9 ] && mm=0$mm
 	
