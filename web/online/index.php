@@ -121,7 +121,11 @@ $method = $_SERVER['REQUEST_METHOD'];
 // It contains just the needed functions for the online version
 // See @scriptgen
 $funcoeszz = './funcoeszz';
+
+// Settings
 $logfile = './log.txt';
+$stdin_max_chars = 10000;
+$arguments_max_chars = 250;
 
 // POST
 $stdin = $_POST['stdin'];
@@ -320,6 +324,14 @@ if ($method == 'GET') {
 /////////////////////////////////////////////////////////////////////
 // Button pressed
 if ($method == 'POST') {
+
+	// Sanity: Max size
+	if (strlen($arguments) > $arguments_max_chars) {
+		die("Ops, texto muito extenso nos argumentos da função. O máximo é $arguments_max_chars caracteres.");
+	}
+	if (strlen($stdin) > $stdin_max_chars) {
+		die("Ops, texto muito extenso na STDIN. O máximo é $stdin_max_chars caracteres.");
+	}
 
 	// Security: Log execution (function name only, not data)
 	date_default_timezone_set('America/Sao_Paulo');
