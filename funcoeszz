@@ -183,6 +183,19 @@ zztool ()
 			# Ano maior que 9999 pesa no processamento
 			echo "$2" | grep '^[0-9]\{1,4\}$' >/dev/null
 		;;
+		testa_ano_bissexto)
+			# Testa se $2 é um ano bissexto
+			#
+			# A year is a leap year if it is evenly divisible by 4
+			# ...but not if it's evenly divisible by 100
+			# ...unless it's also evenly divisible by 400
+			# http://timeanddate.com
+			# http://www.delorie.com/gnu/docs/gcal/gcal_34.html
+			# http://en.wikipedia.org/wiki/Leap_year
+			#
+			local y=$2
+			[ $((y%4)) -eq 0 ] && [ $((y%100)) -ne 0 ] || [ $((y%400)) -eq 0 ]
+		;;
 		testa_numero)
 			# Testa se $2 é um número positivo
 			echo "$2" | grep '^[0-9]\{1,\}$' >/dev/null

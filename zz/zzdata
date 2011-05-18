@@ -85,7 +85,7 @@ zzdata ()
 			do
 				# Sim, os anos bissextos são levados em conta!
 				dias_ano=365
-				[ $((y%4)) -eq 0 ] && [ $((y%100)) -ne 0 ] || [ $((y%400)) -eq 0 ] && dias_ano=366
+				zztool testa_ano_bissexto $y && dias_ano=366
 				
 				# Vai somando (ou subtraindo) até chegar no ano corrente
 				[ $y -eq $yyyy ] && break
@@ -136,7 +136,7 @@ zzdata ()
 	do
 		# Novamente, o ano bissexto é levado em conta
 		dias_ano=365
-		[ $((y%4)) -eq 0 ] && [ $((y%100)) -ne 0 ] || [ $((y%400)) -eq 0 ] && dias_ano=366
+		zztool testa_ano_bissexto $y && dias_ano=366
 		
 		# Vai descontando os dias de cada ano para saber quantos anos cabem
 		[ $dd -le $dias_ano ] && break
