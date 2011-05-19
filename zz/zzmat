@@ -20,7 +20,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -444,7 +444,7 @@ zzmat ()
 			[ "$1" = "somatoria" ] && operacao='+' || operacao='*'
 			num=$(for numero in $(zzseq $2 $3)
 			do
-				echo "($equacao)"|sed "s/x/$numero/g"
+				echo "($equacao)"|sed "s/^[x]/$numero/;s/\([(+-]\)x/\1($numero)/g;s/\([0-9]\)x/\1\*($numero)/g;s/x/$numero/g"
 			done|paste -s -d"$operacao")
 		else
 			echo " zzmat $1: Soma ou Produto de expressão"
