@@ -22,6 +22,7 @@
 # Versão: 20091010
 # Licença: GPLv2
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2011-05-19 Funcionalidades implementadas na zzdata original.
 zzdata2 ()
 {
 	zzzz -h data2 $1 && return
