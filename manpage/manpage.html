@@ -41,7 +41,6 @@
   <LI><A HREF="#zzcorpuschristi">zzcorpuschristi</A>
   <LI><A HREF="#zzcpf">zzcpf</A>
   <LI><A HREF="#zzdata">zzdata</A>
-  <LI><A HREF="#zzdata2">zzdata2</A>
   <LI><A HREF="#zzdatabarras">zzdatabarras</A>
   <LI><A HREF="#zzdefine">zzdefine</A>
   <LI><A HREF="#zzdefinr">zzdefinr</A>
@@ -530,34 +529,13 @@
   Quando chamada com apenas um parâmetro funciona como conversor de data
   para número inteiro (N dias passados desde Epoch) e vice-versa.
   Obs.: Leva em conta os anos bissextos     (Epoch = 01/01/1970, editável)
-  Uso: zzdata data|num [+|- data|num]
-  Ex.: zzdata 22/12/1999 + 69
-       zzdata hoje - 5
+  Uso: zzdata data [+|- data|número&lt;d|m|a&gt;]
+  Ex.: zzdata 22/12/1999 + 69d
+       zzdata hoje + 5d
+       zzdata hoje + 5m
+       zzdata hoje + 5a
        zzdata 01/03/2000 - 11/11/1999
        zzdata hoje - dd/mm/aaaa         &lt;---- use sua data de nascimento
-  
-</PRE>
-
-<H1 ID="zzdata2">zzdata2</H1>
-
-<PRE>
-  Faz calculos com datas e/ou converte data-&gt;num e num-&gt;data.
-  Que dia vai ser daqui 45 dias? Quantos dias ha entre duas datas? zzdata!
-  Quando chamada com apenas um parametro funciona como conversor de data
-  para numero inteiro (N dias passados desde Epoch) e vice-versa.
-  A zzdata pode subtrair, ou somar meses e anos tambem. Eh so especificar!
-  Obs.: Leva em conta os anos bissextos     (Epoch = 01/01/1970, editavel)
-  Opcoes:
-          data|num  data inicial.
-          +|-       operacao a realizar (adicao|subtracao).
-          D|M|Y     unidade em operacao com numero (D=dia, M=mes, Y=ano).
-  Uso: zzdata2 data|num [+|- data|num [D|M|Y]]
-  Ex.: zzdata2 22/12/1999 + 69
-       zzdata2 hoje - 5
-       zzdata2 01/03/2000 - 11/11/1999
-       zzdata2 hoje - dd/mm/aaaa         &lt;---- use sua data de nascimento
-       zzdata2 01/03/2000 - 1 M          # subtrai 1 mes. resp: 01/02/2000
-       zzdata2 30/03/2008 - 1 M          # resp: 19/02/2008 (ano bissexto)
   
 </PRE>
 
