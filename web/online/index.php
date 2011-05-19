@@ -171,7 +171,7 @@ $available = array(
 	'zzcorpuschristi',
 	'zzcpf',
 	'zzdata',
-	'zzdata2',
+	// 'zzdata2',  //off
 	// 'zzdatabarras', //!
 	// 'zzdefine', //i
 	// 'zzdefinr', //i
