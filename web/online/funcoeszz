@@ -183,6 +183,19 @@ zztool ()
 			# Ano maior que 9999 pesa no processamento
 			echo "$2" | grep '^[0-9]\{1,4\}$' >/dev/null
 		;;
+		testa_ano_bissexto)
+			# Testa se $2 é um ano bissexto
+			#
+			# A year is a leap year if it is evenly divisible by 4
+			# ...but not if it's evenly divisible by 100
+			# ...unless it's also evenly divisible by 400
+			# http://timeanddate.com
+			# http://www.delorie.com/gnu/docs/gcal/gcal_34.html
+			# http://en.wikipedia.org/wiki/Leap_year
+			#
+			local y=$2
+			[ $((y%4)) -eq 0 ] && [ $((y%100)) -ne 0 ] || [ $((y%400)) -eq 0 ]
+		;;
 		testa_numero)
 			# Testa se $2 é um número positivo
 			echo "$2" | grep '^[0-9]\{1,\}$' >/dev/null
@@ -387,7 +400,7 @@ zzajuda ()
 zzzz ()
 {
 	local nome_func arg_func padrao
-	local info_instalado info_cor info_utf8 info_base versao_remota
+	local info_instalado info_instalado_zsh info_cor info_utf8 info_base versao_remota
 	local arquivo_aliases arquivo_zz
 	local n_on n_off
 	local bashrc="$HOME/.bashrc"
@@ -679,6 +692,14 @@ zzzz ()
 				info_instalado='não instalado'
 			fi
 			
+			# As funções estão instaladas no zshrc?
+			if grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$zshrc" >/dev/null 2>&1
+			then
+				info_instalado_zsh="$zshrc"
+			else
+				info_instalado_zsh='não instalado'
+			fi
+
 			# Formata funções essenciais
 			info_base=$(echo $ZZBASE | sed 's/ /, /g')
 			
@@ -689,6 +710,7 @@ zzzz ()
 			zztool acha '^[^)]*)' "( cores) $info_cor"
 			zztool acha '^[^)]*)' "(   tmp) $ZZTMP"
 			zztool acha '^[^)]*)' "(bashrc) $info_instalado"
+			zztool acha '^[^)]*)' "( zshrc) $info_instalado_zsh"
 			zztool acha '^[^)]*)' "(  base) $info_base"
 			zztool acha '^[^)]*)' "(  site) $url_site"
 			
@@ -1840,41 +1862,39 @@ zzcpf ()
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2003-02-07
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdata ()
 {
 	zzzz -h data $1 && return
 
-	local yyyy mm dd dias_ano data dias i n y op
+	local yyyy mm dd dias_ano data dias i m y op dias_mes dias_neste_mes
 	local epoch=1970
 	local primeira_data=1
-	local dias_mes='31 28 31 30 31 30 31 31 30 31 30 31'
+	local dias_mes_ok='31 28 31 30 31 30 31 31 30 31 30 31'  # jan-dez
+	local dias_mes_rev='31 30 31 30 31 31 30 31 30 31 28 31' # dez-jan
 	local data1=$1
 	local operacao=$2
 	local data2=$3
 	local n1=$data1
 	local n2=$data2
 
-	# Referências para ano bissexto:
-	#
-	# A year is a leap year if it is evenly divisible by 4
-	# ...but not if it's evenly divisible by 100
-	# ...unless it's also evenly divisible by 400
-	# http://timeanddate.com
-	# http://www.delorie.com/gnu/docs/gcal/gcal_34.html
-	
 	# Verificação dos parâmetros
 	[ $# -eq 3 -o $# -eq 1 ] || { zztool uso data; return; }
 
 	# Esse bloco gigante define $n1 e $n2 baseado nas datas $data1 e $data2.
 	# A data é transformada em um número inteiro (dias desde $epoch).
-	# Exemplo: 27/07/2007 -> 13721
 	# Este é numero usado para fazer os cálculos.
+	# Exemplos:
+	#      03/01/1970 = 2
+	#      02/01/1970 = 1
+	#      01/01/1970 = 0
+	#      31/12/1969 = -1
+	#      30/12/1969 = -2
+	
 	for data in $data1 $data2
 	do
-		dias=0 # Guarda o total que irá para $n1 e $n2
-		
 		# Atalhos úteis para o dia atual
 		if [ "$data" = 'hoje' -o "$data" = 'today' ]
 		then
@@ -1883,7 +1903,7 @@ zzdata ()
 			[ "$primeira_data" ] && data1=$data || data2=$data
 		else
 			# Valida o formato da data
-			if ! ( zztool testa_data "$data" || zztool testa_numero "$data" )
+			if ! ( zztool testa_data "$data" || zztool testa_numero_sinal "$data" )
 			then
 				echo "Data inválida '$data', deve ser dd/mm/aaaa"
 				return
@@ -1893,8 +1913,7 @@ zzdata ()
 		# Se tem /, então é uma data e deve ser transformado em número
 		if zztool grep_var / "$data"
 		then
-			n=1
-			y=$epoch
+			# Extrai os componentes da data: ano, mês, dia
 			yyyy=${data##*/}
 			mm=${data#*/}
 			mm=${mm%/*}
@@ -1904,38 +1923,61 @@ zzdata ()
 			mm=${mm#0}
 			dd=${dd#0}
 
-			# Define qual será a operação: adição ou subtração
-			op=+
-			[ $yyyy -lt $epoch ] && op=-
-			
+			# Define o marco inicial e a direção dos cálculos
+			if [ $yyyy -ge $epoch ]
+			then
+				# +Epoch: Inicia em 01/01/1970 e avança no tempo
+				y=$epoch          # ano
+				m=1               # mês
+				op='+'            # direção
+				dias=0            # 01/01/1970 == 0
+				dias_mes="$dias_mes_ok"
+			else
+				# -Epoch: Inicia em 31/12/1969 e retrocede no tempo
+				y=$((epoch - 1))  # ano
+				m=12              # mês
+				op='-'            # direção
+				dias=-1           # 31/12/1969 == -1
+				dias_mes="$dias_mes_rev"
+			fi
+
 			# Ano -> dias
 			while :
 			do
 				# Sim, os anos bissextos são levados em conta!
 				dias_ano=365
-				[ $((y%4)) -eq 0 ] && [ $((y%100)) -ne 0 ] || [ $((y%400)) -eq 0 ] && dias_ano=366
+				zztool testa_ano_bissexto $y && dias_ano=366
 				
 				# Vai somando (ou subtraindo) até chegar no ano corrente
 				[ $y -eq $yyyy ] && break
-				dias=$((dias $op dias_ano))
-				y=$((y $op 1))
+				dias=$(($dias $op $dias_ano))
+				y=$(($y $op 1))
 			done
 			
 			# Meses -> dias
 			for i in $dias_mes
 			do
-				[ $n -eq $mm ] && break
-				n=$((n+1))
-				
 				# Fevereiro de ano bissexto tem 29 dias
 				[ $dias_ano -eq 366 -a $i -eq 28 ] && i=29
-				
-				dias=$((dias+$i))
+
+				# Vai somando (ou subtraindo) até chegar no mês corrente
+				[ $m -eq $mm ] && break
+				m=$(($m $op 1))
+				dias=$(($dias $op $i))
 			done
+			dias_neste_mes=$i
+
+			# -Epoch: o número de dias indica o quanto deve-se
+			# retroceder à partir do último dia do mês
+			[ $op = '-' ] && dd=$(($dias_neste_mes - $dd))
+
+			# Somando os dias da data aos anos+meses já contados.
+			dias=$(($dias $op $dd))
 			
-			# Somando os dias da data aos anos+meses já contados (-1)
-			dias=$((dias+dd-1))
+			# +Epoch: É substraído um do resultado pois 01/01/1970 == 0
+			[ $op = '+' ] && dias=$((dias - 1))
 			
+			# O número inteiro que representa a data é salvo em n1 ou n2
 			[ "$primeira_data" ] && n1=$dias || n2=$dias
 		fi
 		primeira_data=
@@ -1954,22 +1996,56 @@ zzdata ()
 	
 	# Como não caímos no IF anterior, então o resultado será uma data.
 	# É preciso converter o número inteiro para dd/mm/aaaa.
-	
-	y=$epoch
-	mm=1
-	dd=$((dias+1))
+	#
+	# Se o número inteiro for positivo, temos uma data DEPOIS de Epoch
+	# Se o número inteiro for negativo, temos uma data ANTES de Epoch
+	#      03/01/1970 = 2
+	#      02/01/1970 = 1
+	#      01/01/1970 = 0
+	#      31/12/1969 = -1
+	#      30/12/1969 = -2
+
+	if [ $dias -ge 0 ]
+	then
+		# POSITIVO: Inicia em 01/01/1970 e avança no tempo
+		y=$epoch          # ano
+		mm=1              # mês
+		op='+'            # direção
+		dias_mes="$dias_mes_ok"
+	else
+		# NEGATIVO: Inicia em 31/12/1969 e retrocede no tempo
+		y=$((epoch - 1))  # ano
+		mm=12             # mês
+		op='-'            # direção
+		dias_mes="$dias_mes_rev"
+		
+		# Valor negativo complica, vamos positivar: abs()
+		dias=$((0 - dias))
+	fi
+
+	# O número da Epoch é zero-based, agora vai virar one-based
+	dd=$(($dias $op 1))
 	
 	# Dias -> Ano
 	while :
 	do
 		# Novamente, o ano bissexto é levado em conta
 		dias_ano=365
-		[ $((y%4)) -eq 0 ] && [ $((y%100)) -ne 0 ] || [ $((y%400)) -eq 0 ] && dias_ano=366
+		zztool testa_ano_bissexto $y && dias_ano=366
 		
 		# Vai descontando os dias de cada ano para saber quantos anos cabem
-		[ $dd -le $dias_ano ] && break
-		dd=$((dd-dias_ano))
-		y=$((y+1))
+
+		# Não muda o ano se o número de dias for insuficiente
+		[ $dd -lt $dias_ano ] && break
+
+		# Se for exatamente igual ao total de dias, não muda o
+		# ano se estivermos indo adiante no tempo (> Epoch).
+		# Caso contrário vai mudar pois cairemos no último dia
+		# do ano anterior.
+		[ $dd -eq $dias_ano -a $op = '+' ] && break
+
+		dd=$(($dd - $dias_ano))
+		y=$(($y $op 1))
 	done
 	yyyy=$y
 	
@@ -1980,12 +2056,28 @@ zzdata ()
 		[ $dias_ano -eq 366 -a $i -eq 28 ] && i=29
 	
 		# Calcula quantos meses cabem nos dias que sobraram
-		[ $dd -le $i ] && break
-		dd=$((dd-i))
-		mm=$((mm+1))
+		
+		# Não muda o mês se o número de dias for insuficiente
+		[ $dd -lt $i ] && break
+		
+		# Se for exatamente igual ao total de dias, não muda o
+		# mês se estivermos indo adiante no tempo (> Epoch).
+		# Caso contrário vai mudar pois cairemos no último dia
+		# do mês anterior.
+		[ $dd -eq $i -a $op = '+' ] && break
+		
+		dd=$(($dd - $i))
+		mm=$(($mm $op 1))
 	done
+	dias_neste_mes=$i
 	
-	# Restaura o zero dos meses menores que 10
+	# Ano e mês estão OK, agora sobraram apenas os dias
+	
+	# Se estivermos antes de Epoch, os número de dias indica quanto
+	# devemos caminhar do último dia do mês até o primeiro
+	[ $op = '-' ] && dd=$(($dias_neste_mes - $dd))
+	
+	# Restaura o zero dos meses e dias menores que 10
 	[ $dd -le 9 ] && dd=0$dd
 	[ $mm -le 9 ] && mm=0$mm
 	
@@ -2084,7 +2176,7 @@ zzdata2 ()
 			do
 				# Sim, os anos bissextos sao levados em conta!
 				dias_ano=365
-				zztool testa_bissexto ${y} && dias_ano=366
+				zztool testa_ano_bissexto ${y} && dias_ano=366
 				
 				# Vai somando (ou subtraindo) ate chegar no ano corrente
 				[ $y -eq $yyyy ] && break
@@ -2144,7 +2236,7 @@ zzdata2 ()
 						
 						# Verifica mes de fevereiro.
 						if [ $mm -eq 2 -a $dd -gt 28 ] ; then
-							zztool testa_bissexto "$yyyy" && dd="29" || dd="28"
+							zztool testa_ano_bissexto "$yyyy" && dd="29" || dd="28"
 						fi
 						
 						# Verifica se o dia 31 existe no mes.
@@ -2190,7 +2282,7 @@ zzdata2 ()
 	do
 		# Novamente, o ano bissexto e levado em conta
 		dias_ano=365
-		zztool testa_bissexto ${y} && dias_ano=366
+		zztool testa_ano_bissexto ${y} && dias_ano=366
 		
 		# Vai descontando os dias de cada ano para saber quantos anos cabem
 		[ $dd -le $dias_ano ] && break
