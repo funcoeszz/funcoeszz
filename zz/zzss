@@ -81,7 +81,7 @@ zzss ()
 		if ! [ "$mensagem" ]
 		then
 			echo "Tema desconhecido '$tema'"
-			return
+			return 1
 		fi
 	fi
 	

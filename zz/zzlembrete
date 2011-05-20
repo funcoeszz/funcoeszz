@@ -40,7 +40,7 @@ zzlembrete ()
 		 	sed "${numero:-0} d" "$tmp" > "$arquivo" || {
 			        echo "Ops, deu algum erro no arquivo $arquivo"
 			        echo "Uma cópia dele está em $tmp"
-			        return
+			        return 1
 			}
 		else
 			# zzlembrete 5: Mostra linha 5
@@ -50,7 +50,7 @@ zzlembrete ()
 		# zzlembrete texto: Adiciona o texto
 		echo "$*" >> "$arquivo" || {
 			echo "Ops, não consegui adicionar esse lembrete"
-			return
+			return 1
 		}
 	fi
 }

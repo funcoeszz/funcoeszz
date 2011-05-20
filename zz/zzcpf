@@ -28,7 +28,7 @@ zzcpf ()
 		if [ ${#cpf} -ne 11 ]
 		then
 			echo 'CPF inválido (deve ter 11 dígitos)'
-			return
+			return 1
 		fi
 		
 		# Apaga os dois últimos dígitos

@@ -50,8 +50,8 @@ zzporcento ()
 	# Número inteiro ou erro
 	elif ! zztool testa_numero $valor1
 	then
-		zztool uso porcento
-		return
+		echo "Número inválido '$valor1'"
+		return 1
 	fi
 
 	### Vamos analisar o segundo valor
@@ -75,7 +75,7 @@ zzporcento ()
 		elif ! zztool testa_numero $porcentagem
 		then
 			echo "O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5."
-			return
+			return 1
 		fi
 
 	# O segundo argumento é um número
@@ -96,8 +96,8 @@ zzporcento ()
 		# Número normal ou erro
 		elif ! zztool testa_numero $valor2
 		then
-			zztool uso porcento
-			return
+			echo "Número inválido '$valor2'"
+			return 1
 		fi
 	fi
 

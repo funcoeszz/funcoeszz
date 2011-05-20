@@ -38,7 +38,7 @@ zzfeed ()
 	if ! zztool testa_numero "$limite"
 	then
 		echo "Número inválido para a opção -n: $limite"
-		return
+		return 1
 	fi
 
 	#-----------------------------------------------------------------

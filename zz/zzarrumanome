@@ -103,7 +103,7 @@ zzarrumanome ()
 		then
 			echo "Ops. Problemas com a codificação dos caracteres."
 			echo "O arquivo original foi preservado: $arquivo"
-			return
+			return 1
 		fi
 		
 		# Nada mudou, então o nome atual já certo

@@ -54,12 +54,12 @@ zznomefoto ()
 	if ! zztool testa_numero "$digitos"
 	then
 		echo "Número inválido para a opção -d: $digitos"
-		return
+		return 1
 	fi
 	if ! zztool testa_numero "$i"
 	then
 		echo "Número inválido para a opção -i: $i"
-		return
+		return 1
 	fi
 	
 	# Para cada arquivo que o usuário informou...

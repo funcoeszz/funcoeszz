@@ -75,7 +75,7 @@ fi
 				;;
 			*) 
 				zzecho -l vermelha "Opção inválida!!"
-				return
+				return 1
 				;;
 		esac
 		shift
@@ -107,7 +107,7 @@ fi
 			if ! ( zztool testa_data "$data" || zztool testa_numero "$data" )
                         then
                                 echo "Data inválida '$data', deve ser dd/mm/aaaa"
-                                return
+                                return 1
                         fi
      			data="`echo $data | sed 's/\([0-9]*\)\/\([0-9]*\)\/\([0-9]*\)/\3-\2-\1/g'`"
 			datafile=`date -d $data +%y%m%d`

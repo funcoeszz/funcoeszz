@@ -29,18 +29,18 @@ zzbyte ()
 	# Verificações básicas
 	if ! zztool testa_numero $n
 	then
-		zztool uso byte
-		return
+		echo "Número inválido '$n'"
+		return 1
 	fi
 	if ! zztool grep_var $entrada "$unidades"
 	then
 		echo "Unidade inválida '$entrada'"
-		return
+		return 1
 	fi
 	if ! zztool grep_var $saida ".$unidades"
 	then
 		echo "Unidade inválida '$saida'"
-		return
+		return 1
 	fi
 	
  	# Extrai os números (índices) das unidades de entrada e saída

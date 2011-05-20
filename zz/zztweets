@@ -24,8 +24,8 @@ zztweets ()
 	test -n "$result_show" && echo "$result_show" && return
 
 	result_show=$(echo "$result_raw"| grep "That page doesn't exist!")
-	test -n "$result_show" && echo "Usuário @$name não encontrado!" && return
+	test -n "$result_show" && echo "Usuário @$name não encontrado!" && return 1
 
 	echo "O Twitter não pôde responder essa requisição"
-	return
+	return 1
 }

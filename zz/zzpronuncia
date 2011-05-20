@@ -40,7 +40,7 @@ zzpronuncia ()
 		if test -z "$wav_file"
 		then
 			echo "$palavra: palavra não encontrada"
-			return
+			return 1
 		fi
 		
 		# O nome da pasta é a primeira letra do arquivo (/a/apple001.wav)

@@ -42,7 +42,7 @@ zzhora ()
 	if [ "${operacao#[+-]}" ]
 	then
 	 	echo "Operação Inválida: $operacao"
-		return
+		return 1
 	fi
 	
 	# Atalhos bacanas para a hora atual

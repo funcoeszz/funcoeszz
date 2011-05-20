@@ -16,7 +16,7 @@ zzcineuci ()
 {
 	zzzz -h cineuci $1 && return
 	
-	[ $# -gt 1 ] && zztool uso cineuci && return
+	[ $# -gt 1 ] && zztool uso cineuci && return 1
 	
 	if [ $# = 0 ]; then # mostra opções
 		printf "Cidades e cinemas disponíveis\n=============================\n"

@@ -20,7 +20,7 @@ zzbeep ()
 	# Sem argumentos, apenas restaura a "configuração de fábrica" do beep
 	[ "$1" ] || {
 		printf '\033[10;750]\033[11;100]\a'
-		return
+		return 0
 	}
 	
 	# Para cada quantidade informada pelo usuário...

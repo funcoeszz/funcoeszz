@@ -42,7 +42,7 @@ zzdos2unix ()
 		then
 			echo "Ops, algum erro ocorreu em $arquivo"
 			echo "Seu arquivo original está guardado em $tmp"
-			return
+			return 1
 		fi
 		
 		# Remove a permissão de execução, comum em arquivos DOS

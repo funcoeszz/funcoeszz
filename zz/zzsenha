@@ -43,8 +43,8 @@ zzsenha ()
 	# Foi passado um número mesmo?
 	if ! zztool testa_numero "$n"
 	then
-		zztool uso senha
-		return
+		echo "Número inválido '$n'"
+		return 1
 	fi
 
 	# Já que não repete as letras, temos uma limitação de tamanho
@@ -52,7 +52,7 @@ zzsenha ()
 	if [ $n -gt $maximo ]
 	then
 		echo "O tamanho máximo desse tipo de senha é $maximo"
-		return
+		return 1
 	fi
 	
 	# Esquema de geração da senha:

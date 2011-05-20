@@ -86,7 +86,7 @@ zzcinemais ()
 		;;
 		*)
 			echo "Cidade não cadastrada. Use a opção -h para ver a lista de cidades."
-			return
+			return 1
 		;;
 	esac
 

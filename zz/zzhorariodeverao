@@ -25,15 +25,15 @@ zzhorariodeverao ()
 	# Verificação básica
 	if ! zztool testa_ano $ano
 	then
-		zztool uso horariodeverao
-		return
+		echo "Ano inválido '$ano'"
+		return 1
 	fi
 
 	# Só de 2008 em diante...
 	if test $ano -lt 2008
 	then
 		echo 'Antes de 2008 não havia regra fixa para o horário de verão'
-		return
+		return 1
 	fi
 
 	# Encontra os dias de início e término do horário de verão.

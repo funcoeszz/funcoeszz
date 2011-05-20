@@ -23,8 +23,8 @@ zzpascoa ()
 	# Verificação básica
 	if ! zztool testa_ano $ano
 	then
-		zztool uso pascoa
-		return
+		echo "Ano inválido '$ano'"
+		return 1
 	fi
 
 	# Algoritmo de Jean Baptiste Joseph Delambre (1749-1822)

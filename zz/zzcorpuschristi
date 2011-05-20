@@ -23,8 +23,8 @@ zzcorpuschristi ()
         # Verificação básica
         if ! zztool testa_ano $ano
         then
-                zztool uso corpuschristi
-                return
+		echo "Ano inválido '$ano'"
+		return 1
         fi
 
         # Ah, como é fácil quando se tem as ferramentas certas ;)

@@ -41,7 +41,7 @@ zzunix2dos ()
 		then
 			echo "Ops, algum erro ocorreu em $arquivo"
 			echo "Seu arquivo original está guardado em $tmp"
-			return
+			return 1
 		fi
 				
  		echo "Convertido $arquivo"

@@ -55,7 +55,7 @@ zzseq ()
 	      test $passo -ne 0)
 	then
 		zztool uso seq
-		return
+		return 1
 	fi
 	
 	# Internamente o passo deve ser sempre positivo para simplificar

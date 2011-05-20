@@ -47,7 +47,7 @@ zztempo ()
 	if ! [ "$codigo_pais" ]
 	then
 		echo "País \"$pais\" não encontrado"
-		return
+		return 1
 	fi
 
 	# Se o cache de locais está vazio, baixa listagem da Internet
@@ -75,14 +75,14 @@ zztempo ()
 	if ! [ "$localidades" ]
 	then
 		echo "Localidade \"$localidade\" não encontrada"
-		return
+		return 1
 	fi	
 	
 	# Se mais de uma localidade for encontrada, mostre-as
 	if test $(echo "$localidades" | sed -n '$=') != 1
 	then
 		echo "$localidades"
-		return
+		return 0
 	fi
 
 	# Grava o código do local (SBCO  Porto Alegre -> SBCO)

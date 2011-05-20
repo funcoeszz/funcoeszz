@@ -35,8 +35,8 @@ zzferiado ()
 
 		# Teste da variável ano
 		if ! zztool testa_ano $ano; then
-			zztool uso feriado
-			return
+			echo "Ano inválido '$ano'"
+			return 1
 		fi
 	else
 		# Se não for passada a data é pega a data de hoje
@@ -44,8 +44,8 @@ zzferiado ()
 
 		# Verifica se a data é valida
 		if ! zztool testa_data $data; then
-        	        zztool uso feriado
-        	        return 
+			echo "Data inválida '$data', deve ser dd/mm/aaaa"
+			return 1
         	fi
 
 		# Uma coisa interessante, como data pode ser usada com /(20/11/2008)

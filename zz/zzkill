@@ -39,7 +39,7 @@ zzkill ()
 		if ! [ "$1" ]
 		then
 			echo "$processos"
-			return
+			return 0
 		fi
 		
 		# Filtra a lista, extraindo e matando os PIDs

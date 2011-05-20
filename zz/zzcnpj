@@ -33,7 +33,7 @@ zzcnpj ()
 		if [ ${#cnpj} -ne 14 ]
 		then
 			echo 'CNPJ inválido (deve ter 14 dígitos)'
-			return
+			return 1
 		fi
 
 		base=${cnpj%??}

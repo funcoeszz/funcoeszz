@@ -30,17 +30,17 @@ zzascii ()
 	   test $largura -eq 0
 	then
 		zztool uso ascii
-		return
+		return 1
 	fi
 	if test $num_colunas -gt $max_colunas
 	then
 		echo "O número máximo de colunas é $max_colunas"
-		return
+		return 1
 	fi
 	if test $largura -gt $max_largura
 	then
 		echo "A largura máxima é de $max_largura"
-		return
+		return 1
 	fi
 
 	# Estamos em um terminal UTF-8?

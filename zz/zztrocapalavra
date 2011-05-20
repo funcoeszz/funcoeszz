@@ -51,7 +51,7 @@ zztrocapalavra ()
 		echo "Ops, deu algum erro no arquivo $arquivo"
 		echo "Uma cópia dele está em $tmp"
 		cat "$tmp" > "$arquivo"
-		return
+		return 1
 	done
 	rm -f "$tmp"
 }

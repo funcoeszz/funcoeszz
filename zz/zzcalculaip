@@ -37,13 +37,13 @@ zzcalculaip ()
 	if ! zztool testa_ip $endereco
 	then
 		echo "IP inválido: $endereco"
-		return
+		return 1
 	fi
 	if ! (zztool testa_ip $mascara || (
 	      zztool testa_numero $mascara && test $mascara -le 32))
 	then
 		echo "Máscara inválida: $mascara"
-		return
+		return 1
 	fi
 
 	# Guarda os componentes da máscara em $1, $2, ...
@@ -86,7 +86,7 @@ zzcalculaip ()
 	      test ${#mascara_binario} -eq 32)
 	then
 		echo 'Máscara inválida'
-		return
+		return 1
 	fi
 	
 	mascara_decimal=$(echo $mascara_binario | tr -d 0)

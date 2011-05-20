@@ -25,7 +25,7 @@ zzdiadasemana ()
 	if ! zztool testa_data "$data"
 	then
 		echo "Data inválida '$data', deve ser dd/mm/aaaa"
-		return
+		return 1
 	fi
 
 	# O cálculo se baseia na data ZERO (01/01/1970), que é quinta-feira.
