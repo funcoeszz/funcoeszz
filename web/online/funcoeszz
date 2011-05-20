@@ -746,7 +746,7 @@ zzzz ()
 			if test -r "$ZZTMP.off"
 			then
 			 	# ...e se ele tiver ao menos uma zz
-				grep -q zz "$ZZTMP.off" || return
+				grep zz "$ZZTMP.off" >/dev/null || return
 				
 				echo
 				n_off=$(zztool num_linhas "$ZZTMP.off")
@@ -853,7 +853,7 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra"
 		# Deixa uma letra por linha e procura seu código equivalente
 		echo $* |
 			zzmaiusculas |
-		 	sed 's/./&\
+			sed 's/./&\
 				/g' |
 			while read char
 			do
@@ -1021,23 +1021,24 @@ zzascii ()
 	local linha=0
 	
 	# Verificações básicas
-	if ! zztool testa_numero "$num_colunas" ||
-	   ! zztool testa_numero "$largura" ||
-	   test $num_colunas -eq 0 ||
-	   test $largura -eq 0
+	if (
+		! zztool testa_numero "$num_colunas" ||
+		! zztool testa_numero "$largura" ||
+		test $num_colunas -eq 0 ||
+		test $largura -eq 0)
 	then
 		zztool uso ascii
-		return
+		return 1
 	fi
 	if test $num_colunas -gt $max_colunas
 	then
 		echo "O número máximo de colunas é $max_colunas"
-		return
+		return 1
 	fi
 	if test $largura -gt $max_largura
 	then
 		echo "A largura máxima é de $max_largura"
-		return
+		return 1
 	fi
 
 	# Estamos em um terminal UTF-8?
@@ -1112,6 +1113,9 @@ zzbyte ()
 	local entrada=${2:-B}
 	local saida=${3:-.}
 	
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso byte; return; }
+	
 	# Sejamos amigáveis com o usuário permitindo minúsculas também
 	entrada=$(echo $entrada | zzmaiusculas)
 	saida=$(  echo $saida   | zzmaiusculas)
@@ -1119,21 +1123,21 @@ zzbyte ()
 	# Verificações básicas
 	if ! zztool testa_numero $n
 	then
-		zztool uso byte
-		return
+		echo "Número inválido '$n'"
+		return 1
 	fi
 	if ! zztool grep_var $entrada "$unidades"
 	then
 		echo "Unidade inválida '$entrada'"
-		return
+		return 1
 	fi
 	if ! zztool grep_var $saida ".$unidades"
 	then
 		echo "Unidade inválida '$saida'"
-		return
+		return 1
 	fi
 	
- 	# Extrai os números (índices) das unidades de entrada e saída
+	# Extrai os números (índices) das unidades de entrada e saída
 	i_entrada=$(zztool index_var $entrada $unidades)
 	i_saida=$(  zztool index_var $saida   $unidades)
 		
@@ -1144,8 +1148,8 @@ zzbyte ()
 	diferenca=$((i_saida - i_entrada))
 	if [ $diferenca -lt 0 ]
 	then
-	 	operacao='*'
-	 	passo='-'
+		operacao='*'
+		passo='-'
 	else
 		operacao='/'
 		passo='+'
@@ -1186,8 +1190,8 @@ zzbyte ()
 		
 		# Terminadas as exceções, este é o processo normal
 		# Aumenta/diminui a unidade e divide/multiplica por 1024
-		eval "i=$((i $passo 1))"
-		eval "n=$((n $operacao 1024))"
+		i=$(($i $passo 1))
+		n=$(($n $operacao 1024))
 	done
 	
 	# Mostra o resultado
@@ -1256,13 +1260,14 @@ zzcalculaip ()
 	if ! zztool testa_ip $endereco
 	then
 		echo "IP inválido: $endereco"
-		return
+		return 1
 	fi
-	if ! (zztool testa_ip $mascara || (
-	      zztool testa_numero $mascara && test $mascara -le 32))
+	if ! (
+		zztool testa_ip $mascara || (
+		zztool testa_numero $mascara && test $mascara -le 32))
 	then
 		echo "Máscara inválida: $mascara"
-		return
+		return 1
 	fi
 
 	# Guarda os componentes da máscara em $1, $2, ...
@@ -1301,11 +1306,12 @@ zzcalculaip ()
 	
 	# Uma verificação na máscara depois das conversões
 	mascara_binario=$nm1$nm2$nm3$nm4
-	if ! (zztool testa_binario $mascara_binario &&
-	      test ${#mascara_binario} -eq 32)
+	if ! (
+		zztool testa_binario $mascara_binario &&
+		test ${#mascara_binario} -eq 32)
 	then
 		echo 'Máscara inválida'
-		return
+		return 1
 	fi
 	
 	mascara_decimal=$(echo $mascara_binario | tr -d 0)
@@ -1366,8 +1372,8 @@ zzcarnaval ()
 	# Verificação básica
 	if ! zztool testa_ano $ano
 	then
-		zztool uso carnaval
-		return
+		echo "Ano inválido '$ano'"
+		return 1
 	fi
 
 	# Ah, como é fácil quando se tem as ferramentas certas ;)
@@ -1409,7 +1415,7 @@ zzcnpj ()
 		if [ ${#cnpj} -ne 14 ]
 		then
 			echo 'CNPJ inválido (deve ter 14 dígitos)'
-			return
+			return 1
 		fi
 
 		base=${cnpj%??}
@@ -1460,7 +1466,7 @@ zzcnpj ()
 	if [ ${#cnpj} -eq 12 ]
 	then
 		echo $cnpj$digito1$digito2 |
-		 	sed 's|\(..\)\(...\)\(...\)\(....\)|\1.\2.\3/\4-|'
+			sed 's|\(..\)\(...\)\(...\)\(....\)|\1.\2.\3/\4-|'
 	else
 		if [ "${cnpj#????????????}" = "$digito1$digito2" ]
 		then
@@ -1498,7 +1504,7 @@ zzcontapalavra ()
 		case "$1" in
 			-p) inteira=  ;;
 			-i) ignora=1  ;;
-			 *) break     ;;
+			* ) break     ;;
 		esac
 		shift
 	done
@@ -1569,10 +1575,10 @@ zzcontapalavras ()
 		tr -s ' ' '\n' |
 
 		# Converte tudo pra minúsculas?
-	 	if test -n "$ignore_case"
+		if test -n "$ignore_case"
 		then
-		 	zzminusculas
- 		else
+			zzminusculas
+		else
 			cat -
 		fi |
 
@@ -1642,41 +1648,41 @@ zzconverte ()
 				echo "$1 C = $(echo "$s2;($1*9/5)+32"     | bc) F"
 			;;
 			fc)
-		 		echo "$1 F = $(echo "$s2;($1-32)*5/9"     | bc) C"
+				echo "$1 F = $(echo "$s2;($1-32)*5/9"     | bc) C"
 			;;
 			ck)
 				echo "$1 C = $(echo "$s2;$1+273.15"       | bc) K"
 			;;
 			kc)
-		 		echo "$1 K = $(echo "$s2;$1-273.15"       | bc) C"
+				echo "$1 K = $(echo "$s2;$1-273.15"       | bc) C"
 			;;
 			kf)
-			 	echo "$1 K = $(echo "$s2;($1*1.8)-459.67" | bc) F"
+				echo "$1 K = $(echo "$s2;($1*1.8)-459.67" | bc) F"
 			;;
 			fk)
 				echo "$1 F = $(echo "$s2;($1+459.67)/1.8" | bc) K"
 			;;
 			km)
-			 	echo "$1 km = $(echo "$s2;$1*0.6214"      | bc) milhas"
+				echo "$1 km = $(echo "$s2;$1*0.6214"      | bc) milhas"
 			;;
 			mk)
-			 	echo "$1 milhas = $(echo "$s2;$1*1.609"   | bc) km"
+				echo "$1 milhas = $(echo "$s2;$1*1.609"   | bc) km"
 			;;
 			db)
-			 	echo "obase=2;$1" | bc -l
+				echo "obase=2;$1" | bc -l
 			;;
 			bd)
-			 	echo "$((2#$1))"
+				echo "$((2#$1))"
 			;;
 			cd)
-			 	echo -n "$1" |
-			 		od -d |
-			 		tr -s '\t ' ' ' |
+				echo -n "$1" |
+					od -d |
+					tr -s '\t ' ' ' |
 					cut -d' ' -f2- |
 					sed 's/ *$// ; 1q'
 			;;
 			dc)
-			 	awk "BEGIN { printf(\"%c\n\", $1) }"
+				awk "BEGIN { printf(\"%c\n\", $1) }"
 			
 				# XXX " TextMate syntax gotcha (não remover)
 			;;
@@ -1706,24 +1712,24 @@ zzconverte ()
 # ----------------------------------------------------------------------------
 zzcorpuschristi ()
 {
-        zzzz -h corpuschristi $1 && return
+	zzzz -h corpuschristi $1 && return
 
-        local ano="$1"
+	local ano="$1"
 
-        # Se o ano não for informado, usa o atual
-        test -z "$ano" && ano=$(date +%Y)
+	# Se o ano não for informado, usa o atual
+	test -z "$ano" && ano=$(date +%Y)
 
-        # Verificação básica
-        if ! zztool testa_ano $ano
-        then
-                zztool uso corpuschristi
-                return
-        fi
+	# Verificação básica
+	if ! zztool testa_ano $ano
+	then
+		echo "Ano inválido '$ano'"
+		return 1
+	fi
 
-        # Ah, como é fácil quando se tem as ferramentas certas ;)
-        # e quando já temos o código e só precisamos mudar os numeros
-        # tambem é bom :D ;)
-        zzdata $(zzpascoa $ano) + 60
+	# Ah, como é fácil quando se tem as ferramentas certas ;)
+	# e quando já temos o código e só precisamos mudar os numeros
+	# tambem é bom :D ;)
+	zzdata $(zzpascoa $ano) + 60
 }
 # ----------------------------------------------------------------------------
 # zzcpf
@@ -1756,7 +1762,7 @@ zzcpf ()
 		if [ ${#cpf} -ne 11 ]
 		then
 			echo 'CPF inválido (deve ter 11 dígitos)'
-			return
+			return 1
 		fi
 		
 		# Apaga os dois últimos dígitos
@@ -1839,7 +1845,7 @@ zzcpf ()
 		# Esse CPF foi gerado aleatoriamente pela função.
 		# Apenas adiciona os dígitos verificadores e mostra na tela.
 		echo $cpf$digito1$digito2 |
-		 	sed 's/\(...\)\(...\)\(...\)/\1.\2.\3-/' # nnn.nnn.nnn-nn
+			sed 's/\(...\)\(...\)\(...\)/\1.\2.\3-/' # nnn.nnn.nnn-nn
 	else
 		# Esse CPF foi informado pelo usuário.
 		# Compara os verificadores informados com os calculados.
@@ -1907,7 +1913,7 @@ zzdata ()
 			# Delta sozinho é relativo ao dia atual
 			case "$1" in
 				[0-9]*[dma])
-				 	zzdata hoje + "$1"
+					zzdata hoje + "$1"
 					return
 				;;
 			esac
@@ -2003,13 +2009,13 @@ zzdata ()
 				# Converte apelidos em datas
 				case "$valor" in
 					today|hoje)
-					 	valor=$(date +%d/%m/%Y)
+						valor=$(date +%d/%m/%Y)
 					;;
 					yesterday|ontem)
-					 	valor=$(zzdata hoje - 1)
+						valor=$(zzdata hoje - 1)
 					;;
 					anteontem)
-					 	valor=$(zzdata hoje - 2)
+						valor=$(zzdata hoje - 2)
 					;;
 					tomorrow|amanh[aã])
 						valor=$(zzdata hoje + 1)
@@ -2026,7 +2032,7 @@ zzdata ()
 				if test $# -eq 1
 				then
 					echo $valor
-					return
+					return 0
 				fi
 			;;
 			*)
@@ -2251,7 +2257,7 @@ zzdata ()
 				return 1
 			;;
 		esac
-		return
+		return 0
 	fi
 
 	# Neste ponto só chega se houver mais de um parâmetro.
@@ -2344,7 +2350,7 @@ zzdata ()
 
 				# Tá feito, basta montar a data
 				echo $dd/$mm/$yyyy
-				return
+				return 0
 			;;
 		esac
 
@@ -2371,13 +2377,16 @@ zzdata ()
 # ----------------------------------------------------------------------------
 # zzdiadasemana
 # Mostra qual o dia da semana de uma data qualquer.
+# Com a opção -n mostra o resultado em forma numérica (domingo=1).
 # Obs.: Se a data não for informada, usa a data atual.
-# Uso: zzdiadasemana [data]
+# Uso: zzdiadasemana [-n] [data]
 # Ex.: zzdiadasemana
-#      zzdiadasemana 31/12/2000
+#      zzdiadasemana 31/12/2010          # sexta-feira
+#      zzdiadasemana -n 31/12/2010       # 6
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-24
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzdata
 # ----------------------------------------------------------------------------
@@ -2385,9 +2394,22 @@ zzdiadasemana ()
 {
 	zzzz -h diadasemana $1 && return
 
-	local delta dia
+	local data delta dia
 	local dias="quinta- sexta- sábado domingo segunda- terça- quarta-"
-	local data="$1"
+	local dias_rev="quinta- quarta- terça- segunda- domingo sábado sexta-"
+	local dias_n="5 6 7 1 2 3 4"
+	local dias_n_rev="5 4 3 2 1 7 6"
+	# 1=domingo, assim os números são similares aos nomes: 2=segunda
+
+	# Opção de linha de comando
+	if test "$1" = '-n'
+	then
+		dias=$dias_n
+		dias_rev=$dias_n_rev
+		shift
+	fi
+
+	data="$1"
 
 	# Se a data não foi informada, usa a atual
 	test -z "$data" && data=$(date +%d/%m/%Y)
@@ -2396,7 +2418,7 @@ zzdiadasemana ()
 	if ! zztool testa_data "$data"
 	then
 		echo "Data inválida '$data', deve ser dd/mm/aaaa"
-		return
+		return 1
 	fi
 
 	# O cálculo se baseia na data ZERO (01/01/1970), que é quinta-feira.
@@ -2410,10 +2432,101 @@ zzdiadasemana ()
 	delta=$(zzdata $data)
 	dia=$(( ${delta#-} % 7))  # remove o sinal negativo (se tiver)
 
+	# Se a data é anterior a 01/01/1970, conta os dias ao contrário
+	test $delta -lt 0 && dias="$dias_rev"
+	
 	# O cut tem índice inicial um e não zero, por isso dia+1
 	echo $dias |
-	 	cut -d ' ' -f $((dia+1)) |
-	 	sed 's/-/-feira/'
+		cut -d ' ' -f $((dia+1)) |
+		sed 's/-/-feira/'
+}
+# ----------------------------------------------------------------------------
+# zzdiasuteis
+# Calcula o número de dias úteis entre duas datas, inclusive ambas.
+# Obs.: Não leva em conta feriados.
+# Uso: zzdiasuteis data-inicial data-final
+# Ex.: zzdiasuteis
+#      zzdiasuteis 01/01/2011 31/01/2011     # Retorna: 21
+#
+# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Desde: 2011-05-20
+# Versão: 1
+# Licença: GPL
+# Requisitos: zzdata zzdiadasemana
+# ----------------------------------------------------------------------------
+zzdiasuteis ()
+{
+	zzzz -h diasuteis $1 && return
+
+	local data dias dia1 semanas avulsos ini fim
+	local avulsos_uteis=0
+	local uteis="0111110"  # D S T Q Q S S
+	local data1="$1"
+	local data2="$2"
+
+	# Verificação dos parâmetros
+	if test $# -ne 2
+	then
+		zztool uso diasuteis
+		return 1
+	fi
+
+	# Valida o formato das datas
+	for data in $data1 $data2
+	do
+		if ! zztool testa_data "$data"
+		then
+			echo "Data inválida '$data', deve ser dd/mm/aaaa"
+			return 1
+		fi
+	done
+
+	# Quantos dias há entre as duas datas?
+	dias=$(zzdata $data2 - $data1)
+	
+	# O usuário inverteu a ordem das datas?
+	if test $dias -lt 0
+	then
+		# Tudo bem, a gente desinverte.
+		dias=$((0 - $dias))  # abs()
+		data=$data1
+		data1=$data2
+		data2=$data
+	fi
+	
+	# A zzdata conta a diferença, então precisamos fazer +1 para incluir
+	# ambas as datas no resultado.
+	dias=$((dias + 1))
+	
+	# Qual dia da semana cai a data inicial?
+	dia1=$(zzdiadasemana -n $data1)  # 1=domingo
+
+	# Quantas semanas e quantos dias avulsos?
+	semanas=$((dias / 7))
+	avulsos=$((dias % 7))	
+
+	# Dos avulsos, quantos são úteis?
+	#
+	# Montei uma matriz de 14 posições ($uteis * 2) que contém 0's
+	# e 1's, sendo que os 1's marcam os dias úteis. Faço um recorte
+	# nessa matriz que inicia no $dia1 e tem o tamanho do total de
+	# dias avulsos ($avulsos, max=6). As variáveis $ini e $fim são
+	# usadas no cut e traduzem este recorte. Por fim, removo os
+	# zeros e conto quantos 1's sobraram, que são os dias úteis.
+	#
+	if test $avulsos -gt 0
+	then
+		ini=$dia1
+		fim=$(($dia1 + $avulsos - 1))
+		avulsos_uteis=$(
+			echo "$uteis$uteis" |
+			cut -c $ini-$fim |
+			tr -d 0)
+		avulsos_uteis=${#avulsos_uteis}  # wc -c
+	fi
+
+	# Com os dados na mão, basta calcular
+	echo $(($semanas * 5 + $avulsos_uteis))	
 }
 # ----------------------------------------------------------------------------
 # zzdos2unix
@@ -2460,13 +2573,13 @@ zzdos2unix ()
 		then
 			echo "Ops, algum erro ocorreu em $arquivo"
 			echo "Seu arquivo original está guardado em $tmp"
-			return
+			return 1
 		fi
 		
 		# Remove a permissão de execução, comum em arquivos DOS
 		chmod -x "$arquivo"
 		
- 		echo "Convertido $arquivo"
+		echo "Convertido $arquivo"
 	done
 	
 	# Remove o arquivo temporário
@@ -2490,8 +2603,8 @@ zzfoneletra ()
 
 	# Um Sed faz tudo, é uma tradução letra a letra
 	zztool multi_stdin "$@" |
-	 	zzmaiusculas |
-	 	sed y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/22233344455566677778889999/
+		zzmaiusculas |
+		sed y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/22233344455566677778889999/
 }
 # ----------------------------------------------------------------------------
 # zzgravatar
@@ -2544,7 +2657,7 @@ zzgravatar ()
 			-t|--tamanho)
 				tamanho="$2"
 				extra="$extra&size=$tamanho"
-			 	shift
+				shift
 				shift
 			;;
 			-d| --default)
@@ -2651,8 +2764,8 @@ zzhora ()
 	# Somente adição e subtração são permitidas
 	if [ "${operacao#[+-]}" ]
 	then
-	 	echo "Operação Inválida: $operacao"
-		return
+		echo "Operação Inválida: $operacao"
+		return 1
 	fi
 	
 	# Atalhos bacanas para a hora atual
@@ -2686,7 +2799,7 @@ zzhora ()
 	# Resultado negativo, seta a flag e remove o sinal de menos "-"
 	if [ $resultado -lt 0 ]
 	then
-	 	negativo=-
+		negativo=-
 		resultado=${resultado#-}
 	fi
 	
@@ -2739,16 +2852,16 @@ zzhora ()
 		# "Hoje", "amanhã" e "ontem" são simpáticos no resultado
 		case $negativo$dias in
 			1)
-			 	extra='amanhã'
+				extra='amanhã'
 			;;
 			-1)
-			 	extra='ontem'
+				extra='ontem'
 			;;
 			0|-0)
-			 	extra='hoje'
+				extra='hoje'
 			;;
 			*)
-			 	extra="$negativo$dias dias"
+				extra="$negativo$dias dias"
 			;;
 		esac
 
@@ -2786,10 +2899,10 @@ zzhoramin ()
 
 	# Testa se o parâmetro passado é uma hora valida
 	if ! zztool testa_hora ${1#-}; then
-                hora=$(zzhora agora | cut -d' ' -f1)
-        else
-                hora=$1
-        fi
+		hora=$(zzhora agora | cut -d' ' -f1)
+	else
+		hora=$1
+	fi
 
 	# Verifica se a hora é positiva ou negativa
 	if [ "${hora#-}" != "$hora" ]; then
@@ -2835,15 +2948,15 @@ zzhorariodeverao ()
 	# Verificação básica
 	if ! zztool testa_ano $ano
 	then
-		zztool uso horariodeverao
-		return
+		echo "Ano inválido '$ano'"
+		return 1
 	fi
 
 	# Só de 2008 em diante...
 	if test $ano -lt 2008
 	then
 		echo 'Antes de 2008 não havia regra fixa para o horário de verão'
-		return
+		return 1
 	fi
 
 	# Encontra os dias de início e término do horário de verão.
@@ -3070,7 +3183,7 @@ zzmaiusculas ()
 	
 	sed '
 		y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
-	 	y/àáâãäåèéêëìíîïòóôõöùúûüçñ/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ/' "$@"
+		y/àáâãäåèéêëìíîïòóôõöùúûüçñ/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ/' "$@"
 }
 # ----------------------------------------------------------------------------
 # zzmat
@@ -3479,23 +3592,23 @@ zzmat ()
 			shift 2
 			for num2 in $*
 			do
-			    if (zztool testa_numero $num1 && zztool testa_numero $num2)
-			    then
-				[ "$num1" -gt "$num2" ] && num_maior=$num1 || num_maior=$num2
-				[ "$num1" -lt "$num2" ] && num_menor=$num1 || num_menor=$num2
+				if (zztool testa_numero $num1 && zztool testa_numero $num2)
+				then
+					[ "$num1" -gt "$num2" ] && num_maior=$num1 || num_maior=$num2
+					[ "$num1" -lt "$num2" ] && num_menor=$num1 || num_menor=$num2
 			
-				while [ "$num_menor" -ne "0" ]
-				do
-					resto=$((${num_maior}%${num_menor}))
-					num_maior=$num_menor
-					num_menor=$resto
-				done
+					while [ "$num_menor" -ne "0" ]
+					do
+						resto=$((${num_maior}%${num_menor}))
+						num_maior=$num_menor
+						num_menor=$resto
+					done
 			
-				mdc=$num_maior
-				mmc=$((${num1}*${num2}/${mdc}))
-			    fi
-			    shift
-			    [ "subfuncao" = "mdc" ] && num1="$mdc" || num1="$mmc"
+					mdc=$num_maior
+					mmc=$((${num1}*${num2}/${mdc}))
+				fi
+				shift
+				[ "subfuncao" = "mdc" ] && num1="$mdc" || num1="$mmc"
 			done
 			
 			case $subfuncao in
@@ -3796,9 +3909,9 @@ zzmat ()
 			esac
 			
 			teta=$(echo "$teta"|awk '{printf "%.'${precisao}'f\n", $1}'|
-			      sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			fi=$(echo "$fi"|awk '{printf "%.'${precisao}'f\n", $1}'|
-			      sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			
 			if [ "$tipo" = "-c" ]
 			then
@@ -3850,10 +3963,10 @@ zzmat ()
 				    zztool testa_numero_sinal $b &&
 				    zztool testa_numero_sinal $c)
 				then
-				    redutor=$(zzmat mdc $(zzmat abs $a) $(zzmat abs $b) $(zzmat abs $c))
-				    a=$(echo "$a $redutor"|awk '{valor=($1)/($2); print valor}')
-				    b=$(echo "$b $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
-				    c=$(echo "$c $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
+					redutor=$(zzmat mdc $(zzmat abs $a) $(zzmat abs $b) $(zzmat abs $c))
+					a=$(echo "$a $redutor"|awk '{valor=($1)/($2); print valor}')
+					b=$(echo "$b $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
+					c=$(echo "$c $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
 				fi
 				echo "${a}x${b}y${c}=0"|
 				sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]\{0,1\}0[xy]//g;s/+0=0/=0/;s/^+//'
@@ -4148,7 +4261,7 @@ zzminusculas ()
 	
 	sed '
 		y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
-	 	y/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ/àáâãäåèéêëìíîïòóôõöùúûüçñ/' "$@"
+		y/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ/àáâãäåèéêëìíîïòóôõöùúûüçñ/' "$@"
 }
 # ----------------------------------------------------------------------------
 # zzpascoa
@@ -4176,8 +4289,8 @@ zzpascoa ()
 	# Verificação básica
 	if ! zztool testa_ano $ano
 	then
-		zztool uso pascoa
-		return
+		echo "Ano inválido '$ano'"
+		return 1
 	fi
 
 	# Algoritmo de Jean Baptiste Joseph Delambre (1749-1822)
@@ -4255,6 +4368,9 @@ zzporcento ()
 	local separador=','
 	local tabela='200 150 125 100 90 80 75 70 60 50 40 30 25 20 15 10 9 8 7 6 5 4 3 2 1'
 
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso porcento; return; }
+
 	# Remove os pontos dos dinheiros para virarem fracionários (1.234,00 > 1234,00)
 	zztool testa_dinheiro $valor1 && valor1=$(echo $valor1 | sed 's/\.//g')
 	zztool testa_dinheiro $valor2 && valor2=$(echo $valor2 | sed 's/\.//g')
@@ -4274,8 +4390,8 @@ zzporcento ()
 	# Número inteiro ou erro
 	elif ! zztool testa_numero $valor1
 	then
-		zztool uso porcento
-		return
+		echo "Número inválido '$valor1'"
+		return 1
 	fi
 
 	### Vamos analisar o segundo valor
@@ -4299,7 +4415,7 @@ zzporcento ()
 		elif ! zztool testa_numero $porcentagem
 		then
 			echo "O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5."
-			return
+			return 1
 		fi
 
 	# O segundo argumento é um número
@@ -4320,8 +4436,8 @@ zzporcento ()
 		# Número normal ou erro
 		elif ! zztool testa_numero $valor2
 		then
-			zztool uso porcento
-			return
+			echo "Número inválido '$valor2'"
+			return 1
 		fi
 	fi
 
@@ -4375,7 +4491,7 @@ zzrot13 ()
 	# Um tr faz tudo, é uma tradução letra a letra
 	# Obs.: Dados do tr entre colchetes para funcionar no Solaris
 	zztool multi_stdin "$@" |
-	 	tr '[a-zA-Z]' '[n-za-mN-ZA-M]'
+		tr '[a-zA-Z]' '[n-za-mN-ZA-M]'
 }
 # ----------------------------------------------------------------------------
 # zzrot47
@@ -4470,8 +4586,8 @@ zzsenha ()
 	# Foi passado um número mesmo?
 	if ! zztool testa_numero "$n"
 	then
-		zztool uso senha
-		return
+		echo "Número inválido '$n'"
+		return 1
 	fi
 
 	# Já que não repete as letras, temos uma limitação de tamanho
@@ -4479,7 +4595,7 @@ zzsenha ()
 	if [ $n -gt $maximo ]
 	then
 		echo "O tamanho máximo desse tipo de senha é $maximo"
-		return
+		return 1
 	fi
 	
 	# Esquema de geração da senha:
@@ -4550,13 +4666,14 @@ zzseq ()
 	[ "$3" ] && inicio=$1 passo=$2 fim=$3
 
 	# Verificações básicas
-	if ! (zztool testa_numero_sinal "$inicio" &&
-	      zztool testa_numero_sinal "$passo" &&
-	      zztool testa_numero_sinal "$fim" &&
-	      test $passo -ne 0)
+	if ! (
+		zztool testa_numero_sinal "$inicio" &&
+		zztool testa_numero_sinal "$passo" &&
+		zztool testa_numero_sinal "$fim" &&
+		test $passo -ne 0)
 	then
 		zztool uso seq
-		return
+		return 1
 	fi
 	
 	# Internamente o passo deve ser sempre positivo para simplificar
@@ -4568,11 +4685,12 @@ zzseq ()
 	
 	# Loop que mostra o número e aumenta/diminui a contagem
 	i=$inicio
-	while (test $inicio -lt $fim -a $i -le $fim ||
-	       test $inicio -gt $fim -a $i -ge $fim)
+	while (
+		test $inicio -lt $fim -a $i -le $fim ||
+		test $inicio -gt $fim -a $i -ge $fim)
 	do
 		printf "$formato" $i
-		eval "i=\$((i $operacao passo))" # +n ou -n
+		i=$(($i $operacao $passo))  # +n ou -n
 	done
 	
 	# Caso especial: início e fim são iguais
@@ -4594,24 +4712,24 @@ zzseq ()
 # ----------------------------------------------------------------------------
 zzsextapaixao ()
 {
-        zzzz -h sextapaixao $1 && return
+	zzzz -h sextapaixao $1 && return
 
-        local ano="$1"
+	local ano="$1"
 
-        # Se o ano não for informado, usa o atual
-        test -z "$ano" && ano=$(date +%Y)
+	# Se o ano não for informado, usa o atual
+	test -z "$ano" && ano=$(date +%Y)
 
-        # Verificação básica
-        if ! zztool testa_ano $ano
-        then
-                zztool uso sextapaixao
-                return
-        fi
+	# Verificação básica
+	if ! zztool testa_ano $ano
+	then
+		echo "Ano inválido '$ano'"
+		return 1
+	fi
 
-        # Ah, como é fácil quando se tem as ferramentas certas ;)
-        # e quando já temos o código e só precisamos mudar os numeros
-        # tambem é bom :D ;)
-        zzdata $(zzpascoa $ano) - 2
+	# Ah, como é fácil quando se tem as ferramentas certas ;)
+	# e quando já temos o código e só precisamos mudar os numeros
+	# tambem é bom :D ;)
+	zzdata $(zzpascoa $ano) - 2
 }
 # ----------------------------------------------------------------------------
 # zzshuffle
@@ -4636,12 +4754,12 @@ zzshuffle ()
 		# Um número aleatório é colocado no início de cada linha,
 		# depois o sort ordena numericamente, bagunçando a ordem
 		# original. Então os números são removidos.
-	 	while read linha
+		while read linha
 		do
-		 	echo "$RANDOM $linha"
+			echo "$RANDOM $linha"
 		done |
-	 	sort |
-	 	cut -d ' ' -f 2-
+		sort |
+		cut -d ' ' -f 2-
 }
 # ----------------------------------------------------------------------------
 # zzsubway
@@ -4696,9 +4814,9 @@ zzsubway ()
 		# Obs.: Múltiplos itens são mostrados em uma única linha (paste+sed).
 		echo "$opcoes" |
 			zzshuffle |
-		 	head -n $quantidade |
-		 	paste -s -d : - |
-		 	sed 's/:/, /g'
+			head -n $quantidade |
+			paste -s -d : - |
+			sed 's/:/, /g'
 	done
 }
 # ----------------------------------------------------------------------------
@@ -5001,12 +5119,12 @@ zzunescape ()
 	do
 		case "$1" in
 			--html)
-			 	filtro="$filtro$html";
-			 	shift
+				filtro="$filtro$html";
+				shift
 			;;
 			--xml)
-			 	filtro="$filtro$xml";
-			 	shift
+				filtro="$filtro$xml";
+				shift
 			;;
 			*) break ;;
 		esac
@@ -5405,8 +5523,8 @@ zzxml ()
 			--untag   ) shift; untag=1;;
 			--unescape) shift; unescape=1;;
 			--tag     ) shift; tidy=1 tag="$1"; shift;;
-			       --*) echo "Opção inválida $1"; return 1;;
-			         *) break;;
+			--*       ) echo "Opção inválida $1"; return 1;;
+			*         ) break;;
 		esac
 	done
 
@@ -5582,7 +5700,7 @@ then
 			zz_nome="${zz_arquivo##*/}"  # remove path
 
 			# O usuário desativou esta função?
-			echo "$zz_off" | grep -q "^${zz_nome#zz}$" ||
+			echo "$zz_off" | grep "^${zz_nome#zz}$" >/dev/null ||
 				# Tudo certo, essa vai ser carregada
 				echo "$zz_nome"
 		fi

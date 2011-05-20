@@ -47,6 +47,7 @@
   <LI><A HREF="#zzdelicious">zzdelicious</A>
   <LI><A HREF="#zzdetransp">zzdetransp</A>
   <LI><A HREF="#zzdiadasemana">zzdiadasemana</A>
+  <LI><A HREF="#zzdiasuteis">zzdiasuteis</A>
   <LI><A HREF="#zzdicasl">zzdicasl</A>
   <LI><A HREF="#zzdicbabelfish">zzdicbabelfish</A>
   <LI><A HREF="#zzdicbabylon">zzdicbabylon</A>
@@ -606,10 +607,23 @@
 
 <PRE>
   Mostra qual o dia da semana de uma data qualquer.
+  Com a opção -n mostra o resultado em forma numérica (domingo=1).
   Obs.: Se a data não for informada, usa a data atual.
-  Uso: zzdiadasemana [data]
+  Uso: zzdiadasemana [-n] [data]
   Ex.: zzdiadasemana
-       zzdiadasemana 31/12/2000
+       zzdiadasemana 31/12/2010          # sexta-feira
+       zzdiadasemana -n 31/12/2010       # 6
+  
+</PRE>
+
+<H1 ID="zzdiasuteis">zzdiasuteis</H1>
+
+<PRE>
+  Calcula o número de dias úteis entre duas datas, inclusive ambas.
+  Obs.: Não leva em conta feriados.
+  Uso: zzdiasuteis data-inicial data-final
+  Ex.: zzdiasuteis
+       zzdiasuteis 01/01/2011 31/01/2011     # Retorna: 21
   
 </PRE>
 

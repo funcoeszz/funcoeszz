@@ -178,6 +178,7 @@ $available = array(
 	// 'zzdelicious', //i
 	// 'zzdetransp', //i
 	'zzdiadasemana',
+	'zzdiasuteis',
 	// 'zzdicasl', //i
 	// 'zzdicbabelfish', //i
 	// 'zzdicbabylon', //i
