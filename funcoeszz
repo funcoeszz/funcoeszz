@@ -746,7 +746,7 @@ zzzz ()
 			if test -r "$ZZTMP.off"
 			then
 			 	# ...e se ele tiver ao menos uma zz
-				grep -q zz "$ZZTMP.off" || return
+				grep zz "$ZZTMP.off" >/dev/null || return
 				
 				echo
 				n_off=$(zztool num_linhas "$ZZTMP.off")
@@ -832,7 +832,7 @@ then
 			zz_nome="${zz_arquivo##*/}"  # remove path
 
 			# O usuário desativou esta função?
-			echo "$zz_off" | grep -q "^${zz_nome#zz}$" ||
+			echo "$zz_off" | grep "^${zz_nome#zz}$" >/dev/null ||
 				# Tudo certo, essa vai ser carregada
 				echo "$zz_nome"
 		fi
