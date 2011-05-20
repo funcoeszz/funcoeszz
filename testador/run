@@ -57,6 +57,15 @@ cd $(dirname "$0")
 # Remove all cache files
 rm -f ${ZZTMP:-emptyempty}.*
 
+# Generate all-in-one script (way faster)
+zz="../funcoeszz-testador"
+ZZDIR=../zz ZZOFF='' ../funcoeszz --tudo-em-um > "$zz"
+unset ZZDIR
+chmod +x "$zz" || {
+	echo "Error: $zz"
+	exit 1
+}
+
 i=0
 for f in [a-z]*; do
 
