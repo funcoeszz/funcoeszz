@@ -174,6 +174,13 @@ do
 done
 
 eco ----------------------------------------------------------------
+eco "* Funções com vírgulas no campo Requisitos:"
+for f in zz/* off/*
+do
+	grep '^# Requisitos:.*,' $f > /dev/null && echo $f
+done
+
+eco ----------------------------------------------------------------
 eco "* Funções com cabeçalho >78 colunas"
 for f in zz/* off/*
 do

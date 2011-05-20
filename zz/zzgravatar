@@ -23,7 +23,7 @@
 # Desde: 2011-05-06
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzmd5, zzminusculas
+# Requisitos: zzmd5 zzminusculas
 # ----------------------------------------------------------------------------
 zzgravatar ()
 {
