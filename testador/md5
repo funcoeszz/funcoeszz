@@ -11,7 +11,7 @@ _empty	_dados	t	"d41d8cd98f00b204e9800998ecf8427e\t_empty\na48adf5366ffc7e0a6eb6
 
 # Testes personalizados
 
-result=$(echo abcdef | ../funcoeszz md5 | sed -n l)
+result=$(echo abcdef | "$zz" md5 | sed -n l)
 
 if test "$result" != '5ab557c937e38f15291c04b7e99544ad$'
 then
