@@ -4,12 +4,12 @@ values=1
 tests=(
 0	t	''
 1	r	'^[A-Za-z0-9]$'
-8	r	'^[A-Za-z0-9]{8}$'
+10	r	'^[A-Za-z0-9]{10}$'
 62	r	'^[A-Za-z0-9]{62}$'
-''	r	'^[A-Za-z0-9]{6}$' # default
+''	r	'^[A-Za-z0-9]{8}$' # default
 
-FOO	r	^Uso:.*
--8	r	^Uso:.*
-63	r	"O tamanho m.ximo da senha . 62"
+FOO	t	"Número inválido 'FOO'"
+-8	t	"Número inválido '-8'"
+63	t	"O tamanho máximo desse tipo de senha é 62"
 )
 . _lib

@@ -54,12 +54,12 @@ saida5="200%	1000
 
 tests=(
 ''	''	r	^Uso:.*
-100	-1	r	^Uso:.*
--1	100	r	^Uso:.*
-100	+1	r	^Uso:.*
-+1	100	r	^Uso:.*
-100	X	r	^Uso:.*
-X	100	r	^Uso:.*
+100	-1	r	"Número inválido '-1'"
+-1	100	t	"Número inválido '-1'"
+100	+1	t	"Número inválido '+1'"
++1	100	t	"Número inválido '+1'"
+100	X	t	"Número inválido 'X'"
+X	100	t	"Número inválido 'X'"
 
 1	.5%	r	'O valor da porcentagem deve ser um n.*mero. Exemplos: 2 ou 2,5.'
 1	-5%	r	'O valor da porcentagem deve ser um n.*mero. Exemplos: 2 ou 2,5.'

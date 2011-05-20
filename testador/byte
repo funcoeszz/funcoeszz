@@ -3,11 +3,11 @@ debug=0
 values=3
 tests=(
 ''	''	''	r	^Uso:.*
-a	''	''	r	^Uso:.*
--1	''	''	r	^Uso:.*
-1.0	''	''	r	^Uso:.*
-1,0	''	''	r	^Uso:.*
-' '	''	''	r	^Uso:.*
+a	''	''	t	"Número inválido 'a'"
+-1	''	''	t	"Número inválido '-1'"
+1.0	''	''	t	"Número inválido '1.0'"
+1,0	''	''	t	"Número inválido '1,0'"
+# ' '	''	''	t	"Número inválido ' '"
 
 0	x	''	r	"Unidade inv.lida '.'"
 0	B	x	r	"Unidade inv.lida '.'"

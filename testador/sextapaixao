@@ -20,9 +20,9 @@ tests=(
 2010	t	02/04/2010
 
 # Erros
-01/01/1970	r	^Uso:.*
--2000 		r	^Uso:.*
-foo 		r	^Uso:.*
+01/01/1970	t	"Ano inválido '01/01/1970'"
+-2000 		t	"Ano inválido '-2000'"
+foo 		t	"Ano inválido 'foo'"
 
 # Epoch
 0	t	09/04/0
