@@ -1,13 +1,15 @@
 # ----------------------------------------------------------------------------
 # Mostra qual o dia da semana de uma data qualquer.
+# Com a opção -n mostra o resultado em forma numérica (domingo=1).
 # Obs.: Se a data não for informada, usa a data atual.
-# Uso: zzdiadasemana [data]
+# Uso: zzdiadasemana [-n] [data]
 # Ex.: zzdiadasemana
-#      zzdiadasemana 31/12/2000
+#      zzdiadasemana 31/12/2010          # sexta-feira
+#      zzdiadasemana -n 31/12/2010       # 6
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-24
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzdata
 # ----------------------------------------------------------------------------
@@ -15,10 +17,22 @@ zzdiadasemana ()
 {
 	zzzz -h diadasemana $1 && return
 
-	local delta dia
+	local data delta dia numerico
 	local dias="quinta- sexta- sábado domingo segunda- terça- quarta-"
 	local dias_rev="quinta- quarta- terça- segunda- domingo sábado sexta-"
-	local data="$1"
+	local dias_n="5 6 7 1 2 3 4"
+	local dias_n_rev="5 4 3 2 1 7 6"
+	# 1=domingo, assim os números são similares aos nomes: 2=segunda
+
+	# Opção de linha de comando
+	if test "$1" = '-n'
+	then
+		dias=$dias_n
+		dias_rev=$dias_n_rev
+		shift
+	fi
+
+	data="$1"
 
 	# Se a data não foi informada, usa a atual
 	test -z "$data" && data=$(date +%d/%m/%Y)
