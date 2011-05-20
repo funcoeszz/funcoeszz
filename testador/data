@@ -4,15 +4,105 @@ values=3
 now=$(date +%d/%m/%Y)
 tests=(
 
-# hoje, today, zero
-hoje	+	0	t	$now
-today	+	0	t	$now
-22/12/1999	+	0	t	22/12/1999
-22/12/1999	-	0	t	22/12/1999
+# Sem argumentos, mostra a data atual
+''		''	''		t	$now
+
+# Apelidos: hoje, ontem, ...
+hoje		''	''		t	$now
+today		''	''		t	$now
+hoje		+	0		t	$now
+today		+	0		t	$now
+amanhã		-	1		t	$now
+amanha		-	1		t	$now
+tomorrow	-	1		t	$now
+ontem		+	1		t	$now
+yesterday	+	1		t	$now
+anteontem	+	2		t	$now
+hoje		+	0d		t	$now
+amanhã		-	1d		t	$now
+ontem		+	1d		t	$now
+anteontem	+	2d		t	$now
+
+# Um delta sozinho é aplicado à data atual
+0d		''	''		t	$now
+0m		''	''		t	$now
+0a		''	''		t	$now
+
+# Se há um delta, o outro valor deve ser uma data ou número
+1d		+	1m		r	^Uso:.*
+1a		+	1m		r	^Uso:.*
+1m		+	0a		r	^Uso:.*
+
+# Cálculo com zero 
+22/12/1999	+	0		t	22/12/1999
+22/12/1999	-	0		t	22/12/1999
+
+# Cálculos estranhos
+0		+	0		t	01/01/1970
+1		-	1		t	01/01/1970
+1		+	0		t	02/01/1970
+0		+	1		t	02/01/1970
+0		-	1		t	31/12/1969
+
+# Anos com 2, 3, 5 dígitos
+01/01/1		+	0		t	01/01/1
+01/01/10	+	0		t	01/01/10
+01/01/100	+	0		t	01/01/100
+01/01/1000	+	0		t	01/01/1000
+01/01/10000	+	0		t	"Data inválida '01/01/10000', deve ser dd/mm/aaaa"
+
+# Anos com zeros à esquerda (pode confundir com octal)
+01/01/0008	+	0		t	01/01/8
+01/01/008	+	0		t	01/01/8
+01/01/08	+	0		t	01/01/8
+01/01/08	+	1d		t	02/01/8
+01/01/08	+	1m		t	01/02/8
+01/01/08	+	1a		t	01/01/9
+
+# Erros
+hoje		/	2		t	"Operação inválida '/'. Deve ser + ou -."
+hoje		1	2		t	"Operação inválida '1'. Deve ser + ou -."
+#
+foo		''	''		t	"Data inválida 'foo', deve ser dd/mm/aaaa"
+foo		+	1		t	"Data inválida 'foo', deve ser dd/mm/aaaa"
+1		+	foo		t	"Data inválida 'foo', deve ser dd/mm/aaaa"
+01/01/1970	+	foo		t	"Data inválida 'foo', deve ser dd/mm/aaaa"
+1d		+	foo		t	"Data inválida 'foo', deve ser dd/mm/aaaa"
+#
+99/99/9999	''	''		t	"Data inválida '99/99/9999', deve ser dd/mm/aaaa"
+99/99/9999	+	1		t	"Data inválida '99/99/9999', deve ser dd/mm/aaaa"
+1		+	99/99/9999	t	"Data inválida '99/99/9999', deve ser dd/mm/aaaa"
+#
+77.0		''	''		t	"Número inválido '77.0'"
+-77.0		''	''		t	"Número inválido '-77.0'"
+77,0		''	''		t	"Número inválido '77,0'"
+-77,0		''	''		t	"Número inválido '-77,0'"
+01/01/1970	+	5x		t	"Número inválido '5x'"
+5x		+	01/01/1970	t	"Número inválido '5x'"
+01/01/1970	+	-5d		t	"Número inválido '-5d'"
+-5d		+	01/01/1970	t	"Número inválido '-5d'"
+#
+01/01/1970	+	5.5d		t	"Delta inválido '5.5d'. Deve ser algo como 5d, 5m ou 5a."
+01/01/1970	+	5,5d		t	"Delta inválido '5,5d'. Deve ser algo como 5d, 5m ou 5a."
+5.5d		+	01/01/1970	t	"Delta inválido '5.5d'. Deve ser algo como 5d, 5m ou 5a."
+5,5d		+	01/01/1970	t	"Delta inválido '5,5d'. Deve ser algo como 5d, 5m ou 5a."
+#
+01/01/1970	-	''		r	^Uso:.*
+01/01/1970	+	''		r	^Uso:.*
+hoje		+	''		r	^Uso:.*
+today		+	''		r	^Uso:.*
+111		+	''		r	^Uso:.*
+1m		+	''		r	^Uso:.*
+-		01/01/1970	''	r	^Uso:.*
++		01/01/1970	''	r	^Uso:.*
++		hoje		''	r	^Uso:.*
++		today		''	r	^Uso:.*
++		111		''	r	^Uso:.*
++		1m		''	r	^Uso:.*
 
 # Exemplos do --help
-22/12/1999	+	69	t	29/02/2000	# 29 de Fevereiro
-01/03/2000	-	69	t	23/12/1999
+22/12/1999	+	69		t	29/02/2000	# 29 de Fevereiro
+01/03/2000	-	69		t	23/12/1999
 01/03/2000	-	11/11/1999	t	111
  
 # Checagem de ano bissexto
@@ -24,13 +114,6 @@ today	+	0	t	$now
 # Troca de 29/02 pra 28/02 quando o resultado do delta não é bissexto
 29/02/2000	+	1a	t	28/02/2001
 29/02/2000	+	4a	t	29/02/2004
-
-# cálculos estranhos
-0	+	0	t	01/01/1970
-1	-	1	t	01/01/1970
-1	+	0	t	02/01/1970
-0	+	1	t	02/01/1970
-0	-	1	t	31/12/1969
 
 # delta
 01/01/2000 + 0		t	01/01/2000
@@ -64,11 +147,15 @@ today	+	0	t	$now
 # delta negativo, porém com resultado positivo (não muda o ano)
 01/10/2000 - 5m		t	01/05/2000
 
-# Se há um delta, *deve* haver uma data
-1d	+	1m	r	^Uso:.*
-1	+	1m	r	^Uso:.*
-1m	+	1	r	^Uso:.*
-1m	''	''	r	^Uso:.*
+# Delta com números
+0	+	1d	t	02/01/1970
+1	+	1d	t	03/01/1970
+1	+	1m	t	02/02/1970
+1	+	1a	t	02/01/1971
+1d	+	0	t	02/01/1970
+1d	+	1	t	03/01/1970
+1m	+	1	t	02/02/1970
+1a	+	1	t	02/01/1971
 
 # Limites do Epoch
 30/12/1968	''	''	t	-367
@@ -111,13 +198,6 @@ today	+	0	t	$now
 28/02/1972	''	''	t	788
 29/02/1972	''	''	t	789
 01/03/1972	''	''	t	790
-
-# Erros
-01/01/1970	-	''	r	^Uso:.*
-01/01/1970	+	''	r	^Uso:.*
-hoje	+	''	r	^Uso:.*
-today	+	''	r	^Uso:.*
-111	+	''	r	^Uso:.*
 
 # Data -> Numero
 01/01/1970	''	''	t	0
