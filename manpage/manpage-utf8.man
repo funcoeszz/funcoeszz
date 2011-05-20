@@ -406,18 +406,25 @@ Ex.: zzcpf 123.456.789-09          # valida o CPF
 .SH zzdata
 
 .nf
-Faz cálculos com datas e/ou converte data->num e num->data.
-Que dia vai ser daqui 45 dias? Quantos dias há entre duas datas? zzdata!
-Quando chamada com apenas um parâmetro funciona como conversor de data
-para número inteiro (N dias passados desde Epoch) e vice-versa.
-Obs.: Leva em conta os anos bissextos     (Epoch = 01/01/1970, editável)
-Uso: zzdata data [+|- data|número<d|m|a>]
-Ex.: zzdata 22/12/1999 + 69d
-   zzdata hoje + 5d
-   zzdata hoje + 5m
-   zzdata hoje + 5a
-   zzdata 01/03/2000 - 11/11/1999
-   zzdata hoje - dd/mm/aaaa         <---- use sua data de nascimento
+Calculadora de datas, trata corretamente os anos bissextos.
+Você pode somar ou subtrair dias, meses e anos de uma data qualquer.
+Você pode informar a data dd/mm/aaaa ou usar palavras como: hoje, ontem.
+Na diferença entre duas datas, o resultado é o número de dias entre elas.
+Se informar somente uma data, converte para número de dias (01/01/1970 = 0).
+Se informar somente um número (de dias), converte de volta para a data.
+Esta função também pode ser usada para validar uma data.
+
+Uso: zzdata [data [+|- data|número<d|m|a>]]
+Ex.: zzdata                           # que dia é hoje?
+   zzdata anteontem                 # que dia foi anteontem?
+   zzdata hoje + 15d                # que dia será daqui 15 dias?
+   zzdata hoje - 40d                # e 40 dias atrás, foi quando?
+   zzdata 31/12/2010 + 100d         # 100 dias após a data informada
+   zzdata 29/02/2001                # data inválida, ano não-bissexto
+   zzdata 29/02/2000 + 1a           # 28/02/2001 <- respeita bissextos
+   zzdata 01/03/2000 - 11/11/1999   # quantos dias há entre as duas?
+   zzdata hoje - 07/10/1977         # quantos dias desde meu nascimento?
+   zzdata 21/12/2012 - hoje         # quantos dias para o fim do mundo?
 
 .fi
 
