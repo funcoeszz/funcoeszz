@@ -22,6 +22,9 @@ zzbyte ()
 	local entrada=${2:-B}
 	local saida=${3:-.}
 	
+	# Verificação dos parâmetros
+	[ "$1" ] || { zztool uso byte; return; }
+
 	# Sejamos amigáveis com o usuário permitindo minúsculas também
 	entrada=$(echo $entrada | zzmaiusculas)
 	saida=$(  echo $saida   | zzmaiusculas)
