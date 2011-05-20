@@ -17,7 +17,7 @@ zzdiadasemana ()
 {
 	zzzz -h diadasemana $1 && return
 
-	local data delta dia numerico
+	local data delta dia
 	local dias="quinta- sexta- sábado domingo segunda- terça- quarta-"
 	local dias_rev="quinta- quarta- terça- segunda- domingo sábado sexta-"
 	local dias_n="5 6 7 1 2 3 4"
