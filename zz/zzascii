@@ -10,6 +10,7 @@
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2002-12-06
 # Licença: GPL
+# Requisitos: zzseq
 # ----------------------------------------------------------------------------
 zzascii ()
 {

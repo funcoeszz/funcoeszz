@@ -14,6 +14,7 @@
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2001-07-23
 # Licença: GPL
+# Requisitos: zzarrumanome zzminusculas
 # ----------------------------------------------------------------------------
 zzarrumanome ()
 {

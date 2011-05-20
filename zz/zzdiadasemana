@@ -8,6 +8,7 @@
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-24
 # Licença: GPL
+# Requisitos: zzdata
 # ----------------------------------------------------------------------------
 zzdiadasemana ()
 {
