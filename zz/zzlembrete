@@ -36,11 +36,11 @@ zzlembrete ()
 		if zztool grep_var d "$*"
 		then
 			# zzlembrete 5d: Apaga linha 5
-		        cp "$arquivo" "$tmp" &&
-		 	sed "${numero:-0} d" "$tmp" > "$arquivo" || {
-			        echo "Ops, deu algum erro no arquivo $arquivo"
-			        echo "Uma cópia dele está em $tmp"
-			        return 1
+			cp "$arquivo" "$tmp" &&
+			sed "${numero:-0} d" "$tmp" > "$arquivo" || {
+				echo "Ops, deu algum erro no arquivo $arquivo"
+				echo "Uma cópia dele está em $tmp"
+				return 1
 			}
 		else
 			# zzlembrete 5: Mostra linha 5

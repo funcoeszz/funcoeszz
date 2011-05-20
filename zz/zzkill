@@ -32,7 +32,7 @@ zzkill ()
 		processos=$(ps xw --format pid,comm 2>/dev/null) ||
 		processos=$(ps xw -o pid,command 2>/dev/null)
 
-		 # Diga não ao suicídio
+		# Diga não ao suicídio
 		processos=$(echo "$processos" | grep -vw '\(zz\)*kill')
 		
 		# Sem argumentos, apenas mostra a listagem e sai

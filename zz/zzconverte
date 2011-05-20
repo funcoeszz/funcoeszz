@@ -41,41 +41,41 @@ zzconverte ()
 				echo "$1 C = $(echo "$s2;($1*9/5)+32"     | bc) F"
 			;;
 			fc)
-		 		echo "$1 F = $(echo "$s2;($1-32)*5/9"     | bc) C"
+				echo "$1 F = $(echo "$s2;($1-32)*5/9"     | bc) C"
 			;;
 			ck)
 				echo "$1 C = $(echo "$s2;$1+273.15"       | bc) K"
 			;;
 			kc)
-		 		echo "$1 K = $(echo "$s2;$1-273.15"       | bc) C"
+				echo "$1 K = $(echo "$s2;$1-273.15"       | bc) C"
 			;;
 			kf)
-			 	echo "$1 K = $(echo "$s2;($1*1.8)-459.67" | bc) F"
+				echo "$1 K = $(echo "$s2;($1*1.8)-459.67" | bc) F"
 			;;
 			fk)
 				echo "$1 F = $(echo "$s2;($1+459.67)/1.8" | bc) K"
 			;;
 			km)
-			 	echo "$1 km = $(echo "$s2;$1*0.6214"      | bc) milhas"
+				echo "$1 km = $(echo "$s2;$1*0.6214"      | bc) milhas"
 			;;
 			mk)
-			 	echo "$1 milhas = $(echo "$s2;$1*1.609"   | bc) km"
+				echo "$1 milhas = $(echo "$s2;$1*1.609"   | bc) km"
 			;;
 			db)
-			 	echo "obase=2;$1" | bc -l
+				echo "obase=2;$1" | bc -l
 			;;
 			bd)
-			 	echo "$((2#$1))"
+				echo "$((2#$1))"
 			;;
 			cd)
-			 	echo -n "$1" |
-			 		od -d |
-			 		tr -s '\t ' ' ' |
+				echo -n "$1" |
+					od -d |
+					tr -s '\t ' ' ' |
 					cut -d' ' -f2- |
 					sed 's/ *$// ; 1q'
 			;;
 			dc)
-			 	awk "BEGIN { printf(\"%c\n\", $1) }"
+				awk "BEGIN { printf(\"%c\n\", $1) }"
 			
 				# XXX " TextMate syntax gotcha (não remover)
 			;;

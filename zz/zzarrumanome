@@ -29,7 +29,7 @@ zzarrumanome ()
 			-d) pastas=1    ;;
 			-r) recursivo=1 ;;
 			-n) nao="[-n] " ;;
-			 *) break       ;;
+			* ) break       ;;
 		esac
 		shift
 	done
@@ -51,7 +51,7 @@ zzarrumanome ()
 		then
 			# Arruma arquivos de dentro dela (-r)
 			[ "${recursivo:-0}" -eq 1 ] &&
-			 	zzarrumanome -r ${pastas:+-d} ${nao:+-n} "$arquivo"/*
+				zzarrumanome -r ${pastas:+-d} ${nao:+-n} "$arquivo"/*
 			
 			# Não renomeia nome da pasta (se não tiver -d)
 			[ "${pastas:-0}" -ne 1 ] && continue

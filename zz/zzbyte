@@ -24,7 +24,7 @@ zzbyte ()
 	
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso byte; return; }
-
+	
 	# Sejamos amigáveis com o usuário permitindo minúsculas também
 	entrada=$(echo $entrada | zzmaiusculas)
 	saida=$(  echo $saida   | zzmaiusculas)
@@ -46,7 +46,7 @@ zzbyte ()
 		return 1
 	fi
 	
- 	# Extrai os números (índices) das unidades de entrada e saída
+	# Extrai os números (índices) das unidades de entrada e saída
 	i_entrada=$(zztool index_var $entrada $unidades)
 	i_saida=$(  zztool index_var $saida   $unidades)
 		
@@ -57,8 +57,8 @@ zzbyte ()
 	diferenca=$((i_saida - i_entrada))
 	if [ $diferenca -lt 0 ]
 	then
-	 	operacao='*'
-	 	passo='-'
+		operacao='*'
+		passo='-'
 	else
 		operacao='/'
 		passo='+'

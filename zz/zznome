@@ -29,7 +29,7 @@ zznome ()
 	
 	case "$2" in
 		origem)
-		 	ini='Qual a origem do nome '
+			ini='Qual a origem do nome '
 			fim='^ *$'
 		;;
 		significado)

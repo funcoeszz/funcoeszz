@@ -83,7 +83,7 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra"
 		# Deixa uma letra por linha e procura seu código equivalente
 		echo $* |
 			zzmaiusculas |
-		 	sed 's/./&\
+			sed 's/./&\
 				/g' |
 			while read char
 			do

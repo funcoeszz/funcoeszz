@@ -41,7 +41,7 @@ zzhora ()
 	# Somente adição e subtração são permitidas
 	if [ "${operacao#[+-]}" ]
 	then
-	 	echo "Operação Inválida: $operacao"
+		echo "Operação Inválida: $operacao"
 		return 1
 	fi
 	
@@ -76,7 +76,7 @@ zzhora ()
 	# Resultado negativo, seta a flag e remove o sinal de menos "-"
 	if [ $resultado -lt 0 ]
 	then
-	 	negativo=-
+		negativo=-
 		resultado=${resultado#-}
 	fi
 	
@@ -129,16 +129,16 @@ zzhora ()
 		# "Hoje", "amanhã" e "ontem" são simpáticos no resultado
 		case $negativo$dias in
 			1)
-			 	extra='amanhã'
+				extra='amanhã'
 			;;
 			-1)
-			 	extra='ontem'
+				extra='ontem'
 			;;
 			0|-0)
-			 	extra='hoje'
+				extra='hoje'
 			;;
 			*)
-			 	extra="$negativo$dias dias"
+				extra="$negativo$dias dias"
 			;;
 		esac
 

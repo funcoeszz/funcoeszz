@@ -27,13 +27,13 @@ zzss ()
 	local temas='
 		mosaico	#
 		espaco	.
- 		olho	00
+		olho	00
 		aviao	--o-0-o--
 		jacare	==*-,,--,,--
-	   	alien	/-=-\\
+		alien	/-=-\\
 		rosa	--/--\-<@
 		peixe	>-)))-D
- 		siri	(_).-=''=-.(_)
+		siri	(_).-=''=-.(_)
 	'
 	
 	# Tenta obter as dimensões atuais da tela/janela
@@ -73,7 +73,7 @@ zzss ()
 	then
 		mensagem=$(
 			echo "$temas" |
-		 		grep -w "$tema" |
+				grep -w "$tema" |
 				zztool trim |
 				cut -f2
 		)
@@ -97,7 +97,7 @@ zzss ()
 	# Define se a parte fixa do código de cores será fundo ou frente
 	if [ "$fundo" ]
 	then
-	 	cor_fixo='30;4'
+		cor_fixo='30;4'
 	else
 		cor_fixo='40;3'
 	fi

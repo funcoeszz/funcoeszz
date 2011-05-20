@@ -37,8 +37,8 @@ zzxml ()
 			--untag   ) shift; untag=1;;
 			--unescape) shift; unescape=1;;
 			--tag     ) shift; tidy=1 tag="$1"; shift;;
-			       --*) echo "Opção inválida $1"; return 1;;
-			         *) break;;
+			--*       ) echo "Opção inválida $1"; return 1;;
+			*         ) break;;
 		esac
 	done
 

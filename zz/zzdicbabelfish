@@ -45,7 +45,7 @@ zzdicbabelfish ()
 	$ZZWWWHTML "$url?$extra&trtext=$padrao&lp=$lang" |
 		sed -n '
 			/<div id="result">/ {
-		 		s/<[^>]*>//g
+				s/<[^>]*>//g
 				s/^ *//p
 			}'
 }

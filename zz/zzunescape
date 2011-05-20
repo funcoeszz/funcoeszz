@@ -297,12 +297,12 @@ zzunescape ()
 	do
 		case "$1" in
 			--html)
-			 	filtro="$filtro$html";
-			 	shift
+				filtro="$filtro$html";
+				shift
 			;;
 			--xml)
-			 	filtro="$filtro$xml";
-			 	shift
+				filtro="$filtro$xml";
+				shift
 			;;
 			*) break ;;
 		esac

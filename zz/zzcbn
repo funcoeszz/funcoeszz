@@ -50,15 +50,15 @@ EXT="wma"
 
 if [ "$1" == "-lista" ]
 then
-  for i in $COMENTARISTAS
-  do
-     echo `echo $i | cut -d';' -f1`
-  done
-  return
+	for i in $COMENTARISTAS
+	do
+		echo `echo $i | cut -d';' -f1`
+	done
+	return
 fi
 
 # Opções de linha de comando
-        while [ "${1#-}" != "$1" ]
+	while [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
 			-c)
@@ -82,8 +82,8 @@ fi
 	done
 
 	linha=`echo $COMENTARISTAS | tr ' ' '\n' | sed  "/$comentarista/!d"`
-        autor=`echo $linha | cut -d';' -f 3`
-#        [ "$data" ] || data=`LANG=en.US date "+%d %b %Y"`
+	autor=`echo $linha | cut -d';' -f 3`
+#	[ "$data" ] || data=`LANG=en.US date "+%d %b %Y"`
 #	echo "$RSS`echo $linha | cut -d';' -f 2`.xml"
 	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml"  | sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" | sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$ZZTMP.comentarios"
 	
@@ -92,26 +92,26 @@ fi
 	case  "$data" in 
 		"ontem")
 			datafile=`date -d "yesterday" +%y%m%d`
-		        data=`LANG=en date -d "yesterday" "+%d %b %Y"`
+			data=`LANG=en date -d "yesterday" "+%d %b %Y"`
 			cat "$ZZTMP.comentarios" | sed -n "/$data/{H;x;p;};h" > "$ZZTMP.coment"
 		;;
-	 	"tudo")
+		"tudo")
 			cat "$ZZTMP.comentarios" | sed '1d' > "$ZZTMP.coment"
 		;;
 		"")
 			datafile=`date '+%y%m%d'`
-		        data=`LANG=en date "+%d %b %Y"`
+			data=`LANG=en date "+%d %b %Y"`
 			cat "$ZZTMP.comentarios" | sed -n "/$data/{H;x;p;};h" > "$ZZTMP.coment"
 		;;
 		*)
 			if ! ( zztool testa_data "$data" || zztool testa_numero "$data" )
-                        then
-                                echo "Data inválida '$data', deve ser dd/mm/aaaa"
-                                return 1
-                        fi
-     			data="`echo $data | sed 's/\([0-9]*\)\/\([0-9]*\)\/\([0-9]*\)/\3-\2-\1/g'`"
+			then
+				echo "Data inválida '$data', deve ser dd/mm/aaaa"
+				return 1
+			fi
+			data="`echo $data | sed 's/\([0-9]*\)\/\([0-9]*\)\/\([0-9]*\)/\3-\2-\1/g'`"
 			datafile=`date -d $data +%y%m%d`
-		        data=`LANG=en date -d $data "+%d %b %Y"`
+			data=`LANG=en date -d $data "+%d %b %Y"`
 			cat "$ZZTMP.comentarios" | sed -n "/$data/{H;x;p;};h" > "$ZZTMP.coment"
 
 
@@ -123,9 +123,9 @@ fi
 		P=`expr $l + 1`
 		titulo=`cat "$ZZTMP.coment"| sed "$l!d"`
 		data=`cat "$ZZTMP.coment"| sed "$P!d"`
-   		datafile=`date -d "$data" "+%y%m%d"`
-   		hora=`LANG=en date -d "$data" "+%p"`
-   		data=`LANG=en date -d "$data" "+%d %b %Y %H:%m"`
+		datafile=`date -d "$data" "+%y%m%d"`
+		hora=`LANG=en date -d "$data" "+%p"`
+		data=`LANG=en date -d "$data" "+%d %b %Y %H:%m"`
 		dois="_"
 		if [ "$hora" == "PM" ]
 		then
@@ -137,7 +137,7 @@ fi
 		fi
 		zzecho -l verde "(q) para próximo; CTRL+C para sair"
 		#echo $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT
-   		echo $titulo - $data 
+		echo $titulo - $data 
 		mplayer $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT 1>/dev/null 2>/dev/null || return
 	done
 	if [ "$Tlinhas" == "0" ]

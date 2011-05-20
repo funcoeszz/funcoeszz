@@ -84,14 +84,14 @@ zzenviaemail ()
 	# Verifica se o arquivo existe.
 	zztool arquivo_existe "${mensagem}"
 
-    # Monta e-mail padrao para envio via SMTP.
+	# Monta e-mail padrao para envio via SMTP.
 	echo "From: ${fromail} <${fromail}>" > ${script_eml}
-    echo "To: ${tomail}" >> ${script_eml}
-    echo "Cc: ${ccmail}" >> ${script_eml}
-    echo "Bcc: ${bccmail}" >> ${script_eml}
-    echo "Subject: ${subject}" >> ${script_eml}
-    cat ${mensagem} >> ${script_eml}
-    ssmtp -F ${1} ${tomail} ${ccmail} ${bccmail} < ${script_eml}
+	echo "To: ${tomail}" >> ${script_eml}
+	echo "Cc: ${ccmail}" >> ${script_eml}
+	echo "Bcc: ${bccmail}" >> ${script_eml}
+	echo "Subject: ${subject}" >> ${script_eml}
+	cat ${mensagem} >> ${script_eml}
+	ssmtp -F ${1} ${tomail} ${ccmail} ${bccmail} < ${script_eml}
 	if [ -s "${script_eml}" ] ; then
 		rm -f "${script_eml}"
 	fi

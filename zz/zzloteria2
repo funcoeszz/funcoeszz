@@ -72,7 +72,7 @@ zzloteria2 ()
 				data=$(     echo "$dump" | cut -d '|' -f 42)
 				acumulado=$(echo "$dump" | cut -d '|' -f 71,72)
 				resultado=$(echo "$dump" | cut -d '|' -f 7-26 |
-			 		sed 's/|/@/10 ; s/|/ - /g' |
+					sed 's/|/@/10 ; s/|/ - /g' |
 					tr @ '\n'
 				)
 				faixa=$(zzseq -f "\t%d ptos\n" 20 1 16)

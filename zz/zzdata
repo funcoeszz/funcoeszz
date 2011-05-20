@@ -52,7 +52,7 @@ zzdata ()
 			# Delta sozinho é relativo ao dia atual
 			case "$1" in
 				[0-9]*[dma])
-				 	zzdata hoje + "$1"
+					zzdata hoje + "$1"
 					return
 				;;
 			esac
@@ -148,13 +148,13 @@ zzdata ()
 				# Converte apelidos em datas
 				case "$valor" in
 					today|hoje)
-					 	valor=$(date +%d/%m/%Y)
+						valor=$(date +%d/%m/%Y)
 					;;
 					yesterday|ontem)
-					 	valor=$(zzdata hoje - 1)
+						valor=$(zzdata hoje - 1)
 					;;
 					anteontem)
-					 	valor=$(zzdata hoje - 2)
+						valor=$(zzdata hoje - 2)
 					;;
 					tomorrow|amanh[aã])
 						valor=$(zzdata hoje + 1)

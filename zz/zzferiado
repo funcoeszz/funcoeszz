@@ -44,9 +44,9 @@ zzferiado ()
 
 		# Verifica se a data é valida
 		if ! zztool testa_data $data; then
-			echo "Data inválida '$data', deve ser dd/mm/aaaa"
+			echo "Data inválida '$data'"
 			return 1
-        	fi
+		fi
 
 		# Uma coisa interessante, como data pode ser usada com /(20/11/2008)
 		# podemos usar o basename e dirname para pegar o que quisermos
@@ -76,12 +76,12 @@ zzferiado ()
 		# Pega os dados, coloca 1 por linha, inverte dd/mm para mm/dd,
 		# ordena, inverte mm/dd para dd/mm
 		echo $feriados |
-                sed '   
-                        s# \([0-3]\)#\n\1#g
-                        s#\(..\)/\(..\)#\2/\1#g
-                ' |
-                sort -n |
-                sed 's#\(..\)/\(..\)#\2/\1#g' |
+		sed '   
+			s# \([0-3]\)#\n\1#g
+			s#\(..\)/\(..\)#\2/\1#g
+		' |
+		sort -n |
+		sed 's#\(..\)/\(..\)#\2/\1#g' |
 		while read LINHA; do
 			dia=$(echo $LINHA | cut -d: -f1)
 			diasemana=$(zzdiadasemana $dia/$ano)

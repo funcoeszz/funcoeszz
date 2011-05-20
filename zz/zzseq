@@ -49,10 +49,11 @@ zzseq ()
 	[ "$3" ] && inicio=$1 passo=$2 fim=$3
 
 	# Verificações básicas
-	if ! (zztool testa_numero_sinal "$inicio" &&
-	      zztool testa_numero_sinal "$passo" &&
-	      zztool testa_numero_sinal "$fim" &&
-	      test $passo -ne 0)
+	if ! (
+		zztool testa_numero_sinal "$inicio" &&
+		zztool testa_numero_sinal "$passo" &&
+		zztool testa_numero_sinal "$fim" &&
+		test $passo -ne 0)
 	then
 		zztool uso seq
 		return 1
@@ -67,8 +68,9 @@ zzseq ()
 	
 	# Loop que mostra o número e aumenta/diminui a contagem
 	i=$inicio
-	while (test $inicio -lt $fim -a $i -le $fim ||
-	       test $inicio -gt $fim -a $i -ge $fim)
+	while (
+		test $inicio -lt $fim -a $i -le $fim ||
+		test $inicio -gt $fim -a $i -ge $fim)
 	do
 		printf "$formato" $i
 		eval "i=\$((i $operacao passo))" # +n ou -n

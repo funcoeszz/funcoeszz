@@ -111,7 +111,7 @@ zzcpf ()
 		# Esse CPF foi gerado aleatoriamente pela função.
 		# Apenas adiciona os dígitos verificadores e mostra na tela.
 		echo $cpf$digito1$digito2 |
-		 	sed 's/\(...\)\(...\)\(...\)/\1.\2.\3-/' # nnn.nnn.nnn-nn
+			sed 's/\(...\)\(...\)\(...\)/\1.\2.\3-/' # nnn.nnn.nnn-nn
 	else
 		# Esse CPF foi informado pelo usuário.
 		# Compara os verificadores informados com os calculados.

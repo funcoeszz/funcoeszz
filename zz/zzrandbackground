@@ -56,9 +56,9 @@ zzrandbackground ()
 		# Caso nao seja passado o -l, só tem o camiho
 		# caso negativo mostra o uso da funcao
 		if [ "$#" != "1" ]; then
-                        zztool uso randbackground
-                        return 1
-                fi
+			zztool uso randbackground
+			return 1
+		fi
 
 		# O caminho é valido, caso negativo
 		# mostra o uso da funcao
@@ -82,12 +82,12 @@ zzrandbackground ()
 	if [ "$loop" ];then
 		while test "1" 
 		do
-		        background=$( echo "$papeisdeparede" |
-		                 zzshuffle |
-		                 head -1 
-		                )
-		        gconftool-2 --type string --set /desktop/gnome/background/picture_filename "$background"
-		        sleep $segundos
+			background=$( echo "$papeisdeparede" |
+				zzshuffle |
+				head -1 
+				)
+			gconftool-2 --type string --set /desktop/gnome/background/picture_filename "$background"
+			sleep $segundos
 		done
 
 	# não, não foi passado -l, então só troca 1x.
@@ -95,7 +95,7 @@ zzrandbackground ()
 		background=$( echo "$papeisdeparede" |
 				zzshuffle |
 				head -1 
-			    )
+			)
 		gconftool-2 --type string --set /desktop/gnome/background/picture_filename "$background"
 	fi
 }

@@ -16,5 +16,5 @@ zzrot13 ()
 	# Um tr faz tudo, é uma tradução letra a letra
 	# Obs.: Dados do tr entre colchetes para funcionar no Solaris
 	zztool multi_stdin "$@" |
-	 	tr '[a-zA-Z]' '[n-za-mN-ZA-M]'
+		tr '[a-zA-Z]' '[n-za-mN-ZA-M]'
 }

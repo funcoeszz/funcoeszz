@@ -74,7 +74,7 @@ zznomefoto ()
 		# Se tiver extensão, guarda para restaurar depois
 		if zztool grep_var . "$arquivo"
 		then
-		 	extensao=".${arquivo##*.}"
+			extensao=".${arquivo##*.}"
 		else
 			extensao=
 		fi

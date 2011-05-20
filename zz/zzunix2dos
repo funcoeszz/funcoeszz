@@ -44,7 +44,7 @@ zzunix2dos ()
 			return 1
 		fi
 				
- 		echo "Convertido $arquivo"
+		echo "Convertido $arquivo"
 	done
 	
 	# Remove o arquivo temporário

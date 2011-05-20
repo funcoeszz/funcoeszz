@@ -50,8 +50,8 @@ zzsubway ()
 		# Obs.: Múltiplos itens são mostrados em uma única linha (paste+sed).
 		echo "$opcoes" |
 			zzshuffle |
-		 	head -n $quantidade |
-		 	paste -s -d : - |
-		 	sed 's/:/, /g'
+			head -n $quantidade |
+			paste -s -d : - |
+			sed 's/:/, /g'
 	done
 }

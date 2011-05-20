@@ -48,7 +48,7 @@ zzdos2unix ()
 		# Remove a permissão de execução, comum em arquivos DOS
 		chmod -x "$arquivo"
 		
- 		echo "Convertido $arquivo"
+		echo "Convertido $arquivo"
 	done
 	
 	# Remove o arquivo temporário

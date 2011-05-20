@@ -84,7 +84,7 @@ zzcnpj ()
 	if [ ${#cnpj} -eq 12 ]
 	then
 		echo $cnpj$digito1$digito2 |
-		 	sed 's|\(..\)\(...\)\(...\)\(....\)|\1.\2.\3/\4-|'
+			sed 's|\(..\)\(...\)\(...\)\(....\)|\1.\2.\3/\4-|'
 	else
 		if [ "${cnpj#????????????}" = "$digito1$digito2" ]
 		then

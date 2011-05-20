@@ -24,10 +24,11 @@ zzascii ()
 	local linha=0
 	
 	# Verificações básicas
-	if ! zztool testa_numero "$num_colunas" ||
-	   ! zztool testa_numero "$largura" ||
-	   test $num_colunas -eq 0 ||
-	   test $largura -eq 0
+	if (
+		! zztool testa_numero "$num_colunas" ||
+		! zztool testa_numero "$largura" ||
+		test $num_colunas -eq 0 ||
+		test $largura -eq 0)
 	then
 		zztool uso ascii
 		return 1

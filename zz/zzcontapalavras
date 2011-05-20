@@ -50,10 +50,10 @@ zzcontapalavras ()
 		tr -s ' ' '\n' |
 
 		# Converte tudo pra minúsculas?
-	 	if test -n "$ignore_case"
+		if test -n "$ignore_case"
 		then
-		 	zzminusculas
- 		else
+			zzminusculas
+		else
 			cat -
 		fi |
 

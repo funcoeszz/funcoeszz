@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzenglish ()
 {
- 	zzzz -h english $1 && return
+	zzzz -h english $1 && return
 
 	[ "$1" ] || { zztool uso english; return; }
 	

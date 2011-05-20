@@ -37,22 +37,22 @@ zzdicportugues2 ()
 	# Verificando se a palavra confere na pesquisa
 	until [ "$resultado" = "$palavra" ]
 	do
-	    resultado=$(
-	    $ZZWWWDUMP "$url/$padrao" |
-		sed -n "
-		/$ini/{
-			s/$ini//
-			s/ *$//
-			p
-			}" |
-		zzminusculas
-		)
-	    [ "$resultado" ] || { zztool eco "Palavra não encontrada"; return 1; }
-	    
-	    # Incrementando o contador no padrão
-	    padrao=$(echo "$padrao"|sed 's/_[0-9]*$//')
-	    let contador++
-	    padrao=${padrao}_${contador}
+		resultado=$(
+		$ZZWWWDUMP "$url/$padrao" |
+			sed -n "
+			/$ini/{
+				s/$ini//
+				s/ *$//
+				p
+				}" |
+			zzminusculas
+			)
+		[ "$resultado" ] || { zztool eco "Palavra não encontrada"; return 1; }
+
+		# Incrementando o contador no padrão
+		padrao=$(echo "$padrao"|sed 's/_[0-9]*$//')
+		let contador++
+		padrao=${padrao}_${contador}
 	done
 	
 	# Restabelecendo o contador
@@ -63,44 +63,44 @@ zzdicportugues2 ()
 	case "$2" in
 	"def") ini='^Definição de '; fim=' escrita ao contrário: ' ;;
 	"conj")
-	    ini='Infinitivo:'; fim='por .* eles$'
-	    case "$3" in
-		"ind") ini='^INDICATIVO'; fim='^SUBJUNTIVO' ;;
-		"sub") ini='^SUBJUNTIVO'; fim='^IMPERATIVO' ;;
-		"imp") ini='^IMPERATIVO'; fim='^INFINITIVO' ;;
-		"inf") ini='^INFINITIVO' ;;
-	    esac
+		ini='Infinitivo:'; fim='por .* eles$'
+		case "$3" in
+			"ind") ini='^INDICATIVO'; fim='^SUBJUNTIVO' ;;
+			"sub") ini='^SUBJUNTIVO'; fim='^IMPERATIVO' ;;
+			"imp") ini='^IMPERATIVO'; fim='^INFINITIVO' ;;
+			"inf") ini='^INFINITIVO' ;;
+		esac
 	;;
 	esac
 	
 	case "$2" in
 	"conj")
-	    $ZZWWWDUMP "$url/$padrao" |
-		sed -n "
-		/$ini/,/$fim/ {
-			/^INDICATIVO/d
-			/^SUBJUNTIVO/d
-			/^IMPERATIVO/d
-			/^INFINITIVO/d
-			/^ *$/d
-			s/^ *//
-			s/^\*/\n&/
-			s/ do \(Indicativo\|Subjuntivo\)/&\n/
-			s/\* Imperativo \(Afirmativo\|Negativo\)/&\n/
-			s/\* Infinitivo Pessoal/&\n/
-			s/^[a-z]/ &/g
-			p
-			}"
+		$ZZWWWDUMP "$url/$padrao" |
+			sed -n "
+			/$ini/,/$fim/ {
+				/^INDICATIVO/d
+				/^SUBJUNTIVO/d
+				/^IMPERATIVO/d
+				/^INFINITIVO/d
+				/^ *$/d
+				s/^ *//
+				s/^\*/\n&/
+				s/ do \(Indicativo\|Subjuntivo\)/&\n/
+				s/\* Imperativo \(Afirmativo\|Negativo\)/&\n/
+				s/\* Infinitivo Pessoal/&\n/
+				s/^[a-z]/ &/g
+				p
+				}"
 	;;
 	*)
-	    $ZZWWWDUMP "$url/$padrao" |
-		sed -n "
-		/$ini/,/$fim/ {
-			/$ini/d
-			/^Definição de /d
-			p
-			}
-		/Infinitivo:/,/Particípio passado:/p"
+		$ZZWWWDUMP "$url/$padrao" |
+			sed -n "
+			/$ini/,/$fim/ {
+				/$ini/d
+				/^Definição de /d
+				p
+				}
+			/Infinitivo:/,/Particípio passado:/p"
 	;;
 	esac
 }

@@ -20,10 +20,10 @@ zzshuffle ()
 		# Um número aleatório é colocado no início de cada linha,
 		# depois o sort ordena numericamente, bagunçando a ordem
 		# original. Então os números são removidos.
-	 	while read linha
+		while read linha
 		do
-		 	echo "$RANDOM $linha"
+			echo "$RANDOM $linha"
 		done |
-	 	sort |
-	 	cut -d ' ' -f 2-
+		sort |
+		cut -d ' ' -f 2-
 }

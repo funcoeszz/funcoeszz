@@ -99,7 +99,7 @@ zzcinemais ()
 
 	hora=`date +%Hh%M | cut -d'h' -f1`
 	minuto=`date +%Hh%M | cut -d'h' -f2`
- 
+
 	for i in $sessoes; do 
 		if [[ $i =~ \+[1-8] ]]; then 
 			echo -ne "\n $i | " 

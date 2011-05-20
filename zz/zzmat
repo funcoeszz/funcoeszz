@@ -404,23 +404,23 @@ zzmat ()
 			shift 2
 			for num2 in $*
 			do
-			    if (zztool testa_numero $num1 && zztool testa_numero $num2)
-			    then
-				[ "$num1" -gt "$num2" ] && num_maior=$num1 || num_maior=$num2
-				[ "$num1" -lt "$num2" ] && num_menor=$num1 || num_menor=$num2
+				if (zztool testa_numero $num1 && zztool testa_numero $num2)
+				then
+					[ "$num1" -gt "$num2" ] && num_maior=$num1 || num_maior=$num2
+					[ "$num1" -lt "$num2" ] && num_menor=$num1 || num_menor=$num2
 			
-				while [ "$num_menor" -ne "0" ]
-				do
-					resto=$((${num_maior}%${num_menor}))
-					num_maior=$num_menor
-					num_menor=$resto
-				done
+					while [ "$num_menor" -ne "0" ]
+					do
+						resto=$((${num_maior}%${num_menor}))
+						num_maior=$num_menor
+						num_menor=$resto
+					done
 			
-				mdc=$num_maior
-				mmc=$((${num1}*${num2}/${mdc}))
-			    fi
-			    shift
-			    [ "subfuncao" = "mdc" ] && num1="$mdc" || num1="$mmc"
+					mdc=$num_maior
+					mmc=$((${num1}*${num2}/${mdc}))
+				fi
+				shift
+				[ "subfuncao" = "mdc" ] && num1="$mdc" || num1="$mmc"
 			done
 			
 			case $subfuncao in
@@ -721,9 +721,9 @@ zzmat ()
 			esac
 			
 			teta=$(echo "$teta"|awk '{printf "%.'${precisao}'f\n", $1}'|
-			      sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			fi=$(echo "$fi"|awk '{printf "%.'${precisao}'f\n", $1}'|
-			      sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
 			
 			if [ "$tipo" = "-c" ]
 			then
@@ -775,10 +775,10 @@ zzmat ()
 				    zztool testa_numero_sinal $b &&
 				    zztool testa_numero_sinal $c)
 				then
-				    redutor=$(zzmat mdc $(zzmat abs $a) $(zzmat abs $b) $(zzmat abs $c))
-				    a=$(echo "$a $redutor"|awk '{valor=($1)/($2); print valor}')
-				    b=$(echo "$b $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
-				    c=$(echo "$c $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
+					redutor=$(zzmat mdc $(zzmat abs $a) $(zzmat abs $b) $(zzmat abs $c))
+					a=$(echo "$a $redutor"|awk '{valor=($1)/($2); print valor}')
+					b=$(echo "$b $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
+					c=$(echo "$c $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
 				fi
 				echo "${a}x${b}y${c}=0"|
 				sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]\{0,1\}0[xy]//g;s/+0=0/=0/;s/^+//'

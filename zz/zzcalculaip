@@ -39,8 +39,9 @@ zzcalculaip ()
 		echo "IP inválido: $endereco"
 		return 1
 	fi
-	if ! (zztool testa_ip $mascara || (
-	      zztool testa_numero $mascara && test $mascara -le 32))
+	if ! (
+		zztool testa_ip $mascara || (
+		zztool testa_numero $mascara && test $mascara -le 32))
 	then
 		echo "Máscara inválida: $mascara"
 		return 1
@@ -82,8 +83,9 @@ zzcalculaip ()
 	
 	# Uma verificação na máscara depois das conversões
 	mascara_binario=$nm1$nm2$nm3$nm4
-	if ! (zztool testa_binario $mascara_binario &&
-	      test ${#mascara_binario} -eq 32)
+	if ! (
+		zztool testa_binario $mascara_binario &&
+		test ${#mascara_binario} -eq 32)
 	then
 		echo 'Máscara inválida'
 		return 1

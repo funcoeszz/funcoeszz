@@ -48,7 +48,7 @@ zzgravatar ()
 			-t|--tamanho)
 				tamanho="$2"
 				extra="$extra&size=$tamanho"
-			 	shift
+				shift
 				shift
 			;;
 			-d| --default)

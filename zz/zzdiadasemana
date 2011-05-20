@@ -41,6 +41,6 @@ zzdiadasemana ()
 
 	# O cut tem índice inicial um e não zero, por isso dia+1
 	echo $dias |
-	 	cut -d ' ' -f $((dia+1)) |
-	 	sed 's/-/-feira/'
+		cut -d ' ' -f $((dia+1)) |
+		sed 's/-/-feira/'
 }

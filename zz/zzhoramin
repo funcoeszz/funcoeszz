@@ -23,10 +23,10 @@ zzhoramin ()
 
 	# Testa se o parâmetro passado é uma hora valida
 	if ! zztool testa_hora ${1#-}; then
-                hora=$(zzhora agora | cut -d' ' -f1)
-        else
-                hora=$1
-        fi
+		hora=$(zzhora agora | cut -d' ' -f1)
+	else
+		hora=$1
+	fi
 
 	# Verifica se a hora é positiva ou negativa
 	if [ "${hora#-}" != "$hora" ]; then

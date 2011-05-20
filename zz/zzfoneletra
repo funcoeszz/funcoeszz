@@ -15,6 +15,6 @@ zzfoneletra ()
 
 	# Um Sed faz tudo, é uma tradução letra a letra
 	zztool multi_stdin "$@" |
-	 	zzmaiusculas |
-	 	sed y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/22233344455566677778889999/
+		zzmaiusculas |
+		sed y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/22233344455566677778889999/
 }

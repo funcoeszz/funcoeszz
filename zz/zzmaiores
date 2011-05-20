@@ -65,11 +65,11 @@ zzmaiores ()
 		
 		resultado=$(
 			find $pastas $recursivo -type f -ls |
-			 	tr -s ' ' |
-			 	cut -d' ' -f7,11- |
+				tr -s ' ' |
+				cut -d' ' -f7,11- |
 				sed "s/ /$tab/" |
-			 	sort -nr |
-			 	sed "$limite q"
+				sort -nr |
+				sed "$limite q"
 		)
 	else
 		# Tentei de várias maneiras juntar o glob com o $@

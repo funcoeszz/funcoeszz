@@ -24,7 +24,7 @@ zzcontapalavra ()
 		case "$1" in
 			-p) inteira=  ;;
 			-i) ignora=1  ;;
-			 *) break     ;;
+			* ) break     ;;
 		esac
 		shift
 	done
