@@ -3,6 +3,16 @@ debug=0
 values=1
 tests=(
 
+# Epoch
+04/01/1970	t	domingo
+03/01/1970	t	sábado
+02/01/1970	t	sexta-feira
+01/01/1970	t	quinta-feira
+31/12/1969	t	quarta-feira
+30/12/1969	t	terça-feira
+29/12/1969	t	segunda-feira
+01/01/1900	t	segunda-feira
+
 # Fev 2008, ano bissexto
 01/02/2008	t	sexta-feira
 02/02/2008	t	sábado
