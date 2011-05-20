@@ -452,7 +452,7 @@ if ($method == 'POST') {
 	</tr>
 	</table>
 
-	<input type="hidden" name="history" id="history" value="<?=str_replace('"', '&quot;', $history)?>">
+	<input type="hidden" name="history" id="history" value="<?=str_replace('"', '&quot;', htmlspecialchars($history))?>">
 </form>
 
 <div id="footer">
