@@ -99,8 +99,8 @@ zzbyte ()
 		
 		# Terminadas as exceções, este é o processo normal
 		# Aumenta/diminui a unidade e divide/multiplica por 1024
-		eval "i=$((i $passo 1))"
-		eval "n=$((n $operacao 1024))"
+		i=$(($i $passo 1))
+		n=$(($n $operacao 1024))
 	done
 	
 	# Mostra o resultado

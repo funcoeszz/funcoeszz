@@ -73,7 +73,7 @@ zzseq ()
 		test $inicio -gt $fim -a $i -ge $fim)
 	do
 		printf "$formato" $i
-		eval "i=\$((i $operacao passo))" # +n ou -n
+		i=$(($i $operacao $passo))  # +n ou -n
 	done
 	
 	# Caso especial: início e fim são iguais
