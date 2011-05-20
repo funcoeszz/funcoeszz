@@ -9,6 +9,7 @@
 #      metadata versao
 
 cd $(dirname "$0")
+cd ..
 
 tab=$(echo -e '\t')
 

@@ -6,6 +6,7 @@
 # Uso: nanny
 
 cd $(dirname "$0")
+cd ..
 
 eco() { echo -e "\033[36;1m$*\033[m"; }
 
@@ -207,8 +208,9 @@ do
 done
 
 eco ----------------------------------------------------------------
-eco "* Funções que não usam 'zztool uso'"  # pois é válido chamá-las sem argumentos
-ok="zzalfabeto zzansi2html zzascii zzbeep zzbolsas zzcalcula zzcnpj zzcontapalavras zzcores zzcpf zzdiadasemana zzdolar zzdos2unix zzeuro zzfilme zzfoneletra zzglobo zzhoracerta zzhoramin zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zznatal zznoticias zznoticiaslinux zznoticiassec zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzshuffle zzsubway zztelecine zztempo zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
+eco "* Funções que não usam 'zztool uso'"
+# As seguintes não precisam pois é válido chamá-las sem argumentos
+ok="zzalfabeto zzansi2html zzascii zzbeep zzbolsas zzcalcula zzcarnaval zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcpf zzdiadasemana zzdolar zzdos2unix zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zznatal zznoticias zznoticiaslinux zznoticiassec zzpascoa zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzsubway zztelecine zztempo zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
 for f in zz/*  # off/*
 do
 	echo " $ok " | grep -q " $(basename $f) " && continue

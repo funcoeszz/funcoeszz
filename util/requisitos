@@ -11,7 +11,7 @@
 
 cd $(dirname "$0") || exit 1
 
-cd zz
+cd ../zz
 for f in zz*
 do
 	# Caso especial, já tratado, pode ignorar

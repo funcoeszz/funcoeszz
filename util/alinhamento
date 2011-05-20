@@ -8,7 +8,7 @@
 
 cd $(dirname "$0") || exit 1
 
-cd zz
+cd ../zz
 
 funcoeszz tool eco "Linha que inicia com um espaço"
 grep '^ ' * |

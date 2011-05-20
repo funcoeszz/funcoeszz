@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-infile="./funcoeszz-10.12.sh"
-outfile="./funcoeszz-iso-10.12.sh"
+infile="../funcoeszz-10.12.sh"
+outfile="../funcoeszz-iso-10.12.sh"
 
 # Converte o codigo das ZZ para latin-1
 iconv -c -f UTF-8 -t ISO-8859-1 "$infile" > "$outfile"
