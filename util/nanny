@@ -166,6 +166,7 @@ do
 			
 			# Mais campos opcionais no final
 			/^# Requisitos: / n
+			/^# Tags: / n
 			/^# Nota: / n
 			
 			# -----------------------------
