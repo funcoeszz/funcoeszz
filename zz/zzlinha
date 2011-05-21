@@ -55,7 +55,7 @@ zzlinha ()
 		# primeiro grepa as linhas, depois mostra uma linha
 		# aleatória deste resultado.
 		# Nota: Suporte a múltiplos arquivos e entrada padrão (STDIN)
-		resultado=$(grep -h -i -- "${padrao:-.}" "${@:--}")
+		resultado=$(grep -h -i -- "${padrao:-.}" "$@")
 		num_linhas=$(echo "$resultado" | sed -n '$=')
 		n=$(( (RANDOM % num_linhas) + 1))
 		[ $n -eq 0 ] && n=1
