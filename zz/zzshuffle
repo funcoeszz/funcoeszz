@@ -14,8 +14,8 @@ zzshuffle ()
 
 	local linha
 
-	# Suporte a múltiplos arquivos (cat $@) e entrada padrão (cat -)
-	cat "${@:--}" |
+	# Arquivos via STDIN ou argumentos
+	zztool multi_stdin "$@" |
 	
 		# Um número aleatório é colocado no início de cada linha,
 		# depois o sort ordena numericamente, bagunçando a ordem
