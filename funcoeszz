@@ -295,7 +295,7 @@ zztool ()
 			# ou
 			#     funcao arquivo
 
-			sed -n p "$@"  # comando nulo, simula um cat
+			cat "${@:--}"  # Traduzindo: cat $@ ou cat -
 		;;
 		list2lines)
 			# Limpa lista da STDIN e retorna um item por linha
