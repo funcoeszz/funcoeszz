@@ -29,14 +29,8 @@ zzdiasuteis ()
 	fi
 
 	# Valida o formato das datas
-	for data in $data1 $data2
-	do
-		if ! zztool testa_data "$data"
-		then
-			echo "Data inválida '$data', deve ser dd/mm/aaaa"
-			return 1
-		fi
-	done
+	zztool -e testa_data "$data1" || return 1
+	zztool -e testa_data "$data2" || return 1
 
 	# Quantos dias há entre as duas datas?
 	dias=$(zzdata $data2 - $data1)

@@ -37,12 +37,8 @@ zzdiadasemana ()
 	# Se a data não foi informada, usa a atual
 	test -z "$data" && data=$(date +%d/%m/%Y)
 
-	# Valida o formato da data
-	if ! zztool testa_data "$data"
-	then
-		echo "Data inválida '$data', deve ser dd/mm/aaaa"
-		return 1
-	fi
+	# Validação
+	zztool -e testa_data "$data" || return 1
 
 	# O cálculo se baseia na data ZERO (01/01/1970), que é quinta-feira.
 	# Basta dividir o delta (intervalo de dias até a data ZERO) por 7.

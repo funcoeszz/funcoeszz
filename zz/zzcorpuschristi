@@ -20,12 +20,8 @@ zzcorpuschristi ()
 	# Se o ano não for informado, usa o atual
 	test -z "$ano" && ano=$(date +%Y)
 
-	# Verificação básica
-	if ! zztool testa_ano $ano
-	then
-		echo "Ano inválido '$ano'"
-		return 1
-	fi
+	# Validação
+	zztool -e testa_ano $ano || return 1
 
 	# Ah, como é fácil quando se tem as ferramentas certas ;)
 	# e quando já temos o código e só precisamos mudar os numeros

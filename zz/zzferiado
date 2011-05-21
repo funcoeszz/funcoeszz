@@ -34,19 +34,13 @@ zzferiado ()
 		listar=1
 
 		# Teste da variável ano
-		if ! zztool testa_ano $ano; then
-			echo "Ano inválido '$ano'"
-			return 1
-		fi
+		zztool -e testa_ano $ano || return 1
 	else
 		# Se não for passada a data é pega a data de hoje
 		data=${1:-$hoje}
 
 		# Verifica se a data é valida
-		if ! zztool testa_data $data; then
-			echo "Data inválida '$data'"
-			return 1
-		fi
+		zztool -e testa_data "$data" || return 1
 
 		# Uma coisa interessante, como data pode ser usada com /(20/11/2008)
 		# podemos usar o basename e dirname para pegar o que quisermos

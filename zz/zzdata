@@ -100,12 +100,8 @@ zzdata ()
 				ddmm="${valor%/*}"
 
 				# Data em formato válido?
-				if ! zztool testa_data "$valor"
-				then
-					echo "Data inválida '$valor', deve ser dd/mm/aaaa"
-					return 1
-				fi
-
+				zztool -e testa_data "$valor" || return 1
+				
 				# 29/02 em um ano não-bissexto?
 				if test "$ddmm" = '29/02' && ! zztool testa_ano_bissexto "$yyyy"
 				then

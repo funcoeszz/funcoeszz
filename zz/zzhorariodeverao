@@ -22,12 +22,8 @@ zzhorariodeverao ()
 	# Se o ano não for informado, usa o atual
 	test -z "$ano" && ano=$(date +%Y)
 
-	# Verificação básica
-	if ! zztool testa_ano $ano
-	then
-		echo "Ano inválido '$ano'"
-		return 1
-	fi
+	# Validação
+	zztool -e testa_ano $ano || return 1
 
 	# Só de 2008 em diante...
 	if test $ano -lt 2008

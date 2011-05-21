@@ -20,12 +20,8 @@ zzpascoa ()
 	# Se o ano não for informado, usa o atual
 	test -z "$ano" && ano=$(date +%Y)
 
-	# Verificação básica
-	if ! zztool testa_ano $ano
-	then
-		echo "Ano inválido '$ano'"
-		return 1
-	fi
+	# Validação
+	zztool -e testa_ano $ano || return 1
 
 	# Algoritmo de Jean Baptiste Joseph Delambre (1749-1822)
 	# conforme citado em http://www.ghiorzi.org/portug2.htm
