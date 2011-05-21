@@ -48,4 +48,13 @@ case "$1" in
 			printf "%-22s %s\n" $funcao $meta
 		done
 	;;
+	tags | t)
+		IFS=':'
+		grep '# Tags:' zz/* off/* |
+		sed "s/:# Tags: /:/" |
+		while read funcao meta
+		do
+			printf "%-22s %s\n" $funcao $meta
+		done
+	;;
 esac
