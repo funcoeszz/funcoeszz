@@ -10,6 +10,7 @@
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlinha ()
@@ -38,15 +39,20 @@ zzlinha ()
 		# Nota: Suporte a múltiplos arquivos e entrada padrão (STDIN)
 		for arquivo in "${@:--}"
 		do
-			# O arquivo existe?
-			zztool arquivo_legivel "$arquivo" || continue
-			
-			if [ "$n" -lt 0 ]
+			if test "$arquivo" != '-'
 			then
-				tail -n ${n#-} "$arquivo" | sed 1q
-			else
-				sed -n ${n}p "$arquivo"
+				# O arquivo existe?
+			 	zztool arquivo_legivel "$arquivo" || continue
 			fi
+
+			# Usando cat para ler do arquivo ou da STDIN
+			cat "$arquivo" |
+				if [ "$n" -lt 0 ]
+				then
+					tail -n ${n#-} | sed 1q
+				else
+					sed -n ${n}p
+				fi
 		done
 	else
 		# TODO: usar zztool multi_stdin e arquivo_legivel
