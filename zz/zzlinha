@@ -25,7 +25,7 @@ zzlinha ()
 		padrao="$2"
 		shift; shift
 	fi
-	
+
 	# Talvez o $1 é o número da linha desejada?
 	if zztool testa_numero_sinal "$1"
 	then
@@ -33,18 +33,18 @@ zzlinha ()
 		shift
 	fi
 
+	# Se informado um ou mais arquivos, eles existem?
+	for arquivo in "$@"
+	do
+	 	zztool arquivo_legivel "$arquivo" || return 1
+	done
+
 	if [ "$n" ]
 	then
 		# Se foi informado um número, mostra essa linha.
-		# Nota: Suporte a múltiplos arquivos e entrada padrão (STDIN)
+		# Nota: Suporte a múltiplos arquivos ou entrada padrão (STDIN)
 		for arquivo in "${@:--}"
 		do
-			if test "$arquivo" != '-'
-			then
-				# O arquivo existe?
-			 	zztool arquivo_legivel "$arquivo" || continue
-			fi
-
 			# Usando cat para ler do arquivo ou da STDIN
 			cat "$arquivo" |
 				if [ "$n" -lt 0 ]
