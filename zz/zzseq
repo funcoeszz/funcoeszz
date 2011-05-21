@@ -49,13 +49,12 @@ zzseq ()
 	[ "$3" ] && inicio=$1 passo=$2 fim=$3
 
 	# Verificações básicas
-	if ! (
-		zztool testa_numero_sinal "$inicio" &&
-		zztool testa_numero_sinal "$passo" &&
-		zztool testa_numero_sinal "$fim" &&
-		test $passo -ne 0)
+	zztool -e testa_numero_sinal "$inicio" || return 1
+	zztool -e testa_numero_sinal "$passo"  || return 1
+	zztool -e testa_numero_sinal "$fim"    || return 1
+	if test $passo -eq 0
 	then
-		zztool uso seq
+		echo "O passo não pode ser zero."
 		return 1
 	fi
 	

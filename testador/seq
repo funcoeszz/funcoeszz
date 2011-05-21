@@ -6,24 +6,24 @@ tests=(
 # vazio
 ''	''	''	r	^Uso:.*
 # float
-1.0	''	''	r	^Uso:.*
-1,0	''	''	r	^Uso:.*
-1	1.0	''	r	^Uso:.*
-1	1,0	''	r	^Uso:.*
-1	1	1.0	r	^Uso:.*
-1	1	1,0	r	^Uso:.*
-1	1.0	1	r	^Uso:.*
-1	1,0	1	r	^Uso:.*
-1.0	1	1	r	^Uso:.*
-1,0	1	1	r	^Uso:.*
+1.0	''	''	t	"Número inválido '1.0'"
+1,0	''	''	t	"Número inválido '1,0'"
+1	1.0	''	t	"Número inválido '1.0'"
+1	1,0	''	t	"Número inválido '1,0'"
+1	1	1.0	t	"Número inválido '1.0'"
+1	1	1,0	t	"Número inválido '1,0'"
+1	1.0	1	t	"Número inválido '1.0'"
+1	1,0	1	t	"Número inválido '1,0'"
+1.0	1	1	t	"Número inválido '1.0'"
+1,0	1	1	t	"Número inválido '1,0'"
 # string
-x	''	''	r	^Uso:.*
-1	x	''	r	^Uso:.*
-1	1	x	r	^Uso:.*
-1	x	1	r	^Uso:.*
-x	1	1	r	^Uso:.*
+x	''	''	t	"Número inválido 'x'"
+1	x	''	t	"Número inválido 'x'"
+1	1	x	t	"Número inválido 'x'"
+1	x	1	t	"Número inválido 'x'"
+x	1	1	t	"Número inválido 'x'"
 # passo zero
-1	0	1	r	^Uso:.*
+1	0	1	t	"O passo não pode ser zero."
 
 # desce
 -5	''	''	t	"1\n0\n-1\n-2\n-3\n-4\n-5"
