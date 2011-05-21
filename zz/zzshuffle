@@ -15,7 +15,7 @@ zzshuffle ()
 	local linha
 
 	# Arquivos via STDIN ou argumentos
-	zztool multi_stdin "$@" |
+	zztool file_stdin "$@" |
 	
 		# Um número aleatório é colocado no início de cada linha,
 		# depois o sort ordena numericamente, bagunçando a ordem
