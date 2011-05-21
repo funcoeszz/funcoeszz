@@ -151,6 +151,7 @@ $available = array(
 	// 'zzarrumanome', //file
 	'zzascii',
 	// 'zzbeep', //sound
+	'zzbissexto',
 	// 'zzblist', //i
 	// 'zzbolsas', //i
 	'zzbyte',

@@ -99,6 +99,15 @@ Ex.: zzbeep 0
      zzbeep 1 5 15    # espere 1 minuto, depois mais 5, e depois 15
 
 ```
+= zzbissexto =[zzbissexto]
+```
+Diz se o ano informado é bissexto ou não.
+Obs.: Se o ano não for informado, usa o atual.
+Uso: zzbissexto [ano]
+Ex.: zzbissexto
+     zzbissexto 2000
+
+```
 = zzblist =[zzblist]
 ```
 Mostra se o IP passado está em alguma blacklist  (SBL, PBL e XBL).
@@ -264,6 +273,7 @@ Opções: -i  ignora a diferença de maiúsculas/minúsculas
 Uso: zzcontapalavra [-i|-p] palavra arquivo(s)
 Ex.: zzcontapalavra root /etc/passwd
      zzcontapalavra -i -p a /etc/passwd      # Compare com grep -ci a
+     cat /etc/passwd | zzcontapalavra root
 
 ```
 = zzcontapalavras =[zzcontapalavras]

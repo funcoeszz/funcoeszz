@@ -21,6 +21,7 @@
   <LI><A HREF="#zzarrumanome">zzarrumanome</A>
   <LI><A HREF="#zzascii">zzascii</A>
   <LI><A HREF="#zzbeep">zzbeep</A>
+  <LI><A HREF="#zzbissexto">zzbissexto</A>
   <LI><A HREF="#zzblist">zzblist</A>
   <LI><A HREF="#zzbolsas">zzbolsas</A>
   <LI><A HREF="#zzbyte">zzbyte</A>
@@ -252,6 +253,17 @@
   
 </PRE>
 
+<H1 ID="zzbissexto">zzbissexto</H1>
+
+<PRE>
+  Diz se o ano informado é bissexto ou não.
+  Obs.: Se o ano não for informado, usa o atual.
+  Uso: zzbissexto [ano]
+  Ex.: zzbissexto
+       zzbissexto 2000
+  
+</PRE>
+
 <H1 ID="zzblist">zzblist</H1>
 
 <PRE>
@@ -444,6 +456,7 @@
   Uso: zzcontapalavra [-i|-p] palavra arquivo(s)
   Ex.: zzcontapalavra root /etc/passwd
        zzcontapalavra -i -p a /etc/passwd      # Compare com grep -ci a
+       cat /etc/passwd | zzcontapalavra root
   
 </PRE>
 

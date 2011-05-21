@@ -114,6 +114,18 @@ Ex.: zzbeep 0
 .fi
 
 
+.SH zzbissexto
+
+.nf
+Diz se o ano informado é bissexto ou não.
+Obs.: Se o ano não for informado, usa o atual.
+Uso: zzbissexto [ano]
+Ex.: zzbissexto
+   zzbissexto 2000
+
+.fi
+
+
 .SH zzblist
 
 .nf
@@ -319,6 +331,7 @@ Opções: -i  ignora a diferença de maiúsculas/minúsculas
 Uso: zzcontapalavra [-i|-p] palavra arquivo(s)
 Ex.: zzcontapalavra root /etc/passwd
    zzcontapalavra -i -p a /etc/passwd      # Compare com grep -ci a
+   cat /etc/passwd | zzcontapalavra root
 
 .fi
 
