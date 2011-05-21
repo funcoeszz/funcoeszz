@@ -22,7 +22,7 @@
 # Desde: 2011-01-19
 # Versão: 5
 # Licença: GPL
-# Requisitos: zzseq zzconverte
+# Requisitos: zzseq
 # ----------------------------------------------------------------------------
 zzmat ()
 {

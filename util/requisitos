@@ -50,6 +50,9 @@ do
 			do
 				# Uma função usar ela mesma está OK
 				test $funcao = $f && continue
+				
+				# Exceção: a zzconverte é apenas citada nos comentários
+				test $f = 'zzmat' -a $funcao = 'zzconverte' && continue
 
 				echo $requisitos | grep -w $funcao >/dev/null ||
 					echo "$f: # Requisitos: $funcao"
