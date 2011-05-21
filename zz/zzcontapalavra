@@ -6,6 +6,7 @@
 # Uso: zzcontapalavra [-i|-p] palavra arquivo(s)
 # Ex.: zzcontapalavra root /etc/passwd
 #      zzcontapalavra -i -p a /etc/passwd      # Compare com grep -ci a
+#      cat /etc/passwd | zzcontapalavra root
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2003-10-02
@@ -38,7 +39,8 @@ zzcontapalavra ()
 	# Contorna a limitação do grep -c pesquisando pela palavra
 	# e quebrando o resultado em uma palavra por linha (tr).
 	# Então pode-se usar o grep -c para contar.
-	grep -h ${ignora:+-i} ${inteira:+-w} -- "$padrao" "$@" |
+	zztool file_stdin "$@" |
+		grep -h ${ignora:+-i} ${inteira:+-w} -- "$padrao" |
 		tr '\t./ -,:-@[-_{-~' '\n' |
 		grep -c ${ignora:+-i} ${inteira:+-w} -- "$padrao"
 }
