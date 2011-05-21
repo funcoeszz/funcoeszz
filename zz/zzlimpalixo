@@ -9,6 +9,7 @@
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-04-24
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlimpalixo ()
@@ -25,9 +26,8 @@ zzlimpalixo ()
 	esac
 
 	# Remove comentários e linhas em branco
-	cat "${@:--}" |
-		sed "
-			/^[[:blank:]]*$comentario/ d
-			/^[[:blank:]]*$/ d" |
-		uniq
+	sed "
+		/^[[:blank:]]*$comentario/ d
+		/^[[:blank:]]*$/ d" "$@" |
+	uniq
 }
