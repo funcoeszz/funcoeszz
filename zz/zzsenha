@@ -41,11 +41,7 @@ zzsenha ()
 	[ "$1" ] && n=$1
 	
 	# Foi passado um número mesmo?
-	if ! zztool testa_numero "$n"
-	then
-		echo "Número inválido '$n'"
-		return 1
-	fi
+	zztool -e testa_numero "$n" || return 1
 
 	# Já que não repete as letras, temos uma limitação de tamanho
 	maximo=${#lista}
