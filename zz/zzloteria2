@@ -11,7 +11,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzseq zzsemacento
 # ----------------------------------------------------------------------------
@@ -218,8 +218,8 @@ zzloteria2 ()
 			[ "$acumulado" ] && echo "   Acumulado em R$ $acumulado" | sed 's/|/ para /'
 			if [ "$faixa" ]
 			then
-				echo -e "\tFaixa\tQtde.\tPrêmio"
-				paste <(echo -e "$faixa") <(echo -e "$resultado_num") <(echo -e "$resultado_val")
+				echo -e "\tFaixa\tQtde.\tPrêmio"|expand -t 5,17,32
+				paste <(echo -e "$faixa"|zzsemacento) <(echo -e "$resultado_num") <(echo -e "$resultado_val")|expand -t 5,17,32
 			fi
 			echo
 		fi
