@@ -20,7 +20,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -289,19 +289,42 @@ zzmat ()
 					echo " Uso: zzmat $1 $2 base_maior base_menor altura";return 1
 				fi
 			;;
-			"tetraedro"|"cubo"|"octaedro"|"dodecaedro"|"icosaedro"|"quadrado"|"circulo"|"esfera")
+			"tetraedro"|"cubo"|"octaedro"|"dodecaedro"|"icosaedro"|"quadrado"|"circulo"|"esfera"|"cuboctaedro"|"rombicuboctaedro"|"rombicosidodecaedro"|"icosidodecaedro")
 				if(zzmat testa_num $3)
 				then
 					num1=$(echo "$3"|tr ',' '.')
 					case $2 in
-					"tetraedro")  num="sqrt(3)*${num1}^2";;
-					"cubo")       num="6*${num1}^2";;
-					"octaedro")   num="sqrt(3)*2*${num1}^2";;
-					"dodecaedro") num="sqrt(25+10*sqrt(5))*3*${num1}^2";;
-					"icosaedro")  num="sqrt(3)*5*${num1}^2";;
-					"quadrado")   num="${num1}^2";;
-					"circulo")    num="$pi*(${num1})^2";;
-					"esfera")     num="4*$pi*(${num1})^2";;
+					"tetraedro")           num="sqrt(3)*${num1}^2";;
+					"cubo")                num="6*${num1}^2";;
+					"octaedro")            num="sqrt(3)*2*${num1}^2";;
+					"dodecaedro")          num="sqrt(25+10*sqrt(5))*3*${num1}^2";;
+					"icosaedro")           num="sqrt(3)*5*${num1}^2";;
+					"quadrado")            num="${num1}^2";;
+					"circulo")             num="$pi*(${num1})^2";;
+					"esfera")              num="4*$pi*(${num1})^2";;
+					"cuboctaedro")         num="(6+2*sqrt(3))*${num1}^2";;
+					"rombicuboctaedro")    num="2*(9+sqrt(3))*${num1}^2";;
+					"icosidodecaedro")     num="(5*sqrt(3)+3*sqrt(5)*sqrt(5+2*sqrt(5)))*${num1}^2";;
+					"rombicosidodecaedro") num="(30+sqrt(30*(10+3*sqrt(5)+sqrt(15*(2+2*sqrt(5))))))*${num1}^2";;
+					esac
+				elif ($3 -eq "truncado" && zzmat testa_num $4)
+				then
+					num1=$(echo "$4"|tr ',' '.')
+					case $2 in
+					"tetraedro")       num="7*sqrt(3)*${num1}^2";;
+					"cubo")            num="2*${num1}^2*(6+6*sqrt(2)+6*sqrt(3))";;
+					"octaedro")        num="(6+sqrt(3)*12)*${num1}^2";;
+					"dodecaedro")      num="(sqrt(3)+6*sqrt(5+2*sqrt(5)))*5*${num1}^2";;
+					"icosaedro")       num="3*(10*sqrt(3)+sqrt(5)*sqrt(5+2*sqrt(5)))*${num1}^2";;
+					"cuboctaedro")     num="12*(2+sqrt(2)+sqrt(3))*${num1}^2";;
+					"icosidodecaedro") num="30*(1+sqrt(2*sqrt(4+sqrt(5)+sqrt(15+6*sqrt(6)))))*${num1}^2";;
+					esac
+				elif ($3 -eq "snub" && zzmat testa_num $4)
+				then
+					num1=$(echo "$4"|tr ',' '.')
+					case $2 in
+					"cubo")       num="${num1}^2*(6+8*sqrt(3))";;
+					"dodecaedro") num="55.286744956*${num1}^2";;
 					esac
 				else
 					echo " Uso: zzmat $1 $2 lado|raio";return 1
@@ -310,8 +333,10 @@ zzmat ()
 			esac
 		else
 			echo " zzmat $1: Cálculo da área de figuras planas e superfícies"
-			echo " Uso: zzmat area [triangulo|quadrado|retangulo|losango|trapezio|circulo]"
-			echo " Uso: zzmat area [esfera|tetraedo|cubo|octaedro|dodecaedro|icosaedro]"
+			echo " Uso: zzmat area <triangulo|quadrado|retangulo|losango|trapezio|circulo> numero"
+			echo " Uso: zzmat area <esfera|rombicuboctaedro|rombicosidodecaedro> numero"
+			echo " Uso: zzmat area <tetraedo|cubo|octaedro|dodecaedro|icosaedro|cuboctaedro|icosidodecaedro> [truncado] numero"
+			echo " Uso: zzmat area <cubo|dodecaedro> snub numero"
 			return 1
 		fi
 	;;
@@ -371,17 +396,40 @@ zzmat ()
 					echo " Uso: zzmat $1 $2 area_base altura";return 1
 				fi
 			;;
-			"tetraedro"|"cubo"|"octaedro"|"dodecaedro"|"icosaedro"|"esfera")
+			"tetraedro"|"cubo"|"octaedro"|"dodecaedro"|"icosaedro"|"esfera"|"cuboctaedro"|"rombicuboctaedro"|"rombicosidodecaedro"|"icosidodecaedro")
 				if(zzmat testa_num $3)
 				then
 					num1=$(echo "$3"|tr ',' '.')
 					case $2 in
-					"tetraedro")  num="sqrt(2)/12*${num1}^3";;
-					"cubo")       num="${num1}^3";;
-					"octaedro")   num="sqrt(2)/3*${num1}^3";;
-					"dodecaedro") num="(15+7*sqrt(5))*${num1}^3/4";;
-					"icosaedro")  num="(3+sqrt(5))*${num1}^3*5/12";;
-					"esfera")     num="$pi*(${num1})^3*4/3";;
+					"tetraedro")           num="sqrt(2)/12*${num1}^3";;
+					"cubo")                num="${num1}^3";;
+					"octaedro")            num="sqrt(2)/3*${num1}^3";;
+					"dodecaedro")          num="(15+7*sqrt(5))*${num1}^3/4";;
+					"icosaedro")           num="(3+sqrt(5))*${num1}^3*5/12";;
+					"esfera")              num="$pi*(${num1})^3*4/3";;
+					"cuboctaedro")         num="5/3*sqrt(2)*${num1}^3";;
+					"rombicuboctaedro")    num="(2*(6+5*sqrt(2))*${num1}^3)/3";;
+					"icosidodecaedro")     num="((45+17*sqrt(5))*${num1}^3)/6";;
+					"rombicosidodecaedro") num="(60+29*sqrt(5))/3*${num1}^3";;
+					esac
+				elif ($3 -eq "truncado" && zzmat testa_num $4)
+				then
+					num1=$(echo "$4"|tr ',' '.')
+					case $2 in
+					"tetraedro")       num="23*sqrt(2)/12*${num1}^3";;
+					"cubo")            num="(7*${num1}^3*(3+2*sqrt(2)))/3";;
+					"octaedro")        num="8*sqrt(2)*${num1}^3";;
+					"dodecaedro")      num="5*(99+47*sqrt(5))/12*${num1}^3";;
+					"icosaedro")       num="(125+43*sqrt(5))*${num1}^3*1/4";;
+					"cuboctaedro")     num="(22+14*sqrt(2))*${num1}^3";;
+					"icosidodecaedro") num="(90+50*sqrt(5))*${num1}^3";;
+					esac
+				elif ($3 -eq "snub" && zzmat testa_num $4)
+				then
+					num1=$(echo "$4"|tr ',' '.')
+					case $2 in
+					"cubo")       num="7.8894774*${num1}^3";;
+					"dodecaedro") num="37.61664996*${num1}^3";;
 					esac
 				else
 					echo " Uso: zzmat $1 $2 lado|raio";return 1
@@ -390,8 +438,9 @@ zzmat ()
 			esac
 		else 
 			echo " zzmat $1: Cálculo de volume de figuras geométricas"
-			echo " Uso: zzmat volume [tetraedo|cubo|octaedro|dodecaedro|icosaedro]"
-			echo " Uso: zzmat volume [paralelepipedo|cilindro|esfera|cone|prisma|piramide]"
+			echo " Uso: zzmat volume <paralelepipedo|cilindro|esfera|cone|prisma|piramide|rombicuboctaedro|rombicosidodecaedro>"
+			echo " Uso: zzmat volume <tetraedo|cubo|octaedro|dodecaedro|icosaedro|cuboctaedro|icosidodecaedro> [truncado] numero"
+			echo " Uso: zzmat volume <cubo|dodecaedro> snub numero"
 			return 1
 		fi
 	;;
