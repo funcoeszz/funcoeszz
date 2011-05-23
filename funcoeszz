@@ -916,6 +916,10 @@ then
 		sed 1q "$zz_arquivo"
 		echo "# $zz_nome"
 		sed 1d "$zz_arquivo"
+		
+		# Linha em branco separadora
+		# Também garante quebra se faltar \n na última linha da função
+		echo
 	done < "$ZZTMP.on"
 	
 	# Desliga suporte ao diretório de funções

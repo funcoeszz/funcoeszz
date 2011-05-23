@@ -35,6 +35,10 @@ eco "* Funções que não terminam em '}'"
 for f in zz/* off/*; do tail -1 $f | grep -q "^}$" || echo $f; done
 
 eco ----------------------------------------------------------------
+eco "* Funções que falta a quebra de linha na última linha"
+for f in zz/* off/*; do tail -1 $f | od -a | grep -q '}.*nl' || echo $f; done
+
+eco ----------------------------------------------------------------
 eco "* Funções cujo nome não bate com o nome do arquivo"
 for f in zz/* off/*; do grep -q "^$(basename $f) " $f || echo $f; done
 
