@@ -98,10 +98,11 @@ unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 # ----------------------------------------------------------------------------
 # zztool
 # Miniferramentas para auxiliar as funções.
-# Uso: zztool ferramenta [argumentos]
+# Uso: zztool [-e] ferramenta [argumentos]
 # Ex.: zztool grep_var foo $var
 #      zztool eco Minha mensagem colorida
 #      zztool testa_numero $num
+#      zztool -e testa_numero $num || return
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2008-03-01
