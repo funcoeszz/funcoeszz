@@ -25,7 +25,7 @@ zzdatabarras ()
 	do
 		case "$1" in
 			-d | --data)
-				[ "$2" ] || { zztool uso databarras; return; }
+				[ "$2" ] || { zztool uso databarras; return 1; }
 				data=$2
 				shift
 				;;

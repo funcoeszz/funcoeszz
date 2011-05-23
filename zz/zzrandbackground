@@ -43,6 +43,7 @@ zzrandbackground ()
 			caminho=$2
 		else
 			zztool uso randbackground
+			return 1
 		fi
 
 		# A quantidade de segundos é inteira
@@ -51,6 +52,7 @@ zzrandbackground ()
 			segundos=$3
 		else
 			zztool uso randbackground
+			return 1
 		fi
 	else
 		# Caso nao seja passado o -l, só tem o camiho
@@ -66,6 +68,7 @@ zzrandbackground ()
 			caminho=$1
 		else
 			zztool uso randbackground
+			return 1
 		fi
 	fi
 	

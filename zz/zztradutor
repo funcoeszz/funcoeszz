@@ -29,7 +29,7 @@ zztradutor ()
 {
 	zzzz -h tradutor $1 && return
 
-	[ "$1" ] || { zztool uso tradutor; return; }
+	[ "$1" ] || { zztool uso tradutor; return 1; }
 
 	# Variaveis locais
 	local padrao

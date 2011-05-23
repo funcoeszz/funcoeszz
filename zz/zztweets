@@ -12,7 +12,7 @@ zztweets ()
 {
 	zzzz -h tweets $1 && return
 
-	[ "$1" ] || { zztool uso tweets; return; }
+	[ "$1" ] || { zztool uso tweets; return 1; }
 
 	local url="http://twitter.com"
 	local name=$(echo $1 | tr -d "@")

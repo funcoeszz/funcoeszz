@@ -16,7 +16,7 @@ zzsigla ()
 	local url=http://www.acronymfinder.com/af-query.asp
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso sigla; return; }
+	[ "$1" ] || { zztool uso sigla; return 1; }
 
 	# Pesquisa, baixa os resultados e filtra
 	$ZZWWWDUMP "$url?String=exact&Acronym=$1&Find=Find" |

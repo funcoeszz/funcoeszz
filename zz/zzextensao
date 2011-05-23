@@ -17,7 +17,8 @@ zzextensao ()
 	# Declara variaveis.
 	local nome_arquivo extensao arquivo
 	
-	[ "$1" ] || zztool uso extensao
+	[ "$1" ] || { zztool uso extensao; return 1; }
+	
 
 	arquivo="$1"
 	

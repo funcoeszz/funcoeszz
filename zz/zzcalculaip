@@ -21,7 +21,7 @@ zzcalculaip ()
 	local i ip1 ip2 ip3 ip4 nm1 nm2 nm3 nm4 componente
 
 	# Verificação dos parâmetros
-	[ $# -eq 0 -o $# -gt 2 ] && { zztool uso calculaip; return; }
+	[ $# -eq 0 -o $# -gt 2 ] && { zztool uso calculaip; return 1; }
 
 	# Obtém a máscara da rede (netmask)
 	if zztool grep_var / "$1"

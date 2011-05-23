@@ -49,7 +49,7 @@ zznomefoto ()
 	done
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso nomefoto; return; }
+	[ "$1" ] || { zztool uso nomefoto; return 1; }
 
 	if ! zztool testa_numero "$digitos"
 	then

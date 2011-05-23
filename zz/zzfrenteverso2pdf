@@ -40,7 +40,7 @@ zzfrenteverso2pdf ()
 			-rf | --frentesreversas) sinal_frente="-" ;;
 			-rv | --versosreversos) sinal_verso="-" ;;
 			-d | --diretorio)
-				[ "$2" ] || { zztool uso frenteverso2pdf; return; }
+				[ "$2" ] || { zztool uso frenteverso2pdf; return 1; }
 				dir=$2
 				shift
 				;;

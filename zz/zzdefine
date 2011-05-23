@@ -15,7 +15,7 @@ zzdefine ()
 {
 	zzzz -h define $1 && return
 
-	[ "$1" ] || { zztool uso define; return; }
+	[ "$1" ] || { zztool uso define; return 1; }
 	
 	local L='all' I='en pt es de fr it all '
 

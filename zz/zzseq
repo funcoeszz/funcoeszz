@@ -37,7 +37,7 @@ zzseq ()
 	fi
 	
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso seq; return; }
+	[ "$1" ] || { zztool uso seq; return 1; }
 	
 	# Se houver só um número, vai "de um ao número"
 	fim=$1

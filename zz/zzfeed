@@ -32,7 +32,7 @@ zzfeed ()
 	fi
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso feed; return; }
+	[ "$1" ] || { zztool uso feed; return 1; }
 
 	# Verificação básica
 	if ! zztool testa_numero "$limite"

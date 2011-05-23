@@ -15,7 +15,7 @@ zzdicesperanto ()
 {
 	zzzz -h dicesperanto $1 && return
 
-	[ "$1" ] || { zztool uso dicesperanto; return; }
+	[ "$1" ] || { zztool uso dicesperanto; return 1; }
 	
 	local L='PT-EO'
 	local I='DE-EO EN-EO EO-DE EO-EN EO-PT PT-EO '

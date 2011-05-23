@@ -26,7 +26,7 @@ zzdicportugues ()
 	# ZZWWWDUMP='lynx -dump -nolist -width=300 -accept_all_cookies -assume_unrec_charset=iso-8859-1'
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso dicportugues; return; }
+	[ "$1" ] || { zztool uso dicportugues; return 1; }
 
 	$ZZWWWDUMP "$url?q=$padrao" |
 		sed -n "

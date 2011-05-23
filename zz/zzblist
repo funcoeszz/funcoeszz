@@ -12,7 +12,7 @@ zzblist ()
 {
 	zzzz -h blist $1 && return
 
-	[ "$1" ] || { zztool uso blist; return; }
+	[ "$1" ] || { zztool uso blist; return 1; }
 
 	local URL="http://www.spamblock.com.br/rblcheck.php?ip="
 

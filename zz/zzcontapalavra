@@ -31,7 +31,7 @@ zzcontapalavra ()
 	done
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso contapalavra; return; }
+	[ "$1" ] || { zztool uso contapalavra; return 1; }
 	
 	padrao=$1
 	shift

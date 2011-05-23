@@ -55,7 +55,7 @@ zzss ()
 				unset pausa
 			;;
 			--tema)
-				[ "$2" ] || { zztool uso ss; return; }
+				[ "$2" ] || { zztool uso ss; return 1; }
 				tema=$2
 				shift
 			;;

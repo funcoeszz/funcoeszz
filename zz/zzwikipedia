@@ -30,7 +30,7 @@ zzwikipedia ()
 	fi
 	
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso wikipedia; return; }
+	[ "$1" ] || { zztool uso wikipedia; return 1; }
 
 	# Faz a consulta e filtra o resultado, paginando
 	url="http://$idioma.wikipedia.org/wiki/"

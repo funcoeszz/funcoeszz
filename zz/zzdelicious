@@ -14,7 +14,7 @@ zzdelicious ()
 {
 	zzzz -h delicious $1 && return
 
-	[ "$1" ] || { zztool uso delicious; return; }
+	[ "$1" ] || { zztool uso delicious; return 1; }
 
 	$ZZWWWHTML "http://www.delicious.com/$1/$2" |
 		grep 'taggedlink' |

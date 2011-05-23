@@ -23,7 +23,7 @@ zzbyte ()
 	local saida=${3:-.}
 	
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso byte; return; }
+	[ "$1" ] || { zztool uso byte; return 1; }
 	
 	# Sejamos amigáveis com o usuário permitindo minúsculas também
 	entrada=$(echo $entrada | zzmaiusculas)

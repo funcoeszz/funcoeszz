@@ -13,7 +13,7 @@ zzenglish ()
 {
 	zzzz -h english $1 && return
 
-	[ "$1" ] || { zztool uso english; return; }
+	[ "$1" ] || { zztool uso english; return 1; }
 	
 	local url="http://www.dict.org/bin/Dict/"
 	local query="Form=Dict1&Query=$1&Strategy=*&Database=*&submit=Submit query"

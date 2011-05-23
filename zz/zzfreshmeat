@@ -16,7 +16,7 @@ zzfreshmeat ()
 	local padrao=$1
 	
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso freshmeat; return; }
+	[ "$1" ] || { zztool uso freshmeat; return 1; }
 	
 	# Faz a consulta e filtra o resultado
 	$ZZWWWLIST "$url?q=$padrao" |

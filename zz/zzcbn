@@ -46,7 +46,7 @@ MP3="mms://wm-sgr-ondemand.globo.com/_aberto/sgr/1/cbn/"
 EXT="wma"
 
 #Verificacao dos parâmetros
-[ "$1" ] || { zztool uso cbn; return; }
+[ "$1" ] || { zztool uso cbn; return 1; }
 
 if [ "$1" == "-lista" ]
 then

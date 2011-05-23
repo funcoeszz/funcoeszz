@@ -15,7 +15,7 @@ zzdictodos ()
 	local dic
 	
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso dictodos; return; }
+	[ "$1" ] || { zztool uso dictodos; return 1; }
 	
 	for dic in babelfish babylon jargon portugues
 	do

@@ -35,7 +35,7 @@ zzarrumanome ()
 	done
 	
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso arrumanome; return; }
+	[ "$1" ] || { zztool uso arrumanome; return 1; }
 	
 	# Para cada arquivo que o usuário informou...
 	for arquivo

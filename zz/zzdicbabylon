@@ -20,7 +20,7 @@ zzdicbabylon ()
 	local tab=$(echo -e \\t)
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso dicbabylon; return; }
+	[ "$1" ] || { zztool uso dicbabylon; return 1; }
 	
 	# O primeiro argumento é um idioma?
 	if [ "${idiomas% $1 *}" != "$idiomas" ]

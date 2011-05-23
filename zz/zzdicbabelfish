@@ -29,7 +29,7 @@ zzdicbabelfish ()
 	local lang=en_pt
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso dicbabelfish; return; }
+	[ "$1" ] || { zztool uso dicbabelfish; return 1; }
 
 	if [ "${1#[a-z][a-z]_[a-z][a-z]}" = '' ]
 	then

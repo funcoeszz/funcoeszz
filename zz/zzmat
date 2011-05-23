@@ -33,7 +33,7 @@ zzmat ()
 	local LANG=en
 	
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso mat; return; }
+	[ "$1" ] || { zztool uso mat; return 1; }
 	
 	#Definindo a precisão dos resultados qdo é pertinente
 	#Valor padrão é 6.
@@ -528,7 +528,7 @@ zzmat ()
 					soma=$(echo "$soma + $1"|tr ',' '.'|bc -l)
 					qtde=$(($qtde+1))
 				else
-					zztool uso mat; return;
+					zztool uso mat; return 1;
 				fi
 				shift
 			done

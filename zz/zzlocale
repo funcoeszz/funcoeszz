@@ -27,7 +27,7 @@ zzlocale ()
 	fi
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso locale; return; }
+	[ "$1" ] || { zztool uso locale; return 1; }
 	
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"

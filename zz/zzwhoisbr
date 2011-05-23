@@ -17,7 +17,7 @@ zzwhoisbr ()
 	local dominio="${1#www.}" # tira www do início
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso whoisbr; return; }
+	[ "$1" ] || { zztool uso whoisbr; return 1; }
 
 	# Faz a consulta e filtra o resultado
 	$ZZWWWDUMP "$url?qr=$dominio" |

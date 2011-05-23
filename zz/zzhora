@@ -31,7 +31,7 @@ zzhora ()
 	fi
 	
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso hora; return; }
+	[ "$1" ] || { zztool uso hora; return 1; }
 	
 	# Dados informados pelo usuário (com valores padrão)
 	hhmm1="$1"

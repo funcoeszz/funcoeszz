@@ -31,7 +31,7 @@ zzconverte ()
 	local operacao=$1
 	
 	# Verificação dos parâmetros
-	[ "$2" ] || { zztool uso converte; return; }
+	[ "$2" ] || { zztool uso converte; return 1; }
 	
 	shift
 	while [ "$1" ]
