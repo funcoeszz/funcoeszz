@@ -51,10 +51,8 @@ zzporcento ()
 		valor1=$(echo $valor1 | sed 'y/,/./')
 
 	# Número inteiro ou erro
-	elif ! zztool testa_numero $valor1
-	then
-		echo "Número inválido '$valor1'"
-		return 1
+	else
+		zztool -e testa_numero $valor1 || return 1
 	fi
 
 	### Vamos analisar o segundo valor
@@ -97,10 +95,8 @@ zzporcento ()
 			valor2=$(echo $valor2 | sed 'y/,/./')
 
 		# Número normal ou erro
-		elif ! zztool testa_numero $valor2
-		then
-			echo "Número inválido '$valor2'"
-			return 1
+		else
+			zztool -e testa_numero $valor2 || return 1
 		fi
 	fi
 
