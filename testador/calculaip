@@ -10,11 +10,11 @@ Broadcast: 10.0.0.255"
 tests=(
 ''	''	r	^Uso:.*
 
-a	''	r	"IP inv.lido: a"
-0.0.0	''	r	"IP inv.lido: .*"
-0.0	''	r	"IP inv.lido: .*"
-0	''	r	"IP inv.lido: .*"
-0.0.0.256	''	r	"IP inv.lido: .*"
+a		''	r	"N.mero IP inv.lido 'a'"
+0.0.0		''	r	"N.mero IP inv.lido '0.0.0'"
+0.0		''	r	"N.mero IP inv.lido '0.0'"
+0		''	r	"N.mero IP inv.lido '0'"
+0.0.0.256	''	r	"N.mero IP inv.lido '0.0.0.256'"
 
 10.0.0.0	a	r	"M.scara inv.lida: a"
 10.0.0.0	-1	r	"M.scara inv.lida: .*"
