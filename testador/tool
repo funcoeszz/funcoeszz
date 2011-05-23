@@ -2,7 +2,7 @@
 debug=0
 values=4
 tests=(
-uso	zztool	''	''	t	"Uso: zztool ferramenta [argumentos]"
+uso	zztool	''	''	t	"Uso: zztool [-e] ferramenta [argumentos]"
 index_var	tan	testando	''	t	4
 arquivo_vago	tool	''	''	r	"Arquivo tool j. existe. Abortando."
 arquivo_legivel	_fake_	''	''	r	"N.o consegui ler o arquivo _fake_"
