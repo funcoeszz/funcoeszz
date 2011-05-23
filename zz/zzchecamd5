@@ -19,7 +19,7 @@ zzchecamd5 ()
 	zzzz -h checamd5 $1 && return
 
 	# Faltou argumento mostrar como se usa a zzchecamd5
-	if [ "$#" != "2" ];then
+	if [ $# != "2" ];then
 		zztool uso checamd5
 		return 1
 	fi

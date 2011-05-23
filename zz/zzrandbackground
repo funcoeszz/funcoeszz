@@ -29,7 +29,7 @@ zzrandbackground ()
 
 		# Tem todos os parametros, caso negativo
 		# mostra o uso da funcao
-		if [ "$#" != "3" ]; then
+		if [ $# != "3" ]; then
 			zztool uso randbackground
 			return 1
 		fi
@@ -57,7 +57,7 @@ zzrandbackground ()
 	else
 		# Caso nao seja passado o -l, só tem o camiho
 		# caso negativo mostra o uso da funcao
-		if [ "$#" != "1" ]; then
+		if [ $# != "1" ]; then
 			zztool uso randbackground
 			return 1
 		fi
