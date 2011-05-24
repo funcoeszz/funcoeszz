@@ -187,9 +187,10 @@ zztool ()
 				tr -d ' \t'
 		;;
 		testa_ano)
-			# Testa se $1 é um ano válido: 0-9999
+			# Testa se $1 é um ano válido: 1-9999
+			# O ano zero nunca existiu, foi de -1 para 1
 			# Ano maior que 9999 pesa no processamento
-			echo "$1" | grep '^[0-9]\{1,4\}$' >/dev/null && return 0
+			echo "$1" | grep -v '^00*$' | grep '^[0-9]\{1,4\}$' >/dev/null && return 0
 
 			test -n "$erro" && echo "Ano inválido '$1'"
 			return 1

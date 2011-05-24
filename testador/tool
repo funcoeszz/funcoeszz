@@ -151,6 +151,23 @@ ok=1; comando="tool testa_ip 0.0.0"              ; compara_exitcode
 ok=1; comando="tool testa_ip 0.0"                ; compara_exitcode
 ok=1; comando="tool testa_ip 0"                  ; compara_exitcode
 
+# testa_ano
+# 1-9999
+ok=1; comando="tool testa_ano -1000" ; compara_exitcode
+ok=1; comando="tool testa_ano -1" ; compara_exitcode
+ok=1; comando="tool testa_ano 0" ; compara_exitcode
+ok=0; comando="tool testa_ano 1" ; compara_exitcode
+ok=0; comando="tool testa_ano 10" ; compara_exitcode
+ok=0; comando="tool testa_ano 100" ; compara_exitcode
+ok=0; comando="tool testa_ano 1000" ; compara_exitcode
+ok=0; comando="tool testa_ano 2000" ; compara_exitcode
+ok=0; comando="tool testa_ano 9999" ; compara_exitcode
+ok=1; comando="tool testa_ano 99999" ; compara_exitcode
+# padding
+ok=0; comando="tool testa_ano 0001" ; compara_exitcode
+ok=0; comando="tool testa_ano 001" ; compara_exitcode
+ok=0; comando="tool testa_ano 01" ; compara_exitcode
+
 # testa_data
 # O ano é livre
 ok=0; comando="tool testa_data 01/01/0" ; compara_exitcode
