@@ -36,7 +36,7 @@ zzlinha ()
 	# Se informado um ou mais arquivos, eles existem?
 	for arquivo in "$@"
 	do
-	 	zztool arquivo_legivel "$arquivo" || return 1
+		zztool arquivo_legivel "$arquivo" || return 1
 	done
 
 	if [ "$n" ]
