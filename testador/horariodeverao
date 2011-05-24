@@ -11,10 +11,11 @@ tests=(
 # Erros
 01/01/1970	t	"Ano inválido '01/01/1970'"
 -2000 		t	"Ano inválido '-2000'"
+0 		t	"Ano inválido '0'"
 foo 		t	"Ano inválido 'foo'"
 
 # Epoch
-0		t	"Antes de 2008 não havia regra fixa para o horário de verão"
+1		t	"Antes de 2008 não havia regra fixa para o horário de verão"
 10 		t	"Antes de 2008 não havia regra fixa para o horário de verão"
 100 		t	"Antes de 2008 não havia regra fixa para o horário de verão"
 1969 		t	"Antes de 2008 não havia regra fixa para o horário de verão"

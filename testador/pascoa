@@ -96,6 +96,7 @@ tests=(
 # Erros
 01/01/1970	t	"Ano inválido '01/01/1970'"
 -2000 		t	"Ano inválido '-2000'"
+0 		t	"Ano inválido '0'"
 foo 		t	"Ano inválido 'foo'"
 
 )

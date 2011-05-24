@@ -62,6 +62,7 @@ tests=(
 # Erros
 1970		''	r	'^Data inv.lida .*'
 -2000 		''	r	'^Data inv.lida .*'
+0 		''	r	'^Data inv.lida .*'
 foo 		''	r	'^Data inv.lida .*'
 29.02.2008	''	r	'^Data inv.lida .*'
 

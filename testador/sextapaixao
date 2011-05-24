@@ -22,10 +22,11 @@ tests=(
 # Erros
 01/01/1970	t	"Ano inválido '01/01/1970'"
 -2000 		t	"Ano inválido '-2000'"
+0 		t	"Ano inválido '0'"
 foo 		t	"Ano inválido 'foo'"
 
 # Epoch
-0	t	09/04/0
+1	t	25/03/1
 10 	t	18/04/10
 100 	t	10/04/100
 1000	t	29/03/1000
