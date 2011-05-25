@@ -1,21 +1,31 @@
 # ----------------------------------------------------------------------------
 # Calculadora.
-# Wrapper para o comando bc, que funciona no formato brasileiro: 1.234,56
+# Wrapper para o comando bc, que funciona no formato brasileiro: 1.234,56.
 # Os operadores principais são + - / * ^ %, veja outros em "man bc".
 # Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
-# Uso: zzcalcula operação
+# Uso: zzcalcula operação|--soma
 # Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
 #      zzcalcula '2^2*(4-1)'          # 2 ao quadrado vezes 4 menos 1
 #      echo 2 + 2 | zzcalcula         # lendo da entrada padrão (STDIN)
+#      zzseq 5 | zzcalcula --soma     # soma números da STDIN
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzcalcula ()
 {
 	zzzz -h calcula $1 && return
+
+	local soma
+
+	# Opção de linha de comando
+	if test "$1" = '--soma'
+	then
+		soma=1
+		shift
+	fi
 
 	# Dados da STDIN ou via argumentos
 	zztool multi_stdin "$@" |
@@ -28,6 +38,24 @@ zzcalcula ()
 		# Remove separador de milhares
 		s/\.\([0-9][0-9][0-9]\)/\1/g
 		' |
+
+	# Temos dados multilinha para serem somados?
+	if test -n "$soma"
+	then
+		sed '
+			# Remove linhas em branco
+			/^$/d
+
+			# Números sem sinal são positivos
+			s/^[0-9]/+&/
+			
+			# Se o primeiro da lista tiver sinal + dá erro no bc
+			1 s/^+//' |
+		# Junta as linhas num única tripa, exemplo: 5+7-3+1-2
+		tr -d '\n'
+	else
+		cat -
+	fi |
 
 	# O resultado deve ter somente duas casas decimais
 	sed 's/^/scale=2;/' |
