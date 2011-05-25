@@ -11,6 +11,7 @@
 # Versão: 20100128
 # Licença: GPLv2
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2011-05-24 Funcionalidades implementadas na zzdatafmt.
 zzdatabarras ()
 {
 	#set -x
