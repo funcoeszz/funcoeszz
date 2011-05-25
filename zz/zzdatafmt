@@ -17,8 +17,9 @@
 #
 # Uso: zzdatafmt [-f formato] [data]
 # Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
-#      zzdatafmt 31/12                      # 31/12/2011 (ano atual)
 #      zzdatafmt 31.12.11                   # 31/12/2011
+#      zzdatafmt 31/12                      # 31/12/2011 (ano atual)
+#      zzdatafmt -f MES hoje                # maio (mês atual)
 #      zzdatafmt -f AAAA 31/12/11           # 2011
 #      zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11
 #      zzdatafmt -f D/M/A 01/02/2003        # 1/2/3
