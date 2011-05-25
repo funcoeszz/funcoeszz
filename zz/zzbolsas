@@ -191,7 +191,7 @@ zzbolsas ()
 				bolsa=$(echo "$1"|zzmaiusculas)
 					# Emprestando as variaves pag, pags e pag_atual efeito estético apenas
 					pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
-					sed -n "/($bolsa)/p;/Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'| 
+					sed -n "/($bolsa)/p;/Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'|
 					sed 's/^ */ /g')
 					pags=$(echo "$pag" | sed -n '2p' | sed 's/ [A-Z]/\n\t&/g;s/Enc ajustado/Ajustado/'| sed '/^ *$/d' | awk '{printf "  %-12s\n", $1}')
 					pag_atual=$(echo "$pag" | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' |  awk '{printf " %14s\n", $1}')
@@ -208,8 +208,8 @@ zzbolsas ()
 						yyyy=${yyyy#0}
 						data2="${dd}/$((${mm} + 1))/${yyyy}"
 						pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
-						sed -n "/($bolsa)/p;/Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'| 
-						sed 's/^ */ /g' | sed -n '3p' | cut -f7- -d" " |sed 's/ [0-9]/\n&/g' | 
+						sed -n "/($bolsa)/p;/Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'|
+						sed 's/^ */ /g' | sed -n '3p' | cut -f7- -d" " |sed 's/ [0-9]/\n&/g' |
 						sed '/^ *$/d' | awk '{printf " %14s\n", $1}')
 						paste <(printf "  %-12s" "Data") <(echo "      $data1") <(echo "      $data2") <(echo "       Variação") <(echo "  Var (%)")
 						

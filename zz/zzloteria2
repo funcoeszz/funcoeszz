@@ -4,7 +4,7 @@
 # Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o
 # concurso
 #       Se nenhum argumento for passado, todas as loterias são mostradas.
-# Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | 
+# Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil |
 # federal | timemania | loteca] concurso]
 # Ex.: zzloteria2
 #      zzloteria2 quina megasena
@@ -184,7 +184,7 @@ zzloteria2 ()
 				resultado=$(printf "$dump" | cut -d '|' -f 4 |
 				sed 's/ [0-9] [0-9]* /\n &/g;s/ [0-9]\{2\} [0-9]*/\n&/g' | sed '1d' | zzsemacento |
 				sed 's|\(/[A-Z]\{2\}\) \(\JUNIOR\)|-\2\1|g'|
-				awk '{ 
+				awk '{
 					printf "Jogo %02d ", $1
 						Time=""
 						for (i = 3; i < NF-1; i++)
@@ -198,7 +198,7 @@ zzloteria2 ()
 								}
 							}
 					if ( length(Time)>0 ) printf "%2s X %-2s %-47s ", $2, $(NF-1), "(" Time " )"
-					if ( $2 > $(NF-1) ) printf " %s\n", "- Col.  1 " 
+					if ( $2 > $(NF-1) ) printf " %s\n", "- Col.  1 "
 					if ( $2 == $(NF-1) ) printf " %s\n", "- Col. Meio"
 					if ( $2 < $(NF-1) ) printf " %s\n", "- Col.  2"
 					#printf " %-3s\n", $(NF)

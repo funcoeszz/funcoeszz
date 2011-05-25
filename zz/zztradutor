@@ -39,7 +39,7 @@ zztradutor ()
 	local charset_de='ISO-8859-1'
 	local charset_para='UTF-8'
 
-	case "$1" in 
+	case "$1" in
 		# O usuário informou um par de idiomas, como pt-en
 		[a-z][a-z]-[a-z][a-z])
 			lang_de=${1%-??}
@@ -71,8 +71,8 @@ zztradutor ()
 	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
 	# e limpa essa linha para estar somente o texto desejado.
 	$ZZWWWHTML "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |
-		iconv --from-code=$charset_de --to-code=$charset_para | 
+		iconv --from-code=$charset_de --to-code=$charset_para |
 		awk 'gsub("<[^/]", "\n&")' |
-		grep '<span title' | 
+		grep '<span title' |
 		sed 's/<[^>]*>//g'
 }

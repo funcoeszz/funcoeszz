@@ -62,7 +62,7 @@ zzporcento ()
 	then
 		# O valor da porcentagem é guardado sem o caractere %
 		porcentagem=$(echo $valor2 | tr -d %)
-		# Sempre usar o ponto como separador interno (para os cálculos)			
+		# Sempre usar o ponto como separador interno (para os cálculos)
 		porcentagem=$(echo $porcentagem | sed 'y/,/./')
 
 		# Porcentagem fracionada
@@ -70,7 +70,7 @@ zzporcento ()
 		then
 			# Se o valor é inteiro (escala=0) e a porcentagem fracionária,
 			# é preciso forçar uma escala para que o resultado apareça correto.
-			test $escala -eq 0 && escala=2 valor1=$valor1.00			
+			test $escala -eq 0 && escala=2 valor1=$valor1.00
 
 		# Porcentagem inteira ou erro
 		elif ! zztool testa_numero $porcentagem

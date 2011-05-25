@@ -1,12 +1,12 @@
 # ----------------------------------------------------------------------------
 # Muda aleatoriamente o background do GNOME.
 # A opção -l faz o script entrar em loop.
-# ATENÇÃO: o caminho deve conter a última / para que funcione: 
+# ATENÇÃO: o caminho deve conter a última / para que funcione:
 #   /wallpaper/ <- funciona
 #   /wallpaper  <- não funciona
 #
 # Uso: zzrandbackground -l <caminho_wallpapers> <segundo>
-# Ex.: zzrandbackground /media/wallpaper/ 
+# Ex.: zzrandbackground /media/wallpaper/
 #      zzrandbackground -l /media/wallpaper/ 5
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
@@ -75,19 +75,19 @@ zzrandbackground ()
 	# Ok parametros tratados, vamos pegar
 	# as imagens dentro do "$caminho"
 	papeisdeparede=$(
-				find -L $caminho -type f -exec file {} \; | 
-				grep -i image | 
+				find -L $caminho -type f -exec file {} \; |
+				grep -i image |
 				cut -d: -f1
 			)
 
 	# Agora a execução
-	# Foi passado -l, então entra em loop infinito 
+	# Foi passado -l, então entra em loop infinito
 	if [ "$loop" ];then
-		while test "1" 
+		while test "1"
 		do
 			background=$( echo "$papeisdeparede" |
 				zzshuffle |
-				head -1 
+				head -1
 				)
 			gconftool-2 --type string --set /desktop/gnome/background/picture_filename "$background"
 			sleep $segundos
@@ -97,7 +97,7 @@ zzrandbackground ()
 	else
 		background=$( echo "$papeisdeparede" |
 				zzshuffle |
-				head -1 
+				head -1
 			)
 		gconftool-2 --type string --set /desktop/gnome/background/picture_filename "$background"
 	fi

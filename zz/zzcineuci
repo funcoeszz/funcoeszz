@@ -32,7 +32,7 @@ zzcineuci ()
 		return 0
 	fi
 
-	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="	
+	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="
 	local cidade=`echo $* | sed 's/ /_/g' | tr [:upper:] [:lower:]` #converte nome da cidade para minúscula e retira espaços
 	local codigo codigos
 	

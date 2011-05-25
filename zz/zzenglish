@@ -18,8 +18,8 @@ zzenglish ()
 	local url="http://www.dict.org/bin/Dict/"
 	local query="Form=Dict1&Query=$1&Strategy=*&Database=*&submit=Submit query"
 
-	echo "$query" | 
-		$ZZWWWPOST "$url" | 
+	echo "$query" |
+		$ZZWWWPOST "$url" |
 		sed "
 			# pega o trecho da página que nos interessa
 			/[0-9]\{1,\} definitions\{0,1\} found/,/_______________/!d

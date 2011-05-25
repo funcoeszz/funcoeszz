@@ -63,5 +63,5 @@ zzpascoa ()
 	[ $dia -lt 10 ] && dia="0$dia"
 	[ $mes -lt 10 ] && mes="0$mes"
 
-	echo "$dia/$mes/$ano"	
+	echo "$dia/$mes/$ano"
 }

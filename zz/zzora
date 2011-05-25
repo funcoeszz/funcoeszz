@@ -10,7 +10,7 @@
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzora ()
-{ 
+{
 	zzzz -h ora $1 && return
 
 	[ $# -ne 1 ] && { zztool uso ora; return 1; } # deve receber apenas um argumento

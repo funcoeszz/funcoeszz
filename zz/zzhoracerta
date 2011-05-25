@@ -28,7 +28,7 @@ zzhoracerta ()
 		shift
 		codigo="$1"
 	else
-		localidade="$*"	
+		localidade="$*"
 	fi
 	
 	# Se o cache está vazio, baixa listagem da Internet
@@ -41,7 +41,7 @@ zzhoracerta ()
 			sed 's/.*_time_in_// ; s/\.aspx">/ -- / ; s/<.*//' > "$cache"
 	fi
 
-	# Se nenhum parâmetro for passado, são listados os países disponíveis		
+	# Se nenhum parâmetro for passado, são listados os países disponíveis
 	if ! [ "$localidade$codigo" ]
 	then
 		cat "$cache"
@@ -53,7 +53,7 @@ zzhoracerta ()
 	then
 		localidades=$(grep -i "^[^ ]*$codigo" "$cache")
 	else
-		localidades=$(grep -i "$localidade" "$cache")		
+		localidades=$(grep -i "$localidade" "$cache")
 	fi
 
 	# Se mais de uma localidade for encontrada, mostre-as
@@ -68,7 +68,7 @@ zzhoracerta ()
 	then
 		echo "Localidade \"$localidade$codigo\" não encontrada"
 		return 1
-	fi	
+	fi
 	
 	# Grava o código da localidade (BR-RS -- Rio Grande do Sul -> BR-RS)
 	localidade=$(echo "$localidades" | sed 's/ .*//')

@@ -16,9 +16,9 @@ zztweets ()
 
 	local url="http://twitter.com"
 	local name=$(echo $1 | tr -d "@")
-	local result_raw result_show 
+	local result_raw result_show
 
-	result_raw=$($ZZWWWDUMP $url/$name) 
+	result_raw=$($ZZWWWDUMP $url/$name)
 
 	result_show=$(echo "$result_raw"| grep "^ *[1-5]\. ")
 	test -n "$result_show" && echo "$result_show" && return

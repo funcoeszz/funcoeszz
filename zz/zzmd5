@@ -34,7 +34,7 @@ zzmd5 ()
 	##### Diferenças na saída dos comandos
 	###
 	### $comando_md5 /a/www/favicon.*
-	# 
+	#
 	# Linux (separador é 2 espaços):
 	# d41d8cd98f00b204e9800998ecf8427e  /a/www/favicon.gif
 	# 902591ef89dbe5663dc7ae44a5e3e27a  /a/www/favicon.ico

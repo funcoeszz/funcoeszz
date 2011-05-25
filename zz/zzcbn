@@ -3,10 +3,10 @@
 # Busca e toca os últimos comentários dos comentaristas da radio CBN.
 # Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn -lista
 # Ex.: zzcbn -c max -d ontem
-#      zzcbn -c mauro -d tudo 
+#      zzcbn -c mauro -d tudo
 #      zzcbn -c juca -d 13/05/09
 #      zzcbn -c miriam
-#      zzcbn -mp3 -c max  
+#      zzcbn -mp3 -c max
 #
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2009-04-16
@@ -18,7 +18,7 @@ zzcbn ()
 {
 	zzzz -h cbn $1 && return
 	
-	local COMENTARISTAS MP3 RSS data comentarista datafile 
+	local COMENTARISTAS MP3 RSS data comentarista datafile
 
 #Comentaristas;RSS;Download
 COMENTARISTAS="André_Trigueiro;andretrigueiro;andre-trigueiro;mundo
@@ -73,7 +73,7 @@ fi
 				EXT="mp3"
 				MP3="http://download3.globo.com/sgr-$EXT/cbn/"
 				;;
-			*) 
+			*)
 				zzecho -l vermelha "Opção inválida!!"
 				return 1
 				;;
@@ -89,7 +89,7 @@ fi
 	
 	zzecho -l ciano `cat "$ZZTMP.comentarios" | sed -n '1p'`
 
-	case  "$data" in 
+	case  "$data" in
 		"ontem")
 			datafile=`date -d "yesterday" +%y%m%d`
 			data=`LANG=en date -d "yesterday" "+%d %b %Y"`
@@ -117,7 +117,7 @@ fi
 
 	esac
 	Tlinhas=`cat "$ZZTMP.coment"| sed -n '$='`
-	[ "$Tlinhas" ] ||  { zzecho -l vermelho "Sem comentários"; return; } 
+	[ "$Tlinhas" ] ||  { zzecho -l vermelho "Sem comentários"; return; }
 	for ((l=1;$l<=$Tlinhas;l=$l+2))
 	do
 		P=`expr $l + 1`
@@ -137,7 +137,7 @@ fi
 		fi
 		zzecho -l verde "(q) para próximo; CTRL+C para sair"
 		#echo $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT
-		echo $titulo - $data 
+		echo $titulo - $data
 		mplayer $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT 1>/dev/null 2>/dev/null || return
 	done
 	if [ "$Tlinhas" == "0" ]

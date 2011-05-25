@@ -82,9 +82,9 @@ zzfrenteverso2pdf ()
 		n_pag_verso=`expr $ini_verso $sinal_verso $n_pag`
 		if [ $n_pag -le $n_versos ]; then
 			numberlist="$numberlist B$n_pag_verso"
-		fi 
+		fi
 		n_pag=$(($n_pag + 1))
-	done 
+	done
 	
 	# Cria arquivo mesclado.
 	pdftk A="$dir/$arq_frentes" B="$dir/$arq_versos" cat $numberlist output "$dir/frenteverso.pdf" dont_ask

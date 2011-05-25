@@ -55,7 +55,7 @@ zzdiasuteis ()
 
 	# Quantas semanas e quantos dias avulsos?
 	semanas=$((dias / 7))
-	avulsos=$((dias % 7))	
+	avulsos=$((dias % 7))
 
 	# Dos avulsos, quantos são úteis?
 	#
@@ -78,5 +78,5 @@ zzdiasuteis ()
 	fi
 
 	# Com os dados na mão, basta calcular
-	echo $(($semanas * 5 + $avulsos_uteis))	
+	echo $(($semanas * 5 + $avulsos_uteis))
 }

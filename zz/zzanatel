@@ -22,7 +22,7 @@ zzanatel ()
 			PERIODO='d';;
 		6)
 			PERIODO='b';;
-		*) 
+		*)
 			PERIODO='s';;
 	esac
 	echo "acao=c&pCNOrigem=$1&pPrefixoOrigem=$2&pCNDestino=$3&pPrefixoDestino=$4&pPeriodo=$PERIODO&pConsulta=2&LDN=true" |

@@ -48,7 +48,7 @@ zzdiadasemana ()
 	# A função zzdata considera 01/01/1970 a data zero, e se chamada
 	# apenas com uma data, retorna o número de dias de diferença para
 	# o dia zero. O número será negativo se o ano for inferior a 1970.
-	# 
+	#
 	delta=$(zzdata $data)
 	dia=$(( ${delta#-} % 7))  # remove o sinal negativo (se tiver)
 

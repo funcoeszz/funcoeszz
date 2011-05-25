@@ -91,7 +91,7 @@ zzcnpj ()
 			echo CNPJ válido
 		else
 			# Boa ação do dia: mostrar quais os verificadores corretos
-			echo "CNPJ inválido (deveria terminar em $digito1$digito2)"			
+			echo "CNPJ inválido (deveria terminar em $digito1$digito2)"
 		fi
 	fi
 }

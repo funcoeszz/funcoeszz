@@ -51,7 +51,7 @@ zzdatafmt ()
 	data=$(zztool multi_stdin $*)
 	data_orig="$data"
 	
-	# Converte datas estranhas para o formato brasileiro ../../.. 
+	# Converte datas estranhas para o formato brasileiro ../../..
 	case "$data" in
 		# apelidos
 		hoje|ontem|anteontem|amanh[ãa])
@@ -152,5 +152,5 @@ zzdatafmt ()
 	# Senão, é só mostrar no formato normal
 	else
 		echo $data
-	fi		
+	fi
 }

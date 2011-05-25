@@ -53,10 +53,10 @@ zzferiado ()
 		ano=$(basename ${1:-$hoje})
 	fi
 
-	# Para feriados Estaduais ou regionais Existe a variável de 
-	# ambiente ZZFERIADO que pode ser configurada no $HOME/.bashrc e 
+	# Para feriados Estaduais ou regionais Existe a variável de
+	# ambiente ZZFERIADO que pode ser configurada no $HOME/.bashrc e
 	# colocar as datas com dd/mm:descricao
-	carnaval=$(dirname $(zzcarnaval $ano ) ) 
+	carnaval=$(dirname $(zzcarnaval $ano ) )
 	sextapaixao=$(dirname $(zzsextapaixao $ano ) )
 	corpuschristi=$(dirname $(zzcorpuschristi $ano ) )
 	feriados="01/01:Confraternização Universal $carnaval:Carnaval $sextapaixao:Sexta-ferida da Paixao 21/04:Tiradentes 01/05:Dia do Trabalho $corpuschristi:Corpu Christi 07/09:Independência do Brasil 12/10:Nossa Sra. Aparecida 02/11:Finados 15/11:Proclamação da República 25/12:Natal $ZZFERIADO"
@@ -71,7 +71,7 @@ zzferiado ()
 		# Pega os dados, coloca 1 por linha, inverte dd/mm para mm/dd,
 		# ordena, inverte mm/dd para dd/mm
 		echo $feriados |
-		sed '   
+		sed '
 			s# \([0-3]\)#\n\1#g
 			s#\(..\)/\(..\)#\2/\1#g
 		' |
@@ -82,7 +82,7 @@ zzferiado ()
 			diasemana=$(zzdiadasemana $dia/$ano)
 			descricao=$(echo $LINHA | cut -d: -f2)
 			echo -e "$dia $diasemana $pulaparacoluna22 $descricao"
-		done 
+		done
 	else
 		# Verifica se a data está dentro da lista de feriados
 		# e imprime o resultado
@@ -93,5 +93,5 @@ zzferiado ()
 		fi
 	fi
 
-	return 0	
+	return 0
 }

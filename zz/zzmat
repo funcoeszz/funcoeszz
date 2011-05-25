@@ -436,7 +436,7 @@ zzmat ()
 				fi
 			;;
 			esac
-		else 
+		else
 			echo " zzmat $1: Cálculo de volume de figuras geométricas"
 			echo " Uso: zzmat volume <paralelepipedo|cilindro|esfera|cone|prisma|piramide|rombicuboctaedro|rombicosidodecaedro>"
 			echo " Uso: zzmat volume <tetraedo|cubo|octaedro|dodecaedro|icosaedro|cuboctaedro|icosidodecaedro> [truncado] numero"
@@ -448,7 +448,7 @@ zzmat ()
 		if [ $# -ge "3" ]
 		then
 			local num_maior num_menor resto mdc mmc num2
-			local num1=$2 
+			local num1=$2
 			local subfuncao=$1
 			shift 2
 			for num2 in $*
@@ -485,7 +485,7 @@ zzmat ()
 	;;
 	"somatoria"|"produtoria")
 		#colocar x como a variavel a ser substituida
-		if ([ $# -eq "4" ] && zztool testa_numero $2 && 
+		if ([ $# -eq "4" ] && zztool testa_numero $2 &&
 		    zztool testa_numero $3 && zztool grep_var "x" $4)
 		then
 			local equacao numero operacao
@@ -814,13 +814,13 @@ zzmat ()
 			y1=$(echo "$2"|cut -f2 -d,)
 			x2=$(echo "$3"|cut -f1 -d,)
 			y2=$(echo "$3"|cut -f2 -d,)
-			if (zzmat testa_num $x1 && zzmat testa_num $y1 && 
+			if (zzmat testa_num $x1 && zzmat testa_num $y1 &&
 			    zzmat testa_num $x2 && zzmat testa_num $y2 )
 			then
 				a=$(echo "$y1 $y2"|awk '{valor=($1)-($2); print valor}')
 				b=$(echo "$x1 $x2"|awk '{valor=($2)-($1);  print (valor<0?"":"+") valor}')
 				c=$(zzmat det $x1 $y1 $x2 $y2|awk '{print ($1<0?"":"+") $1}')
-				if (zztool testa_numero_sinal $a && 
+				if (zztool testa_numero_sinal $a &&
 				    zztool testa_numero_sinal $b &&
 				    zztool testa_numero_sinal $c)
 				then
@@ -871,7 +871,7 @@ zzmat ()
 	;;
 	"egc3p")
 	#Equação Geral da Circunferência: 3 Pontos
-		if ([ $# = "4" ] && zztool grep_var "," "$2" && 
+		if ([ $# = "4" ] && zztool grep_var "," "$2" &&
 		    zztool grep_var "," "$3" && zztool grep_var "," "$4")
 		then
 			local x1 y1 x2 y2 x3 y3 A B C D
@@ -965,7 +965,7 @@ zzmat ()
 			for num in $*
 			do
 				if ! zzmat testa_num "$num"
-				then 
+				then
 					echo " Uso: zzmat $1 numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"
 					return 1
 				fi

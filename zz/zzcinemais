@@ -91,23 +91,23 @@ zzcinemais ()
 	esac
 
 	sessoes=$(
-			$ZZWWWHTML "http://www.cinemais.com.br/programacao/cinema.php?cod=$codigo" | 
+			$ZZWWWHTML "http://www.cinemais.com.br/programacao/cinema.php?cod=$codigo" |
 			iconv --from-code=ISO-8859-1 --to-code=UTF-8 |
-			grep -A 5 '+[1-8]<' | 
+			grep -A 5 '+[1-8]<' |
 			sed 's/<[^>]*>//g;s/^[ \t]*//g'
 		)
 
 	hora=`date +%Hh%M | cut -d'h' -f1`
 	minuto=`date +%Hh%M | cut -d'h' -f2`
 
-	for i in $sessoes; do 
-		if [[ $i =~ \+[1-8] ]]; then 
-			echo -ne "\n $i | " 
+	for i in $sessoes; do
+		if [[ $i =~ \+[1-8] ]]; then
+			echo -ne "\n $i | "
 		elif [[ $i =~ Liv\.|[0-9][0-9]a  ]]; then
 			echo -ne "\033[G\033[24C| $i |      -  "
 		elif [[ $i =~ Dub|Leg  ]]; then
 			echo -ne "\033[G\033[31C| $i  "
-		elif [[ $i =~ [0-9][0-9][h][0-9][0-9] ]];then 
+		elif [[ $i =~ [0-9][0-9][h][0-9][0-9] ]];then
 			ih=`echo $i | cut -d'h' -f1`
 			im=`echo $i | cut -d'h' -f2 | sed 's/,//g;s/[A-K]//g' | tr -d '\015'`
 
