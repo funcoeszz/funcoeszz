@@ -958,19 +958,27 @@ zzmat ()
 	;;
 	"det")
 		# Determinante de matriz (2x2 ou 3x3)
-		if ([ $# -ge "2" ])
+		if ([ $# -ge "5" ] && [ $# -le "10" ])
 		then
 			local num
 			shift
 			for num in $*
 			do
-				if ! zzmat testa_num "$num" ; then return 1;fi
+				if ! zzmat testa_num "$num"
+				then 
+					echo " Uso: zzmat $1 numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"
+					return 1
+				fi
 			done
 			case $# in
 			"4") num=$(echo "($1*$4)-($2*$3)"|tr ',' '.');;
 			"9") num=$(echo "(($1*$5*$9)+($7*$2*$6)+($4*$8*$3)-($7*$5*$3)-($4*$2*$9)-($1*$8*$6))"|tr ',' '.');;
-			*) return 1;;
+			*)   echo " Uso: zzmat $1 numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"; return 1;;
 			esac
+		else
+			echo " zzmat $1: Calcula o valor da determinante de uma matriz 2x2 ou 3x3."
+			echo " Uso: zzmat $1 numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"
+			echo " Ex:  zzmat det 1 3 2 4"
 		fi
 	;;
 	"conf_eq")
