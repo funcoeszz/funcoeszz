@@ -16,7 +16,10 @@ grep '^ ' * |
 
 funcoeszz tool eco "Linha com Tab e espaço misturados"
 grep '	 ' * |
-	grep -v ^zzmat  # exceção, usa várias vezes, estilo do autor
+	# [\t ]: Dentro de colchetes, é regex
+	fgrep -v '[	 ]' |
+	# exceção, usa várias vezes, estilo do autor
+	grep -v ^zzmat
 
 funcoeszz tool eco "Linha com Tabs ou espaços inúteis no final"
 grep '[^ 	][ 	]\{1,\}$' * |
