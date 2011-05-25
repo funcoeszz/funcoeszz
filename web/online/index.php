@@ -173,7 +173,8 @@ $available = array(
 	'zzcpf',
 	'zzdata',
 	// 'zzdata2',  //off
-	// 'zzdatabarras', //!
+	// 'zzdatabarras', //off
+	'zzdatafmt',
 	// 'zzdefine', //i
 	// 'zzdefinr', //i
 	// 'zzdelicious', //i

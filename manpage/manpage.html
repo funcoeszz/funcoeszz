@@ -43,6 +43,7 @@
   <LI><A HREF="#zzcpf">zzcpf</A>
   <LI><A HREF="#zzdata">zzdata</A>
   <LI><A HREF="#zzdatabarras">zzdatabarras</A>
+  <LI><A HREF="#zzdatafmt">zzdatafmt</A>
   <LI><A HREF="#zzdefine">zzdefine</A>
   <LI><A HREF="#zzdefinr">zzdefinr</A>
   <LI><A HREF="#zzdelicious">zzdelicious</A>
@@ -98,6 +99,13 @@
   <LI><A HREF="#zzminiurl">zzminiurl</A>
   <LI><A HREF="#zzminusculas">zzminusculas</A>
   <LI><A HREF="#zzmoeda">zzmoeda</A>
+  <LI><A HREF="#zzmoneylog">zzmoneylog</A>
+  <LI><A HREF="#zzmoneylog">zzmoneylog</A>
+  <LI><A HREF="#zzmoneylog">zzmoneylog</A>
+  <LI><A HREF="#zzmoneylog">zzmoneylog</A>
+  <LI><A HREF="#zzmoneylog">zzmoneylog</A>
+  <LI><A HREF="#zzmoneylog">zzmoneylog</A>
+  <LI><A HREF="#zzmoneylog">zzmoneylog</A>
   <LI><A HREF="#zzmudaprefixo">zzmudaprefixo</A>
   <LI><A HREF="#zznatal">zznatal</A>
   <LI><A HREF="#zznome">zznome</A>
@@ -569,6 +577,37 @@
     -v, --verbose  exibe informações para debug durante o processamento.
   Uso: zzdatabarras -d data
   Ex.: zzdatabarras -d 28012010               # resposta: "28/01/2010"
+  
+</PRE>
+
+<H1 ID="zzdatafmt">zzdatafmt</H1>
+
+<PRE>
+  Muda o formato de uma data, com várias opções de personalização.
+  Reconhece datas em vários formatos, como aaaa-mm-dd, dd.mm.aaaa e dd/mm.
+  Obs.: Se você não informar o ano, será usado o ano corrente.
+  Use a opção -f para mudar o formato de saída (o padrão é DD/MM/AAAA):
+  
+       Código   Exemplo     Descrição
+       --------------------------------------
+       AAAA     2003        Ano com 4 dígitos
+       AA       03          Ano com 2 dígitos
+       A        3           Ano sem zeros à esquerda (1 ou 2 dígitos)
+       MES      fevereiro   Nome do mês
+       MM       02          Mês com 2 dígitos
+       M        2           Mês sem zeros à esquerda
+       DD       01          Dia com 2 dígitos
+       D        1           Dia sem zeros à esquerda
+  
+  Uso: zzdatafmt [-f formato] [data]
+  Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
+       zzdatafmt 31/12                      # 31/12/2011 (ano atual)
+       zzdatafmt 31.12.11                   # 31/12/2011
+       zzdatafmt -f AAAA 31/12/11           # 2011
+       zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11
+       zzdatafmt -f D/M/A 01/02/2003        # 1/2/3
+       zzdatafmt -f "D de MES" 01/05/95     # 1 de maio
+       echo 31/12/2011 | zzdatafmt -f MM    # 12
   
 </PRE>
 
@@ -1298,6 +1337,195 @@
        zzmoeda -t
        zzmoeda euro libra
        zzmoeda -t peso
+  
+</PRE>
+
+<H1 ID="zzmoneylog">zzmoneylog</H1>
+
+<PRE>
+  XXX
+  Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
+  Ex.: zzmoneylog
+       zzmoneylog 2000
+  zzmoneylog -t CWB
+  zzmoneylog -t CWB book
+  zzmoneylog book
+  zzmoneylog -d ontem book
+  zzmoneylog hoje 5 padaria
+  zzmoneylog ontem -10 farmácia
+  zzmoneylog amanhã -10 farmácia
+  zzmoneylog amanhã -10 farmácia -t foo,bar
+  zzmoneylog amanhã -10 -t foo,bar farmácia 
+  zzmoneylog -5d -10 -t foo,bar farmácia 
+  zzmoneylog ted
+  &gt;&gt; append no TXT
+  variável global pra definir o TXT
+  tail -1 pra conferir (mostrar path do TXT)
+  abrir o ML no browser após incluir?
+  sem argumentos mostra algo? consulta? abrir o ML?
+  alias ml=zzmoneylog
+  
+</PRE>
+
+<H1 ID="zzmoneylog">zzmoneylog</H1>
+
+<PRE>
+  XXX
+  Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
+  Ex.: zzmoneylog
+       zzmoneylog 2000
+  zzmoneylog -t CWB
+  zzmoneylog -t CWB book
+  zzmoneylog book
+  zzmoneylog -d ontem book
+  zzmoneylog hoje 5 padaria
+  zzmoneylog ontem -10 farmácia
+  zzmoneylog amanhã -10 farmácia
+  zzmoneylog amanhã -10 farmácia -t foo,bar
+  zzmoneylog amanhã -10 -t foo,bar farmácia 
+  zzmoneylog -5d -10 -t foo,bar farmácia 
+  zzmoneylog ted
+  &gt;&gt; append no TXT
+  variável global pra definir o TXT
+  tail -1 pra conferir (mostrar path do TXT)
+  abrir o ML no browser após incluir?
+  sem argumentos mostra algo? consulta? abrir o ML?
+  alias ml=zzmoneylog
+  
+</PRE>
+
+<H1 ID="zzmoneylog">zzmoneylog</H1>
+
+<PRE>
+  XXX
+  Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
+  Ex.: zzmoneylog
+       zzmoneylog 2000
+  zzmoneylog -t CWB
+  zzmoneylog -t CWB book
+  zzmoneylog book
+  zzmoneylog -d ontem book
+  zzmoneylog hoje 5 padaria
+  zzmoneylog ontem -10 farmácia
+  zzmoneylog amanhã -10 farmácia
+  zzmoneylog amanhã -10 farmácia -t foo,bar
+  zzmoneylog amanhã -10 -t foo,bar farmácia 
+  zzmoneylog -5d -10 -t foo,bar farmácia 
+  zzmoneylog ted
+  &gt;&gt; append no TXT
+  variável global pra definir o TXT
+  tail -1 pra conferir (mostrar path do TXT)
+  abrir o ML no browser após incluir?
+  sem argumentos mostra algo? consulta? abrir o ML?
+  alias ml=zzmoneylog
+  
+</PRE>
+
+<H1 ID="zzmoneylog">zzmoneylog</H1>
+
+<PRE>
+  XXX
+  Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
+  Ex.: zzmoneylog
+       zzmoneylog 2000
+  zzmoneylog -t CWB
+  zzmoneylog -t CWB book
+  zzmoneylog book
+  zzmoneylog -d ontem book
+  zzmoneylog hoje 5 padaria
+  zzmoneylog ontem -10 farmácia
+  zzmoneylog amanhã -10 farmácia
+  zzmoneylog amanhã -10 farmácia -t foo,bar
+  zzmoneylog amanhã -10 -t foo,bar farmácia 
+  zzmoneylog -5d -10 -t foo,bar farmácia 
+  zzmoneylog ted
+  &gt;&gt; append no TXT
+  variável global pra definir o TXT
+  tail -1 pra conferir (mostrar path do TXT)
+  abrir o ML no browser após incluir?
+  sem argumentos mostra algo? consulta? abrir o ML?
+  alias ml=zzmoneylog
+  
+</PRE>
+
+<H1 ID="zzmoneylog">zzmoneylog</H1>
+
+<PRE>
+  XXX
+  Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
+  Ex.: zzmoneylog
+       zzmoneylog 2000
+  zzmoneylog -t CWB
+  zzmoneylog -t CWB book
+  zzmoneylog book
+  zzmoneylog -d ontem book
+  zzmoneylog hoje 5 padaria
+  zzmoneylog ontem -10 farmácia
+  zzmoneylog amanhã -10 farmácia
+  zzmoneylog amanhã -10 farmácia -t foo,bar
+  zzmoneylog amanhã -10 -t foo,bar farmácia 
+  zzmoneylog -5d -10 -t foo,bar farmácia 
+  zzmoneylog ted
+  &gt;&gt; append no TXT
+  variável global pra definir o TXT
+  tail -1 pra conferir (mostrar path do TXT)
+  abrir o ML no browser após incluir?
+  sem argumentos mostra algo? consulta? abrir o ML?
+  alias ml=zzmoneylog
+  
+</PRE>
+
+<H1 ID="zzmoneylog">zzmoneylog</H1>
+
+<PRE>
+  XXX
+  Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
+  Ex.: zzmoneylog
+       zzmoneylog 2000
+  zzmoneylog -t CWB
+  zzmoneylog -t CWB book
+  zzmoneylog book
+  zzmoneylog -d ontem book
+  zzmoneylog hoje 5 padaria
+  zzmoneylog ontem -10 farmácia
+  zzmoneylog amanhã -10 farmácia
+  zzmoneylog amanhã -10 farmácia -t foo,bar
+  zzmoneylog amanhã -10 -t foo,bar farmácia 
+  zzmoneylog -5d -10 -t foo,bar farmácia 
+  zzmoneylog ted
+  &gt;&gt; append no TXT
+  variável global pra definir o TXT
+  tail -1 pra conferir (mostrar path do TXT)
+  abrir o ML no browser após incluir?
+  sem argumentos mostra algo? consulta? abrir o ML?
+  alias ml=zzmoneylog
+  
+</PRE>
+
+<H1 ID="zzmoneylog">zzmoneylog</H1>
+
+<PRE>
+  XXX
+  Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
+  Ex.: zzmoneylog
+       zzmoneylog 2000
+  zzmoneylog -t CWB
+  zzmoneylog -t CWB book
+  zzmoneylog book
+  zzmoneylog -d ontem book
+  zzmoneylog hoje 5 padaria
+  zzmoneylog ontem -10 farmácia
+  zzmoneylog amanhã -10 farmácia
+  zzmoneylog amanhã -10 farmácia -t foo,bar
+  zzmoneylog amanhã -10 -t foo,bar farmácia 
+  zzmoneylog -5d -10 -t foo,bar farmácia 
+  zzmoneylog ted
+  &gt;&gt; append no TXT
+  variável global pra definir o TXT
+  tail -1 pra conferir (mostrar path do TXT)
+  abrir o ML no browser após incluir?
+  sem argumentos mostra algo? consulta? abrir o ML?
+  alias ml=zzmoneylog
   
 </PRE>
 
