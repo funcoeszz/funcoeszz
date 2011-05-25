@@ -17,19 +17,20 @@ num_tests=${#tests[*]}
 i=-1
 
 while [ $i -lt $((num_tests-1)) ]; do
-	# collect v1 to v6
+	# collect v1 to v7
 	[ $values -ge 1 ] && i=$((i+1)) && v1="${tests[$i]}"
 	[ $values -ge 2 ] && i=$((i+1)) && v2="${tests[$i]}"
 	[ $values -ge 3 ] && i=$((i+1)) && v3="${tests[$i]}"
 	[ $values -ge 4 ] && i=$((i+1)) && v4="${tests[$i]}"
 	[ $values -ge 5 ] && i=$((i+1)) && v5="${tests[$i]}"
 	[ $values -ge 6 ] && i=$((i+1)) && v6="${tests[$i]}"
+	[ $values -ge 7 ] && i=$((i+1)) && v7="${tests[$i]}"
 
 	# collect correct results
 	i=$((i+1)) ; mode="${tests[$i]}"
 	i=$((i+1)) ; ok=$(echo -e "${tests[$i]}")
 	
-	[ "$debug" = 1 ] && echo "+ ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6"
+	[ "$debug" = 1 ] && echo "+ ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6 $v7"
 
 	# execute tests
 	case $values in
@@ -40,6 +41,7 @@ while [ $i -lt $((num_tests-1)) ]; do
 		4) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4) ;;
 		5) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4 $v5) ;;
 		6) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6) ;;
+		7) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6 $v7) ;;
 	esac
 	
 	# test results against OK data
