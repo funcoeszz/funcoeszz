@@ -215,7 +215,7 @@ done
 eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zztool uso'"
 # As seguintes não precisam pois é válido chamá-las sem argumentos
-ok="zzalfabeto zzansi2html zzascii zzbeep zzbissexto zzbolsas zzcalcula zzcarnaval zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcpf zzdatafmt zzdiadasemana zzdolar zzdos2unix zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zznatal zznoticias zznoticiaslinux zznoticiassec zzpascoa zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzsubway zztelecine zztempo zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
+ok="zzalfabeto zzansi2html zzascii zzbeep zzbissexto zzbolsas zzcalcula zzcarnaval zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcpf zzdatafmt zzdiadasemana zzdolar zzdos2unix zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpascoa zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzsubway zztelecine zztempo zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
 for f in zz/*  # off/*
 do
 	echo " $ok " | grep -q " $(basename $f) " && continue
