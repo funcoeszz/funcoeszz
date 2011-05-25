@@ -98,6 +98,7 @@
   <LI><A HREF="#zzminiurl">zzminiurl</A>
   <LI><A HREF="#zzminusculas">zzminusculas</A>
   <LI><A HREF="#zzmoeda">zzmoeda</A>
+  <LI><A HREF="#zzmoneylog">zzmoneylog</A>
   <LI><A HREF="#zzmudaprefixo">zzmudaprefixo</A>
   <LI><A HREF="#zznatal">zznatal</A>
   <LI><A HREF="#zznome">zznome</A>
@@ -316,12 +317,14 @@
 
 <PRE>
   Calculadora.
+  Wrapper para o comando bc, que funciona no formato brasileiro: 1.234,56.
   Os operadores principais são + - / * ^ %, veja outros em "man bc".
   Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
-  Uso: zzcalcula número operação número
+  Uso: zzcalcula operação|--soma
   Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
        zzcalcula '2^2*(4-1)'          # 2 ao quadrado vezes 4 menos 1
        echo 2 + 2 | zzcalcula         # lendo da entrada padrão (STDIN)
+       zzseq 5 | zzcalcula --soma     # soma números da STDIN
   
 </PRE>
 
@@ -357,10 +360,10 @@
   Busca e toca os últimos comentários dos comentaristas da radio CBN.
   Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn -lista
   Ex.: zzcbn -c max -d ontem
-       zzcbn -c mauro -d tudo 
+       zzcbn -c mauro -d tudo
        zzcbn -c juca -d 13/05/09
        zzcbn -c miriam
-       zzcbn -mp3 -c max  
+       zzcbn -mp3 -c max
   
 </PRE>
 
@@ -581,8 +584,9 @@
   
   Uso: zzdatafmt [-f formato] [data]
   Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
-       zzdatafmt 31/12                      # 31/12/2011 (ano atual)
        zzdatafmt 31.12.11                   # 31/12/2011
+       zzdatafmt 31/12                      # 31/12/2011 (ano atual)
+       zzdatafmt -f MES hoje                # maio (mês atual)
        zzdatafmt -f AAAA 31/12/11           # 2011
        zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11
        zzdatafmt -f D/M/A 01/02/2003        # 1/2/3
@@ -1217,7 +1221,7 @@
   Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o
   concurso
         Se nenhum argumento for passado, todas as loterias são mostradas.
-  Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | 
+  Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil |
   federal | timemania | loteca] concurso]
   Ex.: zzloteria2
        zzloteria2 quina megasena
@@ -1320,6 +1324,29 @@
   
 </PRE>
 
+<H1 ID="zzmoneylog">zzmoneylog</H1>
+
+<PRE>
+  Consulta lançamentos do Moneylog, com pesquisa avançada e saldo total.
+  Obs.: Chamado sem argumentos, pesquisa o mês corrente
+  Obs.: Não expande lançamentos recorrentes e parcelados.
+  
+  Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
+  Ex.: zzmoneylog                       # Todos os lançamentos deste mês
+       zzmoneylog mercado               # Procure por mercado
+       zzmoneylog -t mercado            # Lançamentos com a tag mercado
+       zzmoneylog -t mercado -d 2011    # Tag mercado em 2011
+       zzmoneylog -t mercado --total    # Saldo total da tag mercado
+       zzmoneylog -d 31/01/2011         # Todos os lançamentos desta data
+       zzmoneylog -d 2011               # Todos os lançamentos de 2011
+       zzmoneylog -d ontem              # Todos os lançamentos de ontem
+       zzmoneylog -d mes                # Todos os lançamentos deste mês
+       zzmoneylog -d mes --total        # Saldo total deste mês
+       zzmoneylog -d 2011-0[123]        # Regex: que casa Jan/Fev/Mar de 2011
+       zzmoneylog -v /                  # Todos os pagamentos parcelados
+  
+</PRE>
+
 <H1 ID="zzmudaprefixo">zzmudaprefixo</H1>
 
 <PRE>
@@ -1354,7 +1381,7 @@
   Por padrão lista origem e significado.
   
   Uso: zznome nome [significado|origem|letra|marca|numerologia|tarot|tudo]
-  Ex.: zznome maria 
+  Ex.: zznome maria
        zznome josé origem
   
 </PRE>
@@ -1436,7 +1463,7 @@
 <H1 ID="zzpiada">zzpiada</H1>
 
 <PRE>
-  http://www.xalexandre.com.br/ 
+  http://www.xalexandre.com.br/
   Mostra uma piada diferente cada vez que é chamada.
   Uso: zzpiada
   Ex.: zzpiada
@@ -1490,12 +1517,12 @@
 <PRE>
   Muda aleatoriamente o background do GNOME.
   A opção -l faz o script entrar em loop.
-  ATENÇÃO: o caminho deve conter a última / para que funcione: 
+  ATENÇÃO: o caminho deve conter a última / para que funcione:
     /wallpaper/ &lt;- funciona
     /wallpaper  &lt;- não funciona
   
   Uso: zzrandbackground -l &lt;caminho_wallpapers&gt; &lt;segundo&gt;
-  Ex.: zzrandbackground /media/wallpaper/ 
+  Ex.: zzrandbackground /media/wallpaper/
        zzrandbackground -l /media/wallpaper/ 5
   
 </PRE>

@@ -1273,53 +1273,77 @@ zzbyte ()
 # ----------------------------------------------------------------------------
 # zzcalcula
 # Calculadora.
+# Wrapper para o comando bc, que funciona no formato brasileiro: 1.234,56.
 # Os operadores principais são + - / * ^ %, veja outros em "man bc".
 # Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
-# Uso: zzcalcula número operação número
+# Uso: zzcalcula operação|--soma
 # Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
 #      zzcalcula '2^2*(4-1)'          # 2 ao quadrado vezes 4 menos 1
 #      echo 2 + 2 | zzcalcula         # lendo da entrada padrão (STDIN)
+#      zzseq 5 | zzcalcula --soma     # soma números da STDIN
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzcalcula ()
 {
 	zzzz -h calcula $1 && return
-	
+
+	local soma
+
+	# Opção de linha de comando
+	if test "$1" = '--soma'
+	then
+		soma=1
+		shift
+	fi
+
 	# Dados da STDIN ou via argumentos
 	zztool multi_stdin "$@" |
-	
+
 	# Limpeza nos dados para chegarem bem no bc
 	sed '
-		# Espaços só atrapalham
-		s/ //g
-
-		# Remove separador de milhares
-		s/[.,]\([0-9][0-9][0-9]\)/\1/g			
-
-		# Multilinha
-		2, $ {
-			# Valores sem sinal são sempre positivos
-			s/^[0-9]/+&/				
-		}
-		' |
-
-	# Dados podem vir multilinha, mas aqui fica uma única linha
-	tr -d '\n' |
-
-	# Formatação final
-	sed '
-		# Se o primeiro número vier com + na frente, dá erro no bc
-		s/^+//
+		# Espaços só atrapalham (tab+espaço)
+		s/[	 ]//g
 		
-		# O resultado ter somente duas casas decimais
-		s/^/scale=2;/
+		# Remove separador de milhares
+		s/\.\([0-9][0-9][0-9]\)/\1/g
 		' |
+
+	# Temos dados multilinha para serem somados?
+	if test -n "$soma"
+	then
+		sed '
+			# Remove linhas em branco
+			/^$/d
+
+			# Números sem sinal são positivos
+			s/^[0-9]/+&/
+			
+			# Se o primeiro da lista tiver sinal + dá erro no bc
+			1 s/^+//' |
+		# Junta as linhas num única tripa, exemplo: 5+7-3+1-2
+		tr -d '\n'
+	else
+		cat -
+	fi |
+
+	# O resultado deve ter somente duas casas decimais
+	sed 's/^/scale=2;/' |
 
 	# Entrada de números com vírgulas ou pontos, saída sempre com vírgulas
-	sed y/,/./ | bc | sed y/./,/
+	sed y/,/./ | bc | sed y/./,/ |
+
+	# Adiciona separador de milhares
+	sed '
+		s/\([0-9]\)\([0-9][0-9][0-9]\)$/\1.\2/
+
+		:loop
+		s/\([0-9]\)\([0-9][0-9][0-9][,.]\)/\1.\2/
+		t loop
+	'
 }
 
 # ----------------------------------------------------------------------------
@@ -1570,7 +1594,7 @@ zzcnpj ()
 			echo CNPJ válido
 		else
 			# Boa ação do dia: mostrar quais os verificadores corretos
-			echo "CNPJ inválido (deveria terminar em $digito1$digito2)"			
+			echo "CNPJ inválido (deveria terminar em $digito1$digito2)"
 		fi
 	fi
 }
@@ -2494,8 +2518,9 @@ zzdata ()
 #
 # Uso: zzdatafmt [-f formato] [data]
 # Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
-#      zzdatafmt 31/12                      # 31/12/2011 (ano atual)
 #      zzdatafmt 31.12.11                   # 31/12/2011
+#      zzdatafmt 31/12                      # 31/12/2011 (ano atual)
+#      zzdatafmt -f MES hoje                # maio (mês atual)
 #      zzdatafmt -f AAAA 31/12/11           # 2011
 #      zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11
 #      zzdatafmt -f D/M/A 01/02/2003        # 1/2/3
@@ -2528,7 +2553,7 @@ zzdatafmt ()
 	data=$(zztool multi_stdin $*)
 	data_orig="$data"
 	
-	# Converte datas estranhas para o formato brasileiro ../../.. 
+	# Converte datas estranhas para o formato brasileiro ../../..
 	case "$data" in
 		# apelidos
 		hoje|ontem|anteontem|amanh[ãa])
@@ -2629,7 +2654,7 @@ zzdatafmt ()
 	# Senão, é só mostrar no formato normal
 	else
 		echo $data
-	fi		
+	fi
 }
 
 # ----------------------------------------------------------------------------
@@ -2683,7 +2708,7 @@ zzdiadasemana ()
 	# A função zzdata considera 01/01/1970 a data zero, e se chamada
 	# apenas com uma data, retorna o número de dias de diferença para
 	# o dia zero. O número será negativo se o ano for inferior a 1970.
-	# 
+	#
 	delta=$(zzdata $data)
 	dia=$(( ${delta#-} % 7))  # remove o sinal negativo (se tiver)
 
@@ -2754,7 +2779,7 @@ zzdiasuteis ()
 
 	# Quantas semanas e quantos dias avulsos?
 	semanas=$((dias / 7))
-	avulsos=$((dias % 7))	
+	avulsos=$((dias % 7))
 
 	# Dos avulsos, quantos são úteis?
 	#
@@ -2777,7 +2802,7 @@ zzdiasuteis ()
 	fi
 
 	# Com os dados na mão, basta calcular
-	echo $(($semanas * 5 + $avulsos_uteis))	
+	echo $(($semanas * 5 + $avulsos_uteis))
 }
 
 # ----------------------------------------------------------------------------
@@ -3887,7 +3912,7 @@ zzmat ()
 				fi
 			;;
 			esac
-		else 
+		else
 			echo " zzmat $1: Cálculo de volume de figuras geométricas"
 			echo " Uso: zzmat volume <paralelepipedo|cilindro|esfera|cone|prisma|piramide|rombicuboctaedro|rombicosidodecaedro>"
 			echo " Uso: zzmat volume <tetraedo|cubo|octaedro|dodecaedro|icosaedro|cuboctaedro|icosidodecaedro> [truncado] numero"
@@ -3899,7 +3924,7 @@ zzmat ()
 		if [ $# -ge "3" ]
 		then
 			local num_maior num_menor resto mdc mmc num2
-			local num1=$2 
+			local num1=$2
 			local subfuncao=$1
 			shift 2
 			for num2 in $*
@@ -3936,7 +3961,7 @@ zzmat ()
 	;;
 	"somatoria"|"produtoria")
 		#colocar x como a variavel a ser substituida
-		if ([ $# -eq "4" ] && zztool testa_numero $2 && 
+		if ([ $# -eq "4" ] && zztool testa_numero $2 &&
 		    zztool testa_numero $3 && zztool grep_var "x" $4)
 		then
 			local equacao numero operacao
@@ -4265,13 +4290,13 @@ zzmat ()
 			y1=$(echo "$2"|cut -f2 -d,)
 			x2=$(echo "$3"|cut -f1 -d,)
 			y2=$(echo "$3"|cut -f2 -d,)
-			if (zzmat testa_num $x1 && zzmat testa_num $y1 && 
+			if (zzmat testa_num $x1 && zzmat testa_num $y1 &&
 			    zzmat testa_num $x2 && zzmat testa_num $y2 )
 			then
 				a=$(echo "$y1 $y2"|awk '{valor=($1)-($2); print valor}')
 				b=$(echo "$x1 $x2"|awk '{valor=($2)-($1);  print (valor<0?"":"+") valor}')
 				c=$(zzmat det $x1 $y1 $x2 $y2|awk '{print ($1<0?"":"+") $1}')
-				if (zztool testa_numero_sinal $a && 
+				if (zztool testa_numero_sinal $a &&
 				    zztool testa_numero_sinal $b &&
 				    zztool testa_numero_sinal $c)
 				then
@@ -4322,7 +4347,7 @@ zzmat ()
 	;;
 	"egc3p")
 	#Equação Geral da Circunferência: 3 Pontos
-		if ([ $# = "4" ] && zztool grep_var "," "$2" && 
+		if ([ $# = "4" ] && zztool grep_var "," "$2" &&
 		    zztool grep_var "," "$3" && zztool grep_var "," "$4")
 		then
 			local x1 y1 x2 y2 x3 y3 A B C D
@@ -4416,7 +4441,7 @@ zzmat ()
 			for num in $*
 			do
 				if ! zzmat testa_num "$num"
-				then 
+				then
 					echo " Uso: zzmat $1 numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"
 					return 1
 				fi
@@ -4516,7 +4541,7 @@ zzmd5 ()
 	##### Diferenças na saída dos comandos
 	###
 	### $comando_md5 /a/www/favicon.*
-	# 
+	#
 	# Linux (separador é 2 espaços):
 	# d41d8cd98f00b204e9800998ecf8427e  /a/www/favicon.gif
 	# 902591ef89dbe5663dc7ae44a5e3e27a  /a/www/favicon.ico
@@ -4652,7 +4677,7 @@ zzpascoa ()
 	[ $dia -lt 10 ] && dia="0$dia"
 	[ $mes -lt 10 ] && mes="0$mes"
 
-	echo "$dia/$mes/$ano"	
+	echo "$dia/$mes/$ano"
 }
 
 # ----------------------------------------------------------------------------
@@ -4720,7 +4745,7 @@ zzporcento ()
 	then
 		# O valor da porcentagem é guardado sem o caractere %
 		porcentagem=$(echo $valor2 | tr -d %)
-		# Sempre usar o ponto como separador interno (para os cálculos)			
+		# Sempre usar o ponto como separador interno (para os cálculos)
 		porcentagem=$(echo $porcentagem | sed 'y/,/./')
 
 		# Porcentagem fracionada
@@ -4728,7 +4753,7 @@ zzporcento ()
 		then
 			# Se o valor é inteiro (escala=0) e a porcentagem fracionária,
 			# é preciso forçar uma escala para que o resultado apareça correto.
-			test $escala -eq 0 && escala=2 valor1=$valor1.00			
+			test $escala -eq 0 && escala=2 valor1=$valor1.00
 
 		# Porcentagem inteira ou erro
 		elif ! zztool testa_numero $porcentagem

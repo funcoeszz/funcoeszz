@@ -153,12 +153,14 @@ Ex.: zzbyte 2048                    # Quanto é 2048 bytes?  -- 2K
 = zzcalcula =[zzcalcula]
 ```
 Calculadora.
+Wrapper para o comando bc, que funciona no formato brasileiro: 1.234,56.
 Os operadores principais são + - / * ^ %, veja outros em "man bc".
 Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
-Uso: zzcalcula número operação número
+Uso: zzcalcula operação|--soma
 Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
      zzcalcula '2^2*(4-1)'          # 2 ao quadrado vezes 4 menos 1
      echo 2 + 2 | zzcalcula         # lendo da entrada padrão (STDIN)
+     zzseq 5 | zzcalcula --soma     # soma números da STDIN
 
 ```
 = zzcalculaip =[zzcalculaip]
@@ -188,10 +190,10 @@ http://cbn.globoradio.com.br
 Busca e toca os últimos comentários dos comentaristas da radio CBN.
 Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn -lista
 Ex.: zzcbn -c max -d ontem
-     zzcbn -c mauro -d tudo 
+     zzcbn -c mauro -d tudo
      zzcbn -c juca -d 13/05/09
      zzcbn -c miriam
-     zzcbn -mp3 -c max  
+     zzcbn -mp3 -c max
 
 ```
 = zzchavepgp =[zzchavepgp]
@@ -384,8 +386,9 @@ Use a opção -f para mudar o formato de saída (o padrão é DD/MM/AAAA):
 
 Uso: zzdatafmt [-f formato] [data]
 Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
-     zzdatafmt 31/12                      # 31/12/2011 (ano atual)
      zzdatafmt 31.12.11                   # 31/12/2011
+     zzdatafmt 31/12                      # 31/12/2011 (ano atual)
+     zzdatafmt -f MES hoje                # maio (mês atual)
      zzdatafmt -f AAAA 31/12/11           # 2011
      zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11
      zzdatafmt -f D/M/A 01/02/2003        # 1/2/3
@@ -924,7 +927,7 @@ federal e timemania.
 Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o
 concurso
       Se nenhum argumento for passado, todas as loterias são mostradas.
-Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil | 
+Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil |
 federal | timemania | loteca] concurso]
 Ex.: zzloteria2
      zzloteria2 quina megasena
@@ -1012,6 +1015,27 @@ Ex.: zzmoeda
      zzmoeda -t peso
 
 ```
+= zzmoneylog =[zzmoneylog]
+```
+Consulta lançamentos do Moneylog, com pesquisa avançada e saldo total.
+Obs.: Chamado sem argumentos, pesquisa o mês corrente
+Obs.: Não expande lançamentos recorrentes e parcelados.
+
+Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
+Ex.: zzmoneylog                       # Todos os lançamentos deste mês
+     zzmoneylog mercado               # Procure por mercado
+     zzmoneylog -t mercado            # Lançamentos com a tag mercado
+     zzmoneylog -t mercado -d 2011    # Tag mercado em 2011
+     zzmoneylog -t mercado --total    # Saldo total da tag mercado
+     zzmoneylog -d 31/01/2011         # Todos os lançamentos desta data
+     zzmoneylog -d 2011               # Todos os lançamentos de 2011
+     zzmoneylog -d ontem              # Todos os lançamentos de ontem
+     zzmoneylog -d mes                # Todos os lançamentos deste mês
+     zzmoneylog -d mes --total        # Saldo total deste mês
+     zzmoneylog -d 2011-0[123]        # Regex: que casa Jan/Fev/Mar de 2011
+     zzmoneylog -v /                  # Todos os pagamentos parcelados
+
+```
 = zzmudaprefixo =[zzmudaprefixo]
 ```
 Move os arquivos que tem um prefixo comum para um novo prefixo.
@@ -1041,7 +1065,7 @@ marca (no mundo), numerologia ou tudo - como segundo argumento (opcional).
 Por padrão lista origem e significado.
 
 Uso: zznome nome [significado|origem|letra|marca|numerologia|tarot|tudo]
-Ex.: zznome maria 
+Ex.: zznome maria
      zznome josé origem
 
 ```
@@ -1111,7 +1135,7 @@ Ex.: zzpascoa
 ```
 = zzpiada =[zzpiada]
 ```
-http://www.xalexandre.com.br/ 
+http://www.xalexandre.com.br/
 Mostra uma piada diferente cada vez que é chamada.
 Uso: zzpiada
 Ex.: zzpiada
@@ -1157,12 +1181,12 @@ Ex.: zzramones punk
 ```
 Muda aleatoriamente o background do GNOME.
 A opção -l faz o script entrar em loop.
-ATENÇÃO: o caminho deve conter a última / para que funcione: 
+ATENÇÃO: o caminho deve conter a última / para que funcione:
   /wallpaper/ <- funciona
   /wallpaper  <- não funciona
 
 Uso: zzrandbackground -l <caminho_wallpapers> <segundo>
-Ex.: zzrandbackground /media/wallpaper/ 
+Ex.: zzrandbackground /media/wallpaper/
      zzrandbackground -l /media/wallpaper/ 5
 
 ```

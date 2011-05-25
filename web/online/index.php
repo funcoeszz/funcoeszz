@@ -230,6 +230,7 @@ $available = array(
 	// 'zzminiurl', //i
 	'zzminusculas',
 	// 'zzmoeda', //i
+	// 'zzmoneylog', //file
 	// 'zzmudaprefixo', //file
 	// 'zznatal', //i
 	// 'zznome', //i
