@@ -1,0 +1,18 @@
+# ----------------------------------------------------------------------------
+# # Mostra o seu ip público.
+# # Uso: zzmeuip
+# # Ex.: zzmeuip
+#
+# # Autor: Ataliba Teixeira < ataliba (a) ataliba.eti.br >
+# # Desde: 2010-12-25
+# # Versão: 1.0
+# # Licença: GPLv2
+# ----------------------------------------------------------------------------
+zzmeuip ()
+{
+	zzzz -h meuip $1 && return
+
+	local URL="http://meuip.datahouse.com.br/"
+
+	$ZZWWWDUMP "$URL" | grep -i "Meu ip " | grep -v "Home" | awk -F" " '{print $4}' 
+}
