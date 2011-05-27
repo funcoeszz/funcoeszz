@@ -9,7 +9,7 @@
 # mmc mdc somatoria produtoria media fat arranjo combinacao pa pa2 pg
 # area volume eq2g d2p egr egc egc3p ege
 # converte sen cos tan csc sec cot
-# log ln abs det conf_eq
+# log ln abs aleatorio random det conf_eq
 # Mais detalhes: zzmat função
 #
 # Uso: zzmat [-pnumero] funcoes [número] [número]
@@ -20,7 +20,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -955,6 +955,39 @@ zzmat ()
 			echo " Uso: zzmat $1 centro(a,b,c) (numero|ponto(x,y,z))"
 			return 1
 		fi
+	;;
+	"aleatorio"|"random")
+		#Gera um numero aleatorio (randomico)
+		local min=0
+		local max=1
+		local qtde=1
+		local n_temp
+		
+		if [ "$2" = "-h" ]
+		then
+			echo " zzmat $1: Gera um número aleatório."
+			echo " Sem argumentos gera números entre 0 e 1."
+			echo " Com 1 argumento numérico este fica como limite superior."
+			echo " Com 2 argumentos numéricos estabelecem os limites inferior e superior, respectivamente."
+			echo " Com 3 argumentos numéricos, o último é a quantidade de número aleatórios gerados."
+			echo " Usa padrão de 6 casas decimais. Use -p0 logo após zzmat para números inteiros."
+			echo " Uso: zzmat $1 [[minimo] maximo] [quantidade]"
+			return
+		fi
+		
+		if ([ "$2" ] && zzmat testa_num $2);then min=$2;fi
+		if ([ "$3" ] && zzmat testa_num $3);then max=$3;fi
+		if [ $max -lt $min ]
+		then
+			n_temp=$max
+			max=$min
+			min=$n_temp
+			unset n_temp
+		fi
+		if [ "$4" ] && zztool testa_numero $4;then qtde=$4;fi
+		
+		echo "$min $max $qtde"|awk '{srand();for(i=1;i<=$3;i++) { printf "%.'${precisao}'f\n", $1+rand()*($2-$1)}}'
+		sleep 1
 	;;
 	"det")
 		# Determinante de matriz (2x2 ou 3x3)
