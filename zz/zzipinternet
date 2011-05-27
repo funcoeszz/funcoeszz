@@ -6,15 +6,15 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzipinternet ()
 {
 	zzzz -h ipinternet $1 && return
 
-	local url='http://whatismyip.com/automation/n09230945.asp'
+	local url='http://automation.whatismyip.com/n09230945.asp'
 
 	# O resultado já vem pronto!
-	$ZZWWWHTML "$url"
-	echo
+	$ZZWWWDUMP "$url"
 }
