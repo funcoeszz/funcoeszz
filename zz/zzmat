@@ -975,8 +975,15 @@ zzmat ()
 			return
 		fi
 		
-		if ([ "$2" ] && zzmat testa_num $2);then min=$2;fi
-		if ([ "$3" ] && zzmat testa_num $3);then max=$3;fi
+		if ([ "$3" ] && zzmat testa_num $3)
+		then
+			max=$3
+			if zzmat testa_num $2;then min=$2;fi
+		elif ([ "$2" ] && zzmat testa_num $2)
+		then
+			max=$2
+		fi
+		
 		if [ $max -lt $min ]
 		then
 			n_temp=$max
@@ -984,6 +991,7 @@ zzmat ()
 			min=$n_temp
 			unset n_temp
 		fi
+		
 		if [ "$4" ] && zztool testa_numero $4;then qtde=$4;fi
 		
 		echo "$min $max $qtde"|awk '{srand();for(i=1;i<=$3;i++) { printf "%.'${precisao}'f\n", $1+rand()*($2-$1)}}'
