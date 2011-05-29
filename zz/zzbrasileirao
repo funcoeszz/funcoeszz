@@ -1,0 +1,35 @@
+# ----------------------------------------------------------------------------
+# http://esporte.uol.com.br/
+# Mostra a tabela atualizada do Campeonato Brasileiro - Série A e Série B.
+# Uso: zzbrasileirao [a | b]
+# Ex.: zzbrasileirao
+#      zzbrasileirao a
+#      zzbrasileirao b
+#
+# Autor: Itamar - original: Alexandre Brodt Fernandes, www.xalexandre.com.br
+# Desde: 2011-05-28
+# Versão: 4
+# Licença: GPL
+# ----------------------------------------------------------------------------
+zzbrasileirao ()
+{
+	zzzz -h brasileirao $1 && return
+
+	[ $# -gt 1 ] && { zztool uso brasileirao; return; }
+	
+	if [ "$1" ] 
+	then
+		[ "$1" = "a" -o "$1" = "b" ] || { zztool uso brasileirao; return; }
+	fi
+	
+	local serie='a'
+	if [ "$1" = "b" ]; then serie="b"; fi
+	
+	local ano=$(date +%Y)
+	
+	local url="http://esporte.uol.com.br/futebol/campeonatos/brasileiro/${ano}/serie-${serie}/classificacao/classificacao.jhtm"
+	
+	[ "$serie" = "a" ] && zztool eco "Série A" || zztool eco "Série B"
+	
+	$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *$/p" 
+}
