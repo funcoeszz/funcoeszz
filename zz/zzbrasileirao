@@ -1,35 +1,49 @@
 # ----------------------------------------------------------------------------
 # http://esporte.uol.com.br/
 # Mostra a tabela atualizada do Campeonato Brasileiro - Série A e Série B.
-# Uso: zzbrasileirao [a | b]
+# Se for fornecido um numero mostra os jogos da rodada, com resultados.
+# Uso: zzbrasileirao [a | b] [numero rodada]
 # Ex.: zzbrasileirao
 #      zzbrasileirao a
 #      zzbrasileirao b
+#      zzbrasileirao 27
+#      zzbrasileirao b 12
 #
 # Autor: Itamar - original: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
 	zzzz -h brasileirao $1 && return
 
-	[ $# -gt 1 ] && { zztool uso brasileirao; return; }
+	[ $# -gt 2 ] && { zztool uso brasileirao; return 1; }
 	
-	if [ "$1" ] 
+	local url rodada serie ano
+	
+	serie='a'
+	[ "$1" = "a" -o "$1" = "b" ] && { serie="$1"; shift; }
+	
+	if [ "$1" ]
 	then
-		[ "$1" = "a" -o "$1" = "b" ] || { zztool uso brasileirao; return; }
+		zztool testa_numero "$1" && rodada="$1" || { zztool uso brasileirao; return 1; }
 	fi
 	
-	local serie='a'
-	if [ "$1" = "b" ]; then serie="b"; fi
+	ano=$(date +%Y)
 	
-	local ano=$(date +%Y)
+	url="http://esporte.uol.com.br/futebol/campeonatos/brasileiro/${ano}/serie-${serie}"
+	if [ "$rodada" ]
+	then
+		zztool testa_numero $rodada || { zztool uso brasileirao; return 1; }
+		url="${url}/tabela-de-jogos/tabela-de-jogos-${rodada}a-rodada.jhtm"
+		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/^ *$/p"|
+		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g"
+	else
+		url="${url}/classificacao/classificacao.jhtm"
 	
-	local url="http://esporte.uol.com.br/futebol/campeonatos/brasileiro/${ano}/serie-${serie}/classificacao/classificacao.jhtm"
+		[ "$serie" = "a" ] && zztool eco "Série A" || zztool eco "Série B"
 	
-	[ "$serie" = "a" ] && zztool eco "Série A" || zztool eco "Série B"
-	
-	$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *$/p" 
+		$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *$/p" 
+	fi
 }
