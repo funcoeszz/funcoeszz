@@ -7,15 +7,15 @@
 # Se for seguida do termo "conj", retorna todas as formas de conjugação.
 # Pode-se filtrar pelos modos de conjugação, fornecendo após o "conj" o modo
 # desejado:
-# ind (indicativo), sub (subjuntivo), imp (imperativo), inf (infinitivo)
+# ind (indicativo), sub ou conj (subjuntivo), imp (imperativo)
 #
-# Uso: zzdicportugues2 palavra [def|conj [ind|sub|imp|inf]]
+# Uso: zzdicportugues2 palavra [def|conj [ind|sub|conj|imp]]
 # Ex.: zzdicportugues2 bolacha
 #      zzdicportugues2 verbo conj sub
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net - modicado por Itamar
 # Desde: 2011-04-16
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
@@ -63,12 +63,12 @@ zzdicportugues2 ()
 	case "$2" in
 	"def") ini='^Definição de '; fim=' escrita ao contrário: ' ;;
 	"conj")
-		ini='Infinitivo:'; fim='por .* eles$'
+		ini='Infinitivo:'; fim='\(Rimas com \|Anagramas de \)'
 		case "$3" in
-			"ind") ini='^INDICATIVO'; fim='^SUBJUNTIVO' ;;
-			"sub") ini='^SUBJUNTIVO'; fim='^IMPERATIVO' ;;
-			"imp") ini='^IMPERATIVO'; fim='^INFINITIVO' ;;
-			"inf") ini='^INFINITIVO' ;;
+			"ind") ini='^INDICATIVO'; fim='^IMPERATIVO' ;;
+			"sub"|"conj") ini='^CONJUNTIVO'; fim='^INDICATIVO' ;;
+			"imp") ini='^IMPERATIVO'; fim='.*eles$' ;;
+			#"inf") ini='^INFINITIVO' ;;
 		esac
 	;;
 	esac
@@ -80,13 +80,16 @@ zzdicportugues2 ()
 			/$ini/,/$fim/ {
 				/^INDICATIVO/d
 				/^SUBJUNTIVO/d
+				/^CONJUNTIVO/d
 				/^IMPERATIVO/d
 				/^INFINITIVO/d
+				/\(Rimas com \|Anagramas de \)/d
 				/^ *$/d
 				s/^ *//
 				s/^\*/\n&/
-				s/ do \(Indicativo\|Subjuntivo\)/&\n/
+				s/ do \(Indicativo\|Subjuntivo\|Conjuntivo\)/&\n/
 				s/\* Imperativo \(Afirmativo\|Negativo\)/&\n/
+				s/\* Imperativo/&\n/
 				s/\* Infinitivo Pessoal/&\n/
 				s/^[a-z]/ &/g
 				p
