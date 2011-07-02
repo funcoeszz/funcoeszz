@@ -139,7 +139,7 @@ zzbolsas ()
 			*)
 				bolsa=$(echo "$1"|zzmaiusculas)
 				# Último índice da bolsa citada
-				if zztool grep_var "^" "$1"
+				if ( zztool grep_var "^" "$1" || [ $(echo "$1"|zzmaiusculas) = "TA100.TA" ] )
 				then
 					vartemp=$($ZZWWWDUMP "$url/q?s=$bolsa"|
 					sed -n "/($bolsa)/p;/Valor do índice:/,/Em 52 semanas:/p"| #tr '.,' ',.' |
