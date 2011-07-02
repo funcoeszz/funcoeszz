@@ -22,7 +22,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento
 # ----------------------------------------------------------------------------
@@ -31,6 +31,7 @@ zzbolsas ()
 	zzzz -h bolsas $1 && return
 
 	local url='http://br.finance.yahoo.com'
+	local africa='TA100.TA'
 	local dj='^DWC'
 	local new_york='^NYA ^NYI ^NYY ^NY ^NYL'
 	local nasdaq='^IXIC ^IXBK ^NBI ^IXK ^IXF ^IXID ^IXIS ^IXFN ^IXUT ^IXTR ^NDX'
@@ -42,13 +43,15 @@ zzbolsas ()
 	case $# in
 		0)
 			# Lista apenas os códigos das bolsas disponíveis
-			for bolsa in americas europe asia africa
+			for bolsa in americas europe asia
 			do
 				zztool eco "\n$bolsa :"
 				$ZZWWWDUMP "$url/intlindices?e=$bolsa"|
 					sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
 					awk '{ printf "%s ", $1}';echo
 			done
+			zztool eco "\nafrica :"
+			for bolsa in $africa; do printf "%s " "$bolsa"; done;echo
 			zztool eco "\nDow Jones :"
 			$ZZWWWDUMP "$url/usindices"|
 				sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
@@ -74,13 +77,20 @@ zzbolsas ()
 			# Lista os códigos da bolsas e seus nomes
 			case "$1" in
 			-l | --lista)
-				for bolsa in americas europe asia africa
+				for bolsa in americas europe asia
 				do
 					zztool eco "\n$bolsa :"
 					$ZZWWWDUMP "$url/intlindices?e=$bolsa"|
 						sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
 						sed 's/[0-9]*\.*[0-9]*,[0-9].*//g'|
 						awk '{ printf " %-10s ", $1; for(i=2; i<=NF-1; i++) printf "%s ",$i; print $NF}'
+				done
+				
+				zztool eco "\nafrica :"
+				for bolsa in $africa;
+				do
+					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
+					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
 				done
 				
 				zztool eco "\nDow Jones :"
@@ -152,7 +162,7 @@ zzbolsas ()
 		;;
 		2 | 3)
 			# Lista as ações de uma bolsa especificada
-			if [ "$1" = "-l" -o "$1" = "--lista" ] && zztool grep_var "^" "$2"
+			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "^" "$2" || [ $(echo "$2"|zzmaiusculas) = "TA100.TA" ])
 			then
 				bolsa=$(echo "$2"|zzmaiusculas)
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.*of *\([0-9]\+\) .*/\1/")
