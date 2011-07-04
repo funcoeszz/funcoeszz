@@ -24,7 +24,7 @@
 # Desde: 2009-10-04
 # Versão: 6
 # Licença: GPL
-# Requisitos: zzmaiusculas zzsemacento
+# Requisitos: zzmaiusculas zzsemacento zzdatafmt zzdata
 # ----------------------------------------------------------------------------
 zzbolsas ()
 {
@@ -188,16 +188,10 @@ zzbolsas ()
 				done
 			
 			# Valores de uma bolsa ou ação em uma data especificada (histórico)
-			elif zztool testa_data "$2" && zztool grep_var / "$2"
+			elif zztool testa_data $(zzdatafmt "$2")
 			then
-				yyyy=${2##*/}
-				mm=${2#*/}
-				mm=${mm%/*}
+				read dd mm yyyy data1 < <(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$2")
 				mm=$(echo "scale=0;${mm}-1"|bc)
-				dd=${2%%/*}
-				yyyy=$(echo "2*10^(3-${#yyyy})"|bc)$yyyy
-				yyyy=${yyyy#0}
-				data1="${dd}/$((${mm} + 1))/${yyyy}"
 				bolsa=$(echo "$1"|zzmaiusculas)
 					# Emprestando as variaves pag, pags e pag_atual efeito estético apenas
 					pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
@@ -207,21 +201,15 @@ zzbolsas ()
 					pag_atual=$(echo "$pag" | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' |  awk '{printf " %14s\n", $1}')
 					echo "$pag" | sed -n '1p'
 					
-					if zztool grep_var "/" "$3" && zztool testa_data "$3" && test $# -eq 3
+					if zztool testa_data $(zzdatafmt "$3") && test $# -eq 3
 					then
-						yyyy=${3##*/}
-						mm=${3#*/}
-						mm=${mm%/*}
+						read dd mm yyyy data2 < <(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$3")
 						mm=$(echo "scale=0;${mm}-1"|bc)
-						dd=${3%%/*}
-						yyyy=$(echo "2*10^(3-${#yyyy})"|bc)$yyyy
-						yyyy=${yyyy#0}
-						data2="${dd}/$((${mm} + 1))/${yyyy}"
 						pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
 						sed -n "/($bolsa)/p;/Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'|
 						sed 's/^ */ /g' | sed -n '3p' | cut -f7- -d" " |sed 's/ [0-9]/\n&/g' |
 						sed '/^ *$/d' | awk '{printf " %14s\n", $1}')
-						paste <(printf "  %-12s" "Data") <(echo "      $data1") <(echo "      $data2") <(echo "       Variação") <(echo "  Var (%)")
+						paste <(printf "  %-12s" "Data") <(echo "     $data1") <(echo "     $data2") <(echo "       Variação") <(echo " Var (%)")
 						
 						vartemp=$(while read data1 data2
 						do
@@ -232,7 +220,7 @@ zzbolsas ()
 						
 						paste <(echo "$pags") <(echo "$pag_atual") <(echo "$pag") <(echo "$vartemp")
 					else
-						paste <(printf "  %-12s" "Data") <(echo "      $data1")
+						paste <(printf "  %-12s" "Data") <(echo "     $data1")
 						paste <(echo "$pags") <(echo "$pag_atual")
 					fi
 			else
