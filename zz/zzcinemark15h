@@ -14,8 +14,6 @@ zzcinemark15h ()
 {
     zzzz -h cinemark15h $1 && return
 
-    [ $# -gt 1 ] && zztool uso cinemark15h && return 1
-
     if [ $# = 0 ]; then # mostra opções
         printf "Cidades disponíveis\n=============================\n"
         printf "Aracaju\n"
