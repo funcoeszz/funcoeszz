@@ -7,7 +7,7 @@
 #
 # Funções matemáticas disponíveis.
 # mmc mdc somatoria produtoria media fat arranjo combinacao pa pa2 pg
-# area volume eq2g d2p egr egc egc3p ege
+# area volume eq2g d2p egr err egc egc3p ege
 # converte sen cos tan csc sec cot
 # log ln abs aleatorio random det conf_eq
 # Mais detalhes: zzmat função
@@ -20,7 +20,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -35,8 +35,7 @@ zzmat ()
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso mat; return 1; }
 	
-	#Definindo a precisão dos resultados qdo é pertinente
-	#Valor padrão é 6.
+	#Definindo a precisão dos resultados qdo é pertinente. Padrão é 6.
 	echo "$1" | grep '^-p' >/dev/null
 	if [ "$?" = "0" ]
 	then
@@ -107,16 +106,16 @@ zzmat ()
 				esac
 				
 				case $1 in
-				"sen") num1=$(echo "$num2"|awk '{printf "%.'${precisao}'f", sin($1)}');;
-				"cos") num1=$(echo "$num2"|awk '{printf "%.'${precisao}'f", cos($1)}');;
-				"tan") num1=$(echo "$num2"|
-					awk '{div=sprintf("%.6f", cos($1));if (div!="0.000000") printf "%.'${precisao}'f", sin($1)/cos($1);}');;
-				"sec") num1=$(echo "$num2"|
-					awk '{div=sprintf("%.6f", cos($1));if (div!="0.000000") printf "%.'${precisao}'f", 1/cos($1);}');;
-				"csc") num1=$(echo "$num2"|
-					awk '{div=sprintf("%.6f", sin($1));if (div!="0.000000") printf "%.'${precisao}'f", 1/sin($1);}');;
-				"cot") num1=$(echo "$num2"|
-					awk '{div=sprintf("%.6f", sin($1));if (div!="0.000000") printf "%.'${precisao}'f", cos($1)/sin($1);}');;
+				"sen") num1=$(awk 'BEGIN {printf "%.'${precisao}'g\n", sin('$num2')}');;
+				"cos") num1=$(awk 'BEGIN {printf "%.'${precisao}'g\n", cos('$num2')}');;
+				"tan") 
+					num1=$(awk 'BEGIN {div=sprintf("%.6g", cos('$num2'));if (div!="0.000000") printf "%.'${precisao}'g\n", sin('$num2')/cos('$num2');}');;
+				"sec") 
+					num1=$(awk 'BEGIN {div=sprintf("%.6g", cos('$num2'));if (div!="0.000000") printf "%.'${precisao}'g\n", 1/cos('$num2');}');;
+				"csc") 
+					num1=$(awk 'BEGIN {div=sprintf("%.6g", sin('$num2'));if (div!="0.000000") printf "%.'${precisao}'g\n", 1/sin('$num2');}');;
+				"cot") 
+					num1=$(awk 'BEGIN {div=sprintf("%.6g", sin('$num2'));if (div!="0.000000") printf "%.'${precisao}'g\n", cos('$num2')/sin('$num2');}');;
 				esac
 				
 				[ "$num1" ] && num="$num1"
@@ -140,7 +139,7 @@ zzmat ()
 		then
 			local num1 num2 num3 sinal
 			num1=$(echo "$2"|tr ',' '.')
-			[ "$1" != "atan" ] && num2=$(echo "$num1"|awk '{if ($1>1 || $1<-1) print "erro"}')
+			[ "$1" != "atan" ] && num2=$(awk 'BEGIN {if ('$num1'>1 || '$num1'<-1) print "erro"}')
 			if [ "$num2" = "erro" ]
 			then
 				zzmat $1 -h;return 1
@@ -156,7 +155,7 @@ zzmat ()
 				echo "$4"|grep '2' >/dev/null && num2=$(echo "($num2)+($pi)"|bc -l)
 			;;
 			"asen")
-				num3=$(echo "sqrt(1-${num1}^2)"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}')
+				num3=$(echo "sqrt(1-${num1}^2)"|bc -l|awk '{printf "%.'${precisao}'g\n", $1}')
 				if [ "$num3" = $(printf '%.'${precisao}'f' 0|tr ',' '.') ]
 				then
 					num2=$(echo "$pi/2"|bc -l)
@@ -167,7 +166,7 @@ zzmat ()
 				[ "$sinal" ] && num2=$(echo "($pi)+($num2)"|bc -l)
 			;;
 			"acos")
-				num3=$(echo "$num1"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}')
+				num3=$(echo "$num1"|bc -l|awk '{printf "%.'${precisao}'g\n", $1}')
 				if [ "$num3" = $(printf '%.'${precisao}'f' 0|tr ',' '.') ]
 				then
 					num2=$(echo "$pi/2"|bc -l)
@@ -233,7 +232,7 @@ zzmat ()
 			esac
 			if zztool testa_numero $(zzmat abs "$num1")
 			then
-				num=$(echo "$num1 $3"|awk '{printf "%.'${precisao}'f\n", $2^(1/$1)}')
+				num=$(awk 'BEGIN {printf "%.'${precisao}'g\n", '$3'^(1/'$num1')}')
 			else
 				echo " Uso: zzmat $1 <quadrada|cubica|numero> numero"
 			fi
@@ -591,17 +590,14 @@ zzmat ()
 							if [ "$1" = "pa" ]
 							then
 								valor=$(echo "$num_inicial + ($razao * $passo)"|bc -l|
-								awk '{printf "%.'${precisao}'f\n", $1}'|
-								sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+								awk '{printf "%.'${precisao}'g\n", $1}')
 							elif [ "$1" = "pa2" ]
 							then
 								valor=$(echo "$valor + ($razao * $passo)"|bc -l|
-								awk '{printf "%.'${precisao}'f\n", $1}'|
-								sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+								awk '{printf "%.'${precisao}'g\n", $1}')
 							else
 								valor=$(echo "$num_inicial * $razao^$passo"|bc -l|
-								awk '{printf "%.'${precisao}'f\n", $1}'|
-								sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+								awk '{printf "%.'${precisao}'g\n", $1}')
 							fi
 							echo -n " $valor"
 							passo=$(($passo+1))
@@ -624,29 +620,25 @@ zzmat ()
 		then
 			local delta num_raiz vert_x vert_y raiz1 raiz2
 			delta=$(echo "$2 $3 $4"|tr ',' '.'|awk '{valor=$2^2-(4*$1*$3); print valor}')
-			num_raiz=$(echo "$delta"|awk '{ if ($1 > 0)  {print "2"}
-							if ($1 == 0) {print "1"}
-							if ($1 < 0)  {print "0"}}')
+			num_raiz=$(awk 'BEGIN { if ('$delta' > 0)  {print "2"}
+							        if ('$delta' == 0) {print "1"}
+							        if ('$delta' < 0)  {print "0"}}')
 			
 			vert_x=$(echo "$2 $3"|tr ',' '.'|
-			awk '{valor=((-1 * $2)/(2 * $1)); printf "%.'${precisao}'f\n", valor}'|
-			sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+			awk '{valor=((-1 * $2)/(2 * $1)); printf "%.'${precisao}'g\n", valor}')
 			
 			vert_y=$(echo "$2 $delta"|tr ',' '.'|
-			awk '{valor=((-1 * $2)/(4 * $1)); printf "%.'${precisao}'f\n", valor}'|
-			sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+			awk '{valor=((-1 * $2)/(4 * $1)); printf "%.'${precisao}'g\n", valor}')
 			
 			case $num_raiz in
 			"0") raiz1="Sem raiz";;
 			"1") raiz1=$vert_x;;
 			"2")
 				raiz1=$(echo "$2 $3 $delta"|tr ',' '.'|
-				awk '{valor=((-1 * $2)-sqrt($3))/(2 * $1); printf "%.'${precisao}'f\n", valor}'|
-				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+				awk '{valor=((-1 * $2)-sqrt($3))/(2 * $1); printf "%.'${precisao}'g\n", valor}')
 				
 				raiz2=$(echo "$2 $3 $delta"|tr ',' '.'|
-				awk '{valor=((-1 * $2)+sqrt($3))/(2 * $1); printf "%.'${precisao}'f\n", valor}'|
-				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+				awk '{valor=((-1 * $2)+sqrt($3))/(2 * $1); printf "%.'${precisao}'g\n", valor}')
 			;;
 			esac
 			[ "$num_raiz" = "2" ] && echo -e " X1: $raiz1 \n X2: $raiz2" || echo " X: $raiz1"
@@ -769,21 +761,17 @@ zzmat ()
 			*) saida="rad";;
 			esac
 			
-			teta=$(echo "$teta"|awk '{printf "%.'${precisao}'f\n", $1}'|
-				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
-			fi=$(echo "$fi"|awk '{printf "%.'${precisao}'f\n", $1}'|
-				sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+			teta=$(awk 'BEGIN {printf "%.'${precisao}'g\n", '$teta'}')
+			fi=$(awk 'BEGIN {printf "%.'${precisao}'g\n", '$fi'}')
 			
 			if [ "$tipo" = "-c" ]
 			then
 				valor=$(echo "sqrt(${valor}^2-$z1^2)"|bc -l|
-					awk '{printf "%.'${precisao}'f\n", $1}'|
-					sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+					awk '{printf "%.'${precisao}'g\n", $1}')
 				echo "${valor},${teta}${saida},${z1}"
 			else
 				valor=$(echo "$valor"|bc -l|
-					awk '{printf "%.'${precisao}'f\n", $1}'|
-					sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/')
+					awk '{printf "%.'${precisao}'g\n", $1}')
 				echo "${valor},${teta}${saida},${fi}${saida}"
 			fi
 		else
@@ -801,7 +789,7 @@ zzmat ()
 			return 1
 		fi
 	;;
-	"egr")
+	"egr"|"err")
 	#Equação Geral da Reta
 	#ax + by + c = 0
 	#y1 – y2 = a
@@ -809,7 +797,7 @@ zzmat ()
 	#x1y2 – x2y1 = c
 		if ([ $# = "3" ] && zztool grep_var "," "$2" && zztool grep_var "," "$3")
 		then
-			local x1 y1 x2 y2 a b c redutor
+			local x1 y1 x2 y2 a b c redutor m
 			x1=$(echo "$2"|cut -f1 -d,)
 			y1=$(echo "$2"|cut -f2 -d,)
 			x2=$(echo "$3"|cut -f1 -d,)
@@ -817,25 +805,37 @@ zzmat ()
 			if (zzmat testa_num $x1 && zzmat testa_num $y1 &&
 			    zzmat testa_num $x2 && zzmat testa_num $y2 )
 			then
-				a=$(echo "$y1 $y2"|awk '{valor=($1)-($2); print valor}')
-				b=$(echo "$x1 $x2"|awk '{valor=($2)-($1);  print (valor<0?"":"+") valor}')
-				c=$(zzmat det $x1 $y1 $x2 $y2|awk '{print ($1<0?"":"+") $1}')
+				a=$(awk 'BEGIN {valor=('$y1')-('$y2'); printf "%.'${precisao}'g\n", valor}')
+				b=$(awk 'BEGIN {valor=('$x2')-('$x1');  printf "%+.'${precisao}'g\n", valor}')
+				c=$(zzmat det $x1 $y1 $x2 $y2|awk '{printf "%+.'${precisao}'g\n", $1}')
+				m=$(awk 'BEGIN {valor=(('$y2'-'$y1')/('$x2'-'$x1')); printf "%.'${precisao}'g\n", valor}')
 				if (zztool testa_numero_sinal $a &&
 				    zztool testa_numero_sinal $b &&
 				    zztool testa_numero_sinal $c)
 				then
 					redutor=$(zzmat mdc $(zzmat abs $a) $(zzmat abs $b) $(zzmat abs $c))
-					a=$(echo "$a $redutor"|awk '{valor=($1)/($2); print valor}')
-					b=$(echo "$b $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
-					c=$(echo "$c $redutor"|awk '{valor=($1)/($2);  print (valor<0?"":"+") valor}')
+					a=$(awk 'BEGIN {valor=('$a')/('$redutor'); print valor}')
+					b=$(awk 'BEGIN {valor=('$b')/('$redutor');  print (valor<0?"":"+") valor}')
+					c=$(awk 'BEGIN {valor=('$c')/('$redutor');  print (valor<0?"":"+") valor}')
 				fi
-				echo "${a}x${b}y${c}=0"|
-				sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]\{0,1\}0[xy]//g;s/+0=0/=0/;s/^+//'
+				
+				case $1 in
+				"egr")
+					echo "${a}x${b}y${c}=0"|
+					sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]\{0,1\}0[xy]//g;s/+0=0/=0/;s/^+//';;
+				"err")
+					redutor=$(awk 'BEGIN {printf "%+.'${precisao}'g\n", -('$m'*'$x1')+'$y1'}')
+					echo "y=${m}x${redutor}";;
+				esac
 			else
 				echo " Uso: zzmat $1 ponto(a,b) ponto(x,y)";return 1
 			fi
 		else
-			echo " zzmat $1: Equação Geral da Reta"
+			echo -n " zzmat $1: "
+			case "$1" in
+			"egr") echo "Equação Geral da Reta.";;
+			"err") echo "Equação Reduzida da Reta.";;
+			esac
 			echo " Uso: zzmat $1 ponto(a,b) ponto(x,y)"
 			return 1
 		fi
@@ -859,9 +859,9 @@ zzmat ()
 			fi
 			a=$(echo "$2"|cut -f1 -d,)
 			b=$(echo "$2"|cut -f2 -d,)
-			A=$(echo "$a"|awk '{valor=-2*($1); print (valor<0?"":"+") valor}')
-			B=$(echo "$b"|awk '{valor=-2*($1); print (valor<0?"":"+") valor}')
-			C=$(echo "$a $b $r"| awk '{valor=($1)^2+($2)^2-($3)^2; print (valor<0?"":"+") valor}')
+			A=$(awk 'BEGIN {valor=-2*('$a'); print (valor<0?"":"+") valor}')
+			B=$(awk 'BEGIN {valor=-2*('$b'); print (valor<0?"":"+") valor}')
+			C=$(awk 'BEGIN {valor=('$a')^2+('$b')^2-('$r')^2; print (valor<0?"":"+") valor}')
 			echo "x^2+y^2${A}x${B}y${C}=0"|sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]0[xy]//g;s/+0=0/=0/'
 		else
 			echo " zzmat $1: Equação Geral da Circunferência (Centro e Raio ou Centro e Ponto)"
@@ -903,12 +903,12 @@ zzmat ()
 			B=$(zzmat det $x1 -$(echo "$x1^2+$y1^2"|bc) 1 $x2 -$(echo "$x2^2+$y2^2"|bc) 1 $x3 -$(echo "$x3^2+$y3^2"|bc) 1)
 			C=$(zzmat det $x1 $y1 -$(echo "$x1^2+$y1^2"|bc) $x2 $y2 -$(echo "$x2^2+$y2^2"|bc) $x3 $y3 -$(echo "$x3^2+$y3^2"|bc))
 			
-			A=$(echo "$A $D"|awk '{valor=$1/$2;print (valor<0?"":"+") valor}')
-			B=$(echo "$B $D"|awk '{valor=$1/$2;print (valor<0?"":"+") valor}')
-			C=$(echo "$C $D"|awk '{valor=$1/$2;print (valor<0?"":"+") valor}')
+			A=$(echo "$A $D"|awk 'BEGIN {valor='$A'/'$D';print (valor<0?"":"+") valor}')
+			B=$(echo "$B $D"|awk 'BEGIN {valor='$B'/'$D';print (valor<0?"":"+") valor}')
+			C=$(echo "$C $D"|awk 'BEGIN {valor='$C'/'$D';print (valor<0?"":"+") valor}')
 			
-			x1=$(echo "$A"|awk '{valor=$1/2*-1;print valor}')
-			y1=$(echo "$B"|awk '{valor=$1/2*-1;print valor}')
+			x1=$(awk 'BEGIN {valor='$A'/2*-1;print valor}')
+			y1=$(awk 'BEGIN {valor='$B'/2*-1;print valor}')
 			
 			echo "x^2+y^2${A}x${B}y${C}=0"|
 			sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]0[xy]//g;s/+0=0/=0/'
@@ -944,10 +944,10 @@ zzmat ()
 			then
 				echo " Uso: zzmat $1 centro(a,b,c) (numero|ponto(x,y,z))";return 1
 			fi
-			A=$(echo "$a"|awk '{valor=-2*($1); print (valor<0?"":"+") valor}')
-			B=$(echo "$b"|awk '{valor=-2*($1); print (valor<0?"":"+") valor}')
-			C=$(echo "$c"|awk '{valor=-2*($1); print (valor<0?"":"+") valor}')
-			D=$(echo "$a $b $c $r"|awk '{valor=$1^2+$2^2+$3^2-$4^2;print (valor<0?"":"+") valor}')
+			A=$(awk 'BEGIN {valor=-2*('$a'); print (valor<0?"":"+") valor}')
+			B=$(awk 'BEGIN {valor=-2*('$b'); print (valor<0?"":"+") valor}')
+			C=$(awk 'BEGIN {valor=-2*('$c'); print (valor<0?"":"+") valor}')
+			D=$(awk 'BEGIN {valor='$a'^2+'$b'^2+'$c'^2-'$r'^2;print (valor<0?"":"+") valor}')
 			echo "x^2+y^2+z^2${A}x${B}y${C}z${D}=0"|
 			sed 's/\([+-]\)1\([xyz]\)/\1\2/g;s/[+]0[xyz]//g;s/+0=0/=0/'
 		else
@@ -994,7 +994,7 @@ zzmat ()
 		
 		if [ "$4" ] && zztool testa_numero $4;then qtde=$4;fi
 		
-		echo "$min $max $qtde"|awk '{srand();for(i=1;i<=$3;i++) { printf "%.'${precisao}'f\n", $1+rand()*($2-$1)}}'
+		awk 'BEGIN {srand();for(i=1;i<='$qtde';i++) { printf "%.'${precisao}'g\n", '$min'+rand()*('$max'-'$min')}}'
 		sleep 1
 	;;
 	"det")
@@ -1064,7 +1064,6 @@ zzmat ()
 		return 1
 	elif [ "$num" ]
 	then
-		echo "$num"|bc -l|awk '{printf "%.'${precisao}'f\n", $1}'|
-		sed 's/^0$/zero/;s/0\+$//;s/\.$//;s/^zero$/0/'
+		echo "$num"|bc -l|awk '{printf "%.'${precisao}'g\n", $1}'
 	fi
 }
