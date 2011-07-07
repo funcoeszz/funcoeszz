@@ -903,9 +903,9 @@ zzmat ()
 			B=$(zzmat det $x1 -$(echo "$x1^2+$y1^2"|bc) 1 $x2 -$(echo "$x2^2+$y2^2"|bc) 1 $x3 -$(echo "$x3^2+$y3^2"|bc) 1)
 			C=$(zzmat det $x1 $y1 -$(echo "$x1^2+$y1^2"|bc) $x2 $y2 -$(echo "$x2^2+$y2^2"|bc) $x3 $y3 -$(echo "$x3^2+$y3^2"|bc))
 			
-			A=$(echo "$A $D"|awk 'BEGIN {valor='$A'/'$D';print (valor<0?"":"+") valor}')
-			B=$(echo "$B $D"|awk 'BEGIN {valor='$B'/'$D';print (valor<0?"":"+") valor}')
-			C=$(echo "$C $D"|awk 'BEGIN {valor='$C'/'$D';print (valor<0?"":"+") valor}')
+			A=$(awk 'BEGIN {valor='$A'/'$D';print (valor<0?"":"+") valor}')
+			B=$(awk 'BEGIN {valor='$B'/'$D';print (valor<0?"":"+") valor}')
+			C=$(awk 'BEGIN {valor='$C'/'$D';print (valor<0?"":"+") valor}')
 			
 			x1=$(awk 'BEGIN {valor='$A'/2*-1;print valor}')
 			y1=$(awk 'BEGIN {valor='$B'/2*-1;print valor}')
