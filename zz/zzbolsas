@@ -22,7 +22,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzdata
 # ----------------------------------------------------------------------------
@@ -37,8 +37,9 @@ zzbolsas ()
 	local nasdaq='^IXIC ^IXBK ^NBI ^IXK ^IXF ^IXID ^IXIS ^IXFN ^IXUT ^IXTR ^NDX'
 	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SML'
 	local amex='^XAX ^IIX ^NWX ^XMI'
-	local ind_nac='^IBX50 ^IVBX ^IGCX'
+	local ind_nac='^IBX50 ^IVBX ^IGCX ^IEE ^ITEL INDX.SA'
 	local bolsa pag pags pag_atual data1 data2 vartemp
+	#$url $africa $dj $new_york $nasdaq $sp $amex $ind_nac
 
 	case $# in
 		0)
@@ -139,7 +140,7 @@ zzbolsas ()
 			*)
 				bolsa=$(echo "$1"|zzmaiusculas)
 				# Último índice da bolsa citada
-				if ( zztool grep_var "^" "$1" || [ $(echo "$1"|zzmaiusculas) = "TA100.TA" ] )
+				if (zztool grep_var "$bolsa" "$url $africa $dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 				then
 					vartemp=$($ZZWWWDUMP "$url/q?s=$bolsa"|
 					sed -n "/($bolsa)/p;/Valor do índice:/,/Em 52 semanas:/p"| #tr '.,' ',.' |
@@ -162,9 +163,9 @@ zzbolsas ()
 		;;
 		2 | 3)
 			# Lista as ações de uma bolsa especificada
-			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "^" "$2" || [ $(echo "$2"|zzmaiusculas) = "TA100.TA" ])
+			bolsa=$(echo "$2"|zzmaiusculas)
+			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "$bolsa" "$url $africa $dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 			then
-				bolsa=$(echo "$2"|zzmaiusculas)
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.*of *\([0-9]\+\) .*/\1/")
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
 				
@@ -201,7 +202,7 @@ zzbolsas ()
 					pag_atual=$(echo "$pag" | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' |  awk '{printf " %14s\n", $1}')
 					echo "$pag" | sed -n '1p'
 					
-					if zztool testa_data $(zzdatafmt "$3") && test $# -eq 3
+					if [ "$3" ] && zztool testa_data $(zzdatafmt "$3") #&& test $# -eq 3
 					then
 						read dd mm yyyy data2 < <(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$3")
 						mm=$(echo "scale=0;${mm}-1"|bc)
@@ -234,9 +235,7 @@ zzbolsas ()
 					sed '/Símbolo /d;/Primeira/d;/^[ ]*$/d'|
 					grep -i "$2"
 				done
-			fi
-			
+			fi	
 		;;
 		esac
-	
 }
