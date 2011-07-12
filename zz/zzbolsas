@@ -39,7 +39,6 @@ zzbolsas ()
 	local amex='^XAX ^IIX ^NWX ^XMI'
 	local ind_nac='^IBX50 ^IVBX ^IGCX ^IEE ^ITEL INDX.SA'
 	local bolsa pag pags pag_atual data1 data2 vartemp
-	#$url $africa $dj $new_york $nasdaq $sp $amex $ind_nac
 
 	case $# in
 		0)
@@ -140,7 +139,7 @@ zzbolsas ()
 			*)
 				bolsa=$(echo "$1"|zzmaiusculas)
 				# Último índice da bolsa citada
-				if (zztool grep_var "$bolsa" "$url $africa $dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
+				if (zztool grep_var "$bolsa" "$africa $dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 				then
 					vartemp=$($ZZWWWDUMP "$url/q?s=$bolsa"|
 					sed -n "/($bolsa)/p;/Valor do índice:/,/Em 52 semanas:/p"| #tr '.,' ',.' |
@@ -164,7 +163,7 @@ zzbolsas ()
 		2 | 3)
 			# Lista as ações de uma bolsa especificada
 			bolsa=$(echo "$2"|zzmaiusculas)
-			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "$bolsa" "$url $africa $dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
+			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "$bolsa" "$africa $dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 			then
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.*of *\([0-9]\+\) .*/\1/")
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
