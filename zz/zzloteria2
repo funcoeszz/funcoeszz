@@ -19,10 +19,17 @@ zzloteria2 ()
 {
 	zzzz -h loteria2 $1 && return
 	
-	local dump numero_concurso data resultado acumulado tipo
+	local dump numero_concurso data resultado acumulado tipo ZZWWWDUMP2
 	local resultado_val resultado_num num_con sufixo faixa
 	local url='http://www1.caixa.gov.br/loterias/loterias'
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
+	
+	if type links >/dev/null 2>&1
+	then
+		ZZWWWDUMP2='links -dump'
+	else
+		ZZWWWDUMP2=$ZZWWWDUMP
+	fi
 	
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente
 	zztool testa_numero "$2"
@@ -43,7 +50,7 @@ zzloteria2 ()
 		
 		# Há várias pegadinhas neste código. Alguns detalhes:
 		# - A variável $dump é um cache local do resultado
-		# - É usado ZZWWWDUMP+filtros (e não ZZWWWHTML) para forçar a saída em UTF-8
+		# - É usado ZZWWWDUMP2+filtros (e não ZZWWWHTML) para forçar a saída em UTF-8
 		# - O resultado é deixado como uma única longa linha
 		# - O resultado são vários campos separados por pipe |
 		# - Cada tipo de loteria traz os dados em posições (e formatos) diferentes :/
@@ -57,7 +64,7 @@ zzloteria2 ()
 			;;
 		esac
 		
-		dump=$($ZZWWWDUMP "$url/$tipo/${tipo}${sufixo}$num_con" |
+		dump=$($ZZWWWDUMP2 "$url/$tipo/${tipo}${sufixo}$num_con" |
 				tr -d \\n |
 				sed 's/  */ /g ; s/^ //')
 		
@@ -197,7 +204,12 @@ zzloteria2 ()
 								Time=""
 								}
 							}
-					if ( length(Time)>0 ) printf "%2s X %-2s %-47s ", $2, $(NF-1), "(" Time " )"
+					if ( length(Time)>0 ) {
+						if (split(Time, arr_time) == 2)
+							printf " %-23s %2s X %-2s %23s", arr_time[1], $2, $(NF-1), arr_time[2]
+						else
+							printf "%2s X %-2s %-47s ", $2, $(NF-1), "(" Time " )"
+						}
 					if ( $2 > $(NF-1) ) printf " %s\n", "- Col.  1 "
 					if ( $2 == $(NF-1) ) printf " %s\n", "- Col. Meio"
 					if ( $2 < $(NF-1) ) printf " %s\n", "- Col.  2"
@@ -205,7 +217,7 @@ zzloteria2 ()
 					
 					}')
 				faixa=$(zzseq -f '\t%d\n' 14 13)
-				resultado_num=$(echo "$dump" | cut -d '|' -f 5 | sed 's/ [12]º (1[34] acertos)/\n/g;'|sed '1d' | sed 's/[0-9] /&\t/g')
+				resultado_num=$(echo "$dump" | cut -d '|' -f 5 | sed 's/ [12].\{1,2\} (1[34] acertos)/\n/g;' |sed '1d' | sed 's/[0-9] /&\t/g')
 				unset resultado_val
 			;;
 		esac
