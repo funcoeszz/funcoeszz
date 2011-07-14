@@ -2,6 +2,17 @@
 # http://esporte.uol.com.br/
 # Mostra a tabela atualizada do Campeonato Brasileiro - Série A e Série B.
 # Se for fornecido um numero mostra os jogos da rodada, com resultados.
+# Nomenclatura:
+#	PG  - Pontos Ganhos
+#	J   - Jogos
+#	V   - Vitórias
+#	E   - Empates
+#	D   - Derrotas
+#	GP  - Gols Pró
+#	GC  - Gols Contra
+#	SG  - Saldo de Gols
+#	(%) - Aproveitamento (pontos)
+#
 # Uso: zzbrasileirao [a | b] [numero rodada]
 # Ex.: zzbrasileirao
 #      zzbrasileirao a
@@ -11,7 +22,7 @@
 #
 # Autor: Itamar - original: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
@@ -44,6 +55,9 @@ zzbrasileirao ()
 	
 		[ "$serie" = "a" ] && zztool eco "Série A" || zztool eco "Série B"
 	
-		$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *$/p" 
+		$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *$/p;"| 
+		awk '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
+		if (NF>9)
+		printf "%-23s %3s %3s %3s %3s %3s %3s %3s %3s %4s\n", time, $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF}'
 	fi
 }
