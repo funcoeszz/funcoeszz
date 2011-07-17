@@ -6,7 +6,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzipinternet ()
@@ -16,6 +16,5 @@ zzipinternet ()
 	local url='http://automation.whatismyip.com/n09230945.asp'
 
 	# O resultado já vem pronto!
-	echo 
-	$ZZWWWDUMP "$url" | awk -F" " '{print $1}' 
+	$ZZWWWDUMP "$url" | sed -n '/\./ s/^  *//p'
 }
