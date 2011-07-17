@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# Alterar duplasena, que a partir do concurso 866, passou a premiar a sena, quina e quadra nos dois sorteios
 # Consulta os resultados da quina, megasena, duplasena, lotomania, lotofácil,
 # federal e timemania.
 # Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o
@@ -29,7 +28,10 @@ zzloteria2 ()
 	then
 		ZZWWWDUMP2='links -dump'
 	else
-		ZZWWWDUMP2=$ZZWWWDUMP
+		#ZZWWWDUMP2=$ZZWWWDUMP
+		echo 'Favor instalar o "links"'
+		echo 'Site da caixa não responde com o "lynx" usado na variável $ZZWWWDUMP'
+		return 1
 	fi
 	
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente
@@ -130,8 +132,8 @@ zzloteria2 ()
 					sed 's/^ - //'
 				)
 				faixa=$(echo "\t1ª Sena|\t1ª Quina|\t1ª Quadra||\t2ª Sena|\t2ª Quina|\t2ª Quadra"| tr '|' '\n')
-				resultado_num=$(echo "$dump" | awk 'BEGIN {FS="|"} {printf "%s\n%s\n%s\n\n%s\n%s\n%s\n",$7,$26,$28,$9,$10,$13}')
-				resultado_val=$(echo "$dump" | awk 'BEGIN {FS="|"} {printf "%s\n%s\n%s\n\n%s\n%s\n%s\n",$8,$27,$29,$11,$12,$14}')
+				resultado_num=$(echo "$dump" | awk 'BEGIN {FS="|";OFS="\n"} {print $7,$26,$28,"",$9,$10,$13}')
+				resultado_val=$(echo "$dump" | awk 'BEGIN {FS="|";OFS="\n"} {print $8,$27,$29,"",$11,$12,$14}')
 			;;
 			quina)
 				# O resultado vem duplicado em um único campo, sendo a segunda
