@@ -1,14 +1,14 @@
 # ----------------------------------------------------------------------------
 # http://cinemark.com.br/programacao/cidade/1
 # Exibe os filmes com sessão às 15h (mais barata) no cinemark da sua cidade.
-# Obs.: Não utilize acentos
 # Uso: zzcinemark15h [cidade | codigo_cinema]
 # Ex.: zzcinemark15h sao paulo
 #
 # Autor: Thiago Moura Witt <thiago.witt (a) gmail.com> <@thiagowitt>
 # Desde: 2011-07-05
-# Versão: 1
+# Versão: 2
 # Licença: GPL
+# Requisitos: zzminusculas zzsemacento
 # ----------------------------------------------------------------------------
 zzcinemark15h ()
 {
@@ -50,7 +50,7 @@ zzcinemark15h ()
 	fi
 
 	#converte nome da cidade para minúscula e retira espaços
-	local cidade=$(echo $* | sed 's/ /_/g' | tr [:upper:] [:lower:])
+	local cidade=$(echo $* | sed 's/ /_/g' | zzminusculas | zzsemacento)
 	local codigo=""
 
 	if zztool testa_numero ${cidade}; then # passou código
