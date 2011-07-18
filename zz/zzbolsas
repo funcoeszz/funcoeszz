@@ -24,7 +24,7 @@
 # Desde: 2009-10-04
 # Versão: 7
 # Licença: GPL
-# Requisitos: zzmaiusculas zzsemacento zzdatafmt zzdata
+# Requisitos: zzmaiusculas zzsemacento zzdatafmt
 # ----------------------------------------------------------------------------
 zzbolsas ()
 {
