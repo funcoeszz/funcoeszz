@@ -10,7 +10,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
-zzcinemark15h () 
+zzcinemark15h ()
 {
     zzzz -h cinemark15h $1 && return
 
