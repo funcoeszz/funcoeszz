@@ -22,16 +22,19 @@
 #
 # Autor: Itamar - original: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
 	zzzz -h brasileirao $1 && return
+	
+	local cor=0
+	local url rodada serie ano
+	
+	[ "$1" = "-c" -o "$1" = "--color" ] && { cor=1; shift; }
 
 	[ $# -gt 2 ] && { zztool uso brasileirao; return 1; }
-	
-	local url rodada serie ano
 	
 	serie='a'
 	[ "$1" = "a" -o "$1" = "b" ] && { serie="$1"; shift; }
@@ -56,8 +59,36 @@ zzbrasileirao ()
 		[ "$serie" = "a" ] && zztool eco "Série A" || zztool eco "Série B"
 	
 		$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *$/p;"|
-		awk '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
+		awk -v cor_awk="$cor" -v serie_awk="$serie" '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
+		if (cor_awk==1)
+		{
+			switch (NR) {
+			case /^(18|19|20|21)/:
+				cor="\033[41;30m"
+				break
+			case /^([6-9]|1[0-3])/:
+				cor=(serie_awk=="a"?"\033[44;30m":"\033[m")
+				break
+			case /^[2-5]/:
+				cor="\033[42;30m"
+				break
+			default: cor="\033[m"
+			}
+		}
 		if (NF>9)
-		printf "%-23s %3s %3s %3s %3s %3s %3s %3s %3s %4s\n", time, $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF}'
+		printf "%s%-23s %3s %3s %3s %3s %3s %3s %3s %3s %4s \033[m\n", cor, time, $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF}'
+		
+		if [ "$cor" = "1" ]
+		then
+			echo
+			if [ "$serie" = "a" ]
+			then
+				printf "\033[42;30m Libertadores \033[m"
+				printf "\033[44;30m Sul-Americana \033[m"
+			else
+				printf "\033[42;30m   Série  A   \033[m"
+			fi
+			printf "\033[41;30m Rebaixamento \033[m\n"
+		fi
 	fi
 }
