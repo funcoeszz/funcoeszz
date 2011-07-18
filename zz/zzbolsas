@@ -234,7 +234,7 @@ zzbolsas ()
 					sed '/Símbolo /d;/Primeira/d;/^[ ]*$/d'|
 					grep -i "$2"
 				done
-			fi	
+			fi
 		;;
 		esac
 }

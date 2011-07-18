@@ -108,13 +108,13 @@ zzmat ()
 				case $1 in
 				"sen") num1=$(awk 'BEGIN {printf "%.'${precisao}'g\n", sin('$num2')}');;
 				"cos") num1=$(awk 'BEGIN {printf "%.'${precisao}'g\n", cos('$num2')}');;
-				"tan") 
+				"tan")
 					num1=$(awk 'BEGIN {div=sprintf("%.6g", cos('$num2'));if (div!="0.000000") printf "%.'${precisao}'g\n", sin('$num2')/cos('$num2');}');;
-				"sec") 
+				"sec")
 					num1=$(awk 'BEGIN {div=sprintf("%.6g", cos('$num2'));if (div!="0.000000") printf "%.'${precisao}'g\n", 1/cos('$num2');}');;
-				"csc") 
+				"csc")
 					num1=$(awk 'BEGIN {div=sprintf("%.6g", sin('$num2'));if (div!="0.000000") printf "%.'${precisao}'g\n", 1/sin('$num2');}');;
-				"cot") 
+				"cot")
 					num1=$(awk 'BEGIN {div=sprintf("%.6g", sin('$num2'));if (div!="0.000000") printf "%.'${precisao}'g\n", cos('$num2')/sin('$num2');}');;
 				esac
 				

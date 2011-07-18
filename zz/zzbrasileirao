@@ -55,7 +55,7 @@ zzbrasileirao ()
 	
 		[ "$serie" = "a" ] && zztool eco "Série A" || zztool eco "Série B"
 	
-		$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *$/p;"| 
+		$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *$/p;"|
 		awk '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
 		if (NF>9)
 		printf "%-23s %3s %3s %3s %3s %3s %3s %3s %3s %4s\n", time, $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF}'
