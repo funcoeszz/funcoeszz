@@ -22,21 +22,21 @@ zztv ()
 	local URL="http://diversao.terra.com.br/tv/noticias"
 	
 	case "$1" in
-	"bandeirantes"|"band")              URL="${URL}/0,,OI3512446-EI13436,00-Programacao+da+TV+Bandeirantes.html";;
-	"cultura")                          URL="${URL}/0,,OI3512319-EI13437,00-Programacao+da+TV+Cultura.html";;
-	"gazeta")                           URL="${URL}/0,,OI3512452-EI13435,00-Programacao+da+TV+Gazeta.html";;
-	"mtv")                              URL="${URL}/0,,OI3512331-EI13438,00-Programacao+da+MTV.html";;
-	"record")                           URL="${URL}/0,,OI3512364-EI13448,00-Programacao+da+TV+Record.html";;
-	"record_news"|"recordnews"|"rnews") URL="${URL}/0,,OI3512343-EI13430,00-Programacao+da+TV+Record+News.html";;
-	"rede_21"|"rede21"|"r21")           URL="${URL}/0,,OI3512468-EI13432,00-Programacao+da+TV+Rede.html";;
-	"redetv"|"rede_tv"|"rtv")           URL="${URL}/0,,OI3512461-EI13433,00-Programacao+da+RedeTV.html";;
-	"sbt")                              URL="${URL}/0,,OI3512852-EI13434,00-Colocar+a+programacao+do+SBT+aqui.html";;
-	"tv_brasil"|"tvbrasil")             URL="${URL}/0,,OI3512360-EI13431,00-Programacao+da+TV+Brasil.html";;
-	"globo"|*)                          URL="${URL}/0,,OI3512347-EI13439,00-Programacao+da+TV+Globo.html";;
+	bandeirantes|band)            URL="${URL}/0,,OI3512446-EI13436,00-Programacao+da+TV+Bandeirantes.html";;
+	cultura)                      URL="${URL}/0,,OI3512319-EI13437,00-Programacao+da+TV+Cultura.html";;
+	gazeta)                       URL="${URL}/0,,OI3512452-EI13435,00-Programacao+da+TV+Gazeta.html";;
+	mtv)                          URL="${URL}/0,,OI3512331-EI13438,00-Programacao+da+MTV.html";;
+	record)                       URL="${URL}/0,,OI3512364-EI13448,00-Programacao+da+TV+Record.html";;
+	record_news|recordnews|rnews) URL="${URL}/0,,OI3512343-EI13430,00-Programacao+da+TV+Record+News.html";;
+	rede_21|rede21|r21)           URL="${URL}/0,,OI3512468-EI13432,00-Programacao+da+TV+Rede.html";;
+	redetv|rede_tv|rtv)           URL="${URL}/0,,OI3512461-EI13433,00-Programacao+da+RedeTV.html";;
+	sbt)                          URL="${URL}/0,,OI3512852-EI13434,00-Colocar+a+programacao+do+SBT+aqui.html";;
+	tv_brasil|tvbrasil)           URL="${URL}/0,,OI3512360-EI13431,00-Programacao+da+TV+Brasil.html";;
+	globo|*)                      URL="${URL}/0,,OI3512347-EI13439,00-Programacao+da+TV+Globo.html";;
 	esac
 
 	case "$2" in
-	"semana"|"s")
+	semana|s)
 		$ZZWWWDUMP "$URL" | sed -n '/Programação dos dias/,/A programação é de responsabilidade/p'|
 		sed '1d;/^ *$/d;$d'|sed 's/^ *[ASTQD]/\n&/g';;
 	*)
