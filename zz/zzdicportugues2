@@ -7,15 +7,15 @@
 # Se for seguida do termo "conj", retorna todas as formas de conjugação.
 # Pode-se filtrar pelos modos de conjugação, fornecendo após o "conj" o modo
 # desejado:
-# ind (indicativo), sub ou conj (subjuntivo), imp (imperativo)
+# ind (indicativo), sub (subjuntivo), imp (imperativo), inf (infinitivo)
 #
-# Uso: zzdicportugues2 palavra [def|conj [ind|sub|conj|imp]]
+# Uso: zzdicportugues2 palavra [def|conj [ind|sub|conj|imp|inf]]
 # Ex.: zzdicportugues2 bolacha
 #      zzdicportugues2 verbo conj sub
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net - modicado por Itamar
 # Desde: 2011-04-16
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
@@ -61,36 +61,36 @@ zzdicportugues2 ()
 	padrao=$(echo "${padrao}_${contador}"|sed 's/_1$//')
 	
 	case "$2" in
-	"def") ini='^Definição de '; fim=' escrita ao contrário: ' ;;
-	"conj")
+	def) ini='^Definição de '; fim=' escrita ao contrário: ' ;;
+	conj)
 		ini='Infinitivo:'; fim='\(Rimas com \|Anagramas de \)'
 		case "$3" in
-			"ind") ini='^INDICATIVO'; fim='^IMPERATIVO' ;;
-			"sub"|"conj") ini='^CONJUNTIVO'; fim='^INDICATIVO' ;;
-			"imp") ini='^IMPERATIVO'; fim='.*eles$' ;;
-			#"inf") ini='^INFINITIVO' ;;
+			ind) ini=' *\(INDICATIVO\|Indicativo\)'; fim='^ *\(SUBJUNTIVO\|Subjuntivo\)' ;;
+			sub|conj) ini='^ *\(SUBJUNTIVO\|Subjuntivo\)'; fim='^ *\(IMPERATIVO\|Imperativo\)' ;;
+			imp) ini='^ *\(IMPERATIVO\|Imperativo\)'; fim='^ *\(INFINITIVO\|Infinitivo\)' ;;
+			inf) ini='^ *\(INFINITIVO\|Infinitivo\) *$' ;;
 		esac
 	;;
 	esac
 	
 	case "$2" in
-	"conj")
+	conj)
 		$ZZWWWDUMP "$url/$padrao" |
 			sed -n "
 			/$ini/,/$fim/ {
-				/^INDICATIVO/d
-				/^SUBJUNTIVO/d
-				/^CONJUNTIVO/d
-				/^IMPERATIVO/d
-				/^INFINITIVO/d
+				/^ *\(INDICATIVO\|Indicativo\) *$/d
+				/^ *\(SUBJUNTIVO\|Subjuntivo\) *$/d
+				#/^ *\(CONJUNTIVO\|Conjuntivo\) *$/d
+				/^ *\(IMPERATIVO\|Imperativo\) *$/d
+				/^ *\(INFINITIVO\|Infinitivo\) *$/d
 				/\(Rimas com \|Anagramas de \)/d
 				/^ *$/d
 				s/^ *//
 				s/^\*/\n&/
-				s/ do \(Indicativo\|Subjuntivo\|Conjuntivo\)/&\n/
-				s/\* Imperativo \(Afirmativo\|Negativo\)/&\n/
-				s/\* Imperativo/&\n/
-				s/\* Infinitivo Pessoal/&\n/
+				#s/ do \(Indicativo\|Subjuntivo\|Conjuntivo\)/&\n/
+				#s/\* Imperativo \(Afirmativo\|Negativo\)/&\n/
+				#s/\* Imperativo/&\n/
+				#s/\* Infinitivo Pessoal/&\n/
 				s/^[a-z]/ &/g
 				p
 				}"
