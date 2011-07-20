@@ -62,14 +62,14 @@ zzbrasileirao ()
 		{
 			cor="\033[m"
 			
-			if (NR >= 18 && NR <=21) 
+			if (NR >= 18 && NR <=21)
 				cor="\033[41;30m"
 			
-			if (NR >= 6 && NR <=13)	
+			if (NR >= 6 && NR <=13)
 				cor=(serie_awk=="a"?"\033[44;30m":"\033[m")
 
-			if (NR >= 2 && NR <=5)	
-				cor="\033[42;30m"	
+			if (NR >= 2 && NR <=5)
+				cor="\033[42;30m"
 		}
 		
 		if (NF>9)
