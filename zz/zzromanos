@@ -1,10 +1,11 @@
 # ----------------------------------------------------------------------------
 # Conversor de números romanos para indo-arábicos e vice-versa.
-# Uso: zzromanos [nº em algarismos indo-arábicos|romanos]
+# Uso: zzromanos número
 # Ex.: zzromanos 1987
 #      zzromanos XLII
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com> twitter: @gmgall
+# Desde: 2011-07-19
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
