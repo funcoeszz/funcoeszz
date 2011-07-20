@@ -41,8 +41,10 @@ zzromanos ()
 	# Se é um número inteiro positivo, transforma para número romano
 	if zztool testa_numero "$entrada"
 	then
-		while IFS=: read arabico romano; do
-			while [ "$entrada" -ge "$arabico" ]; do
+		while IFS=: read arabico romano
+		do
+			while [ "$entrada" -ge "$arabico" ]
+			do
 				saida=$saida$romano
 				entrada=$((entrada-arabico))
 			done
@@ -55,9 +57,11 @@ zzromanos ()
 	then
 		saida=0
 		# Baseado em http://diveintopython.org/unit_testing/stage_4.html
-		while IFS=: read arabico romano; do
+		while IFS=: read arabico romano
+		do
 			comprimento=${#romano}
-			while [ "$(echo "$entrada" | cut -c$indice-$((indice+comprimento-1)))" = "$romano" ]; do
+			while [ "$(echo "$entrada" | cut -c$indice-$((indice+comprimento-1)))" = "$romano" ]
+			do
 				indice=$((indice+comprimento))
 				saida=$((saida+arabico))
 			done
