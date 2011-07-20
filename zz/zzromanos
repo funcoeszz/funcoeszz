@@ -1,0 +1,72 @@
+# ----------------------------------------------------------------------------
+# zzromanos
+# Conversor de números romanos para indo-arábicos e vice-versa.
+# Uso: zzromanos [nº em algarismos indo-arábicos|romanos]
+# Ex.: zzromanos 1987
+#      zzromanos XLII
+#
+# Autor: Guilherme Magalhães Gall <gmgall (a) gmail com> twitter: @gmgall
+# Versão: 1
+# Licença: GPL
+# ----------------------------------------------------------------------------
+
+zzromanos()
+{
+	zzzz -h romanos $1 && return
+
+	local arabicos_romanos="\
+	1000:M
+	900:CM
+	500:D
+	400:CD
+	100:C
+	90:XC
+	50:L
+	40:XL
+	10:X
+	9:IX
+	5:V
+	4:IV
+	1:I"
+
+	# Deixa o usuário usar letras maiúsculas ou minúsculas
+	local entrada=$(echo "$1" | zzmaiusculas)
+	local saida=""
+	local indice=1
+	local comprimento
+	# Regex que valida um número romano de acordo com
+	# http://diveintopython.org/unit_testing/stage_5.html
+	local regex_validacao='^M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'
+
+	# Se é um número inteiro positivo, transforma para número romano
+	if zztool testa_numero "$entrada"
+	then
+		while IFS=: read arabico romano; do
+			while [ "$entrada" -ge "$arabico" ]; do
+				saida=$saida$romano
+				entrada=$((entrada-arabico))
+			done
+		done < <(echo "$arabicos_romanos")
+		echo $saida
+
+	# Se é uma string que representa um número romano válido,
+	# converte para indo-arábico
+	elif echo "$entrada" | egrep $regex_validacao > /dev/null
+	then
+		saida=0
+		# Baseado em http://diveintopython.org/unit_testing/stage_4.html
+		while IFS=: read arabico romano; do
+			comprimento=${#romano}
+			while [ "$(echo "$entrada" | cut -c$indice-$((indice+comprimento-1)))" = "$romano" ]; do
+				indice=$((indice+comprimento))
+				saida=$((saida+arabico))
+			done
+		done < <(echo "$arabicos_romanos")
+		echo $saida
+
+	# Se não é inteiro posivo ou string que representa número romano válido,
+	# imprime mensagem de uso.
+	else
+		zztool uso romanos	
+	fi
+}
