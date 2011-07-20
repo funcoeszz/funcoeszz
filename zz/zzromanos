@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# zzromanos
 # Conversor de números romanos para indo-arábicos e vice-versa.
 # Uso: zzromanos [nº em algarismos indo-arábicos|romanos]
 # Ex.: zzromanos 1987
@@ -9,8 +8,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
-
-zzromanos()
+zzromanos ()
 {
 	zzzz -h romanos $1 && return
 
