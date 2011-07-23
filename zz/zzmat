@@ -59,8 +59,8 @@ zzmat ()
 		then
 			echo $2|tr ',' '.'|sed 's/^[-+]//'
 		else
-			echo " zzmat $1: Valor Absoluto"
-			echo " Uso: zzmat $1 numero"
+			echo " zzmat $funcao: Valor Absoluto"
+			echo " Uso: zzmat $funcao numero"
 			return 1
 		fi
 	;;
@@ -78,7 +78,7 @@ zzmat ()
 			gd) num="$num1/0.9";;
 			esac
 		else
-			echo " zzmat $1: Conversões de unidades (não contempladas no zzconverte)"
+			echo " zzmat $funcao: Conversões de unidades (não contempladas no zzconverte)"
 			echo " Sub-funções:
 	gr: graus para radiano
 	rg: radiano para graus
@@ -86,7 +86,7 @@ zzmat ()
 	rd: radiano para grado
 	dg: grado para graus
 	gd: graus para grado"
-			echo " Uso: zzmat $1 sub-função número"
+			echo " Uso: zzmat $funcao sub-função número"
 			return 1
 		fi
 	;;
@@ -105,7 +105,7 @@ zzmat ()
 				rad) num2=$num1;;
 				esac
 				
-				case $1 in
+				case $funcao in
 				sen) num1=$(awk 'BEGIN {printf "%.'${precisao}'g\n", sin('$num2')}');;
 				cos) num1=$(awk 'BEGIN {printf "%.'${precisao}'g\n", cos('$num2')}');;
 				tan)
@@ -120,7 +120,7 @@ zzmat ()
 				
 				[ "$num1" ] && num="$num1"
 			else
-				echo " Uso: zzmat $1 número(g|rad|gr) {graus|radianos|grado}"
+				echo " Uso: zzmat $funcao número(g|rad|gr) {graus|radianos|grado}"
 			fi
 		else
 			echo " zzmat Função Trigonométrica:
@@ -130,7 +130,7 @@ zzmat ()
 	sec: Secante
 	csc: Cossecante
 	cot: Cotangente"
-			echo " Uso: zzmat $1 número(g|rad|gr) {graus|radianos|grado}"
+			echo " Uso: zzmat $funcao número(g|rad|gr) {graus|radianos|grado}"
 			return 1
 		fi
 	;;
@@ -139,16 +139,16 @@ zzmat ()
 		then
 			local num1 num2 num3 sinal
 			num1=$(echo "$2"|tr ',' '.')
-			[ "$1" != "atan" ] && num2=$(awk 'BEGIN {if ('$num1'>1 || '$num1'<-1) print "erro"}')
+			[ "$funcao" != "atan" ] && num2=$(awk 'BEGIN {if ('$num1'>1 || '$num1'<-1) print "erro"}')
 			if [ "$num2" = "erro" ]
 			then
-				zzmat $1 -h;return 1
+				zzmat $funcao -h;return 1
 			fi
 			
 			echo "$num1"|grep '^-' >/dev/null && sinal="-" || unset sinal
 			num1=$(zzmat abs $num1)
 			
-			case $1 in
+			case $funcao in
 			atan)
 				num2=$(echo "a(${num1})"|bc -l)
 				[ "$sinal" ] && num2=$(echo "($pi)-($num2)"|bc -l)
@@ -195,7 +195,7 @@ zzmat ()
 			echo " Valores devem estar entre -1 e 1, para arco-seno e arco-cosseno."
 			echo " Caso a opção seja '2' retorna o segundo ângulo possível do valor."
 			echo " E se for 'r' retorna o ângulo no sentido invertido (replementar)."
-			echo " Uso: zzmat $1 número [[g|rad|gr] [opção]]"
+			echo " Uso: zzmat $funcao número [[g|rad|gr] [opção]]"
 			return 1
 		fi
 	;;
@@ -208,7 +208,7 @@ zzmat ()
 			if [ "$num2" ]
 			then
 				num="l($num1)/l($num2)"
-			elif [ "$1" = "log" ]
+			elif [ "$funcao" = "log" ]
 			then
 				num="l($num1)/l(10)"
 			else
@@ -217,7 +217,7 @@ zzmat ()
 		else
 			echo " zzmat log: Logaritmo base 10"
 			echo " zzmat ln: Logaritmo Natural base e"
-			echo " Uso: zzmat $1 numero [base]"
+			echo " Uso: zzmat $funcao numero [base]"
 			return 1
 		fi
 	;;
@@ -234,11 +234,11 @@ zzmat ()
 			then
 				num=$(awk 'BEGIN {printf "%.'${precisao}'g\n", '$3'^(1/'$num1')}')
 			else
-				echo " Uso: zzmat $1 <quadrada|cubica|numero> numero"
+				echo " Uso: zzmat $funcao <quadrada|cubica|numero> numero"
 			fi
 		else
-			echo " zzmat $1: Raiz enesima de um número"
-			echo " Uso: zzmat $1 <quadrada|cubica|numero> numero"
+			echo " zzmat $funcao: Raiz enesima de um número"
+			echo " Uso: zzmat $funcao <quadrada|cubica|numero> numero"
 			return 1
 		fi
 	;;
@@ -254,7 +254,7 @@ zzmat ()
 					num2=$(echo "$4"|tr ',' '.')
 					num="${num1}*${num2}/2"
 				else
-					echo " Uso: zzmat $1 $2 base altura";return 1
+					echo " Uso: zzmat $funcao $2 base altura";return 1
 				fi
 			;;
 			retangulo)
@@ -264,7 +264,7 @@ zzmat ()
 					num2=$(echo "$4"|tr ',' '.')
 					num="${num1}*${num2}"
 				else
-					echo " Uso: zzmat $1 $2 base altura";return 1
+					echo " Uso: zzmat $funcao $2 base altura";return 1
 				fi
 			;;
 			losango)
@@ -274,7 +274,7 @@ zzmat ()
 					num2=$(echo "$4"|tr ',' '.')
 					num="${num1}*${num2}/2"
 				else
-					echo " Uso: zzmat $1 $2 diagonal_maior diagonal_menor";return 1
+					echo " Uso: zzmat $funcao $2 diagonal_maior diagonal_menor";return 1
 				fi
 			;;
 			trapezio)
@@ -285,7 +285,7 @@ zzmat ()
 					num3=$(echo "$5"|tr ',' '.')
 					num="((${num1}+${num2})/2)*${num3}"
 				else
-					echo " Uso: zzmat $1 $2 base_maior base_menor altura";return 1
+					echo " Uso: zzmat $funcao $2 base_maior base_menor altura";return 1
 				fi
 			;;
 			tetraedro|cubo|octaedro|dodecaedro|icosaedro|quadrado|circulo|esfera|cuboctaedro|rombicuboctaedro|rombicosidodecaedro|icosidodecaedro)
@@ -326,12 +326,12 @@ zzmat ()
 					dodecaedro) num="55.286744956*${num1}^2";;
 					esac
 				else
-					echo " Uso: zzmat $1 $2 lado|raio";return 1
+					echo " Uso: zzmat $funcao $2 lado|raio";return 1
 				fi
 			;;
 			esac
 		else
-			echo " zzmat $1: Cálculo da área de figuras planas e superfícies"
+			echo " zzmat $funcao: Cálculo da área de figuras planas e superfícies"
 			echo " Uso: zzmat area <triangulo|quadrado|retangulo|losango|trapezio|circulo> numero"
 			echo " Uso: zzmat area <esfera|rombicuboctaedro|rombicosidodecaedro> numero"
 			echo " Uso: zzmat area <tetraedo|cubo|octaedro|dodecaedro|icosaedro|cuboctaedro|icosidodecaedro> [truncado] numero"
@@ -352,7 +352,7 @@ zzmat ()
 					num3=$(echo "$5"|tr ',' '.')
 					num="${num1}*${num2}*${num3}"
 				else
-					echo " Uso: zzmat $1 $2 comprimento largura altura";return 1
+					echo " Uso: zzmat $funcao $2 comprimento largura altura";return 1
 				fi
 			;;
 			cilindro)
@@ -362,7 +362,7 @@ zzmat ()
 					num2=$(echo "$4"|tr ',' '.')
 					num="($pi*(${num1})^2)*${num2}"
 				else
-					echo " Uso: zzmat $1 $2 raio altura";return 1
+					echo " Uso: zzmat $funcao $2 raio altura";return 1
 				fi
 			;;
 			cone)
@@ -372,7 +372,7 @@ zzmat ()
 					num2=$(echo "$4"|tr ',' '.')
 					num="($pi*(${num1})^2)*${num2}/3"
 				else
-					echo " Uso: zzmat $1 $2 raio altura";return 1
+					echo " Uso: zzmat $funcao $2 raio altura";return 1
 				fi
 			;;
 			prisma)
@@ -382,7 +382,7 @@ zzmat ()
 					num2=$(echo "$4"|tr ',' '.')
 					num="${num1}*${num2}"
 				else
-					echo " Uso: zzmat $1 $2 area_base altura";return 1
+					echo " Uso: zzmat $funcao $2 area_base altura";return 1
 				fi
 			;;
 			piramide)
@@ -392,7 +392,7 @@ zzmat ()
 					num2=$(echo "$4"|tr ',' '.')
 					num="${num1}*${num2}/3"
 				else
-					echo " Uso: zzmat $1 $2 area_base altura";return 1
+					echo " Uso: zzmat $funcao $2 area_base altura";return 1
 				fi
 			;;
 			tetraedro|cubo|octaedro|dodecaedro|icosaedro|esfera|cuboctaedro|rombicuboctaedro|rombicosidodecaedro|icosidodecaedro)
@@ -431,12 +431,12 @@ zzmat ()
 					dodecaedro) num="37.61664996*${num1}^3";;
 					esac
 				else
-					echo " Uso: zzmat $1 $2 lado|raio";return 1
+					echo " Uso: zzmat $funcao $2 lado|raio";return 1
 				fi
 			;;
 			esac
 		else
-			echo " zzmat $1: Cálculo de volume de figuras geométricas"
+			echo " zzmat $funcao: Cálculo de volume de figuras geométricas"
 			echo " Uso: zzmat volume <paralelepipedo|cilindro|esfera|cone|prisma|piramide|rombicuboctaedro|rombicosidodecaedro>"
 			echo " Uso: zzmat volume <tetraedo|cubo|octaedro|dodecaedro|icosaedro|cuboctaedro|icosidodecaedro> [truncado] numero"
 			echo " Uso: zzmat volume <cubo|dodecaedro> snub numero"
@@ -448,7 +448,6 @@ zzmat ()
 		then
 			local num_maior num_menor resto mdc mmc num2
 			local num1=$2
-			local subfuncao=$1
 			shift 2
 			for num2 in $*
 			do
@@ -468,17 +467,17 @@ zzmat ()
 					mmc=$((${num1}*${num2}/${mdc}))
 				fi
 				shift
-				[ "subfuncao" = "mdc" ] && num1="$mdc" || num1="$mmc"
+				[ "$funcao" = "mdc" ] && num1="$mdc" || num1="$mmc"
 			done
 			
-			case $subfuncao in
+			case $funcao in
 			mmc) echo $mmc;;
 			mdc) echo $mdc;;
 			esac
 		else
 			echo " zzmat mmc: Menor Múltiplo Comum"
 			echo " zzmat mdc: Maior Divisor Comum"
-			echo " Uso: zzmat $1 numero numero ..."
+			echo " Uso: zzmat $funcao numero numero ..."
 			return 1
 		fi
 	;;
@@ -489,14 +488,14 @@ zzmat ()
 		then
 			local equacao numero operacao
 			equacao=$(echo "$4"|sed 's/\[/(/g;s/\]/)/g')
-			[ "$1" = "somatoria" ] && operacao='+' || operacao='*'
+			[ "$funcao" = "somatoria" ] && operacao='+' || operacao='*'
 			num=$(for numero in $(zzseq $2 $3)
 			do
 				echo "($equacao)"|sed "s/^[x]/$numero/;s/\([(+-]\)x/\1($numero)/g;s/\([0-9]\)x/\1\*($numero)/g;s/x/$numero/g"
 			done|paste -s -d"$operacao")
 		else
-			echo " zzmat $1: Soma ou Produto de expressão"
-			echo " Uso: zzmat $1 limite_inferior limite_superior equacao"
+			echo " zzmat $funcao: Soma ou Produto de expressão"
+			echo " Uso: zzmat $funcao limite_inferior limite_superior equacao"
 			echo " Usar 'x' como variável na equação"
 			echo " Usar '[' e ']' respectivamente no lugar de '(' e ')'"
 			return 1
@@ -509,7 +508,6 @@ zzmat ()
 			local qtde=0
 			local peso=1
 			local valor
-			local subfuncao=$1
 			shift
 			while [ $# -ne "0" ]
 			do
@@ -531,13 +529,13 @@ zzmat ()
 				fi
 				shift
 			done
-			case "$subfuncao" in
+			case "$funcao" in
 			media) num="${soma}/${qtde}";;
 			soma)  num="${soma}";;
 			esac
 		else
-			echo " zzmat $1:Soma ou Média Aritimética e Ponderada"
-			echo " Uso: zzmat $1 numero[[peso]] [numero[peso]] ..."
+			echo " zzmat $funcao:Soma ou Média Aritimética e Ponderada"
+			echo " Uso: zzmat $funcao numero[[peso]] [numero[peso]] ..."
 			echo " Usar '[' e ']' respectivamente no lugar de '(' e ')'"
 			return 1
 		fi
@@ -547,8 +545,8 @@ zzmat ()
 		then
 			zzseq 2 $2|paste -s -d*|bc -l
 		else
-			echo " zzmat $1: Resultado do produto de 1 ao numero atual (fatorial)"
-			echo " Uso: zzmat $1 numero"
+			echo " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
+			echo " Uso: zzmat $funcao numero"
 			return 1
 		fi
 	;;
@@ -560,14 +558,14 @@ zzmat ()
 			n=$(zzseq $2|paste -s -d*|bc)
 			p=$(zzseq $3|paste -s -d*|bc)
 			dnp=$(zzseq $(($2-$3))|paste -s -d*|bc -l)
-			case "$1" in
+			case "$funcao" in
 			arranjo)    num="${n}/${dnp}";;
 			combinacao) num="${n}/(${p}*${dnp})";;
 			esac
 		else
 			echo " zzmat arranjo: n elementos tomados em grupos de p (considera ordem)"
 			echo " zzmat combinacao: n elementos tomados em grupos de p (desconsidera ordem)"
-			echo " Uso: zzmat $1 total_numero quantidade_grupo"
+			echo " Uso: zzmat $funcao total_numero quantidade_grupo"
 			return 1
 		fi
 	;;
@@ -587,11 +585,11 @@ zzmat ()
 						valor=$num_inicial
 						while ([ $passo -lt $4 ])
 						do
-							if [ "$1" = "pa" ]
+							if [ "$funcao" = "pa" ]
 							then
 								valor=$(echo "$num_inicial + ($razao * $passo)"|bc -l|
 								awk '{printf "%.'${precisao}'g\n", $1}')
-							elif [ "$1" = "pa2" ]
+							elif [ "$funcao" = "pa2" ]
 							then
 								valor=$(echo "$valor + ($razao * $passo)"|bc -l|
 								awk '{printf "%.'${precisao}'g\n", $1}')
@@ -610,7 +608,7 @@ zzmat ()
 			echo " zzmat pa:  Progressão Aritmética"
 			echo " zzmat pa2: Progressão Aritmética de Segunda Ordem"
 			echo " zzmat pg:  Progressão Geométrica"
-			echo " Uso: zzmat $1 inicial razao quantidade_elementos"
+			echo " Uso: zzmat $funcao inicial razao quantidade_elementos"
 			return 1
 		fi
 	;;
@@ -644,8 +642,8 @@ zzmat ()
 			[ "$num_raiz" = "2" ] && echo -e " X1: $raiz1 \n X2: $raiz2" || echo " X: $raiz1"
 			echo " Vertice: (${vert_x}, ${vert_y})"
 		else
-			echo " zzmat $1: Equação do Segundo Grau (Raízes e Vértice)"
-			echo " Uso: zzmat $1 A B C"
+			echo " zzmat $funcao: Equação do Segundo Grau (Raízes e Vértice)"
+			echo " Uso: zzmat $funcao A B C"
 			return 1
 		fi
 	;;
@@ -671,11 +669,11 @@ zzmat ()
 					num="sqrt($a+$b)"
 				fi
 			else
-				echo " Uso: zzmat $1 ponto(a,b) ponto(x,y)";return 1
+				echo " Uso: zzmat $funcao ponto(a,b) ponto(x,y)";return 1
 			fi
 		else
-			echo " zzmat $1: Distância entre 2 pontos"
-			echo " Uso: zzmat $1 ponto(a,b) ponto(x,y)"
+			echo " zzmat $funcao: Distância entre 2 pontos"
+			echo " Uso: zzmat $funcao ponto(a,b) ponto(x,y)"
 			return 1
 		fi
 	;;
@@ -775,7 +773,7 @@ zzmat ()
 				echo "${valor},${teta}${saida},${fi}${saida}"
 			fi
 		else
-			echo " zzmat $1: Operação entre vetores"
+			echo " zzmat $funcao: Operação entre vetores"
 			echo " Tipo de saída podem ser: padrão (-e)"
 			echo "  -e: vetor em coordenadas esférica: valor[,teta(g|rad|gr),fi(g|rad|gr)];"
 			echo "  -c: vetor em coordenada cilindrica: raio[,teta(g|rad|gr),altura]."
@@ -785,7 +783,7 @@ zzmat ()
 			echo " Unidade angular é o angulo de saida usado para o vetor resultante,"
 			echo " e pode ser escolhida entre g(graus), rad(radianos) ou gr(grados)."
 			echo " Não use separador de milhar. Use o ponto(.) como separador decimal."
-			echo " Uso: zzmat $1 [tipo saida] vetor [vetor2] ... [unidade angular]"
+			echo " Uso: zzmat $funcao [tipo saida] vetor [vetor2] ... [unidade angular]"
 			return 1
 		fi
 	;;
@@ -819,7 +817,7 @@ zzmat ()
 					c=$(awk 'BEGIN {valor=('$c')/('$redutor');  print (valor<0?"":"+") valor}')
 				fi
 				
-				case $1 in
+				case "$funcao" in
 				egr)
 					echo "${a}x${b}y${c}=0"|
 					sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]\{0,1\}0[xy]//g;s/+0=0/=0/;s/^+//';;
@@ -828,15 +826,15 @@ zzmat ()
 					echo "y=${m}x${redutor}";;
 				esac
 			else
-				echo " Uso: zzmat $1 ponto(a,b) ponto(x,y)";return 1
+				echo " Uso: zzmat $funcao ponto(a,b) ponto(x,y)";return 1
 			fi
 		else
-			echo -n " zzmat $1: "
-			case "$1" in
+			echo -n " zzmat $funcao: "
+			case "$funcao" in
 			egr) echo "Equação Geral da Reta.";;
 			err) echo "Equação Reduzida da Reta.";;
 			esac
-			echo " Uso: zzmat $1 ponto(a,b) ponto(x,y)"
+			echo " Uso: zzmat $funcao ponto(a,b) ponto(x,y)"
 			return 1
 		fi
 	;;
@@ -855,7 +853,7 @@ zzmat ()
 			then
 				r=$(echo "$3"|tr ',' '.')
 			else
-				echo " Uso: zzmat $1 centro(a,b) (numero|ponto(x,y))";return 1
+				echo " Uso: zzmat $funcao centro(a,b) (numero|ponto(x,y))";return 1
 			fi
 			a=$(echo "$2"|cut -f1 -d,)
 			b=$(echo "$2"|cut -f2 -d,)
@@ -864,8 +862,8 @@ zzmat ()
 			C=$(awk 'BEGIN {valor=('$a')^2+('$b')^2-('$r')^2; print (valor<0?"":"+") valor}')
 			echo "x^2+y^2${A}x${B}y${C}=0"|sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]0[xy]//g;s/+0=0/=0/'
 		else
-			echo " zzmat $1: Equação Geral da Circunferência (Centro e Raio ou Centro e Ponto)"
-			echo " Uso: zzmat $1 centro(a,b) (numero|ponto(x,y))"
+			echo " zzmat $funcao: Equação Geral da Circunferência (Centro e Raio ou Centro e Ponto)"
+			echo " Uso: zzmat $funcao centro(a,b) (numero|ponto(x,y))"
 			return 1
 		fi
 	;;
@@ -890,12 +888,12 @@ zzmat ()
 			
 			if (! zzmat testa_num $x1 || ! zzmat testa_num $x2 || ! zzmat testa_num $x3)
 			then
-				echo " Uso: zzmat $1 ponto(a,b) ponto(c,d) ponto(x,y)";return 1
+				echo " Uso: zzmat $funcao ponto(a,b) ponto(c,d) ponto(x,y)";return 1
 			fi
 			
 			if (! zzmat testa_num $y1 || ! zzmat testa_num $y2 || ! zzmat testa_num $y3)
 			then
-				echo " Uso: zzmat $1 ponto(a,b) ponto(c,d) ponto(x,y)";return 1
+				echo " Uso: zzmat $funcao ponto(a,b) ponto(c,d) ponto(x,y)";return 1
 			fi
 			
 			D=$(zzmat det $x1 $y1 1 $x2 $y2 1 $x3 $y3 1)
@@ -914,8 +912,8 @@ zzmat ()
 			sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]0[xy]//g;s/+0=0/=0/'
 			echo "Centro: (${x1}, ${y1})"
 		else
-			echo " zzmat $1: Equação Geral da Circunferência (3 pontos)"
-			echo " Uso: zzmat $1 ponto(a,b) ponto(c,d) ponto(x,y)"
+			echo " zzmat $funcao: Equação Geral da Circunferência (3 pontos)"
+			echo " Uso: zzmat $funcao ponto(a,b) ponto(c,d) ponto(x,y)"
 			return 1
 		fi
 	;;
@@ -934,7 +932,7 @@ zzmat ()
 			then
 				r=$(echo "$3"|tr ',' '.')
 			else
-				echo " Uso: zzmat $1 centro(a,b,c) (numero|ponto(x,y,z))";return 1
+				echo " Uso: zzmat $funcao centro(a,b,c) (numero|ponto(x,y,z))";return 1
 			fi
 			a=$(echo "$2"|cut -f1 -d,)
 			b=$(echo "$2"|cut -f2 -d,)
@@ -942,7 +940,7 @@ zzmat ()
 			
 			if(! zzmat testa_num $a || ! zzmat testa_num $b || ! zzmat testa_num $c)
 			then
-				echo " Uso: zzmat $1 centro(a,b,c) (numero|ponto(x,y,z))";return 1
+				echo " Uso: zzmat $funcao centro(a,b,c) (numero|ponto(x,y,z))";return 1
 			fi
 			A=$(awk 'BEGIN {valor=-2*('$a'); print (valor<0?"":"+") valor}')
 			B=$(awk 'BEGIN {valor=-2*('$b'); print (valor<0?"":"+") valor}')
@@ -951,8 +949,8 @@ zzmat ()
 			echo "x^2+y^2+z^2${A}x${B}y${C}z${D}=0"|
 			sed 's/\([+-]\)1\([xyz]\)/\1\2/g;s/[+]0[xyz]//g;s/+0=0/=0/'
 		else
-			echo " zzmat $1: Equação Geral da Esfera (Centro e Raio ou Centro e Ponto)"
-			echo " Uso: zzmat $1 centro(a,b,c) (numero|ponto(x,y,z))"
+			echo " zzmat $funcao: Equação Geral da Esfera (Centro e Raio ou Centro e Ponto)"
+			echo " Uso: zzmat $funcao centro(a,b,c) (numero|ponto(x,y,z))"
 			return 1
 		fi
 	;;
@@ -965,13 +963,13 @@ zzmat ()
 		
 		if [ "$2" = "-h" ]
 		then
-			echo " zzmat $1: Gera um número aleatório."
+			echo " zzmat $funcao: Gera um número aleatório."
 			echo " Sem argumentos gera números entre 0 e 1."
 			echo " Com 1 argumento numérico este fica como limite superior."
 			echo " Com 2 argumentos numéricos estabelecem os limites inferior e superior, respectivamente."
 			echo " Com 3 argumentos numéricos, o último é a quantidade de número aleatórios gerados."
 			echo " Usa padrão de 6 casas decimais. Use -p0 logo após zzmat para números inteiros."
-			echo " Uso: zzmat $1 [[minimo] maximo] [quantidade]"
+			echo " Uso: zzmat $funcao [[minimo] maximo] [quantidade]"
 			return
 		fi
 		
@@ -994,8 +992,20 @@ zzmat ()
 		
 		if [ "$4" ] && zztool testa_numero $4;then qtde=$4;fi
 		
-		awk 'BEGIN {srand();for(i=1;i<='$qtde';i++) { printf "%.'${precisao}'g\n", '$min'+rand()*('$max'-'$min')}}'
-		sleep 1
+		case "$funcao" in
+		aleatorio)
+			awk 'BEGIN {srand();for(i=1;i<='$qtde';i++) { printf "%.'${precisao}'g\n", sprintf("%.'${precisao}'f\n",'$min'+rand()*('$max'-'$min'))}}'
+			sleep 1
+		;;
+		random)
+			n_temp=1
+			while [ $n_temp -le $qtde ]
+			do
+				echo "$RANDOM"|awk '{ printf "%.'${precisao}'g\n", sprintf("%.'${precisao}'f\n",'$min'+($1/32766)*('$max'-'$min'))}'
+				let n_temp++
+			done
+		;;
+		esac
 	;;
 	det)
 		# Determinante de matriz (2x2 ou 3x3)
@@ -1007,18 +1017,18 @@ zzmat ()
 			do
 				if ! zzmat testa_num "$num"
 				then
-					echo " Uso: zzmat $1 numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"
+					echo " Uso: zzmat $funcao numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"
 					return 1
 				fi
 			done
 			case $# in
 			4) num=$(echo "($1*$4)-($2*$3)"|tr ',' '.');;
 			9) num=$(echo "(($1*$5*$9)+($7*$2*$6)+($4*$8*$3)-($7*$5*$3)-($4*$2*$9)-($1*$8*$6))"|tr ',' '.');;
-			*)   echo " Uso: zzmat $1 numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"; return 1;;
+			*)   echo " Uso: zzmat $funcao numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"; return 1;;
 			esac
 		else
-			echo " zzmat $1: Calcula o valor da determinante de uma matriz 2x2 ou 3x3."
-			echo " Uso: zzmat $1 numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"
+			echo " zzmat $funcao: Calcula o valor da determinante de uma matriz 2x2 ou 3x3."
+			echo " Uso: zzmat $funcao numero1 numero2 numero3 numero4 [numero5 numero6 numero7 numero8 numero9]"
 			echo " Ex:  zzmat det 1 3 2 4"
 		fi
 	;;
@@ -1042,14 +1052,14 @@ zzmat ()
 				shift
 			done
 		else
-			echo " zzmat $1: Confere ou resolve equação."
+			echo " zzmat $funcao: Confere ou resolve equação."
 			echo " As variáveis a serem consideradas são x, y ou z nas fórmulas."
 			echo " As variáveis são justapostas em cada argumento separados por vírgula."
 			echo " Cada argumento adicional é um novo conjunto de variáveis na fórmula."
 			echo " Usar '[' e ']' respectivamente no lugar de '(' e ')'."
 			echo " Potenciação é representado com o uso de '^', ex: 3^2."
 			echo " Não use separador de milhar. Use o ponto(.) como separador decimal."
-			echo " Uso: zzmat $1 equacao numero|ponto(x,y[,z])"
+			echo " Uso: zzmat $funcao equacao numero|ponto(x,y[,z])"
 			echo " Ex:  zzmat conf_eq x^2+3*[y-1]-2z+5 7,6.8,9 3,2,5.1"
 			return 1
 		fi
