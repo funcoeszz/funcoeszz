@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 # Conversor de números romanos para indo-arábicos e vice-versa.
 # Uso: zzromanos número
-# Ex.: zzromanos 1987
-#      zzromanos XLII
+# Ex.: zzromanos 1987                # Retorna: MCMLXXXVII
+#      zzromanos XLIII               # Retorna: 43
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com> twitter: @gmgall
 # Desde: 2011-07-19
