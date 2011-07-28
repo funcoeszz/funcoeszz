@@ -6,7 +6,7 @@
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com> twitter: @gmgall
 # Desde: 2011-07-19
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzmaiusculas
 # ----------------------------------------------------------------------------
@@ -38,8 +38,18 @@ zzromanos ()
 	# http://diveintopython.org/unit_testing/stage_5.html
 	local regex_validacao='^M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)(IX|IV|V?I?I?I?)$'
 
+	# Se nenhum argumento for passado, mostra lista de algarismos romanos
+	# e seus correspondentes indo-arábicos
+	if [ $# -eq 0 ]
+	then
+		echo "$arabicos_romanos" | 
+		sed -r '
+			s/\t([0-9]+):([IVXLCDM]+)/\2\t\1/;
+			/[IVXLCDM]{2}/d' |
+		tac
+
 	# Se é um número inteiro positivo, transforma para número romano
-	if zztool testa_numero "$entrada"
+	elif zztool testa_numero "$entrada"
 	then
 		while IFS=: read arabico romano
 		do
