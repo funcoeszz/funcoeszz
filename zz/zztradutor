@@ -18,6 +18,7 @@
 #      zztradutor de-es Buch              # Libro
 #      zztradutor --lista                 # Lista todos os idiomas
 #      zztradutor --lista eslo            # Procura por "eslo" nos idiomas
+#      zztradutor --audio		  # Gera um arquivo OUT.WAV 
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
@@ -38,6 +39,8 @@ zztradutor ()
 	local lang_para='en'
 	local charset_de='ISO-8859-1'
 	local charset_para='UTF-8'
+	local audio_file="/tmp/$$.WAV"
+	local play_cmd='mpg123 -q'
 
 	case "$1" in
 		# O usuário informou um par de idiomas, como pt-en
@@ -61,10 +64,18 @@ zztradutor ()
 				grep ${2:-=}
 			return
 		;;
+		-a | --audio)
+			# Narrativa
+				shift
+			        padrao=$(echo "$*" | sed "$ZZSEDURL")
+			        local audio="translate_tts?ie=$charset_para&q=$padrao&tl=pt&prev=input"
+				$ZZWWWHTML "$url/$audio" > $audio_file && $play_cmd $audio_file && rm -rf $audio_file
+				return
+		;;
 	esac
 
 	padrao=$(echo "$*" | sed "$ZZSEDURL")
-	
+
 	# Exceção para o chinês, que usa um código diferente
 	test $lang_para = 'cn' && lang_para='zh-CN'
 	
