@@ -1,0 +1,58 @@
+# ----------------------------------------------------------------------------
+# Imprime a tabuada de um número de 1 a 9. Se não for informado nenhum argumento
+# será impressa a tabuada de 1 a 9.
+#
+# Uso: zztabuada número
+#      zztabuada 2	
+#
+# Autor: Kl0nEz <kl0nez (a) wifi org br>
+# Desde: 2011-08-23
+# Versão: 1 
+# Licença: GPLv2
+# ----------------------------------------------------------------------------
+zztabuada ()
+{
+	local linha="+-------------+-------------+-------------+"
+	local linha2="+-------------+"
+
+	zzzz -h tabuada $1 && return
+
+
+	case "$1" in
+                [0-9] )
+                        echo $linha2
+                        echo "|Tabuada do $1 |"
+                        echo $linha2
+                        for i in `seq 0 9`
+                        do
+                                echo -n  "| $1 X $i = "
+                                local calcula=$(($1*$i))
+                                [ $calcula -lt 10 ] && echo "$calcula   |" || echo "$calcula  |"
+                        done
+                        echo $linha2
+                ;;
+		* )
+			for i in `seq 1 3 9`
+			do
+			echo $linha
+			echo "|Tabuada do $i |Tabuada do $(($i+1)) |Tabuada do $(($i+2)) |"
+			echo $linha
+			for j in `seq 0 9`
+			do
+				echo -n "| $i X $j = "
+				local calcula=$(($i*$j))
+				[ $calcula -lt 10 ] && echo -n "$calcula   |" || echo -n "$calcula  |"
+				echo -n " $(($i+1)) X $j = "
+                                local calcula=$((($i+1)*$j))
+                                [ $calcula -lt 10 ] && echo -n "$calcula   |" || echo -n "$calcula  |"
+				echo -n " $(($i+2)) X $j = "
+                                local calcula=$((($i+2)*$j))
+				[ $calcula -lt 10 ] && echo "$calcula   |" || echo "$calcula  |"
+				done
+				echo $linha
+				echo
+			done
+			return
+		;;
+	esac
+}
