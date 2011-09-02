@@ -1,8 +1,12 @@
 # ----------------------------------------------------------------------------
 # Mostra a programação de uma emissora no dia.
-# As emissoras podem ser bandeirantes ou band, cultura, gazeta, globo, mtv,
-# record, record_news ou recordnews ou rnews, rede_21 ou rede21 ou r21,
-# redetv ou rede_tv ou rtv, sbt, tv_brasil ou tvbrasil.
+# As emissoras da tv aberta podem ser: bandeirantes ou band, cultura, gazeta, 
+# globo, mtv, record, record_news ou recordnews ou rnews, sbt, cnt,
+# rede_21 ou rede21 ou r21, redetv ou rede_tv ou rtv, tv_brasil ou tvbrasil.
+# Outras canais: megapix, cinemax, cinemax_e, max_prime, max_prime_e, tcm,  
+# hbo, hbo2, hbo_plus, hbo_plus, hbo_family, hbo_family_e, hbo_hd, tnt, mgm,
+# telecine_premium, telecine_action, telecine, telecine_pipoca, telecine_cult, 
+# telecine_hd, space, space_hd, canal_brasil, trutv, trutv_hd.
 # Se nenhuma tv é especificada lista-se a programação da globo do dia. ( para
 # manter compatibilidade com a zzglobo que inspirou esse zz em especial ).
 # Se o segundo argumento for "semana" ou "s" mostra toda programação semanal.
@@ -11,35 +15,74 @@
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net - revisado por Itamar.
 # Desde: 2002-02-19
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztv ()
 {
 	zzzz -h tv $1 && return
 	
-	local DATA=$(date +%d | sed 's/^0//')
-	local URL="http://diversao.terra.com.br/tv/noticias"
+	#local DATA=$(date +%d | sed 's/^0//')
+	#local URL="http://diversao.terra.com.br/tv/noticias"
+	local DATA=$(date +%d\\/%m)
+	local URL="http://meuguia.tv/programacao"
 	
 	case "$1" in
-	bandeirantes|band)            URL="${URL}/0,,OI3512446-EI13436,00-Programacao+da+TV+Bandeirantes.html";;
-	cultura)                      URL="${URL}/0,,OI3512319-EI13437,00-Programacao+da+TV+Cultura.html";;
-	gazeta)                       URL="${URL}/0,,OI3512452-EI13435,00-Programacao+da+TV+Gazeta.html";;
-	mtv)                          URL="${URL}/0,,OI3512331-EI13438,00-Programacao+da+MTV.html";;
-	record)                       URL="${URL}/0,,OI3512364-EI13448,00-Programacao+da+TV+Record.html";;
-	record_news|recordnews|rnews) URL="${URL}/0,,OI3512343-EI13430,00-Programacao+da+TV+Record+News.html";;
-	rede_21|rede21|r21)           URL="${URL}/0,,OI3512468-EI13432,00-Programacao+da+TV+Rede.html";;
-	redetv|rede_tv|rtv)           URL="${URL}/0,,OI3512461-EI13433,00-Programacao+da+RedeTV.html";;
-	sbt)                          URL="${URL}/0,,OI3512852-EI13434,00-Colocar+a+programacao+do+SBT+aqui.html";;
-	tv_brasil|tvbrasil)           URL="${URL}/0,,OI3512360-EI13431,00-Programacao+da+TV+Brasil.html";;
-	globo|*)                      URL="${URL}/0,,OI3512347-EI13439,00-Programacao+da+TV+Globo.html";;
+	bandeirantes|band)            URL="${URL}/canal/BAN";;
+	cultura)                      URL="${URL}/canal/CUL";;
+	gazeta)                       URL="${URL}/canal/GAZ";;
+	mtv)                          URL="${URL}/canal/MTV";;
+	record)                       URL="${URL}/canal/REC";;
+	record_news|recordnews|rnews) URL="${URL}/canal/RCN";;
+	rede_21|rede21|r21)           URL="${URL}/canal/C21";;
+	cnt)						  URL="${URL}/canal/CNT";;
+	redetv|rede_tv|rtv)           URL="${URL}/canal/RTV";;
+	sbt)                          URL="${URL}/canal/SBT";;
+	tv_brasil|tvbrasil)           URL="${URL}/canal/TED";;
+	globo)                      URL="${URL}/canal/GRD";;
+	megapix)                      URL="${URL}/canal/MPX";;
+	cinemax)                      URL="${URL}/canal/MAX";;
+	hbo)   		                  URL="${URL}/canal/HBO";;
+	hbo2)    	                  URL="${URL}/canal/HB2";;
+	hbo_plus)                     URL="${URL}/canal/HPL";;
+	hbo_plus)                     URL="${URL}/canal/HPE";;
+	hbo_family)                   URL="${URL}/canal/HFA";;
+	hbo_family_e)                 URL="${URL}/canal/HFE";;
+	hbo_hd)    	                  URL="${URL}/canal/HBH";;
+	max_prime)                    URL="${URL}/canal/MAP";;
+	max_prime_e)                  URL="${URL}/canal/MPE";;
+	tcm)                    	  URL="${URL}/canal/TCM";;
+	telecine_premium)             URL="${URL}/canal/TC1";;
+	telecine_action)              URL="${URL}/canal/TC2";;
+	telecine)                     URL="${URL}/canal/TC3";;
+	telecine_pipoca)              URL="${URL}/canal/TC4";;
+	telecine_cult)                URL="${URL}/canal/TC5";;
+	telecine_hd)                  URL="${URL}/canal/TCH";;
+	space)	                      URL="${URL}/canal/SPA";;
+	space_hd)                     URL="${URL}/canal/SPH";;
+	tnt)   		                  URL="${URL}/canal/TNT";;
+	mgm)	                      URL="${URL}/canal/MGM";;
+	canal_brasil)                 URL="${URL}/canal/CBR";;
+	cinemax_e)	                  URL="${URL}/canal/MXE";;
+	trutv)		                  URL="${URL}/canal/TRU";;
+	trutv_hd)	                  URL="${URL}/canal/TRH";;
+	*)   	                      URL="${URL}/canal/GRD";;
 	esac
 
 	case "$2" in
 	semana|s)
-		$ZZWWWDUMP "$URL" | sed -n '/Programação dos dias/,/A programação é de responsabilidade/p'|
-		sed '1d;/^ *$/d;$d'|sed 's/^ *[ASTQD]/\n&/g';;
+		$ZZWWWHTML "$URL" | sed -n '/<li class/,+1p'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
+		sed 's/^.*title="//g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g'|
+		sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'| 
+		sed "s/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/\n\1/g"|
+		sed 's/^\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \2 \1/g'
+	;;
 	*)
-		$ZZWWWDUMP "$URL" | sed -n "/, $DATA de /,/^ *[ASTQD]/p"|sed '$d';;
+		$ZZWWWHTML "$URL" | sed -n '/<li class/,+1p'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
+		sed 's/^.*title="//g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g'|
+		sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'| 
+		sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p"|sed '$d'|
+		sed '1s/^ *//;2,$s/^\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \2 \1/g'
+	;;
 	esac
 }
