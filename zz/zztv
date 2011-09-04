@@ -1,10 +1,12 @@
 # ----------------------------------------------------------------------------
-# Mostra a programação de uma emissora no dia.
-# As emissoras da tv aberta podem ser: bandeirantes ou band, cultura, gazeta, 
-# globo, mtv, record, record_news ou recordnews ou rnews, sbt, cnt,
-# rede_21 ou rede21 ou r21, redetv ou rede_tv ou rtv, tv_brasil ou tvbrasil.
+# Mostra a programação corrente ou de uma emissora no dia ou semana.
+# Tv aberta: 
+# bandeirantes ou band, cultura, gazeta, globo, mtv, sbt, cnt,
+# record, record_news ou recordnews ou rnews, tv_brasil ou tvbrasil,
+# rede_21 ou rede21 ou r21, redetv ou rede_tv ou rtv.
 #
-# Outras canais: megapix, cinemax, cinemax_e, max_prime, max_prime_e, tcm,  
+# Outras canais:
+# megapix, cinemax, cinemax_e, max_prime, max_prime_e, tcm,  
 # hbo, hbo2, hbo_plus, hbo_plus, hbo_family, hbo_family_e, hbo_hd, tnt, mgm,
 # telecine_premium, telecine_action, telecine, telecine_pipoca, telecine_cult, 
 # telecine_hd, space, space_hd, canal_brasil, trutv, trutv_hd.
@@ -14,12 +16,17 @@
 # series ou seriados, filmes, todos ou agora (padrão).
 #
 # Se o segundo argumento for "semana" ou "s" mostra toda programação semanal.
+# Opção só é válida para os canais.
+# Se o primeiro argumento é cod seguido de um número, obtido pelas listagens
+# citadas anteriormente, com segundo argumento, mostra um resumo do programa.
 # Uso: zztv <emissora> [semana|s]
+#      zztv cod <numero>
 # Ex.: zztv cultura
+#      zztv cod 3235238
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net - revisado por Itamar.
 # Desde: 2002-02-19
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztv ()
@@ -78,9 +85,10 @@ zztv ()
 	esporte|esportes|futebol)     URL="${URL}/categoria/Esportes";flag=1;;
 	series|seriados)              URL="${URL}/categoria/Series";flag=1;;
 	filmes)                       URL="${URL}/categoria/Filmes";flag=1;;
+	cod)                          URL="${URL}/programa/$2";flag=2;;
 	todos|agora|*)                URL="${URL}/categoria/Todos";flag=1;;
 	esac
-
+	
 	case "$2" in
 	semana|s)
 		$ZZWWWHTML "$URL" | sed -n '/<li class/,+1p'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
@@ -93,15 +101,21 @@ zztv ()
 		if [ $flag -eq 0 ]
 		then
 			$ZZWWWHTML "$URL" | sed -n '/<li class/,+1p'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
-			sed 's/^.*title="//g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g'|
-			sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'| 
-			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p"|sed '$d'|
-			sed '1s/^ *//;2,$s/^\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \2 \1/g'
-		else
-			$ZZWWWHTML "$URL" | sed -n '/<li style/,+1p'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
-			sed 's/^.*title="//g;s/">.*<br \/>//g;s/<[^>]*>/ /g;s/amp;//g'|
+			sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g'|
 			sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'|
-			sed 's/^\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \2 \1/g'
+			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p"|sed '$d'|
+			sed '1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod:\1/g'
+		elif [ $flag -eq 1 ]
+		then		
+			$ZZWWWHTML "$URL" | sed -n '/<li style/,+1p'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
+			sed 's/^.*programa\///g;s/".*title="/_/g;s/">.*<br \/>//g;s/<[^>]*>/ /g;s/amp;//g'|
+			sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'|
+			sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod:\1/g'
+		else
+			$ZZWWWHTML "$URL" | sed -n '/<span class="tit">/,/a seguir neste canal/p'|
+			sed 's/<span class="tit">/Título:/;s/<span class="tit_orig">/Título Original:/'|
+			sed 's/<[^>]*>/ /g;s/amp;//g;s/\&ccedil;/ç/g;s/\&atilde;/ã/g;s/.*str="//;s/";//;s/[\|] //g'|
+			sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d;/document.write/d;$d'
 		fi
 	;;
 	esac
