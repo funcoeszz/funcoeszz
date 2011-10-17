@@ -1,0 +1,20 @@
+# ----------------------------------------------------------------------------
+# Mostra os índices, em tempo real, do ibope dos canais líderes da tv aberta.
+# Uso: zzibope
+# Ex.: zzibope
+#
+# Autor: Itamar <itamarnet (a) yahoo com br>
+# Desde: 2011-11-16
+# Versão: 1
+# Licença: GPL
+# ----------------------------------------------------------------------------
+zzibope ()
+{
+	zzzz -h ibope $1 && return
+	
+	$ZZWWWDUMP "http://ocanal.org/?s=real+Time"|
+	sed -n 's/ \+São Paulo\( – [0-9][0-9]h[0-9][0-9]\)/\nIbope\1/gp;/^ *:.*: *[0-9]*/p'|
+	sed -n '2,/^ *$/p'|
+	sed 's/://g;s/ \([0-9\.]\+\)$/\t\1/g'|
+	expand -t 20
+}
