@@ -65,7 +65,7 @@ zzcinemark15h ()
 			aracaju) codigo=10;;
 			barueri) codigo=4;;
 			belo_horizonte) codigo=21;;
-			brasília) codigo=14;;
+			brasilia) codigo=14;;
 			campinas) codigo=16;;
 			campo_grande) codigo=13;;
 			canoas) codigo=12;;
