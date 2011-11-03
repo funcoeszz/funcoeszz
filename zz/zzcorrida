@@ -5,7 +5,7 @@
 # Moto GP (moto ou moto_gp), GT Brasil (gt ou gt_brasil)
 #
 # Uso: zzcorrida <f1|indy|truck|stock|moto|gt>
-# Ex.: zzibope
+# Ex.: zzcorrida truck
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-11-02
@@ -25,11 +25,11 @@ zzcorrida ()
 	case "$1" in
 		f1|formula1)			corridas="formula1";;
 		indy|formula_indy)		corridas="formula_indy";;
-		truck|formula_truck)	corridas="formula_truck";;
+		truck|formula_truck)		corridas="formula_truck";;
 		stock|stock_car)		corridas="stock_car";;
 		moto|moto_gp)			corridas="moto_gp";;
 		gt|gt_brasil)			corridas="gt_brasil";;
-		*)						zztool uso corrida; return 1;;
+		*)				zztool uso corrida; return 1;;
 	esac
 	
 	echo "$corridas"|sed 's/_/ /'|zzmaiusculas
