@@ -80,7 +80,7 @@ zzloteria2 ()
 				# |01|04|06|12|21|25|27|36|42|44|50|51|53|59|68|69|74|78|87|91|91|
 				
 				data=$(     echo "$dump" | cut -d '|' -f 42)
-				acumulado=$(echo "$dump" | cut -d '|' -f 71,72)
+				acumulado=$(echo "$dump" | cut -d '|' -f 69,70)
 				resultado=$(echo "$dump" | cut -d '|' -f 7-26 |
 					sed 's/|/@/10 ; s/|/ - /g' |
 					tr @ '\n'
@@ -186,10 +186,10 @@ zzloteria2 ()
 			;;
 			loteca)
 				dump=$(     echo "$dump" | sed 's/[A-Z]|[A-Z]/-/g')
-				data=$(     echo "$dump" | cut -d '|' -f 8)
-				acumulado=$(echo "$dump" | cut -d '|' -f 11-12 )
-				acumulado="${acumulado}_Acumulado para a 1ª faixa "$(echo "$dump" | cut -d '|' -f 7 )
-				acumulado="${acumulado}_"$(echo "$dump" | cut -d '|' -f 10 )
+				data=$(     echo "$dump" | awk -F"|" '{print $(NF-4)}' )
+				acumulado=$(echo "$dump" | awk -F"|" '{print $(NF-1) "|" $(NF)}' )
+				acumulado="${acumulado}_Acumulado para a 1ª faixa "$(echo "$dump" | awk -F"|" '{print $(NF-5)}' )
+				acumulado="${acumulado}_"$(echo "$dump" | awk -F"|" '{print $(NF-2)}' )
 				acumulado=$(echo "${acumulado}" | sed 's/_/\n   /g;s/ Valor //' )
 				resultado=$(printf "$dump" | cut -d '|' -f 4 |
 				sed 's/ [0-9] [0-9]* /\n &/g;s/ [0-9]\{2\} [0-9]*/\n&/g' | sed '1d' | zzsemacento |
