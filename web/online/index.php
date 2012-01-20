@@ -66,6 +66,7 @@
 	}
 	#history {
 		margin-bottom: 0;
+		line-height: 1.5em;
 	}
 	h1 {
 		text-align: center;
@@ -246,6 +247,7 @@ $available = array(
 	// 'zzrandbackground', //sys
 	// 'zzrastreamento', //i
 	// 'zzrelansi', //sys
+	'zzromanos',
 	'zzrot13',
 	'zzrot47',
 	// 'zzrpmfind', //i
