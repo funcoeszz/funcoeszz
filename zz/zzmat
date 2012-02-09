@@ -316,7 +316,7 @@ zzmat ()
 					icosidodecaedro)     num="(5*sqrt(3)+3*sqrt(5)*sqrt(5+2*sqrt(5)))*${num1}^2";;
 					rombicosidodecaedro) num="(30+sqrt(30*(10+3*sqrt(5)+sqrt(15*(2+2*sqrt(5))))))*${num1}^2";;
 					esac
-				elif ($3 -eq "truncado" && zzmat testa_num $4)
+				elif ([ $3 = "truncado" ] && zzmat testa_num $4)
 				then
 					num1=$(echo "$4"|tr ',' '.')
 					case $2 in
@@ -328,7 +328,7 @@ zzmat ()
 					cuboctaedro)     num="12*(2+sqrt(2)+sqrt(3))*${num1}^2";;
 					icosidodecaedro) num="30*(1+sqrt(2*sqrt(4+sqrt(5)+sqrt(15+6*sqrt(6)))))*${num1}^2";;
 					esac
-				elif ($3 -eq "snub" && zzmat testa_num $4)
+				elif ([ $3 = "snub" ] && zzmat testa_num $4)
 				then
 					num1=$(echo "$4"|tr ',' '.')
 					case $2 in
@@ -421,7 +421,7 @@ zzmat ()
 					icosidodecaedro)     num="((45+17*sqrt(5))*${num1}^3)/6";;
 					rombicosidodecaedro) num="(60+29*sqrt(5))/3*${num1}^3";;
 					esac
-				elif ($3 -eq "truncado" && zzmat testa_num $4)
+				elif ([ $3 = "truncado" ] && zzmat testa_num $4)
 				then
 					num1=$(echo "$4"|tr ',' '.')
 					case $2 in
@@ -433,7 +433,7 @@ zzmat ()
 					cuboctaedro)     num="(22+14*sqrt(2))*${num1}^3";;
 					icosidodecaedro) num="(90+50*sqrt(5))*${num1}^3";;
 					esac
-				elif ($3 -eq "snub" && zzmat testa_num $4)
+				elif ([ $3 = "snub" ] && zzmat testa_num $4)
 				then
 					num1=$(echo "$4"|tr ',' '.')
 					case $2 in
