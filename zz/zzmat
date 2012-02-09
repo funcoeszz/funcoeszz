@@ -6,10 +6,10 @@
 # pois ficou muito extenso colocar no help do zzmat apenas.
 #
 # Funções matemáticas disponíveis.
-# mmc mdc somatoria produtoria media fat arranjo combinacao pa pa2 pg
-# area volume eq2g d2p egr err egc egc3p ege
-# converte sen cos tan csc sec cot
-# log ln abs aleatorio random det conf_eq
+# mmc mdc somatoria produtoria media soma fat arranjo combinacao
+# pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
+# converte sen cos tan csc sec cot asen acos atan log ln abs
+# raiz potencia raizelevado aleatorio random det conf_eq
 # Mais detalhes: zzmat função
 #
 # Uso: zzmat [-pnumero] funcoes [número] [número]
@@ -27,14 +27,14 @@
 zzmat ()
 {
 	zzzz -h mat $1 && return
-	
+
 	local funcao num precisao
 	local pi=3.1415926535897932384626433832795
 	local LANG=en
-	
+
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso mat; return 1; }
-	
+
 	#Definindo a precisão dos resultados qdo é pertinente. Padrão é 6.
 	echo "$1" | grep '^-p' >/dev/null
 	if [ "$?" = "0" ]
@@ -45,9 +45,9 @@ zzmat ()
 	else
 		precisao="6"
 	fi
-	
+
 	funcao="$1"
-	
+
 	case "$funcao" in
 	testa_num)
 		# Testa se $2 é um número não coberto pela zztool testa_numero*
@@ -104,7 +104,7 @@ zzmat ()
 				gr)  num2=$(zzmat converte dr $num1);;
 				rad) num2=$num1;;
 				esac
-				
+
 				case $funcao in
 				sen) num1=$(awk 'BEGIN {printf "%.'${precisao}'g\n", sin('$num2')}');;
 				cos) num1=$(awk 'BEGIN {printf "%.'${precisao}'g\n", cos('$num2')}');;
@@ -117,7 +117,7 @@ zzmat ()
 				cot)
 					num1=$(awk 'BEGIN {div=sprintf("%.6g", sin('$num2'));if (div!="0.000000") printf "%.'${precisao}'g\n", cos('$num2')/sin('$num2');}');;
 				esac
-				
+
 				[ "$num1" ] && num="$num1"
 			else
 				echo " Uso: zzmat $funcao número(g|rad|gr) {graus|radianos|grado}"
@@ -144,10 +144,10 @@ zzmat ()
 			then
 				zzmat $funcao -h;return 1
 			fi
-			
+
 			echo "$num1"|grep '^-' >/dev/null && sinal="-" || unset sinal
 			num1=$(zzmat abs $num1)
-			
+
 			case $funcao in
 			atan)
 				num2=$(echo "a(${num1})"|bc -l)
@@ -177,9 +177,9 @@ zzmat ()
 				echo "$4"|grep '2' >/dev/null && num2=$(echo "2*($pi)-($num2)"|bc -l)
 			;;
 			esac
-			
+
 			echo "$4"|grep 'r' >/dev/null && num2=$(echo "($num2)-2*($pi)"|bc -l)
-			
+
 			case $3 in
 			g)      num="$(zzmat converte rg $num2)";;
 			gr)     num="$(zzmat converte rd $num2)";;
@@ -230,7 +230,7 @@ zzmat ()
 			cubica)   num1=3;;
 			*)          num1="$2";;
 			esac
-			if zztool testa_numero $(zzmat abs "$num1")
+			if zzmat testa_num $num1
 			then
 				num=$(awk 'BEGIN {printf "%.'${precisao}'g\n", '$3'^(1/'$num1')}')
 			else
@@ -239,6 +239,16 @@ zzmat ()
 		else
 			echo " zzmat $funcao: Raiz enesima de um número"
 			echo " Uso: zzmat $funcao <quadrada|cubica|numero> numero"
+			return 1
+		fi
+	;;
+	potencia|elevado)
+		if ([ $# -eq "3" ] && zzmat testa_num "$2" && zzmat testa_num "$3")
+		then
+			num=$(awk 'BEGIN {printf "%.'${precisao}'g\n", '$2'^('$3')}')
+		else
+			echo " zzmat $funcao: Um número elevado a um potência"
+			echo " Uso: zzmat $funcao número potencia"
 			return 1
 		fi
 	;;
@@ -455,21 +465,21 @@ zzmat ()
 				then
 					[ "$num1" -gt "$num2" ] && num_maior=$num1 || num_maior=$num2
 					[ "$num1" -lt "$num2" ] && num_menor=$num1 || num_menor=$num2
-			
+
 					while [ "$num_menor" -ne "0" ]
 					do
 						resto=$((${num_maior}%${num_menor}))
 						num_maior=$num_menor
 						num_menor=$resto
 					done
-			
+
 					mdc=$num_maior
 					mmc=$((${num1}*${num2}/${mdc}))
 				fi
 				shift
 				[ "$funcao" = "mdc" ] && num1="$mdc" || num1="$mmc"
 			done
-			
+
 			case $funcao in
 			mmc) echo $mmc;;
 			mdc) echo $mdc;;
@@ -621,20 +631,20 @@ zzmat ()
 			num_raiz=$(awk 'BEGIN { if ('$delta' > 0)  {print "2"}
 							        if ('$delta' == 0) {print "1"}
 							        if ('$delta' < 0)  {print "0"}}')
-			
+
 			vert_x=$(echo "$2 $3"|tr ',' '.'|
 			awk '{valor=((-1 * $2)/(2 * $1)); printf "%.'${precisao}'g\n", valor}')
-			
+
 			vert_y=$(echo "$2 $delta"|tr ',' '.'|
 			awk '{valor=((-1 * $2)/(4 * $1)); printf "%.'${precisao}'g\n", valor}')
-			
+
 			case $num_raiz in
 			0) raiz1="Sem raiz";;
 			1) raiz1=$vert_x;;
 			2)
 				raiz1=$(echo "$2 $3 $delta"|tr ',' '.'|
 				awk '{valor=((-1 * $2)-sqrt($3))/(2 * $1); printf "%.'${precisao}'g\n", valor}')
-				
+
 				raiz2=$(echo "$2 $3 $delta"|tr ',' '.'|
 				awk '{valor=((-1 * $2)+sqrt($3))/(2 * $1); printf "%.'${precisao}'g\n", valor}')
 			;;
@@ -685,17 +695,17 @@ zzmat ()
 			local y1=0
 			local z1=0
 			shift
-			
+
 			[ "$1" = "-e" -o "$1" = "-c" ] && tipo="$1" || tipo="-e"
 			oper="+"
 			saida=$(echo "$*"|awk '{print $NF}')
-			
+
 			while ([ $# -ge "1" ])
 			do
 				valor=$(echo "$1"|cut -f1 -d,)
 				zztool grep_var "," $1 && teta=$(echo "$1"|cut -f2 -d,)
 				zztool grep_var "," $1 && fi=$(echo "$1"|cut -f3 -d,)
-				
+
 				if ([ "$fi" ] && zzmat testa_num $valor)
 				then
 					num1=$(echo "$fi"|sed 's/\(g\|gr\|rad\)//g')
@@ -714,7 +724,7 @@ zzmat ()
 						z1="$num1"
 					fi
 				fi
-				
+
 				if ([ "$teta" ] && zzmat testa_num $valor)
 				then
 					num1=$(echo "$teta"|sed 's/\(g\|gr\|rad\)//g')
@@ -731,7 +741,7 @@ zzmat ()
 						unset teta
 					fi
 				fi
-				
+
 				if zzmat testa_num $valor
 				then
 					[ "$fi" ] && num1=$(echo "$(zzmat sen ${fi}rad)*$valor"|bc -l) ||
@@ -742,11 +752,11 @@ zzmat ()
 				fi
 				shift
 			done
-			
+
 			valor=$(echo "sqrt(${x1}^2+${y1}^2+${z1}^2)"|bc -l)
 			teta=$(zzmat asen $(echo "${y1}/sqrt(${x1}^2+${y1}^2)"|bc -l))
 			fi=$(zzmat acos $(echo "${z1}/${valor}"|bc -l))
-			
+
 			case $saida in
 			g)
 				teta=$(zzmat converte rg $teta)
@@ -758,10 +768,10 @@ zzmat ()
 			;;
 			*) saida="rad";;
 			esac
-			
+
 			teta=$(awk 'BEGIN {printf "%.'${precisao}'g\n", '$teta'}')
 			fi=$(awk 'BEGIN {printf "%.'${precisao}'g\n", '$fi'}')
-			
+
 			if [ "$tipo" = "-c" ]
 			then
 				valor=$(echo "sqrt(${valor}^2-$z1^2)"|bc -l|
@@ -816,7 +826,7 @@ zzmat ()
 					b=$(awk 'BEGIN {valor=('$b')/('$redutor');  print (valor<0?"":"+") valor}')
 					c=$(awk 'BEGIN {valor=('$c')/('$redutor');  print (valor<0?"":"+") valor}')
 				fi
-				
+
 				case "$funcao" in
 				egr)
 					echo "${a}x${b}y${c}=0"|
@@ -879,35 +889,35 @@ zzmat ()
 			y2=$(echo "$3"|cut -f2 -d,)
 			x3=$(echo "$4"|cut -f1 -d,)
 			y3=$(echo "$4"|cut -f2 -d,)
-			
+
 			if ([ $(zzmat det $x1 $y1 1 $x2 $y2 1 $x3 $y3 1) -eq 0 ])
 			then
 				echo "Pontos formam uma reta."
 				return 1
 			fi
-			
+
 			if (! zzmat testa_num $x1 || ! zzmat testa_num $x2 || ! zzmat testa_num $x3)
 			then
 				echo " Uso: zzmat $funcao ponto(a,b) ponto(c,d) ponto(x,y)";return 1
 			fi
-			
+
 			if (! zzmat testa_num $y1 || ! zzmat testa_num $y2 || ! zzmat testa_num $y3)
 			then
 				echo " Uso: zzmat $funcao ponto(a,b) ponto(c,d) ponto(x,y)";return 1
 			fi
-			
+
 			D=$(zzmat det $x1 $y1 1 $x2 $y2 1 $x3 $y3 1)
 			A=$(zzmat det -$(echo "$x1^2+$y1^2"|bc) $y1 1 -$(echo "$x2^2+$y2^2"|bc) $y2 1 -$(echo "$x3^2+$y3^2"|bc) $y3 1)
 			B=$(zzmat det $x1 -$(echo "$x1^2+$y1^2"|bc) 1 $x2 -$(echo "$x2^2+$y2^2"|bc) 1 $x3 -$(echo "$x3^2+$y3^2"|bc) 1)
 			C=$(zzmat det $x1 $y1 -$(echo "$x1^2+$y1^2"|bc) $x2 $y2 -$(echo "$x2^2+$y2^2"|bc) $x3 $y3 -$(echo "$x3^2+$y3^2"|bc))
-			
+
 			A=$(awk 'BEGIN {valor='$A'/'$D';print (valor<0?"":"+") valor}')
 			B=$(awk 'BEGIN {valor='$B'/'$D';print (valor<0?"":"+") valor}')
 			C=$(awk 'BEGIN {valor='$C'/'$D';print (valor<0?"":"+") valor}')
-			
+
 			x1=$(awk 'BEGIN {valor='$A'/2*-1;print valor}')
 			y1=$(awk 'BEGIN {valor='$B'/2*-1;print valor}')
-			
+
 			echo "x^2+y^2${A}x${B}y${C}=0"|
 			sed 's/\([+-]\)1\([xy]\)/\1\2/g;s/[+]0[xy]//g;s/+0=0/=0/'
 			echo "Centro: (${x1}, ${y1})"
@@ -937,7 +947,7 @@ zzmat ()
 			a=$(echo "$2"|cut -f1 -d,)
 			b=$(echo "$2"|cut -f2 -d,)
 			c=$(echo "$2"|cut -f3 -d,)
-			
+
 			if(! zzmat testa_num $a || ! zzmat testa_num $b || ! zzmat testa_num $c)
 			then
 				echo " Uso: zzmat $funcao centro(a,b,c) (numero|ponto(x,y,z))";return 1
@@ -960,7 +970,7 @@ zzmat ()
 		local max=1
 		local qtde=1
 		local n_temp
-		
+
 		if [ "$2" = "-h" ]
 		then
 			echo " zzmat $funcao: Gera um número aleatório."
@@ -972,7 +982,7 @@ zzmat ()
 			echo " Uso: zzmat $funcao [[minimo] maximo] [quantidade]"
 			return
 		fi
-		
+
 		if ([ "$3" ] && zzmat testa_num $3)
 		then
 			max=$3
@@ -981,7 +991,7 @@ zzmat ()
 		then
 			max=$2
 		fi
-		
+
 		if [ $max -lt $min ]
 		then
 			n_temp=$max
@@ -989,9 +999,9 @@ zzmat ()
 			min=$n_temp
 			unset n_temp
 		fi
-		
+
 		if [ "$4" ] && zztool testa_numero $4;then qtde=$4;fi
-		
+
 		case "$funcao" in
 		aleatorio)
 			awk 'BEGIN {srand();for(i=1;i<='$qtde';i++) { printf "%.'${precisao}'g\n", sprintf("%.'${precisao}'f\n",'$min'+rand()*('$max'-'$min'))}}'
@@ -1068,7 +1078,7 @@ zzmat ()
 	zzmat -h
 	;;
 	esac
-	
+
 	if [ "$?" -ne "0" ]
 	then
 		return 1
