@@ -1,20 +1,22 @@
 # ----------------------------------------------------------------------------
 # Faz várias conversões como: caracteres, temperatura e distância.
-#          cf = (C)elsius      para (F)ahrenheit
-#          fc = (F)ahrenheit   para (C)elsius
-#          ck = (C)elsius      para (K)elvin
-#          kc = (K)elvin       para (C)elsius
-#          fk = (F)ahrenheit   para (K)elvin
-#          kf = (K)elvin       para (F)ahrenheit
-#          km = (K)Quilômetros para (M)ilhas
-#          mk = (M)ilhas       para (K)Quilômetros
-#          db = (D)ecimal      para (B)inário
-#          bd = (B)inário      para (D)ecimal
-#          cd = (C)aractere    para (D)ecimal
-#          dc = (D)ecimal      para (C)aractere
-#          dh = (D)ecimal      para (H)exadecimal
-#          hd = (H)exadecimal  para (D)ecimal
-# Uso: zzconverte <cf|fc|ck|kc|fk|kf|mk|km|db|bd|cd|dh|hd> número
+#          cf = (C)elsius             para (F)ahrenheit
+#          fc = (F)ahrenheit          para (C)elsius
+#          ck = (C)elsius             para (K)elvin
+#          kc = (K)elvin              para (C)elsius
+#          fk = (F)ahrenheit          para (K)elvin
+#          kf = (K)elvin              para (F)ahrenheit
+#          km = (K)Quilômetros        para (M)ilhas
+#          mk = (M)ilhas              para (K)Quilômetros
+#          db = (D)ecimal             para (B)inário
+#          bd = (B)inário             para (D)ecimal
+#          cd = (C)aractere           para (D)ecimal
+#          dc = (D)ecimal             para (C)aractere
+#          hc = (H)exadecimal         para (C)aractere
+#          ch = (C)aractere           para (H)exadecimal
+#          dh = (D)ecimal             para (H)exadecimal
+#          hd = (H)exadecimal         para (D)ecimal
+# Uso: zzconverte <cf|fc|ck|kc|fk|kf|mk|km|db|bd|cd|dc|hc|ch|dh|hd> número
 # Ex.: zzconverte cf 5
 #      zzconverte dc 65
 #      zzconverte db 32
@@ -68,22 +70,24 @@ zzconverte ()
 				echo "$((2#$1))"
 			;;
 			cd)
-				echo -n "$1" |
-					od -d |
-					tr -s '\t ' ' ' |
-					cut -d' ' -f2- |
-					sed 's/ *$// ; 1q'
+			   printf "%d\n" "'$1"
 			;;
 			dc)
-				awk "BEGIN { printf(\"%c\n\", $1) }"
+			   echo -e $(printf "\\\x%x" $1)
 			
 				# XXX " TextMate syntax gotcha (não remover)
 			;;
+			ch)
+			   printf "%x\n" "'$1"
+			;;
+			hc)
+			   echo -e "\x${1#0x}"
+			;;
 			dh)
-				printf '%X\n' "$1"
+				printf '%x\n' "$1"
 			;;
 			hd)
-				printf '%d\n' "0x$1"
+				printf '%d\n' "0x${1#0x}"
 			;;
 		esac
 		shift
