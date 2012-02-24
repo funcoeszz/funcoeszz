@@ -1,0 +1,28 @@
+# ----------------------------------------------------------------------------
+# Tenta quebrar o hash MD5 de uma string.
+# Uso: zzquebramd5 <hash>
+# Ex.: zzquebramd5 a4757d7419ff3b48e92e90596f0e7548
+#
+# Autor: Fernando Mercês <fernando (a) mentebinaria.com.br>
+# Desde: 2012-02-24
+# Versão: 1
+# Licença: GPL
+# ----------------------------------------------------------------------------
+zzquebramd5 ()
+{
+	zzzz -h quebramd5 $1 && return
+
+	[ "$1" ] || { zztool uso quebramd5; return 1; }
+
+	local url="http://md5crack.com/crackmd5.php"
+	local resposta
+
+	resposta=$(echo "term=$1" |
+	$ZZWWWPOST $url |
+	grep 'Found:' |
+	sed 's/.*md5("\(.*\)").*/\1/')
+
+	echo $resposta |
+	grep -q '[0-9a-f]' && echo $resposta || \
+	echo "Não foi possível descobrir a string que originou este hash."
+}
