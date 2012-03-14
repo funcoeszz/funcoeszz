@@ -9,7 +9,7 @@
 # mmc mdc somatoria produtoria media soma fat arranjo combinacao
 # pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
 # converte sen cos tan csc sec cot asen acos atan log ln abs
-# raiz potencia raizelevado aleatorio random det conf_eq sem_zeros
+# raiz potencia elevado aleatorio random det conf_eq sem_zeros
 # Mais detalhes: zzmat função
 #
 # Uso: zzmat [-pnumero] funcoes [número] [número]
@@ -71,6 +71,26 @@ zzmat ()
 		num1=$(echo "$num1"|sed 's/^\./0\./')
 		echo "$num1"
 	;;
+	compara_num)
+		if ([ $# -eq "3" ] && zzmat testa_num $2 && zzmat testa_num $3)
+		then
+			local num1 num2 retorno
+			num1=$(echo "$2"|tr ',' '.')
+			num2=$(echo "$3"|tr ',' '.')
+			retorno=$(
+			awk 'BEGIN {
+				if ('$num1' > '$num2') {print "maior"}
+				if ('$num1' == '$num2') {print "igual"}
+				if ('$num1' < '$num2') {print "menor"}
+			}')
+			echo $retorno
+		else
+			echo " zzmat $funcao: Compara 2 numeros"
+			echo " Retorna o texto 'maior', 'menor' ou 'igual'"
+			echo " Uso: zzmat $funcao numero numero"
+			return 1
+		fi
+	;;
 	abs)
 		if zzmat testa_num $2
 		then
@@ -111,7 +131,7 @@ zzmat ()
 		if ([ $# -eq "2" ])
 		then
 			local num1 num2 ang
-			num1=$(echo "$2"|sed 's/\(g\|gr\|rad\)//g')
+			num1=$(echo "$2"|sed 's/\(g\|gr\|rad\)//g'|tr ',' '.')
 			ang=${2#$num1}
 			echo "$2"|grep -E '(g|rad|gr)$' >/dev/null
 			if ([ "$?" -eq "0" ] && zzmat testa_num $num1)
@@ -241,15 +261,16 @@ zzmat ()
 	raiz)
 		if ([ $# -eq "3" ] && zzmat testa_num "$3")
 		then
-			local num1
+			local num1 num2
 			case "$2" in
 			quadrada) num1=2;;
 			cubica)   num1=3;;
 			*)          num1="$2";;
 			esac
+			num2=$(echo "$3"|tr ',' '.')
 			if zzmat testa_num $num1
 			then
-				num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '$3'^(1/'$num1')}')
+				num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '$num2'^(1/'$num1')}')
 			else
 				echo " Uso: zzmat $funcao <quadrada|cubica|numero> numero"
 			fi
@@ -262,7 +283,10 @@ zzmat ()
 	potencia|elevado)
 		if ([ $# -eq "3" ] && zzmat testa_num "$2" && zzmat testa_num "$3")
 		then
-			num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '$2'^('$3')}')
+			local num1 num2
+			num1=$(echo "$2"|tr ',' '.')
+			num2=$(echo "$3"|tr ',' '.')
+			num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '$num1'^('$num2')}')
 		else
 			echo " zzmat $funcao: Um número elevado a um potência"
 			echo " Uso: zzmat $funcao número potencia"
@@ -604,7 +628,7 @@ zzmat ()
 			then
 				if zzmat testa_num "$3"
 				then
-					if (zzmat testa_num "$4")
+					if (zztool testa_numero $4)
 					then
 						num_inicial=$(echo "$2"|tr ',' '.')
 						razao=$(echo "$3"|tr ',' '.')
@@ -1005,16 +1029,16 @@ zzmat ()
 			return
 		fi
 
-		if ([ "$3" ] && zzmat testa_num $3)
+		if (zzmat testa_num $3)
 		then
-			max=$3
-			if zzmat testa_num $2;then min=$2;fi
-		elif ([ "$2" ] && zzmat testa_num $2)
+			max=$(echo "$3"|tr ',' '.')
+			if zzmat testa_num $2;then min=$(echo "$2"|tr ',' '.');fi
+		elif (zzmat testa_num $2)
 		then
-			max=$2
+			max=$(echo "$2"|tr ',' '.')
 		fi
 
-		if [ $max -lt $min ]
+		if [ $(zzmat compara_num $max $min) = "menor" ]
 		then
 			n_temp=$max
 			max=$min
