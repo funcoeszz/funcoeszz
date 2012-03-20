@@ -155,6 +155,7 @@ $available = array(
 	'zzbissexto',
 	// 'zzblist', //i
 	// 'zzbolsas', //i
+	// 'zzbrasileirao', //i
 	'zzbyte',
 	'zzcalcula',
 	'zzcalculaip',
@@ -164,7 +165,9 @@ $available = array(
 	// 'zzchecamd5', //file
 	// 'zzcinclude', //sys
 	// 'zzcinemais', //i
+	// 'zzcinemark15h', //i
 	// 'zzcineuci', //i
+	// 'zzcorrida', //i
 	'zzcnpj',
 	'zzcontapalavra',
 	'zzcontapalavras',
@@ -207,6 +210,7 @@ $available = array(
 	// 'zzglobo', //i
 	// 'zzgoogle', //i
 	'zzgravatar',
+	'zzhexa2str',
 	'zzhora',
 	// 'zzhoracerta', //i
 	'zzhoramin',
@@ -217,6 +221,7 @@ $available = array(
 	'zzjuntalinhas',
 	// 'zzkill', //sys
 	// 'zzlembrete', //sys
+	// 'zzletrademusica', //i
 	'zzlimpalixo',
 	'zzlinha',
 	// 'zzlinux', //i
@@ -233,6 +238,7 @@ $available = array(
 	// 'zzmoeda', //i
 	// 'zzmoneylog', //file
 	// 'zzmudaprefixo', //file
+	// 'zznarrativa', //i
 	// 'zznatal', //i
 	// 'zznome', //i
 	// 'zznomefoto', //file
@@ -243,6 +249,7 @@ $available = array(
 	// 'zzpiada', //i
 	'zzporcento',
 	// 'zzpronuncia', //som
+	// 'zzquebramd5', //i
 	// 'zzramones', //i
 	// 'zzrandbackground', //sys
 	// 'zzrastreamento', //i
@@ -260,11 +267,13 @@ $available = array(
 	// 'zzsigla', //i
 	// 'zzss', //sys
 	'zzsubway',
+	'zztabuada',
 	// 'zztempo', //i
 	// 'zztradutor', //i
 	// 'zztrocaarquivos', //file
 	// 'zztrocaextensao', //file
 	// 'zztrocapalavra', //file
+	// 'zztv', //i
 	// 'zztweets', //i
 	'zzunescape',
 	'zzunicode2ascii',
