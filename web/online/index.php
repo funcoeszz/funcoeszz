@@ -18,6 +18,7 @@
 <title>Funções ZZ online</title>
 <link rel="icon" type="image/png" href="../img/favicon.png">
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 	body {
 		margin: 0 1em;
