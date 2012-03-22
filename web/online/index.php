@@ -116,7 +116,7 @@
 
 <h1><a href="..">Funções ZZ</a> online</h1>
 
-<?
+<?php
 $method = $_SERVER['REQUEST_METHOD'];
 
 // Settings
@@ -202,20 +202,20 @@ if ($method == 'POST') {
 
 <form method="post" action="#prompt">
 
-	<pre id="history"><?=$history?></pre> <!-- Leave as one line, do not indent. -->
+	<pre id="history"><?php echo $history; ?></pre> <!-- Leave as one line, do not indent. -->
 
 	<div id="prompt">
 		<span class="PS1">prompt$</span>
 		<select name="zzfunc" id="zzfunc" size="1">
-<?
+<?php
 		foreach ($available as $zz) {
 ?>
-			<option value="<?=$zz?>"<? if ($zz == $zzfunc) echo ' selected="selected"'; ?>><?=$zz?></option>
-<?
+			<option value="<?php echo $zz; ?>"<?php if ($zz == $zzfunc) echo ' selected="selected"'; ?>><?php echo $zz; ?></option>
+<?php
 		}
 ?>
 		</select>
-		<input type="text" id="arguments" name="arguments" value="<?=htmlspecialchars($arguments)?>">
+		<input type="text" id="arguments" name="arguments" value="<?php echo htmlspecialchars($arguments); ?>">
 		<input type="submit" id="submit" value="Enter">
 	</div><!-- prompt -->
 
@@ -223,16 +223,16 @@ if ($method == 'POST') {
 	<tr>
 		<td>
 			<label for="stdin" title="Cole aqui o texto a ser manipulado pela função.">STDIN:</label>
-			<textarea id="stdin" name="stdin" rows="5"><?=htmlspecialchars($stdin)?></textarea>
+			<textarea id="stdin" name="stdin" rows="5"><?php echo htmlspecialchars($stdin); ?></textarea>
 		</td>
 		<td>
 			<label for="stdout" title="Aqui aparece o resultado do último comando.">STDOUT:</label>
-			<textarea id="stdout" name="stdout" rows="5"><?=htmlspecialchars($stdout)?></textarea>
+			<textarea id="stdout" name="stdout" rows="5"><?php echo htmlspecialchars($stdout); ?></textarea>
 		</td>
 	</tr>
 	</table>
 
-	<input type="hidden" name="history" id="history" value="<?=str_replace('"', '&quot;', htmlspecialchars($history))?>">
+	<input type="hidden" name="history" id="history" value="<?php echo str_replace('"', '&quot;', htmlspecialchars($history)); ?>">
 </form>
 
 <div id="footer">
@@ -244,21 +244,20 @@ if ($method == 'POST') {
 		title="Quer ajuda? Tem uma sugestão? Achou uma brecha na segurança? Fale comigo no twitter."
 		href="http://twitter.com/oreio">@oreio</a>
 
-<? if ($method == 'GET'): ?>
+<?php if ($method == 'GET'): ?>
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
 <script type="text/javascript">
 _uacct = "UA-280222-4";
 urchinTracker();
 </script>
-<? endif ?>
+<?php endif ?>
 
 </body>
 </html>
 
 <!--
 TODO:
-funcoeszz script auto update (crontab)
 iphone: #inout not really fixed
 copy stdout to stdin?
 chain commands?
