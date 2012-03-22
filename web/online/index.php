@@ -119,196 +119,22 @@
 <?
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Using a customized all-in-one script for a faster response
-// It contains just the needed functions for the online version
-// See @scriptgen
-$funcoeszz = './funcoeszz';
-
 // Settings
-$logfile = './log.txt';
+$api_root = 'http://api.funcoeszz.net/0';
+// $api_root = 'http://zzapi.dev/0';  // local
 $stdin_max_chars = 10000;
 $arguments_max_chars = 250;
 
 // POST
-$stdin = $_POST['stdin'];
-$stdout = $_POST['stdout'];
-$arguments = escapeshellcmd($_POST['arguments']);
-$zzfunc = $_POST['zzfunc'];
-$history = $_POST['history'];
+$zzfunc    = (empty($_POST['zzfunc']   )) ? null : $_POST['zzfunc'];
+$stdin     = (empty($_POST['stdin']    )) ? null : $_POST['stdin'];
+$stdout    = (empty($_POST['stdout']   )) ? null : $_POST['stdout'];
+$arguments = (empty($_POST['arguments'])) ? null : $_POST['arguments'];
+$history   = (empty($_POST['history']  )) ? null : $_POST['history'];
 
-// UTF-8
-setlocale(LC_CTYPE, "pt_BR.UTF-8");
-putenv('LANG=pt_BR.UTF-8');
-
-$available = array(
-	// Disabling functions that needs Internet access
-	// Disabling functions that needs a system
-	// Disabling functions that needs a file
-	// Disabling functions that plays sound
-	// Last checked: 2011-05-09
-	
-	'zzalfabeto',
-	// 'zzanatel', //i
-	'zzansi2html',
-	// 'zzarrumanome', //file
-	'zzascii',
-	// 'zzbeep', //sound
-	'zzbissexto',
-	// 'zzblist', //i
-	// 'zzbolsas', //i
-	// 'zzbrasileirao', //i
-	'zzbyte',
-	'zzcalcula',
-	'zzcalculaip',
-	'zzcarnaval',
-	// 'zzcbn', //sound
-	// 'zzchavepgp', //i
-	// 'zzchecamd5', //file
-	// 'zzcinclude', //sys
-	// 'zzcinemais', //i
-	// 'zzcinemark15h', //i
-	// 'zzcineuci', //i
-	// 'zzcorrida', //i
-	'zzcnpj',
-	'zzcontapalavra',
-	'zzcontapalavras',
-	'zzconverte',
-	// 'zzcores',  //ansi
-	'zzcorpuschristi',
-	'zzcpf',
-	'zzdata',
-	// 'zzdata2',  //off
-	// 'zzdatabarras', //off
-	'zzdatafmt',
-	// 'zzdefine', //i
-	// 'zzdefinr', //i
-	// 'zzdelicious', //i
-	// 'zzdetransp', //i
-	'zzdiadasemana',
-	'zzdiasuteis',
-	// 'zzdicasl', //i
-	// 'zzdicbabelfish', //i
-	// 'zzdicbabylon', //i
-	// 'zzdicesperanto', //i
-	// 'zzdicjargon', //i
-	// 'zzdicportugues', //i
-	// 'zzdicportugues2', //i
-	// 'zzdictodos', //i
-	// 'zzdiffpalavra', //file
-	// 'zzdolar', //i
-	// 'zzdominiopais', //i
-	// 'zzdos2unix', //file
-	// 'zzecho', //ansi
-	// 'zzenglish', //i
-	// 'zzenviaemail', //sys
-	// 'zzeuro', //i
-	// 'zzextensao', //!
-	// 'zzfeed', //i
-	// 'zzferiado', //sys
-	'zzfoneletra',
-	// 'zzfrenteverso2pdf', //file
-	// 'zzfreshmeat', //i
-	// 'zzglobo', //i
-	// 'zzgoogle', //i
-	'zzgravatar',
-	'zzhexa2str',
-	'zzhora',
-	// 'zzhoracerta', //i
-	'zzhoramin',
-	'zzhorariodeverao',
-	// 'zzhowto', //i
-	// 'zzipinternet', //i
-	// 'zzjquery', //i
-	'zzjuntalinhas',
-	// 'zzkill', //sys
-	// 'zzlembrete', //sys
-	// 'zzletrademusica', //i
-	'zzlimpalixo',
-	'zzlinha',
-	// 'zzlinux', //i
-	// 'zzlinuxnews', //i
-	// 'zzlocale', //sys
-	// 'zzloteria', //i
-	// 'zzloteria2', //i
-	// 'zzmaiores', //sys
-	'zzmaiusculas',
-	'zzmat',
-	'zzmd5',
-	// 'zzminiurl', //i
-	'zzminusculas',
-	// 'zzmoeda', //i
-	// 'zzmoneylog', //file
-	// 'zzmudaprefixo', //file
-	// 'zznarrativa', //i
-	// 'zznatal', //i
-	// 'zznome', //i
-	// 'zznomefoto', //file
-	// 'zznoticiaslinux', //i
-	// 'zznoticiassec', //i
-	// 'zzora', //i
-	'zzpascoa',
-	// 'zzpiada', //i
-	'zzporcento',
-	// 'zzpronuncia', //som
-	// 'zzquebramd5', //i
-	// 'zzramones', //i
-	// 'zzrandbackground', //sys
-	// 'zzrastreamento', //i
-	// 'zzrelansi', //sys
-	'zzromanos',
-	'zzrot13',
-	'zzrot47',
-	// 'zzrpmfind', //i
-	// 'zzsecurity', //i
-	'zzsemacento',
-	'zzsenha',
-	'zzseq',
-	'zzsextapaixao',
-	'zzshuffle',
-	// 'zzsigla', //i
-	// 'zzss', //sys
-	'zzsubway',
-	'zztabuada',
-	// 'zztempo', //i
-	// 'zztradutor', //i
-	// 'zztrocaarquivos', //file
-	// 'zztrocaextensao', //file
-	// 'zztrocapalavra', //file
-	// 'zztv', //i
-	// 'zztweets', //i
-	'zzunescape',
-	'zzunicode2ascii',
-	'zzuniq',
-	// 'zzunix2dos', //file
-	'zzvira',
-	// 'zzwhoisbr', //i
-	// 'zzwikipedia', //i
-	'zzxml',
-);
-
-// Not available, but required by some
-$required = array(
-	'zzdos2unix', // zzjuntalinhas
-);
-
-// Functions that suffer from "zzname /etc/passwd" exploit
-$file_exploit = array(
-	'zzansi2html',
-	'zzcontapalavra',
-	'zzcontapalavras',
-	'zzdos2unix', //required
-	'zzjuntalinhas',
-	'zzlimpalixo',
-	'zzlinha',
-	'zzmaiusculas',
-	'zzmd5',
-	'zzminusculas',
-	'zzshuffle',
-	'zzunescape',
-	'zzunicode2ascii',
-	'zzuniq',
-	'zzxml',
-);
+// Get from API the list of available functions
+// $available = json_decode(file_get_contents("$api_root/list.json"));
+$available = json_decode(file_get_contents("list.json"));  // cached
 
 // Defaults
 if ($method == 'GET') {
@@ -317,14 +143,6 @@ if ($method == 'GET') {
 }
 
 /////////////////////////////////////////////////////////////////////
-
-// // @scriptgen Update funcoeszz script
-// $svn_root = '../..';
-// $active = array_merge($available, $required);
-// $all = array_map("basename", glob($svn_root.'/zz/zz*'));
-// $off = implode(' ', array_diff($all, $active));
-// print "ZZDIR=$svn_root/zz ZZOFF='$off' $svn_root/funcoeszz --tudo-em-um > funcoeszz";
-// exit();
 
 // // Test file/dir access exploit
 // foreach($available as $zz) {
@@ -349,81 +167,28 @@ if ($method == 'POST') {
 		die("Ops, texto muito extenso na STDIN. O máximo é $stdin_max_chars caracteres.");
 	}
 
-	// Security: Log execution (function name only, not data)
-	date_default_timezone_set('America/Sao_Paulo');
-	$timestamp = date('Y-m-d H:i:s');
-	$fd = fopen($logfile, 'a');
-	fwrite($fd, "$timestamp $zzfunc\n");
-	fclose($fd);
-
-	// Security checking: only execute allowed zz functions
-	if (!in_array($zzfunc, $available)) {
-		exit(':(');
-	}
-
-	// Security checking: disallow system files access (thanks @jbvsmo)
-	if (in_array($zzfunc, $file_exploit)) {
-		$arguments = str_replace('/', '', $arguments);
-		// Brute force.
-		// This will just impact two valid use cases, inside options:
-		// Uso: zzjuntalinhas [-d separador] [-i texto] [-f texto] arquivo(s)
-		// Uso: zzlinha [número | -t texto] [arquivo(s)]
-	}
-
 	// Make sure we have a line break at the end of history
 	// Seems like Safari rstrip() the <PRE> contents
 	if (substr($history, -1) != "\n") {
 		$history .= "\n";
 	}
 
+	// Call API to run the command
+	$results_json = json_decode(
+		file_get_contents(
+			"$api_root/run/${zzfunc}.json?" .
+				"apikey=e0a7a294" .
+				"&stdin=" . urlencode($stdin) .
+				"&arg=" . urlencode($arguments)
+		)
+	);
+
+	// Save STDOUT
+	$stdout = $results_json->stdout;
+
 	// Add command to history
 	$history .= '<span class="PS1">prompt$</span> ';
 	$history .= '<span class="cmdline">'.htmlspecialchars("$zzfunc $arguments", ENT_NOQUOTES).'</span>'."\n";
-
-	// Compose full command
-	$command = "ZZCOR=0 $funcoeszz $zzfunc $arguments";
-
-	// print $command; //debug
-
-	if ($stdin) {
-		// Normalize line break between platforms
-		$stdin = preg_replace('/[\n\r]+/', "\n", $stdin);
-
-		// Make sure we have a line break at the end of STDIN
-		if (substr($stdin, -1) != "\n") {
-			$stdin .= "\n";
-		}
-	}
-
-	// proc_open() Voodoo
-	// See http://php.net/manual/en/function.proc-open.php
-
-	$descriptorspec = array(
-	   0 => array("pipe", "r"),  // stdin is a pipe that the child will read from
-	   1 => array("pipe", "w"),  // stdout is a pipe that the child will write to
-	   2 => array("pipe", "w")   // stderr
-	);
-	$process = proc_open($command, $descriptorspec, $pipes);
-
-	if (is_resource($process)) {
-	    // $pipes now looks like this:
-	    // 0 => writeable handle connected to child stdin
-	    // 1 => readable handle connected to child stdout
-
-	    // fwrite($pipes[0], stream_get_contents(STDIN)); // file_get_contents('php://stdin')
-	    fwrite($pipes[0], $stdin);
-	    fclose($pipes[0]);
-
-	    $stdout = stream_get_contents($pipes[1]);
-	    fclose($pipes[1]);
-
-	    $stderr = stream_get_contents($pipes[2]);
-	    fclose($pipes[2]);
-
-	    // It is important that you close any pipes before calling
-	    // proc_close in order to avoid a deadlock
-	    $return_value = proc_close($process);
-	}
 
 	// Add stdout to history
 	$history .= htmlspecialchars($stdout, ENT_NOQUOTES);
