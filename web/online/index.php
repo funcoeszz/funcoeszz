@@ -93,6 +93,7 @@
 		color: white;
 	}
 	#help {
+		display: none;  /* disabled */
 		color: lime;
 		float: right;
 		cursor: help;
