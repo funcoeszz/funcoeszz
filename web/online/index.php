@@ -99,6 +99,9 @@
 		font-family: Arial;
 		font-size: 85%;
 	}
+	#help-zz {
+		float: right;
+	}
 	#footer {
 		position: fixed;
 		right: 1.5em;
@@ -133,6 +136,7 @@ $stdin     = (empty($_POST['stdin']    )) ? null : $_POST['stdin'];
 $stdout    = (empty($_POST['stdout']   )) ? null : $_POST['stdout'];
 $arguments = (empty($_POST['arguments'])) ? null : $_POST['arguments'];
 $history   = (empty($_POST['history']  )) ? null : $_POST['history'];
+$showhelp  = (empty($_POST['showhelp'] )) ? null : $_POST['showhelp'];
 
 // Get from API the list of available functions
 // $available = json_decode(file_get_contents("$api_root/list.json"));
@@ -160,6 +164,12 @@ if ($method == 'GET') {
 /////////////////////////////////////////////////////////////////////
 // Button pressed
 if ($method == 'POST') {
+
+	// Use -h to show the function help
+	if ($showhelp) {
+		$arguments_orig = $arguments;
+		$arguments = '-h';
+	}
 
 	// Sanity: Max size
 	if (strlen($arguments) > $arguments_max_chars) {
@@ -192,6 +202,11 @@ if ($method == 'POST') {
 	// Add command to history
 	$history .= '<span class="PS1">prompt$</span> ';
 	$history .= '<span class="cmdline">'.htmlspecialchars("$zzfunc $arguments", ENT_NOQUOTES).'</span>'."\n";
+
+	// Restore original arguments
+	if ($showhelp) {
+		$arguments = $arguments_orig;
+	}
 
 	// Add stdout to history
 	$history .= htmlspecialchars($stdout, ENT_NOQUOTES);
@@ -228,6 +243,7 @@ if ($method == 'POST') {
 		</select>
 		<input type="text" id="arguments" name="arguments" value="<?php echo htmlspecialchars($arguments); ?>">
 		<input type="submit" id="submit" value="Enter">
+		<input type="submit" id="help-zz" value="Ajuda" name="showhelp">
 	</div><!-- prompt -->
 
 	<table id="inout">
