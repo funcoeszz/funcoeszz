@@ -1,4 +1,3 @@
-#!/bin/bash
 # ----------------------------------------------------------------------------
 # Converte os bytes em hexadecimal para a string equivalente.
 # Uso: zzhexa2str bytes
