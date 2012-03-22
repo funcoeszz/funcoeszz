@@ -33,6 +33,9 @@
 		background: white;
 		color: black;
 	}
+	.stderr {
+		color: red;
+	}
 	select, input, #history {
 		font-size: 100%;
 	}
@@ -184,6 +187,7 @@ if ($method == 'POST') {
 
 	// Save STDOUT
 	$stdout = $results_json->stdout;
+	$stderr = trim($results_json->stderr);
 
 	// Add command to history
 	$history .= '<span class="PS1">prompt$</span> ';
@@ -191,6 +195,14 @@ if ($method == 'POST') {
 
 	// Add stdout to history
 	$history .= htmlspecialchars($stdout, ENT_NOQUOTES);
+
+	// Maybe some errors to show?
+	if (!empty($stderr)) {
+		$history .=
+			'<span class="stderr">' .
+			htmlspecialchars($stderr, ENT_NOQUOTES) .
+			'</span>' . "\n";
+	}
 }
 
 
