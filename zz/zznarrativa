@@ -3,13 +3,13 @@
 # Google Tradutor, para narrar frases.
 #
 # Uso: zznarrativa palavras
-#      zznarrativa regex é legal	
+# Ex.: zznarrativa regex é legal
 #
 # Autor: Kl0nEz <kl0nez (a) wifi org br>
 # Desde: 2011-08-23
-# Versão: 1 
+# Versão: 1
 # Licença: GPLv2
-# Requisitos: mpg123 
+# Requisitos: mpg123
 # ----------------------------------------------------------------------------
 zznarrativa ()
 {
