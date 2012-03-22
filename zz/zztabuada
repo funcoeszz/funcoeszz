@@ -1,10 +1,10 @@
 # ----------------------------------------------------------------------------
-# Imprime a tabuada de um número de 1 a 10. 
+# Imprime a tabuada de um número de 1 a 10.
 # Se não for informado nenhum argumento será impressa a tabuada de 1 a 9.
 # O argumento pode ser entre 0 a 99.
 #
 # Uso: zztabuada número
-#      zztabuada 2
+# Ex.: zztabuada 2
 #
 # Autor: Kl0nEz <kl0nez (a) wifi org br> modif:Itamar(itamarnet@yahoo.com.br)
 # Desde: 2011-08-23
@@ -30,10 +30,10 @@ zztabuada ()
                                 [ $i -lt 10 ] && echo -n  "| $1 X  $i = " || echo -n  "| $1 X $i = "
                                 calcula=$(($1*$i))
                                 if [ $calcula -lt 10 ]
-                                then 
+                                then
                                 	echo "$calcula    |"
                                 elif [ $calcula -ge 100 ]
-                                then 
+                                then
                                 	echo "$calcula  |"
                                 else
                                 	echo "$calcula   |"
