@@ -27,7 +27,6 @@
 	}
 	body, label, #stdin, #stdout, #arguments {
 		font-family: monospace;
-		font-weight: bold;
 	}
 	#stdin, #stdout, #arguments {
 		font-size: 100%;
@@ -125,7 +124,7 @@ $api_root = 'http://api.funcoeszz.net/0';
 $stdin_max_chars = 10000;
 $arguments_max_chars = 250;
 
-// POST
+// POST data
 $zzfunc    = (empty($_POST['zzfunc']   )) ? null : $_POST['zzfunc'];
 $stdin     = (empty($_POST['stdin']    )) ? null : $_POST['stdin'];
 $stdout    = (empty($_POST['stdout']   )) ? null : $_POST['stdout'];
