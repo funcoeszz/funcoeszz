@@ -167,12 +167,6 @@ if ($method == 'GET') {
 // Button pressed
 if ($method == 'POST') {
 
-	// Use -h to show the function help
-	if ($showhelp) {
-		$arguments_orig = $arguments;
-		$arguments = '-h';
-	}
-
 	// Sanity: Max size
 	if (strlen($arguments) > $arguments_max_chars) {
 		die("Ops, texto muito extenso nos argumentos da função. O máximo é $arguments_max_chars caracteres.");
@@ -187,39 +181,44 @@ if ($method == 'POST') {
 		$history .= "\n";
 	}
 
+	// Call API to show help
+	if ($showhelp) {
+		$help = file_get_contents("$api_root/help/${zzfunc}.txt?apikey=e0a7a294");
+		$stdout = "\n" . trim($help) . "\n\n";
+
 	// Call API to run the command
-	$results_json = json_decode(
-		file_get_contents(
-			"$api_root/run/${zzfunc}.json?" .
-				"apikey=e0a7a294" .
-				"&stdin=" . urlencode($stdin) .
-				"&arg=" . urlencode($arguments)
-		)
-	);
+	} else {
+		$results_json = json_decode(
+			file_get_contents(
+				"$api_root/run/${zzfunc}.json?" .
+					"apikey=e0a7a294" .
+					"&stdin=" . urlencode($stdin) .
+					"&arg=" . urlencode($arguments)
+			)
+		);
 
-	// Got results?
-	if (isset($results_json)) {
+		// Got results?
+		if (isset($results_json)) {
 
-		// Save STDOUT/STDERR
-		if (property_exists($results_json, 'stdout')) {
-			$stdout = $results_json->stdout;
-			$stderr = trim($results_json->stderr);
-		}
+			// Save STDOUT/STDERR
+			if (property_exists($results_json, 'stdout')) {
+				$stdout = $results_json->stdout;
+				$stderr = trim($results_json->stderr);
+			} else {
+				$stdout = $stderr = '';
+			}
 
-		// API errors raised?
-		if (property_exists($results_json, 'error')) {
-			$stderr .= $results_json->error;
+			// API errors raised?
+			if (property_exists($results_json, 'error')) {
+				$stderr .= $results_json->error;
+			}
 		}
 	}
 
 	// Add command to history
+	$hist_arg = ($showhelp) ? '-h' : $arguments;
 	$history .= '<span class="PS1">prompt$</span> ';
-	$history .= '<span class="cmdline">'.htmlspecialchars("$zzfunc $arguments", ENT_NOQUOTES).'</span>'."\n";
-
-	// Restore original arguments
-	if ($showhelp) {
-		$arguments = $arguments_orig;
-	}
+	$history .= '<span class="cmdline">'.htmlspecialchars("$zzfunc $hist_arg", ENT_NOQUOTES).'</span>'."\n";
 
 	// Add stdout to history
 	$history .= htmlspecialchars($stdout, ENT_NOQUOTES);
