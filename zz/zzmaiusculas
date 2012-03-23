@@ -2,6 +2,7 @@
 # Converte todas as letras para MAIÚSCULAS, inclusive acentuadas.
 # Uso: zzmaiusculas [arquivo]
 # Ex.: zzmaiusculas /etc/passwd
+#      echo foo | zzmaiusculas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-06-12
@@ -10,7 +11,7 @@
 zzmaiusculas ()
 {
 	zzzz -h maiusculas $1 && return
-	
+
 	sed '
 		y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
 		y/àáâãäåèéêëìíîïòóôõöùúûüçñ/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ/' "$@"
