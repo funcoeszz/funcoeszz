@@ -130,6 +130,7 @@ $api_root = 'http://api.funcoeszz.net/0';
 // $api_root = 'http://zzapi.dev/0';  // local
 $stdin_max_chars = 10000;
 $arguments_max_chars = 250;
+$stderr = null;
 
 // POST data
 $zzfunc    = (empty($_POST['zzfunc']   )) ? null : $_POST['zzfunc'];
@@ -198,9 +199,17 @@ if ($method == 'POST') {
 
 	// Got results?
 	if (isset($results_json)) {
+
 		// Save STDOUT/STDERR
-		$stdout = $results_json->stdout;
-		$stderr = trim($results_json->stderr);
+		if (property_exists($results_json, 'stdout')) {
+			$stdout = $results_json->stdout;
+			$stderr = trim($results_json->stderr);
+		}
+
+		// API errors raised?
+		if (property_exists($results_json, 'error')) {
+			$stderr .= $results_json->error;
+		}
 	}
 
 	// Add command to history
