@@ -52,12 +52,12 @@ zztabuada ()
 				[ $j -lt 10 ] && echo -n "| $i X  $j = " || echo -n "| $i X $j = "
 				calcula=$(($i*$j))
 				[ $calcula -lt 10 ] && echo -n "$calcula   |" || echo -n "$calcula  |"
-				[ $j -lt 10 ] && echo -n " $(($i+1)) X	$j = " || echo -n " $(($i+1)) X $j = "
+				[ $j -lt 10 ] && echo -n " $(($i+1)) X  $j = " || echo -n " $(($i+1)) X $j = "
 				calcula=$((($i+1)*$j))
 				[ $calcula -lt 10 ] && echo -n "$calcula   |" || echo -n "$calcula  |"
-				[ $j -lt 10 ] &&  echo -n " $(($i+2)) X	 $j = " || echo -n " $(($i+2)) X $j = "
+				[ $j -lt 10 ] &&  echo -n " $(($i+2)) X  $j = " || echo -n " $(($i+2)) X $j = "
 				calcula=$((($i+2)*$j))
-				[ $calcula -lt 10 ] && echo "$calcula	|" || echo "$calcula  |"
+				[ $calcula -lt 10 ] && echo "$calcula   |" || echo "$calcula  |"
 				done
 				echo $linha
 				echo
