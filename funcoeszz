@@ -110,14 +110,14 @@ unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 zztool ()
 {
 	local erro ferramenta
-	
+
 	# Devo mostrar a mensagem de erro?
 	test "$1" = '-e' && erro=1 && shift
-	
+
 	# Libera o nome da ferramenta do $1
 	ferramenta="$1"
 	shift
-	
+
 	case "$ferramenta" in
 		uso)
 			# Extrai a mensagem de uso da função $1, usando seu --help
@@ -143,7 +143,7 @@ zztool ()
 				then
 					cat -
 				else
-		 			sed "s/$padrao/$esc[${ZZCODIGOCOR}m&$esc[m/g"
+					sed "s/$padrao/$esc[${ZZCODIGOCOR}m&$esc[m/g"
 				fi
 		;;
 		grep_var)
@@ -177,11 +177,11 @@ zztool ()
 				echo "Não consegui ler o arquivo $1"
 				return 1
 			fi
-			
+
 			# TODO Usar em *todas* as funções que lêem arquivos
 		;;
 		num_linhas)
-			# Informa o número de linhas, sem formatação 
+			# Informa o número de linhas, sem formatação
 			zztool file_stdin "$@" |
 				wc -l |
 				tr -d ' \t'
@@ -264,7 +264,7 @@ zztool ()
 			local d29='\(0[1-9]\|[12][0-9]\)/\(0[1-9]\|1[012]\)'
 			local d30='30/\(0[13-9]\|1[012]\)'
 			local d31='31/\(0[13578]\|1[02]\)'
-			echo "$1" | grep "^\($d29\|$d30\|$d31\)/[0-9]\{1,4\}$" >/dev/null && return 0		
+			echo "$1" | grep "^\($d29\|$d30\|$d31\)/[0-9]\{1,4\}$" >/dev/null && return 0
 
 			test -n "$erro" && echo "Data inválida '$1', deve ser dd/mm/aaaa"
 			return 1
@@ -316,16 +316,16 @@ zztool ()
 		;;
 		trim)
 			zztool multi_stdin "$@" |
-		 		sed 's/^[[:blank:]]*// ; s/[[:blank:]]*$//'
+				sed 's/^[[:blank:]]*// ; s/[[:blank:]]*$//'
 		;;
 		endereco_sed)
 			# Formata um texto para ser usado como endereço no sed.
 			# Números e $ não são alterados, resto fica /entre barras/
 			#     foo     -> /foo/
 			#     foo/bar -> /foo\/bar/
-			
+
 			local texto="$*"
-			
+
 			if zztool testa_numero "$texto" || test "$texto" = '$'
 			then
 				echo "$texto"  # 1, 99, $
@@ -381,7 +381,7 @@ zzajuda ()
 		echo "Para recriá-lo basta executar o script 'funcoeszz' sem argumentos." >&2
 		return
 	fi
-	
+
 	case "$1" in
 		--uso)
 			# Lista com sintaxe de uso, basta pescar as linhas Uso:
@@ -399,7 +399,7 @@ zzajuda ()
 						:pad
 						s/^.\{1,14\}$/& /
 						t pad
-				
+
 						# Junta a descricao (proxima linha)
 						N
 						s/\n/ /
@@ -411,7 +411,7 @@ zzajuda ()
 		*)
 			# Desliga cores para os paginadores antigos
 			[ "$PAGER" = 'less' -o "$PAGER" = 'more' ] && zzcor_pager=0
-		
+
 			# Mostra a ajuda de todas as funções, paginando
 			cat "$ZZAJUDA" |
 				ZZCOR=${zzcor_pager:-$ZZCOR} zztool acha 'zz[a-z0-9]\{2,\}' |
@@ -482,7 +482,7 @@ zzzz ()
 		#       o Bash versão 1 não possui essa variável.
 
 		-h | --help)
-		
+
 			nome_func=${2#zz}
 			arg_func=$3
 
@@ -507,12 +507,12 @@ zzzz ()
 					zztool acha zz$nome_func
 				return 0
 			else
-			
+
 				# Alarme falso, o argumento não é nem -h nem --help
 				return 1
 			fi
 		;;
-		
+
 		# Garantia de compatibilidade do -h com o formato antigo (-z):
 		# zzzz -z -h zzbeep
 		-z)
@@ -521,9 +521,9 @@ zzzz ()
 
 		# Testes de ambiente para garantir o funcionamento das funções
 		--teste)
-		
+
 			### Todos os comandos necessários estão instalados?
-			
+
 			local comando tipo_comando comandos_faltando
 			local comandos='awk- bc cat chmod- clear- cp cpp- cut diff- du- find- fmt grep iconv- lynx mv od- play- ps- rm sed sleep sort tail- tr uniq'
 
@@ -536,7 +536,7 @@ zzzz ()
 					tipo_comando='opcional'
 					comando=${comando%-}
 				fi
-				
+
 				printf '%-30s' "Procurando o comando $comando... "
 
 				# Testa se o comando existe
@@ -548,7 +548,7 @@ zzzz ()
 					comandos_faltando="$comando_faltando $tipo_comando"
 				fi
 			done
-			
+
 			if [ "$comandos_faltando" ]
 			then
 				echo
@@ -563,7 +563,7 @@ zzzz ()
 				fi
 				echo
 			fi
-			
+
 			### Tudo certo com a codificação do sistema e das ZZ?
 
 			local cod_sistema='ISO-8859-1'
@@ -576,7 +576,7 @@ zzzz ()
 			printf 'Verificando a codificação das Funções ZZ... '
 			test $ZZUTF = 1 && cod_funcoeszz='UTF-8'
 			echo $cod_funcoeszz
-			
+
 			# Se um dia precisar de um teste direto no arquivo:
 			# sed 1d "$ZZPATH" | file - | grep UTF-8
 
@@ -589,7 +589,7 @@ zzzz ()
 				echo "Baixe as Funcoes ZZ versao $cod_sistema."
 			fi
 		;;
-		
+
 		# Baixa a versão nova, caso diferente da local
 		--atualiza)
 
@@ -608,7 +608,7 @@ zzzz ()
 				# Vamos baixar a versão ISO-8859-1?
 				[ $ZZUTF != '1' ] && url_exe="${url_exe}-iso"
 
-				echo -n 'Baixando a versão nova... '				
+				echo -n 'Baixando a versão nova... '
 				$ZZWWWHTML "$url_exe" > "funcoeszz-$versao_remota"
 				echo 'PRONTO!'
 				echo "Arquivo 'funcoeszz-$versao_remota' baixado, instale-o manualmente."
@@ -617,38 +617,38 @@ zzzz ()
 				echo 'Você já está com a versão mais recente.'
 			fi
 		;;
-		
+
 		# Instala as funções no arquivo .bashrc
 		--bashrc)
-		
+
 			if ! grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
 			then
 				# export ZZDIR="$ZZDIR"  # pasta com as funcoes
 				cat - >> "$bashrc" <<-EOS
-				
+
 				# $instal_msg
 				export ZZOFF=""  # desligue funcoes indesejadas
 				export ZZPATH="$ZZPATH"  # script
-				source "\$ZZPATH"				
+				source "\$ZZPATH"
 				EOS
-				
+
 				echo 'Feito!'
 				echo "As Funções ZZ foram instaladas no $bashrc"
 			else
 				echo "Nada a fazer. As Funções ZZ já estão no $bashrc"
 			fi
 		;;
-	
+
 		# Cria aliases para as funções no arquivo .tcshrc
 		--tcshrc)
 			arquivo_aliases="$HOME/.zzcshrc"
-			
+
 			# Chama o arquivo dos aliases no final do .tcshrc
 			if ! grep "^[^#]*$arquivo_aliases" "$tcshrc" >/dev/null 2>&1
 			then
 				# setenv ZZDIR $ZZDIR
 				cat - >> "$tcshrc" <<-EOS
-				
+
 				# $instal_msg
 				setenv ZZPATH $ZZPATH
 				source $arquivo_aliases
@@ -659,7 +659,7 @@ zzzz ()
 			else
 				echo "Nada a fazer. As Funções ZZ já estão no $tcshrc"
 			fi
-			
+
 			# Cria o arquivo de aliases
 			echo > $arquivo_aliases
 			for func in $(ZZCOR=0 zzzz | grep -v '^(' | sed 's/,//g')
@@ -680,13 +680,13 @@ zzzz ()
 		# Cria aliases para as funções no arquivo .zshrc
 		--zshrc)
 			arquivo_aliases="$HOME/.zzzshrc"
-			
+
 			# Chama o arquivo dos aliases no final do .zshrc
 			if ! grep "^[^#]*$arquivo_aliases" "$zshrc" >/dev/null 2>&1
 			then
 				# export ZZDIR=$ZZDIR
 				cat - >> "$zshrc" <<-EOS
-				
+
 				# $instal_msg
 				export ZZPATH=$ZZPATH
 				source $arquivo_aliases
@@ -697,14 +697,14 @@ zzzz ()
 			else
 				echo "Nada a fazer. As Funções ZZ já estão no $zshrc"
 			fi
-			
+
 			# Cria o arquivo de aliases
 			echo > $arquivo_aliases
 			for func in $(ZZCOR=0 zzzz | grep -v '^(' | sed 's/,//g')
 			do
 				echo "alias zz$func='funcoeszz zz$func'" >> "$arquivo_aliases"
 			done
-	
+
 			# alias para funcoes base
 			for func in $(ZZCOR=0 zzzz | grep 'base)' | sed 's/(.*)//; s/,//g')
 			do
@@ -722,7 +722,7 @@ zzzz ()
 
 			# A codificação do arquivo das funções é UTF-8?
 			[ "$ZZUTF" = 1 ] && info_utf8='UTF-8' || info_utf8='ISO-8859-1'
-			
+
 			# As funções estão instaladas no bashrc?
 			if grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
 			then
@@ -730,7 +730,7 @@ zzzz ()
 			else
 				info_instalado='não instalado'
 			fi
-			
+
 			# As funções estão instaladas no zshrc?
 			if grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$zshrc" >/dev/null 2>&1
 			then
@@ -741,7 +741,7 @@ zzzz ()
 
 			# Formata funções essenciais
 			info_base=$(echo $ZZBASE | sed 's/ /, /g')
-			
+
 			# Informações, uma por linha
 			zztool acha '^[^)]*)' "(script) $ZZPATH"
 			zztool acha '^[^)]*)' "( pasta) $ZZDIR"
@@ -752,9 +752,9 @@ zzzz ()
 			zztool acha '^[^)]*)' "( zshrc) $info_instalado_zsh"
 			zztool acha '^[^)]*)' "(  base) $info_base"
 			zztool acha '^[^)]*)' "(  site) $url_site"
-			
+
 			# Lista de todas as funções
-			
+
 			# Sem $ZZDIR, provavelmente usando --tudo-em-um
 			# Tentarei obter a lista de funções carregadas na shell atual
 			if test -z "$ZZDIR"
@@ -764,7 +764,7 @@ zzzz ()
 					egrep -v "$(echo $ZZBASE | sed 's/ /|/g')" |
 					sort > "$ZZTMP.on"
 			fi
-			
+
 			if test -r "$ZZTMP.on"
 			then
 				echo
@@ -780,13 +780,13 @@ zzzz ()
 				echo "Não consegui obter a lista de funções disponíveis."
 				echo "Para recriá-la basta executar o script 'funcoeszz' sem argumentos."
 			fi
-			
+
 			# Só mostra se encontrar o arquivo...
 			if test -r "$ZZTMP.off"
 			then
-			 	# ...e se ele tiver ao menos uma zz
+				# ...e se ele tiver ao menos uma zz
 				grep zz "$ZZTMP.off" >/dev/null || return
-				
+
 				echo
 				n_off=$(zztool num_linhas "$ZZTMP.off")
 				zztool eco "(( $n_off funções desativadas ))"
@@ -794,7 +794,7 @@ zzzz ()
 					sed 's/^zz//' |
 					zztool lines2list |
 					sed 's/ /, /g' |
-					fmt -w 70				
+					fmt -w 70
 			else
 				echo
 				echo "Não consegui obter a lista de funções desativadas."
@@ -823,7 +823,7 @@ _extrai_ajuda() {
 		sed '
 			# Apaga a metadata (Autor, Desde, Versao, etc)
 			/^Autor:/, /^------/ d
-			
+
 			# Apaga a linha em branco apos Ex.:
 			/^Ex\.:/, /^------/ {
 				/^ *$/d
@@ -866,8 +866,8 @@ then
 	for zz_arquivo in "${ZZDIR%/}"/zz*
 	do
 		# Só ativa funções que podem ser lidas
- 		if test -r "$zz_arquivo"
-	 	then
+		if test -r "$zz_arquivo"
+		then
 			zz_nome="${zz_arquivo##*/}"  # remove path
 
 			# O usuário desativou esta função?
@@ -880,8 +880,8 @@ then
 	# Lista das funções desativadas (OFF = Todas - ON)
 	(
 	cd "$ZZDIR" &&
- 	ls -1 zz* |
-	 	grep -v -f "$ZZTMP.on"
+	ls -1 zz* |
+		grep -v -f "$ZZTMP.on"
 	) >> "$ZZTMP.off"
 fi
 
@@ -906,31 +906,31 @@ then
 		exit 1
 		# Posso usar exit porque a chamada é pelo executável, e não source
 	fi
-	
+
 	# Primeira metade deste arquivo, até #@
 	sed '/^#@$/q' "$ZZPATH"
-	
+
 	# Mostra cada função (ativa), inserindo seu nome na linha 2 do cabeçalho
 	while read zz_nome
 	do
 		zz_arquivo="${ZZDIR%/}"/$zz_nome
-		
+
 		sed 1q "$zz_arquivo"
 		echo "# $zz_nome"
 		sed 1d "$zz_arquivo"
-		
+
 		# Linha em branco separadora
 		# Também garante quebra se faltar \n na última linha da função
 		echo
 	done < "$ZZTMP.on"
-	
+
 	# Desliga suporte ao diretório de funções
 	echo
 	echo 'ZZDIR='
-	
+
 	# Segunda metade deste arquivo, depois de #@
 	sed '1,/^#@$/d' "$ZZPATH"
-	
+
 	# Tá feito, simbora.
 	exit 0
 fi
@@ -946,8 +946,8 @@ do
 	# Extrai o texto de ajuda
 	_extrai_ajuda "$zz_arquivo" |
 		# Insere o nome da função na segunda linha
-	 	sed "2 { h; s/.*/$zz_nome/; G; }"
-	
+		sed "2 { h; s/.*/$zz_nome/; G; }"
+
 done < "$ZZTMP.on" >> "$ZZAJUDA"
 
 # Separador final do arquivo, com exatamente 77 hífens (7x11)
@@ -971,7 +971,7 @@ then
 
 	# Desliga todas em uma só linha (note que não usei aspas)
 	unset $zz_off
-	
+
 	# Agora apaga os textos da ajuda, montando um script em sed e aplicando
 	# Veja issue 5 para mais detalhes.
 	zz_sed=$(echo "$zz_off" | sed 's@.*@/^&$/,/^----*$/d;@')  # /^zzfoo$/,/^----*$/d
@@ -1001,10 +1001,10 @@ if [ "$1" ]
 then
 
 	case "$1" in
-	
+
 		# Mostra a tela de ajuda
 		-h | --help)
-	
+
 			cat - <<-FIM
 
 				Uso: funcoeszz <função> [<parâmetros>]
@@ -1033,21 +1033,21 @@ then
 		-v | --version)
 			echo "Funções ZZ v$ZZVERSAO"
 		;;
-	
+
 		-*)
 			echo "Opção inválida '$1' (tente --help)"
 		;;
-		
+
 		# Chama a função informada em $1, caso ela exista
 		*)
 			func="$1"
 
 			# Garante que a zzzz possa ser chamada por zz somente
 			[ "$func" = 'zz' ] && func='zzzz'
-			
+
 			# O prefixo zz é opcional: zzdata e data funcionam
 			func="zz${func#zz}"
-			
+
 			# A função existe?
 			if type $func >/dev/null 2>&1
 			then
