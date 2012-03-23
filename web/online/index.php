@@ -196,9 +196,12 @@ if ($method == 'POST') {
 		)
 	);
 
-	// Save STDOUT
-	$stdout = $results_json->stdout;
-	$stderr = trim($results_json->stderr);
+	// Got results?
+	if (isset($results_json)) {
+		// Save STDOUT/STDERR
+		$stdout = $results_json->stdout;
+		$stderr = trim($results_json->stderr);
+	}
 
 	// Add command to history
 	$history .= '<span class="PS1">prompt$</span> ';
