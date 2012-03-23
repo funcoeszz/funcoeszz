@@ -4,7 +4,7 @@
 # Opções: -i       Trata maiúsculas e minúsculas como iguais, FOO = Foo = foo
 #         -n NÚM   Mostra apenas as NÚM palavras mais frequentes
 #
-# Uso: zzcontapalavras [arquivo(s)]
+# Uso: zzcontapalavras [-i] [-n N] [arquivo(s)]
 # Ex.: zzcontapalavras arquivo.txt
 #      zzcontapalavras -i arquivo.txt
 #      zzcontapalavras -i -n 10 /etc/passwd
