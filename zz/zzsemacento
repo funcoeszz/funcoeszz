@@ -4,7 +4,7 @@
 # Ex.: zzsemacento AÇÃO 1ª bênção           # Retorna: ACAO 1a bencao
 #      echo AÇÃO 1ª bênção | zzsemacento    # Retorna: ACAO 1a bencao
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2010-05-24
 # Versão: 1
 # Licença: GPL

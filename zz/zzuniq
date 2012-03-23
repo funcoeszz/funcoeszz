@@ -5,7 +5,7 @@
 # Ex.: zzuniq /etc/inittab
 #      cat /etc/inittab | zzuniq
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-06-22
 # Licença: GPL
 # ----------------------------------------------------------------------------

@@ -14,7 +14,7 @@
 #      zzxml --tag title --untag --unescape arquivo.xml         # títulos
 #      cat arquivo.xml | zzxml --tag item | zzxml --tag title   # aninhado
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
 # Versão: 2
 # Licença: GPL

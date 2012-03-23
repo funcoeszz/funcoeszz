@@ -9,7 +9,7 @@
 #      echo 2 + 2 | zzcalcula         # lendo da entrada padrão (STDIN)
 #      zzseq 5 | zzcalcula --soma     # soma números da STDIN
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
 # Versão: 3
 # Licença: GPL

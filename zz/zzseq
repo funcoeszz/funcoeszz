@@ -14,7 +14,7 @@
 #      zzseq -f '(%d)' 5          # (1)(2)(3)(4)(5)
 #      zzseq -f 'Z' 5             # ZZZZZ
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-12-06
 # Licença: GPL
 # ----------------------------------------------------------------------------

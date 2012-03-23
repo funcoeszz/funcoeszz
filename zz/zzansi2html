@@ -8,7 +8,7 @@
 #      ls --color /etc | zzansi2html > ls.html
 #      zzcores | zzansi2html > cores.html
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-09-02
 # Versão: 1
 # Licença: GPL

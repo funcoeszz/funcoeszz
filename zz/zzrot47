@@ -5,7 +5,7 @@
 #      zzrot47 E6IE@ D64C6E@               # Retorna: texto secreto
 #      echo texto secreto | zzrot47        # Retorna: E6IE@ D64C6E@
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-07-23
 # Licença: GPL
 # ----------------------------------------------------------------------------

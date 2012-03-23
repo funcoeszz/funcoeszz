@@ -18,7 +18,7 @@
 #      zzjuntalinhas -d : -i 10 arquivo.txt         # junta linha 10 em diante
 #      cat /etc/named.conf | zzjuntalinhas -d '' -i '^[a-z]' -f '^}'
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-02
 # Versão: 2
 # Licença: GPL

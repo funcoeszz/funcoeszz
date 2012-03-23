@@ -26,7 +26,7 @@
 #      zzdatafmt -f "D de MES" 01/05/95     # 1 de maio
 #      echo 31/12/2011 | zzdatafmt -f MM    # 12
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
 # Versão: 1
 # Licença: GPL

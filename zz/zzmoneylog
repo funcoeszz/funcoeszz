@@ -17,7 +17,7 @@
 #      zzmoneylog -d 2011-0[123]        # Regex: que casa Jan/Fev/Mar de 2011
 #      zzmoneylog -v /                  # Todos os pagamentos parcelados
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-25
 # Versão: 1
 # Licença: GPL

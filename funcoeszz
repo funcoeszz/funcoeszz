@@ -3,7 +3,7 @@
 #
 # INFORMAÇÕES: www.funcoeszz.net
 # NASCIMENTO : 22 de Fevereiro de 2000
-# AUTORES    : Aurélio Marinho Jargas <verde (a) aurelio net>
+# AUTORES    : Aurelio Marinho Jargas <verde (a) aurelio net>
 #              Thobias Salazar Trevisan <thobias (a) thobias org>
 # DESCRIÇÃO  : Funções de uso geral para o shell Bash, que buscam
 #              informações em arquivos locais e fontes na Internet
@@ -104,7 +104,7 @@ unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 #      zztool testa_numero $num
 #      zztool -e testa_numero $num || return
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-03-01
 # ----------------------------------------------------------------------------
 zztool ()
@@ -366,7 +366,7 @@ zztool ()
 # Ex.: zzajuda
 #      zzajuda --lista
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
 # ----------------------------------------------------------------------------
 zzajuda ()
@@ -433,7 +433,7 @@ zzajuda ()
 # Ex.: zzzz
 #      zzzz --teste
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-01-07
 # ----------------------------------------------------------------------------
 zzzz ()

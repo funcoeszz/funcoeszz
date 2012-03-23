@@ -8,7 +8,7 @@
 #      zzcontapalavra -i -p a /etc/passwd      # Compare com grep -ci a
 #      cat /etc/passwd | zzcontapalavra root
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-10-02
 # Licença: GPL
 # ----------------------------------------------------------------------------

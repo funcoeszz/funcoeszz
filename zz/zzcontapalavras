@@ -10,7 +10,7 @@
 #      zzcontapalavras -i -n 10 /etc/passwd
 #      cat arquivo.txt | zzcontapalavras
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-07
 # Versão: 1
 # Licença: GPL

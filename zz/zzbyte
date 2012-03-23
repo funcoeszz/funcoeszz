@@ -7,7 +7,7 @@
 #      zzbyte 7 G B                   # Quantos bytes em 7GB? -- 7516192768B
 #      for u in b k m g t p e z y; do zzbyte 2 t $u; done
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-03-01
 # Licença: GPL
 # Requisitos: zzmaiusculas

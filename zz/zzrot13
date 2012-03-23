@@ -5,7 +5,7 @@
 #      zzrot13 grkgb frpergb               # Retorna: texto secreto
 #      echo texto secreto | zzrot13        # Retorna: grkgb frpergb
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-07-23
 # Licença: GPL
 # ----------------------------------------------------------------------------
