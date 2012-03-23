@@ -16,9 +16,9 @@
 zzansi2html ()
 {
 	zzzz -h ansi2html $1 && return
-	
+
 	local esc=$(printf '\033')
-	
+
 	# Um único sed toma conta de toda a tarefa de conversão.
 	#
 	# Esta função cria um SPAN dentro do outro, sem fechar, pois os códigos ANSI
@@ -114,7 +114,7 @@ zzansi2html ()
 
 			# Troca o código ANSI pela tag SPAN
 			s/$esc\[[0-9;]*m\(.*\)\n\(.*\)/\2\1/
-	
+
 			# E começa tudo de novo, até acabar todos da linha
 			b ini
 		}
