@@ -2,8 +2,7 @@
 # Calcula o número de dias úteis entre duas datas, inclusive ambas.
 # Obs.: Não leva em conta feriados.
 # Uso: zzdiasuteis data-inicial data-final
-# Ex.: zzdiasuteis
-#      zzdiasuteis 01/01/2011 31/01/2011     # Retorna: 21
+# Ex.: zzdiasuteis 01/01/2011 31/01/2011     # Retorna: 21
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-20
@@ -35,7 +34,7 @@ zzdiasuteis ()
 
 	# Quantos dias há entre as duas datas?
 	dias=$(zzdata $data2 - $data1)
-	
+
 	# O usuário inverteu a ordem das datas?
 	if test $dias -lt 0
 	then
@@ -45,11 +44,11 @@ zzdiasuteis ()
 		data1=$data2
 		data2=$data
 	fi
-	
+
 	# A zzdata conta a diferença, então precisamos fazer +1 para incluir
 	# ambas as datas no resultado.
 	dias=$((dias + 1))
-	
+
 	# Qual dia da semana cai a data inicial?
 	dia1=$(zzdiadasemana -n $data1)  # 1=domingo
 
