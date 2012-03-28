@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------
 # Calculadora.
 # Wrapper para o comando bc, que funciona no formato brasileiro: 1.234,56.
-# Os operadores principais são + - / * ^ %, veja outros em "man bc".
-# Use a opção --soma para somar uma lista de números vindos da STDIN.
 # Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
+# Use a opção --soma para somar uma lista de números vindos da STDIN.
+#
 # Uso: zzcalcula operação|--soma
 # Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
 #      zzcalcula '2^2*(4-1)'          # 2 ao quadrado vezes 4 menos 1
