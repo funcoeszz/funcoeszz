@@ -25,9 +25,11 @@ zzlimpalixo ()
 		;;
 	esac
 
-	# Remove comentários e linhas em branco
-	sed "
-		/^[[:blank:]]*$comentario/ d
-		/^[[:blank:]]*$/ d" "$@" |
-	uniq
+	zztool file_stdin "$@" |
+
+		# Remove comentários e linhas em branco
+		sed "
+			/^[[:blank:]]*$comentario/ d
+			/^[[:blank:]]*$/ d" |
+		uniq
 }

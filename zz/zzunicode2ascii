@@ -18,9 +18,10 @@ zzunicode2ascii ()
 	# Outros preferi manter o original a fazer um tradução dúbia.
 	# Aceito sugestões de melhorias! @oreio
 
-	sed "
+	zztool file_stdin "$@" | sed "
+
 	# Nota: Mesma tabela de dados da zzunescape.
-	
+
 	# s \" \" g
 	# s & & g
 	# s ' ' g
@@ -274,6 +275,5 @@ zzunicode2ascii ()
 	# s ♣ ♣ g
 	s ♥ <3 g
 	s ♦ <> g
-	
-	" "$@"  # Arquivos via STDIN ou argumentos
+	"
 }

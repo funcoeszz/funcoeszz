@@ -43,8 +43,10 @@ zzcontapalavras ()
 		esac
 	done
 
-	# Remove caracteres que não são parte de palavras
-	sed 's/[^A-Za-z0-9ÀàÁáÂâÃãÉéÊêÍíÓóÔôÕõÚúÇç_-]/ /g' "$@" |
+	zztool file_stdin "$@" |
+
+		# Remove caracteres que não são parte de palavras
+		sed 's/[^A-Za-z0-9ÀàÁáÂâÃãÉéÊêÍíÓóÔôÕõÚúÇç_-]/ /g' |
 
 		# Deixa uma palavra por linha, formando uma lista
 		tr -s ' ' '\n' |

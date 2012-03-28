@@ -35,6 +35,7 @@ zzansi2html ()
 	# que ao serem fechados desligam todos os SPANs anteriores.
 	#    ^[0m  -->  </div><div style="display:inline">
 	#
+	zztool file_stdin "$@" |
 	sed "
 		# Engloba o código na tag PRE para preservar espaços
 		1 i\\
@@ -118,6 +119,5 @@ zzansi2html ()
 			# E começa tudo de novo, até acabar todos da linha
 			b ini
 		}
-	" "$@"
-	# Esse argumento serve para ler os dados de um arquivo (opcional)
+	"
 }
