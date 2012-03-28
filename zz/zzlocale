@@ -13,7 +13,7 @@
 zzlocale ()
 {
 	zzzz -h locale $1 && return
-	
+
 	local url='http://funcoeszz.net/locales.txt'
 	local cache="$ZZTMP.locale"
 	local padrao="$1"
@@ -28,13 +28,13 @@ zzlocale ()
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso locale; return 1; }
-	
+
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
 		$ZZWWWDUMP "$url" > "$cache"
 	fi
-		
+
 	# Faz a consulta
 	grep -i -- "$padrao" "$cache"
 }

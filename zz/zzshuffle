@@ -16,7 +16,7 @@ zzshuffle ()
 
 	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
-	
+
 		# Um número aleatório é colocado no início de cada linha,
 		# depois o sort ordena numericamente, bagunçando a ordem
 		# original. Então os números são removidos.

@@ -23,7 +23,7 @@ zzdelicious ()
 			s/.*href="//
 			s/" >/ /
 			s|</a>||
-			
+
 			# Inverte a ordem e quebra a linha
 			s/^\([^ ]*\) \(.*\)/\2\
 \1\

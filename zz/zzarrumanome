@@ -33,37 +33,37 @@ zzarrumanome ()
 		esac
 		shift
 	done
-	
+
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso arrumanome; return 1; }
-	
+
 	# Para cada arquivo que o usuário informou...
 	for arquivo
 	do
 		# Tira a barra no final do nome da pasta
 		[ "$arquivo" != / ] && arquivo=${arquivo%/}
-		
+
 		# Ignora arquivos e pastas não existentes
 		[ -f "$arquivo" -o -d "$arquivo" ] || continue
-		
+
 		# Se for uma pasta...
 		if test -d "$arquivo"
 		then
 			# Arruma arquivos de dentro dela (-r)
 			[ "${recursivo:-0}" -eq 1 ] &&
 				zzarrumanome -r ${pastas:+-d} ${nao:+-n} "$arquivo"/*
-			
+
 			# Não renomeia nome da pasta (se não tiver -d)
 			[ "${pastas:-0}" -ne 1 ] && continue
 		fi
-		
+
 		# A pasta vai ser a corrente ou o 'dirname' do arquivo (se tiver)
 		caminho='.'
 		zztool grep_var / "$arquivo" && caminho="${arquivo%/*}"
-		
+
 		# $antigo é o arquivo sem path (basename)
 		antigo="${arquivo##*/}"
-		
+
 		# $novo é o nome arrumado com a magia negra no Sed
 		novo=$(
 			echo "$antigo" |
@@ -72,32 +72,32 @@ zzarrumanome ()
 			sed -e "
 				# Remove aspas
 				s/[\"']//g
-				
+
 				# Remove espaços do início e do fim
 				s/^  *//
 				s/  *$//
-				
+
 				# Remove acentos
 				y/àáâãäåèéêëìíîïòóôõöùúûü/aaaaaaeeeeiiiiooooouuuu/
 				y/çñß¢Ð£Øø§µÝý¥¹²³/cnbcdloosuyyy123/
-				
+
 				# Qualquer caractere estranho vira sublinhado
 				s/[^a-z0-9._-]/_/g
-				
+
 				# Remove sublinhados consecutivos
 				s/__*/_/g
-				
+
 				# Remove sublinhados antes e depois de pontos e hífens
 				s/_\([.-]\)/\1/g
 				s/\([.-]\)_/\1/g
 
 				# Hífens no início do nome são proibidos
 				s/^-/_/
-				
+
 				# Não permite nomes vazios
 				s/^$/_/"
 		)
-		
+
 		# Se der problema com a codificação, é o y/// do Sed anterior quem estoura
 		if [ $? -ne 0 ]
 		then
@@ -105,10 +105,10 @@ zzarrumanome ()
 			echo "O arquivo original foi preservado: $arquivo"
 			return 1
 		fi
-		
+
 		# Nada mudou, então o nome atual já certo
 		[ "$antigo" = "$novo" ] && continue
-		
+
 		# Se já existir um arquivo/pasta com este nome, vai
 		# colocando um número no final, até o nome ser único.
 		if test -e "$caminho/$novo"
@@ -122,7 +122,7 @@ zzarrumanome ()
 		fi
 
 		# Tudo certo, temos um nome novo e único
-				
+
 		# Mostra o que será feito
 		echo "$nao$arquivo -> $caminho/$novo"
 

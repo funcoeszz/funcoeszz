@@ -31,10 +31,10 @@ zzconverte ()
 
 	local s2='scale=2'
 	local operacao=$1
-	
+
 	# Verificação dos parâmetros
 	[ "$2" ] || { zztool uso converte; return 1; }
-	
+
 	shift
 	while [ "$1" ]
 	do
@@ -70,18 +70,18 @@ zzconverte ()
 				echo "$((2#$1))"
 			;;
 			cd)
-			   printf "%d\n" "'$1"
+				printf "%d\n" "'$1"
 			;;
 			dc)
-			   echo -e $(printf "\\\x%x" $1)
-			
+				echo -e $(printf "\\\x%x" $1)
+
 				# XXX " TextMate syntax gotcha (não remover)
 			;;
 			ch)
-			   printf "%x\n" "'$1"
+				printf "%x\n" "'$1"
 			;;
 			hc)
-			   echo -e "\x${1#0x}"
+				echo -e "\x${1#0x}"
 			;;
 			dh)
 				printf '%x\n' "$1"

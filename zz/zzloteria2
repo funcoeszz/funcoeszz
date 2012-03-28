@@ -18,12 +18,12 @@
 zzloteria2 ()
 {
 	zzzz -h loteria2 $1 && return
-	
+
 	local dump numero_concurso data resultado acumulado tipo ZZWWWDUMP2
 	local resultado_val resultado_num num_con sufixo faixa
 	local url='http://www1.caixa.gov.br/loterias/loterias'
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
-	
+
 	if type links >/dev/null 2>&1
 	then
 		ZZWWWDUMP2='links -dump'
@@ -33,7 +33,7 @@ zzloteria2 ()
 		echo 'Site da caixa não responde com o "lynx" usado na variável $ZZWWWDUMP'
 		return 1
 	fi
-	
+
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente
 	zztool testa_numero "$2"
 	if ([ $? -eq 0 ])
@@ -45,19 +45,19 @@ zzloteria2 ()
 		unset num_con
 		[ "$1" ] && tipos="$*"
 	fi
-	
+
 	# Para cada tipo de loteria...
 	for tipo in $tipos
 	do
 		zztool eco $tipo:
-		
+
 		# Há várias pegadinhas neste código. Alguns detalhes:
 		# - A variável $dump é um cache local do resultado
 		# - É usado ZZWWWDUMP2+filtros (e não ZZWWWHTML) para forçar a saída em UTF-8
 		# - O resultado é deixado como uma única longa linha
 		# - O resultado são vários campos separados por pipe |
 		# - Cada tipo de loteria traz os dados em posições (e formatos) diferentes :/
-		
+
 		case "$tipo" in
 			duplasena)
 				sufixo="_pesquisa_new.asp"
@@ -66,19 +66,19 @@ zzloteria2 ()
 				sufixo="_pesquisa.asp"
 			;;
 		esac
-		
+
 		dump=$($ZZWWWDUMP2 "$url/$tipo/${tipo}${sufixo}$num_con" |
 				tr -d \\n |
 				sed 's/  */ /g ; s/^ //')
-		
+
 		# O número do concurso é sempre o primeiro campo
 		numero_concurso=$(echo "$dump" | cut -d '|' -f 1)
-		
+
 		case "$tipo" in
 			lotomania)
 				# O resultado vem separado em campos distintos. Exemplo:
 				# |01|04|06|12|21|25|27|36|42|44|50|51|53|59|68|69|74|78|87|91|91|
-				
+
 				data=$(     echo "$dump" | cut -d '|' -f 42)
 				acumulado=$(echo "$dump" | cut -d '|' -f 69,70)
 				resultado=$(echo "$dump" | cut -d '|' -f 7-26 |
@@ -107,7 +107,7 @@ zzloteria2 ()
 			megasena)
 				# O resultado vem separado por asteriscos. Exemplo:
 				# | * 16 * 58 * 43 * 37 * 52 * 59 |
-				
+
 				data=$(     echo "$dump" | cut -d '|' -f 12)
 				acumulado=$(echo "$dump" | cut -d '|' -f 22,23)
 				resultado=$(echo "$dump" | cut -d '|' -f 21 |
@@ -123,7 +123,7 @@ zzloteria2 ()
 				# O resultado vem separado por asteriscos, tendo dois grupos
 				# numéricos: o primeiro e segundo resultado. Exemplo:
 				# | * 05 * 07 * 09 * 21 * 38 * 40 | * 05 * 17 * 20 * 22 * 31 * 45 |
-				
+
 				data=$(     echo "$dump" | cut -d '|' -f 18)
 				acumulado=$(echo "$dump" | cut -d '|' -f 23,24)
 				resultado=$(echo "$dump" | cut -d '|' -f 4,5 |
@@ -139,7 +139,7 @@ zzloteria2 ()
 				# O resultado vem duplicado em um único campo, sendo a segunda
 				# parte o resultado ordenado numericamente. Exemplo:
 				# | * 69 * 42 * 13 * 56 * 07 * 07 * 13 * 42 * 56 * 69 |
-				
+
 				data=$(     echo "$dump" | cut -d '|' -f 17)
 				acumulado=$(echo "$dump" | cut -d '|' -f 18,19)
 				resultado=$(echo "$dump" | cut -d '|' -f 15 |
@@ -166,7 +166,7 @@ zzloteria2 ()
 					tr '|' '\n' |
 					sed 's/^ - //'
 				)
-				
+
 				resultado=$(paste <(zzseq -f "%dº Prêmio\n" 1 1 5) <(echo "$resultado_num") <(echo "$resultado_val"))
 				unset faixa resultado_num resultado_val
 			;;
@@ -217,14 +217,14 @@ zzloteria2 ()
 					if ( $2 == $(NF-1) ) printf " %s\n", "- Col. Meio"
 					if ( $2 < $(NF-1) ) printf " %s\n", "- Col.  2"
 					#printf " %-3s\n", $(NF)
-					
+
 					}')
 				faixa=$(zzseq -f '\t%d\n' 14 13)
 				resultado_num=$(echo "$dump" | cut -d '|' -f 5 | sed 's/ [12].\{1,2\} (1[34] acertos)/\n/g;' |sed '1d' | sed 's/[0-9] /&\t/g')
 				unset resultado_val
 			;;
 		esac
-		
+
 		# Mostra o resultado na tela (caso encontrado algo)
 		if [ "$resultado" ]
 		then

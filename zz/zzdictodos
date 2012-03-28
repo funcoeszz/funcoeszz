@@ -13,10 +13,10 @@ zzdictodos ()
 	zzzz -h dictodos $1 && return
 
 	local dic
-	
+
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso dictodos; return 1; }
-	
+
 	for dic in babelfish babylon jargon portugues
 	do
 		zztool eco "zzdic$dic:"

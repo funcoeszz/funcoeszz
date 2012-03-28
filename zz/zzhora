@@ -29,10 +29,10 @@ zzhora ()
 		relativo=1
 		shift
 	fi
-	
+
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso hora; return 1; }
-	
+
 	# Dados informados pelo usuário (com valores padrão)
 	hhmm1="$1"
 	operacao="${2:-+}"
@@ -44,49 +44,49 @@ zzhora ()
 		echo "Operação Inválida: $operacao"
 		return 1
 	fi
-	
+
 	# Atalhos bacanas para a hora atual
 	[ "$hhmm1" = 'agora' -o "$hhmm1" = 'now' ] && hhmm1=$(date +%H:%M)
 	[ "$hhmm2" = 'agora' -o "$hhmm2" = 'now' ] && hhmm2=$(date +%H:%M)
-	
+
 	# Se as horas não foram informadas, coloca 00
 	[ "${hhmm1#*:}" = "$hhmm1" ] && hhmm1=00:$hhmm1
 	[ "${hhmm2#*:}" = "$hhmm2" ] && hhmm2=00:$hhmm2
-	
+
 	# Extrai horas e minutos para variáveis separadas
 	hh1=${hhmm1%:*}
 	mm1=${hhmm1#*:}
 	hh2=${hhmm2%:*}
 	mm2=${hhmm2#*:}
-	
+
 	# Retira o zero das horas e minutos menores que 10
 	hh1=${hh1#0}
 	mm1=${mm1#0}
 	hh2=${hh2#0}
 	mm2=${mm2#0}
-	
+
 	# Os cálculos são feitos utilizando apenas minutos.
 	# Então é preciso converter as horas:minutos para somente minutos.
 	n1=$((hh1*60+mm1))
 	n2=$((hh2*60+mm2))
-	
+
 	# Tudo certo, hora de fazer o cálculo
 	resultado=$(($n1 $operacao $n2))
-	
+
 	# Resultado negativo, seta a flag e remove o sinal de menos "-"
 	if [ $resultado -lt 0 ]
 	then
 		negativo=-
 		resultado=${resultado#-}
 	fi
-	
+
 	# Agora é preciso converter o resultado para o formato hh:mm
 
 	horas=$((resultado/60))
 	minutos=$((resultado%60))
 	dias=$((horas/24))
 	horas_do_dia=$((horas%24))
-	
+
 	# Restaura o zero dos minutos/horas menores que 10
 	hh=$horas
 	mm=$minutos
@@ -94,7 +94,7 @@ zzhora ()
 	[ $hh -le 9 ] && hh=0$hh
 	[ $mm -le 9 ] && mm=0$mm
 	[ $hh_dia -le 9 ] && hh_dia=0$hh_dia
-	
+
 	#TODO: usar um exemplo com horas negativas
 	# Decide como mostrar o resultado para o usuário.
 	#
@@ -108,9 +108,9 @@ zzhora ()
 	#
 	if [ $relativo -eq 1 ]
 	then
-	
+
 		# Relativo
-	
+
 		# Somente em resultados negativos o relativo é útil.
 		# Para valores positivos não é preciso fazer nada.
 		if [ "$negativo" ]
@@ -125,7 +125,7 @@ zzhora ()
 			[ $mm -le 9 ] && mm=0$mm
 			[ $hh_dia -le 9 ] && hh_dia=0$hh_dia
 		fi
-		
+
 		# "Hoje", "amanhã" e "ontem" são simpáticos no resultado
 		case $negativo$dias in
 			1)
@@ -144,9 +144,9 @@ zzhora ()
 
 		echo "$hh_dia:$mm ($extra)"
 	else
-	
+
 		# Normal
-		
+
 		echo "$negativo$hh:$mm (${dias}d ${horas_do_dia}h ${minutos}m)"
 	fi
 }

@@ -17,7 +17,7 @@
 zznomefoto ()
 {
 	zzzz -h nomefoto $1 && return
-	
+
 	local arquivo prefixo contagem extensao nome novo nao previa
 	local i=1
 	local digitos=3
@@ -61,16 +61,16 @@ zznomefoto ()
 		echo "Número inválido para a opção -i: $i"
 		return 1
 	fi
-	
+
 	# Para cada arquivo que o usuário informou...
 	for arquivo
 	do
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue
-	
+
 		# Componentes do nome novo
 		contagem=$(printf "%0${digitos}d" $i)
-		
+
 		# Se tiver extensão, guarda para restaurar depois
 		if zztool grep_var . "$arquivo"
 		then
@@ -89,11 +89,11 @@ zznomefoto ()
 			# Exemplo: DSC123.JPG -> DSC
 			nome=$(echo "${arquivo%.*}" | sed 's/[0-9][0-9]*$//')
 		fi
-	
+
 		# Compõe o nome novo e mostra na tela a mudança
 		novo="$nome$contagem$extensao"
 		previa="$nao$arquivo -> $novo"
-		
+
 		if [ "$novo" = "$arquivo" ]
 		then
 			# Ops, o arquivo novo tem o mesmo nome do antigo
@@ -101,10 +101,10 @@ zznomefoto ()
 		else
 			echo "$previa"
 		fi
-		
+
 		# Atualiza a contagem (Ah, sério?)
 		i=$((i+1))
-		
+
 		# Se não tiver -n, vamos renomear o arquivo
 		if ! [ "$nao" ]
 		then

@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # Mostra a classificação de pilotos das corridas de:
-# Fórmula 1 (f1 ou formula1), Fórmula Indy (indy ou formula_indy), 
-# Fórmula Truck (truck ou formula_truck), Stock Car (stock ou stock_car), 
+# Fórmula 1 (f1 ou formula1), Fórmula Indy (indy ou formula_indy),
+# Fórmula Truck (truck ou formula_truck), Stock Car (stock ou stock_car),
 # Moto GP (moto ou moto_gp), GT Brasil (gt ou gt_brasil)
 #
 # Uso: zzcorrida <f1|indy|truck|stock|moto|gt>
@@ -16,12 +16,12 @@
 zzcorrida ()
 {
 	zzzz -h corrida $1 && return
-	
+
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso corrida; return 1; }
-	
+
 	local corridas
-	
+
 	case "$1" in
 		f1|formula1)			corridas="formula1";;
 		indy|formula_indy)		corridas="formula_indy";;
@@ -31,9 +31,9 @@ zzcorrida ()
 		gt|gt_brasil)			corridas="gt_brasil";;
 		*)				zztool uso corrida; return 1;;
 	esac
-	
+
 	echo "$corridas"|sed 's/_/ /'|zzmaiusculas
-	
+
 	$ZZWWWDUMP "http://br.amigosdavelocidade.yahoo.net/classificacao/${corridas}"|
 	sed -n '/Pos.*Pilotos/,/^ *$/p'
 }

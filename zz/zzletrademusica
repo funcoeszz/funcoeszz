@@ -18,9 +18,9 @@
 zzletrademusica ()
 {
 	zzzz -h letrademusica $1 && return
-	
+
 	local pag
-	
+
 	echo "$1" | grep '^-p' >/dev/null
 	if [ "$?" = "0" ]
 	then
@@ -30,13 +30,13 @@ zzletrademusica ()
 	else
 		pag="1"
 	fi
-	
+
 	local padrao=$(echo "$*" | zzsemacento | sed "$ZZSEDURL")
 	local url=http://letssingit.com/cgi-exe/am.cgi
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso letrademusica; return; }
-	
+
 	$ZZWWWDUMP "$url?a=search&l=archive&s=$padrao&p=$pag" |
 	sed -n '
 		s/^ *//

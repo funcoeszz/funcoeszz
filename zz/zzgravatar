@@ -65,7 +65,7 @@ zzgravatar ()
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso gravatar; return 1; }
-	
+
 	# Guarda o email informado, sempre em minúsculas
 	email=$(zztool trim "$1" | zzminusculas)
 
@@ -92,7 +92,7 @@ zzgravatar ()
 
 	# Calcula o hash do email
 	codigo=$(printf "$email" | zzmd5)
-	
+
 	# Verifica o hash e o coloca na URL
 	if test -n "$codigo"
 	then

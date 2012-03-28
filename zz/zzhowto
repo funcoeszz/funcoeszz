@@ -28,7 +28,7 @@ zzhowto ()
 	fi
 
 	padrao=$1
-	
+
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
@@ -38,7 +38,7 @@ zzhowto ()
 				p
 			}' > "$cache"
 	fi
-	
+
 	# Pesquisa o termo (se especificado)
 	if [ "$padrao" ]
 	then

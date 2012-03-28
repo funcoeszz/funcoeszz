@@ -19,7 +19,7 @@
 zzfrenteverso2pdf ()
 {
 	zzzz -h frenteverso2pdf $1 && return
-	
+
 	# Declara variaveis.
 	local n_frentes n_versos dif n_pag_frente n_pag_verso
 	local sinal_frente="+"
@@ -31,7 +31,7 @@ zzfrenteverso2pdf ()
 	local ini_verso=0
 	local numberlist=""
 	local n_pag=1
-	
+
 	# Determina o diretorio que estao os arquivos a serem mesclados.
 	# Opcoes de linha de comando
 	while [ $# -ge 1 ]
@@ -51,23 +51,23 @@ zzfrenteverso2pdf ()
 		esac
 		shift
 	done
-	
+
 	# Verifica se os arquivos existem.
 	if [ ! -s "$dir/$arq_frentes" -o ! -s "$dir/$arq_versos" ] ; then
 		echo "ERRO: Um dos arquivos $dir/$arq_frentes ou $dir/$arq_versos nao existe!"
 		return 1
 	fi
-	
+
 	# Determina o numero de paginas de cada arquivo.
 	n_frentes=`pdftk "$dir/$arq_frentes" dump_data | grep "NumberOfPages" | cut -d" " -f2`
 	n_versos=`pdftk "$dir/$arq_versos" dump_data | grep "NumberOfPages" | cut -d" " -f2`
-	
+
 	# Verifica a compatibilidade do numero de paginas entre os dois arquivos.
 	dif=`expr $n_frentes - $n_versos`
 	if [ $dif -lt 0 -o $dif -gt 1 ] ; then
 		echo "CUIDADO: O numero de paginas dos arquivos nao parecem compativeis!"
 	fi
-	
+
 	# Cria ordenacao das paginas.
 	if [ "$sinal_frente" = "-" ] ; then
 		ini_frente=`expr $n_frentes + 1`
@@ -85,8 +85,8 @@ zzfrenteverso2pdf ()
 		fi
 		n_pag=$(($n_pag + 1))
 	done
-	
+
 	# Cria arquivo mesclado.
 	pdftk A="$dir/$arq_frentes" B="$dir/$arq_versos" cat $numberlist output "$dir/frenteverso.pdf" dont_ask
-	
+
 }

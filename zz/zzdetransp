@@ -16,7 +16,7 @@ zzdetransp ()
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso detransp; return 1; }
-	
+
 	# Faz a consulta e filtra o resultado
 	echo "renavam=$1&submit=Pesquisar" |
 		$ZZWWWPOST "$url" |

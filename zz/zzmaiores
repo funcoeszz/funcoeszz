@@ -48,7 +48,7 @@ zzmaiores ()
 	then
 		# Usuário só quer ver os arquivos e não diretórios.
 		# Como o 'du' não tem uma opção para isso, usaremos o 'find'.
-	
+
 		# Se forem várias pastas, compõe a lista glob: {um,dois,três}
 		# Isso porque o find não aceita múltiplos diretórios sem glob.
 		# Caso contrário tenta $1 ou usa a pasta corrente "."
@@ -59,10 +59,10 @@ zzmaiores ()
 			pastas=${1:-.}
 			[ "$pastas" = '*' ] && pastas='.'
 		fi
-	
+
 		tab=$(echo -e '\t')
 		[ "$recursivo" ] && recursivo= || recursivo='-maxdepth 1'
-		
+
 		resultado=$(
 			find $pastas $recursivo -type f -ls |
 				tr -s ' ' |
@@ -80,13 +80,13 @@ zzmaiores ()
 		then
 			zzmaiores ${recursivo:+-r} -n $limite * .[^.]*
 			return
-			
+
 		fi
 
 		# O du sempre mostra arquivos e diretórios, bacana
 		# Basta definir se vai ser recursivo (-a) ou não (-s)
 		[ "$recursivo" ] && recursivo='-a' || recursivo='-s'
-		
+
 		# Estou escondendo o erro para caso o * ou o .* não expandam
 		# Bash2: nullglob, dotglob
 		resultado=$(

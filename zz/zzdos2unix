@@ -21,7 +21,7 @@ zzdos2unix ()
 	if test $# -eq 0
 	then
 		sed "s/$control_m*$//"
-		
+
 		# Facinho, terminou já
 		return
 	fi
@@ -32,11 +32,11 @@ zzdos2unix ()
 	do
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue
-		
+
 		# Remove o \r
 		cp "$arquivo" "$tmp" &&
 		sed "s/$control_m*$//" "$tmp" > "$arquivo"
-		
+
 		# Segurança
 		if [ $? -ne 0 ]
 		then
@@ -44,13 +44,13 @@ zzdos2unix ()
 			echo "Seu arquivo original está guardado em $tmp"
 			return 1
 		fi
-		
+
 		# Remove a permissão de execução, comum em arquivos DOS
 		chmod -x "$arquivo"
-		
+
 		echo "Convertido $arquivo"
 	done
-	
+
 	# Remove o arquivo temporário
 	rm -f "$tmp"
 }

@@ -15,9 +15,9 @@
 zzcineuci ()
 {
 	zzzz -h cineuci $1 && return
-	
+
 	[ $# -gt 1 ] && zztool uso cineuci && return 1
-	
+
 	if [ $# = 0 ]; then # mostra opções
 		printf "Cidades e cinemas disponíveis\n=============================\n"
 		printf "\nCuritiba:\n\t01) UCI Estação\n\t15) UCI Palladium\n"
@@ -35,7 +35,7 @@ zzcineuci ()
 	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="
 	local cidade=`echo $* | sed 's/ /_/g' | tr [:upper:] [:lower:]` #converte nome da cidade para minúscula e retira espaços
 	local codigo codigos
-	
+
 	if zztool testa_numero ${cidade}; then # passou código
 		[ "$cidade" -ge 1 -a "$cidade" -le 17 ] && codigos="$cidade" # testa se código é válido
 	else # passou nome da cidade
@@ -51,9 +51,9 @@ zzcineuci ()
 			salvador) codigos="3 6 17";;
 		esac
 	fi
-	
+
 	[ -z "$codigos" ] && return 1 # se não recebeu cidade ou código válido, sai
-	
+
 	for codigo in $codigos
 	do
 		$ZZWWWDUMP "$url$codigo" | sed '

@@ -30,7 +30,7 @@ zzhoracerta ()
 	else
 		localidade="$*"
 	fi
-	
+
 	# Se o cache está vazio, baixa listagem da Internet
 	# De: <li><a href="current_time_in_AR-JY.aspx">Jujuy</a></li>
 	# Para: AR-JY -- Jujuy
@@ -69,10 +69,10 @@ zzhoracerta ()
 		echo "Localidade \"$localidade$codigo\" não encontrada"
 		return 1
 	fi
-	
+
 	# Grava o código da localidade (BR-RS -- Rio Grande do Sul -> BR-RS)
 	localidade=$(echo "$localidades" | sed 's/ .*//')
-	
+
 	# Faz a consulta e filtra o resultado
 	$ZZWWWDUMP "$url/current_time_in_$localidade.aspx" |
 		sed -n '/The current time/,/UTC/p'

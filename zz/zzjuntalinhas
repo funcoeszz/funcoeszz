@@ -46,7 +46,7 @@ zzjuntalinhas ()
 	# Formata endereços para o sed
 	inicio=$(zztool endereco_sed "$inicio")
 	fim=$(zztool endereco_sed "$fim")
-	
+
 	zztool file_stdin "$@" |
 		zzdos2unix |
 		sed "
@@ -57,11 +57,11 @@ zzjuntalinhas ()
 					d
 				}
 			}
-			
+
 			# O algoritmo é simples: ao entrar no trecho escolhido ($inicio)
 			# vai guardando as linhas. Quando chegar no fim do trecho ($fim)
 			# faz a troca das quebras de linha pelo $separador.
-			
+
 			$inicio, $fim {
 				H
 				$fim {
@@ -80,7 +80,7 @@ zzjuntalinhas ()
 					s/^\n//
 					p
 				}
-				
+
 				d
 			}"
 }

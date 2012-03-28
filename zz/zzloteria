@@ -17,7 +17,7 @@ zzloteria ()
 	local dump numero_concurso data resultado acumulado tipo sufixo
 	local url='http://www1.caixa.gov.br/loterias/loterias'
 	local tipos='quina megasena duplasena lotomania lotofacil'
-	
+
 	# O padrão é mostrar todos os tipos, mas o usuário pode informar alguns
 	[ "$1" ] && tipos=$*
 
@@ -32,18 +32,18 @@ zzloteria ()
 		# - O resultado é deixado como uma única longa linha
 		# - O resultado são vários campos separados por pipe |
 		# - Cada tipo de loteria traz os dados em posições (e formatos) diferentes :/
-		
+
 		if test "$tipo" = 'duplasena'
 		then
 			sufixo='_pesquisa_new.asp'
 		else
 			sufixo='_pesquisa.asp'
 		fi
-		
+
 		dump=$($ZZWWWDUMP "$url/$tipo/$tipo$sufixo" |
 			tr -d \\n |
 			sed 's/  */ /g ; s/^ //')
-		
+
 		# O número do concurso é sempre o primeiro campo
 		numero_concurso=$(echo "$dump" | cut -d '|' -f 1)
 
@@ -51,7 +51,7 @@ zzloteria ()
 			lotomania)
 				# O resultado vem separado em campos distintos. Exemplo:
 				# |01|04|06|12|21|25|27|36|42|44|50|51|53|59|68|69|74|78|87|91|91|
-				
+
 				data=$(     echo "$dump" | cut -d '|' -f 42)
 				acumulado=$(echo "$dump" | cut -d '|' -f 70,71)
 				resultado=$(echo "$dump" | cut -d '|' -f 7-26 |
@@ -62,7 +62,7 @@ zzloteria ()
 			lotofacil)
 				# O resultado vem separado em campos distintos. Exemplo:
 				# |01|04|07|08|09|10|12|14|15|16|21|22|23|24|25|
-				
+
 				data=$(     echo "$dump" | cut -d '|' -f 39)
 				acumulado=$(echo "$dump" | cut -d '|' -f 58,59)
 				resultado=$(echo "$dump" | cut -d '|' -f 4-18 |
@@ -73,7 +73,7 @@ zzloteria ()
 			megasena)
 				# O resultado vem separado por asteriscos. Exemplo:
 				# | * 16 * 58 * 43 * 37 * 52 * 59 |
-				
+
 				data=$(     echo "$dump" | cut -d '|' -f 12)
 				acumulado=$(echo "$dump" | cut -d '|' -f 22,23)
 				resultado=$(echo "$dump" | cut -d '|' -f 21 |
@@ -99,7 +99,7 @@ zzloteria ()
 				# O resultado vem duplicado em um único campo, sendo a segunda
 				# parte o resultado ordenado numericamente. Exemplo:
 				# | * 69 * 42 * 13 * 56 * 07 * 07 * 13 * 42 * 56 * 69 |
-				
+
 				data=$(     echo "$dump" | cut -d '|' -f 17)
 				acumulado=$(echo "$dump" | cut -d '|' -f 18,19)
 				resultado=$(echo "$dump" | cut -d '|' -f 15 |
@@ -110,7 +110,7 @@ zzloteria ()
 				)
 			;;
 		esac
-		
+
 		# Mostra o resultado na tela (caso encontrado algo)
 		if [ "$resultado" ]
 		then

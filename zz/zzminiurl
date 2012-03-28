@@ -14,15 +14,15 @@
 zzminiurl ()
 {
 	zzzz -h miniurl $1 && return
-	
+
 	[ "$1" ] || { zztool uso miniurl; return 1; }
-	
+
 	local url="$1"
 	local prefixo='http://'
-	
+
 	# Se o usuário não informou o protocolo, adiciona o padrão
 	echo "$url" | egrep '^(https?|ftp|mms)://' >/dev/null || url="$prefixo$url"
-	
+
 	curl "http://migre.me/api.txt?url=$url" 2> /dev/null |
 		sed 's/IP:.*//'
 }

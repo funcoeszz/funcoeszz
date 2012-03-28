@@ -18,7 +18,7 @@ zzcontapalavra ()
 
 	local padrao ignora
 	local inteira=1
-	
+
 	# Opções de linha de comando
 	while [ "${1#-}" != "$1" ]
 	do
@@ -32,10 +32,10 @@ zzcontapalavra ()
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso contapalavra; return 1; }
-	
+
 	padrao=$1
 	shift
-	
+
 	# Contorna a limitação do grep -c pesquisando pela palavra
 	# e quebrando o resultado em uma palavra por linha (tr).
 	# Então pode-se usar o grep -c para contar.

@@ -31,13 +31,13 @@ zzgoogle ()
 	# Prepara o texto a ser pesquisado
 	padrao=$(echo "$*" | sed "$ZZSEDURL")
 	[ "$padrao" ] || return 0
-	
+
 	# Pesquisa, baixa os resultados e filtra
 	#
 	# O Google condensa tudo em um única longa linha, então primeiro é preciso
 	# inserir quebras de linha antes de cada resultado. Identificadas as linhas
 	# corretas, o filtros limpa os lixos e formata o resultado.
-	
+
 	$ZZWWWHTML "$url?q=$padrao&num=$limite&ie=UTF-8&oe=UTF-8&hl=pt-BR" |
 		sed 's/<h3 class="r">/\
 @/g' |
@@ -46,17 +46,17 @@ zzgoogle ()
 			s/^@<a href="//
 			s/" class=l>/ /
 			s/<\/a>.*//
-			
+
 			# Remove tags HTML
 			s/<[^>]*>//g
-			
+
 			# Restaura os caracteres especiais
 			s/&gt;/>/g
 			s/&lt;/</g
 			s/&quot;/"/g
 			s/&nbsp;/ /g
 			s/&amp;/\&/g
-			
+
 			s/\([^ ]*\) \(.*\)/\2\
   \1\
 /'

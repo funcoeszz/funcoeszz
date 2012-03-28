@@ -22,7 +22,7 @@ zzcores ()
 			do
 				# Compõe o par de cores: NN;NN
 				cor="4$fundo;3$frente"
-				
+
 				# Mostra na tela usando caracteres de controle: ESC[ NN m
 				printf "\033[$cor${negrito}m $cor${negrito:-  } \033[m"
 			done

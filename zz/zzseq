@@ -35,16 +35,16 @@ zzseq ()
 		shift
 		shift
 	fi
-	
+
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso seq; return 1; }
-	
+
 	# Se houver só um número, vai "de um ao número"
 	fim=$1
-	
+
 	# Se houver dois números, vai "do primeiro ao segundo"
 	[ "$2" ] && inicio=$1 fim=$2
-	
+
 	# Se houver três números, vai "do primeiro ao terceiro em saltos"
 	[ "$3" ] && inicio=$1 passo=$2 fim=$3
 
@@ -57,14 +57,14 @@ zzseq ()
 		echo "O passo não pode ser zero."
 		return 1
 	fi
-	
+
 	# Internamente o passo deve ser sempre positivo para simplificar
 	# Assim mesmo que o usuário faça 0 -2 10, vai funcionar
 	[ $passo -lt 0 ] && passo=$((0 - passo))
-	
+
 	# Se o primeiro for maior que o segundo, a contagem é regressiva
 	[ $inicio -gt $fim ] && operacao='-'
-	
+
 	# Loop que mostra o número e aumenta/diminui a contagem
 	i=$inicio
 	while (
@@ -74,7 +74,7 @@ zzseq ()
 		printf "$formato" $i
 		i=$(($i $operacao $passo))  # +n ou -n
 	done
-	
+
 	# Caso especial: início e fim são iguais
 	test $inicio -eq $fim && echo $inicio
 }

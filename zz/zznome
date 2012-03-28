@@ -23,10 +23,10 @@ zznome ()
 	local ini='^Origem do Nome '
 	local fim='Analise da Primeira Letra do Nome:'
 	local nome=$(echo "$1" | zzminusculas | zzsemacento)
-	
+
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso nome; return 1; }
-	
+
 	case "$2" in
 		origem)
 			ini='Qual a origem do nome '
@@ -57,7 +57,7 @@ zznome ()
 			fim='^VEJA TAMBÉM'
 		;;
 	esac
-	
+
 	$ZZWWWDUMP "$url/nomes/?q=$nome" |
 		sed -n "
 		/$ini/,/$fim/ {

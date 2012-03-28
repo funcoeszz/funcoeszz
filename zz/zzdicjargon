@@ -12,7 +12,7 @@
 zzdicjargon ()
 {
 	zzzz -h dicjargon $1 && return
-	
+
 	local achei achei2 num mais
 	local url='http://catb.org/jargon/html'
 	local cache="$ZZTMP.jargonfile"
@@ -30,7 +30,7 @@ zzdicjargon ()
 				s@.*/html/@@
 				/^[A-Z0]\//!d' > "$cache"
 	fi
-	
+
 	achei=$(grep -i "$padrao" $cache)
 	num=$(echo "$achei" | sed -n '$=')
 
@@ -51,6 +51,6 @@ zzdicjargon ()
 	else
 		zztool eco 'Achei mais de um! Escolha qual vai querer:'
 	fi
-	
+
 	[ "$mais" ] && echo "$mais" | sed 's/..// ; s/\.html$//'
 }

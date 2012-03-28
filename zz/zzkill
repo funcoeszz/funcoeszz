@@ -27,21 +27,21 @@ zzkill ()
 	while :
 	do
 		comando="$1"
-		
+
 		# Tenta obter a lista de processos nos formatos Linux e BSD
 		processos=$(ps xw --format pid,comm 2>/dev/null) ||
 		processos=$(ps xw -o pid,command 2>/dev/null)
 
 		# Diga não ao suicídio
 		processos=$(echo "$processos" | grep -vw '\(zz\)*kill')
-		
+
 		# Sem argumentos, apenas mostra a listagem e sai
 		if ! [ "$1" ]
 		then
 			echo "$processos"
 			return 0
 		fi
-		
+
 		# Filtra a lista, extraindo e matando os PIDs
 		echo "$processos" |
 			grep -i "$comando" |
@@ -50,7 +50,7 @@ zzkill ()
 				echo -e "$nao$pid\t$chamada"
 				[ "$nao" ] || kill $pid
 			done
-		
+
 		# Próximo da fila!
 		shift
 		[ "$1" ] || break

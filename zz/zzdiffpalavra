@@ -12,7 +12,7 @@
 zzdiffpalavra ()
 {
 	zzzz -h diffpalavra $1 && return
-	
+
 	local esc
 	local tmp1="$ZZTMP.diffpalavra.1.$$"
 	local tmp2="$ZZTMP.diffpalavra.2.$$"
@@ -28,7 +28,7 @@ zzdiffpalavra ()
 	# Deixa uma palavra por linha e marca o início de parágrafos
 	sed "s/^[[:blank:]]*$/$n$n/;" "$1" | tr ' ' '\n' > "$tmp1"
 	sed "s/^[[:blank:]]*$/$n$n/;" "$2" | tr ' ' '\n' > "$tmp2"
-	
+
 	# Usa o diff para comparar as diferenças e formata a saída,
 	# agrupando as palavras para facilitar a leitura do resultado
 	diff -U 100 "$tmp1" "$tmp2" |
@@ -82,10 +82,10 @@ zzdiffpalavra ()
 			$ !b join
 			# Mas se for a última linha, acabamos por aqui' |
 		sed 's/^=/ /' |
-		
+
 		# Restaura os parágrafos
 		tr "$n" '\n' |
-		
+
 		# Podemos mostrar cores?
 		if [ "$ZZCOR" = 1 ]
 		then
@@ -98,6 +98,6 @@ zzdiffpalavra ()
 			# Sem cores? Que chato. Só mostra então.
 			cat -
 		fi
-			
+
 	rm -f "$tmp1" "$tmp2"
 }

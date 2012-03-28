@@ -23,13 +23,13 @@
 zzenviaemail ()
 {
 	zzzz -h enviaemail $1 && return
-	
+
 	# Declara variaveis.
 	local fromail tomail ccmail bccmail subject msgbody
 	local envia_data=`date +"%Y%m%d_%H%M%S_%N"`
 	local script_eml="${ZZTMPDIR}/.${FUNCNAME}_${envia_data}.eml"
 	local nparam=0
-	
+
 	# Opcoes de linha de comando
 	while [ $# -ge 1 ]
 	do
@@ -75,12 +75,12 @@ zzenviaemail ()
 		esac
 		shift
 	done
-	
+
 	# Verifica numero minimo de parametros.
 	if [ "${nparam}" != 4 ] ; then
 		{ zztool uso enviaemail; set +x; return 1; }
 	fi
-	
+
 	# Verifica se o arquivo existe.
 	zztool arquivo_existe "${mensagem}"
 
@@ -95,6 +95,6 @@ zzenviaemail ()
 	if [ -s "${script_eml}" ] ; then
 		rm -f "${script_eml}"
 	fi
-	
+
 	set +x
 }

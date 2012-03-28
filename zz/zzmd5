@@ -16,7 +16,7 @@ zzmd5 ()
 	zzzz -h md5 $1 && return
 
 	local tab=$(printf '\t')
-	
+
 	# Testa se o comando existe
 	if type md5 >/dev/null 2>&1
 	then

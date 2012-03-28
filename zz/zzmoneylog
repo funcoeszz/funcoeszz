@@ -126,19 +126,19 @@ zzmoneylog ()
 		valor=$(echo "$valor" | sed '
 			# Escapa o símbolo de recorrência: * vira [*]
 			s|[*]|[*]|g
-		
+
 			# Remove espaços em branco
 			s/ //g
-		
+
 			# Pesquisa vai funcionar com ambos separadores: . e ,
 			s/,/[,.]/
-		
+
 			# É possível ter espaços após o sinal
 			s/^[+-]/& */
 
 			# O sinal de + é opcional
 			s/^+/+*/
-			
+
 			# Busca por ,99 deve funcionar
 			# Lembre-se que é possível haver espaços antes do valor
 			s/^/[0-9 ,.+-]*/

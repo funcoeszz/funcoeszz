@@ -14,9 +14,9 @@ zzanatel ()
 	zzzz -h anatel $1 && return
 
 	[ "$1" ] || { zztool uso anatel; return 1; }
-	
+
 	local URL='http://sistemas.anatel.gov.br/SIPT/Atualizacao/N_ConsultaTarifas/tela.asp'
-	
+
 	case "`date +%u`" in
 		0)
 			PERIODO='d';;

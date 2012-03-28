@@ -4,7 +4,7 @@
 # Se for fornecido um numero mostra os jogos da rodada, com resultados.
 # Com argumento -l lista os todos os clubes da séria A e B.
 # Se o argumento -l for seguido do nome do clube, lista todos os jogos já
-# ocorridos do clube desde o começo do ano de qualquer campeonato, e os 
+# ocorridos do clube desde o começo do ano de qualquer campeonato, e os
 # próximos jogos no brasileirão.
 #
 # Nomenclatura:
@@ -36,27 +36,27 @@
 zzbrasileirao ()
 {
 	zzzz -h brasileirao $1 && return
-	
+
 	local rodada serie ano
 	local url="http://esporte.uol.com.br"
 
 	[ $# -gt 2 ] && { zztool uso brasileirao; return 1; }
-	
+
 	serie='a'
 	[ "$1" = "a" -o "$1" = "b" ] && { serie="$1"; shift; }
-	
+
 	if [ "$1" = "-l" ]
 	then
 		if [ "$2" ]
 		then
 			$ZZWWWDUMP "${url}/futebol/clubes/$2/resultados" | sed 's/^ *$//g' |
 			sed -n '/^\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho\|Julho\|Agosto\|Setembro\|Outubro\|Novembro\|Dezembro\| *Data *Hora\| *[0-9][0-9]\/[0-9][0-9]\)/p'|sed 's/  *-  *Leia.*//g'
-			
+
 			$ZZWWWDUMP "${url}/futebol/clubes/$2/proximos-jogos" | sed 's/^ *$//g' |
 			sed -n '/^\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho\|Julho\|Agosto\|Setembro\|Outubro\|Novembro\|Dezembro\| *Data *Hora\| *[0-9][0-9]\/[0-9][0-9]\)/p'
 			return 0
 		else
-			$ZZWWWHTML "$url" | sed -n "/aba serie-[ab]/,/^ *$/p"| 
+			$ZZWWWHTML "$url" | sed -n "/aba serie-[ab]/,/^ *$/p"|
 			grep "${url}/futebol/clubes/" | sed 's@.*/futebol/clubes/@@g;s@/" alt=".*@@g'
 			return 0
 		fi
@@ -66,9 +66,9 @@ zzbrasileirao ()
 			zztool testa_numero "$1" && rodada="$1" || { zztool uso brasileirao; return 1; }
 		fi
 	fi
-	
+
 	ano=$(date +%Y)
-	
+
 	url="${url}/futebol/campeonatos/brasileiro/${ano}/serie-${serie}"
 	if [ "$rodada" ]
 	then
@@ -78,29 +78,29 @@ zzbrasileirao ()
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g"
 	else
 		url="${url}/classificacao/classificacao.jhtm"
-	
+
 		[ "$serie" = "a" ] && zztool eco "Série A" || zztool eco "Série B"
-	
+
 		$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *$/p;"|
 		awk -v cor_awk="$ZZCOR" -v serie_awk="$serie" '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
-		
+
 		if (cor_awk==1)
 		{
 			cor="\033[m"
-			
+
 			if (NR >= 18 && NR <=21)
 				cor="\033[41;30m"
-			
+
 			if (NR >= 6 && NR <=13)
 				cor=(serie_awk=="a"?"\033[44;30m":"\033[m")
 
 			if (NR >= 2 && NR <=5)
 				cor="\033[42;30m"
 		}
-		
+
 		if (NF>9)
 		printf "%s%-23s %3s %3s %3s %3s %3s %3s %3s %3s %4s \033[m\n", cor, time, $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF}'
-		
+
 		if [ "$ZZCOR" = "1" ]
 		then
 			echo

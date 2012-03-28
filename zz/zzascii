@@ -22,7 +22,7 @@ zzascii ()
 	local max_colunas=20
 	local max_largura=500
 	local linha=0
-	
+
 	# Verificações básicas
 	if (
 		! zztool testa_numero "$num_colunas" ||
@@ -62,7 +62,7 @@ zzascii ()
 
 	# Mostra as dimensões
 	echo $num_caracteres caracteres, $num_colunas colunas, $num_linhas linhas, $largura de largura
-	
+
 	# Linha a linha...
 	while [ $linha -lt $num_linhas ]
 	do
@@ -76,7 +76,7 @@ zzascii ()
 		do
 			referencias="$referencias $((num_linhas * col + linha))p;"
 		done
-		
+
 		# Usando as referências coletadas, percorre cada decimal
 		# que será usado nesta linha da tabela
 		for decimal in $(echo "$decimais" | sed -n "$referencias")
@@ -84,7 +84,7 @@ zzascii ()
 			hexa=$( printf '%X'   $decimal)
 			octal=$(printf '%03o' $decimal) # NNN
 			caractere=$(printf "\x$hexa")
-			
+
 			# Mostra a célula atual da tabela
 			printf "%${largura_coluna}s" "$decimal $hexa $octal $caractere"
 		done

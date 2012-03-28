@@ -35,7 +35,7 @@ zzcalcula ()
 	sed '
 		# Espaços só atrapalham (tab+espaço)
 		s/[	 ]//g
-		
+
 		# Remove separador de milhares
 		s/\.\([0-9][0-9][0-9]\)/\1/g
 		' |
@@ -49,7 +49,7 @@ zzcalcula ()
 
 			# Números sem sinal são positivos
 			s/^[0-9]/+&/
-			
+
 			# Se o primeiro da lista tiver sinal + dá erro no bc
 			1 s/^+//' |
 		# Junta as linhas num única tripa, exemplo: 5+7-3+1-2

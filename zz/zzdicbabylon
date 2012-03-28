@@ -21,14 +21,14 @@ zzdicbabylon ()
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso dicbabylon; return 1; }
-	
+
 	# O primeiro argumento é um idioma?
 	if [ "${idiomas% $1 *}" != "$idiomas" ]
 	then
 		idioma=$1
 		shift
 	fi
-	
+
 	$ZZWWWHTML "http://online.babylon.com/cgi-bin/trans.cgi?lang=$idioma&word=$1" |
 		sed "
 			/OT_CopyrightStyle/,$ d

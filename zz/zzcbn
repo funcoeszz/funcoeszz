@@ -17,7 +17,7 @@
 zzcbn ()
 {
 	zzzz -h cbn $1 && return
-	
+
 	local COMENTARISTAS MP3 RSS data comentarista datafile
 
 #Comentaristas;RSS;Download
@@ -86,7 +86,7 @@ fi
 #	[ "$data" ] || data=`LANG=en.US date "+%d %b %Y"`
 #	echo "$RSS`echo $linha | cut -d';' -f 2`.xml"
 	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml"  | sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" | sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$ZZTMP.comentarios"
-	
+
 	zzecho -l ciano `cat "$ZZTMP.comentarios" | sed -n '1p'`
 
 	case  "$data" in
