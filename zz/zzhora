@@ -13,13 +13,14 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzhora ()
 {
 	zzzz -h hora $1 && return
 
-	local hhmm1 hhmm2 operacao
+	local hhmm1 hhmm2 operacao hhmm1_orig hhmm2_orig
 	local hh1 mm1 hh2 mm2 n1 n2 resultado negativo
 	local horas minutos dias horas_do_dia hh mm hh_dia extra
 	local relativo=0
@@ -37,7 +38,9 @@ zzhora ()
 	# Dados informados pelo usuário (com valores padrão)
 	hhmm1="$1"
 	operacao="${2:-+}"
-	hhmm2="${3:-00}"
+	hhmm2="${3:-0}"
+	hhmm1_orig="$hhmm1"
+	hhmm2_orig="$hhmm2"
 
 	# Somente adição e subtração são permitidas
 	if test "$operacao" != '-' -a "$operacao" != '+'
@@ -50,9 +53,9 @@ zzhora ()
 	[ "$hhmm1" = 'agora' -o "$hhmm1" = 'now' ] && hhmm1=$(date +%H:%M)
 	[ "$hhmm2" = 'agora' -o "$hhmm2" = 'now' ] && hhmm2=$(date +%H:%M)
 
-	# Se as horas não foram informadas, coloca 00
-	[ "${hhmm1#*:}" = "$hhmm1" ] && hhmm1="00:$hhmm1"
-	[ "${hhmm2#*:}" = "$hhmm2" ] && hhmm2="00:$hhmm2"
+	# Se as horas não foram informadas, coloca zero
+	[ "${hhmm1#*:}" = "$hhmm1" ] && hhmm1="0:$hhmm1"
+	[ "${hhmm2#*:}" = "$hhmm2" ] && hhmm2="0:$hhmm2"
 
 	# Extrai horas e minutos para variáveis separadas
 	hh1="${hhmm1%:*}"
@@ -65,6 +68,24 @@ zzhora ()
 	mm1="${mm1#0}"
 	hh2="${hh2#0}"
 	mm2="${mm2#0}"
+
+	# Se tiver algo faltando, salva como zero
+	hh1="${hh1:-0}"
+	mm1="${mm1:-0}"
+	hh2="${hh2:-0}"
+	mm2="${mm2:-0}"
+
+	# Validação dos dados
+	if ! (zztool testa_numero_sinal "$hh1" && zztool testa_numero_sinal "$mm1")
+	then
+		echo "Horário inválido '$hhmm1_orig', deve ser HH:MM"
+		return 1
+	fi
+	if ! (zztool testa_numero_sinal "$hh2" && zztool testa_numero_sinal "$mm2")
+	then
+		echo "Horário inválido '$hhmm2_orig', deve ser HH:MM"
+		return 1
+	fi
 
 	# Os cálculos são feitos utilizando apenas minutos.
 	# Então é preciso converter as horas:minutos para somente minutos.
