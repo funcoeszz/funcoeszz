@@ -25,9 +25,9 @@ zznoticiaslinux ()
 	local sites='byvucin'
 
 	limite="sed ${n}q"
-	
+
 	[ "$1" ] && sites="$1"
-	
+
 	# Yahoo
 	if zztool grep_var y "$sites"
 	then
@@ -40,23 +40,23 @@ zznoticiaslinux ()
 			zztool texto_em_utf8 |
 			$limite
 	fi
-	
+
 	# Viva o Linux
 	if zztool grep_var v "$sites"
 	then
 		url='http://www.vivaolinux.com.br'
 		echo
 		zztool eco "* Viva o Linux ($url):"
-		
+
 		# TODO Em alguns sistemas as notícias vêm gzipadas, tendo que
 		# abrir com gzip -d. Reportado por Rodrigo Azevedo.
-		
+
 		$ZZWWWHTML "$url/index.rdf" |
 			sed -n '1,/<item>/d;s@.*<title>\(.*\)</title>@\1@p' |
 			zztool texto_em_utf8 |
 			$limite
 	fi
-	
+
 	# Br Linux
 	if zztool grep_var b "$sites"
 	then
@@ -69,7 +69,7 @@ zznoticiaslinux ()
 			zztool texto_em_utf8 |
 			$limite
 	fi
-	
+
 	# UnderLinux
 	if zztool grep_var u "$sites"
 	then
@@ -81,7 +81,7 @@ zznoticiaslinux ()
 			zztool texto_em_utf8 |
 			$limite
 	fi
-	
+
 	# Notícias Linux
 	if zztool grep_var n "$sites"
 	then

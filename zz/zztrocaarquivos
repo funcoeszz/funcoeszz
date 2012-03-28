@@ -10,7 +10,7 @@
 zztrocaarquivos ()
 {
 	zzzz -h trocaarquivos $1 && return
-	
+
 	# Um terceiro arquivo é usado para fazer a troca
 	local tmp="$ZZTMP.trocaarquivos.$$"
 
@@ -23,12 +23,12 @@ zztrocaarquivos ()
 
 	# Tiro no pé? Não, obrigado
 	[ "$1" = "$2" ] && return
-	
+
 	# A dança das cadeiras
 	cat "$2"   > "$tmp"
 	cat "$1"   > "$2"
 	cat "$tmp" > "$1"
-	
+
 	# E foi
 	rm -f "$tmp"
 	echo "Feito: $1 <-> $2"

@@ -42,7 +42,7 @@ zzromanos ()
 	# e seus correspondentes indo-arábicos
 	if [ $# -eq 0 ]
 	then
-		echo "$arabicos_romanos" | 
+		echo "$arabicos_romanos" |
 		sed -r '
 			s/\t([0-9]+):([IVXLCDM]+)/\2\t\1/;
 			/[IVXLCDM]{2}/d' |

@@ -20,22 +20,22 @@ zzunix2dos ()
 	if test $# -eq 0
 	then
 		sed "s/$control_m*$/$control_m/"
-		
+
 		# Facinho, terminou já
 		return
 	fi
-	
+
 	# Usuário passou uma lista de arquivos
 	# Os arquivos serão sobrescritos, todo cuidado é pouco
 	for arquivo
 	do
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue
-		
+
 		# Adiciona um único CR no final de cada linha
 		cp "$arquivo" "$tmp" &&
 		sed "s/$control_m*$/$control_m/" "$tmp" > "$arquivo"
-		
+
 		# Segurança
 		if [ $? -ne 0 ]
 		then
@@ -43,10 +43,10 @@ zzunix2dos ()
 			echo "Seu arquivo original está guardado em $tmp"
 			return 1
 		fi
-				
+
 		echo "Convertido $arquivo"
 	done
-	
+
 	# Remove o arquivo temporário
 	rm -f "$tmp"
 }

@@ -29,6 +29,6 @@ zzora ()
 		/^o /d
 		/\[1.gif\]/,$d
 		s/^$*//'
-	
+
 	return 0
 }

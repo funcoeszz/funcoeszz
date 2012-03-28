@@ -11,7 +11,7 @@
 zztrocaextensao ()
 {
 	zzzz -h trocaextensao $1 && return
-	
+
 	local ext1 ext2 arquivo base novo nao
 
 	# Opções de linha de comando
@@ -23,21 +23,21 @@ zztrocaextensao ()
 
 	# Verificação dos parâmetros
 	[ "$3" ] || { zztool uso trocaextensao; return 1; }
-	
+
 	# Guarda as extensões informadas
 	ext1="$1"
 	ext2="$2"
 	shift; shift
-	
+
 	# Tiro no pé? Não, obrigado
 	[ "$ext1" = "$ext2" ] && return
-	
+
 	# Para cada arquivo que o usuário informou...
 	for arquivo
 	do
 		# O arquivo existe?
 		zztool arquivo_legivel "$arquivo" || continue
-	
+
 		base="${arquivo%$ext1}"
 		novo="$base$ext2"
 

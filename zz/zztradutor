@@ -19,7 +19,7 @@
 #      zztradutor de-es Buch              # Libro
 #      zztradutor --lista                 # Lista todos os idiomas
 #      zztradutor --lista eslo            # Procura por "eslo" nos idiomas
-#      zztradutor --audio		  # Gera um arquivo OUT.WAV 
+#      zztradutor --audio                 # Gera um arquivo OUT.WAV
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
@@ -64,8 +64,8 @@ zztradutor ()
 		-a | --audio)
 			# Narrativa
 				shift
-			        padrao=$(echo "$*" | sed "$ZZSEDURL")
-			        local audio="translate_tts?ie=$charset_para&q=$padrao&tl=pt&prev=input"
+				padrao=$(echo "$*" | sed "$ZZSEDURL")
+				local audio="translate_tts?ie=$charset_para&q=$padrao&tl=pt&prev=input"
 				$ZZWWWHTML "$url/$audio" > $audio_file && $play_cmd $audio_file && rm -rf $audio_file
 				return
 		;;
@@ -75,7 +75,7 @@ zztradutor ()
 
 	# Exceção para o chinês, que usa um código diferente
 	test $lang_para = 'cn' && lang_para='zh-CN'
-	
+
 	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
 	# e limpa essa linha para estar somente o texto desejado.
 	$ZZWWWHTML "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |

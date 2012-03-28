@@ -16,7 +16,7 @@ zzvira ()
 	zzzz -h vira $1 && return
 
 	local rasteira
-	
+
 	if test "$1" = '-X'
 	then
 		rasteira=1
@@ -28,7 +28,7 @@ zzvira ()
 
 	# Vira o texto de trás pra frente (rev)
 	sed '/\n/!G;s/\(.\)\(.*\n\)/&\2\1/;//D;s/.//' |
-	
+
 	if [ "$rasteira" ]
 	then
 		zzsemacento |

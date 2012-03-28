@@ -28,7 +28,7 @@ zzwikipedia ()
 		idioma="${1#-}"
 		shift
 	fi
-	
+
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso wikipedia; return 1; }
 
@@ -51,7 +51,7 @@ zzwikipedia ()
 			/^   Wikipedia does not have an article with this exact name./q
 			s/^\[edit\] //
 			s/^\[editar\] //
-			
+
 			# Guarda URL da página e mostra no final, após Categorias
 			# Também adiciona linha em branco antes de Categorias
 			/^   Obtid[ao] de "/ { H; d; }

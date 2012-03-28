@@ -70,14 +70,14 @@ zztempo ()
 
 	# Pesquisa nas localidades
 	localidades=$(grep -i "$localidade" "$cache_localidades")
-	
+
 	# A localidade existe?
 	if ! [ "$localidades" ]
 	then
 		echo "Localidade \"$localidade\" não encontrada"
 		return 1
 	fi
-	
+
 	# Se mais de uma localidade for encontrada, mostre-as
 	if test $(echo "$localidades" | sed -n '$=') != 1
 	then

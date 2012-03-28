@@ -35,7 +35,7 @@ zzss ()
 		peixe	>-)))-D
 		siri	(_).-=''=-.(_)
 	'
-	
+
 	# Tenta obter as dimensões atuais da tela/janela
 	dimensoes=$(stty size 2>/dev/null)
 	if [ "$dimensoes" ]
@@ -43,7 +43,7 @@ zzss ()
 		linhas=${dimensoes% *}
 		colunas=${dimensoes#* }
 	fi
-	
+
 	# Opções de linha de comando
 	while [ $# -ge 1 ]
 	do
@@ -67,7 +67,7 @@ zzss ()
 		esac
 		shift
 	done
-	
+
 	# Extrai a mensagem (desenho) do tema escolhido
 	if [ "$tema" ]
 	then
@@ -77,14 +77,14 @@ zzss ()
 				zztool trim |
 				cut -f2
 		)
-	
+
 		if ! [ "$mensagem" ]
 		then
 			echo "Tema desconhecido '$tema'"
 			return 1
 		fi
 	fi
-	
+
 	# O 'mosaico' é um tema especial que precisa de ajustes
 	if [ "$tema" = 'mosaico' ]
 	then
@@ -104,12 +104,12 @@ zzss ()
 
 	# Então vamos começar, primeiro limpando a tela
 	clear
-	
+
 	# O 'trap' mapeia o Ctrl-C para sair do Screen Saver
 	( trap "clear;return" 2
-	
+
 	tamanho_mensagem=${#mensagem}
-	
+
 	while :
 	do
 		# Posiciona o cursor em um ponto qualquer (aleatório) da tela (X,Y)
@@ -117,13 +117,13 @@ zzss ()
 		linha=$((RANDOM % linhas + 1))
 		coluna=$((RANDOM % (colunas - tamanho_mensagem + 1) + 1))
 		printf "\033[$linha;${coluna}H"
-		
+
 		# Escolhe uma cor aleatória para a mensagem (ou o fundo): 1 - 7
 		cor_muda=$((RANDOM % 7 + 1))
 
 		# Usar negrito ou não também é escolhido ao acaso: 0 - 1
 		negrito=$((RANDOM % 2))
-		
+
 		# Podemos usar cores ou não?
 		if [ "$ZZCOR" = 1 ]
 		then

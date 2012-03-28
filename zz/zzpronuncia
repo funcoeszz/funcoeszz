@@ -42,19 +42,19 @@ zzpronuncia ()
 			echo "$palavra: palavra não encontrada"
 			return 1
 		fi
-		
+
 		# O nome da pasta é a primeira letra do arquivo (/a/apple001.wav)
 		# Ou "number" se iniciar com um número (/number/9while01.wav)
 		wav_dir=$(echo $wav_file | cut -c1)
 		echo $wav_dir | grep '[0-9]' >/dev/null && wav_dir='number'
-		
+
 		# Compõe a URL do arquivo e salva-o localmente (cache)
 		wav_url="$url2/$wav_dir/$wav_file"
 		echo "URL: $wav_url"
 		$ZZWWWHTML "$wav_url" > $cache
 		echo "Gravado o arquivo '$cache'"
 	fi
-	
+
 	# Fala que eu te escuto
 	play $cache
 }

@@ -1,14 +1,15 @@
 # ----------------------------------------------------------------------------
 # Mostra a programação corrente ou de uma emissora no dia ou semana.
-# Tv aberta: 
+#
+# TV aberta:
 # bandeirantes ou band, cultura, gazeta, globo, mtv, sbt, cnt,
 # record, record_news ou recordnews ou rnews, tv_brasil ou tvbrasil,
 # rede_21 ou rede21 ou r21, redetv ou rede_tv ou rtv.
 #
 # Outras canais:
-# megapix, cinemax, cinemax_e, max_prime, max_prime_e, tcm,  
+# megapix, cinemax, cinemax_e, max_prime, max_prime_e, tcm,
 # hbo, hbo2, hbo_plus, hbo_plus, hbo_family, hbo_family_e, hbo_hd, tnt, mgm,
-# telecine_premium, telecine_action, telecine, telecine_pipoca, telecine_cult, 
+# telecine_premium, telecine_action, telecine, telecine_pipoca, telecine_cult,
 # telecine_hd, space, space_hd, canal_brasil, trutv, trutv_hd.
 #
 # Programação corrente:
@@ -32,13 +33,13 @@
 zztv ()
 {
 	zzzz -h tv $1 && return
-	
+
 	local DATA=$(date +%d\\/%m)
 	local URL="http://meuguia.tv/programacao"
-	
+
 	# 0 = lista canal especifico
 	# 1 = lista programas de vários canais no horário
-	local flag=0 
+	local flag=0
 
 	case "$1" in
 	bandeirantes|band)            URL="${URL}/canal/BAN";;
@@ -71,10 +72,10 @@ zztv ()
 	telecine_pipoca)              URL="${URL}/canal/TC4";;
 	telecine_cult)                URL="${URL}/canal/TC5";;
 	telecine_hd)                  URL="${URL}/canal/TCH";;
-	space)	                      URL="${URL}/canal/SPA";;
+	space)                        URL="${URL}/canal/SPA";;
 	space_hd)                     URL="${URL}/canal/SPH";;
 	tnt)                          URL="${URL}/canal/TNT";;
-	mgm)	                      URL="${URL}/canal/MGM";;
+	mgm)                          URL="${URL}/canal/MGM";;
 	canal_brasil)                 URL="${URL}/canal/CBR";;
 	cinemax_e)                    URL="${URL}/canal/MXE";;
 	trutv)                        URL="${URL}/canal/TRU";;
@@ -88,16 +89,16 @@ zztv ()
 	cod)                          URL="${URL}/programa/$2";flag=2;;
 	todos|agora|*)                URL="${URL}/categoria/Todos";flag=1;;
 	esac
-	
+
 	case "$2" in
 	semana|s)
 		$ZZWWWHTML "$URL" | sed -n '/<li class/,+1p'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
 		sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g'|
-		sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'| 
+		sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'|
 		sed "s/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/\n\1/g"|
 		sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod:\1/g'
 	;;
-	*)		
+	*)
 		if [ $flag -eq 0 ]
 		then
 			$ZZWWWHTML "$URL" | sed -n '/<li class/,+1p'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
@@ -106,7 +107,7 @@ zztv ()
 			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p"|sed '$d'|
 			sed '1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod:\1/g'
 		elif [ $flag -eq 1 ]
-		then		
+		then
 			$ZZWWWHTML "$URL" | sed -n '/<li style/,+1p'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
 			sed 's/^.*programa\///g;s/".*title="/_/g;s/">.*<br \/>//g;s/<[^>]*>/ /g;s/amp;//g'|
 			sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'|

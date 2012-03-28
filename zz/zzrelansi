@@ -11,11 +11,11 @@
 zzrelansi ()
 {
 	zzzz -h relansi $1 && return
-	
+
 	local lock="$ZZTMP.relansi-$$"
-	
+
 	trap "rm -f $lock" 0 1 2 3 15
-	
+
 	case $1 in
 	-s|--stop)
 		shopt -q

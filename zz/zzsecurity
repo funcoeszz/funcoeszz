@@ -20,11 +20,11 @@ zzsecurity ()
 	local n=5
 	local ano=$(date '+%Y')
 	local distros='debian fedora freebsd gentoo mandriva slackware suse ubuntu'
-	
+
 	limite="sed ${n}q"
 
 	[ "$1" ] && distros="$(echo $* | zzminusculas)"
-	
+
 	# Debian
 	if zztool grep_var debian "$distros"
 	then
@@ -140,7 +140,7 @@ zzsecurity ()
 				}' |
 			$limite
 	fi
-	
+
 	# Ubuntu
 	if zztool grep_var ubuntu "$distros"
 	then

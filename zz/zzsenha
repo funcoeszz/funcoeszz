@@ -36,10 +36,10 @@ zzsenha ()
 			*) break ;;
 		esac
 	done
-	
+
 	# Guarda o número informado pelo usuário (se existente)
 	[ "$1" ] && n=$1
-	
+
 	# Foi passado um número mesmo?
 	zztool -e testa_numero "$n" || return 1
 
@@ -50,7 +50,7 @@ zzsenha ()
 		echo "O tamanho máximo desse tipo de senha é $maximo"
 		return 1
 	fi
-	
+
 	# Esquema de geração da senha:
 	# A cada volta é escolhido um número aleatório que indica uma
 	# posição dentro do $lista. A letra dessa posição é mostrada na

@@ -39,7 +39,7 @@ zzporcento ()
 	zztool testa_dinheiro $valor2 && valor2=$(echo $valor2 | sed 's/\.//g')
 
 	### Vamos analisar o primeiro valor
-	
+
 	# Número fracionário (1.2345 ou 1,2345)
 	if zztool testa_numero_fracionario $valor1
 	then

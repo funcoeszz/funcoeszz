@@ -71,7 +71,7 @@ zzrandbackground ()
 			return 1
 		fi
 	fi
-	
+
 	# Ok parametros tratados, vamos pegar
 	# as imagens dentro do "$caminho"
 	papeisdeparede=$(

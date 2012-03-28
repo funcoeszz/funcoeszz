@@ -18,10 +18,10 @@ zzrpmfind ()
 	local pacote=$1
 	local distro=$2
 	local arquitetura=${3:-i386}
-	
+
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso rpmfind; return 1; }
-	
+
 	# Faz a consulta e filtra o resultado
 	zztool eco 'ftp://rpmfind.net/linux/'
 	$ZZWWWLIST "$url?query=$pacote&submit=Search+...&system=$distro&arch=$arquitetura" |
