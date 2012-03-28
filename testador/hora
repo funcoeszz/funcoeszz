@@ -4,6 +4,21 @@ now_r=$(date +'%H:%M (hoje)')
 debug=0
 values=4
 tests=(
+
+# Faltando argumentos
+''	''	''	''	r	^Uso:.*
+-r	''	''	''	r	^Uso:.*
+# Hora inválida
+''	foo	''	''	t	"Horário inválido 'foo', deve ser HH:MM"
+''	foo:12	''	''	t	"Horário inválido 'foo:12', deve ser HH:MM"
+''	12:foo	''	''	t	"Horário inválido '12:foo', deve ser HH:MM"
+''	agora	+	foo	t	"Horário inválido 'foo', deve ser HH:MM"
+''	agora	+	foo:12	t	"Horário inválido 'foo:12', deve ser HH:MM"
+''	agora	+	12:foo	t	"Horário inválido '12:foo', deve ser HH:MM"
+# Operação inválida
+''	agora	/	'8:00'	t	"Operação inválida '/'. Deve ser + ou -."
+
+
 -r	01:00	-	00:59	t	"00:01 (hoje)"
 -r	01:00	-	01:00	t	"00:00 (hoje)"
 -r	01:00	-	01:01	t	"23:59 (ontem)"
