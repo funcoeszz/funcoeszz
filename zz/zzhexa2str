@@ -1,22 +1,23 @@
 # ----------------------------------------------------------------------------
 # Converte os bytes em hexadecimal para a string equivalente.
-# Uso: zzhexa2str bytes
-# Ex.: zzhexa2str "40 4d 65 6e 74 65 42 69 6e 61 72 69 61"
+# Uso: zzhexa2str [bytes]
+# Ex.: zzhexa2str 40 4d 65 6e 74 65 42 69 6e 61 72 69 61   # sem prefixo
+#      zzhexa2str 0x42 0x69 0x6E                           # com prefixo 0x
+#      echo 0x42 0x69 0x6E | zzhexa2str
 #
 # Autor: Fernando Mercês <fernando (a) mentebinaria.com.br>
 # Desde: 2012-02-24
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzhexa2str ()
 {
 	zzzz -h hexa2str $1 && return
 
-	[ "$1" ] || { zztool uso hexa2str; return 1; }
-
 	local hexa
 
-	hexa=$(echo $1 | sed 's/0x//g')
+	# Dados via STDIN ou argumentos
+	hexa=$(zztool multi_stdin "$@" | sed 's/0x//g')
 
 	for i in $hexa; do
 		echo -ne "\\x$i"
