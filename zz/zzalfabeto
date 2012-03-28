@@ -84,7 +84,7 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 	then
 		# Texto informado, vamos fazer a conversão
 		# Deixa uma letra por linha e procura seu código equivalente
-		echo $* |
+		echo "$*" |
 			zzmaiusculas |
 			sed 's/./&\
 				/g' |

@@ -24,7 +24,7 @@
 #      zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11
 #      zzdatafmt -f D/M/A 01/02/2003        # 1/2/3
 #      zzdatafmt -f "D de MES" 01/05/95     # 1 de maio
-#      echo 31/12/2011 | zzdatafmt -f MM    # 12
+#      echo 31/12/2011 | zzdatafmt -f MM    # 12 (via STDIN)
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
@@ -49,9 +49,9 @@ zzdatafmt ()
 	fi
 
 	# Data via STDIN ou argumentos
-	data=$(zztool multi_stdin $*)
+	data=$(zztool multi_stdin "$@")
 	data_orig="$data"
-	
+
 	# Converte datas estranhas para o formato brasileiro ../../..
 	case "$data" in
 		# apelidos
@@ -89,7 +89,7 @@ zzdatafmt ()
 			data=$data/$ano_atual
 		;;
 	esac
-	
+
 	### Aqui só chegam datas completas, com os três elementos: n/n/n
 	### Devo acertar o padding delas pra nn/nn/nnnn
 
@@ -99,7 +99,7 @@ zzdatafmt ()
 		echo "Erro: Data em formato desconhecido '$data_orig'"
 		return 1
 	fi
-	
+
 	# Extrai os valores da data
 	dia=$(echo $data | cut -d / -f 1)
 	mes=$(echo $data | cut -d / -f 2)
@@ -121,10 +121,10 @@ zzdatafmt ()
 		?)  dd=0$dia;;
 		??) dd=$dia;;
 	esac
-	
+
 	# Ok, agora a data está no formato correto: dd/mm/aaaa
 	data=$dd/$mm/$aaaa
-	
+
 	# Valida a data
 	zztool -e testa_data "$data" || return 1
 

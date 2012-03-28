@@ -15,10 +15,8 @@ zzdefinr ()
 	zzzz -h definr $1 && return
 
 	[ "$1" ] || { zztool uso definr; return 1; }
-	
-	local word="$@"
 
-	word=$(echo $word | sed 's/ /%20/g')
+	local word=$(echo "$*" | sed 's/ /%20/g')
 
 	$ZZWWWHTML "http://definr.com/$word" |
 		sed '
