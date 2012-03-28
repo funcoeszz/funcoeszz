@@ -24,8 +24,8 @@ zzcnpj ()
 	# apenas com uma máscara numérica maior, devido à quantidade
 	# maior de dígitos do CNPJ em relação ao CPF.
 
-	cnpj="$(echo $* | tr -d -c 0123456789)"
-	
+	cnpj=$(echo "$*" | tr -d -c 0123456789)
+
 	if [ "$cnpj" ]
 	then
 		# CNPJ do usuário
@@ -67,7 +67,7 @@ zzcnpj ()
 	# Cálculo do dígito verificador 2
 
 	set - $(echo $base | sed 's/./& /g')
-	
+
 	somatoria=0
 	for i in 6 5 4 3 2 9 8 7 6 5 4 3 2
 	do

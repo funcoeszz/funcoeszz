@@ -17,8 +17,8 @@ zzcpf ()
 	local i n somatoria digito1 digito2 cpf base
 
 	# Remove pontuação do CPF informado, deixando apenas números
-	cpf="$(echo $* | tr -d -c 0123456789)"
-	
+	cpf=$(echo "$*" | tr -d -c 0123456789)
+
 	# Extrai os números da base do CPF:
 	# Os 9 primeiros, sem os dois dígitos verificadores.
 	# Esses dois dígitos serão calculados adiante.
@@ -30,7 +30,7 @@ zzcpf ()
 			echo 'CPF inválido (deve ter 11 dígitos)'
 			return 1
 		fi
-		
+
 		# Apaga os dois últimos dígitos
 		base=${cpf%??}
 	else
@@ -42,7 +42,7 @@ zzcpf ()
 		done
 		base=$cpf
 	fi
-	
+
 	# Truque para cada dígito da base ser guardado em $1, $2, $3, ...
 	set - $(echo $base | sed 's/./& /g')
 
@@ -67,7 +67,7 @@ zzcpf ()
 	#
 	# Para o segundo é praticamente igual, porém muda a máscara (11 - 3)
 	# e ao somatório é adicionado o dígito 1 multiplicado por 2.
-	
+
 	### Cálculo do dígito verificador 1
 	# Passo 1
 	somatoria=0
@@ -84,7 +84,7 @@ zzcpf ()
 	digito1=$((11 - (somatoria % 11)))
 	# Passo 3
 	[ $digito1 -ge 10 ] && digito1=0
-	
+
 	### Cálculo do dígito verificador 2
 	# Tudo igual ao anterior, primeiro setando $1, $2, $3, etc e
 	# depois fazendo os cálculos já explicados.
@@ -104,7 +104,7 @@ zzcpf ()
 	digito2=$((11 - (somatoria % 11)))
 	# Passo 3
 	[ $digito2 -ge 10 ] && digito2=0
-	
+
 	# Mostra ou valida
 	if [ ${#cpf} -eq 9 ]
 	then
