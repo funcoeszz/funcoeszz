@@ -13,7 +13,7 @@ zzsemacento ()
 {
 	zzzz -h semacento $1 && return
 
-	# Lê texto do usuário
+	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |
 
 	# Remove acentos

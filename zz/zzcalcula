@@ -28,7 +28,7 @@ zzcalcula ()
 		shift
 	fi
 
-	# Dados da STDIN ou via argumentos
+	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |
 
 	# Limpeza nos dados para chegarem bem no bc

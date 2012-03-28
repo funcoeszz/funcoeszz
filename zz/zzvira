@@ -23,7 +23,7 @@ zzvira ()
 		shift
 	fi
 
-	# Lê texto do usuário
+	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |
 
 	# Vira o texto de trás pra frente (rev)
