@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-zz=../funcoeszz
+zz=./funcoeszz
 
 # Go to tests folder
 cd $(dirname "$0")

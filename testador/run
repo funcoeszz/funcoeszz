@@ -49,7 +49,7 @@
 
 ignore="LEIAME ansi2html.out arrumanome.out cores.out internet run stats unicode2ascii.txt xml.out"
 onetest=$1
-zz="../funcoeszz"
+# zz="../funcoeszz"
 
 # Go to tests folder
 cd $(dirname "$0")
@@ -58,7 +58,7 @@ cd $(dirname "$0")
 rm -f ${ZZTMP:-emptyempty}.*
 
 # Generate all-in-one script (way faster)
-zz="../funcoeszz-testador"
+zz="./funcoeszz"
 ZZDIR=../zz ZZOFF='' ../funcoeszz --tudo-em-um > "$zz"
 unset ZZDIR
 chmod +x "$zz" || {
@@ -74,11 +74,11 @@ for f in [a-z]*; do
 
 	# Maybe we got the test name on the command line?
 	[ "$onetest" ] && {
-	 	echo "$f" | grep -qs ^$onetest$ || continue
+		echo "$f" | grep -qs ^$onetest$ || continue
 	}
 
 	i=$((i+1))
-	
+
 	# Run the test for this file
  	ZZCOR=1 "$zz" tool eco $i. $f
 	bash $f

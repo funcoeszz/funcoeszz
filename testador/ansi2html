@@ -3,7 +3,7 @@ debug=0
 values=1
 
 printf '\033[32m verde \033[m\n' > _tmp1
-funcoeszz cores > _tmp2
+./funcoeszz cores  > _tmp2
 
 saida1='<pre style="background:#000;color:#FFF"><div style="display:inline">
 <span style="color:#0F0;font-weight:normal;text-decoration:none"> verde </div><div style="display:inline">

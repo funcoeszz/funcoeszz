@@ -10,7 +10,7 @@ values=${values:-1}
 
 # now the fun begins
 # zz=../funcoeszz
-zz=../funcoeszz-testador  # all-in-one is *way* faster
+zz=./funcoeszz  # all-in-one is *way* faster
 
 [ "$color" != 1 ] && export ZZCOR=0 || export ZZCOR=1
 num_tests=${#tests[*]}
