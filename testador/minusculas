@@ -2,11 +2,10 @@
 debug=0
 values=1
 
-echo ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ > _tmp1
-echo abcdefghijklmnopqrstuvwxyzàáâãäåèéêëìíîïòóôõöùúûüçñ > _tmp2
+lower='abcdefghijklmnopqrstuvwxyzàáâãäåèéêëìíîïòóôõöùúûüçñ'
+upper='ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ'
 
 tests=(
-_tmp2	a	_tmp2	# nada a mudar
-_tmp1	a	_tmp2	# set completo
+$upper	t	$lower
 )
 . _lib
