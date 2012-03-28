@@ -7,7 +7,7 @@
 #
 # Autor: Fernando Mercês <fernando (a) mentebinaria.com.br>
 # Desde: 2012-02-24
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzhexa2str ()
@@ -17,11 +17,20 @@ zzhexa2str ()
 	local hexa
 
 	# Dados via STDIN ou argumentos
-	hexa=$(zztool multi_stdin "$@" | sed 's/0x//g')
+	zztool multi_stdin "$@" |
 
-	for i in $hexa; do
-		echo -ne "\\x$i"
-	done
+		# Um hexa por linha
+		tr -s '\t ' '\n' |
 
+		# Remove o prefixo opcional
+		sed 's/^0x//' |
+
+		# hexa -> str
+		while read hexa
+		do
+			printf "\\x$hexa"
+		done
+
+	# Quebra de linha final
 	echo
 }
