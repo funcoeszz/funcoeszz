@@ -74,8 +74,6 @@ zzconverte ()
 			;;
 			dc)
 				echo -e $(printf "\\\x%x" $1)
-
-				# XXX " TextMate syntax gotcha (não remover)
 			;;
 			ch)
 				printf "%x\n" "'$1"
