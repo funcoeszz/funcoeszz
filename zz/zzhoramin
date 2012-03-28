@@ -8,7 +8,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-12-05
-# Versão: 2
+# Versão: 3
 # Licença: GPLv2
 # Requisitos: zzhora
 # ----------------------------------------------------------------------------
@@ -23,7 +23,7 @@ zzhoramin ()
 
 	# Testa se o parâmetro passado é uma hora valida
 	if ! zztool testa_hora ${1#-}; then
-		hora=$(zzhora agora | cut -d' ' -f1)
+		hora=$(zzhora agora | cut -d ' ' -f 1)
 	else
 		hora=$1
 	fi
@@ -38,9 +38,8 @@ zzhoramin ()
 	mm=${hora##*:}
 
 	# faz o cálculo
-	mintotal=$(expr $hh \* 60 $operacao $mm)
+	mintotal=$(($hh * 60 $operacao $mm))
 
 	# Tcharã!!!!
 	echo $mintotal
-
 }
