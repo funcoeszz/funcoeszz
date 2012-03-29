@@ -23,13 +23,14 @@ zzlinha ()
 	if [ "$1" = '-t' ]
 	then
 		padrao="$2"
-		shift; shift
+		shift
+		shift
 	fi
 
 	# Talvez o $1 é o número da linha desejada?
 	if zztool testa_numero_sinal "$1"
 	then
-		n=$1
+		n="$1"
 		shift
 	fi
 
@@ -49,9 +50,9 @@ zzlinha ()
 			cat "$arquivo" |
 				if [ "$n" -lt 0 ]
 				then
-					tail -n ${n#-} | sed 1q
+					tail -n "${n#-}" | sed 1q
 				else
-					sed -n ${n}p
+					sed -n "${n}p"
 				fi
 		done
 	else
@@ -63,6 +64,6 @@ zzlinha ()
 		num_linhas=$(echo "$resultado" | sed -n '$=')
 		n=$(( (RANDOM % num_linhas) + 1))
 		[ $n -eq 0 ] && n=1
-		echo "$resultado" | sed -n ${n}p
+		echo "$resultado" | sed -n "${n}p"
 	fi
 }
