@@ -121,7 +121,7 @@ zztool ()
 	case "$ferramenta" in
 		uso)
 			# Extrai a mensagem de uso da função $1, usando seu --help
-			zzzz -h $1 -h | grep Uso
+			zzzz -h "$1" -h | grep Uso
 		;;
 		eco)
 			# Mostra mensagem colorida caso $ZZCOR esteja ligada
@@ -371,7 +371,7 @@ zztool ()
 # ----------------------------------------------------------------------------
 zzajuda ()
 {
-	zzzz -h ajuda $1 && return
+	zzzz -h ajuda "$1" && return
 
 	local zzcor_pager
 
@@ -516,7 +516,7 @@ zzzz ()
 		# Garantia de compatibilidade do -h com o formato antigo (-z):
 		# zzzz -z -h zzbeep
 		-z)
-			zzzz -h $3 $2
+			zzzz -h "$3" "$2"
 		;;
 
 		# Testes de ambiente para garantir o funcionamento das funções
