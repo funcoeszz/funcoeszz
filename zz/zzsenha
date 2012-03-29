@@ -38,14 +38,14 @@ zzsenha ()
 	done
 
 	# Guarda o número informado pelo usuário (se existente)
-	[ "$1" ] && n=$1
+	[ "$1" ] && n="$1"
 
 	# Foi passado um número mesmo?
 	zztool -e testa_numero "$n" || return 1
 
 	# Já que não repete as letras, temos uma limitação de tamanho
-	maximo=${#lista}
-	if [ $n -gt $maximo ]
+	maximo="${#lista}"
+	if [ "$n" -gt "$maximo" ]
 	then
 		echo "O tamanho máximo desse tipo de senha é $maximo"
 		return 1
@@ -55,11 +55,11 @@ zzsenha ()
 	# A cada volta é escolhido um número aleatório que indica uma
 	# posição dentro do $lista. A letra dessa posição é mostrada na
 	# tela e removida do $lista para não ser reutilizada.
-	while [ $n -ne 0 ]
+	while [ "$n" -ne 0 ]
 	do
 		n=$((n-1))
 		posicao=$((RANDOM % ${#lista} + 1))
-		letra=$(echo -n "$lista" | cut -c$posicao)
+		letra=$(echo -n "$lista" | cut -c "$posicao")
 		lista=$(echo "$lista" | tr -d "$letra")
 		senha="$senha$letra"
 	done
