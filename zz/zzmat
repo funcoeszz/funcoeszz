@@ -35,13 +35,13 @@ zzmat ()
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso mat; return 1; }
 
-	#Definindo a precisão dos resultados qdo é pertinente. Padrão é 6.
+	# Definindo a precisão dos resultados qdo é pertinente. Padrão é 6.
 	echo "$1" | grep '^-p' >/dev/null
 	if [ "$?" = "0" ]
 	then
 		precisao="${1#-p}"
 		zztool testa_numero $precisao || precisao="6"
-		shift 1
+		shift
 	else
 		precisao="6"
 	fi
@@ -75,7 +75,7 @@ zzmat ()
 	sem_zeros)
 		# Elimina o zeros nao significativos
 		local num1
-		shift 1
+		shift
 		num1=$(zztool multi_stdin $* | tr ',' '.')
 		num1=$(echo "$num1" | sed 's/^[[:blank:]0]*$/zero/;s/^[[:blank:]0]*//;s/zero/0/')
 		if [ $precisao -gt 0 ]
@@ -517,7 +517,8 @@ zzmat ()
 		then
 			local num_maior num_menor resto mdc mmc num2
 			local num1=$2
-			shift 2
+			shift
+			shift
 			for num2 in $*
 			do
 				if (zztool testa_numero $num1 && zztool testa_numero $num2)
@@ -1114,7 +1115,8 @@ zzmat ()
 		then
 			equacao=$(echo "$2"|sed 's/\[/(/g;s/\]/)/g')
 			local x y z eq
-			shift 2
+			shift
+			shift
 			while ([ $# -ge "1" ])
 			do
 				x=$(echo "$1"|cut -f1 -d,)
