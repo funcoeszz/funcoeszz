@@ -25,8 +25,8 @@ zzporcento ()
 
 	local i porcentagem
 
-	local valor1=$1
-	local valor2=$2
+	local valor1="$1"
+	local valor2="$2"
 	local escala=0
 	local separador=','
 	local tabela='200 150 125 100 90 80 75 70 60 50 40 30 25 20 15 10 9 8 7 6 5 4 3 2 1'
@@ -35,45 +35,45 @@ zzporcento ()
 	[ "$1" ] || { zztool uso porcento; return 1; }
 
 	# Remove os pontos dos dinheiros para virarem fracionários (1.234,00 > 1234,00)
-	zztool testa_dinheiro $valor1 && valor1=$(echo $valor1 | sed 's/\.//g')
-	zztool testa_dinheiro $valor2 && valor2=$(echo $valor2 | sed 's/\.//g')
+	zztool testa_dinheiro "$valor1" && valor1=$(echo "$valor1" | sed 's/\.//g')
+	zztool testa_dinheiro "$valor2" && valor2=$(echo "$valor2" | sed 's/\.//g')
 
 	### Vamos analisar o primeiro valor
 
 	# Número fracionário (1.2345 ou 1,2345)
-	if zztool testa_numero_fracionario $valor1
+	if zztool testa_numero_fracionario "$valor1"
 	then
-		separador=$(echo $valor1 | tr -d 0-9)
-		escala=$(echo $valor1 | sed 's/.*[.,]//')
-		escala=${#escala}
+		separador=$(echo "$valor1" | tr -d 0-9)
+		escala=$(echo "$valor1" | sed 's/.*[.,]//')
+		escala="${#escala}"
 
 		# Sempre usar o ponto como separador interno (para os cálculos)
-		valor1=$(echo $valor1 | sed 'y/,/./')
+		valor1=$(echo "$valor1" | sed 'y/,/./')
 
 	# Número inteiro ou erro
 	else
-		zztool -e testa_numero $valor1 || return 1
+		zztool -e testa_numero "$valor1" || return 1
 	fi
 
 	### Vamos analisar o segundo valor
 
 	# O segundo argumento é uma porcentagem
-	if test $# -eq 2 && zztool grep_var % $valor2
+	if test $# -eq 2 && zztool grep_var % "$valor2"
 	then
 		# O valor da porcentagem é guardado sem o caractere %
-		porcentagem=$(echo $valor2 | tr -d %)
+		porcentagem=$(echo "$valor2" | tr -d %)
 		# Sempre usar o ponto como separador interno (para os cálculos)
-		porcentagem=$(echo $porcentagem | sed 'y/,/./')
+		porcentagem=$(echo "$porcentagem" | sed 'y/,/./')
 
 		# Porcentagem fracionada
-		if zztool testa_numero_fracionario $porcentagem
+		if zztool testa_numero_fracionario "$porcentagem"
 		then
 			# Se o valor é inteiro (escala=0) e a porcentagem fracionária,
 			# é preciso forçar uma escala para que o resultado apareça correto.
-			test $escala -eq 0 && escala=2 valor1=$valor1.00
+			test $escala -eq 0 && escala=2 valor1="$valor1.00"
 
 		# Porcentagem inteira ou erro
-		elif ! zztool testa_numero $porcentagem
+		elif ! zztool testa_numero "$porcentagem"
 		then
 			echo "O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5."
 			return 1
@@ -89,14 +89,14 @@ zzporcento ()
 		# Sempre usar o ponto como separador interno (para os cálculos)
 
 		# Número fracionário
-		if zztool testa_numero_fracionario $valor2
+		if zztool testa_numero_fracionario "$valor2"
 		then
-			separador=$(echo $valor2 | tr -d 0-9)
-			valor2=$(echo $valor2 | sed 'y/,/./')
+			separador=$(echo "$valor2" | tr -d 0-9)
+			valor2=$(echo "$valor2" | sed 'y/,/./')
 
 		# Número normal ou erro
 		else
-			zztool -e testa_numero $valor2 || return 1
+			zztool -e testa_numero "$valor2" || return 1
 		fi
 	fi
 
@@ -114,17 +114,17 @@ zzporcento ()
 	elif test $# -eq 2
 	then
 		# Mostra a porcentagem relativa entre dois números
-		if ! zztool grep_var % $valor2
+		if ! zztool grep_var % "$valor2"
 		then
 			echo "scale=$escala; $valor2*100/$valor1" | bc | sed 's/$/%/'
 
 		# Mostra valores para a porcentagem informada
 		else
-			printf "%s%%\t%s\n" +$porcentagem $(echo "scale=$escala; $valor1+$valor1*$porcentagem/100" | bc)
-			printf "%s%%\t%s\n"  100          $valor1
-			printf "%s%%\t%s\n" -$porcentagem $(echo "scale=$escala; $valor1-$valor1*$porcentagem/100" | bc)
+			printf "%s%%\t%s\n" "+$porcentagem" $(echo "scale=$escala; $valor1+$valor1*$porcentagem/100" | bc)
+			printf "%s%%\t%s\n"  100          "$valor1"
+			printf "%s%%\t%s\n" "-$porcentagem" $(echo "scale=$escala; $valor1-$valor1*$porcentagem/100" | bc)
 			echo
-			printf "%s%%\t%s\n"  $porcentagem $(echo "scale=$escala; $valor1*$porcentagem/100" | bc)
+			printf "%s%%\t%s\n"  "$porcentagem" $(echo "scale=$escala; $valor1*$porcentagem/100" | bc)
 		fi
 	fi |
 
