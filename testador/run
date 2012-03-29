@@ -3,8 +3,8 @@
 # testador/run
 #
 # Uso:
-#   ./run            # fazer todos os testes
-#   ./run senha      # testar somente a zzsenha
+#   ./run               # fazer todos os testes
+#   ./run senha cores   # testar somente zzsenha e zzcores
 #
 # Se o teste foi OK, nada será mostrado na tela.
 # Se o teste falhou, o erro será mostrado.
@@ -48,7 +48,8 @@
 #
 
 ignore="LEIAME ansi2html.out arrumanome.out cores.out funcoeszz internet run stats tabuada.out tabuada3.out tabuada99.out unicode2ascii.txt xml.out"
-onetest=$1
+
+alltests=${*:-[a-z]*}  # Translating: $* or [a-z]*
 # zz="../funcoeszz"
 
 # Go to tests folder
@@ -67,15 +68,10 @@ chmod +x "$zz" || {
 }
 
 i=0
-for f in [a-z]*; do
+for f in $alltests; do
 
 	# Ignore this file?
 	echo $ignore | tr ' ' \\n | grep -q "^$f$" && continue
-
-	# Maybe we got the test name on the command line?
-	[ "$onetest" ] && {
-		echo "$f" | grep -qs ^$onetest$ || continue
-	}
 
 	i=$((i+1))
 
