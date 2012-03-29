@@ -23,7 +23,7 @@ zzsecurity ()
 
 	limite="sed ${n}q"
 
-	[ "$1" ] && distros="$(echo $* | zzminusculas)"
+	[ "$1" ] && distros=$(echo $* | zzminusculas)
 
 	# Debian
 	if zztool grep_var debian "$distros"

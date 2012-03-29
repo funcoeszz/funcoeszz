@@ -89,7 +89,7 @@ zzcalculaip ()
 
 	mascara_decimal=$(echo $mascara_binario | tr -d 0)
 	mascara_decimal=${#mascara_decimal}
-	mascara_ip="$((2#$nm1)).$((2#$nm2)).$((2#$nm3)).$((2#$nm4))"
+	mascara_ip=$((2#$nm1)).$((2#$nm2)).$((2#$nm3)).$((2#$nm4))
 
 	echo "End. IP  : $endereco"
 	echo "Mascara  : $mascara_ip = $mascara_decimal"

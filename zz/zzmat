@@ -236,8 +236,8 @@ zzmat ()
 			echo "$4"|grep 'r' >/dev/null && num2=$(echo "($num2)-2*($pi)"|bc -l)
 
 			case $3 in
-			g)      num="$(zzmat converte rg $num2)";;
-			gr)     num="$(zzmat converte rd $num2)";;
+			g)      num=$(zzmat converte rg $num2);;
+			gr)     num=$(zzmat converte rd $num2);;
 			rad|"") num="$num2";;
 			esac
 		else

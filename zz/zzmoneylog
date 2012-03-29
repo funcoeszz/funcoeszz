@@ -31,7 +31,7 @@ zzmoneylog ()
 	local arquivo=$ZZMONEYLOG
 
 	# Chamado sem argumentos, mostra o mês corrente
-	test $# -eq 0 && data="$(zzdatafmt -f AAAA-MM hoje)"
+	test $# -eq 0 && data=$(zzdatafmt -f AAAA-MM hoje)
 
 	# Opções de linha de comando
 	while [ "${1#-}" != "$1" ]
