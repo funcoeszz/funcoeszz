@@ -35,6 +35,8 @@ zzansi2html ()
 	# que ao serem fechados desligam todos os SPANs anteriores.
 	#    ^[0m  -->  </div><div style="display:inline">
 	#
+
+	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
 	sed "
 		# Engloba o código na tag PRE para preservar espaços

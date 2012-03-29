@@ -56,7 +56,7 @@ zzxml ()
 	# arquivos externos. Mas se esta função precisar crescer, todo este
 	# esquema precisará ser revisto.
 
-	# Arquivos do usuário como parâmetros ou STDIN
+	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
 
 		# --tidy

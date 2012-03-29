@@ -25,6 +25,7 @@ zzlimpalixo ()
 		;;
 	esac
 
+	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
 
 		# Remove comentários e linhas em branco

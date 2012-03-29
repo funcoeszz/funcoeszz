@@ -43,6 +43,7 @@ zzcontapalavras ()
 		esac
 	done
 
+	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
 
 		# Remove caracteres que não são parte de palavras

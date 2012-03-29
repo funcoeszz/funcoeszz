@@ -59,7 +59,7 @@ zzlinha ()
 		# Se foi informado um padrão (ou nenhum argumento),
 		# primeiro grepa as linhas, depois mostra uma linha
 		# aleatória deste resultado.
-		# Nota: Suporte a múltiplos arquivos e entrada padrão (STDIN)
+		# Nota: Arquivos via STDIN ou argumentos
 		resultado=$(zztool file_stdin "$@" | grep -h -i -- "${padrao:-.}")
 		num_linhas=$(echo "$resultado" | sed -n '$=')
 		n=$(( (RANDOM % num_linhas) + 1))

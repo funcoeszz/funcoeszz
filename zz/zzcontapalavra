@@ -39,6 +39,7 @@ zzcontapalavra ()
 	# Contorna a limitação do grep -c pesquisando pela palavra
 	# e quebrando o resultado em uma palavra por linha (tr).
 	# Então pode-se usar o grep -c para contar.
+	# Nota: Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
 		grep -h ${ignora:+-i} ${inteira:+-w} -- "$padrao" |
 		tr '\t./ -,:-@[-_{-~' '\n' |

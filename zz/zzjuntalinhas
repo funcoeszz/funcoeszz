@@ -48,6 +48,7 @@ zzjuntalinhas ()
 	fim=$(zztool endereco_sed "$fim")
 	separador=$(echo "$separador" | sed 's:/:\\\/:g')
 
+	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
 		zzdos2unix |
 		sed "

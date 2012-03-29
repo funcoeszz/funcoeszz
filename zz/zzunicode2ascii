@@ -18,6 +18,7 @@ zzunicode2ascii ()
 	# Outros preferi manter o original a fazer um tradução dúbia.
 	# Aceito sugestões de melhorias! @oreio
 
+	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" | sed "
 
 	# Nota: Mesma tabela de dados da zzunescape.
