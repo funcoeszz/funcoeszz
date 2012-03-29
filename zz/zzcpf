@@ -32,7 +32,7 @@ zzcpf ()
 		fi
 
 		# Apaga os dois últimos dígitos
-		base=${cpf%??}
+		base="${cpf%??}"
 	else
 		# Não foi informado nenhum CPF, vamos gerar um escolhendo
 		# nove dígitos aleatoriamente para formar a base
@@ -40,11 +40,11 @@ zzcpf ()
 		do
 			cpf="$cpf$((RANDOM % 9))"
 		done
-		base=$cpf
+		base="$cpf"
 	fi
 
 	# Truque para cada dígito da base ser guardado em $1, $2, $3, ...
-	set - $(echo $base | sed 's/./& /g')
+	set - $(echo "$base" | sed 's/./& /g')
 
 	# Explicação do algoritmo de geração/validação do CPF:
 	#
@@ -76,7 +76,7 @@ zzcpf ()
 		# Cada um dos dígitos da base ($n) é multiplicado pelo
 		# seu número correspondente da máscara ($i) e adicionado
 		# na somatória.
-		n=$1
+		n="$1"
 		somatoria=$((somatoria + (i * n)))
 		shift
 	done
@@ -89,12 +89,12 @@ zzcpf ()
 	# Tudo igual ao anterior, primeiro setando $1, $2, $3, etc e
 	# depois fazendo os cálculos já explicados.
 	#
-	set - $(echo $base | sed 's/./& /g')
+	set - $(echo "$base" | sed 's/./& /g')
 	# Passo 1
 	somatoria=0
 	for i in 11 10 9 8 7 6 5 4 3
 	do
-		n=$1
+		n="$1"
 		somatoria=$((somatoria + (i * n)))
 		shift
 	done
@@ -110,14 +110,14 @@ zzcpf ()
 	then
 		# Esse CPF foi gerado aleatoriamente pela função.
 		# Apenas adiciona os dígitos verificadores e mostra na tela.
-		echo $cpf$digito1$digito2 |
+		echo "$cpf$digito1$digito2" |
 			sed 's/\(...\)\(...\)\(...\)/\1.\2.\3-/' # nnn.nnn.nnn-nn
 	else
 		# Esse CPF foi informado pelo usuário.
 		# Compara os verificadores informados com os calculados.
 		if [ "${cpf#?????????}" = "$digito1$digito2" ]
 		then
-			echo CPF válido
+			echo 'CPF válido'
 		else
 			# Boa ação do dia: mostrar quais os verificadores corretos
 			echo "CPF inválido (deveria terminar em $digito1$digito2)"

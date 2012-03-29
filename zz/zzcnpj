@@ -36,7 +36,7 @@ zzcnpj ()
 			return 1
 		fi
 
-		base=${cnpj%??}
+		base="${cnpj%??}"
 	else
 		# CNPJ gerado aleatoriamente
 
@@ -46,17 +46,17 @@ zzcnpj ()
 		done
 
 		cnpj="${cnpj}0001"
-		base=$cnpj
+		base="$cnpj"
 	fi
 
 	# Cálculo do dígito verificador 1
 
-	set - $(echo $base | sed 's/./& /g')
+	set - $(echo "$base" | sed 's/./& /g')
 
 	somatoria=0
 	for i in 5 4 3 2 9 8 7 6 5 4 3 2
 	do
-		n=$1
+		n="$1"
 		somatoria=$((somatoria + (i * n)))
 		shift
 	done
@@ -66,12 +66,12 @@ zzcnpj ()
 
 	# Cálculo do dígito verificador 2
 
-	set - $(echo $base | sed 's/./& /g')
+	set - $(echo "$base" | sed 's/./& /g')
 
 	somatoria=0
 	for i in 6 5 4 3 2 9 8 7 6 5 4 3 2
 	do
-		n=$1
+		n="$1"
 		somatoria=$((somatoria + (i * n)))
 		shift
 	done
@@ -83,12 +83,12 @@ zzcnpj ()
 	# Mostra ou valida o CNPJ
 	if [ ${#cnpj} -eq 12 ]
 	then
-		echo $cnpj$digito1$digito2 |
+		echo "$cnpj$digito1$digito2" |
 			sed 's|\(..\)\(...\)\(...\)\(....\)|\1.\2.\3/\4-|'
 	else
 		if [ "${cnpj#????????????}" = "$digito1$digito2" ]
 		then
-			echo CNPJ válido
+			echo 'CNPJ válido'
 		else
 			# Boa ação do dia: mostrar quais os verificadores corretos
 			echo "CNPJ inválido (deveria terminar em $digito1$digito2)"
