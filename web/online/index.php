@@ -146,8 +146,10 @@ $available = json_decode(file_get_contents("list.json"));  // cached
 
 // Defaults
 if ($method == 'GET') {
-	$zzfunc = 'zzcalcula';
-	$arguments = '2+2';
+	// $zzfunc = 'zzcalcula';
+	// $arguments = '2+2';
+	$zzfunc = 'zzsenha';
+	$arguments = '25';
 }
 
 /////////////////////////////////////////////////////////////////////
