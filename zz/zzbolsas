@@ -31,7 +31,6 @@ zzbolsas ()
 	zzzz -h bolsas $1 && return
 
 	local url='http://br.finance.yahoo.com'
-	local africa='TA100.TA'
 	local dj='^DWC'
 	local new_york='^NYA ^NYI ^NYY ^NY ^NYL'
 	local nasdaq='^IXIC ^IXBK ^NBI ^IXK ^IXF ^IXID ^IXIS ^IXFN ^IXUT ^IXTR ^NDX'
@@ -43,15 +42,14 @@ zzbolsas ()
 	case $# in
 		0)
 			# Lista apenas os códigos das bolsas disponíveis
-			for bolsa in americas europe asia
+			for bolsa in americas europe asia africa
 			do
 				zztool eco "\n$bolsa :"
 				$ZZWWWDUMP "$url/intlindices?e=$bolsa"|
 					sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
 					awk '{ printf "%s ", $1}';echo
 			done
-			zztool eco "\nafrica :"
-			for bolsa in $africa; do printf "%s " "$bolsa"; done;echo
+
 			zztool eco "\nDow Jones :"
 			$ZZWWWDUMP "$url/usindices"|
 				sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
@@ -77,20 +75,13 @@ zzbolsas ()
 			# Lista os códigos da bolsas e seus nomes
 			case "$1" in
 			-l | --lista)
-				for bolsa in americas europe asia
+				for bolsa in americas europe asia africa
 				do
 					zztool eco "\n$bolsa :"
 					$ZZWWWDUMP "$url/intlindices?e=$bolsa"|
 						sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
 						sed 's/[0-9]*\.*[0-9]*,[0-9].*//g'|
 						awk '{ printf " %-10s ", $1; for(i=2; i<=NF-1; i++) printf "%s ",$i; print $NF}'
-				done
-
-				zztool eco "\nafrica :"
-				for bolsa in $africa;
-				do
-					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nDow Jones :"
@@ -138,32 +129,27 @@ zzbolsas ()
 			;;
 			*)
 				bolsa=$(echo "$1"|zzmaiusculas)
-				# Último índice da bolsa citada
-				if (zztool grep_var "$bolsa" "$africa $dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
-				then
-					vartemp=$($ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/p;/Valor do índice:/,/Em 52 semanas:/p"| #tr '.,' ',.' |
-					sed '/As pessoas que viram/d' |
-					sed '/Cotações atrasadas. salvo indicação/q'| zzsemacento)
-					paste -d"|" <(echo "$vartemp"|cut -f1 -d:|sed 's/^[[:space:]]\+//g;s/[[:space:]]\+$//g') <(echo "$vartemp"|cut -f2- -d:|sed 's/^[[:space:]]\+//g')|
-					awk -F"|" '{if ( $1 != $2 ) {printf " %-20s %s\n", $1 ":", $2} else { print $1 } }'
-				else
-				# Última cotação da ação
-					vartemp=$($ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/p;/:$bolsa/p;/^ *$/d;/Última transação:/,/\[Chart\]/p"|
-					sed "/\[Chart\]/d;s/.*(\(.*\):$bolsa.*$/\1/"| #sed 's/^ */   /g;s/\([0-9]\+\),\([0-9]\+\)/\1§\2/g;s/\([0-9]\+\)\.\([0-9]\+\)/\1,\2/g;s/\([0-9]\+\)§\([0-9]\+\)/\1\.\2/g'|
-					sed '/Variação do dia/,$s/: /:   /g' |
-					sed '/Cotações atrasadas, salvo indicação/q'| zzsemacento)
-					paste -d"|" <(echo "$vartemp"|cut -f1 -d:|sed 's/^[[:space:]]\+//g;s/[[:space:]]\+$//g') <(echo "$vartemp"|cut -f2- -d:|sed 's/^[[:space:]]\+//g')|
-					awk -F"|" '{if ( $1 != $2 ) {printf " %-20s %s\n", $1 ":", $2} else { print $1 } }'
-				fi
-				;;
+				# Último índice da bolsa citada ou cotação da ação
+				vartemp=$($ZZWWWDUMP "$url/q?s=$bolsa"|
+				sed -n "/($bolsa)/,/Cotações atrasadas, salvo indicação/p"|
+				sed '{
+						/^[[:space:]]*$/d
+						/IFRAME:/d;
+						/^[[:space:]]*-/d
+						/Adicionar ao portfólio/d
+						/As pessoas que viram/d
+						/Cotações atrasadas, salvo indicação/,$d
+					}' |
+				zzsemacento)
+				paste -d"|" <(echo "$vartemp"|cut -f1 -d:|sed 's/^[[:space:]]\+//g;s/[[:space:]]\+$//g') <(echo "$vartemp"|cut -f2- -d:|sed 's/^[[:space:]]\+//g')|
+				awk -F"|" '{if ( $1 != $2 ) {printf " %-20s %s\n", $1 ":", $2} else { print $1 } }'
+			;;
 			esac
 		;;
 		2 | 3)
 			# Lista as ações de uma bolsa especificada
 			bolsa=$(echo "$2"|zzmaiusculas)
-			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "$bolsa" "$africa $dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
+			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "$bolsa" "$dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 			then
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.* \(of\|de\) *\([0-9]\+\) .*/\2/")
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
