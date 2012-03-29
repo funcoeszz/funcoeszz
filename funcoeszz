@@ -571,11 +571,11 @@ zzzz ()
 
 			printf 'Verificando a codificação do sistema... '
 			zztool terminal_utf8 && cod_sistema='UTF-8'
-			echo $cod_sistema
+			echo "$cod_sistema"
 
 			printf 'Verificando a codificação das Funções ZZ... '
 			test $ZZUTF = 1 && cod_funcoeszz='UTF-8'
-			echo $cod_funcoeszz
+			echo "$cod_funcoeszz"
 
 			# Se um dia precisar de um teste direto no arquivo:
 			# sed 1d "$ZZPATH" | file - | grep UTF-8
