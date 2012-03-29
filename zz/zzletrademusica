@@ -2,8 +2,8 @@
 # http://letssingit.com
 # Busca letras de músicas, procurando pelo nome da música.
 # Obs.: Se encontrar mais de uma, mostra a lista de possibilidades.
-#       E se a lista for muito longa, com o argumento -p, seguido sem espaço do
-#       número da página, pode-se acessar o restante da lista não visível.
+#       E se a lista for muito longa, com o argumento -p, seguido sem espaço
+#       do número da página, pode-se acessar o restante da lista não visível.
 # Uso: zzletrademusica [-p<numero>] texto
 # Ex.: zzletrademusica punkrock
 #      zzletrademusica kkk took my baby
