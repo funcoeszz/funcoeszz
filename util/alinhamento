@@ -25,6 +25,5 @@ funcoeszz tool eco "Linha com Tabs ou espaços inúteis no final"
 grep '[^ 	][ 	]\{1,\}$' * |
 	grep -v ^zzxml  # exceção, usado num comentário
 
-### Por enquanto não, muito editores adicionam isso automaticamente
-# funcoeszz tool eco "Linhas vazias, mas com brancos"
-# egrep '^[	 ]+$' *
+funcoeszz tool eco "Linhas vazias, mas com brancos"
+egrep '^[	 ]+$' *
