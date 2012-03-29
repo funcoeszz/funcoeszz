@@ -9,9 +9,8 @@
 #
 # Autor: Kl0nEz <kl0nez (a) wifi org br> modif:Itamar(itamarnet@yahoo.com.br)
 # Desde: 2011-08-23
-# Versão: 3
+# Versão: 4
 # Licença: GPLv2
-# Requisitos: zzseq
 # ----------------------------------------------------------------------------
 zztabuada ()
 {
@@ -28,22 +27,17 @@ zztabuada ()
 			done
 		;;
 		*)
-			for i in $(zzseq 1 3 9)
+			for i in 1 4 7
 			do
 				echo $linha
-				echo "| Tabuada do $i | Tabuada do $(($i+1)) | Tabuada do $(($i+2)) |"
+				echo "| Tabuada do $i | Tabuada do $((i+1)) | Tabuada do $((i+2)) |"
 				echo $linha
 				for j in 0 1 2 3 4 5 6 7 8 9 10
 				do
-					[ $j -lt 10 ] && echo -n "| $i x  $j = " || echo -n "| $i x $j = "
-					calcula=$(($i*$j))
-					[ $calcula -lt 10 ] && echo -n "$calcula   |" || echo -n "$calcula  |"
-					[ $j -lt 10 ] && echo -n " $(($i+1)) x  $j = " || echo -n " $(($i+1)) x $j = "
-					calcula=$((($i+1)*$j))
-					[ $calcula -lt 10 ] && echo -n "$calcula   |" || echo -n "$calcula  |"
-					[ $j -lt 10 ] &&  echo -n " $(($i+2)) x  $j = " || echo -n " $(($i+2)) x $j = "
-					calcula=$((($i+2)*$j))
-					[ $calcula -lt 10 ] && echo "$calcula   |" || echo "$calcula  |"
+					printf '| %d x %-2d = %-3d ' "$i"     "$j" $((i*j))
+					printf '| %d x %-2d = %-3d ' $((i+1)) "$j" $(((i+1)*j))
+					printf '| %d x %-2d = %-3d ' $((i+2)) "$j" $(((i+2)*j))
+					printf '|\n'
 				done
 				echo $linha
 				echo
