@@ -24,10 +24,10 @@ zzhorariodeverao ()
 	test -z "$ano" && ano=$(date +%Y)
 
 	# Validação
-	zztool -e testa_ano $ano || return 1
+	zztool -e testa_ano "$ano" || return 1
 
 	# Só de 2008 em diante...
-	if test $ano -lt 2008
+	if test "$ano" -lt 2008
 	then
 		echo 'Antes de 2008 não havia regra fixa para o horário de verão'
 		return 1
@@ -38,20 +38,20 @@ zzhorariodeverao ()
 	#
 	for dia in $dias_3a_semana
 	do
-		data=$dia/10/$ano
-		test $(zzdiadasemana $data) = 'domingo' && inicio=$data
+		data="$dia/10/$ano"
+		test $(zzdiadasemana $data) = 'domingo' && inicio="$data"
 
-		data=$dia/02/$((ano+1))
-		test $(zzdiadasemana $data) = 'domingo' && fim=$data
+		data="$dia/02/$((ano+1))"
+		test $(zzdiadasemana $data) = 'domingo' && fim="$data"
 	done
 
 	# Exceção à regra: Se o domingo de término do horário de verão
 	# coincidir com o Carnaval, adia o término para o próximo domingo.
 	#
 	domingo_carnaval=$(zzdata $(zzcarnaval $((ano+1)) ) - 2)
-	test $fim = $domingo_carnaval && fim=$(zzdata $fim + 7)
+	test "$fim" = "$domingo_carnaval" && fim=$(zzdata $fim + 7)
 
 	# Datas calculadas, basta mostrar o resultado
-	echo $inicio
-	echo $fim
+	echo "$inicio"
+	echo "$fim"
 }

@@ -21,12 +21,12 @@ zzbissexto ()
 	test -z "$ano" && ano=$(date +%Y)
 
 	# Validação
-	zztool -e testa_ano $ano || return 1
+	zztool -e testa_ano "$ano" || return 1
 
-	if zztool testa_ano_bissexto $ano
+	if zztool testa_ano_bissexto "$ano"
 	then
-		echo $ano é bissexto
+		echo "$ano é bissexto"
 	else
-		echo $ano não é bissexto
+		echo "$ano não é bissexto"
 	fi
 }

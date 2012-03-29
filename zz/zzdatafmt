@@ -56,24 +56,24 @@ zzdatafmt ()
 	case "$data" in
 		# apelidos
 		hoje|ontem|anteontem|amanh[ãa])
-			data=$(zzdata $data)
+			data=$(zzdata "$data")
 		;;
 		# aaaa-mm-dd (ISO)
 		????-??-??)
-			data=$(echo $data | sed 's|\(....\)-\(..\)-\(..\)|\3/\2/\1|')
+			data=$(echo "$data" | sed 's|\(....\)-\(..\)-\(..\)|\3/\2/\1|')
 		;;
 		# d-m-a, d-m
 		# d.m.a, d.m
 		*-* | *.*)
-			data=$(echo $data | tr .- //)
+			data=$(echo "$data" | tr .- //)
 		;;
 		# ddmmaaaa
 		[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])
-			data=$(echo $data | sed 's|.|&/|4 ; s|.|&/|2')
+			data=$(echo "$data" | sed 's|.|&/|4 ; s|.|&/|2')
 		;;
 		# ddmmaa
 		[0-9][0-9][0-9][0-9][0-9][0-9])
-			data=$(echo $data | sed 's|.|&/|4 ; s|.|&/|2')
+			data=$(echo "$data" | sed 's|.|&/|4 ; s|.|&/|2')
 		;;
 	esac
 
@@ -86,7 +86,7 @@ zzdatafmt ()
 		# Adiciona o ano atual
 		[0-9]/[0-9] | [0-9][0-9]/[0-9] | [0-9]/[0-9][0-9] | [0-9][0-9]/[0-9][0-9])
 			ano_atual=$(zzdata hoje | cut -d / -f 3)
-			data=$data/$ano_atual
+			data="$data/$ano_atual"
 		;;
 	esac
 
@@ -101,29 +101,29 @@ zzdatafmt ()
 	fi
 
 	# Extrai os valores da data
-	dia=$(echo $data | cut -d / -f 1)
-	mes=$(echo $data | cut -d / -f 2)
-	ano=$(echo $data | cut -d / -f 3)
+	dia=$(echo "$data" | cut -d / -f 1)
+	mes=$(echo "$data" | cut -d / -f 2)
+	ano=$(echo "$data" | cut -d / -f 3)
 
 	# Faz padding nos valores
 	case "$ano" in
-		?         ) aaaa=200$ano;;  # 2000-2009
-		[0-3][0-9]) aaaa=20$ano;;   # 2000-2039
-		[4-9][0-9]) aaaa=19$ano;;   # 1940-1999
-		???       ) aaaa=0$ano;;    # 0000-0999
-		????      ) aaaa=$ano;;
+		?         ) aaaa="200$ano";;  # 2000-2009
+		[0-3][0-9]) aaaa="20$ano";;   # 2000-2039
+		[4-9][0-9]) aaaa="19$ano";;   # 1940-1999
+		???       ) aaaa="0$ano";;    # 0000-0999
+		????      ) aaaa="$ano";;
 	esac
 	case "$mes" in
-		?)  mm=0$mes;;
-		??) mm=$mes;;
+		?)  mm="0$mes";;
+		??) mm="$mes";;
 	esac
 	case "$dia" in
-		?)  dd=0$dia;;
-		??) dd=$dia;;
+		?)  dd="0$dia";;
+		??) dd="$dia";;
 	esac
 
 	# Ok, agora a data está no formato correto: dd/mm/aaaa
-	data=$dd/$mm/$aaaa
+	data="$dd/$mm/$aaaa"
 
 	# Valida a data
 	zztool -e testa_data "$data" || return 1
@@ -131,14 +131,14 @@ zzdatafmt ()
 	# O usuário especificou um formato novo?
 	if test -n "$fmt"
 	then
-		aaaa=${data##*/}
-		mm=${data#*/}; mm=${mm%/*}
-		dd=${data%%/*}
-		aa=${aaaa#??}
-		a=${aa#0}
-		m=${mm#0}
-		d=${dd#0}
-		mes=$(echo $meses | cut -d ' ' -f $m 2>/dev/null)
+		aaaa="${data##*/}"
+		mm="${data#*/}"; mm="${mm%/*}"
+		dd="${data%%/*}"
+		aa="${aaaa#??}"
+		a="${aa#0}"
+		m="${mm#0}"
+		d="${dd#0}"
+		mes=$(echo "$meses" | cut -d ' ' -f "$m" 2>/dev/null)
 
 		echo "$fmt" | sed "
 			s/AAAA/$aaaa/g;
@@ -152,6 +152,6 @@ zzdatafmt ()
 			"
 	# Senão, é só mostrar no formato normal
 	else
-		echo $data
+		echo "$data"
 	fi
 }

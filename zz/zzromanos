@@ -59,7 +59,7 @@ zzromanos ()
 				entrada=$((entrada-arabico))
 			done
 		done < <(echo "$arabicos_romanos")
-		echo $saida
+		echo "$saida"
 
 	# Se é uma string que representa um número romano válido,
 	# converte para indo-arábico
@@ -76,7 +76,7 @@ zzromanos ()
 				saida=$((saida+arabico))
 			done
 		done < <(echo "$arabicos_romanos")
-		echo $saida
+		echo "$saida"
 
 	# Se não é inteiro posivo ou string que representa número romano válido,
 	# imprime mensagem de uso.

@@ -22,10 +22,10 @@ zzhoramin ()
 	operacao='+'
 
 	# Testa se o parâmetro passado é uma hora valida
-	if ! zztool testa_hora ${1#-}; then
+	if ! zztool testa_hora "${1#-}"; then
 		hora=$(zzhora agora | cut -d ' ' -f 1)
 	else
-		hora=$1
+		hora="$1"
 	fi
 
 	# Verifica se a hora é positiva ou negativa
@@ -34,12 +34,12 @@ zzhoramin ()
 	fi
 
 	# passa a hora para hh e minuto para mm
-	hh=${hora%%:*}
-	mm=${hora##*:}
+	hh="${hora%%:*}"
+	mm="${hora##*:}"
 
 	# faz o cálculo
 	mintotal=$(($hh * 60 $operacao $mm))
 
 	# Tcharã!!!!
-	echo $mintotal
+	echo "$mintotal"
 }

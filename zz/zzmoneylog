@@ -112,7 +112,7 @@ zzmoneylog ()
 		# Deu pau no case?
 		if test $? -ne 0
 		then
-			echo $data  # Mensagem de erro
+			echo "$data"  # Mensagem de erro
 			return 1
 		fi
 	fi

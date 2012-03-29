@@ -31,7 +31,7 @@ zzlembrete ()
 	elif echo "$*" | tr -s '\t ' ' ' | grep '^ *[0-9]\{1,\} *d\{0,1\} *$' >/dev/null
 	then
 		# Extrai o número da linha
-		numero=$(echo $* | tr -d -c 0123456789)
+		numero=$(echo "$*" | tr -d -c 0123456789)
 
 		if zztool grep_var d "$*"
 		then

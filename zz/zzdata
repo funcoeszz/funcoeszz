@@ -167,7 +167,7 @@ zzdata ()
 				# Exceção: se este é o único argumento, mostra a data e sai
 				if test $# -eq 1
 				then
-					echo $valor
+					echo "$valor"
 					return 0
 				fi
 			;;
@@ -230,7 +230,7 @@ zzdata ()
 				# Retira os zeros à esquerda (pra não confundir com octal)
 				mm=${mm#0}
 				dd=${dd#0}
-				yyyy=$(echo $yyyy | sed 's/^00*//; s/^$/0/')
+				yyyy=$(echo "$yyyy" | sed 's/^00*//; s/^$/0/')
 
 				# Define o marco inicial e a direção dos cálculos
 				if [ $yyyy -ge $epoch ]
@@ -287,7 +287,7 @@ zzdata ()
 				[ $op = '+' ] && dias=$((dias - 1))
 
 				# Feito, só mostrar o resultado
-				echo $dias
+				echo "$dias"
 			;;
 
 			dias)
@@ -381,11 +381,11 @@ zzdata ()
 				[ $op = '-' ] && dd=$(($dias_neste_mes - $dd))
 
 				# Restaura o zero dos meses e dias menores que 10
-				[ $dd -le 9 ] && dd=0$dd
-				[ $mm -le 9 ] && mm=0$mm
+				[ $dd -le 9 ] && dd="0$dd"
+				[ $mm -le 9 ] && mm="0$mm"
 
 				# E finalmente mostra o resultado em formato de data
-				echo $dd/$mm/$yyyy
+				echo "$dd/$mm/$yyyy"
 			;;
 
 			*)
@@ -426,8 +426,8 @@ zzdata ()
 		data="$data1$data2"
 		dias="$dias1$dias2"
 
-		quantidade=$(echo $delta | sed 's/[^0-9]//g')
-		grandeza=$(  echo $delta | sed 's/[^dma]//g')
+		quantidade=$(echo "$delta" | sed 's/[^0-9]//g')
+		grandeza=$(  echo "$delta" | sed 's/[^dma]//g')
 
 		case $grandeza in
 			d)
@@ -454,7 +454,7 @@ zzdata ()
 				# Retira os zeros à esquerda (pra não confundir com octal)
 				mm=${mm#0}
 				dd=${dd#0}
-				yyyy=$(echo $yyyy | sed 's/^00*//; s/^$/0/')
+				yyyy=$(echo "$yyyy" | sed 's/^00*//; s/^$/0/')
 
 				# Anos
 				if test $grandeza = 'a'
@@ -481,11 +481,11 @@ zzdata ()
 				test $dd -eq 29 -a $mm -eq 2 &&	! zztool testa_ano_bissexto $yyyy && dd=28
 
 				# Restaura o zero dos meses e dias menores que 10
-				[ $dd -le 9 ] && dd=0$dd
-				[ $mm -le 9 ] && mm=0$mm
+				[ $dd -le 9 ] && dd="0$dd"
+				[ $mm -le 9 ] && mm="0$mm"
 
 				# Tá feito, basta montar a data
-				echo $dd/$mm/$yyyy
+				echo "$dd/$mm/$yyyy"
 				return 0
 			;;
 		esac
@@ -493,8 +493,8 @@ zzdata ()
 	# Cálculo normal, sem delta
 	else
 		# Ambas as datas são sempre convertidas para inteiros
-		test $tipo1 != 'dias' && dias1=$(zzdata "$data1")
-		test $tipo2 != 'dias' && dias2=$(zzdata "$data2")
+		test "$tipo1" != 'dias' && dias1=$(zzdata "$data1")
+		test "$tipo2" != 'dias' && dias2=$(zzdata "$data2")
 
 		# Soma ou subtrai os valores
 		dias=$(($dias1 $operacao $dias2))
@@ -504,9 +504,9 @@ zzdata ()
 		# o resultado para uma data.
 		if test "$tipo1$tipo2" = 'datadata'
 		then
-			echo $dias
+			echo "$dias"
 		else
-			zzdata $dias  # n2data
+			zzdata "$dias"  # n2data
 		fi
 	fi
 }

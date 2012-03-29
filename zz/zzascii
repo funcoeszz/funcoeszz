@@ -17,8 +17,8 @@ zzascii ()
 	zzzz -h ascii $1 && return
 
 	local referencias decimais decimal hexa octal caractere
-	local num_colunas=${1:-5}
-	local largura=${2:-78}
+	local num_colunas="${1:-5}"
+	local largura="${2:-78}"
 	local max_colunas=20
 	local max_largura=500
 	local linha=0
@@ -27,8 +27,8 @@ zzascii ()
 	if (
 		! zztool testa_numero "$num_colunas" ||
 		! zztool testa_numero "$largura" ||
-		test $num_colunas -eq 0 ||
-		test $largura -eq 0)
+		test "$num_colunas" -eq 0 ||
+		test "$largura" -eq 0)
 	then
 		zztool uso ascii
 		return 1
