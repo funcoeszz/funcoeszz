@@ -20,7 +20,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-02
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzdos2unix
 # ----------------------------------------------------------------------------
@@ -43,9 +43,10 @@ zzjuntalinhas ()
 		esac
 	done
 
-	# Formata endereços para o sed
+	# Formata dados para o sed
 	inicio=$(zztool endereco_sed "$inicio")
 	fim=$(zztool endereco_sed "$fim")
+	separador=$(echo "$separador" | sed 's:/:\\\/:g')
 
 	zztool file_stdin "$@" |
 		zzdos2unix |

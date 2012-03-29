@@ -38,6 +38,7 @@ tests=(
 # escape da /
 -d	@	-f	a/b	_numeros	t	"1\n2\n3\n4\n5"
 -d	@	-i	a/b	_numeros	t	"1\n2\n3\n4\n5"
+-d	/	-i	1	_numeros	t	"1/2/3/4/5"
 -i	a/b	-f	a/b	_numeros	t	"1\n2\n3\n4\n5"
 
 # início e fim na mesma linha
