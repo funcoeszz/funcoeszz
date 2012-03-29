@@ -285,17 +285,17 @@ zztool ()
 
 			if [ "$1" ]
 			then
-				echo "$*"
+				echo "$*"  # security: always quote to avoid shell expansion
 			else
 				cat -
 			fi
 		;;
 		file_stdin)
-			# Mostra na tela o conteúdo do arquivo *ou* da STDIN, nesta ordem
+			# Mostra na tela o conteúdo dos arquivos *ou* da STDIN, nesta ordem
 			# Útil para funções/comandos aceitarem dados das duas formas:
-			#     cat arquivo | funcao
+			#     cat arquivo1 arquivo2 | funcao
 			# ou
-			#     funcao arquivo
+			#     funcao arquivo1 arquivo2
 
 			cat "${@:--}"  # Traduzindo: cat $@ ou cat -
 		;;
