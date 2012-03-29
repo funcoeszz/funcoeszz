@@ -15,7 +15,7 @@
 # ----------------------------------------------------------------------------
 zzlinha ()
 {
-	zzzz -h linha $1 && return
+	zzzz -h linha "$1" && return
 
 	local arquivo n padrao resultado num_linhas
 

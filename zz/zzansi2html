@@ -15,7 +15,7 @@
 # ----------------------------------------------------------------------------
 zzansi2html ()
 {
-	zzzz -h ansi2html $1 && return
+	zzzz -h ansi2html "$1" && return
 
 	local esc=$(printf '\033')
 

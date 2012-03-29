@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzlembrete ()
 {
-	zzzz -h lembrete $1 && return
+	zzzz -h lembrete "$1" && return
 
 	local arquivo="$HOME/.zzlembrete"
 	local tmp="$ZZTMP.lembrete.$$"

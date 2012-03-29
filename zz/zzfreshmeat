@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzfreshmeat ()
 {
-	zzzz -h freshmeat $1 && return
+	zzzz -h freshmeat "$1" && return
 
 	local url='http://freshmeat.net/search/'
 	local padrao=$1

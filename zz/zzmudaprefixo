@@ -17,7 +17,7 @@ zzmudaprefixo ()
 
 	#set -x
 
-	zzzz -h mudaprefixo $1 && return
+	zzzz -h mudaprefixo "$1" && return
 
 	# Verifica numero minimo de parametros.
 	if [ $# -lt 4 ] ; then

@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzsextapaixao ()
 {
-	zzzz -h sextapaixao $1 && return
+	zzzz -h sextapaixao "$1" && return
 
 	local ano="$1"
 

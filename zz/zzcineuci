@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzcineuci ()
 {
-	zzzz -h cineuci $1 && return
+	zzzz -h cineuci "$1" && return
 
 	[ $# -gt 1 ] && zztool uso cineuci && return 1
 

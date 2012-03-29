@@ -16,7 +16,7 @@ zzchecamd5 ()
 	local arquivo valor_md5 md5_site
 
 	# Help da funcao zzchecamd5
-	zzzz -h checamd5 $1 && return
+	zzzz -h checamd5 "$1" && return
 
 	# Faltou argumento mostrar como se usa a zzchecamd5
 	if [ $# != "2" ];then

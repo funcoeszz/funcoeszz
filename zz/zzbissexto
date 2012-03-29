@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzbissexto ()
 {
-	zzzz -h bissexto $1 && return
+	zzzz -h bissexto "$1" && return
 
 	local ano="$1"
 

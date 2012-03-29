@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzcorpuschristi ()
 {
-	zzzz -h corpuschristi $1 && return
+	zzzz -h corpuschristi "$1" && return
 
 	local ano="$1"
 

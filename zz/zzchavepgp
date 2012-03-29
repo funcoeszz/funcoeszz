@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzchavepgp ()
 {
-	zzzz -h chavepgp $1 && return
+	zzzz -h chavepgp "$1" && return
 
 	local url='http://pgp.mit.edu:11371'
 	local padrao=$(echo $*| sed "$ZZSEDURL")

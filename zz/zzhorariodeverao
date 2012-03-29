@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzhorariodeverao ()
 {
-	zzzz -h horariodeverao $1 && return
+	zzzz -h horariodeverao "$1" && return
 
 	local inicio fim data domingo_carnaval
 	local dias_3a_semana="15 16 17 18 19 20 21"

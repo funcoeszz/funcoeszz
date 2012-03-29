@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzcores ()
 {
-	zzzz -h cores $1 && return
+	zzzz -h cores "$1" && return
 
 	local frente fundo negrito cor
 

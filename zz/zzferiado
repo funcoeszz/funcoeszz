@@ -17,7 +17,7 @@
 # ----------------------------------------------------------------------------
 zzferiado ()
 {
-	zzzz -h feriado $1 && return
+	zzzz -h feriado "$1" && return
 
 	local feriados carnaval corpuschristi
 	local hoje data sextapaixao ano listar

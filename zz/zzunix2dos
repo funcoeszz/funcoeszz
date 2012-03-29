@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzunix2dos ()
 {
-	zzzz -h unix2dos $1 && return
+	zzzz -h unix2dos "$1" && return
 
 	local arquivo
 	local tmp="$ZZTMP.unix2dos.$$"

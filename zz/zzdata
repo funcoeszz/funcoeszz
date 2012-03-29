@@ -27,7 +27,7 @@
 # ----------------------------------------------------------------------------
 zzdata ()
 {
-	zzzz -h data $1 && return
+	zzzz -h data "$1" && return
 
 	local yyyy mm dd mmdd i m y op dias_ano dias_mes dias_neste_mes
 	local valor operacao quantidade grandeza

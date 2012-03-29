@@ -28,7 +28,7 @@
 # ----------------------------------------------------------------------------
 zzbolsas ()
 {
-	zzzz -h bolsas $1 && return
+	zzzz -h bolsas "$1" && return
 
 	local url='http://br.finance.yahoo.com'
 	local dj='^DWC'

@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzlocale ()
 {
-	zzzz -h locale $1 && return
+	zzzz -h locale "$1" && return
 
 	local url='http://funcoeszz.net/locales.txt'
 	local cache="$ZZTMP.locale"

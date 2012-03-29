@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zznatal ()
 {
-	zzzz -h natal $1 && return
+	zzzz -h natal "$1" && return
 
 	local url='http://www.ibb.org.br/vidanet/outras/msg239.htm'
 	local cache="$ZZTMP.natal"

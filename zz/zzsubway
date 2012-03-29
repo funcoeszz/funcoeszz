@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzsubway ()
 {
-	zzzz -h subway $1 && return
+	zzzz -h subway "$1" && return
 
 	local linha quantidade categoria opcoes
 

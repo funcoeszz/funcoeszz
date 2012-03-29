@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzrpmfind ()
 {
-	zzzz -h rpmfind $1 && return
+	zzzz -h rpmfind "$1" && return
 
 	local url='http://rpmfind.net/linux/rpm2html/search.php'
 	local pacote=$1

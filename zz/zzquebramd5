@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzquebramd5 ()
 {
-	zzzz -h quebramd5 $1 && return
+	zzzz -h quebramd5 "$1" && return
 
 	[ "$1" ] || { zztool uso quebramd5; return 1; }
 

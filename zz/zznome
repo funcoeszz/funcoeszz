@@ -17,7 +17,7 @@
 # ----------------------------------------------------------------------------
 zznome ()
 {
-	zzzz -h nome $1 && return
+	zzzz -h nome "$1" && return
 
 	local url='http://www.significado.origem.nom.br'
 	local ini='^Origem do Nome '

@@ -12,7 +12,7 @@
 # FIXME: zzgoogle rato roeu roupa rei roma [PPS], [PDF]
 zzgoogle ()
 {
-	zzzz -h google $1 && return
+	zzzz -h google "$1" && return
 
 	local padrao
 	local limite=10

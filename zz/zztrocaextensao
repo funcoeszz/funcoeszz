@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zztrocaextensao ()
 {
-	zzzz -h trocaextensao $1 && return
+	zzzz -h trocaextensao "$1" && return
 
 	local ext1 ext2 arquivo base novo nao
 

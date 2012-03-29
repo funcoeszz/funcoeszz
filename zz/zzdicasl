@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzdicasl ()
 {
-	zzzz -h dicasl $1 && return
+	zzzz -h dicasl "$1" && return
 
 	local opcao_grep
 	local url='http://www.dicas-l.com.br/arquivo/'

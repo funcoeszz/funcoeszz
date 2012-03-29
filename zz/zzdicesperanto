@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzdicesperanto ()
 {
-	zzzz -h dicesperanto $1 && return
+	zzzz -h dicesperanto "$1" && return
 
 	[ "$1" ] || { zztool uso dicesperanto; return 1; }
 

@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzromanos ()
 {
-	zzzz -h romanos $1 && return
+	zzzz -h romanos "$1" && return
 
 	local arabicos_romanos="\
 	1000:M

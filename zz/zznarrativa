@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zznarrativa ()
 {
-	zzzz -h narrativa $1 && return
+	zzzz -h narrativa "$1" && return
 
 	[ "$1" ] || { zztool uso narrativa; return 1; }
 

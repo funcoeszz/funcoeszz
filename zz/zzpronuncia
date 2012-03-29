@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzpronuncia ()
 {
-	zzzz -h pronuncia $1 && return
+	zzzz -h pronuncia "$1" && return
 
 	local wav_file wav_dir wav_url
 	local palavra=$1

@@ -22,7 +22,7 @@
 # ----------------------------------------------------------------------------
 zzenviaemail ()
 {
-	zzzz -h enviaemail $1 && return
+	zzzz -h enviaemail "$1" && return
 
 	# Declara variaveis.
 	local fromail tomail ccmail bccmail subject msgbody

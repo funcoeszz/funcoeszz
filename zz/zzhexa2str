@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzhexa2str ()
 {
-	zzzz -h hexa2str $1 && return
+	zzzz -h hexa2str "$1" && return
 
 	local hexa
 

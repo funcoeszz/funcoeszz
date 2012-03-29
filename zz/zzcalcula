@@ -17,7 +17,7 @@
 # ----------------------------------------------------------------------------
 zzcalcula ()
 {
-	zzzz -h calcula $1 && return
+	zzzz -h calcula "$1" && return
 
 	local soma
 

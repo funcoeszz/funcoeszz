@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzdicbabylon ()
 {
-	zzzz -h dicbabylon $1 && return
+	zzzz -h dicbabylon "$1" && return
 
 	local idioma='ptg'
 	local idiomas=' dut fre ger heb ita jap ptg spa '

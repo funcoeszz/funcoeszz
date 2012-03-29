@@ -16,7 +16,7 @@
 # ----------------------------------------------------------------------------
 zznomefoto ()
 {
-	zzzz -h nomefoto $1 && return
+	zzzz -h nomefoto "$1" && return
 
 	local arquivo prefixo contagem extensao nome novo nao previa
 	local i=1

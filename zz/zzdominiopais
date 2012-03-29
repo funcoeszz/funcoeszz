@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzdominiopais ()
 {
-	zzzz -h dominiopais $1 && return
+	zzzz -h dominiopais "$1" && return
 
 	local url='http://www.iana.org/root-whois/index.html'
 	local cache="$ZZTMP.dominiopais"

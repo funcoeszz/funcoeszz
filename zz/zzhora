@@ -18,7 +18,7 @@
 # ----------------------------------------------------------------------------
 zzhora ()
 {
-	zzzz -h hora $1 && return
+	zzzz -h hora "$1" && return
 
 	local hhmm1 hhmm2 operacao hhmm1_orig hhmm2_orig
 	local hh1 mm1 hh2 mm2 n1 n2 resultado negativo

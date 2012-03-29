@@ -26,7 +26,7 @@
 # ----------------------------------------------------------------------------
 zzjuntalinhas ()
 {
-	zzzz -h juntalinhas $1 && return
+	zzzz -h juntalinhas "$1" && return
 
 	local separador=$(printf '\t')  # tab
 	local inicio='1'

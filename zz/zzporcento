@@ -21,7 +21,7 @@
 # ----------------------------------------------------------------------------
 zzporcento ()
 {
-	zzzz -h porcento $1 && return
+	zzzz -h porcento "$1" && return
 
 	local i porcentagem
 

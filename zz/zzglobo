@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzglobo ()
 {
-	zzzz -h globo $1 && return
+	zzzz -h globo "$1" && return
 
 	local DATA=`date +%d | sed 's/^0//'`
 	local URL="http://diversao.terra.com.br/tv/noticias/0,,OI3512347-EI13439,00-Programacao+da+TV+Globo.html"

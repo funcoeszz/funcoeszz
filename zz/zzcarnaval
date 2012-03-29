@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzcarnaval ()
 {
-	zzzz -h carnaval $1 && return
+	zzzz -h carnaval "$1" && return
 
 	local ano="$1"
 

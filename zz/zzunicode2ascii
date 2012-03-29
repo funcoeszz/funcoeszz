@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzunicode2ascii ()
 {
-	zzzz -h unicode2ascii $1 && return
+	zzzz -h unicode2ascii "$1" && return
 
 	# Tentei manter o sentido do caractere original na tradução.
 	# Outros preferi manter o original a fazer um tradução dúbia.

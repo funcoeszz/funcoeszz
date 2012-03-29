@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzdelicious ()
 {
-	zzzz -h delicious $1 && return
+	zzzz -h delicious "$1" && return
 
 	[ "$1" ] || { zztool uso delicious; return 1; }
 

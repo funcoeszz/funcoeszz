@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzsigla ()
 {
-	zzzz -h sigla $1 && return
+	zzzz -h sigla "$1" && return
 
 	local url=http://www.acronymfinder.com/af-query.asp
 

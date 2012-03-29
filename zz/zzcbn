@@ -16,7 +16,7 @@
 # ----------------------------------------------------------------------------
 zzcbn ()
 {
-	zzzz -h cbn $1 && return
+	zzzz -h cbn "$1" && return
 
 	local COMENTARISTAS MP3 RSS data comentarista datafile
 

@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzdiasuteis ()
 {
-	zzzz -h diasuteis $1 && return
+	zzzz -h diasuteis "$1" && return
 
 	local data dias dia1 semanas avulsos ini fim
 	local avulsos_uteis=0

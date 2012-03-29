@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzdiffpalavra ()
 {
-	zzzz -h diffpalavra $1 && return
+	zzzz -h diffpalavra "$1" && return
 
 	local esc
 	local tmp1="$ZZTMP.diffpalavra.1.$$"

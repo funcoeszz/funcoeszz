@@ -27,7 +27,7 @@
 # ----------------------------------------------------------------------------
 zzcinemais ()
 {
-	zzzz -h cinemais $1 && return
+	zzzz -h cinemais "$1" && return
 
 	[ "$1" ] || { zztool uso cinemais; return 1; }
 

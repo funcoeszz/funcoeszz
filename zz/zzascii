@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzascii ()
 {
-	zzzz -h ascii $1 && return
+	zzzz -h ascii "$1" && return
 
 	local referencias decimais decimal hexa octal caractere
 	local num_colunas="${1:-5}"

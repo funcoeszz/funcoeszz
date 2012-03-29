@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzpascoa ()
 {
-	zzzz -h pascoa $1 && return
+	zzzz -h pascoa "$1" && return
 
 	local dia mes a b c d e f g h i k l m p q
 	local ano="$1"

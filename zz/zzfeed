@@ -17,7 +17,7 @@
 # ----------------------------------------------------------------------------
 zzfeed ()
 {
-	zzzz -h feed $1 && return
+	zzzz -h feed "$1" && return
 
 	local url formato tag_mae
 	local limite=10

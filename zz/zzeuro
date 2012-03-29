@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzeuro ()
 {
-	zzzz -h euro $1 && return
+	zzzz -h euro "$1" && return
 
 	$ZZWWWDUMP 'http://cotacoes.agronegocios-e.com.br/investimentos/conteudoi.asp?option=dolar&title=%20Euro' |
 		sed '

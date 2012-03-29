@@ -15,7 +15,7 @@
 # ----------------------------------------------------------------------------
 zzcorrida ()
 {
-	zzzz -h corrida $1 && return
+	zzzz -h corrida "$1" && return
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso corrida; return 1; }

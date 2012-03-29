@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzloteria ()
 {
-	zzzz -h loteria $1 && return
+	zzzz -h loteria "$1" && return
 
 	local dump numero_concurso data resultado acumulado tipo sufixo
 	local url='http://www1.caixa.gov.br/loterias/loterias'

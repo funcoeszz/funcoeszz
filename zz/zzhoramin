@@ -15,7 +15,7 @@
 zzhoramin ()
 {
 
-	zzzz -h horamin $1 && return
+	zzzz -h horamin "$1" && return
 
 	local mintotal hh mm hora operacao
 

@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzextensao ()
 {
-	zzzz -h extensao $1 && return
+	zzzz -h extensao "$1" && return
 
 	# Declara variaveis.
 	local nome_arquivo extensao arquivo

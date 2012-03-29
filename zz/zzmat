@@ -26,7 +26,7 @@
 # ----------------------------------------------------------------------------
 zzmat ()
 {
-	zzzz -h mat $1 && return
+	zzzz -h mat "$1" && return
 
 	local funcao num precisao
 	local pi=3.1415926535897932384626433832795

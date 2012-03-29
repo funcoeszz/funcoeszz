@@ -18,7 +18,7 @@
 # ----------------------------------------------------------------------------
 zzsenha ()
 {
-	zzzz -h senha $1 && return
+	zzzz -h senha "$1" && return
 
 	local posicao letra maximo senha
 	local n=8

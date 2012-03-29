@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zztabuada ()
 {
-	zzzz -h tabuada $1 && return
+	zzzz -h tabuada "$1" && return
 
 	local i j calcula
 	local linha="+--------------+--------------+--------------+"

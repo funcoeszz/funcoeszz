@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzcpf ()
 {
-	zzzz -h cpf $1 && return
+	zzzz -h cpf "$1" && return
 
 	local i n somatoria digito1 digito2 cpf base
 

@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzwhoisbr ()
 {
-	zzzz -h whoisbr $1 && return
+	zzzz -h whoisbr "$1" && return
 
 	local url='http://registro.br/cgi-bin/whois/'
 	local dominio="${1#www.}" # tira www do início

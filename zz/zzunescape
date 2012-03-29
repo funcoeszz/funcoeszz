@@ -17,7 +17,7 @@
 # ----------------------------------------------------------------------------
 zzunescape ()
 {
-	zzzz -h unescape $1 && return
+	zzzz -h unescape "$1" && return
 
 	local xml html
 	local filtro=''

@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzcnpj ()
 {
-	zzzz -h cnpj $1 && return
+	zzzz -h cnpj "$1" && return
 
 	local i n somatoria digito1 digito2 cnpj base
 

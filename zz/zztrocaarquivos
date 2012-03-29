@@ -9,7 +9,7 @@
 # ----------------------------------------------------------------------------
 zztrocaarquivos ()
 {
-	zzzz -h trocaarquivos $1 && return
+	zzzz -h trocaarquivos "$1" && return
 
 	# Um terceiro arquivo é usado para fazer a troca
 	local tmp="$ZZTMP.trocaarquivos.$$"

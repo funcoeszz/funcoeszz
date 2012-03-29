@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzipinternet ()
 {
-	zzzz -h ipinternet $1 && return
+	zzzz -h ipinternet "$1" && return
 
 	local url='http://automation.whatismyip.com/n09230945.asp'
 

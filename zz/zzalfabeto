@@ -30,7 +30,7 @@
 # ----------------------------------------------------------------------------
 zzalfabeto ()
 {
-	zzzz -h alfabeto $1 && return
+	zzzz -h alfabeto "$1" && return
 
 	local char letra
 

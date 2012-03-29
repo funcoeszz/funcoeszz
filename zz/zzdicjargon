@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzdicjargon ()
 {
-	zzzz -h dicjargon $1 && return
+	zzzz -h dicjargon "$1" && return
 
 	local achei achei2 num mais
 	local url='http://catb.org/jargon/html'

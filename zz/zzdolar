@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzdolar ()
 {
-	zzzz -h dolar $1 && return
+	zzzz -h dolar "$1" && return
 
 	# Faz a consulta e filtra o resultado
 	$ZZWWWDUMP 'http://br.invertia.com/mercados/divisas/tiposdolar.aspx' |

@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzdefinr ()
 {
-	zzzz -h definr $1 && return
+	zzzz -h definr "$1" && return
 
 	[ "$1" ] || { zztool uso definr; return 1; }
 

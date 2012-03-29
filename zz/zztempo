@@ -15,7 +15,7 @@
 # ----------------------------------------------------------------------------
 zztempo ()
 {
-	zzzz -h tempo $1 && return
+	zzzz -h tempo "$1" && return
 
 	local codigo_pais codigo_localidade localidades
 	local pais="$1"

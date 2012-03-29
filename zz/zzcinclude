@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzcinclude ()
 {
-	zzzz -h cinclude $1 && return
+	zzzz -h cinclude "$1" && return
 
 	local arquivo="$1"
 

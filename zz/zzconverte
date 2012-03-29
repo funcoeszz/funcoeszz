@@ -27,7 +27,7 @@
 # ----------------------------------------------------------------------------
 zzconverte ()
 {
-	zzzz -h converte $1 && return
+	zzzz -h converte "$1" && return
 
 	local s2='scale=2'
 	local operacao=$1

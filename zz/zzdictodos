@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzdictodos ()
 {
-	zzzz -h dictodos $1 && return
+	zzzz -h dictodos "$1" && return
 
 	local dic
 

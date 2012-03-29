@@ -21,7 +21,7 @@
 # ----------------------------------------------------------------------------
 zzdicportugues2 ()
 {
-	zzzz -h dicportugues2 $1 && return
+	zzzz -h dicportugues2 "$1" && return
 
 	local url='http://dicio.com.br'
 	local ini='^Significado de '

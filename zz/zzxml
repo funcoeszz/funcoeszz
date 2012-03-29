@@ -22,7 +22,7 @@
 # ----------------------------------------------------------------------------
 zzxml ()
 {
-	zzzz -h xml $1 && return
+	zzzz -h xml "$1" && return
 
 	local tag
 	local tidy=0

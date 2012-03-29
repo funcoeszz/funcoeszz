@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zztweets ()
 {
-	zzzz -h tweets $1 && return
+	zzzz -h tweets "$1" && return
 
 	[ "$1" ] || { zztool uso tweets; return 1; }
 

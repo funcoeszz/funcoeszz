@@ -17,7 +17,7 @@
 # ----------------------------------------------------------------------------
 zzloteria2 ()
 {
-	zzzz -h loteria2 $1 && return
+	zzzz -h loteria2 "$1" && return
 
 	local dump numero_concurso data resultado acumulado tipo ZZWWWDUMP2
 	local resultado_val resultado_num num_con sufixo faixa

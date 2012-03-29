@@ -25,7 +25,7 @@
 # ----------------------------------------------------------------------------
 zzmoneylog ()
 {
-	zzzz -h moneylog $1 && return
+	zzzz -h moneylog "$1" && return
 
 	local data valor tag total
 	local arquivo=$ZZMONEYLOG

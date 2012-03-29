@@ -27,7 +27,7 @@
 # ----------------------------------------------------------------------------
 zzgravatar ()
 {
-	zzzz -h gravatar $1 && return
+	zzzz -h gravatar "$1" && return
 
 	# Instruções de implementação:
 	# http://gravatar.com/site/implement/

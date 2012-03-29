@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzcalculaip ()
 {
-	zzzz -h calculaip $1 && return
+	zzzz -h calculaip "$1" && return
 
 	local endereco mascara rede broadcast
 	local mascara_binario mascara_decimal mascara_ip

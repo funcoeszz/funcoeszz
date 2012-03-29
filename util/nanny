@@ -77,7 +77,7 @@ for f in zz/* off/*; do grep -q '^# Ex\.: ' $f || echo $f; done
 # 		sed 1q)  # só mostra o primeiro pra não poluir
 # 	test -n "$wrong" && echo "$f: $wrong"
 # done
-# 
+#
 eco ----------------------------------------------------------------
 eco "* Funções com a descrição sem ponto final"
 for f in zz/* off/*; do
@@ -112,12 +112,12 @@ eco "* Funções com o cabeçalho mal formatado"
 for f in zz/* off/*
 do
 	wrong=$(sed -n '
-	
+
 		# Script sed que vai lendo o cabeçalho linha a linha e
 		# verifica se ele está no formato padrão, com as linhas
 		# ao redor e com os campos na ordem correta.
 		# Checa apenas o nome e posição do campo, não seu conteúdo.
-		
+
 		1 {
 			# -----------------------------
 			/^# -\{76\}$/! { s/^/Esperava -----------, veio /p; q; }
@@ -125,36 +125,36 @@ do
 		2 {
 			# Um http:// é opcional na linha 2
 			/^# http:/ n
-			
+
 			# Depois vem texto sem forma, que é a descrição
 			# Pode durar várias linhas
 			:loop
-			
+
 			# Se chegou no fim do arquivo, deu pau
 			$ { s/^/Esperava Uso, veio EOF: /p; q; }
 			n
-			
+
 			# Se encontrar algum campo opcional aqui, reclame
 			/^# Requisitos: / { s/^/Deveria vir depois de Licença: -- /p; q; }
 			/^# Versão: /     { s/^/Deveria vir depois de Desde: -- /p; q; }
-			
+
 			# Só sai do loop quando chegar no campo Uso, obrigatório
 			/^# Uso: /b loopend
 			b loop
 			:loopend
 			n
-			
+
 			# Depois do Uso vem Ex.:, obrigatório
 			/^# Ex\.: /! { s/^/Esperava Ex.:, veio /p; q; }
 			n
-			
+
 			# O exemplo pode durar várias linhas, iniciadas por espaços
 			:loopexem
 			/^#      [^ ]/ {
 				n
 				b loopexem
 			}
-			
+
 			# Então vem uma linha em branco para separar
 			/^#$/! { s/^/Esperava #, veio /p; q; }
 			n
@@ -167,16 +167,16 @@ do
 			/^# Versão: / n
 			/^# Licença: /! { s/^/Esperava Licença:, veio /p; q; }
 			n
-			
+
 			# Mais campos opcionais no final
 			/^# Requisitos: / n
 			/^# Tags: / n
 			/^# Nota: / n
-			
+
 			# -----------------------------
 			/^# -\{76\}$/! { s/^/Esperava -----------, veio /p; q; }
 		}' $f)
-		test -n "$wrong" && echo "$f" && echo "$wrong"		
+		test -n "$wrong" && echo "$f" && echo "$wrong"
 done
 
 eco ----------------------------------------------------------------
@@ -209,13 +209,13 @@ eco "* Funções cuja chamada 'zzzz -h' está incorreta"
 for f in zz/*  # off/*
 do
 	# zzzz -h cores $1 && return
-	fgrep -q "zzzz -h $(basename $f | sed 's/^zz//') \$1 && return" $f || echo $f
+	fgrep -q "zzzz -h $(basename $f | sed 's/^zz//') \"\$1\" && return" $f || echo $f
 done
 
 eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zztool uso'"
 # As seguintes não precisam pois é válido chamá-las sem argumentos
-ok="zzalfabeto zzansi2html zzascii zzbeep zzbissexto zzbolsas zzcalcula zzcarnaval zzcinemark15h zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcpf zzdatafmt zzdiadasemana zzdolar zzdos2unix zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpascoa zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzsubway zztabuada zztelecine zztempo zztv zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
+ok="zzalfabeto zzansi2html zzascii zzbeep zzbissexto zzbolsas zzcalcula zzcarnaval zzcinemark15h zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcpf zzdatafmt zzdiadasemana zzdolar zzdos2unix zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhexa2st zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpascoa zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzsubway zztabuada zztelecine zztempo zztv zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
 for f in zz/*  # off/*
 do
 	echo " $ok " | grep -q " $(basename $f) " && continue

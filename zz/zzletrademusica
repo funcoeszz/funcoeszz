@@ -17,7 +17,7 @@
 # ----------------------------------------------------------------------------
 zzletrademusica ()
 {
-	zzzz -h letrademusica $1 && return
+	zzzz -h letrademusica "$1" && return
 
 	local pag
 

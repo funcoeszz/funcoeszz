@@ -12,7 +12,7 @@
 # ----------------------------------------------------------------------------
 zzrastreamento ()
 {
-	zzzz -h rastreamento $1 && return
+	zzzz -h rastreamento "$1" && return
 
 	[ "$1" ] || { zztool uso rastreamento; return 1; }
 

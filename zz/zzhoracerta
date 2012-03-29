@@ -16,7 +16,7 @@
 # ----------------------------------------------------------------------------
 zzhoracerta ()
 {
-	zzzz -h horacerta $1 && return
+	zzzz -h horacerta "$1" && return
 
 	local codigo localidade localidades
 	local cache="$ZZTMP.horacerta"

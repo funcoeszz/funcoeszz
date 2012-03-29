@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzblist ()
 {
-	zzzz -h blist $1 && return
+	zzzz -h blist "$1" && return
 
 	[ "$1" ] || { zztool uso blist; return 1; }
 

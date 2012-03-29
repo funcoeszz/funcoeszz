@@ -11,6 +11,6 @@
 # ----------------------------------------------------------------------------
 zzpiada ()
 {
-	zzzz -h piada $1 && return
+	zzzz -h piada "$1" && return
 	$ZZWWWDUMP 'http://www.xalexandre.com.br/piadasAleiatorias/'
 }

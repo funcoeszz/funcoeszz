@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzora ()
 {
-	zzzz -h ora $1 && return
+	zzzz -h ora "$1" && return
 
 	[ $# -ne 1 ] && { zztool uso ora; return 1; } # deve receber apenas um argumento
 	zztool -e testa_numero "$1" || return 1 # e este argumento deve ser numérico

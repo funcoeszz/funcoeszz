@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzdetransp ()
 {
-	zzzz -h detransp $1 && return
+	zzzz -h detransp "$1" && return
 
 	local url='http://www.detran.sp.gov.br/multas-site/detran/resultMultas.asp'
 

@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzvira ()
 {
-	zzzz -h vira $1 && return
+	zzzz -h vira "$1" && return
 
 	local rasteira
 

@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzramones ()
 {
-	zzzz -h ramones $1 && return
+	zzzz -h ramones "$1" && return
 
 	local url='http://aurelio.net/doc/ramones.txt'
 	local cache="$ZZTMP.ramones"

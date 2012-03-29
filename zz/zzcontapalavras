@@ -18,7 +18,7 @@
 # ----------------------------------------------------------------------------
 zzcontapalavras ()
 {
-	zzzz -h contapalavras $1 && return
+	zzzz -h contapalavras "$1" && return
 
 	local ignore_case
 	local tab=$(printf '\t')

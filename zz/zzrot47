@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzrot47 ()
 {
-	zzzz -h rot47 $1 && return
+	zzzz -h rot47 "$1" && return
 
 	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |

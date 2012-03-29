@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzdefine ()
 {
-	zzzz -h define $1 && return
+	zzzz -h define "$1" && return
 
 	[ "$1" ] || { zztool uso define; return 1; }
 

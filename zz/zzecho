@@ -19,7 +19,7 @@
 # ----------------------------------------------------------------------------
 zzecho ()
 {
-	zzzz -h echo $1 && return
+	zzzz -h echo "$1" && return
 
 	local letra fundo negrito cor pisca sublinhado
 	local quebra_linha='\n'

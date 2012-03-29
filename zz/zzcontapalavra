@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzcontapalavra ()
 {
-	zzzz -h contapalavra $1 && return
+	zzzz -h contapalavra "$1" && return
 
 	local padrao ignora
 	local inteira=1

@@ -32,7 +32,7 @@
 # ----------------------------------------------------------------------------
 zztv ()
 {
-	zzzz -h tv $1 && return
+	zzzz -h tv "$1" && return
 
 	local DATA=$(date +%d\\/%m)
 	local URL="http://meuguia.tv/programacao"

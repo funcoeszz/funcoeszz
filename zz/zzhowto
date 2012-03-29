@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzhowto ()
 {
-	zzzz -h howto $1 && return
+	zzzz -h howto "$1" && return
 
 	local padrao
 	local cache="$ZZTMP.howto"

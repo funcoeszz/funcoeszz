@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzsecurity ()
 {
-	zzzz -h security $1 && return
+	zzzz -h security "$1" && return
 
 	local url limite distros
 	local n=5

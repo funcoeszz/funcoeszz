@@ -16,7 +16,7 @@
 # ----------------------------------------------------------------------------
 zzmoeda ()
 {
-	zzzz -h moeda $1 && return
+	zzzz -h moeda "$1" && return
 
 	local extra dados formato linha
 	local url='http://br.invertia.com/mercados/divisas'

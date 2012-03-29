@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzbyte ()
 {
-	zzzz -h byte $1 && return
+	zzzz -h byte "$1" && return
 
 	local i i_entrada i_saida diferenca operacao passo falta
 	local unidades='BKMGTPEZY' # kilo, mega, giga, etc

@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzshuffle ()
 {
-	zzzz -h shuffle $1 && return
+	zzzz -h shuffle "$1" && return
 
 	local linha
 

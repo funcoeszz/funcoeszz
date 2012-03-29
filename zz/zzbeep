@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzbeep ()
 {
-	zzzz -h beep $1 && return
+	zzzz -h beep "$1" && return
 
 	local minutos frequencia
 

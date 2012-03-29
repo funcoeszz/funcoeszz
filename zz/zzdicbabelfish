@@ -21,7 +21,7 @@
 # ----------------------------------------------------------------------------
 zzdicbabelfish ()
 {
-	zzzz -h dicbabelfish $1 && return
+	zzzz -h dicbabelfish "$1" && return
 
 	local padrao
 	local url='http://babelfish.yahoo.com/translate_txt'

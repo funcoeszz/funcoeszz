@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzmaiusculas ()
 {
-	zzzz -h maiusculas $1 && return
+	zzzz -h maiusculas "$1" && return
 
 	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |

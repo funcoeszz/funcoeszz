@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 zzdicportugues ()
 {
-	zzzz -h dicportugues $1 && return
+	zzzz -h dicportugues "$1" && return
 
 	local url='http://dicio.com.br/pesquisa.php'
 	local ini='^Significado de '

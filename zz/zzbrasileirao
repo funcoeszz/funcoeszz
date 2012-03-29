@@ -35,7 +35,7 @@
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
-	zzzz -h brasileirao $1 && return
+	zzzz -h brasileirao "$1" && return
 
 	local rodada serie ano
 	local url="http://esporte.uol.com.br"

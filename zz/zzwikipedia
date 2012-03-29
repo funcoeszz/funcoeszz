@@ -17,7 +17,7 @@
 # ----------------------------------------------------------------------------
 zzwikipedia ()
 {
-	zzzz -h wikipedia $1 && return
+	zzzz -h wikipedia "$1" && return
 
 	local url
 	local idioma='pt'

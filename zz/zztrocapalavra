@@ -11,7 +11,7 @@
 # TODO -r (ver zzarrumanome)
 zztrocapalavra ()
 {
-	zzzz -h trocapalavra $1 && return
+	zzzz -h trocapalavra "$1" && return
 
 	local arquivo antiga_escapada nova_escapada
 	local antiga="$1"

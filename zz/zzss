@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzss ()
 {
-	zzzz -h ss $1 && return
+	zzzz -h ss "$1" && return
 
 	local mensagem tamanho_mensagem mensagem_colorida
 	local cor_fixo cor_muda negrito codigo_cores fundo

@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzuniq ()
 {
-	zzzz -h uniq $1 && return
+	zzzz -h uniq "$1" && return
 
 	# Nota: as linhas do arquivo são numeradas para guardar a ordem original
 

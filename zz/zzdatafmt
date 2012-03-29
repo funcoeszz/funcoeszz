@@ -35,7 +35,7 @@
 # ----------------------------------------------------------------------------
 zzdatafmt ()
 {
-	zzzz -h datafmt $1 && return
+	zzzz -h datafmt "$1" && return
 
 	local data data_orig fmt ano mes dia aaaa aa mm dd a m d ano_atual
 	local meses='janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro'

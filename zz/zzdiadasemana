@@ -16,7 +16,7 @@
 # ----------------------------------------------------------------------------
 zzdiadasemana ()
 {
-	zzzz -h diadasemana $1 && return
+	zzzz -h diadasemana "$1" && return
 
 	local data delta dia
 	local dias="quinta- sexta- sábado domingo segunda- terça- quarta-"

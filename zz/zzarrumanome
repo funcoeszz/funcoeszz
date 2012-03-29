@@ -18,7 +18,7 @@
 # ----------------------------------------------------------------------------
 zzarrumanome ()
 {
-	zzzz -h arrumanome $1 && return
+	zzzz -h arrumanome "$1" && return
 
 	local arquivo caminho antigo novo recursivo pastas nao i
 

@@ -14,7 +14,7 @@
 # ----------------------------------------------------------------------------
 zzlimpalixo ()
 {
-	zzzz -h limpalixo $1 && return
+	zzzz -h limpalixo "$1" && return
 
 	local comentario='#'
 

@@ -20,7 +20,7 @@
 # ----------------------------------------------------------------------------
 zzseq ()
 {
-	zzzz -h seq $1 && return
+	zzzz -h seq "$1" && return
 
 	local operacao='+'
 	local inicio=1

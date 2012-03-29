@@ -11,7 +11,7 @@
 # ----------------------------------------------------------------------------
 zzdos2unix ()
 {
-	zzzz -h dos2unix $1 && return
+	zzzz -h dos2unix "$1" && return
 
 	local arquivo
 	local tmp="$ZZTMP.dos2unix.$$"

@@ -465,7 +465,7 @@ zzzz ()
 		#
 		# Assim cada função só precisa colocar a seguinte linha no início:
 		#
-		#     zzzz -h beep $1 && return
+		#     zzzz -h beep "$1" && return
 		#
 		# Ao ser chamada, a zzzz vai mostrar a ajuda da função zzbeep caso
 		# o valor de $1 seja -h ou --help. Se no $1 estiver qualquer outra

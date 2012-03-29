@@ -18,7 +18,7 @@
 zzrandbackground ()
 {
 
-	zzzz -h randbackground $1 && return
+	zzzz -h randbackground "$1" && return
 
 	local caminho tempo papeisdeparede background
 	local opcao caminho segundos loop

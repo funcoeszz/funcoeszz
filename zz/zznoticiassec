@@ -18,7 +18,7 @@
 # ----------------------------------------------------------------------------
 zznoticiassec ()
 {
-	zzzz -h noticiassec $1 && return
+	zzzz -h noticiassec "$1" && return
 
 	local url limite
 	local n=5

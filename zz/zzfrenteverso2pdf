@@ -18,7 +18,7 @@
 # ----------------------------------------------------------------------------
 zzfrenteverso2pdf ()
 {
-	zzzz -h frenteverso2pdf $1 && return
+	zzzz -h frenteverso2pdf "$1" && return
 
 	# Declara variaveis.
 	local n_frentes n_versos dif n_pag_frente n_pag_verso
