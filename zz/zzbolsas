@@ -9,7 +9,7 @@
 # Com o parâmetro sendo um código de bolsa ou ação mostra sua última
 # cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
 # Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
-# pesquisa-o no nome ou código das ações disponíves na bolsa citada.
+# pesquisa-o no nome ou código das ações disponíveis na bolsa citada.
 # Com o parâmetro -l seguido do código da bolsa, lista as ações (códigos).
 # Com o parâmetro --lista seguido do código da bolsa, lista as ações com
 # nome e última cotação.
