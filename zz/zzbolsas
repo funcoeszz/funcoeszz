@@ -6,6 +6,8 @@
 # Com o parâmetro commodities produtos de origem primária nas bolsas.
 # Com o parâmetro taxas_fixas exibe uma tabela de comparação de câmbio.
 # Com o parâmetro taxas_cruzadas exite a tabela cartesiana do câmbio.
+# Com o parâmetro servicos, economia ou politica, mostra notícias relativas.
+# Com o parâmetro noticias, junta as notícias de servicos e economia.
 # Com o parâmetro sendo um código de bolsa ou ação mostra sua última
 # cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
 # Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
@@ -25,10 +27,11 @@
 #      zzbolsas commodities
 #      zzbolsas taxas_fixas
 #      zzbolsas taxas_cruzadas
+#      zzbolsas noticias
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 8
+# Versão: 9
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt
 # ----------------------------------------------------------------------------
@@ -154,6 +157,20 @@ zzbolsas ()
 				$ZZWWWDUMP "$url/moedas/mercado.html" |
 				sed -n '/CAPTION: Taxas cruzadas/,/Notícias e comentários/p' |
 				sed 's/CAPTION: //g;/^[[:space:]]*$/d;$d'
+			;;
+			noticias | economia | politica | servicos)
+				case "$1" in
+				economia | politica) vartemp=$($ZZWWWDUMP "$url/noticias/categoria-economia-politica-governo") ;;
+				servicos) vartemp=$($ZZWWWDUMP "$url/noticias/setor-servicos") ;;
+				noticias)
+					zzbolsas economia
+					zzbolsas servicos
+					return
+				;;
+				esac
+				echo "$vartemp" |
+				sed -n '/^[[:space:]]\+.*\(atrás\|BRT\)[[:space:]]*$/p' |
+				sed 's/^[[:space:]]\+/ /g'
 			;;
 			*)
 				bolsa=$(echo "$1"|zzmaiusculas)
