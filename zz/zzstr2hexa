@@ -1,0 +1,33 @@
+# ----------------------------------------------------------------------------
+# Converte string em bytes em hexadecimal equivalente.
+# Uso: zzstr2hexa [string]
+# Ex.: zzstr2hexa @MenteBrilhante 	
+#      zzstr2hexa bin 		
+#      echo bin | zzstr2hexa
+#
+# Autor: Marcell S. Martini <marcell.martini(a)gmail.com
+# Desde: 2012-03-30
+# Versão: 1
+# Licença: GPL
+# ----------------------------------------------------------------------------
+zzstr2hexa ()
+{
+	zzzz -h str2hexa "$1" && return
+
+	local hexa
+
+	# Dados via STDIN ou argumentos
+	zztool multi_stdin "$@" |
+
+		# Um caracter por linha e tira o \n do final da linha
+		sed 's#\([a-z]\|[A-Z]\)#\1\n#g;s/\n$//' |
+
+		# hexa -> str
+		while read string 
+		do
+			printf "%x " \'$string
+		done
+
+	# Quebra de linha final
+	echo
+}
