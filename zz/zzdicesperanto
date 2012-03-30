@@ -7,6 +7,7 @@
 #      zzdicesperanto EO-PT espero
 #
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
+# Co-Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2005-05-20
 # Versão: 1
 # Licença: GPL
@@ -22,7 +23,9 @@ zzdicesperanto ()
 
 	[ "${I% $1 *}" != "$I" ] && L=$1 && shift
 
-	$ZZWWWDUMP "http://wwwtios.cs.utwente.nl/traduk/$L/Traduku/?$1" |
+	PESQUISA="$(zzstr2hexa $1 | tr ' ' '%' | sed 's/%$//;s/^/%/')"
+
+	$ZZWWWDUMP "http://wwwtios.cs.utwente.nl/traduk/$L/Traduku/?$PESQUISA" |
 		grep -v ^THE_ |
 		grep -v ___ |
 		grep -v /cxefpagxo\] |
