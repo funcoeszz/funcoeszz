@@ -3,6 +3,9 @@
 # Pesquisa índices de bolsas e cotações de ações.
 # Sem parâmetros mostra a lista de bolsas disponíveis (códigos).
 # Com o parâmetro -l apenas mostra as bolsas disponíveis e seus nomes.
+# Com o parâmetro commodities produtos de origem primária nas bolsas.
+# Com o parâmetro taxas_fixas exibe uma tabela de comparação de câmbio.
+# Com o parâmetro taxas_cruzadas exite a tabela cartesiana do câmbio.
 # Com o parâmetro sendo um código de bolsa ou ação mostra sua última
 # cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
 # Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
@@ -19,10 +22,13 @@
 #      zzbolsas ^BVSP            # Cotação do índice Bovespa
 #      zzbolsas PETR4.SA         # Cotação das ações da Petrobrás
 #      zzbolsas PETR4.SA 21/12/2010  # Cotação da Petrobrás nesta data
+#      zzbolsas commodities
+#      zzbolsas taxas_fixas
+#      zzbolsas taxas_cruzadas
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt
 # ----------------------------------------------------------------------------
@@ -126,6 +132,28 @@ zzbolsas ()
 					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
 					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//;s/ *-$//"
 				done
+			;;
+			commodities)
+				$ZZWWWDUMP "$url/moedas/mercado.html" |
+				sed -n '/^Commodities/,/Mais commodities/p' |
+				sed '1d;$d;s/CAPTION: //g;s/ *Metais/\n&/'
+			;;
+			taxas_fixas)
+				echo "   Taxas Fixas"
+				$ZZWWWDUMP "$url/moedas/mercado.html" |
+				sed -n '/CAPTION: Taxas fixas/,/CAPTION: Taxas cruzadas/p' |
+				sed '
+						/CAPTION: /d
+						/^[[:space:]]\{5\}/d
+						/^[[:space:]]*$/d
+						s/ *Visualização do gráfico//g
+						s/ *Par cambial/\n&/g
+					'
+			;;
+			taxas_cruzadas)
+				$ZZWWWDUMP "$url/moedas/mercado.html" |
+				sed -n '/CAPTION: Taxas cruzadas/,/Notícias e comentários/p' |
+				sed 's/CAPTION: //g;/^[[:space:]]*$/d;$d'
 			;;
 			*)
 				bolsa=$(echo "$1"|zzmaiusculas)
