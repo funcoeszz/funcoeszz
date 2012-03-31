@@ -14,19 +14,18 @@ zzstr2hexa ()
 {
 	zzzz -h str2hexa "$1" && return
 
-	local hexa
+	local string
 
-	# Dados via STDIN ou argumentos
-	zztool multi_stdin "$@" |
+	# sting -> hexa
+	for string in  $(
+		# Dados via STDIN ou argumentos
+		zztool multi_stdin "$@" |
 
 		# Um caracter por linha e tira o \n do final da linha
-		sed 's#\([a-z]\|[A-Z]\)#\1\n#g;s/\n$//' |
-
-		# hexa -> str
-		while read string 
-		do
-			printf "%x " \'$string
-		done
+		sed 's#\(.\)#\1 #g' )
+	do
+		printf "%x " \'$string
+	done
 
 	# Quebra de linha final
 	echo
