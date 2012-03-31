@@ -9,8 +9,9 @@
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Co-Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2005-05-20
-# Versão: 1
+# Versão: 3
 # Licença: GPL
+# Requisitos: zzstr2hexa
 # ----------------------------------------------------------------------------
 zzdicesperanto ()
 {
@@ -20,12 +21,13 @@ zzdicesperanto ()
 
 	local L='PT-EO'
 	local I='DE-EO EN-EO EO-DE EO-EN EO-PT PT-EO '
+	local pesquisa
 
 	[ "${I% $1 *}" != "$I" ] && L=$1 && shift
 
-	PESQUISA="$(zzstr2hexa $1 | tr ' ' '%' | sed 's/%$//;s/^/%/')"
+	pesquisa="$(zzstr2hexa $1 | tr ' ' '%' | sed 's/%$//;s/^/%/')"
 
-	$ZZWWWDUMP "http://wwwtios.cs.utwente.nl/traduk/$L/Traduku/?$PESQUISA" |
+	$ZZWWWDUMP "http://wwwtios.cs.utwente.nl/traduk/$L/Traduku/?$pesquisa" |
 		grep -v ^THE_ |
 		grep -v ___ |
 		grep -v /cxefpagxo\] |
