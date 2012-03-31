@@ -5,9 +5,9 @@
 #      zzstr2hexa bin 		
 #      echo bin | zzstr2hexa
 #
-# Autor: Marcell S. Martini <marcell.martini(a)gmail.com
+# Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2012-03-30
-# Versão: 1
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzstr2hexa ()
