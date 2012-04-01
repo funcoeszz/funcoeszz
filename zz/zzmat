@@ -83,7 +83,7 @@ zzmat ()
 			echo "$num1"|grep '\.' > /dev/null
 			if [ "$?" = "0" ]
 			then
-				num1=$(echo "$num1" | sed 's/[0[:blank:]\.]*$//')
+				num1=$(echo "$num1" | sed 's/[0[:blank:]]*$//' | sed 's/\.$//')
 			fi
 		fi
 		num1=$(echo "$num1"|sed 's/^\./0\./')
@@ -613,28 +613,36 @@ zzmat ()
 	fat)
 		if ([ $# -eq "2" ] && zztool testa_numero "$2" && [ "$2" -gt "1" ])
 		then
-			zzseq 2 $2|paste -s -d*|bc -l
+			zzseq 1 $2|paste -s -d*|bc -l
 		else
 			echo " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
 			echo " Uso: zzmat $funcao numero"
 			return 1
 		fi
 	;;
-	arranjo|combinacao)
+	arranjo|combinacao|arranjo_r|combinacao_r)
 		if ([ $# -eq "3" ] && zztool testa_numero "$2" && zztool testa_numero "$3" &&
-		    [ "$2" -gt "$3" ] && [ "$3" -gt "1" ])
+		    [ "$2" -ge "$3" ] && [ "$3" -gt "1" ])
 		then
 			local n p dnp
-			n=$(zzseq $2|paste -s -d*|bc)
-			p=$(zzseq $3|paste -s -d*|bc)
-			dnp=$(zzseq $(($2-$3))|paste -s -d*|bc -l)
+			n=$(zzmat fat $2)
+			p=$(zzmat fat $3)
+			dnp=$(zzmat fat $(($2-$3)))
 			case "$funcao" in
 			arranjo)    num="${n}/${dnp}";;
+			arranjo_r)	zzmat elevado "$2" "$3";;
 			combinacao) num="${n}/(${p}*${dnp})";;
+			combinacao_r)
+				n=$(zzmat fat $(($2+$3-1)))
+				dnp=$(zzmat fat $(($2-1)))
+				num="${n}/(${p}*${dnp})"
+			;;
 			esac
 		else
 			echo " zzmat arranjo: n elementos tomados em grupos de p (considera ordem)"
+			echo " zzmat arranjo_r: n elementos tomados em grupos de p com repetição (considera ordem)"
 			echo " zzmat combinacao: n elementos tomados em grupos de p (desconsidera ordem)"
+			echo " zzmat combinacao_r: n elementos tomados em grupos de p com repetição (desconsidera ordem)"
 			echo " Uso: zzmat $funcao total_numero quantidade_grupo"
 			return 1
 		fi
