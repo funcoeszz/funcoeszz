@@ -8,8 +8,8 @@
 # Com o parâmetro taxas_cruzadas exite a tabela cartesiana do câmbio.
 # Com o parâmetro servicos, economia ou politica, mostra notícias relativas.
 # Com o parâmetro noticias, junta as notícias de servicos e economia.
-# Com o parâmetro sendo um código de bolsa ou ação mostra sua última
 # Com o parâmetro volume lista as ações líderes em volume de negócios.
+# Com o parâmetro sendo um código de bolsa ou ação mostra sua última
 # cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
 # Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
 # pesquisa-o no nome ou código das ações disponíveis na bolsa citada.
