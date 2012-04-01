@@ -622,7 +622,7 @@ zzmat ()
 	;;
 	arranjo|combinacao|arranjo_r|combinacao_r)
 		if ([ $# -eq "3" ] && zztool testa_numero "$2" && zztool testa_numero "$3" &&
-		    [ "$2" -ge "$3" ])
+		    [ "$2" -ge "$3" ] && [ "$3" -ge "1" ])
 		then
 			local n p dnp
 			n=$(zzmat fat $2)
@@ -653,41 +653,33 @@ zzmat ()
 		fi
 	;;
 	pa|pa2|pg)
-		if ([ $# -eq "4" ])
+		if ([ $# -eq "4" ] && zzmat testa_num "$2" &&
+		zzmat testa_num "$3" && zztool testa_numero "$4")
 		then
 			local num_inicial razao passo valor
-			if zzmat testa_num "$2"
-			then
-				if zzmat testa_num "$3"
+			num_inicial=$(echo "$2"|tr ',' '.')
+			razao=$(echo "$3"|tr ',' '.')
+			passo=0
+			valor=$num_inicial
+			while ([ $passo -lt $4 ])
+			do
+				if [ "$funcao" = "pa" ]
 				then
-					if (zztool testa_numero $4)
-					then
-						num_inicial=$(echo "$2"|tr ',' '.')
-						razao=$(echo "$3"|tr ',' '.')
-						passo=0
-						valor=$num_inicial
-						while ([ $passo -lt $4 ])
-						do
-							if [ "$funcao" = "pa" ]
-							then
-								valor=$(echo "$num_inicial + ($razao * $passo)"|bc -l|
-								awk '{printf "%.'${precisao}'f\n", $1}')
-							elif [ "$funcao" = "pa2" ]
-							then
-								valor=$(echo "$valor + ($razao * $passo)"|bc -l|
-								awk '{printf "%.'${precisao}'f\n", $1}')
-							else
-								valor=$(echo "$num_inicial * $razao^$passo"|bc -l|
-								awk '{printf "%.'${precisao}'f\n", $1}')
-							fi
-							valor=$(echo "$valor"|zzmat -p${precisao} sem_zeros)
-							echo -n " $valor"
-							passo=$(($passo+1))
-						done
-						echo
-					fi
+					valor=$(echo "$num_inicial + ($razao * $passo)"|bc -l|
+					awk '{printf "%.'${precisao}'f\n", $1}')
+				elif [ "$funcao" = "pa2" ]
+				then
+					valor=$(echo "$valor + ($razao * $passo)"|bc -l|
+					awk '{printf "%.'${precisao}'f\n", $1}')
+				else
+					valor=$(echo "$num_inicial * $razao^$passo"|bc -l|
+					awk '{printf "%.'${precisao}'f\n", $1}')
 				fi
-			fi
+				valor=$(echo "$valor"|zzmat -p${precisao} sem_zeros)
+				echo -n " $valor"
+				passo=$(($passo+1))
+			done
+			echo
 		else
 			echo " zzmat pa:  Progressão Aritmética"
 			echo " zzmat pa2: Progressão Aritmética de Segunda Ordem"
