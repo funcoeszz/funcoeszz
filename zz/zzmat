@@ -6,8 +6,8 @@
 # pois ficou muito extenso colocar no help do zzmat apenas.
 #
 # Funções matemáticas disponíveis.
-# mmc mdc somatoria produtoria media soma fat arranjo combinacao
-# pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
+# mmc mdc somatoria produtoria media soma fat arranjo arranjo_r combinacao
+# combinacao_r pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
 # converte sen cos tan csc sec cot asen acos atan log ln abs
 # raiz potencia elevado aleatorio random det conf_eq sem_zeros
 # Mais detalhes: zzmat função
@@ -611,7 +611,7 @@ zzmat ()
 		fi
 	;;
 	fat)
-		if ([ $# -eq "2" ] && zztool testa_numero "$2" && [ "$2" -gt "1" ])
+		if ([ $# -eq "2" ] && zztool testa_numero "$2" && [ "$2" -ge "1" ])
 		then
 			zzseq 1 $2|paste -s -d*|bc -l
 		else
@@ -622,20 +622,25 @@ zzmat ()
 	;;
 	arranjo|combinacao|arranjo_r|combinacao_r)
 		if ([ $# -eq "3" ] && zztool testa_numero "$2" && zztool testa_numero "$3" &&
-		    [ "$2" -ge "$3" ] && [ "$3" -gt "1" ])
+		    [ "$2" -ge "$3" ])
 		then
 			local n p dnp
 			n=$(zzmat fat $2)
 			p=$(zzmat fat $3)
 			dnp=$(zzmat fat $(($2-$3)))
 			case "$funcao" in
-			arranjo)    num="${n}/${dnp}";;
+			arranjo)    [ "$2" -gt "$3" ] && num="${n}/${dnp}" || return 1;;
 			arranjo_r)	zzmat elevado "$2" "$3";;
-			combinacao) num="${n}/(${p}*${dnp})";;
+			combinacao) [ "$2" -gt "$3" ] && num="${n}/(${p}*${dnp})" || return 1;;
 			combinacao_r)
-				n=$(zzmat fat $(($2+$3-1)))
-				dnp=$(zzmat fat $(($2-1)))
-				num="${n}/(${p}*${dnp})"
+				if ([ "$2" -gt "$3" ])
+				then
+					n=$(zzmat fat $(($2+$3-1)))
+					dnp=$(zzmat fat $(($2-1)))
+					num="${n}/(${p}*${dnp})"
+				else
+					return 1
+				fi
 			;;
 			esac
 		else
