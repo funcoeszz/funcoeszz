@@ -9,6 +9,7 @@
 # Com o parâmetro servicos, economia ou politica, mostra notícias relativas.
 # Com o parâmetro noticias, junta as notícias de servicos e economia.
 # Com o parâmetro sendo um código de bolsa ou ação mostra sua última
+# Com o parâmetro volume lista as ações líderes em volume de negócios.
 # cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
 # Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
 # pesquisa-o no nome ou código das ações disponíveis na bolsa citada.
@@ -31,7 +32,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt
 # ----------------------------------------------------------------------------
@@ -171,6 +172,27 @@ zzbolsas ()
 				echo "$vartemp" |
 				sed -n '/^[[:space:]]\+.*\(atrás\|BRT\)[[:space:]]*$/p' |
 				sed 's/^[[:space:]]\+/ /g'
+			;;
+			volume)
+				$ZZWWWDUMP "$url/actives?e=sa" |
+				sed -n '/Informações relacionadas/,/^[[:space:]]*$/p' |
+				sed '1d;s/\(Down \| de \)/-/g;s/Up /+/g;s/Gráfico, .*//g' |
+				awk 'BEGIN {
+							printf " %-10s  %-21s  %-20s  %-16s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
+						}
+					{
+						if (NF > 6) {
+							nome = ""
+							printf " %-10s ", $1;
+							for(i=2; i<=NF-5; i++) {nome = nome sprintf( "%s ", $i)};
+							printf " %-22s ", nome;
+							for(i=NF-4; i<=NF-3; i++) printf " %-6s ", $i;
+							printf "  "
+							printf " %-6s ", $(NF-2); printf " %-9s ", $(NF-1);
+							printf " %10s", $NF
+							print ""
+						}
+					}'
 			;;
 			*)
 				bolsa=$(echo "$1"|zzmaiusculas)
