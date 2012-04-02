@@ -131,6 +131,28 @@ zzmat ()
 			rd) num="$num1*200/$pi";;
 			dg) num="$num1*0.9";;
 			gd) num="$num1/0.9";;
+			??)
+				local grandeza1 grandeza2 fator divisor potencia
+				local grandezas="y z a f p n u m c d 1 D H K M G T P E Z Y"
+				local potencias="-24 -21 -18 -15 -12 -9 -6 -3 -2 -1 0 1 2 3 6 9 12 15 18 21 24"
+				local posicao='1'
+				grandeza1=$(echo "$2" | sed 's/\([[:alpha:]1]\)[[:alpha:]1]/\1/')
+				grandeza2=$(echo "$2" | sed 's/[[:alpha:]1]\([[:alpha:]1]\)/\1/')
+				if ([ "$grandeza1" != "$grandeza2" ])
+				then
+					for letra in $(echo "$grandezas")
+					do
+						potencia=$(echo "$potencias"|awk '{print $'$posicao'}')
+						[ "$grandeza1" == "$letra" ] && fator=$(zzmat elevado 10 $potencia)
+						[ "$grandeza2" == "$letra" ] && divisor=$(zzmat elevado 10 $potencia)
+						let posicao++
+					done
+					if ([ "$fator" ] && [ "$divisor" ])
+					then
+						echo "$num1 $fator $divisor"|awk '{printf "%.'${precisao}'f\n", $1*$2/$3}'|zzmat -p${precisao} sem_zeros
+					fi
+				fi
+			;;
 			esac
 		else
 			echo " zzmat $funcao: Conversões de unidades (não contempladas no zzconverte)"
@@ -140,7 +162,11 @@ zzmat ()
 	dr: grado para radiano
 	rd: radiano para grado
 	dg: grado para graus
-	gd: graus para grado"
+	gd: graus para grado
+	ou com os pares do Sistema Internacional de Unidade
+	(y z a f p n u m c d 1 D H K M G T P E Z Y)
+	usando a combição dessa letras em pares, sendo na ordem 'de' 'para'
+	Exempo: Kd converte de Kilo para deci."
 			echo " Uso: zzmat $funcao sub-função número"
 			return 1
 		fi
