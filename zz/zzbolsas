@@ -8,7 +8,8 @@
 # Com o parâmetro taxas_cruzadas exite a tabela cartesiana do câmbio.
 # Com o parâmetro servicos, economia ou politica, mostra notícias relativas.
 # Com o parâmetro noticias, junta as notícias de servicos e economia.
-# Com o parâmetro volume lista as ações líderes em volume de negócios.
+# Com o parâmetro volume lista ações líderes em volume de negócios na Bovespa.
+# Com o parâmetro alta ou baixa, lista as ações nessa condição na BMFBovespa.
 # Com o parâmetro sendo um código de bolsa ou ação mostra sua última
 # cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
 # Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
@@ -173,8 +174,13 @@ zzbolsas ()
 				sed -n '/^[[:space:]]\+.*\(atrás\|BRT\)[[:space:]]*$/p' |
 				sed 's/^[[:space:]]\+/ /g'
 			;;
-			volume)
-				$ZZWWWDUMP "$url/actives?e=sa" |
+			volume|alta|baixa)
+				case "$1" in
+					volume) pag='activies';;
+					alta)	pag='gainers';;
+					baixa)	pag='losers';;
+				esac
+				$ZZWWWDUMP "$url/${pag}?e=sa" |
 				sed -n '/Informações relacionadas/,/^[[:space:]]*$/p' |
 				sed '1d;s/\(Down \| de \)/-/g;s/Up /+/g;s/Gráfico, .*//g' |
 				awk 'BEGIN {
