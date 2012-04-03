@@ -176,7 +176,7 @@ zzbolsas ()
 			;;
 			volume|alta|baixa)
 				case "$1" in
-					volume) pag='activies';;
+					volume) pag='actives';;
 					alta)	pag='gainers';;
 					baixa)	pag='losers';;
 				esac
