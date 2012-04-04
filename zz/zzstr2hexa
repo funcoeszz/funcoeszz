@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 # Converte string em bytes em hexadecimal equivalente.
 # Uso: zzstr2hexa [string]
-# Ex.: zzstr2hexa @MenteBrilhante 	
-#      zzstr2hexa bin 		
+# Ex.: zzstr2hexa @MenteBrilhante
+#      zzstr2hexa bin
 #      echo bin | zzstr2hexa
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
