@@ -143,8 +143,8 @@ zzmat ()
 					for letra in $(echo "$grandezas")
 					do
 						potencia=$(echo "$potencias"|awk '{print $'$posicao'}')
-						[ "$grandeza1" == "$letra" ] && fator=$(zzmat elevado 10 $potencia)
-						[ "$grandeza2" == "$letra" ] && divisor=$(zzmat elevado 10 $potencia)
+						[ "$grandeza1" = "$letra" ] && fator=$(zzmat elevado 10 $potencia)
+						[ "$grandeza2" = "$letra" ] && divisor=$(zzmat elevado 10 $potencia)
 						let posicao++
 					done
 					if ([ "$fator" ] && [ "$divisor" ])
