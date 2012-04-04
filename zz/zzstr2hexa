@@ -16,7 +16,7 @@ zzstr2hexa ()
 
 	local string
 
-	# sting -> hexa
+	# string -> hexa
 	for string in  $(
 		# Dados via STDIN ou argumentos
 		zztool multi_stdin "$@" |
@@ -25,7 +25,9 @@ zzstr2hexa ()
 		sed 's#\(.\)#\1 #g' )
 	do
 		printf "%x " \'$string
-	done
+	done |
+		# Remove o espaço que sobra no final
+		sed 's/ $//'
 
 	# Quebra de linha final
 	echo
