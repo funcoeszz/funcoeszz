@@ -61,7 +61,7 @@ zzcalcula ()
 			1 s/^+//' |
 		# Junta as linhas num única tripa, exemplo: 5+7-3+1-2
 		#tr -d '\n'
-		paste -s -d' ' | sed 's/ //g'
+		paste -s -d ' ' - | sed 's/ //g'
 	else
 		cat -
 	fi |
