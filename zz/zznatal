@@ -14,7 +14,7 @@ zznatal ()
 {
 	zzzz -h natal "$1" && return
 
-	local url='http://www.ibb.org.br/vidanet/outras/msg239.htm'
+	local url='http://www.vidanet.org.br/mensagens/feliz-natal-em-varios-idiomas'
 	local cache="$ZZTMP.natal"
 	local padrao=$1
 
@@ -22,10 +22,9 @@ zznatal ()
 	if ! test -s "$cache"
 	then
 		$ZZWWWDUMP "$url" | sed '
-			/^      /!d
-			/\[/d
+			1,10d
+			77,179d
 			s/^  *//
-			/^Outras/d
 			s/^(/Chinês  &/
 			s/  */: /' > "$cache"
 	fi
