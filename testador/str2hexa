@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+debug=0
+values=1
+tests=(
+
+binario	t	"62 69 6e 61 72 69 6f"
+
+)
+. _lib
