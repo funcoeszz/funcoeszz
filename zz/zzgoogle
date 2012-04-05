@@ -38,14 +38,17 @@ zzgoogle ()
 	# inserir quebras de linha antes de cada resultado. Identificadas as linhas
 	# corretas, o filtros limpa os lixos e formata o resultado.
 
-	$ZZWWWHTML "$url?q=$padrao&num=$limite&ie=UTF-8&oe=UTF-8&hl=pt-BR" |
-		sed 's/<h3 class="r">/\
+	$ZZWWWHTML -cookies "$url?q=$padrao&num=$limite&ie=UTF-8&oe=UTF-8&hl=pt-BR" |
+		sed 's/<p>/\
 @/g' |
 		sed '
-			/^@<a href="\([^"]*\)" class=l>/!d
-			s/^@<a href="//
-			s/" class=l>/ /
+			/^@<a href="\([^"]*\)">/!d
+			s|^@<a href="/url?q=||
 			s/<\/a>.*//
+
+			s/<table.*//
+			/^http/!d
+			s/&amp;sa.*">/ /
 
 			# Remove tags HTML
 			s/<[^>]*>//g
@@ -57,7 +60,13 @@ zzgoogle ()
 			s/&nbsp;/ /g
 			s/&amp;/\&/g
 
+			# Restaura caracteres url encoded
+			s/%3F/?/g
+			s/%3D/\=/g
+			s/%26/\&/g
+
 			s/\([^ ]*\) \(.*\)/\2\
   \1\
 /'
 }
+
