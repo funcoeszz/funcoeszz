@@ -21,3 +21,4 @@ Mas antes, por favor dê uma lida nas [páginas do Wiki](https://github.com/orei
 
 Se você manja de SVN e precisa de uma ajuda inicial com o git, dá uma lida [aqui](https://git.wiki.kernel.org/articles/g/i/t/GitSvnCrashCourse_512d.html).
 
+Mas para aprender rapidamente como é o jeitão do git, leia [http://gitref.org](http://gitref.org).
