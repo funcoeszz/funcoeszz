@@ -16,11 +16,46 @@ Forka nóis e pulla! :)
 
 Mas antes, por favor dê uma lida nas [páginas do Wiki](https://github.com/oreio/funcoeszz/wiki/_pages), especialmente a [Coding Style](https://github.com/oreio/funcoeszz/wiki/Coding-Style).
 
+Se precisar de ajuda com o git, leia:
 
-## Ajuda com o git
+- [Guia pra quem manja de SVN](https://git.wiki.kernel.org/articles/g/i/t/GitSvnCrashCourse_512d.html)
+- [Git Reference](http://gitref.org) — Guia rápido, com exemplos
+- [The Git Parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html) — Entenda a filosofia por trás do git
 
-Se você manja de SVN e precisa de uma ajuda inicial com o git, dá uma lida [aqui](https://git.wiki.kernel.org/articles/g/i/t/GitSvnCrashCourse_512d.html).
+## Instalação das Funções ZZ
 
-Para aprender rapidamente como é o jeitão do git, com exemplos de uso, leia [Git Reference](http://gitref.org).
+Baixe o repositório para sua máquina:
 
-Para entender a filosofia por trás do git, leia [The Git Parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html). 
+    $ git clone git://github.com/oreio/funcoeszz.git ~/funcoeszz
+    $ cd ~/funcoeszz
+
+Rode o comando seguinte para adicionar o carregamento das Funções ZZ no final de seu `~/.bashrc`:
+
+    $ ./funcoeszz zzzz --bashrc
+    Feito!
+    As Funções ZZ foram instaladas no /Users/aurelio/.bashrc
+
+Confira que as linhas foram adicionadas, e perceba que o PATH atual do script fica na variável `$ZZPATH`.
+
+    $ tail -4 ~/.bashrc
+    # Instalacao das Funcoes ZZ (www.funcoeszz.net)
+    export ZZOFF=""  # desligue funcoes indesejadas
+    export ZZPATH="/Users/aurelio/funcoeszz/funcoeszz"  # script
+    source "$ZZPATH"
+
+Você precisa adicionar "na mão" mais uma linha lá no `~/.bashrc`, antes do comando `source`, para indicar onde está a pasta com as funções:
+
+    export ZZDIR="/Users/aurelio/funcoeszz/zz"
+
+Agora sim, você pode usar as Funções ZZ em toda a sua glória. Abra um novo terminal e divirta-se!
+
+    $ zzcalcula 10+5
+    15
+    
+    $ zzbissexto
+    2012 é bissexto
+    
+    $ zzmaiusculas tá funcionando
+    TÁ FUNCIONANDO
+
+Quando quiser atualizar os arquivos para a versão mais recente, basta um `git pull`.
