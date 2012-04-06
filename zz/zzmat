@@ -165,7 +165,8 @@ zzmat ()
 	gd: graus para grado
 	ou com os pares do Sistema Internacional de Unidade
 	(y z a f p n u m c d 1 D H K M G T P E Z Y)
-	usando a combição dessa letras em pares, sendo na ordem 'de' 'para'
+	usando a combição dessa letras em pares, sendo na ordem 'de' 'para'.
+	Obs: o 1 no centro representa a unidade de medida que não possui prefixo.
 	Exempo: Kd converte de Kilo para deci."
 			echo " Uso: zzmat $funcao sub-função número"
 			return 1
@@ -593,7 +594,8 @@ zzmat ()
 			echo " zzmat $funcao: Soma ou Produto de expressão"
 			echo " Uso: zzmat $funcao limite_inferior limite_superior equacao"
 			echo " Usar 'x' como variável na equação"
-			echo " Usar '[' e ']' respectivamente no lugar de '(' e ')'"
+			echo " Usar '[' e ']' respectivamente no lugar de '(' e ')', ou proteger"
+			echo " a fórmula com aspas duplas(\") ou simples(')"
 			return 1
 		fi
 	;;
@@ -632,7 +634,7 @@ zzmat ()
 		else
 			echo " zzmat $funcao:Soma ou Média Aritimética e Ponderada"
 			echo " Uso: zzmat $funcao numero[[peso]] [numero[peso]] ..."
-			echo " Usar '[' e ']' respectivamente no lugar de '(' e ')'"
+			echo " Usar o peso entre '[' e ']', justaposto ao número."
 			return 1
 		fi
 	;;
@@ -1165,7 +1167,8 @@ zzmat ()
 			echo " As variáveis a serem consideradas são x, y ou z nas fórmulas."
 			echo " As variáveis são justapostas em cada argumento separados por vírgula."
 			echo " Cada argumento adicional é um novo conjunto de variáveis na fórmula."
-			echo " Usar '[' e ']' respectivamente no lugar de '(' e ')'."
+			echo " Usar '[' e ']' respectivamente no lugar de '(' e ')', ou proteger"
+			echo " a fórmula com aspas duplas(\") ou simples(')"
 			echo " Potenciação é representado com o uso de '^', ex: 3^2."
 			echo " Não use separador de milhar. Use o ponto(.) como separador decimal."
 			echo " Uso: zzmat $funcao equacao numero|ponto(x,y[,z])"
