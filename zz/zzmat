@@ -77,7 +77,7 @@ zzmat ()
 		local num1
 		shift
 		num1=$(zztool multi_stdin $* | tr ',' '.')
-		num1=$(echo "$num1" | sed 's/^[[:blank:]0]*$/zero/;s/^[[:blank:]0]*//;s/zero/0/')
+		num1=$(echo "$num1" | sed 's/^[[:blank:].0]*$/zero/;s/^[[:blank:]0]*//;s/zero/0/')
 		if [ $precisao -gt 0 ]
 			then
 			echo "$num1"|grep '\.' > /dev/null
@@ -277,6 +277,7 @@ zzmat ()
 			echo " Valores devem estar entre -1 e 1, para arco-seno e arco-cosseno."
 			echo " Caso a opção seja '2' retorna o segundo ângulo possível do valor."
 			echo " E se for 'r' retorna o ângulo no sentido invertido (replementar)."
+			echo " As duas opções poder ser combinadas: r2 ou 2r."
 			echo " Uso: zzmat $funcao número [[g|rad|gr] [opção]]"
 			return 1
 		fi
@@ -620,7 +621,7 @@ zzmat ()
 					fi
 				elif zzmat testa_num "$1"
 				then
-					soma=$(echo "$soma + $1"|tr ',' '.'|bc -l)
+					soma=$(echo "($soma) + ($1)"|tr ',' '.'|bc -l)
 					qtde=$(($qtde+1))
 				else
 					zztool uso mat; return 1;
@@ -641,7 +642,7 @@ zzmat ()
 	fat)
 		if ([ $# -eq "2" ] && zztool testa_numero "$2" && [ "$2" -ge "1" ])
 		then
-			zzseq 1 $2|paste -s -d*|bc -l
+			zzseq 1 $2|paste -s -d* -|bc -l
 		else
 			echo " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
 			echo " Uso: zzmat $funcao numero"
@@ -768,11 +769,11 @@ zzmat ()
 			if (zzmat testa_num $x1 && zzmat testa_num $y1 &&
 			    zzmat testa_num $x2 && zzmat testa_num $y2 )
 			then
-				a=$(echo "($y1-$y2)^2"|bc -l)
-				b=$(echo "($x1-$x2)^2"|bc -l)
+				a=$(echo "(($y1)-($y2))^2"|bc -l)
+				b=$(echo "(($x1)-($x2))^2"|bc -l)
 				if (zzmat testa_num $z1 && zzmat testa_num $z2)
 				then
-					num="sqrt(($z1-$z2)^2+$a+$b)"
+					num="sqrt((($z1)-($z2))^2+$a+$b)"
 				else
 					num="sqrt($a+$b)"
 				fi
@@ -845,7 +846,7 @@ zzmat ()
 					[ "$fi" ] && num1=$(echo "$(zzmat sen ${fi}rad)*$valor"|bc -l) ||
 						num1=$valor
 					[ "$teta" ] && x1=$(echo "$x1 $oper $(zzmat cos ${teta}rad) * $num1"|bc -l) ||
-						x1=$(echo "$x1 $oper $num1"|bc -l)
+						x1=$(echo "($x1) $oper ($num1)"|bc -l)
 					[ "$teta" ] && y1=$(echo "$y1 $oper $(zzmat sen ${teta}rad) * $num1"|bc -l)
 				fi
 				shift
