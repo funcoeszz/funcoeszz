@@ -136,6 +136,7 @@ zzmat ()
 				local grandezas="y z a f p n u m c d 1 D H K M G T P E Z Y"
 				local potencias="-24 -21 -18 -15 -12 -9 -6 -3 -2 -1 0 1 2 3 6 9 12 15 18 21 24"
 				local posicao='1'
+				precisao=24
 				grandeza1=$(echo "$2" | sed 's/\([[:alpha:]1]\)[[:alpha:]1]/\1/')
 				grandeza2=$(echo "$2" | sed 's/[[:alpha:]1]\([[:alpha:]1]\)/\1/')
 				if ([ "$grandeza1" != "$grandeza2" ])
@@ -143,13 +144,15 @@ zzmat ()
 					for letra in $(echo "$grandezas")
 					do
 						potencia=$(echo "$potencias"|awk '{print $'$posicao'}')
-						[ "$grandeza1" = "$letra" ] && fator=$(zzmat elevado 10 $potencia)
-						[ "$grandeza2" = "$letra" ] && divisor=$(zzmat elevado 10 $potencia)
+						[ "$grandeza1" = "$letra" ] && fator=$(zzmat -p${precisao} elevado 10 $potencia)
+						[ "$grandeza2" = "$letra" ] && divisor=$(zzmat -p${precisao} elevado 10 $potencia)
 						let posicao++
 					done
 					if ([ "$fator" ] && [ "$divisor" ])
 					then
-						echo "$num1 $fator $divisor"|awk '{printf "%.'${precisao}'f\n", $1*$2/$3}'|zzmat -p${precisao} sem_zeros
+						echo "$num1 $fator $divisor" |
+						awk '{printf "%.'$precisao'f\n", $1*$2/$3}' | 
+						zzmat -p${precisao} sem_zeros
 					fi
 				fi
 			;;
@@ -167,6 +170,8 @@ zzmat ()
 	(y z a f p n u m c d 1 D H K M G T P E Z Y)
 	usando a combição dessa letras em pares, sendo na ordem 'de' 'para'.
 	Obs: o 1 no centro representa a unidade de medida que não possui prefixo.
+	Atenção: Dependendo do computador, arquitetura e a precisao do sistema
+	         podem haver distorções em valores muito distantes entre si.
 	Exempo: Kd converte de Kilo para deci."
 			echo " Uso: zzmat $funcao sub-função número"
 			return 1
@@ -298,6 +303,7 @@ zzmat ()
 				num="l($num1)"
 			fi
 		else
+			echo " Se não definir a base no terceiro argumento:"
 			echo " zzmat log: Logaritmo base 10"
 			echo " zzmat ln: Logaritmo Natural base e"
 			echo " Uso: zzmat $funcao numero [base]"
