@@ -20,8 +20,7 @@
 # Opção só é válida para os canais.
 # Se o primeiro argumento é cod seguido de um número, obtido pelas listagens
 # citadas anteriormente, com segundo argumento, mostra um resumo do programa.
-# Uso: zztv <emissora> [semana|s]
-#      zztv cod <numero>
+# Uso: zztv <emissora> [semana|s]  ou  zztv cod <numero>
 # Ex.: zztv cultura
 #      zztv cod 3235238
 #

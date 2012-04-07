@@ -18,8 +18,7 @@
 #	SG  - Saldo de Gols
 #	(%) - Aproveitamento (pontos)
 #
-# Uso: zzbrasileirao [a | b] [numero rodada]
-# Uso: zzbrasileirao -l [nome do clube]
+# Uso: zzbrasileirao [a|b] [numero rodada] ou zzbrasileirao -l [nome clube]
 # Ex.: zzbrasileirao
 #      zzbrasileirao a
 #      zzbrasileirao b
