@@ -49,7 +49,7 @@ elevado	3	3.3	t	37.540508
 . _lib
 
 values=4
-saida1=' X1: -3
+saida1=' X1: -3 
  X2: 0
  Vertice: (-1.5, -2.25)
 '
