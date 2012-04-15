@@ -49,7 +49,7 @@ elevado	3	3.3	t	37.540508
 . _lib
 
 values=4
-saida1=' X1: -3 
+saida1=' X1: -3
  X2: 0
  Vertice: (-1.5, -2.25)
 '
@@ -76,6 +76,16 @@ atan	2	rad	r2	t	-2.034444
 vetor	2,45g,45g	4,-60g,-30g	g	t	'5.591248,89.999981g,29.250584g'
 
 conf_eq	'x^2+3*(y-1)-2z+5'	7,6.8,9	3,2,5.1	t	"$saida3"
+
+area	triangulo	3	4	t	6
+area	quadrado	2	''	t	4
+area	esfera	2	''	t	50.265482
+area	icosidodecaedro	truncado	2	t	433.767968
+
+volume	cubo	snub	3	t	213.01589
+volume	cilindro	2	5	t	62.831853
+volume	icosidodecaedro	truncado	1	t	201.803399
+volume	rombicosidodecaedro	3	''	t	1123.613742
 )
 . _lib
 
@@ -83,6 +93,7 @@ values=5
 tests=(
 det	1	2	3	4	t	-2
 det	9	2	4	6	t	46
+
+area	trapezio	7	3	4	t	20
 )
 . _lib
-
