@@ -52,7 +52,7 @@ if [ "$1" == "-lista" ]
 then
 	for i in $COMENTARISTAS
 	do
-		echo `echo $i | cut -d';' -f1`
+		echo `echo $i | sed 's/;/ ou /g' # cut -d';' -f1`
 	done
 	return
 fi
@@ -71,7 +71,8 @@ fi
 				;;
 			-mp3)
 				EXT="mp3"
-				MP3="http://download3.globo.com/sgr-$EXT/cbn/"
+				#MP3="http://download3.globo.com/sgr-$EXT/cbn/"
+				MP3="http://download.sgr.globo.com/sgr-$EXT/cbn/"
 				;;
 			*)
 				zzecho -l vermelha "Opção inválida!!"
