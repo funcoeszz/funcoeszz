@@ -1,0 +1,18 @@
+# ----------------------------------------------------------------------------
+# Inverte a string passada como parâmetro para o comando
+# Uso: zzinverte
+# Ex.: zzinverte string
+#
+# Autor: Ataliba Teixeira, www.ataliba.eti.br
+# Desde: 2012-04-30
+# Versão: 1
+# Licença: GPL
+# ----------------------------------------------------------------------------
+zzinverte ()
+{
+  
+  zzzz -h inverte "$1" && return
+   
+  echo $1 | awk '{ for(i=length($0);i>=1;i--) printf("%s",substr($0,i,1)); }'
+  echo 
+}
