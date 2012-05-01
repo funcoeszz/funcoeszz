@@ -2,24 +2,32 @@
 # http://br.finance.yahoo.com
 # Pesquisa índices de bolsas e cotações de ações.
 # Sem parâmetros mostra a lista de bolsas disponíveis (códigos).
-# Com o parâmetro -l apenas mostra as bolsas disponíveis e seus nomes.
-# Com o parâmetro commodities produtos de origem primária nas bolsas.
-# Com o parâmetro taxas_fixas exibe uma tabela de comparação de câmbio.
-# Com o parâmetro taxas_cruzadas exite a tabela cartesiana do câmbio.
-# Com o parâmetro servicos, economia ou politica, mostra notícias relativas.
-# Com o parâmetro noticias, junta as notícias de servicos e economia.
-# Com o parâmetro volume lista ações líderes em volume de negócios na Bovespa.
-# Com o parâmetro alta ou baixa, lista as ações nessa condição na BMFBovespa.
-# Com o parâmetro sendo um código de bolsa ou ação mostra sua última
-# cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
-# Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
-# pesquisa-o no nome ou código das ações disponíveis na bolsa citada.
-# Com o paramêtro sendo "vs" ou "comp" seguido da 2 ações ou bolsas, faz a
-# comparaçao de ambas, e com um quarto parametro sendo uma data faz essa
-# comparaçao na data especificada. Mas não compara ações com bolsas.
-# Com o parâmetro -l seguido do código da bolsa, lista as ações (códigos).
-# Com o parâmetro --lista seguido do código da bolsa, lista as ações com
-# nome e última cotação.
+# Com 1 parâmetro:
+#  -l: apenas mostra as bolsas disponíveis e seus nomes.
+#  commodities: produtos de origem primária nas bolsas.
+#  taxas_fixas: exibe uma tabela de comparação de câmbio.
+#  taxas_cruzadas: exibe a tabela cartesiana do câmbio.
+#  servicos, economia ou politica: mostra notícias relativas a esse assuntos.
+#  noticias: junta as notícias de servicos e economia.
+#  volume: lista ações líderes em volume de negócios na Bovespa.
+#  alta ou baixa: lista as ações nessa condição na BMFBovespa.
+#  "código de bolsa ou ação": mostra sua última cotação.
+#
+# Com 2 parâmetros:
+#  -l e código de bolsa: lista as ações (códigos).
+#  --lista e "código de bolsa": lista as ações com nome e última cotação.
+#  "código de bolsa" e um texto: pesquisa-o no nome ou código das ações
+#    disponíveis na bolsa citada.
+#  "código de bolsa ou ação" e data: pesquisa a cotação no dia.
+#  noticias e "código de ação": Noticias relativas a essa ação (só Bovespa)
+#
+# Com 3 parâmetros ou mais:
+#  "código de bolsa ou ação" e 2 datas: pesquisa as cotações nos dias com
+#    comparações entre datas e variações da ação ou bolsa pesquisada.
+#  vs (ou comp) e 2 códigos de bolsas ou ações: faz a comparação entre as duas
+#   ações ou bolsas. Se houver um quarto parametro como uma data faz essa
+#   comparaçao na data especificada. Mas não compara ações com bolsas.
+#
 # Uso: zzbolsas [-l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
 # Ex.: zzbolsas                  # Lista das bolsas (códigos)
 #      zzbolsas -l               # Lista das bolsas (nomes)
@@ -29,14 +37,17 @@
 #      zzbolsas ^BVSP            # Cotação do índice Bovespa
 #      zzbolsas PETR4.SA         # Cotação das ações da Petrobrás
 #      zzbolsas PETR4.SA 21/12/2010  # Cotação da Petrobrás nesta data
-#      zzbolsas commodities
+#      zzbolsas commodities      # Tabela de commodities
+#      zzbolsas altas            # Lista ações em altas na Bovespa
+#      zzbolsas volume           # Lista ações em alta em volume de negócios
 #      zzbolsas taxas_fixas
-#      zzbolsas noticias
-#      zzbolsas vs petr3.sa vale5.sa
+#      zzbolsas taxas_cruzadas
+#      zzbolsas noticias         # Noticias recentes do mercado financeiro
+#      zzbolsas vs petr3.sa vale5.sa # Compora ambas cotações
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 11
+# Versão: 12
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -285,6 +296,7 @@ zzbolsas ()
 						paste <(printf "  %-12s" "Data") <(echo "     $data1")
 						paste <(echo "$pags") <(echo "$pag_atual")
 					fi
+			# Compara duas ações ou bolsas diferentes
 			elif ([ "$1" = "vs" -o "$1" = "comp" ])
 			then
 				if (zztool grep_var "^" "$2" && zztool grep_var "^" "$3")
@@ -296,6 +308,7 @@ zzbolsas ()
 				fi
 				if [ "$vartemp" ]
 				then
+					# Compara numa data especifica as ações ou bolsas
 					if ([ "$4" ] && zztool testa_data $(zzdatafmt "$4"))
 					then
 						pag=$(zzbolsas "$2" "$4" | sed '/Proxima data de anuncio/d')
@@ -307,6 +320,7 @@ zzbolsas ()
 							pags=$(zzbolsas "$3" "$4" | sed '/Proxima data de anuncio/d;s/^[[:space:]]*//g;s/[[:space:]]*$//g' |
 							sed '2,$s/[^[:space:]]*[[:space:]]\+//g')
 						fi
+					# Ultima cotaçao das açoes ou bolsas comparadas
 					else
 						pag=$(zzbolsas "$2" | sed '/Proxima data de anuncio/d')
 						if (zztool grep_var "^" "$2")
@@ -316,6 +330,7 @@ zzbolsas ()
 							pags=$(zzbolsas "$3" | sed '/Proxima data de anuncio/d' | sed 's/^[[:space:]]*//g;3,$s/.*:[[:space:]]*//g')
 						fi
 					fi
+					# Imprime efetivamente a comparação
 					if [ $(echo "$pag"|awk 'END {print NR}') -ge 4 -a $(echo "$pags"|awk 'END {print NR}') -ge 4 ]
 					then
 						echo
@@ -328,6 +343,12 @@ zzbolsas ()
 						echo
 					fi
 				fi
+			# Noticias relacionadas a uma ação especifica
+			elif ([ "$1" = "noticias" ] && ! zztool grep_var "^" "$2")
+			then
+				$ZZWWWDUMP "http://br.finance.yahoo.com/q/h?s=$bolsa" |
+				sed -n '/^[[:blank:]]\+\*.*\(Agencia\|at noodls\).*)$/p' |
+				sed 's/^[[:blank:]]*/ /g;s/\(Agencia\|at noodls\)/ &/g'
 			else
 				bolsa=$(echo "$1"|zzmaiusculas)
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.* \(of\|de\) *\([0-9]\+\) .*/\2/')
