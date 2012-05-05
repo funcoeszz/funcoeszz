@@ -43,7 +43,7 @@
 #      zzbolsas taxas_fixas
 #      zzbolsas taxas_cruzadas
 #      zzbolsas noticias         # Noticias recentes do mercado financeiro
-#      zzbolsas vs petr3.sa vale5.sa # Compora ambas cotações
+#      zzbolsas vs petr3.sa vale5.sa # Compara ambas cotações
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
@@ -312,23 +312,14 @@ zzbolsas ()
 					if ([ "$4" ] && zztool testa_data $(zzdatafmt "$4"))
 					then
 						pag=$(zzbolsas "$2" "$4" | sed '/Proxima data de anuncio/d')
-						if (zztool grep_var "^" "$2")
-						then
-							pags=$(zzbolsas "$3" "$4" | sed '/Proxima data de anuncio/d;s/^[[:space:]]*//g;s/[[:space:]]*$//g' |
-							sed '2,$s/[^[:space:]]*[[:space:]]\+//g')
-						else
-							pags=$(zzbolsas "$3" "$4" | sed '/Proxima data de anuncio/d;s/^[[:space:]]*//g;s/[[:space:]]*$//g' |
-							sed '2,$s/[^[:space:]]*[[:space:]]\+//g')
-						fi
+						pags=$(zzbolsas "$3" "$4" |
+						sed '/Proxima data de anuncio/d;s/^[[:space:]]*//g;s/[[:space:]]*$//g' |
+						sed '2,$s/[^[:space:]]*[[:space:]]\+//g')
 					# Ultima cotaçao das açoes ou bolsas comparadas
 					else
 						pag=$(zzbolsas "$2" | sed '/Proxima data de anuncio/d')
-						if (zztool grep_var "^" "$2")
-						then
-							pags=$(zzbolsas "$3" | sed '/Proxima data de anuncio/d' | sed 's/^[[:space:]]*//g;3,$s/.*:[[:space:]]*//g')
-						else
-							pags=$(zzbolsas "$3" | sed '/Proxima data de anuncio/d' | sed 's/^[[:space:]]*//g;3,$s/.*:[[:space:]]*//g')
-						fi
+						pags=$(zzbolsas "$3" | sed '/Proxima data de anuncio/d' |
+						sed 's/^[[:space:]]*//g;3,$s/.*:[[:space:]]*//g')
 					fi
 					# Imprime efetivamente a comparação
 					if [ $(echo "$pag"|awk 'END {print NR}') -ge 4 -a $(echo "$pags"|awk 'END {print NR}') -ge 4 ]
@@ -337,7 +328,7 @@ zzbolsas ()
 						while read data1
 						do
 							let vartemp++
-							printf " %-42s " "$data1"
+							printf " %-45s " "$data1"
 							sed -n "${vartemp}p" <(echo "$pags")
 						done < <(echo "$pag")
 						echo
