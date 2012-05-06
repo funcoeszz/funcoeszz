@@ -10,6 +10,7 @@
 # combinacao_r pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
 # converte sen cos tan csc sec cot asen acos atan log ln abs
 # raiz potencia elevado aleatorio random det conf_eq sem_zeros
+# fibonacci (fib) tribonacci (trib)
 # Mais detalhes: zzmat função
 #
 # Uso: zzmat [-pnumero] funcoes [número] [número]
@@ -20,7 +21,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 8
+# Versão: 9
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -731,6 +732,54 @@ zzmat ()
 			echo " zzmat pg:  Progressão Geométrica"
 			echo " Uso: zzmat $funcao inicial razao quantidade_elementos"
 			return 1
+		fi
+	;;
+	fibonacci|fib)
+	# Sequência ou número de fibonacci
+		if zztool testa_numero "$2"
+		then
+			awk 'BEGIN {
+					seq = ( "'$3'" == "s" ? 1 : 0 )
+					num1 = 0
+					num2 = 1
+					for ( i = 0; i < '$2' + seq; i++ ) {
+						if ( seq == 1 ) { printf "%s ", num1 }
+						num3 = num1 + num2
+						num1 = num2
+						num2 = num3
+					}
+					if ( seq != 1 ) { printf "%s ", num1 }
+				}'
+			echo
+		else
+			echo "Número de fibonacci, na posição especificada."
+			echo "Com o argumento 's' imprime a sequência até a posição."
+			echo "Uso: zzmat $função <número> [s]"
+		fi
+	;;
+	tribonacci|trib)
+	# Sequência ou número Tribonacci
+		if zztool testa_numero "$2"
+		then
+			awk 'BEGIN {
+					seq = ( "'$3'" == "s" ? 1 : 0 )
+					num1 = 0
+					num2 = 1
+					num3 = 1
+					for ( i = 0; i < '$2' + seq; i++ ) {
+						if ( seq == 1 ) { printf "%s ", num1 }
+						num4 = num1 + num2 + num3
+						num1 = num2
+						num2 = num3
+						num3 = num4
+					}
+					if ( seq != 1 ) { printf "%s ", num1 }
+				}'
+			echo
+		else
+			echo "Número de tribonacci, na posição especificada."
+			echo "Com o argumento 's' imprime a sequência até a posição."
+			echo "Uso: zzmat $função <número> [s]"
 		fi
 	;;
 	eq2g)
