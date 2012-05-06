@@ -39,11 +39,15 @@ converte	gr	60	t	1.047198
 converte	rg	1	t	57.29578
 converte	K1	2	t	2000
 
-
 ln	8	''	t	2.079442
 log	8	2	t	3
 raiz	3	100	t	4.641589
 elevado	3	3.3	t	37.540508
+
+fib	9	''	t	'34 '
+fib	9	s	t	'0 1 1 2 3 5 8 13 21 34 '
+trib	9	''	t	'81 '
+trib	9	s	t	'0 1 1 2 4 7 13 24 44 81 '
 
 )
 . _lib

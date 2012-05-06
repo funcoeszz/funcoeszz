@@ -40,7 +40,7 @@ zzrelansi ()
 				date +'%H:%M:%S'
 				tput rc
 				sleep 1
-			done &
+			done & 
 		fi
 	;;
 	esac
