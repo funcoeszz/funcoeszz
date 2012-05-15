@@ -94,11 +94,18 @@ volume	rombicosidodecaedro	3	''	t	1123.613742
 )
 . _lib
 
+saida4="(x)^3
+-3(x)^2(y)
++3(x)(y)^2
+-(y)^3
+"
 values=5
 tests=(
 det	1	2	3	4	t	-2
 det	9	2	4	6	t	46
 
 area	trapezio	7	3	4	t	20
+
+newton	3	-	x	y	t	"$saida4"
 )
 . _lib

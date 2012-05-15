@@ -339,7 +339,7 @@ zzmat ()
 			local num1 num2
 			num1=$(echo "$2"|tr ',' '.')
 			num2=$(echo "$3"|tr ',' '.')
-			num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '($num1)'^('$num2')}')
+			num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", ('$num1')^('$num2')}')
 		else
 			echo " zzmat $funcao: Um número elevado a um potência"
 			echo " Uso: zzmat $funcao número potencia"
