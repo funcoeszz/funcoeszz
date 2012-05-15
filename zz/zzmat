@@ -9,8 +9,8 @@
 # mmc mdc somatoria produtoria media soma fat arranjo arranjo_r combinacao
 # combinacao_r pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
 # converte sen cos tan csc sec cot asen acos atan log ln abs
-# raiz potencia elevado aleatorio random det conf_eq sem_zeros
-# fibonacci (fib) lucas tribonacci (trib)
+# raiz potencia pow elevado aleatorio random det conf_eq sem_zeros
+# fibonacci (fib) lucas tribonacci (trib) newton binomio_newton
 # Mais detalhes: zzmat função
 #
 # Uso: zzmat [-pnumero] funcoes [número] [número]
@@ -21,7 +21,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -333,13 +333,13 @@ zzmat ()
 			return 1
 		fi
 	;;
-	potencia|elevado)
+	potencia|elevado|pow)
 		if ([ $# -eq "3" ] && zzmat testa_num "$2" && zzmat testa_num "$3")
 		then
 			local num1 num2
 			num1=$(echo "$2"|tr ',' '.')
 			num2=$(echo "$3"|tr ',' '.')
-			num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '$num1'^('$num2')}')
+			num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '($num1)'^('$num2')}')
 		else
 			echo " zzmat $funcao: Um número elevado a um potência"
 			echo " Uso: zzmat $funcao número potencia"
@@ -659,7 +659,7 @@ zzmat ()
 	fat)
 		if ([ $# -eq "2" ] && zztool testa_numero "$2" && [ "$2" -ge "1" ])
 		then
-			zzseq 1 $2|paste -s -d* -|bc -l
+			zzseq 1 $2 | paste -s -d* - | bc -l
 		else
 			echo " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
 			echo " Uso: zzmat $funcao numero"
@@ -696,6 +696,44 @@ zzmat ()
 			echo " zzmat combinacao_r: n elementos tomados em grupos de p com repetição (desconsidera ordem)"
 			echo " Uso: zzmat $funcao total_numero quantidade_grupo"
 			return 1
+		fi
+	;;
+	newton|binomio_newton)
+		if ([ "$#" -ge "2" ])
+		then
+			local num1 num2 grau sinal parcela coeficiente
+			num1="a"
+			num2="b"
+			sinal="+"
+			zztool testa_numero "$2" && grau="$2"
+			if [ "$3" ]
+			then
+				if [ "$3" = "+" -o "$3" = "-" ]
+				then
+					sinal="$3"
+					[ "$4" ] && num1="$4"
+					[ "$5" ] && num2="$5"
+				else
+					[ "$3" ] && num1="$3"
+					[ "$4" ] && num2="$4"
+				fi
+			fi
+			echo "($num1)^$grau"
+			for parcela in $(seq 1 $((grau-1)))
+			do
+				coeficiente=$(zzmat combinacao $grau $parcela)
+				[ "$sinal" = "-" -a $((parcela%2)) -eq 1 ] && echo -n "-" || echo -n "+"
+				echo -n "$coeficiente"
+				echo "($num1)^$(($grau-$parcela))($num2)^$parcela"|sed 's/\^1\([^0-9]\)/\1/g;s/\^1$//'
+			done
+			[ "$sinal" = "-" -a $((grau%2)) -eq 1 ] && echo -n "-" || echo -n "+"
+			echo "($num2)^$grau"
+		else
+			echo " zzmat $funcao: Exibe o desdobramento do binônimo de Newton."
+			echo " Exemplo no grau 3: (a + b)^3 = a^3 + 2a^2b + 2ab^2 + b^3"
+			echo " Se nenhum sinal for especificado será assumido '+'"
+			echo " Se não declarar variáveis serão assumidos 'a' e 'b'"
+			echo " Uso: zzmat $funcao grau [+|-] [variavel(a) [variavel(b)]]"
 		fi
 	;;
 	pa|pa2|pg)
@@ -740,7 +778,7 @@ zzmat ()
 		then
 			awk 'BEGIN {
 					seq = ( "'$3'" == "s" ? 1 : 0 )
-					num1 = ( "'$funcao'" == "lucas"? 2: 0 )
+					num1 = ( "'$funcao'" == "lucas" ? 2 : 0 )
 					num2 = 1
 					for ( i = 0; i < '$2' + seq; i++ ) {
 						if ( seq == 1 ) { printf "%s ", num1 }
@@ -752,9 +790,9 @@ zzmat ()
 				}'
 			echo
 		else
-			echo "Número de fibonacci ou lucas, na posição especificada."
-			echo "Com o argumento 's' imprime a sequência até a posição."
-			echo "Uso: zzmat $funcao <número> [s]"
+			echo " Número de fibonacci ou lucas, na posição especificada."
+			echo " Com o argumento 's' imprime a sequência até a posição."
+			echo " Uso: zzmat $funcao <número> [s]"
 		fi
 	;;
 	tribonacci|trib)
@@ -777,9 +815,9 @@ zzmat ()
 				}'
 			echo
 		else
-			echo "Número de tribonacci, na posição especificada."
-			echo "Com o argumento 's' imprime a sequência até a posição."
-			echo "Uso: zzmat $funcao <número> [s]"
+			echo " Número de tribonacci, na posição especificada."
+			echo " Com o argumento 's' imprime a sequência até a posição."
+			echo " Uso: zzmat $funcao <número> [s]"
 		fi
 	;;
 	eq2g)
