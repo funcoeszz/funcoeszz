@@ -72,11 +72,11 @@ zzbrasileirao ()
 	if [ "$rodada" ]
 	then
 		zztool testa_numero $rodada || { zztool uso brasileirao; return 1; }
-		url="${url}/tabela-de-jogos/tabela-de-jogos-${rodada}a-rodada.jhtm"
+		url="${url}/tabela-de-jogos/tabela-de-jogos-${rodada}a-rodada.htm"
 		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/^ *$/p"|
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g"
 	else
-		url="${url}/classificacao/classificacao.jhtm"
+		url="${url}/classificacao/classificacao.htm"
 
 		[ "$serie" = "a" ] && zztool eco "Série A" || zztool eco "Série B"
 
