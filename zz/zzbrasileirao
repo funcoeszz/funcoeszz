@@ -29,7 +29,7 @@
 #
 # Autor: Itamar - original: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 8
+# Versão: 9
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
@@ -55,8 +55,9 @@ zzbrasileirao ()
 			sed -n '/^\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho\|Julho\|Agosto\|Setembro\|Outubro\|Novembro\|Dezembro\| *Data *Hora\| *[0-9][0-9]\/[0-9][0-9]\)/p'
 			return 0
 		else
-			$ZZWWWHTML "$url" | sed -n "/aba serie-[ab]/,/^ *$/p"|
-			grep "${url}/futebol/clubes/" | sed 's@.*/futebol/clubes/@@g;s@/" alt=".*@@g'
+			$ZZWWWHTML "$url/futebol/clubes/" |
+			sed -n '/<li class="aba \(show\|hide\) serie-[ab]">/,/<\/ul>$/p' |
+			sed -n '/<li class=".*"><a rel="menu"/p'| awk -F'"' '{print $2}' | sort
 			return 0
 		fi
 	else
@@ -73,8 +74,8 @@ zzbrasileirao ()
 	then
 		zztool testa_numero $rodada || { zztool uso brasileirao; return 1; }
 		url="${url}/tabela-de-jogos/tabela-de-jogos-${rodada}a-rodada.htm"
-		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/^ *$/p"|
-		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g"
+		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/a-rodada.htm/p"|
+		sed "s/ *RELATO.*//g" | sed '$d'
 	else
 		url="${url}/classificacao/classificacao.htm"
 
