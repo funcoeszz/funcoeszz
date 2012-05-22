@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 # http://esporte.uol.com.br/
-# Mostra a tabela atualizada do Campeonato Brasileiro - Série A e Série B.
+# Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B ou C.
 # Se for fornecido um numero mostra os jogos da rodada, com resultados.
-# Com argumento -l lista os todos os clubes da séria A e B.
+# Com argumento -l lista os todos os clubes da série A e B.
 # Se o argumento -l for seguido do nome do clube, lista todos os jogos já
 # ocorridos do clube desde o começo do ano de qualquer campeonato, e os
 # próximos jogos no brasileirão.
@@ -18,10 +18,11 @@
 #	SG  - Saldo de Gols
 #	(%) - Aproveitamento (pontos)
 #
-# Uso: zzbrasileirao [a|b] [numero rodada] ou zzbrasileirao -l [nome clube]
+# Uso: zzbrasileirao [a|b|c] [numero rodada] ou zzbrasileirao -l [nome clube]
 # Ex.: zzbrasileirao
 #      zzbrasileirao a
 #      zzbrasileirao b
+#      zzbrasileirao c
 #      zzbrasileirao 27
 #      zzbrasileirao b 12
 #      zzbrasileirao -l
@@ -29,7 +30,7 @@
 #
 # Autor: Itamar - original: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
@@ -89,6 +90,11 @@ zzbrasileirao ()
 
 		for url in $urls
 		do
+			if [ "$serie" = "c" ]
+			then
+				echo
+				echo "$url"|sed 's/.*grupo-/Grupo /;s/\.htm//'| tr 'ab' 'AB'
+			fi
 
 			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;"|
 			sed '/^ *$/d' | sed '/^ *[0-9]\+ *$/{N;N;s/\n//g}' | sed 's/\([0-9]\+\) */\1 /g;/^ *PG/d' |
