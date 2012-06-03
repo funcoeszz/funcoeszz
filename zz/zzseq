@@ -26,7 +26,7 @@ zzseq ()
 	local inicio=1
 	local passo=1
 	local formato='%d\n'
-	local fim
+	local fim i
 
 	# Se tiver -f, guarda o formato e limpa os argumentos
 	if test "$1" = '-f'
