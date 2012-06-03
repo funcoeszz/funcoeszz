@@ -1,0 +1,116 @@
+# ----------------------------------------------------------------------------
+# Palpites para os jogos da
+# quina, megasena, duplasena, lotomania, lotofácil, timemania, federal, loteca
+# Uso: zzpalpite [ quina | megasena | duplasena | lotomania | lotofacil |
+# federal | timemania | loteca ]
+# Ex.: zzpalpite
+#      zzloteria2 megasena
+#
+# Autor: Itamar <itamarnet (a) yahoo com br>
+# Desde: 2012-12-03
+# Versão: 1
+# Licença: GPL
+# Requisitos: zzseq
+zzpalpite ()
+{
+	zzzz -h palpite "$1" && return
+
+	local tipo num posicao numeros palpites inicial final qtde i
+	#local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
+	local LANG=en
+
+	# Escolhe as loteria
+	if ([ "$1" ])
+	then
+		tipo="$1"
+	else
+		zzpalpite -h; return 1
+	fi
+
+	# Cada loteria
+	case "$tipo" in
+		lotomania)
+			inicial=0
+			final=99
+			qtde=50
+		;;
+		lotofacil)
+			inicial=1
+			final=25
+			qtde=15
+		;;
+		megasena)
+			inicial=1
+			final=60
+			qtde=6
+		;;
+		duplasena)
+			inicial=1
+			final=50
+			qtde=6
+		;;
+		quina)
+			inicial=1
+			final=80
+			qtde=5
+		;;
+		federal)
+			inicial=0
+			final=99999
+			numero=$(echo "$inicial + ( ${RANDOM} / 32766 ) * ( $final - $inicial )" | bc -l | sed 's/\..*$//g')
+			printf '%0.5d\n' $numero
+			qtde=0
+		;;
+		timemania)
+			inicial=1
+			final=80
+			qtde=10
+		;;
+		loteca)
+			i=1; qtde=0
+			while ([ "$i" -le "14" ])
+			do
+				printf "Jogo %0.2d: Coluna %d\n" $i $(($RANDOM % 3))
+				let i++
+			done
+		;;
+	esac
+
+	# Todos os numeros da loteria seleciona
+	if [ "$qtde" -gt "0" ]
+	then
+		numeros=$(zzseq -f '%0.2d ' $inicial $final)
+	fi
+
+	# Loop para gerar os palpites
+	i="$qtde"
+	while ([ "$i" -gt "0" ])
+	do
+		# Posicao a ser escolhida
+		posicao=$(echo "$inicial + ( ${RANDOM} / 32766 ) * ( $final - $inicial )" | bc -l | sed 's/\..*$//g')
+
+		# Extrai o numero na posicao selecionada
+		num=$(echo "$numeros" | cut -f $posicao -d ' ')
+
+		palpites=$(echo "$palpites $num")
+
+		# Elimina o numero escolhido
+		numeros=$(echo "$numeros" | sed "s/$num //")
+
+		# Diminuindo o contador e quantidade de itens em "numeros"
+		let i--
+		let final--
+	done
+
+	if ([ $(echo " $palpites" | wc -w ) -ge "10" ])
+	then
+		palpites=$(echo "$palpites" | sed 's/\(\([0-9]\{2\} \)\{5\}\)/\1\n /g')
+	fi
+
+	# Exibe palpites
+	if [ "$qtde" -gt "0" ]
+	then
+		echo "${tipo}:"
+		echo "$palpites"
+	fi
+}
