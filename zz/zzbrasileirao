@@ -30,7 +30,7 @@
 #
 # Autor: Itamar - original: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 10
+# Versão: 11
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
@@ -97,7 +97,7 @@ zzbrasileirao ()
 			fi
 
 			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;"|
-			sed '/^ *$/d' | sed '/^ *[0-9]\+ *$/{N;N;s/\n//g}' | sed 's/\([0-9]\+\) */\1 /g;/^ *PG/d' |
+			sed '/^ *$/d' | sed '/^ *[0-9]\+ *$/{N;N;s/\n//g;}' | sed 's/\([0-9]\+\) */\1 /g;/^ *PG/d' |
 			awk -v cor_awk="$ZZCOR" -v serie_awk="$serie" '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
 
 			if (cor_awk==1)
@@ -108,7 +108,7 @@ zzbrasileirao ()
 					cor="\033[41;30m"
 
 				if (NR >= 6 && NR <=13)
-					cor=(serie_awk=="a"?"\033[44;30m":"\033[m")
+					cor=(serie_awk=="a"?"\033[46;30m":"\033[m")
 
 				if (NR >=10 && NR <= 11 && serie_awk=="c")
 					cor="\033[41;30m"
@@ -125,7 +125,7 @@ zzbrasileirao ()
 				if [ "$serie" = "a" ]
 				then
 					printf "\033[42;30m Libertadores \033[m"
-					printf "\033[44;30m Sul-Americana \033[m"
+					printf "\033[46;30m Sul-Americana \033[m"
 				elif [ "$serie" = "b" ]
 				then
 					printf "\033[42;30m   Série  A   \033[m"
