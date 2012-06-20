@@ -5,43 +5,50 @@
 #
 # Autor: Arkanon <arkanon (a) lsd org br>
 # Desde: 2009-09-17
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzrelansi ()
 {
+
 	zzzz -h relansi "$1" && return
-
-	local lock="$ZZTMP.relansi-$$"
-
-	trap "rm -f $lock" 0 1 2 3 15
 
 	case $1 in
 	-s|--stop)
 		shopt -q
-		# TODO: 'zzrelansi -s' apresenta na tela o código do loop em bg
-		rm -f $lock
-		sleep 1
-		tput sc
-		tput cup 0 $[`tput cols`-8]
-		echo "				"
-		tput rc
+		if [ "$relansi_pid" ]
+		then
+			kill $relansi_pid
+			relansi_write
+			unset relansi_cols relansi_pid relansi_write
+		else
+			echo "RelANSI não está sendo executado"
+		fi
 	;;
 	*)
-		if test -e $lock
+		if [ "$relansi_pid" ]
 		then
-			echo "RelANSI já foi executado pelo processo $$"
+			echo "RelANSI já está sendo executado pelo processo $relansi_pid"
 		else
-			touch $lock
-			while test -e $lock
-			do
+			relansi_cols=$(tput cols)
+			relansi_write()
+		        {
 				tput sc
-				tput cup 0 $[`tput cols`-8]
-				date +'%H:%M:%S'
+				tput cup 0 $[$relansi_cols-8]
+				[ "$1" ] && date +'%H:%M:%S' || echo '        '
 				tput rc
+		        }
+			exec 3>&2 2> /dev/null
+			while true
+			do
+				relansi_write start
 				sleep 1
-			done & 
+			done &
+			relansi_pid=$!
+			disown $relansi_pid
+			exec 2>&3
 		fi
 	;;
 	esac
+
 }
