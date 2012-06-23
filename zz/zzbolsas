@@ -153,12 +153,13 @@ zzbolsas ()
 				done
 			;;
 			commodities)
+				zztool eco  "  Commodities"
 				$ZZWWWDUMP "$url/moedas/mercado.html" |
 				sed -n '/^Commodities/,/Mais commodities/p' |
-				sed '1d;$d;s/CAPTION: //g;s/ *Metais/\n&/'
+				sed '1d;$d;/^ *$/d;s/CAPTION: //g;s/ *Metais/\n&/'
 			;;
 			taxas_fixas)
-				echo "   Taxas Fixas"
+				zztool eco  "   Taxas Fixas"
 				$ZZWWWDUMP "$url/moedas/mercado.html" |
 				sed -n '/CAPTION: Taxas fixas/,/CAPTION: Taxas cruzadas/p' |
 				sed '
@@ -167,12 +168,14 @@ zzbolsas ()
 						/^[[:space:]]*$/d
 						s/ *Visualização do gráfico//g
 						s/ *Par cambial/\n&/g
+						s/ Inverter pares /                /g
 					'
 			;;
 			taxas_cruzadas)
+				zztool eco  "   Taxas Cruzadas"
 				$ZZWWWDUMP "$url/moedas/mercado.html" |
 				sed -n '/CAPTION: Taxas cruzadas/,/Notícias e comentários/p' |
-				sed 's/CAPTION: //g;/^[[:space:]]*$/d;$d'
+				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g'
 			;;
 			noticias | economia | politica | servicos)
 				case "$1" in
@@ -194,6 +197,7 @@ zzbolsas ()
 					alta)	pag='gainers';;
 					baixa)	pag='losers';;
 				esac
+				zztool eco  " Maiores ${1}s"
 				$ZZWWWDUMP "$url/${pag}?e=sa" |
 				sed -n '/Informações relacionadas/,/^[[:space:]]*$/p' |
 				sed '1d;s/\(Down \| de \)/-/g;s/Up /+/g;s/Gráfico, .*//g' |
