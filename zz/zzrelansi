@@ -45,7 +45,7 @@ zzrelansi ()
 				sleep 1
 			done &
 			relansi_pid=$!
-			disown $relansi_pid
+			disown $relansi_pid # RESTRICAO: builtin no bash e zsh, mas nao no csh e ksh
 			exec 2>&3
 		fi
 	;;
