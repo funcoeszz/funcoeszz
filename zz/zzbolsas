@@ -182,7 +182,9 @@ zzbolsas ()
 				economia | politica) vartemp=$($ZZWWWDUMP "$url/noticias/categoria-economia-politica-governo") ;;
 				servicos) vartemp=$($ZZWWWDUMP "$url/noticias/setor-servicos") ;;
 				noticias)
+					zztool eco "Economia - Política - Governo"
 					zzbolsas economia
+					zztool eco "Setor de Serviços"
 					zzbolsas servicos
 					return
 				;;
