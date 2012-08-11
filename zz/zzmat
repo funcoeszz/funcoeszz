@@ -392,6 +392,16 @@ zzmat ()
 					echo " Uso: zzmat $funcao $2 base_maior base_menor altura";return 1
 				fi
 			;;
+			toro)
+				if(zzmat testa_num $3 && zzmat testa_num $4 && [ $(zzmat compara_num $3 $4) != "igual" ])
+				then
+					num1=$(echo "$3"|tr ',' '.')
+					num2=$(echo "$4"|tr ',' '.')
+					num="4*${pi}^2*${num1}*${num2}"
+				else
+					echo " Uso: zzmat $funcao $2 raio1 raio2";return 1
+				fi
+			;;
 			tetraedro|cubo|octaedro|dodecaedro|icosaedro|quadrado|circulo|esfera|cuboctaedro|rombicuboctaedro|rombicosidodecaedro|icosidodecaedro)
 				if ([ "$3" ])
 				then
@@ -445,6 +455,7 @@ zzmat ()
 			echo " Uso: zzmat area <esfera|rombicuboctaedro|rombicosidodecaedro> numero"
 			echo " Uso: zzmat area <tetraedo|cubo|octaedro|dodecaedro|icosaedro|cuboctaedro|icosidodecaedro> [truncado] numero"
 			echo " Uso: zzmat area <cubo|dodecaedro> snub numero"
+			echo " Uso: zzmat area toro numero numero"
 			return 1
 		fi
 	;;
@@ -504,6 +515,19 @@ zzmat ()
 					echo " Uso: zzmat $funcao $2 area_base altura";return 1
 				fi
 			;;
+			toro)
+				local num_maior num_menor
+				if(zzmat testa_num $3 && zzmat testa_num $4 && [ $(zzmat compara_num $3 $4) != "igual" ])
+				then
+					num1=$(echo "$3"|tr ',' '.')
+					num2=$(echo "$4"|tr ',' '.')
+					[ $num1 -gt $num2 ] && num_maior=$num1 || num_maior=$num2
+					[ $num1 -lt $num2 ] && num_menor=$num1 || num_menor=$num2
+					num="2*${pi}^2*${num_menor}^2*${num_maior}"
+				else
+					echo " Uso: zzmat $funcao $2 raio1 raio2";return 1
+				fi
+			;;
 			tetraedro|cubo|octaedro|dodecaedro|icosaedro|esfera|cuboctaedro|rombicuboctaedro|rombicosidodecaedro|icosidodecaedro)
 				if [ "$3" ]
 				then
@@ -551,9 +575,10 @@ zzmat ()
 			esac
 		else
 			echo " zzmat $funcao: Cálculo de volume de figuras geométricas"
-			echo " Uso: zzmat volume <paralelepipedo|cilindro|esfera|cone|prisma|piramide|rombicuboctaedro|rombicosidodecaedro>"
+			echo " Uso: zzmat volume <paralelepipedo|cilindro|esfera|cone|prisma|piramide|rombicuboctaedro|rombicosidodecaedro> numero"
 			echo " Uso: zzmat volume <tetraedo|cubo|octaedro|dodecaedro|icosaedro|cuboctaedro|icosidodecaedro> [truncado] numero"
 			echo " Uso: zzmat volume <cubo|dodecaedro> snub numero"
+			echo " Uso: zzmat volume toro numero numero"
 			return 1
 		fi
 	;;
