@@ -120,7 +120,7 @@ zzpalpite ()
 		if [ "$qtde" -gt "0" ]
 		then
 			zztool eco $tipo:
-			echo "$palpites"
+			echo "$palpites"|sed '/^ *$/d'
 			echo
 
 			#Zerando as variaveis
