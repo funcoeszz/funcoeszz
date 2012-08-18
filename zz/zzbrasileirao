@@ -75,7 +75,7 @@ zzbrasileirao ()
 	then
 		zztool testa_numero $rodada || { zztool uso brasileirao; return 1; }
 		url="${url}/tabela-de-jogos/tabela-de-jogos-${rodada}a-rodada.htm"
-		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/a-rodada.htm/p"|
+		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/Todas as rodadas/p"|
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d'
 	else
 		urls="${url}/classificacao/classificacao.htm"
