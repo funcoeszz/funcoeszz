@@ -1,19 +1,19 @@
 # ----------------------------------------------------------------------------
-# Jogo do bicho
-# Com um número como argumento indica o bicho e o grupo
-# Se o for um número entre 1 e 25 seguido de "g", listas os números desse grupo
+# Jogo do bicho.
+# Com um número como argumento indica o bicho e o grupo.
+# Se o for um número entre 1 e 25 seguido de "g", listas os números do grupo.
 # Sem argumento ou com apenas "g" lista todos os grupos de bichos.
-# 
+#
 # Uso: zzbicho [numero] [g]
-# Ex.: zzpalpite 123456
-#      zzpalpite 14 g
-#      zzpalpite g
+# Ex.: zzbicho 123456
+#      zzbicho 14 g
+#      zzbicho g
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-08-27
 # Versão: 1
 # Licença: GPL
-# Requisitos:
+# ----------------------------------------------------------------------------
 zzbicho ()
 {
 	zzzz -h bicho "$1" && return
@@ -45,22 +45,22 @@ zzbicho ()
 		grupo[23]="Urso"
 		grupo[24]="Veado"
 		grupo[25]="Vaca"
-	
+
 		if ($2=="g" && $1 >= 1 && $1 <= 25) {
 			numero = $1 * 4
 			for (numero = ($1 * 4) - 3;numero <= ($1 *4); numero++) {
-				printf "%.2d ", substr(numero,length(numero)-1,2)
+				printf " %.2d", substr(numero,length(numero)-1,2)
 			}
 			print ""
 		}
 		else if ($1 == "g" || $1 == "") {
 			for (num=1;num<=25;num++) {
-				printf "%.2d %s\n",num, grupo[num]
+				printf " %.2d %s\n",num, grupo[num]
 			}
 		}
 		else {
 			numero = substr($1,length($1)-1,2)=="00"?25:int((substr($1,length($1)-1,2) + 3) / 4)
-			print grupo[numero], "(" numero ")"
+			print "", grupo[numero], "(" numero ")"
 		}
 	}'
 }

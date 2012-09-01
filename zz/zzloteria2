@@ -28,10 +28,10 @@ zzloteria2 ()
 	then
 		ZZWWWDUMP2='links -dump'
 	else
-		#ZZWWWDUMP2=$ZZWWWDUMP
-		echo 'Favor instalar o "links"'
-		echo 'Site da caixa não responde com o "lynx" usado na variável $ZZWWWDUMP'
-		return 1
+		ZZWWWDUMP2=$ZZWWWDUMP
+		#echo 'Favor instalar o "links"'
+		#echo 'Site da caixa não responde com o "lynx" usado na variável $ZZWWWDUMP'
+		#return 1
 	fi
 
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente

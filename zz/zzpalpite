@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
-# Palpites para os jogos da
+# Palpites para os jogos da:
 # quina, megasena, duplasena, lotomania, lotofácil, timemania, federal, loteca
+#
 # Uso: zzpalpite [ quina | megasena | duplasena | lotomania | lotofacil |
 # federal | timemania | loteca ]
 # Ex.: zzpalpite
@@ -11,6 +12,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzseq
+# ----------------------------------------------------------------------------
 zzpalpite ()
 {
 	zzzz -h palpite "$1" && return

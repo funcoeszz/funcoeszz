@@ -77,7 +77,7 @@ zzmat ()
 		# Elimina o zeros nao significativos
 		local num1
 		shift
-		num1=$(zztool multi_stdin $* | tr ',' '.')
+		num1=$(zztool multi_stdin "$@" | tr ',' '.')
 		num1=$(echo "$num1" | sed 's/^[[:blank:].0]*$/zero/;s/^[[:blank:]0]*//;s/zero/0/')
 		if [ $precisao -gt 0 ]
 			then

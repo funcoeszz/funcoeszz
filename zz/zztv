@@ -204,7 +204,7 @@ zztv ()
 	tv_escola|escola)             URL="${URL}/canal/ESC";;
 	tv_justica|justiva)           URL="${URL}/canal/JUS";;
 	tv_uniao)                     URL="${URL}/canal/TVU";;
-	universal)					  URL="${URL}/canal/USA";;
+	universal)                    URL="${URL}/canal/USA";;
 	viva)                         URL="${URL}/canal/VIV";;
 	xvtv)                         URL="${URL}/canal/XTV";;
 	warner)                       URL="${URL}/canal/WBT";;
