@@ -5,8 +5,9 @@
 # Com 1 parâmetro:
 #  -l: apenas mostra as bolsas disponíveis e seus nomes.
 #  commodities: produtos de origem primária nas bolsas.
-#  taxas_fixas: exibe uma tabela de comparação de câmbio.
+#  taxas_fixas ou moedas: exibe tabela de comparação de câmbio (pricipais).
 #  taxas_cruzadas: exibe a tabela cartesiana do câmbio.
+#  nome_moedas ou moedas_nome: lista códigos e nomes das moedas usadas.
 #  servicos, economia ou politica: mostra notícias relativas a esse assuntos.
 #  noticias: junta as notícias de servicos e economia.
 #  volume: lista ações líderes em volume de negócios na Bovespa.
@@ -16,6 +17,8 @@
 # Com 2 parâmetros:
 #  -l e código de bolsa: lista as ações (códigos).
 #  --lista e "código de bolsa": lista as ações com nome e última cotação.
+#  taxas_fixas ou moedas <principais|europa|asia|latina>: exibe tabela de
+#   comparação de câmbio dessas regiões.
 #  "código de bolsa" e um texto: pesquisa-o no nome ou código das ações
 #    disponíveis na bolsa citada.
 #  "código de bolsa ou ação" e data: pesquisa a cotação no dia.
@@ -47,7 +50,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 12
+# Versão: 13
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -158,24 +161,29 @@ zzbolsas ()
 				sed -n '/^Commodities/,/Mais commodities/p' |
 				sed '1d;$d;/^ *$/d;s/CAPTION: //g;s/ *Metais/\n&/'
 			;;
-			taxas_fixas)
-				zztool eco  "   Taxas Fixas"
-				$ZZWWWDUMP "$url/moedas/mercado.html" |
-				sed -n '/CAPTION: Taxas fixas/,/CAPTION: Taxas cruzadas/p' |
-				sed '
-						/CAPTION: /d
-						/^[[:space:]]\{5\}/d
-						/^[[:space:]]*$/d
-						s/ *Visualização do gráfico//g
-						s/ *Par cambial/\n&/g
-						s/ Inverter pares /                /g
-					'
+			taxas_fixas|moedas)
+				zzbolsas $1 principais
 			;;
 			taxas_cruzadas)
-				zztool eco  "   Taxas Cruzadas"
-				$ZZWWWDUMP "$url/moedas/mercado.html" |
-				sed -n '/CAPTION: Taxas cruzadas/,/Notícias e comentários/p' |
+				zztool eco " Taxas Cruzadas"
+				$ZZWWWDUMP "$url/moedas/principais" |
+				sed -n '/CAPTION: Taxas cruzadas/,/Not.cias e coment.rios/p' |
 				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g'
+			;;
+			moedas_nome|nome_moedas)
+				zztool eco " BRL - Real
+ USD - Dolar Americano
+ EUR - Euro
+ GBP - Libra Esterlina
+ CHF - Franco Suico
+ CNH - Yuan Chines
+ HKD - Dolar decHong Kong
+ SGD - Dolar de Singapura
+ MXN - Peso Mexicano
+ ARS - Peso Argentino
+ UYU - Peso Uruguaio
+ CLP - Peso Chileno
+ PEN - Nuevo Sol (Peru)"
 			;;
 			noticias | economia | politica | servicos)
 				case "$1" in
@@ -343,9 +351,40 @@ zzbolsas ()
 			# Noticias relacionadas a uma ação especifica
 			elif ([ "$1" = "noticias" ] && ! zztool grep_var "^" "$2")
 			then
-				$ZZWWWDUMP "http://br.finance.yahoo.com/q/h?s=$bolsa" |
+				$ZZWWWDUMP "$url/q/h?s=$bolsa" |
 				sed -n '/^[[:blank:]]\+\*.*\(Agencia\|at noodls\).*)$/p' |
 				sed 's/^[[:blank:]]*/ /g;s/\(Agencia\|at noodls\)/ &/g'
+			elif ([ "$1" = "taxas_fixas" ] || [ "$1" = "moedas" ])
+			then
+				case $2 in
+				asia)
+					url="$url/moedas/asia-pacifico"
+					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - Ásia-Pacífico"
+				;;
+				latina)
+					url="$url/moedas/america-latina"
+					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - América Latina"
+				;;
+				europa)
+					url="$url/moedas/europa"
+					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - Europa"
+				;;
+				principais|*)
+					url="$url/moedas/principais"
+					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - Principais"
+				;;
+				esac
+				
+				$ZZWWWDUMP "$url" |
+				sed -n '/CAPTION: Taxas fixas/,/CAPTION: Taxas cruzadas/p' |
+				sed '
+						/CAPTION: /d
+						/^[[:space:]]\{5\}/d
+						/^[[:space:]]*$/d
+						s/ *Visualização do gráfico//g
+						s/ *Par cambial/\n&/g
+						s/ Inverter pares /                /g
+					'|sed '3,$s/Par cambial          /Par cambial invertido/;1d'
 			else
 				bolsa=$(echo "$1"|zzmaiusculas)
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.* \(of\|de\) *\([0-9]\+\) .*/\2/')
@@ -359,5 +398,5 @@ zzbolsas ()
 				done
 			fi
 		;;
-		esac
+	esac
 }
