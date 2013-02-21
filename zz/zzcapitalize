@@ -1,0 +1,30 @@
+# ----------------------------------------------------------------------------
+# Deixa a primeira letra da linha em MAIÚSCULAS, e o restante em minúsculas.
+#
+# Uso: zzcapitalize [texto]
+# Ex.: zzcapitalize root                               # Root
+#      echo PROGRAMAR É BOM | zzcapitalize             # Programar é bom
+#      echo programar é bom | zzcapitalize             # Programar é bom
+#
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
+# Desde: 2013-02-21
+# Versão: 1
+# Licença: GPL
+# Requisitos: zzmaiusculas zzminusculas
+# ----------------------------------------------------------------------------
+zzcapitalize ()
+{
+	zzzz -h capitalize "$1" && return
+
+	local linha primeira resto
+
+	# Texto via STDIN ou argumentos
+	zztool multi_stdin "$@" | while read linha
+	do
+		# Inicial em maiúscula somente na primeira letra da linha
+		primeira=$(echo "$linha" | cut -c 1 | zzmaiusculas)
+		resto=$(echo "$linha" | cut -c 2- | zzminusculas)
+
+		echo "$primeira$resto"
+	done
+}
