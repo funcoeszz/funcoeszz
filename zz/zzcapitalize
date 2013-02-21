@@ -1,14 +1,19 @@
 # ----------------------------------------------------------------------------
 # Deixa a primeira letra da linha em MAIÚSCULAS, e o restante em minúsculas.
+# Use a opção --todas para converter todas as palavras do texto.
+#
+# Importante: Atualmente a opção --todas não preserva os espaços originais de
+# cada linha. Mas não confie neste comportamento, que pode mudar no futuro.
 #
 # Uso: zzcapitalize [texto]
 # Ex.: zzcapitalize root                               # Root
 #      echo PROGRAMAR É BOM | zzcapitalize             # Programar é bom
 #      echo programar é bom | zzcapitalize             # Programar é bom
+#      echo programar é bom | zzcapitalize --todas     # Programar É Bom
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzmaiusculas zzminusculas
 # ----------------------------------------------------------------------------
@@ -16,15 +21,35 @@ zzcapitalize ()
 {
 	zzzz -h capitalize "$1" && return
 
-	local linha primeira resto
+	local linha primeira resto palavra resultado
+	local todas=0
+
+	# Opções de linha de comando
+	if test "$1" = '--todas'
+	then
+		todas=1
+		shift
+	fi
 
 	# Texto via STDIN ou argumentos
 	zztool multi_stdin "$@" | while read linha
 	do
-		# Inicial em maiúscula somente na primeira letra da linha
-		primeira=$(echo "$linha" | cut -c 1 | zzmaiusculas)
-		resto=$(echo "$linha" | cut -c 2- | zzminusculas)
+		if test "$todas" -eq 1
+		then
+			# Inicial em maiúscula em todas as palavras, uma por uma
+			resultado=''
+			for palavra in $linha
+			do
+				resultado="$resultado$(zzcapitalize $palavra) "
+			done
 
-		echo "$primeira$resto"
+			echo $resultado
+		else
+			# Inicial em maiúscula somente na primeira letra da linha
+			primeira=$(echo "$linha" | cut -c 1 | zzmaiusculas)
+			resto=$(echo "$linha" | cut -c 2- | zzminusculas)
+
+			echo "$primeira$resto"
+		fi
 	done
 }
