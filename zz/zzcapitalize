@@ -13,7 +13,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzmaiusculas zzminusculas
 # ----------------------------------------------------------------------------
@@ -21,7 +21,7 @@ zzcapitalize ()
 {
 	zzzz -h capitalize "$1" && return
 
-	local linha primeira resto palavra resultado
+	local linha primeira resto palavra resultado split
 	local todas=0
 
 	# Opções de linha de comando
@@ -38,9 +38,15 @@ zzcapitalize ()
 		then
 			# Inicial em maiúscula em todas as palavras, uma por uma
 			resultado=''
-			for palavra in $linha
+			for palavra in $linha  # split em espaços/tabs
 			do
-				resultado="$resultado$(zzcapitalize $palavra) "
+				if zztool grep_var - $palavra  # split em -
+				then
+					palavra=$(echo $palavra | tr - '\n' | zzcapitalize | tr '\n' - | sed 's/-$//')
+				else
+					palavra=$(zzcapitalize $palavra)
+				fi
+				resultado="$resultado$palavra "
 			done
 
 			echo $resultado
