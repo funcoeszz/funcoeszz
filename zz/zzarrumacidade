@@ -1,12 +1,12 @@
 # ----------------------------------------------------------------------------
 # Arruma o nome da cidade informada: maiúsculas, abreviações, acentos, etc.
 #
-# Uso: zzcidade [cidade]
-# Ex.: zzcidade SAO PAULO                       # São Paulo
-#      zzcidade rj                              # Rio de Janeiro
-#      zzcidade Floripa                         # Florianópolis
-#      echo Floripa | zzcidade                  # Florianópolis
-#      cat cidades.txt | zzcidade               # [uma cidade por linha]
+# Uso: zzarrumacidade [cidade]
+# Ex.: zzarrumacidade SAO PAULO                     # São Paulo
+#      zzarrumacidade rj                            # Rio de Janeiro
+#      zzarrumacidade Floripa                       # Florianópolis
+#      echo Floripa | zzarrumacidade                # Florianópolis
+#      cat cidades.txt | zzarrumacidade             # [uma cidade por linha]
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
@@ -14,9 +14,9 @@
 # Licença: GPL
 # Requisitos: zzcapitalize
 # ----------------------------------------------------------------------------
-zzcidade ()
+zzarrumacidade ()
 {
-	zzzz -h cidade "$1" && return
+	zzzz -h arrumacidade "$1" && return
 
 	# 1. Texto via STDIN ou argumentos
 	# 2. Deixa todas as iniciais em maiúsculas
