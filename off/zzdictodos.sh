@@ -8,6 +8,7 @@
 # Licença: GPL
 # Requisitos: zzdicbabelfish zzdicbabylon zzdicjargon zzdicportugues
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-22 Hoje não faz mais sentido essa função…
 zzdictodos ()
 {
 	zzzz -h dictodos "$1" && return
