@@ -36,7 +36,7 @@ zzgoogle ()
 	#
 	# O Google condensa tudo em um única longa linha, então primeiro é preciso
 	# inserir quebras de linha antes de cada resultado. Identificadas as linhas
-	# corretas, o filtros limpa os lixos e formata o resultado.
+	# corretas, o filtro limpa os lixos e formata o resultado.
 
 	$ZZWWWHTML -cookies "$url?q=$padrao&num=$limite&ie=UTF-8&oe=UTF-8&hl=pt-BR" |
 		sed 's/<p>/\
