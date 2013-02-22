@@ -14,7 +14,7 @@
 # Desde: 2013-02-21
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzmaiusculas zzminusculas
+# Requisitos: zzminusculas
 # ----------------------------------------------------------------------------
 zzcapitalize ()
 {
