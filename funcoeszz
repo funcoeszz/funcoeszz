@@ -940,8 +940,14 @@ while read zz_nome
 do
 	zz_arquivo="${ZZDIR%/}"/$zz_nome
 
+	# Se o arquivo não existir, cancela o carregamento desta função
+	if ! test -r "$zz_arquivo"
+	then
+		continue
+	fi
+
 	# Inclui a função na shell atual
-	source "$zz_arquivo" || continue  # not found?
+	source "$zz_arquivo"
 
 	# Extrai o texto de ajuda
 	_extrai_ajuda "$zz_arquivo" |
