@@ -31,8 +31,7 @@
 
 onetest=$1
 debug=0
-# zz="../../funcoeszz"
-zz="../../funcoeszz-testador"
+zz="../funcoeszz"
 
 # Aqui estão cadastrados todos os testes.
 # Linhas que iniciam com # são ignoradas, útil para desligar um teste.
