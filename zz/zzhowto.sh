@@ -7,6 +7,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-08-27
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzhowto ()
