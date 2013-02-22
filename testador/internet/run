@@ -147,11 +147,11 @@ do
 
 	# Maybe we got the test name on the command line?
 	[ "$onetest" ] && {
-	 	echo "$name" | grep -qs ^$onetest$ || continue
+		echo "$name" | grep -qs ^$onetest$ || continue
 	}
 
 	i=$((i+1))
-	
+
 	# Show current test name
 	ZZCOR=1 $zz tool eco $i. $name
 
@@ -164,7 +164,7 @@ do
 
 	# Save results
 	eval "$zz $funcname $args | $filter" > $name.out
-	
+
 	# Compare the results
 	case $mode in
 	a)
@@ -202,6 +202,6 @@ do
 		fi
 	;;
 	esac
-		
+
 	# echo "$name ($mode $patt) $zz $funcname $args | $filter"
 done
