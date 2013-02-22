@@ -4,7 +4,7 @@
 #
 # Mostra quando uma função está faltando ou sobrando na linha Requisitos:
 # 
-# $ ./requisitos 
+# $ ./requisitos.sh
 # zzcarnaval: # Requisitos: zzpascoa
 # zzfeed: Função listada mas não utilizada: zzbeep
 #
@@ -50,7 +50,7 @@ do
 			do
 				# Uma função usar ela mesma está OK
 				test $funcao = $f && continue
-				
+
 				# Exceção: a zzconverte é apenas citada nos comentários
 				test $f = 'zzmat' -a $funcao = 'zzconverte' && continue
 

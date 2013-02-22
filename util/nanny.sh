@@ -3,7 +3,7 @@
 # Aurelio Marinho Jargas
 #
 # Verifica se as funções estão dentro dos padrões
-# Uso: nanny
+# Uso: nanny.sh
 
 cd $(dirname "$0")
 cd ..

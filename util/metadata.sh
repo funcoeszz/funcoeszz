@@ -4,9 +4,9 @@
 #
 # Extrai informações sobre as funções
 #
-# Uso: metadata <campo>
-# Ex.: metadata autor
-#      metadata versao
+# Uso: metadata.sh <campo>
+# Ex.: metadata.sh autor
+#      metadata.sh versao
 
 cd $(dirname "$0")
 cd ..
