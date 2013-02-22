@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Lista os estados do Brasil e suas capitais.
-# Obs.: Sem argumentos mostra a lista completa.
+# Obs.: Sem argumentos, mostra a lista completa.
 #
 # Opções: --sigla        Mostra somente as siglas
 #         --nome         Mostra somente os nomes
