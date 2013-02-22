@@ -16,7 +16,7 @@ file zz/* off/* | egrep -v 'UTF-8'
 
 eco ----------------------------------------------------------------
 eco "* Funções com nome estranho"
-ls -1 zz/* off/* | grep -v '/zz[a-z0-9]*$'
+ls -1 zz/* off/* | grep -v '/zz[a-z0-9]*\.sh$'
 
 eco ----------------------------------------------------------------
 eco "* Funções com erro"
@@ -40,7 +40,7 @@ for f in zz/* off/*; do tail -1 $f | od -a | grep -q '}.*nl' || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções cujo nome não bate com o nome do arquivo"
-for f in zz/* off/*; do grep -q "^$(basename $f) " $f || echo $f; done
+for f in zz/* off/*; do grep -q "^$(basename $f .sh) " $f || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções sem o campo Autor:"
@@ -209,7 +209,7 @@ eco "* Funções cuja chamada 'zzzz -h' está incorreta"
 for f in zz/*  # off/*
 do
 	# zzzz -h cores $1 && return
-	fgrep -q "zzzz -h $(basename $f | sed 's/^zz//') \"\$1\" && return" $f || echo $f
+	fgrep -q "zzzz -h $(basename $f .sh | sed 's/^zz//') \"\$1\" && return" $f || echo $f
 done
 
 eco ----------------------------------------------------------------
@@ -218,7 +218,7 @@ eco "* Funções que não usam 'zztool uso'"
 ok="zzalfabeto zzansi2html zzascii zzbeep zzbissexto zzbolsas zzcalcula zzcapitalize zzcarnaval zzcinemark15h zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcpf zzdatafmt zzdiadasemana zzdolar zzdos2unix zzestado zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhexa2str zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpascoa zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzsubway zztabuada zztelecine zztempo zztv zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
 for f in zz/*  # off/*
 do
-	echo " $ok " | grep -q " $(basename $f) " && continue
+	echo " $ok " | grep -q " $(basename $f .sh) " && continue
 	grep -q 'zztool uso ' $f || echo $f
 done
 
@@ -226,7 +226,7 @@ eco ----------------------------------------------------------------
 eco "* Funções com o nome errado em 'zztool uso'"
 for f in zz/*  # off/*
 do
-	wrong=$(grep 'zztool uso ' $f | grep -v "zztool uso $(basename $f | sed 's/^zz//')")
+	wrong=$(grep 'zztool uso ' $f | grep -v "zztool uso $(basename $f .sh | sed 's/^zz//')")
 	test -n "$wrong" && echo "$f"  # && echo "$wrong"
 done
 
