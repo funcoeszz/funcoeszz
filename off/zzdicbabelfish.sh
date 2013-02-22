@@ -19,6 +19,7 @@
 # Desde: 2000-02-22
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-22 O Babelfish, virou Yahoo, depois Bing. zzdicbing?
 zzdicbabelfish ()
 {
 	zzzz -h dicbabelfish "$1" && return
