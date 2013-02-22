@@ -6,13 +6,14 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-09-20
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzfreshmeat ()
 {
 	zzzz -h freshmeat "$1" && return
 
-	local url='http://freshmeat.net/search/'
+	local url='http://freecode.com/search/'
 	local padrao=$1
 
 	# Verificação dos parâmetros
@@ -20,7 +21,7 @@ zzfreshmeat ()
 
 	# Faz a consulta e filtra o resultado
 	$ZZWWWLIST "$url?q=$padrao" |
-		sed -n 's@.*\(http://freshmeat.net/projects/.*\)@\1@p' |
+		sed -n 's@.*\(http://freecode.com/projects/.*\)@\1@p' |
 		grep -v '/projects/new' |
 		sort |
 		uniq
