@@ -32,11 +32,9 @@ zzhowto ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML "$url" |
-			sed -n '/alt="\[TXT\]"/ {
-				s/^.*href="\([^"]*\).*/\1/
-				p
-			}' > "$cache"
+		$ZZWWWDUMP "$url" |
+			grep 'text/html' |
+			sed 's/^  *//; s/ [0-9][0-9]:.*//' > "$cache"
 	fi
 
 	# Pesquisa o termo (se especificado)
