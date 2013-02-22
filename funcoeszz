@@ -869,6 +869,7 @@ then
 		if test -r "$zz_arquivo"
 		then
 			zz_nome="${zz_arquivo##*/}"  # remove path
+			zz_nome="${zz_nome%.sh}"     # remove extensão
 
 			# O usuário desativou esta função?
 			echo "$zz_off" | grep "^${zz_nome#zz}$" >/dev/null ||
@@ -881,6 +882,7 @@ then
 	(
 	cd "$ZZDIR" &&
 	ls -1 zz* |
+		sed 's/\.sh$//' |
 		grep -v -f "$ZZTMP.on"
 	) >> "$ZZTMP.off"
 fi
@@ -913,7 +915,10 @@ then
 	# Mostra cada função (ativa), inserindo seu nome na linha 2 do cabeçalho
 	while read zz_nome
 	do
-		zz_arquivo="${ZZDIR%/}"/$zz_nome
+		zz_arquivo="${ZZDIR%/}"/$zz_nome.sh
+
+		# Suporte legado aos arquivos sem a extensão .sh
+		test -r "$zz_arquivo" || zz_arquivo="${zz_arquivo%.sh}"
 
 		sed 1q "$zz_arquivo"
 		echo "# $zz_nome"
@@ -938,12 +943,22 @@ fi
 # Carregamento das funções ativas, salvando texto de ajuda
 while read zz_nome
 do
-	zz_arquivo="${ZZDIR%/}"/$zz_nome
+	zz_arquivo="${ZZDIR%/}"/$zz_nome.sh
 
-	# Se o arquivo não existir, cancela o carregamento desta função
+	# Se o arquivo não existir, tenta encontrá-lo sem a extensao .sh.
+	# No futuro este suporte às funções sem extensão pode ser removido.
 	if ! test -r "$zz_arquivo"
 	then
-		continue
+		if test -r "${zz_arquivo%.sh}"
+		then
+			# Não achei zzfoo.sh, mas achei o zzfoo
+			# Vamos usá-lo então.
+			zz_arquivo="${zz_arquivo%.sh}"
+		else
+			# Não achei zzfoo.sh nem zzfoo
+			# Cancelaremos o carregamento desta função.
+			continue
+		fi
 	fi
 
 	# Inclui a função na shell atual
