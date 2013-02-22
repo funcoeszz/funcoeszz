@@ -14,6 +14,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zznoticiaslinux ()
