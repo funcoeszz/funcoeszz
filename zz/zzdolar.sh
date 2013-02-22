@@ -1,13 +1,12 @@
 # ----------------------------------------------------------------------------
-# http://br.invertia.com
-# Busca a cotação do dia do dólar (comercial, paralelo e turismo).
-# Obs.: As cotações são atualizadas de 10 em 10 minutos.
+# http://economia.terra.com.br
+# Busca a cotação do dia do dólar (comercial, turismo e PTAX).
 # Uso: zzdolar
 # Ex.: zzdolar
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdolar ()
@@ -15,32 +14,22 @@ zzdolar ()
 	zzzz -h dolar "$1" && return
 
 	# Faz a consulta e filtra o resultado
-	$ZZWWWDUMP 'http://br.invertia.com/mercados/divisas/tiposdolar.aspx' |
+	$ZZWWWDUMP 'http://economia.terra.com.br/stock/divisas.aspx' |
+		egrep  'Dólar (Comercial|Turismo|PTAX)»' |
+		sed 3q |
 		sed '
-			# Você acredita que essa sopa de letrinhas funciona?
-			# Pois é, eu também não... Mas funciona :)
+			# Linha original:
+			# Dólar Comercial» DOLCM   1,9733 1,9738 0,00 -0,03 %  03h09
 
-			s/^ *//
-			/Data:/,/Ptax/!d
-			/percent/d
-			s/  */ /g
-			s/.*Data: \(.*\)/\1 compra   venda   hora/
-			s|^[1-9]/|0&|
-			s@^\([0-9][0-9]\)/\([0-9]/\)@\1/0\2@
-			s/^D.lar //
-			s/- Corretora//
-			s/- BACEN//
-			s/ SP//g
-			s/ [-+]\{0,1\}[0-9.,]\{1,\}  *%$//
-			s/al /& /
-			s/lo /&   /
-			s/mo /& /
-			s/ax /&      /
-			s/ \([0-9]\) / \1.000 /
-			s/\.[0-9]\>/&0/g
-			s/\.[0-9][0-9]\>/&0/g
-			/^[^0-9]/s/[0-9] /&  /g
-			/Var\.%/d
-			s/Turismo../Turismo     /' |
-		sed '/^Compra/d'
+			# faxina
+			s/^  *Dólar //
+			s/»/ /
+
+			# espaçamento dos valores
+			s/ [0-9],[0-9][0-9][0-9][0-9]/  &/g
+
+			# remove variação percentual 
+			s/ -\{0,1\}[0-9],[0-9][0-9] .*%  */   /
+		'
+	echo '                     compra   venda'
 }
