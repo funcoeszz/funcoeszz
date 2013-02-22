@@ -35,9 +35,9 @@ zznoticiaslinux ()
 		echo
 		zztool eco "* Yahoo Linux ($url):"
 		$ZZWWWHTML "$url" |
+			zztool texto_em_utf8 |
 			tr '<' '\n' |
 			sed -n '/^item>/,$ s@^title>@@p' |
-			zztool texto_em_utf8 |
 			$limite
 	fi
 
@@ -52,8 +52,8 @@ zznoticiaslinux ()
 		# abrir com gzip -d. Reportado por Rodrigo Azevedo.
 
 		$ZZWWWHTML "$url/index.rdf" |
-			sed -n '1,/<item>/d;s@.*<title>\(.*\)</title>@\1@p' |
-			zztool texto_em_utf8 |
+			zztool texto_em_iso |
+			sed -n '1,/<item>/d; /^<title>/s/<[^>]*>//gp' |
 			$limite
 	fi
 
@@ -64,33 +64,33 @@ zznoticiaslinux ()
 		echo
 		zztool eco "* BR-Linux ($url):"
 		$ZZWWWHTML "$url" |
+			zztool texto_em_utf8 |
 			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
 			sed 's/&#822[01];/"/g ; s/&#8211;/-/g' |
-			zztool texto_em_utf8 |
 			$limite
 	fi
 
 	# UnderLinux
 	if zztool grep_var u "$sites"
 	then
-		url='http://feeds.feedburner.com/underlinux'
+		url='https://under-linux.org/external.php?do=rss&type=newcontent'
 		echo
 		zztool eco "* UnderLinux ($url):"
 		$ZZWWWHTML "$url" |
-			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
 			zztool texto_em_utf8 |
+			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
 			$limite
 	fi
 
 	# Notícias Linux
 	if zztool grep_var n "$sites"
 	then
-		url='http://www.noticiaslinux.com.br'
+		url='http://feeds.feedburner.com/NoticiasLinux'
 		echo
 		zztool eco "* Notícias Linux ($url):"
 		$ZZWWWHTML "$url" |
-			sed -n '/<[hH]3>/{s/<[^>]*>//g;s/^[[:blank:]]*//g;p;}' |
 			zztool texto_em_iso |
+			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
 			$limite
 	fi
 }
