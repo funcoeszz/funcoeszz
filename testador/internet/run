@@ -76,7 +76,6 @@ tests="
 
 chavepgp:a::Guido van Rossum:
 dicasl:a::procmail:
-dicbabelfish:a::drum:sed '/^ *$/d'
 dicbabylon:a::drum:sed '/^ *$/d'
 dicjargon:a::drum:sed '/^ *$/d'
 dicportugues:a::estorvo:
