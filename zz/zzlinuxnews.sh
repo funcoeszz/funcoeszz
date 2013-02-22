@@ -14,7 +14,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
+# Versão: 2
 # Licença: GPL
+# Requisitos: zzxml
 # ----------------------------------------------------------------------------
 zzlinuxnews ()
 {
@@ -46,8 +48,8 @@ zzlinuxnews ()
 		echo
 		zztool eco "* SlashDot ($url):"
 		$ZZWWWHTML "$url" |
-			sed '/<title>/!d ; s@.*<title>@@ ; s@</title>.*@@p' |
-			uniq |
+			zzxml --tag 'title' --untag --unescape |
+			sed 1,2d |
 			$limite
 	fi
 
