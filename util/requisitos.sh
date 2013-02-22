@@ -15,7 +15,7 @@ cd ../zz
 for f in zz*
 do
 	# Caso especial, já tratado, pode ignorar
-	test $f = 'zzdictodos' && continue
+	test $f = 'zzdictodos.sh' && continue
 
 	# Quais as funções já listadas em Requisitos:?
 	requisitos=$(sed -n 's/^# Requisitos://p' $f)
@@ -49,10 +49,10 @@ do
 			while read funcao
 			do
 				# Uma função usar ela mesma está OK
-				test $funcao = $f && continue
+				test $funcao.sh = $f && continue
 
 				# Exceção: a zzconverte é apenas citada nos comentários
-				test $f = 'zzmat' -a $funcao = 'zzconverte' && continue
+				test $f = 'zzmat.sh' -a $funcao = 'zzconverte' && continue
 
 				echo $requisitos | grep -w $funcao >/dev/null ||
 					echo "$f: # Requisitos: $funcao"
