@@ -9,7 +9,7 @@
 #
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2009-05-04
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzcineuci ()
@@ -58,10 +58,12 @@ zzcineuci ()
 	do
 		$ZZWWWDUMP "$url$codigo" | sed '
 			1s/^/================================================/
-			3s/^/================================================\n/
+			3s/^/================================================\
+/
 			s/^  Horários/Horários/g
 			s/^  Sala /Sala /g
-			/^Sala /s/$/\n/g
+			/^Sala /s/$/\
+/g
 			s/^[ ]*//g
 			s/\n\nHorários/\n/g
 			/^$/d
