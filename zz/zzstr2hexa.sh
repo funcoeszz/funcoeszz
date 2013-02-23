@@ -7,7 +7,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2012-03-30
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzstr2hexa ()
@@ -24,7 +24,7 @@ zzstr2hexa ()
 		# Um caracter por linha e tira o \n do final da linha
 		sed 's#\(.\)#\1 #g' )
 	do
-		printf "%x " \'$string
+		printf "%02x " \'$string
 	done |
 		# Remove o espaço que sobra no final
 		sed 's/ $//'
