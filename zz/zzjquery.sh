@@ -36,5 +36,5 @@ zzjquery ()
 
 	[ "$1" = '-s' ] && er="$er1" || er="$er2"
 
-	$ZZWWWHTML "http://visualjquery.com/1.1.2.html" | sed -nu "$er"
+	$ZZWWWHTML "http://visualjquery.com/1.1.2.html" | sed -n "$er"
 }
