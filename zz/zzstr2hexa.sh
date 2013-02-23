@@ -7,28 +7,29 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2012-03-30
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzstr2hexa ()
 {
 	zzzz -h str2hexa "$1" && return
 
-	local string
+	local string caractere
 
-	# string -> hexa
-	for string in  $(
-		# Dados via STDIN ou argumentos
-		zztool multi_stdin "$@" |
+	# String vem como argumento ou STDIN?
+	# Nota: não use zztool multi_stdin, adiciona \n no final do argumento
+	if test $# -ne 0
+	then
+		string="$*"
+	else
+		string=$(cat /dev/stdin)
+	fi
 
-		# Um caracter por linha e tira o \n do final da linha
-		sed 's#\(.\)#\1 #g' )
+	# Loop a cada caractere, e o printf o converte para hexa
+	printf "$string" | while IFS= read -r -n 1 caractere
 	do
-		printf "%02x " \'$string
+		printf '%02x ' "'$caractere"
 	done |
-		# Remove o espaço que sobra no final
+		# Remove o espaço que sobra no final e quebra a linha
 		sed 's/ $//'
-
-	# Quebra de linha final
-	echo
 }
