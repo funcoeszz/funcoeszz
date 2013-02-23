@@ -9,13 +9,17 @@
 #
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2009-05-04
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento
 # ----------------------------------------------------------------------------
 zzcineuci ()
 {
 	zzzz -h cineuci "$1" && return
+
+	local codigo codigos
+	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="
+	local cidade=$(echo "$*" | zzminusculas | zzsemacento)
 
 	[ $# -gt 1 ] && zztool uso cineuci && return 1
 
@@ -33,23 +37,19 @@ zzcineuci ()
 		return 0
 	fi
 
-	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="
-	local cidade=$(echo "$*" | zzminusculas | zzsemacento)
-	local codigo codigos
-
 	if zztool testa_numero ${cidade}; then # passou código
 		[ "$cidade" -ge 1 -a "$cidade" -le 17 ] && codigos="$cidade" # testa se código é válido
 	else # passou nome da cidade
 		case $cidade in
-			curitiba) codigos="1 15" ;;
-			fortaleza) codigos="10" ;;
-			juiz_de_fora) codigos="12" ;;
-			recife) codigos="4 5 14" ;;
+			curitiba      ) codigos="1 15" ;;
+			fortaleza     ) codigos="10" ;;
+			juiz_de_fora  ) codigos="12" ;;
+			recife        ) codigos="4 5 14" ;;
 			ribeirao_preto) codigos="2" ;;
 			rio_de_janeiro)	codigos="7 11" ;;
-			santana) codigos="13" ;;
-			sao_paulo) codigos="8 9";;
-			salvador) codigos="3 6 17";;
+			santana       ) codigos="13" ;;
+			sao_paulo     ) codigos="8 9" ;;
+			salvador      ) codigos="3 6 17" ;;
 		esac
 	fi
 
