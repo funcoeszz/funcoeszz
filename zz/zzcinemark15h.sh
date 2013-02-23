@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://cinemark.com.br/programacao/cidade/1
-# Exibe os filmes com sessão às 15h (mais barata) no cinemark da sua cidade.
+# Exibe os filmes com sessão às 15h (mais barata) no Cinemark da sua cidade.
 # Uso: zzcinemark15h [cidade | codigo_cinema]
 # Ex.: zzcinemark15h sao paulo
 #
