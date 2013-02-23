@@ -25,7 +25,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzestado ()
@@ -89,12 +89,14 @@ TO:Tocantins:tocantins:Palmas"
 			)
 		;;
 		--python|--py)
-			printf 'siglas = [%s]\n' $(zzestado --formato "'{sigla}', " | sed 's/, $//')
-			echo
-			printf 'nomes = [%s]\n' $(zzestado --formato "'{nome}', " | sed 's/, $//')
-			echo
-			printf 'capitais = [%s]\n' $(zzestado --formato "'{capital}', " | sed 's/, $//')
-			echo
+			sigla=$(  zzestado --formato "'{sigla}', "   | sed 's/, $//')
+			nome=$(   zzestado --formato "'{nome}', "    | sed 's/, $//')
+			capital=$(zzestado --formato "'{capital}', " | sed 's/, $//')
+
+			printf   'siglas = [%s]\n\n' "$sigla"
+			printf    'nomes = [%s]\n\n' "$nome"
+			printf 'capitais = [%s]\n\n' "$capital"
+
 			echo 'estados = {'
 			zzestado --formato "  '{sigla}': '{nome}',\n"
 			echo '}'
@@ -104,12 +106,14 @@ TO:Tocantins:tocantins:Palmas"
 			echo '}'
 		;;
 		--php)
-			printf '$siglas = array(%s);\n' $(zzestado --formato '"{sigla}", ' | sed 's/, $//')
-			echo
-			printf '$nomes = array(%s);\n' $(zzestado --formato '"{nome}", ' | sed 's/, $//')
-			echo
-			printf '$capitais = array(%s);\n' $(zzestado --formato '"{capital}", ' | sed 's/, $//')
-			echo
+			sigla=$(  zzestado --formato '"{sigla}", '   | sed 's/, $//')
+			nome=$(   zzestado --formato '"{nome}", '    | sed 's/, $//')
+			capital=$(zzestado --formato '"{capital}", ' | sed 's/, $//')
+
+			printf   '$siglas = array(%s);\n\n' "$sigla"
+			printf    '$nomes = array(%s);\n\n' "$nome"
+			printf '$capitais = array(%s);\n\n' "$capital"
+
 			echo '$estados = array('
 			zzestado --formato '  "{sigla}" => "{nome}",\n'
 			echo ');'
@@ -119,12 +123,14 @@ TO:Tocantins:tocantins:Palmas"
 			echo ');'
 		;;
 		--javascript|--js)
-			printf 'var siglas = [%s];\n' $(zzestado --formato "'{sigla}', " | sed 's/, $//')
-			echo
-			printf 'var nomes = [%s];\n' $(zzestado --formato "'{nome}', " | sed 's/, $//')
-			echo
-			printf 'var capitais = [%s];\n' $(zzestado --formato "'{capital}', " | sed 's/, $//')
-			echo
+			sigla=$(  zzestado --formato "'{sigla}', "   | sed 's/, $//')
+			nome=$(   zzestado --formato "'{nome}', "    | sed 's/, $//')
+			capital=$(zzestado --formato "'{capital}', " | sed 's/, $//')
+
+			printf   'var siglas = [%s];\n\n' "$sigla"
+			printf    'var nomes = [%s];\n\n' "$nome"
+			printf 'var capitais = [%s];\n\n' "$capital"
+
 			echo 'var estados = {'
 			zzestado --formato "  {sigla}: '{nome}',\n" | sed '$ s/,$//'
 			echo '};'
