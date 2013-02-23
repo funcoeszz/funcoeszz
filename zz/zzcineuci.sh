@@ -9,7 +9,7 @@
 #
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2009-05-04
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzcineuci ()
@@ -57,17 +57,22 @@ zzcineuci ()
 	for codigo in $codigos
 	do
 		$ZZWWWDUMP "$url$codigo" | sed '
-			1s/^/================================================/
-			3s/^/================================================\
-/
-			s/^  Horários/Horários/g
-			s/^  Sala /Sala /g
-			/^Sala /s/$/\
-/g
-			s/^[ ]*//g
-			s/\n\nHorários/\n/g
-			/^$/d
-			'
+
+			# Faxina
+			s/^  *//
+			/^$/ d
+			/^Horários para/ d
+
+			# Destaque ao redor do nome do cinema, quebra linha após
+			1 i\
+=================================================
+			1 a\
+=================================================\
+
+
+			# Quebra linha após o horário
+			/^Sala / G
+		'
 	done
 	return 0
 }
