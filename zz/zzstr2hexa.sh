@@ -7,7 +7,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2012-03-30
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzstr2hexa ()
@@ -15,6 +15,7 @@ zzstr2hexa ()
 	zzzz -h str2hexa "$1" && return
 
 	local string caractere
+	local nl=$(printf '\n')
 
 	# String vem como argumento ou STDIN?
 	# Nota: não use zztool multi_stdin, adiciona \n no final do argumento
@@ -28,7 +29,14 @@ zzstr2hexa ()
 	# Loop a cada caractere, e o printf o converte para hexa
 	printf "$string" | while IFS= read -r -n 1 caractere
 	do
-		printf '%02x ' "'$caractere"
+		if test "$caractere" = "$nl"
+		then
+			# Exceção para contornar um bug:
+			#   printf %x 'c retorna 0 quando c=\n
+			printf '0a '
+		else
+			printf '%02x ' "'$caractere"
+		fi
 	done |
 		# Remove o espaço que sobra no final e quebra a linha
 		sed 's/ $//'
