@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # Jogo do bicho.
 # Com um número como argumento indica o bicho e o grupo.
-# Se o for um número entre 1 e 25 seguido de "g", listas os números do grupo.
+# Se o for um número entre 1 e 25 seguido de "g", lista os números do grupo.
 # Sem argumento ou com apenas "g" lista todos os grupos de bichos.
 #
 # Uso: zzbicho [numero] [g]
