@@ -18,7 +18,7 @@ zzjquery ()
 
 	local er
 	local cache="$ZZTMP.jquery"
-	local er1="s/\s*<h1>\([\$.]*$2(.*\)<\/h1>\s*/- \1/p;"
+	local er1="s/^ *<h1>\([\$.]*$2(.*\)<\/h1> */- \1/p;"
 	local er2="
 		/\s*<h1>\([\$.]*$1(.*\)<\/h1>/ {
 			s//\1:/p
