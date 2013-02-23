@@ -11,6 +11,7 @@
 # Desde: 2009-05-04
 # Versão: 5
 # Licença: GPL
+# Requisitos: zzminusculas zzsemacento
 # ----------------------------------------------------------------------------
 zzcineuci ()
 {
@@ -33,7 +34,7 @@ zzcineuci ()
 	fi
 
 	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="
-	local cidade=`echo $* | sed 's/ /_/g' | tr [:upper:] [:lower:]` #converte nome da cidade para minúscula e retira espaços
+	local cidade=$(echo "$*" | zzminusculas | zzsemacento)
 	local codigo codigos
 
 	if zztool testa_numero ${cidade}; then # passou código
