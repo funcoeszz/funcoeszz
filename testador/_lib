@@ -100,7 +100,7 @@ while [ $i -lt $((num_tests-1)) ]; do
 	ok=$(echo -n "$ok" | tr '\n' ' ' | cut -c1-30)
 	result=$(echo -n "$result" | tr '\n' ' ' | cut -c1-30)
 
-	echo "ERROR: ${0##*/} $v1 $v2 $v3 $v4 $v5"
+	echo "ERROR: ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6 $v7"
 	echo "expected '$ok', got '$result'"
 done
 
