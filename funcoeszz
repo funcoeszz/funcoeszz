@@ -294,8 +294,12 @@ zztool ()
 			# Mostra na tela o conteúdo dos arquivos *ou* da STDIN, nesta ordem
 			# Útil para funções/comandos aceitarem dados das duas formas:
 			#     cat arquivo1 arquivo2 | funcao
+			#     cat arquivo1 arquivo2 | funcao -
 			# ou
 			#     funcao arquivo1 arquivo2
+			#
+			# Note que o uso de - para indicar STDIN não é portável, mas esta
+			# ferramenta o torna portável, pois o cat o suporta no Unix.
 
 			cat "${@:--}"  # Traduzindo: cat $@ ou cat -
 		;;
