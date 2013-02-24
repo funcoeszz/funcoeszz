@@ -3,17 +3,18 @@
 # A opção -r torna o cálculo relativo à primeira data, por exemplo:
 #   02:00 - 03:30 = -01:30 (sem -r) e 22:30 (com -r)
 #
-# Uso: zzhora [-r] hh:mm [+|- hh:mm]
-# Ex.: zzhora 8:30 + 17:25        # preciso somar dois horários!
+# Uso: zzhora [-r] hh:mm [+|- hh:mm] ...
+# Ex.: zzhora 8:30 + 17:25        # preciso somar dois horários
 #      zzhora 12:00 - agora       # quando falta para o almoço?
 #      zzhora -12:00 + -5:00      # horas negativas!
 #      zzhora 1000                # quanto é 1000 minutos?
 #      zzhora -r 5:30 - 8:00      # que horas ir dormir para acordar às 5:30?
 #      zzhora -r agora + 57:00    # e daqui 57 horas, será quando?
+#      zzhora 1:00 + 2:00 + 3:00 - 4:00 - 0:30   # cálculos múltiplos
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzhora ()
@@ -21,7 +22,7 @@ zzhora ()
 	zzzz -h hora "$1" && return
 
 	local hhmm1 hhmm2 operacao hhmm1_orig hhmm2_orig
-	local hh1 mm1 hh2 mm2 n1 n2 resultado negativo
+	local hh1 mm1 hh2 mm2 n1 n2 resultado parcial exitcode negativo
 	local horas minutos dias horas_do_dia hh mm hh_dia extra
 	local relativo=0
 	local neg1=0
@@ -36,6 +37,60 @@ zzhora ()
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso hora; return 1; }
+
+	# Cálculos múltiplos? Exemplo: 1:00 + 2:00 + 3:00 - 4:00
+	if test $# -gt 3
+	then
+		if test $relativo -eq 1
+		then
+			echo "A opção -r não suporta cálculos múltiplos"
+			return 1
+		fi
+
+		# A zzhora continua simples, suportando apenas dois números
+		# e uma única operação entre eles. O que fiz para suportar
+		# múltiplos, é chamar a própria zzhora várias vezes, a cada
+		# número novo, usando o resultado do cálculo anterior.
+		#
+		# Início  : parcial = $1
+		# Rodada 1: parcial = zzhora $parcial $2 $3
+		# Rodada 2: parcial = zzhora $parcial $4 $5
+		# Rodada 3: parcial = zzhora $parcial $6 $7
+		# e assim vai.
+		#
+		parcial="$1"
+		shift
+
+		# Daqui pra frente é de dois em dois: operador (+-) e a hora.
+		# Se tiver um número ímpar de argumentos, tem algo errado.
+		#
+		if test $(($# % 2)) -eq 1
+		then
+			zztool uso hora
+			return 1
+		fi
+
+		# Agora sim, vamos fazer o loop e calcular todo mundo
+		while test $# -ge 2
+		do
+			resultado=$(zzhora "$parcial" "$1" "$2")
+			exitcode=$?
+
+			# Salva somente o horário. Ex: 02:59 (0d 2h 59m) 
+			parcial=$(echo "$resultado" | cut -d ' ' -f 1)
+
+			# Esses dois já foram. Venham os próximos!
+			shift
+			shift
+		done
+
+		# Loop terminou, então já temos o total final.
+		# Basta mostrar e encerrar, saindo com o exitcode retornado
+		# pela execução da última zzhora. Vai que deu erro?
+		#
+		echo "$resultado"
+		return $exitcode
+	fi
 
 	# Dados informados pelo usuário (com valores padrão)
 	hhmm1="$1"

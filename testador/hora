@@ -8,6 +8,8 @@ tests=(
 # Faltando argumentos
 ''	''	''	''	''	''	''	r	^Uso:.*
 -r	''	''	''	''	''	''	r	^Uso:.*
+''	01:00	+	02:00	+	''	''	r	^Uso:.*
+''	01:00	+	02:00	+	03:00	+	r	^Uso:.*
 # Hora inválida                 ''	''	''	
 ''	foo	''	''	''	''	''	t	"Horário inválido 'foo', deve ser HH:MM"
 ''	foo:12	''	''	''	''	''	t	"Horário inválido 'foo:12', deve ser HH:MM"
@@ -15,8 +17,17 @@ tests=(
 ''	agora	+	foo	''	''	''	t	"Horário inválido 'foo', deve ser HH:MM"
 ''	agora	+	foo:12	''	''	''	t	"Horário inválido 'foo:12', deve ser HH:MM"
 ''	agora	+	12:foo	''	''	''	t	"Horário inválido '12:foo', deve ser HH:MM"
+''	01:00	+	02:00	+	foo	''	t	"Horário inválido 'foo', deve ser HH:MM"
 # Operação inválida             ''	''	''	
 ''	agora	/	'8:00'	''	''	''	t	"Operação inválida '/'. Deve ser + ou -."
+-r	agora	/	'8:00'	''	''	''	t	"Operação inválida '/'. Deve ser + ou -."
+''	01:00	02:00	''	''	''	''	t	"Operação inválida '02:00'. Deve ser + ou -."
+-r	01:00	02:00	''	''	''	''	t	"Operação inválida '02:00'. Deve ser + ou -."
+''	01:00	+	02:00	03:00	''	''	r	^Uso:.*
+# Opção -r e cálculos múltiplos
+-r	01:00	+	02:00	03:00	''	''	t	"A opção -r não suporta cálculos múltiplos"
+-r	01:00	+	02:00	+	''	''	t	"A opção -r não suporta cálculos múltiplos"
+-r	01:00	+	02:00	+	03:00	''	t	"A opção -r não suporta cálculos múltiplos"
 
 # Faltando pedaços (completa com valor default=0)
 -r	1:00	-	0:59	''	''	''	t	"00:01 (hoje)"
@@ -86,5 +97,14 @@ tests=(
 ''	-01:01	-	03:03	''	''	''	t	"-04:04 (0d 4h 4m)"
 ''	-01:01	+	-03:03	''	''	''	t	"-04:04 (0d 4h 4m)"
 ''	-01:01	-	-03:03	''	''	''	t	"02:02 (0d 2h 2m)"
+
+# Cálculos múltiplos
+1:01	+	2:01	+	3:01	''	''	t	"06:03 (0d 6h 3m)"
+1:01	+	2:01	+	3:01	+	4:01	t	"10:04 (0d 10h 4m)"
+1:01	+	2:01	+	3:01	-	4:01	t	"02:02 (0d 2h 2m)"
+1:01	-	2:01	-	3:01	+	4:01	t	"00:00 (0d 0h 0m)"
+24:	+	24:	+	24:	+	24:	t	"96:00 (4d 0h 0m)"
+-24:	+	-24:	+	-24:	+	-24:	t	"-96:00 (4d 0h 0m)"
+
 )
 . _lib
