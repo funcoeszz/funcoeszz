@@ -11,7 +11,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-04-22
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
@@ -20,7 +20,7 @@ zznome ()
 	zzzz -h nome "$1" && return
 
 	local url='http://www.significado.origem.nom.br'
-	local ini='^Origem do Nome '
+	local ini='Qual a origem do nome '
 	local fim='Analise da Primeira Letra do Nome:'
 	local nome=$(echo "$1" | zzminusculas | zzsemacento)
 
@@ -53,7 +53,7 @@ zznome ()
 			fim='^VEJA TAMBÉM'
 		;;
 		tudo)
-			ini='^Origem do Nome '
+			ini='Qual a origem do nome '
 			fim='^VEJA TAMBÉM'
 		;;
 	esac
@@ -64,6 +64,12 @@ zznome ()
 			/$fim/d
 			/\[[0-9]\{1,\}\.jpg\]/d
 			s/^ *//g
+			s/^Qual a origem/Origem/
+			s/^Qual o significado/Significado/
+			/^Significado de / {
+				N
+				d
+			}
 			p
 			}"
 }
