@@ -2,64 +2,64 @@
 now=$(  date +'%H:%M (0d %kh %Mm)' | sed 's/  / /;s/0\(.m\)/\1/') # %k bugged
 now_r=$(date +'%H:%M (hoje)')
 debug=0
-values=4
+values=7
 tests=(
 
 # Faltando argumentos
-''	''	''	''	r	^Uso:.*
--r	''	''	''	r	^Uso:.*
-# Hora inválida
-''	foo	''	''	t	"Horário inválido 'foo', deve ser HH:MM"
-''	foo:12	''	''	t	"Horário inválido 'foo:12', deve ser HH:MM"
-''	12:foo	''	''	t	"Horário inválido '12:foo', deve ser HH:MM"
-''	agora	+	foo	t	"Horário inválido 'foo', deve ser HH:MM"
-''	agora	+	foo:12	t	"Horário inválido 'foo:12', deve ser HH:MM"
-''	agora	+	12:foo	t	"Horário inválido '12:foo', deve ser HH:MM"
-# Operação inválida
-''	agora	/	'8:00'	t	"Operação inválida '/'. Deve ser + ou -."
+''	''	''	''	''	''	''	r	^Uso:.*
+-r	''	''	''	''	''	''	r	^Uso:.*
+# Hora inválida                 ''	''	''	
+''	foo	''	''	''	''	''	t	"Horário inválido 'foo', deve ser HH:MM"
+''	foo:12	''	''	''	''	''	t	"Horário inválido 'foo:12', deve ser HH:MM"
+''	12:foo	''	''	''	''	''	t	"Horário inválido '12:foo', deve ser HH:MM"
+''	agora	+	foo	''	''	''	t	"Horário inválido 'foo', deve ser HH:MM"
+''	agora	+	foo:12	''	''	''	t	"Horário inválido 'foo:12', deve ser HH:MM"
+''	agora	+	12:foo	''	''	''	t	"Horário inválido '12:foo', deve ser HH:MM"
+# Operação inválida             ''	''	''	
+''	agora	/	'8:00'	''	''	''	t	"Operação inválida '/'. Deve ser + ou -."
 
 
--r	01:00	-	00:59	t	"00:01 (hoje)"
--r	01:00	-	01:00	t	"00:00 (hoje)"
--r	01:00	-	01:01	t	"23:59 (ontem)"
+-r	01:00	-	00:59	''	''	''	t	"00:01 (hoje)"
+-r	01:00	-	01:00	''	''	''	t	"00:00 (hoje)"
+-r	01:00	-	01:01	''	''	''	t	"23:59 (ontem)"
 
--r	01:00	-	24:59	t	"00:01 (ontem)"
--r	01:00	-	25:00	t	"00:00 (ontem)"
--r	01:00	-	25:01	t	"23:59 (-2 dias)"
+-r	01:00	-	24:59	''	''	''	t	"00:01 (ontem)"
+-r	01:00	-	25:00	''	''	''	t	"00:00 (ontem)"
+-r	01:00	-	25:01	''	''	''	t	"23:59 (-2 dias)"
 
--r	23:00	+	00:59	t	"23:59 (hoje)"
--r	23:00	+	01:00	r	"00:00 \(amanh.\)"
--r	23:00	+	01:01	r	"00:01 \(amanh.\)"
+-r	23:00	+	00:59	''	''	''	t	"23:59 (hoje)"
+-r	23:00	+	01:00	''	''	''	r	"00:00 \(amanh.\)"
+-r	23:00	+	01:01	''	''	''	r	"00:01 \(amanh.\)"
 
--r	23:00	+	24:59	r	"23:59 \(amanh.\)"
--r	23:00	+	25:00	t	"00:00 (2 dias)"
--r	23:00	+	25:01	t	"00:01 (2 dias)"
+-r	23:00	+	24:59	''	''	''	r	"23:59 \(amanh.\)"
+-r	23:00	+	25:00	''	''	''	t	"00:00 (2 dias)"
+-r	23:00	+	25:01	''	''	''	t	"00:01 (2 dias)"
 
-''	agora	''	''	t	"$now"
--r	agora	''	''	t	"$now_r"
-''	600	''	''	t	'10:00 (0d 10h 0m)'
--r	600	''	''	t	'10:00 (hoje)'
-''	240:	''	''	t	'240:00 (10d 0h 0m)'
--r	240:	''	''	t	'00:00 (10 dias)'
-''	-600	''	''	t	'-10:00 (0d 10h 0m)'
--r	-600	''	''	t	'14:00 (hoje)'
-''	-240:	''	''	t	'-240:00 (10d 0h 0m)'
--r	-240:	''	''	t	'00:00 (-10 dias)'
+''	agora	''	''	''	''	''	t	"$now"
+-r	agora	''	''	''	''	''	t	"$now_r"
+''	600	''	''	''	''	''	t	'10:00 (0d 10h 0m)'
+-r	600	''	''	''	''	''	t	'10:00 (hoje)'
+''	240:	''	''	''	''	''	t	'240:00 (10d 0h 0m)'
+-r	240:	''	''	''	''	''	t	'00:00 (10 dias)'
+''	-600	''	''	''	''	''	t	'-10:00 (0d 10h 0m)'
+-r	-600	''	''	''	''	''	t	'14:00 (hoje)'
+''	-240:	''	''	''	''	''	t	'-240:00 (10d 0h 0m)'
+-r	-240:	''	''	''	''	''	t	'00:00 (-10 dias)'
 
-''	01:00	-	00:59	t	"00:01 (0d 0h 1m)"
-''	01:00	-	01:00	t	"00:00 (0d 0h 0m)"
-''	01:00	-	01:01	t	"-00:01 (0d 0h 1m)"
+''	01:00	-	00:59	''	''	''	t	"00:01 (0d 0h 1m)"
+''	01:00	-	01:00	''	''	''	t	"00:00 (0d 0h 0m)"
+''	01:00	-	01:01	''	''	''	t	"-00:01 (0d 0h 1m)"
 
-''	01:00	-	24:59	t	"-23:59 (0d 23h 59m)"
-''	01:00	-	25:00	t	"-24:00 (1d 0h 0m)"
-''	01:00	-	25:01	t	"-24:01 (1d 0h 1m)"
+''	01:00	-	24:59	''	''	''	t	"-23:59 (0d 23h 59m)"
+''	01:00	-	25:00	''	''	''	t	"-24:00 (1d 0h 0m)"
+''	01:00	-	25:01	''	''	''	t	"-24:01 (1d 0h 1m)"
 
-''	23:00	+	00:59	t	"23:59 (0d 23h 59m)"
-''	23:00	+	01:00	t	"24:00 (1d 0h 0m)"
-''	23:00	+	01:01	t	"24:01 (1d 0h 1m)"
+''	23:00	+	00:59	''	''	''	t	"23:59 (0d 23h 59m)"
+''	23:00	+	01:00	''	''	''	t	"24:00 (1d 0h 0m)"
+''	23:00	+	01:01	''	''	''	t	"24:01 (1d 0h 1m)"
 
-''	23:00	+	24:59	t	"47:59 (1d 23h 59m)"
-''	23:00	+	25:00	t	"48:00 (2d 0h 0m)"
-''	23:00	+	25:01	t	"48:01 (2d 0h 1m)"
+''	23:00	+	24:59	''	''	''	t	"47:59 (1d 23h 59m)"
+''	23:00	+	25:00	''	''	''	t	"48:00 (2d 0h 0m)"
+''	23:00	+	25:01	''	''	''	t	"48:01 (2d 0h 1m)"
 )
 . _lib
