@@ -13,7 +13,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzhora ()
@@ -24,6 +24,8 @@ zzhora ()
 	local hh1 mm1 hh2 mm2 n1 n2 resultado negativo
 	local horas minutos dias horas_do_dia hh mm hh_dia extra
 	local relativo=0
+	local neg1=0
+	local neg2=0
 
 	# Opções de linha de comando
 	if [ "$1" = '-r' ]
@@ -48,6 +50,14 @@ zzhora ()
 		echo "Operação inválida '$operacao'. Deve ser + ou -."
 		return 1
 	fi
+
+	# Remove possíveis sinais de negativo do início
+	hhmm1="${hhmm1#-}"
+	hhmm2="${hhmm2#-}"
+
+	# Guarda a informação de quem era negativo no início
+	[ "$hhmm1" != "$hhmm1_orig" ] && neg1=1
+	[ "$hhmm2" != "$hhmm2_orig" ] && neg2=1
 
 	# Atalhos bacanas para a hora atual
 	[ "$hhmm1" = 'agora' -o "$hhmm1" = 'now' ] && hhmm1=$(date +%H:%M)
@@ -76,12 +86,12 @@ zzhora ()
 	mm2="${mm2:-0}"
 
 	# Validação dos dados
-	if ! (zztool testa_numero_sinal "$hh1" && zztool testa_numero_sinal "$mm1")
+	if ! (zztool testa_numero "$hh1" && zztool testa_numero "$mm1")
 	then
 		echo "Horário inválido '$hhmm1_orig', deve ser HH:MM"
 		return 1
 	fi
-	if ! (zztool testa_numero_sinal "$hh2" && zztool testa_numero_sinal "$mm2")
+	if ! (zztool testa_numero "$hh2" && zztool testa_numero "$mm2")
 	then
 		echo "Horário inválido '$hhmm2_orig', deve ser HH:MM"
 		return 1
@@ -89,8 +99,12 @@ zzhora ()
 
 	# Os cálculos são feitos utilizando apenas minutos.
 	# Então é preciso converter as horas:minutos para somente minutos.
-	n1=$((hh1*60+mm1))
-	n2=$((hh2*60+mm2))
+	n1=$((hh1*60 + mm1))
+	n2=$((hh2*60 + mm2))
+
+	# Restaura o sinal para as horas negativas
+	[ $neg1 -eq 1 ] && n1="-$n1"
+	[ $neg2 -eq 1 ] && n2="-$n2"
 
 	# Tudo certo, hora de fazer o cálculo
 	resultado=$(($n1 $operacao $n2))
