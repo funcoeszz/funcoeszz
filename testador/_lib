@@ -2,6 +2,7 @@
 
 # set on caller scripts
 values=${values:-1}
+protected=${protected:-0}
 
 [ "${tests[*]}" ] || echo 'Array $tests undefined, I need it.'
 
@@ -29,21 +30,52 @@ while [ $i -lt $((num_tests-1)) ]; do
 	# collect correct results
 	i=$((i+1)) ; mode="${tests[$i]}"
 	i=$((i+1)) ; ok=$(echo -e "${tests[$i]}")
-	
+
 	[ "$debug" = 1 ] && echo "+ ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6 $v7"
 
 	# execute tests
-	case $values in
-		0) result=$("$zz" ${0##*/}) ;;
-		1) result=$("$zz" ${0##*/} $v1) ;;
-		2) result=$("$zz" ${0##*/} $v1 $v2) ;;
-		3) result=$("$zz" ${0##*/} $v1 $v2 $v3) ;;
-		4) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4) ;;
-		5) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4 $v5) ;;
-		6) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6) ;;
-		7) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6 $v7) ;;
+	case $protected in
+		0)
+			case $values in
+				0) result=$("$zz" ${0##*/}) ;;
+				1) result=$("$zz" ${0##*/} $v1) ;;
+				2) result=$("$zz" ${0##*/} $v1 $v2) ;;
+				3) result=$("$zz" ${0##*/} $v1 $v2 $v3) ;;
+				4) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4) ;;
+				5) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4 $v5) ;;
+				6) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6) ;;
+				7) result=$("$zz" ${0##*/} $v1 $v2 $v3 $v4 $v5 $v6 $v7) ;;
+			esac
+		;;
+		1)
+			case $values in
+				0) result=$("$zz" ${0##*/}) ;;
+				1) result=$("$zz" ${0##*/} "$v1") ;;
+				2) result=$("$zz" ${0##*/} "$v1" $v2) ;;
+				3) result=$("$zz" ${0##*/} "$v1" $v2 $v3) ;;
+				4) result=$("$zz" ${0##*/} "$v1" $v2 $v3 $v4) ;;
+				5) result=$("$zz" ${0##*/} "$v1" $v2 $v3 $v4 $v5) ;;
+				6) result=$("$zz" ${0##*/} "$v1" $v2 $v3 $v4 $v5 $v6) ;;
+				7) result=$("$zz" ${0##*/} "$v1" $v2 $v3 $v4 $v5 $v6 $v7) ;;
+			esac
+		;;
+		2)
+			case $values in
+				0) result=$("$zz" ${0##*/}) ;;
+				1) result=$("$zz" ${0##*/} "$v1") ;;
+				2) result=$("$zz" ${0##*/} "$v1" "$v2") ;;
+				3) result=$("$zz" ${0##*/} "$v1" "$v2" $v3) ;;
+				4) result=$("$zz" ${0##*/} "$v1" "$v2" $v3 $v4) ;;
+				5) result=$("$zz" ${0##*/} "$v1" "$v2" $v3 $v4 $v5) ;;
+				6) result=$("$zz" ${0##*/} "$v1" "$v2" $v3 $v4 $v5 $v6) ;;
+				7) result=$("$zz" ${0##*/} "$v1" "$v2" $v3 $v4 $v5 $v6 $v7) ;;
+			esac
+		;;
+		*)
+			echo "Valor inválido \$protected=$protected. Edite _lib para suportá-lo."
+		;;
 	esac
-	
+
 	# test results against OK data
 	error=
 	case "$mode" in
@@ -63,11 +95,11 @@ while [ $i -lt $((num_tests-1)) ]; do
 		;;
 	esac
 	[ "$error" ] || continue
-	
+
 	# summarize output
 	ok=$(echo -n "$ok" | tr '\n' ' ' | cut -c1-30)
 	result=$(echo -n "$result" | tr '\n' ' ' | cut -c1-30)
-	
+
 	echo "ERROR: ${0##*/} $v1 $v2 $v3 $v4 $v5"
 	echo "expected '$ok', got '$result'"
 done
