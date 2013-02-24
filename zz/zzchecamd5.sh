@@ -6,8 +6,9 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-10-31
-# Versão: 2
+# Versão: 3
 # Licença: GPLv2
+# Requisitos: zzmd5
 # ----------------------------------------------------------------------------
 zzchecamd5 ()
 {
@@ -32,8 +33,8 @@ zzchecamd5 ()
 
 	# Setando variaveis
 	arquivo=./$1
-	valor_md5="`md5sum $arquivo | cut -d' ' -f1`"
 	md5_site=$2
+	valor_md5=$(cat "$arquivo" | zzmd5)
 
 	# Verifica se o arquivo nao foi corrompido
 	if [ "$md5_site" = "$valor_md5" ]; then
