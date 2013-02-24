@@ -11,7 +11,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-04-22
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
@@ -71,5 +71,7 @@ zznome ()
 				d
 			}
 			p
-			}"
+		}" 2>/dev/null
+		# Escondendo erros pois a codificação do site é estranha
+		# https://github.com/aureliojargas/funcoeszz/issues/27
 }
