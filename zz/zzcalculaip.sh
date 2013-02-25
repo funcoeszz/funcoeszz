@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Calcula os endereços de rede e broadcast à partir do IP e máscara da rede.
-# Obs.: Se não for especificado a máscara, é assumido a 255.255.255.0.
+# Obs.: Se não especificada, será usada a máscara padrão (RFC 1918) ou 24.
 # Uso: zzcalculaip ip [netmask]
 # Ex.: zzcalculaip 127.0.0.1 24
 #      zzcalculaip 10.0.0.0/8
@@ -9,6 +9,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzconverte
 # ----------------------------------------------------------------------------
@@ -30,7 +31,29 @@ zzcalculaip ()
 		mascara="${1#*/}"
 	else
 		endereco=$1
-		mascara=${2:-24}
+
+		# Use a máscara informada pelo usuário ou a máscara padrão
+		if [ $# -gt 1 ]
+		then
+			mascara=$2
+		else
+			# A máscara padrão é determinada pela RFC 1918 (valeu jonerworm)
+			# http://tools.ietf.org/html/rfc1918 
+			#
+			#   10.0.0.0    - 10.255.255.255  (10/8 prefix)
+			#   172.16.0.0  - 172.31.255.255  (172.16/12 prefix)
+			#   192.168.0.0 - 192.168.255.255 (192.168/16 prefix)
+			#
+			case "$1" in
+				10.*        ) mascara=8  ;;
+				172.1[6-9].*) mascara=12 ;;
+				172.2?.*    ) mascara=12 ;;
+				172.3[01].* ) mascara=12 ;;
+				192.168.*   ) mascara=16 ;;
+				127.*       ) mascara=8  ;;
+				*           ) mascara=24 ;;
+			esac
+		fi
 	fi
 
 	# Verificações básicas
