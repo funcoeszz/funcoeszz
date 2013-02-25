@@ -10,6 +10,7 @@
 #
 # Autor: Denis Dias de Lima <denis (a) concatenum com>
 # Desde: 2004-05-18
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2008-03-01 Agora os sites usam AJAX :(

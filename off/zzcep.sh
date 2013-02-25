@@ -7,6 +7,7 @@
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2000-11-08
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2008-03-01 Agora o site dos Correios usa AJAX :(

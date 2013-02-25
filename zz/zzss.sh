@@ -10,6 +10,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-06-12
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzss ()

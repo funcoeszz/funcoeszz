@@ -7,6 +7,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-07-23
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzrot47 ()

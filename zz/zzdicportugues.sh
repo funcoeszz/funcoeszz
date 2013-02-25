@@ -6,6 +6,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-02-26
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdicportugues ()

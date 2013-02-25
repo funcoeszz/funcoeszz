@@ -14,6 +14,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-07-13
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zznoticiassec ()

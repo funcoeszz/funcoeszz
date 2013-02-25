@@ -16,6 +16,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-12-06
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzseq ()

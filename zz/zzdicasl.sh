@@ -9,6 +9,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-08
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdicasl ()

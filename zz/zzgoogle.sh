@@ -7,6 +7,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-04-03
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 # FIXME: zzgoogle rato roeu roupa rei roma [PPS], [PDF]

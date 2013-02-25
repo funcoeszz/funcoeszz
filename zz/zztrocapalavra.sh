@@ -6,6 +6,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 # TODO -r (ver zzarrumanome)

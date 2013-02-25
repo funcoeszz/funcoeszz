@@ -12,6 +12,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-11-10
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zznomefoto ()

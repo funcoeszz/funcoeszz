@@ -7,6 +7,7 @@
 #
 # Autor: Edson Ramiro <erlfilho (a) gmail com> 
 # Desde: 2009-09-24
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-22 <error code="53">Basic authentication is not supported</error>

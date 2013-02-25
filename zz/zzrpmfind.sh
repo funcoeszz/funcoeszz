@@ -8,6 +8,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-02-22
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzrpmfind ()

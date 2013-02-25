@@ -6,6 +6,7 @@
 #
 # Autor: Elton Simões Baptista <elton (a) inso com br>
 # Desde: 2001-12-06
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-24 URL não encontrada (404)

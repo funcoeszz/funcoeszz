@@ -5,6 +5,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-06-12
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztrocaarquivos ()

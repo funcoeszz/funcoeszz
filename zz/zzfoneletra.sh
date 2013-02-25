@@ -6,6 +6,7 @@
 #
 # Autor: Rodolfo de Faria <rodolfo faria (a) fujifilm com br>
 # Desde: 2006-10-17
+# Versão: 1
 # Licença: GPL
 # Requisitos: zzmaiusculas
 # ----------------------------------------------------------------------------

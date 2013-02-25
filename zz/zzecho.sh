@@ -15,6 +15,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzecho ()

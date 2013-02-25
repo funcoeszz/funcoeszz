@@ -6,6 +6,7 @@
 #
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2001-02-14
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2008-03-01 Agora a consulta é travada com CAPTCHA

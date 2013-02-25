@@ -7,6 +7,7 @@
 #
 # Autor: Marcelo Subtil Marçal
 # Desde: 2001-12-14
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzwhoisbr ()

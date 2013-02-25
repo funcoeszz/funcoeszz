@@ -9,6 +9,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
+# Versão: 1
 # Licença: GPL
 # Requisitos: zzminusculas
 # ----------------------------------------------------------------------------

@@ -23,6 +23,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-10-02
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzconverte ()

@@ -6,6 +6,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-04-10
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzpronuncia ()

@@ -7,6 +7,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-12-15
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzcinclude ()

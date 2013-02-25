@@ -8,6 +8,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-05-18
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzloteria ()

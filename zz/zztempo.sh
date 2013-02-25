@@ -11,6 +11,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-02-19
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztempo ()
