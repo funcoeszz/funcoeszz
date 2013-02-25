@@ -20,7 +20,7 @@ file7="'"
 file8="RAMONES  -  I Don't Care (live) .MP3"
 
 # Prepara pasta de testes
-mkdir /tmp/foo
+mkdir /tmp/foo || exit
 cd /tmp/foo && touch -- "$file0" "$file1" "$file2" "$file4" "$file5" "$file6" "$file7" "$file8"
 cd - > /dev/null
 
