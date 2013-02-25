@@ -168,7 +168,8 @@ do
 			n
 			/^# Desde: /! { s/^/Esperava Desde:, veio /p; q; }
 			n
-			/^# Versão: / n
+			/^# Versão: / ! { s/^/Esperava Versão:, veio /p; q; }
+			n
 			/^# Licença: /! { s/^/Esperava Licença:, veio /p; q; }
 			n
 
