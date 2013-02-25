@@ -18,7 +18,7 @@
 # Licença: GPL
 # Nota: Colaboração de Humberto Sartini <betinho_pg (a) yahoo com br>
 # ----------------------------------------------------------------------------
-# DESATIVADA: 2010-12-22 Filtro quebrado.
+# DESATIVADA: 2010-12-22 Filtro quebrado. Substituída pela zztradutor.
 zzdicgoogle ()
 {
 	zzzz -h dicgoogle $1 && return
