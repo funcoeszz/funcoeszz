@@ -186,16 +186,15 @@ zzhora ()
 	[ $mm -le 9 ] && mm="0$mm"
 	[ $hh_dia -le 9 ] && hh_dia="0$hh_dia"
 
-	#TODO: usar um exemplo com horas negativas
 	# Decide como mostrar o resultado para o usuário.
 	#
 	# Relativo:
-	#   $ zzhora -r 10:00 + 48:00
-	#   10:00 (2 dias)
+	#   $ zzhora -r 10:00 + 48:00            $ zzhora -r 12:00 - 13:00
+	#   10:00 (2 dias)                       23:00 (ontem)
 	#
 	# Normal:
-	#   $ zzhora 10:00 + 48:00
-	#   58:00 (2d 10h 0m)
+	#   $ zzhora 10:00 + 48:00               $ zzhora -r 12:00 - 13:00
+	#   58:00 (2d 10h 0m)                    -01:00 (0d 1h 0m)
 	#
 	if [ $relativo -eq 1 ]
 	then
