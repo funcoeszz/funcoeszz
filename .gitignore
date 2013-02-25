@@ -1,5 +1,8 @@
 # Esta versão é regerada a cada execução do teste
 /testador/funcoeszz
 
+# Arquivos temporários do testador
+/testador/internet/*.out
+
 # Estou trabalhando no site, não mexer por enquanto
 /website/
