@@ -3,6 +3,9 @@
 # Aurelio Marinho Jargas
 #
 # Wrapper to run checkbashisms.pl in Funções ZZ files
+#
+# Lastest version of checkbashisms.pl script:
+# http://anonscm.debian.org/gitweb/?p=devscripts/devscripts.git;a=tree;f=scripts;hb=HEAD
 
 cd $(dirname "$0")
 cd ..
