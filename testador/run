@@ -71,7 +71,7 @@ i=0
 for f in $alltests; do
 
 	# Ignore this file?
-	echo $ignore | tr ' ' \\n | grep -q "^$f$" && continue
+	echo $ignore | tr ' ' \\n | grep "^$f$" >/dev/null && continue
 
 	i=$((i+1))
 

@@ -23,6 +23,6 @@ zzquebramd5 ()
 	sed 's/.*md5("\(.*\)").*/\1/')
 
 	echo $resposta |
-	grep -q '[0-9a-f]' && echo $resposta || \
+	grep '[0-9a-f]' >/dev/null && echo $resposta || \
 	echo "Não foi possível descobrir a string que originou este hash."
 }

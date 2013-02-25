@@ -81,7 +81,7 @@ while [ $i -lt $((num_tests-1)) ]; do
 	case "$mode" in
 		t) [ "$result" = "$ok" ] || error=1
 		;;
-		r) echo "$result" | egrep -qs "$ok" || error=1
+		r) echo "$result" | egrep "$ok" >/dev/null 2>&1 || error=1
 		;;
 		a) echo "$result" > _out ; diff "$ok" _out || error=1
 		;;

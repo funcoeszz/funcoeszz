@@ -28,39 +28,39 @@ for f in zz/* off/*; do test $(egrep -c '^# -{76}$' $f) = 2 || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções cujo início não é 'zznome ()\\\n'"
-for f in zz/* off/*; do grep -q "^zz[a-z0-9]* ()$" $f || echo $f; done
+for f in zz/* off/*; do grep "^zz[a-z0-9]* ()$" $f >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções que não terminam em '}'"
-for f in zz/* off/*; do tail -1 $f | grep -q "^}$" || echo $f; done
+for f in zz/* off/*; do tail -1 $f | grep "^}$" >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções que falta a quebra de linha na última linha"
-for f in zz/* off/*; do tail -1 $f | od -a | grep -q '}.*nl' || echo $f; done
+for f in zz/* off/*; do tail -1 $f | od -a | grep '}.*nl' >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções cujo nome não bate com o nome do arquivo"
-for f in zz/* off/*; do grep -q "^$(basename $f .sh) " $f || echo $f; done
+for f in zz/* off/*; do grep "^$(basename $f .sh) " $f >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções sem o campo Autor:"
-for f in zz/* off/*; do grep -q '^# Autor: ' $f || echo $f; done
+for f in zz/* off/*; do grep '^# Autor: ' $f >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções sem o campo Desde:"
-for f in zz/* off/*; do grep -q '^# Desde: ' $f || echo $f; done
+for f in zz/* off/*; do grep '^# Desde: ' $f >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções sem o campo Licença:"
-for f in zz/* off/*; do grep -q '^# Licença: ' $f || echo $f; done
+for f in zz/* off/*; do grep '^# Licença: ' $f >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções sem o campo Uso:"
-for f in zz/* off/*; do grep -q '^# Uso: ' $f || echo $f; done
+for f in zz/* off/*; do grep '^# Uso: ' $f >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções sem o campo Ex.:"
-for f in zz/* off/*; do grep -q '^# Ex\.: ' $f || echo $f; done
+for f in zz/* off/*; do grep '^# Ex\.: ' $f >/dev/null || echo $f; done
 
 ### Desativada por enquanto, ainda não sei o que fazer com isso
 #
@@ -200,8 +200,8 @@ eco "* Funções que não usam 'zzzz -h'"
 ok="zztool"
 for f in zz/*  # off/*
 do
-	echo " $ok " | grep -q " $(basename $f) " && continue
-	grep -q 'zzzz -h ' $f || echo $f
+	echo " $ok " | grep " $(basename $f) " >/dev/null && continue
+	grep 'zzzz -h ' $f >/dev/null || echo $f
 done
 
 eco ----------------------------------------------------------------
@@ -209,7 +209,7 @@ eco "* Funções cuja chamada 'zzzz -h' está incorreta"
 for f in zz/*  # off/*
 do
 	# zzzz -h cores $1 && return
-	fgrep -q "zzzz -h $(basename $f .sh | sed 's/^zz//') \"\$1\" && return" $f || echo $f
+	fgrep "zzzz -h $(basename $f .sh | sed 's/^zz//') \"\$1\" && return" $f >/dev/null || echo $f
 done
 
 eco ----------------------------------------------------------------
@@ -218,8 +218,8 @@ eco "* Funções que não usam 'zztool uso'"
 ok="zzalfabeto zzansi2html zzarrumacidade zzascii zzbeep zzbissexto zzbolsas zzcalcula zzcapitalize zzcarnaval zzcidade zzcinemark15h zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcpf zzdatafmt zzdiadasemana zzdolar zzdos2unix zzestado zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhexa2str zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzmaiores zzmaiusculas zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpascoa zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzstr2hexa zzsubway zztabuada zztac zztelecine zztempo zztv zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvira zzxml"
 for f in zz/*  # off/*
 do
-	echo " $ok " | grep -q " $(basename $f .sh) " && continue
-	grep -q 'zztool uso ' $f || echo $f
+	echo " $ok " | grep " $(basename $f .sh) " >/dev/null && continue
+	grep 'zztool uso ' $f >/dev/null || echo $f
 done
 
 eco ----------------------------------------------------------------
@@ -235,7 +235,7 @@ eco "* Funções desativadas sem data e motivo para o desligamento"
 for f in off/*
 do
 	# # DESATIVADA: 2002-10-30 O programa acabou.
-	egrep -q '^# DESATIVADA: [0-9]{4}-[0-9]{2}-[0-9]{2} .{10,}' $f || echo $f
+	egrep '^# DESATIVADA: [0-9]{4}-[0-9]{2}-[0-9]{2} .{10,}' $f >/dev/null || echo $f
 done
 
 eco ----------------------------------------------------------------

@@ -144,7 +144,7 @@ do
 
 	# Maybe we got the test name on the command line?
 	[ "$onetest" ] && {
-		echo "$name" | grep -qs ^$onetest$ || continue
+		echo "$name" | grep ^$onetest$ >/dev/null || continue
 	}
 
 	i=$((i+1))
@@ -171,7 +171,7 @@ do
 		# result=$(diff -u $name.ok.iso $name.out)
 
 		result=$(diff -u $name.ok $name.out)
-		if echo "$result" | grep -qs .
+		if echo "$result" | grep . >/dev/null
 		then
 			echo "ERRO: Texto diferente"
 			echo "$result"
@@ -180,7 +180,7 @@ do
 		fi
 	;;
 	r)
-		if cat $name.out | egrep -q "$patt"
+		if cat $name.out | egrep "$patt" >/dev/null
 		then
 			rm $name.out
 		else
