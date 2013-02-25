@@ -49,9 +49,6 @@ zznoticiaslinux ()
 		echo
 		zztool eco "* Viva o Linux ($url):"
 
-		# TODO Em alguns sistemas as notícias vêm gzipadas, tendo que
-		# abrir com gzip -d. Reportado por Rodrigo Azevedo.
-
 		$ZZWWWHTML "$url/index.rdf" |
 			zztool texto_em_iso |
 			sed -n '1,/<item>/d; /^<title>/s/<[^>]*>//gp' |
