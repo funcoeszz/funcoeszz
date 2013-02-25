@@ -9,7 +9,6 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
-# TODO -r (ver zzarrumanome)
 zztrocapalavra ()
 {
 	zzzz -h trocapalavra "$1" && return
