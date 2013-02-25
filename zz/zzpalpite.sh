@@ -6,6 +6,7 @@
 # Uso: zzpalpite [quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|loteca]
 # Ex.: zzpalpite
 #      zzpalpite megasena
+#      zzpalpite megasena federal lotofacil
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-06-03
