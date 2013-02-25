@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------------
 # http://www.dicio.com.br
 # Dicionário de português.
+# Obs.: Ainda não funciona com palavras acentuadas :( [issue #41]
 # Uso: zzdicportugues palavra
 # Ex.: zzdicportugues bolacha
 #
@@ -17,14 +18,6 @@ zzdicportugues ()
 	local ini='^Significado de '
 	local fim='^Definição de '
 	local padrao=$(echo $* | sed "$ZZSEDURL")
-
-	# TODO XXX Não consegui fazer funcionar com palavras acentuadas :(
-	# O site é iso-8859-1.
-	# padrao="maçã"
-	# padrao=$(echo maçã | iconv -f utf-8 -t iso-8859-1)
-	# padrao='ma&ccedil;&agrave;'
-	# padrao='ma%E7%E3'
-	# ZZWWWDUMP='lynx -dump -nolist -width=300 -accept_all_cookies -assume_unrec_charset=iso-8859-1'
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso dicportugues; return 1; }
