@@ -8,6 +8,7 @@
 # Desde: 2001-12-06
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-24 URL não encontrada (404)
 zzdetransp ()
 {
 	zzzz -h detransp "$1" && return
