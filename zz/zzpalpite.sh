@@ -10,7 +10,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-06-03
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -35,17 +35,17 @@ zzpalpite ()
 				final=99
 				qtde=50
 			;;
-			lotofacil)
+			lotofacil|facil)
 				inicial=1
 				final=25
 				qtde=15
 			;;
-			megasena)
+			megasena|mega)
 				inicial=1
 				final=60
 				qtde=6
 			;;
-			duplasena)
+			duplasena|dupla)
 				inicial=1
 				final=50
 				qtde=6
@@ -64,7 +64,7 @@ zzpalpite ()
 				qtde=0
 				unset num posicao numeros palpites inicial final i
 			;;
-			timemania)
+			timemania|time)
 				inicial=1
 				final=80
 				qtde=10
