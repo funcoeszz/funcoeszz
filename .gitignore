@@ -4,5 +4,8 @@
 # Arquivos temporários do testador
 /testador/internet/*.out
 
+# Arquivo temporário genérico
+_tmp
+
 # Estou trabalhando no site, não mexer por enquanto
 /website/
