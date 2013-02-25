@@ -5,7 +5,7 @@
 #
 # Autor: Fernando Mercês <fernando (a) mentebinaria.com.br>
 # Desde: 2012-02-24
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzquebramd5 ()
@@ -22,7 +22,10 @@ zzquebramd5 ()
 	grep 'Found:' |
 	sed 's/.*md5("\(.*\)").*/\1/')
 
-	echo $resposta |
-	grep '[0-9a-f]' >/dev/null && echo $resposta || \
-	echo "Não foi possível descobrir a string que originou este hash."
+	if echo $resposta | grep '[0-9a-f]' >/dev/null
+	then
+		echo $resposta
+	else
+		echo "Não foi possível descobrir a string que originou este hash."
+	fi
 }
