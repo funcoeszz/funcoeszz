@@ -10,7 +10,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzcapitalize
 # ----------------------------------------------------------------------------
@@ -31,7 +31,7 @@ zzarrumacidade ()
 		s/ Das / das /g
 		s/ Dos / dos /g
 
-		# Expande abreviações
+		# Expande abreviações comuns
 		s/^Sp$/São Paulo/
 		s/^Rj$/Rio de Janeiro/
 		s/^Bh$/Belo Horizonte/
@@ -40,6 +40,9 @@ zzarrumacidade ()
 		s/^Sampa$/São Paulo/
 		s/^Floripa$/Florianópolis/
 		# s/^Poa$/Porto Alegre/  # Perigoso, pois existe: Poá - SP
+
+
+		### Restaura acentuação de maneira pontual:
 
 		# Restaura acentuação às capitais
 		s/^Belem$/Belém/
@@ -53,10 +56,54 @@ zzarrumacidade ()
 		s/^S[ãa]o Lu[ií][sz]$/São Luís/
 		s/^Vitoria$/Vitória/
 
-		# Restaura acentuação de maneira genérica
-		s/Sao /São /g
-		s/Joao /João /g
-		# XXX Posso fazer *ao -> *ão ?
+		# Muitas cidades emprestam o nome do estado
+		#   Santana do Piauí
+		#   Teresina de Goiás
+		#   Pontal do Paraná
+		# então é útil acentuar os nomes de estados.
+		#
+		s/Amapa$/Amapá/
+		s/Ceara$/Ceará/
+		s/Goias$/Goiás/
+		s/Maranhao$/Maranhão/
+		s/Para$/Pará/
+		s/Paraiba$/Paraíba/
+		s/Parana$/Paraná/
+		s/Piaui$/Piauí/
+		s/Rondonia$/Rondônia/
+
+		# O nome de alguns estados pode aparecer no início/meio
+		#   Paraíba do Sul
+		#   Pará de Minas
+		#
+		s/Amapa /Amapá /
+		s/Espirito /Espírito /
+		s/Para /Pará /
+		s/Paraiba /Paraíba /
+
+
+		### Restaura acentuação de maneira genérica:
+		
+		# Uberlândia, Rolândia
+		s/landia /lândia /g
+		s/landia$/lândia/
+		
+		# Florianópolis, Virginópolis
+		s/opolis /ópolis /g
+		s/opolis$/ópolis/
+		
+		# Palavras terminadas em 'ao' viram 'ão'.
+		# Exemplos: São, João, Ribeirão, Capão
+		#
+		# Não achei nenhum caso de cidade com 'ao' no final:
+		#   $ zzcidade ao
+		#   Itaobim (MG)
+		#   Itaocara (RJ)
+		#   Paraopeba (MG)
+		#
+		s/ao /ão /g
+		s/ao$/ão/
+
 
 		### Exceções pontuais:
 
