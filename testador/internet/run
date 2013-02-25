@@ -68,11 +68,9 @@ zz="../funcoeszz"
 tests="
 # TODO
 # pronuncia:a::apple::rm -f /tmp/zz.apple.wav
-# detransp (com renavam)
 # chavepgp-vazio:a::XXXvazioXXX:
 # testar todas as funções com padrões que não retornam resultados (vazios)
 # testar todas as funções com uso incorreto
-# detransp:l:0:1234:
 
 chavepgp:a::Guido van Rossum:
 dicasl:a::procmail:
