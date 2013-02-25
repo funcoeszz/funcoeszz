@@ -135,8 +135,12 @@ do
 			n
 
 			# Se encontrar algum campo opcional aqui, reclame
-			/^# Requisitos: / { s/^/Deveria vir depois de Licença: -- /p; q; }
-			/^# Versão: /     { s/^/Deveria vir depois de Desde: -- /p; q; }
+			/^# Autor: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
+			/^# Desde: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
+			/^# Versão: /     { s/^/Deveria vir depois dos exemplos -- /p; q; }
+			/^# Licença: /    { s/^/Deveria vir depois dos exemplos -- /p; q; }
+			/^# Requisitos: / { s/^/Deveria vir depois dos exemplos -- /p; q; }
+			/^# Tags: /       { s/^/Deveria vir depois dos exemplos -- /p; q; }
 
 			# Só sai do loop quando chegar no campo Uso, obrigatório
 			/^# Uso: /b loopend
