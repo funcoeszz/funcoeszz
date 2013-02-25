@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------
-# Palpites para os jogos da:
+# Palpites de jogos para várias loterias: quina, megasena, lotomania, etc.
+# Aqui está a lista completa de todas as loterias suportadas:
 # quina, megasena, duplasena, lotomania, lotofácil, timemania, federal, loteca
 #
-# Uso: zzpalpite [ quina | megasena | duplasena | lotomania | lotofacil |
-# federal | timemania | loteca ]
+# Uso: zzpalpite [quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|loteca]
 # Ex.: zzpalpite
 #      zzpalpite megasena
 #
