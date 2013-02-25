@@ -91,7 +91,7 @@ done
 eco ----------------------------------------------------------------
 eco "* Funções com a descrição com mais de um ponto ."
 for f in zz/* off/*; do
-	test "$f" = off/zzranking && continue  # tem 2 pontos mas é OK
+	test "$f" = off/zzranking.sh && continue  # tem 2 pontos mas é OK
 	sed -n '2 {
 		/^# http/ n
 		# Pontos no meio da frase
