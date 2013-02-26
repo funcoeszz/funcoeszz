@@ -71,7 +71,7 @@ zzpalpite ()
 			loteca)
 				i=1
 				zztool eco $tipo:
-				while ([ "$i" -le "14" ])
+				while [ "$i" -le "14" ]
 				do
 					printf " Jogo %0.2d: Coluna %d\n" $i $(($RANDOM % 3)) | sed 's/Coluna 0/Coluna do Meio/g'
 					let i++
@@ -90,7 +90,7 @@ zzpalpite ()
 
 		# Loop para gerar os palpites
 		i="$qtde"
-		while ([ "$i" -gt "0" ])
+		while [ "$i" -gt "0" ]
 		do
 			# Posicao a ser escolhida
 			posicao=$(echo "$inicial + ( ${RANDOM} / 32766 ) * ( $final - $inicial )" | bc -l | sed 's/\..*$//g')
@@ -109,10 +109,10 @@ zzpalpite ()
 			let final--
 		done
 
-		if ([ "$palpites" ])
+		if [ "$palpites" ]
 		then
 			palpites=$(echo "$palpites" | tr ' ' '\n' | sort -n -t ' ' | tr '\n' ' ')
-			if ([ $(echo " $palpites" | wc -w ) -ge "10" ])
+			if [ $(echo " $palpites" | wc -w ) -ge "10" ]
 			then
 				palpites=$(echo "$palpites" | sed 's/\(\([0-9]\{2\} \)\{5\}\)/\1\n /g')
 			fi
