@@ -6,9 +6,9 @@
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com> twitter: @gmgall
 # Desde: 2011-07-19
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzmaiusculas
+# Requisitos: zzmaiusculas zztac
 # ----------------------------------------------------------------------------
 zzromanos ()
 {
@@ -43,23 +43,22 @@ zzromanos ()
 	if [ $# -eq 0 ]
 	then
 		echo "$arabicos_romanos" |
-		sed -r '
-			s/\t([0-9]+):([IVXLCDM]+)/\2\t\1/;
-			/[IVXLCDM]{2}/d' |
-		tac
+		grep -v :.. | tr -d '\t' | tr : '\t' |
+		zztac
 
 	# Se é um número inteiro positivo, transforma para número romano
 	elif zztool testa_numero "$entrada"
 	then
-		while IFS=: read arabico romano
+		echo "$arabicos_romanos" | { while IFS=: read arabico romano
 		do
 			while [ "$entrada" -ge "$arabico" ]
 			do
 				saida="$saida$romano"
 				entrada=$((entrada-arabico))
 			done
-		done < <(echo "$arabicos_romanos")
+		done
 		echo "$saida"
+		}
 
 	# Se é uma string que representa um número romano válido,
 	# converte para indo-arábico
@@ -67,7 +66,7 @@ zzromanos ()
 	then
 		saida=0
 		# Baseado em http://diveintopython.org/unit_testing/stage_4.html
-		while IFS=: read arabico romano
+		echo "$arabicos_romanos" | { while IFS=: read arabico romano
 		do
 			comprimento="${#romano}"
 			while [ "$(echo "$entrada" | cut -c$indice-$((indice+comprimento-1)))" = "$romano" ]
@@ -75,8 +74,9 @@ zzromanos ()
 				indice=$((indice+comprimento))
 				saida=$((saida+arabico))
 			done
-		done < <(echo "$arabicos_romanos")
+		done
 		echo "$saida"
+		}
 
 	# Se não é inteiro posivo ou string que representa número romano válido,
 	# imprime mensagem de uso.
