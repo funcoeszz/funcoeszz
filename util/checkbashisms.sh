@@ -6,6 +6,8 @@
 #
 # Lastest version of checkbashisms.pl script:
 # http://anonscm.debian.org/gitweb/?p=devscripts/devscripts.git;a=tree;f=scripts;hb=HEAD
+# Man page:
+# http://manpages.ubuntu.com/manpages/lucid/man1/checkbashisms.1.html
 
 cd $(dirname "$0")
 cd ..
