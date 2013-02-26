@@ -11,7 +11,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzlinha
 # ----------------------------------------------------------------------------
@@ -21,7 +21,7 @@ zzcidade ()
 
 	local url='http://pt.wikipedia.org/wiki/Anexo:Lista_de_munic%C3%ADpios_do_Brasil'
 	local cache="$ZZTMP.cidade"
-	local padrao=$1
+	local padrao="$*"
 
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
