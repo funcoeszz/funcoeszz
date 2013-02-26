@@ -21,7 +21,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 10
+# Versão: 11
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -110,13 +110,31 @@ zzmat ()
 			return 1
 		fi
 	;;
-	abs)
-		if zzmat testa_num $2
+	int)
+		local num1
+		shift
+		num1=$(zztool multi_stdin "$@" | tr ',' '.')
+		if zzmat testa_num $num1
 		then
-			echo "$2" | tr ',' '.' | sed 's/^[-+]//'
+			echo $num1 | sed 's/\..*$//'
+		else
+			echo " zzmat $funcao: Valor Inteiro"
+			echo " Uso: zzmat $funcao numero"
+			echo "      echo numero | zzmat $funcao"
+			return 1
+		fi
+	;;
+	abs)
+		local num1
+		shift
+		num1=$(zztool multi_stdin "$@" | tr ',' '.')
+		if zzmat testa_num $num1
+		then
+			echo "$num1" | sed 's/^[-+]//'
 		else
 			echo " zzmat $funcao: Valor Absoluto"
 			echo " Uso: zzmat $funcao numero"
+			echo "      echo numero | zzmat $funcao"
 			return 1
 		fi
 	;;
@@ -361,24 +379,16 @@ zzmat ()
 					echo " Uso: zzmat $funcao $2 base altura";return 1
 				fi
 			;;
-			retangulo)
+			retangulo|losango)
 				if(zzmat testa_num $3 && zzmat testa_num $4)
 				then
 					num1=$(echo "$3"|tr ',' '.')
 					num2=$(echo "$4"|tr ',' '.')
 					num="${num1}*${num2}"
 				else
-					echo " Uso: zzmat $funcao $2 base altura";return 1
-				fi
-			;;
-			losango)
-				if(zzmat testa_num $3 && zzmat testa_num $4)
-				then
-					num1=$(echo "$3"|tr ',' '.')
-					num2=$(echo "$4"|tr ',' '.')
-					num="${num1}*${num2}/2"
-				else
-					echo " Uso: zzmat $funcao $2 diagonal_maior diagonal_menor";return 1
+					echo -n " Uso: zzmat $funcao $2"
+					[ "$2" = "retangulo" ] && echo "base altura" || echo "diagonal_maior diagonal_menor"
+					return 1
 				fi
 			;;
 			trapezio)
@@ -623,19 +633,30 @@ zzmat ()
 	;;
 	somatoria|produtoria)
 		#colocar x como a variavel a ser substituida
-		if ([ $# -eq "4" ] && zztool testa_numero $2 &&
-			zztool testa_numero $3 && zztool grep_var "x" $4)
+		if ([ $# -eq "4" ])
 		then
-			local equacao numero operacao
-			equacao=$(echo "$4"|sed 's/\[/(/g;s/\]/)/g')
+			zzmat $funcao $2 $3 1 $4
+		elif ([ $# -eq "5" ] && zzmat testa_num $2 && zzmat testa_num $3 && 
+			zzmat testa_num $4 && zztool grep_var "x" $5 )
+		then
+			local equacao numero operacao sequencia num1 num2
+			equacao=$(echo "$5"|sed 's/\[/(/g;s/\]/)/g')
 			[ "$funcao" = "somatoria" ] && operacao='+' || operacao='*'
-			num=$(for numero in $(zzseq $2 $3)
+			if ([ $(zzmat compara_num $2 $3) = 'maior' ])
+			then
+				num1=$2; num2=$3
+			else
+				num1=$3; num2=$2
+			fi
+			sequencia=$(zzmat pa $num2 $4 $(zzcalcula "(($num1 - $num2)/$4)+1" | zzmat int)| tr ' ' '\n')
+			num=$(for numero in $sequencia
 			do
-				echo "($equacao)"|sed "s/^[x]/$numero/;s/\([(+-]\)x/\1($numero)/g;s/\([0-9]\)x/\1\*($numero)/g;s/x/$numero/g"
+				echo "($equacao)"|sed "s/^[x]/($numero)/;s/\([(+-]\)x/\1($numero)/g;s/\([0-9]\)x/\1\*($numero)/g;s/x/$numero/g"
 			done|paste -s -d"$operacao")
 		else
 			echo " zzmat $funcao: Soma ou Produto de expressão"
 			echo " Uso: zzmat $funcao limite_inferior limite_superior equacao"
+			echo " Uso: zzmat $funcao limite_inferior limite_superior razao equacao"
 			echo " Usar 'x' como variável na equação"
 			echo " Usar '[' e ']' respectivamente no lugar de '(' e ')', ou proteger"
 			echo " a fórmula com aspas duplas(\") ou simples(')"
