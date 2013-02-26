@@ -10,7 +10,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzcapitalize
 # ----------------------------------------------------------------------------
@@ -96,11 +96,22 @@ zzarrumacidade ()
 		# Exemplos: São, João, Ribeirão, Capão
 		#
 		# Não achei nenhum caso de cidade com 'ao' no final:
-		#   $ zzcidade ao
-		#   Itaobim (MG)
-		#   Itaocara (RJ)
-		#   Paraopeba (MG)
+		#   $ zzcidade 'ao '
+		#   $
 		#
+		# Exceção: duas cidades com aó:
+		#   $ zzcidade 'aó '
+		#   Alto Caparaó (MG)
+		#   Caparaó (MG)
+		#   $
+		#
+		# Exceção da exceção: algum Caparão?
+		#   $ zzcidade Caparão
+		#   $
+		#
+		# Então resolvida a exceção Caparaó, é seguro fazer a troca.
+		#
+		s/Caparao$/Caparaó/
 		s/ao /ão /g
 		s/ao$/ão/
 
