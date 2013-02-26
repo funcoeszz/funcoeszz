@@ -21,10 +21,9 @@ zzpalpite ()
 	local tipo num posicao numeros palpites inicial final i
 	local qtde=0
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
-	local LANG=en
 
 	# Escolhe as loteria
-	[ "$1" ] && tipos="$*"
+	[ "$1" ] && tipos=$(echo "$*" | zzminusculas | zzsemacento)
 
 	for tipo in $tipos
 	do
@@ -35,7 +34,7 @@ zzpalpite ()
 				final=99
 				qtde=50
 			;;
-			lotofacil|facil)
+			lotofacil|facil|fácil)
 				inicial=1
 				final=25
 				qtde=15
