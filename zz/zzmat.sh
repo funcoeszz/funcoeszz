@@ -386,7 +386,7 @@ zzmat ()
 					num2=$(echo "$4"|tr ',' '.')
 					num="${num1}*${num2}"
 				else
-					echo -n " Uso: zzmat $funcao $2"
+					printf " Uso: zzmat %s %s " $funcao $2
 					[ "$2" = "retangulo" ] && echo "base altura" || echo "diagonal_maior diagonal_menor"
 					return 1
 				fi
@@ -768,11 +768,11 @@ zzmat ()
 			for parcela in $(seq 1 $((grau-1)))
 			do
 				coeficiente=$(zzmat combinacao $grau $parcela)
-				[ "$sinal" = "-" -a $((parcela%2)) -eq 1 ] && echo -n "-" || echo -n "+"
-				echo -n "$coeficiente"
+				[ "$sinal" = "-" -a $((parcela%2)) -eq 1 ] && printf "%s" "-" || printf "%s" "+"
+				printf "%s" "$coeficiente"
 				echo "($num1)^$(($grau-$parcela))($num2)^$parcela"|sed 's/\^1\([^0-9]\)/\1/g;s/\^1$//'
 			done
-			[ "$sinal" = "-" -a $((grau%2)) -eq 1 ] && echo -n "-" || echo -n "+"
+			[ "$sinal" = "-" -a $((grau%2)) -eq 1 ] && printf "%s" "-" || printf "%s" "+"
 			echo "($num2)^$grau"
 		else
 			echo " zzmat $funcao: Exibe o desdobramento do binônimo de Newton."
@@ -806,7 +806,7 @@ zzmat ()
 					awk '{printf "%.'${precisao}'f\n", $1}')
 				fi
 				valor=$(echo "$valor"|zzmat -p${precisao} sem_zeros)
-				echo -n " $valor"
+				printf " %s" "$valor"
 				passo=$(($passo+1))
 			done
 			echo
@@ -1087,7 +1087,7 @@ zzmat ()
 				echo " Uso: zzmat $funcao ponto(a,b) ponto(x,y)";return 1
 			fi
 		else
-			echo -n " zzmat $funcao: "
+			printf " zzmat %s: " $funcao
 			case "$funcao" in
 			egr) echo "Equação Geral da Reta.";;
 			err) echo "Equação Reduzida da Reta.";;
