@@ -34,7 +34,7 @@ zzpalpite ()
 				final=99
 				qtde=50
 			;;
-			lotofacil|facil|fácil)
+			lotofacil|facil)
 				inicial=1
 				final=25
 				qtde=15
