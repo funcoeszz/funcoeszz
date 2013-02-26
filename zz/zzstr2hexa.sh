@@ -7,7 +7,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2012-03-30
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzstr2hexa ()
@@ -27,7 +27,7 @@ zzstr2hexa ()
 	fi
 
 	# Loop a cada caractere, e o printf o converte para hexa
-	printf "$string" | while IFS= read -r -n 1 caractere
+	printf %s "$string" | while IFS= read -r -n 1 caractere
 	do
 		if test "$caractere" = "$nl"
 		then
