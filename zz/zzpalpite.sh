@@ -12,7 +12,7 @@
 # Desde: 2012-06-03
 # Versão: 3
 # Licença: GPL
-# Requisitos: zzseq
+# Requisitos: zzminusculas zzsemacento zzseq
 # ----------------------------------------------------------------------------
 zzpalpite ()
 {
