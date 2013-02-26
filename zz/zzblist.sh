@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Mostra se o IP passado está em alguma blacklist  (SBL, PBL e XBL).
+# Mostra se o IP informado está em alguma blacklist (SBL, PBL e XBL).
 # Uso: zzblist IP
 # Ex.: zzblist 200.199.198.197
 #
