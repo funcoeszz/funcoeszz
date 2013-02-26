@@ -15,6 +15,7 @@
 # Licença: GPL
 # Requisitos: zzsemacento
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-26 URL ainda existe, mas não retorna nada. [issue #31]
 zzletrademusica ()
 {
 	zzzz -h letrademusica "$1" && return
