@@ -5,19 +5,21 @@
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2008-10-16
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzblist ()
 {
 	zzzz -h blist "$1" && return
 
+	local URL="http://www.spamblock.com.br/rblcheck.php?ip="
+	local ip="$1"
+
 	[ "$1" ] || { zztool uso blist; return 1; }
 
-	local URL="http://www.spamblock.com.br/rblcheck.php?ip="
+	zztool -e testa_ip "$ip" || return 1
 
-	zztool -e testa_ip "$1" || return 1
-
-	$ZZWWWDUMP "$URL"$1 | grep [Rr]elat.rio
-	$ZZWWWDUMP "$URL"$1 | sed -n '/O IP /,/^$/p'
+	$ZZWWWDUMP "$URL$ip" | sed -n '
+		/[Rr]elat.rio/ p
+		/O IP /,/^$/ p'
 }
