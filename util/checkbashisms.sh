@@ -18,6 +18,6 @@ do
 	eco $f
 	echo '#!/bin/sh' > _tmp
 	cat $f >> _tmp
-	util/checkbashisms.pl _tmp
+	util/checkbashisms.pl -n --extra _tmp
 done
 rm _tmp
