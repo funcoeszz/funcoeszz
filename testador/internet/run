@@ -67,7 +67,6 @@ debug=0
 #
 tests="
 # TODO
-# pronuncia:a::apple::rm -f /tmp/zz.apple.wav
 # chavepgp-vazio:a::XXXvazioXXX:
 # testar todas as funções com padrões que não retornam resultados (vazios)
 # testar todas as funções com uso incorreto
