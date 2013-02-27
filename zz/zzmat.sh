@@ -200,7 +200,7 @@ zzmat ()
 		if ([ $# -eq "2" ])
 		then
 			local num1 num2 ang
-			num1=$(echo "$2"|sed 's/\(g\|gr\|rad\)//g'|tr ',' '.')
+			num1=$(echo "$2" | sed 's/g$//; s/gr$//; s/rad$//' | tr , .)
 			ang=${2#$num1}
 			echo "$2"|grep -E '(g|rad|gr)$' >/dev/null
 			if ([ "$?" -eq "0" ] && zzmat testa_num $num1)
