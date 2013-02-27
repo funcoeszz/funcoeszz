@@ -8,7 +8,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-22
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlembrete ()
@@ -23,7 +23,7 @@ zzlembrete ()
 	test -f "$arquivo" || touch "$arquivo"
 
 	# Sem argumentos, mostra todos os lembretes
-	if test -z "$1"
+	if test $# -eq 0
 	then
 		cat -n "$arquivo"
 
@@ -44,7 +44,7 @@ zzlembrete ()
 			}
 		else
 			# zzlembrete 5: Mostra linha 5
-			cat "$arquivo" | sed -n "$numero p"
+			sed -n "$numero p" "$arquivo"
 		fi
 	else
 		# zzlembrete texto: Adiciona o texto
