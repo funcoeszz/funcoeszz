@@ -74,6 +74,10 @@ tests="
 
 blist:a::200.199.198.197:
 chavepgp:a::Guido van Rossum:
+cidade-1:a::.:head
+cidade-2:a::.:tail
+cidade-3:a::^x:
+cidade-4:r:^5570$:.:sed -n '$='
 dicasl:a::procmail:
 dicbabylon:a::drum:sed '/^ *$/d'
 dicjargon:a::drum:sed '/^ *$/d'
