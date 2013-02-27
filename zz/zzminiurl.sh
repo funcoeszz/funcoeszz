@@ -8,7 +8,7 @@
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2010-04-26
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzminiurl ()
@@ -23,6 +23,6 @@ zzminiurl ()
 	# Se o usuário não informou o protocolo, adiciona o padrão
 	echo "$url" | egrep '^(https?|ftp|mms)://' >/dev/null || url="$prefixo$url"
 
-	curl "http://migre.me/api.txt?url=$url" 2> /dev/null |
-		sed 's/IP:.*//'
+	$ZZWWWHTML "http://migre.me/api.txt?url=$url" 2>/dev/null
+	echo
 }
