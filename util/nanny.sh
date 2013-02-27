@@ -12,7 +12,7 @@ eco() { echo -e "\033[36;1m$*\033[m"; }
 
 eco ----------------------------------------------------------------
 eco "* Funções que não são UTF-8"
-file zz/* off/* | egrep -v 'UTF-8'
+file --mime zz/* off/* | egrep -vi 'utf-8'
 
 eco ----------------------------------------------------------------
 eco "* Funções com nome estranho"
