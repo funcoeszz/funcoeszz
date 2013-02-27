@@ -1,16 +1,16 @@
 # ----------------------------------------------------------------------------
 # http://cbn.globoradio.com.br
 # Busca e toca os últimos comentários dos comentaristas da radio CBN.
-# Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn -lista
+# Uso: zzcbn [--mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn --lista
 # Ex.: zzcbn -c max -d ontem
 #      zzcbn -c mauro -d tudo
 #      zzcbn -c juca -d 13/05/09
 #      zzcbn -c miriam
-#      zzcbn -mp3 -c max
+#      zzcbn --mp3 -c max
 #
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2009-04-16
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzecho
 # ----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ EXT="wma"
 #Verificacao dos parâmetros
 [ "$1" ] || { zztool uso cbn; return 1; }
 
-if [ "$1" == "-lista" ]
+if [ "$1" == "--lista" ]
 then
 	for i in $COMENTARISTAS
 	do
@@ -69,7 +69,7 @@ fi
 				shift
 				data="$1"
 				;;
-			-mp3)
+			--mp3)
 				EXT="mp3"
 				#MP3="http://download3.globo.com/sgr-$EXT/cbn/"
 				MP3="http://download.sgr.globo.com/sgr-$EXT/cbn/"
