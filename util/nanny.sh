@@ -95,7 +95,7 @@ for f in zz/* off/*; do
 	sed -n '2 {
 		/^# http/ n
 		# Pontos no meio da frase
-		/\. [A-Za-z]/ p
+		/\. .*\./ p
 		}' $f
 done
 
