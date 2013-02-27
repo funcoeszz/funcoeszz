@@ -22,7 +22,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-11-02
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzmaiusculas
 # ----------------------------------------------------------------------------
@@ -73,12 +73,14 @@ zzcorrida ()
 			sed '1p;2,/Pos.*Piloto/!d' | sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
 		;;
 		moto2)
-			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/^ *$/p' |
-			sed '1d;2,/Pos.*Piloto/{/Pos.*Piloto/b;d;}' | sed '1,/Pos.*Piloto/!d' | sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
+			$ZZWWWDUMP "$url/$corridas" | sed '1,/Pos.*Piloto/ d' |
+			sed -n '/Pos.*Piloto/,/Pos.*Piloto/ p' |
+			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
 		;;
 		moto3)
-			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/^ *$/p' |
-			sed '1,/Pos.*Piloto/d' | sed '1,/Pos.*Piloto/{/Pos.*Piloto/b;d;};$d' | sed 's/ Pontos/Pontos/;s/\[.*\]/        /'
+			$ZZWWWDUMP "$url/$corridas" | sed '1,/Pos.*Piloto/ d' | sed '1,/Pos.*Piloto/ d' |
+			sed -n '/Pos.*Piloto/,/^ *$/ p' |
+			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
 		;;
 		*)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,$ p' |
