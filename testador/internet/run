@@ -78,6 +78,7 @@ cidade-1:a::.:head
 cidade-2:a::.:tail
 cidade-3:a::^x:
 cidade-4:r:^5570$:.:sed -n '$='
+definr:a::headphone:
 dicasl:a::procmail:
 dicbabylon:a::drum:sed '/^ *$/d'
 dicjargon:a::drum:sed '/^ *$/d'
