@@ -675,7 +675,7 @@ zzmat ()
 			do
 				if (zztool grep_var "[" "$1" && zztool grep_var "]" "$1")
 				then
-					valor=$(echo "$1"|sed 's/\([0-9]\+\)\[.*/\1/'|tr ',' '.')
+					valor=$(echo "$1"|sed 's/\([0-9]\{1,\}\)\[.*/\1/'|tr ',' '.')
 					peso=$(echo "$1"|sed 's/.*\[//;s/\]//')
 					if (zzmat testa_num "$valor" && zztool testa_numero "$peso")
 					then
