@@ -200,7 +200,7 @@ for f in zz/* off/*
 do
 	test $f = zz/zzloteria2 && continue  #XXX exceção temporária
 	wrong=$(grep '^# ' $f | egrep '^.{79}' | grep -v DESATIVADA:)
-	test -n "$wrong" && echo "$f" && echo "$wrong"
+	test -n "$wrong" && printf "%s: %s\n" $f "$wrong"
 done
 
 eco ----------------------------------------------------------------
