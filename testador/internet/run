@@ -116,6 +116,9 @@ loteria-megasena:a::megasena:sed 's/[0-9]/9/g;s/\\\(99*\\\.\\\)*99*,99/DINHEIRO/
 loteria-quina:a::quina:sed 's/[0-9]/9/g;s/\\\(99*\\\.\\\)*99*,99/DINHEIRO/'
 moeda:a::chile:sed 's/[0-9]/9/g;s/-*\\\(99*\\\.\\\)*99*[,.]999*/DINHEIRO/g;s/99*:99*/DATAHORA/;s|99*/99*/9999|DATAHORA|;s/  */ /g'
 natal:r:^.Feliz Natal. em ..* ...::
+nome:a::josé:
+nome-origem:a::josé origem:
+nome-tudo:a::josé tudo:
 noticiaslinux-brlinux:l:7:b:
 noticiaslinux-noticiaslinux:l:7:n:
 noticiaslinux-underlinux:l:7:u:
