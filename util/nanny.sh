@@ -161,7 +161,7 @@ do
 			}
 
 			# Então vem uma linha em branco para separar
-			/^#$/! { s/^/Esperava #, veio /p; q; }
+			/^#$/! { s/^/Esperava um # sozinho após os exemplos, veio /p; q; }
 			n
 
 			# Campos obrigatórios em sequencia
