@@ -63,8 +63,10 @@ aa/bb/cccc	''	''	t	"Erro: Data em formato desconhecido 'aa/bb/cccc'"
 -f	MES			01/02/2003	t	fevereiro
 -f	MESM			01/02/2003	t	fevereiro2
 -f	MMES			01/02/2003	t	02ES
--f	MMMM			01/02/2003	t	0202
--f	MMM			01/02/2003	t	022
+-f	MMMMMM			01/02/2003	t	fevfev
+-f	MMMMM			01/02/2003	t	fev02
+-f	MMMM			01/02/2003	t	fev2
+-f	MMM			01/02/2003	t	fev
 -f	MM			01/02/2003	t	02
 -f	M			01/02/2003	t	2
 -f	DDDD			01/02/2003	t	0101
@@ -92,6 +94,20 @@ aa/bb/cccc	''	''	t	"Erro: Data em formato desconhecido 'aa/bb/cccc'"
 -f	MES			01/10/2000	t	outubro
 -f	MES			01/11/2000	t	novembro
 -f	MES			01/12/2000	t	dezembro
+
+# nomes dos meses, abreviado
+-f	MMM			01/01/2000	t	'jan'
+-f	MMM			01/02/2000	t	'fev'
+-f	MMM			01/03/2000	t	'mar'
+-f	MMM			01/04/2000	t	'abr'
+-f	MMM			01/05/2000	t	'mai'
+-f	MMM			01/06/2000	t	'jun'
+-f	MMM			01/07/2000	t	'jul'
+-f	MMM			01/08/2000	t	'ago'
+-f	MMM			01/09/2000	t	'set'
+-f	MMM			01/10/2000	t	'out'
+-f	MMM			01/11/2000	t	'nov'
+-f	MMM			01/12/2000	t	'dez'
 
 # ano 4 dígitos, sem alterações
 01/02/0003	''	''	t	01/02/0003
