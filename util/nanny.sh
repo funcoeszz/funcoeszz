@@ -42,26 +42,6 @@ eco ----------------------------------------------------------------
 eco "* Funções cujo nome não bate com o nome do arquivo"
 for f in zz/* off/*; do grep "^$(basename $f .sh) " $f >/dev/null || echo $f; done
 
-eco ----------------------------------------------------------------
-eco "* Funções sem o campo Autor:"
-for f in zz/* off/*; do grep '^# Autor: ' $f >/dev/null || echo $f; done
-
-eco ----------------------------------------------------------------
-eco "* Funções sem o campo Desde:"
-for f in zz/* off/*; do grep '^# Desde: ' $f >/dev/null || echo $f; done
-
-eco ----------------------------------------------------------------
-eco "* Funções sem o campo Licença:"
-for f in zz/* off/*; do grep '^# Licença: ' $f >/dev/null || echo $f; done
-
-eco ----------------------------------------------------------------
-eco "* Funções sem o campo Uso:"
-for f in zz/* off/*; do grep '^# Uso: ' $f >/dev/null || echo $f; done
-
-eco ----------------------------------------------------------------
-eco "* Funções sem o campo Ex.:"
-for f in zz/* off/*; do grep '^# Ex\.: ' $f >/dev/null || echo $f; done
-
 ### Desativada por enquanto, ainda não sei o que fazer com isso
 #
 # eco ----------------------------------------------------------------
