@@ -21,7 +21,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 11
+# Versão: 12
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -956,7 +956,7 @@ zzmat ()
 
 				if ([ "$fi" ] && zzmat testa_num $valor)
 				then
-					num1=$(echo "$fi"|sed 's/\(g\|gr\|rad\)//g')
+					num1=$(echo "$fi" | sed 's/g$//; s/gr$//; s/rad$//')
 					ang=${fi#$num1}
 					echo "$fi"|grep -E '(g|rad|gr)$' >/dev/null
 					if ([ "$?" -eq "0" ] && zzmat testa_num $num1)
@@ -975,7 +975,7 @@ zzmat ()
 
 				if ([ "$teta" ] && zzmat testa_num $valor)
 				then
-					num1=$(echo "$teta"|sed 's/\(g\|gr\|rad\)//g')
+					num1=$(echo "$teta" | sed 's/g$//; s/gr$//; s/rad$//')
 					ang=${teta#$num1}
 					echo "$teta"|grep -E '(g|rad|gr)$' >/dev/null
 					if ([ "$?" -eq "0" ] && zzmat testa_num $num1)
