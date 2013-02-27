@@ -131,7 +131,7 @@ do
 			:loop
 
 			# Se chegou no fim do arquivo, deu pau
-			$ { s/^/Esperava Uso, veio EOF: /p; q; }
+			$ { s/^/Esperava Uso: …, veio EOF: /p; q; }
 
 			# Se encontrar algum outro campo aqui, reclame
 			/^# Autor: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
@@ -150,7 +150,7 @@ do
 			n
 
 			# Depois do Uso vem Ex.:, obrigatório
-			/^# Ex\.: /! { s/^/Esperava Ex.:, veio /p; q; }
+			/^# Ex\.: /! { s/^/Esperava Ex.: …, veio /p; q; }
 			n
 
 			# O exemplo pode durar várias linhas, iniciadas por espaços
@@ -165,13 +165,13 @@ do
 			n
 
 			# Campos obrigatórios em sequencia
-			/^# Autor: /! { s/^/Esperava Autor:, veio /p; q; }
+			/^# Autor: /! { s/^/Esperava Autor: …, veio /p; q; }
 			n
-			/^# Desde: /! { s/^/Esperava Desde:, veio /p; q; }
+			/^# Desde: /! { s/^/Esperava Desde: …, veio /p; q; }
 			n
-			/^# Versão: / ! { s/^/Esperava Versão:, veio /p; q; }
+			/^# Versão: / ! { s/^/Esperava Versão: …, veio /p; q; }
 			n
-			/^# Licença: /! { s/^/Esperava Licença:, veio /p; q; }
+			/^# Licença: /! { s/^/Esperava Licença: …, veio /p; q; }
 			n
 
 			# Mais campos opcionais no final
