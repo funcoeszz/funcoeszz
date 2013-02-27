@@ -7,7 +7,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-07-23
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdiffpalavra ()
@@ -15,8 +15,8 @@ zzdiffpalavra ()
 	zzzz -h diffpalavra "$1" && return
 
 	local esc
-	local tmp1="$ZZTMP.diffpalavra.1.$$"
-	local tmp2="$ZZTMP.diffpalavra.2.$$"
+	local tmp1="$ZZTMP.diffpalavra.$$.1"
+	local tmp2="$ZZTMP.diffpalavra.$$.2"
 	local n=$(printf '\a')
 
 	# Verificação dos parâmetros
