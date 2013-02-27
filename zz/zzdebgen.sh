@@ -23,9 +23,9 @@
 # updates,updates-src,updates-all:
 #	Add repositório updates
 #
-# Uso: zzdebgen -p paíz -r release -b [branches]
+# Uso: zzdebgen -p país -r release -b [branches]
 # Ex.: zzdebgen -p br -r Lenny -b main-all
-#      zzdebgen --paiz br --release Squeeze --branch main-all contrib-all
+#      zzdebgen --pais br --release Squeeze --branch main-all contrib-all
 #      zzdebgen -p us -r wheezy --branch security-src contrib non-free-all
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
@@ -51,7 +51,7 @@ zzdebgen ()
 	while [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
-			-p|--paiz)
+			-p|--pais)
 				case "$2" in
 					at|au|ba|be|bg|br|by|ca|ch|cl|cn|cz)
 						country="$2"
@@ -125,7 +125,7 @@ zzdebgen ()
 
 	# Todos os parametros foram utilizados corretamente?
 	if [ "$#" != 0 ]
-	then  
+	then
 		zzecho -N -l vermelho "Erro nos parametros."
 		zztool uso debgen
 		return 1
