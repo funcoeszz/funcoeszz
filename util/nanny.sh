@@ -134,7 +134,7 @@ do
 			$ { s/^/Esperava Uso, veio EOF: /p; q; }
 			n
 
-			# Se encontrar algum campo opcional aqui, reclame
+			# Se encontrar algum outro campo aqui, reclame
 			/^# Autor: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Desde: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Versão: /     { s/^/Deveria vir depois dos exemplos -- /p; q; }
