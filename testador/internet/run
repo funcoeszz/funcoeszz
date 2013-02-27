@@ -100,6 +100,8 @@ google:a::-n 1 ab-rephone:
 horacerta:a::rio grande do sul:sed 's/[0-9][0-9]\\\{0,1\\\}:[0-9][0-9] [AP]M/HORA/;s/.*, 201[0-5]$/   DATA/;s/Brasilia \\\(Summer \\\)\\\{0,1\\\}Time (BRS\\\{0,1\\\}T) -0[32]00 UTC/Brasilia UTC/'
 howto:a::apache:sed /SSL/q
 ipinternet:r:^[0-9]{1,3}\\\.[0-9]{1,3}\\\.[0-9]{1,3}\\\.[0-9]{1,3}$::
+jquery:a::get:
+jquery-s:a::-s get:
 linuxnews-freshmeat:l:7:f:
 linuxnews-linuxtoday:l:7:t:
 linuxnews-linuxweeklynews:l:7:w:
