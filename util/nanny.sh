@@ -103,7 +103,7 @@ eco ----------------------------------------------------------------
 eco "* Funções com a data inválida no campo Desde:"
 for f in zz/* off/*
 do
-	wrong=$(grep '^# Desde:' $f | egrep -v ': [0-9]{4}-[0-9]{2}-[0-9]{2}$')
+	wrong=$(grep '^# Desde:' $f | egrep -v '^# Desde: [0-9]{4}-[0-9]{2}-[0-9]{2}$')
 	test -n "$wrong" && echo "$f: $wrong"
 done
 
