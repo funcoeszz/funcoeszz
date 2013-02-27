@@ -182,6 +182,13 @@ do
 done
 
 eco ----------------------------------------------------------------
+eco "* Funções com campo Requisitos: vazio"
+for f in zz/* off/*
+do
+	grep '^# Requisitos: *$' $f > /dev/null && echo $f
+done
+
+eco ----------------------------------------------------------------
 eco "* Funções com vírgulas no campo Requisitos: (use só espaços)"
 for f in zz/* off/*
 do
