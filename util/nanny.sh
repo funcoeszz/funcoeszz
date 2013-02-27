@@ -165,6 +165,13 @@ do
 done
 
 eco ----------------------------------------------------------------
+eco "* Funções com número inválido no campo Versão: (deve ser decimal)"
+for f in zz/* off/*
+do
+	wrong=$(grep '^# Versão:' $f | egrep -v '^# Versão: [0-9][0-9]?$')
+	test -n "$wrong" && echo "$f: $wrong"
+done
+
 eco "* Funções com vírgulas no campo Requisitos:"
 for f in zz/* off/*
 do
