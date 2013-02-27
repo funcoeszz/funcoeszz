@@ -2,6 +2,15 @@
 debug=0
 values=1
 
+lista="\
+1	I
+5	V
+10	X
+50	L
+100	C
+500	D
+1000	M
+"
 dados="
 1:I
 2:II
@@ -66,6 +75,9 @@ foo		r	^Uso:.*
 1.0		r	^Uso:.*
 1,0		r	^Uso:.*
 0		t	""
+
+# sem argumentos, mostra a lista de números
+''		t	"$lista"
 
 # 5   t   V
 $(echo $dados | sed 's/:/ t /g')
