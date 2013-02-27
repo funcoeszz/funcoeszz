@@ -28,7 +28,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzdata
 # Tags: data
@@ -140,16 +140,23 @@ zzdatafmt ()
 		d="${dd#0}"
 		mes=$(echo "$meses" | cut -d ' ' -f "$m" 2>/dev/null)
 
-		echo "$fmt" | sed "
-			s/AAAA/$aaaa/g;
-			s/AA/$aa/g;
-			s/A/$a/g;
-			s/MES/$mes/g;
-			s/MM/$mm/g;
-			s/M/$m/g;
-			s/DD/$dd/g;
-			s/D/$d/g;
-			"
+		# Percorre o formato e vai expandindo, da esquerda para a direita
+		while test -n "$fmt"
+		do
+			case "$fmt" in
+				AAAA*) printf %s "$aaaa"; fmt="${fmt#AAAA}";;
+				AA*  ) printf %s "$aa"  ; fmt="${fmt#AA}";;
+				A*   ) printf %s "$a"   ; fmt="${fmt#A}";;
+				MES* ) printf %s "$mes" ; fmt="${fmt#MES}";;
+				MM*  ) printf %s "$mm"  ; fmt="${fmt#MM}";;
+				M*   ) printf %s "$m"   ; fmt="${fmt#M}";;
+				DD*  ) printf %s "$dd"  ; fmt="${fmt#DD}";;
+				D*   ) printf %s "$d"   ; fmt="${fmt#D}";;
+				*    ) printf %c "$fmt" ; fmt="${fmt#?}";;  # 1char
+			esac
+		done
+		echo
+
 	# Senão, é só mostrar no formato normal
 	else
 		echo "$data"
