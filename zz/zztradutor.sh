@@ -23,7 +23,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 5
+# Versão: 6
 # Licença: GPLv2
 # Requisitos: iconv
 # ----------------------------------------------------------------------------
@@ -49,6 +49,9 @@ zztradutor ()
 			lang_de=${1%-??}
 			lang_para=${1#??-}
 			shift
+
+			# Pega exceção: zztradutor pt-en  (sem mais argumentos)
+			[ "$1" ] || { zztool uso tradutor; return 1; }
 		;;
 		-l | --lista)
 			# Uma tag por linha, então extrai e formata as opções do <SELECT>
