@@ -132,6 +132,7 @@ ora:a::1234:
 palpite:a:::sed 's/[0-9]/9/g; s/Coluna .*/Coluna .../'
 piada:a:::grep . | sed 's/^   [^ ].*/OK/ ; 3q'
 ramones:l:1:::
+rastreamento:a::SA488387146BR:sed '2 s|^../../.... ..:.. [^ ].*|DATA HORA TEXTO|; 2q'
 rpmfind:a::sed:grep sed-3.02-13
 security-debian:l:8:debian:
 security-fedora:l:8:fedora:
