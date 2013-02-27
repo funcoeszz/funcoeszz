@@ -11,12 +11,19 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-08-27
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbicho ()
 {
 	zzzz -h bicho "$1" && return
+
+	# Verificação dos parâmetros: se há $1, ele deve ser 'g' ou um número
+	if [ $# -gt 0 ] && [ "$1" != 'g' ] && ! zztool testa_numero "$1"
+	then
+		zztool uso bicho
+		return 1
+	fi
 
 	echo "$*" |
 	awk '{
