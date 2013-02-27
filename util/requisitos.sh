@@ -11,6 +11,11 @@
 
 cd $(dirname "$0") || exit 1
 
+base="\
+zzzz
+zztool
+zzajuda"
+
 cd ../zz
 for f in zz*
 do
@@ -36,6 +41,9 @@ do
 	do
 		# Se o requisito não for uma função zz, ignore
 		echo $req | grep ^zz >/dev/null || continue
+
+		echo "$base" | grep -w $req >/dev/null &&
+			echo "$f: Função-base, não deve estar em Requisitos: $req"
 
 		echo "$encontradas" | grep -w $req >/dev/null ||
 			echo "$f: Função listada mas não utilizada: $req"
