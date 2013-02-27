@@ -132,7 +132,6 @@ do
 
 			# Se chegou no fim do arquivo, deu pau
 			$ { s/^/Esperava Uso, veio EOF: /p; q; }
-			n
 
 			# Se encontrar algum outro campo aqui, reclame
 			/^# Autor: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
@@ -141,6 +140,8 @@ do
 			/^# Licença: /    { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Requisitos: / { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Tags: /       { s/^/Deveria vir depois dos exemplos -- /p; q; }
+
+			n
 
 			# Só sai do loop quando chegar no campo Uso, obrigatório
 			/^# Uso: /b loopend
