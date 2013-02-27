@@ -241,7 +241,7 @@ zzmat ()
 		fi
 	;;
 	asen|acos|atan)
-		if (([ $# -ge "2" ] && [ $# -le "4" ]) && zzmat testa_num $2)
+		if [ $# -ge "2" ] && [ $# -le "4" ] && zzmat testa_num $2
 		then
 			local num1 num2 num3 sinal
 			num1=$(echo "$2"|tr ',' '.')
