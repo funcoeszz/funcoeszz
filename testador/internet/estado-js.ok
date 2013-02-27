@@ -1,0 +1,65 @@
+var siglas = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'];
+
+var nomes = ['Acre', 'Alagoas', 'Amapá', 'Amazonas', 'Bahia', 'Ceará', 'Distrito Federal', 'Espírito Santo', 'Goiás', 'Maranhão', 'Mato Grosso', 'Mato Grosso do Sul', 'Minas Gerais', 'Pará', 'Paraíba', 'Paraná', 'Pernambuco', 'Piauí', 'Rio de Janeiro', 'Rio Grande do Norte', 'Rio Grande do Sul', 'Rondônia', 'Roraima', 'Santa Catarina', 'São Paulo', 'Sergipe', 'Tocantins'];
+
+var capitais = ['Rio Branco', 'Maceió', 'Macapá', 'Manaus', 'Salvador', 'Fortaleza', 'Brasília', 'Vitória', 'Goiânia', 'São Luís', 'Cuiabá', 'Campo Grande', 'Belo Horizonte', 'Belém', 'João Pessoa', 'Curitiba', 'Recife', 'Teresina', 'Rio de Janeiro', 'Natal', 'Porto Alegre', 'Porto Velho', 'Boa Vista', 'Florianópolis', 'São Paulo', 'Aracaju', 'Palmas'];
+
+var estados = {
+  AC: 'Acre',
+  AL: 'Alagoas',
+  AP: 'Amapá',
+  AM: 'Amazonas',
+  BA: 'Bahia',
+  CE: 'Ceará',
+  DF: 'Distrito Federal',
+  ES: 'Espírito Santo',
+  GO: 'Goiás',
+  MA: 'Maranhão',
+  MT: 'Mato Grosso',
+  MS: 'Mato Grosso do Sul',
+  MG: 'Minas Gerais',
+  PA: 'Pará',
+  PB: 'Paraíba',
+  PR: 'Paraná',
+  PE: 'Pernambuco',
+  PI: 'Piauí',
+  RJ: 'Rio de Janeiro',
+  RN: 'Rio Grande do Norte',
+  RS: 'Rio Grande do Sul',
+  RO: 'Rondônia',
+  RR: 'Roraima',
+  SC: 'Santa Catarina',
+  SP: 'São Paulo',
+  SE: 'Sergipe',
+  TO: 'Tocantins'
+};
+
+var estados = {
+  AC: ['Acre', 'Rio Branco', 'acre'],
+  AL: ['Alagoas', 'Maceió', 'alagoas'],
+  AP: ['Amapá', 'Macapá', 'amapa'],
+  AM: ['Amazonas', 'Manaus', 'amazonas'],
+  BA: ['Bahia', 'Salvador', 'bahia'],
+  CE: ['Ceará', 'Fortaleza', 'ceara'],
+  DF: ['Distrito Federal', 'Brasília', 'distrito-federal'],
+  ES: ['Espírito Santo', 'Vitória', 'espirito-santo'],
+  GO: ['Goiás', 'Goiânia', 'goias'],
+  MA: ['Maranhão', 'São Luís', 'maranhao'],
+  MT: ['Mato Grosso', 'Cuiabá', 'mato-grosso'],
+  MS: ['Mato Grosso do Sul', 'Campo Grande', 'mato-grosso-do-sul'],
+  MG: ['Minas Gerais', 'Belo Horizonte', 'minas-gerais'],
+  PA: ['Pará', 'Belém', 'para'],
+  PB: ['Paraíba', 'João Pessoa', 'paraiba'],
+  PR: ['Paraná', 'Curitiba', 'parana'],
+  PE: ['Pernambuco', 'Recife', 'pernambuco'],
+  PI: ['Piauí', 'Teresina', 'piaui'],
+  RJ: ['Rio de Janeiro', 'Rio de Janeiro', 'rio-de-janeiro'],
+  RN: ['Rio Grande do Norte', 'Natal', 'rio-grande-do-norte'],
+  RS: ['Rio Grande do Sul', 'Porto Alegre', 'rio-grande-do-sul'],
+  RO: ['Rondônia', 'Porto Velho', 'rondonia'],
+  RR: ['Roraima', 'Boa Vista', 'roraima'],
+  SC: ['Santa Catarina', 'Florianópolis', 'santa-catarina'],
+  SP: ['São Paulo', 'São Paulo', 'sao-paulo'],
+  SE: ['Sergipe', 'Aracaju', 'sergipe'],
+  TO: ['Tocantins', 'Palmas', 'tocantins']
+}
