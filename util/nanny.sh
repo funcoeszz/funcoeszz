@@ -182,7 +182,7 @@ do
 done
 
 eco ----------------------------------------------------------------
-eco "* Funções com vírgulas no campo Requisitos:"
+eco "* Funções com vírgulas no campo Requisitos: (use só espaços)"
 for f in zz/* off/*
 do
 	grep '^# Requisitos:.*,' $f > /dev/null && echo $f
