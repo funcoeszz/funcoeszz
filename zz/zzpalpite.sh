@@ -10,7 +10,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-06-03
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento zzseq
 # ----------------------------------------------------------------------------
@@ -114,7 +114,8 @@ zzpalpite ()
 			palpites=$(echo "$palpites" | tr ' ' '\n' | sort -n -t ' ' | tr '\n' ' ')
 			if [ $(echo " $palpites" | wc -w ) -ge "10" ]
 			then
-				palpites=$(echo "$palpites" | sed 's/\(\([0-9]\{2\} \)\{5\}\)/\1\n /g')
+				palpites=$(echo "$palpites" | sed 's/\(\([0-9]\{2\} \)\{5\}\)/\1\
+ /g')
 			fi
 		fi
 
