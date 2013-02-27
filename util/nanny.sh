@@ -15,11 +15,11 @@ eco "* Funções que não são UTF-8"
 file --mime zz/* off/* | egrep -vi 'utf-8'
 
 eco ----------------------------------------------------------------
-eco "* Funções com nome estranho"
+eco "* Funções com nome de arquivo inválido"
 ls -1 zz/* off/* | grep -v '/zz[a-z0-9]*\.sh$'
 
 eco ----------------------------------------------------------------
-eco "* Funções com erro"
+eco "* Funções com erro ao importar (source)"
 for f in zz/* off/*; do (source $f); done
 
 eco ----------------------------------------------------------------
@@ -31,7 +31,7 @@ eco "* Funções cujo início não é 'zznome ()\\\n'"
 for f in zz/* off/*; do grep "^zz[a-z0-9]* ()$" $f >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
-eco "* Funções que não terminam em '}'"
+eco "* Funções que não terminam em '}' na última linha"
 for f in zz/* off/*; do tail -1 $f | grep "^}$" >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
