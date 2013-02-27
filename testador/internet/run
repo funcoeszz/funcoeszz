@@ -130,6 +130,7 @@ noticiassec-linuxsecuritybrasil:l:7:b:
 noticiassec-linuxtodaysecurity:l:7:t:
 noticiassec-securityfocus:l:7:f:
 ora:a::1234:
+piada:a:::grep . | sed 's/^   [^ ].*/OK/ ; 3q'
 ramones:l:1:::
 rpmfind:a::sed:grep sed-3.02-13
 security-debian:l:8:debian:
