@@ -7,7 +7,7 @@
 #
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-21
-# Versão: 20101222
+# Versão: 2
 # Licença: GPLv2
 # ----------------------------------------------------------------------------
 zzextensao ()
