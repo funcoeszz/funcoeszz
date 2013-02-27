@@ -50,7 +50,7 @@ aa/bb/cccc	''	''	t	"Erro: Data em formato desconhecido 'aa/bb/cccc'"
 -f	A			01/02/2003	t	3
 -f	MES			01/02/2003	t	fevereiro
 -f	MESM			01/02/2003	t	fevereiro2
--f	MMES			01/02/2003	t	2fevereiro
+-f	MMES			01/02/2003	t	02ES
 -f	MMMM			01/02/2003	t	0202
 -f	MMM			01/02/2003	t	022
 -f	MM			01/02/2003	t	02
