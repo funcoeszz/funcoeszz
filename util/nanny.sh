@@ -10,6 +10,8 @@ cd ..
 
 eco() { echo -e "\033[36;1m$*\033[m"; }
 
+### Testes relacionados ao arquivo e sua estrutura básica
+
 eco ----------------------------------------------------------------
 eco "* Funções que não são UTF-8"
 file --mime zz/* off/* | egrep -vi 'utf-8'
@@ -21,10 +23,6 @@ ls -1 zz/* off/* | grep -v '/zz[a-z0-9]*\.sh$'
 eco ----------------------------------------------------------------
 eco "* Funções com erro ao importar (source)"
 for f in zz/* off/*; do (source $f); done
-
-eco ----------------------------------------------------------------
-eco "* Funções cuja linha separadora é estranha"
-for f in zz/* off/*; do test $(egrep -c '^# -{76}$' $f) = 2 || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções cujo início não é 'zznome ()\\\n'"
@@ -42,52 +40,8 @@ eco ----------------------------------------------------------------
 eco "* Funções cujo nome não bate com o nome do arquivo"
 for f in zz/* off/*; do grep "^$(basename $f .sh) " $f >/dev/null || echo $f; done
 
-### Desativada por enquanto, ainda não sei o que fazer com isso
-#
-# eco ----------------------------------------------------------------
-# eco "* Funções com campo desconhecido"
-# campos='Obs\.|Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos|Nota'
-# for f in zz/* off/*
-# do
-# 	wrong=$(
-# 		egrep '^# [A-Z][a-z.]+: ' $f |
-# 		cut -d : -f 1 |
-# 		sed 's/^# //' |
-# 		egrep -v "$campos" |
-# 		sed 1q)  # só mostra o primeiro pra não poluir
-# 	test -n "$wrong" && echo "$f: $wrong"
-# done
-#
-eco ----------------------------------------------------------------
-eco "* Funções com a descrição sem ponto final"
-for f in zz/* off/*; do
-	wrong=$(sed -n '2 {
-		/^# http/ n
-		# Deve acabar em ponto final
-		/\.$/! p
-		}' $f)
-	test -n "$wrong" && echo "$f: $wrong"
-done
 
-eco ----------------------------------------------------------------
-eco "* Funções com a descrição com mais de um ponto ."
-for f in zz/* off/*; do
-	test "$f" = off/zzranking.sh && continue  # tem 2 pontos mas é OK
-	wrong=$(sed -n '2 {
-		/^# http/ n
-		# Pontos no meio da frase
-		/\. .*\./ p
-		}' $f)
-	test -n "$wrong" && echo "$f: $wrong"
-done
-
-eco ----------------------------------------------------------------
-eco "* Funções com a data inválida no campo Desde:"
-for f in zz/* off/*
-do
-	wrong=$(grep '^# Desde:' $f | egrep -v '^# Desde: [0-9]{4}-[0-9]{2}-[0-9]{2}$')
-	test -n "$wrong" && echo "$f: $wrong"
-done
+### Testes relacionados ao cabeçalho
 
 eco ----------------------------------------------------------------
 eco "* Funções com o cabeçalho mal formatado"
@@ -168,6 +122,41 @@ do
 done
 
 eco ----------------------------------------------------------------
+eco "* Funções cuja linha separadora é estranha"
+for f in zz/* off/*; do test $(egrep -c '^# -{76}$' $f) = 2 || echo $f; done
+
+eco ----------------------------------------------------------------
+eco "* Funções com a descrição sem ponto final"
+for f in zz/* off/*; do
+	wrong=$(sed -n '2 {
+		/^# http/ n
+		# Deve acabar em ponto final
+		/\.$/! p
+		}' $f)
+	test -n "$wrong" && echo "$f: $wrong"
+done
+
+eco ----------------------------------------------------------------
+eco "* Funções com a descrição com mais de um ponto ."
+for f in zz/* off/*; do
+	test "$f" = off/zzranking.sh && continue  # tem 2 pontos mas é OK
+	wrong=$(sed -n '2 {
+		/^# http/ n
+		# Pontos no meio da frase
+		/\. .*\./ p
+		}' $f)
+	test -n "$wrong" && echo "$f: $wrong"
+done
+
+eco ----------------------------------------------------------------
+eco "* Funções com a data inválida no campo Desde:"
+for f in zz/* off/*
+do
+	wrong=$(grep '^# Desde:' $f | egrep -v '^# Desde: [0-9]{4}-[0-9]{2}-[0-9]{2}$')
+	test -n "$wrong" && echo "$f: $wrong"
+done
+
+eco ----------------------------------------------------------------
 eco "* Funções com vírgulas no campo Requisitos:"
 for f in zz/* off/*
 do
@@ -182,6 +171,26 @@ do
 	wrong=$(grep '^# ' $f | egrep '^.{79}' | grep -v DESATIVADA:)
 	test -n "$wrong" && printf "%s: %s\n" $f "$wrong"
 done
+
+### Desativada por enquanto, ainda não sei o que fazer com isso
+#
+# eco ----------------------------------------------------------------
+# eco "* Funções com campo desconhecido"
+# campos='Obs\.|Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos|Nota'
+# for f in zz/* off/*
+# do
+# 	wrong=$(
+# 		egrep '^# [A-Z][a-z.]+: ' $f |
+# 		cut -d : -f 1 |
+# 		sed 's/^# //' |
+# 		egrep -v "$campos" |
+# 		sed 1q)  # só mostra o primeiro pra não poluir
+# 	test -n "$wrong" && echo "$f: $wrong"
+# done
+#
+
+
+### Testes relacionados ao ambiente ZZ
 
 eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zzzz -h'"
@@ -225,6 +234,9 @@ do
 	# # DESATIVADA: 2002-10-30 O programa acabou.
 	egrep '^# DESATIVADA: [0-9]{4}-[0-9]{2}-[0-9]{2} .{10,}' $f >/dev/null || echo $f
 done
+
+
+### Testes de segurança
 
 eco ----------------------------------------------------------------
 eco "* Funções que não colocaram aspas ao redor de \$ZZTMP"
