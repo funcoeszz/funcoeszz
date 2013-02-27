@@ -31,7 +31,7 @@
 
 onetest=$1
 debug=0
-zz="../funcoeszz"
+
 
 # Aqui estão cadastrados todos os testes.
 # Linhas que iniciam com # são ignoradas, útil para desligar um teste.
@@ -154,6 +154,15 @@ rm -f ${ZZTMP:-emptyempty}.*
 
 # Clean old mess
 rm -f *.out
+
+# Generate all-in-one script (way faster)
+zz="../funcoeszz"
+ZZDIR=../../zz ZZOFF='' ../../funcoeszz --tudo-em-um > "$zz"
+unset ZZDIR
+chmod +x "$zz" || {
+	echo "Error: $zz"
+	exit 1
+}
 
 # Run every activated test
 export ZZCOR=0
