@@ -10,6 +10,7 @@
 #      AA       03          Ano com 2 dígitos
 #      A        3           Ano sem zeros à esquerda (1 ou 2 dígitos)
 #      MES      fevereiro   Nome do mês
+#      MMM      fev         Nome do mês com três letras
 #      MM       02          Mês com 2 dígitos
 #      M        2           Mês sem zeros à esquerda
 #      DD       01          Dia com 2 dígitos
@@ -28,7 +29,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzdata
 # Tags: data
@@ -139,6 +140,7 @@ zzdatafmt ()
 		m="${mm#0}"
 		d="${dd#0}"
 		mes=$(echo "$meses" | cut -d ' ' -f "$m" 2>/dev/null)
+		mmm=$(echo "$mes" | cut -c 1-3)
 
 		# Percorre o formato e vai expandindo, da esquerda para a direita
 		while test -n "$fmt"
@@ -148,6 +150,7 @@ zzdatafmt ()
 				AA*  ) printf %s "$aa"  ; fmt="${fmt#AA}";;
 				A*   ) printf %s "$a"   ; fmt="${fmt#A}";;
 				MES* ) printf %s "$mes" ; fmt="${fmt#MES}";;
+				MMM* ) printf %s "$mmm" ; fmt="${fmt#MMM}";;
 				MM*  ) printf %s "$mm"  ; fmt="${fmt#MM}";;
 				M*   ) printf %s "$m"   ; fmt="${fmt#M}";;
 				DD*  ) printf %s "$dd"  ; fmt="${fmt#DD}";;
