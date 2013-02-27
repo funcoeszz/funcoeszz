@@ -10,9 +10,9 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-11-21
-# Versão: 5
+# Versão: 6
 # Licença: GPLv2
-# Requisitos: zzcarnaval zzcorpuschristi zzdiadasemana zzsextapaixao
+# Requisitos: zzcarnaval zzcorpuschristi zzdiadasemana zzsextapaixao zzsemacento
 # Tags: data
 # ----------------------------------------------------------------------------
 zzferiado ()
@@ -22,7 +22,6 @@ zzferiado ()
 	local feriados carnaval corpuschristi
 	local hoje data sextapaixao ano listar
 	local dia diasemana descricao linha
-	local pulaparacoluna22
 
 	hoje=$(date '+%d/%m/%Y')
 
@@ -64,10 +63,6 @@ zzferiado ()
 	# Verifica se lista ou nao, caso negativo verifica se a data escolhida é feriado
 	if [ "$listar" = "1" ]; then
 
-		# Variável que contem os caracteres de controle para que a listagem
-		# possa sair formatada corretamente
-		pulaparacoluna22="\033[22G"
-
 		# Pega os dados, coloca 1 por linha, inverte dd/mm para mm/dd,
 		# ordena, inverte mm/dd para dd/mm
 		echo $feriados |
@@ -78,9 +73,13 @@ zzferiado ()
 		sed 's#^\(..\)/\(..\)#\2/\1#g' |
 		while read linha; do
 			dia=$(echo $linha | cut -d: -f1)
-			diasemana=$(zzdiadasemana $dia/$ano)
+			diasemana=$(zzdiadasemana $dia/$ano | zzsemacento)
 			descricao=$(echo $linha | cut -d: -f2)
-			echo -e "$dia $diasemana $pulaparacoluna22 $descricao"
+			printf "%s %-15s %s\n" "$dia" "$diasemana" "$descricao" |
+				sed 's/terca-feira/terça-feira/ ; s/ sabado / sábado /'
+			# ^ Estou tirando os acentos do dia da semana e depois recolocando
+			# pois o printf não lida direito com acentos. O %-15s não fica
+			# exatamente com 15 caracteres quando há acentos.
 		done
 	else
 		# Verifica se a data está dentro da lista de feriados
