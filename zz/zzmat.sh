@@ -652,7 +652,7 @@ zzmat ()
 			num=$(for numero in $sequencia
 			do
 				echo "($equacao)"|sed "s/^[x]/($numero)/;s/\([(+-]\)x/\1($numero)/g;s/\([0-9]\)x/\1\*($numero)/g;s/x/$numero/g"
-			done|paste -s -d"$operacao")
+			done|paste -s -d"$operacao" -)
 		else
 			echo " zzmat $funcao: Soma ou Produto de expressão"
 			echo " Uso: zzmat $funcao limite_inferior limite_superior equacao"
