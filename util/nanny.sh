@@ -81,22 +81,24 @@ for f in zz/* off/*; do grep '^# Ex\.: ' $f >/dev/null || echo $f; done
 eco ----------------------------------------------------------------
 eco "* Funções com a descrição sem ponto final"
 for f in zz/* off/*; do
-	sed -n '2 {
+	wrong=$(sed -n '2 {
 		/^# http/ n
 		# Deve acabar em ponto final
 		/\.$/! p
-		}' $f
+		}' $f)
+	test -n "$wrong" && echo "$f: $wrong"
 done
 
 eco ----------------------------------------------------------------
 eco "* Funções com a descrição com mais de um ponto ."
 for f in zz/* off/*; do
 	test "$f" = off/zzranking.sh && continue  # tem 2 pontos mas é OK
-	sed -n '2 {
+	wrong=$(sed -n '2 {
 		/^# http/ n
 		# Pontos no meio da frase
 		/\. .*\./ p
-		}' $f
+		}' $f)
+	test -n "$wrong" && echo "$f: $wrong"
 done
 
 eco ----------------------------------------------------------------
