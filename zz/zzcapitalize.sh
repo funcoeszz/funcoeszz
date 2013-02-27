@@ -1,18 +1,21 @@
 # ----------------------------------------------------------------------------
 # Altera Um Texto Para Deixar Todas As Iniciais De Palavras Em Maiúsculas.
 # Use a opção -1 para converter somente a primeira letra de cada linha.
+# Use a opção -w para adicionar caracteres de palavra (Padrão: A-Za-z0-9áéí…)
 #
 # Uso: zzcapitalize [texto]
 # Ex.: zzcapitalize root                                 # Root
+#      zzcapitalize kung fu panda                        # Kung Fu Panda
+#      zzcapitalize -1 kung fu panda                     # Kung fu panda
 #      zzcapitalize quero-quero                          # Quero-Quero
-#      zzcapitalize -1 quero-quero                       # Quero-quero
 #      echo eu_uso_camel_case | zzcapitalize             # Eu_Uso_Camel_Case
-#      echo eu_uso_camel_case | zzcapitalize | tr -d _   # EuUsoCamelCase
+#      echo "i don't care" | zzcapitalize                # I Don'T Care
+#      echo "i don't care" | zzcapitalize -w \'          # I Don't Care
 #      cat arquivo.txt | zzcapitalize
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzminusculas
 # ----------------------------------------------------------------------------
@@ -20,11 +23,35 @@ zzcapitalize ()
 {
 	zzzz -h capitalize "$1" && return
 
-	local primeira todas filtros
+	local primeira todas filtros extra x
 	local acentuadas='àáâãäåèéêëìíîïòóôõöùúûüçñÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ'
 	local palavra='A-Za-z0-9'
-	local x="[^$palavra$acentuadas]"
+	local soh_primeira=0
 
+	# Opções de linha de comando
+	while [ "${1#-}" != "$1" ]
+	do
+		case "$1" in
+			-1)
+				soh_primeira=1
+				shift
+			;;
+			-w)
+				# Escapa a " pra não dar problema no sed adiante
+				extra=$(echo "$2" | sed 's/"/\\"/g')
+				shift
+				shift
+			;;
+			*) break ;;
+		esac
+	done
+
+	# Aqui está a lista de caracteres que compõem uma palavra.
+	# Estes caracteres *não* disparam a capitalização da letra seguinte.
+	# Esta regex é usada na variável $todas, a seguir.
+	x="[^$palavra$acentuadas$extra]"
+
+	# Filtro que converte pra maiúsculas somente a primeira letra da linha
 	primeira='
 		s_^a_A_ ; s_^n_N_ ; s_^à_À_ ; s_^ï_Ï_ ;
 		s_^b_B_ ; s_^o_O_ ; s_^á_Á_ ; s_^ò_Ò_ ;
@@ -40,6 +67,8 @@ zzcapitalize ()
 		s_^l_L_ ; s_^y_Y_ ; s_^í_Í_ ; s_^ñ_Ñ_ ;
 		s_^m_M_ ; s_^z_Z_ ; s_^î_Î_ ;
 	'
+	# Filtro que converte pra maiúsculas a primeira letra de cada palavra.
+	# Note que o delimitador usado no s///g foi o espaço em branco.
 	todas="
 		s \($x\)a \1A g ; s \($x\)n \1N g ; s \($x\)à \1À g ; s \($x\)ï \1Ï g ;
 		s \($x\)b \1B g ; s \($x\)o \1O g ; s \($x\)á \1Á g ; s \($x\)ò \1Ò g ;
@@ -56,15 +85,12 @@ zzcapitalize ()
 		s \($x\)m \1M g ; s \($x\)z \1Z g ; s \($x\)î \1Î g ;
 	"
 
-	# Opções de linha de comando
-	if test "$1" = '-1'
-	then
-		filtros="$primeira"
-		shift
-	else
-		filtros="$primeira $todas"
-	fi
+	# Aplicando a opção -1, caso informada
+	test $soh_primeira -eq 1 && todas=''
+
+	filtros="$primeira $todas"
 
 	# Texto via STDIN ou argumentos
+	# Primeiro converte tudo pra minúsculas, depois capitaliza as iniciais
 	zztool multi_stdin "$@" | zzminusculas | sed "$filtros"
 }
