@@ -248,7 +248,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções que não colocaram aspas ao redor de \$ZZTMP"
-grep ZZTMP off/* zz/* | grep -v '"'
+grep '$ZZTMP' off/* zz/* | grep -v '"'
 
 
 
