@@ -143,6 +143,7 @@ security-slackware:l:8:slackware:
 security-ubuntu:l:8:ubuntu:
 security-suse:l:8:suse:
 sigla:a::DVD:
+subway:a:::sed 's/: [^ ]...*/ : OK/'
 tempo:l:15:brazil sbpa:grep -v 'Sky conditions'
 whoisbr:a::globo.com.br:sed 5q
 wikipedia:a::-pt Alfredo Kojima
