@@ -163,7 +163,7 @@ do
 			/^#$/! { s/^/Esperava #, veio /p; q; }
 			n
 
-			# Campos obrigatórios em sequencia. Versão: é opcional
+			# Campos obrigatórios em sequencia
 			/^# Autor: /! { s/^/Esperava Autor:, veio /p; q; }
 			n
 			/^# Desde: /! { s/^/Esperava Desde:, veio /p; q; }
