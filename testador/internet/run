@@ -91,6 +91,7 @@ estado-formato:a::--formato '{sigla}-{nome}\\\n':
 estado-html:a::--html:
 estado-js:a::--js:
 estado-sigla:a::--sigla:
+euro:a:::sed 's/[0-9]/9/g;s/[+-]/ /g;s/99:99/HORA/;s/9,999*/DINHEIRO/g'
 feed-1:a::aurelio.net:
 feed-2:a::aurelio.net aurelio.net:
 feed-3:l:7:-n 7 aurelio.net/feed/:
