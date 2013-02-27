@@ -21,7 +21,7 @@ zzferiado ()
 
 	local feriados carnaval corpuschristi
 	local hoje data sextapaixao ano listar
-	local dia diasemana descricao LINHA
+	local dia diasemana descricao linha
 	local pulaparacoluna22
 
 	hoje=$(date '+%d/%m/%Y')
@@ -76,10 +76,10 @@ zzferiado ()
 		sed 's#^\(..\)/\(..\)#\2/\1#g' |
 		sort -n |
 		sed 's#^\(..\)/\(..\)#\2/\1#g' |
-		while read LINHA; do
-			dia=$(echo $LINHA | cut -d: -f1)
+		while read linha; do
+			dia=$(echo $linha | cut -d: -f1)
 			diasemana=$(zzdiadasemana $dia/$ano)
-			descricao=$(echo $LINHA | cut -d: -f2)
+			descricao=$(echo $linha | cut -d: -f2)
 			echo -e "$dia $diasemana $pulaparacoluna22 $descricao"
 		done
 	else
