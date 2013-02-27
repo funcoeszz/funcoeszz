@@ -172,6 +172,16 @@ do
 	test -n "$wrong" && echo "$f: $wrong"
 done
 
+eco ----------------------------------------------------------------
+eco "* Funções com conteúdo inválido no campo Licença:"
+for f in zz/* off/*
+do
+	wrong=$(grep '^# Licença:' $f | egrep -v '^# Licença: (GPL(v2)?|MIT)$')
+	# Se alguém quiser usar outra licença, basta adicionar aqui ^
+	test -n "$wrong" && echo "$f: $wrong"
+done
+
+eco ----------------------------------------------------------------
 eco "* Funções com vírgulas no campo Requisitos:"
 for f in zz/* off/*
 do
