@@ -10,7 +10,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-11-21
-# Versão: 4
+# Versão: 5
 # Licença: GPLv2
 # Requisitos: zzcarnaval zzcorpuschristi zzdiadasemana zzsextapaixao
 # Tags: data
@@ -71,12 +71,11 @@ zzferiado ()
 		# Pega os dados, coloca 1 por linha, inverte dd/mm para mm/dd,
 		# ordena, inverte mm/dd para dd/mm
 		echo $feriados |
-		sed '
-			s# \([0-3]\)#\n\1#g
-			s#\(..\)/\(..\)#\2/\1#g
-		' |
+		sed 's# \([0-3]\)#~\1#g' |
+		tr '~' '\n' |
+		sed 's#^\(..\)/\(..\)#\2/\1#g' |
 		sort -n |
-		sed 's#\(..\)/\(..\)#\2/\1#g' |
+		sed 's#^\(..\)/\(..\)#\2/\1#g' |
 		while read LINHA; do
 			dia=$(echo $LINHA | cut -d: -f1)
 			diasemana=$(zzdiadasemana $dia/$ano)
