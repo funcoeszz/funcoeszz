@@ -60,9 +60,11 @@ zzconverte ()
 			;;
 			km)
 				echo "$1 km = $(echo "$s2;$1*0.6214"      | bc) milhas"
+				# ^ resultado com 4 casas porque bc usa o mesmo do 0.6214
 			;;
 			mk)
 				echo "$1 milhas = $(echo "$s2;$1*1.609"   | bc) km"
+				# ^ resultado com 3 casas porque bc usa o mesmo do 1.609
 			;;
 			db)
 				echo "obase=2;$1" | bc -l
