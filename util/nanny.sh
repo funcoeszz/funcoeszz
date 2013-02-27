@@ -149,6 +149,14 @@ for f in zz/* off/*; do
 done
 
 eco ----------------------------------------------------------------
+eco "* Funções com conteúdo inválido no campo Autor:"
+for f in zz/* off/*
+do
+	wrong=$(grep '^# Autor:' $f | egrep -v '^# Autor: [^ ].*$')
+	test -n "$wrong" && echo "$f: $wrong"
+done
+
+eco ----------------------------------------------------------------
 eco "* Funções com a data inválida no campo Desde:"
 for f in zz/* off/*
 do
