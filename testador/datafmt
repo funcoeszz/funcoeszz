@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
-debug=0
+
+# Especial: parâmetros com espaços em branco
 values=3
+protected=2
+tests=(
+-f	'D M AA'		01/02/2003	t	"1 2 03"
+-f	'DD MM AAAA'		01/02/2003	t	"01 02 2003"
+-f	'D de MES de AAAA'	01/02/2003	t	"1 de fevereiro de 2003"
+)
+. _lib
+
+
+
+values=3
+protected=0
 
 ano=$(date '+%Y')
 mes=$(date '+%m')
@@ -11,7 +24,6 @@ tests=(
 # ''	''	''	r	^Uso:.*   # STDIN
 # -f	AAAA	''	r	^Uso:.*   # STDIN
 
- 
 # Erro: formato desconhecido (sem e com -f)
 foo		''	''	t	"Erro: Data em formato desconhecido 'foo'"
 001/02/2003	''	''	t	"Erro: Data em formato desconhecido '001/02/2003'"
