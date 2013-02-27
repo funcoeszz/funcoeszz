@@ -2,6 +2,7 @@
 # Muda o formato de uma data, com várias opções de personalização.
 # Reconhece datas em vários formatos, como aaaa-mm-dd, dd.mm.aaaa e dd/mm.
 # Obs.: Se você não informar o ano, será usado o ano corrente.
+# Use a opção --en para usar nomes de meses em inglês.
 # Use a opção -f para mudar o formato de saída (o padrão é DD/MM/AAAA):
 #
 #      Código   Exemplo     Descrição
@@ -19,17 +20,18 @@
 # Uso: zzdatafmt [-f formato] [data]
 # Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
 #      zzdatafmt 31.12.11                   # 31/12/2011
-#      zzdatafmt 31/12                      # 31/12/2011 (ano atual)
-#      zzdatafmt -f MES hoje                # maio (mês atual)
+#      zzdatafmt 31/12                      # 31/12/2011    (ano atual)
+#      zzdatafmt -f MES hoje                # maio          (mês atual)
+#      zzdatafmt -f MES --en hoje           # May           (em inglês)
 #      zzdatafmt -f AAAA 31/12/11           # 2011
 #      zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11
 #      zzdatafmt -f D/M/A 01/02/2003        # 1/2/3
 #      zzdatafmt -f "D de MES" 01/05/95     # 1 de maio
-#      echo 31/12/2011 | zzdatafmt -f MM    # 12 (via STDIN)
+#      echo 31/12/2011 | zzdatafmt -f MM    # 12            (via STDIN)
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzdata
 # Tags: data
@@ -40,14 +42,24 @@ zzdatafmt ()
 
 	local data data_orig fmt ano mes dia aaaa aa mm dd a m d ano_atual
 	local meses='janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro'
+	local meses_en='January February March April May June July August September October November December'
 
-	# Opção de linha de comando
-	if test "$1" = '-f'
-	then
-		fmt="$2"
-		shift
-		shift
-	fi
+	# Opções de linha de comando
+	while [ "${1#-}" != "$1" ]
+	do
+		case "$1" in
+			--en)
+				meses="$meses_en"
+				shift
+			;;
+			-f)
+				fmt="$2"
+				shift
+				shift
+			;;
+			*) break ;;
+		esac
+	done
 
 	# Data via STDIN ou argumentos
 	data=$(zztool multi_stdin "$@")

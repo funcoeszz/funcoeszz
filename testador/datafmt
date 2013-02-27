@@ -95,6 +95,20 @@ tests=(
 ''	-f	MES	01/11/2000	t	novembro
 ''	-f	MES	01/12/2000	t	dezembro
 
+# nomes dos meses, en inglês
+--en	-f	MES	01/01/2000	t	January
+--en	-f	MES	01/02/2000	t	February
+--en	-f	MES	01/03/2000	t	March
+--en	-f	MES	01/04/2000	t	April
+--en	-f	MES	01/05/2000	t	May
+--en	-f	MES	01/06/2000	t	June
+--en	-f	MES	01/07/2000	t	July
+--en	-f	MES	01/08/2000	t	August
+--en	-f	MES	01/09/2000	t	September
+--en	-f	MES	01/10/2000	t	October
+--en	-f	MES	01/11/2000	t	November
+--en	-f	MES	01/12/2000	t	December
+
 # nomes dos meses, abreviado
 ''	-f	MMM	01/01/2000	t	'jan'
 ''	-f	MMM	01/02/2000	t	'fev'
@@ -108,6 +122,20 @@ tests=(
 ''	-f	MMM	01/10/2000	t	'out'
 ''	-f	MMM	01/11/2000	t	'nov'
 ''	-f	MMM	01/12/2000	t	'dez'
+
+# nomes dos meses, abreviado, em inglês
+--en	-f	MMM	01/01/2000	t	'Jan'
+--en	-f	MMM	01/02/2000	t	'Feb'
+--en	-f	MMM	01/03/2000	t	'Mar'
+--en	-f	MMM	01/04/2000	t	'Apr'
+--en	-f	MMM	01/05/2000	t	'May'
+--en	-f	MMM	01/06/2000	t	'Jun'
+--en	-f	MMM	01/07/2000	t	'Jul'
+--en	-f	MMM	01/08/2000	t	'Aug'
+--en	-f	MMM	01/09/2000	t	'Sep'
+--en	-f	MMM	01/10/2000	t	'Oct'
+--en	-f	MMM	01/11/2000	t	'Nov'
+--en	-f	MMM	01/12/2000	t	'Dec'
 
 # ano 4 dígitos, sem alterações
 ''	''	''	01/02/0003	t	01/02/0003
