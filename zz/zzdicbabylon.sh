@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://www.babylon.com
-# Tradução de UMA PALAVRA em inglês para vários idiomas.
+# Tradução de uma palavra em inglês para vários idiomas.
 # Francês, alemão, japonês, italiano, hebreu, espanhol, holandês e português.
 # Se nenhum idioma for informado, o padrão é o português.
 # Uso: zzdicbabylon [idioma] palavra   #idioma:dut fre ger heb ita jap ptg spa
