@@ -1,15 +1,15 @@
 # ----------------------------------------------------------------------------
 # http://... - vários
 # Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
-# Suportados: Debian Fedora FreeBSD Gentoo Mandriva Slackware Suse Ubuntu.
+# Suportados: Debian FreeBSD Gentoo Mandriva Slackware Suse Ubuntu.
 # Uso: zzsecurity [distros]
 # Ex.: zzsecutiry
-#      zzsecurity fedora
+#      zzsecurity mandriva
 #      zzsecurity debian gentoo
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzminusculas zzxml
 # ----------------------------------------------------------------------------
@@ -20,7 +20,7 @@ zzsecurity ()
 	local url limite distros
 	local n=5
 	local ano=$(date '+%Y')
-	local distros='debian fedora freebsd gentoo mandriva slackware suse ubuntu'
+	local distros='debian freebsd gentoo mandriva slackware suse ubuntu'
 
 	limite="sed ${n}q"
 
@@ -97,28 +97,6 @@ zzsecurity ()
 		$ZZWWWDUMP "$url" |
 			grep 'SUSE-SU' |
 			sed 's/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
-			$limite
-	fi
-
-	# Fedora
-	if zztool grep_var fedora "$distros"
-	then
-		echo
-		zztool eco '** Atualizações Fedora'
-		url='http://www.linuxsecurity.com/content/blogcategory/89/102/'
-		echo "$url"
-		$ZZWWWHTML "$url" |
-			sed -n '
-				/contentpagetitle/ {
-					# O título está na próxima linha
-					n
-					# Remove TABs e espaços do início
-					s/^[^A-Za-z0-9]*//
-					# Remove </a>
-					s|</a>||
-					# Mostra o resultado
-					p
-				}' |
 			$limite
 	fi
 
