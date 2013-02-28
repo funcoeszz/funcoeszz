@@ -1,28 +1,43 @@
 # ----------------------------------------------------------------------------
 # Calcula o número de dias úteis entre duas datas, inclusive ambas.
+# Chamada sem argumentos, mostra os total de dias úteis no mês atual.
 # Obs.: Não leva em conta feriados.
-# Uso: zzdiasuteis data-inicial data-final
-# Ex.: zzdiasuteis 01/01/2011 31/01/2011     # Retorna: 21
+#
+# Uso: zzdiasuteis [data-inicial data-final]
+# Ex.: zzdiasuteis                          # Fevereiro de 2013 tem 20 dias …
+#      zzdiasuteis 01/01/2011 31/01/2011    # 21
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-20
-# Versão: 1
+# Versão: 2
 # Licença: GPL
-# Requisitos: zzdata zzdiadasemana
+# Requisitos: zzdata zzdiadasemana zzdatafmt zzcapitalize
 # Tags: data, cálculo
 # ----------------------------------------------------------------------------
 zzdiasuteis ()
 {
 	zzzz -h diasuteis "$1" && return
 
-	local data dias dia1 semanas avulsos ini fim
+	local data dias dia1 semanas avulsos ini fim hoje mes ano
 	local avulsos_uteis=0
 	local uteis="0111110"  # D S T Q Q S S
 	local data1="$1"
 	local data2="$2"
 
 	# Verificação dos parâmetros
-	if test $# -ne 2
+	if test $# -eq 0
+	then
+		# Sem argumentos, calcula para o mês atual
+		# Exemplo para fev/2013: zzdiasuteis 01/02/2013 28/02/2013
+		hoje=$(zzdata hoje)
+		data1=$(zzdatafmt -f 01/MM/AAAA $hoje)
+		data2=$(zzdata $(zzdata $data1 + 1m) - 1)
+		mes=$(zzdatafmt -f MES $hoje | zzcapitalize)
+		ano=$(zzdatafmt -f AAAA $hoje)
+		echo "$mes de $ano tem $(zzdiasuteis $data1 $data2) dias úteis."
+		return 0
+
+	elif test $# -ne 2
 	then
 		zztool uso diasuteis
 		return 1

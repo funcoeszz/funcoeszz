@@ -113,8 +113,10 @@ foo 		01/01/1970	r	'^Data inv.lida .*'
 01/01/1970	foo 		r	'^Data inv.lida .*'
 01/01/1970	29.02.2008	r	'^Data inv.lida .*'
 
+# Sem argumentos, mostra os total de dias úteis no mês atual
+''		''		r	'^[A-Z][a-z][a-z]+ de .... tem .. dias úteis\.$'
+
 # Falta de argumentos
-''		''		r	^Uso:.*
 01/01/1970	''		r	^Uso:.*
 )
 . _lib
