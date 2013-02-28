@@ -292,7 +292,8 @@ zztv ()
 			sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g'|
 			sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'|
 			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p"|sed '$d'|
-			sed '1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g'
+			sed '1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g' |
+			sed -e ':a' -e '/^.\{25,70\}$/ { s/ Cod: / &/; ta' -e '}'
 		elif [ $flag -eq 1 ]
 		then
 			$ZZWWWHTML "$URL" | sed -n '/<li style/{N;p;}'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
