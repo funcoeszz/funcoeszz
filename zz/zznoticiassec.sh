@@ -14,8 +14,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-07-13
-# Versão: 1
+# Versão: 2
 # Licença: GPL
+# Requisitos: zzxml
 # ----------------------------------------------------------------------------
 zznoticiassec ()
 {
@@ -66,11 +67,12 @@ zznoticiassec ()
 	# Linux Today - Security
 	if zztool grep_var t "$sites"
 	then
-		url='http://linuxtoday.com/security/index.html'
+		url='http://feeds.feedburner.com/linuxtoday/linux'
 		echo
 		zztool eco "* Linux Today - Security ($url):"
 		$ZZWWWHTML "$url" |
-			sed -n '/class="nav"><B>/s/<[^>]*>//gp' |
+			zzxml --tag title --untag --unescape |
+			sed 1d |
 			$limite
 	fi
 
