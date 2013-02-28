@@ -13,6 +13,7 @@
 # Licença: GPL
 # Requisitos: zzstr2hexa
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-28 Parou de funcionar (issue #54)
 zzdicesperanto ()
 {
 	zzzz -h dicesperanto "$1" && return
