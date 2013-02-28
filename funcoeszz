@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # funcoeszz
 #
-# INFORMAÇÕES: www.funcoeszz.net
+# INFORMAÇÕES: http://www.funcoeszz.net
 # NASCIMENTO : 22 de Fevereiro de 2000
 # AUTORES    : Aurelio Marinho Jargas <verde (a) aurelio net>
 #              Thobias Salazar Trevisan <thobias (a) thobias org>
 # DESCRIÇÃO  : Funções de uso geral para o shell Bash, que buscam
 #              informações em arquivos locais e fontes na Internet
 # LICENÇA    : GPLv2
-# CHANGELOG  : www.funcoeszz.net/changelog.html
+# CHANGELOG  : http://www.funcoeszz.net/changelog.html
 #
 ZZVERSAO=svn
 ZZUTF=1
