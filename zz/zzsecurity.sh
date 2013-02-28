@@ -9,9 +9,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 4
+# Versão: 5
 # Licença: GPL
-# Requisitos: zzminusculas zzxml
+# Requisitos: zzminusculas zzxml zzfeed
 # ----------------------------------------------------------------------------
 zzsecurity ()
 {
@@ -81,10 +81,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Mandriva'
 		url='http://www.mandriva.com/en/support/security/advisories/feed/'
 		echo "$url"
-		$ZZWWWHTML "$url" |
-			zzxml --tag title --untag |
-			sed 1d |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Suse
@@ -108,12 +105,8 @@ zzsecurity ()
 		url='http://www.freebsd.org/security/advisories.rdf'
 		echo "$url"
 		$ZZWWWDUMP "$url" |
-			sed -n '
-				/<title>/ {
-					s/<[^>]*>//g
-					s/^ *//
-					/BSD-SA/p
-				}' |
+			zzxml --tag title --untag --unescape |
+			sed 1d |
 			$limite
 	fi
 
@@ -124,8 +117,6 @@ zzsecurity ()
 		echo
 		zztool eco '** Atualizações Ubuntu'
 		echo "$url"
-		$ZZWWWHTML "$url" |
-			sed -n '/item/,$ s@.*<title>\(.*\)@\1@p' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 }
