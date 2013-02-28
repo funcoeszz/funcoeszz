@@ -7,7 +7,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-04-03
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 # FIXME: zzgoogle rato roeu roupa rei roma [PPS], [PDF]
@@ -22,8 +22,11 @@ zzgoogle ()
 	# Opções de linha de comando
 	if [ "$1" = '-n' ]
 	then
-		limite=$2
-		shift; shift
+		limite="$2"
+		shift
+		shift
+
+		zztool -e testa_numero "$limite" || return 1
 	fi
 
 	# Verificação dos parâmetros
