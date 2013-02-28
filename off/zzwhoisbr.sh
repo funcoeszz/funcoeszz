@@ -10,6 +10,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-27 Hoje o comando whois pega domínios .br (issue #37)
 zzwhoisbr ()
 {
 	zzzz -h whoisbr "$1" && return
