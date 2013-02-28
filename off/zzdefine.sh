@@ -11,6 +11,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-28 Parou de funcionar (issue #53)
 zzdefine ()
 {
 	zzzz -h define "$1" && return
