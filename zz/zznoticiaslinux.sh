@@ -14,8 +14,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
-# Versão: 2
+# Versão: 3
 # Licença: GPL
+# Requisitos: zzfeed zzxml
 # ----------------------------------------------------------------------------
 zznoticiaslinux ()
 {
@@ -35,11 +36,7 @@ zznoticiaslinux ()
 		url='http://br.noticias.yahoo.com/rss/linux'
 		echo
 		zztool eco "* Yahoo Linux ($url):"
-		$ZZWWWHTML "$url" |
-			zztool texto_em_utf8 |
-			tr '<' '\n' |
-			sed -n '/^item>/,$ s@^title>@@p' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Viva o Linux
@@ -51,7 +48,8 @@ zznoticiaslinux ()
 
 		$ZZWWWHTML "$url/index.rdf" |
 			zztool texto_em_iso |
-			sed -n '1,/<item>/d; /^<title>/s/<[^>]*>//gp' |
+			zzxml --tag title --untag --unescape |
+			sed '1,2 d' |
 			$limite
 	fi
 
@@ -61,11 +59,7 @@ zznoticiaslinux ()
 		url='http://br-linux.org/feed/'
 		echo
 		zztool eco "* BR-Linux ($url):"
-		$ZZWWWHTML "$url" |
-			zztool texto_em_utf8 |
-			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
-			sed 's/&#822[01];/"/g ; s/&#8211;/-/g' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# UnderLinux
@@ -74,10 +68,7 @@ zznoticiaslinux ()
 		url='https://under-linux.org/external.php?do=rss&type=newcontent'
 		echo
 		zztool eco "* UnderLinux ($url):"
-		$ZZWWWHTML "$url" |
-			zztool texto_em_utf8 |
-			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Notícias Linux
@@ -88,7 +79,8 @@ zznoticiaslinux ()
 		zztool eco "* Notícias Linux ($url):"
 		$ZZWWWHTML "$url" |
 			zztool texto_em_iso |
-			sed -n '1,/<item>/d ; s/.*<title>// ; s@</title>@@p' |
+			zzxml --tag title --untag --unescape |
+			sed 1d |
 			$limite
 	fi
 }
