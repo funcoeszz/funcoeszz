@@ -2,31 +2,36 @@
 debug=0
 values=2
 
-saida1="+20%	120
+saida1="\
++20%	120
 100%	100
 -20%	80
 
 20%	20"
 
-saida2="+2,5%	102,50
+saida2="\
++2,5%	102,50
 100%	100,00
 -2,5%	97,50
 
 2,5%	2,50"
 
-saida3="+25%	1543209,86
+saida3="\
++25%	1543209,86
 100%	1234567,89
 -25%	925925,92
 
 25%	308641,97"
 
-saida4="+1%	1,01
+saida4="\
++1%	1,01
 100%	1,00
 -1%	0,99
 
 1%	0,01"
 
-saida5="200%	1000
+saida5="\
+200%	1000
 150%	750
 125%	625
 100%	500
@@ -62,10 +67,6 @@ tests=(
 X	100	t	"Número inválido 'X'"
 
 1	.5%	r	'O valor da porcentagem deve ser um n.*mero. Exemplos: 2 ou 2,5.'
-1	-5%	r	'O valor da porcentagem deve ser um n.*mero. Exemplos: 2 ou 2,5.'
-1	+5%	r	'O valor da porcentagem deve ser um n.*mero. Exemplos: 2 ou 2,5.'
-1	-1,5%	r	'O valor da porcentagem deve ser um n.*mero. Exemplos: 2 ou 2,5.'
-1	+1,5%	r	'O valor da porcentagem deve ser um n.*mero. Exemplos: 2 ou 2,5.'
 1	X%	r	'O valor da porcentagem deve ser um n.*mero. Exemplos: 2 ou 2,5.'
 
 ### valor1 valor2
@@ -122,6 +123,27 @@ X	100	t	"Número inválido 'X'"
 1.234.567,89	25%	t	"$saida3"
 # adição do zero em caso de resultado .123
 1,00		1%	t	"$saida4"
+
+### valor1 +porcentagem
+# inteiro
+100		+20%	t	"120"
+100		-20%	t	"80"
+# primeiro inteiro e % float: escala=2 e vírgula
+100		+2.5%	t	"102,50"
+100		+2,5%	t	"102,50"
+100		-2.5%	t	"97,50"
+100		-2,5%	t	"97,50"
+# escala e vírgula do primeiro
+100,00		+2.5%	t	"102,50"
+100,00		+2,5%	t	"102,50"
+100,00		-2.5%	t	"97,50"
+100,00		-2,5%	t	"97,50"
+# dinheiro com pontos
+1.234.567,89	+25%	t	"1543209,86"
+1.234.567,89	-25%	t	"925925,92"
+# adição do zero em caso de resultado .123
+1,00		+1%	t	"1,01"
+1,00		-1%	t	"0,99"
 
 ### valor1
 500		''	t	"$saida5"
