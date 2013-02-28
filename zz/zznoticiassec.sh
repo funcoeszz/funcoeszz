@@ -14,9 +14,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-07-13
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzxml
+# Requisitos: zzfeed zzxml
 # ----------------------------------------------------------------------------
 zznoticiassec ()
 {
@@ -50,7 +50,8 @@ zznoticiassec ()
 		echo
 		zztool eco "* Linux Security ($url):"
 		$ZZWWWHTML "$url" |
-			sed -n '/item/,$ s@.*<title>\(.*\)</title>@\1@p' |
+			zzxml --tag title --untag --unescape |
+			sed 1d |
 			$limite
 	fi
 
@@ -61,7 +62,8 @@ zznoticiassec ()
 		echo
 		zztool eco "* CERT/CC ($url):"
 		$ZZWWWHTML "$url" |
-			sed -n '/item/,$ s@.*<title>\(.*\)</title>@\1@p' |
+			zzxml --tag title --untag --unescape |
+			sed 1d |
 			$limite
 	fi
 
@@ -71,10 +73,7 @@ zznoticiassec ()
 		url='http://feeds.feedburner.com/linuxtoday/linux'
 		echo
 		zztool eco "* Linux Today - Security ($url):"
-		$ZZWWWHTML "$url" |
-			zzxml --tag title --untag --unescape |
-			sed 1d |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Security Focus
