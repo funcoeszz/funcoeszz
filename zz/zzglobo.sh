@@ -5,7 +5,7 @@
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2007-11-30
-# Versão: 1.3
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzglobo ()
