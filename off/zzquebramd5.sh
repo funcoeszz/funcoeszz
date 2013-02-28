@@ -8,6 +8,7 @@
 # Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-27 Aparentemente não está funcionando (issue #29)
 zzquebramd5 ()
 {
 	zzzz -h quebramd5 "$1" && return
