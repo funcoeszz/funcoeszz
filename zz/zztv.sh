@@ -1,46 +1,63 @@
 # ----------------------------------------------------------------------------
-# Mostra a programação corrente ou de uma emissora no dia ou semana.
+# Mostra a programação da TV, diária ou semanal, com escolha de emissora.
 #
 # Canais:
-# adulto, ae, ae_hd, amazon, animal, arte1, axn_hd, axn, baby, bandeirantes 
-# ou band, band_espotes, band_news, bbc, bbc_hd, biography, bis_hd,
-# bloomberg, boomerang, canal_21, canal_brasil, cancao_nova, cartoon, 
-# casa_clube, max, canal_boi ou boi, cinemax, climatempo, cnn_espanhol, cnn, 
-# cnt, comedy, combate, concert, cultura, corinthians, discovery_civilization
-# ou civil, discovery_hd, discovery_kids ou kids, discovery_science, 
-# discovery_turbo, discovery, disney, disney_hd, disney_jr, disney_xd, dwtv 
-# ou deutsche, entertainment, espanha ou tv_espanha, espn_brasil, espn, 
-# espn_mais, esporte_interativo, eurochannel ou euro, familia ou rede_familia,
-# film_arts, for_man, fox_hd, fox_life, fox_news, fox_sports, fox, futura, fx,
-# gazeta, genesis ou rede_genesis, glitz, globo_bahia, globo_campinas, 
-# globo_df, globo_eptv ou eptv, globo_goias, globo_minas, globo_news, 
-# globo_poa, globo_rj, globo_sp, globo, gloob, gnt, golf, hbo2, hbo_signature,
-# hbo_family, hbo_hd, hbo_plus_e, hbo_plus, hbo, home_health ou health, htv, 
-# hystory ou hystory_channel, hystory_hd, investigacao, isat ou sat, max_hd, 
-# max_prime_e, max_prime, megapix_hd, megapix, mgm, mix ou mix_tv, mtv, 
-# multishow, lbv, national ou nat_geo, nat_geo_hd, nbr, nhk, nickelodeon, 
-# nick_hd, nick_jr, off, playboy_tv, playboy, ppv1, ppv2, ppv3, ppv4, ppv5, 
-# ppv6, premiere_fc, private_gold, rai, ra_tim_bum, record_news ou recordnews
-# ou rnews, record, redetv ou rede_tv, rede_vida ou vida, rit, rtp, rural, 
-# rush_hd, santa_cecilia, sbt, senado, sesc ou senac, sexy_hot, sexy_prive, 
-# shoptime, sic, sony_hd, sony_spin, sony, space_hd, space, sporttv2 ou 
-# sport_tv2, sporttv3 ou sport_tv3, sporttv ou sport_tv, studio_universal ou
-# studio, super_rede, syfy, tbs, tcm, telecine_action, telecine_action_hd,
-# telecine_cult, telecine_hd, telecine_fun, telecine_pipoca, 
-# telecine_pipoca_hd, telecine_premium, telecine,tele_sur, terra_viva, tnt,
-# tnt_hd, tooncast, travel, trutv_hd, trutv, tv5_monde ou monde ou tv5, 
-# tv_brasil ou tvbrasil, tv_brasil_central ou central, tv_camara, 
-# tv_escola ou escola, tv_justica ou justiva, tv_uniao, universal, venus, 
-# vh1, vh1_hd, vh1_mega, viva, warner, warner_hd, woohoo
+# adulto                 espn_brasil        megapix       sony_spin
+# ae                     espn_mais          megapix_hd    space
+# ae_hd                  esporte_interativo mgm           space_hd
+# amazon                 eurochannel        mix_tv        sport_tv
+# animal                 film_arts          mtv           sport_tv2
+# arte1                  for_man            multishow     sport_tv3
+# axn                    fox                nat_geo       studio_universal
+# axn_hd                 fox_hd             nat_geo_hd    super_rede
+# baby                   fox_life           nbr           syfy
+# band                   fox_news           nhk           tbs
+# band_espotes           fox_sports         nickelodeon   tcm
+# band_news              futura             nick_hd       telecine
+# bbc                    fx                 nick_jr       telecine_action
+# bbc_hd                 gazeta             off           telecine_action_hd
+# biography              glitz              playboy       telecine_cult
+# bis_hd                 globo              playboy_tv    telecine_fun
+# bloomberg              globo_bahia        ppv1          telecine_hd
+# boomerang              globo_campinas     ppv2          telecine_pipoca
+# canal_21               globo_df           ppv3          telecine_pipoca_hd
+# canal_boi              globo_eptv         ppv4          telecine_premium
+# canal_brasil           globo_goias        ppv5          tele_sur
+# cancao_nova            globo_minas        ppv6          terra_viva
+# cartoon                globo_news         premiere_fc   tnt
+# casa_clube             globo_poa          private_gold  tnt_hd
+# cinemax                globo_rj           rai           tooncast
+# climatempo             globo_sp           ra_tim_bum    travel
+# cnn                    gloob              record        trutv
+# cnn_espanhol           gnt                record_news   trutv_hd
+# cnt                    golf               redetv        tv5_monde
+# combate                hbo                rede_familia  tv_brasil
+# comedy                 hbo2               rede_genesis  tv_brasil_central
+# concert                hbo_family         rede_vida     tv_camara
+# corinthians            hbo_hd             rit           tv_escola
+# cultura                hbo_plus           rtp           tv_espanha
+# discovery              hbo_plus_e         rural         tv_justica
+# discovery_civilization hbo_signature      rush_hd       tv_uniao
+# discovery_hd           history            santa_cecilia universal
+# discovery_kids         history_hd         sbt           venus
+# discovery_science      home_health        senac         vh1
+# discovery_turbo        htv                senado        vh1_hd
+# disney                 investigacao       sesc          vh1_mega
+# disney_hd              isat               sexy_hot      viva
+# disney_jr              lbv                sexy_prive    warner
+# disney_xd              max                shoptime      warner_hd
+# dwtv                   max_hd             sic           woohoo
+# entertainment          max_prime          sony
+# espn                   max_prime_e        sony_hd
 #
 # Programação corrente:
-# doc ou documentario, esporte ou esportes ou futebol, filmes, infantil,
-# series ou seriados, variedades, todos ou agora (padrão).
+# doc, esportes, filmes, infantil, series, variedades, todos, agora (padrão).
 #
 # Se o segundo argumento for "semana" ou "s" mostra toda programação semanal.
 # Opção só é válida para os canais.
 # Se o primeiro argumento é cod seguido de um número, obtido pelas listagens
 # citadas anteriormente, com segundo argumento, mostra um resumo do programa.
+#
 # Uso: zztv <emissora> [semana|s]  ou  zztv cod <numero>
 # Ex.: zztv cultura
 #      zztv cod 3235238
