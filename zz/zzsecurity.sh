@@ -96,10 +96,11 @@ zzsecurity ()
 	then
 		echo
 		zztool eco '** Atualizações Suse'
-		url='http://www.novell.com/linux/security/advisories.html'
+		url='https://www.suse.com/support/update/'
 		echo "$url"
 		$ZZWWWDUMP "$url" |
-			sed -n 's/^.* \([0-9][0-9] *... *[0-9][0-9][0-9][0-9]\)/\1/p' |
+			grep 'SUSE-SU' |
+			sed 's/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
 			$limite
 	fi
 
