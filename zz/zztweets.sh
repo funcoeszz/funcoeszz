@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
-# Busca os últimos tweets de um usuário.
-# Uso: zztweets @username
-# Ex.: zztweets @oreio
+# Busca as mensagens mais recentes de um usuário do Twitter.
+# Uso: zztweets username
+# Ex.: zztweets oreio
 #
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Desde: 2009-07-30
