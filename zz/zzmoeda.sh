@@ -12,7 +12,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-03-29
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzmoeda ()
@@ -41,46 +41,17 @@ zzmoeda ()
 			/IFRAME:/d
 			s/\[.*]//
 			s/^  *//
-			/[0-9][0-9]$/!d
+			/h[0-9][0-9]$/!d
 
-			# Apaga variação (deixa apenas variação-%)
-			s/\(.*\) -\{0,1\}[0-9][0-9]*,[0-9]\{4\}/\1/
-
-			# Adiciona '-' nas colunas vazias de compra
-			/[0-9][,.][0-9]\{4\}.*[0-9][,.][0-9]\{4\}/!s/[0-9][0-9]*[,.][0-9]\{4\}/-  &/
-
-			# Tira espaço da sigla do Peso Mexicano (MXP 24H)
-			s/ \([24][48]H\) /-\1 /
-
-			# Separa os campos por @, do fim ao início da linha
-			s/  */ /g
-			s/\(.*\) /\1@/
-			s/\(.*\) /\1@/
-			s/\(.*\) /\1@/
-			s/\(.*\) /\1@/
-			s/\(.*\) /\1@/
-
-			# Manda o nome da moeda lá pro final da linha
-			# No início desalinha, o printf %s conta UTF errado
-			s/\([^@]*\)@\(.*\)/\2@\1/
-
-			# Espaços viram _ para não atrapalharem
-			y/ /_/' |
-		tr @ \\t |
+			# Move nome completo da moeda para o fim da linha
+			s/^\([^»]*\)»  *\([^ ].*\)/\2   \1/
+		' |
 		grep -i "$padrao"
 	)
 
 	# Pescamos algo?
 	[ "$dados" ] || return
 
-	# Sim! Então formate uma tabela bonitinha com o resultado
-	formato='%-7s %12s %12s %6s %11s  %s'
-
-	printf "$formato\n" Sigla Compra Venda Var.% Hora Moeda
-
-	echo "$dados" |
-		while read linha
-		do
-			printf "$formato\n" $linha | tr _ ' '
-		done
+	echo "        Compra     Venda        Variação"
+	echo "$dados"
 }
