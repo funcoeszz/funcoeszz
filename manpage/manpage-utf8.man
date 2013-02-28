@@ -1,6 +1,5 @@
 .TH "Funções ZZ" 1 "" ""
 
-
 .SH zzajuda
 
 .nf
@@ -43,17 +42,6 @@ Ex.: zzalfabeto --militar
 .fi
 
 
-.SH zzanatel
-
-.nf
-http://sistemas.anatel.gov.br/SIPT/Atualizacao/N_ConsultaTarifas/tela.asp
-Busca as tarifas das operadoras no plano básico para ligações DDD.
-Uso: zzanatel DDD_Origem Prefixo_Origem DDD_Destino Prefixo_Destino
-Ex.: zzanatel 48 3224 12 3943
-
-.fi
-
-
 .SH zzansi2html
 
 .nf
@@ -65,6 +53,21 @@ Uso: zzansi2html [arquivo]
 Ex.: zzecho --letra verde -s -p -N testando | zzansi2html
    ls --color /etc | zzansi2html > ls.html
    zzcores | zzansi2html > cores.html
+
+.fi
+
+
+.SH zzarrumacidade
+
+.nf
+Arruma o nome da cidade informada: maiúsculas, abreviações, acentos, etc.
+
+Uso: zzarrumacidade [cidade]
+Ex.: zzarrumacidade SAO PAULO                     # São Paulo
+   zzarrumacidade rj                            # Rio de Janeiro
+   zzarrumacidade Floripa                       # Florianópolis
+   echo Floripa | zzarrumacidade                # Florianópolis
+   cat cidades.txt | zzarrumacidade             # [uma cidade por linha]
 
 .fi
 
@@ -115,6 +118,22 @@ Ex.: zzbeep 0
 .fi
 
 
+.SH zzbicho
+
+.nf
+Jogo do bicho.
+Com um número como argumento indica o bicho e o grupo.
+Se o for um número entre 1 e 25 seguido de "g", lista os números do grupo.
+Sem argumento ou com apenas "g" lista todos os grupos de bichos.
+
+Uso: zzbicho [numero] [g]
+Ex.: zzbicho 123456
+   zzbicho 14 g
+   zzbicho g
+
+.fi
+
+
 .SH zzbissexto
 
 .nf
@@ -130,7 +149,7 @@ Ex.: zzbissexto
 .SH zzblist
 
 .nf
-Mostra se o IP passado está em alguma blacklist  (SBL, PBL e XBL).
+Mostra se o IP informado está em alguma blacklist (SBL, PBL e XBL).
 Uso: zzblist IP
 Ex.: zzblist 200.199.198.197
 
@@ -143,14 +162,35 @@ Ex.: zzblist 200.199.198.197
 http://br.finance.yahoo.com
 Pesquisa índices de bolsas e cotações de ações.
 Sem parâmetros mostra a lista de bolsas disponíveis (códigos).
-Com o parâmetro -l apenas mostra as bolsas disponíveis e seus nomes.
-Com o parâmetro sendo um código de bolsa ou ação mostra sua última
-cotação. Seguido de 1 ou 2 datas, pesquisa as cotações nos dias.
-Com o parâmetro sendo um código de bolsa seguido de um texto qualquer
-pesquisa-o no nome ou código das ações disponíves na bolsa citada.
-Com o parâmetro -l seguido do código da bolsa, lista as ações (códigos).
-Com o parâmetro --lista seguido do código da bolsa, lista as ações com
-nome e última cotação.
+Com 1 parâmetro:
+ -l: apenas mostra as bolsas disponíveis e seus nomes.
+ commodities: produtos de origem primária nas bolsas.
+ taxas_fixas ou moedas: exibe tabela de comparação de câmbio (pricipais).
+ taxas_cruzadas: exibe a tabela cartesiana do câmbio.
+ nome_moedas ou moedas_nome: lista códigos e nomes das moedas usadas.
+ servicos, economia ou politica: mostra notícias relativas a esse assuntos.
+ noticias: junta as notícias de servicos e economia.
+ volume: lista ações líderes em volume de negócios na Bovespa.
+ alta ou baixa: lista as ações nessa condição na BMFBovespa.
+ "código de bolsa ou ação": mostra sua última cotação.
+
+Com 2 parâmetros:
+ -l e código de bolsa: lista as ações (códigos).
+ --lista e "código de bolsa": lista as ações com nome e última cotação.
+ taxas_fixas ou moedas <principais|europa|asia|latina>: exibe tabela de
+comparação de câmbio dessas regiões.
+ "código de bolsa" e um texto: pesquisa-o no nome ou código das ações
+ disponíveis na bolsa citada.
+ "código de bolsa ou ação" e data: pesquisa a cotação no dia.
+ noticias e "código de ação": Noticias relativas a essa ação (só Bovespa)
+
+Com 3 parâmetros ou mais:
+ "código de bolsa ou ação" e 2 datas: pesquisa as cotações nos dias com
+ comparações entre datas e variações da ação ou bolsa pesquisada.
+ vs (ou comp) e 2 códigos de bolsas ou ações: faz a comparação entre as duas
+ações ou bolsas. Se houver um quarto parametro como uma data faz essa
+comparaçao na data especificada. Mas não compara ações com bolsas.
+
 Uso: zzbolsas [-l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
 Ex.: zzbolsas                  # Lista das bolsas (códigos)
    zzbolsas -l               # Lista das bolsas (nomes)
@@ -160,6 +200,13 @@ Ex.: zzbolsas                  # Lista das bolsas (códigos)
    zzbolsas ^BVSP            # Cotação do índice Bovespa
    zzbolsas PETR4.SA         # Cotação das ações da Petrobrás
    zzbolsas PETR4.SA 21/12/2010  # Cotação da Petrobrás nesta data
+   zzbolsas commodities      # Tabela de commodities
+   zzbolsas altas            # Lista ações em altas na Bovespa
+   zzbolsas volume           # Lista ações em alta em volume de negócios
+   zzbolsas taxas_fixas
+   zzbolsas taxas_cruzadas
+   zzbolsas noticias         # Noticias recentes do mercado financeiro
+   zzbolsas vs petr3.sa vale5.sa # Compara ambas cotações
 
 .fi
 
@@ -168,11 +215,11 @@ Ex.: zzbolsas                  # Lista das bolsas (códigos)
 
 .nf
 http://esporte.uol.com.br/
-Mostra a tabela atualizada do Campeonato Brasileiro - Série A e Série B.
+Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B ou C.
 Se for fornecido um numero mostra os jogos da rodada, com resultados.
-Com argumento -l lista os todos os clubes da séria A e B.
+Com argumento -l lista os todos os clubes da série A e B.
 Se o argumento -l for seguido do nome do clube, lista todos os jogos já
-ocorridos do clube desde o começo do ano de qualquer campeonato, e os 
+ocorridos do clube desde o começo do ano de qualquer campeonato, e os
 próximos jogos no brasileirão.
 
 Nomenclatura:
@@ -186,11 +233,11 @@ Nomenclatura:
 	SG  - Saldo de Gols
 	(%) - Aproveitamento (pontos)
 
-Uso: zzbrasileirao [a | b] [numero rodada]
-Uso: zzbrasileirao -l [nome do clube]
+Uso: zzbrasileirao [a|b|c] [numero rodada] ou zzbrasileirao -l [nome clube]
 Ex.: zzbrasileirao
    zzbrasileirao a
    zzbrasileirao b
+   zzbrasileirao c
    zzbrasileirao 27
    zzbrasileirao b 12
    zzbrasileirao -l
@@ -218,8 +265,9 @@ Ex.: zzbyte 2048                    # Quanto é 2048 bytes?  -- 2K
 .nf
 Calculadora.
 Wrapper para o comando bc, que funciona no formato brasileiro: 1.234,56.
-Os operadores principais são + - / * ^ %, veja outros em "man bc".
 Obs.: Números fracionados podem vir com vírgulas ou pontos: 1,5 ou 1.5.
+Use a opção --soma para somar uma lista de números vindos da STDIN.
+
 Uso: zzcalcula operação|--soma
 Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
    zzcalcula '2^2*(4-1)'          # 2 ao quadrado vezes 4 menos 1
@@ -233,12 +281,32 @@ Ex.: zzcalcula 2,20 + 3.30          # vírgulas ou pontos, tanto faz
 
 .nf
 Calcula os endereços de rede e broadcast à partir do IP e máscara da rede.
-Obs.: Se não for especificado a máscara, é assumido a 255.255.255.0.
+Obs.: Se não especificada, será usada a máscara padrão (RFC 1918) ou 24.
 Uso: zzcalculaip ip [netmask]
 Ex.: zzcalculaip 127.0.0.1 24
    zzcalculaip 10.0.0.0/8
    zzcalculaip 192.168.10.0 255.255.255.240
    zzcalculaip 10.10.10.0
+
+.fi
+
+
+.SH zzcapitalize
+
+.nf
+Altera Um Texto Para Deixar Todas As Iniciais De Palavras Em Maiúsculas.
+Use a opção -1 para converter somente a primeira letra de cada linha.
+Use a opção -w para adicionar caracteres de palavra (Padrão: A-Za-z0-9áéí…)
+
+Uso: zzcapitalize [texto]
+Ex.: zzcapitalize root                                 # Root
+   zzcapitalize kung fu panda                        # Kung Fu Panda
+   zzcapitalize -1 kung fu panda                     # Kung fu panda
+   zzcapitalize quero-quero                          # Quero-Quero
+   echo eu_uso_camel_case | zzcapitalize             # Eu_Uso_Camel_Case
+   echo "i don't care" | zzcapitalize                # I Don'T Care
+   echo "i don't care" | zzcapitalize -w \e'          # I Don't Care
+   cat arquivo.txt | zzcapitalize
 
 .fi
 
@@ -261,12 +329,12 @@ Ex.: zzcarnaval
 .nf
 http://cbn.globoradio.com.br
 Busca e toca os últimos comentários dos comentaristas da radio CBN.
-Uso: zzcbn [-mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn -lista
+Uso: zzcbn [--mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn --lista
 Ex.: zzcbn -c max -d ontem
    zzcbn -c mauro -d tudo
    zzcbn -c juca -d 13/05/09
    zzcbn -c miriam
-   zzcbn -mp3 -c max
+   zzcbn --mp3 -c max
 
 .fi
 
@@ -294,6 +362,22 @@ Ex.: zzchecamd5 ./ubuntu-8.10.iso f9e0494e91abb2de4929ef6e957f7753
 .fi
 
 
+.SH zzcidade
+
+.nf
+http://pt.wikipedia.org/wiki/Anexo:Lista_de_munic%C3%ADpios_do_Brasil
+Lista completa com todas as 5.500+ cidades do Brasil, com busca.
+Obs.: Sem argumentos, mostra uma cidade aleatória.
+
+Uso: zzcidade [palavra|regex]
+Ex.: zzcidade              # mostra uma cidade qualquer
+   zzcidade campos       # mostra as cidades com "Campos" no nome
+   zzcidade '(SE)'       # mostra todas as cidades de Sergipe
+   zzcidade ^X           # mostra as cidades que começam com X
+
+.fi
+
+
 .SH zzcinclude
 
 .nf
@@ -306,37 +390,11 @@ Ex.: zzcinclude stdio
 .fi
 
 
-.SH zzcinemais
-
-.nf
-http://www.cinemais.com.br
-Busca horários das sessões dos filmes no site do Cinemais.
-Cidades disponíveis:
-Anapolis               -  32
-Cuiaba                 -  10
-Guaratingueta          -  21
-Milenium               -  29
-Manaus Plaza           -  20
-Marilia                -  17
-Patos de Minas         -  11
-Ribeirao Preto         -  13
-Sao Jose do Rio Preto  -  30
-Sertaozinho            -  28
-Tangara da Serra       -  12
-Uberaba                -   9
-Uberlandia             -   8
-
-Uso: zzcinemais [cidade]
-Ex.: zzcinemais Uberaba
-
-.fi
-
-
 .SH zzcinemark15h
 
 .nf
 http://cinemark.com.br/programacao/cidade/1
-Exibe os filmes com sessão às 15h (mais barata) no cinemark da sua cidade.
+Exibe os filmes com sessão às 15h (mais barata) no Cinemark da sua cidade.
 Uso: zzcinemark15h [cidade | codigo_cinema]
 Ex.: zzcinemark15h sao paulo
 
@@ -393,7 +451,7 @@ Conta o número de vezes que cada palavra aparece em um texto.
 Opções: -i       Trata maiúsculas e minúsculas como iguais, FOO = Foo = foo
       -n NÚM   Mostra apenas as NÚM palavras mais frequentes
 
-Uso: zzcontapalavras [arquivo(s)]
+Uso: zzcontapalavras [-i] [-n N] [arquivo(s)]
 Ex.: zzcontapalavras arquivo.txt
    zzcontapalavras -i arquivo.txt
    zzcontapalavras -i -n 10 /etc/passwd
@@ -457,12 +515,25 @@ Ex.: zzcorpuschristi
 .SH zzcorrida
 
 .nf
-Mostra a classificação de pilotos das corridas de:
-Fórmula 1 (f1 ou formula1), Fórmula Indy (indy ou formula_indy), 
-Fórmula Truck (truck ou formula_truck), Stock Car (stock ou stock_car), 
-Moto GP (moto ou moto_gp), GT Brasil (gt ou gt_brasil)
+Mostra a classificação dos pilotos em várias corridas (F1, Indy, GP, ...).
 
-Uso: zzcorrida <f1|indy|truck|stock|moto|gt>
+ Use as seguintes combinações para as corridas
+Fórmula 1: f1 ou formula1
+Fórmula Indy: indy ou formula_indy
+GP2: gp2
+Fórmula Truck: truck ou formula_truck
+Fórmula Truck Sul-Americana: truck_sul
+Stock Car: stock ou stock_car
+Moto GP: moto ou moto_gp
+Moto 2: moto2
+Moto 3: moto3
+Rali: rali
+Sprint Cup (Nascar): nascar ou nascar1 ou sprint ou sprint_cup
+Truck Series (Nascar): nascar2 ou truck_series
+
+Uso: zzcorrida <f1|indy|gp2|truck|truck_sul|stock|rali>
+Uso: zzcorrida <moto|moto_gp|moto2|moto3>
+Uso: zzcorrida <nascar|nascar1|sprint|nascar2|truck_series>
 Ex.: zzcorrida truck
 
 .fi
@@ -513,6 +584,7 @@ Ex.: zzdata                           # que dia é hoje?
 Muda o formato de uma data, com várias opções de personalização.
 Reconhece datas em vários formatos, como aaaa-mm-dd, dd.mm.aaaa e dd/mm.
 Obs.: Se você não informar o ano, será usado o ano corrente.
+Use a opção --en para usar nomes de meses em inglês.
 Use a opção -f para mudar o formato de saída (o padrão é DD/MM/AAAA):
 
    Código   Exemplo     Descrição
@@ -521,6 +593,7 @@ Use a opção -f para mudar o formato de saída (o padrão é DD/MM/AAAA):
    AA       03          Ano com 2 dígitos
    A        3           Ano sem zeros à esquerda (1 ou 2 dígitos)
    MES      fevereiro   Nome do mês
+   MMM      fev         Nome do mês com três letras
    MM       02          Mês com 2 dígitos
    M        2           Mês sem zeros à esquerda
    DD       01          Dia com 2 dígitos
@@ -529,26 +602,14 @@ Use a opção -f para mudar o formato de saída (o padrão é DD/MM/AAAA):
 Uso: zzdatafmt [-f formato] [data]
 Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
    zzdatafmt 31.12.11                   # 31/12/2011
-   zzdatafmt 31/12                      # 31/12/2011 (ano atual)
-   zzdatafmt -f MES hoje                # maio (mês atual)
+   zzdatafmt 31/12                      # 31/12/2011    (ano atual)
+   zzdatafmt -f MES hoje                # maio          (mês atual)
+   zzdatafmt -f MES --en hoje           # May           (em inglês)
    zzdatafmt -f AAAA 31/12/11           # 2011
    zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11
    zzdatafmt -f D/M/A 01/02/2003        # 1/2/3
    zzdatafmt -f "D de MES" 01/05/95     # 1 de maio
-   echo 31/12/2011 | zzdatafmt -f MM    # 12
-
-.fi
-
-
-.SH zzdefine
-
-.nf
-http://www.google.com
-Retorno da função "define:" do Google.
-Idiomas disponíveis: en pt es de fr it. O idioma padrão é "all".
-Uso: zzdefine [idioma] palavra_ou_sigla
-Ex.: zzdefine imho
-   zzdefine pt imho
+   echo 31/12/2011 | zzdatafmt -f MM    # 12            (via STDIN)
 
 .fi
 
@@ -561,29 +622,6 @@ Busca o significado de um termo, palavra ou expressão no site Definr.
 Uso: zzdefinr termo
 Ex.: zzdefinr headphone
    zzdefinr in force
-
-.fi
-
-
-.SH zzdelicious
-
-.nf
-Lista as URLs de uma dada tag de um determinado usuário.
-Obs.: Se não informada a tag, serão listadas as últimas URLs.
-Uso: zzdelicious usuario [tag]
-Ex.: zzdelicious felipensp
-   zzdelicious felipensp php
-
-.fi
-
-
-.SH zzdetransp
-
-.nf
-http://www.detran.sp.gov.br
-Consulta débitos do veículo, como licenciamento, IPVA e multas (Detran-SP).
-Uso: zzdetransp número-renavam
-Ex.: zzdetransp 123456789
 
 .fi
 
@@ -606,10 +644,12 @@ Ex.: zzdiadasemana
 
 .nf
 Calcula o número de dias úteis entre duas datas, inclusive ambas.
+Chamada sem argumentos, mostra os total de dias úteis no mês atual.
 Obs.: Não leva em conta feriados.
-Uso: zzdiasuteis data-inicial data-final
-Ex.: zzdiasuteis
-   zzdiasuteis 01/01/2011 31/01/2011     # Retorna: 21
+
+Uso: zzdiasuteis [data-inicial data-final]
+Ex.: zzdiasuteis                          # Fevereiro de 2013 tem 20 dias …
+   zzdiasuteis 01/01/2011 31/01/2011    # 21
 
 .fi
 
@@ -628,51 +668,16 @@ Ex.: zzdicasl ssh
 .fi
 
 
-.SH zzdicbabelfish
-
-.nf
-http://babelfish.altavista.digital.com
-Faz traduções de palavras/frases/textos entre idiomas.
-Basta especificar quais os idiomas de origem e destino e a frase.
-Obs.: Se os idiomas forem omitidos, a tradução será inglês -> português.
-
-Idiomas: pt_en pt_fr es_en es_fr it_en it_fr de_en de_fr
-       fr_en fr_de fr_el fr_it fr_pt fr_nl fr_es
-       ja_en ko_en zh_en zt_en el_en el_fr nl_en nl_fr ru_en
-       en_zh en_zt en_nl en_fr en_de en_el en_it en_ja
-       en_ko en_pt en_ru en_es
-
-Uso: zzdicbabelfish [idiomas] palavra(s)
-Ex.: zzdicbabelfish my dog is green
-   zzdicbabelfish pt_en falcão é massa
-   zzdicbabelfish en_de my hovercraft if full of eels
-
-.fi
-
-
 .SH zzdicbabylon
 
 .nf
 http://www.babylon.com
-Tradução de UMA PALAVRA em inglês para vários idiomas.
+Tradução de uma palavra em inglês para vários idiomas.
 Francês, alemão, japonês, italiano, hebreu, espanhol, holandês e português.
 Se nenhum idioma for informado, o padrão é o português.
 Uso: zzdicbabylon [idioma] palavra   #idioma:dut fre ger heb ita jap ptg spa
 Ex.: zzdicbabylon hardcore
    zzdicbabylon jap tree
-
-.fi
-
-
-.SH zzdicesperanto
-
-.nf
-http://wwwtios.cs.utwente.nl/traduk/
-Dicionário de Esperanto em inglês, português e alemão.
-Possui busca por palavra nas duas direções. O padrão é português-esperanto.
-Uso: zzdicesperanto [idioma] palavra
-Ex.: zzdicesperanto disquete
-   zzdicesperanto EO-PT espero
 
 .fi
 
@@ -694,6 +699,7 @@ Ex.: zzdicjargon vi
 .nf
 http://www.dicio.com.br
 Dicionário de português.
+Obs.: Ainda não funciona com palavras acentuadas :( [issue #41]
 Uso: zzdicportugues palavra
 Ex.: zzdicportugues bolacha
 
@@ -720,16 +726,6 @@ Ex.: zzdicportugues2 bolacha
 .fi
 
 
-.SH zzdictodos
-
-.nf
-Usa todas as funções de dicionário e tradução de uma vez.
-Uso: zzdictodos palavra
-Ex.: zzdictodos Linux
-
-.fi
-
-
 .SH zzdiffpalavra
 
 .nf
@@ -745,9 +741,8 @@ Ex.: zzdiffpalavra texto-orig.txt texto-novo.txt
 .SH zzdolar
 
 .nf
-http://br.invertia.com
-Busca a cotação do dia do dólar (comercial, paralelo e turismo).
-Obs.: As cotações são atualizadas de 10 em 10 minutos.
+http://economia.terra.com.br
+Busca a cotação do dia do dólar (comercial, turismo e PTAX).
 Uso: zzdolar
 Ex.: zzdolar
 
@@ -831,13 +826,32 @@ Ex.: zzenviaemail -f quem_envia@dominio.com -t quem_recebe@dominio.com \e
 .fi
 
 
-.SH zzeuro
+.SH zzestado
 
 .nf
-http://cotacoes.agronegocios-e.com.br/
-Busca a cotação atual do EURO com relação ao Dólar e ao Real.
-Uso: zzeuro
-Ex.: zzeuro
+Lista os estados do Brasil e suas capitais.
+Obs.: Sem argumentos, mostra a lista completa.
+
+Opções: --sigla        Mostra somente as siglas
+      --nome         Mostra somente os nomes
+      --capital      Mostra somente as capitais
+      --slug         Mostra somente os slugs (nome simplificado)
+      --formato FMT  Você escolhe o formato de saída, use os tokens:
+                     {sigla}, {nome}, {capital}, {slug}, \en , \et
+      --python       Formata como listas/dicionários do Python
+      --javascript   Formata como arrays do JavaScript
+      --php          Formata como arrays do PHP
+      --html         Formata usando a tag <SELECT> do HTML
+      --url,--url2   Exemplos simples de uso da opção --formato
+
+Uso: zzestado [--OPÇÃO]
+Ex.: zzestado                      # [mostra a lista completa]
+   zzestado --sigla              # AC AL AP AM BA …
+   zzestado --html               # <option value="AC">AC - Acre</option> …
+   zzestado --python             # siglas = ['AC', 'AL', 'AP', …
+   zzestado --formato '{sigla},'             # AC,AL,AP,AM,BA,…
+   zzestado --formato '{sigla} - {nome}\en'   # AC - Acre …
+   zzestado --formato '{capital}-{sigla}\en'  # Rio Branco-AC …
 
 .fi
 
@@ -972,19 +986,33 @@ Ex.: zzgravatar fulano@dominio.com.br
 .fi
 
 
+.SH zzhexa2str
+
+.nf
+Converte os bytes em hexadecimal para a string equivalente.
+Uso: zzhexa2str [bytes]
+Ex.: zzhexa2str 40 4d 65 6e 74 65 42 69 6e 61 72 69 61   # sem prefixo
+   zzhexa2str 0x42 0x69 0x6E                           # com prefixo 0x
+   echo 0x42 0x69 0x6E | zzhexa2str
+
+.fi
+
+
 .SH zzhora
 
 .nf
 Faz cálculos com horários.
 A opção -r torna o cálculo relativo à primeira data, por exemplo:
 02:00 - 03:30 = -01:30 (sem -r) e 22:30 (com -r)
-Uso: zzhora [-r] hh:mm [+|- hh:mm]
-Ex.: zzhora 8:30 + 17:25        # preciso somar duas horas!
+
+Uso: zzhora [-r] hh:mm [+|- hh:mm] ...
+Ex.: zzhora 8:30 + 17:25        # preciso somar dois horários
    zzhora 12:00 - agora       # quando falta para o almoço?
    zzhora -12:00 + -5:00      # horas negativas!
    zzhora 1000                # quanto é 1000 minutos?
    zzhora -r 5:30 - 8:00      # que horas ir dormir para acordar às 5:30?
    zzhora -r agora + 57:00    # e daqui 57 horas, será quando?
+   zzhora 1:00 + 2:00 + 3:00 - 4:00 - 0:30   # cálculos múltiplos
 
 .fi
 
@@ -1047,7 +1075,7 @@ Ex.: zzhowto apache
 .SH zzipinternet
 
 .nf
-http://www.whatismyip.com
+http://www.getip.com
 Mostra o seu número IP (externo) na Internet.
 Uso: zzipinternet
 Ex.: zzipinternet
@@ -1116,22 +1144,6 @@ Ex.: zzlembrete                      # Mostra todos
    zzlembrete 5                    # Mostra o 5º lembrete
    zzlembrete 5d                   # Deleta o 5º lembrete
    zzlembrete Almoço com a sogra   # Adiciona lembrete
-
-.fi
-
-
-.SH zzletrademusica
-
-.nf
-http://letssingit.com
-Busca letras de músicas, procurando pelo nome da música.
-Obs.: Se encontrar mais de uma, mostra a lista de possibilidades.
-    E se a lista for muito longa, com o argumento -p, seguido sem espaço do
-    número da página, pode-se acessar o restante da lista não visível.
-Uso: zzletrademusica [-p<numero>] texto
-Ex.: zzletrademusica punkrock
-   zzletrademusica kkk took my baby
-   zzletrademusica -p2 Legião Urbana
 
 .fi
 
@@ -1224,13 +1236,11 @@ Ex.: zzloteria
 .SH zzloteria2
 
 .nf
-Consulta os resultados da quina, megasena, duplasena, lotomania, lotofácil,
-federal e timemania.
-Obs.: Se o segundo argumento for um numero, perquisa o resultado filtrando o
-concurso
-    Se nenhum argumento for passado, todas as loterias são mostradas.
-Uso: zzloteria2 [[quina | megasena | duplasena | lotomania | lotofacil |
-federal | timemania | loteca] concurso]
+Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal e timemania.
+Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
+Se nenhum argumento for passado, todas as loterias são mostradas.
+
+Uso: zzloteria2 [[quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|loteca] concurso]
 Ex.: zzloteria2
    zzloteria2 quina megasena
 
@@ -1256,8 +1266,9 @@ Ex.: zzmaiores
 
 .nf
 Converte todas as letras para MAIÚSCULAS, inclusive acentuadas.
-Uso: zzmaiusculas [arquivo]
-Ex.: zzmaiusculas /etc/passwd
+Uso: zzmaiusculas [texto]
+Ex.: zzmaiusculas eu quero gritar                # via argumentos
+   echo eu quero gritar | zzmaiusculas         # via STDIN
 
 .fi
 
@@ -1272,10 +1283,11 @@ Em cada função foi colocado um pequeno help um pouco mais detalhado,
 pois ficou muito extenso colocar no help do zzmat apenas.
 
 Funções matemáticas disponíveis.
-mmc mdc somatoria produtoria media soma fat arranjo combinacao
-pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
+mmc mdc somatoria produtoria media soma fat arranjo arranjo_r combinacao
+combinacao_r pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
 converte sen cos tan csc sec cot asen acos atan log ln abs
-raiz potencia elevado aleatorio random det conf_eq sem_zeros
+raiz potencia pow elevado aleatorio random det conf_eq sem_zeros
+fibonacci (fib) lucas tribonacci (trib) newton binomio_newton
 Mais detalhes: zzmat função
 
 Uso: zzmat [-pnumero] funcoes [número] [número]
@@ -1317,8 +1329,9 @@ Ex.: zzminiurl http://www.funcoeszz.net
 
 .nf
 Converte todas as letras para minúsculas, inclusive acentuadas.
-Uso: zzminusculas [arquivo]
-Ex.: echo NÃO ESTOU GRITANDO | zzminusculas
+Uso: zzminusculas [texto]
+Ex.: zzminusculas NÃO ESTOU GRITANDO             # via argumentos
+   echo NÃO ESTOU GRITANDOO | zzminusculas     # via STDIN
 
 .fi
 
@@ -1382,11 +1395,10 @@ Ex.: zzmudaprefixo -a "antigo_prefixo" -n "novo_prefixo"
 
 .nf
 http://translate.google.com
-Google Tradutor, para narrar frases.
+Narra frases em português usando o Google Tradutor.
 
 Uso: zznarrativa palavras
-   zznarrativa regex é legal	
-
+Ex.: zznarrativa regex é legal
 
 .fi
 
@@ -1485,6 +1497,21 @@ Ex.: zzora 1234
 .fi
 
 
+.SH zzpalpite
+
+.nf
+Palpites de jogos para várias loterias: quina, megasena, lotomania, etc.
+Aqui está a lista completa de todas as loterias suportadas:
+quina, megasena, duplasena, lotomania, lotofácil, timemania, federal, loteca
+
+Uso: zzpalpite [quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|loteca]
+Ex.: zzpalpite
+   zzpalpite megasena
+   zzpalpite megasena federal lotofacil
+
+.fi
+
+
 .SH zzpascoa
 
 .nf
@@ -1515,17 +1542,18 @@ Ex.: zzpiada
 Calcula porcentagens.
 Se informado um número, mostra sua tabela de porcentagens.
 Se informados dois números, mostra a porcentagem relativa entre eles.
-Se informados um número e uma porcentagem, mostra os valores da porcentagem.
+Se informados um número e uma porcentagem, mostra o valor da porcentagem.
+Se informados um número e uma porcentagem com sinal, calcula o novo valor.
 
-Uso: zzporcento valor [valor|porcentagem%]
+Uso: zzporcento valor [valor|[+|-]porcentagem%]
 Ex.: zzporcento 500           # Tabela de porcentagens de 500
    zzporcento 500.0000      # Tabela para número fracionário (.)
    zzporcento 500,0000      # Tabela para número fracionário (,)
    zzporcento 5.000,00      # Tabela para valor monetário
    zzporcento 500 25        # Mostra a porcentagem de 25 para 500 (5%)
    zzporcento 500 1000      # Mostra a porcentagem de 1000 para 500 (200%)
-   zzporcento 500,00 25%    # Mostra quanto é 25% de 500,00
    zzporcento 500,00 2,5%   # Mostra quanto é 2,5% de 500,00
+   zzporcento 500,00 +2,5%  # Mostra quanto é 500,00 + 2,5%
 
 .fi
 
@@ -1537,16 +1565,6 @@ http://www.m-w.com
 Fala a pronúncia correta de uma palavra em inglês.
 Uso: zzpronuncia palavra
 Ex.: zzpronuncia apple
-
-.fi
-
-
-.SH zzquebramd5
-
-.nf
-Tenta quebrar o hash MD5 de uma string.
-Uso: zzquebramd5 <hash>
-Ex.: zzquebramd5 a4757d7419ff3b48e92e90596f0e7548
 
 .fi
 
@@ -1655,10 +1673,10 @@ Ex.: zzrpmfind sed
 .nf
 http://... - vários
 Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
-Suportados: Debian Fedora FreeBSD Gentoo Mandriva Slackware Suse Ubuntu.
+Suportados: Debian FreeBSD Gentoo Mandriva Slackware Suse Ubuntu.
 Uso: zzsecurity [distros]
 Ex.: zzsecutiry
-   zzsecurity fedora
+   zzsecurity mandriva
    zzsecurity debian gentoo
 
 .fi
@@ -1717,7 +1735,7 @@ Ex.: zzseq 10                   # de 1 até 10
 .SH zzsextapaixao
 
 .nf
-Mostra a data da sexta-feira da paixao para qualquer ano.
+Mostra a data da sexta-feira da paixão para qualquer ano.
 Obs.: Se o ano não for informado, usa o atual.
 Regra: 2 dias antes do domingo de Páscoa.
 Uso: zzsextapaixao [ano]
@@ -1765,6 +1783,18 @@ Ex.: zzss
 .fi
 
 
+.SH zzstr2hexa
+
+.nf
+Converte string em bytes em hexadecimal equivalente.
+Uso: zzstr2hexa [string]
+Ex.: zzstr2hexa @MenteBrilhante    # 40 4d 65 6e 74 65 42 72 69 6c 68 61 6e…
+   zzstr2hexa bin                # 62 69 6e
+   echo bin | zzstr2hexa         # 62 69 6e
+
+.fi
+
+
 .SH zzsubway
 
 .nf
@@ -1779,13 +1809,27 @@ Ex.: zzsubway
 .SH zztabuada
 
 .nf
-Imprime a tabuada de um número de 1 a 10. 
+Imprime a tabuada de um número de 1 a 10.
 Se não for informado nenhum argumento será impressa a tabuada de 1 a 9.
 O argumento pode ser entre 0 a 99.
 
-Uso: zztabuada número
+Uso: zztabuada [número]
+Ex.: zztabuada
    zztabuada 2
 
+.fi
+
+
+.SH zztac
+
+.nf
+Inverte a ordem das linhas, mostrando da última até a primeira.
+É uma emulação (portável) do comando tac, presente no Linux.
+
+Uso: zztac [arquivos]
+Ex.: zztac /etc/passwd
+   zztac arquivo.txt outro.txt
+   cat /etc/passwd | zztac
 
 .fi
 
@@ -1835,7 +1879,7 @@ Ex.: zztradutor o livro está na mesa    # the book is on the table
    zztradutor de-es Buch              # Libro
    zztradutor --lista                 # Lista todos os idiomas
    zztradutor --lista eslo            # Procura por "eslo" nos idiomas
-   zztradutor --audio		  # Gera um arquivo OUT.WAV 
+   zztradutor --audio                 # Gera um arquivo OUT.WAV
 
 .fi
 
@@ -1875,28 +1919,66 @@ Ex.: zztrocapalavra excessão exceção *.txt
 .SH zztv
 
 .nf
-Mostra a programação corrente ou de uma emissora no dia ou semana.
-Tv aberta: 
-bandeirantes ou band, cultura, gazeta, globo, mtv, sbt, cnt,
-record, record_news ou recordnews ou rnews, tv_brasil ou tvbrasil,
-rede_21 ou rede21 ou r21, redetv ou rede_tv ou rtv.
+Mostra a programação da TV, diária ou semanal, com escolha de emissora.
 
-Outras canais:
-megapix, cinemax, cinemax_e, max_prime, max_prime_e, tcm,  
-hbo, hbo2, hbo_plus, hbo_plus, hbo_family, hbo_family_e, hbo_hd, tnt, mgm,
-telecine_premium, telecine_action, telecine, telecine_pipoca, telecine_cult, 
-telecine_hd, space, space_hd, canal_brasil, trutv, trutv_hd.
+Canais:
+adulto                 espn_brasil        megapix       sony_spin
+ae                     espn_mais          megapix_hd    space
+ae_hd                  esporte_interativo mgm           space_hd
+amazon                 eurochannel        mix_tv        sport_tv
+animal                 film_arts          mtv           sport_tv2
+arte1                  for_man            multishow     sport_tv3
+axn                    fox                nat_geo       studio_universal
+axn_hd                 fox_hd             nat_geo_hd    super_rede
+baby                   fox_life           nbr           syfy
+band                   fox_news           nhk           tbs
+band_espotes           fox_sports         nickelodeon   tcm
+band_news              futura             nick_hd       telecine
+bbc                    fx                 nick_jr       telecine_action
+bbc_hd                 gazeta             off           telecine_action_hd
+biography              glitz              playboy       telecine_cult
+bis_hd                 globo              playboy_tv    telecine_fun
+bloomberg              globo_bahia        ppv1          telecine_hd
+boomerang              globo_campinas     ppv2          telecine_pipoca
+canal_21               globo_df           ppv3          telecine_pipoca_hd
+canal_boi              globo_eptv         ppv4          telecine_premium
+canal_brasil           globo_goias        ppv5          tele_sur
+cancao_nova            globo_minas        ppv6          terra_viva
+cartoon                globo_news         premiere_fc   tnt
+casa_clube             globo_poa          private_gold  tnt_hd
+cinemax                globo_rj           rai           tooncast
+climatempo             globo_sp           ra_tim_bum    travel
+cnn                    gloob              record        trutv
+cnn_espanhol           gnt                record_news   trutv_hd
+cnt                    golf               redetv        tv5_monde
+combate                hbo                rede_familia  tv_brasil
+comedy                 hbo2               rede_genesis  tv_brasil_central
+concert                hbo_family         rede_vida     tv_camara
+corinthians            hbo_hd             rit           tv_escola
+cultura                hbo_plus           rtp           tv_espanha
+discovery              hbo_plus_e         rural         tv_justica
+discovery_civilization hbo_signature      rush_hd       tv_uniao
+discovery_hd           history            santa_cecilia universal
+discovery_kids         history_hd         sbt           venus
+discovery_science      home_health        senac         vh1
+discovery_turbo        htv                senado        vh1_hd
+disney                 investigacao       sesc          vh1_mega
+disney_hd              isat               sexy_hot      viva
+disney_jr              lbv                sexy_prive    warner
+disney_xd              max                shoptime      warner_hd
+dwtv                   max_hd             sic           woohoo
+entertainment          max_prime          sony
+espn                   max_prime_e        sony_hd
 
 Programação corrente:
-doc ou documentario, variedades, infantil, esporte ou esportes ou futebol,
-series ou seriados, filmes, todos ou agora (padrão).
+doc, esportes, filmes, infantil, series, variedades, todos, agora (padrão).
 
 Se o segundo argumento for "semana" ou "s" mostra toda programação semanal.
 Opção só é válida para os canais.
 Se o primeiro argumento é cod seguido de um número, obtido pelas listagens
 citadas anteriormente, com segundo argumento, mostra um resumo do programa.
-Uso: zztv <emissora> [semana|s]
-   zztv cod <numero>
+
+Uso: zztv <emissora> [semana|s]  ou  zztv cod <numero>
 Ex.: zztv cultura
    zztv cod 3235238
 
@@ -1906,9 +1988,12 @@ Ex.: zztv cultura
 .SH zztweets
 
 .nf
-Busca os últimos 5 tweets de um usuário.
-Uso: zztweets @username
-Ex.: zztweets @oreio
+Busca as mensagens mais recentes de um usuário do Twitter.
+Use a opção -n para informar o número de mensagens (padrão é 5, máx 20).
+
+Uso: zztweets [-n N] username
+Ex.: zztweets oreio
+   zztweets -n 10 oreio
 
 .fi
 
@@ -1947,7 +2032,8 @@ Ex.: zzunicode2ascii arquivo.txt
 .nf
 Retira as linhas repetidas, consecutivas ou não.
 Obs.: Não altera a ordem original das linhas, diferente do sort|uniq.
-Uso: zzuniq [arquivo]
+
+Uso: zzuniq [arquivo(s)]
 Ex.: zzuniq /etc/inittab
    cat /etc/inittab | zzuniq
 
@@ -1970,21 +2056,10 @@ Ex.: zzunix2dos frases.txt
 .nf
 Vira um texto, de trás pra frente (rev) ou de ponta-cabeça.
 Ideia original de: http://www.revfad.com/flip.html (valeu @andersonrizada)
+
 Uso: zzvira [-X] texto
 Ex.: zzvira Inverte tudo             # odut etrevnI
    zzvira -X De pernas pro ar      # ɹɐ oɹd sɐuɹǝd ǝp
-
-.fi
-
-
-.SH zzwhoisbr
-
-.nf
-http://registro.br
-Mostra informações sobre domínios brasileiros (.com.br, .org.br, etc).
-Uso: zzwhoisbr domínio
-Ex.: zzwhoisbr abc.com.br
-   zzwhoisbr www.abc.com.br
 
 .fi
 
@@ -2044,5 +2119,5 @@ Ex.: zzzz
 .fi
 
 
-.\" man code generated by txt2tags 2.6.641 (http://txt2tags.org)
+.\" man code generated by txt2tags 2.6.1087 (http://txt2tags.org)
 .\" cmdline: txt2tags manpage.t2t
