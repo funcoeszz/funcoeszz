@@ -2,7 +2,8 @@
 # Calcula porcentagens.
 # Se informado um número, mostra sua tabela de porcentagens.
 # Se informados dois números, mostra a porcentagem relativa entre eles.
-# Se informados um número e uma porcentagem, mostra os valores da porcentagem.
+# Se informados um número e uma porcentagem, mostra o valor da porcentagem.
+# Se informados um número e uma porcentagem com sinal, calcula o novo valor.
 #
 # Uso: zzporcento valor [valor|[+|-]porcentagem%]
 # Ex.: zzporcento 500           # Tabela de porcentagens de 500
@@ -11,13 +12,12 @@
 #      zzporcento 5.000,00      # Tabela para valor monetário
 #      zzporcento 500 25        # Mostra a porcentagem de 25 para 500 (5%)
 #      zzporcento 500 1000      # Mostra a porcentagem de 1000 para 500 (200%)
-#      zzporcento 500,00 25%    # Mostra quanto é 25% de 500,00
 #      zzporcento 500,00 2,5%   # Mostra quanto é 2,5% de 500,00
-#      zzporcento 500,00 +25%   # Mostra quanto é 500,00 + 25%
+#      zzporcento 500,00 +2,5%  # Mostra quanto é 500,00 + 2,5%
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-12-11
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzporcento ()
@@ -126,24 +126,31 @@ zzporcento ()
 		then
 			echo "scale=$escala; $valor2*100/$valor1" | bc | sed 's/$/%/'
 
+		# valor + n% é igual a…
 		elif test "$sinal" = '+'
 		then
 			echo "scale=$escala; $valor1+$valor1*$porcentagem/100" | bc
 
+		# valor - n% é igual a…
 		elif test "$sinal" = '-'
 		then
 			echo "scale=$escala; $valor1-$valor1*$porcentagem/100" | bc
 
-		# Mostra valores para a porcentagem informada
+		# n% do valor é igual a…
 		else
-			printf "%s%%\t%s\n" "+$porcentagem" $(echo "scale=$escala; $valor1+$valor1*$porcentagem/100" | bc)
-			printf "%s%%\t%s\n"  100          "$valor1"
-			printf "%s%%\t%s\n" "-$porcentagem" $(echo "scale=$escala; $valor1-$valor1*$porcentagem/100" | bc)
-			echo
-			printf "%s%%\t%s\n"  "$porcentagem" $(echo "scale=$escala; $valor1*$porcentagem/100" | bc)
+			echo "scale=$escala; $valor1*$porcentagem/100" | bc
+
+			### Saída antiga, uma mini tabelinha
+			# printf "%s%%\t%s\n" "+$porcentagem" $(echo "scale=$escala; $valor1+$valor1*$porcentagem/100" | bc)
+			# printf "%s%%\t%s\n"  100          "$valor1"
+			# printf "%s%%\t%s\n" "-$porcentagem" $(echo "scale=$escala; $valor1-$valor1*$porcentagem/100" | bc)
+			# echo
+			# printf "%s%%\t%s\n"  "$porcentagem" $(echo "scale=$escala; $valor1*$porcentagem/100" | bc)
+			#
+			# | sed "s/\([^0-9]\)\./\10./ ; s/^\./0./; y/./$separador/"
 		fi
 	fi |
 
 	# Assegura 0.123 (em vez de .123) e restaura o separador original
-	sed "s/\([^0-9]\)\./\10./ ; s/^\./0./; y/./$separador/"
+	sed "s/^\./0./; y/./$separador/"
 }

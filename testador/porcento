@@ -2,33 +2,13 @@
 debug=0
 values=2
 
+# A saida1 não é mais utilizada
 saida1="\
 +20%	120
 100%	100
 -20%	80
 
 20%	20"
-
-saida2="\
-+2,5%	102,50
-100%	100,00
--2,5%	97,50
-
-2,5%	2,50"
-
-saida3="\
-+25%	1543209,86
-100%	1234567,89
--25%	925925,92
-
-25%	308641,97"
-
-saida4="\
-+1%	1,01
-100%	1,00
--1%	0,99
-
-1%	0,01"
 
 saida5="\
 200%	1000
@@ -112,17 +92,17 @@ X	100	t	"Número inválido 'X'"
 
 ### valor1 porcentagem
 # inteiro
-100		20%	t	"$saida1"
+100		20%	t	"20"
 # primeiro inteiro e % float: escala=2 e vírgula
-100		2.5%	t	"$saida2"
-100		2,5%	t	"$saida2"
+100		2.5%	t	"2,50"
+100		2,5%	t	"2,50"
 # escala e vírgula do primeiro
-100,00		2.5%	t	"$saida2"
-100,00		2,5%	t	"$saida2"
+100,00		2.5%	t	"2,50"
+100,00		2,5%	t	"2,50"
 # dinheiro com pontos
-1.234.567,89	25%	t	"$saida3"
+1.234.567,89	25%	t	"308641,97"
 # adição do zero em caso de resultado .123
-1,00		1%	t	"$saida4"
+1,00		1%	t	"0,01"
 
 ### valor1 +porcentagem
 # inteiro
