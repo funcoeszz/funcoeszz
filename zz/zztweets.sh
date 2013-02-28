@@ -5,7 +5,7 @@
 #
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Desde: 2009-07-30
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztweets ()
@@ -14,13 +14,28 @@ zztweets ()
 
 	[ "$1" ] || { zztool uso tweets; return 1; }
 
+	local name
+	local limite=10
 	local url="https://twitter.com"
-	local name=$(echo $1 | tr -d "@")
+
+	# Opções de linha de comando
+	if [ "$1" = '-n' ]
+	then
+		limite="$2"
+		shift
+		shift
+
+		zztool -e testa_numero "$limite" || return 1
+	fi
+
+	# Informar o @ é opcional
+	name=$(echo "$1" | tr -d @)
 
 	$ZZWWWDUMP $url/$name |
 		sed '1,50 d' |
 		sed -n '/ .*[0-9]\{1,2\}\./{n;p;}' |
 		sed 's/\[DEL: \(.\) :DEL\] /\1/g; s/^ *//g' |
+		sed "$limite q" |
 		sed G
 
 	# Apagando as 50 primeiras linhas usando apenas números,
