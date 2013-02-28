@@ -27,7 +27,7 @@ do
 
 	# Quais as funções usadas por esta zz?
 	encontradas=$(
-		funcoeszz limpalixo $f |
+		grep -v '^[ 	]*#' $f |
 		grep 'zz[a-z]' |
 		grep -v '()$' |
 		grep -o 'zz[a-z0-9]*' |
