@@ -23,7 +23,7 @@
 # Desde: 2011-01-19
 # Versão: 12
 # Licença: GPL
-# Requisitos: zzseq
+# Requisitos: zzcalcula zzseq
 # ----------------------------------------------------------------------------
 zzmat ()
 {
