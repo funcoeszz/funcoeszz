@@ -16,11 +16,11 @@ zztweets ()
 
 	local url="https://twitter.com"
 	local name=$(echo $1 | tr -d "@")
-	
-	$ZZWWWDUMP $url/$name | 
-	sed -n '/ .*[0-9]\{1,2\}\./{n;p}' | 
+
+	$ZZWWWDUMP $url/$name |
+	sed -n '/ .*[0-9]\{1,2\}\./{n;p;}' |
 	sed 's/\[DEL: \(.\) :DEL\] /\1/g;s/^ */ /g'
-	
+
 	#Se quiser manter apenas 5 último tweets, substituir a segunda linha por essa:
 	#sed -n '/ .*[1-5]\./{n;p}'
 }
