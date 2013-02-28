@@ -37,8 +37,9 @@ zznoticiassec ()
 		echo
 		zztool eco "* LinuxSecurity Brasil ($url):"
 		$ZZWWWHTML "$url" |
-			sed -n '/item/,$ s@.*<title>\(.*\)</title>@\1@p' |
 			zztool texto_em_iso |
+			zzxml --tag title --untag --unescape |
+			sed 1d |
 			$limite
 	fi
 
