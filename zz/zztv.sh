@@ -152,8 +152,8 @@ zztv ()
 	hbo)                          URL="${URL}/canal/HBO";desc="HBO";;
 	home_health|health)           URL="${URL}/canal/HEA";desc="Discovery Home & Health";;
 	htv)                          URL="${URL}/canal/HTV";desc="Etcetera";;
-	hystory|hystory_channel)      URL="${URL}/canal/HIS";desc="History Channel";;
-	hystory_hd)                   URL="${URL}/canal/HIH";desc="History Channel HD";;
+	history|history_channel)      URL="${URL}/canal/HIS";desc="History Channel";;
+	history_hd)                   URL="${URL}/canal/HIH";desc="History Channel HD";;
 	investigacao)                 URL="${URL}/canal/LIV";desc="Investigação Discovery";;
 	isat|sat)                     URL="${URL}/canal/SAT";desc="i-Sat";;
 	max_hd)                       URL="${URL}/canal/MHD";desc="Max HD";;
@@ -237,7 +237,7 @@ zztv ()
 	tv_brasil_central|central)    URL="${URL}/canal/TBC";desc="TV Brasil Central";;
 	tv_camara)                    URL="${URL}/canal/CAM";desc="TV Câmara";;
 	tv_escola|escola)             URL="${URL}/canal/ESC";desc="TV Escola";;
-	tv_justica|justiva)           URL="${URL}/canal/JUS";desc="TV Justiça";;
+	tv_justica|justica)           URL="${URL}/canal/JUS";desc="TV Justiça";;
 	tv_uniao)                     URL="${URL}/canal/TVU";desc="TV União";;
 	universal)                    URL="${URL}/canal/USA";desc="Universal";;
 	venus)                        URL="${URL}/canal/THF";desc="Vênus XXL";;
