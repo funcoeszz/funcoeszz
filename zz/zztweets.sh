@@ -1,7 +1,10 @@
 # ----------------------------------------------------------------------------
 # Busca as mensagens mais recentes de um usuário do Twitter.
-# Uso: zztweets username
+# Use a opção -n para informar o número de mensagens (padrão é 5, máx 20).
+#
+# Uso: zztweets [-n N] username
 # Ex.: zztweets oreio
+#      zztweets -n 10 oreio
 #
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Desde: 2009-07-30
@@ -15,7 +18,7 @@ zztweets ()
 	[ "$1" ] || { zztool uso tweets; return 1; }
 
 	local name
-	local limite=10
+	local limite=5
 	local url="https://twitter.com"
 
 	# Opções de linha de comando
@@ -41,7 +44,4 @@ zztweets ()
 	# Apagando as 50 primeiras linhas usando apenas números,
 	# pois o sed do BSD capota se tentar ler o conteúdo destas
 	# linhas. Leia mais no issue #28.
-
-	#Se quiser manter apenas 5 último tweets, substituir a segunda linha por essa:
-	#sed -n '/ .*[1-5]\./{n;p}'
 }
