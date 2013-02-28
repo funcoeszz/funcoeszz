@@ -9,9 +9,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 1
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzminusculas
+# Requisitos: zzminusculas zzxml
 # ----------------------------------------------------------------------------
 zzsecurity ()
 {
@@ -79,15 +79,11 @@ zzsecurity ()
 	then
 		echo
 		zztool eco '** Atualizações Mandriva'
-		url='http://www.mandriva.com/en/rss/feed/security'
+		url='http://www.mandriva.com/en/support/security/advisories/feed/'
 		echo "$url"
 		$ZZWWWHTML "$url" |
-			sed -n '/<title>/{
-				s/<[^>]*>//g
-				s/^ *//
-				/^Mandriva/d
-				p
-			}' |
+			zzxml --tag title --untag |
+			sed 1d |
 			$limite
 	fi
 
