@@ -14,9 +14,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzxml
+# Requisitos: zzfeed
 # ----------------------------------------------------------------------------
 zzlinuxnews ()
 {
@@ -36,9 +36,7 @@ zzlinuxnews ()
 		url='http://freshmeat.net/?format=atom'
 		echo
 		zztool eco "* FreshMeat ($url):"
-		$ZZWWWHTML "$url" |
-			sed -n '1,/<entry>/d;s@.*<title>\(.*\)</title>@\1@p' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Slashdot
@@ -47,10 +45,7 @@ zzlinuxnews ()
 		url='http://rss.slashdot.org/Slashdot/slashdot'
 		echo
 		zztool eco "* SlashDot ($url):"
-		$ZZWWWHTML "$url" |
-			zzxml --tag 'title' --untag --unescape |
-			sed 1,2d |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Linux Today
@@ -59,9 +54,7 @@ zzlinuxnews ()
 		url='http://linuxtoday.com/backend/biglt.rss'
 		echo
 		zztool eco "* Linux Today ($url):"
-		$ZZWWWHTML "$url" |
-			sed -n '1,/<item>/d;s@.*<title>\(.*\)</title>@\1@p' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# LWN
@@ -78,11 +71,9 @@ zzlinuxnews ()
 	# OS News
 	if zztool grep_var o "$sites"
 	then
-		url='http://osnews.com'
+		url='http://www.osnews.com/files/recent.xml'
 		echo
 		zztool eco "* OS News - ($url):"
-		$ZZWWWDUMP "$url" |
-			sed -n '/^ *By /{g;s/^ *//;p;};h' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 }
