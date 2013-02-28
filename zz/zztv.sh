@@ -47,7 +47,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net - revisado por Itamar.
 # Desde: 2002-02-19
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztv ()
@@ -264,7 +264,7 @@ zztv ()
 		$ZZWWWHTML "$URL" | sed -n '/<li class/{N;p;}'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
 		sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g'|
 		sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'|
-		sed "s/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/\n\1/g"|
+		sed "/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/ { x; p ; x; s//\1/; }"|
 		sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g'
 	;;
 	*)
