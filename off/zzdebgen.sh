@@ -34,6 +34,7 @@
 # Licença: GPL
 # Requisitos: zzecho
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-28 Parou de funcionar (issue #50)
 zzdebgen ()
 {
 	zzzz -h debgen "$1" && return
