@@ -64,7 +64,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net - revisado por Itamar.
 # Desde: 2002-02-19
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztv ()
