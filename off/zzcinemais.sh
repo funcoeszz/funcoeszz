@@ -25,6 +25,7 @@
 # Licença: GPLv2
 # Requisitos: zzecho
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2013-02-28 Parou de funcionar (issue #34)
 zzcinemais ()
 {
 	zzzz -h cinemais "$1" && return
