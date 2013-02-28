@@ -6,15 +6,18 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdolar ()
 {
 	zzzz -h dolar "$1" && return
 
+	local resultado
+
 	# Faz a consulta e filtra o resultado
-	$ZZWWWDUMP 'http://economia.terra.com.br/stock/divisas.aspx' |
+	resultado=$(
+		$ZZWWWDUMP 'http://economia.terra.com.br/stock/divisas.aspx' |
 		egrep  'Dólar (Comercial|Turismo|PTAX)»' |
 		sed 3q |
 		sed '
@@ -31,5 +34,11 @@ zzdolar ()
 			# remove variação percentual 
 			s/ -\{0,1\}[0-9],[0-9][0-9] .*%  */   /
 		'
-	echo '                     compra   venda'
+	)
+
+	if test "$resultado"
+	then
+		echo '                     Compra   Venda'
+		echo "$resultado"
+	fi
 }
