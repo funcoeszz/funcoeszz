@@ -6,8 +6,11 @@
 
 cd $(dirname "$0") || exit 1
 
-infile="funcoeszz-13.2.sh"
-outfile="funcoeszz-13.2-iso.sh"
+infile="$1"                                      # funcoeszz-13.2.sh
+outfile=$(echo "$1" | sed 's/\.sh$/-iso.sh/')    # funcoeszz-13.2-iso.sh
+
+# 
+test "$1" || echo "Uso: $0 arquivo"
 
 # Tudo certo?
 if ! test -f "$infile"
