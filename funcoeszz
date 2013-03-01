@@ -399,9 +399,10 @@ zzajuda ()
 				grep -v ^http |
 				sed '
 					/^zz/ {
-						# Padding: o nome deve ter 15 caracteres
+						# Padding: o nome deve ter 17 caracteres
+						# Maior nome: zzfrenteverso2pdf
 						:pad
-						s/^.\{1,14\}$/& /
+						s/^.\{1,16\}$/& /
 						t pad
 
 						# Junta a descricao (proxima linha)
