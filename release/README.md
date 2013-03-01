@@ -1,9 +1,9 @@
 
 ## Preparativos para o release
 
-- Testador deve estar 100%
-- Nanny deve estar 100%
-- util/requisitos.sh deve estar 100%
+- Testador deve estar 100%.
+- Nanny deve estar 100%.
+- util/requisitos.sh deve estar 100%.
 
 
 ## Número da versão
@@ -14,11 +14,24 @@
 
 ## Procedimento de release
 
-- Mudar versão no cabeçalho do core: `ZZVERSAO=13.2`
+- Mude a versão no cabeçalho do core: `ZZVERSAO=13.2`
 - ?
-- Rodar `release/make-release.sh` para gerar a versão oficial
-- Rodar `release/2iso.sh` para gerar a versão iso
-- Mover ambos arquivos para a pasta `website/download/`
+- Rode `release/make-release.sh` para gerar a versão oficial.
+- Rode `release/2iso.sh` para gerar a versão iso.
+- Mover ambos arquivos para a pasta `website/download/`.
+- Faça um diff com a versão anterior e confira as mudanças.
+- Rode a suíte de testes usando este arquivo recém gerado (é preciso editar o script de testes).
+- Atualize o site e faça o upload (ver tópico adiante).
+- Acesse o site e confira tudo.
+- Baixe o arquivo, faça um diff com o original e confira se ele roda normal.
+- Se chegou até aqui, aparentemente está tudo certo :)
+
+
+## Anúncio
+
+- Crie o texto de anúncio, destacando as novidades.
+- Use os anteriores como base.
+- Mandar este texto para sites de notícias (BR-Linux).
 
 
 ## Crie uma tag para o release
@@ -49,8 +62,8 @@ grep ^zz funcoeszz-2.2.sh | cut -d ' ' -f 1 | sort > 2.2/todas.txt
 Gere os arquivos com as diferenças em relação à versão anterior:
 
 ```
-diff 1.1/todas.txt 2.2/todas.txt | grep '^<' | cut -c 3- > 2.2/removidas.txt
-diff 1.1/todas.txt 2.2/todas.txt | grep '^>' | cut -c 3- > 2.2/novas.txt
+diff 1.1/todas.txt 2.2/todas.txt | grep '^<' | cut -c 3- | sort > 2.2/removidas.txt
+diff 1.1/todas.txt 2.2/todas.txt | grep '^>' | cut -c 3- | sort > 2.2/novas.txt
 ```
 
 
@@ -59,9 +72,9 @@ diff 1.1/todas.txt 2.2/todas.txt | grep '^>' | cut -c 3- > 2.2/novas.txt
 Para gerar a lista de funções novas + descrição para colocar no changelog, faça asssim:
 
 ```
-ZZCOR=0 zzajuda --lista > descricao.txt
+ZZCOR=0 ./funcoeszz-2.2.sh zzajuda --lista > descricao.txt
 
-cat 2.2/novas.txt | while read zz; do printf "%s: " $zz ; grep "^$zz " descricao.txt | cut -c17-; done
+cat 2.2/novas.txt | while read zz; do printf "%s: " $zz ; grep "^$zz " descricao.txt | cut -c 19-; done
 ```
 
 
@@ -75,7 +88,7 @@ cat 2.2/novas.txt | while read zz; do printf "%s: " $zz ; grep "^$zz " descricao
 - Atualizar `website/changelog.t2t`
 - Atualizar `website/v` — para que a `zzzz --atualiza` continue funcionando
 - Atualizar `website/.htaccess` — links para os downloads atuais
-- Substituição global (porém analise caso a caso) da versão velha pra nova (ex.: `s/10\.12/13.2/g`)
+- Substituição global (porém analise caso a caso) da versão velha pra nova (ex.: `10.12 → 13.2`)
 - Regerar a man page
 
 ```
