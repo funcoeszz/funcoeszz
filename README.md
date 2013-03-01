@@ -7,6 +7,11 @@ Funções ZZ é uma coletânea com mais de 130 miniaplicativos de utilidades div
 - Grupo: [http://br.groups.yahoo.com/group/zztabtab/](http://br.groups.yahoo.com/group/zztabtab/)
 
 
+## Lista de colaboradores
+
+https://github.com/aureliojargas/funcoeszz/contributors
+
+
 ## Como contribuir
 
 Forka nóis e pulla! :)
@@ -22,7 +27,8 @@ Se precisar de ajuda com o git, leia:
 - [Git Reference](http://gitref.org) — Guia rápido, com exemplos
 - [The Git Parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html) — Entenda a filosofia por trás do git
 
-## Instalação das Funções ZZ
+
+## Instalação das Funções ZZ (versão de desenvolvimento)
 
 Baixe o repositório para sua máquina:
 
