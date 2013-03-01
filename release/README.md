@@ -88,6 +88,7 @@ cat 2.2/novas.txt | while read zz; do printf "%s: " $zz ; grep "^$zz " descricao
 - Atualizar `website/changelog.t2t`
 - Atualizar `website/v` — para que a `zzzz --atualiza` continue funcionando
 - Atualizar `website/.htaccess` — links para os downloads atuais
+- Há alguém novo para agradecer em `website/thanks.t2t`?
 - Substituição global (porém analise caso a caso) da versão velha pra nova (ex.: `10.12 → 13.2`)
 - Regerar a man page
 
