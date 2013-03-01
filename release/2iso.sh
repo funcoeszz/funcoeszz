@@ -9,6 +9,13 @@ cd $(dirname "$0") || exit 1
 infile="funcoeszz-13.2.sh"
 outfile="funcoeszz-13.2-iso.sh"
 
+# Tudo certo?
+if ! test -f "$infile"
+then
+	echo "$infile not found"
+	exit 1
+fi
+
 cp "$infile" _tmp
 
 # Desliga a variável global ZZUTF, usada por várias funções
