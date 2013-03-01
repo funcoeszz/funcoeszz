@@ -6,8 +6,8 @@
 
 cd $(dirname "$0") || exit 1
 
-infile="../funcoeszz-13.2.sh"
-outfile="../funcoeszz-13.2-iso.sh"
+infile="funcoeszz-13.2.sh"
+outfile="funcoeszz-13.2-iso.sh"
 
 cp "$infile" _tmp
 
