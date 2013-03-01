@@ -1,19 +1,29 @@
 #!/usr/bin/env bash
+# 2008-07-23
+# Aurelio Jargas
+#
+# Gera a versão ISO-8859-1 (latin-1) das Funções ZZ
 
-infile="../funcoeszz-10.12.sh"
-outfile="../funcoeszz-iso-10.12.sh"
+cd $(dirname "$0") || exit 1
 
-# Converte o codigo das ZZ para latin-1
-iconv -c -f UTF-8 -t ISO-8859-1 "$infile" > "$outfile"
+infile="../funcoeszz-13.2.sh"
+outfile="../funcoeszz-13.2-iso.sh"
 
-# Desliga a variavel global ZZUTF, usada por varias funcoes
-"$infile" trocapalavra 'ZZUTF=1' 'ZZUTF=0' "$outfile"
+cp "$infile" _tmp
 
-# Define a codificacao em $ZZWWW*, zzgoogle e zzbabelfish
-"$infile" trocapalavra '=UTF-8' '=ISO-8859-1' "$outfile"
+# Desliga a variável global ZZUTF, usada por várias funções
+"$infile" trocapalavra 'ZZUTF=1' 'ZZUTF=0' _tmp
 
-# Torna executavel
+# Define a codificação em $ZZWWW*, zzgoogle e zzbabelfish
+"$infile" trocapalavra '=UTF-8' '=ISO-8859-1' _tmp
+
+# Converte o código das ZZ para latin-1
+iconv -c -f UTF-8 -t ISO-8859-1 _tmp > "$outfile"
+
+# Torna executável
 chmod +x "$outfile"
 
 # Mostra que fez
 ls -l "$infile" "$outfile"
+
+rm _tmp
