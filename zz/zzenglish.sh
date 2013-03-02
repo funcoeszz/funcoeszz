@@ -17,6 +17,19 @@ zzenglish ()
 
 	local url="http://www.dict.org/bin/Dict/"
 	local query="Form=Dict1&Query=$1&Strategy=*&Database=*&submit=Submit query"
+	local fecha='\033[m'
+	local cinza verde amarelo
+	
+	if [ $ZZCOR -eq 1 ]
+	then
+		cinza='\033[0;34m'
+		verde='\033[0;32;1m'
+		amarelo='\033[0;33;1m'
+	else
+		cinza='\033[m'
+		verde='\033[m'
+		amarelo='\033[m'
+	fi
 
 	echo "$query" |
 		$ZZWWWPOST "$url" |
@@ -29,17 +42,17 @@ zzenglish ()
 			s/\[syn:/@SINONIMO@/g
 
 			# aplica cinza escuro em todos os colchetes (menos sinônimos)
-			s/\[/$(printf '\033[0;34m')[/g
+			s/\[/$(printf ${cinza})[/g
 
 			# aplica verde nos colchetes dos sinônimos
-			s/@SINONIMO@/$(printf '\033[0;32;1m')[syn:/g
+			s/@SINONIMO@/$(printf ${verde})[syn:/g
 
 			# \"fecha\" as cores de todos os sinônimos
-			s/\]/]$(printf '\033[m')/g
+			s/\]/]$(printf ${fecha})/g
 
 			# pinta a pronúncia de amarelo - pode estar delimitada por \\ ou //
-			s/\(\\\\[^\\]\{1,\}\\\\\)/$(printf '\033[0;33;1m')\\1\\$(printf '\033[m')/g
-			s|\(/[^/]\+/\)|$(printf '\033[0;33;1m')\1$(printf '\033[m')|g
+			s/\(\\\\[^\\]\{1,\}\\\\\)/$(printf ${amarelo})\\1\\$(printf ${fecha})/g
+			s|\(/[^/]\+/\)|$(printf ${amarelo})\1$(printf ${fecha})|g
 
 			# cabeçalho para tornar a separação entre várias consultas mais visível no terminal
 			/[0-9]\{1,\} definitions\{0,1\} found/ {
