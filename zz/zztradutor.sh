@@ -58,9 +58,9 @@ zztradutor ()
 			$ZZWWWHTML "$url" |
 			sed 's/</\n&/g'  |
 			sed -n '/<option value=af>/,/<option value=yi>/p' |
-			sed -n '1p;2,/value=af/p' | sed -n '$d;1~2p' |
+			sed -n '1p;2,/value=af/p' | sed -n '$d;' awk '{if (NR % 2 != 0 ) print $0}' |
 			sed 's/<option .*value=/ /g;s/>/: /g;s/zh-CN/cn/g'|
-			iconv -f $charset_de -t $charset_para |
+			zztool texto_em_iso |
 			grep ${2:-:}
 			return
 		;;
@@ -82,7 +82,7 @@ zztradutor ()
 	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
 	# e limpa essa linha para estar somente o texto desejado.
 	$ZZWWWHTML "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |
-		iconv --from-code=$charset_de --to-code=$charset_para |
+		zztool texto_em_iso |
 		awk 'gsub("<[^/]", "\n&")' |
 		grep '<span title' |
 		sed 's/<[^>]*>//g'
