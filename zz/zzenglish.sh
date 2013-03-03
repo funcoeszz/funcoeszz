@@ -6,7 +6,7 @@
 #
 # Autor: Luciano ES
 # Desde: 2008-09-07
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzenglish ()
@@ -17,18 +17,19 @@ zzenglish ()
 
 	local url="http://www.dict.org/bin/Dict/"
 	local query="Form=Dict1&Query=$1&Strategy=*&Database=*&submit=Submit query"
-	local fecha='\033[m'
-	local cinza verde amarelo
+	local cinza verde amarelo fecha
 	
 	if [ $ZZCOR -eq 1 ]
 	then
 		cinza='\033[0;34m'
 		verde='\033[0;32;1m'
 		amarelo='\033[0;33;1m'
+		fecha='\033[m'
 	else
-		cinza='\033[m'
-		verde='\033[m'
-		amarelo='\033[m'
+		cinza="''"
+		verde="''"
+		amarelo="''"
+		fecha="''"
 	fi
 
 	echo "$query" |
