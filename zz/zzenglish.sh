@@ -6,7 +6,7 @@
 #
 # Autor: Luciano ES
 # Desde: 2008-09-07
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzenglish ()
@@ -47,8 +47,8 @@ zzenglish ()
 			s/\]/]$fecha/g
 
 			# # pinta a pronúncia de amarelo - pode estar delimitada por \\ ou //
-			s/\(\\\\[^\\]\{1,\}\\\\\)/$amarelo\\1$fecha/g
-			s|\(/[^/]\+/\)|$amarelo\1$fecha|g
+			s/\\\\[^\\]\{1,\}\\\\/$amarelo&$fecha/g
+			s|/[^/]\+/|$amarelo&$fecha|g
 
 			# cabeçalho para tornar a separação entre várias consultas mais visível no terminal
 			/[0-9]\{1,\} definitions\{0,1\} found/ {
