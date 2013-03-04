@@ -33,16 +33,16 @@ zzenglish ()
 			# pega o trecho da página que nos interessa
 			/[0-9]\{1,\} definitions\{0,1\} found/,/_______________/!d
 			s/____*//
-			
+
 			# protege os colchetes dos sinônimos contra o cinza escuro
 			s/\[syn:/@SINONIMO@/g
-			
+
 			# aplica cinza escuro em todos os colchetes (menos sinônimos)
 			s/\[/$cinza[/g
-			
+
 			# aplica verde nos colchetes dos sinônimos
 			s/@SINONIMO@/$verde[syn:/g
-			
+
 			# 'fecha' as cores de todos os sinônimos
 			s/\]/]$fecha/g
 
