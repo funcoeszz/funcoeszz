@@ -50,7 +50,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 14
+# Versão: 13
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -374,26 +374,17 @@ zzbolsas ()
 					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - Principais"
 				;;
 				esac
-
+				
 				$ZZWWWDUMP "$url" |
-					sed -n '
-						# grepa apenas as linhas das moedas e os títulos
-						/CAPTION: Taxas fixas/,/CAPTION: Taxas cruzadas/ {
-							/^  *[A-Z][A-Z][A-Z]\/[A-Z][A-Z][A-Z]/ p
-							/^  *Par cambial/ p
-						}' |
-					sed '
-						# Remove lixos
+				sed -n '/CAPTION: Taxas fixas/,/CAPTION: Taxas cruzadas/p' |
+				sed '
+						/CAPTION: /d
+						/^[[:space:]]\{5\}/d
+						/^[[:space:]]*$/d
 						s/ *Visualização do gráfico//g
+						s/ *Par cambial/\n&/g
 						s/ Inverter pares /                /g
-
-						# A segunda tabela é invertida
-						3,$ s/Par cambial          /Par cambial invertido/
-
-						# Quebra linha antes do título das duas tabelas
-						/^  *Par cambial/ s/^/\
-/
-						'
+					'|sed '3,$s/Par cambial          /Par cambial invertido/;1d'
 			else
 				bolsa=$(echo "$1"|zzmaiusculas)
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.* \(of\|de\) *\([0-9]\+\) .*/\2/')
