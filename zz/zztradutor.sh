@@ -23,9 +23,8 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 6
+# Versão: 7
 # Licença: GPLv2
-# Requisitos: iconv
 # ----------------------------------------------------------------------------
 zztradutor ()
 {
@@ -38,7 +37,6 @@ zztradutor ()
 	local url='http://translate.google.com.br'
 	local lang_de='pt'
 	local lang_para='en'
-	local charset_de='ISO-8859-1'
 	local charset_para='UTF-8'
 	local audio_file="/tmp/$$.WAV"
 	local play_cmd='mpg123 -q'

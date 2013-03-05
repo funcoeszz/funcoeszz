@@ -6,7 +6,7 @@
 #
 # Autor: Luciano ES
 # Desde: 2008-09-07
-# Versão: 3
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzenglish ()
@@ -15,21 +15,16 @@ zzenglish ()
 
 	[ "$1" ] || { zztool uso english; return 1; }
 
+	local cinza verde amarelo fecha
 	local url="http://www.dict.org/bin/Dict/"
 	local query="Form=Dict1&Query=$1&Strategy=*&Database=*&submit=Submit query"
-	local cinza verde amarelo fecha
-	
+
 	if [ $ZZCOR -eq 1 ]
 	then
-		cinza='\033[0;34m'
-		verde='\033[0;32;1m'
-		amarelo='\033[0;33;1m'
-		fecha='\033[m'
-	else
-		cinza="''"
-		verde="''"
-		amarelo="''"
-		fecha="''"
+		cinza=$(  printf '\033[0;34m')
+		verde=$(  printf '\033[0;32;1m')
+		amarelo=$(printf '\033[0;33;1m')
+		fecha=$(  printf '\033[m')
 	fi
 
 	echo "$query" |
@@ -43,17 +38,17 @@ zzenglish ()
 			s/\[syn:/@SINONIMO@/g
 
 			# aplica cinza escuro em todos os colchetes (menos sinônimos)
-			s/\[/$(printf ${cinza})[/g
+			s/\[/$cinza[/g
 
 			# aplica verde nos colchetes dos sinônimos
-			s/@SINONIMO@/$(printf ${verde})[syn:/g
+			s/@SINONIMO@/$verde[syn:/g
 
-			# \"fecha\" as cores de todos os sinônimos
-			s/\]/]$(printf ${fecha})/g
+			# 'fecha' as cores de todos os sinônimos
+			s/\]/]$fecha/g
 
-			# pinta a pronúncia de amarelo - pode estar delimitada por \\ ou //
-			s/\(\\\\[^\\]\{1,\}\\\\\)/$(printf ${amarelo})\\1\\$(printf ${fecha})/g
-			s|\(/[^/]\+/\)|$(printf ${amarelo})\1$(printf ${fecha})|g
+			# # pinta a pronúncia de amarelo - pode estar delimitada por \\ ou //
+			s/\\\\[^\\]\{1,\}\\\\/$amarelo&$fecha/g
+			s|/[^/]\+/|$amarelo&$fecha|g
 
 			# cabeçalho para tornar a separação entre várias consultas mais visível no terminal
 			/[0-9]\{1,\} definitions\{0,1\} found/ {
