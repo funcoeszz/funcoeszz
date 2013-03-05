@@ -50,7 +50,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 14
+# Versão: 15
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -168,7 +168,7 @@ zzbolsas ()
 				zztool eco " Taxas Cruzadas"
 				$ZZWWWDUMP "$url/moedas/principais" |
 				sed -n '/CAPTION: Taxas cruzadas/,/Not.cias e coment.rios/p' |
-				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g'
+				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g; s/           //; s/^  *//'
 			;;
 			moedas_nome|nome_moedas)
 				zztool eco " BRL - Real
@@ -388,10 +388,14 @@ zzbolsas ()
 						s/ Inverter pares /                /g
 
 						# A segunda tabela é invertida
-						3,$ s/Par cambial          /Par cambial invertido/
+						3,$ s/Par cambial             /Par cambial inv./
+
+						# Diminuição do espaçamento para caber em 80 colunas
+						s/^  *//
+						s/        //
 
 						# Quebra linha antes do título das duas tabelas
-						/^  *Par cambial/ s/^/\
+						/^Par cambial/ s/^/\
 /
 						'
 			else
