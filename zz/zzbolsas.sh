@@ -168,7 +168,7 @@ zzbolsas ()
 				zztool eco " Taxas Cruzadas"
 				$ZZWWWDUMP "$url/moedas/principais" |
 				sed -n '/CAPTION: Taxas cruzadas/,/Not.cias e coment.rios/p' |
-				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g'
+				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g'
 			;;
 			moedas_nome|nome_moedas)
 				zztool eco " BRL - Real
