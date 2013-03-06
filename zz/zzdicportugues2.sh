@@ -51,13 +51,13 @@ zzdicportugues2 ()
 
 		# Incrementando o contador no padrão
 		padrao=$(echo "$padrao"|sed 's/_[0-9]*$//')
-		let contador++
+		contador=$((contador + 1))
 		padrao=${padrao}_${contador}
 	done
 
 	# Restabelecendo o contador
 	padrao=$(echo "$padrao"|sed 's/_[0-9]*$//')
-	let contador--
+	contador=$((contador - 1))
 	padrao=$(echo "${padrao}_${contador}"|sed 's/_1$//')
 
 	case "$2" in

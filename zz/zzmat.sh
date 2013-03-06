@@ -165,7 +165,7 @@ zzmat ()
 						potencia=$(echo "$potencias"|awk '{print $'$posicao'}')
 						[ "$grandeza1" = "$letra" ] && fator=$(zzmat -p${precisao} elevado 10 $potencia)
 						[ "$grandeza2" = "$letra" ] && divisor=$(zzmat -p${precisao} elevado 10 $potencia)
-						let posicao++
+						posicao=$((posicao + 1))
 					done
 					if ([ "$fator" ] && [ "$divisor" ])
 					then
@@ -1262,7 +1262,7 @@ zzmat ()
 			do
 				echo "$RANDOM"|awk '{ printf "%.'${precisao}'f\n", sprintf("%.'${precisao}'f\n",'$min'+($1/32766)*('$max'-'$min'))}'|
 				zzmat -p${precisao} sem_zeros
-				let n_temp++
+				n_temp=$((n_temp + 1))
 			done
 		;;
 		esac

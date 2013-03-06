@@ -74,7 +74,7 @@ zzpalpite ()
 				while [ "$i" -le "14" ]
 				do
 					printf " Jogo %0.2d: Coluna %d\n" $i $(($RANDOM % 3)) | sed 's/Coluna 0/Coluna do Meio/g'
-					let i++
+					i=$((i + 1))
 				done
 				echo
 				qtde=0
@@ -94,7 +94,7 @@ zzpalpite ()
 		do
 			# Posicao a ser escolhida
 			posicao=$(echo "$inicial + ( ${RANDOM} / 32766 ) * ( $final - $inicial )" | bc -l | sed 's/\..*$//g')
-			[ $tipo = "lotomania" ] && let posicao++
+			[ $tipo = "lotomania" ] && posicao=$((posicao + 1))
 
 			# Extrai o numero na posicao selecionada
 			num=$(echo $numeros | cut -f $posicao -d ' ')
@@ -105,8 +105,8 @@ zzpalpite ()
 			numeros=$(echo "$numeros" | sed "s/$num //")
 
 			# Diminuindo o contador e quantidade de itens em "numeros"
-			let i--
-			let final--
+			i=$((i - 1))
+			final=$((final - 1))
 		done
 
 		if [ "$palpites" ]
