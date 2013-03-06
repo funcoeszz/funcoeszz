@@ -397,6 +397,8 @@ zzbolsas ()
 						# Quebra linha antes do título das duas tabelas
 						/^Par cambial/ s/^/\
 /
+						# Apagando linha duplicada com valores em branco
+						/[A-Z]\{3\}\/[A-Z]\{3\} *$/d
 						'
 			else
 				bolsa=$(echo "$1"|zzmaiusculas)
