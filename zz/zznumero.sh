@@ -298,8 +298,8 @@ zznumero ()
 		if [ $numero ]
 		then
 			# Separando componentes dos números
-			num_int=$(echo ${numero%,*});
-			num_frac=$(echo ${numero#*,})
+			num_int=${numero%,*}
+			zztool grep ',' "$numero" && num_frac=${numero#*,}
 
 			# Tirando os zeros não significativos
 			num_int=$(echo "$num_int" | sed 's/^0*//')
