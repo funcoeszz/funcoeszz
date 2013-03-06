@@ -7,20 +7,23 @@
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com> twitter: @gmgall
 # Desde: 2013-03-03
-# Versão: 1
+# Versão: 2
 # Licença: GPL
-# Requisitos: zzseq zzmat
+# Requisitos: zzseq
 # ----------------------------------------------------------------------------
 zznomealeatorio ()
 {
 	zzzz -h nomealeatorio "$1" && return
 
-	local alfabeto='aeioubcdfghjlmnpqrstvxz'
+	local vogais='aeiou'
+	local consoantes='bcdfghjlmnpqrstvxz'
 	# Sem parâmetros, gera nome de 6 caracteres.
 	local entrada=${1:-6}
 	local contador
 	local letra
 	local nome
+	local posicao
+	local lista
 
 	# Se a quantidade de parâmetros for incorreta ou não for número
 	# inteiro positivo, mostra mensagem de uso e sai.	
@@ -39,10 +42,12 @@ zznomealeatorio ()
 	do
 		if [ $((contador%2)) -eq 1 ]
 		then
-			letra=$(echo "$alfabeto" | cut -c$(zzmat -p0 random 6 23))
+			lista="$consoantes"
 		else
-			letra=$(echo "$alfabeto" | cut -c$(zzmat -p0 random 1 5))
+			lista="$vogais"
 		fi
+		posicao=$((RANDOM % ${#lista} + 1))
+		letra=$(echo "$lista" | cut -c "$posicao")
 		nome="$nome$letra"
 	done
 	echo "$nome"
