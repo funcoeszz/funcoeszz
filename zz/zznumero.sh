@@ -7,6 +7,7 @@
 #  -p <prefixo>: Um prefixo para o número, se for R$ igual a opção -m
 #  -s <sufixo>: Um sufixo para o número
 #  -m: Trata valor monetário, sobrepondo as configurações de -p, -s  e -f
+#  --moeda: O mesmo que a opção -m
 #  -t: Número parcialmente por extenso, por ex: 2 mihões 350 mil e doze
 #  --texto: Número inteiramente por extenso, ex: quatro mil e cento e vinte
 #  -l: Uma classe numérica por linha, quando optar no número por extenso
@@ -16,7 +17,7 @@
 #
 # Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
 #
-# Uso: zznumero [-m|--moeda] [-t|--texto] [-f <numero|padrão>] [-p <prefixo>] [-s <sufixo>] <numero>
+# Uso: zznumero [-m|--moeda] [-t|--texto] [--de <formato>] [--para <formato>] [-f <numero|padrão>] [-p <prefixo>] [-s <sufixo>] <numero>
 #
 # Ex.: zznumero 12445.78
 #      zznumero --texto 4567890,213
@@ -25,7 +26,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -110,6 +111,7 @@ zznumero ()
 7:sextilionésimos
 8:septilionésimos"
 
+	# Opções
 	while  [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
@@ -207,8 +209,12 @@ zznumero ()
 		esac
 	done
 
+	# Habilitar entrada direta ou através de pipe
 	n_temp=$(zztool multi_stdin "$@")
 
+	# Adequando entrada do valor a algumas possíveis armadilhas
+	set - $n_temp
+	n_temp=$(echo "$1" | sed 's/[.,]$//')
 	set - $n_temp
 
 	# Armazenando o sinal, se presente
@@ -224,7 +230,7 @@ zznumero ()
 	then
 		# Trocando o símbolo de milhar de entrada por "m" e depois por . (ponto)
 		# Trocando o símbolo de decimal de entrada por "d" e depois , (vírgula)
-		n_temp=$(echo "$n_temp" | tr "${milhar_de}" 'm' | tr "${decimal_de}" 'd')
+		n_temp=$(echo "$1" | tr "${milhar_de}" 'm' | tr "${decimal_de}" 'd')
 		n_temp=$(echo "$n_temp" | tr 'm' '.' | tr 'd' ',')
 
 		set - $n_temp
@@ -325,8 +331,8 @@ zznumero ()
 				zztool testa_numero $num_frac || { zztool uso numero; return 1; }
 			fi
 
-			# Se houver precisão estabelecida
-			if test "$prec" != "-" && test $prec -gt 0
+			# Se houver precisão estabelecida pela opção -f
+			if test "$prec" != "-" && test $prec -ge 0 && test ${#n_formato} -eq 0
 			then
 				# Para arredondamento usa-se a seguinte regra:
 				#  Se o próximo número além da precisão for maior que 5 arredonda-se para cima
@@ -337,37 +343,66 @@ zznumero ()
 				if [ ${#num_frac} -gt $prec ]
 				then
 
+					# Quando for -f 0, sem casas decimais, guardamos o ultimo digito do num_int (parte inteira)
+					unset n_temp
+					if [ $prec -eq 0 ]
+					then
+						n_temp=${#num_int}
+						n_temp=$(echo "$num_int" | cut -c $n_temp)
+					fi
+
 					num_frac=$(echo "$num_frac" | cut -c 1-$((prec + 1)))
 
 					if [ $(echo "$num_frac" | cut -c $((prec + 1))) -ge 6 ]
 					then
 						# Último número maior que cinco (além da precisão), arredonda pra cima
-						num_frac=$(echo "$num_frac" | cut -c 1-${prec})
-						num_frac=$(echo "$num_frac + 1" | bc)
+						if [ $prec -eq 0 ]
+						then
+							unset num_frac
+							num_int=$(echo "$num_int + 1" | bc)
+						else
+							num_frac=$(echo "$num_frac" | cut -c 1-${prec})
+							num_frac=$(echo "$num_frac + 1" | bc)
+						fi
 
 					elif [ $(echo "$num_frac" | cut -c $((prec + 1))) -le 4 ]
 					then
 						# Último número menor que cinco (além da precisão), arredonda pra baixo (trunca)
-						num_frac=$(echo "$num_frac" | cut -c 1-${prec})
+						if [ $prec -eq 0 ]
+						then
+							unset num_frac
+						else
+							num_frac=$(echo "$num_frac" | cut -c 1-${prec})
+						fi
 
 					else
-						# Determinando último número dentro da precisão é par
-						if [ $(echo $(($(echo $num_frac | cut -c ${prec}) % 2))) -eq 0 ]
+						if [ $prec -eq 0 ]
 						then
-							# Se sim arredonda-se para baixo (trunca)
-							num_frac=$(echo "$num_frac" | cut -c 1-${prec})
-						else
-							# Se não arredonda-se para cima
-							num_frac=$(echo "$num_frac" | cut -c 1-${prec})
-
-							# Exceção: Se num_frac for 9*, vira 0* e aumenta num_int em mais 1
-							echo "$num_frac" |cut -c 1-${prec} | grep '^9\{1,\}$' > /dev/null
-							if [ $? -eq 0 ]
+							unset num_frac
+							# Se o último número do num_int for ímpar, arredonda-se para cima
+							if [ $(($n_temp % 2)) -eq 1 ]
 							then
-								unset num_frac
 								num_int=$(echo "$num_int + 1" | bc)
+							fi
+						else
+						# Determinando último número dentro da precisão é par
+							if [ $(echo $(($(echo $num_frac | cut -c ${prec}) % 2))) -eq 0 ]
+							then
+								# Se sim arredonda-se para baixo (trunca)
+								num_frac=$(echo "$num_frac" | cut -c 1-${prec})
 							else
-								num_frac=$(echo "$num_frac + 1" | bc)
+								# Se não arredonda-se para cima
+								num_frac=$(echo "$num_frac" | cut -c 1-${prec})
+
+								# Exceção: Se num_frac for 9*, vira 0* e aumenta num_int em mais 1
+								echo "$num_frac" |cut -c 1-${prec} | grep '^9\{1,\}$' > /dev/null
+								if [ $? -eq 0 ]
+								then
+									unset num_frac
+									num_int=$(echo "$num_int + 1" | bc)
+								else
+									num_frac=$(echo "$num_frac + 1" | bc)
+								fi
 							fi
 						fi
 					fi
@@ -378,6 +413,9 @@ zznumero ()
 						num_frac="0${num_frac}"
 					done
 				fi
+
+				# Tirando os zeros não significativos
+				num_frac=$(echo "$num_frac" | sed 's/0*$//')
 			fi
 
 			if zztool grep_var 'R$' "$prefixo"
@@ -441,7 +479,7 @@ zznumero ()
 	if [ $texto -eq 1 -o $texto -eq 2 ]
 	then
 
-		#########################################################################
+		######################################################################
 
 		# Escrevendo a parte inteira. (usando a variável qtde_p emprestada)
 		qtde_p=$(((${#num_int}-1) / 3))
@@ -554,7 +592,7 @@ zznumero ()
 		done
 		[ "$num_saida" ] && num_saida="${num_saida} inteiros"
 
-		#########################################################################
+		######################################################################
 
 		#Validando as parte fracionária do número
 		if [ ${#num_frac} -gt 0 ]
@@ -693,7 +731,7 @@ zznumero ()
 			$(echo $num_frac | grep '^0\{1,\}1$' > /dev/null) && num_saida=$(echo $num_saida | sed 's/imos/imo/g')
 		fi
 
-		#########################################################################
+		######################################################################
 
 		[ "$sinal" = '-' ] && num_saida="$num_saida negativos"
 		[ "$sinal" = '+' ] && num_saida="$num_saida positivos"
