@@ -10,6 +10,9 @@
 #  -t: Número parcialmente por extenso, por ex: 2 mihões 350 mil e doze
 #  --texto: Número inteiramente por extenso, ex: quatro mil e cento e vinte
 #  -l: Uma classe numérica por linha, quando optar no número por extenso
+#  --de <formato>: Formato de entrada
+#  --para <formato>: Formato de saída
+#   formatos: pt ou pt-br => português (brasil) | en => inglês (americano)
 #
 # Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
 #
@@ -22,7 +25,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -32,22 +35,10 @@ zznumero ()
 
 	[ "$1" ] || { zztool uso numero; return 1; }
 
-	# TODO: numero como 123.456 dão margem a interpretação podendo ser decimal ou uma milhar
-	# mesma dicotomia enfrentada pela zztool testa_numero_fracionario
-	#  --de <formato>: Formato de entrada
-	#  --para <formato>: Formato de saída
-	#   formatos: pt ou pt-br: português (brasil) | en: inglês (americano)
-	#
-	# Variáveis locais e entradas já assinaladas, mas não implementadas no código
-	# Por enquanto o caso é considerado como um inteiro
-
 	local texto=0
 	local prec=2
 	local linha=0
-	local milhar_de="."
-	local decimal_de=","
-	local milhar_para="."
-	local decimal_para=","
+	local milhar_de decimal_de milhar_para decimal_para
 	local numero qtde_v qtde_p n_formato num_int num_frac num_saida prefixo sufixo sinal n_temp
 
 	# Zero a Novecentos e noventa e nove (base para as demais classes)
@@ -148,10 +139,12 @@ zznumero ()
 			# Formato de entrada
 			if [ "$2" = "pt" -o "$2" = "pt-br" ]
 			then
-				milhar_de="."; decimal_de=","
+				milhar_de='.'
+				decimal_de=','
 			elif [ "$2" = "en" ]
 			then
-				milhar_de=","; decimal_de="."
+				milhar_de=','
+				decimal_de='.'
 			fi
 			shift
 			shift
@@ -161,10 +154,12 @@ zznumero ()
 			# Formato de saída
 			if [ "$2" = "pt" -o "$2" = "pt-br" ]
 			then
-				milhar_para="."; decimal_para=","
+				milhar_para='.'
+				decimal_para=','
 			elif [ "$2" = "en" ]
 			then
-				milhar_para=","; decimal_para="."
+				milhar_para=','
+				decimal_para='.'
 			fi
 			shift
 			shift
@@ -225,6 +220,16 @@ zznumero ()
 		unset sinal
 	fi
 
+	if [ "$decimal_de" ]
+	then
+		# Trocando o símbolo de milhar de entrada por "m" e depois por . (ponto)
+		# Trocando o símbolo de decimal de entrada por "d" e depois , (vírgula)
+		n_temp=$(echo "$n_temp" | tr "${milhar_de}" 'm' | tr "${decimal_de}" 'd')
+		n_temp=$(echo "$n_temp" | tr 'm' '.' | tr 'd' ',')
+
+		set - $n_temp
+	fi
+
 	if zztool testa_numero "$1" && ! zztool grep_var 'R$' "$prefixo"
 	then
 	# Testa se o número é um numero inteiro sem parte fracionária ou separador de milhar
@@ -237,8 +242,16 @@ zznumero ()
 		num_int="$1"
 		num_saida="${sinal}${numero}"
 
+		# Aplicando o formato conforme opção --para
+		if [ "$milhar_para" ]
+		then
+			num_saida=$(echo "$num_saida" | tr '.' "${milhar_para}")
+		fi
+
 	else
 
+		# Testa se o número é um numero inteiro sem parte fracionária ou separador de milhar
+		# e que tem o prefixo 'R$', caracterizando como moeda
 		if zztool testa_numero "$1" && zztool grep_var 'R$' "$prefixo"
 		then
 			numero="${1},00"
@@ -299,7 +312,7 @@ zznumero ()
 		then
 			# Separando componentes dos números
 			num_int=${numero%,*}
-			zztool grep ',' "$numero" && num_frac=${numero#*,}
+			zztool grep_var ',' "$numero" && num_frac=${numero#*,}
 
 			# Tirando os zeros não significativos
 			num_int=$(echo "$num_int" | sed 's/^0*//')
@@ -378,6 +391,13 @@ zznumero ()
 				numero=$(echo "${num_int}" | zzvira | sed 's/.../&\./g;s/\.$//' | zzvira)
 				num_saida="${numero},${num_frac}"
 
+				# Aplicando o formato conforme opção --para
+				if [ "$decimal_para" ]
+				then
+					num_saida=$(echo "$num_saida" | tr '.' 'm' | tr ',' 'd')
+					num_saida=$(echo "$num_saida" | tr 'm' "${milhar_para}" | tr 'd' "${decimal_para}")
+				fi
+
 			elif [ ${#n_formato} -gt 0 ]
 			then
 
@@ -399,9 +419,21 @@ zznumero ()
 			# Formato 0.000,00
 				numero=$(echo "${num_int}" | zzvira | sed 's/.../&\./g;s/\.$//' | zzvira)
 				num_saida="${numero},${num_frac}"
+
+				# Aplicando o formato conforme opção --para
+				if [ "$decimal_para" ]
+				then
+					num_saida=$(echo "$num_saida" | tr '.' 'm' | tr ',' 'd')
+					num_saida=$(echo "$num_saida" | tr 'm' "${milhar_para}" | tr 'd' "${decimal_para}")
+				fi
 			fi
 
-			num_saida=$(echo "${sinal}${num_saida}" | sed 's/,$//')
+			if zztool grep_var 'R$' "$prefixo"
+			then
+				num_saida=$(echo "${sinal}${prefixo}${num_saida}" | sed 's/[,.]$//')
+			else
+				num_saida=$(echo "${sinal}${num_saida}" | sed 's/[,.]$//')
+			fi
 
 		fi
 	fi
@@ -666,6 +698,7 @@ zznumero ()
 		[ "$sinal" = '-' ] && num_saida="$num_saida negativos"
 		[ "$sinal" = '+' ] && num_saida="$num_saida positivos"
 
+		# Para o caso de ser o número 1, colocar no singular
 		if [ "$num_int" = "1" ]
 		then
 			if [ ${#num_frac} -eq 0 ]
@@ -677,6 +710,7 @@ zznumero ()
 			fi
 		fi
 
+		# Sufixo dependendo se for valor monetário
 		if zztool grep_var 'R$' "$prefixo"
 		then
 			num_saida=$(echo "$num_saida" | sed 's/inteiros/reais/;s/inteiro/real/;s/centésimo/centavo/;s/^ *e//;s/e *$//')
@@ -711,6 +745,7 @@ zznumero ()
 		echo "$num_saida"| sed 's/ \{1,\}/ /g'
 
 	else
+		zztool grep_var 'R$' "$prefixo" && unset prefixo
 		[ ${#num_saida} -gt 0 ] && echo ${prefixo}${num_saida}${sufixo}
 	fi
 }
