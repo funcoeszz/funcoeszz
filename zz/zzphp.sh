@@ -47,7 +47,7 @@ zzphp ()
 			fi
 
 			# Ajuste entre nome e o link da função
-			end=$(echo "${end}" | sed 's/__//g;s/_/-/g;s/->/./g' | zzminusculas)
+			end=$(echo "${end}" | sed 's/__//g;s/_/-/g;s/->/./g')
 
 			$ZZWWWDUMP "${url}/${end}" | sed -n "/^${funcao}/,/___*$/p" | sed '$d'
 		fi
