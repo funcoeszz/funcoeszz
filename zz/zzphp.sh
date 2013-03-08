@@ -38,7 +38,7 @@ zzphp ()
 		then
 			funcao=$(echo "$2" | zzminusculas)
 			# Ajustando link entre classe e função
-			echo "$2" | grep '::' >/dev/null
+			echo "$funcao" | grep '::' >/dev/null
 			if [ $? -eq 0 ]
 			then
 				end=$(echo "${funcao}.php" | sed 's/::[$]*/\./g')
@@ -62,6 +62,8 @@ zzphp ()
 		then
 			# Busca a(s) função(ões)
 			grep -h -i -- "$padrao" "$cache"
+		else
+			cat "$cache"
 		fi
 	fi
 }
