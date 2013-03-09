@@ -13,9 +13,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-06
-# Versão: 1
+# Versão: 2
 # Licença: GPL
-# Requisitos: zzminusculas
+# Requisitos: zzminusculas zzunescape
 # ----------------------------------------------------------------------------
 zzphp ()
 {
@@ -38,34 +38,30 @@ zzphp ()
 		url='http://www.php.net/manual/pt_BR'
 		if [ "$2" ]
 		then
-			funcao=$(echo "$2" | zzminusculas)
-			# Ajustando link entre classe e função
-			echo "$funcao" | grep '::' >/dev/null
-			if [ $? -eq 0 ]
-			then
-				end=$(echo "${funcao}.php" | sed 's/::[$]*/\./g')
-			else
-				end=$(echo "function.${funcao}.php")
-			fi
-
-			# Ajuste entre nome e o link da função
-			end=$(echo "${end}" | sed 's/__//g;s/_/-/g;s/->/./g')
-
-			$ZZWWWDUMP "${url}/${end}" | sed -n "/^${funcao}/,/___*$/p" | sed '$d'
+			funcao=$(echo "$2" | sed 's/ .*//')
+			end=$(cat "$cache" | grep -h -i -- "^$funcao" | cut -f 2 -d"|")
+			# Prevenir casos como do zlib://
+			funcao=$(echo "$funcao" | sed 's|//||g')
+			[ $? -eq 0 ] && $ZZWWWDUMP "${url}/${end}" | sed -n "/^${funcao}/,/add a note add a note/p" | sed '$d;/___*$/,$d'
 		fi
 	else
 		# Se o cache está vazio, baixa listagem da Internet
 		if ! test -s "$cache"
 		then
-			$ZZWWWDUMP "$url" | sed -n '/^ *+/p' | sed 's/^ *+ //g' > "$cache"
+			# Formato do arquivo:
+			# nome da função - descrição da função : link correspondente
+			$ZZWWWHTML "$url" | sed -n '/class="index"/p' |
+			awk -F'"' '{print substr($5,2) "|" $2}' |
+			sed 's/<[^>]*>//g' |
+			zzunescape --html > "$cache"
 		fi
 
 		if [ "$padrao" ]
 		then
 			# Busca a(s) função(ões)
-			grep -h -i -- "$padrao" "$cache"
+			cat "$cache" | cut -f 1 -d"|" | grep -h -i -- "$padrao"
 		else
-			cat "$cache"
+			cat "$cache" | cut -f 1 -d"|"
 		fi
 	fi
 }
