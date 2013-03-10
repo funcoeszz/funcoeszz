@@ -581,7 +581,7 @@ zznumero ()
 
 				if [ $texto -eq 2 ]
 				then
-					num_saida="${num_saida} ${numero} ${n_formato}"
+					num_saida="${num_saida} e ${numero} ${n_formato}"
 				else
 					num_saida="${num_saida} ${qtde_v} ${n_formato}"
 				fi
@@ -590,7 +590,7 @@ zznumero ()
 			qtde_p=$((qtde_p - 1))
 			shift
 		done
-		[ "$num_saida" ] && num_saida="${num_saida} inteiros"
+		[ "$num_saida" ] && num_saida=$(echo "${num_saida} inteiros" | sed 's/ *$//;s/ \{1,\}/ /g')
 
 		######################################################################
 
@@ -700,7 +700,7 @@ zznumero ()
 
 				if [ $texto -eq 2 ]
 				then
-					num_saida="${num_saida} ${numero} ${n_formato}"
+					num_saida="${num_saida} e ${numero} ${n_formato}"
 				else
 					num_saida="${num_saida} ${qtde_v} ${n_formato}"
 				fi
@@ -725,8 +725,8 @@ zznumero ()
 
 			num_saida=$(echo "$num_saida" |
 				sed 's/décimos \([a-z]\)/décimos de \1/;s/centésimos \([a-z]\)/centésimos de \1/'|
-				sed 's/ \{1,\}/ /g')
-
+				sed 's/ *$//;s/ \{1,\}/ /g')
+				
 			# Ajuste para valor unitário na parte fracionária
 			$(echo $num_frac | grep '^0\{1,\}1$' > /dev/null) && num_saida=$(echo $num_saida | sed 's/imos/imo/g')
 		fi
@@ -751,12 +751,12 @@ zznumero ()
 		# Sufixo dependendo se for valor monetário
 		if zztool grep_var 'R$' "$prefixo"
 		then
-			num_saida=$(echo "$num_saida" | sed 's/inteiros/reais/;s/inteiro/real/;s/centésimo/centavo/;s/^ *e//;s/e *$//')
+			num_saida=$(echo "$num_saida" | sed 's/inteiros/reais/;s/inteiro/real/;s/centésimo/centavo/')
 		else
-			[ "$sufixo" ] &&
-				num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/") ||
-				num_saida=$(echo "$num_saida" | sed 's/^ *e//;s/e *$//')
+			[ "$sufixo" ] && num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
 		fi
+		
+		num_saida=$(echo "$num_saida" | sed 's/^ *e//;s/e *$//;s/ e  *e / e /g;s/ \{1,\}/ /g')
 
 		# Uma classe numérica por linha
 		if [ $linha -eq 1 ]
@@ -780,7 +780,7 @@ zznumero ()
 			esac
 		fi
 
-		echo "$num_saida"| sed 's/ \{1,\}/ /g'
+		echo "$num_saida"| sed 's/ *$//g;s/ \{1,\}/ /g'
 
 	else
 		zztool grep_var 'R$' "$prefixo" && unset prefixo
