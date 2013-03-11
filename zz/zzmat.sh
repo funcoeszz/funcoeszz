@@ -8,7 +8,7 @@
 # Funções matemáticas disponíveis.
 # mmc mdc somatoria produtoria media soma fat arranjo arranjo_r combinacao
 # combinacao_r pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
-# converte sen cos tan csc sec cot asen acos atan log ln abs
+# converte sen cos tan csc sec cot asen acos atan log ln abs produto
 # raiz potencia pow elevado aleatorio random det conf_eq sem_zeros
 # fibonacci (fib) lucas tribonacci (trib) newton binomio_newton
 # Mais detalhes: zzmat função
@@ -21,7 +21,7 @@
 #
 # Autor: Itamar
 # Desde: 2011-01-19
-# Versão: 12
+# Versão: 13
 # Licença: GPL
 # Requisitos: zzcalcula zzseq
 # ----------------------------------------------------------------------------
@@ -636,7 +636,7 @@ zzmat ()
 		if ([ $# -eq "4" ])
 		then
 			zzmat $funcao $2 $3 1 $4
-		elif ([ $# -eq "5" ] && zzmat testa_num $2 && zzmat testa_num $3 && 
+		elif ([ $# -eq "5" ] && zzmat testa_num $2 && zzmat testa_num $3 &&
 			zzmat testa_num $4 && zztool grep_var "x" $5 )
 		then
 			local equacao numero operacao sequencia num1 num2
@@ -663,11 +663,12 @@ zzmat ()
 			return 1
 		fi
 	;;
-	media|soma)
+	media|soma|produto)
 		if ([ $# -ge "2" ])
 		then
 			local soma=0
 			local qtde=0
+			local produto=1
 			local peso=1
 			local valor
 			shift
@@ -679,24 +680,36 @@ zzmat ()
 					peso=$(echo "$1"|sed 's/.*\[//;s/\]//')
 					if (zzmat testa_num "$valor" && zztool testa_numero "$peso")
 					then
-						soma=$(echo "$soma+($valor*$peso)"|bc -l)
-						qtde=$(($qtde+$peso))
+						if test $funcao = 'produto'
+						then
+							produto=$(echo "$produto*(${valor}^${peso})"|bc -l)
+						else
+							soma=$(echo "$soma+($valor*$peso)"|bc -l)
+							qtde=$(($qtde+$peso))
+						fi
 					fi
 				elif zzmat testa_num "$1"
 				then
-					soma=$(echo "($soma) + ($1)"|tr ',' '.'|bc -l)
-					qtde=$(($qtde+1))
+					if test $funcao = 'produto'
+					then
+						produto=$(echo "($produto) * ($1)"|tr ',' '.'|bc -l)
+					else
+						soma=$(echo "($soma) + ($1)"|tr ',' '.'|bc -l)
+						qtde=$(($qtde+1))
+					fi
 				else
 					zztool uso mat; return 1;
 				fi
 				shift
 			done
+
 			case "$funcao" in
 			media) num="${soma}/${qtde}";;
 			soma)  num="${soma}";;
+			produto) num="${produto}";;
 			esac
 		else
-			echo " zzmat $funcao:Soma ou Média Aritimética e Ponderada"
+			echo " zzmat $funcao:Soma, Produto ou Média Aritimética e Ponderada"
 			echo " Uso: zzmat $funcao numero[[peso]] [numero[peso]] ..."
 			echo " Usar o peso entre '[' e ']', justaposto ao número."
 			return 1
