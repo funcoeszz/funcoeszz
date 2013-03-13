@@ -3,11 +3,17 @@
 # Sem argumentos, comporta-se igual a $RANDOM.
 # Apenas um argumento, número entre 0 e o valor fornecido.
 # Com dois argumentos, número entre esses limites dados.
-
+#
+# Uso: zzaleatorio [numero] [numero]
+# Exemplo: zzaleatorio 10
+#          zzaleatorio 5 15
+#          zzaleatorio
+#
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-13
 # Versão: 1
 # Licença: GPL
+# Requisitos: zzvira
 # ----------------------------------------------------------------------------
 zzaleatorio ()
 {
@@ -38,5 +44,6 @@ zzaleatorio ()
 		fim="$v_temp"
 	fi
 
+	# Usando o awk, sendo o gerador randômico semeado pelo inverso do número dos nanos segundos
 	echo "$(date +%N | zzvira) $inicio $fim"|awk '{ srand($1); printf "%.0f\n", $2 + rand()*($3 - $2) }'
 }
