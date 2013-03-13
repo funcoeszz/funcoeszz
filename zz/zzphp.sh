@@ -39,7 +39,7 @@ zzphp ()
 		if [ "$2" ]
 		then
 			funcao=$(echo "$2" | sed 's/ .*//')
-			end=$(cat "$cache" | grep -h -i -- "^$funcao" | cut -f 2 -d"|")
+			end=$(cat "$cache" | grep -h -i -- "^$funcao " | cut -f 2 -d"|")
 			# Prevenir casos como do zlib://
 			funcao=$(echo "$funcao" | sed 's|//||g')
 			[ $? -eq 0 ] && $ZZWWWDUMP "${url}/${end}" | sed -n "/^${funcao}/,/add a note add a note/p" | sed '$d;/___*$/,$d'
