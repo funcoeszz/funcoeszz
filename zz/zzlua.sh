@@ -13,12 +13,12 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-09
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlua ()
 {
-	zzzz -h php "$1" && return
+	zzzz -h lua "$1" && return
 
 	local url='http://www.lua.org/manual/5.1/pt/manual.html'
 	local cache="$ZZTMP.lua"
@@ -31,28 +31,29 @@ zzlua ()
 		shift
 	fi
 
+	# Se o cache está vazio, baixa listagem da Internet
+	if ! test -s "$cache"
+	then
+		$ZZWWWDUMP "$url" | sed -n '/^4.1/,/^ *6/p' | sed '/^ *[4-6]/,/^ *__*$/{/^ *__*$/!d;}' > "$cache"
+	fi
+
+	
 	if [ "$1" = '-d' -o "$1" = '--detalhe' ]
 	then
+		# Detalhe de uma função específica
 		if [ "$2" ]
 		then
 			sed -n "/  $2/,/^ *__*$/p" "$cache" | sed '/^ *__*$/d'
 		fi
+	elif [ "$padrao" ]
+	then
+		# Busca a(s) função(ões)
+		sed -n '/^ *__*$/,/^ *[a-z_]/p' "$cache" |
+		sed '/^ *__*$/d;/^ *$/d;s/^  //g;s/\([^ ]\) .*$/\1/g' |
+		grep -h -i -- "$padrao"
 	else
-		# Se o cache está vazio, baixa listagem da Internet
-		if ! test -s "$cache"
-		then
-			$ZZWWWDUMP "$url" | sed -n '/^4.1/,/^ *6/p' | sed '/^ *[4-6]/,/^ *__*$/{/^ *__*$/!d;}' > "$cache"
-		fi
-
-		if [ "$padrao" ]
-		then
-			# Busca a(s) função(ões)
-			sed -n '/^ *__*$/,/^ *[a-z_]/p' "$cache" |
-			sed '/^ *__*$/d;/^ *$/d;s/^  //g;s/\([^ ]\) .*$/\1/g' |
-			grep -h -i -- "$padrao"
-		else
-			sed -n '/^ *__*$/,/^ *[a-z_]/p' "$cache" |
-			sed '/^ *__*$/d;/^ *$/d;s/\([^ ]\) .*$/\1/g'
-		fi
+		# Lista todas as funções
+		sed -n '/^ *__*$/,/^ *[a-z_]/p' "$cache" |
+		sed '/^ *__*$/d;/^ *$/d;s/\([^ ]\) .*$/\1/g'
 	fi
 }
