@@ -15,7 +15,7 @@
 # Desde: 2013-03-06
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzminusculas zzunescape
+# Requisitos: zzunescape
 # ----------------------------------------------------------------------------
 zzphp ()
 {
