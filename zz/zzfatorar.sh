@@ -98,6 +98,7 @@ zzfatorar ()
 			# Definindo o número primo a ser usado
 			linha_atual=$((${linha_atual} + 1))
 			primo_atual=$(sed -n "${linha_atual}p" "$cache")
+			[ ${#primo_atual} -eq 0 ] && { zztool eco " Valor não fatorável nesse script!"; return 1; }
 		done
 		
 		if [ "$bc" != "2" ]
