@@ -1,9 +1,10 @@
 # ----------------------------------------------------------------------------
-# Mostra a classificação da libertatores
+# Mostra a classificação e jogos do torneio Libertadores da América
 # Opções:
 #  -j <número>: Mostra jogos da fase selecionada
 #  -g <número>: Jogos da segunda fase do gupo selecionado
 #  -c [numero]: Mostra a classificação, nos grupos da segunda fase
+#
 # Nomenclatura:
 #	PG  - Pontos Ganhos
 #	J   - Jogos
@@ -14,6 +15,7 @@
 #	GC  - Gols Contra
 #	SG  - Saldo de Gols
 #	(%) - Aproveitamento (pontos)
+#
 # Uso: zzlibertadores <-c|-j|-g> [número]
 # Exemplo: zzlibertadores -j 2  # Jogos da Fase 2 (Grupos)
 #          zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
@@ -22,9 +24,8 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 1
+# Versão: 2
 # Licença: GPL
-# Requisitos: zzseq
 # ----------------------------------------------------------------------------
 zzlibertadores ()
 {
@@ -50,7 +51,7 @@ zzlibertadores ()
 		# Fase 2 (Fase de Grupos)
 		if [ "$2" = "2" ]
 		then
-			for grupo in $(zzseq 8)
+			for grupo in 1 2 3 4 5 6 7 8
 			do
 				zzlibertadores -g $grupo
 			done
@@ -72,42 +73,43 @@ zzlibertadores ()
 		if [ "$1" = "-c" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
 		then
 			grupo="$2"
+			url="http://esportes.terra.com.br/futebol/libertadores/"
+			$ZZWWWDUMP "$url" | sed -n "/Grupo $grupo/,/Anterior/p"| 
+			sed '/^ *$/d;s/Subiu[0-9]*//g;s/Desceu[0-9]*//g;s/Anterior//g;s/Times//g;s/^ *\*//g' |
+			awk -v cor_awk="$ZZCOR" '{
+				if (NF >= 9) {
+				time_fut = $2
+				for (i=3;i<(NF-8);i++) {
+					if ($i != $2) {
+						time_fut = time_fut " " $i
+					} else {
+						break
+					}
+				}
+		
+					if (NF==9) {
+					printf " %s %-25s", " ", " "
+					printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s\n", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
+					}
+					if (NF>9) {
+					if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[42;30m"
+					printf "%s %-25s ", $1, time_fut
+					printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
+					if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[m"
+					printf "\n"
+					}
+				}
+				else print
+			}'
+			[ "$3" != "-n" -a "$ZZCOR" -eq "1" ] && printf "\033[42;30m Classificados \033[m\n"
+			
 		else
-			for grupo in $(zzseq 8)
+			for grupo in 1 2 3 4 5 6 7 8
 			do
-				zzlibertadores -c $grupo
+				zzlibertadores -c $grupo -n
 			done
+			[ "$ZZCOR" -eq "1" ] && printf "\033[42;30m Classificados \033[m\n"
 		fi
 		
-		url="http://esportes.terra.com.br/futebol/libertadores/"
-		$ZZWWWDUMP "$url" | sed -n "/Grupo $grupo/,/Anterior/p"| 
-		sed '/^ *$/d;s/Subiu[0-9]*//g;s/Desceu[0-9]*//g;s/Anterior//g;s/Times//g;s/^ *\*//g' |
-		awk -v cor_awk="$ZZCOR" '{
-			if (NF >= 9) {
-			time_fut = $2
-			for (i=3;i<(NF-8);i++) {
-				if ($i != $2) {
-					time_fut = time_fut " " $i
-				} else {
-					break
-				}
-			}
-		
-				if (NF==9) {
-				printf " %s %-25s", " ", " "
-				printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s\n", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
-				}
-				if (NF>9) {
-				if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[42;30m"
-				printf "%s %-25s ", $1, time_fut
-				printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
-				if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[m"
-				printf "\n"
-				}
-			}
-			else print
-		}
-		END { printf "\033[42;30m Classificados \033[m\n" }'
-	
 	fi
 }
