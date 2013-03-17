@@ -5,9 +5,9 @@
 # Com dois argumentos, número entre esses limites dados.
 #
 # Uso: zzaleatorio [numero] [numero]
-# Exemplo: zzaleatorio 10
-#          zzaleatorio 5 15
-#          zzaleatorio
+# Ex.: zzaleatorio 10
+#      zzaleatorio 5 15
+#      zzaleatorio
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-13

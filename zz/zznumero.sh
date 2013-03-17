@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Formatando a saída de um número
+# Formatando a saída de um número.
 # Opções:
 #  -f <padrão | numeros>: Padrão de formatação igual ao printf,
 # incluindo %'d e %'.f ou precisão se apenas informado um número, se
@@ -18,7 +18,6 @@
 # Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
 #
 # Uso: zznumero [-m|--moeda] [-t|--texto] [--de <formato>] [--para <formato>] [-f <numero|padrão>] [-p <prefixo>] [-s <sufixo>] <numero>
-#
 # Ex.: zznumero 12445.78
 #      zznumero --texto 4567890,213
 #      zznumero -m 85,345
@@ -787,4 +786,3 @@ zznumero ()
 		[ ${#num_saida} -gt 0 ] && echo ${prefixo}${num_saida}${sufixo}
 	fi
 }
-

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Mostra a classificação e jogos do torneio Libertadores da América
+# Mostra a classificação e jogos do torneio Libertadores da América.
 # Opções:
 #  -j <número>: Mostra jogos da fase selecionada
 #  -g <número>: Jogos da segunda fase do gupo selecionado
@@ -17,10 +17,10 @@
 #	(%) - Aproveitamento (pontos)
 #
 # Uso: zzlibertadores <-c|-j|-g> [número]
-# Exemplo: zzlibertadores -j 2  # Jogos da Fase 2 (Grupos)
-#          zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
-#          zzlibertadores -c    # Calssificação de todos os grupos
-#          zzlibertadores -c 3  # Classificação no grupo 3
+# Ex.: zzlibertadores -j 2  # Jogos da Fase 2 (Grupos)
+#      zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
+#      zzlibertadores -c    # Calssificação de todos os grupos
+#      zzlibertadores -c 3  # Classificação no grupo 3
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
@@ -29,6 +29,8 @@
 # ----------------------------------------------------------------------------
 zzlibertadores ()
 {
+	zzzz -h libertadores "$1" && return
+	
 	local ano=$(date +%Y)
 	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/$ano"
 	local grupo

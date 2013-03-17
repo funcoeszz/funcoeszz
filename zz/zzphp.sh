@@ -1,14 +1,13 @@
 # ----------------------------------------------------------------------------
 # http://www.php.net/manual/pt_BR/indexes.functions.php
-# Lista completa com funções do php
+# Lista completa com funções do php.
 # com a opção -d ou --detalhe busca mais informação da função
 # com a opção --atualiza força a atualização co cache local
 #
 # Uso: zzphp <palavra|regex>
-#      zzphp --atualiza
-# Ex.:
+# Ex.: zzlua --atualiza              # Força atualização do cache
 #      zzphp array                   # mostra as funçoes com "array" no nome
-#      zzphp -d mysql_fetch_object   # mostra descrição da função mysql_fetch_object
+#      zzphp -d mysql_fetch_object   # mostra descrição do  mysql_fetch_object
 #      zzphp ^X                      # mostra as funções que começam com X
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>

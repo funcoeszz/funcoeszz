@@ -1,12 +1,11 @@
 # ----------------------------------------------------------------------------
 # http://www.lua.org/manual/5.1/pt/manual.html
-# Lista de funções da linguagem lua
+# Lista de funções da linguagem lua.
 # com a opção -d ou --detalhe busca mais informação da função
 # com a opção --atualiza força a atualização co cache local
 #
 # Uso: zzlua <palavra|regex>
-#      zzlua --atualiza
-# Ex.:
+# Ex.: zzlua --atualiza        # Força atualização do cache
 #      zzlua file              # mostra as funçoes com "file" no nome
 #      zzlua -d debug.debug    # mostra descrição da função debug.debug
 #      zzlua ^d                # mostra as funções que começam com d

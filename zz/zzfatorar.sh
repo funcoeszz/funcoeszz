@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://www.primos.mat.br/primeiros_10000_primos.txt
-# Fatora um número em fatores primos
+# Fatora um número em fatores primos.
 # Com as opções:
 #   --atualiza: força o cache ser atualizado.
 #   --bc: saída apenas da expressão, que pode ser usado no bc, awk ou etc.
@@ -23,7 +23,7 @@ zzfatorar ()
 	zzzz -h fatorar "$1" && return
 
 	local url='http://www.primos.mat.br/primeiros_10000_primos.txt'
-	local cache="$ZZTMP.primos"
+	local cache="$ZZTMP.fatorar"
 	local linha_atual=1
 	local primo_atual=2
 	local bc=0
