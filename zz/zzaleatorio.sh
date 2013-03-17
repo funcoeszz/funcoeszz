@@ -11,7 +11,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-13
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -44,12 +44,17 @@ zzaleatorio ()
 		fim="$v_temp"
 	fi
 	
-	# Usando o tempo em nanosegundos
-	v_temp=$(date +%N)
+	# Usando o dispositivo /dev/urandom
+	v_temp=$(od -An -N2 -i /dev/urandom)
+	
+	# Se não estiver disponível, usa o dispositivo /dev/random
+	zztool testa_numero $v_temp || v_temp=$(od -An -N2 -i /dev/random)
+	
+	# Se não estiver disponível, usa o tempo em nanosegundos
+	zztool testa_numero $v_temp || v_temp=$(date +%N)
+	
 	# Se não estiver disponível, usa o tempo em segundos (epoch)
 	zztool testa_numero $v_temp || v_temp=$(date +%s)
 	
-	# Usando o awk, sendo o gerador randômico semeado pelo inverso do número dos nanossegundos
-	# ou segundos se a opção não estiver diponível.
 	echo "$(zzvira $v_temp) $inicio $fim"|awk '{ srand($1); printf "%.0f\n", $2 + rand()*($3 - $2) }'
 }
