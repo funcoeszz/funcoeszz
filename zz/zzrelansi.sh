@@ -32,12 +32,12 @@ zzrelansi ()
 		else
 			relansi_cols=$(tput cols)
 			relansi_write()
-		        {
+				{
 				tput sc
 				tput cup 0 $[$relansi_cols-8]
 				[ "$1" ] && date +'%H:%M:%S' || echo '        '
 				tput rc
-		        }
+				}
 			exec 3>&2 2> /dev/null
 			while true
 			do

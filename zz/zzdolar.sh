@@ -31,7 +31,7 @@ zzdolar ()
 			# espaçamento dos valores
 			s/ [0-9],[0-9][0-9][0-9][0-9]/  &/g
 
-			# remove variação percentual 
+			# remove variação percentual
 			s/ -\{0,1\}[0-9],[0-9][0-9] .*%  */   /
 		'
 	)

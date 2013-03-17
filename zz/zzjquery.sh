@@ -20,7 +20,7 @@ zzjquery ()
 	local er1="s/^ *<h1>\([\$.]*$2(.*\)<\/h1> *$/- \1/p;"  # <h1>gt(pos)</h1>
 	local er2="
 	/^ *<h1>\([\$.]*$1(.*\)<\/h1> *$/ {
-		
+
 		# Mostra o nome da função e vai pra próxima linha
 		s//\1:/p
 		n
@@ -39,14 +39,14 @@ zzjquery ()
 			p
 			b
 		}
-		
+
 		### A descrição está em várias linhas.
 		#
-	        # <h1>gt(pos)</h1>
-	        # <p>Reduce the set of matched elements to all elements after a given position.
-	        #    The position of the element in the set of matched elements
-	        #    starts at 0 and goes to length - 1.
-	        # </p>
+			# <h1>gt(pos)</h1>
+			# <p>Reduce the set of matched elements to all elements after a given position.
+			#    The position of the element in the set of matched elements
+			#    starts at 0 and goes to length - 1.
+			# </p>
 		#
 		# Esse é mais chato, temos que pegar todo o texto até o </p>.
 		# É feito um loop que termina quando achar o </p>.

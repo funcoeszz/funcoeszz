@@ -38,7 +38,7 @@ zzcalculaip ()
 			mascara=$2
 		else
 			# A máscara padrão é determinada pela RFC 1918 (valeu jonerworm)
-			# http://tools.ietf.org/html/rfc1918 
+			# http://tools.ietf.org/html/rfc1918
 			#
 			#   10.0.0.0    - 10.255.255.255  (10/8 prefix)
 			#   172.16.0.0  - 172.31.255.255  (172.16/12 prefix)

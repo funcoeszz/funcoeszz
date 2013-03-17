@@ -725,7 +725,7 @@ zznumero ()
 			num_saida=$(echo "$num_saida" |
 				sed 's/décimos \([a-z]\)/décimos de \1/;s/centésimos \([a-z]\)/centésimos de \1/'|
 				sed 's/ *$//;s/ \{1,\}/ /g')
-				
+
 			# Ajuste para valor unitário na parte fracionária
 			$(echo $num_frac | grep '^0\{1,\}1$' > /dev/null) && num_saida=$(echo $num_saida | sed 's/imos/imo/g')
 		fi
@@ -754,7 +754,7 @@ zznumero ()
 		else
 			[ "$sufixo" ] && num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
 		fi
-		
+
 		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g;s/ \{1,\}/ /g' | sed 's/^ *e//;s/e *$//')
 
 		# Uma classe numérica por linha

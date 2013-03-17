@@ -111,7 +111,7 @@ zztv ()
 	cnn)                          URL="${URL}/canal/CNN";desc="CNN International";;
 	cnt)                          URL="${URL}/canal/CNT";desc="CNT";;
 	comedy)                       URL="${URL}/canal/CCE";desc="Comedy Central";;
-	combate)                      URL="${URL}/canal/135";desc="Combatevh1";; 
+	combate)                      URL="${URL}/canal/135";desc="Combatevh1";;
 	concert)                      URL="${URL}/canal/100";desc="Concert Channel";;
 	cultura)                      URL="${URL}/canal/CUL";desc="TV Cultura";;
 	corinthians)                  URL="${URL}/canal/TCO";desc="TV Corinthians";;

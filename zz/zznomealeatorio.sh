@@ -26,7 +26,7 @@ zznomealeatorio ()
 	local lista
 
 	# Se a quantidade de parâmetros for incorreta ou não for número
-	# inteiro positivo, mostra mensagem de uso e sai.	
+	# inteiro positivo, mostra mensagem de uso e sai.
 	(test $# -gt 1 || ! zztool testa_numero "$entrada") && {
 		zztool uso nomealeatorio
 		return 1

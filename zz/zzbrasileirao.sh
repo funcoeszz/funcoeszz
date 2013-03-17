@@ -39,7 +39,7 @@ zzbrasileirao ()
 
 	local rodada serie ano urls
 	local url="http://esporte.uol.com.br"
-	
+
 	[ $(date +%Y%m%d) -lt 20130526 ] && { zztool eco " Brasileirão 2013 só a partir de 26 de Maio"; return 1; }
 
 	[ $# -gt 2 ] && { zztool uso brasileirao; return 1; }
@@ -139,7 +139,6 @@ zzbrasileirao ()
 				fi
 				printf "\033[41;30m Rebaixamento \033[m\n"
 			fi
-
 		done
 	fi
 }

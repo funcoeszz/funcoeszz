@@ -36,7 +36,6 @@ zzlua ()
 		$ZZWWWDUMP "$url" | sed -n '/^4.1/,/^ *6/p' | sed '/^ *[4-6]/,/^ *__*$/{/^ *__*$/!d;}' > "$cache"
 	fi
 
-	
 	if [ "$1" = '-d' -o "$1" = '--detalhe' ]
 	then
 		# Detalhe de uma função específica

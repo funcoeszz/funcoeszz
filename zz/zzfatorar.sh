@@ -17,6 +17,7 @@
 # Desde: 2013-03-14
 # Versão: 1
 # Licença: GPL
+# Requisitos: zzjuntalinhas
 # ----------------------------------------------------------------------------
 zzfatorar ()
 {
@@ -28,9 +29,9 @@ zzfatorar ()
 	local primo_atual=2
 	local bc=0
 	local num_atual saida tamanho indice
-	
+
 	[ "$1" ] || { zztool uso fatorar; return 1; }
-	
+
 	while  [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
@@ -52,7 +53,7 @@ zzfatorar ()
 		*) break;;
 		esac
 	done
-	
+
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
@@ -65,14 +66,14 @@ zzfatorar ()
 		# Se o número fornecido for primo, retorna-o e sai
 		grep "^${1}$" ${cache} > /dev/null
 		[ "$?" = "0" ] && { echo " $1 é um número primo."; return; }
-		
+
 		num_atual="$1"
 		tamanho=$((${#1} + 1))
-		
+
 		# Enquanto a resultado for maior que o número primo continua, ou dentro das 10000 primos listados
 		while [ ${num_atual} -gt ${primo_atual} -a ${linha_atual} -le 10000 ]
 		do
-			
+
 			# Repetindo a divisão pelo número primo atual, enquanto for exato
 			while [ $((${num_atual} % ${primo_atual})) -eq 0 ]
 			do
@@ -81,7 +82,7 @@ zzfatorar ()
 				saida="${saida} ${primo_atual}"
 				[ "$bc" != "1" -a "${num_atual}" = "1" ] && { printf "%${tamanho}s |\n" 1; break; }
 			done
-			
+
 			# Se o número atual é primo
 			grep "^${num_atual}$" ${cache} > /dev/null
 			if [ "$?" = "0" ]
@@ -94,16 +95,16 @@ zzfatorar ()
 				fi
 				break
 			fi
-			
+
 			# Definindo o número primo a ser usado
 			linha_atual=$((${linha_atual} + 1))
 			primo_atual=$(sed -n "${linha_atual}p" "$cache")
 			[ ${#primo_atual} -eq 0 ] && { zztool eco " Valor não fatorável nesse script!"; return 1; }
 		done
-		
+
 		if [ "$bc" != "2" ]
 		then
-			saida=$(echo "$saida " | sed 's/ /&\n/g'| sed '/^ *$/d;s/^ */ /g' | 
+			saida=$(echo "$saida " | sed 's/ /&\n/g'| sed '/^ *$/d;s/^ */ /g' |
 			uniq -c | awk '{ if ($1==1) {print $2} else {print $2 "^" $1} }' | zzjuntalinhas -d ' * ')
 			[ "$bc" -eq "1" ] || echo
 			echo " $1 = $saida"

@@ -76,7 +76,7 @@ zzhora ()
 			resultado=$(zzhora "$parcial" "$1" "$2")
 			exitcode=$?
 
-			# Salva somente o horário. Ex: 02:59 (0d 2h 59m) 
+			# Salva somente o horário. Ex: 02:59 (0d 2h 59m)
 			parcial=$(echo "$resultado" | cut -d ' ' -f 1)
 
 			# Esses dois já foram. Venham os próximos!

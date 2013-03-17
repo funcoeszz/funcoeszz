@@ -26,7 +26,7 @@ zzcidade ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		# Exemplo:^     * Aracaju (SE) 
+		# Exemplo:^     * Aracaju (SE)
 		$ZZWWWDUMP "$url" | sed -n 's/^  *\* \(.* (..)\)$/\1/p' > "$cache"
 	fi
 

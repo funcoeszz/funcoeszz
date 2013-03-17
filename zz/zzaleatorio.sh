@@ -43,18 +43,18 @@ zzaleatorio ()
 		inicio="$fim"
 		fim="$v_temp"
 	fi
-	
+
 	# Usando o dispositivo /dev/urandom
 	v_temp=$(od -An -N2 -i /dev/urandom)
-	
+
 	# Se não estiver disponível, usa o dispositivo /dev/random
 	zztool testa_numero $v_temp || v_temp=$(od -An -N2 -i /dev/random)
-	
+
 	# Se não estiver disponível, usa o tempo em nanosegundos
 	zztool testa_numero $v_temp || v_temp=$(date +%N)
-	
+
 	# Se não estiver disponível, usa o tempo em segundos (epoch)
 	zztool testa_numero $v_temp || v_temp=$(date +%s)
-	
+
 	echo "$(zzvira $v_temp) $inicio $fim"|awk '{ srand($1); printf "%.0f\n", $2 + rand()*($3 - $2) }'
 }

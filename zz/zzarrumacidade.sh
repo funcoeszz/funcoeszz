@@ -83,15 +83,15 @@ zzarrumacidade ()
 
 
 		### Restaura acentuação de maneira genérica:
-		
+
 		# Uberlândia, Rolândia
 		s/landia /lândia /g
 		s/landia$/lândia/
-		
+
 		# Florianópolis, Virginópolis
 		s/opolis /ópolis /g
 		s/opolis$/ópolis/
-		
+
 		# Palavras terminadas em 'ao' viram 'ão'.
 		# Exemplos: São, João, Ribeirão, Capão
 		#

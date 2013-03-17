@@ -30,13 +30,13 @@
 zzlibertadores ()
 {
 	zzzz -h libertadores "$1" && return
-	
+
 	local ano=$(date +%Y)
 	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/$ano"
 	local grupo
-	
+
 	[ "$1" ] || { zztool uso libertadores; return 1; }
-	
+
 	# Mostrando os jogos
 	# Escolhendo as fases
 	if [ "$1" = "-j" ]
@@ -49,7 +49,7 @@ zzlibertadores ()
 			$ZZWWWDUMP "$url" | sed -n '/Primeira fase - IDA/,/primeira-fase/p' |
 			sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g'| sed "s/.*${ano}$/\n&/g"
 		fi
-		
+
 		# Fase 2 (Fase de Grupos)
 		if [ "$2" = "2" ]
 		then
@@ -59,7 +59,7 @@ zzlibertadores ()
 			done
 		fi
 	fi
-	
+
 	# Escolhendo o grupo para os jogos
 	if [ "$1" = "-g" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
 	then
@@ -68,7 +68,7 @@ zzlibertadores ()
 		$ZZWWWDUMP "$url" | sed -n '/^ *Grupo /,/segunda-fase/p' |
 		sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Grupo/\n&/g'
 	fi
-	
+
 	# Mostrando a classificação (Fase de grupos)
 	if [ "$1" = "-c" ]
 	then
@@ -76,7 +76,7 @@ zzlibertadores ()
 		then
 			grupo="$2"
 			url="http://esportes.terra.com.br/futebol/libertadores/"
-			$ZZWWWDUMP "$url" | sed -n "/Grupo $grupo/,/Anterior/p"| 
+			$ZZWWWDUMP "$url" | sed -n "/Grupo $grupo/,/Anterior/p"|
 			sed '/^ *$/d;s/Subiu[0-9]*//g;s/Desceu[0-9]*//g;s/Anterior//g;s/Times//g;s/^ *\*//g' |
 			awk -v cor_awk="$ZZCOR" '{
 				if (NF >= 9) {
@@ -88,7 +88,7 @@ zzlibertadores ()
 						break
 					}
 				}
-		
+
 					if (NF==9) {
 					printf " %s %-25s", " ", " "
 					printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s\n", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
@@ -104,7 +104,7 @@ zzlibertadores ()
 				else print
 			}'
 			[ "$3" != "-n" -a "$ZZCOR" -eq "1" ] && printf "\033[42;30m Classificados \033[m\n"
-			
+
 		else
 			for grupo in 1 2 3 4 5 6 7 8
 			do
@@ -112,6 +112,5 @@ zzlibertadores ()
 			done
 			[ "$ZZCOR" -eq "1" ] && printf "\033[42;30m Classificados \033[m\n"
 		fi
-		
 	fi
 }
