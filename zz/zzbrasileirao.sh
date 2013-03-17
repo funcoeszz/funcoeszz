@@ -40,8 +40,6 @@ zzbrasileirao ()
 	local rodada serie ano urls
 	local url="http://esporte.uol.com.br"
 
-	[ $(date +%Y%m%d) -lt 20130526 ] && { zztool eco " Brasileirão 2013 só a partir de 26 de Maio"; return 1; }
-
 	[ $# -gt 2 ] && { zztool uso brasileirao; return 1; }
 
 	serie='a'
@@ -54,8 +52,9 @@ zzbrasileirao ()
 			$ZZWWWDUMP "${url}/futebol/clubes/$2/resultados" | sed 's/^ *$//g' |
 			sed -n '/^\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho\|Julho\|Agosto\|Setembro\|Outubro\|Novembro\|Dezembro\| *Data *Hora\| *[0-9][0-9]\/[0-9][0-9]\)/p'|sed 's/  *-  *Leia.*//g'
 
-			$ZZWWWDUMP "${url}/futebol/clubes/$2/proximos-jogos" | sed 's/^ *$//g' |
-			sed -n '/^\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho\|Julho\|Agosto\|Setembro\|Outubro\|Novembro\|Dezembro\| *Data *Hora\| *[0-9][0-9]\/[0-9][0-9]\)/p'
+			# Mudança no formato, aguardar até brasileirão começar, e ver se retornam ao formato anterior
+			# $ZZWWWDUMP "${url}/futebol/clubes/$2/proximos-jogos" | sed 's/^ *$//g' |
+			# sed -n '/^\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho\|Julho\|Agosto\|Setembro\|Outubro\|Novembro\|Dezembro\| *Data *Hora\| *[0-9][0-9]\/[0-9][0-9]\)/p'
 			return 0
 		else
 			$ZZWWWHTML "$url/futebol/clubes/" |
@@ -69,6 +68,8 @@ zzbrasileirao ()
 			zztool testa_numero "$1" && rodada="$1" || { zztool uso brasileirao; return 1; }
 		fi
 	fi
+
+	[ $(date +%Y%m%d) -lt 20130526 ] && { zztool eco " Brasileirão 2013 só a partir de 26 de Maio"; return 1; }
 
 	ano=$(date +%Y)
 
