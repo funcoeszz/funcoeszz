@@ -718,7 +718,7 @@ zzmat ()
 	fat)
 		if ([ $# -eq "2" ] && zztool testa_numero "$2" && [ "$2" -ge "1" ])
 		then
-			zzseq 1 $2 | paste -s -d* - | bc -l
+			zzseq $2 | paste -s -d* - | bc -l
 		else
 			echo " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
 			echo " Uso: zzmat $funcao numero"
@@ -778,7 +778,7 @@ zzmat ()
 				fi
 			fi
 			echo "($num1)^$grau"
-			for parcela in $(seq 1 $((grau-1)))
+			for parcela in $(zzseq $((grau-1)))
 			do
 				coeficiente=$(zzmat combinacao $grau $parcela)
 				[ "$sinal" = "-" -a $((parcela%2)) -eq 1 ] && printf "%s" "- " || printf "%s" "+ "
