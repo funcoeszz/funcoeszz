@@ -781,11 +781,11 @@ zzmat ()
 			for parcela in $(seq 1 $((grau-1)))
 			do
 				coeficiente=$(zzmat combinacao $grau $parcela)
-				[ "$sinal" = "-" -a $((parcela%2)) -eq 1 ] && printf "%s" "-" || printf "%s" "+"
-				printf "%s" "$coeficiente"
-				echo "($num1)^$(($grau-$parcela))($num2)^$parcela"|sed 's/\^1\([^0-9]\)/\1/g;s/\^1$//'
+				[ "$sinal" = "-" -a $((parcela%2)) -eq 1 ] && printf "%s" "- " || printf "%s" "+ "
+				printf "%s * " "$coeficiente"
+				echo "($num1)^$(($grau-$parcela)) * ($num2)^$parcela"|sed 's/\^1\([^0-9]\)/\1/g;s/\^1$//'
 			done
-			[ "$sinal" = "-" -a $((grau%2)) -eq 1 ] && printf "%s" "-" || printf "%s" "+"
+			[ "$sinal" = "-" -a $((grau%2)) -eq 1 ] && printf "%s" "- " || printf "%s" "+ "
 			echo "($num2)^$grau"
 		else
 			echo " zzmat $funcao: Exibe o desdobramento do binônimo de Newton."
