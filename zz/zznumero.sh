@@ -33,8 +33,6 @@ zznumero ()
 {
 	zzzz -h numero "$1" && return
 
-	[ "$1" ] || { zztool uso numero; return 1; }
-
 	local texto=0
 	local prec=2
 	local linha=0
