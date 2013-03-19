@@ -11,7 +11,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-13
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -53,8 +53,14 @@ zzaleatorio ()
 	# Se não estiver disponível, usa o tempo em nanosegundos
 	zztool testa_numero $v_temp || v_temp=$(date +%N)
 
-	# Se não estiver disponível, usa o tempo em segundos (epoch)
-	zztool testa_numero $v_temp || v_temp=$(date +%s)
-
-	echo "$(zzvira $v_temp) $inicio $fim"|awk '{ srand($1); printf "%.0f\n", $2 + rand()*($3 - $2) }'
+	if zztool testa_numero $v_temp
+	then
+		# Se um dos casos acima atenderem, usa essa chamada
+		echo "$(zzvira $v_temp) $inicio $fim" | awk '{ srand($1); printf "%.0f\n", $2 + rand()*($3 - $2) }'
+	else
+		# Se não estiver disponível, a data e tempo do atual que é padrão
+		echo "$inicio $fim" | awk '{ srand(); printf "%.0f\n", $1 + rand()*($2 - $1) }'
+		# Aguarda 1 segundo, para garantir aleatoriedade no caso
+		sleep 1
+	fi
 }
