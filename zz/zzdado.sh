@@ -1,8 +1,3 @@
-#!/bin/bash
-
-source /usr/bin/funcoeszz
-ZZPATH=$PWD/zzdado.sh
-
 # ----------------------------------------------------------------------------
 # Dado Virtual - Exibe um número aleatório entre 1 e 6
 # Uso: zzdado

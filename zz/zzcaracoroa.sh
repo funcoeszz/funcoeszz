@@ -1,8 +1,3 @@
-#!/bin/bash
-
-source /usr/bin/funcoeszz
-ZZPATH=$PWD/zzcaracoroa.sh
-
 # ----------------------------------------------------------------------------
 # Exibe 'cara' ou 'coroa' aleatoriamente
 # Uso: zzcaracoroa

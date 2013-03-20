@@ -1,8 +1,3 @@
-#!/bin/bash
-
-source /usr/bin/funcoeszz
-ZZPATH=$PWD/zzlorem.sh
-
 # ----------------------------------------------------------------------------
 # Gerador de texto de teste - Exibe parte de um texto de teste em latim
 # no padrao lorem ipsum...
