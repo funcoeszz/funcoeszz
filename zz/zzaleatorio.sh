@@ -11,7 +11,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-13
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -21,6 +21,7 @@ zzaleatorio ()
 
 	local inicio=0
 	local fim=32767
+	local cache="$ZZTMP.aleatorio"
 	local v_temp
 
 	# Se houver só um número, entre 0 e o número
@@ -55,12 +56,19 @@ zzaleatorio ()
 
 	if zztool testa_numero $v_temp
 	then
-		# Se um dos casos acima atenderem, usa essa chamada
+		# Se um dos casos acima atenderem, gera o número aleatório
 		echo "$(zzvira $v_temp) $inicio $fim" | awk '{ srand($1); printf "%.0f\n", $2 + rand()*($3 - $2) }'
 	else
-		# Se não estiver disponível, a data e tempo do atual que é padrão
+		# Se existir o cache e o tempo em segundos é o mesmo do atual, aguarda um segundo
+		if test -s "$cache"
+		then
+			[ $(cat "$cache") = $(date +%s) ] && sleep 1
+		fi
+
+		# Cria o cache incondicionalmente nesse caso
+		echo $(date +%s) > "$cache"
+
+		# Gera o número aleatório
 		echo "$inicio $fim" | awk '{ srand(); printf "%.0f\n", $1 + rand()*($2 - $1) }'
-		# Aguarda 1 segundo, para garantir aleatoriedade no caso
-		sleep 1
 	fi
 }
