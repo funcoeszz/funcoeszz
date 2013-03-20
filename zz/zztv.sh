@@ -64,7 +64,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net - revisado por Itamar.
 # Desde: 2002-02-19
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztv ()
@@ -111,7 +111,7 @@ zztv ()
 	cnn)                          URL="${URL}/canal/CNN";desc="CNN International";;
 	cnt)                          URL="${URL}/canal/CNT";desc="CNT";;
 	comedy)                       URL="${URL}/canal/CCE";desc="Comedy Central";;
-	combate)                      URL="${URL}/canal/135";desc="Combatevh1";;
+	combate)                      URL="${URL}/canal/135";desc="Combate";;
 	concert)                      URL="${URL}/canal/100";desc="Concert Channel";;
 	cultura)                      URL="${URL}/canal/CUL";desc="TV Cultura";;
 	corinthians)                  URL="${URL}/canal/TCO";desc="TV Corinthians";;
@@ -265,46 +265,58 @@ zztv ()
 	warner)                       URL="${URL}/canal/WBT";desc="Warner Channel";;
 	warner_hd)                    URL="${URL}/canal/WBH";desc="Warner Channel HD";;
 	woohoo)                       URL="${URL}/canal/WOO";desc="WooHoo";;
-	doc|documentario)             URL="${URL}/categoria/Documentarios";flag=1;;
-	esporte|esportes|futebol)     URL="${URL}/categoria/Esportes";flag=1;;
-	filmes)                       URL="${URL}/categoria/Filmes";flag=1;;
-	infantil)                     URL="${URL}/categoria/Infantil";flag=1;;
-	series|seriados)              URL="${URL}/categoria/Series";flag=1;;
-	variedades)                   URL="${URL}/categoria/Variedades";flag=1;;
+	doc|documentario)             URL="${URL}/categoria/Documentarios";flag=1;desc="Documentários";;
+	esporte|esportes|futebol)     URL="${URL}/categoria/Esportes";flag=1;desc="Esportes";;
+	filmes)                       URL="${URL}/categoria/Filmes";flag=1;desc="Filmes";;
+	infantil)                     URL="${URL}/categoria/Infantil";flag=1;desc="Infantil";;
+	series|seriados)              URL="${URL}/categoria/Series";flag=1;desc="Séries";;
+	variedades)                   URL="${URL}/categoria/Variedades";flag=1;desc="Variedades";;
 	cod)                          URL="${URL}/programa/$2";flag=2;;
-	todos|agora|*)                URL="${URL}/categoria/Todos";flag=1;;
+	todos|agora|*)                URL="${URL}/categoria/Todos";flag=1;desc="Agora";;
 	esac
 
 	case "$2" in
 	semana|s)
-		echo $desc
-		$ZZWWWHTML "$URL" | sed -n '/<li class/{N;p;}'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
-		sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g'|
-		sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'|
-		sed "/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/ { x; p ; x; s//\1/; }"|
-		sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g'
+		zztool eco $desc
+		$ZZWWWHTML "$URL" |
+		sed -n '/<li class/{N;p;}' |
+		sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g' |
+		sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g' |
+		sed 's/^[[:space:]]*/ /g' |
+		sed '/^[[:space:]]*$/d' |
+		sed "/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/ { x; p ; x; s//\1/; }" |
+		sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g' |
+		awk -F " Cod: " '{ if (NF==2) { printf "%-61s Cod: %s\n", $1, substr($2, 1, index($2, "-")-1) } else print }'
 	;;
 	*)
 		if [ $flag -eq 0 ]
 		then
-			echo $desc
-			$ZZWWWHTML "$URL" | sed -n '/<li class/{N;p;}'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
+			zztool eco $desc
+			$ZZWWWHTML "$URL" |
+			sed -n '/<li class/{N;p;}' |
+			sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g' |
 			sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g'|
-			sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'|
-			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p"|sed '$d'|
-			sed '1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g' |
-			sed -e ':a' -e '/^.\{25,70\}$/ { s/ Cod: / &/; ta' -e '}'
+			sed 's/^[[:space:]]*/ /g' |
+			sed '/^[[:space:]]*$/d' |
+			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p" |
+			sed '$d;1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g' |
+			awk -F " Cod: " '{ if (NF==2) { printf "%-61s Cod: %s\n", $1, substr($2, 1, index($2, "-")-1) } else print }'
 		elif [ $flag -eq 1 ]
 		then
-			$ZZWWWHTML "$URL" | sed -n '/<li style/{N;p;}'|sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g'|
-			sed 's/^.*programa\///g;s/".*title="/_/g;s/">.*<br \/>//g;s/<[^>]*>/ /g;s/amp;//g'|
-			sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d'|
-			sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g'
+			zztool eco $desc
+			$ZZWWWHTML "$URL" | sed -n '/<li style/{N;p;}' |
+			sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g' |
+			sed 's/.*title="//g;s/">.*<br \/>/ | /g;s/<[^>]*>/ /g' |
+			sed 's/[[:space:]]\{1,\}/ /g' |
+			sed '/^[[:space:]]*$/d'|
+			awk -F "|" '{ printf "%5s %-55s %s\n", $2, $1, $3 }'
 		else
-			$ZZWWWHTML "$URL" | sed -n '/<span class="tit">/,/a seguir neste canal/p'|
-			sed 's/<span class="tit">/Título:/;s/<span class="tit_orig">/Título Original:/'|
+			zztool eco "Código: $2"
+			$ZZWWWHTML "$URL" | sed -n '/<span class="tit">/,/Compartilhe:/p'|
+			sed 's/<span class="tit">/Título: /;s/<span class="tit_orig">/Título Original: /'|
 			sed 's/<[^>]*>/ /g;s/amp;//g;s/\&ccedil;/ç/g;s/\&atilde;/ã/g;s/.*str="//;s/";//;s/[\|] //g'|
-			sed 's/^[[:space:]]*/ /g'|sed '/^[[:space:]]*$/d;/document.write/d;$d'
+			sed 's/^[[:space:]]*/ /g' |
+			sed '/^[[:space:]]*$/d;/document.write/d;$d'
 		fi
 	;;
 	esac
