@@ -1,12 +1,11 @@
 # ----------------------------------------------------------------------------
-# Exibe a relação de elementos químicos
-# E tendo como argumento o número atômico ou o símbolo do elemento
-# pesquisa o mesmo na wikipedia
+# Exibe a relação dos elementos químicos.
+# Pesquisa na Wikipédia se informado o número atômico ou símbolo do elemento.
 #
-# Uso: zzquimica [numero|simbolo]
-# Ex.: zzquimica    # Lista de todos os elementos químicos
-#      zzquimica He # Pesquisa o Hélio
-#      zzquimica 12 # Pesquisa o Magnésio
+# Uso: zzquimica [número|símbolo]
+# Ex.: zzquimica       # Lista de todos os elementos químicos
+#      zzquimica He    # Pesquisa o Hélio na Wikipédia
+#      zzquimica 12    # Pesquisa o Magnésio na Wikipédia
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-22
