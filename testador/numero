@@ -180,8 +180,8 @@ tests=(
 #
 # Google Docs: -R$ 1,23
 # LibreOffice: -R$ 1,23
+# Excel      : -R$ 1,23
 # Numbers    : -R$1,23
-# Excel      : ?
 
 # zero
 ''	-m	0		t	"R$ 0,00"
