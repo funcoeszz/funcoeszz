@@ -1,9 +1,8 @@
 # ----------------------------------------------------------------------------
 # Gerador de texto de teste, em latim (Lorem ipsum...).
-# no padrao lorem ipsum...
 # Texto obtido em http://br.lipsum.com/
 #
-# Uso: zzlorem PALAVRAS
+# Uso: zzlorem [número-de-palavras]
 # Ex.: zzlorem 10
 #
 # Autor: Angelito M. Goulart, www.angelitomg.com
