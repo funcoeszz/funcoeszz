@@ -10,9 +10,9 @@
 # ----------------------------------------------------------------------------
 zzdado ()
 {
-	
+
 	# Comando especial das funcoes ZZ
-	zzzz -h dado "$1" && return	
+	zzzz -h dado "$1" && return
 
 	# Gera e exibe um numero aleatorio entre 1 e 6
 	echo "$((($RANDOM % 6) + 1))"

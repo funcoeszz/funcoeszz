@@ -10,9 +10,9 @@
 # ----------------------------------------------------------------------------
 zzcaracoroa ()
 {
-	
+
 	# Comando especial das funcoes ZZ
-	zzzz -h caracoroa "$1" && return	
+	zzzz -h caracoroa "$1" && return
 
 	# Gera um numero aleatorio entre 0 e 1. 0 -> Cara, 1 -> Coroa
 	local NUM="$(($RANDOM % 2))"

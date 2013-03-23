@@ -12,9 +12,9 @@
 # ----------------------------------------------------------------------------
 zzlorem ()
 {
-	
+
 	# Comando especial das funcoes ZZ
-	zzzz -h lorem "$1" && return	
+	zzzz -h lorem "$1" && return
 
 	# Conteudo do texto que sera usado pelo script
 	local TEXTO="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod blandit pharetra. Vestibulum eu neque eget lorem gravida commodo a cursus massa. Fusce sit amet lorem sem. Donec eu quam leo. Suspendisse consequat risus in ante fringilla sit amet facilisis felis hendrerit. Suspendisse potenti. Pellentesque enim quam, cursus vestibulum porta ac, pharetra vitae ipsum. Sed ullamcorper odio eget diam egestas lacinia. Aenean aliquam tortor quis dolor sollicitudin suscipit. Etiam nec libero vitae magna dignissim molestie. Pellentesque volutpat euismod justo id congue. Proin nibh magna, blandit quis posuere at, sollicitudin nec lectus. Vivamus ut erat erat, in egestas lacus. Vivamus vel nunc elit, ut aliquam nisi.
@@ -38,6 +38,6 @@ Sed ac tempor nulla. Nunc eget nunc sit amet magna porta malesuada. Vivamus phar
 In gravida, neque a mattis tincidunt, velit arcu cursus nisi, eu blandit risus ligula eget ligula. Aenean faucibus tincidunt bibendum. Nulla nec urna lorem. Suspendisse non lorem in sapien cursus dignissim interdum non ligula. Suspendisse potenti. Sed rutrum libero ut odio varius a condimentum nulla commodo. Etiam in eros diam, vel lobortis nibh. Aliquam quam felis, blandit sit amet placerat non, tristique sit amet nisi. Pellentesque sit amet magna rutrum odio varius volutpat. Quisque consequat, elit ac blandit varius, turpis odio pellentesque urna, eu ultricies elit quam eget elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam vel sem sem, vitae vehicula tortor. Etiam ut dui diam. Duis id libero nunc, pharetra bibendum tellus. Praesent accumsan tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et."
 
 	# Corta o texto no local certo, obtendo o numero de palavras desejadas
-	echo $TEXTO | cut -d " " -f 1-"$1" 
+	echo $TEXTO | cut -d " " -f 1-"$1"
 
 }
