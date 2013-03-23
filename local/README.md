@@ -17,7 +17,7 @@ Se o site saiu do ar definitivamente, podemos alterar a função para consultar 
 
 **Use o código da função para baixar o arquivo**. Não baixe na mão. Copie os trechos de código relevantes da função direto na linha de comando. Por exemplo, a zznatal:
 
-```shell
+```bash
 zznatal ()
 {
 	zzzz -h natal "$1" && return
