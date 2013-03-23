@@ -49,7 +49,7 @@ zzwikipedia ()
 			/^   Ir para: /d
 			/^   This article does not cite any references/d
 			/^   Please help improve this article/d
-			/^   Categorias ocultas:/,$d
+			/^   Categorias* ocultas*:/,$d
 			/^   Wikipedia does not have an article with this exact name./q
 			s/^\[edit\] //
 			s/^\[editar\] //
