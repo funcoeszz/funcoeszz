@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://www.php.net/manual/pt_BR/indexes.functions.php
-# Lista completa com funções do php.
+# Lista completa com funções do PHP.
 # com a opção -d ou --detalhe busca mais informação da função
 # com a opção --atualiza força a atualização co cache local
 #
