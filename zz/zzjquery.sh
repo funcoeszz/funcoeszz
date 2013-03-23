@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------
-# Exibe a descrição da função JQuery informada.
+# http://visualjquery.com/1.1.2.html
+# Exibe a descrição da função jQuery informada.
 # Caso não seja passado o nome, serão exibidas informações acerca do $().
 # Se usado o argumento -s, será exibida somente a sintaxe.
 # Uso: zzjquery [-s] funcao
