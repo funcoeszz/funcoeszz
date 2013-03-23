@@ -10,7 +10,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-22
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzcapitalize zzwikipedia
 # ----------------------------------------------------------------------------
@@ -38,8 +38,15 @@ zzquimica ()
 	else
 		# Lista todos os elementos químicos
 		$ZZWWWHTML "http://ptable.com/?lang=pt" | sed -n '/"Element /p' |
-		sed 's/<.\?\(td\|a\|big\|acronym\|em\|strong\|i\)[^>]*>//g' |
-		sed 's|</\?small>| |g;s/<br>/-/g' | sort -n |
+		sed '
+			s|</*acronym[^>]*>||g
+			s|</*a[^>]*>||g
+			s|</*big[^>]*>||g
+			s|</*em[^>]*>||g
+			s|</*i[^>]*>||g
+			s|</*strong[^>]*>||g
+			s|</*td[^>]*>||g' |
+		sed 's|</*small>| |g;s/<br>/-/g' | sort -n |
 		awk '
 			BEGIN {print " N.º       Nome      Símbolo    Massa    Orbital" }
 			{printf " %-5s %-15s %-7s %-12s %s\n", $1, $3, $2, $4, $5}
