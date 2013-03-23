@@ -8,7 +8,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-15
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdominiopais ()
@@ -17,8 +17,9 @@ zzdominiopais ()
 
 	local url='http://www.ietf.org/timezones/data/iso3166.tab'
 	local cache="$ZZTMP.dominiopais"
-	local cache_sistema='/usr/share/zoneinfo/iso3166.tab'
+	local sistema='/usr/share/zoneinfo/iso3166.tab'
 	local padrao=$1
+	local arquivo
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso dominiopais; return 1; }
@@ -29,26 +30,23 @@ zzdominiopais ()
 		padrao="^${padrao#.}"
 	fi
 
-	# Primeiro tenta encontrar no cache do sistema
-	if test -f "$cache_sistema"
+	# Se já temos o arquivo de dados no sistema, tudo certo
+	# Senão, baixa da internet
+	if test -f "$sistema"
 	then
-		# O formato padrão de saída é BR - Brazil
-		grep -i "$padrao" $cache_sistema |
-			tr -s '\t ' ' ' |
-			sed '/^#/d ; / - /!s/ / - /'
-		return
+		arquivo="$sistema"
+	else
+		arquivo="$cache"
+
+		# Se o cache está vazio, baixa listagem da Internet
+		if ! test -s "$cache"
+		then
+			$ZZWWWDUMP "$url" > "$cache"
+		fi
 	fi
 
-	# Ops, não há cache do sistema, então tentamos o cache da Internet
-
-	# Se o cache está vazio, baixa listagem da Internet
-	if ! test -s "$cache"
-	then
-		$ZZWWWDUMP "$url" |
-			tr -s '\t ' ' ' |
-			sed '/^#/d ; / - /!s/ / - /' > "$cache"
-	fi
-
-	# Pesquisa no cache
-	grep -i "$padrao" "$cache"
+	# O formato padrão de saída é BR - Brazil
+	grep -i "$padrao" "$arquivo" |
+		tr -s '\t ' ' ' |
+		sed '/^#/d ; / - /! s/ / - /'
 }
