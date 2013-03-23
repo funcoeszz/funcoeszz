@@ -11,7 +11,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
-zzlorem()
+zzlorem ()
 {
 	
 	# Comando especial das funcoes ZZ

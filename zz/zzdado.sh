@@ -8,7 +8,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
-zzdado()
+zzdado ()
 {
 	
 	# Comando especial das funcoes ZZ

@@ -8,7 +8,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
-zzcaracoroa()
+zzcaracoroa ()
 {
 	
 	# Comando especial das funcoes ZZ
