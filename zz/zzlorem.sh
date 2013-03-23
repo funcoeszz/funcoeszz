@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Gerador de texto de teste - Exibe parte de um texto de teste em latim
+# Gerador de texto de teste, em latim (Lorem ipsum...).
 # no padrao lorem ipsum...
 # Texto obtido em http://br.lipsum.com/
 #

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Exibe 'cara' ou 'coroa' aleatoriamente
+# Exibe 'cara' ou 'coroa' aleatoriamente.
 # Uso: zzcaracoroa
 # Ex.: zzcaracoroa
 #

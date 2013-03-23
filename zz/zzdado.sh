@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Dado Virtual - Exibe um número aleatório entre 1 e 6
+# Dado virtual, exibe um número aleatório entre 1 e 6.
 # Uso: zzdado
 # Ex.: zzdado
 #
