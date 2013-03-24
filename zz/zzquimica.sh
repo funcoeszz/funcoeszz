@@ -9,7 +9,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-22
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzcapitalize zzwikipedia
 # ----------------------------------------------------------------------------
@@ -19,36 +19,43 @@ zzquimica ()
 	zzzz -h quimica "$1" && return
 
 	local elemento
+	local cache="$ZZTMP.quimica"
+
+	# Se o cache está vazio, baixa listagem da Internet
+	if ! test -s "$cache"
+	then
+		$ZZWWWHTML "http://ptable.com/?lang=pt" | sed -n '/"Element /p' |
+		sed 's|</*small>| |g;s/<br>/-/g' |
+		sed 's/<[^>]*>//g' | sort -n |
+		awk '
+			BEGIN {print " N.º       Nome      Símbolo    Massa    Orbital" }
+			{printf " %-5s %-15s %-7s %-12s %s\n", $1, $3, $2, $4, $5}
+		' > "$cache"
+	fi
 
 	if [ "$1" ]
 	then
 		if zztool testa_numero "$1"
 		then
 			# Testando se forneceu o número atômico
-			elemento=$(zzquimica | sed -n "/^ $1 /p" | awk '{ print $2 }')
+			elemento=$(sed -n "/^ $1 /p" "$cache" | awk '{ print $2 }')
 		else
 			# Ou se forneceu o símbolo do elemento químico
-			elemento=$(zzquimica | awk '{ if ($3 == "'$(zzcapitalize "$1")'") print $2 }')
+			elemento=$(awk '{ if ($3 == "'$(zzcapitalize "$1")'") print $2 }' "$cache")
 		fi
 
 		# Se encontrado, pesquisa-o na wikipedia
-		[ ${#elemento} -gt 0 ] && zzwikipedia "$elemento" || { zztool uso quimica; return 1; }
+		if [ ${#elemento} -gt 0 ]
+		then
+			[ "$elemento" = "Rádio" -o "$elemento" = "Índio" ] && elemento="${elemento}_(elemento_químico)"
+			zzwikipedia "$elemento"
+		else
+			zztool uso quimica
+			return 1
+		fi
 
 	else
 		# Lista todos os elementos químicos
-		$ZZWWWHTML "http://ptable.com/?lang=pt" | sed -n '/"Element /p' |
-		sed '
-			s|</*acronym[^>]*>||g
-			s|</*a[^>]*>||g
-			s|</*big[^>]*>||g
-			s|</*em[^>]*>||g
-			s|</*i[^>]*>||g
-			s|</*strong[^>]*>||g
-			s|</*td[^>]*>||g' |
-		sed 's|</*small>| |g;s/<br>/-/g' | sort -n |
-		awk '
-			BEGIN {print " N.º       Nome      Símbolo    Massa    Orbital" }
-			{printf " %-5s %-15s %-7s %-12s %s\n", $1, $3, $2, $4, $5}
-		'
+		cat "$cache"
 	fi
 }
