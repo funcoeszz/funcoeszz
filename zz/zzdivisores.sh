@@ -6,7 +6,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzfatorar
 # ----------------------------------------------------------------------------
@@ -15,8 +15,8 @@ zzdivisores ()
 	zzzz -h divisores "$1" && return
 
 	[ "$1" ] || { zztool uso divisores; return 1; }
-	
-	local fatores fator divisores_temp divisor
+
+	local fatores fator divisores_temp divisor divisor_atual
 	local divisores="1"
 
 	if zztool testa_numero "$1" && test $1 -ge 2
@@ -32,16 +32,23 @@ zzdivisores ()
 			# Para cada fator primo, multiplica-se pelos divisores já conhecidos
 			for divisor in $divisores
 			do
-				divisores_temp=$( echo "$divisores_temp $(($fator * $divisor))")
+				divisor_atual=$(($fator * $divisor))
+
+				# Apenas armazenando se divisor não existir
+				echo "$divisores_temp"| zztool list2lines | grep "^${divisor_atual}$" > /dev/null
+				if [ $? -eq 1 ]
+				then
+					divisores_temp=$( echo "$divisores_temp $divisor_atual")
+				fi
 			done
-			
-			# Reabastece a variável divisores
-			divisores=$(echo "$divisores $divisores_temp")
+
+			# Reabastece a variável divisores eliminando repetições
+			divisores=$(echo "$divisores $divisores_temp"| zztool list2lines | sort -n | uniq | zztool lines2list)
 		done
 
 		# Elimina-se as repetições e ordena-se os divisores encontrados
 		echo $divisores | zztool list2lines | sort -n | uniq | zztool lines2list
-		echo 
+		echo
 	else
 		# Se não for um número válido exibe a ajuda
 		zzdivisores -h
