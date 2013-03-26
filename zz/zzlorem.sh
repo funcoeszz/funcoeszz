@@ -38,23 +38,22 @@ Sed ac tempor nulla. Nunc eget nunc sit amet magna porta malesuada. Vivamus phar
 In gravida, neque a mattis tincidunt, velit arcu cursus nisi, eu blandit risus ligula eget ligula. Aenean faucibus tincidunt bibendum. Nulla nec urna lorem. Suspendisse non lorem in sapien cursus dignissim interdum non ligula. Suspendisse potenti. Sed rutrum libero ut odio varius a condimentum nulla commodo. Etiam in eros diam, vel lobortis nibh. Aliquam quam felis, blandit sit amet placerat non, tristique sit amet nisi. Pellentesque sit amet magna rutrum odio varius volutpat. Quisque consequat, elit ac blandit varius, turpis odio pellentesque urna, eu ultricies elit quam eget elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam vel sem sem, vitae vehicula tortor. Etiam ut dui diam. Duis id libero nunc, pharetra bibendum tellus. Praesent accumsan tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et."
 
 	if [ "$#" -ne 1 ]
-	then	
+	then
 
 		# Se nao for passado um numero de palavras, exibe o texto todo
 		echo $TEXTO
 
 	elif zztool testa_numero "$1"
 	then
-		
+
 		# Se o parametro for um numero, corta o texto no local certo, obtendo o numero de palavras desejadas
 		echo $TEXTO | cut -d " " -f 1-"$1"
 
-
 	else
-		
+
 		# Caso o parametro nao seja um numero, exibe o modo de utilizacao
-		zztool uso zzlorem
+		zztool uso lorem
 
 	fi
-	
+
 }
