@@ -15,7 +15,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net - modicado por Itamar
 # Desde: 2011-04-16
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
@@ -24,8 +24,8 @@ zzdicportugues2 ()
 	zzzz -h dicportugues2 "$1" && return
 
 	local url='http://dicio.com.br'
-	local ini='^Significado de '
-	local fim='^Definição de '
+	local ini='^significado de '
+	local fim='^defini..o de '
 	local palavra=$(echo "$1"| zzminusculas)
 	local padrao=$(echo "$palavra" | zzsemacento)
 	local contador=1
@@ -40,8 +40,8 @@ zzdicportugues2 ()
 		resultado=$(
 		$ZZWWWDUMP "$url/$padrao" |
 			sed -n "
-			/$ini/{
-				s/$ini//
+			/^Significado de /{
+				s/^Significado de //
 				s/ *$//
 				p
 				}" |
@@ -61,14 +61,14 @@ zzdicportugues2 ()
 	padrao=$(echo "${padrao}_${contador}"|sed 's/_1$//')
 
 	case "$2" in
-	def) ini='^Definição de '; fim=' escrita ao contrário: ' ;;
+	def) ini='^defini..o de '; fim=' escrit. ao contr.rio: ' ;;
 	conj)
-		ini='Infinitivo:'; fim='\(Rimas com \|Anagramas de \)'
+		ini='^ *infinitivo:'; fim='(rimas com |anagramas de )'
 		case "$3" in
-			ind) ini=' *\(INDICATIVO\|Indicativo\)'; fim='^ *\(SUBJUNTIVO\|Subjuntivo\)' ;;
-			sub|conj) ini='^ *\(SUBJUNTIVO\|Subjuntivo\)'; fim='^ *\(IMPERATIVO\|Imperativo\)' ;;
-			imp) ini='^ *\(IMPERATIVO\|Imperativo\)'; fim='^ *\(INFINITIVO\|Infinitivo\)' ;;
-			inf) ini='^ *\(INFINITIVO\|Infinitivo\) *$' ;;
+			ind) ini='^ *indicativo'; fim='^ *subjuntivo' ;;
+			sub|conj) ini='^ *subjuntivo'; fim='^ *imperativo' ;;
+			imp) ini='^ *imperativo'; fim='^ *infinitivo' ;;
+			inf) ini='^ *infinitivo *$' ;;
 		esac
 	;;
 	esac
@@ -76,34 +76,39 @@ zzdicportugues2 ()
 	case "$2" in
 	conj)
 		$ZZWWWDUMP "$url/$padrao" |
-			sed -n "
-			/$ini/,/$fim/ {
-				/^ *\(INDICATIVO\|Indicativo\) *$/d
-				/^ *\(SUBJUNTIVO\|Subjuntivo\) *$/d
-				#/^ *\(CONJUNTIVO\|Conjuntivo\) *$/d
-				/^ *\(IMPERATIVO\|Imperativo\) *$/d
-				/^ *\(INFINITIVO\|Infinitivo\) *$/d
-				/\(Rimas com \|Anagramas de \)/d
+		awk 'tolower($0) ~ /'"$ini"'/, tolower($0) ~ /'"$fim"'/ {print} ' |
+			sed "
+				{
+				/^ *INDICATIVO *$/d
+				/^ *Indicativo *$/d
+				/^ *SUBJUNTIVO *$/d
+				/^ *Subjuntivo *$/d
+				#/^ *CONJUNTIVO *$/d
+				#/^ *Conjuntivo *$/d
+				/^ *IMPERATIVO *$/d
+				/^ *Imperativo *$/d
+				/^ *INFINITIVO *$/d
+				/^ *Infinitivo *$/d
+				/Rimas com /d
+				/Anagramas de /d
 				/^ *$/d
 				s/^ *//
 				s/^\*/\n&/
-				#s/ do \(Indicativo\|Subjuntivo\|Conjuntivo\)/&\n/
-				#s/\* Imperativo \(Afirmativo\|Negativo\)/&\n/
+				#s/ do Indicativo/&\n/
+				#s/ do Subjuntivo/&\n/
+				#s/ do Conjuntivo/&\n/
+				#s/\* Imperativo Afirmativo/&\n/
+				#s/\* Imperativo Negativo/&\n/
 				#s/\* Imperativo/&\n/
 				#s/\* Infinitivo Pessoal/&\n/
 				s/^[a-z]/ &/g
-				p
+				#p
 				}"
 	;;
 	*)
 		$ZZWWWDUMP "$url/$padrao" |
-			sed -n "
-			/$ini/,/$fim/ {
-				/$ini/d
-				/^Definição de /d
-				p
-				}
-			/Infinitivo:/,/Particípio passado:/p"
+		awk 'tolower($0) ~ /'"$ini"'/, tolower($0) ~ /'"$fim"'/ {print} ' |
+			sed "1d;/^Definição de /d;" #/Infinitivo:/,/Particípio passado:/p"
 	;;
 	esac
 }

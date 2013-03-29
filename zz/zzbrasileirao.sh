@@ -30,7 +30,7 @@
 #
 # Autor: Itamar - original: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 12
+# Versão: 13
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
@@ -50,15 +50,43 @@ zzbrasileirao ()
 		if [ "$2" ]
 		then
 			$ZZWWWDUMP "${url}/futebol/clubes/$2/resultados" | sed 's/^ *$//g' |
-			sed -n '/^\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho\|Julho\|Agosto\|Setembro\|Outubro\|Novembro\|Dezembro\| *Data *Hora\| *[0-9][0-9]\/[0-9][0-9]\)/p'|sed 's/  *-  *Leia.*//g'
+			sed -n '
+				/^Janeiro/p
+				/^Fevereiro/p
+				/^Março/p
+				/^Abril/p
+				/^Maio/p
+				/^Junho/p
+				/^Julho/p
+				/^Agosto/p
+				/^Setembro/p
+				/^Outubro/p
+				/^Novembro/p
+				/^Dezembro/p
+				/^ *Data *Hora/p
+				/^ *[0-9][0-9]\/[0-9][0-9]/p'|sed 's/  *-  *Leia.*//g'
 
 			# Mudança no formato, aguardar até brasileirão começar, e ver se retornam ao formato anterior
 			# $ZZWWWDUMP "${url}/futebol/clubes/$2/proximos-jogos" | sed 's/^ *$//g' |
-			# sed -n '/^\(Janeiro\|Fevereiro\|Março\|Abril\|Maio\|Junho\|Julho\|Agosto\|Setembro\|Outubro\|Novembro\|Dezembro\| *Data *Hora\| *[0-9][0-9]\/[0-9][0-9]\)/p'
+			# sed -n '
+			#	/^Janeiro/p
+			#	/^Fevereiro/p
+			#	/^Março/p
+			#	/^Abril/p
+			#	/^Maio/p
+			#	/^Junho/p
+			#	/^Julho/p
+			#	/^Agosto/p
+			#	/^Setembro/p
+			#	/^Outubro/p
+			#	/^Novembro/p
+			#	/^Dezembro/p
+			#	/^ *Data *Hora/p
+			#	/^ *[0-9][0-9]\/[0-9][0-9]/p'
 			return 0
 		else
 			$ZZWWWHTML "$url/futebol/clubes/" |
-			sed -n '/<li class="aba \(show\|hide\) serie-[ab]">/,/<\/ul>$/p' |
+			sed -n '/<li class="aba show serie-[ab]">/,/<\/ul>$/p;/<li class="aba hide serie-[ab]">/,/<\/ul>$/p' |
 			sed -n '/<li class=".*"><a rel="menu"/p'| awk -F'"' '{print $2}' | sort
 			return 0
 		fi
@@ -100,7 +128,7 @@ zzbrasileirao ()
 			fi
 
 			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;"|
-			sed '/^ *$/d' | sed '/^ *[0-9]\+ *$/{N;N;s/\n//g;}' | sed 's/\([0-9]\+\) */\1 /g;/^ *PG/d' |
+			sed '/^ *$/d' | sed '/^ *[0-9]\{1,\} *$/{N;N;s/\n//g;}' | sed 's/\([0-9]\{1,\}\) */\1 /g;/^ *PG/d' |
 			awk -v cor_awk="$ZZCOR" -v serie_awk="$serie" '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
 
 			if (cor_awk==1)

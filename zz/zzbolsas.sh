@@ -50,7 +50,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 15
+# Versão: 16
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -198,8 +198,8 @@ zzbolsas ()
 				;;
 				esac
 				echo "$vartemp" |
-				sed -n '/^[[:space:]]\+.*\(atrás\|BRT\)[[:space:]]*$/p' |
-				sed 's/^[[:space:]]\+/ /g'| zzuniq
+				sed -n '/^[[:space:]]\{1,\}.*atrás[[:space:]]*$/p;/^[[:space:]]\{1,\}.*BRT[[:space:]]*$/p' |
+				sed 's/^[[:space:]]\{1,\}/ /g'| zzuniq
 			;;
 			volume|alta|baixa)
 				case "$1" in
@@ -210,7 +210,7 @@ zzbolsas ()
 				zztool eco  " Maiores ${1}s"
 				$ZZWWWDUMP "$url/${pag}?e=sa" |
 				sed -n '/Informações relacionadas/,/^[[:space:]]*$/p' |
-				sed '1d;s/\(Down \| de \)/-/g;s/Up /+/g;s/Gráfico, .*//g' |
+				sed '1d;s/Down /-/g;s/ de /-/g;s/Up /+/g;s/Gráfico, .*//g' |
 				awk 'BEGIN {
 							printf " %-10s  %-21s  %-20s  %-16s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
 						}
@@ -242,7 +242,7 @@ zzbolsas ()
 						/Cotações atrasadas, salvo indicação/,$d
 					}' |
 				zzsemacento)
-				paste -d"|" <(echo "$vartemp"|cut -f1 -d:|sed 's/^[[:space:]]\+//g;s/[[:space:]]\+$//g') <(echo "$vartemp"|cut -f2- -d:|sed 's/^[[:space:]]\+//g')|
+				paste -d"|" <(echo "$vartemp"|cut -f1 -d:|sed 's/^[[:space:]]\{1,\}//g;s/[[:space:]]\{1,\}$//g') <(echo "$vartemp"|cut -f2- -d:|sed 's/^[[:space:]]\{1,\}//g')|
 				awk -F"|" '{if ( $1 != $2 ) {printf " %-20s %s\n", $1 ":", $2} else { print $1 } }'
 			;;
 			esac
@@ -252,7 +252,7 @@ zzbolsas ()
 			bolsa=$(echo "$2"|zzmaiusculas)
 			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "$bolsa" "$dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 			then
-				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.* \(of\|de\) *\([0-9]\+\) .*/\2/")
+				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\2/;s/.* de *\([0-9]\{1,\}\) .*/\2/")
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
 
 				for ((pag=0;pag<=$pags;pag=$pag+1))
@@ -328,7 +328,7 @@ zzbolsas ()
 						pag=$(zzbolsas "$2" "$4" | sed '/Proxima data de anuncio/d')
 						pags=$(zzbolsas "$3" "$4" |
 						sed '/Proxima data de anuncio/d;s/^[[:space:]]*//g;s/[[:space:]]*$//g' |
-						sed '2,$s/[^[:space:]]*[[:space:]]\+//g')
+						sed '2,$s/[^[:space:]]*[[:space:]]\{1,\}//g')
 					# Ultima cotaçao das açoes ou bolsas comparadas
 					else
 						pag=$(zzbolsas "$2" | sed '/Proxima data de anuncio/d')
@@ -352,8 +352,8 @@ zzbolsas ()
 			elif ([ "$1" = "noticias" ] && ! zztool grep_var "^" "$2")
 			then
 				$ZZWWWDUMP "$url/q/h?s=$bolsa" |
-				sed -n '/^[[:blank:]]\+\*.*\(Agencia\|at noodls\).*)$/p' |
-				sed 's/^[[:blank:]]*/ /g;s/\(Agencia\|at noodls\)/ &/g'
+				sed -n '/^[[:blank:]]\{1,\}\*.*Agencia.*)$/p;/^[[:blank:]]\{1,\}\*.*at noodls.*)$/p' |
+				sed 's/^[[:blank:]]*/ /g;s/Agencia/ &/g;s/at noodls/ &/g'
 			elif ([ "$1" = "taxas_fixas" ] || [ "$1" = "moedas" ])
 			then
 				case $2 in
@@ -402,7 +402,7 @@ zzbolsas ()
 						'
 			else
 				bolsa=$(echo "$1"|zzmaiusculas)
-				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.* \(of\|de\) *\([0-9]\+\) .*/\2/')
+				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\2/;s/.* de *\([0-9]\{1,\}\) .*/\2/')
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
 				for ((pag=0;pag<=$pags;pag=$pag+1))
 				do

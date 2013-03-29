@@ -48,7 +48,7 @@ zzenglish ()
 
 			# # pinta a pronúncia de amarelo - pode estar delimitada por \\ ou //
 			s/\\\\[^\\]\{1,\}\\\\/$amarelo&$fecha/g
-			s|/[^/]\+/|$amarelo&$fecha|g
+			s|/[^/]\{1,\}/|$amarelo&$fecha|g
 
 			# cabeçalho para tornar a separação entre várias consultas mais visível no terminal
 			/[0-9]\{1,\} definitions\{0,1\} found/ {
