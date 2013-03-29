@@ -44,7 +44,7 @@
 # Desde: 2011-05-24
 # Versão: 5
 # Licença: GPL
-# Requisitos: zzdata zzminusculas
+# Requisitos: zzdata zzminusculas zznumero
 # Tags: data
 # ----------------------------------------------------------------------------
 zzdatafmt ()
@@ -81,9 +81,10 @@ zzdatafmt ()
 				[ "$fmt" ] || fmt='DD de MES de AAAA'
 				shift
 			;;
-			--pt)
+			--pt|--ptt)
 				meses=$meses_pt
 				[ "$fmt" ] || fmt='DD de MES de AAAA'
+				[ "$1" = "--ptt" ] && fmt=$(echo "$fmt" | sed 's/DD/DDT/g;s/AAAA/AAAAT/g')
 				shift
 			;;
 			--al|--de)
@@ -213,19 +214,21 @@ zzdatafmt ()
 		while test -n "$fmt"
 		do
 			case "$fmt" in
-				AAAA*) printf %s "$aaaa"; fmt="${fmt#AAAA}";;
-				AA*  ) printf %s "$aa"  ; fmt="${fmt#AA}";;
-				A*   ) printf %s "$a"   ; fmt="${fmt#A}";;
-				MES* ) printf %s "$mes" ; fmt="${fmt#MES}";;
-				MMM* )
+				AAAAT*) printf "$(zznumero --texto "$aaaa" | sed 's/^ *//;s/ inteiros*//')"; fmt="${fmt#AAAAT}";;
+				AAAA* ) printf %s "$aaaa"; fmt="${fmt#AAAA}";;
+				AA*   ) printf %s "$aa"  ; fmt="${fmt#AA}";;
+				A*    ) printf %s "$a"   ; fmt="${fmt#A}";;
+				MES*  ) printf %s "$mes" ; fmt="${fmt#MES}";;
+				MMM*  )
 					printf %s "$mmm" | sed 's/ä/är/;s/Fé/Fév/;s/Dé/Déc/'
 					fmt="${fmt#MMM}"
 				;;
-				MM*  ) printf %s "$mm"  ; fmt="${fmt#MM}";;
-				M*   ) printf %s "$m"   ; fmt="${fmt#M}";;
-				DD*  ) printf %s "$dd"  ; fmt="${fmt#DD}";;
-				D*   ) printf %s "$d"   ; fmt="${fmt#D}";;
-				*    ) printf %c "$fmt" ; fmt="${fmt#?}";;  # 1char
+				MM*   ) printf %s "$mm"  ; fmt="${fmt#MM}";;
+				M*    ) printf %s "$m"   ; fmt="${fmt#M}";;
+				DDT*  ) printf "$(zznumero --texto "$dd" | sed 's/^ *//;s/ inteiros*//')"; fmt="${fmt#DDT}";;
+				DD*   ) printf %s "$dd"  ; fmt="${fmt#DD}";;
+				D*    ) printf %s "$d"   ; fmt="${fmt#D}";;
+				*     ) printf %c "$fmt" ; fmt="${fmt#?}";;  # 1char
 			esac
 		done
 		echo
