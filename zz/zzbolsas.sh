@@ -255,7 +255,7 @@ zzbolsas ()
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.* \(of\|de\) *\([0-9]\+\) .*/\2/")
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
 
-				for ((pag=0;pag<=$pags;pag++))
+				for ((pag=0;pag<=$pags;pag=$pag+1))
 				do
 					if test "$1" = "--lista"
 					then
@@ -341,7 +341,7 @@ zzbolsas ()
 						echo
 						while read data1
 						do
-							let vartemp++
+							vartemp=$(($vartemp + 1))
 							printf " %-45s " "$data1"
 							sed -n "${vartemp}p" <(echo "$pags")
 						done < <(echo "$pag")
@@ -404,7 +404,7 @@ zzbolsas ()
 				bolsa=$(echo "$1"|zzmaiusculas)
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.* \(of\|de\) *\([0-9]\+\) .*/\2/')
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
-				for ((pag=0;pag<=$pags;pag++))
+				for ((pag=0;pag<=$pags;pag=$pag+1))
 				do
 					$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
 					sed -n 's/^ *//g;/Símbolo /,/Primeira/p'|
