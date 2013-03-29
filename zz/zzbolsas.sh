@@ -252,7 +252,7 @@ zzbolsas ()
 			bolsa=$(echo "$2"|zzmaiusculas)
 			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "$bolsa" "$dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 			then
-				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\2/;s/.* de *\([0-9]\{1,\}\) .*/\2/")
+				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/")
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
 
 				for ((pag=0;pag<=$pags;pag=$pag+1))
@@ -402,7 +402,7 @@ zzbolsas ()
 						'
 			else
 				bolsa=$(echo "$1"|zzmaiusculas)
-				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\2/;s/.* de *\([0-9]\{1,\}\) .*/\2/')
+				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/')
 				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
 				for ((pag=0;pag<=$pags;pag=$pag+1))
 				do
