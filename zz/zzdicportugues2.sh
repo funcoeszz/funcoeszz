@@ -13,7 +13,7 @@
 # Ex.: zzdicportugues2 bolacha
 #      zzdicportugues2 verbo conj sub
 #
-# Autor: Aurelio Marinho Jargas, www.aurelio.net - modicado por Itamar
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-04-16
 # Versão: 5
 # Licença: GPL

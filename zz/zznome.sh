@@ -9,7 +9,7 @@
 # Ex.: zznome maria
 #      zznome josé origem
 #
-# Autor: Itamar
+# Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-04-22
 # Versão: 4
 # Licença: GPL

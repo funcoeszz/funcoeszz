@@ -19,7 +19,7 @@
 #      zzmat somatoria 3 9 2x+3
 #      zzmat -p3 sen 60g
 #
-# Autor: Itamar
+# Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
 # Versão: 13
 # Licença: GPL

@@ -62,7 +62,7 @@
 # Ex.: zztv cultura
 #      zztv cod 3235238
 #
-# Autor: Aurelio Marinho Jargas, www.aurelio.net - revisado por Itamar.
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
 # Versão: 8
 # Licença: GPL

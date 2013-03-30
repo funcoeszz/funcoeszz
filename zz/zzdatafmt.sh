@@ -3,12 +3,12 @@
 # Reconhece datas em vários formatos, como aaaa-mm-dd, dd.mm.aaaa e dd/mm.
 # Obs.: Se você não informar o ano, será usado o ano corrente.
 # Para a opção:
-#	 --en para usar nomes de meses em inglês.
-#	 --pt para usar nomes de meses em português.
-#	 --es para usar nomes de meses em espanhol.
-#	 --al ou --de para usar nomes de meses em alemão.
-#	 --fr para usar nomes de meses em francês.
-#	 --it para usar nomes de meses em italiano.
+#        --en para usar nomes de meses em inglês.
+#        --pt para usar nomes de meses em português.
+#        --es para usar nomes de meses em espanhol.
+#        --al ou --de para usar nomes de meses em alemão.
+#        --fr para usar nomes de meses em francês.
+#        --it para usar nomes de meses em italiano.
 # Se não for definido o formato com a opção -f, são fornecidos formatos
 # compatíveis com as opções de idioma.
 #

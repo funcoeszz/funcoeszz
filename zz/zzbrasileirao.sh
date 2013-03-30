@@ -28,7 +28,7 @@
 #      zzbrasileirao -l
 #      zzbrasileirao -l portuguesa
 #
-# Autor: Itamar - original: Alexandre Brodt Fernandes, www.xalexandre.com.br
+# Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
 # Versão: 13
 # Licença: GPL
