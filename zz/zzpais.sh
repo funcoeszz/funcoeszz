@@ -16,7 +16,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-29
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzlinha
 # ----------------------------------------------------------------------------
@@ -79,6 +79,8 @@ zzpais ()
 			}'
 	else
 		# Faz uma busca nos países
+		padrao=$(echo $padrao|sed 's/\$$/:.*:.*:.*:.*\$/')
+		padrao=$(echo $padrao|sed 's/[^$]$/&.*:.*:.*:.*:.*/')
 		grep -h -i -- "$padrao" "$cache" |
 		awk -v idioma_awk="$idioma" -v original_awk="$original" '
 			BEGIN {FS=":"}
