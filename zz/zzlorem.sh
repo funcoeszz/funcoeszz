@@ -7,7 +7,7 @@
 #
 # Autor: Angelito M. Goulart, www.angelitomg.com
 # Desde: 2012-12-11
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlorem ()
@@ -15,6 +15,9 @@ zzlorem ()
 
 	# Comando especial das funcoes ZZ
 	zzzz -h lorem "$1" && return
+
+	# Contador para repetição do texto quando maior que mil
+	local contador
 
 	# Conteudo do texto que sera usado pelo script
 	local TEXTO="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod blandit pharetra. Vestibulum eu neque eget lorem gravida commodo a cursus massa. Fusce sit amet lorem sem. Donec eu quam leo. Suspendisse consequat risus in ante fringilla sit amet facilisis felis hendrerit. Suspendisse potenti. Pellentesque enim quam, cursus vestibulum porta ac, pharetra vitae ipsum. Sed ullamcorper odio eget diam egestas lacinia. Aenean aliquam tortor quis dolor sollicitudin suscipit. Etiam nec libero vitae magna dignissim molestie. Pellentesque volutpat euismod justo id congue. Proin nibh magna, blandit quis posuere at, sollicitudin nec lectus. Vivamus ut erat erat, in egestas lacus. Vivamus vel nunc elit, ut aliquam nisi.
@@ -46,8 +49,17 @@ In gravida, neque a mattis tincidunt, velit arcu cursus nisi, eu blandit risus l
 	elif zztool testa_numero "$1"
 	then
 
-		# Se o parametro for um numero, corta o texto no local certo, obtendo o numero de palavras desejadas
-		echo $TEXTO | cut -d " " -f 1-"$1"
+		# Se o parametro for maior e igual a 1000, repete os múltiplos de 1000.
+		contador=$(($1 / 1000))
+		while [ $contador -gt 0 ]
+		do
+			echo $TEXTO
+			contador=$(($contador -1))
+		done
+
+		# Se o resto do parâmetro for maior que zero, corta o texto no local certo, até esse limite ou ponto.
+		contador=$(($1 % 1000))
+		[ $contador -gt 0 ] && echo $TEXTO | cut -d " " -f 1-"$contador" | sed '$s/\.[^.]*$/\./'
 
 	else
 
