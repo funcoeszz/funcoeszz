@@ -24,12 +24,30 @@ zzquimica ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML "http://ptable.com/?lang=pt" | sed -n '/"Element /p' |
-		sed 's|</*small>| |g;s/<br>/-/g' |
+		$ZZWWWHTML "http://ptable.com/?lang=pt" |
+		sed -n '/"Element /p' |
+		sed 's|</*small>| |g;s/<br>/-/g;s/ *<td class="Element \{1,\}//g;s/ \{1,\}[spdf]">/:/g' |
+		sed 's/\(.*\):\(.*\)/\2 (\1)/g' |
 		sed 's/<[^>]*>//g' | sort -n |
+		sed '
+			s/(Alkaline/(Metal_Alcalino-Terroso/g
+			s/(Alkali/(Metal_Alcalino/g
+			s/(Transition/(Metal_de_Transição/g
+			s/(Poor/(Metal_Representativo/g
+			s/(Metalloid/(Semi-metal/g
+			s/(Nonmetal/(Não-Metal/g
+			s/(Halogen/(Halogênio/g
+			s/(Noble/(Gás_Nobre/g
+			s/ Boron)/_[Família_do_Boro])/g
+			s/ Carbon)/_[Família_do_Carbono])/g
+			s/ Pnictogen)/_[Família_do_Nitrogênio])/g
+			s/ Chalcogen)/_[Calcogênio])/g
+			s/(Lanthanoid/(Lantanídeo/g
+			s/(Actinoid/(Actinídeo/g
+			' |
 		awk '
-			BEGIN {print " N.º       Nome      Símbolo    Massa    Orbital" }
-			{printf " %-5s %-15s %-7s %-12s %s\n", $1, $3, $2, $4, $5}
+			BEGIN {print " N.º       Nome      Símbolo    Massa      Orbital             Classificação" }
+			{printf " %-5s %-15s %-7s %-12s %-18s %s\n", $1, $3, $2, $4, $5, $6}
 		' > "$cache"
 	fi
 
@@ -56,6 +74,6 @@ zzquimica ()
 
 	else
 		# Lista todos os elementos químicos
-		cat "$cache"
+		cat "$cache" | tr '_' ' '
 	fi
 }
