@@ -21,9 +21,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 13
+# Versão: 14
 # Licença: GPL
-# Requisitos: zzcalcula zzseq
+# Requisitos: zzcalcula zzseq zzaleatorio
 # ----------------------------------------------------------------------------
 zzmat ()
 {
@@ -1273,7 +1273,7 @@ zzmat ()
 			n_temp=1
 			while [ $n_temp -le $qtde ]
 			do
-				echo "$RANDOM"|awk '{ printf "%.'${precisao}'f\n", sprintf("%.'${precisao}'f\n",'$min'+($1/32766)*('$max'-'$min'))}'|
+				zzaleatorio | awk '{ printf "%.'${precisao}'f\n", sprintf("%.'${precisao}'f\n",'$min'+($1/32767)*('$max'-'$min'))}' |
 				zzmat -p${precisao} sem_zeros
 				n_temp=$((n_temp + 1))
 			done

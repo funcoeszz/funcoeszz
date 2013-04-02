@@ -10,9 +10,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-06-03
-# Versão: 4
+# Versão: 5
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzseq
+# Requisitos: zzminusculas zzsemacento zzseq zzaleatorio
 # ----------------------------------------------------------------------------
 zzpalpite ()
 {
@@ -57,7 +57,7 @@ zzpalpite ()
 			federal)
 				inicial=0
 				final=99999
-				numero=$(echo "$inicial + ( ${RANDOM} / 32766 ) * ( $final - $inicial )" | bc -l | sed 's/\..*$//g')
+				numero=$(zzaleatorio $inicial $final)
 				zztool eco $tipo:
 				printf " %0.5d\n\n" $numero
 				qtde=0
@@ -73,7 +73,7 @@ zzpalpite ()
 				zztool eco $tipo:
 				while [ "$i" -le "14" ]
 				do
-					printf " Jogo %0.2d: Coluna %d\n" $i $(($RANDOM % 3)) | sed 's/Coluna 0/Coluna do Meio/g'
+					printf " Jogo %0.2d: Coluna %d\n" $i $(zzaleatorio 0 2) | sed 's/ 0$/ do Meio/g'
 					i=$((i + 1))
 				done
 				echo
@@ -93,7 +93,7 @@ zzpalpite ()
 		while [ "$i" -gt "0" ]
 		do
 			# Posicao a ser escolhida
-			posicao=$(echo "$inicial + ( ${RANDOM} / 32766 ) * ( $final - $inicial )" | bc -l | sed 's/\..*$//g')
+			posicao=$(zzaleatorio $inicial $final)
 			[ $tipo = "lotomania" ] && posicao=$((posicao + 1))
 
 			# Extrai o numero na posicao selecionada
