@@ -753,7 +753,7 @@ zznumero ()
 			[ "$sufixo" ] && num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
 		fi
 
-		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g;s/ \{1,\}/ /g' | sed 's/^ *e//;s/e *$//')
+		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g;s/ \{1,\}/ /g' | sed 's/^  *e//;s/ e *$//')
 
 		# Uma classe numérica por linha
 		if [ $linha -eq 1 ]
