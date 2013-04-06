@@ -288,7 +288,7 @@ zztv ()
 		sed "/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/ { x; p ; x; s//\1/; }" |
 		sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g' |
 		zzunescape --html |
-		awk -F " Cod: " '{ if (NF==2) { printf "%-61s Cod: %s\n", $1, substr($2, 1, index($2, "-")-1) } else print }'
+		awk -F " Cod: " '{ if (NF==2) { printf "%-64s Cod: %s\n", substr($1,1,63), substr($2, 1, index($2, "-")-1) } else print }'
 	;;
 	*)
 		if [ $flag -eq 0 ]
@@ -303,7 +303,7 @@ zztv ()
 			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p" |
 			sed '$d;1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g' |
 			zzunescape --html |
-			awk -F " Cod: " '{ if (NF==2) { printf "%-64s Cod:%s\n", substr($1,1,63), substr($2, 1, index($2, "-")-1) } else print }'
+			awk -F " Cod: " '{ if (NF==2) { printf "%-64s Cod: %s\n", substr($1,1,63), substr($2, 1, index($2, "-")-1) } else print }'
 		elif [ $flag -eq 1 ]
 		then
 			zztool eco $desc
@@ -320,7 +320,7 @@ zztv ()
 			sed 's/<span class="tit">/Título: /;s/<span class="tit_orig">/Título Original: /'|
 			sed 's/<[^>]*>/ /g;s/amp;//g;s/\&ccedil;/ç/g;s/\&atilde;/ã/g;s/.*str="//;s/";//;s/[\|] //g'|
 			sed 's/^[[:space:]]*/ /g' |
-			sed '/^[[:space:]]*$/d;/document.write/d;$d' |
+			sed '/^[[:space:]]*$/d;/document.write/d;/str == ""/d;$d' |
 			zzunescape --html
 		fi
 	;;
