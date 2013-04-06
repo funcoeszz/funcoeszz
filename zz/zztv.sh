@@ -64,8 +64,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
-# Versão: 8
+# Versão: 9
 # Licença: GPL
+# Requisitos: zzunescape
 # ----------------------------------------------------------------------------
 zztv ()
 {
@@ -286,6 +287,7 @@ zztv ()
 		sed '/^[[:space:]]*$/d' |
 		sed "/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/ { x; p ; x; s//\1/; }" |
 		sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g' |
+		zzunescape --html |
 		awk -F " Cod: " '{ if (NF==2) { printf "%-61s Cod: %s\n", $1, substr($2, 1, index($2, "-")-1) } else print }'
 	;;
 	*)
@@ -300,6 +302,7 @@ zztv ()
 			sed '/^[[:space:]]*$/d' |
 			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p" |
 			sed '$d;1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g' |
+			zzunescape --html |
 			awk -F " Cod: " '{ if (NF==2) { printf "%-61s Cod: %s\n", $1, substr($2, 1, index($2, "-")-1) } else print }'
 		elif [ $flag -eq 1 ]
 		then
@@ -309,6 +312,7 @@ zztv ()
 			sed 's/.*title="//g;s/">.*<br \/>/ | /g;s/<[^>]*>/ /g' |
 			sed 's/[[:space:]]\{1,\}/ /g' |
 			sed '/^[[:space:]]*$/d'|
+			zzunescape --html |
 			awk -F "|" '{ printf "%5s %-55s %s\n", $2, $1, $3 }'
 		else
 			zztool eco "Código: $2"
@@ -316,7 +320,8 @@ zztv ()
 			sed 's/<span class="tit">/Título: /;s/<span class="tit_orig">/Título Original: /'|
 			sed 's/<[^>]*>/ /g;s/amp;//g;s/\&ccedil;/ç/g;s/\&atilde;/ã/g;s/.*str="//;s/";//;s/[\|] //g'|
 			sed 's/^[[:space:]]*/ /g' |
-			sed '/^[[:space:]]*$/d;/document.write/d;$d'
+			sed '/^[[:space:]]*$/d;/document.write/d;$d' |
+			zzunescape --html
 		fi
 	;;
 	esac
