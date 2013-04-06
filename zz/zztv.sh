@@ -303,7 +303,7 @@ zztv ()
 			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p" |
 			sed '$d;1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g' |
 			zzunescape --html |
-			awk -F " Cod: " '{ if (NF==2) { printf "%-61s Cod: %s\n", $1, substr($2, 1, index($2, "-")-1) } else print }'
+			awk -F " Cod: " '{ if (NF==2) { printf "%-64s Cod:%s\n", substr($1,1,63), substr($2, 1, index($2, "-")-1) } else print }'
 		elif [ $flag -eq 1 ]
 		then
 			zztool eco $desc
@@ -313,7 +313,7 @@ zztv ()
 			sed 's/[[:space:]]\{1,\}/ /g' |
 			sed '/^[[:space:]]*$/d'|
 			zzunescape --html |
-			awk -F "|" '{ printf "%5s %-55s %s\n", $2, $1, $3 }'
+			awk -F "|" '{ printf "%5s%-57s%s\n", $2, substr($1,1,56), $3 }'
 		else
 			zztool eco "Código: $2"
 			$ZZWWWHTML "$URL" | sed -n '/<span class="tit">/,/Compartilhe:/p'|
