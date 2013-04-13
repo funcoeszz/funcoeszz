@@ -356,38 +356,6 @@ zztool ()
 				cat -
 			fi
 		;;
-		cache | atualiza)
-		# Limpa o cache se solicitado a atualização
-		# Atualiza o cache se for fornecido a url
-		# e retorna o nome do arquivo de cache
-		# Ex.: local cache=$(zztool cache lua $url dump) # Nome do cache, e atualiza se necessário
-		# Ex.: local cache=$(zztool cache php) # Apenas retorna o nome do cache
-			case ${1#zz} in
-			on | off | ajuda) break;;
-			rm)
-				if [ "$2" = '*' ]
-				then
-					rm -f ${ZZTMP}*
-					# Restabelecendo zz.ajuda, zz.on, zz.off
-					funcoeszz
-				else
-					rm -f "$ZZTMP.${2#zz}"
-				fi
-			;;
-			*)
-				[ "$ferramenta" = "atualiza" ] && rm -f "$ZZTMP.${1#zz}"
-				if ! test -s "$ZZTMP.${1#zz}" && [ "$2" ]
-				then
-					case $3 in
-					html    ) $ZZWWWHTML "$2" > "$ZZTMP.${1#zz}";;
-					list    ) $ZZWWWLIST "$2" > "$ZZTMP.${1#zz}";;
-					dump | *) $ZZWWWDUMP "$2" > "$ZZTMP.${1#zz}";;
-					esac
-				fi
-				echo "$ZZTMP.${1#zz}"
-			;;
-			esac
-		;;
 		# Ferramentas inexistentes são simplesmente ignoradas
 		esac
 }
