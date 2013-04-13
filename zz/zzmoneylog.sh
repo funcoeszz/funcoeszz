@@ -37,10 +37,10 @@ zzmoneylog ()
 	while [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
-			-t|--tag    ) shift; tag="$1";;
-			-d|--data   ) shift; data="$1";;
-			-v|--valor  ) shift; valor="$1";;
-			-a|--arquivo) shift; arquivo="$1";;
+			-t | --tag    ) shift; tag="$1";;
+			-d | --data   ) shift; data="$1";;
+			-v | --valor  ) shift; valor="$1";;
+			-a | --arquivo) shift; arquivo="$1";;
 			--total) total=1;;
 			--) shift; break;;
 			-*) echo "Opção inválida $1"; return 1;;
@@ -97,7 +97,7 @@ zzmoneylog ()
 			ano)
 				data=$(zzdatafmt -f "AAAA" hoje)
 			;;
-			mes|mês)
+			mes | mês)
 				data=$(zzdatafmt -f "AAAA-MM" hoje)
 			;;
 			dia)

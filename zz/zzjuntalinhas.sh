@@ -36,9 +36,9 @@ zzjuntalinhas ()
 	while [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
-			-d         ) separador="$2"; shift; shift;;
-			-i|--inicio) inicio="$2"   ; shift; shift;;
-			-f|--fim   ) fim="$2"      ; shift; shift;;
+			-d           ) separador="$2"; shift; shift;;
+			-i | --inicio) inicio="$2"   ; shift; shift;;
+			-f | --fim   ) fim="$2"      ; shift; shift;;
 			*) break ;;
 		esac
 	done

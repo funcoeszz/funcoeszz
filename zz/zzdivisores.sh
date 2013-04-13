@@ -35,7 +35,7 @@ zzdivisores ()
 				divisor_atual=$(($fator * $divisor))
 
 				# Apenas armazenando se divisor não existir
-				echo "$divisores_temp"| zztool list2lines | grep "^${divisor_atual}$" > /dev/null
+				echo "$divisores_temp" | zztool list2lines | grep "^${divisor_atual}$" > /dev/null
 				if [ $? -eq 1 ]
 				then
 					divisores_temp=$( echo "$divisores_temp $divisor_atual")
@@ -43,7 +43,7 @@ zzdivisores ()
 			done
 
 			# Reabastece a variável divisores eliminando repetições
-			divisores=$(echo "$divisores $divisores_temp"| zztool list2lines | sort -n | uniq | zztool lines2list)
+			divisores=$(echo "$divisores $divisores_temp" | zztool list2lines | sort -n | uniq | zztool lines2list)
 		done
 
 		# Elimina-se as repetições e ordena-se os divisores encontrados

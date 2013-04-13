@@ -57,7 +57,7 @@ zztradutor ()
 			sed 's/</\n&/g'  |
 			sed -n '/<option value=af>/,/<option value=yi>/p' |
 			sed -n '1p;2,/value=af/p' | sed -n '$d;' awk '{if (NR % 2 != 0 ) print $0}' |
-			sed 's/<option .*value=/ /g;s/>/: /g;s/zh-CN/cn/g'|
+			sed 's/<option .*value=/ /g;s/>/: /g;s/zh-CN/cn/g' |
 			zztool texto_em_iso |
 			grep ${2:-:}
 			return

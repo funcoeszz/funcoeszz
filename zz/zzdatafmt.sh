@@ -81,13 +81,13 @@ zzdatafmt ()
 				[ "$fmt" ] || fmt='DD de MES de AAAA'
 				shift
 			;;
-			--pt|--ptt)
+			--pt | --ptt)
 				meses=$meses_pt
 				[ "$fmt" ] || fmt='DD de MES de AAAA'
 				[ "$1" = "--ptt" ] && fmt=$(echo "$fmt" | sed 's/DD/DDT/g;s/AAAA/AAAAT/g')
 				shift
 			;;
-			--al|--de)
+			--al | --de)
 				meses=$meses_al
 				[ "$fmt" ] || fmt='DD. MES AAAA'
 				shift
@@ -124,7 +124,7 @@ zzdatafmt ()
 	# Converte datas estranhas para o formato brasileiro ../../..
 	case "$data" in
 		# apelidos
-		hoje|ontem|anteontem|amanh[ãa])
+		hoje | ontem | anteontem | amanh[ãa])
 			data=$(zzdata "$data")
 		;;
 		# aaaa-mm-dd (ISO)

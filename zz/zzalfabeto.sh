@@ -65,19 +65,19 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 
 	# Escolhe o alfabeto a ser utilizado
 	case "$1" in
-		--militar|--radio|--fone|--telefone|--otan|--nato|--icao|--itu|--imo|--faa|--ansi)
+		--militar | --radio | --fone | --telefone |--otan | --nato |--icao | --itu | --imo | --faa | --ansi)
 			coluna=2 ; shift ;;
-		--romano|--latino           ) coluna=1  ; shift ;;
-		--royal|--royal-navy        ) coluna=3  ; shift ;;
-		--signalese|--western-front ) coluna=4  ; shift ;;
-		--raf24                     ) coluna=5  ; shift ;;
-		--raf42                     ) coluna=6  ; shift ;;
-		--raf43|--raf               ) coluna=7  ; shift ;;
-		--us41|--us                 ) coluna=8  ; shift ;;
-		--pt|--portugal             ) coluna=9  ; shift ;;
-		--name|--names              ) coluna=10 ; shift ;;
-		--lapd                      ) coluna=11 ; shift ;;
-		--morse                     ) coluna=12 ; shift ;;
+		--romano | --latino           ) coluna=1  ; shift ;;
+		--royal | --royal-navy        ) coluna=3  ; shift ;;
+		--signalese | --western-front ) coluna=4  ; shift ;;
+		--raf24                       ) coluna=5  ; shift ;;
+		--raf42                       ) coluna=6  ; shift ;;
+		--raf43 | --raf               ) coluna=7  ; shift ;;
+		--us41 | --us                 ) coluna=8  ; shift ;;
+		--pt | --portugal             ) coluna=9  ; shift ;;
+		--name | --names              ) coluna=10 ; shift ;;
+		--lapd                        ) coluna=11 ; shift ;;
+		--morse                       ) coluna=12 ; shift ;;
 	esac
 
 	if test "$1"

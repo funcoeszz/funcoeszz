@@ -104,7 +104,7 @@ zzfatorar ()
 
 		if [ "$bc" != "2" ]
 		then
-			saida=$(echo "$saida " | sed 's/ /&\n/g'| sed '/^ *$/d;s/^ */ /g' |
+			saida=$(echo "$saida " | sed 's/ /&\n/g' | sed '/^ *$/d;s/^ */ /g' |
 			uniq -c | awk '{ if ($1==1) {print $2} else {print $2 "^" $1} }' | zzjuntalinhas -d ' * ')
 			[ "$bc" -eq "1" ] || echo
 			echo " $1 = $saida"

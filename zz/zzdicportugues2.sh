@@ -26,7 +26,7 @@ zzdicportugues2 ()
 	local url='http://dicio.com.br'
 	local ini='^significado de '
 	local fim='^defini..o de '
-	local palavra=$(echo "$1"| zzminusculas)
+	local palavra=$(echo "$1" | zzminusculas)
 	local padrao=$(echo "$palavra" | zzsemacento)
 	local contador=1
 	local resultado
@@ -50,15 +50,15 @@ zzdicportugues2 ()
 		[ "$resultado" ] || { zztool eco "Palavra não encontrada"; return 1; }
 
 		# Incrementando o contador no padrão
-		padrao=$(echo "$padrao"|sed 's/_[0-9]*$//')
+		padrao=$(echo "$padrao" | sed 's/_[0-9]*$//')
 		contador=$((contador + 1))
 		padrao=${padrao}_${contador}
 	done
 
 	# Restabelecendo o contador
-	padrao=$(echo "$padrao"|sed 's/_[0-9]*$//')
+	padrao=$(echo "$padrao" | sed 's/_[0-9]*$//')
 	contador=$((contador - 1))
-	padrao=$(echo "${padrao}_${contador}"|sed 's/_1$//')
+	padrao=$(echo "${padrao}_${contador}" | sed 's/_1$//')
 
 	case "$2" in
 	def) ini='^defini..o de '; fim=' escrit. ao contr.rio: ' ;;
@@ -66,7 +66,7 @@ zzdicportugues2 ()
 		ini='^ *infinitivo:'; fim='(rimas com |anagramas de )'
 		case "$3" in
 			ind) ini='^ *indicativo'; fim='^ *subjuntivo' ;;
-			sub|conj) ini='^ *subjuntivo'; fim='^ *imperativo' ;;
+			sub | conj) ini='^ *subjuntivo'; fim='^ *imperativo' ;;
 			imp) ini='^ *imperativo'; fim='^ *infinitivo' ;;
 			inf) ini='^ *infinitivo *$' ;;
 		esac

@@ -34,17 +34,17 @@ zzpalpite ()
 				final=99
 				qtde=50
 			;;
-			lotofacil|facil)
+			lotofacil | facil)
 				inicial=1
 				final=25
 				qtde=15
 			;;
-			megasena|mega)
+			megasena | mega)
 				inicial=1
 				final=60
 				qtde=6
 			;;
-			duplasena|dupla)
+			duplasena | dupla)
 				inicial=1
 				final=50
 				qtde=6
@@ -63,7 +63,7 @@ zzpalpite ()
 				qtde=0
 				unset num posicao numeros palpites inicial final i
 			;;
-			timemania|time)
+			timemania | time)
 				inicial=1
 				final=80
 				qtde=10
@@ -123,7 +123,7 @@ zzpalpite ()
 		if [ "$qtde" -gt "0" ]
 		then
 			zztool eco $tipo:
-			echo "$palpites"|sed '/^ *$/d'
+			echo "$palpites" | sed '/^ *$/d'
 			echo
 
 			#Zerando as variaveis

@@ -45,13 +45,13 @@ zzgravatar ()
 	while [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
-			-t|--tamanho)
+			-t | --tamanho)
 				tamanho="$2"
 				extra="$extra&size=$tamanho"
 				shift
 				shift
 			;;
-			-d| --default)
+			-d | --default)
 				default="$2"
 				extra="$extra&default=$default"
 				shift

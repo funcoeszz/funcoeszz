@@ -73,14 +73,14 @@ zzbolsas ()
 			for bolsa in americas europe asia africa
 			do
 				zztool eco "\n$bolsa :"
-				$ZZWWWDUMP "$url/intlindices?e=$bolsa"|
-					sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
+				$ZZWWWDUMP "$url/intlindices?e=$bolsa" |
+					sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
 					awk '{ printf "%s ", $1}';echo
 			done
 
 			zztool eco "\nDow Jones :"
-			$ZZWWWDUMP "$url/usindices"|
-				sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
+			$ZZWWWDUMP "$url/usindices" |
+				sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
 				awk '{ printf "%s ", $1}'
 				printf "%s " "$dj";echo
 
@@ -106,53 +106,53 @@ zzbolsas ()
 				for bolsa in americas europe asia africa
 				do
 					zztool eco "\n$bolsa :"
-					$ZZWWWDUMP "$url/intlindices?e=$bolsa"|
-						sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
-						sed 's/[0-9]*\.*[0-9]*,[0-9].*//g'|
+					$ZZWWWDUMP "$url/intlindices?e=$bolsa" |
+						sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
+						sed 's/[0-9]*\.*[0-9]*,[0-9].*//g' |
 						awk '{ printf " %-10s ", $1; for(i=2; i<=NF-1; i++) printf "%s ",$i; print $NF}'
 				done
 
 				zztool eco "\nDow Jones :"
-				$ZZWWWDUMP "$url/usindices"|
-					sed -n '/Última/,/_/p'|sed '/Componentes,/!d'|
-					sed 's/[0-9]*\.*[0-9]*,[0-9].*//g'|
+				$ZZWWWDUMP "$url/usindices" |
+					sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
+					sed 's/[0-9]*\.*[0-9]*,[0-9].*//g' |
 					awk '{ printf " %-10s ", $1; for(i=2; i<=NF-1; i++) printf "%s ",$i; print $NF}'
-					printf " %-10s " "$dj";$ZZWWWDUMP "$url/q?s=$dj"|
-					sed -n "/($dj)/{p;q;}"|sed "s/^ *//;s/ *($dj)//"
+					printf " %-10s " "$dj";$ZZWWWDUMP "$url/q?s=$dj" |
+					sed -n "/($dj)/{p;q;}" | sed "s/^ *//;s/ *($dj)//"
 
 				zztool eco "\nNYSE :"
 				for bolsa in $new_york;
 				do
-					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
+					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nNasdaq :"
 				for bolsa in $nasdaq;
 				do
-					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
+					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nStandard & Poors :"
 				for bolsa in $sp;
 				do
-					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
+					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nAmex :"
 				for bolsa in $amex;
 				do
-					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//"
+					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nOutros Índices Nacionais :"
 				for bolsa in $ind_nac;
 				do
-					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa"|
-					sed -n "/($bolsa)/{p;q;}"|sed "s/^ *//;s/ *($bolsa)//;s/ *-$//"
+					printf " %-10s " "$bolsa";$ZZWWWDUMP "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//;s/ *-$//"
 				done
 			;;
 			commodities)
@@ -161,7 +161,7 @@ zzbolsas ()
 				sed -n '/^Commodities/,/Mais commodities/p' |
 				sed '1d;$d;/^ *$/d;s/CAPTION: //g;s/ *Metais/\n&/'
 			;;
-			taxas_fixas|moedas)
+			taxas_fixas | moedas)
 				zzbolsas $1 principais
 			;;
 			taxas_cruzadas)
@@ -170,7 +170,7 @@ zzbolsas ()
 				sed -n '/CAPTION: Taxas cruzadas/,/Not.cias e coment.rios/p' |
 				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g; s/           //; s/^  *//'
 			;;
-			moedas_nome|nome_moedas)
+			moedas_nome | nome_moedas)
 				zztool eco " BRL - Real
  USD - Dolar Americano
  EUR - Euro
@@ -199,9 +199,9 @@ zzbolsas ()
 				esac
 				echo "$vartemp" |
 				sed -n '/^[[:space:]]\{1,\}.*atrás[[:space:]]*$/p;/^[[:space:]]\{1,\}.*BRT[[:space:]]*$/p' |
-				sed 's/^[[:space:]]\{1,\}/ /g'| zzuniq
+				sed 's/^[[:space:]]\{1,\}/ /g' | zzuniq
 			;;
-			volume|alta|baixa)
+			volume | alta | baixa)
 				case "$1" in
 					volume) pag='actives';;
 					alta)	pag='gainers';;
@@ -229,10 +229,10 @@ zzbolsas ()
 					}'
 			;;
 			*)
-				bolsa=$(echo "$1"|zzmaiusculas)
+				bolsa=$(echo "$1" | zzmaiusculas)
 				# Último índice da bolsa citada ou cotação da ação
-				vartemp=$($ZZWWWDUMP "$url/q?s=$bolsa"|
-				sed -n "/($bolsa)/,/Cotações atrasadas, salvo indicação/p"|
+				vartemp=$($ZZWWWDUMP "$url/q?s=$bolsa" |
+				sed -n "/($bolsa)/,/Cotações atrasadas, salvo indicação/p" |
 				sed '{
 						/^[[:space:]]*$/d
 						/IFRAME:/d;
@@ -242,32 +242,32 @@ zzbolsas ()
 						/Cotações atrasadas, salvo indicação/,$d
 					}' |
 				zzsemacento)
-				paste -d"|" <(echo "$vartemp"|cut -f1 -d:|sed 's/^[[:space:]]\{1,\}//g;s/[[:space:]]\{1,\}$//g') <(echo "$vartemp"|cut -f2- -d:|sed 's/^[[:space:]]\{1,\}//g')|
+				paste -d"|" <(echo "$vartemp" | cut -f1 -d: | sed 's/^[[:space:]]\{1,\}//g;s/[[:space:]]\{1,\}$//g') <(echo "$vartemp" | cut -f2- -d: | sed 's/^[[:space:]]\{1,\}//g') |
 				awk -F"|" '{if ( $1 != $2 ) {printf " %-20s %s\n", $1 ":", $2} else { print $1 } }'
 			;;
 			esac
 		;;
 		2 | 3 | 4)
 			# Lista as ações de uma bolsa especificada
-			bolsa=$(echo "$2"|zzmaiusculas)
+			bolsa=$(echo "$2" | zzmaiusculas)
 			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "$bolsa" "$dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 			then
-				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed "s/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/")
-				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
+				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa" | sed -n '/Primeira/p;/Primeira/q' | sed "s/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/")
+				pags=$(echo "scale=0;($pag_final - 1) / 50" | bc)
 
 				for ((pag=0;pag<=$pags;pag=$pag+1))
 				do
 					if test "$1" = "--lista"
 					then
 						# Listar as ações com descrição e suas últimas posições
-						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
-						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p'|
+						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
+						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p' |
 						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d'
 					else
 						# Lista apenas os códigos das ações
-						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
-						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p'|
-						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d'|
+						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
+						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p' |
+						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d' |
 						awk '{printf "%s  ",$1}'
 
 						if test "$pag" = "$pags";then echo;fi
@@ -278,23 +278,23 @@ zzbolsas ()
 			elif zztool testa_data $(zzdatafmt "$2")
 			then
 				read dd mm yyyy data1 < <(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$2")
-				mm=$(echo "scale=0;${mm}-1"|bc)
-				bolsa=$(echo "$1"|zzmaiusculas)
+				mm=$(echo "scale=0;${mm}-1" | bc)
+				bolsa=$(echo "$1" | zzmaiusculas)
 					# Emprestando as variaves pag, pags e pag_atual efeito estético apenas
-					pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
-					sed -n "/($bolsa)/p;/Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'|
+					pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d" |
+					sed -n "/($bolsa)/p;/Abertura/,/* Preço/p" | sed 's/Data/    /;/* Preço/d' |
 					sed 's/^ */ /g')
-					pags=$(echo "$pag" | sed -n '2p' | sed 's/ [A-Z]/\n\t&/g;s/Enc ajustado/Ajustado/'| sed '/^ *$/d' | awk '{printf "  %-12s\n", $1}')
-					pag_atual=$(echo "$pag" | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' |  awk '{printf " %14s\n", $1}')
+					pags=$(echo "$pag" | sed -n '2p' | sed 's/ [A-Z]/\n\t&/g;s/Enc ajustado/Ajustado/' | sed '/^ *$/d' | awk '{printf "  %-12s\n", $1}')
+					pag_atual=$(echo "$pag" | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' | awk '{printf " %14s\n", $1}')
 					echo "$pag" | sed -n '1p'
 
 					if [ "$3" ] && zztool testa_data $(zzdatafmt "$3")
 					then
 						read dd mm yyyy data2 < <(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$3")
-						mm=$(echo "scale=0;${mm}-1"|bc)
-						pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d"|
-						sed -n "/($bolsa)/p;/Abertura/,/* Preço/p"|sed 's/Data/    /;/* Preço/d'|
-						sed 's/^ */ /g' | sed -n '3p' | cut -f7- -d" " |sed 's/ [0-9]/\n&/g' |
+						mm=$(echo "scale=0;${mm}-1" | bc)
+						pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d" |
+						sed -n "/($bolsa)/p;/Abertura/,/* Preço/p" | sed 's/Data/    /;/* Preço/d' |
+						sed 's/^ */ /g' | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' |
 						sed '/^ *$/d' | awk '{printf " %14s\n", $1}')
 						paste <(printf "  %-12s" "Data") <(echo "     $data1") <(echo "     $data2") <(echo "       Variação") <(echo " Var (%)")
 
@@ -336,7 +336,7 @@ zzbolsas ()
 						sed 's/^[[:space:]]*//g;3,$s/.*:[[:space:]]*//g')
 					fi
 					# Imprime efetivamente a comparação
-					if [ $(echo "$pag"|awk 'END {print NR}') -ge 4 -a $(echo "$pags"|awk 'END {print NR}') -ge 4 ]
+					if [ $(echo "$pag" | awk 'END {print NR}') -ge 4 -a $(echo "$pags" | awk 'END {print NR}') -ge 4 ]
 					then
 						echo
 						while read data1
@@ -369,7 +369,7 @@ zzbolsas ()
 					url="$url/moedas/europa"
 					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - Europa"
 				;;
-				principais|*)
+				principais | *)
 					url="$url/moedas/principais"
 					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - Principais"
 				;;
@@ -401,14 +401,14 @@ zzbolsas ()
 						/[A-Z]\{3\}\/[A-Z]\{3\} *$/d
 						'
 			else
-				bolsa=$(echo "$1"|zzmaiusculas)
-				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa"|sed -n '/Primeira/p;/Primeira/q'|sed 's/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/')
-				pags=$(echo "scale=0;($pag_final - 1) / 50"|bc)
+				bolsa=$(echo "$1" | zzmaiusculas)
+				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa" | sed -n '/Primeira/p;/Primeira/q' | sed 's/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/')
+				pags=$(echo "scale=0;($pag_final - 1) / 50" | bc)
 				for ((pag=0;pag<=$pags;pag=$pag+1))
 				do
-					$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag"|
-					sed -n 's/^ *//g;/Símbolo /,/Primeira/p'|
-					sed '/Símbolo /d;/Primeira/d;/^[ ]*$/d'|
+					$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
+					sed -n 's/^ *//g;/Símbolo /,/Primeira/p' |
+					sed '/Símbolo /d;/Primeira/d;/^[ ]*$/d' |
 					grep -i "$2"
 				done
 			fi

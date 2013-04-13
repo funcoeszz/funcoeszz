@@ -128,7 +128,7 @@ zzloteria2 ()
 					tr '|' '\n' |
 					sed 's/^ - //'
 				)
-				faixa=$(echo "\t1ª Sena|\t1ª Quina|\t1ª Quadra||\t2ª Sena|\t2ª Quina|\t2ª Quadra"| tr '|' '\n')
+				faixa=$(echo "\t1ª Sena|\t1ª Quina|\t1ª Quadra||\t2ª Sena|\t2ª Quina|\t2ª Quadra" | tr '|' '\n')
 				resultado_num=$(echo "$dump" | awk 'BEGIN {FS="|";OFS="\n"} {print $7,$26,$28,"",$9,$10,$13}')
 				resultado_val=$(echo "$dump" | awk 'BEGIN {FS="|";OFS="\n"} {print $8,$27,$29,"",$11,$12,$14}')
 			;;
@@ -145,7 +145,7 @@ zzloteria2 ()
 					tr '|' '\n' |
 					sed 's/^ - // ; 1d'
 				)
-				faixa=$(echo "\tQuina|\tQuadra|\tTerno"| tr '|' '\n')
+				faixa=$(echo "\tQuina|\tQuadra|\tTerno" | tr '|' '\n')
 				resultado_num=$(echo "$dump" | cut -d '|' -f 7,9,11 | tr '|' '\n')
 				resultado_val=$(echo "$dump" | cut -d '|' -f 8,10,12 | tr '|' '\n')
 			;;
@@ -192,7 +192,7 @@ zzloteria2 ()
 				sed 's/ [0-9] [0-9]* /\n &/g;s/ [0-9]\{2\} [0-9]*/\n&/g' |
 				sed '1d' |
 				zzsemacento |
-				sed 's|\(/[A-Z]\{2\}\) \(JUNIOR\)|-JR\1|g'|
+				sed 's|\(/[A-Z]\{2\}\) \(JUNIOR\)|-JR\1|g' |
 				awk '{
 					printf "Jogo %02d ", $1
 						Time=""
@@ -219,7 +219,7 @@ zzloteria2 ()
 
 					}')
 				faixa=$(zzseq -f '\t%d\n' 14 13)
-				resultado_num=$(echo "$dump" | cut -d '|' -f 5 | sed 's/ [12].\{1,2\} (1[34] acertos)/\n/g;' |sed '1d' | sed 's/[0-9] /&\t/g')
+				resultado_num=$(echo "$dump" | cut -d '|' -f 5 | sed 's/ [12].\{1,2\} (1[34] acertos)/\n/g;' | sed '1d' | sed 's/[0-9] /&\t/g')
 				unset resultado_val
 			;;
 		esac
@@ -233,8 +233,8 @@ zzloteria2 ()
 			[ "$acumulado" ] && echo "   Acumulado em R$ $acumulado" | sed 's/|/ para /'
 			if [ "$faixa" ]
 			then
-				echo -e "\tFaixa\tQtde.\tPrêmio"|expand -t 5,17,32
-				paste <(echo -e "$faixa"|zzsemacento) <(echo -e "$resultado_num") <(echo -e "$resultado_val")|expand -t 5,17,32
+				echo -e "\tFaixa\tQtde.\tPrêmio" | expand -t 5,17,32
+				paste <(echo -e "$faixa" | zzsemacento) <(echo -e "$resultado_num") <(echo -e "$resultado_val") | expand -t 5,17,32
 			fi
 			echo
 		fi

@@ -179,7 +179,7 @@ zznumero ()
 			shift
 		;;
 
-		"-t"|"--texto")
+		"-t" | "--texto")
 			# Variável para número por extenso
 			# Flag para formato por extenso
 			[ "$1" = "-t" ] && texto=1
@@ -193,7 +193,7 @@ zznumero ()
 			shift
 		;;
 
-		"-m"|"--moeda")
+		"-m" | "--moeda")
 			# Solicitando formato moeda (sobrepõe as opção de prefixo, sufixo e formato)
 			prec=2
 			prefixo='R$ '
@@ -215,7 +215,7 @@ zznumero ()
 	set - $n_temp
 
 	# Armazenando o sinal, se presente
-	sinal=$(echo "$1"| cut -c1)
+	sinal=$(echo "$1" | cut -c1)
 	if [ "$sinal" = "+" -o "$sinal" = "-" ]
 	then
 		set - $(echo "$1" | sed 's/^[+-]//')
@@ -261,8 +261,8 @@ zznumero ()
 		fi
 
 		# Quantidade de pontos ou vírgulas no número informado
-		qtde_p=$(echo "$1"| sed 's/./&\n/g'|grep -c "\.")
-		qtde_v=$(echo "$1"| sed 's/./&\n/g'|grep -c ",")
+		qtde_p=$(echo "$1" | sed 's/./&\n/g' | grep -c "\.")
+		qtde_v=$(echo "$1" | sed 's/./&\n/g' | grep -c ",")
 
 		# Número com o "ponto decimal" separando a parte fracionária, sem separador de milhar
 		# Se for padrão 999.999, é considerado um inteiro
@@ -392,7 +392,7 @@ zznumero ()
 								num_frac=$(echo "$num_frac" | cut -c 1-${prec})
 
 								# Exceção: Se num_frac for 9*, vira 0* e aumenta num_int em mais 1
-								echo "$num_frac" |cut -c 1-${prec} | grep '^9\{1,\}$' > /dev/null
+								echo "$num_frac" | cut -c 1-${prec} | grep '^9\{1,\}$' > /dev/null
 								if [ $? -eq 0 ]
 								then
 									unset num_frac
@@ -518,16 +518,16 @@ zznumero ()
 							elif [ $(echo "$qtde_v" | cut -c2) -eq 0 ]
 							then
 								# Dezenas, captura direta do texto no terceiro campo
-								n_temp=$(echo "$qtde_v"|cut -c1)
+								n_temp=$(echo "$qtde_v" | cut -c1)
 								numero=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f3 -d":")
 							else
 								# 21 a 99, excluindo as dezenas terminadas em zero
 								# Dezena
-								n_temp=$(echo "$qtde_v"|cut -c1)
+								n_temp=$(echo "$qtde_v" | cut -c1)
 								numero=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f3 -d":")
 
 								# Unidade
-								n_temp=$(echo "$qtde_v"|cut -c2)
+								n_temp=$(echo "$qtde_v" | cut -c2)
 								n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
 
 								# Numero dessa classe
@@ -542,16 +542,16 @@ zznumero ()
 							else
 								# 101 a 999
 								# Centena
-								n_temp=$(echo "$qtde_v"|cut -c1)
+								n_temp=$(echo "$qtde_v" | cut -c1)
 								numero=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f4 -d":")
 
 								# Dezena
-								n_temp=$(echo "$qtde_v"|cut -c2)
+								n_temp=$(echo "$qtde_v" | cut -c2)
 								if [ "$n_temp" != "0" ]
 								then
 									if [ "$n_temp" = "1" ]
 									then
-										n_temp=$(echo "$qtde_v"|cut -c2-3)
+										n_temp=$(echo "$qtde_v" | cut -c2-3)
 										n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
 										numero="$numero e $n_temp"
 									else
@@ -561,10 +561,10 @@ zznumero ()
 								fi
 
 								# Unidade
-								n_temp=$(echo "$qtde_v"|cut -c2)
+								n_temp=$(echo "$qtde_v" | cut -c2)
 								if [ "$n_temp" != "1" ]
 								then
-									n_temp=$(echo "$qtde_v"|cut -c3)
+									n_temp=$(echo "$qtde_v" | cut -c3)
 									if [ "$n_temp" != "0" ]
 									then
 										n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
@@ -637,16 +637,16 @@ zznumero ()
 							elif [ $(echo "$qtde_v" | cut -c2) -eq 0 ]
 							then
 								# Dezenas, captura direta do texto no terceiro campo
-								n_temp=$(echo "$qtde_v"|cut -c1)
+								n_temp=$(echo "$qtde_v" | cut -c1)
 								numero=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f3 -d":")
 							else
 								# 21 a 99, excluindo as dezenas terminadas em zero
 								# Dezena
-								n_temp=$(echo "$qtde_v"|cut -c1)
+								n_temp=$(echo "$qtde_v" | cut -c1)
 								numero=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f3 -d":")
 
 								# Unidade
-								n_temp=$(echo "$qtde_v"|cut -c2)
+								n_temp=$(echo "$qtde_v" | cut -c2)
 								n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
 
 								# Número dessa classe
@@ -661,16 +661,16 @@ zznumero ()
 							else
 								# 101 a 999
 								# Centena
-								n_temp=$(echo "$qtde_v"|cut -c1)
+								n_temp=$(echo "$qtde_v" | cut -c1)
 								numero=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f4 -d":")
 
 								# Dezena
-								n_temp=$(echo "$qtde_v"|cut -c2)
+								n_temp=$(echo "$qtde_v" | cut -c2)
 								if [ "$n_temp" != "0" ]
 								then
 									if [ "$n_temp" = "1" ]
 									then
-										n_temp=$(echo "$qtde_v"|cut -c2-3)
+										n_temp=$(echo "$qtde_v" | cut -c2-3)
 										n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
 										numero="$numero e $n_temp"
 									else
@@ -680,10 +680,10 @@ zznumero ()
 								fi
 
 								# Unidade
-								n_temp=$(echo "$qtde_v"|cut -c2)
+								n_temp=$(echo "$qtde_v" | cut -c2)
 								if [ "$n_temp" != "1" ]
 								then
-									n_temp=$(echo "$qtde_v"|cut -c3)
+									n_temp=$(echo "$qtde_v" | cut -c3)
 									if [ "$n_temp" != "0" ]
 									then
 										n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
@@ -721,7 +721,7 @@ zznumero ()
 			num_saida="${num_saida} ${n_temp}"
 
 			num_saida=$(echo "$num_saida" |
-				sed 's/décimos \([a-z]\)/décimos de \1/;s/centésimos \([a-z]\)/centésimos de \1/'|
+				sed 's/décimos \([a-z]\)/décimos de \1/;s/centésimos \([a-z]\)/centésimos de \1/' |
 				sed 's/ *$//;s/ \{1,\}/ /g')
 
 			# Ajuste para valor unitário na parte fracionária
@@ -753,7 +753,7 @@ zznumero ()
 			[ "$sufixo" ] && num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
 		fi
 
-		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g;s/ \{1,\}/ /g' | sed 's/^ *e//;s/e *$//')
+		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g;s/ \{1,\}/ /g' | sed 's/^  *e//;s/ e *$//')
 
 		# Uma classe numérica por linha
 		if [ $linha -eq 1 ]
@@ -762,7 +762,7 @@ zznumero ()
 			1)
 				num_saida=$(echo " $num_saida" |
 				sed 's/ [0-9]/\
-&/g'| sed '/^ *$/d')
+&/g' | sed '/^ *$/d')
 			;;
 			2)
 				num_saida=$(echo " $num_saida" |
@@ -777,7 +777,7 @@ zznumero ()
 			esac
 		fi
 
-		echo "$num_saida"| sed 's/ *$//g;s/ \{1,\}/ /g'
+		echo "$num_saida" | sed 's/ *$//g;s/ \{1,\}/ /g'
 
 	else
 		zztool grep_var 'R$' "$prefixo" && unset prefixo

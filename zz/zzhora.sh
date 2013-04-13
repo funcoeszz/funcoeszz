@@ -224,7 +224,7 @@ zzhora ()
 			-1)
 				extra='ontem'
 			;;
-			0|-0)
+			0 | -0)
 				extra='hoje'
 			;;
 			*)

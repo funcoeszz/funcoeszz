@@ -64,7 +64,7 @@ zzbrasileirao ()
 				/^Novembro/p
 				/^Dezembro/p
 				/^ *Data *Hora/p
-				/^ *[0-9][0-9]\/[0-9][0-9]/p'|sed 's/  *-  *Leia.*//g'
+				/^ *[0-9][0-9]\/[0-9][0-9]/p' |sed 's/  *-  *Leia.*//g'
 
 			# Mudança no formato, aguardar até brasileirão começar, e ver se retornam ao formato anterior
 			# $ZZWWWDUMP "${url}/futebol/clubes/$2/proximos-jogos" | sed 's/^ *$//g' |
@@ -87,7 +87,7 @@ zzbrasileirao ()
 		else
 			$ZZWWWHTML "$url/futebol/clubes/" |
 			sed -n '/<li class="aba show serie-[ab]">/,/<\/ul>$/p;/<li class="aba hide serie-[ab]">/,/<\/ul>$/p' |
-			sed -n '/<li class=".*"><a rel="menu"/p'| awk -F'"' '{print $2}' | sort
+			sed -n '/<li class=".*"><a rel="menu"/p' | awk -F'"' '{print $2}' | sort
 			return 0
 		fi
 	else
@@ -106,7 +106,7 @@ zzbrasileirao ()
 	then
 		zztool testa_numero $rodada || { zztool uso brasileirao; return 1; }
 		url="${url}/tabela-de-jogos/tabela-de-jogos-${rodada}a-rodada.htm"
-		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/Todas as rodadas/p"|
+		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/Todas as rodadas/p" |
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d'
 	else
 		urls="${url}/classificacao/classificacao.htm"
@@ -124,10 +124,10 @@ zzbrasileirao ()
 			if [ "$serie" = "c" ]
 			then
 				echo
-				echo "$url"|sed 's/.*grupo-/Grupo /;s/\.htm//'| tr 'ab' 'AB'
+				echo "$url" |sed 's/.*grupo-/Grupo /;s/\.htm//' | tr 'ab' 'AB'
 			fi
 
-			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;"|
+			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;" |
 			sed '/^ *$/d' | sed '/^ *[0-9]\{1,\} *$/{N;N;s/\n//g;}' | sed 's/\([0-9]\{1,\}\) */\1 /g;/^ *PG/d' |
 			awk -v cor_awk="$ZZCOR" -v serie_awk="$serie" '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
 

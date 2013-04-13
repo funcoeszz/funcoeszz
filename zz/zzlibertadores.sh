@@ -47,7 +47,7 @@ zzlibertadores ()
 		then
 			url="${url}/primeira-fase"
 			$ZZWWWDUMP "$url" | sed -n '/Primeira fase - IDA/,/primeira-fase/p' |
-			sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g'| sed "s/.*${ano}$/\n&/g"
+			sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g' | sed "s/.*${ano}$/\n&/g"
 		fi
 
 		# Fase 2 (Fase de Grupos)
@@ -76,7 +76,7 @@ zzlibertadores ()
 		then
 			grupo="$2"
 			url="http://esportes.terra.com.br/futebol/libertadores/"
-			$ZZWWWDUMP "$url" | sed -n "/Grupo $grupo/,/Anterior/p"|
+			$ZZWWWDUMP "$url" | sed -n "/Grupo $grupo/,/Anterior/p" |
 			sed '/^ *$/d;s/Subiu[0-9]*//g;s/Desceu[0-9]*//g;s/Anterior//g;s/Times//g;s/^ *\*//g' |
 			awk -v cor_awk="$ZZCOR" '{
 				if (NF >= 9) {
