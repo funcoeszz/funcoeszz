@@ -1,0 +1,53 @@
+# ----------------------------------------------------------------------------
+# zzdicantonimos
+# http://www.antonimos.com.br/
+# Procura antônimos para uma palavra.
+# Uso: zzdicantonimos palavra
+# Ex.: zzdicantonimos bom
+#
+# Autor: gabriell nascimento <gabriellhrn (a) gmail com>
+# Desde: 2013-04-15
+# Versão: 1
+# Licença: GPL
+# ----------------------------------------------------------------------------
+zzdicantonimos () {
+
+    zzzz -h dicantonimos "$1" && return
+
+    local url='http://www.antonimos.com.br/busca.php'
+    local palavra="$*"
+    local palavra_busca=$( echo "$palavra" | sed "$ZZSEDURL" )
+
+    # Verifica se recebeu parâmetros
+    if test -z "$1"
+    then
+        zztool uso dicantonimos
+        return 1
+    fi
+
+    # Continua na mesma linha. Vai ser sobrescrita depois
+    printf %b "Procurando antônimos para \"${palavra}\"...\r"
+
+    # Faz a busca do termo no site, deixando somente os antônimos
+    local antonimos=$(
+        $ZZWWWDUMP "${url}?q=${palavra_busca}" | 
+            sed -n "/[0-9]\+ antônimos\? d/,/«/ { 
+                /[0-9]\+ antônimos\? d/d
+                /«/d
+                /^$/d
+                p
+            }"
+    )
+
+    # Verifica se houve resultados antes de imprimir
+    if test -z "$antonimos"
+    then
+        printf %b "Nenhum antônimo encontrado para \"${palavra}\".\n"
+        return 1
+    fi
+
+    printf %b "Antônimos encontrados para \"${palavra}\": \n\n"
+    printf %b "$antonimos\n"
+
+    echo
+}
