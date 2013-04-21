@@ -24,7 +24,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlibertadores ()
@@ -43,21 +43,24 @@ zzlibertadores ()
 	then
 		url="${url}/tabela-de-jogos"
 		# Fase 1 (Pré-libertadores)
-		if [ "$2" = "1" ]
-		then
+		case "$2" in
+		1)
 			url="${url}/primeira-fase"
 			$ZZWWWDUMP "$url" | sed -n '/Primeira fase - IDA/,/primeira-fase/p' |
 			sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g' | sed "s/.*${ano}$/\n&/g"
-		fi
-
+		;;
 		# Fase 2 (Fase de Grupos)
-		if [ "$2" = "2" ]
-		then
+		2)
 			for grupo in 1 2 3 4 5 6 7 8
 			do
 				zzlibertadores -g $grupo
 			done
-		fi
+		;;
+		3)
+			url="${url}/oitavas-de-final"
+			$ZZWWWDUMP "$url" | sed -n '/Oitavas de final - IDA/,/^ *$/p' |
+			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d'
+		esac
 	fi
 
 	# Escolhendo o grupo para os jogos
@@ -75,8 +78,8 @@ zzlibertadores ()
 		if [ "$1" = "-c" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
 		then
 			grupo="$2"
-			url="http://esportes.terra.com.br/futebol/libertadores/"
-			$ZZWWWDUMP "$url" | sed -n "/Grupo $grupo/,/Anterior/p" |
+			url="http://esportes.terra.com.br/bcg/pt-br.libertadores-2013_segunda-fase.html"
+			$ZZWWWDUMP "$url"| iconv -f utf8 -t iso-8859-1 | sed -n "/Grupo $grupo/,/Anterior/p" |
 			sed '/^ *$/d;s/Subiu[0-9]*//g;s/Desceu[0-9]*//g;s/Anterior//g;s/Times//g;s/^ *\*//g' |
 			awk -v cor_awk="$ZZCOR" '{
 				if (NF >= 9) {
