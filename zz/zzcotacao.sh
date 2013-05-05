@@ -6,14 +6,12 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-19
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzcotacao ()
 {
 	zzzz -h cotacao "$1" && return
-
-	local resultado
 
 	$ZZWWWDUMP "http://www.infomoney.com.br/mercados/cambio" |
 	sed -n '/^Real vs. Moedas/,/^Cota/p' |
