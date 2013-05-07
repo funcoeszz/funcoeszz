@@ -41,7 +41,7 @@
 #      zzbolsas PETR4.SA         # Cotação das ações da Petrobrás
 #      zzbolsas PETR4.SA 21/12/2010  # Cotação da Petrobrás nesta data
 #      zzbolsas commodities      # Tabela de commodities
-#      zzbolsas altas            # Lista ações em altas na Bovespa
+#      zzbolsas alta             # Lista ações em altas na Bovespa
 #      zzbolsas volume           # Lista ações em alta em volume de negócios
 #      zzbolsas taxas_fixas
 #      zzbolsas taxas_cruzadas
@@ -50,7 +50,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 16
+# Versão: 17
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -211,19 +211,20 @@ zzbolsas ()
 				$ZZWWWDUMP "$url/${pag}?e=sa" |
 				sed -n '/Informações relacionadas/,/^[[:space:]]*$/p' |
 				sed '1d;s/Down /-/g;s/ de /-/g;s/Up /+/g;s/Gráfico, .*//g' |
+				sed 's/Para *cima */+/g;s/Para *baixo */-/g' |
 				awk 'BEGIN {
-							printf " %-10s  %-21s  %-20s  %-16s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
+							printf " %-11s  %-23s  %-27s  %-21s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
 						}
 					{
 						if (NF > 6) {
 							nome = ""
 							printf " %-10s ", $1;
 							for(i=2; i<=NF-5; i++) {nome = nome sprintf( "%s ", $i)};
-							printf " %-22s ", nome;
-							for(i=NF-4; i<=NF-3; i++) printf " %-6s ", $i;
+							printf " %-24s ", nome;
+							for(i=NF-4; i<=NF-3; i++) printf " %-8s ", $i;
 							printf "  "
 							printf " %-6s ", $(NF-2); printf " %-9s ", $(NF-1);
-							printf " %10s", $NF
+							printf " %11s", $NF
 							print ""
 						}
 					}'
