@@ -5,7 +5,7 @@
 # com a opção --atualiza força a atualização co cache local
 #
 # Uso: zzphp <palavra|regex>
-# Ex.: zzlua --atualiza              # Força atualização do cache
+# Ex.: zzphp --atualiza              # Força atualização do cache
 #      zzphp array                   # mostra as funçoes com "array" no nome
 #      zzphp -d mysql_fetch_object   # mostra descrição do  mysql_fetch_object
 #      zzphp ^X                      # mostra as funções que começam com X

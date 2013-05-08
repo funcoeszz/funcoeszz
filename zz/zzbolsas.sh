@@ -213,7 +213,7 @@ zzbolsas ()
 				sed '1d;s/Down /-/g;s/ de /-/g;s/Up /+/g;s/Gráfico, .*//g' |
 				sed 's/Para *cima */+/g;s/Para *baixo */-/g' |
 				awk 'BEGIN {
-							printf " %-11s  %-23s  %-27s  %-21s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
+							printf " %-10s  %-24s  %-24s  %-18s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
 						}
 					{
 						if (NF > 6) {

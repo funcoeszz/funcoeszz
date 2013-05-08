@@ -3,7 +3,7 @@
 # São intituições financeiras, que estão sob a supervisão do Banco Central.
 # Com argumento numérico, detalha a listagem solicitada.
 # A numeração fica entre 1 e 25
-# 
+#
 # Uso: zzjuros [numero consulta]
 # Ex.: zzjuros
 #      zzjuros 19  # Mostra as taxas de desconto de cheque para pessoa física.
@@ -26,7 +26,7 @@ zzjuros ()
 		[ $1 -gt 25 -o $1 -lt 1 ] && { zztool uso juros; return 1; }
 
 		# Variavel resultado guarda a linha da opção escolhida, com os códigos a seres usados.
-		resultado=$(zzjuros cod | sed -n "/^ *$1 /p"| sed 's/,\([0-9]\)/, \1/g' | tr -d ',)(.')
+		resultado=$(zzjuros cod | sed -n "/^ *$1 /p" | sed 's/,\([0-9]\)/, \1/g' | tr -d ',)(.')
 
 		# Redefine a url conforme a opção escolhida
 		if zztool grep_var 'Financiamento' "$resultado"
@@ -43,7 +43,7 @@ zzjuros ()
 
 		# Descrições conforme as caracteristas obtidas pelas variáveis acima.
 		[ "$tipo" = "1" ] && echo -n "Pessoa Física - " || echo -n "Pessoa Jurídica - "
-		[ $(echo "$encargo"|cut -c 1) = "1" ] && echo 'Taxas Pré-Fixada' || echo 'Taxas Pós-Fixada'
+		[ $(echo "$encargo" | cut -c 1) = "1" ] && echo 'Taxas Pré-Fixada' || echo 'Taxas Pós-Fixada'
 		zztool eco $(echo $resultado | sed 's/^[ 0-9]\{1,\}//;s/[ 0-9]\{1,\}$//')
 
 		# Fazendo a busca e filtrando no site do Banco Central, conforme as variáveis obtidas.
@@ -73,7 +73,7 @@ zzjuros ()
 						if ($1 == "*" && $2 != "Taxas") {
 							$1 = (item<10?" ":"") " " item++
 						}
-						printf "\n %s", $0 
+						printf "\n %s", $0
 					}
 					else {
 						printf " %s", $0
