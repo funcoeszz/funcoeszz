@@ -211,7 +211,7 @@ zzbolsas ()
 				$ZZWWWDUMP "$url/${pag}?e=sa" |
 				sed -n '/Informações relacionadas/,/^[[:space:]]*$/p' |
 				sed '1d;s/Down /-/g;s/ de /-/g;s/Up /+/g;s/Gráfico, .*//g' |
-				sed 's/Para *cima */+/g;s/Para *baixo */-/g' |
+				sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
 				awk 'BEGIN {
 							printf " %-10s  %-24s  %-24s  %-18s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
 						}
@@ -263,7 +263,8 @@ zzbolsas ()
 						# Listar as ações com descrição e suas últimas posições
 						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
 						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p' |
-						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d'
+						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d' |
+						sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' | sed 's/   *0,00/  0,00/g'
 					else
 						# Lista apenas os códigos das ações
 						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
