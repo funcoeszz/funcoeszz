@@ -50,7 +50,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 17
+# Versão: 18
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -264,7 +264,19 @@ zzbolsas ()
 						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
 						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p' |
 						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d' |
-						sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' | sed 's/   *0,00/  0,00/g'
+						sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
+						awk '
+						BEGIN { printf "\n %-14s %-54s %-23s %-15s %-10s\n", "Símbolo", "Empresa", "Última Transação", "Variação", "Volume" }
+						{
+							nome = ""
+							if (index($(NF-3),":") != 0) { ajuste=0 } else { ajuste=2 }
+							if ((NF-ajuste)>5) {
+							if (ajuste == 0 ) { data_hora = $(NF-3) }
+							else if (ajuste == 0 ) { data_hora = $(NF-5) " " $(NF-4) " " $(NF-3) }
+							for(i=2;i<=(NF-5-ajuste);i++) {nome = nome " " $i }
+							printf " %-13s %-50s %10s %10s %10s %9s %10s\n", $1, nome, $(NF-4-ajuste), data_hora, $(NF-2), $(NF-1), $NF
+							}
+						}'
 					else
 						# Lista apenas os códigos das ações
 						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
