@@ -7,19 +7,29 @@
 # 2 5
 # 3 6
 # Assim fica como um guia, para quem desejar implantar essa acessibilidade.
+# Abaixo de cada célula Braille, aparece o caracter correspondente.
+# Incluindo indicadores especiais de maiúscula, numérico e espaço.
+# +++++: Maiúsculo
+# +-   : Capitalize
+# __   : Espaço
+# ##   : Número
+#
+# Uso: zzbraille <texto> [texto]
+# Ex.: zzbraille Olá mundo!
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-26
-# Versão: 1
+# Versão: 2
 # Licença: GPL
-# Requisitos: zzminusculas
+# Requisitos: zzminusculas zzmaiusculas zzcapitalize
 # ----------------------------------------------------------------------------
 zzbraille ()
 {
 	zzzz -h braille "$1" && return
 
-	local char letra
+	[ "$1" ] || { zztool uso braille; return 1; }
 
+	# Lista de caracteres (quase todos)
 	local caracter="\
 a|1|0|0|0|0|0
 b|1|1|0|0|0|0
@@ -100,6 +110,7 @@ $|0|0|0|0|1|1
 ÷|0|1|0|0|1|1
 #|0|0|0|0|0|0"
 
+	# Caracteres especias que usam mais de uma célula Braille
 	local caracter_esp='―|0|0|1|0|0|1|0|0|1|0|0|1
 /|0|0|0|0|0|1|0|1|0|0|0|0
 _|0|0|0|1|0|1|0|0|1|0|0|1
@@ -113,17 +124,31 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 	local linha1 linha2 linha3 tamanho i letra codigo linha0
 	while [ "$1" ]
 	do
-		linha0=${linha0}' --'
+		# Demarcando início do texto (iniciativa do autor para noção dos limites da célula Braille)
+		# E sinalizando espaço entre as palavras
+		linha0=${linha0}' __'
 		linha1=${linha1}' 00'
 		linha2=${linha2}' 00'
 		linha3=${linha3}' 00'
-		
-		if zztool testa_numero_fracionario "$1"
+
+		if zztool testa_numero "$1" || zztool testa_numero_fracionario "$1"
 		then
-			linha0=${linha0}' ##'
+			linha0=${linha0}' ##' # Para indicar que começa um número, nas apontamento abaixo da célula
 			linha1=${linha1}' 01'
 			linha2=${linha2}' 01'
 			linha3=${linha3}' 11'
+		elif [ "$1" = $(zzcapitalize $1) ]
+		then
+			linha0=${linha0}' +-' # Para indicar que o texto a seguir está com a primeira letra em maiúscula (capitalize)
+			linha1=${linha1}' 01'
+			linha2=${linha2}' 00'
+			linha3=${linha3}' 01'
+		elif [ "$1" = $(zzmaiusculas $1) ]
+		then
+			linha0=${linha0}' +++++' # Para indicar que o texto a seguir está todo maiúsculo
+			linha1=${linha1}' 01 01'
+			linha2=${linha2}' 00 00'
+			linha3=${linha3}' 01 01'
 		fi
 
 		tamanho=$(echo "${#linha1} + ${#1} * 3" | bc)
@@ -132,21 +157,21 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			for i in $(zzseq ${#1})
 			do
 				letra=$(echo "$1"| tr ' ' '#' | zzminusculas | awk '{print substr($0,'$i',1)}')
+				letra_original=$(echo "$1"| tr ' ' '#' | awk '{print substr($0,'$i',1)}')
 				if [ $letra ]
 				then
 					[ $letra = '/' ] && letra='\/'
 					codigo=$(echo "$caracter" | sed -n "/^[$letra]/p")
 					if [ $codigo ]
 					then
-						letra=$(echo $letra | tr '#' ' ')
-						linha0=${linha0}'('${letra}')'
+						letra_original=$(echo $letra_original | tr '#' ' ')
+						linha0=${linha0}'('${letra_original}')'
 						linha1=${linha1}' '$(echo $codigo | awk -F'|' '{print $2 $5}')
 						linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6}')
 						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7}')
 					else
 						codigo=$(echo "$caracter_esp" | sed -n "/^[$letra]/p")
-						[ $letra = '\/' ] && letra=' /'
-						linha0=${linha0}'( '${letra}' )'
+						linha0=${linha0}'( '${letra_original}' )'
 						linha1=${linha1}' '$(echo $codigo | awk -F'|' '{print $2 $5 $8 $11}')
 						linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6 $9 $12}')
 						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7 $10 $13}')
