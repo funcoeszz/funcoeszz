@@ -4,8 +4,7 @@
 # Se for fornecido um numero mostra os jogos da rodada, com resultados.
 # Com argumento -l lista os todos os clubes da série A e B.
 # Se o argumento -l for seguido do nome do clube, lista todos os jogos já
-# ocorridos do clube desde o começo do ano de qualquer campeonato, e os
-# próximos jogos no brasileirão.
+# ocorridos do clube desde o começo do ano de qualquer campeonato.
 #
 # Nomenclatura:
 #	PG  - Pontos Ganhos
@@ -97,7 +96,7 @@ zzbrasileirao ()
 		fi
 	fi
 
-	[ $(date +%Y%m%d) -lt 20130525 ] && { zztool eco " Brasileirão 2013 só a partir de 26 de Maio"; return 1; }
+	[ $(date +%Y%m%d) -lt 20130525 ] && { zztool eco " Brasileirão 2013 só a partir de 25 de Maio"; return 1; }
 
 	ano=$(date +%Y)
 
