@@ -64,6 +64,12 @@ zzlibertadores ()
 			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
 			sed 's/ *Oitavas de final - VOLTA/\n&/;'
 		;;
+		4 | quartas)
+			url="${url}/quartas-de-final"
+			$ZZWWWDUMP "$url" | sed -n '/Quartas de final - IDA/,/^ *$/p' |
+			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+			sed 's/ *Quartas de final - VOLTA/\n&/;'
+		;;
 		esac
 	fi
 
