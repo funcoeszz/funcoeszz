@@ -30,7 +30,7 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 13
+# Versão: 14
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
@@ -97,7 +97,7 @@ zzbrasileirao ()
 		fi
 	fi
 
-	[ $(date +%Y%m%d) -lt 20130526 ] && { zztool eco " Brasileirão 2013 só a partir de 26 de Maio"; return 1; }
+	[ $(date +%Y%m%d) -lt 20130525 ] && { zztool eco " Brasileirão 2013 só a partir de 26 de Maio"; return 1; }
 
 	ano=$(date +%Y)
 
@@ -105,18 +105,22 @@ zzbrasileirao ()
 	if [ "$rodada" ]
 	then
 		zztool testa_numero $rodada || { zztool uso brasileirao; return 1; }
-		url="${url}/tabela-de-jogos/tabela-de-jogos-${rodada}a-rodada.htm"
-		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/Todas as rodadas/p" |
+		# url="${url}/tabela-de-jogos/tabela-de-jogos-${rodada}a-rodada.htm"
+		url="${url}/tabela-de-jogos/fase-unica/tabela-de-jogos-${rodada}a-rodada.htm"
+		$ZZWWWDUMP $url | sed -n "/ RODADA - /,/^ *\* http/p" |
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d'
 	else
-		urls="${url}/classificacao/classificacao.htm"
+		# urls="${url}/classificacao/classificacao.htm"
+		urls="${url}/classificacao/fase-unica"
 
 		[ "$serie" = "a" ] && zztool eco "Série A"
 		[ "$serie" = "b" ] && zztool eco "Série B"
 		if [ "$serie" = "c" ]
 		then
 			zztool eco "Série C"
-			urls="${url}/classificacao/classificacao-grupo-a.htm ${url}/classificacao/classificacao-grupo-b.htm"
+			# urls="${url}/classificacao/classificacao-grupo-a.htm ${url}/classificacao/classificacao-grupo-b.htm"
+			urls="${url}/classificacao/primeira-fase/grupo-a ${url}/classificacao/primeira-fase/grupo-b"
+
 		fi
 
 		for url in $urls
