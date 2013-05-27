@@ -27,8 +27,6 @@ zzbraille ()
 {
 	zzzz -h braille "$1" && return
 
-	[ "$1" ] || { zztool uso braille; return 1; }
-
 	# Lista de caracteres (quase todos)
 	local caracter="\
 a|1|0|0|0|0|0
@@ -121,7 +119,9 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 '
 
 	local largura=$(echo $(($(tput cols)-2)))
-	local linha1 linha2 linha3 tamanho i letra codigo linha0
+	local linha1 linha2 linha3 tamanho i letra letra_original codigo linha0
+
+	set - $(zztool multi_stdin "$@")
 	while [ "$1" ]
 	do
 		# Demarcando início do texto (iniciativa do autor para noção dos limites da célula Braille)
@@ -137,13 +137,13 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			linha1=${linha1}' 01'
 			linha2=${linha2}' 01'
 			linha3=${linha3}' 11'
-		elif [ "$1" = $(zzcapitalize $1) ]
+		elif [ "$1" = $(zzcapitalize "$1") ]
 		then
 			linha0=${linha0}' +-' # Para indicar que o texto a seguir está com a primeira letra em maiúscula (capitalize)
 			linha1=${linha1}' 01'
 			linha2=${linha2}' 00'
 			linha3=${linha3}' 01'
-		elif [ "$1" = $(zzmaiusculas $1) ]
+		elif [ "$1" = $(zzmaiusculas "$1") ]
 		then
 			linha0=${linha0}' +++++' # Para indicar que o texto a seguir está todo maiúsculo
 			linha1=${linha1}' 01 01'
@@ -156,8 +156,8 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 		then
 			for i in $(zzseq ${#1})
 			do
-				letra=$(echo "$1"| tr ' ' '#' | zzminusculas | awk '{print substr($0,'$i',1)}')
-				letra_original=$(echo "$1"| tr ' ' '#' | awk '{print substr($0,'$i',1)}')
+				letra=$(echo $1| tr ' ' '#' | zzminusculas | awk '{print substr($0,'$i',1)}')
+				letra_original=$(echo $1| tr ' ' '#' | awk '{print substr($0,'$i',1)}')
 				if [ $letra ]
 				then
 					[ $letra = '/' ] && letra='\/'
