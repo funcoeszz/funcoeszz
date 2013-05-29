@@ -9,10 +9,11 @@
 # Assim fica como um guia, para quem desejar implantar essa acessibilidade.
 # Abaixo de cada célula Braille, aparece o caracter correspondente.
 # Incluindo indicadores especiais de maiúscula, numérico e espaço.
-# +++++: Maiúsculo
-# +-   : Capitalize
-# __   : Espaço
-# ##   : Número
+# +++++ : Maiúsculo
+# +-    : Capitalize
+# __    : Espaço
+# ##    : Número
+# -( X ): Caracter especial que ocupa mais de uma célula Braille
 #
 # Uso: zzbraille <texto> [texto]
 # Ex.: zzbraille Olá mundo!
@@ -115,7 +116,7 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 €|0|0|0|1|0|0|1|0|0|1|1|0
 (|1|1|0|0|0|1|0|0|1|0|0|0
 )|0|0|0|0|0|1|0|0|1|1|1|0
-"|0|1|1|0|0|1|0|0|0|0|0|0
+"|0|1|1|0|0|1
 '
 
 	local largura=$(echo $(($(tput cols)-2)))
@@ -171,10 +172,10 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7}')
 					else
 						codigo=$(echo "$caracter_esp" | sed -n "/^[$letra]/p")
-						linha0=${linha0}'( '${letra_original}' )'
-						linha1=${linha1}' '$(echo $codigo | awk -F'|' '{print $2 $5 $8 $11}')
-						linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6 $9 $12}')
-						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7 $10 $13}')
+						[ ${#codigo} -ge 25 ] && linha0=${linha0}'-( '${letra_original}' )'|| linha0=${linha0}'('${letra_original}')'
+						linha1=${linha1}' '$(echo $codigo | awk -F'|' '{print $2 $5, $8 $11}')
+						linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6, $9 $12}')
+						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7, $10 $13}')
 					fi
 				fi
 			done
