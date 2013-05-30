@@ -3,24 +3,33 @@
 # A estrutura básica do alfabeto braille é composta por 2 coluna e 3 linhas.
 # Essa estrutura é chamada de célula Braille
 # E a sequência numérica padronizada é como segue:
-# 1 4
-# 2 5
-# 3 6
+#  1 4
+#  2 5
+#  3 6
 # Assim fica como um guia, para quem desejar implantar essa acessibilidade.
+#
+# Com a opção --s1 muda o śimbolo ● ( relevo, em destaque, cheio)
+# Com a opção --s2 muda o śimbolo ○ ( plano, sem destaque, vazio)
+#
 # Abaixo de cada célula Braille, aparece o caracter correspondente.
-# Incluindo indicadores especiais de maiúscula, numérico e espaço.
+# Incluindo especiais de maiúscula, numérico, espaço, muti-células.
 # +++++ : Maiúsculo
 # +-    : Capitalize
 # __    : Espaço
 # ##    : Número
 # -( X ): Caracter especial que ocupa mais de uma célula Braille
 #
+# Atenção: Prefira usar ! em texto dentro de aspas simples (')
+#
 # Uso: zzbraille <texto> [texto]
-# Ex.: zzbraille Olá mundo!
+# Ex.: zzbraille 'Olá mundo!'
+#      echo 'Good Morning, Vietnam!' | zzbraille --s2 ' '
+#      zzbraille --s1 O --s2 'X' 'Um texto qualquer'
+#      zzbraille --s1 . --s2 ' ' Mensagem
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-26
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzminusculas zzmaiusculas zzcapitalize
 # ----------------------------------------------------------------------------
@@ -126,7 +135,19 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 '
 
 	local largura=$(echo $(($(tput cols)-2)))
+	local c='●'
+	local v='○'
 	local linha1 linha2 linha3 tamanho i letra letra_original codigo linha0
+
+	# Opção para mudar os símbolos a serem exibidos dentro da célula Braille
+	while [ "$1" ]
+	do
+		case $1 in
+			"--s1") c="$2"; shift; shift;;
+			"--s2") v="$2"; shift; shift;;
+			*) break;;
+		esac
+	done
 
 	set - $(zztool multi_stdin "$@")
 	while [ "$1" ]
@@ -195,9 +216,9 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			done
 			shift
 		else
-			echo $linha1 | sed 's/1/●/g;s/0/○/g'
-			echo $linha2 | sed 's/1/●/g;s/0/○/g'
-			echo $linha3 | sed 's/1/●/g;s/0/○/g'
+			echo $linha1 | sed "s/1/$c/g;s/0/$v/g"
+			echo $linha2 | sed "s/1/$c/g;s/0/$v/g"
+			echo $linha3 | sed "s/1/$c/g;s/0/$v/g"
 			echo $linha0
 			echo
 			unset linha1
@@ -206,9 +227,9 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			unset linha0
 		fi
 	done
-	echo $linha1 | sed 's/1/●/g;s/0/○/g'
-	echo $linha2 | sed 's/1/●/g;s/0/○/g'
-	echo $linha3 | sed 's/1/●/g;s/0/○/g'
+	echo $linha1 | sed "s/1/$c/g;s/0/$v/g"
+	echo $linha2 | sed "s/1/$c/g;s/0/$v/g"
+	echo $linha3 | sed "s/1/$c/g;s/0/$v/g"
 	echo $linha0
 	echo
 }
