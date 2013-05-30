@@ -20,7 +20,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-26
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzminusculas zzmaiusculas zzcapitalize
 # ----------------------------------------------------------------------------
@@ -107,7 +107,8 @@ $|0|0|0|0|1|1
 +|0|1|1|0|1|0
 ×|0|1|1|0|0|1
 ÷|0|1|0|0|1|1
-#|0|0|0|0|0|0"
+&|1|1|1|1|0|1
+"
 
 	# Caracteres especias que usam mais de uma célula Braille
 	local caracter_esp='―|0|0|1|0|0|1|0|0|1|0|0|1
@@ -116,6 +117,11 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 €|0|0|0|1|0|0|1|0|0|1|1|0
 (|1|1|0|0|0|1|0|0|1|0|0|0
 )|0|0|0|0|0|1|0|0|1|1|1|0
+«|0|0|0|0|0|1|0|1|1|0|0|1
+»|0|0|0|0|0|1|0|1|1|0|0|1
+→|0|1|0|0|1|0|1|0|1|0|1|0
+←|0|1|0|1|0|1|0|1|0|0|1|0
+§|0|1|1|1|0|0|0|1|1|1|0|0
 "|0|1|1|0|0|1
 '
 
@@ -138,13 +144,13 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			linha1=${linha1}' 01'
 			linha2=${linha2}' 01'
 			linha3=${linha3}' 11'
-		elif [ "$1" = $(zzcapitalize "$1") ]
+		elif [ "$1" = $(zzcapitalize "$1") -a "$1" != $(zzminusculas "$1") ]
 		then
 			linha0=${linha0}' +-' # Para indicar que o texto a seguir está com a primeira letra em maiúscula (capitalize)
 			linha1=${linha1}' 01'
 			linha2=${linha2}' 00'
 			linha3=${linha3}' 01'
-		elif [ "$1" = $(zzmaiusculas "$1") ]
+		elif [ "$1" = $(zzmaiusculas "$1") -a "$1" != $(zzminusculas "$1") ]
 		then
 			linha0=${linha0}' +++++' # Para indicar que o texto a seguir está todo maiúsculo
 			linha1=${linha1}' 01 01'
@@ -171,11 +177,19 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 						linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6}')
 						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7}')
 					else
-						codigo=$(echo "$caracter_esp" | sed -n "/^[$letra]/p")
-						[ ${#codigo} -ge 25 ] && linha0=${linha0}'-( '${letra_original}' )'|| linha0=${linha0}'('${letra_original}')'
-						linha1=${linha1}' '$(echo $codigo | awk -F'|' '{print $2 $5, $8 $11}')
-						linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6, $9 $12}')
-						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7, $10 $13}')
+						if [ $letra = '\' ]
+						then
+							linha0=${linha0}'-( '${letra_original}' )'
+							linha1=${linha1}' '$(awk 'BEGIN {print "00 00"}')
+							linha2=${linha2}' '$(awk 'BEGIN {print "01 00"}')
+							linha3=${linha3}' '$(awk 'BEGIN {print "00 10"}')
+						else
+							codigo=$(echo "$caracter_esp" | sed -n "/^[$letra]/p")
+							[ ${#codigo} -ge 25 ] && linha0=${linha0}'-( '${letra_original}' )'|| linha0=${linha0}'('${letra_original}')'
+							linha1=${linha1}' '$(echo $codigo | awk -F'|' '{print $2 $5, $8 $11}')
+							linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6, $9 $12}')
+							linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7, $10 $13}')
+						fi
 					fi
 				fi
 			done
