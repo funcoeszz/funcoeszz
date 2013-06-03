@@ -6,7 +6,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-04-10
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzpronuncia ()
@@ -35,7 +35,7 @@ zzpronuncia ()
 		# Extrai o nome do arquivo no site do dicionário
 		wav_file=$(
 			$ZZWWWHTML "$url/$palavra" |
-			sed -n "/.*audio.pl?\([a-z0-9]*\.wav\)=$palavra.*/{s//\1/p;q;}")
+			sed -n "/.*return au('\([a-z0-9]\+\)'.*/{s//\1/p;q;}")'.wav'
 
 		# Ops, não extraiu nada
 		if test -z "$wav_file"
