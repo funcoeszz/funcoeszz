@@ -31,6 +31,7 @@
 # Desde: 2011-05-28
 # Versão: 15
 # Licença: GPL
+# Requisitos: zzjuntalinhas
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
@@ -61,7 +62,7 @@ zzbrasileirao ()
 			zzjuntalinhas -d ';' -i '[0-9][0-9]/[0-9][0-9]' -f '^ *$' | sed '/^[[:blank:]]*$/d;s/^ *[jfmasond]/\n&/g' |
 			awk -F';' '{
 				if (length($3)<5) { result = "   x "} else { result = $3 }
-				if (NF>=5) { printf "%-38s %18s %-6s %-18s %s\n", $1, $2, result, $4, $5 }
+				if (NF>=5) { printf "%-38s %18s %-6s %-18s %s\n", $1, toupper($2), result, toupper($4), $5 }
 				else {print $0}
 			}'
 			return 0
