@@ -29,7 +29,7 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 14
+# Versão: 15
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
@@ -48,40 +48,22 @@ zzbrasileirao ()
 	then
 		if [ "$2" ]
 		then
-			$ZZWWWDUMP "${url}/futebol/clubes/$2/resultados" | sed 's/^ *$//g' |
-			sed -n '
-				/^Janeiro/p
-				/^Fevereiro/p
-				/^Março/p
-				/^Abril/p
-				/^Maio/p
-				/^Junho/p
-				/^Julho/p
-				/^Agosto/p
-				/^Setembro/p
-				/^Outubro/p
-				/^Novembro/p
-				/^Dezembro/p
-				/^ *Data *Hora/p
-				/^ *[0-9][0-9]\/[0-9][0-9]/p' |sed 's/  *-  *Leia.*//g'
-
-			# Mudança no formato, aguardar até brasileirão começar, e ver se retornam ao formato anterior
-			# $ZZWWWDUMP "${url}/futebol/clubes/$2/proximos-jogos" | sed 's/^ *$//g' |
-			# sed -n '
-			#	/^Janeiro/p
-			#	/^Fevereiro/p
-			#	/^Março/p
-			#	/^Abril/p
-			#	/^Maio/p
-			#	/^Junho/p
-			#	/^Julho/p
-			#	/^Agosto/p
-			#	/^Setembro/p
-			#	/^Outubro/p
-			#	/^Novembro/p
-			#	/^Dezembro/p
-			#	/^ *Data *Hora/p
-			#	/^ *[0-9][0-9]\/[0-9][0-9]/p'
+			$ZZWWWDUMP "${url}/futebol/clubes/$2/todos-os-jogos" | sed -n "/Tabela de jogos/,/http:/p" |
+			sed '
+				1d;$d;
+				/^ *\[/d;
+				/leia Relato/d;
+				/Na Tv:/d;
+				s/^  */ /g;
+				s/\([a-z]\)\([A-Z]\)/\1 - \2/g;
+				s/x\([0-9]\)/x \1/g
+			' |
+			zzjuntalinhas -d ';' -i '[0-9][0-9]/[0-9][0-9]' -f '^ *$' | sed '/^[[:blank:]]*$/d;s/^ *[jfmasond]/\n&/g' |
+			awk -F';' '{
+				if (length($3)<5) { result = "   x "} else { result = $3 }
+				if (NF>=5) { printf "%-38s %18s %-6s %-18s %s\n", $1, $2, result, $4, $5 }
+				else {print $0}
+			}'
 			return 0
 		else
 			$ZZWWWHTML "$url/futebol/clubes/" |
