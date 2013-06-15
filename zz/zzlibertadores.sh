@@ -70,6 +70,18 @@ zzlibertadores ()
 			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
 			sed 's/ *Quartas de final - VOLTA/\n&/;'
 		;;
+		5 | semi)
+			url="${url}/semifinal"
+			$ZZWWWDUMP "$url" | sed -n '/Semifinal - IDA/,/^ *$/p' |
+			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+			sed 's/ *Semifinal - VOLTA/\n&/;'
+		;;
+		6 | final)
+			url="${url}/final"
+			$ZZWWWDUMP "$url" | sed -n '/Final - IDA/,/^ *$/p' |
+			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+			sed 's/ *Final - VOLTA/\n&/;'
+		;;
 		esac
 	fi
 
