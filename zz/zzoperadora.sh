@@ -1,4 +1,5 @@
 # ----------------------------------------------------------------------------
+# http://www.qualoperadora.net
 # Consulta operadora de um numero de telefone/celular.
 # O formato utilizado é: <DDD><NÚMERO>
 # Não utilize espaços, (), -
@@ -6,6 +7,7 @@
 # Ex.: zzoperadora 1934621026
 #
 # Autor: Mauricio Calligaris <mauriciocalligaris@gmail.com>
+# Desde: 2013-06-19
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
@@ -30,14 +32,13 @@ zzoperadora ()
 	# Faz a consulta no site e retira as informações da tag <title>
 	# do html da página.
 	resultado=$(curl -s --data-urlencode $post $url |
-		grep \<title\> |
-		cut -f2 -d\> |
-		cut -f1 -d\<);
+		grep \<title\>Resultado |
+		sed 's/<[^>]*>//g;s/-\{0,1\}\( \)\{0,1\}[[:upper:]][a-z]*: /\1/g');
 
 	# Usa o awk pra limpar os dados
-	if [[ "$resultado" = Resu* ]]
+	if test -n "$resultado"
 	then
-		awk -F '[-:] ' '{print $2, $5, $4}' <<< $resultado;
+		echo $resultado;
 	else
 		echo "Telefone não encontrado";
 	fi
