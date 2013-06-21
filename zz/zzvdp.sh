@@ -11,7 +11,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzunescape zzdatafmt
 # ----------------------------------------------------------------------------
@@ -20,14 +20,10 @@ zzvdp ()
 	zzzz -h vdp "$1" && return
 
 	local url="http://vidadeprogramador.com.br"
-	local ano mes dia
 
 	if [ "$1" ] && zztool testa_data $(zzdatafmt "$1")
 	then
-		ano=$(zzdatafmt "$1" | awk -F'/' '{print $3}')
-		mes=$(zzdatafmt "$1" | awk -F'/' '{print $2}')
-		dia=$(zzdatafmt "$1" | awk -F'/' '{print $1}')
-		url="${url}/${ano}/${mes}/${dia}"
+		url="${url}"$(zzdatafmt -f 'AAAA/MM/DD' $1)
 	fi
 
 	$ZZWWWHTML $url |
