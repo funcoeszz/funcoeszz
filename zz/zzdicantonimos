@@ -26,17 +26,13 @@ zzdicantonimos () {
     fi
 
     # Faz a busca do termo no site, deixando somente os antônimos
-    local antonimos=$(
-        $ZZWWWDUMP "${url}?q=${palavra_busca}" | 
-            sed -nr "/[0-9]{1,} antônimos? d/,/«/ { 
-                /[0-9]{1,} antônimos? d/d
-                /«/d
-                /^$/d
-                p
-            }"
-    )
-
-    printf %b "$antonimos\n"
+    $ZZWWWDUMP "${url}?q=${palavra_busca}" | 
+        sed -nr "/[0-9]{1,} antônimos? d/,/«/ { 
+            /[0-9]{1,} antônimos? d/d
+            /«/d
+            /^$/d
+            p
+        }"
 
     echo
 }
