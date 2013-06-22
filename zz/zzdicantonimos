@@ -25,28 +25,17 @@ zzdicantonimos () {
         return 1
     fi
 
-    # Continua na mesma linha. Vai ser sobrescrita depois
-    printf %b "Procurando antônimos para \"${palavra}\"...\r"
-
     # Faz a busca do termo no site, deixando somente os antônimos
     local antonimos=$(
         $ZZWWWDUMP "${url}?q=${palavra_busca}" | 
-            sed -n "/[0-9]\+ antônimos\? d/,/«/ { 
-                /[0-9]\+ antônimos\? d/d
+            sed -nr "/[0-9]{1,} antônimos? d/,/«/ { 
+                /[0-9]{1,} antônimos? d/d
                 /«/d
                 /^$/d
                 p
             }"
     )
 
-    # Verifica se houve resultados antes de imprimir
-    if test -z "$antonimos"
-    then
-        printf %b "Nenhum antônimo encontrado para \"${palavra}\".\n"
-        return 1
-    fi
-
-    printf %b "Antônimos encontrados para \"${palavra}\": \n\n"
     printf %b "$antonimos\n"
 
     echo

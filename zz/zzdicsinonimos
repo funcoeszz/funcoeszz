@@ -25,15 +25,12 @@ zzdicsinonimos () {
         return 1
     fi
 
-    # Continua na mesma linha. Vai ser sobrescrita depois
-    printf %b "Procurando sinônimos para \"${palavra}\"...\r"
-
     # Faz a busca do termo e limpa, deixando somente os sinônimos
     # O sed no final separa os sentidos, caso a palavra tenha mais de um
     local resultado=$(
         $ZZWWWDUMP "${url}?q=${parametro_busca}" | 
-            sed -n "/[0-9]\+ sinônimos\? d/,/«/ { 
-                /[0-9]\+ sinônimos\? d/d
+            sed -nr "/[0-9]{1,} sinônimos? d/,/«/ { 
+                /[0-9]{1,} sinônimos? d/d
                 /«/d
                 /^$/d
                 p
@@ -41,14 +38,6 @@ zzdicsinonimos () {
             sed '/^\s*[A-Z]/ i\ '
     )
 
-    # Verifica se houve resultados
-    if test -z "$resultado"
-    then
-        printf %b "Nenhum sinônimo encontrado para \"${palavra}\".\n"
-        return 1
-    fi
-
-    printf %b "Sinônimos encontrados para \"${palavra}\": \n"
     printf %b "$resultado\n"
 
     echo
