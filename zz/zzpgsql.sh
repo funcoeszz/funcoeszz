@@ -1,17 +1,16 @@
 # ----------------------------------------------------------------------------
-# http://ora-code.com
-# Lista os comandos SQL no PostgreSQL, numerando-os
+# Lista os comandos SQL no PostgreSQL, numerando-os.
 # Pesquisa detalhe dos comando, ao fornecer o número na listagem a esquerda.
 # E filtra a busca se fornecer um texto.
 #
-# Uso: zzpgsql [codigo | classe ]
-# Ex.: pgsql          #Lista os comandos disponíveis
+# Uso: zzpgsql [ codigo | filtro ]
+# Ex.: zzpgsql        #Lista os comandos disponíveis
 #      zzpgsql 20     # Consulta o comando ALTER SCHEMA
 #      zzpgsql alter  # Filtra os comandos que possuam alter na declaração.
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-11
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzunescape
 # ----------------------------------------------------------------------------
