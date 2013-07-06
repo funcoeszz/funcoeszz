@@ -6,12 +6,14 @@
 #         -s, --sublinhado  texto sublinhado
 #         -N, --negrito     texto em negrito (brilhante em alguns terminais)
 #         -n, --nao-quebra  não quebra a linha no final, igual ao echo -n
+#         -e, --escapa      permite '\' inicial para imprimir '-' inicial
 # Cores: preto vermelho verde amarelo azul roxo ciano branco
 # Obs.: \t, \n e amigos são sempre interpretados (igual ao echo -e).
-# Uso: zzecho [-f cor] [-l cor] [-p] [-s] [-N] [-n] [texto]
+# Uso: zzecho [-f cor] [-l cor] [-p] [-s] [-N] [-n] [-e] [texto]
 # Ex.: zzecho -l amarelo Texto em amarelo
 #      zzecho -f azul -l branco -N Texto branco em negrito, com fundo azul
 #      zzecho -p -s Texto piscante e sublinhado
+#      zzecho -e '\-5,78329992294312'
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
@@ -22,7 +24,7 @@ zzecho ()
 {
 	zzzz -h echo "$1" && return
 
-	local letra fundo negrito cor pisca sublinhado
+	local letra fundo negrito cor pisca sublinhado escapa TEXTO
 	local quebra_linha='\n'
 
 	# Opções de linha de comando
@@ -62,16 +64,21 @@ zzecho ()
 			-p | --pisca      ) pisca=';5'      ;;
 			-s | --sublinhado ) sublinhado=';4' ;;
 			-n | --nao-quebra ) quebra_linha='' ;;
+			-e | --escapa     ) escapa='true'   ;;
 			*) zztool uso echo; return 1 ;;
 		esac
 		shift
 	done
 
+	TEXTO="$*"
+
 	# Mostra códigos ANSI somente quando necessário (e quando ZZCOR estiver ligada)
 	if [ "$ZZCOR" != '1' -o "$fundo$letra$negrito$pisca$sublinhado" = '' ]
 	then
-		printf "$*$quebra_linha"
+		[ $escapa ] && (printf "$TEXTO$quebra_linha" | sed 's/^\\//') && return
+		printf "$TEXTO$quebra_linha"
 	else
-		printf "\033[$fundo$letra$negrito$pisca${sublinhado}m$*\033[m$quebra_linha"
+		[ $escapa ] && TEXTO=$(echo "$TEXTO" | sed 's/^\\//')
+		printf "\033[$fundo$letra$negrito$pisca${sublinhado}m$TEXTO\033[m$quebra_linha"
 	fi
 }
