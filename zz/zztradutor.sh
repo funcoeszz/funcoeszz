@@ -25,6 +25,7 @@
 # Desde: 2008-09-02
 # Versão: 7
 # Licença: GPLv2
+# Requisitos: zzxml
 # ----------------------------------------------------------------------------
 zztradutor ()
 {
@@ -54,12 +55,11 @@ zztradutor ()
 		-l | --lista)
 			# Uma tag por linha, então extrai e formata as opções do <SELECT>
 			$ZZWWWHTML "$url" |
-			sed 's/</\n&/g'  |
+			zzxml --tag option |
 			sed -n '/<option value=af>/,/<option value=yi>/p' |
-			sed -n '1p;2,/value=af/p' | sed -n '$d;' awk '{if (NR % 2 != 0 ) print $0}' |
-			sed 's/<option .*value=/ /g;s/>/: /g;s/zh-CN/cn/g' |
-			zztool texto_em_iso |
-			grep ${2:-:}
+			sed -e 's/<option [^=]*value=//g' -e 's/<\/option>//g' |
+			sed -e 's/>/: /' |
+			zztool texto_em_iso
 			return
 		;;
 		-a | --audio)
