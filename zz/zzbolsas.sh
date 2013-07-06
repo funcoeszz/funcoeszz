@@ -4,6 +4,7 @@
 # Sem parâmetros mostra a lista de bolsas disponíveis (códigos).
 # Com 1 parâmetro:
 #  -l: apenas mostra as bolsas disponíveis e seus nomes.
+#  --limpa: exclui todos os arquivos de cache.
 #  commodities: produtos de origem primária nas bolsas.
 #  taxas_fixas ou moedas: exibe tabela de comparação de câmbio (pricipais).
 #  taxas_cruzadas: exibe a tabela cartesiana do câmbio.
@@ -50,7 +51,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 18
+# Versão: 19
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -65,6 +66,7 @@ zzbolsas ()
 	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SML'
 	local amex='^XAX ^IIX ^NWX ^XMI'
 	local ind_nac='^IBX50 ^IVBX ^IGCX ^IEE ^ITEL INDX.SA'
+	local cache="$ZZTMP.bolsas.$$"
 	local bolsa pag pags pag_atual data1 data2 vartemp
 
 	case $# in
@@ -102,6 +104,8 @@ zzbolsas ()
 		1)
 			# Lista os códigos da bolsas e seus nomes
 			case "$1" in
+			#Limpa todos os cache acumulado
+			--limpa) rm -f ${cache}.* 2>/dev/null;;
 			-l | --lista)
 				for bolsa in americas europe asia africa
 				do
@@ -207,7 +211,7 @@ zzbolsas ()
 					alta)	pag='gainers';;
 					baixa)	pag='losers';;
 				esac
-				zztool eco  " Maiores ${1}s"
+				zztool eco " Maiores ${1}s"
 				$ZZWWWDUMP "$url/${pag}?e=sa" |
 				sed -n '/Informações relacionadas/,/^[[:space:]]*$/p' |
 				sed '1d;s/Down /-/g;s/ de /-/g;s/Up /+/g;s/Gráfico, .*//g' |
@@ -232,7 +236,7 @@ zzbolsas ()
 			*)
 				bolsa=$(echo "$1" | zzmaiusculas)
 				# Último índice da bolsa citada ou cotação da ação
-				vartemp=$($ZZWWWDUMP "$url/q?s=$bolsa" |
+				$ZZWWWDUMP "$url/q?s=$bolsa" |
 				sed -n "/($bolsa)/,/Cotações atrasadas, salvo indicação/p" |
 				sed '{
 						/^[[:space:]]*$/d
@@ -241,10 +245,11 @@ zzbolsas ()
 						/Adicionar ao portfólio/d
 						/As pessoas que viram/d
 						/Cotações atrasadas, salvo indicação/,$d
+						/Próxima data de anúncio/d
+						s/[[:space:]]\{1,\}/ /g
+						s|p/ *|p/|g
 					}' |
-				zzsemacento)
-				paste -d"|" <(echo "$vartemp" | cut -f1 -d: | sed 's/^[[:space:]]\{1,\}//g;s/[[:space:]]\{1,\}$//g') <(echo "$vartemp" | cut -f2- -d: | sed 's/^[[:space:]]\{1,\}//g') |
-				awk -F"|" '{if ( $1 != $2 ) {printf " %-20s %s\n", $1 ":", $2} else { print $1 } }'
+				zzsemacento | awk -F":" '{if ( $1 != $2 && length($2)>0 ) {printf " %-20s%s\n", $1 ":", $2} else { print $1 } }'
 			;;
 			esac
 		;;
@@ -291,38 +296,52 @@ zzbolsas ()
 			# Valores de uma bolsa ou ação em uma data especificada (histórico)
 			elif zztool testa_data $(zzdatafmt "$2")
 			then
-				read dd mm yyyy data1 < <(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$2")
+				vartemp=$(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$2")
+				dd=$(echo $vartemp | cut -f1 -d ' ')
+				mm=$(echo $vartemp | cut -f2 -d ' ')
+				yyyy=$(echo $vartemp | cut -f3 -d ' ')
+				data1=$(echo $vartemp | cut -f4 -d ' ')
+				unset vartemp
+
 				mm=$(echo "scale=0;${mm}-1" | bc)
 				bolsa=$(echo "$1" | zzmaiusculas)
 					# Emprestando as variaves pag, pags e pag_atual efeito estético apenas
 					pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d" |
 					sed -n "/($bolsa)/p;/Abertura/,/* Preço/p" | sed 's/Data/    /;/* Preço/d' |
-					sed 's/^ */ /g')
-					pags=$(echo "$pag" | sed -n '2p' | sed 's/ [A-Z]/\n\t&/g;s/Enc ajustado/Ajustado/' | sed '/^ *$/d' | awk '{printf "  %-12s\n", $1}')
-					pag_atual=$(echo "$pag" | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' | awk '{printf " %14s\n", $1}')
+					sed 's/^ */ /g;/Proxima data de anuncio/d')
+
+					echo "$pag" | sed -n '2p' | sed 's/ [A-Z]/\n\t&/g;s/Enc ajustado/Ajustado/' | sed '/^ *$/d' |
+					awk 'BEGIN { printf " %-13s\n", "Data" } {printf "  %-12s\n", $1}' > "${cache}.pags"
+
+					echo "$pag" | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' |
+					awk 'BEGIN { print "     '$data1'" } {printf " %14s\n", $1}' > "${cache}.pag_atual"
 					echo "$pag" | sed -n '1p'
 
 					if [ "$3" ] && zztool testa_data $(zzdatafmt "$3")
 					then
-						read dd mm yyyy data2 < <(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$3")
+						vartemp=$(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$3")
+						dd=$(echo $vartemp | cut -f1 -d ' ')
+						mm=$(echo $vartemp | cut -f2 -d ' ')
+						yyyy=$(echo $vartemp | cut -f3 -d ' ')
+						data2=$(echo $vartemp | cut -f4 -d ' ')
 						mm=$(echo "scale=0;${mm}-1" | bc)
-						pag=$($ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d" |
+						unset vartemp
+
+						$ZZWWWDUMP "$url/q/hp?s=$bolsa&a=${mm}&b=${dd}&c=${yyyy}&d=${mm}&e=${dd}&f=${yyyy}&g=d" |
 						sed -n "/($bolsa)/p;/Abertura/,/* Preço/p" | sed 's/Data/    /;/* Preço/d' |
 						sed 's/^ */ /g' | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' |
-						sed '/^ *$/d' | awk '{printf " %14s\n", $1}')
-						paste <(printf "  %-12s" "Data") <(echo "     $data1") <(echo "     $data2") <(echo "       Variação") <(echo " Var (%)")
+						sed '/^ *$/d' | awk 'BEGIN { print "     '$data2'" } {printf " %14s\n", $1}' > "${cache}.pag"
 
-						vartemp=$(while read data1 data2
+						echo -e "       Variação\t Var (%)" > "${cache}.vartemp"
+						paste "${cache}.pag_atual" "${cache}.pag" | while read data1 data2
 						do
 							echo "$data1 $data2" | tr -d '.' | tr ',' '.' |
-							awk '{ printf "%15.2f\t", $2-$1; if ($1 != 0) {printf "%7.2f%", (($2-$1)/$1)*100}}' 2>/dev/null
-							echo
-						done < <(paste <(echo "$pag_atual") <(echo "$pag")))
+							awk '{ if (index($1,"/")==0) {printf "%15.2f\t", $2-$1; if ($1 != 0) {printf "%7.2f%\n", (($2-$1)/$1)*100}}}' 2>/dev/null
+						done >> "${cache}.vartemp"
 
-						paste <(echo "$pags") <(echo "$pag_atual") <(echo "$pag") <(echo "$vartemp")
+						paste "${cache}.pags" "${cache}.pag_atual" "${cache}.pag" "${cache}.vartemp"
 					else
-						paste <(printf "  %-12s" "Data") <(echo "     $data1")
-						paste <(echo "$pags") <(echo "$pag_atual")
+						paste "${cache}.pags" "${cache}.pag_atual"
 					fi
 			# Compara duas ações ou bolsas diferentes
 			elif ([ "$1" = "vs" -o "$1" = "comp" ])
@@ -339,26 +358,24 @@ zzbolsas ()
 					# Compara numa data especifica as ações ou bolsas
 					if ([ "$4" ] && zztool testa_data $(zzdatafmt "$4"))
 					then
-						pag=$(zzbolsas "$2" "$4" | sed '/Proxima data de anuncio/d')
-						pags=$(zzbolsas "$3" "$4" |
+						zzbolsas "$2" "$4" | sed '/Proxima data de anuncio/d' > "${cache}.pag"
+						vartemp=$(wc -l ${cache}.pag | cut -f 1 -d ' ')
+						zzbolsas "$3" "$4" |
 						sed '/Proxima data de anuncio/d;s/^[[:space:]]*//g;s/[[:space:]]*$//g' |
-						sed '2,$s/[^[:space:]]*[[:space:]]\{1,\}//g')
+						sed '2,$s/^[[:upper:][:space:][:space:]][^0-9]*//g' > "${cache}.temp"
+						sed -n "1,${vartemp}p" "${cache}.temp" > "${cache}.pags"
 					# Ultima cotaçao das açoes ou bolsas comparadas
 					else
-						pag=$(zzbolsas "$2" | sed '/Proxima data de anuncio/d')
-						pags=$(zzbolsas "$3" | sed '/Proxima data de anuncio/d' |
-						sed 's/^[[:space:]]*//g;3,$s/.*:[[:space:]]*//g')
+						zzbolsas "$2" | sed '/Proxima data de anuncio/d' > "${cache}.pag"
+						zzbolsas "$3" | sed '/Proxima data de anuncio/d' |
+						sed 's/^[[:space:]]*//g;3,$s/.*:[[:space:]]*//g' > "${cache}.pags"
 					fi
 					# Imprime efetivamente a comparação
-					if [ $(echo "$pag" | awk 'END {print NR}') -ge 4 -a $(echo "$pags" | awk 'END {print NR}') -ge 4 ]
+					if [ $(awk 'END {print NR}' "${cache}.pag") -ge 4 -a $(awk 'END {print NR}' "${cache}.pags") -ge 4 ]
 					then
 						echo
-						while read data1
-						do
-							vartemp=$(($vartemp + 1))
-							printf " %-45s " "$data1"
-							sed -n "${vartemp}p" <(echo "$pags")
-						done < <(echo "$pag")
+						paste -d"|" "${cache}.pag" "${cache}.pags" |
+						awk -F"|" '{printf " %-42s %25s\n", $1, $2}'
 						echo
 					fi
 				fi
