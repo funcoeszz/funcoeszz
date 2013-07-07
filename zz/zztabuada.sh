@@ -39,13 +39,13 @@ zztabuada ()
 	fi
 
 	case "$1" in
-		[1-9] | [1-9][1-9])
+		[1-9] | [1-9][0-9])
 			for i in 0 1 2 3 4 5 6 7 8 9 10
 			do
 				printf '%d x %-2d = %d\n' "$1" "$i" $(($1*$i))
 			done
 		;;
-		-[1-9]| -[1-9][1-9] | +[1-9] | +[1-9][1-9])
+		-[1-9]| -[1-9][0-9] | +[1-9] | +[1-9][0-9])
 			zzecho -l vermelho 'Erro: você colocou um sinal no número.'
 			zzzz -h tabuada -h
 		;;
