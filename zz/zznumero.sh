@@ -17,7 +17,7 @@
 #
 # Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
 #
-# Uso: zznumero [-m|--moeda] [-t|--texto] [--de <formato>] [--para <formato>] [-f <numero|padrão>] [-p <prefixo>] [-s <sufixo>] <numero>
+# Uso: zznumero [opção1] [opção2] ... <numero>
 # Ex.: zznumero 12445.78
 #      zznumero --texto 4567890,213
 #      zznumero -m 85,345

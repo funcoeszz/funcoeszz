@@ -1,9 +1,10 @@
 # ----------------------------------------------------------------------------
-# Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal e timemania.
+# Resultados das seguintes loterias suportadas.
+#  - quina, megasena, duplasena, lotomania, lotofácil, federal e timemania.
 # Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
 # Se nenhum argumento for passado, todas as loterias são mostradas.
 #
-# Uso: zzloteria2 [[quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|loteca] concurso]
+# Uso: zzloteria2 [[loteria suportada] concurso]
 # Ex.: zzloteria2
 #      zzloteria2 quina megasena
 #
