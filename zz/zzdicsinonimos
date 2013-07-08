@@ -7,7 +7,7 @@
 #
 # Autor: gabriell nascimento <gabriellhrn (a) gmail com>
 # Desde: 2013-04-15
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdicsinonimos () {
@@ -27,18 +27,14 @@ zzdicsinonimos () {
 
     # Faz a busca do termo e limpa, deixando somente os sinônimos
     # O sed no final separa os sentidos, caso a palavra tenha mais de um
-    local resultado=$(
-        $ZZWWWDUMP "${url}?q=${parametro_busca}" | 
-            sed -nr "/[0-9]{1,} sinônimos? d/,/«/ { 
-                /[0-9]{1,} sinônimos? d/d
-                /«/d
-                /^$/d
-                p
-            }" |
-            sed '/^\s*[A-Z]/ i\ '
-    )
-
-    printf %b "$resultado\n"
+    $ZZWWWDUMP "${url}?q=${parametro_busca}" | 
+        sed -nr "/[0-9]{1,} sinônimos? d/,/«/ { 
+            /[0-9]{1,} sinônimos? d/d
+            /«/d
+            /^$/d
+            p
+        }" |
+        sed '/^\s*[A-Z]/ i\ '
 
     echo
 }
