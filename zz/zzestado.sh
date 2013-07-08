@@ -88,7 +88,7 @@ TO:Tocantins:tocantins:Palmas"
 				done
 			)
 		;;
-		--python|--py)
+		--python | --py)
 			sigla=$(  zzestado --formato "'{sigla}', "   | sed 's/, $//')
 			nome=$(   zzestado --formato "'{nome}', "    | sed 's/, $//')
 			capital=$(zzestado --formato "'{capital}', " | sed 's/, $//')
@@ -122,7 +122,7 @@ TO:Tocantins:tocantins:Palmas"
 			zzestado --formato '  "{sigla}" => array("{nome}", "{capital}", "{slug}"),\n'
 			echo ');'
 		;;
-		--javascript|--js)
+		--javascript | --js)
 			sigla=$(  zzestado --formato "'{sigla}', "   | sed 's/, $//')
 			nome=$(   zzestado --formato "'{nome}', "    | sed 's/, $//')
 			capital=$(zzestado --formato "'{capital}', " | sed 's/, $//')

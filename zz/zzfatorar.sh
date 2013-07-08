@@ -1,23 +1,24 @@
 # ----------------------------------------------------------------------------
-# http://www.primos.mat.br/primeiros_10000_primos.txt
+# http://www.primos.mat.br
 # Fatora um número em fatores primos.
 # Com as opções:
-#   --atualiza: força o cache ser atualizado.
+#   --atualiza: atualiza o cache com 10 mil primos ( padrão e rápida ).
+#   --atualiza-1m: atualiza o cache com 1 milhão de primos. ( mais lenta ).
 #   --bc: saída apenas da expressão, que pode ser usado no bc, awk ou etc.
 #   --no-bc: saída apenas do fatoramento.
 #    por padrão exibe tanto o fatoramento como a expressão.
 #
 # Se o número for primo, é exibido a mensagem apenas.
 #
-# Uso: zzfatorar [--atualiza] [--bc|--no-bc] <numero>
+# Uso: zzfatorar [--atualiza|atualiza-1m] [--bc|--no-bc] <numero>
 # Ex.: zzfatorar 1458
 #      zzfatorar --bc 1296
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-14
-# Versão: 1
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzjuntalinhas
+# Requisitos: zzjuntalinhas zzdos2unix
 # ----------------------------------------------------------------------------
 zzfatorar ()
 {
@@ -40,6 +41,23 @@ zzfatorar ()
 			rm -f "$cache"
 			shift
 		;;
+		'--atualiza-1m')
+			# Atualiza o cache com uma listagem com 1 milhão de números primos.
+			# É um processo bem mais lento, devendo ser usado quando o cache normal não atende.
+			rm -f "$cache"
+			if type 7z >/dev/null 2>&1 && ! type factor >/dev/null 2>&1
+			then
+				zztool eco "Atualizando cache."
+				wget -q http://www.primos.mat.br/dados/50M_part1.7z -O /tmp/primos.7z
+				7z e /tmp/primos.7z >/dev/null 2>&1
+				rm -f /tmp/primos.7z
+				awk '{for(i=1;i<=NF;i++) print $i }' 50M_part1.txt > "$cache"
+				rm -f 50M_part1.txt
+				zzdos2unix "$cache" >/dev/null 2>&1
+				zztool eco "Cache atualizado."
+			fi
+			shift
+		;;
 		'--bc')
 			# Apenas sai a expressão matemática que pode ser usado no bc ou awk
 			[ "$bc" -eq 0 ] && bc=1
@@ -54,15 +72,21 @@ zzfatorar ()
 		esac
 	done
 
-	# Se o cache está vazio, baixa listagem da Internet
-	if ! test -s "$cache"
-	then
-		$ZZWWWDUMP "$url" | awk '{for(i=1;i<=NF;i++) print $i }' > "$cache"
-	fi
-
 	# Apenas para numeros inteiros
 	if zztool testa_numero "$1" && test $1 -ge 2
 	then
+
+		if type factor >/dev/null 2>&1
+		then
+			# Se existe o camando factor usa-o
+			factor $1 | sed 's/.*: //g' | awk '{for(i=1;i<=NF;i++) print $i }' | uniq > "$cache"
+			primo_atual=$(head -n 1 "$cache")
+		elif ! test -s "$cache"
+		then
+			# Se o cache está vazio, baixa listagem da Internet
+			$ZZWWWDUMP "$url" | awk '{for(i=1;i<=NF;i++) print $i }' > "$cache"
+		fi
+
 		# Se o número fornecido for primo, retorna-o e sai
 		grep "^${1}$" ${cache} > /dev/null
 		[ "$?" = "0" ] && { echo " $1 é um número primo."; return; }
@@ -70,8 +94,8 @@ zzfatorar ()
 		num_atual="$1"
 		tamanho=$((${#1} + 1))
 
-		# Enquanto a resultado for maior que o número primo continua, ou dentro das 10000 primos listados
-		while [ ${num_atual} -gt ${primo_atual} -a ${linha_atual} -le 10000 ]
+		# Enquanto a resultado for maior que o número primo continua, ou dentro dos primos listados no cache.
+		while [ ${num_atual} -gt ${primo_atual} -a ${linha_atual} -le $(wc -l "$cache" | tr -d -c '[0-9]') ]
 		do
 
 			# Repetindo a divisão pelo número primo atual, enquanto for exato
@@ -97,14 +121,17 @@ zzfatorar ()
 			fi
 
 			# Definindo o número primo a ser usado
-			linha_atual=$((${linha_atual} + 1))
-			primo_atual=$(sed -n "${linha_atual}p" "$cache")
-			[ ${#primo_atual} -eq 0 ] && { zztool eco " Valor não fatorável nesse script!"; return 1; }
+			if [ "${num_atual}" != "1" ]
+			then
+				linha_atual=$((${linha_atual} + 1))
+				primo_atual=$(sed -n "${linha_atual}p" "$cache")
+				[ ${#primo_atual} -eq 0 ] && { zztool eco " Valor não fatorável nessa configuração do script!"; return 1; }
+			fi
 		done
 
 		if [ "$bc" != "2" ]
 		then
-			saida=$(echo "$saida " | sed 's/ /&\n/g'| sed '/^ *$/d;s/^ */ /g' |
+			saida=$(echo "$saida " | sed 's/ /&\n/g' | sed '/^ *$/d;s/^ */ /g' |
 			uniq -c | awk '{ if ($1==1) {print $2} else {print $2 "^" $1} }' | zzjuntalinhas -d ' * ')
 			[ "$bc" -eq "1" ] || echo
 			echo " $1 = $saida"

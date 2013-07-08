@@ -7,7 +7,7 @@
 # Ex.: zztabuada
 #      zztabuada 2
 #
-# Autor: Kl0nEz <kl0nez (a) wifi org br> modif:Itamar(itamarnet@yahoo.com.br)
+# Autor: Kl0nEz <kl0nez (a) wifi org br>
 # Desde: 2011-08-23
 # Versão: 4
 # Licença: GPLv2

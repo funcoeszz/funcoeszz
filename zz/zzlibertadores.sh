@@ -2,11 +2,13 @@
 # Mostra a classificação e jogos do torneio Libertadores da América.
 # Opções:
 #  -j <número>: Mostra jogos da fase selecionada
+#  -j <fase>: Mostra jogos da fase selecionada
+#    fases: pre ou primeira, grupos ou segunda, oitavas
 #  -g <número>: Jogos da segunda fase do gupo selecionado
 #  -c [numero]: Mostra a classificação, nos grupos da segunda fase
 #
 # Nomenclatura:
-#	PG  - Pontos Ganhos
+#	P   - Pontos Ganhos
 #	J   - Jogos
 #	V   - Vitórias
 #	E   - Empates
@@ -24,7 +26,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 2
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlibertadores ()
@@ -43,21 +45,44 @@ zzlibertadores ()
 	then
 		url="${url}/tabela-de-jogos"
 		# Fase 1 (Pré-libertadores)
-		if [ "$2" = "1" ]
-		then
+		case "$2" in
+		1 | pre | primeira)
 			url="${url}/primeira-fase"
 			$ZZWWWDUMP "$url" | sed -n '/Primeira fase - IDA/,/primeira-fase/p' |
-			sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g'| sed "s/.*${ano}$/\n&/g"
-		fi
-
+			sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g' | sed "s/.*${ano}$/\n&/g"
+		;;
 		# Fase 2 (Fase de Grupos)
-		if [ "$2" = "2" ]
-		then
+		2 | grupos | segunda)
 			for grupo in 1 2 3 4 5 6 7 8
 			do
 				zzlibertadores -g $grupo
 			done
-		fi
+		;;
+		3 | oitavas)
+			url="${url}/oitavas-de-final"
+			$ZZWWWDUMP "$url" | sed -n '/Oitavas de final - IDA/,/^ *$/p' |
+			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+			sed 's/ *Oitavas de final - VOLTA/\n&/;'
+		;;
+		4 | quartas)
+			url="${url}/quartas-de-final"
+			$ZZWWWDUMP "$url" | sed -n '/Quartas de final - IDA/,/^ *$/p' |
+			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+			sed 's/ *Quartas de final - VOLTA/\n&/;'
+		;;
+		5 | semi)
+			url="${url}/semifinal"
+			$ZZWWWDUMP "$url" | sed -n '/Semifinal - IDA/,/^ *$/p' |
+			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+			sed 's/ *Semifinal - VOLTA/\n&/;'
+		;;
+		6 | final)
+			url="${url}/final"
+			$ZZWWWDUMP "$url" | sed -n '/Final - IDA/,/^ *$/p' |
+			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+			sed 's/ *Final - VOLTA/\n&/;'
+		;;
+		esac
 	fi
 
 	# Escolhendo o grupo para os jogos
@@ -75,30 +100,32 @@ zzlibertadores ()
 		if [ "$1" = "-c" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
 		then
 			grupo="$2"
-			url="http://esportes.terra.com.br/futebol/libertadores/"
-			$ZZWWWDUMP "$url" | sed -n "/Grupo $grupo/,/Anterior/p"|
+			url="http://esportes.terra.com.br/bcg/pt-br.libertadores-${ano}_segunda-fase.html"
+			$ZZWWWDUMP "$url"| iconv -f utf8 -t iso-8859-1 | sed -n "/Grupo $grupo/,/Anterior/p" |
 			sed '/^ *$/d;s/Subiu[0-9]*//g;s/Desceu[0-9]*//g;s/Anterior//g;s/Times//g;s/^ *\*//g' |
 			awk -v cor_awk="$ZZCOR" '{
 				if (NF >= 9) {
-				time_fut = $2
-				for (i=3;i<(NF-8);i++) {
-					if ($i != $2) {
-						time_fut = time_fut " " $i
-					} else {
-						break
+					time_fut = $2
+
+					for (i=3;i<(NF-8);i++) {
+						if ($i != $2) {
+							time_fut = time_fut " " $i
+						} else {
+							break
+						}
 					}
-				}
 
 					if (NF==9) {
-					printf " %s %-25s", " ", " "
-					printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s\n", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
+						printf " %s %-25s", " ", " "
+						printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s\n", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
 					}
+
 					if (NF>9) {
-					if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[42;30m"
-					printf "%s %-25s ", $1, time_fut
-					printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
-					if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[m"
-					printf "\n"
+						if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[42;30m"
+						printf "%s %-25s ", $1, time_fut
+						printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
+						if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[m"
+						printf "\n"
 					}
 				}
 				else print

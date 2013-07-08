@@ -15,7 +15,7 @@ zzchavepgp ()
 	zzzz -h chavepgp "$1" && return
 
 	local url='http://pgp.mit.edu:11371'
-	local padrao=$(echo $*| sed "$ZZSEDURL")
+	local padrao=$(echo $* | sed "$ZZSEDURL")
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso chavepgp; return 1; }

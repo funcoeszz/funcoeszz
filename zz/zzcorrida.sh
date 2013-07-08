@@ -12,19 +12,19 @@
 #   Moto 2: moto2
 #   Moto 3: moto3
 #   Rali: rali
-#   Sprint Cup (Nascar): nascar ou nascar1 ou sprint ou sprint_cup
+#   Sprint Cup (Nascar): nascar ou sprint_cup
 #   Truck Series (Nascar): nascar2 ou truck_series
+#   Nationwide Series (Nascar): nascar3 ou nationwide
 #
 # Uso: zzcorrida <f1|indy|gp2|truck|truck_sul|stock|rali>
 # Uso: zzcorrida <moto|moto_gp|moto2|moto3>
-# Uso: zzcorrida <nascar|nascar1|sprint|nascar2|truck_series>
+# Uso: zzcorrida <nascar|sprint_cup|nascar2|truck_series|nascar3|nationwide>
 # Ex.: zzcorrida truck
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-11-02
-# Versão: 5
+# Versão: 6
 # Licença: GPL
-# Requisitos: zzmaiusculas
 # ----------------------------------------------------------------------------
 zzcorrida ()
 {
@@ -33,34 +33,41 @@ zzcorrida ()
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso corrida; return 1; }
 
-	local corridas
+	local corridas nome_corrida
 	local url="http://tazio.uol.com.br/classificacoes"
 
 	case "$1" in
-		f1|formula1)			corridas="f1";;
-		indy|formula_indy)		corridas="indy";;
-		gp2)				corridas="gp2";;
-		nascar|nascar1|nascar2)		corridas="nascar";;
-		sprint|sprint_cup|truck_series)	corridas="nascar";;
-		truck|formula_truck|truck_sul)	corridas="formula-truck";;
-		rali)				corridas="rali";;
-		stock|stock_car)		corridas="stock-car";;
-		moto|moto_gp|moto2|moto3)	corridas="moto";;
-		*)				zztool uso corrida; return 1;;
+		f1 | formula1)				corridas="f1"; nome_corrida="Fórmula 1";;
+		indy | formula_indy)			corridas="indy"; nome_corrida="Fórmula Indy";;
+		gp2)					corridas="gp2"; nome_corrida="GP2";;
+		nascar | sprint_cup)			corridas="nascar"; nome_corrida="Sprint Cup";;
+		nascar2 | truck_series)			corridas="nascar"; nome_corrida="Truck Series";;
+		nascar3 | nationwide)			corridas="nascar"; nome_corrida="Nationwide Series";;
+		truck | formula_truck | truck_sul)	corridas="formula-truck"; nome_corrida="Fórmula Truck";;
+		rali)					corridas="rali"; nome_corrida="Rali";;
+		stock | stock_car)			corridas="stock-car"; nome_corrida="Stock Car";;
+		moto | moto_gp | moto2 | moto3)		corridas="moto"; nome_corrida=$(echo "Moto ${1#moto}" | tr -d '_' | tr 'gp' 'GP');;
+		*)					zztool uso corrida; return 1;;
 	esac
 
-	echo "$1"|sed 's/_/ /'|zzmaiusculas
+	zztool eco "${nome_corrida}"
 
 	case "$1" in
-		nascar|nascar1|sprint|sprint_cup)
+		nascar | sprint_cup)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/Data/p' |
 			sed '1,/Data/!d;s/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d'
 		;;
-		nascar2|truck_series)
-			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/Data/p' |
-			sed '1,/Data/d;s/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d'
+		nascar2 | truck_series)
+			$ZZWWWDUMP "$url/$corridas" | sed '1,/Pos.*Piloto/ d' | sed '1,/Pos.*Piloto/ d' |
+			sed -n '/Pos.*Piloto/,/^ *$/ p' |
+			sed 's/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d'
 		;;
-		truck|formula_truck)
+		nascar3 | nationwide)
+			$ZZWWWDUMP "$url/$corridas" | sed '1,/Pos.*Piloto/ d' |
+			sed -n '/Pos.*Piloto/,/Pos.*Piloto/ p' |
+			sed 's/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d'
+		;;
+		truck | formula_truck)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/Pos.*Piloto/p' |
 			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
 		;;
@@ -68,7 +75,7 @@ zzcorrida ()
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/Data/p' |
 			sed '2,/Pos.*Piloto/d;s/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
 		;;
-		moto|moto_gp)
+		moto | moto_gp)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/^ *$/p' |
 			sed '1p;2,/Pos.*Piloto/!d' | sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
 		;;
@@ -84,7 +91,7 @@ zzcorrida ()
 		;;
 		*)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,$ p' |
-			sed '/^ *Data/ q' | sed '/^ *Pos\. *Equipe/ q' |
+			sed '/^ *Data/ q' | sed '/^ *Pos *Equipe/ q' |
 			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
 		;;
 	esac

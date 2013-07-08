@@ -31,8 +31,8 @@ zzsenha ()
 	while [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
-			-p|--pro) shift; lista="$alpha$num$pro";;
-			-n|--num) shift; lista="$num";;
+			-p | --pro) shift; lista="$alpha$num$pro";;
+			-n | --num) shift; lista="$num";;
 			*) break ;;
 		esac
 	done

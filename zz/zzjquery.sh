@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------
-# Exibe a descrição da função JQuery informada.
+# http://visualjquery.com/1.1.2.html
+# Exibe a descrição da função jQuery informada.
 # Caso não seja passado o nome, serão exibidas informações acerca do $().
 # Se usado o argumento -s, será exibida somente a sintaxe.
 # Uso: zzjquery [-s] funcao
@@ -42,11 +43,11 @@ zzjquery ()
 
 		### A descrição está em várias linhas.
 		#
-			# <h1>gt(pos)</h1>
-			# <p>Reduce the set of matched elements to all elements after a given position.
-			#    The position of the element in the set of matched elements
-			#    starts at 0 and goes to length - 1.
-			# </p>
+		# <h1>gt(pos)</h1>
+		# <p>Reduce the set of matched elements to all elements after a given position.
+		#    The position of the element in the set of matched elements
+		#    starts at 0 and goes to length - 1.
+		# </p>
 		#
 		# Esse é mais chato, temos que pegar todo o texto até o </p>.
 		# É feito um loop que termina quando achar o </p>.

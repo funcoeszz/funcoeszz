@@ -1,0 +1,4746 @@
+   #[1]The Jargon File [2]Part II. The Jargon Lexicon [3]Part II. The Jargon Lexicon [4]0
+
+                     Glossary
+   [5]Prev  Part II. The Jargon Lexicon  [6]Next
+     ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+Glossary
+
+   [7]0
+
+        [8](TM)
+        [9]/dev/null
+        [10]/me
+        [11]0
+        [12]1TBS
+        [13]2
+        [14]404
+        [15]404 compliant
+        [16]@-party
+
+   [17]A
+
+        [18]abbrev
+        [19]ABEND
+        [20]accumulator
+        [21]ACK
+        [22]Acme
+        [23]ad-hockery
+        [24]address harvester
+        [25]adger
+        [26]admin
+        [27]ADVENT
+        [28]adware
+        [29]AFAIK
+        [30]AFJ
+        [31]AFK
+        [32]AI
+        [33]AI-complete
+        [34]airplane rule
+        [35]Alderson loop
+        [36]aliasing bug
+        [37]Alice and Bob
+        [38]All hardware sucks, all software sucks.
+        [39]all your base are belong to us
+        [40]alpha geek
+        [41]alpha particles
+        [42]alt
+        [43]alt bit
+        [44]Aluminum Book
+        [45]ambimouseterous
+        [46]Amiga
+        [47]Amiga Persecution Complex
+        [48]amp off
+        [49]amper
+        [50]and there was much rejoicing
+        [51]Angband
+        [52]angle brackets
+        [53]angry fruit salad
+        [54]annoybot
+        [55]annoyware
+        [56]ANSI standard
+        [57]ANSI standard pizza
+        [58]anti-idiotarianism
+        [59]AOL!
+        [60]app
+        [61]Archimedes
+        [62]arena
+        [63]arg
+        [64]ARMM
+        [65]armor-plated
+        [66]asbestos
+        [67]asbestos cork award
+        [68]asbestos longjohns
+        [69]ASCII
+        [70]ASCII art
+        [71]ASCIIbetical order
+        [72]astroturfing
+        [73]atomic
+        [74]attoparsec
+        [75]Aunt Tillie
+        [76]AUP
+        [77]autobogotiphobia
+        [78]autoconfiscate
+        [79]automagically
+        [80]avatar
+        [81]awk
+
+   [82]B
+
+        [83]B1FF
+        [84]B5
+        [85]back door
+        [86]backbone cabal
+        [87]backbone site
+        [88]backgammon
+        [89]background
+        [90]backreference
+        [91]backronym
+        [92]backward combatability
+        [93]BAD
+        [94]Bad and Wrong
+        [95]Bad Thing
+        [96]bag on the side
+        [97]bagbiter
+        [98]bagbiting
+        [99]baggy pantsing
+        [100]balloonian variable
+        [101]bamf
+        [102]banana problem
+        [103]bandwidth
+        [104]bang
+        [105]bang on
+        [106]bang path
+        [107]banner
+        [108]banner ad
+        [109]banner site
+        [110]bar
+        [111]bare metal
+        [112]barf
+        [113]barfmail
+        [114]barfulation
+        [115]barfulous
+        [116]barn
+        [117]barney
+        [118]baroque
+        [119]BASIC
+        [120]batbelt
+        [121]batch
+        [122]bathtub curve
+        [123]Batman factor
+        [124]baud
+        [125]baz
+        [126]bazaar
+        [127]bboard
+        [128]BBS
+        [129]BCPL
+        [130]BDFL
+        [131]beam
+        [132]beanie key
+        [133]beep
+        [134]Befunge
+        [135]beige toaster
+        [136]bells and whistles
+        [137]bells whistles and gongs
+        [138]benchmark
+        [139]Berkeley Quality Software
+        [140]Berzerkeley
+        [141]beta
+        [142]BFI
+        [143]BI
+        [144]bible
+        [145]BiCapitalization
+        [146]biff
+        [147]big iron
+        [148]Big Red Switch
+        [149]Big Room
+        [150]big win
+        [151]big-endian
+        [152]bignum
+        [153]bigot
+        [154]bikeshedding
+        [155]binary four
+        [156]bit
+        [157]bit bang
+        [158]bit bashing
+        [159]bit bucket
+        [160]bit decay
+        [161]bit rot
+        [162]bit twiddling
+        [163]bit-paired keyboard
+        [164]bitblt
+        [165]bits
+        [166]bitty box
+        [167]bixie
+        [168]black art
+        [169]black hat
+        [170]black hole
+        [171]black magic
+        [172]Black Screen of Death
+        [173]blammo
+        [174]blargh
+        [175]blast
+        [176]blat
+        [177]bletch
+        [178]bletcherous
+        [179]blinkenlights
+        [180]blit
+        [181]blitter
+        [182]blivet
+        [183]bloatware
+        [184]BLOB
+        [185]block
+        [186]blog
+        [187]Bloggs Family
+        [188]blogosphere
+        [189]blogrolling
+        [190]blow an EPROM
+        [191]blow away
+        [192]blow out
+        [193]blow past
+        [194]blow up
+        [195]BLT
+        [196]blue box
+        [197]Blue Glue
+        [198]blue goo
+        [199]Blue Screen of Death
+        [200]blue wire
+        [201]blurgle
+        [202]BNF
+        [203]boa
+        [204]board
+        [205]boat anchor
+        [206]bob
+        [207]bodge
+        [208]BOF
+        [209]BOFH
+        [210]bogo-sort
+        [211]bogometer
+        [212]BogoMIPS
+        [213]bogon
+        [214]bogon filter
+        [215]bogon flux
+        [216]bogosity
+        [217]bogotify
+        [218]bogue out
+        [219]bogus
+        [220]Bohr bug
+        [221]boink
+        [222]bomb
+        [223]bondage-and-discipline language
+        [224]bonk/oif
+        [225]book titles
+        [226]boot
+        [227]Borg
+        [228]borken
+        [229]bot
+        [230]bottom feeder
+        [231]bottom-post
+        [232]bottom-up implementation
+        [233]bounce
+        [234]bounce message
+        [235]boustrophedon
+        [236]box
+        [237]boxed comments
+        [238]boxen
+        [239]boxology
+        [240]bozotic
+        [241]brain dump
+        [242]brain fart
+        [243]brain-damaged
+        [244]brain-dead
+        [245]braino
+        [246]brainwidth
+        [247]bread crumbs
+        [248]break
+        [249]break-even point
+        [250]breath-of-life packet
+        [251]breedle
+        [252]Breidbart Index
+        [253]brick
+        [254]bricktext
+        [255]bring X to its knees
+        [256]brittle
+        [257]broadcast storm
+        [258]broken
+        [259]broken arrow
+        [260]broken-ring network
+        [261]BrokenWindows
+        [262]broket
+        [263]Brooks's Law
+        [264]brown-paper-bag bug
+        [265]browser
+        [266]BRS
+        [267]brute force
+        [268]brute force and ignorance
+        [269]BSD
+        [270]BSOD
+        [271]BUAF
+        [272]BUAG
+        [273]bubble sort
+        [274]bucky bits
+        [275]buffer chuck
+        [276]buffer overflow
+        [277]bug
+        [278]bug-compatible
+        [279]bug-for-bug compatible
+        [280]bug-of-the-month club
+        [281]bulletproof
+        [282]bullschildt
+        [283]bump
+        [284]burble
+        [285]buried treasure
+        [286]burn a CD
+        [287]burn-in period
+        [288]burst page
+        [289]busy-wait
+        [290]buzz
+        [291]buzzword-compliant
+        [292]BWQ
+        [293]by hand
+        [294]byte
+        [295]byte sex
+        [296]bytesexual
+        [297]Bzzzt! Wrong.
+
+   [298]C
+
+        [299]C
+        [300]C Programmer's Disease
+        [301]C&C
+        [302]C++
+        [303]calculator
+        [304]Camel Book
+        [305]camelCase
+        [306]camelCasing
+        [307]can't happen
+        [308]cancelbot
+        [309]Cancelmoose[tm]
+        [310]candygrammar
+        [311]canonical
+        [312]careware
+        [313]cargo cult programming
+        [314]cascade
+        [315]case and paste
+        [316]case mod
+        [317]casters-up mode
+        [318]casting the runes
+        [319]cat
+        [320]catatonic
+        [321]cathedral
+        [322]cd tilde
+        [323]CDA
+        [324]cdr
+        [325]chad
+        [326]chad box
+        [327]chain
+        [328]chainik
+        [329]channel
+        [330]channel hopping
+        [331]channel op
+        [332]chanop
+        [333]char
+        [334]charityware
+        [335]chase pointers
+        [336]chawmp
+        [337]check
+        [338]cheerfully
+        [339]chemist
+        [340]Chernobyl chicken
+        [341]Chernobyl packet
+        [342]chicken head
+        [343]chickenboner
+        [344]chiclet keyboard
+        [345]Chinese Army technique
+        [346]choad
+        [347]choke
+        [348]chomp
+        [349]chomper
+        [350]CHOP
+        [351]Christmas tree
+        [352]Christmas tree packet
+        [353]chrome
+        [354]chug
+        [355]Church of the SubGenius
+        [356]CI$
+        [357]Cinderella Book
+        [358]Classic C
+        [359]clean
+        [360]click of death
+        [361]CLM
+        [362]clobber
+        [363]clock
+        [364]clocks
+        [365]clone
+        [366]clone-and-hack coding
+        [367]clover key
+        [368]clue-by-four
+        [369]clustergeeking
+        [370]co-lo
+        [371]coaster
+        [372]coaster toaster
+        [373]COBOL
+        [374]COBOL fingers
+        [375]cobweb site
+        [376]code
+        [377]code grinder
+        [378]code monkey
+        [379]Code of the Geeks
+        [380]code police
+        [381]codes
+        [382]codewalker
+        [383]coefficient of X
+        [384]cokebottle
+        [385]cold boot
+        [386]COME FROM
+        [387]comm mode
+        [388]command key
+        [389]comment out
+        [390]Commonwealth Hackish
+        [391]compact
+        [392]compiler jock
+        [393]compo
+        [394]compress
+        [395]Compu$erve
+        [396]computer confetti
+        [397]computron
+        [398]con
+        [399]condition out
+        [400]condom
+        [401]confuser
+        [402]connector conspiracy
+        [403]cons
+        [404]considered harmful
+        [405]console
+        [406]console jockey
+        [407]content-free
+        [408]control-C
+        [409]control-O
+        [410]control-Q
+        [411]control-S
+        [412]Conway's Law
+        [413]cookbook
+        [414]cooked mode
+        [415]cookie
+        [416]cookie bear
+        [417]cookie file
+        [418]cookie jar
+        [419]cookie monster
+        [420]copious free time
+        [421]copper
+        [422]copy protection
+        [423]copybroke
+        [424]copycenter
+        [425]copyleft
+        [426]copyparty
+        [427]copywronged
+        [428]core
+        [429]core cancer
+        [430]core dump
+        [431]core leak
+        [432]Core Wars
+        [433]cosmic rays
+        [434]cough and die
+        [435]courier
+        [436]cow orker
+        [437]cowboy
+        [438]CP/M
+        [439]CPU Wars
+        [440]crack
+        [441]crack root
+        [442]cracker
+        [443]cracking
+        [444]crank
+        [445]crapplet
+        [446]CrApTeX
+        [447]crash
+        [448]crash and burn
+        [449]crawling horror
+        [450]CRC handbook
+        [451]creationism
+        [452]creep
+        [453]creeping elegance
+        [454]creeping featurism
+        [455]creeping featuritis
+        [456]cretin
+        [457]cretinous
+        [458]crippleware
+        [459]critical mass
+        [460]crlf
+        [461]crock
+        [462]cross-post
+        [463]crossload
+        [464]crudware
+        [465]cruft
+        [466]cruft together
+        [467]cruftsmanship
+        [468]crufty
+        [469]crumb
+        [470]crunch
+        [471]cryppie
+        [472]cthulhic
+        [473]CTSS
+        [474]cube
+        [475]cup holder
+        [476]cursor dipped in X
+        [477]cuspy
+        [478]cut a tape
+        [479]cybercrud
+        [480]cyberpunk
+        [481]cyberspace
+        [482]cycle
+        [483]cycle of reincarnation
+        [484]cycle server
+        [485]cypherpunk
+        [486]C|N>K
+
+   [487]D
+
+        [488]daemon
+        [489]daemon book
+        [490]dahmum
+        [491]dancing frog
+        [492]dangling pointer
+        [493]dark-side hacker
+        [494]Datamation
+        [495]DAU
+        [496]Dave the Resurrector
+        [497]day mode
+        [498]dd
+        [499]DDT
+        [500]de-rezz
+        [501]dead
+        [502]dead beef attack
+        [503]dead code
+        [504]dead-tree version
+        [505]DEADBEEF
+        [506]deadlock
+        [507]deadly embrace
+        [508]death code
+        [509]Death Square
+        [510]Death Star
+        [511]Death, X of
+        [512]DEC
+        [513]DEC Wars
+        [514]decay
+        [515]deckle
+        [516]DED
+        [517]deep hack mode
+        [518]deep magic
+        [519]deep space
+        [520]defenestration
+        [521]defined as
+        [522]deflicted
+        [523]dehose
+        [524]Dejagoo
+        [525]deletia
+        [526]deliminator
+        [527]delint
+        [528]delta
+        [529]demented
+        [530]demigod
+        [531]demo
+        [532]demo mode
+        [533]demoeffect
+        [534]demogroup
+        [535]demon
+        [536]demon dialer
+        [537]demoparty
+        [538]demoscene
+        [539]dentro
+        [540]depeditate
+        [541]deprecated
+        [542]derf
+        [543]deserves to lose
+        [544]despew
+        [545]dickless workstation
+        [546]dictionary flame
+        [547]diddle
+        [548]die
+        [549]die horribly
+        [550]diff
+        [551]dike
+        [552]Dilbert
+        [553]ding
+        [554]dink
+        [555]dinosaur
+        [556]dinosaur pen
+        [557]dinosaurs mating
+        [558]dirtball
+        [559]dirty power
+        [560]disclaimer
+        [561]Discordianism
+        [562]disemvowel
+        [563]disk farm
+        [564]display hack
+        [565]dispress
+        [566]Dissociated Press
+        [567]distribution
+        [568]distro
+        [569]disusered
+        [570]DMZ
+        [571]do protocol
+        [572]doc
+        [573]documentation
+        [574]dodgy
+        [575]dogcow
+        [576]dogfood
+        [577]dogpile
+        [578]dogwash
+        [579]Don't do that then!
+        [580]dongle
+        [581]dongle-disk
+        [582]Doom, X of
+        [583]doorstop
+        [584]DoS attack
+        [585]dot file
+        [586]double bucky
+        [587]doubled sig
+        [588]down
+        [589]download
+        [590]DP
+        [591]DPer
+        [592]Dr. Fred Mbogo
+        [593]dragon
+        [594]Dragon Book
+        [595]drain
+        [596]dread high-bit disease
+        [597]dread questionmark disease
+        [598]DRECNET
+        [599]driver
+        [600]droid
+        [601]drone
+        [602]drool-proof paper
+        [603]drop on the floor
+        [604]drop-ins
+        [605]drop-outs
+        [606]drugged
+        [607]drum
+        [608]drunk mouse syndrome
+        [609]DSW
+        [610]dub dub dub
+        [611]Duff's device
+        [612]dumb terminal
+        [613]dumbass attack
+        [614]dumbed down
+        [615]dump
+        [616]dumpster diving
+        [617]dusty deck
+        [618]DWIM
+        [619]dynner
+
+   [620]E
+
+        [621]Easter egg
+        [622]Easter egging
+        [623]eat flaming death
+        [624]EBCDIC
+        [625]ECP
+        [626]ed
+        [627]egg
+        [628]egosurf
+        [629]eighty-column mind
+        [630]El Camino Bignum
+        [631]elder days
+        [632]elegant
+        [633]elephantine
+        [634]elevator controller
+        [635]elite
+        [636]ELIZA effect
+        [637]elvish
+        [638]EMACS
+        [639]email
+        [640]emoticon
+        [641]EMP
+        [642]empire
+        [643]engine
+        [644]English
+        [645]enhancement
+        [646]ENQ
+        [647]EOD
+        [648]EOF
+        [649]EOL
+        [650]EOU
+        [651]epoch
+        [652]epsilon
+        [653]epsilon squared
+        [654]era
+        [655]Eric Conspiracy
+        [656]Eris
+        [657]erotics
+        [658]error 33
+        [659]eurodemo
+        [660]evil
+        [661]evil and rude
+        [662]Evil Empire
+        [663]exa-
+        [664]examining the entrails
+        [665]EXCH
+        [666]excl
+        [667]EXE
+        [668]exec
+        [669]exercise, left as an
+        [670]Exon
+        [671]Exploder
+        [672]exploit
+        [673]external memory
+        [674]eye candy
+        [675]eyeball search
+
+   [676]F
+
+        [677]face time
+        [678]factor
+        [679]fairings
+        [680]fall over
+        [681]fall through
+        [682]fan
+        [683]fandango on core
+        [684]FAQ
+        [685]FAQ list
+        [686]FAQL
+        [687]faradize
+        [688]farkled
+        [689]farm
+        [690]fascist
+        [691]fat electrons
+        [692]fat pipe
+        [693]fat-finger
+        [694]faulty
+        [695]fear and loathing
+        [696]feature
+        [697]feature creature
+        [698]feature creep
+        [699]feature key
+        [700]feature shock
+        [701]featurectomy
+        [702]feep
+        [703]feeper
+        [704]feeping creature
+        [705]feeping creaturism
+        [706]feetch feetch
+        [707]fence
+        [708]fencepost error
+        [709]fiber-seeking backhoe
+        [710]FidoNet
+        [711]field circus
+        [712]field servoid
+        [713]file signature
+        [714]filk
+        [715]film at 11
+        [716]filter
+        [717]Finagle's Law
+        [718]fine
+        [719]finger
+        [720]finger trouble
+        [721]finger-pointing syndrome
+        [722]finn
+        [723]firebottle
+        [724]firefighting
+        [725]firehose syndrome
+        [726]firewall code
+        [727]firewall machine
+        [728]fireworks mode
+        [729]firmware
+        [730]fish
+        [731]FISH queue
+        [732]fisking
+        [733]FITNR
+        [734]fix
+        [735]FIXME
+        [736]flag
+        [737]flag day
+        [738]flaky
+        [739]flamage
+        [740]flame
+        [741]flame bait
+        [742]flame on
+        [743]flame war
+        [744]flamer
+        [745]flap
+        [746]flarp
+        [747]flash crowd
+        [748]flat
+        [749]flat-ASCII
+        [750]flat-file
+        [751]flatten
+        [752]flavor
+        [753]flavorful
+        [754]flippy
+        [755]flood
+        [756]flowchart
+        [757]flower key
+        [758]flush
+        [759]flypage
+        [760]Flyspeck 3
+        [761]flytrap
+        [762]FM
+        [763]fnord
+        [764]FOAF
+        [765]FOD
+        [766]fold case
+        [767]followup
+        [768]fontology
+        [769]foo
+        [770]foobar
+        [771]fool
+        [772]fool file
+        [773]Foonly
+        [774]footprint
+        [775]for free
+        [776]for the rest of us
+        [777]for values of
+        [778]fora
+        [779]foreground
+        [780]fork
+        [781]fork bomb
+        [782]forked
+        [783]Formosa's Law
+        [784]Fortrash
+        [785]fortune cookie
+        [786]forum
+        [787]fossil
+        [788]four-color glossies
+        [789]frag
+        [790]fragile
+        [791]Frankenputer
+        [792]fred
+        [793]Fred Foobar
+        [794]frednet
+        [795]free software
+        [796]freeware
+        [797]freeze
+        [798]fried
+        [799]frink
+        [800]friode
+        [801]fritterware
+        [802]frob
+        [803]frobnicate
+        [804]frobnitz
+        [805]frog
+        [806]frogging
+        [807]front end
+        [808]frotz
+        [809]frotzed
+        [810]frowney
+        [811]FRS
+        [812]fry
+        [813]fscking
+        [814]FSF
+        [815]-fu
+        [816]FUBAR
+        [817]fuck me harder
+        [818]FUD
+        [819]FUD wars
+        [820]fudge
+        [821]fudge factor
+        [822]fuel up
+        [823]Full Monty
+        [824]fum
+        [825]functino
+        [826]funky
+        [827]funny money
+        [828]furrfu
+
+   [829]G
+
+        [830]G
+        [831]gang bang
+        [832]Gang of Four
+        [833]garbage collect
+        [834]garply
+        [835]gas
+        [836]Gates's Law
+        [837]gawble
+        [838]GC
+        [839]GCOS
+        [840]GECOS
+        [841]gedanken
+        [842]geef
+        [843]geek
+        [844]geek code
+        [845]geek out
+        [846]geekasm
+        [847]gen
+        [848]gender mender
+        [849]General Public Virus
+        [850]generate
+        [851]Genius From Mars Technique
+        [852]gensym
+        [853]Get a life!
+        [854]Get a real computer!
+        [855]GandhiCon
+        [856]gib
+        [857]GIFs at 11
+        [858]gig
+        [859]giga-
+        [860]GIGO
+        [861]gilley
+        [862]gillion
+        [863]ginger
+        [864]GIPS
+        [865]GIYF
+        [866]glark
+        [867]glass
+        [868]glass tty
+        [869]glassfet
+        [870]glitch
+        [871]glob
+        [872]glork
+        [873]glue
+        [874]gnarly
+        [875]GNU
+        [876]gnubie
+        [877]GNUMACS
+        [878]go flatline
+        [879]go gold
+        [880]go root
+        [881]go-faster stripes
+        [882]GoAT
+        [883]goat file
+        [884]gobble
+        [885]Godwin's Law
+        [886]Godzillagram
+        [887]golden
+        [888]golf-ball printer
+        [889]gonk
+        [890]gonkulator
+        [891]gonzo
+        [892]Good Thing
+        [893]google
+        [894]google juice
+        [895]gopher
+        [896]gopher hole
+        [897]gorets
+        [898]gorilla arm
+        [899]gorp
+        [900]GOSMACS
+        [901]gotcha
+        [902]GPL
+        [903]GPV
+        [904]gray goo
+        [905]gray hat
+        [906]Great Internet Explosion
+        [907]Great Renaming
+        [908]Great Runes
+        [909]Great Worm
+        [910]great-wall
+        [911]green bytes
+        [912]green card
+        [913]green lightning
+        [914]green machine
+        [915]Green's Theorem
+        [916]greenbar
+        [917]grep
+        [918]gribble
+        [919]grilf
+        [920]grind
+        [921]grind crank
+        [922]gritch
+        [923]grok
+        [924]gronk
+        [925]gronk out
+        [926]gronked
+        [927]grovel
+        [928]grue
+        [929]grunge
+        [930]gubbish
+        [931]Guido
+        [932]guiltware
+        [933]gumby
+        [934]gunch
+        [935]gunpowder chicken
+        [936]guru
+        [937]guru meditation
+        [938]gweep
+        [939]GWF
+
+   [940]H
+
+        [941]h
+        [942]ha ha only serious
+        [943]hack
+        [944]hack attack
+        [945]hack mode
+        [946]hack on
+        [947]hack together
+        [948]hack up
+        [949]hack value
+        [950]hacked off
+        [951]hacked up
+        [952]hacker
+        [953]hacker ethic
+        [954]hacker humor
+        [955]Hackers (the movie)
+        [956]hacking run
+        [957]Hacking X for Y
+        [958]Hackintosh
+        [959]hackish
+        [960]hackishness
+        [961]hackitude
+        [962]hair
+        [963]hairball
+        [964]hairy
+        [965]HAKMEM
+        [966]hakspek
+        [967]Halloween Documents
+        [968]ham
+        [969]hammer
+        [970]hamster
+        [971]HAND
+        [972]hand cruft
+        [973]hand-hacking
+        [974]hand-roll
+        [975]handle
+        [976]handshaking
+        [977]handwave
+        [978]hang
+        [979]Hanlon's Razor
+        [980]happily
+        [981]hard boot
+        [982]hardcoded
+        [983]hardwarily
+        [984]hardwired
+        [985]has the X nature
+        [986]hash bucket
+        [987]hash collision
+        [988]hat
+        [989]HCF
+        [990]heads down
+        [991]heartbeat
+        [992]heatseeker
+        [993]heavy metal
+        [994]heavy wizardry
+        [995]heavyweight
+        [996]Hed Rat
+        [997]heisenbug
+        [998]hell desk
+        [999]hello sailor!
+        [1000]hello world
+        [1001]hello, wall!
+        [1002]hex
+        [1003]hexadecimal
+        [1004]hexit
+        [1005]HHOK
+        [1006]HHOS
+        [1007]hidden flag
+        [1008]high bit
+        [1009]high moby
+        [1010]highly
+        [1011]hing
+        [1012]hired gun
+        [1013]hirsute
+        [1014]HLL
+        [1015]hoarding
+        [1016]hog
+        [1017]hole
+        [1018]hollised
+        [1019]holy penguin pee
+        [1020]holy wars
+        [1021]home box
+        [1022]home machine
+        [1023]home page
+        [1024]honey pot
+        [1025]hook
+        [1026]hop
+        [1027]horked
+        [1028]hose
+        [1029]hosed
+        [1030]hot chat
+        [1031]hot spot
+        [1032]hotlink
+        [1033]house wizard
+        [1034]HP-SUX
+        [1035]HTH
+        [1036]huff
+        [1037]hung
+        [1038]hungry puppy
+        [1039]hungus
+        [1040]hyperspace
+        [1041]hysterical reasons
+
+   [1042]I
+
+        [1043]I didn't change anything!
+        [1044]I see no X here.
+        [1045]I for one welcome our new X overlords
+        [1046]IANAL
+        [1047]IBM
+        [1048]ICBM address
+        [1049]ice
+        [1050]ID10T error
+        [1051]idempotent
+        [1052]IDP
+        [1053]If you want X, you know where to find it.
+        [1054]ifdef out
+        [1055]IIRC
+        [1056]ill-behaved
+        [1057]IMHO
+        [1058]Imminent Death Of The Net Predicted!
+        [1059]in the extreme
+        [1060]incantation
+        [1061]include
+        [1062]include war
+        [1063]indent style
+        [1064]Indent-o-Meter
+        [1065]index of X
+        [1066]infant mortality
+        [1067]infinite
+        [1068]infinite loop
+        [1069]Infinite-Monkey Theorem
+        [1070]infinity
+        [1071]inflate
+        [1072]Infocom
+        [1073]initgame
+        [1074]insanely great
+        [1075]installfest
+        [1076]INTERCAL
+        [1077]InterCaps
+        [1078]interesting
+        [1079]Internet
+        [1080]Internet Death Penalty
+        [1081]Internet Exploder
+        [1082]Internet Exploiter
+        [1083]interrupt
+        [1084]interrupts locked out
+        [1085]intertwingled
+        [1086]intro
+        [1087]IRC
+        [1088]iron
+        [1089]Iron Age
+        [1090]iron box
+        [1091]ironmonger
+        [1092]ISO standard cup of tea
+        [1093]ISP
+        [1094]Itanic
+        [1095]ITS
+        [1096]IWBNI
+        [1097]IYFEG
+
+   [1098]J
+
+        [1099]J. Random
+        [1100]J. Random Hacker
+        [1101]jack in
+        [1102]jaggies
+        [1103]Java
+        [1104]JCL
+        [1105]JEDR
+        [1106]Jeff K.
+        [1107]jello
+        [1108]Jeopardy-style quoting
+        [1109]jibble
+        [1110]jiffy
+        [1111]job security
+        [1112]jock
+        [1113]joe code
+        [1114]joe-job
+        [1115]juggling eggs
+        [1116]juice
+        [1117]jump off into never-never land
+        [1118]jupiter
+
+   [1119]K
+
+        [1120]K
+        [1121]K&R
+        [1122]k-
+        [1123]kahuna
+        [1124]kamikaze packet
+        [1125]kangaroo code
+        [1126]ken
+        [1127]kernel-of-the-week club
+        [1128]kgbvax
+        [1129]KIBO
+        [1130]kiboze
+        [1131]kibozo
+        [1132]kick
+        [1133]kill file
+        [1134]killer app
+        [1135]killer micro
+        [1136]killer poke
+        [1137]kilo-
+        [1138]kilogoogle
+        [1139]KIPS
+        [1140]KISS Principle
+        [1141]kit
+        [1142]KLB
+        [1143]klone
+        [1144]kludge
+        [1145]kluge
+        [1146]kluge around
+        [1147]kluge up
+        [1148]Knights of the Lambda Calculus
+        [1149]knobs
+        [1150]knurd
+        [1151]Knuth
+        [1152]koan
+        [1153]kook
+        [1154]Kool-Aid
+        [1155]kremvax
+        [1156]kyrka
+
+   [1157]L
+
+        [1158]lag
+        [1159]lamer
+        [1160]LAN party
+        [1161]language lawyer
+        [1162]languages of choice
+        [1163]LART
+        [1164]larval stage
+        [1165]lase
+        [1166]laser chicken
+        [1167]leaf site
+        [1168]leak
+        [1169]leaky heap
+        [1170]leapfrog attack
+        [1171]leech
+        [1172]leech mode
+        [1173]legal
+        [1174]legalese
+        [1175]lenna
+        [1176]LER
+        [1177]LERP
+        [1178]let the smoke out
+        [1179]letterbomb
+        [1180]lexer
+        [1181]life
+        [1182]Life is hard
+        [1183]light pipe
+        [1184]lightweight
+        [1185]like kicking dead whales down the beach
+        [1186]like nailing jelly to a tree
+        [1187]line 666
+        [1188]line eater, the
+        [1189]line noise
+        [1190]linearithmic
+        [1191]link farm
+        [1192]link rot
+        [1193]link-dead
+        [1194]lint
+        [1195]Lintel
+        [1196]Linus
+        [1197]Linux
+        [1198]lion food
+        [1199]Lions Book
+        [1200]LISP
+        [1201]list-bomb
+        [1202]lithium lick
+        [1203]little-endian
+        [1204]live
+        [1205]live data
+        [1206]Live Free Or Die!
+        [1207]livelock
+        [1208]liveware
+        [1209]lobotomy
+        [1210]locals, the
+        [1211]locked and loaded
+        [1212]locked up
+        [1213]logic bomb
+        [1214]logical
+        [1215]loop through
+        [1216]loose bytes
+        [1217]lord high fixer
+        [1218]lose
+        [1219]lose lose
+        [1220]loser
+        [1221]losing
+        [1222]loss
+        [1223]lossage
+        [1224]lossy
+        [1225]lost in the noise
+        [1226]lost in the underflow
+        [1227]lots of MIPS but no I/O
+        [1228]low-bandwidth
+        [1229]Lubarsky's Law of Cybernetic Entomology
+        [1230]Lumber Cartel
+        [1231]lunatic fringe
+        [1232]lurker
+        [1233]luser
+
+   [1234]M
+
+        [1235]M
+        [1236]M$
+        [1237]macdink
+        [1238]machoflops
+        [1239]Macintoy
+        [1240]Macintrash
+        [1241]macro
+        [1242]macro-
+        [1243]macrology
+        [1244]maggotbox
+        [1245]magic
+        [1246]magic cookie
+        [1247]magic number
+        [1248]magic smoke
+        [1249]mail storm
+        [1250]mailbomb
+        [1251]mailing list
+        [1252]main loop
+        [1253]mainframe
+        [1254]mainsleaze
+        [1255]malware
+        [1256]man page
+        [1257]management
+        [1258]mandelbug
+        [1259]manged
+        [1260]mangle
+        [1261]mangled name
+        [1262]mangler
+        [1263]manularity
+        [1264]marching ants
+        [1265]marbles
+        [1266]marginal
+        [1267]marginally
+        [1268]marketroid
+        [1269]Mars
+        [1270]martian
+        [1271]massage
+        [1272]math-out
+        [1273]Matrix
+        [1274]mav
+        [1275]maximum Maytag mode
+        [1276]McQuary limit
+        [1277]meatspace
+        [1278]meatware
+        [1279]meeces
+        [1280]meg
+        [1281]mega-
+        [1282]megapenny
+        [1283]MEGO
+        [1284]meltdown, network
+        [1285]meme
+        [1286]meme plague
+        [1287]memetics
+        [1288]memory farts
+        [1289]memory leak
+        [1290]memory smash
+        [1291]menuitis
+        [1292]mess-dos
+        [1293]meta
+        [1294]meta bit
+        [1295]metasyntactic variable
+        [1296]MFTL
+        [1297]mickey
+        [1298]mickey mouse program
+        [1299]micro-
+        [1300]MicroDroid
+        [1301]microfortnight
+        [1302]microLenat
+        [1303]microReid
+        [1304]microserf
+        [1305]Microsloth Windows
+        [1306]Microsoft
+        [1307]micros~1
+        [1308]middle-endian
+        [1309]middle-out implementation
+        [1310]milliLampson
+        [1311]minor detail
+        [1312]MIPS
+        [1313]misbug
+        [1314]misfeature
+        [1315]missile address
+        [1316]MiSTing
+        [1317]miswart
+        [1318]MMF
+        [1319]mobo
+        [1320]moby
+        [1321]mockingbird
+        [1322]mod
+        [1323]mode
+        [1324]mode bit
+        [1325]modulo
+        [1326]mojibake
+        [1327]molly-guard
+        [1328]Mongolian Hordes technique
+        [1329]monkey up
+        [1330]monkey, scratch
+        [1331]monstrosity
+        [1332]monty
+        [1333]Moof
+        [1334]Moore's Law
+        [1335]moria
+        [1336]MOTAS
+        [1337]MOTOS
+        [1338]MOTSS
+        [1339]mouse ahead
+        [1340]mouse belt
+        [1341]mouse droppings
+        [1342]mouse elbow
+        [1343]mouse pusher
+        [1344]mouso
+        [1345]MS-DOS
+        [1346]mu
+        [1347]MUD
+        [1348]muddie
+        [1349]mudhead
+        [1350]muggle
+        [1351]Multics
+        [1352]multitask
+        [1353]mumblage
+        [1354]mumble
+        [1355]munch
+        [1356]munching
+        [1357]munching squares
+        [1358]munchkin
+        [1359]mundane
+        [1360]mung
+        [1361]munge
+        [1362]Murphy's Law
+        [1363]music
+        [1364]mutter
+
+   [1365]N
+
+        [1366]N
+        [1367]nadger
+        [1368]nagware
+        [1369]nailed to the wall
+        [1370]nailing jelly
+        [1371]naive
+        [1372]naive user
+        [1373]NAK
+        [1374]NANA
+        [1375]nano
+        [1376]nano-
+        [1377]nanoacre
+        [1378]nanobot
+        [1379]nanocomputer
+        [1380]nanofortnight
+        [1381]nanotechnology
+        [1382]narg
+        [1383]nasal demons
+        [1384]nastygram
+        [1385]Nathan Hale
+        [1386]nature
+        [1387]neat hack
+        [1388]neats vs. scruffies
+        [1389]neep-neep
+        [1390]neophilia
+        [1391]nerd
+        [1392]nerd knob
+        [1393]net.-
+        [1394]net.god
+        [1395]net.personality
+        [1396]net.police
+        [1397]netburp
+        [1398]netdead
+        [1399]nethack
+        [1400]netiquette
+        [1401]netlag
+        [1402]netnews
+        [1403]Netscrape
+        [1404]netsplit
+        [1405]netter
+        [1406]network address
+        [1407]network meltdown
+        [1408]New Jersey
+        [1409]New Testament
+        [1410]newbie
+        [1411]newgroup wars
+        [1412]newline
+        [1413]NeWS
+        [1414]newsfroup
+        [1415]newsgroup
+        [1416]nick
+        [1417]nickle
+        [1418]night mode
+        [1419]Nightmare File System
+        [1420]NIL
+        [1421]Ninety-Ninety Rule
+        [1422]nipple mouse
+        [1423]NMI
+        [1424]no-op
+        [1425]noddy
+        [1426]non-optimal solution
+        [1427]nonlinear
+        [1428]nontrivial
+        [1429]not entirely unlike X
+        [1430]not ready for prime time
+        [1431]notwork
+        [1432]NP-
+        [1433]NSA line eater
+        [1434]NSP
+        [1435]nude
+        [1436]nugry
+        [1437]nuke
+        [1438]number-crunching
+        [1439]numbers
+        [1440]NUXI problem
+        [1441]nybble
+        [1442]nyetwork
+
+   [1443]O
+
+        [1444]Ob-
+        [1445]Obfuscated C Contest
+        [1446]obi-wan error
+        [1447]Objectionable-C
+        [1448]obscure
+        [1449]octal forty
+        [1450]off the trolley
+        [1451]off-by-one error
+        [1452]offline
+        [1453]ogg
+        [1454]-oid
+        [1455]old fart
+        [1456]Old Testament
+        [1457]on the gripping hand
+        [1458]one-banana problem
+        [1459]one-line fix
+        [1460]one-liner wars
+        [1461]ooblick
+        [1462]OP
+        [1463]op
+        [1464]open
+        [1465]open source
+        [1466]open switch
+        [1467]operating system
+        [1468]operator headspace
+        [1469]optical diff
+        [1470]optical grep
+        [1471]optimism
+        [1472]Oracle, the
+        [1473]Orange Book
+        [1474]oriental food
+        [1475]orphan
+        [1476]orphaned i-node
+        [1477]orthogonal
+        [1478]OS
+        [1479]OS/2
+        [1480]OSS
+        [1481]OT
+        [1482]OTOH
+        [1483]out-of-band
+        [1484]overclock
+        [1485]overflow bit
+        [1486]overrun
+        [1487]overrun screw
+        [1488]owned
+
+   [1489]P
+
+        [1490]P.O.D.
+        [1491]packet over air
+        [1492]padded cell
+        [1493]page in
+        [1494]page out
+        [1495]pain in the net
+        [1496]paper-net
+        [1497]param
+        [1498]PARC
+        [1499]parent message
+        [1500]parity errors
+        [1501]Parkinson's Law of Data
+        [1502]parm
+        [1503]parse
+        [1504]Pascal
+        [1505]PascalCasing
+        [1506]pastie
+        [1507]patch
+        [1508]patch pumpkin
+        [1509]patch space
+        [1510]path
+        [1511]pathological
+        [1512]payware
+        [1513]PBD
+        [1514]PD
+        [1515]PDP-10
+        [1516]PDP-11
+        [1517]PDP-20
+        [1518]PEBKAC
+        [1519]peek
+        [1520]pencil and paper
+        [1521]Pentagram Pro
+        [1522]Pentium
+        [1523]peon
+        [1524]percent-S
+        [1525]perf
+        [1526]perfect programmer syndrome
+        [1527]Perl
+        [1528]person of no account
+        [1529]pessimal
+        [1530]pessimizing compiler
+        [1531]peta-
+        [1532]pffft
+        [1533]PFY
+        [1534]phage
+        [1535]phase
+        [1536]phase of the moon
+        [1537]phase-wrapping
+        [1538]PHB
+        [1539]phreaker
+        [1540]phreaking
+        [1541]pico-
+        [1542]pig-tail
+        [1543]pilot error
+        [1544]ping
+        [1545]Ping O' Death
+        [1546]ping storm
+        [1547]pink contract
+        [1548]pink wire
+        [1549]pipe
+        [1550]pistol
+        [1551]pixel sort
+        [1552]pizza box
+        [1553]plaid screen
+        [1554]plain-ASCII
+        [1555]Plan 9
+        [1556]plan file
+        [1557]platinum-iridium
+        [1558]playpen
+        [1559]playte
+        [1560]plokta
+        [1561]plonk
+        [1562]plug-and-pray
+        [1563]plugh
+        [1564]plumbing
+        [1565]PM
+        [1566]point release
+        [1567]point-and-drool interface
+        [1568]pointy hat
+        [1569]pointy-haired
+        [1570]poke
+        [1571]poll
+        [1572]polygon pusher
+        [1573]POM
+        [1574]ponytail
+        [1575]pop
+        [1576]poser
+        [1577]post
+        [1578]postcardware
+        [1579]Postel's Prescription
+        [1580]posting
+        [1581]postmaster
+        [1582]PostScript
+        [1583]pound on
+        [1584]power cycle
+        [1585]power hit
+        [1586]pr0n
+        [1587]precedence lossage
+        [1588]pred
+        [1589]prepend
+        [1590]prestidigitization
+        [1591]pretty pictures
+        [1592]prettyprint
+        [1593]pretzel key
+        [1594]priesthood
+        [1595]prime time
+        [1596]print
+        [1597]printing discussion
+        [1598]priority interrupt
+        [1599]profile
+        [1600]progasm
+        [1601]proggy
+        [1602]proglet
+        [1603]program
+        [1604]Programmer's Cheer
+        [1605]programming
+        [1606]programming fluid
+        [1607]propeller head
+        [1608]propeller key
+        [1609]proprietary
+        [1610]protocol
+        [1611]provocative maintenance
+        [1612]prowler
+        [1613]pseudo
+        [1614]pseudoprime
+        [1615]pseudosuit
+        [1616]psychedelicware
+        [1617]psyton
+        [1618]pubic directory
+        [1619]puff
+        [1620]pumpkin holder
+        [1621]pumpking
+        [1622]punched card
+        [1623]punt
+        [1624]Purple Book
+        [1625]purple wire
+        [1626]push
+        [1627]Python
+
+   [1628]Q
+
+        [1629]quad
+        [1630]quadruple bucky
+        [1631]quantifiers
+        [1632]quantum bogodynamics
+        [1633]quarter
+        [1634]ques
+        [1635]quick-and-dirty
+        [1636]quine
+        [1637]Quirk objection
+        [1638]quote chapter and verse
+        [1639]quotient
+        [1640]quux
+        [1641]qux
+        [1642]QWERTY
+
+   [1643]R
+
+        [1644]rabbit job
+        [1645]rain dance
+        [1646]rainbow series
+        [1647]random
+        [1648]Random Number God
+        [1649]random numbers
+        [1650]randomness
+        [1651]rape
+        [1652]rare mode
+        [1653]raster blaster
+        [1654]raster burn
+        [1655]rasterbation
+        [1656]rat belt
+        [1657]rat dance
+        [1658]rathole
+        [1659]ratio site
+        [1660]rave
+        [1661]rave on!
+        [1662]ravs
+        [1663]raw mode
+        [1664]RBL
+        [1665]rc file
+        [1666]RE
+        [1667]read-only user
+        [1668]README file
+        [1669]real
+        [1670]real estate
+        [1671]real hack
+        [1672]real operating system
+        [1673]Real Programmer
+        [1674]Real Soon Now
+        [1675]real time
+        [1676]real user
+        [1677]Real World
+        [1678]reality check
+        [1679]reality-distortion field
+        [1680]reaper
+        [1681]recompile the world
+        [1682]rectangle slinger
+        [1683]recursion
+        [1684]recursive acronym
+        [1685]red wire
+        [1686]regexp
+        [1687]register dancing
+        [1688]rehi
+        [1689]reincarnation, cycle of
+        [1690]reinvent the wheel
+        [1691]relay rape
+        [1692]religion of CHI
+        [1693]religious issues
+        [1694]replicator
+        [1695]reply
+        [1696]restriction
+        [1697]retcon
+        [1698]RETI
+        [1699]retrocomputing
+        [1700]return from the dead
+        [1701]RFC
+        [1702]RFE
+        [1703]Right Thing
+        [1704]rip
+        [1705]ripoff
+        [1706]RL
+        [1707]roach
+        [1708]robocanceller
+        [1709]robot
+        [1710]robust
+        [1711]rococo
+        [1712]rogue
+        [1713]room-temperature IQ
+        [1714]root
+        [1715]root mode
+        [1716]rootkit
+        [1717]rot13
+        [1718]rotary debugger
+        [1719]RSN
+        [1720]RTBM
+        [1721]RTFAQ
+        [1722]RTFB
+        [1723]RTFM
+        [1724]RTFS
+        [1725]RTI
+        [1726]RTM
+        [1727]RTS
+        [1728]rubber-hose cryptanalysis
+        [1729]rude
+        [1730]runes
+        [1731]runic
+        [1732]rusty iron
+        [1733]rusty wire
+
+   [1734]S
+
+        [1735]S/N ratio
+        [1736]sacred
+        [1737]saga
+        [1738]sagan
+        [1739]SAIL
+        [1740]salescritter
+        [1741]salt
+        [1742]salt mines
+        [1743]salt substrate
+        [1744]same-day service
+        [1745]samizdat
+        [1746]samurai
+        [1747]sandbender
+        [1748]sandbox
+        [1749]sanity check
+        [1750]Saturday-night special
+        [1751]say
+        [1752]scag
+        [1753]scanno
+        [1754]scary devil monastery
+        [1755]schroedinbug
+        [1756]science-fiction fandom
+        [1757]SCNR
+        [1758]scram switch
+        [1759]scratch
+        [1760]scratch monkey
+        [1761]scream and die
+        [1762]screaming tty
+        [1763]screen
+        [1764]screen name
+        [1765]screen scraping
+        [1766]screw
+        [1767]screwage
+        [1768]scribble
+        [1769]script kiddies
+        [1770]scrog
+        [1771]scrool
+        [1772]scrozzle
+        [1773]scruffies
+        [1774]SCSI
+        [1775]SCSI voodoo
+        [1776]search-and-destroy mode
+        [1777]second-system effect
+        [1778]secondary damage
+        [1779]security through obscurity
+        [1780]SED
+        [1781]See figure 1
+        [1782]segfault
+        [1783]seggie
+        [1784]segment
+        [1785]segmentation fault
+        [1786]segv
+        [1787]self-reference
+        [1788]selvage
+        [1789]semi
+        [1790]semi-automated
+        [1791]semi-infinite
+        [1792]senior bit
+        [1793]September that never ended
+        [1794]server
+        [1795]SEX
+        [1796]sex changer
+        [1797]shambolic link
+        [1798]shar file
+        [1799]sharchive
+        [1800]Share and enjoy!
+        [1801]shareware
+        [1802]sharing violation
+        [1803]shebang
+        [1804]shelfware
+        [1805]shell
+        [1806]shell out
+        [1807]shift left (or right) logical
+        [1808]shim
+        [1809]shitogram
+        [1810]shotgun debugging
+        [1811]shovelware
+        [1812]showstopper
+        [1813]shriek
+        [1814]Shub-Internet
+        [1815]SIG
+        [1816]sig block
+        [1817]sig quote
+        [1818]sig virus
+        [1819]sigmonster
+        [1820]signal-to-noise ratio
+        [1821]silicon
+        [1822]silly walk
+        [1823]silo
+        [1824]since time T equals minus infinity
+        [1825]sitename
+        [1826]skrog
+        [1827]skulker
+        [1828]slab
+        [1829]slack
+        [1830]slash
+        [1831]slashdot effect
+        [1832]sleep
+        [1833]slim
+        [1834]slop
+        [1835]slopsucker
+        [1836]Slowlaris
+        [1837]slurp
+        [1838]slurp the robot
+        [1839]smart
+        [1840]smart terminal
+        [1841]smash case
+        [1842]smash the stack
+        [1843]smiley
+        [1844]smoke
+        [1845]smoke and mirrors
+        [1846]smoke test
+        [1847]smoking clover
+        [1848]smoot
+        [1849]SMOP
+        [1850]smurf
+        [1851]SNAFU principle
+        [1852]snail
+        [1853]snail-mail
+        [1854]snap
+        [1855]snarf
+        [1856]snarf & barf
+        [1857]snarf down
+        [1858]snark
+        [1859]sneaker
+        [1860]sneakernet
+        [1861]sniff
+        [1862]snippage
+        [1863]SO
+        [1864]social engineering
+        [1865]social science number
+        [1866]sock puppet
+        [1867]sodium substrate
+        [1868]soft boot
+        [1869]softcopy
+        [1870]software bloat
+        [1871]software hoarding
+        [1872]software laser
+        [1873]software rot
+        [1874]softwarily
+        [1875]softy
+        [1876]some random X
+        [1877]sorcerer's apprentice mode
+        [1878]source
+        [1879]source of all good bits
+        [1880]space-cadet keyboard
+        [1881]spaceship operator
+        [1882]SPACEWAR
+        [1883]spaghetti code
+        [1884]spaghetti inheritance
+        [1885]spam
+        [1886]spam bait
+        [1887]spamblock
+        [1888]spamhaus
+        [1889]spamvertize
+        [1890]spangle
+        [1891]spawn
+        [1892]special-case
+        [1893]speed of light
+        [1894]speedometer
+        [1895]spell
+        [1896]spelling flame
+        [1897]spider
+        [1898]spider food
+        [1899]spiffy
+        [1900]spike
+        [1901]spin
+        [1902]Spinning Pizza of Death
+        [1903]spl
+        [1904]splash screen
+        [1905]splat
+        [1906]splat out
+        [1907]splork!
+        [1908]spod
+        [1909]spoiler
+        [1910]spoiler space
+        [1911]sponge
+        [1912]spoof
+        [1913]spool
+        [1914]spool file
+        [1915]sporgery
+        [1916]sport death
+        [1917]spungle
+        [1918]spyware
+        [1919]squirrelcide
+        [1920]stack
+        [1921]stack puke
+        [1922]stale pointer bug
+        [1923]Stanford Bunny
+        [1924]star out
+        [1925]state
+        [1926]stealth manager
+        [1927]steam-powered
+        [1928]steved
+        [1929]STFW
+        [1930]stir-fried random
+        [1931]stomp on
+        [1932]Stone Age
+        [1933]stone knives and bearskins
+        [1934]stoppage
+        [1935]store
+        [1936]STR
+        [1937]strided
+        [1938]stroke
+        [1939]strudel
+        [1940]stubroutine
+        [1941]studly
+        [1942]studlycaps
+        [1943]stunning
+        [1944]stupid-sort
+        [1945]Stupids
+        [1946]Sturgeon's Law
+        [1947]sucking mud
+        [1948]sufficiently small
+        [1949]suit
+        [1950]suitable win
+        [1951]suitably small
+        [1952]Sun
+        [1953]sun lounge
+        [1954]sun-stools
+        [1955]sunspots
+        [1956]super source quench
+        [1957]superloser
+        [1958]superprogrammer
+        [1959]superuser
+        [1960]support
+        [1961]surf
+        [1962]Suzie COBOL
+        [1963]swab
+        [1964]swap
+        [1965]swap space
+        [1966]swapped in
+        [1967]swapped out
+        [1968]Swiss-Army chainsaw
+        [1969]swizzle
+        [1970]sync
+        [1971]syntactic salt
+        [1972]syntactic sugar
+        [1973]sys-frog
+        [1974]sysadmin
+        [1975]sysape
+        [1976]sysop
+        [1977]system
+        [1978]system mangler
+        [1979]systems jock
+
+   [1980]T
+
+        [1981]T
+        [1982]tail recursion
+        [1983]talk mode
+        [1984]talker system
+        [1985]TAN
+        [1986]tanked
+        [1987]TANSTAAFL
+        [1988]tape monkey
+        [1989]tar and feather
+        [1990]tarball
+        [1991]tardegy
+        [1992]taste
+        [1993]tayste
+        [1994]TCB
+        [1995]TCP/IP
+        [1996]TECO
+        [1997]tee
+        [1998]teergrube
+        [1999]teledildonics
+        [2000]ten-finger interface
+        [2001]tense
+        [2002]tentacle
+        [2003]tenured graduate student
+        [2004]tera-
+        [2005]teraflop club
+        [2006]terminak
+        [2007]terminal brain death
+        [2008]terminal illness
+        [2009]terminal junkie
+        [2010]test
+        [2011]TeX
+        [2012]text
+        [2013]thanks in advance
+        [2014]That's not a bug, that's a feature!
+        [2015]the literature
+        [2016]the network
+        [2017]the X that can be Y is not the true X
+        [2018]theology
+        [2019]theory
+        [2020]thinko
+        [2021]This can't happen
+        [2022]This time, for sure!
+        [2023]thrash
+        [2024]thread
+        [2025]three-finger salute
+        [2026]throwaway account
+        [2027]thud
+        [2028]thumb
+        [2029]thundering herd problem
+        [2030]thunk
+        [2031]tick
+        [2032]tick-list features
+        [2033]tickle a bug
+        [2034]tiger team
+        [2035]time bomb
+        [2036]time sink
+        [2037]time T
+        [2038]times-or-divided-by
+        [2039]timesharing
+        [2040]TINC
+        [2041]Tinkerbell program
+        [2042]TINLC
+        [2043]tip of the ice-cube
+        [2044]tired iron
+        [2045]tits on a keyboard
+        [2046]TLA
+        [2047]TMRC
+        [2048]TMRCie
+        [2049]TMTOWTDI
+        [2050]to a first approximation
+        [2051]to a zeroth approximation
+        [2052]toad
+        [2053]toast
+        [2054]toaster
+        [2055]toeprint
+        [2056]TOFU
+        [2057]toggle
+        [2058]tool
+        [2059]toolchain
+        [2060]toolsmith
+        [2061]toor
+        [2062]top-post
+        [2063]topic drift
+        [2064]topic group
+        [2065]TOPS-10
+        [2066]TOPS-20
+        [2067]TOS
+        [2068]tourist
+        [2069]tourist information
+        [2070]touristic
+        [2071]toy
+        [2072]toy language
+        [2073]toy problem
+        [2074]toy program
+        [2075]trampoline
+        [2076]trap
+        [2077]trap door
+        [2078]trash
+        [2079]trawl
+        [2080]tree-killer
+        [2081]treeware
+        [2082]trit
+        [2083]trivial
+        [2084]troff
+        [2085]troglodyte
+        [2086]troglodyte mode
+        [2087]Trojan horse
+        [2088]troll
+        [2089]Troll-O-Meter
+        [2090]tron
+        [2091]troughie
+        [2092]true-hacker
+        [2093]tty
+        [2094]tube
+        [2095]tube time
+        [2096]tumbler
+        [2097]tunafish
+        [2098]tune
+        [2099]turbo nerd
+        [2100]Turing tar-pit
+        [2101]turist
+        [2102]Tux
+        [2103]tweak
+        [2104]TWENEX
+        [2105]twiddle
+        [2106]twilight zone
+        [2107]twink
+        [2108]twirling baton
+        [2109]two pi
+        [2110]two-to-the-N
+        [2111]tyop
+
+   [2112]U
+
+        [2113]u-
+        [2114]UBD
+        [2115]UBE
+        [2116]ubergeek
+        [2117]UCE
+        [2118]UDP
+        [2119]UN*X
+        [2120]undefined external reference
+        [2121]under the hood
+        [2122]undocumented feature
+        [2123]uninteresting
+        [2124]Unix
+        [2125]Unix brain damage
+        [2126]Unix conspiracy
+        [2127]Unix weenie
+        [2128]unixism
+        [2129]unswizzle
+        [2130]unwind the stack
+        [2131]unwind-protect
+        [2132]up
+        [2133]upload
+        [2134]upstream
+        [2135]upthread
+        [2136]uptime
+        [2137]urchin
+        [2138]URL
+        [2139]Usenet
+        [2140]Usenet Death Penalty
+        [2141]user
+        [2142]user-friendly
+        [2143]user-obsequious
+        [2144]userland
+        [2145]Utah teapot, the
+        [2146]UTSL
+        [2147]UUOC
+
+   [2148]V
+
+        [2149]V7
+        [2150]vadding
+        [2151]vanilla
+        [2152]vanity domain
+        [2153]vannevar
+        [2154]vaporware
+        [2155]var
+        [2156]vaston
+        [2157]VAX
+        [2158]VAXen
+        [2159]vaxocentrism
+        [2160]vdiff
+        [2161]veeblefester
+        [2162]velveeta
+        [2163]Venus flytrap
+        [2164]verbage
+        [2165]verbiage
+        [2166]Version 7
+        [2167]vgrep
+        [2168]vi
+        [2169]video toaster
+        [2170]videotex
+        [2171]virgin
+        [2172]virtual
+        [2173]virtual beer
+        [2174]virtual Friday
+        [2175]virtual reality
+        [2176]virtual shredder
+        [2177]virus
+        [2178]visionary
+        [2179]Visual Fred
+        [2180]VMS
+        [2181]voice
+        [2182]voice-net
+        [2183]voodoo programming
+        [2184]VR
+        [2185]Vulcan nerve pinch
+        [2186]vulture capitalist
+
+   [2187]W
+
+        [2188]w00t
+        [2189]wabbit
+        [2190]WAITS
+        [2191]waldo
+        [2192]walk
+        [2193]walk off the end of
+        [2194]walking drives
+        [2195]wall
+        [2196]wall follower
+        [2197]wall time
+        [2198]wall wart
+        [2199]wallhack
+        [2200]wango
+        [2201]wank
+        [2202]wannabee
+        [2203]war dialer
+        [2204]war-driving
+        [2205]war-chalking
+        [2206]-ware
+        [2207]warez
+        [2208]warez d00dz
+        [2209]warez kiddies
+        [2210]warlording
+        [2211]warm boot
+        [2212]wart
+        [2213]washing machine
+        [2214]washing software
+        [2215]water MIPS
+        [2216]wave a dead chicken
+        [2217]weasel
+        [2218]web pointer
+        [2219]web ring
+        [2220]web toaster
+        [2221]webify
+        [2222]webmaster
+        [2223]wedged
+        [2224]wedgie
+        [2225]wedgitude
+        [2226]weeble
+        [2227]weeds
+        [2228]weenie
+        [2229]Weenix
+        [2230]well-behaved
+        [2231]well-connected
+        [2232]wetware
+        [2233]whack
+        [2234]whack-a-mole
+        [2235]whacker
+        [2236]whales
+        [2237]What's a spline?
+        [2238]wheel
+        [2239]wheel bit
+        [2240]wheel of reincarnation
+        [2241]wheel wars
+        [2242]white hat
+        [2243]whitelist
+        [2244]whizzy
+        [2245]Whorfian mind-lock
+        [2246]wibble
+        [2247]WIBNI
+        [2248]widget
+        [2249]wiggles
+        [2250]wild side
+        [2251]WIMP environment
+        [2252]win
+        [2253]win big
+        [2254]win win
+        [2255]Winchester
+        [2256]windoid
+        [2257]window shopping
+        [2258]Windowsitis
+        [2259]Windoze
+        [2260]winged comments
+        [2261]winkey
+        [2262]winnage
+        [2263]winner
+        [2264]winnitude
+        [2265]Wintel
+        [2266]Wintendo
+        [2267]wired
+        [2268]wirehead
+        [2269]wirewater
+        [2270]wish list
+        [2271]within delta of
+        [2272]within epsilon of
+        [2273]wizard
+        [2274]Wizard Book
+        [2275]wizard hat
+        [2276]wizard mode
+        [2277]wizardly
+        [2278]wok-on-the-wall
+        [2279]womb box
+        [2280]WOMBAT
+        [2281]womble
+        [2282]wonky
+        [2283]workaround
+        [2284]working as designed
+        [2285]worm
+        [2286]wormhole
+        [2287]wound around the axle
+        [2288]wrap around
+        [2289]write-only code
+        [2290]write-only language
+        [2291]write-only memory
+        [2292]Wrong Thing
+        [2293]wugga wugga
+        [2294]wumpus
+        [2295]WYSIAYG
+        [2296]WYSIWYG
+
+   [2297]X
+
+        [2298]X
+        [2299]XEROX PARC
+        [2300]XOFF
+        [2301]XON
+        [2302]xor
+        [2303]xref
+        [2304]XXX
+        [2305]xyzzy
+
+   [2306]Y
+
+        [2307]YA-
+        [2308]YABA
+        [2309]YAFIYGI
+        [2310]yak shaving
+        [2311]YAUN
+        [2312]yellow card
+        [2313]yellow wire
+        [2314]Yet Another
+        [2315]YHBT
+        [2316]YKYBHTLW
+        [2317]YMMV
+        [2318]You are not expected to understand this
+        [2319]You know you've been hacking too long when
+        [2320]Your mileage may vary
+        [2321]Yow!
+        [2322]yoyo mode
+        [2323]Yu-Shiang Whole Fish
+
+   [2324]Z
+
+        [2325]zap
+        [2326]zapped
+        [2327]Zawinski's Law
+        [2328]zbeba
+        [2329]zen
+        [2330]zero
+        [2331]zero-content
+        [2332]Zero-One-Infinity Rule
+        [2333]zeroth
+        [2334]zigamorph
+        [2335]zip
+        [2336]zipperhead
+        [2337]zombie
+        [2338]zorch
+        [2339]Zork
+        [2340]zorkmid
+     ______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+   [2341]Prev                    [2342]Up   [2343]Next
+   Part II. The Jargon Lexicon  [2344]Home           0
+
+Referências
+
+   1. http://catb.org/jargon/html/index.html
+   2. http://catb.org/jargon/html/lexicon.html
+   3. http://catb.org/jargon/html/lexicon.html
+   4. http://catb.org/jargon/html/0.html
+   5. http://catb.org/jargon/html/lexicon.html
+   6. http://catb.org/jargon/html/0.html
+   7. http://catb.org/jargon/html/0.html
+   8. http://catb.org/jargon/html/0/TM.html
+   9. http://catb.org/jargon/html/0/dev-null.html
+  10. http://catb.org/jargon/html/0/me.html
+  11. http://catb.org/jargon/html/0/numeral-zero.html
+  12. http://catb.org/jargon/html/0/one-TBS.html
+  13. http://catb.org/jargon/html/0/infix-2.html
+  14. http://catb.org/jargon/html/0/code-404.html
+  15. http://catb.org/jargon/html/0/code-404-compliant.html
+  16. http://catb.org/jargon/html/0/at-party.html
+  17. http://catb.org/jargon/html/A.html
+  18. http://catb.org/jargon/html/A/abbrev.html
+  19. http://catb.org/jargon/html/A/ABEND.html
+  20. http://catb.org/jargon/html/A/accumulator.html
+  21. http://catb.org/jargon/html/A/ACK.html
+  22. http://catb.org/jargon/html/A/Acme.html
+  23. http://catb.org/jargon/html/A/ad-hockery.html
+  24. http://catb.org/jargon/html/A/address-harvester.html
+  25. http://catb.org/jargon/html/A/adger.html
+  26. http://catb.org/jargon/html/A/admin.html
+  27. http://catb.org/jargon/html/A/ADVENT.html
+  28. http://catb.org/jargon/html/A/adware.html
+  29. http://catb.org/jargon/html/A/AFAIK.html
+  30. http://catb.org/jargon/html/A/AFJ.html
+  31. http://catb.org/jargon/html/A/AFK.html
+  32. http://catb.org/jargon/html/A/AI.html
+  33. http://catb.org/jargon/html/A/AI-complete.html
+  34. http://catb.org/jargon/html/A/airplane-rule.html
+  35. http://catb.org/jargon/html/A/Alderson-loop.html
+  36. http://catb.org/jargon/html/A/aliasing-bug.html
+  37. http://catb.org/jargon/html/A/Alice-and-Bob.html
+  38. http://catb.org/jargon/html/A/All-hardware-sucks--all-software-sucks-.html
+  39. http://catb.org/jargon/html/A/all-your-base-are-belong-to-us.html
+  40. http://catb.org/jargon/html/A/alpha-geek.html
+  41. http://catb.org/jargon/html/A/alpha-particles.html
+  42. http://catb.org/jargon/html/A/alt.html
+  43. http://catb.org/jargon/html/A/alt-bit.html
+  44. http://catb.org/jargon/html/A/Aluminum-Book.html
+  45. http://catb.org/jargon/html/A/ambimouseterous.html
+  46. http://catb.org/jargon/html/A/Amiga.html
+  47. http://catb.org/jargon/html/A/Amiga-Persecution-Complex.html
+  48. http://catb.org/jargon/html/A/amp-off.html
+  49. http://catb.org/jargon/html/A/amper.html
+  50. http://catb.org/jargon/html/A/and-there-was-much-rejoicing.html
+  51. http://catb.org/jargon/html/A/Angband.html
+  52. http://catb.org/jargon/html/A/angle-brackets.html
+  53. http://catb.org/jargon/html/A/angry-fruit-salad.html
+  54. http://catb.org/jargon/html/A/annoybot.html
+  55. http://catb.org/jargon/html/A/annoyware.html
+  56. http://catb.org/jargon/html/A/ANSI-standard.html
+  57. http://catb.org/jargon/html/A/ANSI-standard-pizza.html
+  58. http://catb.org/jargon/html/A/anti-idiotarianism.html
+  59. http://catb.org/jargon/html/A/AOL-.html
+  60. http://catb.org/jargon/html/A/app.html
+  61. http://catb.org/jargon/html/A/Archimedes.html
+  62. http://catb.org/jargon/html/A/arena.html
+  63. http://catb.org/jargon/html/A/arg.html
+  64. http://catb.org/jargon/html/A/ARMM.html
+  65. http://catb.org/jargon/html/A/armor-plated.html
+  66. http://catb.org/jargon/html/A/asbestos.html
+  67. http://catb.org/jargon/html/A/asbestos-cork-award.html
+  68. http://catb.org/jargon/html/A/asbestos-longjohns.html
+  69. http://catb.org/jargon/html/A/ASCII.html
+  70. http://catb.org/jargon/html/A/ASCII-art.html
+  71. http://catb.org/jargon/html/A/ASCIIbetical-order.html
+  72. http://catb.org/jargon/html/A/astroturfing.html
+  73. http://catb.org/jargon/html/A/atomic.html
+  74. http://catb.org/jargon/html/A/attoparsec.html
+  75. http://catb.org/jargon/html/A/Aunt-Tillie.html
+  76. http://catb.org/jargon/html/A/AUP.html
+  77. http://catb.org/jargon/html/A/autobogotiphobia.html
+  78. http://catb.org/jargon/html/A/autoconfiscate.html
+  79. http://catb.org/jargon/html/A/automagically.html
+  80. http://catb.org/jargon/html/A/avatar.html
+  81. http://catb.org/jargon/html/A/awk.html
+  82. http://catb.org/jargon/html/B.html
+  83. http://catb.org/jargon/html/B/B1FF.html
+  84. http://catb.org/jargon/html/B/B5.html
+  85. http://catb.org/jargon/html/B/back-door.html
+  86. http://catb.org/jargon/html/B/backbone-cabal.html
+  87. http://catb.org/jargon/html/B/backbone-site.html
+  88. http://catb.org/jargon/html/B/backgammon.html
+  89. http://catb.org/jargon/html/B/background.html
+  90. http://catb.org/jargon/html/B/backreference.html
+  91. http://catb.org/jargon/html/B/backronym.html
+  92. http://catb.org/jargon/html/B/backward-combatability.html
+  93. http://catb.org/jargon/html/B/BAD.html
+  94. http://catb.org/jargon/html/B/Bad-and-Wrong.html
+  95. http://catb.org/jargon/html/B/Bad-Thing.html
+  96. http://catb.org/jargon/html/B/bag-on-the-side.html
+  97. http://catb.org/jargon/html/B/bagbiter.html
+  98. http://catb.org/jargon/html/B/bagbiting.html
+  99. http://catb.org/jargon/html/B/baggy-pantsing.html
+ 100. http://catb.org/jargon/html/B/balloonian-variable.html
+ 101. http://catb.org/jargon/html/B/bamf.html
+ 102. http://catb.org/jargon/html/B/banana-problem.html
+ 103. http://catb.org/jargon/html/B/bandwidth.html
+ 104. http://catb.org/jargon/html/B/bang.html
+ 105. http://catb.org/jargon/html/B/bang-on.html
+ 106. http://catb.org/jargon/html/B/bang-path.html
+ 107. http://catb.org/jargon/html/B/banner.html
+ 108. http://catb.org/jargon/html/B/banner-ad.html
+ 109. http://catb.org/jargon/html/B/banner-site.html
+ 110. http://catb.org/jargon/html/B/bar.html
+ 111. http://catb.org/jargon/html/B/bare-metal.html
+ 112. http://catb.org/jargon/html/B/barf.html
+ 113. http://catb.org/jargon/html/B/barfmail.html
+ 114. http://catb.org/jargon/html/B/barfulation.html
+ 115. http://catb.org/jargon/html/B/barfulous.html
+ 116. http://catb.org/jargon/html/B/barn.html
+ 117. http://catb.org/jargon/html/B/barney.html
+ 118. http://catb.org/jargon/html/B/baroque.html
+ 119. http://catb.org/jargon/html/B/BASIC.html
+ 120. http://catb.org/jargon/html/B/batbelt.html
+ 121. http://catb.org/jargon/html/B/batch.html
+ 122. http://catb.org/jargon/html/B/bathtub-curve.html
+ 123. http://catb.org/jargon/html/B/Batman-factor.html
+ 124. http://catb.org/jargon/html/B/baud.html
+ 125. http://catb.org/jargon/html/B/baz.html
+ 126. http://catb.org/jargon/html/B/bazaar.html
+ 127. http://catb.org/jargon/html/B/bboard.html
+ 128. http://catb.org/jargon/html/B/BBS.html
+ 129. http://catb.org/jargon/html/B/BCPL.html
+ 130. http://catb.org/jargon/html/B/BDFL.html
+ 131. http://catb.org/jargon/html/B/beam.html
+ 132. http://catb.org/jargon/html/B/beanie-key.html
+ 133. http://catb.org/jargon/html/B/beep.html
+ 134. http://catb.org/jargon/html/B/Befunge.html
+ 135. http://catb.org/jargon/html/B/beige-toaster.html
+ 136. http://catb.org/jargon/html/B/bells-and-whistles.html
+ 137. http://catb.org/jargon/html/B/bells-whistles-and-gongs.html
+ 138. http://catb.org/jargon/html/B/benchmark.html
+ 139. http://catb.org/jargon/html/B/Berkeley-Quality-Software.html
+ 140. http://catb.org/jargon/html/B/Berzerkeley.html
+ 141. http://catb.org/jargon/html/B/beta.html
+ 142. http://catb.org/jargon/html/B/BFI.html
+ 143. http://catb.org/jargon/html/B/BI.html
+ 144. http://catb.org/jargon/html/B/bible.html
+ 145. http://catb.org/jargon/html/B/BiCapitalization.html
+ 146. http://catb.org/jargon/html/B/biff.html
+ 147. http://catb.org/jargon/html/B/big-iron.html
+ 148. http://catb.org/jargon/html/B/Big-Red-Switch.html
+ 149. http://catb.org/jargon/html/B/Big-Room.html
+ 150. http://catb.org/jargon/html/B/big-win.html
+ 151. http://catb.org/jargon/html/B/big-endian.html
+ 152. http://catb.org/jargon/html/B/bignum.html
+ 153. http://catb.org/jargon/html/B/bigot.html
+ 154. http://catb.org/jargon/html/B/bikeshedding.html
+ 155. http://catb.org/jargon/html/B/binary-four.html
+ 156. http://catb.org/jargon/html/B/bit.html
+ 157. http://catb.org/jargon/html/B/bit-bang.html
+ 158. http://catb.org/jargon/html/B/bit-bashing.html
+ 159. http://catb.org/jargon/html/B/bit-bucket.html
+ 160. http://catb.org/jargon/html/B/bit-decay.html
+ 161. http://catb.org/jargon/html/B/bit-rot.html
+ 162. http://catb.org/jargon/html/B/bit-twiddling.html
+ 163. http://catb.org/jargon/html/B/bit-paired-keyboard.html
+ 164. http://catb.org/jargon/html/B/bitblt.html
+ 165. http://catb.org/jargon/html/B/bits.html
+ 166. http://catb.org/jargon/html/B/bitty-box.html
+ 167. http://catb.org/jargon/html/B/bixie.html
+ 168. http://catb.org/jargon/html/B/black-art.html
+ 169. http://catb.org/jargon/html/B/black-hat.html
+ 170. http://catb.org/jargon/html/B/black-hole.html
+ 171. http://catb.org/jargon/html/B/black-magic.html
+ 172. http://catb.org/jargon/html/B/Black-Screen-of-Death.html
+ 173. http://catb.org/jargon/html/B/blammo.html
+ 174. http://catb.org/jargon/html/B/blargh.html
+ 175. http://catb.org/jargon/html/B/blast.html
+ 176. http://catb.org/jargon/html/B/blat.html
+ 177. http://catb.org/jargon/html/B/bletch.html
+ 178. http://catb.org/jargon/html/B/bletcherous.html
+ 179. http://catb.org/jargon/html/B/blinkenlights.html
+ 180. http://catb.org/jargon/html/B/blit.html
+ 181. http://catb.org/jargon/html/B/blitter.html
+ 182. http://catb.org/jargon/html/B/blivet.html
+ 183. http://catb.org/jargon/html/B/bloatware.html
+ 184. http://catb.org/jargon/html/B/BLOB.html
+ 185. http://catb.org/jargon/html/B/block.html
+ 186. http://catb.org/jargon/html/B/blog.html
+ 187. http://catb.org/jargon/html/B/Bloggs-Family.html
+ 188. http://catb.org/jargon/html/B/blogosphere.html
+ 189. http://catb.org/jargon/html/B/blogrolling.html
+ 190. http://catb.org/jargon/html/B/blow-an-EPROM.html
+ 191. http://catb.org/jargon/html/B/blow-away.html
+ 192. http://catb.org/jargon/html/B/blow-out.html
+ 193. http://catb.org/jargon/html/B/blow-past.html
+ 194. http://catb.org/jargon/html/B/blow-up.html
+ 195. http://catb.org/jargon/html/B/BLT.html
+ 196. http://catb.org/jargon/html/B/blue-box.html
+ 197. http://catb.org/jargon/html/B/Blue-Glue.html
+ 198. http://catb.org/jargon/html/B/blue-goo.html
+ 199. http://catb.org/jargon/html/B/Blue-Screen-of-Death.html
+ 200. http://catb.org/jargon/html/B/blue-wire.html
+ 201. http://catb.org/jargon/html/B/blurgle.html
+ 202. http://catb.org/jargon/html/B/BNF.html
+ 203. http://catb.org/jargon/html/B/boa.html
+ 204. http://catb.org/jargon/html/B/board.html
+ 205. http://catb.org/jargon/html/B/boat-anchor.html
+ 206. http://catb.org/jargon/html/B/bob.html
+ 207. http://catb.org/jargon/html/B/bodge.html
+ 208. http://catb.org/jargon/html/B/BOF.html
+ 209. http://catb.org/jargon/html/B/BOFH.html
+ 210. http://catb.org/jargon/html/B/bogo-sort.html
+ 211. http://catb.org/jargon/html/B/bogometer.html
+ 212. http://catb.org/jargon/html/B/BogoMIPS.html
+ 213. http://catb.org/jargon/html/B/bogon.html
+ 214. http://catb.org/jargon/html/B/bogon-filter.html
+ 215. http://catb.org/jargon/html/B/bogon-flux.html
+ 216. http://catb.org/jargon/html/B/bogosity.html
+ 217. http://catb.org/jargon/html/B/bogotify.html
+ 218. http://catb.org/jargon/html/B/bogue-out.html
+ 219. http://catb.org/jargon/html/B/bogus.html
+ 220. http://catb.org/jargon/html/B/Bohr-bug.html
+ 221. http://catb.org/jargon/html/B/boink.html
+ 222. http://catb.org/jargon/html/B/bomb.html
+ 223. http://catb.org/jargon/html/B/bondage-and-discipline-language.html
+ 224. http://catb.org/jargon/html/B/bonk-oif.html
+ 225. http://catb.org/jargon/html/B/book-titles.html
+ 226. http://catb.org/jargon/html/B/boot.html
+ 227. http://catb.org/jargon/html/B/Borg.html
+ 228. http://catb.org/jargon/html/B/borken.html
+ 229. http://catb.org/jargon/html/B/bot.html
+ 230. http://catb.org/jargon/html/B/bottom-feeder.html
+ 231. http://catb.org/jargon/html/B/bottom-post.html
+ 232. http://catb.org/jargon/html/B/bottom-up-implementation.html
+ 233. http://catb.org/jargon/html/B/bounce.html
+ 234. http://catb.org/jargon/html/B/bounce-message.html
+ 235. http://catb.org/jargon/html/B/boustrophedon.html
+ 236. http://catb.org/jargon/html/B/box.html
+ 237. http://catb.org/jargon/html/B/boxed-comments.html
+ 238. http://catb.org/jargon/html/B/boxen.html
+ 239. http://catb.org/jargon/html/B/boxology.html
+ 240. http://catb.org/jargon/html/B/bozotic.html
+ 241. http://catb.org/jargon/html/B/brain-dump.html
+ 242. http://catb.org/jargon/html/B/brain-fart.html
+ 243. http://catb.org/jargon/html/B/brain-damaged.html
+ 244. http://catb.org/jargon/html/B/brain-dead.html
+ 245. http://catb.org/jargon/html/B/braino.html
+ 246. http://catb.org/jargon/html/B/brainwidth.html
+ 247. http://catb.org/jargon/html/B/bread-crumbs.html
+ 248. http://catb.org/jargon/html/B/break.html
+ 249. http://catb.org/jargon/html/B/break-even-point.html
+ 250. http://catb.org/jargon/html/B/breath-of-life-packet.html
+ 251. http://catb.org/jargon/html/B/breedle.html
+ 252. http://catb.org/jargon/html/B/Breidbart-Index.html
+ 253. http://catb.org/jargon/html/B/brick.html
+ 254. http://catb.org/jargon/html/B/bricktext.html
+ 255. http://catb.org/jargon/html/B/bring-X-to-its-knees.html
+ 256. http://catb.org/jargon/html/B/brittle.html
+ 257. http://catb.org/jargon/html/B/broadcast-storm.html
+ 258. http://catb.org/jargon/html/B/broken.html
+ 259. http://catb.org/jargon/html/B/broken-arrow.html
+ 260. http://catb.org/jargon/html/B/broken-ring-network.html
+ 261. http://catb.org/jargon/html/B/BrokenWindows.html
+ 262. http://catb.org/jargon/html/B/broket.html
+ 263. http://catb.org/jargon/html/B/Brookss-Law.html
+ 264. http://catb.org/jargon/html/B/brown-paper-bag-bug.html
+ 265. http://catb.org/jargon/html/B/browser.html
+ 266. http://catb.org/jargon/html/B/BRS.html
+ 267. http://catb.org/jargon/html/B/brute-force.html
+ 268. http://catb.org/jargon/html/B/brute-force-and-ignorance.html
+ 269. http://catb.org/jargon/html/B/BSD.html
+ 270. http://catb.org/jargon/html/B/BSOD.html
+ 271. http://catb.org/jargon/html/B/BUAF.html
+ 272. http://catb.org/jargon/html/B/BUAG.html
+ 273. http://catb.org/jargon/html/B/bubble-sort.html
+ 274. http://catb.org/jargon/html/B/bucky-bits.html
+ 275. http://catb.org/jargon/html/B/buffer-chuck.html
+ 276. http://catb.org/jargon/html/B/buffer-overflow.html
+ 277. http://catb.org/jargon/html/B/bug.html
+ 278. http://catb.org/jargon/html/B/bug-compatible.html
+ 279. http://catb.org/jargon/html/B/bug-for-bug-compatible.html
+ 280. http://catb.org/jargon/html/B/bug-of-the-month-club.html
+ 281. http://catb.org/jargon/html/B/bulletproof.html
+ 282. http://catb.org/jargon/html/B/bullschildt.html
+ 283. http://catb.org/jargon/html/B/bump.html
+ 284. http://catb.org/jargon/html/B/burble.html
+ 285. http://catb.org/jargon/html/B/buried-treasure.html
+ 286. http://catb.org/jargon/html/B/burn-a-CD.html
+ 287. http://catb.org/jargon/html/B/burn-in-period.html
+ 288. http://catb.org/jargon/html/B/burst-page.html
+ 289. http://catb.org/jargon/html/B/busy-wait.html
+ 290. http://catb.org/jargon/html/B/buzz.html
+ 291. http://catb.org/jargon/html/B/buzzword-compliant.html
+ 292. http://catb.org/jargon/html/B/BWQ.html
+ 293. http://catb.org/jargon/html/B/by-hand.html
+ 294. http://catb.org/jargon/html/B/byte.html
+ 295. http://catb.org/jargon/html/B/byte-sex.html
+ 296. http://catb.org/jargon/html/B/bytesexual.html
+ 297. http://catb.org/jargon/html/B/Bzzzt-Wrong.html
+ 298. http://catb.org/jargon/html/C.html
+ 299. http://catb.org/jargon/html/C/C.html
+ 300. http://catb.org/jargon/html/C/C-Programmers-Disease.html
+ 301. http://catb.org/jargon/html/C/C-ampersand-C.html
+ 302. http://catb.org/jargon/html/C/C-plus-plus.html
+ 303. http://catb.org/jargon/html/C/calculator.html
+ 304. http://catb.org/jargon/html/C/Camel-Book.html
+ 305. http://catb.org/jargon/html/C/camelCase.html
+ 306. http://catb.org/jargon/html/C/camelCasing.html
+ 307. http://catb.org/jargon/html/C/can-t-happen.html
+ 308. http://catb.org/jargon/html/C/cancelbot.html
+ 309. http://catb.org/jargon/html/C/Cancelmoose.html
+ 310. http://catb.org/jargon/html/C/candygrammar.html
+ 311. http://catb.org/jargon/html/C/canonical.html
+ 312. http://catb.org/jargon/html/C/careware.html
+ 313. http://catb.org/jargon/html/C/cargo-cult-programming.html
+ 314. http://catb.org/jargon/html/C/cascade.html
+ 315. http://catb.org/jargon/html/C/case-and-paste.html
+ 316. http://catb.org/jargon/html/C/case-mod.html
+ 317. http://catb.org/jargon/html/C/casters-up-mode.html
+ 318. http://catb.org/jargon/html/C/casting-the-runes.html
+ 319. http://catb.org/jargon/html/C/cat.html
+ 320. http://catb.org/jargon/html/C/catatonic.html
+ 321. http://catb.org/jargon/html/C/cathedral.html
+ 322. http://catb.org/jargon/html/C/cd-tilde.html
+ 323. http://catb.org/jargon/html/C/CDA.html
+ 324. http://catb.org/jargon/html/C/cdr.html
+ 325. http://catb.org/jargon/html/C/chad.html
+ 326. http://catb.org/jargon/html/C/chad-box.html
+ 327. http://catb.org/jargon/html/C/chain.html
+ 328. http://catb.org/jargon/html/C/chainik.html
+ 329. http://catb.org/jargon/html/C/channel.html
+ 330. http://catb.org/jargon/html/C/channel-hopping.html
+ 331. http://catb.org/jargon/html/C/channel-op.html
+ 332. http://catb.org/jargon/html/C/chanop.html
+ 333. http://catb.org/jargon/html/C/char.html
+ 334. http://catb.org/jargon/html/C/charityware.html
+ 335. http://catb.org/jargon/html/C/chase-pointers.html
+ 336. http://catb.org/jargon/html/C/chawmp.html
+ 337. http://catb.org/jargon/html/C/check.html
+ 338. http://catb.org/jargon/html/C/cheerfully.html
+ 339. http://catb.org/jargon/html/C/chemist.html
+ 340. http://catb.org/jargon/html/C/Chernobyl-chicken.html
+ 341. http://catb.org/jargon/html/C/Chernobyl-packet.html
+ 342. http://catb.org/jargon/html/C/chicken-head.html
+ 343. http://catb.org/jargon/html/C/chickenboner.html
+ 344. http://catb.org/jargon/html/C/chiclet-keyboard.html
+ 345. http://catb.org/jargon/html/C/Chinese-Army-technique.html
+ 346. http://catb.org/jargon/html/C/choad.html
+ 347. http://catb.org/jargon/html/C/choke.html
+ 348. http://catb.org/jargon/html/C/chomp.html
+ 349. http://catb.org/jargon/html/C/chomper.html
+ 350. http://catb.org/jargon/html/C/CHOP.html
+ 351. http://catb.org/jargon/html/C/Christmas-tree.html
+ 352. http://catb.org/jargon/html/C/Christmas-tree-packet.html
+ 353. http://catb.org/jargon/html/C/chrome.html
+ 354. http://catb.org/jargon/html/C/chug.html
+ 355. http://catb.org/jargon/html/C/Church-of-the-SubGenius.html
+ 356. http://catb.org/jargon/html/C/CIS.html
+ 357. http://catb.org/jargon/html/C/Cinderella-Book.html
+ 358. http://catb.org/jargon/html/C/Classic-C.html
+ 359. http://catb.org/jargon/html/C/clean.html
+ 360. http://catb.org/jargon/html/C/click-of-death.html
+ 361. http://catb.org/jargon/html/C/CLM.html
+ 362. http://catb.org/jargon/html/C/clobber.html
+ 363. http://catb.org/jargon/html/C/clock.html
+ 364. http://catb.org/jargon/html/C/clocks.html
+ 365. http://catb.org/jargon/html/C/clone.html
+ 366. http://catb.org/jargon/html/C/clone-and-hack-coding.html
+ 367. http://catb.org/jargon/html/C/clover-key.html
+ 368. http://catb.org/jargon/html/C/clue-by-four.html
+ 369. http://catb.org/jargon/html/C/clustergeeking.html
+ 370. http://catb.org/jargon/html/C/co-lo.html
+ 371. http://catb.org/jargon/html/C/coaster.html
+ 372. http://catb.org/jargon/html/C/coaster-toaster.html
+ 373. http://catb.org/jargon/html/C/COBOL.html
+ 374. http://catb.org/jargon/html/C/COBOL-fingers.html
+ 375. http://catb.org/jargon/html/C/cobweb-site.html
+ 376. http://catb.org/jargon/html/C/code.html
+ 377. http://catb.org/jargon/html/C/code-grinder.html
+ 378. http://catb.org/jargon/html/C/code-monkey.html
+ 379. http://catb.org/jargon/html/C/Code-of-the-Geeks.html
+ 380. http://catb.org/jargon/html/C/code-police.html
+ 381. http://catb.org/jargon/html/C/codes.html
+ 382. http://catb.org/jargon/html/C/codewalker.html
+ 383. http://catb.org/jargon/html/C/coefficient-of-X.html
+ 384. http://catb.org/jargon/html/C/cokebottle.html
+ 385. http://catb.org/jargon/html/C/cold-boot.html
+ 386. http://catb.org/jargon/html/C/COME-FROM.html
+ 387. http://catb.org/jargon/html/C/comm-mode.html
+ 388. http://catb.org/jargon/html/C/command-key.html
+ 389. http://catb.org/jargon/html/C/comment-out.html
+ 390. http://catb.org/jargon/html/C/Commonwealth-Hackish.html
+ 391. http://catb.org/jargon/html/C/compact.html
+ 392. http://catb.org/jargon/html/C/compiler-jock.html
+ 393. http://catb.org/jargon/html/C/compo.html
+ 394. http://catb.org/jargon/html/C/compress.html
+ 395. http://catb.org/jargon/html/C/CompuServe.html
+ 396. http://catb.org/jargon/html/C/computer-confetti.html
+ 397. http://catb.org/jargon/html/C/computron.html
+ 398. http://catb.org/jargon/html/C/con_.html
+ 399. http://catb.org/jargon/html/C/condition-out.html
+ 400. http://catb.org/jargon/html/C/condom.html
+ 401. http://catb.org/jargon/html/C/confuser.html
+ 402. http://catb.org/jargon/html/C/connector-conspiracy.html
+ 403. http://catb.org/jargon/html/C/cons.html
+ 404. http://catb.org/jargon/html/C/considered-harmful.html
+ 405. http://catb.org/jargon/html/C/console.html
+ 406. http://catb.org/jargon/html/C/console-jockey.html
+ 407. http://catb.org/jargon/html/C/content-free.html
+ 408. http://catb.org/jargon/html/C/control-C.html
+ 409. http://catb.org/jargon/html/C/control-O.html
+ 410. http://catb.org/jargon/html/C/control-Q.html
+ 411. http://catb.org/jargon/html/C/control-S.html
+ 412. http://catb.org/jargon/html/C/Conways-Law.html
+ 413. http://catb.org/jargon/html/C/cookbook.html
+ 414. http://catb.org/jargon/html/C/cooked-mode.html
+ 415. http://catb.org/jargon/html/C/cookie.html
+ 416. http://catb.org/jargon/html/C/cookie-bear.html
+ 417. http://catb.org/jargon/html/C/cookie-file.html
+ 418. http://catb.org/jargon/html/C/cookie-jar.html
+ 419. http://catb.org/jargon/html/C/cookie-monster.html
+ 420. http://catb.org/jargon/html/C/copious-free-time.html
+ 421. http://catb.org/jargon/html/C/copper.html
+ 422. http://catb.org/jargon/html/C/copy-protection.html
+ 423. http://catb.org/jargon/html/C/copybroke.html
+ 424. http://catb.org/jargon/html/C/copycenter.html
+ 425. http://catb.org/jargon/html/C/copyleft.html
+ 426. http://catb.org/jargon/html/C/copyparty.html
+ 427. http://catb.org/jargon/html/C/copywronged.html
+ 428. http://catb.org/jargon/html/C/core.html
+ 429. http://catb.org/jargon/html/C/core-cancer.html
+ 430. http://catb.org/jargon/html/C/core-dump.html
+ 431. http://catb.org/jargon/html/C/core-leak.html
+ 432. http://catb.org/jargon/html/C/Core-Wars.html
+ 433. http://catb.org/jargon/html/C/cosmic-rays.html
+ 434. http://catb.org/jargon/html/C/cough-and-die.html
+ 435. http://catb.org/jargon/html/C/courier.html
+ 436. http://catb.org/jargon/html/C/cow-orker.html
+ 437. http://catb.org/jargon/html/C/cowboy.html
+ 438. http://catb.org/jargon/html/C/CP-M.html
+ 439. http://catb.org/jargon/html/C/CPU-Wars.html
+ 440. http://catb.org/jargon/html/C/crack.html
+ 441. http://catb.org/jargon/html/C/crack-root.html
+ 442. http://catb.org/jargon/html/C/cracker.html
+ 443. http://catb.org/jargon/html/C/cracking.html
+ 444. http://catb.org/jargon/html/C/crank.html
+ 445. http://catb.org/jargon/html/C/crapplet.html
+ 446. http://catb.org/jargon/html/C/CrApTeX.html
+ 447. http://catb.org/jargon/html/C/crash.html
+ 448. http://catb.org/jargon/html/C/crash-and-burn.html
+ 449. http://catb.org/jargon/html/C/crawling-horror.html
+ 450. http://catb.org/jargon/html/C/CRC-handbook.html
+ 451. http://catb.org/jargon/html/C/creationism.html
+ 452. http://catb.org/jargon/html/C/creep.html
+ 453. http://catb.org/jargon/html/C/creeping-elegance.html
+ 454. http://catb.org/jargon/html/C/creeping-featurism.html
+ 455. http://catb.org/jargon/html/C/creeping-featuritis.html
+ 456. http://catb.org/jargon/html/C/cretin.html
+ 457. http://catb.org/jargon/html/C/cretinous.html
+ 458. http://catb.org/jargon/html/C/crippleware.html
+ 459. http://catb.org/jargon/html/C/critical-mass.html
+ 460. http://catb.org/jargon/html/C/crlf.html
+ 461. http://catb.org/jargon/html/C/crock.html
+ 462. http://catb.org/jargon/html/C/cross-post.html
+ 463. http://catb.org/jargon/html/C/crossload.html
+ 464. http://catb.org/jargon/html/C/crudware.html
+ 465. http://catb.org/jargon/html/C/cruft.html
+ 466. http://catb.org/jargon/html/C/cruft-together.html
+ 467. http://catb.org/jargon/html/C/cruftsmanship.html
+ 468. http://catb.org/jargon/html/C/crufty.html
+ 469. http://catb.org/jargon/html/C/crumb.html
+ 470. http://catb.org/jargon/html/C/crunch.html
+ 471. http://catb.org/jargon/html/C/cryppie.html
+ 472. http://catb.org/jargon/html/C/cthulhic.html
+ 473. http://catb.org/jargon/html/C/CTSS.html
+ 474. http://catb.org/jargon/html/C/cube.html
+ 475. http://catb.org/jargon/html/C/cup-holder.html
+ 476. http://catb.org/jargon/html/C/cursor-dipped-in-X.html
+ 477. http://catb.org/jargon/html/C/cuspy.html
+ 478. http://catb.org/jargon/html/C/cut-a-tape.html
+ 479. http://catb.org/jargon/html/C/cybercrud.html
+ 480. http://catb.org/jargon/html/C/cyberpunk.html
+ 481. http://catb.org/jargon/html/C/cyberspace.html
+ 482. http://catb.org/jargon/html/C/cycle.html
+ 483. http://catb.org/jargon/html/C/cycle-of-reincarnation.html
+ 484. http://catb.org/jargon/html/C/cycle-server.html
+ 485. http://catb.org/jargon/html/C/cypherpunk.html
+ 486. http://catb.org/jargon/html/C/CNK.html
+ 487. http://catb.org/jargon/html/D.html
+ 488. http://catb.org/jargon/html/D/daemon.html
+ 489. http://catb.org/jargon/html/D/daemon-book.html
+ 490. http://catb.org/jargon/html/D/dahmum.html
+ 491. http://catb.org/jargon/html/D/dancing-frog.html
+ 492. http://catb.org/jargon/html/D/dangling-pointer.html
+ 493. http://catb.org/jargon/html/D/dark-side-hacker.html
+ 494. http://catb.org/jargon/html/D/Datamation.html
+ 495. http://catb.org/jargon/html/D/DAU.html
+ 496. http://catb.org/jargon/html/D/Dave-the-Resurrector.html
+ 497. http://catb.org/jargon/html/D/day-mode.html
+ 498. http://catb.org/jargon/html/D/dd.html
+ 499. http://catb.org/jargon/html/D/DDT.html
+ 500. http://catb.org/jargon/html/D/de-rezz.html
+ 501. http://catb.org/jargon/html/D/dead.html
+ 502. http://catb.org/jargon/html/D/dead-beef-attack.html
+ 503. http://catb.org/jargon/html/D/dead-code.html
+ 504. http://catb.org/jargon/html/D/dead-tree-version.html
+ 505. http://catb.org/jargon/html/D/DEADBEEF.html
+ 506. http://catb.org/jargon/html/D/deadlock.html
+ 507. http://catb.org/jargon/html/D/deadly-embrace.html
+ 508. http://catb.org/jargon/html/D/death-code.html
+ 509. http://catb.org/jargon/html/D/Death-Square.html
+ 510. http://catb.org/jargon/html/D/Death-Star.html
+ 511. http://catb.org/jargon/html/D/Death--X-of.html
+ 512. http://catb.org/jargon/html/D/DEC.html
+ 513. http://catb.org/jargon/html/D/DEC-Wars.html
+ 514. http://catb.org/jargon/html/D/decay.html
+ 515. http://catb.org/jargon/html/D/deckle.html
+ 516. http://catb.org/jargon/html/D/DED.html
+ 517. http://catb.org/jargon/html/D/deep-hack-mode.html
+ 518. http://catb.org/jargon/html/D/deep-magic.html
+ 519. http://catb.org/jargon/html/D/deep-space.html
+ 520. http://catb.org/jargon/html/D/defenestration.html
+ 521. http://catb.org/jargon/html/D/defined-as.html
+ 522. http://catb.org/jargon/html/D/deflicted.html
+ 523. http://catb.org/jargon/html/D/dehose.html
+ 524. http://catb.org/jargon/html/D/Dejagoo.html
+ 525. http://catb.org/jargon/html/D/deletia.html
+ 526. http://catb.org/jargon/html/D/deliminator.html
+ 527. http://catb.org/jargon/html/D/delint.html
+ 528. http://catb.org/jargon/html/D/delta.html
+ 529. http://catb.org/jargon/html/D/demented.html
+ 530. http://catb.org/jargon/html/D/demigod.html
+ 531. http://catb.org/jargon/html/D/demo.html
+ 532. http://catb.org/jargon/html/D/demo-mode.html
+ 533. http://catb.org/jargon/html/D/demoeffect.html
+ 534. http://catb.org/jargon/html/D/demogroup.html
+ 535. http://catb.org/jargon/html/D/demon.html
+ 536. http://catb.org/jargon/html/D/demon-dialer.html
+ 537. http://catb.org/jargon/html/D/demoparty.html
+ 538. http://catb.org/jargon/html/D/demoscene.html
+ 539. http://catb.org/jargon/html/D/dentro.html
+ 540. http://catb.org/jargon/html/D/depeditate.html
+ 541. http://catb.org/jargon/html/D/deprecated.html
+ 542. http://catb.org/jargon/html/D/derf.html
+ 543. http://catb.org/jargon/html/D/deserves-to-lose.html
+ 544. http://catb.org/jargon/html/D/despew.html
+ 545. http://catb.org/jargon/html/D/dickless-workstation.html
+ 546. http://catb.org/jargon/html/D/dictionary-flame.html
+ 547. http://catb.org/jargon/html/D/diddle.html
+ 548. http://catb.org/jargon/html/D/die.html
+ 549. http://catb.org/jargon/html/D/die-horribly.html
+ 550. http://catb.org/jargon/html/D/diff.html
+ 551. http://catb.org/jargon/html/D/dike.html
+ 552. http://catb.org/jargon/html/D/Dilbert.html
+ 553. http://catb.org/jargon/html/D/ding.html
+ 554. http://catb.org/jargon/html/D/dink.html
+ 555. http://catb.org/jargon/html/D/dinosaur.html
+ 556. http://catb.org/jargon/html/D/dinosaur-pen.html
+ 557. http://catb.org/jargon/html/D/dinosaurs-mating.html
+ 558. http://catb.org/jargon/html/D/dirtball.html
+ 559. http://catb.org/jargon/html/D/dirty-power.html
+ 560. http://catb.org/jargon/html/D/disclaimer.html
+ 561. http://catb.org/jargon/html/D/Discordianism.html
+ 562. http://catb.org/jargon/html/D/disemvowel.html
+ 563. http://catb.org/jargon/html/D/disk-farm.html
+ 564. http://catb.org/jargon/html/D/display-hack.html
+ 565. http://catb.org/jargon/html/D/dispress.html
+ 566. http://catb.org/jargon/html/D/Dissociated-Press.html
+ 567. http://catb.org/jargon/html/D/distribution.html
+ 568. http://catb.org/jargon/html/D/distro.html
+ 569. http://catb.org/jargon/html/D/disusered.html
+ 570. http://catb.org/jargon/html/D/DMZ.html
+ 571. http://catb.org/jargon/html/D/do-protocol.html
+ 572. http://catb.org/jargon/html/D/doc.html
+ 573. http://catb.org/jargon/html/D/documentation.html
+ 574. http://catb.org/jargon/html/D/dodgy.html
+ 575. http://catb.org/jargon/html/D/dogcow.html
+ 576. http://catb.org/jargon/html/D/dogfood.html
+ 577. http://catb.org/jargon/html/D/dogpile.html
+ 578. http://catb.org/jargon/html/D/dogwash.html
+ 579. http://catb.org/jargon/html/D/Don-t-do-that-then-.html
+ 580. http://catb.org/jargon/html/D/dongle.html
+ 581. http://catb.org/jargon/html/D/dongle-disk.html
+ 582. http://catb.org/jargon/html/D/Doom--X-of.html
+ 583. http://catb.org/jargon/html/D/doorstop.html
+ 584. http://catb.org/jargon/html/D/DoS-attack.html
+ 585. http://catb.org/jargon/html/D/dot-file.html
+ 586. http://catb.org/jargon/html/D/double-bucky.html
+ 587. http://catb.org/jargon/html/D/doubled-sig.html
+ 588. http://catb.org/jargon/html/D/down.html
+ 589. http://catb.org/jargon/html/D/download.html
+ 590. http://catb.org/jargon/html/D/DP.html
+ 591. http://catb.org/jargon/html/D/DPer.html
+ 592. http://catb.org/jargon/html/D/Dr--Fred-Mbogo.html
+ 593. http://catb.org/jargon/html/D/dragon.html
+ 594. http://catb.org/jargon/html/D/Dragon-Book.html
+ 595. http://catb.org/jargon/html/D/drain.html
+ 596. http://catb.org/jargon/html/D/dread-high-bit-disease.html
+ 597. http://catb.org/jargon/html/D/dread-questionmark-disease.html
+ 598. http://catb.org/jargon/html/D/DRECNET.html
+ 599. http://catb.org/jargon/html/D/driver.html
+ 600. http://catb.org/jargon/html/D/droid.html
+ 601. http://catb.org/jargon/html/D/drone.html
+ 602. http://catb.org/jargon/html/D/drool-proof-paper.html
+ 603. http://catb.org/jargon/html/D/drop-on-the-floor.html
+ 604. http://catb.org/jargon/html/D/drop-ins.html
+ 605. http://catb.org/jargon/html/D/drop-outs.html
+ 606. http://catb.org/jargon/html/D/drugged.html
+ 607. http://catb.org/jargon/html/D/drum.html
+ 608. http://catb.org/jargon/html/D/drunk-mouse-syndrome.html
+ 609. http://catb.org/jargon/html/D/DSW.html
+ 610. http://catb.org/jargon/html/D/dub-dub-dub.html
+ 611. http://catb.org/jargon/html/D/Duffs-device.html
+ 612. http://catb.org/jargon/html/D/dumb-terminal.html
+ 613. http://catb.org/jargon/html/D/dumbass-attack.html
+ 614. http://catb.org/jargon/html/D/dumbed-down.html
+ 615. http://catb.org/jargon/html/D/dump.html
+ 616. http://catb.org/jargon/html/D/dumpster-diving.html
+ 617. http://catb.org/jargon/html/D/dusty-deck.html
+ 618. http://catb.org/jargon/html/D/DWIM.html
+ 619. http://catb.org/jargon/html/D/dynner.html
+ 620. http://catb.org/jargon/html/E.html
+ 621. http://catb.org/jargon/html/E/Easter-egg.html
+ 622. http://catb.org/jargon/html/E/Easter-egging.html
+ 623. http://catb.org/jargon/html/E/eat-flaming-death.html
+ 624. http://catb.org/jargon/html/E/EBCDIC.html
+ 625. http://catb.org/jargon/html/E/ECP.html
+ 626. http://catb.org/jargon/html/E/ed.html
+ 627. http://catb.org/jargon/html/E/egg.html
+ 628. http://catb.org/jargon/html/E/egosurf.html
+ 629. http://catb.org/jargon/html/E/eighty-column-mind.html
+ 630. http://catb.org/jargon/html/E/El-Camino-Bignum.html
+ 631. http://catb.org/jargon/html/E/elder-days.html
+ 632. http://catb.org/jargon/html/E/elegant.html
+ 633. http://catb.org/jargon/html/E/elephantine.html
+ 634. http://catb.org/jargon/html/E/elevator-controller.html
+ 635. http://catb.org/jargon/html/E/elite.html
+ 636. http://catb.org/jargon/html/E/ELIZA-effect.html
+ 637. http://catb.org/jargon/html/E/elvish.html
+ 638. http://catb.org/jargon/html/E/EMACS.html
+ 639. http://catb.org/jargon/html/E/email.html
+ 640. http://catb.org/jargon/html/E/emoticon.html
+ 641. http://catb.org/jargon/html/E/EMP.html
+ 642. http://catb.org/jargon/html/E/empire.html
+ 643. http://catb.org/jargon/html/E/engine.html
+ 644. http://catb.org/jargon/html/E/English.html
+ 645. http://catb.org/jargon/html/E/enhancement.html
+ 646. http://catb.org/jargon/html/E/ENQ.html
+ 647. http://catb.org/jargon/html/E/EOD.html
+ 648. http://catb.org/jargon/html/E/EOF.html
+ 649. http://catb.org/jargon/html/E/EOL.html
+ 650. http://catb.org/jargon/html/E/EOU.html
+ 651. http://catb.org/jargon/html/E/epoch.html
+ 652. http://catb.org/jargon/html/E/epsilon.html
+ 653. http://catb.org/jargon/html/E/epsilon-squared.html
+ 654. http://catb.org/jargon/html/E/era.html
+ 655. http://catb.org/jargon/html/E/Eric-Conspiracy.html
+ 656. http://catb.org/jargon/html/E/Eris.html
+ 657. http://catb.org/jargon/html/E/erotics.html
+ 658. http://catb.org/jargon/html/E/error-33.html
+ 659. http://catb.org/jargon/html/E/eurodemo.html
+ 660. http://catb.org/jargon/html/E/evil.html
+ 661. http://catb.org/jargon/html/E/evil-and-rude.html
+ 662. http://catb.org/jargon/html/E/Evil-Empire.html
+ 663. http://catb.org/jargon/html/E/exa-.html
+ 664. http://catb.org/jargon/html/E/examining-the-entrails.html
+ 665. http://catb.org/jargon/html/E/EXCH.html
+ 666. http://catb.org/jargon/html/E/excl.html
+ 667. http://catb.org/jargon/html/E/EXE.html
+ 668. http://catb.org/jargon/html/E/exec.html
+ 669. http://catb.org/jargon/html/E/exercise--left-as-an.html
+ 670. http://catb.org/jargon/html/E/Exon.html
+ 671. http://catb.org/jargon/html/E/Exploder.html
+ 672. http://catb.org/jargon/html/E/exploit.html
+ 673. http://catb.org/jargon/html/E/external-memory.html
+ 674. http://catb.org/jargon/html/E/eye-candy.html
+ 675. http://catb.org/jargon/html/E/eyeball-search.html
+ 676. http://catb.org/jargon/html/F.html
+ 677. http://catb.org/jargon/html/F/face-time.html
+ 678. http://catb.org/jargon/html/F/factor.html
+ 679. http://catb.org/jargon/html/F/fairings.html
+ 680. http://catb.org/jargon/html/F/fall-over.html
+ 681. http://catb.org/jargon/html/F/fall-through.html
+ 682. http://catb.org/jargon/html/F/fan.html
+ 683. http://catb.org/jargon/html/F/fandango-on-core.html
+ 684. http://catb.org/jargon/html/F/FAQ.html
+ 685. http://catb.org/jargon/html/F/FAQ-list.html
+ 686. http://catb.org/jargon/html/F/FAQL.html
+ 687. http://catb.org/jargon/html/F/faradize.html
+ 688. http://catb.org/jargon/html/F/farkled.html
+ 689. http://catb.org/jargon/html/F/farm.html
+ 690. http://catb.org/jargon/html/F/fascist.html
+ 691. http://catb.org/jargon/html/F/fat-electrons.html
+ 692. http://catb.org/jargon/html/F/fat-pipe.html
+ 693. http://catb.org/jargon/html/F/fat-finger.html
+ 694. http://catb.org/jargon/html/F/faulty.html
+ 695. http://catb.org/jargon/html/F/fear-and-loathing.html
+ 696. http://catb.org/jargon/html/F/feature.html
+ 697. http://catb.org/jargon/html/F/feature-creature.html
+ 698. http://catb.org/jargon/html/F/feature-creep.html
+ 699. http://catb.org/jargon/html/F/feature-key.html
+ 700. http://catb.org/jargon/html/F/feature-shock.html
+ 701. http://catb.org/jargon/html/F/featurectomy.html
+ 702. http://catb.org/jargon/html/F/feep.html
+ 703. http://catb.org/jargon/html/F/feeper.html
+ 704. http://catb.org/jargon/html/F/feeping-creature.html
+ 705. http://catb.org/jargon/html/F/feeping-creaturism.html
+ 706. http://catb.org/jargon/html/F/feetch-feetch.html
+ 707. http://catb.org/jargon/html/F/fence.html
+ 708. http://catb.org/jargon/html/F/fencepost-error.html
+ 709. http://catb.org/jargon/html/F/fiber-seeking-backhoe.html
+ 710. http://catb.org/jargon/html/F/FidoNet.html
+ 711. http://catb.org/jargon/html/F/field-circus.html
+ 712. http://catb.org/jargon/html/F/field-servoid.html
+ 713. http://catb.org/jargon/html/F/file-signature.html
+ 714. http://catb.org/jargon/html/F/filk.html
+ 715. http://catb.org/jargon/html/F/film-at-11.html
+ 716. http://catb.org/jargon/html/F/filter.html
+ 717. http://catb.org/jargon/html/F/Finagles-Law.html
+ 718. http://catb.org/jargon/html/F/fine.html
+ 719. http://catb.org/jargon/html/F/finger.html
+ 720. http://catb.org/jargon/html/F/finger-trouble.html
+ 721. http://catb.org/jargon/html/F/finger-pointing-syndrome.html
+ 722. http://catb.org/jargon/html/F/finn.html
+ 723. http://catb.org/jargon/html/F/firebottle.html
+ 724. http://catb.org/jargon/html/F/firefighting.html
+ 725. http://catb.org/jargon/html/F/firehose-syndrome.html
+ 726. http://catb.org/jargon/html/F/firewall-code.html
+ 727. http://catb.org/jargon/html/F/firewall-machine.html
+ 728. http://catb.org/jargon/html/F/fireworks-mode.html
+ 729. http://catb.org/jargon/html/F/firmware.html
+ 730. http://catb.org/jargon/html/F/fish.html
+ 731. http://catb.org/jargon/html/F/FISH-queue.html
+ 732. http://catb.org/jargon/html/F/fisking.html
+ 733. http://catb.org/jargon/html/F/FITNR.html
+ 734. http://catb.org/jargon/html/F/fix.html
+ 735. http://catb.org/jargon/html/F/FIXME.html
+ 736. http://catb.org/jargon/html/F/flag.html
+ 737. http://catb.org/jargon/html/F/flag-day.html
+ 738. http://catb.org/jargon/html/F/flaky.html
+ 739. http://catb.org/jargon/html/F/flamage.html
+ 740. http://catb.org/jargon/html/F/flame.html
+ 741. http://catb.org/jargon/html/F/flame-bait.html
+ 742. http://catb.org/jargon/html/F/flame-on.html
+ 743. http://catb.org/jargon/html/F/flame-war.html
+ 744. http://catb.org/jargon/html/F/flamer.html
+ 745. http://catb.org/jargon/html/F/flap.html
+ 746. http://catb.org/jargon/html/F/flarp.html
+ 747. http://catb.org/jargon/html/F/flash-crowd.html
+ 748. http://catb.org/jargon/html/F/flat.html
+ 749. http://catb.org/jargon/html/F/flat-ASCII.html
+ 750. http://catb.org/jargon/html/F/flat-file.html
+ 751. http://catb.org/jargon/html/F/flatten.html
+ 752. http://catb.org/jargon/html/F/flavor.html
+ 753. http://catb.org/jargon/html/F/flavorful.html
+ 754. http://catb.org/jargon/html/F/flippy.html
+ 755. http://catb.org/jargon/html/F/flood.html
+ 756. http://catb.org/jargon/html/F/flowchart.html
+ 757. http://catb.org/jargon/html/F/flower-key.html
+ 758. http://catb.org/jargon/html/F/flush.html
+ 759. http://catb.org/jargon/html/F/flypage.html
+ 760. http://catb.org/jargon/html/F/Flyspeck-3.html
+ 761. http://catb.org/jargon/html/F/flytrap.html
+ 762. http://catb.org/jargon/html/F/FM.html
+ 763. http://catb.org/jargon/html/F/fnord.html
+ 764. http://catb.org/jargon/html/F/FOAF.html
+ 765. http://catb.org/jargon/html/F/FOD.html
+ 766. http://catb.org/jargon/html/F/fold-case.html
+ 767. http://catb.org/jargon/html/F/followup.html
+ 768. http://catb.org/jargon/html/F/fontology.html
+ 769. http://catb.org/jargon/html/F/foo.html
+ 770. http://catb.org/jargon/html/F/foobar.html
+ 771. http://catb.org/jargon/html/F/fool.html
+ 772. http://catb.org/jargon/html/F/fool-file.html
+ 773. http://catb.org/jargon/html/F/Foonly.html
+ 774. http://catb.org/jargon/html/F/footprint.html
+ 775. http://catb.org/jargon/html/F/for-free.html
+ 776. http://catb.org/jargon/html/F/for-the-rest-of-us.html
+ 777. http://catb.org/jargon/html/F/for-values-of.html
+ 778. http://catb.org/jargon/html/F/fora.html
+ 779. http://catb.org/jargon/html/F/foreground.html
+ 780. http://catb.org/jargon/html/F/fork.html
+ 781. http://catb.org/jargon/html/F/fork-bomb.html
+ 782. http://catb.org/jargon/html/F/forked.html
+ 783. http://catb.org/jargon/html/F/Formosas-Law.html
+ 784. http://catb.org/jargon/html/F/Fortrash.html
+ 785. http://catb.org/jargon/html/F/fortune-cookie.html
+ 786. http://catb.org/jargon/html/F/forum.html
+ 787. http://catb.org/jargon/html/F/fossil.html
+ 788. http://catb.org/jargon/html/F/four-color-glossies.html
+ 789. http://catb.org/jargon/html/F/frag.html
+ 790. http://catb.org/jargon/html/F/fragile.html
+ 791. http://catb.org/jargon/html/F/Frankenputer.html
+ 792. http://catb.org/jargon/html/F/fred.html
+ 793. http://catb.org/jargon/html/F/Fred-Foobar.html
+ 794. http://catb.org/jargon/html/F/frednet.html
+ 795. http://catb.org/jargon/html/F/free-software.html
+ 796. http://catb.org/jargon/html/F/freeware.html
+ 797. http://catb.org/jargon/html/F/freeze.html
+ 798. http://catb.org/jargon/html/F/fried.html
+ 799. http://catb.org/jargon/html/F/frink.html
+ 800. http://catb.org/jargon/html/F/friode.html
+ 801. http://catb.org/jargon/html/F/fritterware.html
+ 802. http://catb.org/jargon/html/F/frob.html
+ 803. http://catb.org/jargon/html/F/frobnicate.html
+ 804. http://catb.org/jargon/html/F/frobnitz.html
+ 805. http://catb.org/jargon/html/F/frog.html
+ 806. http://catb.org/jargon/html/F/frogging.html
+ 807. http://catb.org/jargon/html/F/front-end.html
+ 808. http://catb.org/jargon/html/F/frotz.html
+ 809. http://catb.org/jargon/html/F/frotzed.html
+ 810. http://catb.org/jargon/html/F/frowney.html
+ 811. http://catb.org/jargon/html/F/FRS.html
+ 812. http://catb.org/jargon/html/F/fry.html
+ 813. http://catb.org/jargon/html/F/fscking.html
+ 814. http://catb.org/jargon/html/F/FSF.html
+ 815. http://catb.org/jargon/html/F/suffix-fu.html
+ 816. http://catb.org/jargon/html/F/FUBAR.html
+ 817. http://catb.org/jargon/html/F/fuck-me-harder.html
+ 818. http://catb.org/jargon/html/F/FUD.html
+ 819. http://catb.org/jargon/html/F/FUD-wars.html
+ 820. http://catb.org/jargon/html/F/fudge.html
+ 821. http://catb.org/jargon/html/F/fudge-factor.html
+ 822. http://catb.org/jargon/html/F/fuel-up.html
+ 823. http://catb.org/jargon/html/F/Full-Monty.html
+ 824. http://catb.org/jargon/html/F/fum.html
+ 825. http://catb.org/jargon/html/F/functino.html
+ 826. http://catb.org/jargon/html/F/funky.html
+ 827. http://catb.org/jargon/html/F/funny-money.html
+ 828. http://catb.org/jargon/html/F/furrfu.html
+ 829. http://catb.org/jargon/html/G.html
+ 830. http://catb.org/jargon/html/G/G.html
+ 831. http://catb.org/jargon/html/G/gang-bang.html
+ 832. http://catb.org/jargon/html/G/Gang-of-Four.html
+ 833. http://catb.org/jargon/html/G/garbage-collect.html
+ 834. http://catb.org/jargon/html/G/garply.html
+ 835. http://catb.org/jargon/html/G/gas.html
+ 836. http://catb.org/jargon/html/G/Gatess-Law.html
+ 837. http://catb.org/jargon/html/G/gawble.html
+ 838. http://catb.org/jargon/html/G/GC.html
+ 839. http://catb.org/jargon/html/G/GCOS.html
+ 840. http://catb.org/jargon/html/G/GECOS.html
+ 841. http://catb.org/jargon/html/G/gedanken.html
+ 842. http://catb.org/jargon/html/G/geef.html
+ 843. http://catb.org/jargon/html/G/geek.html
+ 844. http://catb.org/jargon/html/G/geek-code.html
+ 845. http://catb.org/jargon/html/G/geek-out.html
+ 846. http://catb.org/jargon/html/G/geekasm.html
+ 847. http://catb.org/jargon/html/G/gen.html
+ 848. http://catb.org/jargon/html/G/gender-mender.html
+ 849. http://catb.org/jargon/html/G/General-Public-Virus.html
+ 850. http://catb.org/jargon/html/G/generate.html
+ 851. http://catb.org/jargon/html/G/Genius-From-Mars-Technique.html
+ 852. http://catb.org/jargon/html/G/gensym.html
+ 853. http://catb.org/jargon/html/G/Get-a-life-.html
+ 854. http://catb.org/jargon/html/G/Get-a-real-computer-.html
+ 855. http://catb.org/jargon/html/G/GandhiCon.html
+ 856. http://catb.org/jargon/html/G/gib.html
+ 857. http://catb.org/jargon/html/G/GIFs-at-11.html
+ 858. http://catb.org/jargon/html/G/gig.html
+ 859. http://catb.org/jargon/html/G/giga-.html
+ 860. http://catb.org/jargon/html/G/GIGO.html
+ 861. http://catb.org/jargon/html/G/gilley.html
+ 862. http://catb.org/jargon/html/G/gillion.html
+ 863. http://catb.org/jargon/html/G/ginger.html
+ 864. http://catb.org/jargon/html/G/GIPS.html
+ 865. http://catb.org/jargon/html/G/GIYF.html
+ 866. http://catb.org/jargon/html/G/glark.html
+ 867. http://catb.org/jargon/html/G/glass.html
+ 868. http://catb.org/jargon/html/G/glass-tty.html
+ 869. http://catb.org/jargon/html/G/glassfet.html
+ 870. http://catb.org/jargon/html/G/glitch.html
+ 871. http://catb.org/jargon/html/G/glob.html
+ 872. http://catb.org/jargon/html/G/glork.html
+ 873. http://catb.org/jargon/html/G/glue.html
+ 874. http://catb.org/jargon/html/G/gnarly.html
+ 875. http://catb.org/jargon/html/G/GNU.html
+ 876. http://catb.org/jargon/html/G/gnubie.html
+ 877. http://catb.org/jargon/html/G/GNUMACS.html
+ 878. http://catb.org/jargon/html/G/go-flatline.html
+ 879. http://catb.org/jargon/html/G/go-gold.html
+ 880. http://catb.org/jargon/html/G/go-root.html
+ 881. http://catb.org/jargon/html/G/go-faster-stripes.html
+ 882. http://catb.org/jargon/html/G/GoAT.html
+ 883. http://catb.org/jargon/html/G/goat-file.html
+ 884. http://catb.org/jargon/html/G/gobble.html
+ 885. http://catb.org/jargon/html/G/Godwins-Law.html
+ 886. http://catb.org/jargon/html/G/Godzillagram.html
+ 887. http://catb.org/jargon/html/G/golden.html
+ 888. http://catb.org/jargon/html/G/golf-ball-printer.html
+ 889. http://catb.org/jargon/html/G/gonk.html
+ 890. http://catb.org/jargon/html/G/gonkulator.html
+ 891. http://catb.org/jargon/html/G/gonzo.html
+ 892. http://catb.org/jargon/html/G/Good-Thing.html
+ 893. http://catb.org/jargon/html/G/google.html
+ 894. http://catb.org/jargon/html/G/google-juice.html
+ 895. http://catb.org/jargon/html/G/gopher.html
+ 896. http://catb.org/jargon/html/G/gopher-hole.html
+ 897. http://catb.org/jargon/html/G/gorets.html
+ 898. http://catb.org/jargon/html/G/gorilla-arm.html
+ 899. http://catb.org/jargon/html/G/gorp.html
+ 900. http://catb.org/jargon/html/G/GOSMACS.html
+ 901. http://catb.org/jargon/html/G/gotcha.html
+ 902. http://catb.org/jargon/html/G/GPL.html
+ 903. http://catb.org/jargon/html/G/GPV.html
+ 904. http://catb.org/jargon/html/G/gray-goo.html
+ 905. http://catb.org/jargon/html/G/gray-hat.html
+ 906. http://catb.org/jargon/html/G/Great-Internet-Explosion.html
+ 907. http://catb.org/jargon/html/G/Great-Renaming.html
+ 908. http://catb.org/jargon/html/G/Great-Runes.html
+ 909. http://catb.org/jargon/html/G/Great-Worm.html
+ 910. http://catb.org/jargon/html/G/great-wall.html
+ 911. http://catb.org/jargon/html/G/green-bytes.html
+ 912. http://catb.org/jargon/html/G/green-card.html
+ 913. http://catb.org/jargon/html/G/green-lightning.html
+ 914. http://catb.org/jargon/html/G/green-machine.html
+ 915. http://catb.org/jargon/html/G/Greens-Theorem.html
+ 916. http://catb.org/jargon/html/G/greenbar.html
+ 917. http://catb.org/jargon/html/G/grep.html
+ 918. http://catb.org/jargon/html/G/gribble.html
+ 919. http://catb.org/jargon/html/G/grilf.html
+ 920. http://catb.org/jargon/html/G/grind.html
+ 921. http://catb.org/jargon/html/G/grind-crank.html
+ 922. http://catb.org/jargon/html/G/gritch.html
+ 923. http://catb.org/jargon/html/G/grok.html
+ 924. http://catb.org/jargon/html/G/gronk.html
+ 925. http://catb.org/jargon/html/G/gronk-out.html
+ 926. http://catb.org/jargon/html/G/gronked.html
+ 927. http://catb.org/jargon/html/G/grovel.html
+ 928. http://catb.org/jargon/html/G/grue.html
+ 929. http://catb.org/jargon/html/G/grunge.html
+ 930. http://catb.org/jargon/html/G/gubbish.html
+ 931. http://catb.org/jargon/html/G/Guido.html
+ 932. http://catb.org/jargon/html/G/guiltware.html
+ 933. http://catb.org/jargon/html/G/gumby.html
+ 934. http://catb.org/jargon/html/G/gunch.html
+ 935. http://catb.org/jargon/html/G/gunpowder-chicken.html
+ 936. http://catb.org/jargon/html/G/guru.html
+ 937. http://catb.org/jargon/html/G/guru-meditation.html
+ 938. http://catb.org/jargon/html/G/gweep.html
+ 939. http://catb.org/jargon/html/G/GWF.html
+ 940. http://catb.org/jargon/html/H.html
+ 941. http://catb.org/jargon/html/H/h.html
+ 942. http://catb.org/jargon/html/H/ha-ha-only-serious.html
+ 943. http://catb.org/jargon/html/H/hack.html
+ 944. http://catb.org/jargon/html/H/hack-attack.html
+ 945. http://catb.org/jargon/html/H/hack-mode.html
+ 946. http://catb.org/jargon/html/H/hack-on.html
+ 947. http://catb.org/jargon/html/H/hack-together.html
+ 948. http://catb.org/jargon/html/H/hack-up.html
+ 949. http://catb.org/jargon/html/H/hack-value.html
+ 950. http://catb.org/jargon/html/H/hacked-off.html
+ 951. http://catb.org/jargon/html/H/hacked-up.html
+ 952. http://catb.org/jargon/html/H/hacker.html
+ 953. http://catb.org/jargon/html/H/hacker-ethic.html
+ 954. http://catb.org/jargon/html/H/hacker-humor.html
+ 955. http://catb.org/jargon/html/H/Hackers-the-movie.html
+ 956. http://catb.org/jargon/html/H/hacking-run.html
+ 957. http://catb.org/jargon/html/H/Hacking-X-for-Y.html
+ 958. http://catb.org/jargon/html/H/Hackintosh.html
+ 959. http://catb.org/jargon/html/H/hackish.html
+ 960. http://catb.org/jargon/html/H/hackishness.html
+ 961. http://catb.org/jargon/html/H/hackitude.html
+ 962. http://catb.org/jargon/html/H/hair.html
+ 963. http://catb.org/jargon/html/H/hairball.html
+ 964. http://catb.org/jargon/html/H/hairy.html
+ 965. http://catb.org/jargon/html/H/HAKMEM.html
+ 966. http://catb.org/jargon/html/H/hakspek.html
+ 967. http://catb.org/jargon/html/H/Halloween-Documents.html
+ 968. http://catb.org/jargon/html/H/ham.html
+ 969. http://catb.org/jargon/html/H/hammer.html
+ 970. http://catb.org/jargon/html/H/hamster.html
+ 971. http://catb.org/jargon/html/H/HAND.html
+ 972. http://catb.org/jargon/html/H/hand-cruft.html
+ 973. http://catb.org/jargon/html/H/hand-hacking.html
+ 974. http://catb.org/jargon/html/H/hand-roll.html
+ 975. http://catb.org/jargon/html/H/handle.html
+ 976. http://catb.org/jargon/html/H/handshaking.html
+ 977. http://catb.org/jargon/html/H/handwave.html
+ 978. http://catb.org/jargon/html/H/hang.html
+ 979. http://catb.org/jargon/html/H/Hanlons-Razor.html
+ 980. http://catb.org/jargon/html/H/happily.html
+ 981. http://catb.org/jargon/html/H/hard-boot.html
+ 982. http://catb.org/jargon/html/H/hardcoded.html
+ 983. http://catb.org/jargon/html/H/hardwarily.html
+ 984. http://catb.org/jargon/html/H/hardwired.html
+ 985. http://catb.org/jargon/html/H/has-the-X-nature.html
+ 986. http://catb.org/jargon/html/H/hash-bucket.html
+ 987. http://catb.org/jargon/html/H/hash-collision.html
+ 988. http://catb.org/jargon/html/H/hat.html
+ 989. http://catb.org/jargon/html/H/HCF.html
+ 990. http://catb.org/jargon/html/H/heads-down.html
+ 991. http://catb.org/jargon/html/H/heartbeat.html
+ 992. http://catb.org/jargon/html/H/heatseeker.html
+ 993. http://catb.org/jargon/html/H/heavy-metal.html
+ 994. http://catb.org/jargon/html/H/heavy-wizardry.html
+ 995. http://catb.org/jargon/html/H/heavyweight.html
+ 996. http://catb.org/jargon/html/H/Hed-Rat.html
+ 997. http://catb.org/jargon/html/H/heisenbug.html
+ 998. http://catb.org/jargon/html/H/hell-desk.html
+ 999. http://catb.org/jargon/html/H/hello-sailor-.html
+1000. http://catb.org/jargon/html/H/hello-world.html
+1001. http://catb.org/jargon/html/H/hello--wall-.html
+1002. http://catb.org/jargon/html/H/hex.html
+1003. http://catb.org/jargon/html/H/hexadecimal.html
+1004. http://catb.org/jargon/html/H/hexit.html
+1005. http://catb.org/jargon/html/H/HHOK.html
+1006. http://catb.org/jargon/html/H/HHOS.html
+1007. http://catb.org/jargon/html/H/hidden-flag.html
+1008. http://catb.org/jargon/html/H/high-bit.html
+1009. http://catb.org/jargon/html/H/high-moby.html
+1010. http://catb.org/jargon/html/H/highly.html
+1011. http://catb.org/jargon/html/H/hing.html
+1012. http://catb.org/jargon/html/H/hired-gun.html
+1013. http://catb.org/jargon/html/H/hirsute.html
+1014. http://catb.org/jargon/html/H/HLL.html
+1015. http://catb.org/jargon/html/H/hoarding.html
+1016. http://catb.org/jargon/html/H/hog.html
+1017. http://catb.org/jargon/html/H/hole.html
+1018. http://catb.org/jargon/html/H/hollised.html
+1019. http://catb.org/jargon/html/H/holy-penguin-pee.html
+1020. http://catb.org/jargon/html/H/holy-wars.html
+1021. http://catb.org/jargon/html/H/home-box.html
+1022. http://catb.org/jargon/html/H/home-machine.html
+1023. http://catb.org/jargon/html/H/home-page.html
+1024. http://catb.org/jargon/html/H/honey-pot.html
+1025. http://catb.org/jargon/html/H/hook.html
+1026. http://catb.org/jargon/html/H/hop.html
+1027. http://catb.org/jargon/html/H/horked.html
+1028. http://catb.org/jargon/html/H/hose.html
+1029. http://catb.org/jargon/html/H/hosed.html
+1030. http://catb.org/jargon/html/H/hot-chat.html
+1031. http://catb.org/jargon/html/H/hot-spot.html
+1032. http://catb.org/jargon/html/H/hotlink.html
+1033. http://catb.org/jargon/html/H/house-wizard.html
+1034. http://catb.org/jargon/html/H/HP-SUX.html
+1035. http://catb.org/jargon/html/H/HTH.html
+1036. http://catb.org/jargon/html/H/huff.html
+1037. http://catb.org/jargon/html/H/hung.html
+1038. http://catb.org/jargon/html/H/hungry-puppy.html
+1039. http://catb.org/jargon/html/H/hungus.html
+1040. http://catb.org/jargon/html/H/hyperspace.html
+1041. http://catb.org/jargon/html/H/hysterical-reasons.html
+1042. http://catb.org/jargon/html/I.html
+1043. http://catb.org/jargon/html/I/I-didn-t-change-anything-.html
+1044. http://catb.org/jargon/html/I/I-see-no-X-here-.html
+1045. http://catb.org/jargon/html/I/I-for-one-welcome-our-new-X-overlords.html
+1046. http://catb.org/jargon/html/I/IANAL.html
+1047. http://catb.org/jargon/html/I/IBM.html
+1048. http://catb.org/jargon/html/I/ICBM-address.html
+1049. http://catb.org/jargon/html/I/ice.html
+1050. http://catb.org/jargon/html/I/idiot.html
+1051. http://catb.org/jargon/html/I/idempotent.html
+1052. http://catb.org/jargon/html/I/IDP.html
+1053. http://catb.org/jargon/html/I/If-you-want-X--you-know-where-to-find-it-.html
+1054. http://catb.org/jargon/html/I/ifdef-out.html
+1055. http://catb.org/jargon/html/I/IIRC.html
+1056. http://catb.org/jargon/html/I/ill-behaved.html
+1057. http://catb.org/jargon/html/I/IMHO.html
+1058. http://catb.org/jargon/html/I/Imminent-Death-Of-The-Net-Predicted-.html
+1059. http://catb.org/jargon/html/I/in-the-extreme.html
+1060. http://catb.org/jargon/html/I/incantation.html
+1061. http://catb.org/jargon/html/I/include.html
+1062. http://catb.org/jargon/html/I/include-war.html
+1063. http://catb.org/jargon/html/I/indent-style.html
+1064. http://catb.org/jargon/html/I/Indent-o-Meter.html
+1065. http://catb.org/jargon/html/I/index-of-X.html
+1066. http://catb.org/jargon/html/I/infant-mortality.html
+1067. http://catb.org/jargon/html/I/infinite.html
+1068. http://catb.org/jargon/html/I/infinite-loop.html
+1069. http://catb.org/jargon/html/I/Infinite-Monkey-Theorem.html
+1070. http://catb.org/jargon/html/I/infinity.html
+1071. http://catb.org/jargon/html/I/inflate.html
+1072. http://catb.org/jargon/html/I/Infocom.html
+1073. http://catb.org/jargon/html/I/initgame.html
+1074. http://catb.org/jargon/html/I/insanely-great.html
+1075. http://catb.org/jargon/html/I/installfest.html
+1076. http://catb.org/jargon/html/I/INTERCAL.html
+1077. http://catb.org/jargon/html/I/InterCaps.html
+1078. http://catb.org/jargon/html/I/interesting.html
+1079. http://catb.org/jargon/html/I/Internet.html
+1080. http://catb.org/jargon/html/I/Internet-Death-Penalty.html
+1081. http://catb.org/jargon/html/I/Internet-Exploder.html
+1082. http://catb.org/jargon/html/I/Internet-Exploiter.html
+1083. http://catb.org/jargon/html/I/interrupt.html
+1084. http://catb.org/jargon/html/I/interrupts-locked-out.html
+1085. http://catb.org/jargon/html/I/intertwingled.html
+1086. http://catb.org/jargon/html/I/intro.html
+1087. http://catb.org/jargon/html/I/IRC.html
+1088. http://catb.org/jargon/html/I/iron.html
+1089. http://catb.org/jargon/html/I/Iron-Age.html
+1090. http://catb.org/jargon/html/I/iron-box.html
+1091. http://catb.org/jargon/html/I/ironmonger.html
+1092. http://catb.org/jargon/html/I/ISO-standard-cup-of-tea.html
+1093. http://catb.org/jargon/html/I/ISP.html
+1094. http://catb.org/jargon/html/I/Itanic.html
+1095. http://catb.org/jargon/html/I/ITS.html
+1096. http://catb.org/jargon/html/I/IWBNI.html
+1097. http://catb.org/jargon/html/I/IYFEG.html
+1098. http://catb.org/jargon/html/J.html
+1099. http://catb.org/jargon/html/J/J--Random.html
+1100. http://catb.org/jargon/html/J/J--Random-Hacker.html
+1101. http://catb.org/jargon/html/J/jack-in.html
+1102. http://catb.org/jargon/html/J/jaggies.html
+1103. http://catb.org/jargon/html/J/Java.html
+1104. http://catb.org/jargon/html/J/JCL.html
+1105. http://catb.org/jargon/html/J/JEDR.html
+1106. http://catb.org/jargon/html/J/Jeff-K-.html
+1107. http://catb.org/jargon/html/J/jello.html
+1108. http://catb.org/jargon/html/J/Jeopardy-style-quoting.html
+1109. http://catb.org/jargon/html/J/jibble.html
+1110. http://catb.org/jargon/html/J/jiffy.html
+1111. http://catb.org/jargon/html/J/job-security.html
+1112. http://catb.org/jargon/html/J/jock.html
+1113. http://catb.org/jargon/html/J/joe-code.html
+1114. http://catb.org/jargon/html/J/joe-job.html
+1115. http://catb.org/jargon/html/J/juggling-eggs.html
+1116. http://catb.org/jargon/html/J/juice.html
+1117. http://catb.org/jargon/html/J/jump-off-into-never-never-land.html
+1118. http://catb.org/jargon/html/J/jupiter.html
+1119. http://catb.org/jargon/html/K.html
+1120. http://catb.org/jargon/html/K/K.html
+1121. http://catb.org/jargon/html/K/K-ampersand-R.html
+1122. http://catb.org/jargon/html/K/k-.html
+1123. http://catb.org/jargon/html/K/kahuna.html
+1124. http://catb.org/jargon/html/K/kamikaze-packet.html
+1125. http://catb.org/jargon/html/K/kangaroo-code.html
+1126. http://catb.org/jargon/html/K/ken.html
+1127. http://catb.org/jargon/html/K/kernel-of-the-week-club.html
+1128. http://catb.org/jargon/html/K/kgbvax.html
+1129. http://catb.org/jargon/html/K/KIBO.html
+1130. http://catb.org/jargon/html/K/kiboze.html
+1131. http://catb.org/jargon/html/K/kibozo.html
+1132. http://catb.org/jargon/html/K/kick.html
+1133. http://catb.org/jargon/html/K/kill-file.html
+1134. http://catb.org/jargon/html/K/killer-app.html
+1135. http://catb.org/jargon/html/K/killer-micro.html
+1136. http://catb.org/jargon/html/K/killer-poke.html
+1137. http://catb.org/jargon/html/K/kilo-.html
+1138. http://catb.org/jargon/html/K/kilogoogle.html
+1139. http://catb.org/jargon/html/K/KIPS.html
+1140. http://catb.org/jargon/html/K/KISS-Principle.html
+1141. http://catb.org/jargon/html/K/kit.html
+1142. http://catb.org/jargon/html/K/KLB.html
+1143. http://catb.org/jargon/html/K/klone.html
+1144. http://catb.org/jargon/html/K/kludge.html
+1145. http://catb.org/jargon/html/K/kluge.html
+1146. http://catb.org/jargon/html/K/kluge-around.html
+1147. http://catb.org/jargon/html/K/kluge-up.html
+1148. http://catb.org/jargon/html/K/Knights-of-the-Lambda-Calculus.html
+1149. http://catb.org/jargon/html/K/knobs.html
+1150. http://catb.org/jargon/html/K/knurd.html
+1151. http://catb.org/jargon/html/K/Knuth.html
+1152. http://catb.org/jargon/html/K/koan.html
+1153. http://catb.org/jargon/html/K/kook.html
+1154. http://catb.org/jargon/html/K/Kool-Aid.html
+1155. http://catb.org/jargon/html/K/kremvax.html
+1156. http://catb.org/jargon/html/K/kyrka.html
+1157. http://catb.org/jargon/html/L.html
+1158. http://catb.org/jargon/html/L/lag.html
+1159. http://catb.org/jargon/html/L/lamer.html
+1160. http://catb.org/jargon/html/L/LAN-party.html
+1161. http://catb.org/jargon/html/L/language-lawyer.html
+1162. http://catb.org/jargon/html/L/languages-of-choice.html
+1163. http://catb.org/jargon/html/L/LART.html
+1164. http://catb.org/jargon/html/L/larval-stage.html
+1165. http://catb.org/jargon/html/L/lase.html
+1166. http://catb.org/jargon/html/L/laser-chicken.html
+1167. http://catb.org/jargon/html/L/leaf-site.html
+1168. http://catb.org/jargon/html/L/leak.html
+1169. http://catb.org/jargon/html/L/leaky-heap.html
+1170. http://catb.org/jargon/html/L/leapfrog-attack.html
+1171. http://catb.org/jargon/html/L/leech.html
+1172. http://catb.org/jargon/html/L/leech-mode.html
+1173. http://catb.org/jargon/html/L/legal.html
+1174. http://catb.org/jargon/html/L/legalese.html
+1175. http://catb.org/jargon/html/L/lenna.html
+1176. http://catb.org/jargon/html/L/LER.html
+1177. http://catb.org/jargon/html/L/LERP.html
+1178. http://catb.org/jargon/html/L/let-the-smoke-out.html
+1179. http://catb.org/jargon/html/L/letterbomb.html
+1180. http://catb.org/jargon/html/L/lexer.html
+1181. http://catb.org/jargon/html/L/life.html
+1182. http://catb.org/jargon/html/L/Life-is-hard.html
+1183. http://catb.org/jargon/html/L/light-pipe.html
+1184. http://catb.org/jargon/html/L/lightweight.html
+1185. http://catb.org/jargon/html/L/like-kicking-dead-whales-down-the-beach.html
+1186. http://catb.org/jargon/html/L/like-nailing-jelly-to-a-tree.html
+1187. http://catb.org/jargon/html/L/line-666.html
+1188. http://catb.org/jargon/html/L/line-eater--the.html
+1189. http://catb.org/jargon/html/L/line-noise.html
+1190. http://catb.org/jargon/html/L/linearithmic.html
+1191. http://catb.org/jargon/html/L/link-farm.html
+1192. http://catb.org/jargon/html/L/link-rot.html
+1193. http://catb.org/jargon/html/L/link-dead.html
+1194. http://catb.org/jargon/html/L/lint.html
+1195. http://catb.org/jargon/html/L/Lintel.html
+1196. http://catb.org/jargon/html/L/Linus.html
+1197. http://catb.org/jargon/html/L/Linux.html
+1198. http://catb.org/jargon/html/L/lion-food.html
+1199. http://catb.org/jargon/html/L/Lions-Book.html
+1200. http://catb.org/jargon/html/L/LISP.html
+1201. http://catb.org/jargon/html/L/list-bomb.html
+1202. http://catb.org/jargon/html/L/lithium-lick.html
+1203. http://catb.org/jargon/html/L/little-endian.html
+1204. http://catb.org/jargon/html/L/live.html
+1205. http://catb.org/jargon/html/L/live-data.html
+1206. http://catb.org/jargon/html/L/Live-Free-Or-Die-.html
+1207. http://catb.org/jargon/html/L/livelock.html
+1208. http://catb.org/jargon/html/L/liveware.html
+1209. http://catb.org/jargon/html/L/lobotomy.html
+1210. http://catb.org/jargon/html/L/locals--the.html
+1211. http://catb.org/jargon/html/L/locked-and-loaded.html
+1212. http://catb.org/jargon/html/L/locked-up.html
+1213. http://catb.org/jargon/html/L/logic-bomb.html
+1214. http://catb.org/jargon/html/L/logical.html
+1215. http://catb.org/jargon/html/L/loop-through.html
+1216. http://catb.org/jargon/html/L/loose-bytes.html
+1217. http://catb.org/jargon/html/L/lord-high-fixer.html
+1218. http://catb.org/jargon/html/L/lose.html
+1219. http://catb.org/jargon/html/L/lose-lose.html
+1220. http://catb.org/jargon/html/L/loser.html
+1221. http://catb.org/jargon/html/L/losing.html
+1222. http://catb.org/jargon/html/L/loss.html
+1223. http://catb.org/jargon/html/L/lossage.html
+1224. http://catb.org/jargon/html/L/lossy.html
+1225. http://catb.org/jargon/html/L/lost-in-the-noise.html
+1226. http://catb.org/jargon/html/L/lost-in-the-underflow.html
+1227. http://catb.org/jargon/html/L/lots-of-MIPS-but-no-I-O.html
+1228. http://catb.org/jargon/html/L/low-bandwidth.html
+1229. http://catb.org/jargon/html/L/Lubarskys-Law-of-Cybernetic-Entomology.html
+1230. http://catb.org/jargon/html/L/Lumber-Cartel.html
+1231. http://catb.org/jargon/html/L/lunatic-fringe.html
+1232. http://catb.org/jargon/html/L/lurker.html
+1233. http://catb.org/jargon/html/L/luser.html
+1234. http://catb.org/jargon/html/M.html
+1235. http://catb.org/jargon/html/M/M.html
+1236. http://catb.org/jargon/html/M/MS.html
+1237. http://catb.org/jargon/html/M/macdink.html
+1238. http://catb.org/jargon/html/M/machoflops.html
+1239. http://catb.org/jargon/html/M/Macintoy.html
+1240. http://catb.org/jargon/html/M/Macintrash.html
+1241. http://catb.org/jargon/html/M/macro.html
+1242. http://catb.org/jargon/html/M/macro-.html
+1243. http://catb.org/jargon/html/M/macrology.html
+1244. http://catb.org/jargon/html/M/maggotbox.html
+1245. http://catb.org/jargon/html/M/magic.html
+1246. http://catb.org/jargon/html/M/magic-cookie.html
+1247. http://catb.org/jargon/html/M/magic-number.html
+1248. http://catb.org/jargon/html/M/magic-smoke.html
+1249. http://catb.org/jargon/html/M/mail-storm.html
+1250. http://catb.org/jargon/html/M/mailbomb.html
+1251. http://catb.org/jargon/html/M/mailing-list.html
+1252. http://catb.org/jargon/html/M/main-loop.html
+1253. http://catb.org/jargon/html/M/mainframe.html
+1254. http://catb.org/jargon/html/M/mainsleaze.html
+1255. http://catb.org/jargon/html/M/malware.html
+1256. http://catb.org/jargon/html/M/man-page.html
+1257. http://catb.org/jargon/html/M/management.html
+1258. http://catb.org/jargon/html/M/mandelbug.html
+1259. http://catb.org/jargon/html/M/manged.html
+1260. http://catb.org/jargon/html/M/mangle.html
+1261. http://catb.org/jargon/html/M/mangled-name.html
+1262. http://catb.org/jargon/html/M/mangler.html
+1263. http://catb.org/jargon/html/M/manularity.html
+1264. http://catb.org/jargon/html/M/marching-ants.html
+1265. http://catb.org/jargon/html/M/marbles.html
+1266. http://catb.org/jargon/html/M/marginal.html
+1267. http://catb.org/jargon/html/M/marginally.html
+1268. http://catb.org/jargon/html/M/marketroid.html
+1269. http://catb.org/jargon/html/M/Mars.html
+1270. http://catb.org/jargon/html/M/martian.html
+1271. http://catb.org/jargon/html/M/massage.html
+1272. http://catb.org/jargon/html/M/math-out.html
+1273. http://catb.org/jargon/html/M/Matrix.html
+1274. http://catb.org/jargon/html/M/mav.html
+1275. http://catb.org/jargon/html/M/maximum-Maytag-mode.html
+1276. http://catb.org/jargon/html/M/McQuary-limit.html
+1277. http://catb.org/jargon/html/M/meatspace.html
+1278. http://catb.org/jargon/html/M/meatware.html
+1279. http://catb.org/jargon/html/M/meeces.html
+1280. http://catb.org/jargon/html/M/meg.html
+1281. http://catb.org/jargon/html/M/mega-.html
+1282. http://catb.org/jargon/html/M/megapenny.html
+1283. http://catb.org/jargon/html/M/MEGO.html
+1284. http://catb.org/jargon/html/M/meltdown--network.html
+1285. http://catb.org/jargon/html/M/meme.html
+1286. http://catb.org/jargon/html/M/meme-plague.html
+1287. http://catb.org/jargon/html/M/memetics.html
+1288. http://catb.org/jargon/html/M/memory-farts.html
+1289. http://catb.org/jargon/html/M/memory-leak.html
+1290. http://catb.org/jargon/html/M/memory-smash.html
+1291. http://catb.org/jargon/html/M/menuitis.html
+1292. http://catb.org/jargon/html/M/mess-dos.html
+1293. http://catb.org/jargon/html/M/meta.html
+1294. http://catb.org/jargon/html/M/meta-bit.html
+1295. http://catb.org/jargon/html/M/metasyntactic-variable.html
+1296. http://catb.org/jargon/html/M/MFTL.html
+1297. http://catb.org/jargon/html/M/mickey.html
+1298. http://catb.org/jargon/html/M/mickey-mouse-program.html
+1299. http://catb.org/jargon/html/M/micro-.html
+1300. http://catb.org/jargon/html/M/MicroDroid.html
+1301. http://catb.org/jargon/html/M/microfortnight.html
+1302. http://catb.org/jargon/html/M/microLenat.html
+1303. http://catb.org/jargon/html/M/microReid.html
+1304. http://catb.org/jargon/html/M/microserf.html
+1305. http://catb.org/jargon/html/M/Microsloth-Windows.html
+1306. http://catb.org/jargon/html/M/Microsoft.html
+1307. http://catb.org/jargon/html/M/micros-tilde-1.html
+1308. http://catb.org/jargon/html/M/middle-endian.html
+1309. http://catb.org/jargon/html/M/middle-out-implementation.html
+1310. http://catb.org/jargon/html/M/milliLampson.html
+1311. http://catb.org/jargon/html/M/minor-detail.html
+1312. http://catb.org/jargon/html/M/MIPS.html
+1313. http://catb.org/jargon/html/M/misbug.html
+1314. http://catb.org/jargon/html/M/misfeature.html
+1315. http://catb.org/jargon/html/M/missile-address.html
+1316. http://catb.org/jargon/html/M/MiSTing.html
+1317. http://catb.org/jargon/html/M/miswart.html
+1318. http://catb.org/jargon/html/M/MMF.html
+1319. http://catb.org/jargon/html/M/mobo.html
+1320. http://catb.org/jargon/html/M/moby.html
+1321. http://catb.org/jargon/html/M/mockingbird.html
+1322. http://catb.org/jargon/html/M/mod.html
+1323. http://catb.org/jargon/html/M/mode.html
+1324. http://catb.org/jargon/html/M/mode-bit.html
+1325. http://catb.org/jargon/html/M/modulo.html
+1326. http://catb.org/jargon/html/M/mojibake.html
+1327. http://catb.org/jargon/html/M/molly-guard.html
+1328. http://catb.org/jargon/html/M/Mongolian-Hordes-technique.html
+1329. http://catb.org/jargon/html/M/monkey-up.html
+1330. http://catb.org/jargon/html/M/monkey--scratch.html
+1331. http://catb.org/jargon/html/M/monstrosity.html
+1332. http://catb.org/jargon/html/M/monty.html
+1333. http://catb.org/jargon/html/M/Moof.html
+1334. http://catb.org/jargon/html/M/Moores-Law.html
+1335. http://catb.org/jargon/html/M/moria.html
+1336. http://catb.org/jargon/html/M/MOTAS.html
+1337. http://catb.org/jargon/html/M/MOTOS.html
+1338. http://catb.org/jargon/html/M/MOTSS.html
+1339. http://catb.org/jargon/html/M/mouse-ahead.html
+1340. http://catb.org/jargon/html/M/mouse-belt.html
+1341. http://catb.org/jargon/html/M/mouse-droppings.html
+1342. http://catb.org/jargon/html/M/mouse-elbow.html
+1343. http://catb.org/jargon/html/M/mouse-pusher.html
+1344. http://catb.org/jargon/html/M/mouso.html
+1345. http://catb.org/jargon/html/M/MS-DOS.html
+1346. http://catb.org/jargon/html/M/mu.html
+1347. http://catb.org/jargon/html/M/MUD.html
+1348. http://catb.org/jargon/html/M/muddie.html
+1349. http://catb.org/jargon/html/M/mudhead.html
+1350. http://catb.org/jargon/html/M/muggle.html
+1351. http://catb.org/jargon/html/M/Multics.html
+1352. http://catb.org/jargon/html/M/multitask.html
+1353. http://catb.org/jargon/html/M/mumblage.html
+1354. http://catb.org/jargon/html/M/mumble.html
+1355. http://catb.org/jargon/html/M/munch.html
+1356. http://catb.org/jargon/html/M/munching.html
+1357. http://catb.org/jargon/html/M/munching-squares.html
+1358. http://catb.org/jargon/html/M/munchkin.html
+1359. http://catb.org/jargon/html/M/mundane.html
+1360. http://catb.org/jargon/html/M/mung.html
+1361. http://catb.org/jargon/html/M/munge.html
+1362. http://catb.org/jargon/html/M/Murphys-Law.html
+1363. http://catb.org/jargon/html/M/music.html
+1364. http://catb.org/jargon/html/M/mutter.html
+1365. http://catb.org/jargon/html/N.html
+1366. http://catb.org/jargon/html/N/N.html
+1367. http://catb.org/jargon/html/N/nadger.html
+1368. http://catb.org/jargon/html/N/nagware.html
+1369. http://catb.org/jargon/html/N/nailed-to-the-wall.html
+1370. http://catb.org/jargon/html/N/nailing-jelly.html
+1371. http://catb.org/jargon/html/N/naive.html
+1372. http://catb.org/jargon/html/N/naive-user.html
+1373. http://catb.org/jargon/html/N/NAK.html
+1374. http://catb.org/jargon/html/N/NANA.html
+1375. http://catb.org/jargon/html/N/nano.html
+1376. http://catb.org/jargon/html/N/nano-.html
+1377. http://catb.org/jargon/html/N/nanoacre.html
+1378. http://catb.org/jargon/html/N/nanobot.html
+1379. http://catb.org/jargon/html/N/nanocomputer.html
+1380. http://catb.org/jargon/html/N/nanofortnight.html
+1381. http://catb.org/jargon/html/N/nanotechnology.html
+1382. http://catb.org/jargon/html/N/narg.html
+1383. http://catb.org/jargon/html/N/nasal-demons.html
+1384. http://catb.org/jargon/html/N/nastygram.html
+1385. http://catb.org/jargon/html/N/Nathan-Hale.html
+1386. http://catb.org/jargon/html/N/nature.html
+1387. http://catb.org/jargon/html/N/neat-hack.html
+1388. http://catb.org/jargon/html/N/neats-vs--scruffies.html
+1389. http://catb.org/jargon/html/N/neep-neep.html
+1390. http://catb.org/jargon/html/N/neophilia.html
+1391. http://catb.org/jargon/html/N/nerd.html
+1392. http://catb.org/jargon/html/N/nerd-knob.html
+1393. http://catb.org/jargon/html/N/net--.html
+1394. http://catb.org/jargon/html/N/net-god.html
+1395. http://catb.org/jargon/html/N/net-personality.html
+1396. http://catb.org/jargon/html/N/net-police.html
+1397. http://catb.org/jargon/html/N/netburp.html
+1398. http://catb.org/jargon/html/N/netdead.html
+1399. http://catb.org/jargon/html/N/nethack.html
+1400. http://catb.org/jargon/html/N/netiquette.html
+1401. http://catb.org/jargon/html/N/netlag.html
+1402. http://catb.org/jargon/html/N/netnews.html
+1403. http://catb.org/jargon/html/N/Netscrape.html
+1404. http://catb.org/jargon/html/N/netsplit.html
+1405. http://catb.org/jargon/html/N/netter.html
+1406. http://catb.org/jargon/html/N/network-address.html
+1407. http://catb.org/jargon/html/N/network-meltdown.html
+1408. http://catb.org/jargon/html/N/New-Jersey.html
+1409. http://catb.org/jargon/html/N/New-Testament.html
+1410. http://catb.org/jargon/html/N/newbie.html
+1411. http://catb.org/jargon/html/N/newgroup-wars.html
+1412. http://catb.org/jargon/html/N/newline.html
+1413. http://catb.org/jargon/html/N/NeWS.html
+1414. http://catb.org/jargon/html/N/newsfroup.html
+1415. http://catb.org/jargon/html/N/newsgroup.html
+1416. http://catb.org/jargon/html/N/nick.html
+1417. http://catb.org/jargon/html/N/nickle.html
+1418. http://catb.org/jargon/html/N/night-mode.html
+1419. http://catb.org/jargon/html/N/Nightmare-File-System.html
+1420. http://catb.org/jargon/html/N/NIL.html
+1421. http://catb.org/jargon/html/N/Ninety-Ninety-Rule.html
+1422. http://catb.org/jargon/html/N/nipple-mouse.html
+1423. http://catb.org/jargon/html/N/NMI.html
+1424. http://catb.org/jargon/html/N/no-op.html
+1425. http://catb.org/jargon/html/N/noddy.html
+1426. http://catb.org/jargon/html/N/non-optimal-solution.html
+1427. http://catb.org/jargon/html/N/nonlinear.html
+1428. http://catb.org/jargon/html/N/nontrivial.html
+1429. http://catb.org/jargon/html/N/not-entirely-unlike-X.html
+1430. http://catb.org/jargon/html/N/not-ready-for-prime-time.html
+1431. http://catb.org/jargon/html/N/notwork.html
+1432. http://catb.org/jargon/html/N/NP-.html
+1433. http://catb.org/jargon/html/N/NSA-line-eater.html
+1434. http://catb.org/jargon/html/N/NSP.html
+1435. http://catb.org/jargon/html/N/nude.html
+1436. http://catb.org/jargon/html/N/nugry.html
+1437. http://catb.org/jargon/html/N/nuke.html
+1438. http://catb.org/jargon/html/N/number-crunching.html
+1439. http://catb.org/jargon/html/N/numbers.html
+1440. http://catb.org/jargon/html/N/NUXI-problem.html
+1441. http://catb.org/jargon/html/N/nybble.html
+1442. http://catb.org/jargon/html/N/nyetwork.html
+1443. http://catb.org/jargon/html/O.html
+1444. http://catb.org/jargon/html/O/Ob-.html
+1445. http://catb.org/jargon/html/O/Obfuscated-C-Contest.html
+1446. http://catb.org/jargon/html/O/obi-wan-error.html
+1447. http://catb.org/jargon/html/O/Objectionable-C.html
+1448. http://catb.org/jargon/html/O/obscure.html
+1449. http://catb.org/jargon/html/O/octal-forty.html
+1450. http://catb.org/jargon/html/O/off-the-trolley.html
+1451. http://catb.org/jargon/html/O/off-by-one-error.html
+1452. http://catb.org/jargon/html/O/offline.html
+1453. http://catb.org/jargon/html/O/ogg.html
+1454. http://catb.org/jargon/html/O/suffix-oid.html
+1455. http://catb.org/jargon/html/O/old-fart.html
+1456. http://catb.org/jargon/html/O/Old-Testament.html
+1457. http://catb.org/jargon/html/O/on-the-gripping-hand.html
+1458. http://catb.org/jargon/html/O/one-banana-problem.html
+1459. http://catb.org/jargon/html/O/one-line-fix.html
+1460. http://catb.org/jargon/html/O/one-liner-wars.html
+1461. http://catb.org/jargon/html/O/ooblick.html
+1462. http://catb.org/jargon/html/O/thread-OP.html
+1463. http://catb.org/jargon/html/O/op.html
+1464. http://catb.org/jargon/html/O/open.html
+1465. http://catb.org/jargon/html/O/open-source.html
+1466. http://catb.org/jargon/html/O/open-switch.html
+1467. http://catb.org/jargon/html/O/operating-system.html
+1468. http://catb.org/jargon/html/O/operator-headspace.html
+1469. http://catb.org/jargon/html/O/optical-diff.html
+1470. http://catb.org/jargon/html/O/optical-grep.html
+1471. http://catb.org/jargon/html/O/optimism.html
+1472. http://catb.org/jargon/html/O/Oracle--the.html
+1473. http://catb.org/jargon/html/O/Orange-Book.html
+1474. http://catb.org/jargon/html/O/oriental-food.html
+1475. http://catb.org/jargon/html/O/orphan.html
+1476. http://catb.org/jargon/html/O/orphaned-i-node.html
+1477. http://catb.org/jargon/html/O/orthogonal.html
+1478. http://catb.org/jargon/html/O/OS.html
+1479. http://catb.org/jargon/html/O/OS-2.html
+1480. http://catb.org/jargon/html/O/OSS.html
+1481. http://catb.org/jargon/html/O/OT.html
+1482. http://catb.org/jargon/html/O/OTOH.html
+1483. http://catb.org/jargon/html/O/out-of-band.html
+1484. http://catb.org/jargon/html/O/overclock.html
+1485. http://catb.org/jargon/html/O/overflow-bit.html
+1486. http://catb.org/jargon/html/O/overrun.html
+1487. http://catb.org/jargon/html/O/overrun-screw.html
+1488. http://catb.org/jargon/html/O/owned.html
+1489. http://catb.org/jargon/html/P.html
+1490. http://catb.org/jargon/html/P/P-O-D-.html
+1491. http://catb.org/jargon/html/P/packet-over-air.html
+1492. http://catb.org/jargon/html/P/padded-cell.html
+1493. http://catb.org/jargon/html/P/page-in.html
+1494. http://catb.org/jargon/html/P/page-out.html
+1495. http://catb.org/jargon/html/P/pain-in-the-net.html
+1496. http://catb.org/jargon/html/P/paper-net.html
+1497. http://catb.org/jargon/html/P/param.html
+1498. http://catb.org/jargon/html/P/PARC.html
+1499. http://catb.org/jargon/html/P/parent-message.html
+1500. http://catb.org/jargon/html/P/parity-errors.html
+1501. http://catb.org/jargon/html/P/Parkinsons-Law-of-Data.html
+1502. http://catb.org/jargon/html/P/parm.html
+1503. http://catb.org/jargon/html/P/parse.html
+1504. http://catb.org/jargon/html/P/Pascal.html
+1505. http://catb.org/jargon/html/P/PascalCasing.html
+1506. http://catb.org/jargon/html/P/pastie.html
+1507. http://catb.org/jargon/html/P/patch.html
+1508. http://catb.org/jargon/html/P/patch-pumpkin.html
+1509. http://catb.org/jargon/html/P/patch-space.html
+1510. http://catb.org/jargon/html/P/path.html
+1511. http://catb.org/jargon/html/P/pathological.html
+1512. http://catb.org/jargon/html/P/payware.html
+1513. http://catb.org/jargon/html/P/PBD.html
+1514. http://catb.org/jargon/html/P/PD.html
+1515. http://catb.org/jargon/html/P/PDP-10.html
+1516. http://catb.org/jargon/html/P/PDP-11.html
+1517. http://catb.org/jargon/html/P/PDP-20.html
+1518. http://catb.org/jargon/html/P/PEBKAC.html
+1519. http://catb.org/jargon/html/P/peek.html
+1520. http://catb.org/jargon/html/P/pencil-and-paper.html
+1521. http://catb.org/jargon/html/P/Pentagram-Pro.html
+1522. http://catb.org/jargon/html/P/Pentium.html
+1523. http://catb.org/jargon/html/P/peon.html
+1524. http://catb.org/jargon/html/P/percent-S.html
+1525. http://catb.org/jargon/html/P/perf.html
+1526. http://catb.org/jargon/html/P/perfect-programmer-syndrome.html
+1527. http://catb.org/jargon/html/P/Perl.html
+1528. http://catb.org/jargon/html/P/person-of-no-account.html
+1529. http://catb.org/jargon/html/P/pessimal.html
+1530. http://catb.org/jargon/html/P/pessimizing-compiler.html
+1531. http://catb.org/jargon/html/P/peta-.html
+1532. http://catb.org/jargon/html/P/pffft.html
+1533. http://catb.org/jargon/html/P/PFY.html
+1534. http://catb.org/jargon/html/P/phage.html
+1535. http://catb.org/jargon/html/P/phase.html
+1536. http://catb.org/jargon/html/P/phase-of-the-moon.html
+1537. http://catb.org/jargon/html/P/phase-wrapping.html
+1538. http://catb.org/jargon/html/P/PHB.html
+1539. http://catb.org/jargon/html/P/phreaker.html
+1540. http://catb.org/jargon/html/P/phreaking.html
+1541. http://catb.org/jargon/html/P/pico-.html
+1542. http://catb.org/jargon/html/P/pig-tail.html
+1543. http://catb.org/jargon/html/P/pilot-error.html
+1544. http://catb.org/jargon/html/P/ping.html
+1545. http://catb.org/jargon/html/P/Ping-O--Death.html
+1546. http://catb.org/jargon/html/P/ping-storm.html
+1547. http://catb.org/jargon/html/P/pink-contract.html
+1548. http://catb.org/jargon/html/P/pink-wire.html
+1549. http://catb.org/jargon/html/P/pipe.html
+1550. http://catb.org/jargon/html/P/pistol.html
+1551. http://catb.org/jargon/html/P/pixel-sort.html
+1552. http://catb.org/jargon/html/P/pizza-box.html
+1553. http://catb.org/jargon/html/P/plaid-screen.html
+1554. http://catb.org/jargon/html/P/plain-ASCII.html
+1555. http://catb.org/jargon/html/P/Plan-9.html
+1556. http://catb.org/jargon/html/P/plan-file.html
+1557. http://catb.org/jargon/html/P/platinum-iridium.html
+1558. http://catb.org/jargon/html/P/playpen.html
+1559. http://catb.org/jargon/html/P/playte.html
+1560. http://catb.org/jargon/html/P/plokta.html
+1561. http://catb.org/jargon/html/P/plonk.html
+1562. http://catb.org/jargon/html/P/plug-and-pray.html
+1563. http://catb.org/jargon/html/P/plugh.html
+1564. http://catb.org/jargon/html/P/plumbing.html
+1565. http://catb.org/jargon/html/P/PM.html
+1566. http://catb.org/jargon/html/P/point-release.html
+1567. http://catb.org/jargon/html/P/point-and-drool-interface.html
+1568. http://catb.org/jargon/html/P/pointy-hat.html
+1569. http://catb.org/jargon/html/P/pointy-haired.html
+1570. http://catb.org/jargon/html/P/poke.html
+1571. http://catb.org/jargon/html/P/poll.html
+1572. http://catb.org/jargon/html/P/polygon-pusher.html
+1573. http://catb.org/jargon/html/P/POM.html
+1574. http://catb.org/jargon/html/P/ponytail.html
+1575. http://catb.org/jargon/html/P/pop.html
+1576. http://catb.org/jargon/html/P/poser.html
+1577. http://catb.org/jargon/html/P/post.html
+1578. http://catb.org/jargon/html/P/postcardware.html
+1579. http://catb.org/jargon/html/P/Postels-Prescription.html
+1580. http://catb.org/jargon/html/P/posting.html
+1581. http://catb.org/jargon/html/P/postmaster.html
+1582. http://catb.org/jargon/html/P/PostScript.html
+1583. http://catb.org/jargon/html/P/pound-on.html
+1584. http://catb.org/jargon/html/P/power-cycle.html
+1585. http://catb.org/jargon/html/P/power-hit.html
+1586. http://catb.org/jargon/html/P/pr0n.html
+1587. http://catb.org/jargon/html/P/precedence-lossage.html
+1588. http://catb.org/jargon/html/P/pred.html
+1589. http://catb.org/jargon/html/P/prepend.html
+1590. http://catb.org/jargon/html/P/prestidigitization.html
+1591. http://catb.org/jargon/html/P/pretty-pictures.html
+1592. http://catb.org/jargon/html/P/prettyprint.html
+1593. http://catb.org/jargon/html/P/pretzel-key.html
+1594. http://catb.org/jargon/html/P/priesthood.html
+1595. http://catb.org/jargon/html/P/prime-time.html
+1596. http://catb.org/jargon/html/P/print.html
+1597. http://catb.org/jargon/html/P/printing-discussion.html
+1598. http://catb.org/jargon/html/P/priority-interrupt.html
+1599. http://catb.org/jargon/html/P/profile.html
+1600. http://catb.org/jargon/html/P/progasm.html
+1601. http://catb.org/jargon/html/P/proggy.html
+1602. http://catb.org/jargon/html/P/proglet.html
+1603. http://catb.org/jargon/html/P/program.html
+1604. http://catb.org/jargon/html/P/Programmers-Cheer.html
+1605. http://catb.org/jargon/html/P/programming.html
+1606. http://catb.org/jargon/html/P/programming-fluid.html
+1607. http://catb.org/jargon/html/P/propeller-head.html
+1608. http://catb.org/jargon/html/P/propeller-key.html
+1609. http://catb.org/jargon/html/P/proprietary.html
+1610. http://catb.org/jargon/html/P/protocol.html
+1611. http://catb.org/jargon/html/P/provocative-maintenance.html
+1612. http://catb.org/jargon/html/P/prowler.html
+1613. http://catb.org/jargon/html/P/pseudo.html
+1614. http://catb.org/jargon/html/P/pseudoprime.html
+1615. http://catb.org/jargon/html/P/pseudosuit.html
+1616. http://catb.org/jargon/html/P/psychedelicware.html
+1617. http://catb.org/jargon/html/P/psyton.html
+1618. http://catb.org/jargon/html/P/pubic-directory.html
+1619. http://catb.org/jargon/html/P/puff.html
+1620. http://catb.org/jargon/html/P/pumpkin-holder.html
+1621. http://catb.org/jargon/html/P/pumpking.html
+1622. http://catb.org/jargon/html/P/punched-card.html
+1623. http://catb.org/jargon/html/P/punt.html
+1624. http://catb.org/jargon/html/P/Purple-Book.html
+1625. http://catb.org/jargon/html/P/purple-wire.html
+1626. http://catb.org/jargon/html/P/push.html
+1627. http://catb.org/jargon/html/P/Python.html
+1628. http://catb.org/jargon/html/Q.html
+1629. http://catb.org/jargon/html/Q/quad.html
+1630. http://catb.org/jargon/html/Q/quadruple-bucky.html
+1631. http://catb.org/jargon/html/Q/quantifiers.html
+1632. http://catb.org/jargon/html/Q/quantum-bogodynamics.html
+1633. http://catb.org/jargon/html/Q/quarter.html
+1634. http://catb.org/jargon/html/Q/ques.html
+1635. http://catb.org/jargon/html/Q/quick-and-dirty.html
+1636. http://catb.org/jargon/html/Q/quine.html
+1637. http://catb.org/jargon/html/Q/Quirk-objection.html
+1638. http://catb.org/jargon/html/Q/quote-chapter-and-verse.html
+1639. http://catb.org/jargon/html/Q/quotient.html
+1640. http://catb.org/jargon/html/Q/quux.html
+1641. http://catb.org/jargon/html/Q/qux.html
+1642. http://catb.org/jargon/html/Q/QWERTY.html
+1643. http://catb.org/jargon/html/R.html
+1644. http://catb.org/jargon/html/R/rabbit-job.html
+1645. http://catb.org/jargon/html/R/rain-dance.html
+1646. http://catb.org/jargon/html/R/rainbow-series.html
+1647. http://catb.org/jargon/html/R/random.html
+1648. http://catb.org/jargon/html/R/Random-Number-God.html
+1649. http://catb.org/jargon/html/R/random-numbers.html
+1650. http://catb.org/jargon/html/R/randomness.html
+1651. http://catb.org/jargon/html/R/rape.html
+1652. http://catb.org/jargon/html/R/rare-mode.html
+1653. http://catb.org/jargon/html/R/raster-blaster.html
+1654. http://catb.org/jargon/html/R/raster-burn.html
+1655. http://catb.org/jargon/html/R/rasterbation.html
+1656. http://catb.org/jargon/html/R/rat-belt.html
+1657. http://catb.org/jargon/html/R/rat-dance.html
+1658. http://catb.org/jargon/html/R/rathole.html
+1659. http://catb.org/jargon/html/R/ratio-site.html
+1660. http://catb.org/jargon/html/R/rave.html
+1661. http://catb.org/jargon/html/R/rave-on-.html
+1662. http://catb.org/jargon/html/R/ravs.html
+1663. http://catb.org/jargon/html/R/raw-mode.html
+1664. http://catb.org/jargon/html/R/RBL.html
+1665. http://catb.org/jargon/html/R/rc-file.html
+1666. http://catb.org/jargon/html/R/RE.html
+1667. http://catb.org/jargon/html/R/read-only-user.html
+1668. http://catb.org/jargon/html/R/README-file.html
+1669. http://catb.org/jargon/html/R/real.html
+1670. http://catb.org/jargon/html/R/real-estate.html
+1671. http://catb.org/jargon/html/R/real-hack.html
+1672. http://catb.org/jargon/html/R/real-operating-system.html
+1673. http://catb.org/jargon/html/R/Real-Programmer.html
+1674. http://catb.org/jargon/html/R/Real-Soon-Now.html
+1675. http://catb.org/jargon/html/R/real-time.html
+1676. http://catb.org/jargon/html/R/real-user.html
+1677. http://catb.org/jargon/html/R/Real-World.html
+1678. http://catb.org/jargon/html/R/reality-check.html
+1679. http://catb.org/jargon/html/R/reality-distortion-field.html
+1680. http://catb.org/jargon/html/R/reaper.html
+1681. http://catb.org/jargon/html/R/recompile-the-world.html
+1682. http://catb.org/jargon/html/R/rectangle-slinger.html
+1683. http://catb.org/jargon/html/R/recursion.html
+1684. http://catb.org/jargon/html/R/recursive-acronym.html
+1685. http://catb.org/jargon/html/R/red-wire.html
+1686. http://catb.org/jargon/html/R/regexp.html
+1687. http://catb.org/jargon/html/R/register-dancing.html
+1688. http://catb.org/jargon/html/R/rehi.html
+1689. http://catb.org/jargon/html/R/reincarnation--cycle-of.html
+1690. http://catb.org/jargon/html/R/reinvent-the-wheel.html
+1691. http://catb.org/jargon/html/R/relay-rape.html
+1692. http://catb.org/jargon/html/R/religion-of-CHI.html
+1693. http://catb.org/jargon/html/R/religious-issues.html
+1694. http://catb.org/jargon/html/R/replicator.html
+1695. http://catb.org/jargon/html/R/reply.html
+1696. http://catb.org/jargon/html/R/restriction.html
+1697. http://catb.org/jargon/html/R/retcon.html
+1698. http://catb.org/jargon/html/R/RETI.html
+1699. http://catb.org/jargon/html/R/retrocomputing.html
+1700. http://catb.org/jargon/html/R/return-from-the-dead.html
+1701. http://catb.org/jargon/html/R/RFC.html
+1702. http://catb.org/jargon/html/R/RFE.html
+1703. http://catb.org/jargon/html/R/Right-Thing.html
+1704. http://catb.org/jargon/html/R/rip.html
+1705. http://catb.org/jargon/html/R/ripoff.html
+1706. http://catb.org/jargon/html/R/RL.html
+1707. http://catb.org/jargon/html/R/roach.html
+1708. http://catb.org/jargon/html/R/robocanceller.html
+1709. http://catb.org/jargon/html/R/robot.html
+1710. http://catb.org/jargon/html/R/robust.html
+1711. http://catb.org/jargon/html/R/rococo.html
+1712. http://catb.org/jargon/html/R/rogue.html
+1713. http://catb.org/jargon/html/R/room-temperature-IQ.html
+1714. http://catb.org/jargon/html/R/root.html
+1715. http://catb.org/jargon/html/R/root-mode.html
+1716. http://catb.org/jargon/html/R/rootkit.html
+1717. http://catb.org/jargon/html/R/rot13.html
+1718. http://catb.org/jargon/html/R/rotary-debugger.html
+1719. http://catb.org/jargon/html/R/RSN.html
+1720. http://catb.org/jargon/html/R/RTBM.html
+1721. http://catb.org/jargon/html/R/RTFAQ.html
+1722. http://catb.org/jargon/html/R/RTFB.html
+1723. http://catb.org/jargon/html/R/RTFM.html
+1724. http://catb.org/jargon/html/R/RTFS.html
+1725. http://catb.org/jargon/html/R/RTI.html
+1726. http://catb.org/jargon/html/R/RTM.html
+1727. http://catb.org/jargon/html/R/RTS.html
+1728. http://catb.org/jargon/html/R/rubber-hose-cryptanalysis.html
+1729. http://catb.org/jargon/html/R/rude.html
+1730. http://catb.org/jargon/html/R/runes.html
+1731. http://catb.org/jargon/html/R/runic.html
+1732. http://catb.org/jargon/html/R/rusty-iron.html
+1733. http://catb.org/jargon/html/R/rusty-wire.html
+1734. http://catb.org/jargon/html/S.html
+1735. http://catb.org/jargon/html/S/S-N-ratio.html
+1736. http://catb.org/jargon/html/S/sacred.html
+1737. http://catb.org/jargon/html/S/saga.html
+1738. http://catb.org/jargon/html/S/sagan.html
+1739. http://catb.org/jargon/html/S/SAIL.html
+1740. http://catb.org/jargon/html/S/salescritter.html
+1741. http://catb.org/jargon/html/S/salt.html
+1742. http://catb.org/jargon/html/S/salt-mines.html
+1743. http://catb.org/jargon/html/S/salt-substrate.html
+1744. http://catb.org/jargon/html/S/same-day-service.html
+1745. http://catb.org/jargon/html/S/samizdat.html
+1746. http://catb.org/jargon/html/S/samurai.html
+1747. http://catb.org/jargon/html/S/sandbender.html
+1748. http://catb.org/jargon/html/S/sandbox.html
+1749. http://catb.org/jargon/html/S/sanity-check.html
+1750. http://catb.org/jargon/html/S/Saturday-night-special.html
+1751. http://catb.org/jargon/html/S/say.html
+1752. http://catb.org/jargon/html/S/scag.html
+1753. http://catb.org/jargon/html/S/scanno.html
+1754. http://catb.org/jargon/html/S/scary-devil-monastery.html
+1755. http://catb.org/jargon/html/S/schroedinbug.html
+1756. http://catb.org/jargon/html/S/science-fiction-fandom.html
+1757. http://catb.org/jargon/html/S/SCNR.html
+1758. http://catb.org/jargon/html/S/scram-switch.html
+1759. http://catb.org/jargon/html/S/scratch.html
+1760. http://catb.org/jargon/html/S/scratch-monkey.html
+1761. http://catb.org/jargon/html/S/scream-and-die.html
+1762. http://catb.org/jargon/html/S/screaming-tty.html
+1763. http://catb.org/jargon/html/S/screen.html
+1764. http://catb.org/jargon/html/S/screen-name.html
+1765. http://catb.org/jargon/html/S/screen-scraping.html
+1766. http://catb.org/jargon/html/S/screw.html
+1767. http://catb.org/jargon/html/S/screwage.html
+1768. http://catb.org/jargon/html/S/scribble.html
+1769. http://catb.org/jargon/html/S/script-kiddies.html
+1770. http://catb.org/jargon/html/S/scrog.html
+1771. http://catb.org/jargon/html/S/scrool.html
+1772. http://catb.org/jargon/html/S/scrozzle.html
+1773. http://catb.org/jargon/html/S/scruffies.html
+1774. http://catb.org/jargon/html/S/SCSI.html
+1775. http://catb.org/jargon/html/S/SCSI-voodoo.html
+1776. http://catb.org/jargon/html/S/search-and-destroy-mode.html
+1777. http://catb.org/jargon/html/S/second-system-effect.html
+1778. http://catb.org/jargon/html/S/secondary-damage.html
+1779. http://catb.org/jargon/html/S/security-through-obscurity.html
+1780. http://catb.org/jargon/html/S/SED.html
+1781. http://catb.org/jargon/html/S/See-figure-1.html
+1782. http://catb.org/jargon/html/S/segfault.html
+1783. http://catb.org/jargon/html/S/seggie.html
+1784. http://catb.org/jargon/html/S/segment.html
+1785. http://catb.org/jargon/html/S/segmentation-fault.html
+1786. http://catb.org/jargon/html/S/segv.html
+1787. http://catb.org/jargon/html/S/self-reference.html
+1788. http://catb.org/jargon/html/S/selvage.html
+1789. http://catb.org/jargon/html/S/semi.html
+1790. http://catb.org/jargon/html/S/semi-automated.html
+1791. http://catb.org/jargon/html/S/semi-infinite.html
+1792. http://catb.org/jargon/html/S/senior-bit.html
+1793. http://catb.org/jargon/html/S/September-that-never-ended.html
+1794. http://catb.org/jargon/html/S/server.html
+1795. http://catb.org/jargon/html/S/SEX.html
+1796. http://catb.org/jargon/html/S/sex-changer.html
+1797. http://catb.org/jargon/html/S/shambolic-link.html
+1798. http://catb.org/jargon/html/S/shar-file.html
+1799. http://catb.org/jargon/html/S/sharchive.html
+1800. http://catb.org/jargon/html/S/Share-and-enjoy-.html
+1801. http://catb.org/jargon/html/S/shareware.html
+1802. http://catb.org/jargon/html/S/sharing-violation.html
+1803. http://catb.org/jargon/html/S/shebang.html
+1804. http://catb.org/jargon/html/S/shelfware.html
+1805. http://catb.org/jargon/html/S/shell.html
+1806. http://catb.org/jargon/html/S/shell-out.html
+1807. http://catb.org/jargon/html/S/shift-left-or-right-logical.html
+1808. http://catb.org/jargon/html/S/shim.html
+1809. http://catb.org/jargon/html/S/shitogram.html
+1810. http://catb.org/jargon/html/S/shotgun-debugging.html
+1811. http://catb.org/jargon/html/S/shovelware.html
+1812. http://catb.org/jargon/html/S/showstopper.html
+1813. http://catb.org/jargon/html/S/shriek.html
+1814. http://catb.org/jargon/html/S/Shub-Internet.html
+1815. http://catb.org/jargon/html/S/SIG.html
+1816. http://catb.org/jargon/html/S/sig-block.html
+1817. http://catb.org/jargon/html/S/sig-quote.html
+1818. http://catb.org/jargon/html/S/sig-virus.html
+1819. http://catb.org/jargon/html/S/sigmonster.html
+1820. http://catb.org/jargon/html/S/signal-to-noise-ratio.html
+1821. http://catb.org/jargon/html/S/silicon.html
+1822. http://catb.org/jargon/html/S/silly-walk.html
+1823. http://catb.org/jargon/html/S/silo.html
+1824. http://catb.org/jargon/html/S/since-time-T-equals-minus-infinity.html
+1825. http://catb.org/jargon/html/S/sitename.html
+1826. http://catb.org/jargon/html/S/skrog.html
+1827. http://catb.org/jargon/html/S/skulker.html
+1828. http://catb.org/jargon/html/S/slab.html
+1829. http://catb.org/jargon/html/S/slack.html
+1830. http://catb.org/jargon/html/S/slash.html
+1831. http://catb.org/jargon/html/S/slashdot-effect.html
+1832. http://catb.org/jargon/html/S/sleep.html
+1833. http://catb.org/jargon/html/S/slim.html
+1834. http://catb.org/jargon/html/S/slop.html
+1835. http://catb.org/jargon/html/S/slopsucker.html
+1836. http://catb.org/jargon/html/S/Slowlaris.html
+1837. http://catb.org/jargon/html/S/slurp.html
+1838. http://catb.org/jargon/html/S/slurp-the-robot.html
+1839. http://catb.org/jargon/html/S/smart.html
+1840. http://catb.org/jargon/html/S/smart-terminal.html
+1841. http://catb.org/jargon/html/S/smash-case.html
+1842. http://catb.org/jargon/html/S/smash-the-stack.html
+1843. http://catb.org/jargon/html/S/smiley.html
+1844. http://catb.org/jargon/html/S/smoke.html
+1845. http://catb.org/jargon/html/S/smoke-and-mirrors.html
+1846. http://catb.org/jargon/html/S/smoke-test.html
+1847. http://catb.org/jargon/html/S/smoking-clover.html
+1848. http://catb.org/jargon/html/S/smoot.html
+1849. http://catb.org/jargon/html/S/SMOP.html
+1850. http://catb.org/jargon/html/S/smurf.html
+1851. http://catb.org/jargon/html/S/SNAFU-principle.html
+1852. http://catb.org/jargon/html/S/snail.html
+1853. http://catb.org/jargon/html/S/snail-mail.html
+1854. http://catb.org/jargon/html/S/snap.html
+1855. http://catb.org/jargon/html/S/snarf.html
+1856. http://catb.org/jargon/html/S/snarf-ampersand-barf.html
+1857. http://catb.org/jargon/html/S/snarf-down.html
+1858. http://catb.org/jargon/html/S/snark.html
+1859. http://catb.org/jargon/html/S/sneaker.html
+1860. http://catb.org/jargon/html/S/sneakernet.html
+1861. http://catb.org/jargon/html/S/sniff.html
+1862. http://catb.org/jargon/html/S/snippage.html
+1863. http://catb.org/jargon/html/S/SO.html
+1864. http://catb.org/jargon/html/S/social-engineering.html
+1865. http://catb.org/jargon/html/S/social-science-number.html
+1866. http://catb.org/jargon/html/S/sock-puppet.html
+1867. http://catb.org/jargon/html/S/sodium-substrate.html
+1868. http://catb.org/jargon/html/S/soft-boot.html
+1869. http://catb.org/jargon/html/S/softcopy.html
+1870. http://catb.org/jargon/html/S/software-bloat.html
+1871. http://catb.org/jargon/html/S/software-hoarding.html
+1872. http://catb.org/jargon/html/S/software-laser.html
+1873. http://catb.org/jargon/html/S/software-rot.html
+1874. http://catb.org/jargon/html/S/softwarily.html
+1875. http://catb.org/jargon/html/S/softy.html
+1876. http://catb.org/jargon/html/S/some-random-X.html
+1877. http://catb.org/jargon/html/S/sorcerers-apprentice-mode.html
+1878. http://catb.org/jargon/html/S/source.html
+1879. http://catb.org/jargon/html/S/source-of-all-good-bits.html
+1880. http://catb.org/jargon/html/S/space-cadet-keyboard.html
+1881. http://catb.org/jargon/html/S/spaceship-operator.html
+1882. http://catb.org/jargon/html/S/SPACEWAR.html
+1883. http://catb.org/jargon/html/S/spaghetti-code.html
+1884. http://catb.org/jargon/html/S/spaghetti-inheritance.html
+1885. http://catb.org/jargon/html/S/spam.html
+1886. http://catb.org/jargon/html/S/spam-bait.html
+1887. http://catb.org/jargon/html/S/spamblock.html
+1888. http://catb.org/jargon/html/S/spamhaus.html
+1889. http://catb.org/jargon/html/S/spamvertize.html
+1890. http://catb.org/jargon/html/S/spangle.html
+1891. http://catb.org/jargon/html/S/spawn.html
+1892. http://catb.org/jargon/html/S/special-case.html
+1893. http://catb.org/jargon/html/S/speed-of-light.html
+1894. http://catb.org/jargon/html/S/speedometer.html
+1895. http://catb.org/jargon/html/S/spell.html
+1896. http://catb.org/jargon/html/S/spelling-flame.html
+1897. http://catb.org/jargon/html/S/spider.html
+1898. http://catb.org/jargon/html/S/spider-food.html
+1899. http://catb.org/jargon/html/S/spiffy.html
+1900. http://catb.org/jargon/html/S/spike.html
+1901. http://catb.org/jargon/html/S/spin.html
+1902. http://catb.org/jargon/html/S/Spinning-Pizza-of-Death.html
+1903. http://catb.org/jargon/html/S/spl.html
+1904. http://catb.org/jargon/html/S/splash-screen.html
+1905. http://catb.org/jargon/html/S/splat.html
+1906. http://catb.org/jargon/html/S/splat-out.html
+1907. http://catb.org/jargon/html/S/splork-.html
+1908. http://catb.org/jargon/html/S/spod.html
+1909. http://catb.org/jargon/html/S/spoiler.html
+1910. http://catb.org/jargon/html/S/spoiler-space.html
+1911. http://catb.org/jargon/html/S/sponge.html
+1912. http://catb.org/jargon/html/S/spoof.html
+1913. http://catb.org/jargon/html/S/spool.html
+1914. http://catb.org/jargon/html/S/spool-file.html
+1915. http://catb.org/jargon/html/S/sporgery.html
+1916. http://catb.org/jargon/html/S/sport-death.html
+1917. http://catb.org/jargon/html/S/spungle.html
+1918. http://catb.org/jargon/html/S/spyware.html
+1919. http://catb.org/jargon/html/S/squirrelcide.html
+1920. http://catb.org/jargon/html/S/stack.html
+1921. http://catb.org/jargon/html/S/stack-puke.html
+1922. http://catb.org/jargon/html/S/stale-pointer-bug.html
+1923. http://catb.org/jargon/html/S/Stanford-Bunny.html
+1924. http://catb.org/jargon/html/S/star-out.html
+1925. http://catb.org/jargon/html/S/state.html
+1926. http://catb.org/jargon/html/S/stealth-manager.html
+1927. http://catb.org/jargon/html/S/steam-powered.html
+1928. http://catb.org/jargon/html/S/steved.html
+1929. http://catb.org/jargon/html/S/STFW.html
+1930. http://catb.org/jargon/html/S/stir-fried-random.html
+1931. http://catb.org/jargon/html/S/stomp-on.html
+1932. http://catb.org/jargon/html/S/Stone-Age.html
+1933. http://catb.org/jargon/html/S/stone-knives-and-bearskins.html
+1934. http://catb.org/jargon/html/S/stoppage.html
+1935. http://catb.org/jargon/html/S/store.html
+1936. http://catb.org/jargon/html/S/STR.html
+1937. http://catb.org/jargon/html/S/strided.html
+1938. http://catb.org/jargon/html/S/stroke.html
+1939. http://catb.org/jargon/html/S/strudel.html
+1940. http://catb.org/jargon/html/S/stubroutine.html
+1941. http://catb.org/jargon/html/S/studly.html
+1942. http://catb.org/jargon/html/S/studlycaps.html
+1943. http://catb.org/jargon/html/S/stunning.html
+1944. http://catb.org/jargon/html/S/stupid-sort.html
+1945. http://catb.org/jargon/html/S/Stupids.html
+1946. http://catb.org/jargon/html/S/Sturgeons-Law.html
+1947. http://catb.org/jargon/html/S/sucking-mud.html
+1948. http://catb.org/jargon/html/S/sufficiently-small.html
+1949. http://catb.org/jargon/html/S/suit.html
+1950. http://catb.org/jargon/html/S/suitable-win.html
+1951. http://catb.org/jargon/html/S/suitably-small.html
+1952. http://catb.org/jargon/html/S/Sun.html
+1953. http://catb.org/jargon/html/S/sun-lounge.html
+1954. http://catb.org/jargon/html/S/sun-stools.html
+1955. http://catb.org/jargon/html/S/sunspots.html
+1956. http://catb.org/jargon/html/S/super-source-quench.html
+1957. http://catb.org/jargon/html/S/superloser.html
+1958. http://catb.org/jargon/html/S/superprogrammer.html
+1959. http://catb.org/jargon/html/S/superuser.html
+1960. http://catb.org/jargon/html/S/support.html
+1961. http://catb.org/jargon/html/S/surf.html
+1962. http://catb.org/jargon/html/S/Suzie-COBOL.html
+1963. http://catb.org/jargon/html/S/swab.html
+1964. http://catb.org/jargon/html/S/swap.html
+1965. http://catb.org/jargon/html/S/swap-space.html
+1966. http://catb.org/jargon/html/S/swapped-in.html
+1967. http://catb.org/jargon/html/S/swapped-out.html
+1968. http://catb.org/jargon/html/S/Swiss-Army-chainsaw.html
+1969. http://catb.org/jargon/html/S/swizzle.html
+1970. http://catb.org/jargon/html/S/sync.html
+1971. http://catb.org/jargon/html/S/syntactic-salt.html
+1972. http://catb.org/jargon/html/S/syntactic-sugar.html
+1973. http://catb.org/jargon/html/S/sys-frog.html
+1974. http://catb.org/jargon/html/S/sysadmin.html
+1975. http://catb.org/jargon/html/S/sysape.html
+1976. http://catb.org/jargon/html/S/sysop.html
+1977. http://catb.org/jargon/html/S/system.html
+1978. http://catb.org/jargon/html/S/system-mangler.html
+1979. http://catb.org/jargon/html/S/systems-jock.html
+1980. http://catb.org/jargon/html/T.html
+1981. http://catb.org/jargon/html/T/T.html
+1982. http://catb.org/jargon/html/T/tail-recursion.html
+1983. http://catb.org/jargon/html/T/talk-mode.html
+1984. http://catb.org/jargon/html/T/talker-system.html
+1985. http://catb.org/jargon/html/T/TAN.html
+1986. http://catb.org/jargon/html/T/tanked.html
+1987. http://catb.org/jargon/html/T/TANSTAAFL.html
+1988. http://catb.org/jargon/html/T/tape-monkey.html
+1989. http://catb.org/jargon/html/T/tar-and-feather.html
+1990. http://catb.org/jargon/html/T/tarball.html
+1991. http://catb.org/jargon/html/T/tardegy.html
+1992. http://catb.org/jargon/html/T/taste.html
+1993. http://catb.org/jargon/html/T/tayste.html
+1994. http://catb.org/jargon/html/T/TCB.html
+1995. http://catb.org/jargon/html/T/TCP-IP.html
+1996. http://catb.org/jargon/html/T/TECO.html
+1997. http://catb.org/jargon/html/T/tee.html
+1998. http://catb.org/jargon/html/T/teergrube.html
+1999. http://catb.org/jargon/html/T/teledildonics.html
+2000. http://catb.org/jargon/html/T/ten-finger-interface.html
+2001. http://catb.org/jargon/html/T/tense.html
+2002. http://catb.org/jargon/html/T/tentacle.html
+2003. http://catb.org/jargon/html/T/tenured-graduate-student.html
+2004. http://catb.org/jargon/html/T/tera-.html
+2005. http://catb.org/jargon/html/T/teraflop-club.html
+2006. http://catb.org/jargon/html/T/terminak.html
+2007. http://catb.org/jargon/html/T/terminal-brain-death.html
+2008. http://catb.org/jargon/html/T/terminal-illness.html
+2009. http://catb.org/jargon/html/T/terminal-junkie.html
+2010. http://catb.org/jargon/html/T/test.html
+2011. http://catb.org/jargon/html/T/TeX.html
+2012. http://catb.org/jargon/html/T/text.html
+2013. http://catb.org/jargon/html/T/thanks-in-advance.html
+2014. http://catb.org/jargon/html/T/Thats-not-a-bug--thats-a-feature-.html
+2015. http://catb.org/jargon/html/T/the-literature.html
+2016. http://catb.org/jargon/html/T/the-network.html
+2017. http://catb.org/jargon/html/T/the-X-that-can-be-Y-is-not-the-true-X.html
+2018. http://catb.org/jargon/html/T/theology.html
+2019. http://catb.org/jargon/html/T/theory.html
+2020. http://catb.org/jargon/html/T/thinko.html
+2021. http://catb.org/jargon/html/T/This-can-t-happen.html
+2022. http://catb.org/jargon/html/T/This-time--for-sure-.html
+2023. http://catb.org/jargon/html/T/thrash.html
+2024. http://catb.org/jargon/html/T/thread.html
+2025. http://catb.org/jargon/html/T/three-finger-salute.html
+2026. http://catb.org/jargon/html/T/throwaway-account.html
+2027. http://catb.org/jargon/html/T/thud.html
+2028. http://catb.org/jargon/html/T/thumb.html
+2029. http://catb.org/jargon/html/T/thundering-herd-problem.html
+2030. http://catb.org/jargon/html/T/thunk.html
+2031. http://catb.org/jargon/html/T/tick.html
+2032. http://catb.org/jargon/html/T/tick-list-features.html
+2033. http://catb.org/jargon/html/T/tickle-a-bug.html
+2034. http://catb.org/jargon/html/T/tiger-team.html
+2035. http://catb.org/jargon/html/T/time-bomb.html
+2036. http://catb.org/jargon/html/T/time-sink.html
+2037. http://catb.org/jargon/html/T/time-T.html
+2038. http://catb.org/jargon/html/T/times-or-divided-by.html
+2039. http://catb.org/jargon/html/T/timesharing.html
+2040. http://catb.org/jargon/html/T/TINC.html
+2041. http://catb.org/jargon/html/T/Tinkerbell-program.html
+2042. http://catb.org/jargon/html/T/TINLC.html
+2043. http://catb.org/jargon/html/T/tip-of-the-ice-cube.html
+2044. http://catb.org/jargon/html/T/tired-iron.html
+2045. http://catb.org/jargon/html/T/tits-on-a-keyboard.html
+2046. http://catb.org/jargon/html/T/TLA.html
+2047. http://catb.org/jargon/html/T/TMRC.html
+2048. http://catb.org/jargon/html/T/TMRCie.html
+2049. http://catb.org/jargon/html/T/TMTOWTDI.html
+2050. http://catb.org/jargon/html/T/to-a-first-approximation.html
+2051. http://catb.org/jargon/html/T/to-a-zeroth-approximation.html
+2052. http://catb.org/jargon/html/T/toad.html
+2053. http://catb.org/jargon/html/T/toast.html
+2054. http://catb.org/jargon/html/T/toaster.html
+2055. http://catb.org/jargon/html/T/toeprint.html
+2056. http://catb.org/jargon/html/T/TOFU.html
+2057. http://catb.org/jargon/html/T/toggle.html
+2058. http://catb.org/jargon/html/T/tool.html
+2059. http://catb.org/jargon/html/T/toolchain.html
+2060. http://catb.org/jargon/html/T/toolsmith.html
+2061. http://catb.org/jargon/html/T/toor.html
+2062. http://catb.org/jargon/html/T/top-post.html
+2063. http://catb.org/jargon/html/T/topic-drift.html
+2064. http://catb.org/jargon/html/T/topic-group.html
+2065. http://catb.org/jargon/html/T/TOPS-10.html
+2066. http://catb.org/jargon/html/T/TOPS-20.html
+2067. http://catb.org/jargon/html/T/TOS.html
+2068. http://catb.org/jargon/html/T/tourist.html
+2069. http://catb.org/jargon/html/T/tourist-information.html
+2070. http://catb.org/jargon/html/T/touristic.html
+2071. http://catb.org/jargon/html/T/toy.html
+2072. http://catb.org/jargon/html/T/toy-language.html
+2073. http://catb.org/jargon/html/T/toy-problem.html
+2074. http://catb.org/jargon/html/T/toy-program.html
+2075. http://catb.org/jargon/html/T/trampoline.html
+2076. http://catb.org/jargon/html/T/trap.html
+2077. http://catb.org/jargon/html/T/trap-door.html
+2078. http://catb.org/jargon/html/T/trash.html
+2079. http://catb.org/jargon/html/T/trawl.html
+2080. http://catb.org/jargon/html/T/tree-killer.html
+2081. http://catb.org/jargon/html/T/treeware.html
+2082. http://catb.org/jargon/html/T/trit.html
+2083. http://catb.org/jargon/html/T/trivial.html
+2084. http://catb.org/jargon/html/T/troff.html
+2085. http://catb.org/jargon/html/T/troglodyte.html
+2086. http://catb.org/jargon/html/T/troglodyte-mode.html
+2087. http://catb.org/jargon/html/T/Trojan-horse.html
+2088. http://catb.org/jargon/html/T/troll.html
+2089. http://catb.org/jargon/html/T/Troll-O-Meter.html
+2090. http://catb.org/jargon/html/T/tron.html
+2091. http://catb.org/jargon/html/T/troughie.html
+2092. http://catb.org/jargon/html/T/true-hacker.html
+2093. http://catb.org/jargon/html/T/tty.html
+2094. http://catb.org/jargon/html/T/tube.html
+2095. http://catb.org/jargon/html/T/tube-time.html
+2096. http://catb.org/jargon/html/T/tumbler.html
+2097. http://catb.org/jargon/html/T/tunafish.html
+2098. http://catb.org/jargon/html/T/tune.html
+2099. http://catb.org/jargon/html/T/turbo-nerd.html
+2100. http://catb.org/jargon/html/T/Turing-tar-pit.html
+2101. http://catb.org/jargon/html/T/turist.html
+2102. http://catb.org/jargon/html/T/Tux.html
+2103. http://catb.org/jargon/html/T/tweak.html
+2104. http://catb.org/jargon/html/T/TWENEX.html
+2105. http://catb.org/jargon/html/T/twiddle.html
+2106. http://catb.org/jargon/html/T/twilight-zone.html
+2107. http://catb.org/jargon/html/T/twink.html
+2108. http://catb.org/jargon/html/T/twirling-baton.html
+2109. http://catb.org/jargon/html/T/two-pi.html
+2110. http://catb.org/jargon/html/T/two-to-the-N.html
+2111. http://catb.org/jargon/html/T/tyop.html
+2112. http://catb.org/jargon/html/U.html
+2113. http://catb.org/jargon/html/U/u-.html
+2114. http://catb.org/jargon/html/U/UBD.html
+2115. http://catb.org/jargon/html/U/UBE.html
+2116. http://catb.org/jargon/html/U/ubergeek.html
+2117. http://catb.org/jargon/html/U/UCE.html
+2118. http://catb.org/jargon/html/U/UDP.html
+2119. http://catb.org/jargon/html/U/UN-asterisk-X.html
+2120. http://catb.org/jargon/html/U/undefined-external-reference.html
+2121. http://catb.org/jargon/html/U/under-the-hood.html
+2122. http://catb.org/jargon/html/U/undocumented-feature.html
+2123. http://catb.org/jargon/html/U/uninteresting.html
+2124. http://catb.org/jargon/html/U/Unix.html
+2125. http://catb.org/jargon/html/U/Unix-brain-damage.html
+2126. http://catb.org/jargon/html/U/Unix-conspiracy.html
+2127. http://catb.org/jargon/html/U/Unix-weenie.html
+2128. http://catb.org/jargon/html/U/unixism.html
+2129. http://catb.org/jargon/html/U/unswizzle.html
+2130. http://catb.org/jargon/html/U/unwind-the-stack.html
+2131. http://catb.org/jargon/html/U/unwind-protect.html
+2132. http://catb.org/jargon/html/U/up.html
+2133. http://catb.org/jargon/html/U/upload.html
+2134. http://catb.org/jargon/html/U/upstream.html
+2135. http://catb.org/jargon/html/U/upthread.html
+2136. http://catb.org/jargon/html/U/uptime.html
+2137. http://catb.org/jargon/html/U/urchin.html
+2138. http://catb.org/jargon/html/U/URL.html
+2139. http://catb.org/jargon/html/U/Usenet.html
+2140. http://catb.org/jargon/html/U/Usenet-Death-Penalty.html
+2141. http://catb.org/jargon/html/U/user.html
+2142. http://catb.org/jargon/html/U/user-friendly.html
+2143. http://catb.org/jargon/html/U/user-obsequious.html
+2144. http://catb.org/jargon/html/U/userland.html
+2145. http://catb.org/jargon/html/U/Utah-teapot.html
+2146. http://catb.org/jargon/html/U/UTSL.html
+2147. http://catb.org/jargon/html/U/UUOC.html
+2148. http://catb.org/jargon/html/V.html
+2149. http://catb.org/jargon/html/V/V7.html
+2150. http://catb.org/jargon/html/V/vadding.html
+2151. http://catb.org/jargon/html/V/vanilla.html
+2152. http://catb.org/jargon/html/V/vanity-domain.html
+2153. http://catb.org/jargon/html/V/vannevar.html
+2154. http://catb.org/jargon/html/V/vaporware.html
+2155. http://catb.org/jargon/html/V/var.html
+2156. http://catb.org/jargon/html/V/vaston.html
+2157. http://catb.org/jargon/html/V/VAX.html
+2158. http://catb.org/jargon/html/V/VAXen.html
+2159. http://catb.org/jargon/html/V/vaxocentrism.html
+2160. http://catb.org/jargon/html/V/vdiff.html
+2161. http://catb.org/jargon/html/V/veeblefester.html
+2162. http://catb.org/jargon/html/V/velveeta.html
+2163. http://catb.org/jargon/html/V/Venus-flytrap.html
+2164. http://catb.org/jargon/html/V/verbage.html
+2165. http://catb.org/jargon/html/V/verbiage.html
+2166. http://catb.org/jargon/html/V/Version-7.html
+2167. http://catb.org/jargon/html/V/vgrep.html
+2168. http://catb.org/jargon/html/V/vi.html
+2169. http://catb.org/jargon/html/V/video-toaster.html
+2170. http://catb.org/jargon/html/V/videotex.html
+2171. http://catb.org/jargon/html/V/virgin.html
+2172. http://catb.org/jargon/html/V/virtual.html
+2173. http://catb.org/jargon/html/V/virtual-beer.html
+2174. http://catb.org/jargon/html/V/virtual-Friday.html
+2175. http://catb.org/jargon/html/V/virtual-reality.html
+2176. http://catb.org/jargon/html/V/virtual-shredder.html
+2177. http://catb.org/jargon/html/V/virus.html
+2178. http://catb.org/jargon/html/V/visionary.html
+2179. http://catb.org/jargon/html/V/Visual-Fred.html
+2180. http://catb.org/jargon/html/V/VMS.html
+2181. http://catb.org/jargon/html/V/voice.html
+2182. http://catb.org/jargon/html/V/voice-net.html
+2183. http://catb.org/jargon/html/V/voodoo-programming.html
+2184. http://catb.org/jargon/html/V/VR.html
+2185. http://catb.org/jargon/html/V/Vulcan-nerve-pinch.html
+2186. http://catb.org/jargon/html/V/vulture-capitalist.html
+2187. http://catb.org/jargon/html/W.html
+2188. http://catb.org/jargon/html/W/w00t.html
+2189. http://catb.org/jargon/html/W/wabbit.html
+2190. http://catb.org/jargon/html/W/WAITS.html
+2191. http://catb.org/jargon/html/W/waldo.html
+2192. http://catb.org/jargon/html/W/walk.html
+2193. http://catb.org/jargon/html/W/walk-off-the-end-of.html
+2194. http://catb.org/jargon/html/W/walking-drives.html
+2195. http://catb.org/jargon/html/W/wall.html
+2196. http://catb.org/jargon/html/W/wall-follower.html
+2197. http://catb.org/jargon/html/W/wall-time.html
+2198. http://catb.org/jargon/html/W/wall-wart.html
+2199. http://catb.org/jargon/html/W/wallhack.html
+2200. http://catb.org/jargon/html/W/wango.html
+2201. http://catb.org/jargon/html/W/wank.html
+2202. http://catb.org/jargon/html/W/wannabee.html
+2203. http://catb.org/jargon/html/W/war-dialer.html
+2204. http://catb.org/jargon/html/W/war-driving.html
+2205. http://catb.org/jargon/html/W/war-chalking.html
+2206. http://catb.org/jargon/html/W/suffix-ware.html
+2207. http://catb.org/jargon/html/W/warez.html
+2208. http://catb.org/jargon/html/W/warez-d00dz.html
+2209. http://catb.org/jargon/html/W/warez-kiddies.html
+2210. http://catb.org/jargon/html/W/warlording.html
+2211. http://catb.org/jargon/html/W/warm-boot.html
+2212. http://catb.org/jargon/html/W/wart.html
+2213. http://catb.org/jargon/html/W/washing-machine.html
+2214. http://catb.org/jargon/html/W/washing-software.html
+2215. http://catb.org/jargon/html/W/water-MIPS.html
+2216. http://catb.org/jargon/html/W/wave-a-dead-chicken.html
+2217. http://catb.org/jargon/html/W/weasel.html
+2218. http://catb.org/jargon/html/W/web-pointer.html
+2219. http://catb.org/jargon/html/W/web-ring.html
+2220. http://catb.org/jargon/html/W/web-toaster.html
+2221. http://catb.org/jargon/html/W/webify.html
+2222. http://catb.org/jargon/html/W/webmaster.html
+2223. http://catb.org/jargon/html/W/wedged.html
+2224. http://catb.org/jargon/html/W/wedgie.html
+2225. http://catb.org/jargon/html/W/wedgitude.html
+2226. http://catb.org/jargon/html/W/weeble.html
+2227. http://catb.org/jargon/html/W/weeds.html
+2228. http://catb.org/jargon/html/W/weenie.html
+2229. http://catb.org/jargon/html/W/Weenix.html
+2230. http://catb.org/jargon/html/W/well-behaved.html
+2231. http://catb.org/jargon/html/W/well-connected.html
+2232. http://catb.org/jargon/html/W/wetware.html
+2233. http://catb.org/jargon/html/W/whack.html
+2234. http://catb.org/jargon/html/W/whack-a-mole.html
+2235. http://catb.org/jargon/html/W/whacker.html
+2236. http://catb.org/jargon/html/W/whales.html
+2237. http://catb.org/jargon/html/W/Whats-a-spline.html
+2238. http://catb.org/jargon/html/W/wheel.html
+2239. http://catb.org/jargon/html/W/wheel-bit.html
+2240. http://catb.org/jargon/html/W/wheel-of-reincarnation.html
+2241. http://catb.org/jargon/html/W/wheel-wars.html
+2242. http://catb.org/jargon/html/W/white-hat.html
+2243. http://catb.org/jargon/html/W/whitelist.html
+2244. http://catb.org/jargon/html/W/whizzy.html
+2245. http://catb.org/jargon/html/W/Whorfian-mind-lock.html
+2246. http://catb.org/jargon/html/W/wibble.html
+2247. http://catb.org/jargon/html/W/WIBNI.html
+2248. http://catb.org/jargon/html/W/widget.html
+2249. http://catb.org/jargon/html/W/wiggles.html
+2250. http://catb.org/jargon/html/W/wild-side.html
+2251. http://catb.org/jargon/html/W/WIMP-environment.html
+2252. http://catb.org/jargon/html/W/win.html
+2253. http://catb.org/jargon/html/W/win-big.html
+2254. http://catb.org/jargon/html/W/win-win.html
+2255. http://catb.org/jargon/html/W/Winchester.html
+2256. http://catb.org/jargon/html/W/windoid.html
+2257. http://catb.org/jargon/html/W/window-shopping.html
+2258. http://catb.org/jargon/html/W/Windowsitis.html
+2259. http://catb.org/jargon/html/W/Windoze.html
+2260. http://catb.org/jargon/html/W/winged-comments.html
+2261. http://catb.org/jargon/html/W/winkey.html
+2262. http://catb.org/jargon/html/W/winnage.html
+2263. http://catb.org/jargon/html/W/winner.html
+2264. http://catb.org/jargon/html/W/winnitude.html
+2265. http://catb.org/jargon/html/W/Wintel.html
+2266. http://catb.org/jargon/html/W/Wintendo.html
+2267. http://catb.org/jargon/html/W/wired.html
+2268. http://catb.org/jargon/html/W/wirehead.html
+2269. http://catb.org/jargon/html/W/wirewater.html
+2270. http://catb.org/jargon/html/W/wish-list.html
+2271. http://catb.org/jargon/html/W/within-delta-of.html
+2272. http://catb.org/jargon/html/W/within-epsilon-of.html
+2273. http://catb.org/jargon/html/W/wizard.html
+2274. http://catb.org/jargon/html/W/Wizard-Book.html
+2275. http://catb.org/jargon/html/W/wizard-hat.html
+2276. http://catb.org/jargon/html/W/wizard-mode.html
+2277. http://catb.org/jargon/html/W/wizardly.html
+2278. http://catb.org/jargon/html/W/wok-on-the-wall.html
+2279. http://catb.org/jargon/html/W/womb-box.html
+2280. http://catb.org/jargon/html/W/WOMBAT.html
+2281. http://catb.org/jargon/html/W/womble.html
+2282. http://catb.org/jargon/html/W/wonky.html
+2283. http://catb.org/jargon/html/W/workaround.html
+2284. http://catb.org/jargon/html/W/working-as-designed.html
+2285. http://catb.org/jargon/html/W/worm.html
+2286. http://catb.org/jargon/html/W/wormhole.html
+2287. http://catb.org/jargon/html/W/wound-around-the-axle.html
+2288. http://catb.org/jargon/html/W/wrap-around.html
+2289. http://catb.org/jargon/html/W/write-only-code.html
+2290. http://catb.org/jargon/html/W/write-only-language.html
+2291. http://catb.org/jargon/html/W/write-only-memory.html
+2292. http://catb.org/jargon/html/W/Wrong-Thing.html
+2293. http://catb.org/jargon/html/W/wugga-wugga.html
+2294. http://catb.org/jargon/html/W/wumpus.html
+2295. http://catb.org/jargon/html/W/WYSIAYG.html
+2296. http://catb.org/jargon/html/W/WYSIWYG.html
+2297. http://catb.org/jargon/html/X.html
+2298. http://catb.org/jargon/html/X/X.html
+2299. http://catb.org/jargon/html/X/XEROX-PARC.html
+2300. http://catb.org/jargon/html/X/XOFF.html
+2301. http://catb.org/jargon/html/X/XON.html
+2302. http://catb.org/jargon/html/X/xor.html
+2303. http://catb.org/jargon/html/X/xref.html
+2304. http://catb.org/jargon/html/X/XXX.html
+2305. http://catb.org/jargon/html/X/xyzzy.html
+2306. http://catb.org/jargon/html/Y.html
+2307. http://catb.org/jargon/html/Y/YA-.html
+2308. http://catb.org/jargon/html/Y/YABA.html
+2309. http://catb.org/jargon/html/Y/YAFIYGI.html
+2310. http://catb.org/jargon/html/Y/yak-shaving.html
+2311. http://catb.org/jargon/html/Y/YAUN.html
+2312. http://catb.org/jargon/html/Y/yellow-card.html
+2313. http://catb.org/jargon/html/Y/yellow-wire.html
+2314. http://catb.org/jargon/html/Y/Yet-Another.html
+2315. http://catb.org/jargon/html/Y/YHBT.html
+2316. http://catb.org/jargon/html/Y/YKYBHTLW.html
+2317. http://catb.org/jargon/html/Y/YMMV.html
+2318. http://catb.org/jargon/html/Y/You-are-not-expected-to-understand-this.html
+2319. http://catb.org/jargon/html/Y/You-know-you-ve-been-hacking-too-long-when.html
+2320. http://catb.org/jargon/html/Y/Your-mileage-may-vary.html
+2321. http://catb.org/jargon/html/Y/Yow-.html
+2322. http://catb.org/jargon/html/Y/yoyo-mode.html
+2323. http://catb.org/jargon/html/Y/Yu-Shiang-Whole-Fish.html
+2324. http://catb.org/jargon/html/Z.html
+2325. http://catb.org/jargon/html/Z/zap.html
+2326. http://catb.org/jargon/html/Z/zapped.html
+2327. http://catb.org/jargon/html/Z/Zawinskis-Law.html
+2328. http://catb.org/jargon/html/Z/zbeba.html
+2329. http://catb.org/jargon/html/Z/zen.html
+2330. http://catb.org/jargon/html/Z/zero.html
+2331. http://catb.org/jargon/html/Z/zero-content.html
+2332. http://catb.org/jargon/html/Z/Zero-One-Infinity-Rule.html
+2333. http://catb.org/jargon/html/Z/zeroth.html
+2334. http://catb.org/jargon/html/Z/zigamorph.html
+2335. http://catb.org/jargon/html/Z/zip.html
+2336. http://catb.org/jargon/html/Z/zipperhead.html
+2337. http://catb.org/jargon/html/Z/zombie.html
+2338. http://catb.org/jargon/html/Z/zorch.html
+2339. http://catb.org/jargon/html/Z/Zork.html
+2340. http://catb.org/jargon/html/Z/zorkmid.html
+2341. http://catb.org/jargon/html/lexicon.html
+2342. http://catb.org/jargon/html/lexicon.html
+2343. http://catb.org/jargon/html/0.html
+2344. http://catb.org/jargon/html/index.html

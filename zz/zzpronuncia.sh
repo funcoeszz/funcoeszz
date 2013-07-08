@@ -6,7 +6,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-04-10
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzpronuncia ()
@@ -35,13 +35,15 @@ zzpronuncia ()
 		# Extrai o nome do arquivo no site do dicionário
 		wav_file=$(
 			$ZZWWWHTML "$url/$palavra" |
-			sed -n "/.*audio.pl?\([a-z0-9]*\.wav\)=$palavra.*/{s//\1/p;q;}")
+			sed -n "/.*return au('\([a-z0-9]\+\)'.*/{s//\1/p;q;}")
 
 		# Ops, não extraiu nada
 		if test -z "$wav_file"
 		then
 			echo "$palavra: palavra não encontrada"
 			return 1
+		else
+			wav_file="${wav_file}.wav"
 		fi
 
 		# O nome da pasta é a primeira letra do arquivo (/a/apple001.wav)

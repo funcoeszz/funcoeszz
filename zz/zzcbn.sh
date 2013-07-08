@@ -86,7 +86,7 @@ fi
 	autor=`echo $linha | cut -d';' -f 3`
 #	[ "$data" ] || data=`LANG=en.US date "+%d %b %Y"`
 #	echo "$RSS`echo $linha | cut -d';' -f 2`.xml"
-	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml"  | sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" | sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$ZZTMP.cbn.comentarios"
+	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml" | sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" | sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$ZZTMP.cbn.comentarios"
 
 	zzecho -l ciano `cat "$ZZTMP.cbn.comentarios" | sed -n '1p'`
 
@@ -117,13 +117,13 @@ fi
 
 
 	esac
-	Tlinhas=`cat "$ZZTMP.cbn.coment"| sed -n '$='`
+	Tlinhas=`cat "$ZZTMP.cbn.coment" | sed -n '$='`
 	[ "$Tlinhas" ] ||  { zzecho -l vermelho "Sem comentários"; return; }
 	for ((l=1;$l<=$Tlinhas;l=$l+2))
 	do
 		P=`expr $l + 1`
-		titulo=`cat "$ZZTMP.cbn.coment"| sed "$l!d"`
-		data=`cat "$ZZTMP.cbn.coment"| sed "$P!d"`
+		titulo=`cat "$ZZTMP.cbn.coment" | sed "$l!d"`
+		data=`cat "$ZZTMP.cbn.coment" | sed "$P!d"`
 		datafile=`date -d "$data" "+%y%m%d"`
 		hora=`LANG=en date -d "$data" "+%p"`
 		data=`LANG=en date -d "$data" "+%d %b %Y %H:%m"`
@@ -131,7 +131,7 @@ fi
 		if [ "$hora" == "PM" ]
 		then
 			case "$autor" in
-			"sardenberg"|"mleitao"|"halfeld")
+			"sardenberg" | "mleitao" | "halfeld")
 				dois="2_"
 				;;
 			esac

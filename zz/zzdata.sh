@@ -125,7 +125,7 @@ zzdata ()
 			;;
 
 			# Número negativo ou positivo
-			-[0-9]*|[0-9]*)
+			-[0-9]* | [0-9]*)
 
 				tipo='dias'
 
@@ -144,16 +144,16 @@ zzdata ()
 
 				# Converte apelidos em datas
 				case "$valor" in
-					today|hoje)
+					today | hoje)
 						valor=$(date +%d/%m/%Y)
 					;;
-					yesterday|ontem)
+					yesterday | ontem)
 						valor=$(zzdata hoje - 1)
 					;;
 					anteontem)
 						valor=$(zzdata hoje - 2)
 					;;
-					tomorrow|amanh[aã])
+					tomorrow | amanh[aã])
 						valor=$(zzdata hoje + 1)
 					;;
 					fim)
@@ -441,7 +441,7 @@ zzdata ()
 				zzdata $dias
 				return
 			;;
-			m|a)
+			m | a)
 				# O cálculo deve ser feito utilizando a data
 				test -z "$data" && data=$(zzdata "$dias")  # n2data
 

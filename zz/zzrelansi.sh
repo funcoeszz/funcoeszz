@@ -14,7 +14,7 @@ zzrelansi ()
 	zzzz -h relansi "$1" && return
 
 	case $1 in
-	-s|--stop)
+	-s | --stop)
 		shopt -q
 		if [ "$relansi_pid" ]
 		then
