@@ -175,19 +175,19 @@ zzbolsas ()
 				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g; s/           //; s/^  *//'
 			;;
 			moedas_nome | nome_moedas)
-				zztool eco " BRL - Real
- USD - Dolar Americano
- EUR - Euro
- GBP - Libra Esterlina
- CHF - Franco Suico
- CNH - Yuan Chines
- HKD - Dolar decHong Kong
- SGD - Dolar de Singapura
- MXN - Peso Mexicano
- ARS - Peso Argentino
- UYU - Peso Uruguaio
- CLP - Peso Chileno
- PEN - Nuevo Sol (Peru)"
+				zztool eco " BRL - Real"
+				zztool eco " USD - Dolar Americano"
+				zztool eco " EUR - Euro"
+				zztool eco " GBP - Libra Esterlina"
+				zztool eco " CHF - Franco Suico"
+				zztool eco " CNH - Yuan Chines"
+				zztool eco " HKD - Dolar decHong Kong"
+				zztool eco " SGD - Dolar de Singapura"
+				zztool eco " MXN - Peso Mexicano"
+				zztool eco " ARS - Peso Argentino"
+				zztool eco " UYU - Peso Uruguaio"
+				zztool eco " CLP - Peso Chileno"
+				zztool eco " PEN - Nuevo Sol (Peru)"
 			;;
 			noticias | economia | politica | servicos)
 				case "$1" in
