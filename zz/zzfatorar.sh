@@ -10,7 +10,7 @@
 #
 # Se o número for primo, é exibido a mensagem apenas.
 #
-# Uso: zzfatorar [--atualiza] [--bc|--no-bc] <numero>
+# Uso: zzfatorar [--atualiza|atualiza-1m] [--bc|--no-bc] <numero>
 # Ex.: zzfatorar 1458
 #      zzfatorar --bc 1296
 #
