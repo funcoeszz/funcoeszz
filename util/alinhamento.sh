@@ -12,14 +12,12 @@ cd ../zz
 
 funcoeszz tool eco "Linha que inicia com um espaço"
 grep '^ ' * |
-	grep -v ^zzgoogle  # caso válido, sed multilinha
+	grep -v -E '^zz(google|palpite|numero)'  # caso válido, sed multilinha
 
 funcoeszz tool eco "Linha com Tab e espaço misturados"
 grep '	 ' * |
 	# [\t ]: Dentro de colchetes, é regex
-	fgrep -v '[	 ]' |
-	# exceção, usa várias vezes, estilo do autor
-	grep -v ^zzmat
+	fgrep -v '[	 ]'
 
 funcoeszz tool eco "Linha com Tabs ou espaços inúteis no final"
 grep '[^ 	][ 	]\{1,\}$' * |
