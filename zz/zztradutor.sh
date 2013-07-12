@@ -23,7 +23,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 7
+# Versão: 8
 # Licença: GPLv2
 # Requisitos: zzxml
 # ----------------------------------------------------------------------------
@@ -57,9 +57,9 @@ zztradutor ()
 			$ZZWWWHTML "$url" |
 			zzxml --tag option |
 			sed -n '/<option value=af>/,/<option value=yi>/p' |
-			sed -e 's/<option [^=]*value=//g' -e 's/<\/option>//g' |
-			sed -e 's/>/: /' |
-			zztool texto_em_iso
+			zztool texto_em_iso | sort -u |
+			sed 's/.*value=\([^>]*\)>\([^<]*\)<.*/\1: \2/g;s/zh-CN/cn/g' |
+			grep ${2:-:}
 			return
 		;;
 		-a | --audio)
