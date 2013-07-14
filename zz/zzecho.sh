@@ -15,7 +15,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzecho ()
@@ -62,16 +62,18 @@ zzecho ()
 			-p | --pisca      ) pisca=';5'      ;;
 			-s | --sublinhado ) sublinhado=';4' ;;
 			-n | --nao-quebra ) quebra_linha='' ;;
-			*) zztool uso echo; return 1 ;;
+			*) break ;;
 		esac
 		shift
 	done
 
+	[ "$1" ] || { zztool uso 'echo'; return 1; }
+
 	# Mostra códigos ANSI somente quando necessário (e quando ZZCOR estiver ligada)
 	if [ "$ZZCOR" != '1' -o "$fundo$letra$negrito$pisca$sublinhado" = '' ]
 	then
-		printf "$*$quebra_linha"
+		echo -en "$*$quebra_linha"
 	else
-		printf "\033[$fundo$letra$negrito$pisca${sublinhado}m$*\033[m$quebra_linha"
+		echo -en "\033[$fundo$letra$negrito$pisca${sublinhado}m$*\033[m$quebra_linha"
 	fi
 }
