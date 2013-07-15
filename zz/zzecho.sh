@@ -67,7 +67,7 @@ zzecho ()
 		shift
 	done
 
-	[ "$1" ] || { zztool uso 'echo'; return 1; }
+	[ "$1" ] || { zztool uso echo; return 1; }
 
 	# Mostra códigos ANSI somente quando necessário (e quando ZZCOR estiver ligada)
 	if [ "$ZZCOR" != '1' -o "$fundo$letra$negrito$pisca$sublinhado" = '' ]
