@@ -10,9 +10,9 @@
 #
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2009-04-16
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzecho
+# Requisitos: zzecho zzplay
 # ----------------------------------------------------------------------------
 zzcbn ()
 {
@@ -139,7 +139,7 @@ fi
 		zzecho -l verde "(q) para próximo; CTRL+C para sair"
 		#echo $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT
 		echo $titulo - $data
-		mplayer $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT 1>/dev/null 2>/dev/null || return
+		zzplay $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT || return
 	done
 	if [ "$Tlinhas" == "0" ]
 	then
