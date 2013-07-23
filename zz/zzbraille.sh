@@ -31,7 +31,7 @@
 # Desde: 2013-05-26
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzminusculas zzmaiusculas zzcapitalize
+# Requisitos: zzminusculas zzmaiusculas zzcapitalize zzseq
 # ----------------------------------------------------------------------------
 zzbraille ()
 {
