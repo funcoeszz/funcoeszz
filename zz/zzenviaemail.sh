@@ -27,7 +27,7 @@ zzenviaemail ()
 	# Declara variaveis.
 	local fromail tomail ccmail bccmail subject msgbody
 	local envia_data=`date +"%Y%m%d_%H%M%S_%N"`
-	local script_eml="${ZZTMP}.${FUNCNAME}_${envia_data}.eml"
+	local script_eml="$ZZTMP.enviaemail_${envia_data}.eml"
 	local nparam=0
 
 	# Opcoes de linha de comando
