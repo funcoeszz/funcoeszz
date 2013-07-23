@@ -6,7 +6,7 @@
 #        --en para usar nomes de meses em inglês.
 #        --pt para usar nomes de meses em português.
 #        --es para usar nomes de meses em espanhol.
-#        --al ou --de para usar nomes de meses em alemão.
+#        --de para usar nomes de meses em alemão.
 #        --fr para usar nomes de meses em francês.
 #        --it para usar nomes de meses em italiano.
 # Se não for definido o formato com a opção -f, são fornecidos formatos
@@ -42,7 +42,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzdata zzminusculas zznumero
 # Tags: data
@@ -87,7 +87,7 @@ zzdatafmt ()
 				[ "$1" = "--ptt" ] && fmt=$(echo "$fmt" | sed 's/DD/DDT/g;s/AAAA/AAAAT/g')
 				shift
 			;;
-			--al | --de)
+			--de)
 				meses=$meses_al
 				[ "$fmt" ] || fmt='DD. MES AAAA'
 				shift
