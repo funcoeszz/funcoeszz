@@ -213,8 +213,12 @@ zzdatafmt ()
 		# Percorre o formato e vai expandindo, da esquerda para a direita
 		while test -n "$fmt"
 		do
+			# Atenção à ordem das opções do case: AAAA -> AAA -> AA
+			# Sempre do maior para o menor para evitar matches parciais
 			case "$fmt" in
-				AAAAT*) printf "$(zznumero --texto "$aaaa" | sed 's/^ *//;s/ inteiros*//')"; fmt="${fmt#AAAAT}";;
+				AAAAT*)
+					printf "$(zznumero --texto "$aaaa" | sed 's/^ *//;s/ inteiros*//')"
+					fmt="${fmt#AAAAT}";;
 				AAAA* ) printf %s "$aaaa"; fmt="${fmt#AAAA}";;
 				AA*   ) printf %s "$aa"  ; fmt="${fmt#AA}";;
 				A*    ) printf %s "$a"   ; fmt="${fmt#A}";;
@@ -225,7 +229,9 @@ zzdatafmt ()
 				;;
 				MM*   ) printf %s "$mm"  ; fmt="${fmt#MM}";;
 				M*    ) printf %s "$m"   ; fmt="${fmt#M}";;
-				DDT*  ) printf "$(zznumero --texto "$dd" | sed 's/^ *//;s/ inteiros*//')"; fmt="${fmt#DDT}";;
+				DDT*  )
+					printf "$(zznumero --texto "$dd" | sed 's/^ *//;s/ inteiros*//')"
+					fmt="${fmt#DDT}";;
 				DD*   ) printf %s "$dd"  ; fmt="${fmt#DD}";;
 				D*    ) printf %s "$d"   ; fmt="${fmt#D}";;
 				*     ) printf %c "$fmt" ; fmt="${fmt#?}";;  # 1char
