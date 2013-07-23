@@ -15,7 +15,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzecho ()
@@ -72,8 +72,8 @@ zzecho ()
 	# Mostra códigos ANSI somente quando necessário (e quando ZZCOR estiver ligada)
 	if [ "$ZZCOR" != '1' -o "$fundo$letra$negrito$pisca$sublinhado" = '' ]
 	then
-		echo -en "$*$quebra_linha"
+		printf -- "$*$quebra_linha"
 	else
-		echo -en "\033[$fundo$letra$negrito$pisca${sublinhado}m$*\033[m$quebra_linha"
+		printf -- "\033[$fundo$letra$negrito$pisca${sublinhado}m$*\033[m$quebra_linha"
 	fi
 }
