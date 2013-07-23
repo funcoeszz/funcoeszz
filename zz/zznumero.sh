@@ -1,27 +1,31 @@
 # ----------------------------------------------------------------------------
-# Formatando a saída de um número.
+# Formata um número como: inteiro, moeda, por extenso, entre outros.
+# Nota: Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
+#
 # Opções:
-#  -f <padrão | numeros>: Padrão de formatação igual ao printf,
-# incluindo %'d e %'.f ou precisão se apenas informado um número, se
-# no número for informado um  traço '-', fica sem limites.
-#  -p <prefixo>: Um prefixo para o número, se for R$ igual a opção -m
-#  -s <sufixo>: Um sufixo para o número
-#  -m: Trata valor monetário, sobrepondo as configurações de -p, -s  e -f
-#  --moeda: O mesmo que a opção -m
-#  -t: Número parcialmente por extenso, por ex: 2 mihões 350 mil e doze
-#  --texto: Número inteiramente por extenso, ex: quatro mil e cento e vinte
-#  -l: Uma classe numérica por linha, quando optar no número por extenso
-#  --de <formato>: Formato de entrada
-#  --para <formato>: Formato de saída
-#   formatos: pt ou pt-br => português (brasil) | en => inglês (americano)
+#   -f <padrão|número|->  Padrão de formatação do printf, incluindo %'d e %'.f
+#                         ou precisão se apenas informado um número, ou sem
+#                         limite de precisão se informado um hífen '-'
+#   -p <prefixo>          Um prefixo para o número, se for R$ igual a opção -m
+#   -s <sufixo>           Um sufixo para o número
+#   -m | --moeda          Trata valor monetário, sobrepondo as configurações de
+#                         -p, -s e -f
+#   -t                    Número parcialmente por extenso, ex: 2 mihões 350 mil
+#   --texto               Número inteiramente por extenso, ex: quatro mil e cem
+#   -l                    Uma classe numérica por linha, quando optar no número
+#                         por extenso
+#   --de <formato>        Formato de entrada
+#   --para <formato>      Formato de saída
 #
-# Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
+# Formatos para as opções --de e --para:
+#   pt ou pt-br => português (brasil)
+#   en          => inglês (americano)
 #
-# Uso: zznumero [opção1] [opção2] ... <numero>
-# Ex.: zznumero 12445.78
-#      zznumero --texto 4567890,213
-#      zznumero -m 85,345
-#      echo 748 | zznumero -f "%'.3f"
+# Uso: zznumero [opções] <número>
+# Ex.: zznumero 12445.78                      # 12.445,78
+#      zznumero --texto 4567890,213           # quatro milhões e quinhentos...
+#      zznumero -m 85,345                     # R$ 85,34
+#      echo 748 | zznumero -f "%'.3f"         # 748,000
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
