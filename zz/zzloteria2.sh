@@ -9,7 +9,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzseq zzsemacento
 # ----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ zzloteria2 ()
 				echo "$dump" | cut -d '|' -f 28,30,32,34,36,38 | tr '|' '\n' > "${cache}.num"
 				echo "$dump" | cut -d '|' -f 29,31,33,35,37,39 | tr '|' '\n' > "${cache}.val"
 			;;
-			lotofacil)
+			lotof[áa]cil)
 				# O resultado vem separado em campos distintos. Exemplo:
 				# |01|04|07|08|09|10|12|14|15|16|21|22|23|24|25|
 				resultado=$(echo "$dump" | cut -d '|' -f 4-18 |
