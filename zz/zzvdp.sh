@@ -23,7 +23,7 @@ zzvdp ()
 
 	if [ "$1" ] && zztool testa_data $(zzdatafmt "$1")
 	then
-		url=$(zzdatafmt -f "${url}/AAAA/MM/DD" $1)
+		url="${url}/"$(zzdatafmt -f 'AAAA/MM/DD' $1)
 	fi
 
 	$ZZWWWHTML $url |
