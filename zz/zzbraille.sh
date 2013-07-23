@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Grafia Braille.
-# A estrutura básica do alfabeto braille é composta por 2 coluna e 3 linhas.
+# A estrutura básica do alfabeto braille é composta por 2 colunas e 3 linhas.
 # Essa estrutura é chamada de célula Braille
 # E a sequência numérica padronizada é como segue:
 #  1 4
@@ -8,16 +8,16 @@
 #  3 6
 # Assim fica como um guia, para quem desejar implantar essa acessibilidade.
 #
-# Com a opção --s1 muda o śimbolo ● ( relevo, em destaque, cheio)
-# Com a opção --s2 muda o śimbolo ○ ( plano, sem destaque, vazio)
+# Com a opção --s1 muda o símbolo ● (relevo, em destaque, cheio)
+# Com a opção --s2 muda o símbolo ○ (plano, sem destaque, vazio)
 #
-# Abaixo de cada célula Braille, aparece o caracter correspondente.
+# Abaixo de cada célula Braille, aparece o caractere correspondente.
 # Incluindo especiais de maiúscula, numérico, espaço, muti-células.
 # +++++ : Maiúsculo
 # +-    : Capitalize
 # __    : Espaço
 # ##    : Número
-# -( X ): Caracter especial que ocupa mais de uma célula Braille
+# -( X ): Caractere especial que ocupa mais de uma célula Braille
 #
 # Atenção: Prefira usar ! em texto dentro de aspas simples (')
 #
