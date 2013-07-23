@@ -23,7 +23,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 9
+# Versão: 10
 # Licença: GPLv2
 # Requisitos: zzxml zzplay
 # ----------------------------------------------------------------------------
@@ -39,7 +39,7 @@ zztradutor ()
 	local lang_de='pt'
 	local lang_para='en'
 	local charset_para='UTF-8'
-	local audio_file="/tmp/$$.WAV"
+	local audio_file="$ZZTMP.tradutor.$$.wav"
 
 	case "$1" in
 		# O usuário informou um par de idiomas, como pt-en

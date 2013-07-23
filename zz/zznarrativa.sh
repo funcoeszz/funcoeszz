@@ -7,7 +7,7 @@
 #
 # Autor: Kl0nEz <kl0nez (a) wifi org br>
 # Desde: 2011-08-23
-# Versão: 3
+# Versão: 4
 # Licença: GPLv2
 # Requisitos: zzplay
 # ----------------------------------------------------------------------------
@@ -21,7 +21,7 @@ zznarrativa ()
 	local padrao
 	local url='http://translate.google.com.br'
 	local charset_para='UTF-8'
-	local audio_file="/tmp/$$.WAV"
+	local audio_file="$ZZTMP.narrativa.$$.wav"
 
 	# Narrativa
 	padrao=$(echo "$*" | sed "$ZZSEDURL")
