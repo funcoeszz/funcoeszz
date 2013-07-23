@@ -3,10 +3,10 @@
 # Pesquisa detalhe dos comando, ao fornecer o número na listagem a esquerda.
 # E filtra a busca se fornecer um texto.
 #
-# Uso: zzmariadb [ codigo | filtro ]
-# Ex.: zzmariadb        #Lista os comandos disponíveis
+# Uso: zzmariadb [ código | filtro ]
+# Ex.: zzmariadb        # Lista os comandos disponíveis
 #      zzmariadb 18     # Consulta o comando CREATE DATABASE
-#      zzmariadb alter  # Filtra os comandos que possuam alter na declaração.
+#      zzmariadb alter  # Filtra os comandos que possuam alter na declaração
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-07-03
