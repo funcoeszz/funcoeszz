@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------
 # http://www.qualoperadora.net
-# Consulta operadora de um numero de telefone/celular.
+# Consulta operadora de um número de telefone fixo/celular.
 # O formato utilizado é: <DDD><NÚMERO>
 # Não utilize espaços, (), -
-# Uso: zzoperadora [numero]
+# Uso: zzoperadora [número]
 # Ex.: zzoperadora 1934621026
 #
 # Autor: Mauricio Calligaris <mauriciocalligaris@gmail.com>
