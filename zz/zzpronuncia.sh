@@ -35,7 +35,7 @@ zzpronuncia ()
 		# Extrai o nome do arquivo no site do dicionário
 		wav_file=$(
 			$ZZWWWHTML "$url/$palavra" |
-			sed -n "/.*return au('\([a-z0-9]\+\)'.*/{s//\1/p;q;}")
+			sed -n "/.*return au('\([a-z0-9]\{1,\}\)'.*/{s//\1/p;q;}")
 
 		# Ops, não extraiu nada
 		if test -z "$wav_file"
