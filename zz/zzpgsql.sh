@@ -3,10 +3,10 @@
 # Pesquisa detalhe dos comando, ao fornecer o número na listagem a esquerda.
 # E filtra a busca se fornecer um texto.
 #
-# Uso: zzpgsql [ codigo | filtro ]
-# Ex.: zzpgsql        #Lista os comandos disponíveis
+# Uso: zzpgsql [ código | filtro ]
+# Ex.: zzpgsql        # Lista os comandos disponíveis
 #      zzpgsql 20     # Consulta o comando ALTER SCHEMA
-#      zzpgsql alter  # Filtra os comandos que possuam alter na declaração.
+#      zzpgsql alter  # Filtra os comandos que possuam alter na declaração
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-11
