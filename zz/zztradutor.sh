@@ -23,9 +23,9 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 8
+# Versão: 9
 # Licença: GPLv2
-# Requisitos: zzxml
+# Requisitos: zzxml zzplay
 # ----------------------------------------------------------------------------
 zztradutor ()
 {
@@ -40,7 +40,6 @@ zztradutor ()
 	local lang_para='en'
 	local charset_para='UTF-8'
 	local audio_file="/tmp/$$.WAV"
-	local play_cmd='mpg123 -q'
 
 	case "$1" in
 		# O usuário informou um par de idiomas, como pt-en
@@ -67,7 +66,7 @@ zztradutor ()
 				shift
 				padrao=$(echo "$*" | sed "$ZZSEDURL")
 				local audio="translate_tts?ie=$charset_para&q=$padrao&tl=pt&prev=input"
-				$ZZWWWHTML "$url/$audio" > $audio_file && $play_cmd $audio_file && rm -rf $audio_file
+				$ZZWWWHTML "$url/$audio" > $audio_file && zzplay $audio_file && rm -rf $audio_file
 				return
 		;;
 	esac
