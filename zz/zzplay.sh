@@ -6,7 +6,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-13
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzextensao zzminusculas
 # ----------------------------------------------------------------------------
@@ -22,9 +22,9 @@ zzplay ()
 	tipo=$(zzextensao "$1" | zzminusculas)
 
 	# Para cada tipo de arquivo de audio, seleciona o player disponivel
-	case $tipo in
+	case "$tipo" in
 	wav | au | aiff )
-		for play_cmd in play mplayer cvlc
+		for play_cmd in afplay play mplayer cvlc
 		do
 			if type $play_cmd >/dev/null 2>&1
 			then
@@ -34,7 +34,7 @@ zzplay ()
 		done
 	;;
 	mp2 | mp3 )
-		for play_cmd in mpg321 mpg123 mplayer cvlc
+		for play_cmd in afplay mpg321 mpg123 mplayer cvlc
 		do
 			if type $play_cmd >/dev/null 2>&1
 			then
