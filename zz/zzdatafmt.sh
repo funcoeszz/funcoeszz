@@ -220,7 +220,7 @@ zzdatafmt ()
 				A*    ) printf %s "$a"   ; fmt="${fmt#A}";;
 				MES*  ) printf %s "$mes" ; fmt="${fmt#MES}";;
 				MMM*  )
-					printf %s "$mmm" | sed 's/ä/är/;s/Fé/Fév/;s/Dé/Déc/'
+					printf %s "$mmm" | sed 's/ä/är/;s/Fé/Fév/;s/Dé/Déc/' | tr -d '\n'
 					fmt="${fmt#MMM}"
 				;;
 				MM*   ) printf %s "$mm"  ; fmt="${fmt#MM}";;
