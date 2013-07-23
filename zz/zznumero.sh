@@ -3,19 +3,19 @@
 # Nota: Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
 #
 # Opções:
-#   -f <padrão|número|->  Padrão de formatação do printf, incluindo %'d e %'.f
-#                         ou precisão se apenas informado um número, ou sem
-#                         limite de precisão se informado um hífen '-'
-#   -p <prefixo>          Um prefixo para o número, se for R$ igual a opção -m
-#   -s <sufixo>           Um sufixo para o número
-#   -m | --moeda          Trata valor monetário, sobrepondo as configurações de
-#                         -p, -s e -f
-#   -t                    Número parcialmente por extenso, ex: 2 mihões 350 mil
-#   --texto               Número inteiramente por extenso, ex: quatro mil e cem
-#   -l                    Uma classe numérica por linha, quando optar no número
-#                         por extenso
-#   --de <formato>        Formato de entrada
-#   --para <formato>      Formato de saída
+#   -f <padrão|número|-> Padrão de formatação do printf, incluindo %'d e %'.f
+#                        ou precisão se apenas informado um número, ou sem
+#                        limite de precisão se informado um hífen '-'
+#   -p <prefixo>         Um prefixo para o número, se for R$ igual a opção -m
+#   -s <sufixo>          Um sufixo para o número
+#   -m | --moeda         Trata valor monetário, sobrepondo as configurações de
+#                        -p, -s e -f
+#   -t                   Número parcialmente por extenso, ex: 2 mihões 350 mil
+#   --texto              Número inteiramente por extenso, ex: quatro mil e cem
+#   -l                   Uma classe numérica por linha, quando optar no número
+#                        por extenso
+#   --de <formato>       Formato de entrada
+#   --para <formato>     Formato de saída
 #
 # Formatos para as opções --de e --para:
 #   pt ou pt-br => português (brasil)
