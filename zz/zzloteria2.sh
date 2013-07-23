@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal e timemania.
+# Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal, timemania e loteca.
 # Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
 # Se nenhum argumento for passado, todas as loterias são mostradas.
 #
