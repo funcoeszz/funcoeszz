@@ -131,7 +131,7 @@ fi
 		if [ "$hora" == "PM" ]
 		then
 			case "$autor" in
-			"sardenberg" | "mleitao" | "halfeld")
+			sardenberg | mleitao | halfeld)
 				dois="2_"
 				;;
 			esac

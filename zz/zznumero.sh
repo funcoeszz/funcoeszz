@@ -112,7 +112,7 @@ zznumero ()
 	while  [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
-		"-f")
+		-f)
 			# Formato estabelecido pelo usuário conforme printf ou precisão
 			# Precisão no formato do printf (esperado)
 			n_formato="$2"
@@ -134,7 +134,7 @@ zznumero ()
 			shift
 		;;
 
-		"--de")
+		--de)
 			# Formato de entrada
 			if [ "$2" = "pt" -o "$2" = "pt-br" ]
 			then
@@ -149,7 +149,7 @@ zznumero ()
 			shift
 		;;
 
-		"--para")
+		--para)
 			# Formato de saída
 			if [ "$2" = "pt" -o "$2" = "pt-br" ]
 			then
@@ -164,7 +164,7 @@ zznumero ()
 			shift
 		;;
 
-		"-p")
+		-p)
 			# Prefixo escolhido pelo usuário
 			prefixo="$2"
 			$(echo "$2" | grep '^ *[rR]$ *$') && prefixo='R$ '
@@ -172,14 +172,14 @@ zznumero ()
 			shift
 		;;
 
-		"-s")
+		-s)
 			# Sufixo escolhido pelo usuário
 			sufixo="$2"
 			shift
 			shift
 		;;
 
-		"-t" | "--texto")
+		-t | --texto)
 			# Variável para número por extenso
 			# Flag para formato por extenso
 			[ "$1" = "-t" ] && texto=1
@@ -187,13 +187,13 @@ zznumero ()
 			shift
 		;;
 
-		"-l")
+		-l)
 			# No modo texto, uma classe numérica por linha
 			linha=1
 			shift
 		;;
 
-		"-m" | "--moeda")
+		-m | --moeda)
 			# Solicitando formato moeda (sobrepõe as opção de prefixo, sufixo e formato)
 			prec=2
 			prefixo='R$ '
