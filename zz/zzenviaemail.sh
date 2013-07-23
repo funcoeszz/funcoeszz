@@ -16,7 +16,7 @@
 #
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-17
-# Versão: 20091010
+# Versão: 2
 # Licença: GPLv2
 # Requisitos: ssmtp
 # ----------------------------------------------------------------------------
@@ -27,7 +27,7 @@ zzenviaemail ()
 	# Declara variaveis.
 	local fromail tomail ccmail bccmail subject msgbody
 	local envia_data=`date +"%Y%m%d_%H%M%S_%N"`
-	local script_eml="${ZZTMPDIR}/.${FUNCNAME}_${envia_data}.eml"
+	local script_eml="${ZZTMP}.${FUNCNAME}_${envia_data}.eml"
 	local nparam=0
 
 	# Opcoes de linha de comando
@@ -91,7 +91,7 @@ zzenviaemail ()
 	echo "Bcc: ${bccmail}" >> ${script_eml}
 	echo "Subject: ${subject}" >> ${script_eml}
 	cat ${mensagem} >> ${script_eml}
-	ssmtp -F ${1} ${tomail} ${ccmail} ${bccmail} < ${script_eml}
+	ssmtp -F ${fromail} ${tomail} ${ccmail} ${bccmail} < ${script_eml}
 	if [ -s "${script_eml}" ] ; then
 		rm -f "${script_eml}"
 	fi
