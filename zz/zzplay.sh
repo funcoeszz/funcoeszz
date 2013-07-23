@@ -2,7 +2,7 @@
 # Toca o arquivo de áudio, escolhendo o player mais adequado instalado.
 #
 # Uso: zzplay <arquivo-de-áudio>
-# Ex.: zzplay os_seminovos_escolha_ja_seu_nerd.mp3 
+# Ex.: zzplay os_seminovos_escolha_ja_seu_nerd.mp3
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-13
