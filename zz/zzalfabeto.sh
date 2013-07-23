@@ -65,7 +65,7 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 
 	# Escolhe o alfabeto a ser utilizado
 	case "$1" in
-		--militar | --radio | --fone | --telefone |--otan | --nato |--icao | --itu | --imo | --faa | --ansi)
+		--militar | --radio | --fone | --telefone | --otan | --nato | --icao | --itu | --imo | --faa | --ansi)
 			coluna=2 ; shift ;;
 		--romano | --latino           ) coluna=1  ; shift ;;
 		--royal | --royal-navy        ) coluna=3  ; shift ;;
