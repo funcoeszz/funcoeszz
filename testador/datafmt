@@ -102,6 +102,9 @@ tests=(
 ''	-f	AAA		01/02/2003	t	033
 ''	-f	AA		01/02/2003	t	03
 ''	-f	A		01/02/2003	t	3
+''	-f	ANO		01/02/2003	t	'dois mil e três'
+''	-f	ANOA		01/02/2003	t	'dois mil e três3'
+''	-f	AANO		01/02/2003	t	03NO
 ''	-f	MES		01/02/2003	t	fevereiro
 ''	-f	MESM		01/02/2003	t	fevereiro2
 ''	-f	MMES		01/02/2003	t	02ES
@@ -115,6 +118,10 @@ tests=(
 ''	-f	DDD		01/02/2003	t	011
 ''	-f	DD		01/02/2003	t	01
 ''	-f	D		01/02/2003	t	1
+''	-f	DIA		01/02/2003	t	um
+''	-f	DIAD		01/02/2003	t	um1
+''	-f	DDIA		01/02/2003	t	01I3
+''	-f	DIAA		01/02/2003	t	um3
 ''	-f	D/M/AA		01/02/2003	t	1/2/03
 ''	-f	DD/MM/AAAA	01/02/2003	t	01/02/2003
 ''	-f	D.de.MES.de.AA	01/02/2003	t	1.de.fevereiro.de.03
@@ -122,6 +129,49 @@ tests=(
 ''	-f	M		11/12/2013	t	12
 ''	-f	D		11/12/2013	t	11
 ''	-f	A		11/12/2000	t	0
+
+# nomes dos dias em Português
+''	-f	DIA		01/01/2003	t	'um'
+''	-f	DIA		02/01/2003	t	'dois'
+''	-f	DIA		03/01/2003	t	'três'
+''	-f	DIA		04/01/2003	t	'quatro'
+''	-f	DIA		05/01/2003	t	'cinco'
+''	-f	DIA		06/01/2003	t	'seis'
+''	-f	DIA		07/01/2003	t	'sete'
+''	-f	DIA		08/01/2003	t	'oito'
+''	-f	DIA		09/01/2003	t	'nove'
+''	-f	DIA		10/01/2003	t	'dez'
+''	-f	DIA		11/01/2003	t	'onze'
+''	-f	DIA		12/01/2003	t	'doze'
+''	-f	DIA		13/01/2003	t	'treze'
+''	-f	DIA		14/01/2003	t	'catorze'
+''	-f	DIA		15/01/2003	t	'quinze'
+''	-f	DIA		16/01/2003	t	'dezesseis'
+''	-f	DIA		17/01/2003	t	'dezessete'
+''	-f	DIA		18/01/2003	t	'dezoito'
+''	-f	DIA		19/01/2003	t	'dezenove'
+''	-f	DIA		20/01/2003	t	'vinte'
+''	-f	DIA		21/01/2003	t	'vinte e um'
+''	-f	DIA		22/01/2003	t	'vinte e dois'
+''	-f	DIA		23/01/2003	t	'vinte e três'
+''	-f	DIA		24/01/2003	t	'vinte e quatro'
+''	-f	DIA		25/01/2003	t	'vinte e cinco'
+''	-f	DIA		26/01/2003	t	'vinte e seis'
+''	-f	DIA		27/01/2003	t	'vinte e sete'
+''	-f	DIA		28/01/2003	t	'vinte e oito'
+''	-f	DIA		29/01/2003	t	'vinte e nove'
+''	-f	DIA		30/01/2003	t	'trinta'
+''	-f	DIA		31/01/2003	t	'trinta e um'
+
+# nomes dos anos em Português
+''	-f	ANO		01/01/1000	t	'mil'
+''	-f	ANO		01/01/1900	t	'mil e novecentos'
+''	-f	ANO		01/01/1990	t	'mil novecentos e noventa'
+''	-f	ANO		01/01/1999	t	'mil novecentos e noventa e nove'
+''	-f	ANO		01/01/2000	t	'dois mil'
+''	-f	ANO		01/01/2001	t	'dois mil e um'
+''	-f	ANO		01/01/2010	t	'dois mil e dez'
+''	-f	ANO		01/01/2123	t	'dois mil cento e vinte e três'
 
 # nomes dos meses em Português
 ''	-f	MES	01/01/2000	t	janeiro
