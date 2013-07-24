@@ -81,10 +81,14 @@ zzdatafmt ()
 				[ "$fmt" ] || fmt='DD de MES de AAAA'
 				shift
 			;;
-			--pt | --ptt)
+			--pt)
 				meses=$meses_pt
 				[ "$fmt" ] || fmt='DD de MES de AAAA'
-				[ "$1" = "--ptt" ] && fmt=$(echo "$fmt" | sed 's/DD/DDT/g;s/AAAA/AAAAT/g')
+				shift
+			;;
+			--ptt)
+				meses=$meses_pt
+				[ "$fmt" ] || fmt='DDT de MES de AAAAT'
 				shift
 			;;
 			--de)
