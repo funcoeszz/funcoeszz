@@ -281,6 +281,15 @@ tests=(
 --it	-f	MMM	01/11/2000	t	Nov
 --it	-f	MMM	01/12/2000	t	Dic
 
+# formato padrão de cada idioma
+--pt	31/03/2000	''	''	t	'31 de março de 2000'
+--ptt	31/03/2000	''	''	t	'trinta e um de março de dois mil'
+--en	31/03/2000	''	''	t	'March, 31 2000'
+--it	31/03/2000	''	''	t	'31 da Marzo 2000'
+--es	31/03/2000	''	''	t	'31 de Marzo de 2000'
+--de	31/03/2000	''	''	t	'31. März 2000'
+--fr	31/03/2000	''	''	t	'Le 31 Mars 2000'
+
 # ano 4 dígitos, sem alterações
 ''	''	''	01/02/0003	t	01/02/0003
 ''	''	''	01/02/0033	t	01/02/0033
