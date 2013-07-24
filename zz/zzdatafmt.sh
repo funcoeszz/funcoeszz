@@ -2,43 +2,43 @@
 # Muda o formato de uma data, com várias opções de personalização.
 # Reconhece datas em vários formatos, como aaaa-mm-dd, dd.mm.aaaa e dd/mm.
 # Obs.: Se você não informar o ano, será usado o ano corrente.
-# Para a opção:
-#        --en para usar nomes de meses em inglês.
-#        --pt para usar nomes de meses em português.
-#        --es para usar nomes de meses em espanhol.
-#        --de para usar nomes de meses em alemão.
-#        --fr para usar nomes de meses em francês.
-#        --it para usar nomes de meses em italiano.
-# Se não for definido o formato com a opção -f, são fornecidos formatos
-# compatíveis com as opções de idioma.
 #
 # Use a opção -f para mudar o formato de saída (o padrão é DD/MM/AAAA):
 #
 #      Código   Exemplo     Descrição
-#      --------------------------------------
+#      --------------------------------------------------------------
 #      AAAA     2003        Ano com 4 dígitos
 #      AA       03          Ano com 2 dígitos
 #      A        3           Ano sem zeros à esquerda (1 ou 2 dígitos)
-#      MES      fevereiro   Nome do mês
-#      MMM      fev         Nome do mês com três letras
 #      MM       02          Mês com 2 dígitos
 #      M        2           Mês sem zeros à esquerda
 #      DD       01          Dia com 2 dígitos
 #      D        1           Dia sem zeros à esquerda
+#      --------------------------------------------------------------
+#      ANO      dois mil    Ano por extenso
+#      MES      fevereiro   Nome do mês
+#      MMM      fev         Nome do mês com três letras
+#      DIA      vinte um    Dia por extenso
+#
+# Use as opções de idioma para alterar os nomes dos meses. Estas opções também
+# mudam o formato padrão da data de saída, caso a opção -f não seja informada.
+#     --pt para português     --de para alemão
+#     --en para inglês        --fr para francês
+#     --es para espanhol      --it para italiano
 #
 # Uso: zzdatafmt [-f formato] [data]
 # Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
 #      zzdatafmt 31.12.11                   # 31/12/2011
-#      zzdatafmt 31/12                      # 31/12/2011    (ano atual)
-#      zzdatafmt -f MES hoje                # maio          (mês atual)
-#      zzdatafmt -f MES --en hoje           # May           (em inglês)
+#      zzdatafmt 31/12                      # 31/12/2011     (ano atual)
+#      zzdatafmt -f MES hoje                # maio           (mês atual)
+#      zzdatafmt -f MES --en hoje           # May            (em inglês)
 #      zzdatafmt -f AAAA 31/12/11           # 2011
-#      zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11
+#      zzdatafmt -f MM/DD/AA 31/12/2011     # 12/31/11       (BR -> US)
 #      zzdatafmt -f D/M/A 01/02/2003        # 1/2/3
 #      zzdatafmt -f "D de MES" 01/05/95     # 1 de maio
-#      echo 31/12/2011 | zzdatafmt -f MM    # 12            (via STDIN)
-#      zzdatafmt 31 de jan de 2013          # 31/01/2013
-#      zzdatafmt --de 19 de março de 2012   # 19. März 2012
+#      echo 31/12/2011 | zzdatafmt -f MM    # 12             (via STDIN)
+#      zzdatafmt 31 de jan de 2013          # 31/01/2013     (entrada textual)
+#      zzdatafmt --de 19/03/2012            # 19. März 2012  (Das ist gut!)
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
