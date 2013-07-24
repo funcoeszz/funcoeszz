@@ -29,7 +29,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -757,7 +757,7 @@ zznumero ()
 			[ "$sufixo" ] && num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
 		fi
 
-		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g;s/ \{1,\}/ /g' | sed 's/^  *e//;s/ e *$//')
+		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g; s/  */ /g' | sed 's/^ *e //; s/ e *$//')
 
 		# Uma classe numérica por linha
 		if [ $linha -eq 1 ]
