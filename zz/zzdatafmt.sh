@@ -42,7 +42,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # Requisitos: zzdata zzminusculas zznumero
 # Tags: data
@@ -233,7 +233,8 @@ zzdatafmt ()
 				A*    ) printf %s "$a"   ; fmt="${fmt#A}";;
 				MES*  ) printf %s "$mes" ; fmt="${fmt#MES}";;
 				MMM*  )
-					printf %s "$mmm" | sed 's/ä/är/;s/Fé/Fév/;s/Dé/Déc/' | tr -d '\n'
+					# Arruma possíveis problemas de codificação com acentos
+					printf %s "$mmm" | sed 's/Mä$/Mär/;s/Fé$/Fév/;s/Dé$/Déc/' | tr -d '\n'
 					fmt="${fmt#MMM}"
 				;;
 				MM*   ) printf %s "$mm"  ; fmt="${fmt#MM}";;

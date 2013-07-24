@@ -123,7 +123,7 @@ tests=(
 ''	-f	D		11/12/2013	t	11
 ''	-f	A		11/12/2000	t	0
 
-# nomes dos meses
+# nomes dos meses em Português
 ''	-f	MES	01/01/2000	t	janeiro
 ''	-f	MES	01/02/2000	t	fevereiro
 ''	-f	MES	01/03/2000	t	março
@@ -136,8 +136,7 @@ tests=(
 ''	-f	MES	01/10/2000	t	outubro
 ''	-f	MES	01/11/2000	t	novembro
 ''	-f	MES	01/12/2000	t	dezembro
-
-# nomes dos meses, en inglês
+# Inglês
 --en	-f	MES	01/01/2000	t	January
 --en	-f	MES	01/02/2000	t	February
 --en	-f	MES	01/03/2000	t	March
@@ -150,8 +149,60 @@ tests=(
 --en	-f	MES	01/10/2000	t	October
 --en	-f	MES	01/11/2000	t	November
 --en	-f	MES	01/12/2000	t	December
+# Espanhol
+--es	-f	MES	01/01/2000	t	Enero
+--es	-f	MES	01/02/2000	t	Febrero
+--es	-f	MES	01/03/2000	t	Marzo
+--es	-f	MES	01/04/2000	t	Abril
+--es	-f	MES	01/05/2000	t	Mayo
+--es	-f	MES	01/06/2000	t	Junio
+--es	-f	MES	01/07/2000	t	Julio
+--es	-f	MES	01/08/2000	t	Agosto
+--es	-f	MES	01/09/2000	t	Septiembre
+--es	-f	MES	01/10/2000	t	Octubre
+--es	-f	MES	01/11/2000	t	Noviembre
+--es	-f	MES	01/12/2000	t	Diciembre
+# Alemão
+--de	-f	MES	01/01/2000	t	Januar
+--de	-f	MES	01/02/2000	t	Februar
+--de	-f	MES	01/03/2000	t	März
+--de	-f	MES	01/04/2000	t	April
+--de	-f	MES	01/05/2000	t	Mai
+--de	-f	MES	01/06/2000	t	Juni
+--de	-f	MES	01/07/2000	t	Juli
+--de	-f	MES	01/08/2000	t	August
+--de	-f	MES	01/09/2000	t	September
+--de	-f	MES	01/10/2000	t	Oktober
+--de	-f	MES	01/11/2000	t	November
+--de	-f	MES	01/12/2000	t	Dezember
+# Francês
+--fr	-f	MES	01/01/2000	t	Janvier
+--fr	-f	MES	01/02/2000	t	Février
+--fr	-f	MES	01/03/2000	t	Mars
+--fr	-f	MES	01/04/2000	t	Avril
+--fr	-f	MES	01/05/2000	t	Mai
+--fr	-f	MES	01/06/2000	t	Juin
+--fr	-f	MES	01/07/2000	t	Juillet
+--fr	-f	MES	01/08/2000	t	Août
+--fr	-f	MES	01/09/2000	t	Septembre
+--fr	-f	MES	01/10/2000	t	Octobre
+--fr	-f	MES	01/11/2000	t	Novembre
+--fr	-f	MES	01/12/2000	t	Décembre
+# Italiano
+--it	-f	MES	01/01/2000	t	Gennaio
+--it	-f	MES	01/02/2000	t	Febbraio
+--it	-f	MES	01/03/2000	t	Marzo
+--it	-f	MES	01/04/2000	t	Aprile
+--it	-f	MES	01/05/2000	t	Maggio
+--it	-f	MES	01/06/2000	t	Giugno
+--it	-f	MES	01/07/2000	t	Luglio
+--it	-f	MES	01/08/2000	t	Agosto
+--it	-f	MES	01/09/2000	t	Settembre
+--it	-f	MES	01/10/2000	t	Ottobre
+--it	-f	MES	01/11/2000	t	Novembre
+--it	-f	MES	01/12/2000	t	Dicembre
 
-# nomes dos meses, abreviado
+# nomes dos meses, abreviado, em Português
 ''	-f	MMM	01/01/2000	t	'jan'
 ''	-f	MMM	01/02/2000	t	'fev'
 ''	-f	MMM	01/03/2000	t	'mar'
@@ -164,8 +215,7 @@ tests=(
 ''	-f	MMM	01/10/2000	t	'out'
 ''	-f	MMM	01/11/2000	t	'nov'
 ''	-f	MMM	01/12/2000	t	'dez'
-
-# nomes dos meses, abreviado, em inglês
+# Inglês
 --en	-f	MMM	01/01/2000	t	'Jan'
 --en	-f	MMM	01/02/2000	t	'Feb'
 --en	-f	MMM	01/03/2000	t	'Mar'
@@ -178,6 +228,58 @@ tests=(
 --en	-f	MMM	01/10/2000	t	'Oct'
 --en	-f	MMM	01/11/2000	t	'Nov'
 --en	-f	MMM	01/12/2000	t	'Dec'
+# Espanhol
+--es	-f	MMM	01/01/2000	t	Ene
+--es	-f	MMM	01/02/2000	t	Feb
+--es	-f	MMM	01/03/2000	t	Mar
+--es	-f	MMM	01/04/2000	t	Abr
+--es	-f	MMM	01/05/2000	t	May
+--es	-f	MMM	01/06/2000	t	Jun
+--es	-f	MMM	01/07/2000	t	Jul
+--es	-f	MMM	01/08/2000	t	Ago
+--es	-f	MMM	01/09/2000	t	Sep
+--es	-f	MMM	01/10/2000	t	Oct
+--es	-f	MMM	01/11/2000	t	Nov
+--es	-f	MMM	01/12/2000	t	Dic
+# Alemão
+--de	-f	MMM	01/01/2000	t	Jan
+--de	-f	MMM	01/02/2000	t	Feb
+--de	-f	MMM	01/03/2000	t	Mär
+--de	-f	MMM	01/04/2000	t	Apr
+--de	-f	MMM	01/05/2000	t	Mai
+--de	-f	MMM	01/06/2000	t	Jun
+--de	-f	MMM	01/07/2000	t	Jul
+--de	-f	MMM	01/08/2000	t	Aug
+--de	-f	MMM	01/09/2000	t	Sep
+--de	-f	MMM	01/10/2000	t	Okt
+--de	-f	MMM	01/11/2000	t	Nov
+--de	-f	MMM	01/12/2000	t	Dez
+# Francês
+--fr	-f	MMM	01/01/2000	t	Jan
+--fr	-f	MMM	01/02/2000	t	Fév
+--fr	-f	MMM	01/03/2000	t	Mar
+--fr	-f	MMM	01/04/2000	t	Avr
+--fr	-f	MMM	01/05/2000	t	Mai
+--fr	-f	MMM	01/06/2000	t	Jui
+--fr	-f	MMM	01/07/2000	t	Jui
+--fr	-f	MMM	01/08/2000	t	Aoû
+--fr	-f	MMM	01/09/2000	t	Sep
+--fr	-f	MMM	01/10/2000	t	Oct
+--fr	-f	MMM	01/11/2000	t	Nov
+--fr	-f	MMM	01/12/2000	t	Déc
+# Italiano
+--it	-f	MMM	01/01/2000	t	Gen
+--it	-f	MMM	01/02/2000	t	Feb
+--it	-f	MMM	01/03/2000	t	Mar
+--it	-f	MMM	01/04/2000	t	Apr
+--it	-f	MMM	01/05/2000	t	Mag
+--it	-f	MMM	01/06/2000	t	Giu
+--it	-f	MMM	01/07/2000	t	Lug
+--it	-f	MMM	01/08/2000	t	Ago
+--it	-f	MMM	01/09/2000	t	Set
+--it	-f	MMM	01/10/2000	t	Ott
+--it	-f	MMM	01/11/2000	t	Nov
+--it	-f	MMM	01/12/2000	t	Dic
 
 # ano 4 dígitos, sem alterações
 ''	''	''	01/02/0003	t	01/02/0003
