@@ -55,7 +55,7 @@ zzdatafmt ()
 	local meses_pt='janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro'
 	local meses_en='January February March April May June July August September October November December'
 	local meses_es='Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre'
-	local meses_al='Januar Februar März April Mai Juni Juli August September Oktober November Dezember'
+	local meses_de='Januar Februar März April Mai Juni Juli August September Oktober November Dezember'
 	local meses_fr='Janvier Février Mars Avril Mai Juin Juillet Août Septembre Octobre Novembre Décembre'
 	local meses_it='Gennaio Febbraio Marzo Aprile Maggio Giugno Luglio Agosto Settembre Ottobre Novembre Dicembre'
 
@@ -88,7 +88,7 @@ zzdatafmt ()
 				shift
 			;;
 			--de)
-				meses=$meses_al
+				meses=$meses_de
 				[ "$fmt" ] || fmt='DD. MES AAAA'
 				shift
 			;;
