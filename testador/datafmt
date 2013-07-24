@@ -14,8 +14,50 @@ tests=(
 -f	'D M AA'		01/02/2003	t	"1 2 03"
 -f	'DD MM AAAA'		01/02/2003	t	"01 02 2003"
 -f	'D de MES de AAAA'	01/02/2003	t	"1 de fevereiro de 2003"
+
+# Reconhecimento de data textual com conversão de idioma
+--de	'19 de março de 2012'	''		t	'19. März 2012'
 )
 . _lib
+
+
+# Reconhecimento de datas textuais: abreviado, completo, com/sem "de", maiúsculas/minúsculas
+values=1
+protected=1
+tests=(
+'31/jan/2013'				t	'31/01/2013'
+'31-jan-2013'				t	'31/01/2013'
+'31.jan.2013'				t	'31/01/2013'
+'31 jan 2013'				t	'31/01/2013'
+
+'31/janeiro/2013'			t	'31/01/2013'
+'31-janeiro-2013'			t	'31/01/2013'
+'31.janeiro.2013'			t	'31/01/2013'
+'31 janeiro 2013'			t	'31/01/2013'
+
+'31 DE JAN DE 2013'			t	'31/01/2013'
+'31 de jan de 2013'			t	'31/01/2013'
+'31 de jan 2013'			t	'31/01/2013'
+'31 jan de 2013'			t	'31/01/2013'
+
+'31 DE JANEIRO DE 2013'			t	'31/01/2013'
+'31 de janeiro de 2013'			t	'31/01/2013'
+'31 de janeiro 2013'			t	'31/01/2013'
+'31 janeiro de 2013'			t	'31/01/2013'
+)
+. _lib
+
+
+
+# Data textual passada em $1, $2, $3, etc (sem aspas)
+values=5
+protected=0
+tests=(
+31	de	jan	de	2013	t	31/01/2013
+31	de	janeiro	de	2013	t	31/01/2013
+)
+. _lib
+
 
 
 debug=0

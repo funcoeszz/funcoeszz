@@ -42,7 +42,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzdata zzminusculas zznumero
 # Tags: data
@@ -110,22 +110,31 @@ zzdatafmt ()
 	data=$(zztool multi_stdin "$@")
 	data_orig="$data"
 
-	# Data em formato textual
-	echo "$data" | grep ' de ' > /dev/null && data=$(echo "$data" | sed 's| de |/|g;')
-	data=$(echo "$data" | tr -d ' ' | tr .- //)
-	mes=$(echo "$data" | cut -d / -f 2)
-	mm=$(echo "$meses_pt" |
-		zzminusculas |
-		awk '{for (i=1;i<=NF;i++){ if (substr($i,1,3) == substr("'$(echo $mes | zzminusculas)'",1,3) ) printf "%02s\n", i}}')
-
-	zztool testa_numero "$mm" && data=$(echo $data | sed "s/$mes/$mm/")
-	unset mes mm
-
 	# Converte datas estranhas para o formato brasileiro ../../..
 	case "$data" in
 		# apelidos
 		hoje | ontem | anteontem | amanh[ãa])
 			data=$(zzdata "$data")
+		;;
+		# data possivelmente em formato textual
+		*[A-Za-z]*)
+			# 31 de janeiro de 2013
+			# 31 de jan de 2013
+			# 31/jan/2013
+			# 31-jan-2013
+			# 31.jan.2013
+			# 31 jan 2013
+
+			# Primeiro converte tudo pra 31/jan/2013 ou 31/janeiro/2013
+			data=$(echo "$data" | zzminusculas | sed 's| de |/|g' | tr ' .-' ///)
+
+			# Agora converte o nome do mês para número
+			mes=$(echo "$data" | cut -d / -f 2)
+			mm=$(echo "$meses_pt" |
+				zzminusculas |
+				awk '{for (i=1;i<=NF;i++){ if (substr($i,1,3) == substr("'$mes'",1,3) ) printf "%02s\n", i}}')
+			zztool testa_numero "$mm" && data=$(echo "$data" | sed "s/$mes/$mm/")
+			unset mes mm
 		;;
 		# aaaa-mm-dd (ISO)
 		????-??-??)
