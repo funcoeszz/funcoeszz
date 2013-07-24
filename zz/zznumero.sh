@@ -79,7 +79,7 @@ zznumero ()
 8:septilhões
 9:octilhões
 10:nonilhões
-11:decillões
+11:decilhões
 12:undecilhões
 13:duodecilhões
 14:tredecilhões
