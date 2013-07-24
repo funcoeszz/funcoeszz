@@ -42,7 +42,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
-# Versão: 8
+# Versão: 9
 # Licença: GPL
 # Requisitos: zzdata zzminusculas zznumero
 # Tags: data
@@ -88,7 +88,7 @@ zzdatafmt ()
 			;;
 			--ptt)
 				meses=$meses_pt
-				[ "$fmt" ] || fmt='DDT de MES de AAAAT'
+				[ "$fmt" ] || fmt='DIA de MES de ANO'
 				shift
 			;;
 			--de)
@@ -229,13 +229,16 @@ zzdatafmt ()
 			# Atenção à ordem das opções do case: AAAA -> AAA -> AA
 			# Sempre do maior para o menor para evitar matches parciais
 			case "$fmt" in
-				AAAAT*)
+				ANO*  )
 					printf "$(zznumero --texto "$aaaa" | sed 's/^ *//;s/ inteiros*//')"
-					fmt="${fmt#AAAAT}";;
+					fmt="${fmt#ANO}";;
+				DIA*  )
+					printf "$(zznumero --texto "$dd" | sed 's/^ *//;s/ inteiros*//')"
+					fmt="${fmt#DIA}";;
+				MES*  ) printf %s "$mes" ; fmt="${fmt#MES}";;
 				AAAA* ) printf %s "$aaaa"; fmt="${fmt#AAAA}";;
 				AA*   ) printf %s "$aa"  ; fmt="${fmt#AA}";;
 				A*    ) printf %s "$a"   ; fmt="${fmt#A}";;
-				MES*  ) printf %s "$mes" ; fmt="${fmt#MES}";;
 				MMM*  )
 					# Arruma possíveis problemas de codificação com acentos
 					printf %s "$mmm" | sed 's/Mä$/Mär/;s/Fé$/Fév/;s/Dé$/Déc/' | tr -d '\n'
@@ -243,9 +246,6 @@ zzdatafmt ()
 				;;
 				MM*   ) printf %s "$mm"  ; fmt="${fmt#MM}";;
 				M*    ) printf %s "$m"   ; fmt="${fmt#M}";;
-				DDT*  )
-					printf "$(zznumero --texto "$dd" | sed 's/^ *//;s/ inteiros*//')"
-					fmt="${fmt#DDT}";;
 				DD*   ) printf %s "$dd"  ; fmt="${fmt#DD}";;
 				D*    ) printf %s "$d"   ; fmt="${fmt#D}";;
 				*     ) printf %c "$fmt" ; fmt="${fmt#?}";;  # 1char
