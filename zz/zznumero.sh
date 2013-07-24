@@ -29,7 +29,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -171,7 +171,7 @@ zznumero ()
 		-p)
 			# Prefixo escolhido pelo usuário
 			prefixo="$2"
-			$(echo "$2" | grep '^ *[rR]$ *$') && prefixo='R$ '
+			echo "$2" | grep -q '^ *[rR]$ *$' > /dev/null && prefixo='R$ '
 			shift
 			shift
 		;;
