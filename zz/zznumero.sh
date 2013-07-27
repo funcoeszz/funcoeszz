@@ -493,6 +493,13 @@ zznumero ()
 		unset numero
 		unset num_saida
 
+		# Caso especial para o 0 (zero)
+		if test "$num_int" = "0"
+		then
+			[ $texto -eq 1 ] && num_saida=$num_int
+			[ $texto -eq 2 ] && num_saida='zero'
+		fi
+
 		while [ "$1" ]
 		do
 			# Emprestando a variável qtde_v para cada conjunto de 3 números do número original (ordem de grandeza)
