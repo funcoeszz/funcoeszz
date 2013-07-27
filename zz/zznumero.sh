@@ -783,8 +783,13 @@ zznumero ()
 
 		######################################################################
 
-		[ "$sinal" = '-' ] && num_saida="$num_saida negativos"
-		[ "$sinal" = '+' ] && num_saida="$num_saida positivos"
+		# Zero (0) não é positivo e nem negativo
+		n_temp=$(echo "$num_saida" | sed 's/inteiros//' | tr -d ' ')
+		if [ "$n_temp" != "0" -a "$n_temp" != "zero" ]
+		then
+			[ "$sinal" = '-' ] && num_saida="$num_saida negativos"
+			[ "$sinal" = '+' ] && num_saida="$num_saida positivos"
+		fi
 
 		# Para o caso de ser o número 1, colocar no singular
 		if [ "$num_int" = "1" ]
@@ -835,6 +840,13 @@ zznumero ()
 		echo "${num_saida}" | sed 's/ *$//g;s/ \{1,\}/ /g;s/^[ ,]*//g'
 
 	else
+		# Zero (0) não é positivo e nem negativo
+		n_temp=$(echo "$num_saida" | sed 's/^[+-]//')
+		if [ "$n_temp" = "0" -o "$n_temp" = "R$ 0" ]
+		then
+			num_saida=$n_temp
+		fi
+		
 		zztool grep_var 'R$' "$prefixo" && unset prefixo
 		[ ${#num_saida} -gt 0 ] && echo ${prefixo}${num_saida}${sufixo}
 	fi
