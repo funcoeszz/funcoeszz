@@ -40,8 +40,9 @@ zznumero ()
 	local texto=0
 	local prec='-'
 	local linha=0
+	local sufixo=''
 	local milhar_de decimal_de milhar_para decimal_para
-	local numero qtde_v qtde_p n_formato num_int num_frac num_saida prefixo sufixo sinal n_temp
+	local numero qtde_v qtde_p n_formato num_int num_frac num_saida prefixo sinal n_temp
 
 	# Zero a Novecentos e noventa e nove (base para as demais classes)
 	local ordem1="\
@@ -592,6 +593,9 @@ zznumero ()
 			shift
 		done
 		[ "$num_saida" ] && num_saida=$(echo "${num_saida} inteiros" | sed 's/ *$//;s/ \{1,\}/ /g')
+		# Colocando o sufixo
+		num_saida="${num_saida} inteiros"
+		[ "$num_int" = "1" ] && num_saida=$(echo "${num_saida}" | sed 's/inteiros/inteiro/')
 
 		######################################################################
 
@@ -754,7 +758,7 @@ zznumero ()
 		then
 			num_saida=$(echo "$num_saida" | sed 's/inteiros/reais/;s/inteiro/real/;s/centésimo/centavo/')
 		else
-			[ "$sufixo" ] && num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
+			num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
 		fi
 
 		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g; s/  */ /g' | sed 's/^ *e //; s/ e *$//')
