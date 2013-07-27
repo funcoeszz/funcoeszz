@@ -590,7 +590,13 @@ zznumero ()
 
 				if [ $texto -eq 2 ]
 				then
-					num_saida="${num_saida} e ${numero} ${n_formato}"
+					if [ "$n_formato" ]
+					then
+						[ "$num_saida" ] && num_saida="${num_saida}, ${numero} ${n_formato}" || num_saida="${numero} ${n_formato}"
+					else
+						num_saida="${num_saida} ${numero}"
+						num_saida=$(echo "${num_saida}" | sed 's/ilhões  *\([a-z]\)/ilhões, \1/;s/ilhão  *\([a-z]\)/ilhão, \1/')
+					fi
 				else
 					num_saida="${num_saida} ${qtde_v} ${n_formato}"
 				fi
@@ -599,14 +605,39 @@ zznumero ()
 			qtde_p=$((qtde_p - 1))
 			shift
 		done
-		[ "$num_saida" ] && num_saida=$(echo "${num_saida} inteiros" | sed 's/ *$//;s/ \{1,\}/ /g')
+		[ "$num_saida" ] && num_saida=$(echo "${num_saida}" | sed 's/ *$//;s/ \{1,\}/ /g')
+
+		# Milhar seguido de uma centena terminada em 00.
+		# Milhar seguida de uma unidade ou dezena
+		# Caso "Um mil" em desuso, apenas "mil" usa-se
+		if zztool grep_var ' mil ' "${num_saida}"
+		then
+			num_saida=$(echo "${num_saida}" | sed 's/\( mil \)\([a-z]*\)entos$/\1 e \2entos/')
+			num_saida=$(echo "${num_saida}" | sed 's/ mil cem$/ mil e cem/')
+			num_saida=$(echo "${num_saida}" | sed 's/^ *um mil/mil/')
+
+			# Colocando o "e" entre o mil seguido de 1 ao 19
+			for n_temp in $(echo "$ordem1" | cut -f 2 -d: | sed '/^ *$/d')
+			do
+				num_saida=$(echo "${num_saida}" | sed "s/ mil $n_temp$/ mil e $n_temp/")
+				num_saida=$(echo "${num_saida}" | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
+			done
+
+			# Colocando o "e" entre o mil seguido de dezenas entre 20 e 99
+			for n_temp in $(echo "$ordem1" | cut -f 3 -d: | sed '/^ *$/d' )
+			do
+				num_saida=$(echo "${num_saida}" | sed "s/ mil $n_temp$/ mil e $n_temp/")
+				num_saida=$(echo "${num_saida}" | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
+			done
+		fi
+
 		# Colocando o sufixo
 		num_saida="${num_saida} inteiros"
 		[ "$num_int" = "1" ] && num_saida=$(echo "${num_saida}" | sed 's/inteiros/inteiro/')
 
 		######################################################################
 
-		#Validando as parte fracionária do número
+		# Validando as parte fracionária do número
 		if [ ${#num_frac} -gt 0 ]
 		then
 			zztool testa_numero $num_frac || { zztool uso numero; return 1; }
@@ -621,7 +652,14 @@ zznumero ()
 		# Liberando as variáveis numero para receber o número por extenso
 		unset numero
 
-		[ "$1" ] && num_saida="$num_saida e "
+		if [ "$1" ]
+		then
+			# Tendo parte fracionário, e inteiro sendo 0 (zero), parte inteira é apagada.
+			test "$num_int" = "0" && unset num_saida
+
+			# Tendo parte fracionária, conecta com o "e"
+			[ "$num_saida" ] && num_saida="${num_saida} e "
+		fi
 
 		while [ "$1" ]
 		do
@@ -712,7 +750,7 @@ zznumero ()
 
 				if [ $texto -eq 2 ]
 				then
-					num_saida="${num_saida} e ${numero} ${n_formato}"
+					num_saida="${num_saida} ${numero} ${n_formato}"
 				else
 					num_saida="${num_saida} ${qtde_v} ${n_formato}"
 				fi
@@ -768,7 +806,7 @@ zznumero ()
 			num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
 		fi
 
-		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g; s/  */ /g' | sed 's/^ *e //; s/ e *$//')
+		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g; s/  */ /g' | sed 's/^ *e //; s/ e *$//; s/^ *//g')
 
 		# Uma classe numérica por linha
 		if [ $linha -eq 1 ]
