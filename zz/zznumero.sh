@@ -38,7 +38,7 @@ zznumero ()
 	zzzz -h numero "$1" && return
 
 	local texto=0
-	local prec=2
+	local prec='-'
 	local linha=0
 	local milhar_de decimal_de milhar_para decimal_para
 	local numero qtde_v qtde_p n_formato num_int num_frac num_saida prefixo sufixo sinal n_temp
