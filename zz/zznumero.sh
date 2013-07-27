@@ -29,7 +29,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -822,7 +822,7 @@ zznumero ()
 				sed 's/ilhões/&\
 /g;s/ilhão/&\
 /g;s/mil /&\
- /' |
+/' |
 				sed 's/inteiros*/&\
 /;s/rea[li]s*/&\
 /')
@@ -830,7 +830,9 @@ zznumero ()
 			esac
 		fi
 
-		echo "$num_saida" | sed 's/ *$//g;s/ \{1,\}/ /g'
+		zztool grep_var 'R$' "$prefixo" && unset prefixo
+		[ "$prefixo" ] && num_saida="${prefixo} ${num_saida}"
+		echo "${num_saida}" | sed 's/ *$//g;s/ \{1,\}/ /g;s/^[ ,]*//g'
 
 	else
 		zztool grep_var 'R$' "$prefixo" && unset prefixo
