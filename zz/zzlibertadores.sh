@@ -1,11 +1,18 @@
 # ----------------------------------------------------------------------------
 # Mostra a classificação e jogos do torneio Libertadores da América.
 # Opções:
-#  -j <número>: Mostra jogos da fase selecionada
-#  -j <fase>: Mostra jogos da fase selecionada
+#  <número> | <fase>: Mostra jogos da fase selecionada
 #    fases: pre ou primeira, grupos ou segunda, oitavas
 #  -g <número>: Jogos da segunda fase do gupo selecionado
 #  -c [numero]: Mostra a classificação, nos grupos da segunda fase
+#
+# As fases podem ser:
+#  pré, pre, primeira ou 1, para a fasé pré-libertadores
+#  grupos, segunda ou 2, para a fase de grupos da libertadores
+#  oitavas ou 3
+#  quartas ou 4
+#  semi, semi-final ou 5
+#  final ou 6
 #
 # Nomenclatura:
 #	P   - Pontos Ganhos
@@ -18,15 +25,15 @@
 #	SG  - Saldo de Gols
 #	(%) - Aproveitamento (pontos)
 #
-# Uso: zzlibertadores <-c|-j|-g> [número]
-# Ex.: zzlibertadores -j 2  # Jogos da Fase 2 (Grupos)
+# Uso: zzlibertadores [ fase | -c []número] | -g <número> ]
+# Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)
 #      zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
 #      zzlibertadores -c    # Calssificação de todos os grupos
 #      zzlibertadores -c 3  # Classificação no grupo 3
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlibertadores ()
@@ -41,12 +48,12 @@ zzlibertadores ()
 
 	# Mostrando os jogos
 	# Escolhendo as fases
-	if [ "$1" = "-j" ]
-	then
+	#if [ "$1" = "-j" ]
+	#then
 		url="${url}/tabela-de-jogos"
 		# Fase 1 (Pré-libertadores)
-		case "$2" in
-		1 | pre | primeira)
+		case "$1" in
+		1 | pr[eé] | primeira)
 			url="${url}/primeira-fase"
 			$ZZWWWDUMP "$url" | sed -n '/Primeira fase - IDA/,/primeira-fase/p' |
 			sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g' | sed "s/.*${ano}$/\n&/g"
@@ -70,7 +77,7 @@ zzlibertadores ()
 			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
 			sed 's/ *Quartas de final - VOLTA/\n&/;'
 		;;
-		5 | semi)
+		5 | semi | semi-final)
 			url="${url}/semifinal"
 			$ZZWWWDUMP "$url" | sed -n '/Semifinal - IDA/,/^ *$/p' |
 			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
@@ -83,13 +90,13 @@ zzlibertadores ()
 			sed 's/ *Final - VOLTA/\n&/;'
 		;;
 		esac
-	fi
+	#fi
 
 	# Escolhendo o grupo para os jogos
 	if [ "$1" = "-g" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
 	then
 		grupo="$2"
-		url="${url}/tabela-de-jogos/segunda-fase/grupo-${grupo}.htm"
+		url="${url}/segunda-fase/grupo-${grupo}.htm"
 		$ZZWWWDUMP "$url" | sed -n '/^ *Grupo /,/segunda-fase/p' |
 		sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Grupo/\n&/g'
 	fi
