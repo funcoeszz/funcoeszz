@@ -230,10 +230,10 @@ zzdatafmt ()
 			# Sempre do maior para o menor para evitar matches parciais
 			case "$fmt" in
 				ANO*  )
-					printf "$(zznumero --texto "$aaaa" | sed 's/^ *//;s/ inteiros*//')"
+					printf "$(zznumero --texto $aaaa)"
 					fmt="${fmt#ANO}";;
 				DIA*  )
-					printf "$(zznumero --texto "$dd" | sed 's/^ *//;s/ inteiros*//')"
+					printf "$(zznumero --texto $dd)"
 					fmt="${fmt#DIA}";;
 				MES*  ) printf %s "$mes" ; fmt="${fmt#MES}";;
 				AAAA* ) printf %s "$aaaa"; fmt="${fmt#AAAA}";;
