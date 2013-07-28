@@ -869,7 +869,7 @@ zznumero ()
 		then
 			num_saida=$n_temp
 		fi
-		
+
 		zztool grep_var 'R$' "$prefixo" && unset prefixo
 		[ ${#num_saida} -gt 0 ] && echo ${prefixo}${num_saida}${sufixo}
 	fi

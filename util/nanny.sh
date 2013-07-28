@@ -204,8 +204,7 @@ do
 	test -n "$wrong" && printf "%s: %s\n" $f "$wrong" |
 		# Exceções conhecidas
 		grep -v '^zz/zzferiado.sh: # Requisitos:' |
-		grep -v '^zz/zzloteria2.sh: # Resultados da quina' |
-		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org'
+		grep -v '^zz/zzloteria2.sh: # Resultados da quina'
 done
 
 ### Desativada por enquanto, ainda não sei o que fazer com isso
