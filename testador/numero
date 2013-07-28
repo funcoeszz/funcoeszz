@@ -4,32 +4,56 @@ values=3
 tests=(
 
 # XXX aceitar prefixo + também?
+# Sim aceita-se o prefixo, e será exibido junto ao resultado numérico.
+# Ou terá um sufixo adicional 'positivo'
 
 # número inválido ou não reconhecido
-''	''	foo		t	"Número inválido 'foo'"
-''	''	a5		t	"Número inválido 'a5'"
-''	''	5a		t	"Número inválido '5a'"
+# Não exibe nada, exceto pelo código de retorno 1
+#''	''	foo		t	"Número inválido 'foo'"
+#''	''	a5		t	"Número inválido 'a5'"
+#''	''	5a		t	"Número inválido '5a'"
+''	''	foo		t	''
+''	''	a5		t	''
+''	''	5a		t	''
 
 # decimais e fracionários, incompletos
 # XXX Aqui devemos tentar adivinhar ou simplesmente retornar 'número inválido'?
 #     Acho que quanto menos "espertezas", melhor.
-''	''	1.	t	1,00
-''	''	1,	t	1,00
+# Alguns combinaçãos já advinha, mas sempre suprimindo os 0 não significativos.
+#''	''	1.	t	1,00
+#''	''	1,	t	1,00
+#''	''	,1	t	0,1
+#''	''	.	t	0
+#''	''	,	t	0
+#''	''	-1.	t	-1,00
+#''	''	-1,	t	-1,00
+#''	''	-,1	t	-0,1
+#''	''	-.	t	0
+#''	''	-,	t	0
+''	''	1.	t	1
+''	''	1,	t	1
 ''	''	,1	t	0,1
-''	''	.	t	0
-''	''	,	t	0
-''	''	-1.	t	-1,00
-''	''	-1,	t	-1,00
+''	''	.	t	''
+''	''	,	t	''
+''	''	-1.	t	-1
+''	''	-1,	t	-1
 ''	''	-,1	t	-0,1
-''	''	-.	t	0
-''	''	-,	t	0
+''	''	+1.	t	+1
+''	''	+1,	t	+1
+''	''	+,1	t	+0,1
+''	''	-.	t	''
+''	''	-,	t	''
+
 
 ### Sem argumentos, formata no padrão brasileiro: 1.234.567,89
-
+## Mesmo caso, sempre suprimindo os zeros não significativos.
 # zero
+#''	''	0		t	0
+#''	''	0,00		t	0,00
+#''	''	0,0000		t	0,0000		# XXX o certo é manter as casas ou deixar 2?
 ''	''	0		t	0
-''	''	0,00		t	0,00
-''	''	0,0000		t	0,0000		# XXX o certo é manter as casas ou deixar 2?
+''	''	0,00		t	0
+''	''	0,0000		t	0
 
 # decimais positivos
 ''	''	1		t	1
@@ -54,16 +78,27 @@ tests=(
 ''	''	-123456789	t	-123.456.789
 ''	''	-1234567890	t	-1.234.567.890
 # fracionários positivos (00)
-''	''	1,00		t	1,00
-''	''	12,00		t	12,00
-''	''	123,00		t	123,00
-''	''	1234,00		t	1.234,00
-''	''	12345,00	t	12.345,00
-''	''	123456,00	t	123.456,00
-''	''	1234567,00	t	1.234.567,00
-''	''	12345678,00	t	12.345.678,00
-''	''	123456789,00	t	123.456.789,00
-''	''	1234567890,00	t	1.234.567.890,00
+# sempre suprimindo os zeros não significativos.
+#''	''	1,00		t	1,00
+#''	''	12,00		t	12,00
+#''	''	123,00		t	123,00
+#''	''	1234,00		t	1.234,00
+#''	''	12345,00	t	12.345,00
+#''	''	123456,00	t	123.456,00
+#''	''	1234567,00	t	1.234.567,00
+#''	''	12345678,00	t	12.345.678,00
+#''	''	123456789,00	t	123.456.789,00
+#''	''	1234567890,00	t	1.234.567.890,00
+''	''	1,00		t	1
+''	''	12,00		t	12
+''	''	123,00		t	123
+''	''	1234,00		t	1.234
+''	''	12345,00	t	12.345
+''	''	123456,00	t	123.456
+''	''	1234567,00	t	1.234.567
+''	''	12345678,00	t	12.345.678
+''	''	123456789,00	t	123.456.789
+''	''	1234567890,00	t	1.234.567.890
 # fracionários positivos (uma casa)
 ''	''	1,1		t	1,1                    # XXX o certo é deixar 1 ou 2?
 ''	''	12,1		t	12,1
@@ -98,16 +133,27 @@ tests=(
 ''	''	123456789,123456789	t	123.456.789,123456789
 ''	''	1234567890,123456789	t	1.234.567.890,123456789
 # fracionários negativos (00)
-''	''	-1,00		t	-1,00
-''	''	-12,00		t	-12,00
-''	''	-123,00		t	-123,00
-''	''	-1234,00	t	-1.234,00
-''	''	-12345,00	t	-12.345,00
-''	''	-123456,00	t	-123.456,00
-''	''	-1234567,00	t	-1.234.567,00
-''	''	-12345678,00	t	-12.345.678,00
-''	''	-123456789,00	t	-123.456.789,00
-''	''	-1234567890,00	t	-1.234.567.890,00
+# sempre suprimindo os zeros não significativos.
+#''	''	-1,00		t	-1,00
+#''	''	-12,00		t	-12,00
+#''	''	-123,00		t	-123,00
+#''	''	-1234,00	t	-1.234,00
+#''	''	-12345,00	t	-12.345,00
+#''	''	-123456,00	t	-123.456,00
+#''	''	-1234567,00	t	-1.234.567,00
+#''	''	-12345678,00	t	-12.345.678,00
+#''	''	-123456789,00	t	-123.456.789,00
+#''	''	-1234567890,00	t	-1.234.567.890,00
+''	''	-1,00		t	-1
+''	''	-12,00		t	-12
+''	''	-123,00		t	-123
+''	''	-1234,00	t	-1.234
+''	''	-12345,00	t	-12.345
+''	''	-123456,00	t	-123.456
+''	''	-1234567,00	t	-1.234.567
+''	''	-12345678,00	t	-12.345.678
+''	''	-123456789,00	t	-123.456.789
+''	''	-1234567890,00	t	-1.234.567.890
 # fracionários negativos (uma casa)
 ''	''	-1,1		t	-1,1                    # XXX o certo é deixar 1 ou 2?
 ''	''	-12,1		t	-12,1
@@ -299,20 +345,35 @@ tests=(
 ''	-m	-123456789,123456789	t	"-R$ 123.456.789,12"
 ''	-m	-1234567890,123456789	t	"-R$ 1.234.567.890,12"
 # decimais e fracionários, já pontuados (não altera nada)
-''	-m	1.234			t	"R$ 1.234"
-''	-m	12.345			t	"R$ 12.345"
-''	-m	123.456			t	"R$ 123.456"
-''	-m	1.234.567		t	"R$ 1.234.567"
-''	-m	12.345.678		t	"R$ 12.345.678"
-''	-m	123.456.789		t	"R$ 123.456.789"
-''	-m	1.234.567.890		t	"R$ 1.234.567.890"
-''	-m	-1.234			t	"-R$ 1.234"
-''	-m	-12.345			t	"-R$ 12.345"
-''	-m	-123.456		t	"-R$ 123.456"
-''	-m	-1.234.567		t	"-R$ 1.234.567"
-''	-m	-12.345.678		t	"-R$ 12.345.678"
-''	-m	-123.456.789		t	"-R$ 123.456.789"
-''	-m	-1.234.567.890		t	"-R$ 1.234.567.890"
+# No caso uso da opção -m, sempre será 2 casas decimais
+#''	-m	1.234			t	"R$ 1.234"
+#''	-m	12.345			t	"R$ 12.345"
+#''	-m	123.456			t	"R$ 123.456"
+#''	-m	1.234.567		t	"R$ 1.234.567"
+#''	-m	12.345.678		t	"R$ 12.345.678"
+#''	-m	123.456.789		t	"R$ 123.456.789"
+#''	-m	1.234.567.890		t	"R$ 1.234.567.890"
+#''	-m	-1.234			t	"-R$ 1.234"
+#''	-m	-12.345			t	"-R$ 12.345"
+#''	-m	-123.456		t	"-R$ 123.456"
+#''	-m	-1.234.567		t	"-R$ 1.234.567"
+#''	-m	-12.345.678		t	"-R$ 12.345.678"
+#''	-m	-123.456.789		t	"-R$ 123.456.789"
+#''	-m	-1.234.567.890		t	"-R$ 1.234.567.890"
+''	-m	1.234			t	"R$ 1.234,00"
+''	-m	12.345			t	"R$ 12.345,00"
+''	-m	123.456			t	"R$ 123.456,00"
+''	-m	1.234.567		t	"R$ 1.234.567,00"
+''	-m	12.345.678		t	"R$ 12.345.678,00"
+''	-m	123.456.789		t	"R$ 123.456.789,00"
+''	-m	1.234.567.890		t	"R$ 1.234.567.890,00"
+''	-m	-1.234			t	"-R$ 1.234,00"
+''	-m	-12.345			t	"-R$ 12.345,00"
+''	-m	-123.456		t	"-R$ 123.456,00"
+''	-m	-1.234.567		t	"-R$ 1.234.567,00"
+''	-m	-12.345.678		t	"-R$ 12.345.678,00"
+''	-m	-123.456.789		t	"-R$ 123.456.789,00"
+''	-m	-1.234.567.890		t	"-R$ 1.234.567.890,00"
 ''	-m	1.234,12		t	"R$ 1.234,12"
 ''	-m	12.345,12		t	"R$ 12.345,12"
 ''	-m	123.456,12		t	"R$ 123.456,12"
@@ -348,8 +409,12 @@ tests=(
 ''	-t	123456789012	t	'123 bilhões 456 milhões 789 mil 12'
 ''	-t	1234567890123	t	'1 trilhão 234 bilhões 567 milhões 890 mil 123'
 ''	-t	12345678901234	t	'12 trilhões 345 bilhões 678 milhões 901 mil 234'
-''	-t	-1		t	-1
+#''	-t	-1		t	-1
+''	-t	-1		t	'1 negativo'
+''	-t	+1		t	'1 positivo'
 ''	-t	0		t	0
+''	-t	-0		t	0
+''	-t	+0		t	0
 ''	-t	9		t	9
 ''	-t	10		t	10
 ''	-t	11		t	11
@@ -476,7 +541,7 @@ tests=(
 ''	--texto	123456789	t	'cento e vinte e três milhões, quatrocentos e cinquenta e seis mil setecentos e oitenta e nove'
 ''	--texto	1234567890	t	'um bilhão, duzentos e trinta e quatro milhões, quinhentos e sessenta e sete mil oitocentos e noventa'
 ''	--texto	12345678901	t	'doze bilhões, trezentos e quarenta e cinco milhões, seiscentos e setenta e oito mil novecentos e um'
-''	--texto	123456789012	t	'cento e vinte e três bilhões, quatrocentos e cinquenta e seis milhões, setecentos e oitenta e nove mil doze'
+''	--texto	123456789012	t	'cento e vinte e três bilhões, quatrocentos e cinquenta e seis milhões, setecentos e oitenta e nove mil e doze'
 ''	--texto	1234567890123	t	'um trilhão, duzentos e trinta e quatro bilhões, quinhentos e sessenta e sete milhões, oitocentos e noventa mil cento e vinte e três'
 ''	--texto	12345678901234	t	'doze trilhões, trezentos e quarenta e cinco bilhões, seiscentos e setenta e oito milhões, novecentos e um mil duzentos e trinta e quatro'
 # Pontos de mudança de ordem
@@ -502,8 +567,9 @@ tests=(
 ''	--texto	100001		t	'cem mil e um'
 ''	--texto	999999		t	'novecentos e noventa e nove mil novecentos e noventa e nove'
 ''	--texto	1000000		t	'um milhão'
-''	--texto	1100100		t	'um milhão e cem mil e cem'
-''	--texto	9999999		t	'nove milhões e novecentos e noventa e nove mil novecentos e noventa e nove'
+#''	--texto	1100100		t	'um milhão e cem mil e cem'
+''	--texto	1100100		t	'um milhão, cem mil e cem' # Esse é um caso a ser pensado sobre a forma correta.
+''	--texto	9999999		t	'nove milhões, novecentos e noventa e nove mil novecentos e noventa e nove'
 # Exemplos do guia do Estadão
 ''	--texto	28		t	'vinte e oito'
 ''	--texto	54		t	'cinquenta e quatro'
