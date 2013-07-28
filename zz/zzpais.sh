@@ -11,7 +11,7 @@
 # Uso: zzpais [palavra|regex]
 # Ex.: zzpais              # mostra um pais qualquer
 #      zzpais unidos       # mostra os países com "unidos" no nome
-#      zzpais -i -o nova   # mostra o nome original de países com "nova", e idioma.
+#      zzpais -o nova      # mostra o nome original de países com "nova".
 #      zzpais ^Z           # mostra os países que começam com Z
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
