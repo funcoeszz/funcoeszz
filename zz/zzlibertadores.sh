@@ -48,49 +48,46 @@ zzlibertadores ()
 
 	# Mostrando os jogos
 	# Escolhendo as fases
-	#if [ "$1" = "-j" ]
-	#then
-		url="${url}/tabela-de-jogos"
-		# Fase 1 (Pré-libertadores)
-		case "$1" in
-		1 | pr[eé] | primeira)
-			url="${url}/primeira-fase"
-			$ZZWWWDUMP "$url" | sed -n '/Primeira fase - IDA/,/primeira-fase/p' |
-			sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g' | sed "s/.*${ano}$/\n&/g"
-		;;
-		# Fase 2 (Fase de Grupos)
-		2 | grupos | segunda)
-			for grupo in 1 2 3 4 5 6 7 8
-			do
-				zzlibertadores -g $grupo
-			done
-		;;
-		3 | oitavas)
-			url="${url}/oitavas-de-final"
-			$ZZWWWDUMP "$url" | sed -n '/Oitavas de final - IDA/,/^ *$/p' |
-			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-			sed 's/ *Oitavas de final - VOLTA/\n&/;'
-		;;
-		4 | quartas)
-			url="${url}/quartas-de-final"
-			$ZZWWWDUMP "$url" | sed -n '/Quartas de final - IDA/,/^ *$/p' |
-			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-			sed 's/ *Quartas de final - VOLTA/\n&/;'
-		;;
-		5 | semi | semi-final)
-			url="${url}/semifinal"
-			$ZZWWWDUMP "$url" | sed -n '/Semifinal - IDA/,/^ *$/p' |
-			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-			sed 's/ *Semifinal - VOLTA/\n&/;'
-		;;
-		6 | final)
-			url="${url}/final"
-			$ZZWWWDUMP "$url" | sed -n '/Final - IDA/,/^ *$/p' |
-			sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-			sed 's/ *Final - VOLTA/\n&/;'
-		;;
-		esac
-	#fi
+	url="${url}/tabela-de-jogos"
+	# Fase 1 (Pré-libertadores)
+	case "$1" in
+	1 | pr[eé] | primeira)
+		url="${url}/primeira-fase"
+		$ZZWWWDUMP "$url" | sed -n '/Primeira fase - IDA/,/primeira-fase/p' |
+		sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g' | sed "s/.*${ano}$/\n&/g"
+	;;
+	# Fase 2 (Fase de Grupos)
+	2 | grupos | segunda)
+		for grupo in 1 2 3 4 5 6 7 8
+		do
+			zzlibertadores -g $grupo
+		done
+	;;
+	3 | oitavas)
+		url="${url}/oitavas-de-final"
+		$ZZWWWDUMP "$url" | sed -n '/Oitavas de final - IDA/,/^ *$/p' |
+		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+		sed 's/ *Oitavas de final - VOLTA/\n&/;'
+	;;
+	4 | quartas)
+		url="${url}/quartas-de-final"
+		$ZZWWWDUMP "$url" | sed -n '/Quartas de final - IDA/,/^ *$/p' |
+		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+		sed 's/ *Quartas de final - VOLTA/\n&/;'
+	;;
+	5 | semi | semi-final)
+		url="${url}/semifinal"
+		$ZZWWWDUMP "$url" | sed -n '/Semifinal - IDA/,/^ *$/p' |
+		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+		sed 's/ *Semifinal - VOLTA/\n&/;'
+	;;
+	6 | final)
+		url="${url}/final"
+		$ZZWWWDUMP "$url" | sed -n '/Final - IDA/,/^ *$/p' |
+		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
+		sed 's/ *Final - VOLTA/\n&/;'
+	;;
+	esac
 
 	# Escolhendo o grupo para os jogos
 	if [ "$1" = "-g" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
