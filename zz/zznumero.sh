@@ -23,7 +23,7 @@
 #
 # Uso: zznumero [opções] <número>
 # Ex.: zznumero 12445.78                      # 12.445,78
-#      zznumero --texto 4567890,213           # quatro milhões e quinhentos...
+#      zznumero --texto 4567890,213           # quatro milhões, quinhentos...
 #      zznumero -m 85,345                     # R$ 85,34
 #      echo 748 | zznumero -f "%'.3f"         # 748,000
 #
@@ -610,25 +610,48 @@ zznumero ()
 		# Milhar seguido de uma centena terminada em 00.
 		# Milhar seguida de uma unidade ou dezena
 		# Caso "Um mil" em desuso, apenas "mil" usa-se
-		if zztool grep_var ' mil ' "${num_saida}"
+		if zztool grep_var ' mil' "${num_saida}"
 		then
-			num_saida=$(echo "${num_saida}" | sed 's/\( mil \)\([a-z]*\)entos$/\1 e \2entos/')
-			num_saida=$(echo "${num_saida}" | sed 's/ mil cem$/ mil e cem/')
-			num_saida=$(echo "${num_saida}" | sed 's/^ *um mil/mil/')
-
 			# Colocando o "e" entre o mil seguido de 1 ao 19
 			for n_temp in $(echo "$ordem1" | cut -f 2 -d: | sed '/^ *$/d')
 			do
-				num_saida=$(echo "${num_saida}" | sed "s/ mil $n_temp$/ mil e $n_temp/")
-				num_saida=$(echo "${num_saida}" | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
+				num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/ mil $n_temp$/ mil e $n_temp/")
+				num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
 			done
 
-			# Colocando o "e" entre o mil seguido de dezenas entre 20 e 99
+			# Colocando o "e" entre o mil seguido de dezenas terminadas em 0
 			for n_temp in $(echo "$ordem1" | cut -f 3 -d: | sed '/^ *$/d' )
 			do
-				num_saida=$(echo "${num_saida}" | sed "s/ mil $n_temp$/ mil e $n_temp/")
-				num_saida=$(echo "${num_saida}" | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
+				num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/ mil $n_temp$/ mil e $n_temp/")
+				num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
 			done
+
+			# Colocando o "e" entre o mil seguido de dezenas não terminadas em 0
+			# usando as variáveis milhar_para e decimal_para emprestada para esse laço
+			for milhar_para in $(echo "$ordem1" | sed -n '3,10p' | cut -f3 -d:)
+			do
+				for decimal_para in $(echo "$ordem1" | sed -n '2,10p' | cut -f2 -d:)
+				do
+					n_temp="$milhar_para e $decimal_para"
+					num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/ mil $n_temp$/ mil e $n_temp/")
+					num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
+				done
+			done
+
+			# Trabalhando o contexto do e entre classe do milhar e unidade.
+			num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed 's/\( mil \)\([a-z]*\)entos$/\1 e \2entos/')
+			num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed 's/ mil cem$/ mil e cem/')
+
+			# Tabalhando o contexto do "um mil"
+			num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed 's/^ *um mil /mil /;s/^ *um mil *$/mil/')
+			num_saida=$(echo "${num_saida}" | sed 's/, *um mil /, mil /')
+
+			# Substituindo a última vírgula "e", nos casos sem a classe milhar.
+			if ! zztool grep_var ' mil ' "$num_saida"
+			then
+				qtde_v=$(echo "$num_saida" | sed 's/./&\n/g' | grep -c ",")
+				[ $qtde_v -gt 0 ] && num_saida=$(echo "${num_saida}" | sed "s/,/ e /${qtde_v}")
+			fi
 		fi
 
 		# Colocando o sufixo
