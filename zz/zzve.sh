@@ -58,7 +58,7 @@
 zzve ()
 {
 	zzzz -h ve "$1" && return
-	
+
 	[ "$1" ] || { zztool uso ve; return 1; }
 
 	local url_base='http://www.valor.com.br/valor-data'
@@ -114,7 +114,6 @@ zzve ()
 		previdenciaria | previd[êe]ncia) inicio='Contribuição previdenciária'; url=$url_atual;;
 		ir_fonte)                        inicio='IR na fonte'; url=$url_atual;;
 		ir_quota)                        inicio='Imposto de Renda Pessoa Física'; url=$url_atual;;
-		
 	esac
 
 	# Commodities - Agrícolas
@@ -172,6 +171,6 @@ zzve ()
 	$ZZWWWDUMP "$url" | sed -n "/^ *${inicio}/,/^ *${fim}/p" | sed '/^[:space:]*$/d;$d' |
 	awk '{
 		if ($0 ~ /^ *Fonte/) { print ""; print $0; print ""}
-		else {print $0} 
+		else {print $0}
 	}'
 }
