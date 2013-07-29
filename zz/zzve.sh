@@ -169,10 +169,6 @@ zzve ()
 		reservas_internacionais) inicio='Reservas internacionais'; url=$url_atual;;
 	esac
 
-# else if (substr($0,1,6)=="      ") { print ""; sub(/^ +/,"   ", $0); print $0}
-# 12 espaços, Taxa - custo
-# 8 espaços, Renda ou Inflação - aplicacão
-# ? espaços, Ouro - mercado
 	$ZZWWWDUMP "$url" | sed -n "/^ *${inicio}/,/^ *${fim}/p" | sed '/^[:space:]*$/d;$d' |
 	awk '{
 		if ($0 ~ /^ *Fonte/) { print ""; print $0; print ""}
