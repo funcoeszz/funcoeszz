@@ -3,28 +3,28 @@
 # As opções são categorizadas conforme segue:
 #
 # - Indicadores Financeiros:
-#  - contas ou indicadores - Variação dos indicadores no período
-#  - crédito
-#  - tr, poupança ou tbf - Taxa Referencial, Poupança e TBF
-#  - custo ou dinheiro - Custo do dinheiro
-#  - aplicações - Evolução das aplicações financeiras
-#  - ima ou anbima - IMA - Índices de Mercado Anbima
-#  - mercado - Indicadores do mercado
-#  - futuro - Mercado futuro
-#  - estoque_cetip - Estoque CETIP
-#  - volume_cetip - Volume CETIP
-#  - cetip - Estoque e Volume CETIP
+#	contas ou indicadores - Variação dos indicadores no período
+#	crédito
+# 	tr, poupança ou tbf - Taxa Referencial, Poupança e TBF
+#	custo ou dinheiro - Custo do dinheiro
+#	aplicações - Evolução das aplicações financeiras
+#	ima ou anbima - IMA - Índices de Mercado Anbima
+#	mercado - Indicadores do mercado
+#	futuro - Mercado futuro
+#	estoque_cetip - Estoque CETIP
+#	volume_cetip - Volume CETIP
+#	cetip - Estoque e Volume CETIP
 #
 # - Índices Macroeconômicos:
-#  - atividade - Atividade econômica
-#  - inflação - Inflação
-#  - produção ou investimento - Produção e investimento
-#  - dívida_pública ou pública - Dívida e necessidades de financiamento
-#  - receitas_tributária ou tributária - Principais receitas tributárias
-#  - resultado_fiscal ou fiscal - Resultado fiscal do governo central
-#  - previdenciaria ou previdência - Contribuição previdenciária
-#  - ir_fonte - IR na fonte
-#  - ir_quota - Imposto de Renda Pessoa Física
+#	atividade - Atividade econômica
+#	inflação - Inflação
+#	produção ou investimento - Produção e investimento
+#	dívida_pública ou pública - Dívida e necessidades de financiamento
+#	receitas_tributária ou tributária - Principais receitas tributárias
+#	resultado_fiscal ou fiscal - Resultado fiscal do governo central
+#	previdenciaria ou previdência - Contribuição previdenciária
+#	ir_fonte - IR na fonte
+#	ir_quota - Imposto de Renda Pessoa Física
 #
 # - Commodities:
 #	agrícolas = Indicadores
