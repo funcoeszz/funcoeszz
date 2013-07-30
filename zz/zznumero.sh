@@ -245,7 +245,7 @@ zznumero ()
 		then
 			numero=$(printf "${n_formato}" "$1" 2>/dev/null)
 		else
-			numero=$(echo "$1" | zzvira | sed 's/.../&\./g;s/\.$//' | zzvira)
+			numero=$(echo "$1" | zzvira | sed 's/.../&./g;s/\.$//' | zzvira)
 		fi
 		num_int="$1"
 		num_saida="${sinal}${numero}"
