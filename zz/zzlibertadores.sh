@@ -54,7 +54,9 @@ zzlibertadores ()
 	1 | pr[eé] | primeira)
 		url="${url}/primeira-fase"
 		$ZZWWWDUMP "$url" | sed -n '/Primeira fase - IDA/,/primeira-fase/p' |
-		sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\n&/g' | sed "s/.*${ano}$/\n&/g"
+		sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\
+&/g' | sed "s/.*${ano}$/\
+&/g"
 	;;
 	# Fase 2 (Fase de Grupos)
 	2 | grupos | segunda)
@@ -67,25 +69,29 @@ zzlibertadores ()
 		url="${url}/oitavas-de-final"
 		$ZZWWWDUMP "$url" | sed -n '/Oitavas de final - IDA/,/^ *$/p' |
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-		sed 's/ *Oitavas de final - VOLTA/\n&/;'
+		sed 's/ *Oitavas de final - VOLTA/\
+&/;'
 	;;
 	4 | quartas)
 		url="${url}/quartas-de-final"
 		$ZZWWWDUMP "$url" | sed -n '/Quartas de final - IDA/,/^ *$/p' |
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-		sed 's/ *Quartas de final - VOLTA/\n&/;'
+		sed 's/ *Quartas de final - VOLTA/\
+&/;'
 	;;
 	5 | semi | semi-final)
 		url="${url}/semifinal"
 		$ZZWWWDUMP "$url" | sed -n '/Semifinal - IDA/,/^ *$/p' |
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-		sed 's/ *Semifinal - VOLTA/\n&/;'
+		sed 's/ *Semifinal - VOLTA/\
+&/;'
 	;;
 	6 | final)
 		url="${url}/final"
 		$ZZWWWDUMP "$url" | sed -n '/Final - IDA/,/^ *$/p' |
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-		sed 's/ *Final - VOLTA/\n&/;'
+		sed 's/ *Final - VOLTA/\
+&/;'
 	;;
 	esac
 
@@ -95,7 +101,8 @@ zzlibertadores ()
 		grupo="$2"
 		url="${url}/segunda-fase/grupo-${grupo}.htm"
 		$ZZWWWDUMP "$url" | sed -n '/^ *Grupo /,/segunda-fase/p' |
-		sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Grupo/\n&/g'
+		sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Grupo/\
+&/g'
 	fi
 
 	# Mostrando a classificação (Fase de grupos)
