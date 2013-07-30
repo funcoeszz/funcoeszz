@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Na wikipedia procurar: "Lista_de_países_e_capitais_em_línguas_locais".
+# http://pt.wikipedia.org/wiki/Anexo:Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais
 # Lista os países.
 # Opções:
 #  -a: Todos os países
