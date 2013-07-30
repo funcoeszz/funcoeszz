@@ -25,7 +25,7 @@
 #	SG  - Saldo de Gols
 #	(%) - Aproveitamento (pontos)
 #
-# Uso: zzlibertadores [ fase | -c []número] | -g <número> ]
+# Uso: zzlibertadores [ fase | -c [número] | -g <número> ]
 # Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)
 #      zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
 #      zzlibertadores -c    # Calssificação de todos os grupos
