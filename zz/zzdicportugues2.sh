@@ -15,7 +15,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-04-16
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
@@ -77,33 +77,41 @@ zzdicportugues2 ()
 	conj)
 		$ZZWWWDUMP "$url/$padrao" |
 		awk 'tolower($0) ~ /'"$ini"'/, tolower($0) ~ /'"$fim"'/ {print} ' |
-			sed "
+			sed '
 				{
-				/^ *INDICATIVO *$/d
-				/^ *Indicativo *$/d
-				/^ *SUBJUNTIVO *$/d
-				/^ *Subjuntivo *$/d
+				/^ *INDICATIVO *$/d;
+				/^ *Indicativo *$/d;
+				/^ *SUBJUNTIVO *$/d;
+				/^ *Subjuntivo *$/d;
 				#/^ *CONJUNTIVO *$/d
 				#/^ *Conjuntivo *$/d
-				/^ *IMPERATIVO *$/d
-				/^ *Imperativo *$/d
-				/^ *INFINITIVO *$/d
-				/^ *Infinitivo *$/d
-				/Rimas com /d
-				/Anagramas de /d
-				/^ *$/d
-				s/^ *//
-				s/^\*/\n&/
-				#s/ do Indicativo/&\n/
-				#s/ do Subjuntivo/&\n/
-				#s/ do Conjuntivo/&\n/
-				#s/\* Imperativo Afirmativo/&\n/
-				#s/\* Imperativo Negativo/&\n/
-				#s/\* Imperativo/&\n/
-				#s/\* Infinitivo Pessoal/&\n/
-				s/^[a-z]/ &/g
+				/^ *IMPERATIVO *$/d;
+				/^ *Imperativo *$/d;
+				/^ *INFINITIVO *$/d;
+				/^ *Infinitivo *$/d;
+				/Rimas com /d;
+				/Anagramas de /d;
+				/^ *$/d;
+				s/^ *//;
+				s/^\*/\
+&/;
+				#s/ do Indicativo/&\
+#/;
+				#s/ do Subjuntivo/&\
+#/;
+				#s/ do Conjuntivo/&\
+#/;
+				#s/\* Imperativo Afirmativo/&\
+#/;
+				#s/\* Imperativo Negativo/&\
+#/;
+				#s/\* Imperativo/&\
+#/;
+				#s/\* Infinitivo Pessoal/&\
+#/;
+				s/^[a-z]/ &/g;
 				#p
-				}"
+				}'
 	;;
 	*)
 		$ZZWWWDUMP "$url/$padrao" |
