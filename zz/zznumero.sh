@@ -280,7 +280,7 @@ zznumero ()
 		# Número com a "vírgula" separando da parte fracionária, sem separador de milhares
 		if [ $qtde_v -eq 1 -a $qtde_p -eq 0 ] && zztool testa_numero_fracionario "$1"
 		then
-			numero=$1
+			numero="$1"
 		fi
 
 		# Número com o "ponto" como separador de milhar, e sem parte fracionária
