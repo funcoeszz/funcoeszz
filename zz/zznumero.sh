@@ -273,8 +273,12 @@ zznumero ()
 		# Se for padrão 999.999, é considerado um inteiro
 		if [ $qtde_p -eq 1 -a $qtde_v -eq 0 ] && zztool testa_numero_fracionario "$1"
 		then
-			echo $1 | grep '^[0-9]\{1,3\}\.[0-9]\{3\}$' >/dev/null
-			[ $? -eq 0  ] && numero=$(echo $1 | tr -d '.') || numero=$(echo $1 | tr '.' ',')
+			if echo "$1" | grep '^[0-9]\{1,3\}\.[0-9]\{3\}$' >/dev/null
+			then
+				numero=$(echo "$1" | tr -d '.')
+			else
+				numero=$(echo "$1" | tr '.' ',')
+			fi
 		fi
 
 		# Número com a "vírgula" separando da parte fracionária, sem separador de milhares
