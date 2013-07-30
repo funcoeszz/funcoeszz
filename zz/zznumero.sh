@@ -199,7 +199,7 @@ zznumero ()
 		;;
 
 		-m | --moeda)
-			# Solicitando formato moeda (sobrepõe as opção de prefixo, sufixo e formato)
+			# Solicitando formato moeda (sobrepõe as opções de prefixo, sufixo e formato)
 			prec=2
 			prefixo='R$ '
 			unset sufixo
