@@ -28,7 +28,7 @@ zzvdp ()
 
 	$ZZWWWHTML $url |
 	sed -n '/title="Link permanente para /,/title="Comentário para /p' |
-	sed 's/<[^>]*>//g;/[0-9]\{1,\} resposta/d;/Tweet/d;s/^[[:blank:]]*/ /g' |
+	sed 's/<[^>]*>//g;/[0-9]\{1,\} resposta/d;/Tweet/d;s/^[[:blank:]]*//g' |
 	sed '/^ *Camiseta: .*/ a \
 ----------------------------------------------------------------------------' |
 	zzunescape --html | uniq

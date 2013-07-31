@@ -46,8 +46,8 @@ zzquimica ()
 			s/(Actinoid/(Actinídeo/g
 			' |
 		awk '
-			BEGIN {print " N.º       Nome      Símbolo    Massa      Orbital             Classificação" }
-			{printf " %-5s %-15s %-7s %-12s %-18s %s\n", $1, $3, $2, $4, $5, $6}
+			BEGIN {print "N.º       Nome      Símbolo    Massa      Orbital             Classificação" }
+			{printf "%-5s %-15s %-7s %-12s %-18s %s\n", $1, $3, $2, $4, $5, $6}
 		' > "$cache"
 	fi
 

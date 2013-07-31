@@ -20,10 +20,10 @@ zzcotacao ()
 	sed 's/Venda  *Var/Venda Var/;s/\[//g;s/\]//g' |
 	zzsemacento |
 	awk '{
-		if ( NR == 1 ) printf "%19s  %6s  %6s   %6s\n", "", $2, $3, $4
+		if ( NR == 1 ) printf "%18s  %6s  %6s   %6s\n", "", $2, $3, $4
 		if ( NR >  1 ) {
-			if (NF == 4) printf " %-18s  %6s  %6s  %6s\n", $1, $2, $3, $4
-			if (NF == 5) printf " %-18s  %6s  %6s  %6s\n", $1 " " $2, $3, $4, $5
+			if (NF == 4) printf "%-18s  %6s  %6s  %6s\n", $1, $2, $3, $4
+			if (NF == 5) printf "%-18s  %6s  %6s  %6s\n", $1 " " $2, $3, $4, $5
 		}
 	}'
 }

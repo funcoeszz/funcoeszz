@@ -32,14 +32,14 @@ zzmariadb ()
 			/^ *Comunidade/d
 			/^ *Downloads/d
 			s/^  *//g
-		'| uniq | awk '{print "", NR, $0}'> $cache
+		'| uniq | awk '{print NR, $0}'> $cache
 	fi
 
 	if [ "$1" ]
 	then
 		if zztool testa_numero $1
 		then
-			comando=$(sed -n "${1}p" $cache | sed "s/^ ${1} //;s| / |-|g;s/ - /-/g;s/ /-/g;s/\.//g" | zzminusculas | zzsemacento)
+			comando=$(sed -n "${1}p" $cache | sed "s/^${1} //;s| / |-|g;s/ - /-/g;s/ /-/g;s/\.//g" | zzminusculas | zzsemacento)
 			$ZZWWWDUMP "${url}/${comando}" | sed -n '/^Localized Versions/,/^Comments/p' | sed '1d;2d;/^  *\*.*\]$/d;$d'
 		else
 			grep -i $1 $cache
