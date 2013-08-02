@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Consulta lançamentos do Moneylog, com pesquisa avançada e saldo total.
-# Obs.: Chamado sem argumentos, pesquisa o mês corrente
+# Obs.: Chamado sem argumentos, pesquisa o mês corrente.
 # Obs.: Não expande lançamentos recorrentes e parcelados.
 #
 # Uso: zzmoneylog [-d data] [-v valor] [-t tag] [--total] [texto]
