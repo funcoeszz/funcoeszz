@@ -24,7 +24,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-07-23
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzmaiusculas
 # ----------------------------------------------------------------------------
@@ -87,15 +87,15 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 		echo "$*" |
 			zzmaiusculas |
 			sed 's/./&\
-				/g' |
-			while read char
+/g' |
+			while IFS='' read -r char
 			do
 				letra=$(echo "$char" | sed 's/[^A-Z]//g')
-				if test "$letra"
+				if test -n "$letra"
 				then
 					echo "$dados" | grep "^$letra" | cut -d : -f $coluna
 				else
-					echo "$char"
+					test -n "$char" && echo "$char"
 				fi
 			done
 	else
