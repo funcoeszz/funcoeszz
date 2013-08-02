@@ -819,7 +819,7 @@ zzmat ()
 					awk '{printf "%.'${precisao}'f\n", $1}')
 				fi
 				valor=$(echo "$valor" | zzmat -p${precisao} sem_zeros)
-				printf " %s" "$valor"
+				[ $passo -lt $(($4 - 1)) ] && printf "%s " "$valor" || printf "%s" "$valor"
 				passo=$(($passo+1))
 			done
 			echo
@@ -910,8 +910,8 @@ zzmat ()
 				zzmat -p${precisao} sem_zeros )
 			;;
 			esac
-			[ "$num_raiz" = "2" ] && echo -e " X1: $raiz1 \n X2: $raiz2" || echo " X: $raiz1"
-			echo " Vertice: (${vert_x}, ${vert_y})"
+			[ "$num_raiz" = "2" ] && printf "%b\n" "X1: ${raiz1}\nX2: ${raiz2}" || echo "X: $raiz1"
+			echo "Vertice: (${vert_x}, ${vert_y})"
 		else
 			echo " zzmat $funcao: Equação do Segundo Grau (Raízes e Vértice)"
 			echo " Uso: zzmat $funcao A B C"
@@ -1037,11 +1037,11 @@ zzmat ()
 			then
 				valor=$(echo "sqrt(${valor}^2-$z1^2)" | bc -l |
 					awk '{printf "%.'${precisao}'f\n", $1}' | zzmat -p${precisao} sem_zeros )
-				echo "${valor},${teta}${saida},${z1}"
+				echo "${valor}, ${teta}${saida}, ${z1}"
 			else
 				valor=$(echo "$valor" | bc -l |
 					awk '{printf "%.'${precisao}'f\n", $1}' | zzmat -p${precisao} sem_zeros )
-				echo "${valor},${teta}${saida},${fi}${saida}"
+				echo "${valor}, ${teta}${saida}, ${fi}${saida}"
 			fi
 		else
 			echo " zzmat $funcao: Operação entre vetores"
