@@ -332,7 +332,7 @@ zzbolsas ()
 						sed 's/^ */ /g' | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' |
 						sed '/^ *$/d' | awk 'BEGIN { print "     '$data2'" } {printf " %14s\n", $1}' > "${cache}.pag"
 
-						echo -e "       Variação\t Var (%)" > "${cache}.vartemp"
+						printf '%b\n' "       Variação\t Var (%)" > "${cache}.vartemp"
 						paste "${cache}.pag_atual" "${cache}.pag" | while read data1 data2
 						do
 							echo "$data1 $data2" | tr -d '.' | tr ',' '.' |
