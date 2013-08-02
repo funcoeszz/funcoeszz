@@ -11,7 +11,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-08-27
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbicho ()
@@ -69,5 +69,6 @@ zzbicho ()
 			numero = substr($1,length($1)-1,2)=="00"?25:int((substr($1,length($1)-1,2) + 3) / 4)
 			print grupo[numero], "(" numero ")"
 		}
-	}'
+	}' |
+	sed 's/ $//'
 }
