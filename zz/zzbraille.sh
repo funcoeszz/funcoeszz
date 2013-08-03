@@ -29,7 +29,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-26
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzminusculas zzmaiusculas zzcapitalize zzseq
 # ----------------------------------------------------------------------------
@@ -140,11 +140,12 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 	local linha1 linha2 linha3 tamanho i letra letra_original codigo linha0
 
 	# Opção para mudar os símbolos a serem exibidos dentro da célula Braille
+	# E garantindo que seja apenas um caractere usando awk. O cut falha dependendo do ambiente
 	while [ "$1" ]
 	do
 		case $1 in
-			"--s1") c="$2"; shift; shift;;
-			"--s2") v="$2"; shift; shift;;
+			"--s1") c=$(echo "$2" | awk '{print substr($0,1,1)}'); shift; shift;;
+			"--s2") v=$(echo "$2" | awk '{print substr($0,1,1)}'); shift; shift;;
 			*) break;;
 		esac
 	done
@@ -216,10 +217,10 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			done
 			shift
 		else
-			echo $linha1 | sed "s/1/$c/g;s/0/$v/g"
-			echo $linha2 | sed "s/1/$c/g;s/0/$v/g"
-			echo $linha3 | sed "s/1/$c/g;s/0/$v/g"
-			echo $linha0
+			echo "$linha1" | sed "s/1/$c/g;s/0/$v/g"
+			echo "$linha2" | sed "s/1/$c/g;s/0/$v/g"
+			echo "$linha3" | sed "s/1/$c/g;s/0/$v/g"
+			echo "$linha0"
 			echo
 			unset linha1
 			unset linha2
@@ -227,9 +228,9 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			unset linha0
 		fi
 	done
-	echo $linha1 | sed "s/1/$c/g;s/0/$v/g"
-	echo $linha2 | sed "s/1/$c/g;s/0/$v/g"
-	echo $linha3 | sed "s/1/$c/g;s/0/$v/g"
-	echo $linha0
+	echo "$linha1" | sed "s/1/$c/g;s/0/$v/g"
+	echo "$linha2" | sed "s/1/$c/g;s/0/$v/g"
+	echo "$linha3" | sed "s/1/$c/g;s/0/$v/g"
+	echo "$linha0"
 	echo
 }
