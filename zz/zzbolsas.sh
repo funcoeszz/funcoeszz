@@ -160,34 +160,35 @@ zzbolsas ()
 				done
 			;;
 			commodities)
-				zztool eco  "  Commodities"
+				zztool eco  "Commodities"
 				$ZZWWWDUMP "$url/moedas/mercado.html" |
 				sed -n '/^Commodities/,/Mais commodities/p' |
-				sed '1d;$d;/^ *$/d;s/CAPTION: //g;s/ *Metais/\n&/'
+				sed '1d;$d;/^ *$/d;s/CAPTION: //g;s/ *Metais/\
+&/'| sed 's/^   //g'
 			;;
 			taxas_fixas | moedas)
 				zzbolsas $1 principais
 			;;
 			taxas_cruzadas)
-				zztool eco " Taxas Cruzadas"
+				zztool eco "Taxas Cruzadas"
 				$ZZWWWDUMP "$url/moedas/principais" |
 				sed -n '/CAPTION: Taxas cruzadas/,/Not.cias e coment.rios/p' |
 				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g; s/           //; s/^  *//'
 			;;
 			moedas_nome | nome_moedas)
-				zztool eco " BRL - Real"
-				zztool eco " USD - Dolar Americano"
-				zztool eco " EUR - Euro"
-				zztool eco " GBP - Libra Esterlina"
-				zztool eco " CHF - Franco Suico"
-				zztool eco " CNH - Yuan Chines"
-				zztool eco " HKD - Dolar decHong Kong"
-				zztool eco " SGD - Dolar de Singapura"
-				zztool eco " MXN - Peso Mexicano"
-				zztool eco " ARS - Peso Argentino"
-				zztool eco " UYU - Peso Uruguaio"
-				zztool eco " CLP - Peso Chileno"
-				zztool eco " PEN - Nuevo Sol (Peru)"
+				zztool eco "BRL - Real"
+				zztool eco "USD - Dolar Americano"
+				zztool eco "EUR - Euro"
+				zztool eco "GBP - Libra Esterlina"
+				zztool eco "CHF - Franco Suico"
+				zztool eco "CNH - Yuan Chines"
+				zztool eco "HKD - Dolar decHong Kong"
+				zztool eco "SGD - Dolar de Singapura"
+				zztool eco "MXN - Peso Mexicano"
+				zztool eco "ARS - Peso Argentino"
+				zztool eco "UYU - Peso Uruguaio"
+				zztool eco "CLP - Peso Chileno"
+				zztool eco "PEN - Nuevo Sol (Peru)"
 			;;
 			noticias | economia | politica | servicos)
 				case "$1" in
@@ -203,7 +204,7 @@ zzbolsas ()
 				esac
 				echo "$vartemp" |
 				sed -n '/^[[:space:]]\{1,\}.*atrás[[:space:]]*$/p;/^[[:space:]]\{1,\}.*BRT[[:space:]]*$/p' |
-				sed 's/^[[:space:]]\{1,\}/ /g' | zzuniq
+				sed 's/^[[:space:]]\{1,\}//g' | zzuniq
 			;;
 			volume | alta | baixa)
 				case "$1" in
@@ -211,18 +212,18 @@ zzbolsas ()
 					alta)	pag='gainers';;
 					baixa)	pag='losers';;
 				esac
-				zztool eco " Maiores ${1}s"
+				zztool eco "Maiores ${1}s"
 				$ZZWWWDUMP "$url/${pag}?e=sa" |
 				sed -n '/Informações relacionadas/,/^[[:space:]]*$/p' |
 				sed '1d;s/Down /-/g;s/ de /-/g;s/Up /+/g;s/Gráfico, .*//g' |
 				sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
 				awk 'BEGIN {
-							printf " %-10s  %-24s  %-24s  %-18s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
+							printf "%-10s  %-24s  %-24s  %-18s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
 						}
 					{
 						if (NF > 6) {
 							nome = ""
-							printf " %-10s ", $1;
+							printf "%-10s ", $1;
 							for(i=2; i<=NF-5; i++) {nome = nome sprintf( "%s ", $i)};
 							printf " %-24s ", nome;
 							for(i=NF-4; i<=NF-3; i++) printf " %-8s ", $i;
@@ -249,7 +250,7 @@ zzbolsas ()
 						s/[[:space:]]\{1,\}/ /g
 						s|p/ *|p/|g
 					}' |
-				zzsemacento | awk -F":" '{if ( $1 != $2 && length($2)>0 ) {printf " %-20s%s\n", $1 ":", $2} else { print $1 } }'
+				zzsemacento | awk -F":" '{if ( $1 != $2 && length($2)>0 ) {printf "%-20s%s\n", $1 ":", $2} else { print $1 } }'
 			;;
 			esac
 		;;
@@ -261,6 +262,7 @@ zzbolsas ()
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa" | sed -n '/Primeira/p;/Primeira/q' | sed "s/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/")
 				pags=$(echo "scale=0;($pag_final - 1) / 50" | bc)
 
+				unset vartemp
 				for ((pag=0;pag<=$pags;pag=$pag+1))
 				do
 					if test "$1" = "--lista"
@@ -270,8 +272,8 @@ zzbolsas ()
 						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p' |
 						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d' |
 						sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
-						awk '
-						BEGIN { printf "\n %-14s %-54s %-23s %-15s %-10s\n", "Símbolo", "Empresa", "Última Transação", "Variação", "Volume" }
+						awk -v pag_awk=$pag '
+						BEGIN { if (pag_awk==0) {printf "%-14s %-54s %-23s %-15s %-10s\n", "Símbolo", "Empresa", "Última Transação", "Variação", "Volume"} }
 						{
 							nome = ""
 							if (index($(NF-3),":") != 0) { ajuste=0 } else { ajuste=2 }
@@ -279,17 +281,17 @@ zzbolsas ()
 							if (ajuste == 0 ) { data_hora = $(NF-3) }
 							else if (ajuste == 0 ) { data_hora = $(NF-5) " " $(NF-4) " " $(NF-3) }
 							for(i=2;i<=(NF-5-ajuste);i++) {nome = nome " " $i }
-							printf " %-13s %-50s %10s %10s %10s %9s %10s\n", $1, nome, $(NF-4-ajuste), data_hora, $(NF-2), $(NF-1), $NF
+							printf "%-13s %-50s %10s %10s %10s %9s %10s\n", $1, nome, $(NF-4-ajuste), data_hora, $(NF-2), $(NF-1), $NF
 							}
 						}'
 					else
 						# Lista apenas os códigos das ações
-						$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
+						vartemp=${vartemp}$($ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
 						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p' |
 						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d' |
-						awk '{printf "%s  ",$1}'
+						awk '{printf "%s  ",$1}')
 
-						if test "$pag" = "$pags";then echo;fi
+						if test "$pag" = "$pags";then echo $vartemp;fi
 					fi
 				done
 
@@ -310,12 +312,12 @@ zzbolsas ()
 					sed -n "/($bolsa)/p;/Abertura/,/* Preço/p" | sed 's/Data/    /;/* Preço/d' |
 					sed 's/^ */ /g;/Proxima data de anuncio/d')
 
-					echo "$pag" | sed -n '2p' | sed 's/ [A-Z]/\n\t&/g;s/Enc ajustado/Ajustado/' | sed '/^ *$/d' |
-					awk 'BEGIN { printf " %-13s\n", "Data" } {printf "  %-12s\n", $1}' > "${cache}.pags"
+					echo "$pag" | sed -n '2p' | sed 's/ [A-Z]/\
+\t&/g;s/Enc ajustado/Ajustado/' | sed '/^ *$/d' | awk 'BEGIN { printf "%-13s\n", "Data" } {printf "%-12s\n", $1}' > "${cache}.pags"
 
-					echo "$pag" | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\n&/g' | sed '/^ *$/d' |
-					awk 'BEGIN { print "     '$data1'" } {printf " %14s\n", $1}' > "${cache}.pag_atual"
-					echo "$pag" | sed -n '1p'
+					echo "$pag" | sed -n '3p' | cut -f7- -d" " | sed 's/ [0-9]/\
+&/g' | sed '/^ *$/d' | awk 'BEGIN { print "    '$data1'" } {printf "%14s\n", $1}' > "${cache}.pag_atual"
+					echo "$pag" | sed -n '1p'| sed 's/^ *//'
 
 					if [ "$3" ] && zztool testa_data $(zzdatafmt "$3")
 					then
@@ -373,10 +375,8 @@ zzbolsas ()
 					# Imprime efetivamente a comparação
 					if [ $(awk 'END {print NR}' "${cache}.pag") -ge 4 -a $(awk 'END {print NR}' "${cache}.pags") -ge 4 ]
 					then
-						echo
 						paste -d"|" "${cache}.pag" "${cache}.pags" |
-						awk -F"|" '{printf " %-42s %25s\n", $1, $2}'
-						echo
+						awk -F"|" '{printf "%-42s %25s\n", $1, $2}'
 					fi
 				fi
 			# Noticias relacionadas a uma ação especifica
@@ -384,25 +384,25 @@ zzbolsas ()
 			then
 				$ZZWWWDUMP "$url/q/h?s=$bolsa" |
 				sed -n '/^[[:blank:]]\{1,\}\*.*Agencia.*)$/p;/^[[:blank:]]\{1,\}\*.*at noodls.*)$/p' |
-				sed 's/^[[:blank:]]*/ /g;s/Agencia/ &/g;s/at noodls/ &/g'
+				sed 's/^[[:blank:]]*//g;s/Agencia/ &/g;s/at noodls/ &/g'
 			elif ([ "$1" = "taxas_fixas" ] || [ "$1" = "moedas" ])
 			then
 				case $2 in
 				asia)
 					url="$url/moedas/asia-pacifico"
-					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - Ásia-Pacífico"
+					zztool eco "$(echo $1 | sed 'y/tfm_/TFM /') - Ásia-Pacífico"
 				;;
 				latina)
 					url="$url/moedas/america-latina"
-					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - América Latina"
+					zztool eco "$(echo $1 | sed 'y/tfm_/TFM /') - América Latina"
 				;;
 				europa)
 					url="$url/moedas/europa"
-					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - Europa"
+					zztool eco "$(echo $1 | sed 'y/tfm_/TFM /') - Europa"
 				;;
 				principais | *)
 					url="$url/moedas/principais"
-					zztool eco  "   $(echo $1 | sed 'y/tfm_/TFM /') - Principais"
+					zztool eco "$(echo $1 | sed 'y/tfm_/TFM /') - Principais"
 				;;
 				esac
 
