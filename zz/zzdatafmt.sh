@@ -221,7 +221,7 @@ zzdatafmt ()
 		m="${mm#0}"
 		d="${dd#0}"
 		mes=$(echo "$meses" | cut -d ' ' -f "$m" 2>/dev/null)
-		mmm=$(echo "$mes" | cut -c 1-3)
+		mmm=$(echo "$mes" | awk '{print substr($1,1,3)}')
 
 		# Percorre o formato e vai expandindo, da esquerda para a direita
 		while test -n "$fmt"
@@ -239,11 +239,7 @@ zzdatafmt ()
 				AAAA* ) printf %s "$aaaa"; fmt="${fmt#AAAA}";;
 				AA*   ) printf %s "$aa"  ; fmt="${fmt#AA}";;
 				A*    ) printf %s "$a"   ; fmt="${fmt#A}";;
-				MMM*  )
-					# Arruma possíveis problemas de codificação com acentos
-					printf %s "$mmm" | sed 's/Mä$/Mär/;s/Fé$/Fév/;s/Dé$/Déc/' | tr -d '\n'
-					fmt="${fmt#MMM}"
-				;;
+				MMM*  ) printf %s "$mmm" ; fmt="${fmt#MMM}";;
 				MM*   ) printf %s "$mm"  ; fmt="${fmt#MM}";;
 				M*    ) printf %s "$m"   ; fmt="${fmt#M}";;
 				DD*   ) printf %s "$dd"  ; fmt="${fmt#DD}";;
