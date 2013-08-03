@@ -23,7 +23,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-11-02
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzcorrida ()
@@ -43,7 +43,8 @@ zzcorrida ()
 		nascar | sprint_cup)			corridas="nascar"; nome_corrida="Sprint Cup";;
 		nascar2 | truck_series)			corridas="nascar"; nome_corrida="Truck Series";;
 		nascar3 | nationwide)			corridas="nascar"; nome_corrida="Nationwide Series";;
-		truck | formula_truck | truck_sul)	corridas="formula-truck"; nome_corrida="Fórmula Truck";;
+		truck | formula_truck)			corridas="formula-truck"; nome_corrida="Fórmula Truck";;
+		truck_sul)				corridas="formula-truck"; nome_corrida="Fórmula Truck Sul-Americano";;
 		rali)					corridas="rali"; nome_corrida="Rali";;
 		stock | stock_car)			corridas="stock-car"; nome_corrida="Stock Car";;
 		moto | moto_gp | moto2 | moto3)		corridas="moto"; nome_corrida=$(echo "Moto ${1#moto}" | tr -d '_' | tr 'gp' 'GP');;
@@ -55,44 +56,44 @@ zzcorrida ()
 	case "$1" in
 		nascar | sprint_cup)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/Data/p' |
-			sed '1,/Data/!d;s/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d'
+			sed '1,/Data/!d;s/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d;s/^ *//g'
 		;;
 		nascar2 | truck_series)
 			$ZZWWWDUMP "$url/$corridas" | sed '1,/Pos.*Piloto/ d' | sed '1,/Pos.*Piloto/ d' |
 			sed -n '/Pos.*Piloto/,/^ *$/ p' |
-			sed 's/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d'
+			sed 's/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d;s/^ *//g'
 		;;
 		nascar3 | nationwide)
 			$ZZWWWDUMP "$url/$corridas" | sed '1,/Pos.*Piloto/ d' |
 			sed -n '/Pos.*Piloto/,/Pos.*Piloto/ p' |
-			sed 's/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d'
+			sed 's/ Pontos/Pontos/' | sed 's/\[.*\]/        /;$d;s/^ *//g'
 		;;
 		truck | formula_truck)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/Pos.*Piloto/p' |
-			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
+			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /;s/^ *//g'
 		;;
 		truck_sul)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/Data/p' |
-			sed '2,/Pos.*Piloto/d;s/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
+			sed '2,/Pos.*Piloto/d;s/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /;s/^ *//g'
 		;;
 		moto | moto_gp)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,/^ *$/p' |
-			sed '1p;2,/Pos.*Piloto/!d' | sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
+			sed '1p;2,/Pos.*Piloto/!d' | sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /;s/^ *//g'
 		;;
 		moto2)
 			$ZZWWWDUMP "$url/$corridas" | sed '1,/Pos.*Piloto/ d' |
 			sed -n '/Pos.*Piloto/,/Pos.*Piloto/ p' |
-			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
+			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /;s/^ *//g'
 		;;
 		moto3)
 			$ZZWWWDUMP "$url/$corridas" | sed '1,/Pos.*Piloto/ d' | sed '1,/Pos.*Piloto/ d' |
-			sed -n '/Pos.*Piloto/,/^ *$/ p' |
-			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
+			sed -n '/Pos.*Piloto/,/^ *Data / p' |
+			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /;s/^ *//g'
 		;;
 		*)
 			$ZZWWWDUMP "$url/$corridas" | sed -n '/Pos.*Piloto/,$ p' |
 			sed '/^ *Data/ q' | sed '/^ *Pos *Equipe/ q' |
-			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /'
+			sed 's/ Pontos/Pontos/;$d' | sed 's/\[.*\]/        /;s/^ *//g'
 		;;
 	esac
 }
