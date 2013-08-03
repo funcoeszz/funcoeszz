@@ -51,7 +51,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 20
+# Versão: 21
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -190,11 +190,11 @@ zzbolsas ()
 				zztool eco "CLP - Peso Chileno"
 				zztool eco "PEN - Nuevo Sol (Peru)"
 			;;
-			noticias | economia | politica | servicos)
+			not[íi]cias | economia | pol[íi]tica | servi[çc]os)
 				case "$1" in
-				economia | politica) vartemp=$($ZZWWWDUMP "$url/noticias/categoria-economia-politica-governo") ;;
-				servicos) vartemp=$($ZZWWWDUMP "$url/noticias/setor-servicos") ;;
-				noticias)
+				economia | pol[íi]tica) vartemp=$($ZZWWWDUMP "$url/noticias/categoria-economia-politica-governo") ;;
+				servi[çc]os) vartemp=$($ZZWWWDUMP "$url/noticias/setor-servicos") ;;
+				not[íi]cias)
 					zztool eco "Economia - Política - Governo"
 					zzbolsas economia
 					zztool eco "Setor de Serviços"
@@ -380,7 +380,7 @@ zzbolsas ()
 					fi
 				fi
 			# Noticias relacionadas a uma ação especifica
-			elif ([ "$1" = "noticias" ] && ! zztool grep_var "^" "$2")
+			elif ([ "$1" = "noticias" -o "$1" = "notícias" ] && ! zztool grep_var "^" "$2")
 			then
 				$ZZWWWDUMP "$url/q/h?s=$bolsa" |
 				sed -n '/^[[:blank:]]\{1,\}\*.*Agencia.*)$/p;/^[[:blank:]]\{1,\}\*.*at noodls.*)$/p' |
