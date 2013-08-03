@@ -64,7 +64,6 @@ ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
 ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
 ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
 
-
 #
 ### Truques para descobrir a localização deste arquivo no sistema
 #
@@ -78,6 +77,7 @@ ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
 [ "${ZZPATH#/}" = "$ZZPATH" ] && ZZPATH="$PWD/${ZZPATH#./}"
 
 [ "$ZZDIR" ] || ZZDIR=$ZZDIR_DFT
+
 #
 ### Últimos ajustes
 #
@@ -86,6 +86,19 @@ ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}"
 ZZTMP="${ZZTMP%/}/zz"  # prefixo comum a todos os arquivos temporários
 ZZAJUDA="$ZZTMP.ajuda"
 unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
+
+#
+### Forçar variáveis via linha de comando
+#
+while test $# -gt 0
+do
+	case "$1" in
+		--path) ZZPATH="$2"; shift; shift ;;
+		--dir ) ZZDIR="$2" ; shift; shift ;;
+		--cor ) ZZCOR="$2" ; shift; shift ;;
+		*) break;;
+	esac
+done
 #
 #
 ##############################################################################
