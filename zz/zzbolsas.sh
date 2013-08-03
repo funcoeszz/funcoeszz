@@ -276,12 +276,14 @@ zzbolsas ()
 						BEGIN { if (pag_awk==0) {printf "%-14s %-54s %-23s %-15s %-10s\n", "Símbolo", "Empresa", "Última Transação", "Variação", "Volume"} }
 						{
 							nome = ""
-							if (index($(NF-3),":") != 0) { ajuste=0 } else { ajuste=2 }
-							if ((NF-ajuste)>5) {
-							if (ajuste == 0 ) { data_hora = $(NF-3) }
-							else if (ajuste == 0 ) { data_hora = $(NF-5) " " $(NF-4) " " $(NF-3) }
-							for(i=2;i<=(NF-5-ajuste);i++) {nome = nome " " $i }
-							printf "%-13s %-50s %10s %10s %10s %9s %10s\n", $1, nome, $(NF-4-ajuste), data_hora, $(NF-2), $(NF-1), $NF
+							if (NF>=7) {
+								if (index($(NF-3),":") != 0) { ajuste=0; limite = 7 } else { ajuste=2; limite = 9 }
+								if (NF>=limite) {
+									if (ajuste == 0 ) { data_hora = $(NF-3) }
+									else if (ajuste == 2 ) { data_hora = $(NF-5) " " $(NF-4) " " $(NF-3) }
+									for(i=2;i<=(NF-5-ajuste);i++) {nome = nome " " $i }
+									printf "%-13s %-50s %10s %10s %10s %9s %10s\n", $1, nome, $(NF-4-ajuste), data_hora, $(NF-2), $(NF-1), $NF
+								}
 							}
 						}'
 					else
