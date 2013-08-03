@@ -4,7 +4,7 @@
 # Sem parâmetros mostra a lista de bolsas disponíveis (códigos).
 # Com 1 parâmetro:
 #  -l ou --lista: apenas mostra as bolsas disponíveis e seus nomes.
-#  --limpa: exclui todos os arquivos de cache.
+#  --limpa ou --limpar: exclui todos os arquivos de cache.
 #  commodities: produtos de origem primária nas bolsas.
 #  taxas_fixas ou moedas: exibe tabela de comparação de câmbio (pricipais).
 #  taxas_cruzadas: exibe a tabela cartesiana do câmbio.
@@ -105,7 +105,7 @@ zzbolsas ()
 			# Lista os códigos da bolsas e seus nomes
 			case "$1" in
 			#Limpa todos os cache acumulado
-			--limpa) rm -f ${cache}.* 2>/dev/null;;
+			--limpa| --limpar) rm -f $ZZTMP.bolsas.* 2>/dev/null;;
 			-l | --lista)
 				for bolsa in americas europe asia africa
 				do
