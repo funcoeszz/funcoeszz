@@ -3,7 +3,7 @@
 # Pesquisa índices de bolsas e cotações de ações.
 # Sem parâmetros mostra a lista de bolsas disponíveis (códigos).
 # Com 1 parâmetro:
-#  -l: apenas mostra as bolsas disponíveis e seus nomes.
+#  -l ou --lista: apenas mostra as bolsas disponíveis e seus nomes.
 #  --limpa: exclui todos os arquivos de cache.
 #  commodities: produtos de origem primária nas bolsas.
 #  taxas_fixas ou moedas: exibe tabela de comparação de câmbio (pricipais).
@@ -51,7 +51,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 19
+# Versão: 20
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
 # ----------------------------------------------------------------------------
@@ -61,11 +61,11 @@ zzbolsas ()
 
 	local url='http://br.finance.yahoo.com'
 	local dj='^DWC'
-	local new_york='^NYA ^NYI ^NYY ^NY ^NYL'
-	local nasdaq='^IXIC ^IXBK ^NBI ^IXK ^IXF ^IXID ^IXIS ^IXFN ^IXUT ^IXTR ^NDX'
-	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SML'
+	local new_york='^NYA ^NYI ^NYY ^NY ^NYL ^NYK'
+	local nasdaq='^IXIC ^BANK ^NBI ^IXCO ^IXF ^INDS ^INSR ^OFIN ^IXTC ^TRAN ^NDX'
+	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SP600'
 	local amex='^XAX ^IIX ^NWX ^XMI'
-	local ind_nac='^IBX50 ^IVBX ^IGCX ^IEE ^ITEL INDX.SA'
+	local ind_nac='^IBX50 ^IVBX ^IGCX ^IEE INDX.SA'
 	local cache="$ZZTMP.bolsas.$$"
 	local bolsa pag pags pag_atual data1 data2 vartemp
 
