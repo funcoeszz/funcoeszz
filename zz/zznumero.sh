@@ -29,7 +29,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -266,8 +266,8 @@ zznumero ()
 		fi
 
 		# Quantidade de pontos ou vírgulas no número informado
-		qtde_p=$(echo "$1" | sed 's/./&\n/g' | grep -c "\.")
-		qtde_v=$(echo "$1" | sed 's/./&\n/g' | grep -c ",")
+		qtde_p=$(echo "$1" | tr -cd '.'); qtde_p=${#qtde_p}
+		qtde_v=$(echo "$1" | tr -cd ','); qtde_v=${#qtde_v}
 
 		# Número com o "ponto decimal" separando a parte fracionária, sem separador de milhar
 		# Se for padrão 999.999, é considerado um inteiro
