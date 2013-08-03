@@ -172,7 +172,7 @@ zznumero ()
 		-p)
 			# Prefixo escolhido pelo usuário
 			prefixo="$2"
-			echo "$2" | grep -q '^ *[rR]$ *$' > /dev/null && prefixo='R$ '
+			echo "$2" | grep '^ *[rR]$ *$' > /dev/null && prefixo='R$ '
 			shift
 			shift
 		;;
