@@ -37,8 +37,8 @@ zztwitter ()
 		echo "Cadê a mensagem?"
 		return 1
 	else
-		[ -z $USUARIO ] && echo -ne "\nUsuário: " && read USUARIO
-		[ -z $SENHA ] && echo -ne "\nSenha: " && read -s SENHA
+		[ -z $USUARIO ] && printf %b "Usuário: " && read USUARIO
+		[ -z $SENHA ] && printf '%b\n' "Senha: " && read -s SENHA
 
 		tweet="$*"
 
