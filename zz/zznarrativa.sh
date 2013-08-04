@@ -25,7 +25,7 @@ zznarrativa ()
 
 	# Narrativa
 	padrao=$(echo "$*" | sed "$ZZSEDURL")
-	local audio="translate_tts?ie=$charset_para&q=$padrao&tl=pt&prev=input"
-	$ZZWWWHTML "$url/$audio" > $audio_file && zzplay $audio_file
+	local audio="translate_tts?ie=$charset_para&q=$padrao&tl=pt"
+	$ZZWWWHTML "$url/$audio" > $audio_file && zzplay $audio_file mplayer
 	rm -f $audio_file
 }
