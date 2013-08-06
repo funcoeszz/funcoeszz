@@ -1,18 +1,12 @@
-#!/usr/bin/env bash
+$ zzextensao	foo.txt		#→ txt
+$ zzextensao	foo.TXT		#→ TXT
+$ zzextensao	foo.bar.txt	#→ txt
+$ zzextensao	foo.bar.baz.txt	#→ txt
+$ zzextensao	../../foo.txt	#→ txt
+$ zzextensao	'~/foo.txt'	#→ txt
+$ zzextensao	'foo bar.txt'	#→ txt
+$ zzextensao	/etc/passwd
+$ zzextensao	.vimrc
+$ zzextensao	foo.
+$
 
-values=1
-protected=1
-
-tests=(
-foo.txt		t	txt
-foo.TXT		t	TXT
-foo.bar.txt	t	txt
-foo.bar.baz.txt	t	txt
-../../foo.txt	t	txt
-'~/foo.txt'	t	txt
-'foo bar.txt'	t	txt
-/etc/passwd	t	''
-.vimrc		t	''
-foo.		t	''
-)
-. _lib
