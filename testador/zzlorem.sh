@@ -1,9 +1,4 @@
-#!/usr/bin/env bash
-values=1
-tests=(
-''	r	'^Lorem ipsum .* orci luctus et.$'
-1	t	'Lorem'
-2	t	'Lorem ipsum'
-5	t	'Lorem ipsum dolor sit amet,'
-)
-. _lib
+$ zzlorem	#→ --regex ^Lorem ipsum .* orci luctus et.$
+$ zzlorem 1	#→ Lorem
+$ zzlorem 2	#→ Lorem ipsum
+$ zzlorem 5	#→ Lorem ipsum dolor sit amet,
