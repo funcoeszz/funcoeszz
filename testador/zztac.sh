@@ -1,9 +1,24 @@
-#!/usr/bin/env bash
-debug=0
-values=2
-
-tests=(
-_numeros	''		t	"5\n4\n3\n2\n1"
-_numeros	_numeros	t	"5\n4\n3\n2\n1\n5\n4\n3\n2\n1"
-)
-. _lib
+$ cat _numeros.txt
+1
+2
+3
+4
+5
+$ zztac _numeros.txt
+5
+4
+3
+2
+1
+$ zztac _numeros.txt _numeros.txt
+5
+4
+3
+2
+1
+5
+4
+3
+2
+1
+$
