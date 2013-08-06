@@ -1,11 +1,21 @@
-#!/usr/bin/env bash
-debug=0
-values=1
+$ cat _dados.txt
+1:um:one
+2:dois:two
+3:tres:three
+4:quatro:four
+5:cinco:five
+$
 
-cat _dados _dados _dados > _tmp1
+# Nada a remover
 
-tests=(
-_dados	a	_dados	# nada a remover
-_tmp1	a	_dados  # cada linha e duplicada 2x
-)
-. _lib
+$ zzuniq _dados.txt	#→ --file _dados.txt
+
+# Cada linha aparece 3x
+
+$ cat _dados.txt _dados.txt _dados.txt > _tmp1
+$ zzuniq _tmp1		#→ --file _dados.txt
+
+# Faxina
+
+$ rm -f _tmp1
+$
