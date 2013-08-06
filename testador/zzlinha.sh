@@ -1,19 +1,46 @@
-#!/usr/bin/env bash
-debug=0
-values=3
-tests=(
-# n
-1	''	"$0"	t	'#!/usr/bin/env bash'
-# -t
--t	^values	"$0"	r	'values=3'
--t	1	_dados	t	'1:um:one'
--t	:	_dados	r	'^[0-9]:[a-z].*'
-# sem argumentos
-''	''	_dados	r	'^[0-9]:[a-z].*'
-# argumento faltando (mas vai ok no STDIN)
-# -t	''	-	r	'^[0-9]:[a-z].*'
-# multiplos arquivos
-1	''	"$0 _dados"	t	'#!/usr/bin/env bash\n1:um:one'
--t	'^values\|^1'	"$0 _dados"	r	'^[v1]'
-)
-. _lib
+$ cat _dados.txt
+1:um:one
+2:dois:two
+3:tres:three
+4:quatro:four
+5:cinco:five
+$ cat _numeros.txt
+1
+2
+3
+4
+5
+$
+
+# Número da linha
+
+$ zzlinha		1	_dados.txt	#→ 1:um:one
+
+# -t regex
+
+$ zzlinha	-t	^2:	_dados.txt	#→ 2:dois:two
+$ zzlinha	-t	1	_dados.txt	#→ 1:um:one
+
+# Multimatch: linha aleatória
+
+$ zzlinha	-t	:	_dados.txt	#→ --regex ^[0-9]:[a-z]
+
+# Padrão vazio: linha aleatória
+
+$ zzlinha	-t	''	_dados.txt	#→ --regex ^[0-9]:[a-z]
+
+# Sem argumentos: linha aleatória
+
+$ zzlinha			_dados.txt	#→ --regex ^[0-9]:[a-z]
+
+# Multi arquivos com número da linha: extrai a linha de cada um
+
+$ zzlinha 1 _numeros.txt _dados.txt _numeros.txt
+1
+1:um:one
+1
+$
+
+# Multi arquivos com -t: uma única linha aleatória
+
+$ zzlinha -t '^2:\|^1$' _numeros.txt _dados.txt		#→ --regex ^2:|^1$
