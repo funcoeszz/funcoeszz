@@ -1,41 +1,37 @@
-#!/usr/bin/env bash
-debug=0
-values=2
-tests=(
+# Erros
 
-# erros
-''	FOO	t	"Número inválido 'FOO'"
-''	-8	t	"Número inválido '-8'"
-''	--foo	t	"Número inválido '--foo'"
-''	63	t	"O tamanho máximo desse tipo de senha é 62"
+$ zzsenha		FOO	#→ Número inválido 'FOO'
+$ zzsenha		-8	#→ Número inválido '-8'
+$ zzsenha		--foo	#→ Número inválido '--foo'
+$ zzsenha		63	#→ O tamanho máximo desse tipo de senha é 62
 
---num	FOO	t	"Número inválido 'FOO'"
---num	-8	t	"Número inválido '-8'"
---num	11	t	"O tamanho máximo desse tipo de senha é 10"
+$ zzsenha	--num	FOO	#→ Número inválido 'FOO'
+$ zzsenha	--num	-8	#→ Número inválido '-8'
+$ zzsenha	--num	11	#→ O tamanho máximo desse tipo de senha é 10
 
---pro	FOO	t	"Número inválido 'FOO'"
---pro	-8	t	"Número inválido '-8'"
---pro	76	t	"O tamanho máximo desse tipo de senha é 75"
+$ zzsenha	--pro	FOO	#→ Número inválido 'FOO'
+$ zzsenha	--pro	-8	#→ Número inválido '-8'
+$ zzsenha	--pro	76	#→ O tamanho máximo desse tipo de senha é 75
 
+# Normal
 
-# normal
-''	0	t	''
-''	1	r	'^[A-Za-z0-9]$'
-''	10	r	'^[A-Za-z0-9]{10}$'
-''	62	r	'^[A-Za-z0-9]{62}$'
-''	''	r	'^[A-Za-z0-9]{8}$' # default
+$ zzsenha		0
+$ zzsenha		1	#→ --regex ^[A-Za-z0-9]$
+$ zzsenha		10	#→ --regex ^[A-Za-z0-9]{10}$
+$ zzsenha		62	#→ --regex ^[A-Za-z0-9]{62}$
+$ zzsenha			#→ --regex ^[A-Za-z0-9]{8}$
 
 # --num
---num	0	t	''
---num	1	r	'^[0-9]$'
---num	10	r	'^[0-9]{10}$'
---num	''	r	'^[0-9]{8}$' # default
+
+$ zzsenha	--num	0
+$ zzsenha	--num	1	#→ --regex ^[0-9]$
+$ zzsenha	--num	10	#→ --regex ^[0-9]{10}$
+$ zzsenha	--num		#→ --regex ^[0-9]{8}$
 
 # --pro
---pro	0	t	''
---pro	1	r	'^[A-Za-z0-9/:;()$&@.,?!-]$'
---pro	10	r	'^[A-Za-z0-9/:;()$&@.,?!-]{10}$'
---pro	75	r	'^[A-Za-z0-9/:;()$&@.,?!-]{75}$'
---pro	''	r	'^[A-Za-z0-9/:;()$&@.,?!-]{8}$' # default
-)
-. _lib
+
+$ zzsenha	--pro	0
+$ zzsenha	--pro	1	#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]$
+$ zzsenha	--pro	10	#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]{10}$
+$ zzsenha	--pro	75	#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]{75}$
+$ zzsenha	--pro		#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]{8}$
