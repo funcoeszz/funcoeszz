@@ -1,97 +1,296 @@
-#!/usr/bin/env bash
-debug=0
-values=3
+# Erro: vazio
 
-tests=(
-# vazio
-''	''	''	r	^Uso:.*
-# float
-1.0	''	''	t	"Número inválido '1.0'"
-1,0	''	''	t	"Número inválido '1,0'"
-1	1.0	''	t	"Número inválido '1.0'"
-1	1,0	''	t	"Número inválido '1,0'"
-1	1	1.0	t	"Número inválido '1.0'"
-1	1	1,0	t	"Número inválido '1,0'"
-1	1.0	1	t	"Número inválido '1.0'"
-1	1,0	1	t	"Número inválido '1,0'"
-1.0	1	1	t	"Número inválido '1.0'"
-1,0	1	1	t	"Número inválido '1,0'"
-# string
-x	''	''	t	"Número inválido 'x'"
-1	x	''	t	"Número inválido 'x'"
-1	1	x	t	"Número inválido 'x'"
-1	x	1	t	"Número inválido 'x'"
-x	1	1	t	"Número inválido 'x'"
-# passo zero
-1	0	1	t	"O passo não pode ser zero."
+$ zzseq				#→ --regex ^Uso:
 
-# desce
--5	''	''	t	"1\n0\n-1\n-2\n-3\n-4\n-5"
--1	''	''	t	"1\n0\n-1"
--0	''	''	t	"1\n0"
-0	''	''	t	"1\n0"
-+0	''	''	t	"1\n0"
+# Erro: float com ponto
 
-# meio
-1	''	''	t	1
-+1	''	''	t	1
+$ zzseq	1.0			#→ Número inválido '1.0'
+$ zzseq	1.0	1		#→ Número inválido '1.0'
+$ zzseq	1.0	1	1	#→ Número inválido '1.0'
+$ zzseq	1	1.0		#→ Número inválido '1.0'
+$ zzseq	1	1.0	1	#→ Número inválido '1.0'
+$ zzseq	1	1	1.0	#→ Número inválido '1.0'
 
-# sobe
-5	''	''	t	"1\n2\n3\n4\n5"
+# Erro: float com vírgula
 
-# desce faixa
-10	5	''	t	"10\n9\n8\n7\n6\n5"
-2	0	''	t	"2\n1\n0"
-2	+0	''	t	"2\n1\n0"
-2	-0	''	t	"2\n1\n0"
-2	-2	''	t	"2\n1\n0\n-1\n-2"
--5	-10	''	t	"-5\n-6\n-7\n-8\n-9\n-10"
-0	-2	''	t	"0\n-1\n-2"
+$ zzseq	1,0			#→ Número inválido '1,0'
+$ zzseq	1,0	1		#→ Número inválido '1,0'
+$ zzseq	1,0	1	1	#→ Número inválido '1,0'
+$ zzseq	1	1,0		#→ Número inválido '1,0'
+$ zzseq	1	1,0	1	#→ Número inválido '1,0'
+$ zzseq	1	1	1,0	#→ Número inválido '1,0'
 
-# sobe faixa
-5	10	''	t	"5\n6\n7\n8\n9\n10"
-0	2	''	t	"0\n1\n2"
-+0	2	''	t	"0\n1\n2"
--0	2	''	t	"0\n1\n2"
--2	2	''	t	"-2\n-1\n0\n1\n2"
--10	-5	''	t	"-10\n-9\n-8\n-7\n-6\n-5"
--2	0	''	t	"-2\n-1\n0"
+# Erro: string
 
-# desce faixa com passo
- 10	  1	  5	t	"10\n9\n8\n7\n6\n5"
- 10	  2	  5	t	"10\n8\n6"
- 10	 -2	  5	t	"10\n8\n6"
- 10	 99	  5	t	"10"
- 4	  2	  0	t	"4\n2\n0"
- 4	  2	 +0	t	"4\n2\n0"
- 4	  2	 -0	t	"4\n2\n0"
- 2	  1	 -2	t	"2\n1\n0\n-1\n-2"
- 2	  2	 -2	t	"2\n0\n-2"
- 2	 -2	 -2	t	"2\n0\n-2"
--5	  1	-10	t	"-5\n-6\n-7\n-8\n-9\n-10"
--5	 -1	-10	t	"-5\n-6\n-7\n-8\n-9\n-10"
- 0	 -1	 -2	t	"0\n-1\n-2"
+$ zzseq	x			#→ Número inválido 'x'
+$ zzseq	x	1		#→ Número inválido 'x'
+$ zzseq	x	1	1	#→ Número inválido 'x'
+$ zzseq	1	x		#→ Número inválido 'x'
+$ zzseq	1	x	1	#→ Número inválido 'x'
+$ zzseq	1	1	x	#→ Número inválido 'x'
 
-# sobe faixa com passo
- 5	 1	10	t	"5\n6\n7\n8\n9\n10"
- 5	 2	10	t	"5\n7\n9"
- 5	-2	10	t	"5\n7\n9"
- 5	99	10	t	"5"
- 0	 2	 4	t	"0\n2\n4"
-+0	 2	 4	t	"0\n2\n4"
--0	 2	 4	t	"0\n2\n4"
--2	 1	 2	t	"-2\n-1\n0\n1\n2"
--2	 2	 2	t	"-2\n0\n2"
--2	-2	 2	t	"-2\n0\n2"
--10	 1	-5	t	"-10\n-9\n-8\n-7\n-6\n-5"
--10	-1	-5	t	"-10\n-9\n-8\n-7\n-6\n-5"
--2	-1	 0	t	"-2\n-1\n0"
+# Erro: passo zero
 
-# formato
--f	Z	5	t	"ZZZZZ"
--f	'%d'	5	t	"12345"
--f	'%d:'	5	t	"1:2:3:4:5:"
--f	'(%d)'	5	t	"(1)(2)(3)(4)(5)"
--f	'%.4d,'	5	t	"0001,0002,0003,0004,0005,"
-)
-. _lib
+$ zzseq	1	0	1	#→ O passo não pode ser zero.
+
+# Desce
+
+$ zzseq	-5
+1
+0
+-1
+-2
+-3
+-4
+-5
+$ zzseq	-1
+1
+0
+-1
+$ zzseq	-0
+1
+0
+$ zzseq	0
+1
+0
+$ zzseq	+0
+1
+0
+$
+
+# Meio
+
+$ zzseq	1
+1
+$ zzseq	+1
+1
+$
+
+# Sobe
+
+$ zzseq	5
+1
+2
+3
+4
+5
+$
+
+# Desce faixa
+
+$ zzseq	10	5
+10
+9
+8
+7
+6
+5
+$ zzseq	2	0
+2
+1
+0
+$ zzseq	2	+0
+2
+1
+0
+$ zzseq	2	-0
+2
+1
+0
+$ zzseq	2	-2
+2
+1
+0
+-1
+-2
+$ zzseq	-5	-10
+-5
+-6
+-7
+-8
+-9
+-10
+$ zzseq	0	-2
+0
+-1
+-2
+$
+
+# Sobe faixa
+
+$ zzseq	5	10
+5
+6
+7
+8
+9
+10
+$ zzseq	0	2
+0
+1
+2
+$ zzseq	+0	2
+0
+1
+2
+$ zzseq	-0	2
+0
+1
+2
+$ zzseq	-2	2
+-2
+-1
+0
+1
+2
+$ zzseq	-10	-5
+-10
+-9
+-8
+-7
+-6
+-5
+$ zzseq	-2	0
+-2
+-1
+0
+$
+
+# Desce faixa com passo
+
+$ zzseq	 10	  1	  5
+10
+9
+8
+7
+6
+5
+$ zzseq	 10	  2	  5
+10
+8
+6
+$ zzseq	 10	 -2	  5
+10
+8
+6
+$ zzseq	 10	 99	  5
+10
+$ zzseq	 4	  2	  0
+4
+2
+0
+$ zzseq	 4	  2	 +0
+4
+2
+0
+$ zzseq	 4	  2	 -0
+4
+2
+0
+$ zzseq	 2	  1	 -2
+2
+1
+0
+-1
+-2
+$ zzseq	 2	  2	 -2
+2
+0
+-2
+$ zzseq	 2	 -2	 -2
+2
+0
+-2
+$ zzseq	-5	  1	-10
+-5
+-6
+-7
+-8
+-9
+-10
+$ zzseq	-5	 -1	-10
+-5
+-6
+-7
+-8
+-9
+-10
+$ zzseq	 0	 -1	 -2
+0
+-1
+-2
+$
+
+# Sobe faixa com passo
+
+$ zzseq	 5	 1	10
+5
+6
+7
+8
+9
+10
+$ zzseq	 5	 2	10
+5
+7
+9
+$ zzseq	 5	-2	10
+5
+7
+9
+$ zzseq	 5	99	10
+5
+$ zzseq	 0	 2	 4
+0
+2
+4
+$ zzseq	+0	 2	 4
+0
+2
+4
+$ zzseq	-0	 2	 4
+0
+2
+4
+$ zzseq	-2	 1	 2
+-2
+-1
+0
+1
+2
+$ zzseq	-2	 2	 2
+-2
+0
+2
+$ zzseq	-2	-2	 2
+-2
+0
+2
+$ zzseq	-10	 1	-5
+-10
+-9
+-8
+-7
+-6
+-5
+$ zzseq	-10	-1	-5
+-10
+-9
+-8
+-7
+-6
+-5
+$ zzseq	-2	-1	 0
+-2
+-1
+0
+$
+
+# Formato
+# Nota: Usando --regex para casar linhas sem \n no final
+
+$ zzseq -f Z       5     #→ --regex ^ZZZZZ$
+$ zzseq -f '%d'    5     #→ --regex ^12345$
+$ zzseq -f '%d:'   5     #→ --regex ^1:2:3:4:5:$
+$ zzseq -f '<%d>'  5     #→ --regex ^<1><2><3><4><5>$
+$ zzseq -f '%.4d,' 5     #→ --regex ^0001,0002,0003,0004,0005,$
