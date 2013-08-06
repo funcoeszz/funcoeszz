@@ -1,16 +1,12 @@
-#!/usr/bin/env bash
+$ zzferiado		foo		#→ --regex ^Data inválida 
+$ zzferiado		1		#→ --regex ^Data inválida 
+$ zzferiado	-l	foo		#→ --regex ^Ano inválido 
+$ zzferiado	-l	25/12		#→ --regex ^Ano inválido 
 
-values=2
-tests=(
-''	foo		r	'^Data inv.lida .*'
-''	1		r	'^Data inv.lida .*'
--l	foo		r	'^Ano inv.lido .*'
--l	25/12		r	'^Ano inv.lido .*'
+$ zzferiado		25/12/2008	#→ É feriado: 25/12/2008
+$ zzferiado		26/12/2008	#→ Não é feriado: 26/12/2008
 
-''	25/12/2008	t	'É feriado: 25/12/2008'
-''	26/12/2008	t	'Não é feriado: 26/12/2008'
-
--l	2010	t	"\
+$ zzferiado -l 2010
 01/01 sexta-feira     Confraternização Universal
 16/02 terça-feira     Carnaval
 02/04 sexta-feira     Sexta-ferida da Paixao
@@ -21,8 +17,6 @@ tests=(
 12/10 terça-feira     Nossa Sra. Aparecida
 02/11 terça-feira     Finados
 15/11 segunda-feira   Proclamação da República
-25/12 sábado          Natal"
+25/12 sábado          Natal
+$
 
-
-)
-. _lib
