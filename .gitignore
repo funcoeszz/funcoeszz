@@ -3,6 +3,8 @@
 
 # Arquivos temporários do testador
 /testador/internet/*.out
+/testador/run.tmp
+/testador/_tmp?
 
 # Arquivo temporário genérico
 _tmp
