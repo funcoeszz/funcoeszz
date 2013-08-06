@@ -1,16 +1,14 @@
-#!/usr/bin/env bash
-debug=0
-values=1
+# preparativos
+$ printf '\033[32m verde \033[m\n' > _tmp1
+$ zzcores > _tmp2
+$
 
-printf '\033[32m verde \033[m\n' > _tmp1
-./funcoeszz cores  > _tmp2
-
-saida1='<pre style="background:#000;color:#FFF"><div style="display:inline">
+$ zzansi2html _tmp1
+<pre style="background:#000;color:#FFF"><div style="display:inline">
 <span style="color:#0F0;font-weight:normal;text-decoration:none"> verde </div><div style="display:inline">
-</pre>'
+</pre>
+$ zzansi2html _tmp2  #→ --file zzansi2html.out.html
 
-tests=(
-_tmp1	t	"$saida1"
-_tmp2	a	ansi2html.out
-)
-. _lib
+# faxina
+$ rm -f _tmp[12]
+$
