@@ -1,311 +1,302 @@
-#!/usr/bin/env bash
-debug=0
-values=4
-tests=(
-uso	zztool	''	''	t	"Uso: zztool [-e] ferramenta [argumentos]"
-index_var	tan	testando	''	t	4
-arquivo_vago	tool	''	''	r	"Arquivo tool j. existe. Abortando."
-arquivo_legivel	_fake_	''	''	r	"N.o consegui ler o arquivo _fake_"
-
-# ZZCOR=0
-eco	testando	''	''	t	"testando"
-)
-. _lib
-
-
-############################################################################
-
-# Testes personalizados
-
-ZZCOR=1
-
-compara_texto()
-{
-	local result=$(eval "$zz $comando")
-	if test "$ok" != "$result"
-	then
-		echo "ERROR: $comando"
-		echo "expected '$ok', got '$result'"
-	fi
-}
-compara_exitcode()
-{
-	local result=$(eval "$zz $comando"; echo $?)
-	if test "$ok" != "$result"
-	then
-		echo "ERROR: $comando"
-		echo "expected '$ok', got '$result'"
-	fi
-}
+$ zztool uso zztool			#→ Uso: zztool [-e] ferramenta [argumentos]
+$ zztool index_var tan testando		#→ 4
+$ zztool arquivo_vago _dados.txt	#→ Arquivo _dados.txt já existe. Abortando.
+$ zztool arquivo_legivel _fake_		#→ Não consegui ler o arquivo _fake_
 
 # eco
-comando="tool eco testando"; ok="[36;1mtestando[m"
-compara_texto
+
+$ ZZCOR=0
+$ zztool eco testando		#→ testando
+$ ZZCOR=1
+$ zztool eco testando		#→ [36;1mtestando[m
 
 # acha
-comando="tool acha tan testando"; ok="tes[36;1mtan[mdo"
-compara_texto
+
+$ zztool acha tan testando	#→ tes[36;1mtan[mdo
+$ ZZCOR=0
+$
 
 # grep_var
-ok=0; comando="tool grep_var ana banana"; compara_exitcode
-ok=1; comando="tool grep_var XXX banana"; compara_exitcode
+
+$ zztool grep_var ana banana		; echo $?  #→ 0
+$ zztool grep_var XXX banana		; echo $?  #→ 1
 
 # testa_numero
-ok=0; comando="tool testa_numero 9"    ; compara_exitcode
-ok=0; comando="tool testa_numero 9999" ; compara_exitcode
-ok=1; comando="tool testa_numero XXX"  ; compara_exitcode
-ok=1; comando="tool testa_numero -9"   ; compara_exitcode
+
+$ zztool testa_numero 9			; echo $?  #→ 0
+$ zztool testa_numero 9999		; echo $?  #→ 0
+$ zztool testa_numero XXX		; echo $?  #→ 1
+$ zztool testa_numero -9		; echo $?  #→ 1
 
 # testa_numero_sinal
-ok=0; comando="tool testa_numero_sinal 9"    ; compara_exitcode
-ok=0; comando="tool testa_numero_sinal 9999" ; compara_exitcode
-ok=0; comando="tool testa_numero_sinal +9999"; compara_exitcode
-ok=0; comando="tool testa_numero_sinal -9999"; compara_exitcode
-ok=1; comando="tool testa_numero_sinal XXX"  ; compara_exitcode
-ok=1; comando="tool testa_numero_sinal 9.9"  ; compara_exitcode
-ok=1; comando="tool testa_numero_sinal ++9"  ; compara_exitcode
+
+$ zztool testa_numero_sinal 9		; echo $?  #→ 0
+$ zztool testa_numero_sinal 9999	; echo $?  #→ 0
+$ zztool testa_numero_sinal +9999	; echo $?  #→ 0
+$ zztool testa_numero_sinal -9999	; echo $?  #→ 0
+$ zztool testa_numero_sinal XXX		; echo $?  #→ 1
+$ zztool testa_numero_sinal 9.9		; echo $?  #→ 1
+$ zztool testa_numero_sinal ++9		; echo $?  #→ 1
 
 # testa_numero_fracionario
-ok=0; comando="tool testa_numero_fracionario 0,0"    ; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 0,00"   ; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 0,000"  ; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 0,0000" ; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 0,00000"; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 00,0"   ; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 000,0"  ; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 0000,0" ; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 00000,0"; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 0.0"    ; compara_exitcode
-ok=0; comando="tool testa_numero_fracionario 000.000"; compara_exitcode
-ok=1; comando="tool testa_numero_fracionario XXX"  ; compara_exitcode
-ok=1; comando="tool testa_numero_fracionario -9.9" ; compara_exitcode
-ok=1; comando="tool testa_numero_fracionario +9.9" ; compara_exitcode
-ok=1; comando="tool testa_numero_fracionario 9"    ; compara_exitcode
-ok=1; comando="tool testa_numero_fracionario +9"   ; compara_exitcode
-ok=1; comando="tool testa_numero_fracionario -9"   ; compara_exitcode
-ok=1; comando="tool testa_numero_fracionario ,9"   ; compara_exitcode
-ok=1; comando="tool testa_numero_fracionario .9"   ; compara_exitcode
+
+$ zztool testa_numero_fracionario 0,0		; echo $?  #→ 0
+$ zztool testa_numero_fracionario 0,00		; echo $?  #→ 0
+$ zztool testa_numero_fracionario 0,000		; echo $?  #→ 0
+$ zztool testa_numero_fracionario 0,0000	; echo $?  #→ 0
+$ zztool testa_numero_fracionario 0,00000	; echo $?  #→ 0
+$ zztool testa_numero_fracionario 00,0		; echo $?  #→ 0
+$ zztool testa_numero_fracionario 000,0		; echo $?  #→ 0
+$ zztool testa_numero_fracionario 0000,0	; echo $?  #→ 0
+$ zztool testa_numero_fracionario 00000,0	; echo $?  #→ 0
+$ zztool testa_numero_fracionario 0.0		; echo $?  #→ 0
+$ zztool testa_numero_fracionario 000.000	; echo $?  #→ 0
+$ zztool testa_numero_fracionario XXX		; echo $?  #→ 1
+$ zztool testa_numero_fracionario -9.9		; echo $?  #→ 1
+$ zztool testa_numero_fracionario +9.9		; echo $?  #→ 1
+$ zztool testa_numero_fracionario 9		; echo $?  #→ 1
+$ zztool testa_numero_fracionario +9		; echo $?  #→ 1
+$ zztool testa_numero_fracionario -9		; echo $?  #→ 1
+$ zztool testa_numero_fracionario ,9		; echo $?  #→ 1
+$ zztool testa_numero_fracionario .9		; echo $?  #→ 1
 
 # testa_dinheiro
-ok=0; comando="tool testa_dinheiro 0,00"   ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 00,00"  ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 0.000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 00.000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 000.000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 0.000.000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 00.000.000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 000.000.000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 0.000.000.000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 00.000.000.000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 000.000.000.000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 0000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 000000,00" ; compara_exitcode
-ok=0; comando="tool testa_dinheiro 00000000,00" ; compara_exitcode
-# centavos errados
-ok=1; comando="tool testa_dinheiro 0,0"            ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0,000"          ; compara_exitcode
-# ponto colocado errado
-ok=1; comando="tool testa_dinheiro 0.0,00"         ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0000.0,00"      ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0.0.000,00"     ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0.00.000,00"    ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 000.00.000,00"  ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0.000.0000,00"  ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0.,00"          ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0.0,00"         ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0.00,00"        ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0.0000,00"      ; compara_exitcode
-ok=1; comando="tool testa_dinheiro .000,00"        ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0000.000,00"    ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 0.0000.000,00"  ; compara_exitcode
-# outros
-ok=1; comando="tool testa_dinheiro XXX"  ; compara_exitcode
-ok=1; comando="tool testa_dinheiro 9"    ; compara_exitcode
-ok=1; comando="tool testa_dinheiro +9"   ; compara_exitcode
-ok=1; comando="tool testa_dinheiro -9"   ; compara_exitcode
-ok=1; comando="tool testa_dinheiro ,9"   ; compara_exitcode
-ok=1; comando="tool testa_dinheiro .9"   ; compara_exitcode
+
+$ zztool testa_dinheiro 0,00			; echo $?  #→ 0
+$ zztool testa_dinheiro 00,00			; echo $?  #→ 0
+$ zztool testa_dinheiro 000,00			; echo $?  #→ 0
+$ zztool testa_dinheiro 0.000,00		; echo $?  #→ 0
+$ zztool testa_dinheiro 00.000,00		; echo $?  #→ 0
+$ zztool testa_dinheiro 000.000,00		; echo $?  #→ 0
+$ zztool testa_dinheiro 0.000.000,00		; echo $?  #→ 0
+$ zztool testa_dinheiro 00.000.000,00		; echo $?  #→ 0
+$ zztool testa_dinheiro 000.000.000,00		; echo $?  #→ 0
+$ zztool testa_dinheiro 0.000.000.000,00	; echo $?  #→ 0
+$ zztool testa_dinheiro 00.000.000.000,00	; echo $?  #→ 0
+$ zztool testa_dinheiro 000.000.000.000,00	; echo $?  #→ 0
+$ zztool testa_dinheiro 0000,00			; echo $?  #→ 0
+$ zztool testa_dinheiro 000000,00		; echo $?  #→ 0
+$ zztool testa_dinheiro 00000000,00		; echo $?  #→ 0
+
+# testa_dinheiro: centavos errados
+
+$ zztool testa_dinheiro 0,0		; echo $?  #→ 1
+$ zztool testa_dinheiro 0,000		; echo $?  #→ 1
+
+# testa_dinheiro: ponto colocado errado
+
+$ zztool testa_dinheiro 0.0,00		; echo $?  #→ 1
+$ zztool testa_dinheiro 0000.0,00	; echo $?  #→ 1
+$ zztool testa_dinheiro 0.0.000,00	; echo $?  #→ 1
+$ zztool testa_dinheiro 0.00.000,00	; echo $?  #→ 1
+$ zztool testa_dinheiro 000.00.000,00	; echo $?  #→ 1
+$ zztool testa_dinheiro 0.000.0000,00	; echo $?  #→ 1
+$ zztool testa_dinheiro 0.,00		; echo $?  #→ 1
+$ zztool testa_dinheiro 0.0,00		; echo $?  #→ 1
+$ zztool testa_dinheiro 0.00,00		; echo $?  #→ 1
+$ zztool testa_dinheiro 0.0000,00	; echo $?  #→ 1
+$ zztool testa_dinheiro .000,00		; echo $?  #→ 1
+$ zztool testa_dinheiro 0000.000,00	; echo $?  #→ 1
+$ zztool testa_dinheiro 0.0000.000,00	; echo $?  #→ 1
+
+# testa_dinheiro: outros
+
+$ zztool testa_dinheiro XXX		; echo $?  #→ 1
+$ zztool testa_dinheiro 9		; echo $?  #→ 1
+$ zztool testa_dinheiro +9		; echo $?  #→ 1
+$ zztool testa_dinheiro :9		; echo $?  #→ 1
+$ zztool testa_dinheiro ,9		; echo $?  #→ 1
+$ zztool testa_dinheiro .9		; echo $?  #→ 1
 
 # testa_binario
-ok=0; comando="tool testa_binario 0"    ; compara_exitcode
-ok=0; comando="tool testa_binario 1"    ; compara_exitcode
-ok=0; comando="tool testa_binario 0000" ; compara_exitcode
-ok=0; comando="tool testa_binario 0110" ; compara_exitcode
-ok=1; comando="tool testa_binario 2"    ; compara_exitcode
-ok=1; comando="tool testa_binario +010" ; compara_exitcode
-ok=1; comando="tool testa_binario -010" ; compara_exitcode
+
+$ zztool testa_binario 0		; echo $?  #→ 0
+$ zztool testa_binario 1		; echo $?  #→ 0
+$ zztool testa_binario 0000		; echo $?  #→ 0
+$ zztool testa_binario 0110		; echo $?  #→ 0
+$ zztool testa_binario 2		; echo $?  #→ 1
+$ zztool testa_binario +010		; echo $?  #→ 1
+$ zztool testa_binario -010		; echo $?  #→ 1
 
 # testa_ip
-ok=0; comando="tool testa_ip 0.0.0.0"            ; compara_exitcode
-ok=0; comando="tool testa_ip 99.99.99.99"        ; compara_exitcode
-ok=0; comando="tool testa_ip 255.255.255.255"    ; compara_exitcode
-ok=0; comando="tool testa_ip 1.11.111.0"         ; compara_exitcode
-ok=0; comando="tool testa_ip 0.99.100.199"       ; compara_exitcode
-ok=0; comando="tool testa_ip 200.249.250.255"    ; compara_exitcode
-ok=1; comando="tool testa_ip 000.000.000.000"    ; compara_exitcode
-ok=1; comando="tool testa_ip 256.256.256.256"    ; compara_exitcode
-ok=1; comando="tool testa_ip 999.999.999.999"    ; compara_exitcode
-ok=1; comando="tool testa_ip 0000.0000.0000.0000"; compara_exitcode
-ok=1; comando="tool testa_ip 0.0.0"              ; compara_exitcode
-ok=1; comando="tool testa_ip 0.0"                ; compara_exitcode
-ok=1; comando="tool testa_ip 0"                  ; compara_exitcode
 
-# testa_ano
-# 1-9999
-ok=1; comando="tool testa_ano -1000" ; compara_exitcode
-ok=1; comando="tool testa_ano -1" ; compara_exitcode
-ok=1; comando="tool testa_ano 0" ; compara_exitcode
-ok=0; comando="tool testa_ano 1" ; compara_exitcode
-ok=0; comando="tool testa_ano 10" ; compara_exitcode
-ok=0; comando="tool testa_ano 100" ; compara_exitcode
-ok=0; comando="tool testa_ano 1000" ; compara_exitcode
-ok=0; comando="tool testa_ano 2000" ; compara_exitcode
-ok=0; comando="tool testa_ano 9999" ; compara_exitcode
-ok=1; comando="tool testa_ano 99999" ; compara_exitcode
-# padding
-ok=0; comando="tool testa_ano 0001" ; compara_exitcode
-ok=0; comando="tool testa_ano 001" ; compara_exitcode
-ok=0; comando="tool testa_ano 01" ; compara_exitcode
+$ zztool testa_ip 0.0.0.0		; echo $?  #→ 0
+$ zztool testa_ip 99.99.99.99		; echo $?  #→ 0
+$ zztool testa_ip 255.255.255.255	; echo $?  #→ 0
+$ zztool testa_ip 1.11.111.0		; echo $?  #→ 0
+$ zztool testa_ip 0.99.100.199		; echo $?  #→ 0
+$ zztool testa_ip 200.249.250.255	; echo $?  #→ 0
+$ zztool testa_ip 000.000.000.000	; echo $?  #→ 1
+$ zztool testa_ip 256.256.256.256	; echo $?  #→ 1
+$ zztool testa_ip 999.999.999.999	; echo $?  #→ 1
+$ zztool testa_ip 0000.0000.0000.0000	; echo $?  #→ 1
+$ zztool testa_ip 0.0.0			; echo $?  #→ 1
+$ zztool testa_ip 0.0			; echo $?  #→ 1
+$ zztool testa_ip 0			; echo $?  #→ 1
 
-# testa_data
-# O ano é livre
-ok=0; comando="tool testa_data 01/01/0" ; compara_exitcode
-ok=0; comando="tool testa_data 01/01/1" ; compara_exitcode
-ok=0; comando="tool testa_data 01/01/10" ; compara_exitcode
-ok=0; comando="tool testa_data 01/01/100" ; compara_exitcode
-ok=0; comando="tool testa_data 01/01/1000" ; compara_exitcode
-ok=0; comando="tool testa_data 01/01/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 01/01/9999" ; compara_exitcode
-# Limites mensais
-ok=0; comando="tool testa_data 31/01/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 29/02/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 31/03/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 30/04/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 31/05/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 30/06/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 31/07/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 31/08/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 30/09/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 31/10/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 30/11/2000" ; compara_exitcode
-ok=0; comando="tool testa_data 31/12/2000" ; compara_exitcode
-# Datas com um dígito no dia ou mês são proibidas por enquanto
-ok=1; comando="tool testa_data 1/01/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 5/05/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 9/09/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 01/1/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 05/5/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 09/9/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 1/1/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 5/5/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 9/9/2000" ; compara_exitcode
-# Fora do limite
-ok=1; comando="tool testa_data 32/01/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 30/02/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 32/03/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 31/04/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 32/05/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 31/06/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 32/07/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 32/08/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 31/09/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 32/10/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 31/11/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 32/12/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 39/01/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 01/13/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 01/19/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 00/01/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 01/00/2000" ; compara_exitcode
-ok=1; comando="tool testa_data 99/99/2000" ; compara_exitcode
-# Não pega datas parciais
-ok=1; comando="tool testa_data 31/12"      ; compara_exitcode
-ok=1; comando="tool testa_data 931/12/2000"; compara_exitcode
-ok=1; comando="tool testa_data +31/12/2000"; compara_exitcode
-ok=1; comando="tool testa_data 31/12/2000+"; compara_exitcode
-ok=1; comando="tool testa_data +31/12/2000+"; compara_exitcode
+# testa_ano: 1-9999
+
+$ zztool testa_ano -1000		; echo $?  #→ 1
+$ zztool testa_ano -1			; echo $?  #→ 1
+$ zztool testa_ano 0			; echo $?  #→ 1
+$ zztool testa_ano 1			; echo $?  #→ 0
+$ zztool testa_ano 10			; echo $?  #→ 0
+$ zztool testa_ano 100			; echo $?  #→ 0
+$ zztool testa_ano 1000			; echo $?  #→ 0
+$ zztool testa_ano 2000			; echo $?  #→ 0
+$ zztool testa_ano 9999			; echo $?  #→ 0
+$ zztool testa_ano 99999		; echo $?  #→ 1
+
+# testa_ano: padding
+
+$ zztool testa_ano 0001			; echo $?  #→ 0
+$ zztool testa_ano 001			; echo $?  #→ 0
+$ zztool testa_ano 01			; echo $?  #→ 0
+
+# testa_data: o ano é livre
+
+$ zztool testa_data 01/01/0		; echo $?  #→ 0
+$ zztool testa_data 01/01/1		; echo $?  #→ 0
+$ zztool testa_data 01/01/10		; echo $?  #→ 0
+$ zztool testa_data 01/01/100		; echo $?  #→ 0
+$ zztool testa_data 01/01/1000		; echo $?  #→ 0
+$ zztool testa_data 01/01/2000		; echo $?  #→ 0
+$ zztool testa_data 01/01/9999		; echo $?  #→ 0
+
+# testa_data: limites mensais
+
+$ zztool testa_data 31/01/2000		; echo $?  #→ 0
+$ zztool testa_data 29/02/2000		; echo $?  #→ 0
+$ zztool testa_data 31/03/2000		; echo $?  #→ 0
+$ zztool testa_data 30/04/2000		; echo $?  #→ 0
+$ zztool testa_data 31/05/2000		; echo $?  #→ 0
+$ zztool testa_data 30/06/2000		; echo $?  #→ 0
+$ zztool testa_data 31/07/2000		; echo $?  #→ 0
+$ zztool testa_data 31/08/2000		; echo $?  #→ 0
+$ zztool testa_data 30/09/2000		; echo $?  #→ 0
+$ zztool testa_data 31/10/2000		; echo $?  #→ 0
+$ zztool testa_data 30/11/2000		; echo $?  #→ 0
+$ zztool testa_data 31/12/2000		; echo $?  #→ 0
+
+# testa_data: datas com um dígito no dia ou mês são proibidas
+
+$ zztool testa_data 1/01/2000		; echo $?  #→ 1
+$ zztool testa_data 5/05/2000		; echo $?  #→ 1
+$ zztool testa_data 9/09/2000		; echo $?  #→ 1
+$ zztool testa_data 01/1/2000		; echo $?  #→ 1
+$ zztool testa_data 05/5/2000		; echo $?  #→ 1
+$ zztool testa_data 09/9/2000		; echo $?  #→ 1
+$ zztool testa_data 1/1/2000		; echo $?  #→ 1
+$ zztool testa_data 5/5/2000		; echo $?  #→ 1
+$ zztool testa_data 9/9/2000		; echo $?  #→ 1
+
+# testa_data: data fora do limite
+
+$ zztool testa_data 32/01/2000		; echo $?  #→ 1
+$ zztool testa_data 30/02/2000		; echo $?  #→ 1
+$ zztool testa_data 32/03/2000		; echo $?  #→ 1
+$ zztool testa_data 31/04/2000		; echo $?  #→ 1
+$ zztool testa_data 32/05/2000		; echo $?  #→ 1
+$ zztool testa_data 31/06/2000		; echo $?  #→ 1
+$ zztool testa_data 32/07/2000		; echo $?  #→ 1
+$ zztool testa_data 32/08/2000		; echo $?  #→ 1
+$ zztool testa_data 31/09/2000		; echo $?  #→ 1
+$ zztool testa_data 32/10/2000		; echo $?  #→ 1
+$ zztool testa_data 31/11/2000		; echo $?  #→ 1
+$ zztool testa_data 32/12/2000		; echo $?  #→ 1
+$ zztool testa_data 39/01/2000		; echo $?  #→ 1
+$ zztool testa_data 01/13/2000		; echo $?  #→ 1
+$ zztool testa_data 01/19/2000		; echo $?  #→ 1
+$ zztool testa_data 00/01/2000		; echo $?  #→ 1
+$ zztool testa_data 01/00/2000		; echo $?  #→ 1
+$ zztool testa_data 99/99/2000		; echo $?  #→ 1
+
+# testa_data: não pega datas parciais
+
+$ zztool testa_data 31/12		; echo $?  #→ 1
+$ zztool testa_data 931/12/2000		; echo $?  #→ 1
+$ zztool testa_data +31/12/2000		; echo $?  #→ 1
+$ zztool testa_data 31/12/2000+		; echo $?  #→ 1
+$ zztool testa_data +31/12/2000+	; echo $?  #→ 1
 
 # testa_hora
-ok=0; comando="tool testa_hora  0:00" ; compara_exitcode
-ok=0; comando="tool testa_hora  1:01" ; compara_exitcode
-ok=0; comando="tool testa_hora  2:02" ; compara_exitcode
-ok=0; comando="tool testa_hora  3:03" ; compara_exitcode
-ok=0; comando="tool testa_hora  4:04" ; compara_exitcode
-ok=0; comando="tool testa_hora  5:05" ; compara_exitcode
-ok=0; comando="tool testa_hora  6:06" ; compara_exitcode
-ok=0; comando="tool testa_hora  7:07" ; compara_exitcode
-ok=0; comando="tool testa_hora  8:08" ; compara_exitcode
-ok=0; comando="tool testa_hora  9:09" ; compara_exitcode
-ok=0; comando="tool testa_hora 00:00" ; compara_exitcode
-ok=0; comando="tool testa_hora 01:01" ; compara_exitcode
-ok=0; comando="tool testa_hora 02:02" ; compara_exitcode
-ok=0; comando="tool testa_hora 03:03" ; compara_exitcode
-ok=0; comando="tool testa_hora 04:04" ; compara_exitcode
-ok=0; comando="tool testa_hora 05:05" ; compara_exitcode
-ok=0; comando="tool testa_hora 06:06" ; compara_exitcode
-ok=0; comando="tool testa_hora 07:07" ; compara_exitcode
-ok=0; comando="tool testa_hora 08:08" ; compara_exitcode
-ok=0; comando="tool testa_hora 09:09" ; compara_exitcode
-ok=0; comando="tool testa_hora 10:10" ; compara_exitcode
-ok=0; comando="tool testa_hora 11:11" ; compara_exitcode
-ok=0; comando="tool testa_hora 12:12" ; compara_exitcode
-ok=0; comando="tool testa_hora 13:13" ; compara_exitcode
-ok=0; comando="tool testa_hora 14:14" ; compara_exitcode
-ok=0; comando="tool testa_hora 15:15" ; compara_exitcode
-ok=0; comando="tool testa_hora 16:16" ; compara_exitcode
-ok=0; comando="tool testa_hora 17:17" ; compara_exitcode
-ok=0; comando="tool testa_hora 18:18" ; compara_exitcode
-ok=0; comando="tool testa_hora 19:19" ; compara_exitcode
-ok=0; comando="tool testa_hora 20:20" ; compara_exitcode
-ok=0; comando="tool testa_hora 21:21" ; compara_exitcode
-ok=0; comando="tool testa_hora 22:22" ; compara_exitcode
-ok=0; comando="tool testa_hora 23:23" ; compara_exitcode
-ok=0; comando="tool testa_hora 23:59" ; compara_exitcode
-ok=1; comando="tool testa_hora 24:00" ; compara_exitcode
-ok=1; comando="tool testa_hora 24:59" ; compara_exitcode
-ok=1; comando="tool testa_hora  4:60" ; compara_exitcode
-ok=1; comando="tool testa_hora  4:99" ; compara_exitcode
-ok=1; comando="tool testa_hora 99:99" ; compara_exitcode
-# Não pega horas parciais
-ok=1; comando="tool testa_hora 911:11"  ; compara_exitcode
-ok=1; comando="tool testa_hora 11:119"  ; compara_exitcode
-ok=1; comando="tool testa_hora 911:119" ; compara_exitcode
-# Delimitador (com ou sem)
-ok=1; comando="tool testa_hora 2359"    ; compara_exitcode
-ok=1; comando="tool testa_hora :"       ; compara_exitcode
+
+$ zztool testa_hora  0:00		; echo $?  #→ 0
+$ zztool testa_hora  1:01		; echo $?  #→ 0
+$ zztool testa_hora  2:02		; echo $?  #→ 0
+$ zztool testa_hora  3:03		; echo $?  #→ 0
+$ zztool testa_hora  4:04		; echo $?  #→ 0
+$ zztool testa_hora  5:05		; echo $?  #→ 0
+$ zztool testa_hora  6:06		; echo $?  #→ 0
+$ zztool testa_hora  7:07		; echo $?  #→ 0
+$ zztool testa_hora  8:08		; echo $?  #→ 0
+$ zztool testa_hora  9:09		; echo $?  #→ 0
+$ zztool testa_hora 00:00		; echo $?  #→ 0
+$ zztool testa_hora 01:01		; echo $?  #→ 0
+$ zztool testa_hora 02:02		; echo $?  #→ 0
+$ zztool testa_hora 03:03		; echo $?  #→ 0
+$ zztool testa_hora 04:04		; echo $?  #→ 0
+$ zztool testa_hora 05:05		; echo $?  #→ 0
+$ zztool testa_hora 06:06		; echo $?  #→ 0
+$ zztool testa_hora 07:07		; echo $?  #→ 0
+$ zztool testa_hora 08:08		; echo $?  #→ 0
+$ zztool testa_hora 09:09		; echo $?  #→ 0
+$ zztool testa_hora 10:10		; echo $?  #→ 0
+$ zztool testa_hora 11:11		; echo $?  #→ 0
+$ zztool testa_hora 12:12		; echo $?  #→ 0
+$ zztool testa_hora 13:13		; echo $?  #→ 0
+$ zztool testa_hora 14:14		; echo $?  #→ 0
+$ zztool testa_hora 15:15		; echo $?  #→ 0
+$ zztool testa_hora 16:16		; echo $?  #→ 0
+$ zztool testa_hora 17:17		; echo $?  #→ 0
+$ zztool testa_hora 18:18		; echo $?  #→ 0
+$ zztool testa_hora 19:19		; echo $?  #→ 0
+$ zztool testa_hora 20:20		; echo $?  #→ 0
+$ zztool testa_hora 21:21		; echo $?  #→ 0
+$ zztool testa_hora 22:22		; echo $?  #→ 0
+$ zztool testa_hora 23:23		; echo $?  #→ 0
+$ zztool testa_hora 23:59		; echo $?  #→ 0
+$ zztool testa_hora 24:00		; echo $?  #→ 1
+$ zztool testa_hora 24:59		; echo $?  #→ 1
+$ zztool testa_hora  4:60		; echo $?  #→ 1
+$ zztool testa_hora  4:99		; echo $?  #→ 1
+$ zztool testa_hora 99:99		; echo $?  #→ 1
+
+# testa_hora: não pega horas parciais
+
+$ zztool testa_hora 911:11		; echo $?  #→ 1
+$ zztool testa_hora 11:119		; echo $?  #→ 1
+$ zztool testa_hora 911:119		; echo $?  #→ 1
+
+# testa_hora: delimitador (com ou sem)
+
+$ zztool testa_hora 2359		; echo $?  #→ 1
+$ zztool testa_hora :			; echo $?  #→ 1
 
 # trim
-comando="tool trim '   testando   '"; ok="testando"
-compara_texto
+
+$ zztool trim '   testando   '	#→ testando
 
 # endereco_sed
-comando='tool endereco_sed $     '; ok='$'           ; compara_texto
-comando='tool endereco_sed 0     '; ok='0'           ; compara_texto
-comando='tool endereco_sed 1     '; ok='1'           ; compara_texto
-comando='tool endereco_sed 99    '; ok='99'          ; compara_texto
-comando='tool endereco_sed 999   '; ok='999'         ; compara_texto
-comando='tool endereco_sed -1    '; ok='/-1/'        ; compara_texto
-comando='tool endereco_sed a$    '; ok='/a$/'        ; compara_texto
-comando='tool endereco_sed a     '; ok='/a/'         ; compara_texto
-comando='tool endereco_sed ^a.*$ '; ok='/^a.*$/'     ; compara_texto
-comando='tool endereco_sed /     '; ok='/\//'        ; compara_texto
-comando='tool endereco_sed /a/   '; ok='/\/a\//'     ; compara_texto
-comando='tool endereco_sed /a/b/c'; ok='/\/a\/b\/c/' ; compara_texto
-comando='tool endereco_sed a b c '; ok='/a b c/'     ; compara_texto
 
+$ zztool endereco_sed $		#→ $
+$ zztool endereco_sed 0		#→ 0
+$ zztool endereco_sed 1		#→ 1
+$ zztool endereco_sed 99	#→ 99
+$ zztool endereco_sed 999	#→ 999
+$ zztool endereco_sed -1	#→ /-1/
+$ zztool endereco_sed a$	#→ /a$/
+$ zztool endereco_sed a		#→ /a/
+$ zztool endereco_sed ^a.*$	#→ /^a.*$/
+$ zztool endereco_sed /		#→ /\//
+$ zztool endereco_sed /a/	#→ /\/a\//
+$ zztool endereco_sed /a/b/c	#→ /\/a\/b\/c/
+$ zztool endereco_sed 'a b c'	#→ /a b c/
 
 # multi_stdin
-ok=testando
-result=$(echo testando | "$zz" tool multi_stdin)
-if test "$ok" != "$result"
-then
-	echo "ERROR: echo testando | tool multi_stdin"
-	echo "expected '$ok', got '$result'"
-fi
-result=$("$zz" tool multi_stdin testando)
-if test "$ok" != "$result"
-then
-	echo "ERROR: tool multi_stdin testando"
-	echo "expected '$ok', got '$result'"
-fi
+
+$ echo ok | zztool multi_stdin
+ok
+$ zztool multi_stdin ok
+ok
+$
