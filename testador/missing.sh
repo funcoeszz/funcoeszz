@@ -1,34 +1,22 @@
-#!/usr/bin/env bash
-
-zz=./funcoeszz
+#!/bin/sh
+# missing.sh - Show functions not yet tested
 
 # Go to tests folder
 cd $(dirname "$0")
 
-todas_as_funcoes=$(grep ^zz "$zz" | cut -d' ' -f1 | sed 's/^zz//' | sort)
+# List of all functions
+base="\
+zzajuda
+zztool
+zzzz"
+other=$(ls -1 ../zz/ | sed 's/\.sh$//; s|.*/||')
+all=$(printf "$base\n$other" | sort)
 
-funcoes_testadas=$(
-	(
-	# Locais
-	ls -1 | egrep -v 'internet|funcoeszz|run|stats|_|\.'
+# List of already tested functions
+tested=$(ls -1 ./zz*.sh internet/zz*.sh | sed 's/\.sh$//; s|.*/||' | sort)
 
-	# Internet
-	sed '1,/^tests="/d;/^"/,$ d' internet/run |
-	"$zz" limpalixo |
-	cut -d: -f1 |
-	cut -d- -f1 | sort | uniq
-	) | sort
-)
-
-falta_testar=$(diff <(echo "$todas_as_funcoes") <(echo "$funcoes_testadas") |	sed -n 's/^< //p')
-
-echo Total: $(echo "$todas_as_funcoes" | wc -l) funções, $(echo "$funcoes_testadas" | wc -l) testadas.
-echo Funções que falta testar \($(echo "$falta_testar" | wc -l)\):
-echo "$falta_testar"
-
-# echo ---------------
-# echo "$todas_as_funcoes"
-# echo ---------------
-# echo "$funcoes_testadas"
-
-
+# Who's not tested?
+for zz_func in $all
+do
+	echo "$tested" | grep "^$zz_func$" > /dev/null || echo "$zz_func"
+done
