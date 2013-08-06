@@ -1,22 +1,17 @@
-#!/usr/bin/env bash
-debug=0
-values=1
+$ printf '\033[10;750]\033[11;100]\a' > _tmp1
+$ printf 'Vou bipar em 0 minutos... ' > _tmp2
+$ printf '\033[11;900]'              >> _tmp2
+$ printf '\033[10;500]\a'            >> _tmp2
+$ printf '\033[10;400]\a'            >> _tmp2
+$ printf '\033[10;500]\a'            >> _tmp2
+$ printf '\033[10;400]\a'            >> _tmp2
+$ printf '\033[10;750]\033[11;100]'  >> _tmp2
+$ printf 'OK\n'                      >> _tmp2
+$
 
-echo -e '\033[10;750]\033[11;100]\a' > _tmp1
+$ zzbeep                             #→ --file _tmp1
+$ zzbeep 0                           #→ --file _tmp2
 
-(
-echo -n "Vou bipar em 0 minutos... "
-echo -ne '\033[11;900]'
-echo -ne "\033[10;500]\a"
-echo -ne "\033[10;400]\a"
-echo -ne "\033[10;500]\a"
-echo -ne "\033[10;400]\a"
-echo -ne '\033[10;750]\033[11;100]'
-echo OK)  > _tmp2
-
-tests=(
-''	t	$(echo -ne '\033[10;750]\033[11;100]\a')
-''	a	_tmp1
-0	a	_tmp2
-)
-. _lib
+# faxina
+$ rm -f _tmp[12]
+$
