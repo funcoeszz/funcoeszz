@@ -1,39 +1,35 @@
-#!/usr/bin/env bash
+$ cat _dados.txt
+1:um:one
+2:dois:two
+3:tres:three
+4:quatro:four
+5:cinco:five
+$
 
-temp="_trocapalavra"
-cp _dados $temp
+# Erros
 
-debug=0
-values=3
-tests=(
-''	''	''	r	^Uso:.*
-dois	''	''	r	^Uso:.*
-dois	DOIS	''	r	^Uso:.*
-dois	DOIS	_fake_	r	"N.o consegui ler o arquivo _fake_"
-dois	DOIS	$temp	t	"Feito $temp"
-)
-. _lib
-
-############################################################################
-
-# Testes personalizados
+$ zztrocapalavra				#→ --regex ^Uso:
+$ zztrocapalavra	dois			#→ --regex ^Uso:
+$ zztrocapalavra	dois	DOIS		#→ --regex ^Uso:
+$ zztrocapalavra	dois	DOIS	_fake_	#→ --regex Não consegui ler o arquivo _fake_
 
 # Troca simples
-result=$(sed s/dois/DOIS/g _dados | diff - $temp | grep '^[<>]')
-if [ "$result" ]
-then
-	echo "ERROR: trocapalavra dois DOIS $temp (conteúdo)"
-	echo "$result"
-fi
+
+$ cp _dados.txt _tmp
+$ zztrocapalavra dois DOIS _tmp
+Feito _tmp
+$ sed 's/dois/DOIS/g' _dados.txt | diff - _tmp
+$
 
 # Troca global
-cp _dados $temp
-$zz trocapalavra : ' ' $temp > /dev/null
-result=$(sed 's/:/ /g' _dados | diff - $temp | grep '^[<>]')
-if [ "$result" ]
-then
-	echo "ERROR: trocapalavra dois DOIS $temp (conteúdo, global)"
-	echo "$result"
-fi
 
-rm -f $temp
+$ cp _dados.txt _tmp
+$ zztrocapalavra : ' ' _tmp
+Feito _tmp
+$ sed 's/:/ /g' _dados.txt | diff - _tmp
+$
+
+# Faxina
+
+$ rm -f _tmp
+$
