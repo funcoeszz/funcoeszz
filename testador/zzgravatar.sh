@@ -26,9 +26,9 @@ $ zzgravatar FULANO@EXAMPLE.COM  #→ http://www.gravatar.com/avatar/98812691b92
 # Uso normal
 
 $ url='http://www.gravatar.com/avatar/98812691b923b99459c5231bc9725003'
-$ zzgravatar	-t	1			fulano@example.com	#→ --eval echo $url?size=1
-$ zzgravatar	-t	500			fulano@example.com	#→ --eval echo $url?size=500
-$ zzgravatar			-d	mm	fulano@example.com	#→ --eval echo $url?default=mm
-$ zzgravatar			-d	retro	fulano@example.com	#→ --eval echo $url?default=retro
-$ zzgravatar	-t	500	-d	mm	fulano@example.com	#→ --eval echo $url?size=500&default=mm
-$ zzgravatar	-t	500	-d	retro	fulano@example.com	#→ --eval echo $url?size=500&default=retro
+$ zzgravatar	-t	1			fulano@example.com	#→ --eval echo "$url?size=1"
+$ zzgravatar	-t	500			fulano@example.com	#→ --eval echo "$url?size=500"
+$ zzgravatar			-d	mm	fulano@example.com	#→ --eval echo "$url?default=mm"
+$ zzgravatar			-d	retro	fulano@example.com	#→ --eval echo "$url?default=retro"
+$ zzgravatar	-t	500	-d	mm	fulano@example.com	#→ --eval echo "$url?size=500&default=mm"
+$ zzgravatar	-t	500	-d	retro	fulano@example.com	#→ --eval echo "$url?size=500&default=retro"
