@@ -14,4 +14,4 @@ $ zzcpf '123 456 789 09'		#→ CPF válido
 $ zzcpf 'z123	4_5=6*7@8+9?0a9'	#→ CPF válido
 
 # Sem argumentos, gera um CPF aleatório
-$ zzcpf				 	#→ --regex \d{3}\.\d{3}\.\d{3}-\d{2}
+$ zzcpf				 	#→ --regex ^\d{3}\.\d{3}\.\d{3}-\d{2}$

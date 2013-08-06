@@ -14,4 +14,4 @@ $ zzcnpj '12 345 678 0001 95'		#→ CNPJ válido
 $ zzcnpj 'z1_23	4=5*6@7+8?00a0195'	#→ CNPJ válido
 
 # Sem argumentos, gera um CNPJ aleatório
-$ zzcnpj 				#→ --regex \d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}
+$ zzcnpj 				#→ --regex ^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$

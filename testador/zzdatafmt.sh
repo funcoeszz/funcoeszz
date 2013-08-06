@@ -56,20 +56,20 @@ $ zzdatafmt		-f	AA	01/02/20003	#→ Erro: Data em formato desconhecido '01/02/20
 $ zzdatafmt		-f	AA	aa/bb/cccc	#→ Erro: Data em formato desconhecido 'aa/bb/cccc'
 
 # Erro: formato conhecido, mas zztool testa_data falhou (sem e com -f)
-$ zzdatafmt				99/99/9999	#→ --regex Data inválida 
-$ zzdatafmt				99/99/999	#→ --regex Data inválida 
-$ zzdatafmt				99/99/99	#→ --regex Data inválida 
-$ zzdatafmt				99/99/9		#→ --regex Data inválida 
-$ zzdatafmt				9/99/99		#→ --regex Data inválida 
-$ zzdatafmt				99/9/99		#→ --regex Data inválida 
-$ zzdatafmt				31/02/2003	#→ --regex Data inválida 
-$ zzdatafmt		-f	AA	99/99/9999	#→ --regex Data inválida 
-$ zzdatafmt		-f	AA	99/99/999	#→ --regex Data inválida 
-$ zzdatafmt		-f	AA	99/99/99	#→ --regex Data inválida 
-$ zzdatafmt		-f	AA	99/99/9		#→ --regex Data inválida 
-$ zzdatafmt		-f	AA	9/99/99		#→ --regex Data inválida 
-$ zzdatafmt		-f	AA	99/9/99		#→ --regex Data inválida 
-$ zzdatafmt		-f	AA	31/02/2003	#→ --regex Data inválida 
+$ zzdatafmt				99/99/9999	#→ --regex ^Data inválida 
+$ zzdatafmt				99/99/999	#→ --regex ^Data inválida 
+$ zzdatafmt				99/99/99	#→ --regex ^Data inválida 
+$ zzdatafmt				99/99/9		#→ --regex ^Data inválida 
+$ zzdatafmt				9/99/99		#→ --regex ^Data inválida 
+$ zzdatafmt				99/9/99		#→ --regex ^Data inválida 
+$ zzdatafmt				31/02/2003	#→ --regex ^Data inválida 
+$ zzdatafmt		-f	AA	99/99/9999	#→ --regex ^Data inválida 
+$ zzdatafmt		-f	AA	99/99/999	#→ --regex ^Data inválida 
+$ zzdatafmt		-f	AA	99/99/99	#→ --regex ^Data inválida 
+$ zzdatafmt		-f	AA	99/99/9		#→ --regex ^Data inválida 
+$ zzdatafmt		-f	AA	9/99/99		#→ --regex ^Data inválida 
+$ zzdatafmt		-f	AA	99/9/99		#→ --regex ^Data inválida 
+$ zzdatafmt		-f	AA	31/02/2003	#→ --regex ^Data inválida 
 
 # ok
 $ zzdatafmt				05/08/1977	#→ 05/08/1977

@@ -72,15 +72,15 @@ $ zzbyte	2	t	m	#→ 2097152M
 $ zzbyte	2	t	g	#→ 2048G
 $ zzbyte	2	t	t	#→ 2T
 $ zzbyte	2	t	p	#→ 0.001P
-$ zzbyte	2	t	e	#→ --regex 0[.,]000001E
-$ zzbyte	2	t	z	#→ --regex 0[.,]000000001Z
-$ zzbyte	2	t	y	#→ --regex 0[.,]000000000001Y
+$ zzbyte	2	t	e	#→ --regex ^0[.,]000001E$
+$ zzbyte	2	t	z	#→ --regex ^0[.,]000000001Z$
+$ zzbyte	2	t	y	#→ --regex ^0[.,]000000000001Y$
 
 # Limites dos poucos B
 $ zzbyte	1	b	k	#→ 0K
 $ zzbyte	1	b	y	#→ 0Y
 $ zzbyte	2	b	k	#→ 0.001K
-$ zzbyte	2	b	y	#→ --regex 0[.,]000000000000000000000001Y
+$ zzbyte	2	b	y	#→ --regex ^0[.,]000000000000000000000001Y$
 
 # Limite de descida de 1Y sem estourar a pilha do Bash
 $ zzbyte	1	y	m	#→ 1152921504606846976M
