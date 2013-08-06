@@ -1,35 +1,34 @@
-#!/usr/bin/env bash
-values=3
-tests=(
-'-X'	''	''	r	^Uso:.*
-'-l'	''	''	r	^Uso:.*
-'-f'	''	''	r	^Uso:.*
-'-l'	'xxx'	''	r	^Uso:.*
-'-f'	'xxx'	''	r	^Uso:.*
-'-f'	'azulx'	''	r	^Uso:.*
-'-s'	'-N'	'-X'	r	^Uso:.*
+# Uso incorreto
 
-# no color
-Foo	Bar	''	t	'Foo Bar'
--n	Foo	Bar	t	'Foo Bar'
--l	azul	Foo	t	'Foo'
--p	-s	Foo	t	'Foo'
-)
-. _lib
+$ zzecho	'-l'			#→ --regex ^Uso:
+$ zzecho	'-f'			#→ --regex ^Uso:
+$ zzecho	'-l'	'xxx'		#→ --regex ^Uso:
+$ zzecho	'-f'	'xxx'		#→ --regex ^Uso:
+$ zzecho	'-f'	'azulx'		#→ --regex ^Uso:
+
+# Antigamente era uso incorreto, hoje mostra o -X
+
+$ zzecho	'-X'			#→ -X
+$ zzecho	'-s'	'-N'	'-X'	#→ -X
+
+# Texto sem cores
+
+$ zzecho	Foo	Bar		#→ Foo Bar
+$ zzecho	-l	azul	Foo	#→ Foo
+$ zzecho	-p	-s	Foo	#→ Foo
+
+# Linha parcial (sem \n) tem que usar o --regex
+$ zzecho	-n	Foo	Bar	#→ --regex ^Foo Bar$
 
 
-# color tests
-values=6
-color=1
-tests=(
--n	Foo	Bar	''	''	''	r	'^Foo Bar$'
--n	-l	azul	Foo	''	''	r	'^.\[;34mFoo.\[m$'
--n	-f	azul	Foo	''	''	r	'^.\[44mFoo.\[m$'
--n	-f	azul	-l	azul	Foo	r	'^.\[44;34mFoo.\[m$'
--n	-N	-p	-s	Foo	''	r	'^.\[;1;5;4mFoo.\[m$'
+# Texto colorido
 
---nao-quebra	--fundo		azul	--letra		azul	Foo	r	'^.\[44;34mFoo.\[m$'
---nao-quebra	--negrito	--pisca	--sublinhado	Foo	''	r	'^.\[;1;5;4mFoo.\[m$'
-)
-. _lib
-
+$ ZZCOR=1
+$ zzecho	-n	Foo	Bar				#→ --regex ^Foo Bar$
+$ zzecho	-n	-l	azul	Foo			#→ --regex ^.\[;34mFoo.\[m$
+$ zzecho	-n	-f	azul	Foo			#→ --regex ^.\[44mFoo.\[m$
+$ zzecho	-n	-f	azul	-l	azul	Foo	#→ --regex ^.\[44;34mFoo.\[m$
+$ zzecho	-n	-N	-p	-s	Foo		#→ --regex ^.\[;1;5;4mFoo.\[m$
+$ zzecho --nao-quebra --fundo azul --letra azul		Foo	#→ --regex ^.\[44;34mFoo.\[m$
+$ zzecho --nao-quebra --negrito --pisca	--sublinhado	Foo	#→ --regex ^.\[;1;5;4mFoo.\[m$
+$ ZZCOR=0
