@@ -1,28 +1,13 @@
-#!/usr/bin/env bash
-
-values=1
-tests=(
-
 # Caracteres que serão desacentuados
 
-àáâãäåèéêëìíîïòóôõöùúûü t
-aaaaaaeeeeiiiiooooouuuu
-
-ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜ t
-AAAAAAEEEEIIIIOOOOOUUUU
-
-çÇñÑß¢Ðð£Øø§µÝý¥¹²³ªº t
-cCnNBcDdLOoSuYyY123ao
+$ zzsemacento àáâãäåèéêëìíîïòóôõöùúûü     #→ aaaaaaeeeeiiiiooooouuuu
+$ zzsemacento ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜ     #→ AAAAAAEEEEIIIIOOOOOUUUU
+$ v1='çÇñÑß¢Ðð£Øø§µÝý¥¹²³ªº'
+$ v2='cCnNBcDdLOoSuYyY123ao'
+$ zzsemacento "$v1"                       #→ --eval echo "$v2"
 
 # Caracteres que não serão alterados
 
-abcdefghijklmnopqrstuvwxyz t
-abcdefghijklmnopqrstuvwxyz
-
-ABCDEFGHIJKLMNOPQRSTUVWXYZ t
-ABCDEFGHIJKLMNOPQRSTUVWXYZ
-
-0123456789 t
-0123456789
-)
-. _lib
+$ zzsemacento abcdefghijklmnopqrstuvwxyz  #→ abcdefghijklmnopqrstuvwxyz
+$ zzsemacento ABCDEFGHIJKLMNOPQRSTUVWXYZ  #→ ABCDEFGHIJKLMNOPQRSTUVWXYZ
+$ zzsemacento 0123456789                  #→ 0123456789
