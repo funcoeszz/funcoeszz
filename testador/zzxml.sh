@@ -1,38 +1,39 @@
-#!/usr/bin/env bash
-debug=0
-values=5
+# Formatar o XML
 
-cat > _tmp1 <<EOS
-<xml>
-<section>
-	<title>Título</title>
-	<img src="foo.png" />
-	<para>
-		Meu parágrafo, com <strong>negrito</strong> e <em>itálico</em>.
-	</para>
-	<escape>&quot;&amp;&apos;&lt;&gt;</escape>
-</section>
-</xml>
-EOS
+$ zzxml --tidy zzxml.in.xml    #→ --file zzxml.out.xml
 
-tests=(
---tidy	_tmp1	''	''	''	a	xml.out
+# Tag única (sem fecha tag)
 
-# tag única (sem fecha tag)
---tag	img	_tmp1	''	''	t	'<img src="foo.png" />'
+$ zzxml --tag img zzxml.in.xml
+<img src="foo.png" />
+$
 
-# tag de uma linha
---tag	title	_tmp1	''	''	t	'<title>Título</title>'
---tag	title	--untag	_tmp1	''	t	'Título'
+# Tag de uma linha
 
-# tag multilinha
---tag	para	_tmp1	''	''	t	'<para> 		Meu parágrafo, com <strong>negrito</strong> e <em>itálico</em>. 	</para>'
---tag	para	--untag	_tmp1	''	t	' 		Meu parágrafo, com negrito e itálico. 	'
---tag	para	--untag	--unescape _tmp1	t	' 		Meu parágrafo, com negrito e itálico. 	'
+$ zzxml --tag title         zzxml.in.xml     #→ <title>Título</title>
+$ zzxml --tag title --untag zzxml.in.xml     #→ Título
 
-# unescape
---tag	escape	--unescape _tmp1	''	t	"<escape>\"&'<></escape>"
-# untag ocorre antes do unescape, por isso o <> não é afetado
---tag	escape	--unescape --untag	_tmp1	t	"\"&'<>"
-)
-. _lib
+# Tag multilinha
+
+$ zzxml --tag para zzxml.in.xml
+<para> 		Meu parágrafo, com <strong>negrito</strong> e <em>itálico</em>. 	</para>
+$ zzxml --tag para --untag zzxml.in.xml
+ 		Meu parágrafo, com negrito e itálico. 	
+$ zzxml --tag para --untag --unescape zzxml.in.xml
+ 		Meu parágrafo, com negrito e itálico. 	
+$
+
+# Unescape
+
+$ zzxml --tag escape zzxml.in.xml
+<escape>&quot;&amp;&apos;&lt;&gt;</escape>
+$ zzxml --tag escape --unescape zzxml.in.xml
+<escape>"&'<></escape>
+$
+
+# Untag ocorre antes do unescape, por isso o <> não é afetado
+
+$ zzxml --tag escape --unescape --untag zzxml.in.xml
+"&'<>
+$
+
