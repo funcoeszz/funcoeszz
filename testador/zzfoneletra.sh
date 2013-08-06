@@ -1,15 +1,10 @@
-#!/usr/bin/env bash
-debug=0
-values=1
-tests=(
+# Exemplos do --help
+$ zzfoneletra 2345-LINUX	#→ 2345-54689
+$ zzfoneletra 5555-HELP		#→ 5555-4357
 
-# exemplos do --help
-2345-LINUX	t	2345-54689
-5555-HELP	t	5555-4357
-# mapa completo (e ignore case)
-ABCDEFGHIJKLMNOPQRSTUVWXYZ	t	22233344455566677778889999
-abcdefghijklmnopqrstuvwxyz	t	22233344455566677778889999
-# e os acentos?
-AÁaá	t	2Á2Á
-)
-. _lib
+# Mapa completo (e ignore case)
+$ zzfoneletra ABCDEFGHIJKLMNOPQRSTUVWXYZ  #→ 22233344455566677778889999
+$ zzfoneletra abcdefghijklmnopqrstuvwxyz  #→ 22233344455566677778889999
+
+# E os acentos?
+$ zzfoneletra AÁaá		#→ 2Á2Á
