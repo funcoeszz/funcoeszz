@@ -1,10 +1,5 @@
-#!/usr/bin/env bash
-debug=0
-values=1
-#TODO como testar a saida do comando? Achar um arquivo pequeno
-tests=(
-_fake_	r	"N.o consegui ler o arquivo /usr/include/_fake_.h"
-/_fake_	r	"N.o consegui ler o arquivo /_fake_"
-''	r	^Uso:.*
-)
-. _lib
+$ zzcinclude _fake_	#→ Não consegui ler o arquivo /usr/include/_fake_.h
+$ zzcinclude /_fake_	#→ Não consegui ler o arquivo /_fake_
+$ zzcinclude		#→ --regex ^Uso:
+
+#TODO XXX como testar a saida do comando? Achar um arquivo pequeno
