@@ -1,44 +1,39 @@
-#!/usr/bin/env bash
-debug=0
-values=2
-
-saida1="A
+$ zzalfabeto ABC
+A
 B
 C
-"
-saida2="Alpha
+$ zzalfabeto 'A B C'
+A
+ 
+B
+ 
+C
+$ zzalfabeto --otan ABC
+Alpha
 Bravo
 Charlie
-"
-saida3="Aveiro
+$ zzalfabeto --pt ABC
+Aveiro
 Bragança
 Coimbra
-"
-saida4="Alpha
+$ zzalfabeto --otan A-B.C
+Alpha
 -
 Bravo
 .
 Charlie
-"
-saida5="1
+$ zzalfabeto --otan 1234
+1
 2
 3
 4
-"
-saida6=".
+$ zzalfabeto --otan '.[+*({\!'
+.
 [
 +
 *
 (
 {
-"
-
-tests=(
-ABC	''		t	"$saida1"
---otan	ABC		t	"$saida2"
---pt	ABC		t	"$saida3"
---otan	A-B.C		t	"$saida4"
---otan	1234		t	"$saida5"
---otan	'.[+*({'	t	"$saida6"
-)
-. _lib
+\
+!
+$
