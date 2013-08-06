@@ -1,111 +1,116 @@
-#!/usr/bin/env bash
-now=$(  date +'%H:%M (0d %kh %Mm)' | sed 's/  / /;s/0\(.m\)/\1/') # %k bugged
-now_r=$(date +'%H:%M (hoje)')
-debug=0
-values=7
-tests=(
+$ now=$(  date +'%H:%M (0d %kh %Mm)' | sed 's/  / /;s/0\(.m\)/\1/') # %k bugged
+$ now_r=$(date +'%H:%M (hoje)')
+$
 
 # Faltando argumentos
-''	''	''	''	''	''	''	r	^Uso:.*
--r	''	''	''	''	''	''	r	^Uso:.*
-''	01:00	+	02:00	+	''	''	r	^Uso:.*
-''	01:00	+	02:00	+	03:00	+	r	^Uso:.*
-# Hora inválida                 ''	''	''	
-''	foo	''	''	''	''	''	t	"Horário inválido 'foo', deve ser HH:MM"
-''	foo:12	''	''	''	''	''	t	"Horário inválido 'foo:12', deve ser HH:MM"
-''	12:foo	''	''	''	''	''	t	"Horário inválido '12:foo', deve ser HH:MM"
-''	agora	+	foo	''	''	''	t	"Horário inválido 'foo', deve ser HH:MM"
-''	agora	+	foo:12	''	''	''	t	"Horário inválido 'foo:12', deve ser HH:MM"
-''	agora	+	12:foo	''	''	''	t	"Horário inválido '12:foo', deve ser HH:MM"
-''	01:00	+	02:00	+	foo	''	t	"Horário inválido 'foo', deve ser HH:MM"
-# Operação inválida             ''	''	''	
-''	agora	/	'8:00'	''	''	''	t	"Operação inválida '/'. Deve ser + ou -."
--r	agora	/	'8:00'	''	''	''	t	"Operação inválida '/'. Deve ser + ou -."
-''	01:00	02:00	''	''	''	''	t	"Operação inválida '02:00'. Deve ser + ou -."
--r	01:00	02:00	''	''	''	''	t	"Operação inválida '02:00'. Deve ser + ou -."
-''	01:00	+	02:00	03:00	''	''	r	^Uso:.*
+
+$ zzhora 						#→ --regex ^Uso:
+$ zzhora -r						#→ --regex ^Uso:
+$ zzhora 	01:00	+	02:00	+		#→ --regex ^Uso:
+$ zzhora 01:00	+	02:00	+	03:00	+	#→ --regex ^Uso:
+
+# Hora inválida
+
+$ zzhora 	foo					#→ Horário inválido 'foo', deve ser HH:MM
+$ zzhora 	foo:12					#→ Horário inválido 'foo:12', deve ser HH:MM
+$ zzhora 	12:foo					#→ Horário inválido '12:foo', deve ser HH:MM
+$ zzhora 	agora	+	foo			#→ Horário inválido 'foo', deve ser HH:MM
+$ zzhora 	agora	+	foo:12			#→ Horário inválido 'foo:12', deve ser HH:MM
+$ zzhora 	agora	+	12:foo			#→ Horário inválido '12:foo', deve ser HH:MM
+$ zzhora 	01:00	+	02:00	+	foo	#→ Horário inválido 'foo', deve ser HH:MM
+
+# Operação inválida             ''			
+
+$ zzhora 	agora	/	'8:00'			#→ Operação inválida '/'. Deve ser + ou -.
+$ zzhora -r	agora	/	'8:00'			#→ Operação inválida '/'. Deve ser + ou -.
+$ zzhora 	01:00	02:00				#→ Operação inválida '02:00'. Deve ser + ou -.
+$ zzhora -r	01:00	02:00				#→ Operação inválida '02:00'. Deve ser + ou -.
+$ zzhora 	01:00	+	02:00	03:00		#→ --regex ^Uso:
+
 # Opção -r e cálculos múltiplos
--r	01:00	+	02:00	03:00	''	''	t	"A opção -r não suporta cálculos múltiplos"
--r	01:00	+	02:00	+	''	''	t	"A opção -r não suporta cálculos múltiplos"
--r	01:00	+	02:00	+	03:00	''	t	"A opção -r não suporta cálculos múltiplos"
+
+$ zzhora -r	01:00	+	02:00	03:00		#→ A opção -r não suporta cálculos múltiplos
+$ zzhora -r	01:00	+	02:00	+		#→ A opção -r não suporta cálculos múltiplos
+$ zzhora -r	01:00	+	02:00	+	03:00	#→ A opção -r não suporta cálculos múltiplos
 
 # Faltando pedaços (completa com valor default=0)
--r	1:00	-	0:59	''	''	''	t	"00:01 (hoje)"
-''	1:00	-	0:59	''	''	''	t	"00:01 (0d 0h 1m)"
--r	:02	-	:01	''	''	''	t	"00:01 (hoje)"
-''	:02	-	:01	''	''	''	t	"00:01 (0d 0h 1m)"
--r	:2	-	:1	''	''	''	t	"00:01 (hoje)"
-''	:2	-	:1	''	''	''	t	"00:01 (0d 0h 1m)"
--r	2	-	1	''	''	''	t	"00:01 (hoje)"
-''	2	-	1	''	''	''	t	"00:01 (0d 0h 1m)"
--r	02	-	01	''	''	''	t	"00:01 (hoje)"
-''	02	-	01	''	''	''	t	"00:01 (0d 0h 1m)"
--r	02:	-	01:	''	''	''	t	"01:00 (hoje)"
-''	02:	-	01:	''	''	''	t	"01:00 (0d 1h 0m)"
--r	2:	-	1:	''	''	''	t	"01:00 (hoje)"
-''	2:	-	1:	''	''	''	t	"01:00 (0d 1h 0m)"
 
--r	01:00	-	00:59	''	''	''	t	"00:01 (hoje)"
--r	01:00	-	01:00	''	''	''	t	"00:00 (hoje)"
--r	01:00	-	01:01	''	''	''	t	"23:59 (ontem)"
-# -r	01:00	-	02:00	''	''	''	t	"23:00 (ontem)"  # issue #39
+$ zzhora -r	1:00	-	0:59			#→ 00:01 (hoje)
+$ zzhora 	1:00	-	0:59			#→ 00:01 (0d 0h 1m)
+$ zzhora -r	:02	-	:01			#→ 00:01 (hoje)
+$ zzhora 	:02	-	:01			#→ 00:01 (0d 0h 1m)
+$ zzhora -r	:2	-	:1			#→ 00:01 (hoje)
+$ zzhora 	:2	-	:1			#→ 00:01 (0d 0h 1m)
+$ zzhora -r	2	-	1			#→ 00:01 (hoje)
+$ zzhora 	2	-	1			#→ 00:01 (0d 0h 1m)
+$ zzhora -r	02	-	01			#→ 00:01 (hoje)
+$ zzhora 	02	-	01			#→ 00:01 (0d 0h 1m)
+$ zzhora -r	02:	-	01:			#→ 01:00 (hoje)
+$ zzhora 	02:	-	01:			#→ 01:00 (0d 1h 0m)
+$ zzhora -r	2:	-	1:			#→ 01:00 (hoje)
+$ zzhora 	2:	-	1:			#→ 01:00 (0d 1h 0m)
 
--r	01:00	-	24:59	''	''	''	t	"00:01 (ontem)"
--r	01:00	-	25:00	''	''	''	t	"00:00 (ontem)"
--r	01:00	-	25:01	''	''	''	t	"23:59 (-2 dias)"
+$ zzhora -r	01:00	-	00:59			#→ 00:01 (hoje)
+$ zzhora -r	01:00	-	01:00			#→ 00:00 (hoje)
+$ zzhora -r	01:00	-	01:01			#→ 23:59 (ontem)
+# $ zzhora  -r	01:00	-	02:00			#→ "23:00 (ontem)"  # issue #39
 
--r	23:00	+	00:59	''	''	''	t	"23:59 (hoje)"
--r	23:00	+	01:00	''	''	''	r	"00:00 \(amanh.\)"
--r	23:00	+	01:01	''	''	''	r	"00:01 \(amanh.\)"
+$ zzhora -r	01:00	-	24:59			#→ 00:01 (ontem)
+$ zzhora -r	01:00	-	25:00			#→ 00:00 (ontem)
+$ zzhora -r	01:00	-	25:01			#→ 23:59 (-2 dias)
 
--r	23:00	+	24:59	''	''	''	r	"23:59 \(amanh.\)"
--r	23:00	+	25:00	''	''	''	t	"00:00 (2 dias)"
--r	23:00	+	25:01	''	''	''	t	"00:01 (2 dias)"
+$ zzhora -r	23:00	+	00:59			#→ 23:59 (hoje)
+$ zzhora -r	23:00	+	01:00			#→ --regex 00:00 \(amanhã\)
+$ zzhora -r	23:00	+	01:01			#→ --regex 00:01 \(amanhã\)
 
-''	agora	''	''	''	''	''	t	"$now"
--r	agora	''	''	''	''	''	t	"$now_r"
-''	600	''	''	''	''	''	t	'10:00 (0d 10h 0m)'
--r	600	''	''	''	''	''	t	'10:00 (hoje)'
-''	240:	''	''	''	''	''	t	'240:00 (10d 0h 0m)'
--r	240:	''	''	''	''	''	t	'00:00 (10 dias)'
-''	-600	''	''	''	''	''	t	'-10:00 (0d 10h 0m)'
--r	-600	''	''	''	''	''	t	'14:00 (hoje)'
-''	-240:	''	''	''	''	''	t	'-240:00 (10d 0h 0m)'
--r	-240:	''	''	''	''	''	t	'00:00 (-10 dias)'
+$ zzhora -r	23:00	+	24:59			#→ --regex 23:59 \(amanhã\)
+$ zzhora -r	23:00	+	25:00			#→ 00:00 (2 dias)
+$ zzhora -r	23:00	+	25:01			#→ 00:01 (2 dias)
 
-''	01:00	-	00:59	''	''	''	t	"00:01 (0d 0h 1m)"
-''	01:00	-	01:00	''	''	''	t	"00:00 (0d 0h 0m)"
-''	01:00	-	01:01	''	''	''	t	"-00:01 (0d 0h 1m)"
+$ zzhora 	agora					#→ --eval echo "$now"
+$ zzhora -r	agora					#→ --eval echo "$now_r"
+$ zzhora 	600					#→ 10:00 (0d 10h 0m)
+$ zzhora -r	600					#→ 10:00 (hoje)
+$ zzhora 	240:					#→ 240:00 (10d 0h 0m)
+$ zzhora -r	240:					#→ 00:00 (10 dias)
+$ zzhora 	-600					#→ -10:00 (0d 10h 0m)
+$ zzhora -r	-600					#→ 14:00 (hoje)
+$ zzhora 	-240:					#→ -240:00 (10d 0h 0m)
+$ zzhora -r	-240:					#→ 00:00 (-10 dias)
 
-''	01:00	-	24:59	''	''	''	t	"-23:59 (0d 23h 59m)"
-''	01:00	-	25:00	''	''	''	t	"-24:00 (1d 0h 0m)"
-''	01:00	-	25:01	''	''	''	t	"-24:01 (1d 0h 1m)"
+$ zzhora 	01:00	-	00:59			#→ 00:01 (0d 0h 1m)
+$ zzhora 	01:00	-	01:00			#→ 00:00 (0d 0h 0m)
+$ zzhora 	01:00	-	01:01			#→ -00:01 (0d 0h 1m)
 
-''	23:00	+	00:59	''	''	''	t	"23:59 (0d 23h 59m)"
-''	23:00	+	01:00	''	''	''	t	"24:00 (1d 0h 0m)"
-''	23:00	+	01:01	''	''	''	t	"24:01 (1d 0h 1m)"
+$ zzhora 	01:00	-	24:59			#→ -23:59 (0d 23h 59m)
+$ zzhora 	01:00	-	25:00			#→ -24:00 (1d 0h 0m)
+$ zzhora 	01:00	-	25:01			#→ -24:01 (1d 0h 1m)
 
-''	23:00	+	24:59	''	''	''	t	"47:59 (1d 23h 59m)"
-''	23:00	+	25:00	''	''	''	t	"48:00 (2d 0h 0m)"
-''	23:00	+	25:01	''	''	''	t	"48:01 (2d 0h 1m)"
+$ zzhora 	23:00	+	00:59			#→ 23:59 (0d 23h 59m)
+$ zzhora 	23:00	+	01:00			#→ 24:00 (1d 0h 0m)
+$ zzhora 	23:00	+	01:01			#→ 24:01 (1d 0h 1m)
+
+$ zzhora 	23:00	+	24:59			#→ 47:59 (1d 23h 59m)
+$ zzhora 	23:00	+	25:00			#→ 48:00 (2d 0h 0m)
+$ zzhora 	23:00	+	25:01			#→ 48:01 (2d 0h 1m)
 
 # Horas negativas
-''	01:01	+	03:03	''	''	''	t	"04:04 (0d 4h 4m)"
-''	01:01	-	03:03	''	''	''	t	"-02:02 (0d 2h 2m)"
-''	01:01	+	-03:03	''	''	''	t	"-02:02 (0d 2h 2m)"
-''	01:01	-	-03:03	''	''	''	t	"04:04 (0d 4h 4m)"
-''	-01:01	+	03:03	''	''	''	t	"02:02 (0d 2h 2m)"
-''	-01:01	-	03:03	''	''	''	t	"-04:04 (0d 4h 4m)"
-''	-01:01	+	-03:03	''	''	''	t	"-04:04 (0d 4h 4m)"
-''	-01:01	-	-03:03	''	''	''	t	"02:02 (0d 2h 2m)"
+
+$ zzhora 	01:01	+	03:03			#→ 04:04 (0d 4h 4m)
+$ zzhora 	01:01	-	03:03			#→ -02:02 (0d 2h 2m)
+$ zzhora 	01:01	+	-03:03			#→ -02:02 (0d 2h 2m)
+$ zzhora 	01:01	-	-03:03			#→ 04:04 (0d 4h 4m)
+$ zzhora 	-01:01	+	03:03			#→ 02:02 (0d 2h 2m)
+$ zzhora 	-01:01	-	03:03			#→ -04:04 (0d 4h 4m)
+$ zzhora 	-01:01	+	-03:03			#→ -04:04 (0d 4h 4m)
+$ zzhora 	-01:01	-	-03:03			#→ 02:02 (0d 2h 2m)
 
 # Cálculos múltiplos
-1:01	+	2:01	+	3:01	''	''	t	"06:03 (0d 6h 3m)"
-1:01	+	2:01	+	3:01	+	4:01	t	"10:04 (0d 10h 4m)"
-1:01	+	2:01	+	3:01	-	4:01	t	"02:02 (0d 2h 2m)"
-1:01	-	2:01	-	3:01	+	4:01	t	"00:00 (0d 0h 0m)"
-24:	+	24:	+	24:	+	24:	t	"96:00 (4d 0h 0m)"
--24:	+	-24:	+	-24:	+	-24:	t	"-96:00 (4d 0h 0m)"
 
-)
-. _lib
+$ zzhora	1:01	+	2:01	+	3:01			#→ 06:03 (0d 6h 3m)
+$ zzhora	1:01	+	2:01	+	3:01	+	4:01	#→ 10:04 (0d 10h 4m)
+$ zzhora	1:01	+	2:01	+	3:01	-	4:01	#→ 02:02 (0d 2h 2m)
+$ zzhora	1:01	-	2:01	-	3:01	+	4:01	#→ 00:00 (0d 0h 0m)
+$ zzhora	24:	+	24:	+	24:	+	24:	#→ 96:00 (4d 0h 0m)
+$ zzhora	-24:	+	-24:	+	-24:	+	-24:	#→ -96:00 (4d 0h 0m)
+
