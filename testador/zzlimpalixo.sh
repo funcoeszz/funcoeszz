@@ -1,18 +1,17 @@
-#!/usr/bin/env bash
-debug=0
-values=1
+# Linhas 1 a 4 são sempre apagadas, por ser comentários ou em branco
 
-# Linhas 1 a 4 sao sempre apagadas, por ser comentarios ou em branco
-cat _dados | sed '1s/^/#/; 2s/^/   #/;3s/^/	#/;4s/.*//' > _tmp1
-cat _dados | sed '1s/^/"/; 2s/^/   "/;3s/^/	"/;4s/.*//' > _tmp.vim
-cat _dados | sed '1,4d' > _tmp3 # soh a ultima linha
-cat _dados | sed 's/.*/   	       	/' > _tmp4 # soh brancos
-cat _tmp1 _tmp1 _tmp1 > _tmp5 # testa o uniq
+$ cat _dados.txt | sed '1s/^/#/; 2s/^/   #/;3s/^/	#/;4s/.*//' > _tmp1
+$ cat _dados.txt | sed '1s/^/"/; 2s/^/   "/;3s/^/	"/;4s/.*//' > _tmp.vim
+$ cat _dados.txt | sed '1,4d' > _tmp3				# só a última linha
+$ cat _dados.txt | sed 's/.*/   	       	/' > _tmp4	# só brancos
+$ cat _tmp1 _tmp1 _tmp1 > _tmp5					# testa o uniq
+$
 
-tests=(
-_tmp1	a	_tmp3
-_tmp.vim	a	_tmp3
-_tmp4	t	''
-_tmp5	a	_tmp3
-)
-. _lib
+$ zzlimpalixo	_tmp1		#→ --file _tmp3
+$ zzlimpalixo	_tmp.vim	#→ --file _tmp3
+$ zzlimpalixo	_tmp4
+$ zzlimpalixo	_tmp5		#→ --file _tmp3
+
+# Faxina
+$ rm -f _tmp[1-5] _tmp.vim
+$
