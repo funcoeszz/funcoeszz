@@ -10,7 +10,7 @@ $ zztrocaextensao					#→ --regex ^Uso:
 $ zztrocaextensao	-n				#→ --regex ^Uso:
 $ zztrocaextensao	-n	JPG			#→ --regex ^Uso:
 $ zztrocaextensao	-n	JPG	BMP		#→ --regex ^Uso:
-$ zztrocaextensao	-n	JPG	BMP	_fake_	#→ --regex Não consegui ler o arquivo _fake_
+$ zztrocaextensao	-n	JPG	BMP	_fake_	#→ Não consegui ler o arquivo _fake_
 
 # Ignora quando é a mesmo extensão
 

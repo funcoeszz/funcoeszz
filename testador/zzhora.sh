@@ -60,10 +60,10 @@ $ zzhora -r	01:00	-	25:00			#→ 00:00 (ontem)
 $ zzhora -r	01:00	-	25:01			#→ 23:59 (-2 dias)
 
 $ zzhora -r	23:00	+	00:59			#→ 23:59 (hoje)
-$ zzhora -r	23:00	+	01:00			#→ --regex 00:00 \(amanhã\)
-$ zzhora -r	23:00	+	01:01			#→ --regex 00:01 \(amanhã\)
+$ zzhora -r	23:00	+	01:00			#→ 00:00 (amanhã)
+$ zzhora -r	23:00	+	01:01			#→ 00:01 (amanhã)
 
-$ zzhora -r	23:00	+	24:59			#→ --regex 23:59 \(amanhã\)
+$ zzhora -r	23:00	+	24:59			#→ 23:59 (amanhã)
 $ zzhora -r	23:00	+	25:00			#→ 00:00 (2 dias)
 $ zzhora -r	23:00	+	25:01			#→ 00:01 (2 dias)
 

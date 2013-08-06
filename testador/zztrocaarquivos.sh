@@ -8,8 +8,8 @@ $
 
 $ zztrocaarquivos			#→ --regex ^Uso:
 $ zztrocaarquivos	_tmp1		#→ --regex ^Uso:
-$ zztrocaarquivos	_fake_	_tmp2_	#→ --regex Não consegui ler o arquivo _fake_
-$ zztrocaarquivos	_tmp1	_fake_	#→ --regex Não consegui ler o arquivo _fake_
+$ zztrocaarquivos	_fake_	_tmp2_	#→ Não consegui ler o arquivo _fake_
+$ zztrocaarquivos	_tmp1	_fake_	#→ Não consegui ler o arquivo _fake_
 
 # Ignora quando é o mesmo arquivo
 
