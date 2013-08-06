@@ -144,8 +144,8 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 	while [ "$1" ]
 	do
 		case $1 in
-			"--s1") c=$(echo "$2" | awk '{print substr($0,1,1)}'); shift; shift;;
-			"--s2") v=$(echo "$2" | awk '{print substr($0,1,1)}'); shift; shift;;
+			"--s1") c=$(echo "$2" | sed 's/\(.\).*/\1/'); shift; shift;;
+			"--s2") v=$(echo "$2" | sed 's/\(.\).*/\1/'); shift; shift;;
 			*) break;;
 		esac
 	done
