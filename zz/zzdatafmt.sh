@@ -221,7 +221,7 @@ zzdatafmt ()
 		m="${mm#0}"
 		d="${dd#0}"
 		mes=$(echo "$meses" | cut -d ' ' -f "$m" 2>/dev/null)
-		mmm=$(echo "$mes" | awk '{print substr($1,1,3)}')
+		mmm=$(echo "$mes" | sed 's/\(...\).*/\1/')
 
 		# Percorre o formato e vai expandindo, da esquerda para a direita
 		while test -n "$fmt"
