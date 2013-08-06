@@ -1,70 +1,63 @@
-#!/usr/bin/env bash
-debug=0
-values=2
-tests=(
-
 # Epoch
-04/01/1970	''	t	domingo
-03/01/1970	''	t	sábado
-02/01/1970	''	t	sexta-feira
-01/01/1970	''	t	quinta-feira
-31/12/1969	''	t	quarta-feira
-30/12/1969	''	t	terça-feira
-29/12/1969	''	t	segunda-feira
-01/01/1900	''	t	segunda-feira
+$ zzdiadasemana		04/01/1970	#→ domingo
+$ zzdiadasemana		03/01/1970	#→ sábado
+$ zzdiadasemana		02/01/1970	#→ sexta-feira
+$ zzdiadasemana		01/01/1970	#→ quinta-feira
+$ zzdiadasemana		31/12/1969	#→ quarta-feira
+$ zzdiadasemana		30/12/1969	#→ terça-feira
+$ zzdiadasemana		29/12/1969	#→ segunda-feira
+$ zzdiadasemana		01/01/1900	#→ segunda-feira
 
 # Epoch numérico
--n	04/01/1970	t	1
--n	03/01/1970	t	7
--n	02/01/1970	t	6
--n	01/01/1970	t	5
--n	31/12/1969	t	4
--n	30/12/1969	t	3
--n	29/12/1969	t	2
--n	01/01/1900	t	2
+$ zzdiadasemana	-n	04/01/1970	#→ 1
+$ zzdiadasemana	-n	03/01/1970	#→ 7
+$ zzdiadasemana	-n	02/01/1970	#→ 6
+$ zzdiadasemana	-n	01/01/1970	#→ 5
+$ zzdiadasemana	-n	31/12/1969	#→ 4
+$ zzdiadasemana	-n	30/12/1969	#→ 3
+$ zzdiadasemana	-n	29/12/1969	#→ 2
+$ zzdiadasemana	-n	01/01/1900	#→ 2
 
 # Fev 2008, ano bissexto
-01/02/2008	''	t	sexta-feira
-02/02/2008	''	t	sábado
-03/02/2008	''	t	domingo
-04/02/2008	''	t	segunda-feira
-05/02/2008	''	t	terça-feira
-06/02/2008	''	t	quarta-feira
-07/02/2008	''	t	quinta-feira
-08/02/2008	''	t	sexta-feira
-09/02/2008	''	t	sábado
-10/02/2008	''	t	domingo
-11/02/2008	''	t	segunda-feira
-12/02/2008	''	t	terça-feira
-13/02/2008	''	t	quarta-feira
-14/02/2008	''	t	quinta-feira
-15/02/2008	''	t	sexta-feira
-16/02/2008	''	t	sábado
-17/02/2008	''	t	domingo
-18/02/2008	''	t	segunda-feira
-19/02/2008	''	t	terça-feira
-20/02/2008	''	t	quarta-feira
-21/02/2008	''	t	quinta-feira
-22/02/2008	''	t	sexta-feira
-23/02/2008	''	t	sábado
-24/02/2008	''	t	domingo
-25/02/2008	''	t	segunda-feira
-26/02/2008	''	t	terça-feira
-27/02/2008	''	t	quarta-feira
-28/02/2008	''	t	quinta-feira
-29/02/2008	''	t	sexta-feira
+$ zzdiadasemana		01/02/2008	#→ sexta-feira
+$ zzdiadasemana		02/02/2008	#→ sábado
+$ zzdiadasemana		03/02/2008	#→ domingo
+$ zzdiadasemana		04/02/2008	#→ segunda-feira
+$ zzdiadasemana		05/02/2008	#→ terça-feira
+$ zzdiadasemana		06/02/2008	#→ quarta-feira
+$ zzdiadasemana		07/02/2008	#→ quinta-feira
+$ zzdiadasemana		08/02/2008	#→ sexta-feira
+$ zzdiadasemana		09/02/2008	#→ sábado
+$ zzdiadasemana		10/02/2008	#→ domingo
+$ zzdiadasemana		11/02/2008	#→ segunda-feira
+$ zzdiadasemana		12/02/2008	#→ terça-feira
+$ zzdiadasemana		13/02/2008	#→ quarta-feira
+$ zzdiadasemana		14/02/2008	#→ quinta-feira
+$ zzdiadasemana		15/02/2008	#→ sexta-feira
+$ zzdiadasemana		16/02/2008	#→ sábado
+$ zzdiadasemana		17/02/2008	#→ domingo
+$ zzdiadasemana		18/02/2008	#→ segunda-feira
+$ zzdiadasemana		19/02/2008	#→ terça-feira
+$ zzdiadasemana		20/02/2008	#→ quarta-feira
+$ zzdiadasemana		21/02/2008	#→ quinta-feira
+$ zzdiadasemana		22/02/2008	#→ sexta-feira
+$ zzdiadasemana		23/02/2008	#→ sábado
+$ zzdiadasemana		24/02/2008	#→ domingo
+$ zzdiadasemana		25/02/2008	#→ segunda-feira
+$ zzdiadasemana		26/02/2008	#→ terça-feira
+$ zzdiadasemana		27/02/2008	#→ quarta-feira
+$ zzdiadasemana		28/02/2008	#→ quinta-feira
+$ zzdiadasemana		29/02/2008	#→ sexta-feira
 
 # Sem os zeros (por enquanto não é suportado)
-1/2/2008	''	r	'^Data inv.lida .*'
-01/2/2008	''	r	'^Data inv.lida .*'
-1/02/2008	''	r	'^Data inv.lida .*'
+$ zzdiadasemana		1/2/2008	#→ --regex ^Data inválida 
+$ zzdiadasemana		01/2/2008	#→ --regex ^Data inválida 
+$ zzdiadasemana		1/02/2008	#→ --regex ^Data inválida 
 
 # Erros
-1970		''	r	'^Data inv.lida .*'
--2000 		''	r	'^Data inv.lida .*'
-0 		''	r	'^Data inv.lida .*'
-foo 		''	r	'^Data inv.lida .*'
-29.02.2008	''	r	'^Data inv.lida .*'
+$ zzdiadasemana		1970		#→ --regex ^Data inválida 
+$ zzdiadasemana		-2000 		#→ --regex ^Data inválida 
+$ zzdiadasemana		0 		#→ --regex ^Data inválida 
+$ zzdiadasemana		foo 		#→ --regex ^Data inválida 
+$ zzdiadasemana		29.02.2008	#→ --regex ^Data inválida 
 
-)
-. _lib
