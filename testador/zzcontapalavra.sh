@@ -1,14 +1,26 @@
-#!/usr/bin/env bash
-debug=0
-values=4
-tests=(
-one	_dados	''	''	t	1
--i	one	_dados	''	t	1
--p	o	_dados	''	t	6	# dois na mesma linha
--i	-p	o	_dados	t	6
+$ cat _dados.txt
+1:um:one
+2:dois:two
+3:tres:three
+4:quatro:four
+5:cinco:five
+$
 
-''	''	''	''	r	^Uso:.*
-o	_dados	''	''	t	0	# parcial sem -p
-:	_dados	''	''	t	0	# nao conta simbolos
-)
-. _lib
+# Sem argumentos
+$ zzcontapalavra				#→ --regex ^Uso:
+
+# Uso normal
+$ zzcontapalavra one _dados.txt			#→ 1
+$ zzcontapalavra -i one _dados.txt		#→ 1
+
+# Conta ambas quando há duas ocorrências na mesma linha
+# (diferente do grep -c)
+$ zzcontapalavra -p o _dados.txt		#→ 6
+$ zzcontapalavra -i -p o _dados.txt		#→ 6
+
+# Palavra parcial, mas sem -p
+$ zzcontapalavra o _dados.txt			#→ 0
+
+# Não conta símbolos
+$ zzcontapalavra : _dados.txt			#→ 0
+
