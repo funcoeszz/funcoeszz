@@ -1,18 +1,32 @@
-#!/usr/bin/env bash
-debug=0
-values=2
+# Preparativos
 
-echo 1 > _tmp1
-echo 2 > _tmp2
+$ echo 1 > _tmp1
+$ echo 2 > _tmp2
+$
 
-tests=(
 # Erros
-''	''	r	^Uso:.*
-_tmp1	''	r	^Uso:.*
-_fake_	_tmp2_	r	'N.o consegui ler o arquivo _fake_'
-_tmp1	_fake_	r	'N.o consegui ler o arquivo _fake_'
-_tmp1	_tmp1	t	'' # ignora
-	
-_tmp1	_tmp2	t	'Feito: _tmp1 <-> _tmp2'
-)
-. _lib
+
+$ zztrocaarquivos			#→ --regex ^Uso:
+$ zztrocaarquivos	_tmp1		#→ --regex ^Uso:
+$ zztrocaarquivos	_fake_	_tmp2_	#→ --regex Não consegui ler o arquivo _fake_
+$ zztrocaarquivos	_tmp1	_fake_	#→ --regex Não consegui ler o arquivo _fake_
+
+# Ignora quando é o mesmo arquivo
+
+$ zztrocaarquivos	_tmp1	_tmp1
+$
+
+# Operação normal
+
+$ zztrocaarquivos	_tmp1	_tmp2
+Feito: _tmp1 <-> _tmp2
+$ cat _tmp1
+2
+$ cat _tmp2
+1
+$
+
+# Faxina
+
+$ rm -f _tmp[12]
+$
