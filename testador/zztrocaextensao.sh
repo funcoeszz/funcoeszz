@@ -1,21 +1,28 @@
-#!/usr/bin/env bash
-file="foo.JPG"
-touch "$file"
+# Preparativos
 
-debug=0
-values=4
-tests=(
+$ file="foo.JPG"
+$ touch "$file"
+$
+
 # Erros
-''	''	''	''	r	^Uso:.*
--n	''	''	''	r	^Uso:.*
--n	JPG	''	''	r	^Uso:.*
--n	JPG	BMP	''	r	^Uso:.*
--n	JPG	BMP	_fake_	r	'N.o consegui ler o arquivo _fake_'
--n 	JPG	JPG	"$file"	t	''
 
--n 	JPG	BMP	"$file"	t	'[-n] foo.JPG -> foo.BMP'
--n 	.JPG	.BMP	"$file"	t	'[-n] foo.JPG -> foo.BMP'
-)
-. _lib
+$ zztrocaextensao					#→ --regex ^Uso:
+$ zztrocaextensao	-n				#→ --regex ^Uso:
+$ zztrocaextensao	-n	JPG			#→ --regex ^Uso:
+$ zztrocaextensao	-n	JPG	BMP		#→ --regex ^Uso:
+$ zztrocaextensao	-n	JPG	BMP	_fake_	#→ --regex Não consegui ler o arquivo _fake_
 
-rm "$file"
+# Ignora quando é a mesmo extensão
+
+$ zztrocaextensao	-n 	JPG	JPG	"$file"
+$
+
+# Operação normal
+
+$ zztrocaextensao	-n 	JPG	BMP	"$file"	#→ [-n] foo.JPG -> foo.BMP
+$ zztrocaextensao	-n 	.JPG	.BMP	"$file"	#→ [-n] foo.JPG -> foo.BMP
+
+# Faxina
+
+$ rm -f "$file"
+$
