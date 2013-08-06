@@ -1,23 +1,24 @@
+$ zzenglish momentum
 ==================== DICT.ORG ====================
 
    3 definitions found for momentum
 
    From The Collaborative International Dictionary of English v.0.48 :
 
-  Momentum [0;33;1m\Mo*men"tum\[m, n.; pl. L. Momenta, F. Momentums. [0;34m[L.
-     See Moment.][m
+  Momentum \Mo*men"tum\, n.; pl. L. Momenta, F. Momentums. L.
+     See Moment.]
      1. (Mech.) The quantity of motion in a moving body, being
         always proportioned to the quantity of matter multiplied
         by the velocity; impetus.
-        [0;34m[1913 Webster][m
+        [1913 Webster]
 
      2. Essential element, or constituent element.
-        [0;34m[1913 Webster][m
+        [1913 Webster]
 
               I shall state the several momenta of the distinction
               in separate propositions.             --Sir W.
                                                     Hamilton.
-        [0;34m[1913 Webster][m
+        [1913 Webster]
 
      3. A property of an activity or course of events, viewed as
         analogous to forward motion or to physical momentum (def.
@@ -27,14 +28,14 @@
         the acquisition of public support for a purpose; as, as,
         the petition drive gained momentum when it was mentioned
         in the newspapers.
-        [0;34m[PJC][m
+        [PJC]
 
 
    From WordNet (r) 3.0 (2006) :
 
   momentum
       n 1: an impelling force or strength; "the car's momentum carried
-           it off the road" [0;32;1m[syn: momentum, impulse][m
+           it off the road" [syn: momentum, impulse]
       2: the product of a body's mass and its velocity; "the momentum
          of the particles was deduced from meteoritic velocities"
 
@@ -46,6 +47,6 @@
      impelling force, impetus, impulse, impulsion, incentive,
      incitement, inertia, irresistible force, moment, motive power,
      power, propulsion, push, strength, thrust
-
-
-     
+$ zzenglish
+Uso: zzenglish palavra-em-inglês
+$
