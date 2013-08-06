@@ -93,9 +93,9 @@ unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 while test $# -gt 0
 do
 	case "$1" in
-		--path) ZZPATH="$2"; shift; shift ;;
-		--dir ) ZZDIR="$2" ; shift; shift ;;
-		--cor ) ZZCOR="$2" ; shift; shift ;;
+		--path) ZZPATH="$2"   ; shift; shift ;;
+		--dir ) ZZDIR="${2%/}"; shift; shift ;;
+		--cor ) ZZCOR="$2"    ; shift; shift ;;
 		*) break;;
 	esac
 done
