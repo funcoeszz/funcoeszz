@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-debug=0
-values=2
-tests=(
-
 # Referência:
 # 01/01/2006	domingo
 # 02/01/2006	segunda
@@ -13,110 +8,108 @@ tests=(
 # 07/01/2006	sábado
 
 # data inicial na sexta
-30/12/2005	30/12/2005	t	1
-30/12/2005	31/12/2005	t	1
-30/12/2005	01/01/2006	t	1
-30/12/2005	02/01/2006	t	2
-30/12/2005	03/01/2006	t	3
-30/12/2005	04/01/2006	t	4
-30/12/2005	05/01/2006	t	5
-30/12/2005	06/01/2006	t	6
-30/12/2005	07/01/2006	t	6
-30/12/2005	08/01/2006	t	6
-30/12/2005	09/01/2006	t	7
-30/12/2005	10/01/2006	t	8
-30/12/2005	17/01/2006	t	13
-30/12/2005	24/01/2006	t	18
-30/12/2005	31/01/2006	t	23
-30/12/2005	01/02/2006	t	24
+$ zzdiasuteis	30/12/2005	30/12/2005	#→ 1
+$ zzdiasuteis	30/12/2005	31/12/2005	#→ 1
+$ zzdiasuteis	30/12/2005	01/01/2006	#→ 1
+$ zzdiasuteis	30/12/2005	02/01/2006	#→ 2
+$ zzdiasuteis	30/12/2005	03/01/2006	#→ 3
+$ zzdiasuteis	30/12/2005	04/01/2006	#→ 4
+$ zzdiasuteis	30/12/2005	05/01/2006	#→ 5
+$ zzdiasuteis	30/12/2005	06/01/2006	#→ 6
+$ zzdiasuteis	30/12/2005	07/01/2006	#→ 6
+$ zzdiasuteis	30/12/2005	08/01/2006	#→ 6
+$ zzdiasuteis	30/12/2005	09/01/2006	#→ 7
+$ zzdiasuteis	30/12/2005	10/01/2006	#→ 8
+$ zzdiasuteis	30/12/2005	17/01/2006	#→ 13
+$ zzdiasuteis	30/12/2005	24/01/2006	#→ 18
+$ zzdiasuteis	30/12/2005	31/01/2006	#→ 23
+$ zzdiasuteis	30/12/2005	01/02/2006	#→ 24
 
 # data inicial no sábado
-31/12/2005	31/12/2005	t	0
-31/12/2005	01/01/2006	t	0
-31/12/2005	02/01/2006	t	1
-31/12/2005	03/01/2006	t	2
-31/12/2005	04/01/2006	t	3
-31/12/2005	05/01/2006	t	4
-31/12/2005	06/01/2006	t	5
-31/12/2005	07/01/2006	t	5
-31/12/2005	08/01/2006	t	5
-31/12/2005	09/01/2006	t	6
-31/12/2005	10/01/2006	t	7
-31/12/2005	17/01/2006	t	12
-31/12/2005	24/01/2006	t	17
-31/12/2005	31/01/2006	t	22
-31/12/2005	01/02/2006	t	23
+$ zzdiasuteis	31/12/2005	31/12/2005	#→ 0
+$ zzdiasuteis	31/12/2005	01/01/2006	#→ 0
+$ zzdiasuteis	31/12/2005	02/01/2006	#→ 1
+$ zzdiasuteis	31/12/2005	03/01/2006	#→ 2
+$ zzdiasuteis	31/12/2005	04/01/2006	#→ 3
+$ zzdiasuteis	31/12/2005	05/01/2006	#→ 4
+$ zzdiasuteis	31/12/2005	06/01/2006	#→ 5
+$ zzdiasuteis	31/12/2005	07/01/2006	#→ 5
+$ zzdiasuteis	31/12/2005	08/01/2006	#→ 5
+$ zzdiasuteis	31/12/2005	09/01/2006	#→ 6
+$ zzdiasuteis	31/12/2005	10/01/2006	#→ 7
+$ zzdiasuteis	31/12/2005	17/01/2006	#→ 12
+$ zzdiasuteis	31/12/2005	24/01/2006	#→ 17
+$ zzdiasuteis	31/12/2005	31/01/2006	#→ 22
+$ zzdiasuteis	31/12/2005	01/02/2006	#→ 23
 
 # data inicial no domingo
-01/01/2006	01/01/2006	t	0
-01/01/2006	02/01/2006	t	1
-01/01/2006	03/01/2006	t	2
-01/01/2006	04/01/2006	t	3
-01/01/2006	05/01/2006	t	4
-01/01/2006	06/01/2006	t	5
-01/01/2006	07/01/2006	t	5
-01/01/2006	08/01/2006	t	5
-01/01/2006	09/01/2006	t	6
-01/01/2006	10/01/2006	t	7
-01/01/2006	17/01/2006	t	12
-01/01/2006	24/01/2006	t	17
-01/01/2006	31/01/2006	t	22
-01/01/2006	01/02/2006	t	23
+$ zzdiasuteis	01/01/2006	01/01/2006	#→ 0
+$ zzdiasuteis	01/01/2006	02/01/2006	#→ 1
+$ zzdiasuteis	01/01/2006	03/01/2006	#→ 2
+$ zzdiasuteis	01/01/2006	04/01/2006	#→ 3
+$ zzdiasuteis	01/01/2006	05/01/2006	#→ 4
+$ zzdiasuteis	01/01/2006	06/01/2006	#→ 5
+$ zzdiasuteis	01/01/2006	07/01/2006	#→ 5
+$ zzdiasuteis	01/01/2006	08/01/2006	#→ 5
+$ zzdiasuteis	01/01/2006	09/01/2006	#→ 6
+$ zzdiasuteis	01/01/2006	10/01/2006	#→ 7
+$ zzdiasuteis	01/01/2006	17/01/2006	#→ 12
+$ zzdiasuteis	01/01/2006	24/01/2006	#→ 17
+$ zzdiasuteis	01/01/2006	31/01/2006	#→ 22
+$ zzdiasuteis	01/01/2006	01/02/2006	#→ 23
 
 # data inicial na segunda
-02/01/2006	02/01/2006	t	1
-02/01/2006	03/01/2006	t	2
-02/01/2006	04/01/2006	t	3
-02/01/2006	05/01/2006	t	4
-02/01/2006	06/01/2006	t	5
-02/01/2006	07/01/2006	t	5
-02/01/2006	08/01/2006	t	5
-02/01/2006	09/01/2006	t	6
-02/01/2006	10/01/2006	t	7
-02/01/2006	17/01/2006	t	12
-02/01/2006	24/01/2006	t	17
-02/01/2006	31/01/2006	t	22
-02/01/2006	01/02/2006	t	23
+$ zzdiasuteis	02/01/2006	02/01/2006	#→ 1
+$ zzdiasuteis	02/01/2006	03/01/2006	#→ 2
+$ zzdiasuteis	02/01/2006	04/01/2006	#→ 3
+$ zzdiasuteis	02/01/2006	05/01/2006	#→ 4
+$ zzdiasuteis	02/01/2006	06/01/2006	#→ 5
+$ zzdiasuteis	02/01/2006	07/01/2006	#→ 5
+$ zzdiasuteis	02/01/2006	08/01/2006	#→ 5
+$ zzdiasuteis	02/01/2006	09/01/2006	#→ 6
+$ zzdiasuteis	02/01/2006	10/01/2006	#→ 7
+$ zzdiasuteis	02/01/2006	17/01/2006	#→ 12
+$ zzdiasuteis	02/01/2006	24/01/2006	#→ 17
+$ zzdiasuteis	02/01/2006	31/01/2006	#→ 22
+$ zzdiasuteis	02/01/2006	01/02/2006	#→ 23
 
 # data inicial na segunda, datas invertidas (mais recente primeiro)
-02/01/2006	02/01/2006	t	1
-03/01/2006	02/01/2006	t	2
-04/01/2006	02/01/2006	t	3
-05/01/2006	02/01/2006	t	4
-06/01/2006	02/01/2006	t	5
-07/01/2006	02/01/2006	t	5
-08/01/2006	02/01/2006	t	5
-09/01/2006	02/01/2006	t	6
-10/01/2006	02/01/2006	t	7
-17/01/2006	02/01/2006	t	12
-24/01/2006	02/01/2006	t	17
-31/01/2006	02/01/2006	t	22
-01/02/2006	02/01/2006	t	23
+$ zzdiasuteis	02/01/2006	02/01/2006	#→ 1
+$ zzdiasuteis	03/01/2006	02/01/2006	#→ 2
+$ zzdiasuteis	04/01/2006	02/01/2006	#→ 3
+$ zzdiasuteis	05/01/2006	02/01/2006	#→ 4
+$ zzdiasuteis	06/01/2006	02/01/2006	#→ 5
+$ zzdiasuteis	07/01/2006	02/01/2006	#→ 5
+$ zzdiasuteis	08/01/2006	02/01/2006	#→ 5
+$ zzdiasuteis	09/01/2006	02/01/2006	#→ 6
+$ zzdiasuteis	10/01/2006	02/01/2006	#→ 7
+$ zzdiasuteis	17/01/2006	02/01/2006	#→ 12
+$ zzdiasuteis	24/01/2006	02/01/2006	#→ 17
+$ zzdiasuteis	31/01/2006	02/01/2006	#→ 22
+$ zzdiasuteis	01/02/2006	02/01/2006	#→ 23
 
 # Sem os zeros (por enquanto não é suportado)
-1/2/2008	01/01/1970	r	'^Data inv.lida .*'
-01/2/2008	01/01/1970	r	'^Data inv.lida .*'
-1/02/2008	01/01/1970	r	'^Data inv.lida .*'
-01/01/1970	1/2/2008	r	'^Data inv.lida .*'
-01/01/1970	01/2/2008	r	'^Data inv.lida .*'
-01/01/1970	1/02/2008	r	'^Data inv.lida .*'
+$ zzdiasuteis	1/2/2008	01/01/1970	#→ --regex ^Data inválida 
+$ zzdiasuteis	01/2/2008	01/01/1970	#→ --regex ^Data inválida 
+$ zzdiasuteis	1/02/2008	01/01/1970	#→ --regex ^Data inválida 
+$ zzdiasuteis	01/01/1970	1/2/2008	#→ --regex ^Data inválida 
+$ zzdiasuteis	01/01/1970	01/2/2008	#→ --regex ^Data inválida 
+$ zzdiasuteis	01/01/1970	1/02/2008	#→ --regex ^Data inválida 
 
 # Erros
-1970		01/01/1970	r	'^Data inv.lida .*'
--2000 		01/01/1970	r	'^Data inv.lida .*'
-0 		01/01/1970	r	'^Data inv.lida .*'
-foo 		01/01/1970	r	'^Data inv.lida .*'
-29.02.2008	01/01/1970	r	'^Data inv.lida .*'
-01/01/1970	1970		r	'^Data inv.lida .*'
-01/01/1970	-2000 		r	'^Data inv.lida .*'
-01/01/1970	0 		r	'^Data inv.lida .*'
-01/01/1970	foo 		r	'^Data inv.lida .*'
-01/01/1970	29.02.2008	r	'^Data inv.lida .*'
+$ zzdiasuteis	1970		01/01/1970	#→ --regex ^Data inválida 
+$ zzdiasuteis	-2000 		01/01/1970	#→ --regex ^Data inválida 
+$ zzdiasuteis	0 		01/01/1970	#→ --regex ^Data inválida 
+$ zzdiasuteis	foo 		01/01/1970	#→ --regex ^Data inválida 
+$ zzdiasuteis	29.02.2008	01/01/1970	#→ --regex ^Data inválida 
+$ zzdiasuteis	01/01/1970	1970		#→ --regex ^Data inválida 
+$ zzdiasuteis	01/01/1970	-2000 		#→ --regex ^Data inválida 
+$ zzdiasuteis	01/01/1970	0 		#→ --regex ^Data inválida 
+$ zzdiasuteis	01/01/1970	foo 		#→ --regex ^Data inválida 
+$ zzdiasuteis	01/01/1970	29.02.2008	#→ --regex ^Data inválida 
 
 # Sem argumentos, mostra os total de dias úteis no mês atual
-''		''		r	'^[A-Z][a-z][a-z]+ de .... tem .. dias úteis\.$'
+$ zzdiasuteis					#→ --regex ^[A-Z][a-z][a-z]+ de .... tem .. dias úteis\.$
 
 # Falta de argumentos
-01/01/1970	''		r	^Uso:.*
-)
-. _lib
+$ zzdiasuteis	01/01/1970			#→ --regex ^Uso:
