@@ -1,15 +1,9 @@
-#!/usr/bin/env bash
+$ zztradutor			#→ --regex ^Uso:
+$ zztradutor	pt-en		#→ --regex ^Uso:
 
-values=2
-tests=(
-''	''	r	^Uso:.*
-pt-en	''	r	^Uso:.*
-
-''	livro	t	book
-pt-en	livro	t	book
-pt-es	livro	t	libro
-pt-fr	livro	t	livre
-pt-it	livro	t	libro
-pt-de	livro	t	Buch
-)
-. _lib
+$ zztradutor		livro	#→ book
+$ zztradutor	pt-en	livro	#→ book
+$ zztradutor	pt-es	livro	#→ libro
+$ zztradutor	pt-fr	livro	#→ livre
+$ zztradutor	pt-it	livro	#→ libro
+$ zztradutor	pt-de	livro	#→ Buch
