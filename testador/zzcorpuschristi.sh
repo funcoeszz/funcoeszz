@@ -1,35 +1,29 @@
-#!/usr/bin/env bash
-debug=0
-values=1
-tests=(
-1995	t	15/06/1995
-1996	t	06/06/1996
-1997	t	29/05/1997
-1998	t	11/06/1998
-1999	t	03/06/1999
-2000	t	22/06/2000
-2001	t	14/06/2001
-2002	t	30/05/2002
-2003	t	19/06/2003
-2004	t	10/06/2004
-2005	t	26/05/2005
-2006	t	15/06/2006
-2007	t	07/06/2007
-2008	t	22/05/2008
-2009	t	11/06/2009
-2010	t	03/06/2010
+$ zzcorpuschristi	1995	#→ 15/06/1995
+$ zzcorpuschristi	1996	#→ 06/06/1996
+$ zzcorpuschristi	1997	#→ 29/05/1997
+$ zzcorpuschristi	1998	#→ 11/06/1998
+$ zzcorpuschristi	1999	#→ 03/06/1999
+$ zzcorpuschristi	2000	#→ 22/06/2000
+$ zzcorpuschristi	2001	#→ 14/06/2001
+$ zzcorpuschristi	2002	#→ 30/05/2002
+$ zzcorpuschristi	2003	#→ 19/06/2003
+$ zzcorpuschristi	2004	#→ 10/06/2004
+$ zzcorpuschristi	2005	#→ 26/05/2005
+$ zzcorpuschristi	2006	#→ 15/06/2006
+$ zzcorpuschristi	2007	#→ 07/06/2007
+$ zzcorpuschristi	2008	#→ 22/05/2008
+$ zzcorpuschristi	2009	#→ 11/06/2009
+$ zzcorpuschristi	2010	#→ 03/06/2010
 
 # Erros
-01/01/1970	t	"Ano inválido '01/01/1970'"
--2000 		t	"Ano inválido '-2000'"
-0 		t	"Ano inválido '0'"
-foo 		t	"Ano inválido 'foo'"
+$ zzcorpuschristi	01/01/1970	#→ Ano inválido '01/01/1970'
+$ zzcorpuschristi	-2000 		#→ Ano inválido '-2000'
+$ zzcorpuschristi	0 		#→ Ano inválido '0'
+$ zzcorpuschristi	foo 		#→ Ano inválido 'foo'
 
 # Epoch
-1	t	26/05/1
-10	t	19/06/10
-100	t	11/06/100
-1000	t	30/05/1000
-1969	t	05/06/1969
-)
-. _lib
+$ zzcorpuschristi	1	#→ 26/05/1
+$ zzcorpuschristi	10	#→ 19/06/10
+$ zzcorpuschristi	100	#→ 11/06/100
+$ zzcorpuschristi	1000	#→ 30/05/1000
+$ zzcorpuschristi	1969	#→ 05/06/1969
