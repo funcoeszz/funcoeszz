@@ -1,11 +1,5 @@
-#!/usr/bin/env bash
-debug=0
-values=1
-
-cut -f 1 unicode2ascii.txt > _tmp1
-cut -f 2 unicode2ascii.txt > _tmp2
-
-tests=(
-_tmp1	a	_tmp2
-)
-. _lib
+$ cut -f 1 zzunicode2ascii.in.txt > _tmp1
+$ cut -f 2 zzunicode2ascii.in.txt > _tmp2
+$ zzunicode2ascii _tmp1   #→ --file _tmp2
+$ rm -f _tmp[12]
+$
