@@ -1,65 +1,70 @@
-#!/usr/bin/env bash
-
 # Remove o arquivo de lembretes (guardando cópia do original)
-test -f ~/.zzlembrete && cp -a ~/.zzlembrete ~/.zzlembrete.orig && rm -f ~/.zzlembrete
+$ test -f ~/.zzlembrete && cp -a ~/.zzlembrete ~/.zzlembrete.orig && rm -f ~/.zzlembrete
+$
 
-values=2
-tests=(
 # Tudo vazio por enquanto
-''	''	t	''
-1	''	t	''
-0	''	t	''
-10	''	t	''
-1d	''	t	''
-0d	''	t	''
-10d	''	t	''
+
+$ zzlembrete
+$ zzlembrete	1
+$ zzlembrete	0
+$ zzlembrete	10
+$ zzlembrete	1d
+$ zzlembrete	0d
+$ zzlembrete	10d
+$
 
 # Adiciona alguns lembretes
-lavar 	roupa	t	''
-comprar pão	t	''
-tomar	banho	t	''
+
+$ zzlembrete	lavar 	roupa
+$ zzlembrete	comprar pão
+$ zzlembrete	tomar	banho
+$
 
 # Mostra
-1	''	t	'lavar roupa'
-2	''	t	'comprar pão'
-3	''	t	'tomar banho'
-4	''	t	''
-0	''	t	''
-''	''	t	"\
+
+$ zzlembrete	1
+lavar roupa
+$ zzlembrete	2
+comprar pão
+$ zzlembrete	3
+tomar banho
+$ zzlembrete	4
+$ zzlembrete	0
+$ zzlembrete
      1	lavar roupa
      2	comprar pão
      3	tomar banho
-"
+$
 
 # Apaga
-2d	''	t	''
-''	''	t	"\
+
+$ zzlembrete	2d
+$ zzlembrete
      1	lavar roupa
      2	tomar banho
-"
-0d	''	t	''
-10d	''	t	''
-''	''	t	"\
+$ zzlembrete	0d
+$ zzlembrete	10d
+$ zzlembrete
      1	lavar roupa
      2	tomar banho
-"
-1d	''	t	''
-1d	''	t	''
-1	''	t	''
-''	''	t	''
+$ zzlembrete	1d
+$ zzlembrete	1d
+$ zzlembrete	1
+$ zzlembrete
+$
 
 # Comandos inválidos viram lembretes
-d	''	t	''
-1p	''	t	''
--x	''	t	''
-''	''	t	"\
+
+$ zzlembrete	d
+$ zzlembrete	1p
+$ zzlembrete	-x
+$ zzlembrete
      1	d
      2	1p
      3	-x
-"
-)
-. _lib
+$
 
 
 # Restaura o arquivo de lembretes original
-test -f ~/.zzlembrete.orig && mv ~/.zzlembrete.orig ~/.zzlembrete
+$ test -f ~/.zzlembrete.orig && mv ~/.zzlembrete.orig ~/.zzlembrete
+$
