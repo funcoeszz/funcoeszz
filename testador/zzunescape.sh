@@ -1,23 +1,31 @@
-#!/usr/bin/env bash
+# Preparativos
 
-cut -f 1 unescape.txt > _tmp1
-cut -f 2 unescape.txt > _tmp2
-cut -f 3 unescape.txt > _tmp3
-cut -f 4 unescape.txt > _tmp4
+$ cut -f 1 zzunescape.in.txt > _tmp1
+$ cut -f 2 zzunescape.in.txt > _tmp2
+$ cut -f 3 zzunescape.in.txt > _tmp3
+$ cut -f 4 zzunescape.in.txt > _tmp4
+$
 
-echo "\
-&#34;&#x22;&quot; \
-&#38;&#x26;&amp; \
-&#39;&#x27;&apos; \
-&#60;&#x3C;&lt; \
-&#62;&#x3E;&gt;" > _tmp5   # xml
+# Preparativos - XML
 
-values=2
-tests=(
---html	_tmp2	a	_tmp1
---html	_tmp3	a	_tmp1
---html	_tmp4	a	_tmp1
+$ printf '&#34;&#x22;&quot; '	 > _tmp5
+$ printf '&#38;&#x26;&amp; '	>> _tmp5
+$ printf '&#39;&#x27;&apos; '	>> _tmp5
+$ printf '&#60;&#x3C;&lt; '	>> _tmp5
+$ printf '&#62;&#x3E;&gt;'	>> _tmp5
+$
 
---xml	_tmp5	t	"\"\"\" &&& ''' <<< >>>"
-)
-. _lib
+# HTML
+
+$ zzunescape	--html	_tmp2	#→ --file _tmp1
+$ zzunescape	--html	_tmp3	#→ --file _tmp1
+$ zzunescape	--html	_tmp4	#→ --file _tmp1
+
+# XML
+
+$ zzunescape	--xml	_tmp5	#→ """ &&& ''' <<< >>>
+
+# Faxina
+
+$ rm -f _tmp[1-5]
+$
