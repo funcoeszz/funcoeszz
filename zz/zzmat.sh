@@ -716,9 +716,21 @@ zzmat ()
 		fi
 	;;
 	fat)
-		if ([ $# -eq "2" ] && zztool testa_numero "$2" && [ "$2" -ge "1" ])
+		if ([ $# -eq "2" -o $# -eq "3" ] && zztool testa_numero "$2" && [ "$2" -ge "1" ])
 		then
-			zzseq $2 | paste -s -d* - | bc -l
+			if [ "$3" = "s" ]
+			then
+				local num1 num2
+				num2=1
+				for num1 in $(zzseq $2)
+				do
+					num2=$(echo "$num1 * $num2" | bc)
+					printf "%s " $num2
+				done | sed 's/ $//'
+				echo
+			else
+				zzseq $2 | paste -s -d* - | bc -l
+			fi
 		else
 			echo " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
 			echo " Uso: zzmat $funcao numero"
@@ -846,7 +858,7 @@ zzmat ()
 						num2 = num3
 					}
 					if ( seq != 1 ) { printf "%s ", num1 }
-				}'
+				}' | sed 's/ $//'
 			echo
 		else
 			echo " Número de fibonacci ou lucas, na posição especificada."
@@ -871,7 +883,7 @@ zzmat ()
 						num3 = num4
 					}
 					if ( seq != 1 ) { printf "%s ", num1 }
-				}'
+				}' | sed 's/ $//'
 			echo
 		else
 			echo " Número de tribonacci, na posição especificada."
