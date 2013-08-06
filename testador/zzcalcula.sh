@@ -1,42 +1,36 @@
-#!/usr/bin/env bash
-debug=0
-values=3
-tests=(
 # básico
-1	+	1	t	2
-1	-	1	t	0
-# 1	\*	1	t	1	# Nao tem como :/ -- "$var2" ?
-1	/	1	t	1,00
+$ zzcalcula	1	+	1		#→ 2
+$ zzcalcula	1	-	1		#→ 0
+$ zzcalcula	1	\*	1		#→ 1
+$ zzcalcula	1	/	1		#→ 1,00
 
 # scale
-1.0	+	1	t	2,0
-1,0	+	1	t	2,0
-1.10	+	1	t	2,10
-1,10	+	1	t	2,10
-10	/	3	t	3,33
-2,20	+	3.30	t	5,50
+$ zzcalcula	1.0	+	1		#→ 2,0
+$ zzcalcula	1,0	+	1		#→ 2,0
+$ zzcalcula	1.10	+	1		#→ 2,10
+$ zzcalcula	1,10	+	1		#→ 2,10
+$ zzcalcula	10	/	3		#→ 3,33
+$ zzcalcula	2,20	+	3.30		#→ 5,50
 
 # tudo junto
-1+1	''	''	t	2
-1+	1	''	t	2
-1	+1	''	t	2
-''	1+1	''	t	2
-''	''	1+1	t	2
+$ zzcalcula	1+1				#→ 2
+$ zzcalcula	1+	1			#→ 2
+$ zzcalcula	1	+1			#→ 2
+$ zzcalcula		1+1			#→ 2
+$ zzcalcula			1+1		#→ 2
 
 # números parciais
-.5	+	.5	t	1,0
-,5	+	,5	t	1,0
-1	+	.5	t	1,5
+$ zzcalcula	.5	+	.5		#→ 1,0
+$ zzcalcula	,5	+	,5		#→ 1,0
+$ zzcalcula	1	+	.5		#→ 1,5
 
 # separador de milhares na entrada e saída
-100*10		''	''	t	1.000
-100*10,00	''	''	t	1.000,00
-1000*1000	''	''	t	1.000.000
-1000*1000,00	''	''	t	1.000.000,00
-100^10		''	''	t	100.000.000.000.000.000.000
-1.000		+	1	t	1.001
-1.000,00	+	1	t	1.001,00
-1.000.000	+	1	t	1.000.001
-1.000.000,00	+	1	t	1.000.001,00
-)
-. _lib
+$ zzcalcula	100*10				#→ 1.000
+$ zzcalcula	100*10,00			#→ 1.000,00
+$ zzcalcula	1000*1000			#→ 1.000.000
+$ zzcalcula	1000*1000,00			#→ 1.000.000,00
+$ zzcalcula	100^10				#→ 100.000.000.000.000.000.000
+$ zzcalcula	1.000		+	1	#→ 1.001
+$ zzcalcula	1.000,00	+	1	#→ 1.001,00
+$ zzcalcula	1.000.000	+	1	#→ 1.000.001
+$ zzcalcula	1.000.000,00	+	1	#→ 1.000.001,00
