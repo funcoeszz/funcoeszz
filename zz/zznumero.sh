@@ -3,9 +3,8 @@
 # Nota: Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
 #
 # Opções:
-#   -f <padrão|número|-> Padrão de formatação do printf, incluindo %'d e %'.f
-#                        ou precisão se apenas informado um número, ou sem
-#                        limite de precisão se informado um hífen '-'
+#   -f <padrão|número>   Padrão de formatação do printf, incluindo %'d e %'.f
+#                        ou precisão se apenas informado um número
 #   -p <prefixo>         Um prefixo para o número, se for R$ igual a opção -m
 #   -s <sufixo>          Um sufixo para o número
 #   -m | --moeda         Trata valor monetário, sobrepondo as configurações de

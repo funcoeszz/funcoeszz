@@ -140,7 +140,7 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 	local linha1 linha2 linha3 tamanho i letra letra_original codigo linha0
 
 	# Opção para mudar os símbolos a serem exibidos dentro da célula Braille
-	# E garantindo que seja apenas um caractere usando awk. O cut falha dependendo do ambiente
+	# E garantindo que seja apenas um caractere usando sed. O cut e o awk falham dependendo do ambiente
 	while [ "$1" ]
 	do
 		case $1 in
