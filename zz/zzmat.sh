@@ -21,7 +21,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 14
+# Versão: 15
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio
 # ----------------------------------------------------------------------------
@@ -724,16 +724,18 @@ zzmat ()
 				num2=1
 				for num1 in $(zzseq $2)
 				do
-					num2=$(echo "$num1 * $num2" | bc)
+					num2=$(echo "$num1 * $num2" | bc | tr -d '\n\\')
 					printf "%s " $num2
 				done | sed 's/ $//'
 				echo
 			else
-				zzseq $2 | paste -s -d* - | bc -l
+				zzseq $2 | paste -s -d* - | bc | tr -d '\n\\'
+				echo
 			fi
 		else
 			echo " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
-			echo " Uso: zzmat $funcao numero"
+			echo " Com o argumento 's' imprime a sequência até a posição."
+			echo " Uso: zzmat $funcao numero [s]"
 			return 1
 		fi
 	;;
