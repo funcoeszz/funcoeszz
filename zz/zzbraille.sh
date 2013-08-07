@@ -185,8 +185,8 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 		then
 			for i in $(zzseq ${#1})
 			do
-				letra=$(echo $1| tr ' ' '#' | zzminusculas | awk '{print substr($0,'$i',1)}')
-				letra_original=$(echo $1| tr ' ' '#' | awk '{print substr($0,'$i',1)}')
+				letra=$(echo $1| tr ' ' '#' | zzminusculas | sed "s/^\(.\{1,$i\}\).*/\1/" | sed 's/.*\(.\)$/\1/')
+				letra_original=$(echo $1| tr ' ' '#' | sed "s/^\(.\{1,$i\}\).*/\1/" | sed 's/.*\(.\)$/\1/')
 				if [ $letra ]
 				then
 					[ $letra = '/' ] && letra='\/'
