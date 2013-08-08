@@ -33,5 +33,3 @@ $
 #    Brasilia Time (BRT) -0300 UTC
 # ou
 #    Brasilia Summer Time (BRST) -0200 UTC
-
-
