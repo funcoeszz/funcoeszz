@@ -1,3 +1,19 @@
+# Sem argumentos, mostra a origem e o significado
+
+$ zznome josé
+Origem do nome Jose: BÍBLICO
+Significado do nome Jose: "O QUE ACRESCENTA". FORAM VÁRIOS OS PERSONAGENS BÍBLICOS COM ESTE NOME. ENTRE ELES O MARIDO DA VIRGEM MARIA.
+$
+
+# Se $2=origem, mostra somente a origem
+
+$ zznome josé origem
+Origem do nome Jose: BÍBLICO
+$
+
+# Se $2=tudo, prepare-se para uma avalanche!
+
+$ zznome josé tudo
 Origem do nome Jose: BÍBLICO
 
 Significado do nome Jose: "O QUE ACRESCENTA". FORAM VÁRIOS OS PERSONAGENS BÍBLICOS COM ESTE NOME. ENTRE ELES O MARIDO DA VIRGEM MARIA.
@@ -111,3 +127,4 @@ A inteligência domando a fera interior e colocando as paixões à serviço da v
 "Prazeroso na esperança, sofrido na atribulação, seja constante na oração..."
 INFLUENCIA NA SUA VIDA Esse arcano influencia positivamente 60% da sua vida.
 
+$
