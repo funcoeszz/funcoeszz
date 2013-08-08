@@ -3,5 +3,5 @@ $ zznoticiaslinux n  # Notícias Linux  #→ --lines 7
 $ zznoticiaslinux u  # Under Linux     #→ --lines 7
 $ zznoticiaslinux v  # Viva o Linux    #→ --lines 7
 $ zznoticiaslinux y  # Yahoo Linux     #→ --lines 7
-$ zznoticiaslinux foo
+$ zznoticiaslinux z
 $
