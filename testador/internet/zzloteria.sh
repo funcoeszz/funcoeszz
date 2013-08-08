@@ -29,5 +29,4 @@ quina:
    Concurso 9999 (99/99/9999)
    Acumulado em R$ DINHEIRO para 99/99/9999
 $ zzloteria foo
-Loteria inválida: foo
 $
