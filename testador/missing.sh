@@ -13,7 +13,7 @@ other=$(ls -1 ../zz/ | sed 's/\.sh$//; s|.*/||')
 all=$(printf "$base\n$other" | sort)
 
 # List of already tested functions
-tested=$(ls -1 ./zz*.sh internet/zz*.sh | sed 's/\.sh$//; s|.*/||' | sort)
+tested=$(ls -1 zz*.sh | sed 's/\.sh$//' | sort)
 
 # Who's not tested?
 for zz_func in $all
