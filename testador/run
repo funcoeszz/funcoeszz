@@ -8,6 +8,15 @@
 script_dir=$(dirname "$0")
 zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
 tmp='run.tmp'
+tester='doctest.sh'
+
+# Check requirements
+$tester -V > /dev/null || {
+	printf '%s\n' "Ops... Não achei o programa testador: $tester"
+	printf '%s\n' 'Baixe-o deste endereço:'
+	printf '%s\n' 'https://raw.github.com/aureliojargas/?????/master/?????.sh'
+	exit 1
+}
 
 # Create temporary file with ZZ init in full paths
 cat > "$tmp" <<EOF
@@ -20,10 +29,10 @@ EOF
 if test $# -gt 0
 then
 	# Test specific file(s)
-	doctest.sh --include "$tmp" "$@"
+	"$tester" --include "$tmp" "$@"
 else
 	# Test all files
-	doctest.sh --include "$tmp" zz*.sh
+	"$tester" --include "$tmp" zz*.sh
 fi
 
 rm "$tmp"
