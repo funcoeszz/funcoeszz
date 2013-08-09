@@ -1,0 +1,43 @@
+2009-05-01	-100	Saldo inicial da conta :(
+2009-05-15	-74,23	mercado|
+2009-05-15	- 1,99	nerd| Prestação do mouse 10/12
+2009-05-23	-39,90	presente, livro| Livro Horóscopo dos Duendes
+
+2009-06-03	-342,59	presente| Um Shrubbery
+2009-06-11	 30,00	Ganhei a aposta com o Zé
+2009-06-12	-35,00	presente, nerd| Poster colorido 3D do Tux em Ascii Art
+2009-06-15	- 1,99	nerd| Prestação do mouse 11/12
+2009-06-29	-95,67	mercado|
+
+2009-07-12	-199,90	presente| Segway usado no Mercado Livre
+2009-07-15	- 1,99	nerd| Prestação do mouse 12/12 (acabou!)
+
+2009-08-20	-10,00	Carnê do Baú
+
+# A ordem não importa, é possível deixar juntas as transações periódicas
+2009-05-05	500	salario|
+2009-06-05	500	salario|
+2009-07-05	500	salario|
+2009-08-05	500	salario|
+
+2009-05-07	-25,00	luz|
+2009-06-07	-20,00	luz|
+2009-07-07	-29,00	luz|
+2009-08-07	-25,00	luz|
+
+2009-05-07	-20,00	agua|
+2009-06-07	-17,80	agua|
+2009-07-07	-32,37	agua|
+2009-08-07	-30,00	agua|
+
+
+# Transações futuras!
+2009-12-31	+99,99	salario| Bônus
+
+# Pagamentos e ganhos parcelados
+2009-08-05	-500/5	nerd| Netbook usado comprado parcelado
+2009-11-25	100/2	presente| Presente de Natal, metade Nov, metade Dez
+
+# Pagamentos e ganhos recorrentes
+2009-05-05	-200*6	aluguel| Aluguel da casa (seis meses)
+2009-09-10	100*4	presente| O Zé vai me dar 100 pilas por mês até o fim do ano
