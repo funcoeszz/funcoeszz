@@ -238,4 +238,50 @@ Com `--eval`, o teste passará se o resultado do comando for exatamente igual ao
 
 
 
+Dicas
+-----
+
+Se além do resultado, você também quiser testar o código de retorno (status code) de um comando, basta colocar um `echo $?` no final:
+
+```
+$ grep ^root /etc/passwd; echo $?
+root:*:0:0:System Administrator:/var/root:/bin/sh
+0
+$
+```
+
+Esta tática é usada dezenas de vezes em [zztool.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zztool.sh). Se quiser testar somente o código, ignorando o resultado, basta silenciar o comando:
+
+```
+$ grep ^root /etc/passwd > /dev/null; echo $?
+0
+$
+```
+
+O mesmo teste, no formato inline, fica:
+
+```
+$ grep ^root /etc/passwd > /dev/null; echo $?   #→ 0
+```
+
+Pode usar variáveis à vontade, filtrar o resultado com outros comandos, enfim, usar a linha de comando em todo seu potencial.
+
+```
+$ isso='root'
+$ aquilo='RAPADURA'
+$ grep ^root /etc/passwd | sed "s/$isso/$aquilo/" | cut -d : -f 1-5 | tr : '\t'
+RAPADURA	*	0	0	System Administrator
+$
+```
+
+Se precisar de arquivos temporários, basta criá-los. O padrão do testador é usar os nomes _tmp1, _tmp2, ... Lembre-se de removê-los no final dos testes. Veja um exemplo nos testes da zzunicode2ascii:
+
+```
+$ cut -f 1 zzunicode2ascii.in.txt > _tmp1
+$ cut -f 2 zzunicode2ascii.in.txt > _tmp2
+$ zzunicode2ascii _tmp1   #→ --file _tmp2
+$ rm -f _tmp[12]
+```
+
+
 
