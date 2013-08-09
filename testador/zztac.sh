@@ -21,4 +21,10 @@ $ zztac _numeros.txt _numeros.txt
 3
 2
 1
-$
+$ cat _numeros.txt | zztac
+5
+4
+3
+2
+1
+$ cat _numeros.txt | zztac | zztac   #→ --file _numeros.txt
