@@ -3,7 +3,7 @@ Testador das Funções ZZ
 
 É preciso garantir que todas as funções estejam sempre funcionando corretamente. Esta não é uma tarefa fácil, já que são mais de 150 funções ao todo, e muitas delas dependem de informações obtidas em websites, que estão em constante mudança.
 
-O testador automático das Funções ZZ testa o funcionamento de cada função e avisa caso algo esteja errado.
+O testador automático das Funções ZZ testa o funcionamento de cada função e avisa caso algo esteja errado. Já estão cadastrados mais de 3.000 testes!
 
 
 
@@ -37,6 +37,7 @@ Ops, o teste número 12 falhou. Deu algum problema com a acentuação (sempre el
 
 Note que a falha é mostrada usando o formato do comando `diff`, onde a linha que inicia com `-` era o resultado esperado, e a linha iniciada com `+` foi o resultado incorreto obtido.
 
+> Nota: Os testes só funcionam em sistemas com codificação **UTF-8**.
 
 
 Testar várias funções
@@ -86,12 +87,97 @@ Testing file zzblist.sh
 $
 ```
 
+Testar todas as funções vai levar alguns minutos, então relaxe.
+
 
 Um teste falhou, o que faço agora?
 ----------------------------------
 
-Se aparecer algum erro, por favor [abra um ticket](https://github.com/aureliojargas/funcoeszz/issues/new) e cole nele o resultado do testador. Também informe qual a versão do seu sistema operacional e qualquer informação adicional que julgar útil para resolvermos o problema.
+Se aparecer algum erro, por favor [abra um issue](https://github.com/aureliojargas/funcoeszz/issues/new) e cole nele o resultado do testador. Também informe qual a versão do seu sistema operacional e qualquer informação adicional que julgar útil para resolvermos o problema.
 
-Se você manja de shell script, que tal **você mesmo** arregaçar as mangas e arrumar a função? O código das funções é bem alinhado e comentado, elas estão na pasta [../zz/](https://github.com/aureliojargas/funcoeszz/tree/master/zz). Experimente, será divertido! Se precisar de instruções, [é aqui](https://github.com/aureliojargas/funcoeszz/blob/master/README.md).
+Se você manja de shell script, que tal **você mesmo** arregaçar as mangas e arrumar a função? O [código das funções](https://github.com/aureliojargas/funcoeszz/tree/master/zz) é bem amigável: é alinhado e comentado. Experimente, será divertido! Veja [as  instruções](https://github.com/aureliojargas/funcoeszz/blob/master/README.md), ou fale com o [@oreio](https://twitter.com/oreio).
+
+
+
+Para adicionar um teste novo
+----------------------------
+
+Você não precisa ser programador para adicionar um teste novo. O arquivo de testes é bem simples: é uma cópia literal da própria linha de comando! Veja exemplos de arquivos de testes:
+
+[/testador/zzvira.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzvira.sh):
+
+```
+$ zzvira 'Inverte tudo'
+odut etrevnI
+$ zzvira -X 'De pernas pro ar'
+ɹɐ oɹd sɐuɹǝd ǝp
+$
+```
+
+[/testador/zzalfabeto.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzalfabeto.sh):
+
+```
+$ zzalfabeto --militar ABC
+Alpha
+Bravo
+Charlie
+$ zzalfabeto --portugal ABC
+Aveiro
+Bragança
+Coimbra
+$
+```
+
+Só isso. É a linha de comando normal com o prompt `$ ` e o resultado logo a seguir, exatamente como aparece no terminal. E lembre de "fechar" o último resultado com um prompt vazio.
+
+**Quer contribuir com as Funções ZZ?** Então crie um arquivo de testes para uma função que ainda não está sendo testada (coitadinha!). Use o script `missing.sh` para ver a lista de funções ainda não testadas:
+
+```
+$ ./missing.sh
+zzajuda
+zzaleatorio
+zzbolsas
+zzbraille
+zzbrasileirao
+zzcbn
+zzchecamd5
+zzcinemark15h
+zzcineuci
+...
+$
+```
+
+Além de testar o uso normal, tente encontrar exemplos de uso peculiares (e até bizarros), que podem disparar bugs na função. Por exemplo: informar uma letra em vez de um número, informar datas inválidas, opções inválidas, coisas assim. E se a pobre função não aguentar seus testes e falhar, [abra um issue](https://github.com/aureliojargas/funcoeszz/issues/new)!
+
+### Exemplo: criar testes para a zzfoo
+
+Um exemplo rápido de como criar um arquivo de testes para a função fictícia `zzfoo`, direto pelo seu terminal:
+
+```
+prompt$ touch zzfoo.sh   # Crie o arquivo de testes (extensão .sh)
+prompt$ PS1='$ '         # Mude seu prompt para o formato $
+$ zzfoo                  # Use a função normalmente na linha de comando
+Uso: zzfoo número
+$ zzfoo 1
+bar
+$ zzfoo 2
+bar
+bar
+$ zzfoo X
+Número inválido 'X'
+$
+```
+
+OK, já temos quatro testes, está bom pra começar. Agora selecione estas linhas com o mouse, copie e depois cole dentro do arquivo de testes `zzfoo.sh`. Salve o arquivo e rode os testes:
+
+```
+$ ./run zzfoo.sh
+OK! All 4 tests have passed.
+$
+```
+
+
+
+
 
 
