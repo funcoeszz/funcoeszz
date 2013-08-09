@@ -21,7 +21,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 15
+# Versão: 16
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio
 # ----------------------------------------------------------------------------
@@ -151,10 +151,11 @@ zzmat ()
 			dg) num="$num1*0.9";;
 			gd) num="$num1/0.9";;
 			??)
-				local grandeza1 grandeza2 fator divisor potencia
+				local grandeza1 grandeza2 fator divisor potencia letra
 				local grandezas="y z a f p n u m c d 1 D H K M G T P E Z Y"
 				local potencias="-24 -21 -18 -15 -12 -9 -6 -3 -2 -1 0 1 2 3 6 9 12 15 18 21 24"
 				local posicao='1'
+
 				precisao=24
 				grandeza1=$(echo "$2" | sed 's/\([[:alpha:]1]\)[[:alpha:]1]/\1/')
 				grandeza2=$(echo "$2" | sed 's/[[:alpha:]1]\([[:alpha:]1]\)/\1/')
@@ -163,14 +164,20 @@ zzmat ()
 					for letra in $(echo "$grandezas")
 					do
 						potencia=$(echo "$potencias" | awk '{print $'$posicao'}')
-						[ "$grandeza1" = "$letra" ] && fator=$(zzmat -p${precisao} elevado 10 $potencia)
-						[ "$grandeza2" = "$letra" ] && divisor=$(zzmat -p${precisao} elevado 10 $potencia)
+						[ "$grandeza1" = "$letra" ] && fator=$potencia
+						[ "$grandeza2" = "$letra" ] && divisor=$potencia
 						posicao=$((posicao + 1))
 					done
 					if ([ "$fator" ] && [ "$divisor" ])
 					then
-						echo "$num1 $fator $divisor" |
-						awk '{printf "%.'$precisao'f\n", $1*$2/$3}' |
+						precisao=$(zzmat abs $(($fator - $divisor)))
+						potencia=$(echo "$precisao" | awk '{printf 1;for (i=1;i<=$1;i++) {printf 0 }}')
+						case $(zzmat compara_num 0 $(($fator - $divisor))) in
+							'menor') letra='*';;
+							'maior') letra='/';;
+						esac
+						echo "scale=$precisao;${num1} ${letra} ${potencia}" | bc -l |
+						awk '{printf "%.'${precisao}'f\n", $1}' |
 						zzmat -p${precisao} sem_zeros
 					fi
 				fi
@@ -357,7 +364,7 @@ zzmat ()
 			local num1 num2
 			num1=$(echo "$2" | tr ',' '.')
 			num2=$(echo "$3" | tr ',' '.')
-			num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", ('$num1')^('$num2')}')
+			num=$(echo "scale=${precisao};${num1}^${num2}" | bc -l | awk '{ printf "%.'${precisao}'f\n", $1 }')
 		else
 			echo " zzmat $funcao: Um número elevado a um potência"
 			echo " Uso: zzmat $funcao número potencia"
