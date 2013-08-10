@@ -15,6 +15,8 @@
 #                        por extenso
 #   --de <formato>       Formato de entrada
 #   --para <formato>     Formato de saída
+#   --int                Parte inteira do número, sem arredondamento
+#   --frac               Parte fracionária do número
 #
 # Formatos para as opções --de e --para:
 #   pt ou pt-br => português (brasil)
@@ -28,7 +30,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 8
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -40,6 +42,7 @@ zznumero ()
 	local prec='-'
 	local linha=0
 	local sufixo=''
+	local num_part=0
 	local milhar_de decimal_de milhar_para decimal_para
 	local numero qtde_v qtde_p n_formato num_int num_frac num_saida prefixo sinal n_temp
 
@@ -168,6 +171,11 @@ zznumero ()
 			shift
 		;;
 
+		# Define qual parte do número a exibir
+		# 0 = sem restrição(padrão)  1 = só parte inteira  2 = só parte fracionária
+		--int) num_part=1; shift;;
+		--frac) num_part=2; shift;;
+
 		-p)
 			# Prefixo escolhido pelo usuário
 			prefixo="$2"
@@ -247,12 +255,15 @@ zznumero ()
 			numero=$(echo "$1" | zzvira | sed 's/.../&./g;s/\.$//' | zzvira)
 		fi
 		num_int="$1"
-		num_saida="${sinal}${numero}"
-
-		# Aplicando o formato conforme opção --para
-		if [ "$milhar_para" ]
+		if [ "$num_part" != "2" ]
 		then
-			num_saida=$(echo "$num_saida" | tr '.' "${milhar_para}")
+			num_saida="${sinal}${numero}"
+
+			# Aplicando o formato conforme opção --para
+			if [ "$milhar_para" ]
+			then
+				num_saida=$(echo "$num_saida" | tr '.' "${milhar_para}")
+			fi
 		fi
 
 	else
@@ -423,6 +434,9 @@ zznumero ()
 				num_frac=$(echo "$num_frac" | sed 's/0*$//')
 			fi
 
+			[ "$num_part" = "1" ] && unset num_frac
+			[ "$num_part" = "2" ] && unset num_int
+
 			if zztool grep_var 'R$' "$prefixo"
 			then
 			# Caso especial para opção -m, --moedas ou prefixo 'R$'
@@ -430,6 +444,7 @@ zznumero ()
 				# Arredondamento para 2 casas decimais
 				[ ${#num_frac} -eq 0 -a $texto -eq 0 ] && num_frac="00"
 				[ ${#num_frac} -eq 1 ] && num_frac="${num_frac}0"
+				[ ${#num_int} -eq 0 -a $texto -eq 0 ] && num_int=0
 
 				numero=$(echo "${num_int}" | zzvira | sed 's/.../&\./g;s/\.$//' | zzvira)
 				num_saida="${numero},${num_frac}"
@@ -459,7 +474,6 @@ zznumero ()
 				fi
 				num_saida=$numero
 			else
-			# Formato 0.000,00
 				numero=$(echo "${num_int}" | zzvira | sed 's/.../&\./g;s/\.$//' | zzvira)
 				num_saida="${numero},${num_frac}"
 
