@@ -21,7 +21,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 16
+# Versão: 17
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio
 # ----------------------------------------------------------------------------
@@ -48,6 +48,17 @@ zzmat ()
 	fi
 
 	funcao="$1"
+
+	# Atalhos para funções pow e fat, usando operadores unários
+	if zztool grep_var '^' "$funcao" && zzmat testa_num "${funcao%^*}" && zzmat testa_num "${funcao#*^}"
+	then
+		zzmat -p${precisao} pow "${funcao%^*}" "${funcao#*^}"
+		return
+	elif zztool grep_var '!' "$funcao" && zztool testa_numero "${funcao%\!}"
+	then
+		zzmat -p${precisao} fat "${funcao%\!}" $2
+		return
+	fi
 
 	case "$funcao" in
 	testa_num)
@@ -367,7 +378,10 @@ zzmat ()
 			num=$(echo "scale=${precisao};${num1}^${num2}" | bc -l | awk '{ printf "%.'${precisao}'f\n", $1 }')
 		else
 			echo " zzmat $funcao: Um número elevado a um potência"
-			echo " Uso: zzmat $funcao número potencia"
+			echo " Uso: zzmat $funcao número potência"
+			echo " Uso: zzmat número^potência"
+			echo " Ex.: zzmat $funcao 4 3"
+			echo " Ex.: zzmat 3^7"
 			return 1
 		fi
 	;;
@@ -743,6 +757,9 @@ zzmat ()
 			echo " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
 			echo " Com o argumento 's' imprime a sequência até a posição."
 			echo " Uso: zzmat $funcao numero [s]"
+			echo " Uso: zzmat numero! [s]"
+			echo " Ex.: zzmat $funcao 4"
+			echo "      zzmat 5!"
 			return 1
 		fi
 	;;
