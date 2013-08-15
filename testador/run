@@ -29,10 +29,10 @@ EOF
 if test $# -gt 0
 then
 	# Test specific file(s)
-	"$tester" --include "$tmp" "$@"
+	"$tester" --pre-flight ". $tmp" "$@"
 else
 	# Test all files
-	"$tester" --include "$tmp" zz*.sh
+	"$tester" --pre-flight ". $tmp" zz*.sh
 fi
 
 rm "$tmp"
