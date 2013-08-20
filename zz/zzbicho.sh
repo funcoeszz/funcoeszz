@@ -11,7 +11,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-08-27
-# Versão: 2
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzbicho ()
@@ -56,18 +56,19 @@ zzbicho ()
 		if ($2=="g" && $1 >= 1 && $1 <= 25) {
 			numero = $1 * 4
 			for (numero = ($1 * 4) - 3;numero <= ($1 *4); numero++) {
-				printf " %.2d", substr(numero,length(numero)-1,2)
+				printf "%.2d ", substr(numero,length(numero)-1,2)
 			}
 			print ""
 		}
 		else if ($1 == "g" || $1 == "") {
 			for (num=1;num<=25;num++) {
-				printf " %.2d %s\n",num, grupo[num]
+				printf "%.2d %s\n",num, grupo[num]
 			}
 		}
 		else {
 			numero = substr($1,length($1)-1,2)=="00"?25:int((substr($1,length($1)-1,2) + 3) / 4)
-			print "", grupo[numero], "(" numero ")"
+			print grupo[numero], "(" numero ")"
 		}
-	}'
+	}' |
+	sed 's/ $//'
 }

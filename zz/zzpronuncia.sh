@@ -6,8 +6,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-04-10
-# Versão: 2
+# Versão: 3
 # Licença: GPL
+# Requisitos: zzplay
 # ----------------------------------------------------------------------------
 zzpronuncia ()
 {
@@ -35,7 +36,7 @@ zzpronuncia ()
 		# Extrai o nome do arquivo no site do dicionário
 		wav_file=$(
 			$ZZWWWHTML "$url/$palavra" |
-			sed -n "/.*return au('\([a-z0-9]\+\)'.*/{s//\1/p;q;}")
+			sed -n "/.*return au('\([a-z0-9]\{1,\}\)'.*/{s//\1/p;q;}")
 
 		# Ops, não extraiu nada
 		if test -z "$wav_file"
@@ -54,10 +55,10 @@ zzpronuncia ()
 		# Compõe a URL do arquivo e salva-o localmente (cache)
 		wav_url="$url2/$wav_dir/$wav_file"
 		echo "URL: $wav_url"
-		$ZZWWWHTML "$wav_url" > $cache
+		$ZZWWWHTML "$wav_url" > "$cache"
 		echo "Gravado o arquivo '$cache'"
 	fi
 
 	# Fala que eu te escuto
-	play $cache
+	zzplay "$cache"
 }

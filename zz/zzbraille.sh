@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Grafia Braille.
-# A estrutura básica do alfabeto braille é composta por 2 coluna e 3 linhas.
+# A estrutura básica do alfabeto braille é composta por 2 colunas e 3 linhas.
 # Essa estrutura é chamada de célula Braille
 # E a sequência numérica padronizada é como segue:
 #  1 4
@@ -8,16 +8,16 @@
 #  3 6
 # Assim fica como um guia, para quem desejar implantar essa acessibilidade.
 #
-# Com a opção --s1 muda o śimbolo ● ( relevo, em destaque, cheio)
-# Com a opção --s2 muda o śimbolo ○ ( plano, sem destaque, vazio)
+# Com a opção --s1 muda o símbolo ● (relevo, em destaque, cheio)
+# Com a opção --s2 muda o símbolo ○ (plano, sem destaque, vazio)
 #
-# Abaixo de cada célula Braille, aparece o caracter correspondente.
+# Abaixo de cada célula Braille, aparece o caractere correspondente.
 # Incluindo especiais de maiúscula, numérico, espaço, muti-células.
 # +++++ : Maiúsculo
 # +-    : Capitalize
 # __    : Espaço
 # ##    : Número
-# -( X ): Caracter especial que ocupa mais de uma célula Braille
+# -( X ): Caractere especial que ocupa mais de uma célula Braille
 #
 # Atenção: Prefira usar ! em texto dentro de aspas simples (')
 #
@@ -29,9 +29,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-26
-# Versão: 4
+# Versão: 5
 # Licença: GPL
-# Requisitos: zzminusculas zzmaiusculas zzcapitalize
+# Requisitos: zzminusculas zzmaiusculas zzcapitalize zzseq
 # ----------------------------------------------------------------------------
 zzbraille ()
 {
@@ -140,11 +140,12 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 	local linha1 linha2 linha3 tamanho i letra letra_original codigo linha0
 
 	# Opção para mudar os símbolos a serem exibidos dentro da célula Braille
+	# E garantindo que seja apenas um caractere usando sed. O cut e o awk falham dependendo do ambiente
 	while [ "$1" ]
 	do
 		case $1 in
-			"--s1") c="$2"; shift; shift;;
-			"--s2") v="$2"; shift; shift;;
+			"--s1") c=$(echo "$2" | sed 's/\(.\).*/\1/'); shift; shift;;
+			"--s2") v=$(echo "$2" | sed 's/\(.\).*/\1/'); shift; shift;;
 			*) break;;
 		esac
 	done
@@ -184,8 +185,8 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 		then
 			for i in $(zzseq ${#1})
 			do
-				letra=$(echo $1| tr ' ' '#' | zzminusculas | awk '{print substr($0,'$i',1)}')
-				letra_original=$(echo $1| tr ' ' '#' | awk '{print substr($0,'$i',1)}')
+				letra=$(echo $1| tr ' ' '#' | zzminusculas | sed "s/^\(.\{1,$i\}\).*/\1/" | sed 's/.*\(.\)$/\1/')
+				letra_original=$(echo $1| tr ' ' '#' | sed "s/^\(.\{1,$i\}\).*/\1/" | sed 's/.*\(.\)$/\1/')
 				if [ $letra ]
 				then
 					[ $letra = '/' ] && letra='\/'
@@ -216,10 +217,10 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			done
 			shift
 		else
-			echo $linha1 | sed "s/1/$c/g;s/0/$v/g"
-			echo $linha2 | sed "s/1/$c/g;s/0/$v/g"
-			echo $linha3 | sed "s/1/$c/g;s/0/$v/g"
-			echo $linha0
+			echo "$linha1" | sed "s/1/$c/g;s/0/$v/g"
+			echo "$linha2" | sed "s/1/$c/g;s/0/$v/g"
+			echo "$linha3" | sed "s/1/$c/g;s/0/$v/g"
+			echo "$linha0"
 			echo
 			unset linha1
 			unset linha2
@@ -227,9 +228,9 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			unset linha0
 		fi
 	done
-	echo $linha1 | sed "s/1/$c/g;s/0/$v/g"
-	echo $linha2 | sed "s/1/$c/g;s/0/$v/g"
-	echo $linha3 | sed "s/1/$c/g;s/0/$v/g"
-	echo $linha0
+	echo "$linha1" | sed "s/1/$c/g;s/0/$v/g"
+	echo "$linha2" | sed "s/1/$c/g;s/0/$v/g"
+	echo "$linha3" | sed "s/1/$c/g;s/0/$v/g"
+	echo "$linha0"
 	echo
 }

@@ -199,9 +199,13 @@ eco ----------------------------------------------------------------
 eco "* Funções com cabeçalho >78 colunas"
 for f in zz/* off/*
 do
-	test $f = zz/zzloteria2 && continue  #XXX exceção temporária
 	wrong=$(grep '^# ' $f | egrep '^.{79}' | grep -v DESATIVADA:)
-	test -n "$wrong" && printf "%s: %s\n" $f "$wrong"
+
+	test -n "$wrong" && printf "%s: %s\n" $f "$wrong" |
+		# Exceções conhecidas
+		grep -v '^zz/zzferiado.sh: # Requisitos:' |
+		grep -v '^zz/zzloteria2.sh: # Resultados da quina' |
+		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org'
 done
 
 ### Desativada por enquanto, ainda não sei o que fazer com isso

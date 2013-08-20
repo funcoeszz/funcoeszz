@@ -25,7 +25,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzestado ()
@@ -78,7 +78,7 @@ TO:Tocantins:tocantins:Palmas"
 				IFS=:
 				while read sigla nome slug capital
 				do
-					resultado=$(echo "$fmt" | sed "
+					resultado=$(printf %s "$fmt" | sed "
 						s/{sigla}/$sigla/g
 						s/{nome}/$nome/g
 						s/{slug}/$slug/g

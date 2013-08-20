@@ -1,8 +1,0 @@
-[-n] /tmp/foo/  a   -> /tmp/foo/a
-[-n] /tmp/foo/!@#$%&*( )+=[]{}<>^~,:;?\| -> /tmp/foo/_
-[-n] /tmp/foo/' -> /tmp/foo/_
-[-n] /tmp/foo/--help -> /tmp/foo/_-help
-[-n] /tmp/foo/RAMONES  -  I Don't Care (live) .MP3 -> /tmp/foo/ramones-i_dont_care_live.mp3
-[-n] /tmp/foo/a - a . a -> /tmp/foo/a-a.a
-[-n] /tmp/foo/a====a -> /tmp/foo/a_a
-[-n] /tmp/foo/don't "do" it -> /tmp/foo/dont_do_it

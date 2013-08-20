@@ -3,10 +3,10 @@
 # Pesquisa detalhe dos comando, ao fornecer o número na listagem a esquerda.
 # E filtra a busca se fornecer um texto.
 #
-# Uso: zzmariadb [ codigo | filtro ]
-# Ex.: zzmariadb        #Lista os comandos disponíveis
+# Uso: zzmariadb [ código | filtro ]
+# Ex.: zzmariadb        # Lista os comandos disponíveis
 #      zzmariadb 18     # Consulta o comando CREATE DATABASE
-#      zzmariadb alter  # Filtra os comandos que possuam alter na declaração.
+#      zzmariadb alter  # Filtra os comandos que possuam alter na declaração
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-07-03
@@ -32,14 +32,14 @@ zzmariadb ()
 			/^ *Comunidade/d
 			/^ *Downloads/d
 			s/^  *//g
-		'| uniq | awk '{print "", NR, $0}'> $cache
+		'| uniq | awk '{print NR, $0}'> $cache
 	fi
 
 	if [ "$1" ]
 	then
 		if zztool testa_numero $1
 		then
-			comando=$(sed -n "${1}p" $cache | sed "s/^ ${1} //;s| / |-|g;s/ - /-/g;s/ /-/g;s/\.//g" | zzminusculas | zzsemacento)
+			comando=$(sed -n "${1}p" $cache | sed "s/^${1} //;s| / |-|g;s/ - /-/g;s/ /-/g;s/\.//g" | zzminusculas | zzsemacento)
 			$ZZWWWDUMP "${url}/${comando}" | sed -n '/^Localized Versions/,/^Comments/p' | sed '1d;2d;/^  *\*.*\]$/d;$d'
 		else
 			grep -i $1 $cache

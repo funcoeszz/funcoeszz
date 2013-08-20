@@ -1,31 +1,36 @@
 # ----------------------------------------------------------------------------
-# Formatando a saída de um número.
+# Formata um número como: inteiro, moeda, por extenso, entre outros.
+# Nota: Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
+#
 # Opções:
-#  -f <padrão | numeros>: Padrão de formatação igual ao printf,
-# incluindo %'d e %'.f ou precisão se apenas informado um número, se
-# no número for informado um  traço '-', fica sem limites.
-#  -p <prefixo>: Um prefixo para o número, se for R$ igual a opção -m
-#  -s <sufixo>: Um sufixo para o número
-#  -m: Trata valor monetário, sobrepondo as configurações de -p, -s  e -f
-#  --moeda: O mesmo que a opção -m
-#  -t: Número parcialmente por extenso, por ex: 2 mihões 350 mil e doze
-#  --texto: Número inteiramente por extenso, ex: quatro mil e cento e vinte
-#  -l: Uma classe numérica por linha, quando optar no número por extenso
-#  --de <formato>: Formato de entrada
-#  --para <formato>: Formato de saída
-#   formatos: pt ou pt-br => português (brasil) | en => inglês (americano)
+#   -f <padrão|número>   Padrão de formatação do printf, incluindo %'d e %'.f
+#                        ou precisão se apenas informado um número
+#   -p <prefixo>         Um prefixo para o número, se for R$ igual a opção -m
+#   -s <sufixo>          Um sufixo para o número
+#   -m | --moeda         Trata valor monetário, sobrepondo as configurações de
+#                        -p, -s e -f
+#   -t                   Número parcialmente por extenso, ex: 2 mihões 350 mil
+#   --texto              Número inteiramente por extenso, ex: quatro mil e cem
+#   -l                   Uma classe numérica por linha, quando optar no número
+#                        por extenso
+#   --de <formato>       Formato de entrada
+#   --para <formato>     Formato de saída
+#   --int                Parte inteira do número, sem arredondamento
+#   --frac               Parte fracionária do número
 #
-# Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
+# Formatos para as opções --de e --para:
+#   pt ou pt-br => português (brasil)
+#   en          => inglês (americano)
 #
-# Uso: zznumero [opção1] [opção2] ... <numero>
-# Ex.: zznumero 12445.78
-#      zznumero --texto 4567890,213
-#      zznumero -m 85,345
-#      echo 748 | zznumero -f "%'.3f"
+# Uso: zznumero [opções] <número>
+# Ex.: zznumero 12445.78                      # 12.445,78
+#      zznumero --texto 4567890,213           # quatro milhões, quinhentos...
+#      zznumero -m 85,345                     # R$ 85,34
+#      echo 748 | zznumero -f "%'.3f"         # 748,000
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 4
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -34,10 +39,12 @@ zznumero ()
 	zzzz -h numero "$1" && return
 
 	local texto=0
-	local prec=2
+	local prec='-'
 	local linha=0
+	local sufixo=''
+	local num_part=0
 	local milhar_de decimal_de milhar_para decimal_para
-	local numero qtde_v qtde_p n_formato num_int num_frac num_saida prefixo sufixo sinal n_temp
+	local numero qtde_v qtde_p n_formato num_int num_frac num_saida prefixo sinal n_temp
 
 	# Zero a Novecentos e noventa e nove (base para as demais classes)
 	local ordem1="\
@@ -75,7 +82,7 @@ zznumero ()
 8:septilhões
 9:octilhões
 10:nonilhões
-11:decillões
+11:decilhões
 12:undecilhões
 13:duodecilhões
 14:tredecilhões
@@ -112,7 +119,7 @@ zznumero ()
 	while  [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
-		"-f")
+		-f)
 			# Formato estabelecido pelo usuário conforme printf ou precisão
 			# Precisão no formato do printf (esperado)
 			n_formato="$2"
@@ -134,7 +141,7 @@ zznumero ()
 			shift
 		;;
 
-		"--de")
+		--de)
 			# Formato de entrada
 			if [ "$2" = "pt" -o "$2" = "pt-br" ]
 			then
@@ -149,7 +156,7 @@ zznumero ()
 			shift
 		;;
 
-		"--para")
+		--para)
 			# Formato de saída
 			if [ "$2" = "pt" -o "$2" = "pt-br" ]
 			then
@@ -164,22 +171,27 @@ zznumero ()
 			shift
 		;;
 
-		"-p")
+		# Define qual parte do número a exibir
+		# 0 = sem restrição(padrão)  1 = só parte inteira  2 = só parte fracionária
+		--int) num_part=1; shift;;
+		--frac) num_part=2; shift;;
+
+		-p)
 			# Prefixo escolhido pelo usuário
 			prefixo="$2"
-			$(echo "$2" | grep '^ *[rR]$ *$') && prefixo='R$ '
+			echo "$2" | grep '^ *[rR]$ *$' > /dev/null && prefixo='R$ '
 			shift
 			shift
 		;;
 
-		"-s")
+		-s)
 			# Sufixo escolhido pelo usuário
 			sufixo="$2"
 			shift
 			shift
 		;;
 
-		"-t" | "--texto")
+		-t | --texto)
 			# Variável para número por extenso
 			# Flag para formato por extenso
 			[ "$1" = "-t" ] && texto=1
@@ -187,14 +199,14 @@ zznumero ()
 			shift
 		;;
 
-		"-l")
+		-l)
 			# No modo texto, uma classe numérica por linha
 			linha=1
 			shift
 		;;
 
-		"-m" | "--moeda")
-			# Solicitando formato moeda (sobrepõe as opção de prefixo, sufixo e formato)
+		-m | --moeda)
+			# Solicitando formato moeda (sobrepõe as opções de prefixo, sufixo e formato)
 			prec=2
 			prefixo='R$ '
 			unset sufixo
@@ -240,15 +252,18 @@ zznumero ()
 		then
 			numero=$(printf "${n_formato}" "$1" 2>/dev/null)
 		else
-			numero=$(echo "$1" | zzvira | sed 's/.../&\./g;s/\.$//' | zzvira)
+			numero=$(echo "$1" | zzvira | sed 's/.../&./g;s/\.$//' | zzvira)
 		fi
 		num_int="$1"
-		num_saida="${sinal}${numero}"
-
-		# Aplicando o formato conforme opção --para
-		if [ "$milhar_para" ]
+		if [ "$num_part" != "2" ]
 		then
-			num_saida=$(echo "$num_saida" | tr '.' "${milhar_para}")
+			num_saida="${sinal}${numero}"
+
+			# Aplicando o formato conforme opção --para
+			if [ "$milhar_para" ]
+			then
+				num_saida=$(echo "$num_saida" | tr '.' "${milhar_para}")
+			fi
 		fi
 
 	else
@@ -261,21 +276,25 @@ zznumero ()
 		fi
 
 		# Quantidade de pontos ou vírgulas no número informado
-		qtde_p=$(echo "$1" | sed 's/./&\n/g' | grep -c "\.")
-		qtde_v=$(echo "$1" | sed 's/./&\n/g' | grep -c ",")
+		qtde_p=$(echo "$1" | tr -cd '.'); qtde_p=${#qtde_p}
+		qtde_v=$(echo "$1" | tr -cd ','); qtde_v=${#qtde_v}
 
 		# Número com o "ponto decimal" separando a parte fracionária, sem separador de milhar
 		# Se for padrão 999.999, é considerado um inteiro
 		if [ $qtde_p -eq 1 -a $qtde_v -eq 0 ] && zztool testa_numero_fracionario "$1"
 		then
-			echo $1 | grep '^[0-9]\{1,3\}\.[0-9]\{3\}$' >/dev/null
-			[ $? -eq 0  ] && numero=$(echo $1 | tr -d '.') || numero=$(echo $1 | tr '.' ',')
+			if echo "$1" | grep '^[0-9]\{1,3\}\.[0-9]\{3\}$' >/dev/null
+			then
+				numero=$(echo "$1" | tr -d '.')
+			else
+				numero=$(echo "$1" | tr '.' ',')
+			fi
 		fi
 
 		# Número com a "vírgula" separando da parte fracionária, sem separador de milhares
 		if [ $qtde_v -eq 1 -a $qtde_p -eq 0 ] && zztool testa_numero_fracionario "$1"
 		then
-			numero=$1
+			numero="$1"
 		fi
 
 		# Número com o "ponto" como separador de milhar, e sem parte fracionária
@@ -415,6 +434,9 @@ zznumero ()
 				num_frac=$(echo "$num_frac" | sed 's/0*$//')
 			fi
 
+			[ "$num_part" = "1" ] && unset num_frac
+			[ "$num_part" = "2" ] && unset num_int
+
 			if zztool grep_var 'R$' "$prefixo"
 			then
 			# Caso especial para opção -m, --moedas ou prefixo 'R$'
@@ -422,6 +444,7 @@ zznumero ()
 				# Arredondamento para 2 casas decimais
 				[ ${#num_frac} -eq 0 -a $texto -eq 0 ] && num_frac="00"
 				[ ${#num_frac} -eq 1 ] && num_frac="${num_frac}0"
+				[ ${#num_int} -eq 0 -a $texto -eq 0 ] && num_int=0
 
 				numero=$(echo "${num_int}" | zzvira | sed 's/.../&\./g;s/\.$//' | zzvira)
 				num_saida="${numero},${num_frac}"
@@ -451,7 +474,6 @@ zznumero ()
 				fi
 				num_saida=$numero
 			else
-			# Formato 0.000,00
 				numero=$(echo "${num_int}" | zzvira | sed 's/.../&\./g;s/\.$//' | zzvira)
 				num_saida="${numero},${num_frac}"
 
@@ -487,6 +509,13 @@ zznumero ()
 		# Liberando as variáveis numero e num_saida para receber o número por extenso
 		unset numero
 		unset num_saida
+
+		# Caso especial para o 0 (zero)
+		if test "$num_int" = "0"
+		then
+			[ $texto -eq 1 ] && num_saida=$num_int
+			[ $texto -eq 2 ] && num_saida='zero'
+		fi
 
 		while [ "$1" ]
 		do
@@ -578,7 +607,13 @@ zznumero ()
 
 				if [ $texto -eq 2 ]
 				then
-					num_saida="${num_saida} e ${numero} ${n_formato}"
+					if [ "$n_formato" ]
+					then
+						[ "$num_saida" ] && num_saida="${num_saida}, ${numero} ${n_formato}" || num_saida="${numero} ${n_formato}"
+					else
+						num_saida="${num_saida} ${numero}"
+						num_saida=$(echo "${num_saida}" | sed 's/ilhões  *\([a-z]\)/ilhões, \1/;s/ilhão  *\([a-z]\)/ilhão, \1/')
+					fi
 				else
 					num_saida="${num_saida} ${qtde_v} ${n_formato}"
 				fi
@@ -587,11 +622,62 @@ zznumero ()
 			qtde_p=$((qtde_p - 1))
 			shift
 		done
-		[ "$num_saida" ] && num_saida=$(echo "${num_saida} inteiros" | sed 's/ *$//;s/ \{1,\}/ /g')
+		[ "$num_saida" ] && num_saida=$(echo "${num_saida}" | sed 's/ *$//;s/ \{1,\}/ /g')
+
+		# Milhar seguido de uma centena terminada em 00.
+		# Milhar seguida de uma unidade ou dezena
+		# Caso "Um mil" em desuso, apenas "mil" usa-se
+		if zztool grep_var ' mil' "${num_saida}"
+		then
+			# Colocando o "e" entre o mil seguido de 1 ao 19
+			for n_temp in $(echo "$ordem1" | cut -f 2 -d: | sed '/^ *$/d')
+			do
+				num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/ mil $n_temp$/ mil e $n_temp/")
+				num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
+			done
+
+			# Colocando o "e" entre o mil seguido de dezenas terminadas em 0
+			for n_temp in $(echo "$ordem1" | cut -f 3 -d: | sed '/^ *$/d' )
+			do
+				num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/ mil $n_temp$/ mil e $n_temp/")
+				num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
+			done
+
+			# Colocando o "e" entre o mil seguido de dezenas não terminadas em 0
+			# usando as variáveis milhar_para e decimal_para emprestada para esse laço
+			for milhar_para in $(echo "$ordem1" | sed -n '3,10p' | cut -f3 -d:)
+			do
+				for decimal_para in $(echo "$ordem1" | sed -n '2,10p' | cut -f2 -d:)
+				do
+					n_temp="$milhar_para e $decimal_para"
+					num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/ mil $n_temp$/ mil e $n_temp/")
+					num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed "s/^ *mil $n_temp$/ mil e $n_temp/")
+				done
+			done
+
+			# Trabalhando o contexto do e entre classe do milhar e unidade.
+			num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed 's/\( mil \)\([a-z]*\)entos$/\1 e \2entos/')
+			num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed 's/ mil cem$/ mil e cem/')
+
+			# Tabalhando o contexto do "um mil"
+			num_saida=$(echo "${num_saida}" | sed 's/^ *//;s/ *$//' | sed 's/^ *um mil /mil /;s/^ *um mil *$/mil/')
+			num_saida=$(echo "${num_saida}" | sed 's/, *um mil /, mil /')
+
+			# Substituindo a última vírgula "e", nos casos sem a classe milhar.
+			if ! zztool grep_var ' mil ' "$num_saida"
+			then
+				qtde_v=$(echo "$num_saida" | sed 's/./&\n/g' | grep -c ",")
+				[ $qtde_v -gt 0 ] && num_saida=$(echo "${num_saida}" | sed "s/,/ e /${qtde_v}")
+			fi
+		fi
+
+		# Colocando o sufixo
+		num_saida="${num_saida} inteiros"
+		[ "$num_int" = "1" ] && num_saida=$(echo "${num_saida}" | sed 's/inteiros/inteiro/')
 
 		######################################################################
 
-		#Validando as parte fracionária do número
+		# Validando as parte fracionária do número
 		if [ ${#num_frac} -gt 0 ]
 		then
 			zztool testa_numero $num_frac || { zztool uso numero; return 1; }
@@ -606,7 +692,14 @@ zznumero ()
 		# Liberando as variáveis numero para receber o número por extenso
 		unset numero
 
-		[ "$1" ] && num_saida="$num_saida e "
+		if [ "$1" ]
+		then
+			# Tendo parte fracionário, e inteiro sendo 0 (zero), parte inteira é apagada.
+			test "$num_int" = "0" && unset num_saida
+
+			# Tendo parte fracionária, conecta com o "e"
+			[ "$num_saida" ] && num_saida="${num_saida} e "
+		fi
 
 		while [ "$1" ]
 		do
@@ -697,7 +790,7 @@ zznumero ()
 
 				if [ $texto -eq 2 ]
 				then
-					num_saida="${num_saida} e ${numero} ${n_formato}"
+					num_saida="${num_saida} ${numero} ${n_formato}"
 				else
 					num_saida="${num_saida} ${qtde_v} ${n_formato}"
 				fi
@@ -730,8 +823,13 @@ zznumero ()
 
 		######################################################################
 
-		[ "$sinal" = '-' ] && num_saida="$num_saida negativos"
-		[ "$sinal" = '+' ] && num_saida="$num_saida positivos"
+		# Zero (0) não é positivo e nem negativo
+		n_temp=$(echo "$num_saida" | sed 's/inteiros//' | tr -d ' ')
+		if [ "$n_temp" != "0" -a "$n_temp" != "zero" ]
+		then
+			[ "$sinal" = '-' ] && num_saida="$num_saida negativos"
+			[ "$sinal" = '+' ] && num_saida="$num_saida positivos"
+		fi
 
 		# Para o caso de ser o número 1, colocar no singular
 		if [ "$num_int" = "1" ]
@@ -750,10 +848,10 @@ zznumero ()
 		then
 			num_saida=$(echo "$num_saida" | sed 's/inteiros/reais/;s/inteiro/real/;s/centésimo/centavo/')
 		else
-			[ "$sufixo" ] && num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
+			num_saida=$(echo "$num_saida" | sed "s/inteiros/${sufixo}/;s/inteiro/${sufixo}/")
 		fi
 
-		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g;s/ \{1,\}/ /g' | sed 's/^  *e//;s/ e *$//')
+		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g; s/  */ /g' | sed 's/^ *e //; s/ e *$//; s/^ *//g')
 
 		# Uma classe numérica por linha
 		if [ $linha -eq 1 ]
@@ -769,7 +867,7 @@ zznumero ()
 				sed 's/ilhões/&\
 /g;s/ilhão/&\
 /g;s/mil /&\
- /' |
+/' |
 				sed 's/inteiros*/&\
 /;s/rea[li]s*/&\
 /')
@@ -777,9 +875,18 @@ zznumero ()
 			esac
 		fi
 
-		echo "$num_saida" | sed 's/ *$//g;s/ \{1,\}/ /g'
+		zztool grep_var 'R$' "$prefixo" && unset prefixo
+		[ "$prefixo" ] && num_saida="${prefixo} ${num_saida}"
+		echo "${num_saida}" | sed 's/ *$//g;s/ \{1,\}/ /g;s/^[ ,]*//g'
 
 	else
+		# Zero (0) não é positivo e nem negativo
+		n_temp=$(echo "$num_saida" | sed 's/^[+-]//')
+		if [ "$n_temp" = "0" -o "$n_temp" = "R$ 0" ]
+		then
+			num_saida=$n_temp
+		fi
+
 		zztool grep_var 'R$' "$prefixo" && unset prefixo
 		[ ${#num_saida} -gt 0 ] && echo ${prefixo}${num_saida}${sufixo}
 	fi

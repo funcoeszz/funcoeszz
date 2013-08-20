@@ -2,15 +2,15 @@
 # http://www.primos.mat.br
 # Fatora um número em fatores primos.
 # Com as opções:
-#   --atualiza: atualiza o cache com 10 mil primos ( padrão e rápida ).
-#   --atualiza-1m: atualiza o cache com 1 milhão de primos. ( mais lenta ).
+#   --atualiza: atualiza o cache com 10 mil primos (padrão e rápida).
+#   --atualiza-1m: atualiza o cache com 1 milhão de primos (mais lenta).
 #   --bc: saída apenas da expressão, que pode ser usado no bc, awk ou etc.
 #   --no-bc: saída apenas do fatoramento.
 #    por padrão exibe tanto o fatoramento como a expressão.
 #
 # Se o número for primo, é exibido a mensagem apenas.
 #
-# Uso: zzfatorar [--atualiza|atualiza-1m] [--bc|--no-bc] <numero>
+# Uso: zzfatorar [--atualiza|--atualiza-1m] [--bc|--no-bc] <número>
 # Ex.: zzfatorar 1458
 #      zzfatorar --bc 1296
 #
@@ -89,10 +89,10 @@ zzfatorar ()
 
 		# Se o número fornecido for primo, retorna-o e sai
 		grep "^${1}$" ${cache} > /dev/null
-		[ "$?" = "0" ] && { echo " $1 é um número primo."; return; }
+		[ "$?" = "0" ] && { echo "$1 é um número primo."; return; }
 
 		num_atual="$1"
-		tamanho=$((${#1} + 1))
+		tamanho=${#1}
 
 		# Enquanto a resultado for maior que o número primo continua, ou dentro dos primos listados no cache.
 		while [ ${num_atual} -gt ${primo_atual} -a ${linha_atual} -le $(wc -l "$cache" | tr -d -c '[0-9]') ]
@@ -125,16 +125,16 @@ zzfatorar ()
 			then
 				linha_atual=$((${linha_atual} + 1))
 				primo_atual=$(sed -n "${linha_atual}p" "$cache")
-				[ ${#primo_atual} -eq 0 ] && { zztool eco " Valor não fatorável nessa configuração do script!"; return 1; }
+				[ ${#primo_atual} -eq 0 ] && { zztool eco "Valor não fatorável nessa configuração do script!"; return 1; }
 			fi
 		done
 
 		if [ "$bc" != "2" ]
 		then
-			saida=$(echo "$saida " | sed 's/ /&\n/g' | sed '/^ *$/d;s/^ */ /g' |
-			uniq -c | awk '{ if ($1==1) {print $2} else {print $2 "^" $1} }' | zzjuntalinhas -d ' * ')
+			saida=$(echo "$saida " | sed 's/ /&\
+/g' | sed '/^ *$/d;s/^ *//g' | uniq -c | awk '{ if ($1==1) {print $2} else {print $2 "^" $1} }' | zzjuntalinhas -d ' * ')
 			[ "$bc" -eq "1" ] || echo
-			echo " $1 = $saida"
+			echo "$1 = $saida"
 		fi
 	fi
 }

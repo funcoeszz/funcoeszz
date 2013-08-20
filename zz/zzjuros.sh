@@ -68,20 +68,20 @@ zzjuros ()
 			BEGIN { item = 1}
 			{
 				if (NF>0) {
-					if ($2 == "Pessoa") { $1 = ""; printf "\n\n%s", $0 }
+					if ($2 == "Pessoa") { $1 = ""; printf "\n\n%s", $2 " " $3 }
 					else if ($1 == "*" || $1 == "Taxas" || $2 == "Taxas") {
 						if ($1 == "*" && $2 != "Taxas") {
 							$1 = (item<10?" ":"") " " item++
 						}
-						printf "\n %s", $0
+						printf "\n%s", $0
 					}
 					else {
-						printf " %s", $0
+						printf "%s", $0
 					}
 				}
 			}
 			END { print "" }
-		' | sed '1d;s/^[ *]*Taxas / Taxas /g' |
+		' | sed '1,2d;s/^[ *]*Taxas /Taxas /g' |
 		if test "$1" = "cod"
 		then
 			# Usado internamente, mostra a listagem com as opções a serem colocadas na url.

@@ -23,8 +23,9 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 7
+# Versão: 10
 # Licença: GPLv2
+# Requisitos: zzxml zzplay
 # ----------------------------------------------------------------------------
 zztradutor ()
 {
@@ -38,8 +39,7 @@ zztradutor ()
 	local lang_de='pt'
 	local lang_para='en'
 	local charset_para='UTF-8'
-	local audio_file="/tmp/$$.WAV"
-	local play_cmd='mpg123 -q'
+	local audio_file="$ZZTMP.tradutor.$$.wav"
 
 	case "$1" in
 		# O usuário informou um par de idiomas, como pt-en
@@ -54,11 +54,10 @@ zztradutor ()
 		-l | --lista)
 			# Uma tag por linha, então extrai e formata as opções do <SELECT>
 			$ZZWWWHTML "$url" |
-			sed 's/</\n&/g'  |
+			zzxml --tag option |
 			sed -n '/<option value=af>/,/<option value=yi>/p' |
-			sed -n '1p;2,/value=af/p' | sed -n '$d;' awk '{if (NR % 2 != 0 ) print $0}' |
-			sed 's/<option .*value=/ /g;s/>/: /g;s/zh-CN/cn/g' |
-			zztool texto_em_iso |
+			zztool texto_em_iso | sort -u |
+			sed 's/.*value=\([^>]*\)>\([^<]*\)<.*/\1: \2/g;s/zh-CN/cn/g' |
 			grep ${2:-:}
 			return
 		;;
@@ -67,7 +66,8 @@ zztradutor ()
 				shift
 				padrao=$(echo "$*" | sed "$ZZSEDURL")
 				local audio="translate_tts?ie=$charset_para&q=$padrao&tl=pt&prev=input"
-				$ZZWWWHTML "$url/$audio" > $audio_file && $play_cmd $audio_file && rm -rf $audio_file
+				$ZZWWWHTML "$url/$audio" > $audio_file && zzplay $audio_file
+				rm -f $audio_file
 				return
 		;;
 	esac

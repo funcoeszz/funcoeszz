@@ -21,7 +21,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 14
+# Versão: 17
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio
 # ----------------------------------------------------------------------------
@@ -48,6 +48,17 @@ zzmat ()
 	fi
 
 	funcao="$1"
+
+	# Atalhos para funções pow e fat, usando operadores unários
+	if zztool grep_var '^' "$funcao" && zzmat testa_num "${funcao%^*}" && zzmat testa_num "${funcao#*^}"
+	then
+		zzmat -p${precisao} pow "${funcao%^*}" "${funcao#*^}"
+		return
+	elif zztool grep_var '!' "$funcao" && zztool testa_numero "${funcao%\!}"
+	then
+		zzmat -p${precisao} fat "${funcao%\!}" $2
+		return
+	fi
 
 	case "$funcao" in
 	testa_num)
@@ -151,10 +162,11 @@ zzmat ()
 			dg) num="$num1*0.9";;
 			gd) num="$num1/0.9";;
 			??)
-				local grandeza1 grandeza2 fator divisor potencia
+				local grandeza1 grandeza2 fator divisor potencia letra
 				local grandezas="y z a f p n u m c d 1 D H K M G T P E Z Y"
 				local potencias="-24 -21 -18 -15 -12 -9 -6 -3 -2 -1 0 1 2 3 6 9 12 15 18 21 24"
 				local posicao='1'
+
 				precisao=24
 				grandeza1=$(echo "$2" | sed 's/\([[:alpha:]1]\)[[:alpha:]1]/\1/')
 				grandeza2=$(echo "$2" | sed 's/[[:alpha:]1]\([[:alpha:]1]\)/\1/')
@@ -163,14 +175,20 @@ zzmat ()
 					for letra in $(echo "$grandezas")
 					do
 						potencia=$(echo "$potencias" | awk '{print $'$posicao'}')
-						[ "$grandeza1" = "$letra" ] && fator=$(zzmat -p${precisao} elevado 10 $potencia)
-						[ "$grandeza2" = "$letra" ] && divisor=$(zzmat -p${precisao} elevado 10 $potencia)
+						[ "$grandeza1" = "$letra" ] && fator=$potencia
+						[ "$grandeza2" = "$letra" ] && divisor=$potencia
 						posicao=$((posicao + 1))
 					done
 					if ([ "$fator" ] && [ "$divisor" ])
 					then
-						echo "$num1 $fator $divisor" |
-						awk '{printf "%.'$precisao'f\n", $1*$2/$3}' |
+						precisao=$(zzmat abs $(($fator - $divisor)))
+						potencia=$(echo "$precisao" | awk '{printf 1;for (i=1;i<=$1;i++) {printf 0 }}')
+						case $(zzmat compara_num 0 $(($fator - $divisor))) in
+							'menor') letra='*';;
+							'maior') letra='/';;
+						esac
+						echo "scale=$precisao;${num1} ${letra} ${potencia}" | bc -l |
+						awk '{printf "%.'${precisao}'f\n", $1}' |
 						zzmat -p${precisao} sem_zeros
 					fi
 				fi
@@ -357,10 +375,13 @@ zzmat ()
 			local num1 num2
 			num1=$(echo "$2" | tr ',' '.')
 			num2=$(echo "$3" | tr ',' '.')
-			num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", ('$num1')^('$num2')}')
+			num=$(echo "scale=${precisao};${num1}^${num2}" | bc -l | awk '{ printf "%.'${precisao}'f\n", $1 }')
 		else
 			echo " zzmat $funcao: Um número elevado a um potência"
-			echo " Uso: zzmat $funcao número potencia"
+			echo " Uso: zzmat $funcao número potência"
+			echo " Uso: zzmat número^potência"
+			echo " Ex.: zzmat $funcao 4 3"
+			echo " Ex.: zzmat 3^7"
 			return 1
 		fi
 	;;
@@ -716,12 +737,29 @@ zzmat ()
 		fi
 	;;
 	fat)
-		if ([ $# -eq "2" ] && zztool testa_numero "$2" && [ "$2" -ge "1" ])
+		if ([ $# -eq "2" -o $# -eq "3" ] && zztool testa_numero "$2" && [ "$2" -ge "1" ])
 		then
-			zzseq $2 | paste -s -d* - | bc -l
+			if [ "$3" = "s" ]
+			then
+				local num1 num2
+				num2=1
+				for num1 in $(zzseq $2)
+				do
+					num2=$(echo "$num1 * $num2" | bc | tr -d '\n\\')
+					printf "%s " $num2
+				done | sed 's/ $//'
+				echo
+			else
+				zzseq $2 | paste -s -d* - | bc | tr -d '\n\\'
+				echo
+			fi
 		else
 			echo " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
-			echo " Uso: zzmat $funcao numero"
+			echo " Com o argumento 's' imprime a sequência até a posição."
+			echo " Uso: zzmat $funcao numero [s]"
+			echo " Uso: zzmat numero! [s]"
+			echo " Ex.: zzmat $funcao 4"
+			echo "      zzmat 5!"
 			return 1
 		fi
 	;;
@@ -819,7 +857,7 @@ zzmat ()
 					awk '{printf "%.'${precisao}'f\n", $1}')
 				fi
 				valor=$(echo "$valor" | zzmat -p${precisao} sem_zeros)
-				printf " %s" "$valor"
+				[ $passo -lt $(($4 - 1)) ] && printf "%s " "$valor" || printf "%s" "$valor"
 				passo=$(($passo+1))
 			done
 			echo
@@ -846,7 +884,7 @@ zzmat ()
 						num2 = num3
 					}
 					if ( seq != 1 ) { printf "%s ", num1 }
-				}'
+				}' | sed 's/ $//'
 			echo
 		else
 			echo " Número de fibonacci ou lucas, na posição especificada."
@@ -871,7 +909,7 @@ zzmat ()
 						num3 = num4
 					}
 					if ( seq != 1 ) { printf "%s ", num1 }
-				}'
+				}' | sed 's/ $//'
 			echo
 		else
 			echo " Número de tribonacci, na posição especificada."
@@ -910,8 +948,8 @@ zzmat ()
 				zzmat -p${precisao} sem_zeros )
 			;;
 			esac
-			[ "$num_raiz" = "2" ] && echo -e " X1: $raiz1 \n X2: $raiz2" || echo " X: $raiz1"
-			echo " Vertice: (${vert_x}, ${vert_y})"
+			[ "$num_raiz" = "2" ] && printf "%b\n" "X1: ${raiz1}\nX2: ${raiz2}" || echo "X: $raiz1"
+			echo "Vertice: (${vert_x}, ${vert_y})"
 		else
 			echo " zzmat $funcao: Equação do Segundo Grau (Raízes e Vértice)"
 			echo " Uso: zzmat $funcao A B C"
@@ -1037,11 +1075,11 @@ zzmat ()
 			then
 				valor=$(echo "sqrt(${valor}^2-$z1^2)" | bc -l |
 					awk '{printf "%.'${precisao}'f\n", $1}' | zzmat -p${precisao} sem_zeros )
-				echo "${valor},${teta}${saida},${z1}"
+				echo "${valor}, ${teta}${saida}, ${z1}"
 			else
 				valor=$(echo "$valor" | bc -l |
 					awk '{printf "%.'${precisao}'f\n", $1}' | zzmat -p${precisao} sem_zeros )
-				echo "${valor},${teta}${saida},${fi}${saida}"
+				echo "${valor}, ${teta}${saida}, ${fi}${saida}"
 			fi
 		else
 			echo " zzmat $funcao: Operação entre vetores"

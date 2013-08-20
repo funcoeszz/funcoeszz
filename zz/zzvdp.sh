@@ -11,7 +11,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzunescape zzdatafmt
 # ----------------------------------------------------------------------------
@@ -23,12 +23,13 @@ zzvdp ()
 
 	if [ "$1" ] && zztool testa_data $(zzdatafmt "$1")
 	then
-		url=$(zzdatafmt -f "${url}/AAAA/MM/DD" $1)
+		url="${url}/"$(zzdatafmt -f 'AAAA/MM/DD' $1)
 	fi
 
 	$ZZWWWHTML $url |
 	sed -n '/title="Link permanente para /,/title="Comentário para /p' |
-	sed 's/<[^>]*>//g;/[0-9]\{1,\} resposta/d;/Tweet/d;s/^[[:blank:]]*/ /g' |
-	sed 's/^ *Camiseta: .*/&\n----------------------------------------------------------------------------/g' |
+	sed 's/<[^>]*>//g;/[0-9]\{1,\} resposta/d;/Tweet/d;s/^[[:blank:]]*//g' |
+	sed '/^ *Camiseta: .*/ a \
+----------------------------------------------------------------------------' |
 	zzunescape --html | uniq
 }

@@ -1,6 +1,5 @@
 # ----------------------------------------------------------------------------
-# Resultados das seguintes loterias suportadas.
-#  - quina, megasena, duplasena, lotomania, lotofácil, federal e timemania.
+# Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal, timemania e loteca.
 # Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
 # Se nenhum argumento for passado, todas as loterias são mostradas.
 #
@@ -10,7 +9,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzseq zzsemacento
 # ----------------------------------------------------------------------------
@@ -82,11 +81,11 @@ zzloteria2 ()
 					tr @ '\n'
 				)
 				faixa=$(zzseq -f "\t%d ptos\n" 20 1 16)
-				echo -e "${faixa}\n\t 0 ptos" > "${cache}"
+				printf %b "${faixa}\n\t 0 ptos" > "${cache}"
 				echo "$dump" | cut -d '|' -f 28,30,32,34,36,38 | tr '|' '\n' > "${cache}.num"
 				echo "$dump" | cut -d '|' -f 29,31,33,35,37,39 | tr '|' '\n' > "${cache}.val"
 			;;
-			lotofacil)
+			lotof[áa]cil)
 				# O resultado vem separado em campos distintos. Exemplo:
 				# |01|04|07|08|09|10|12|14|15|16|21|22|23|24|25|
 				resultado=$(echo "$dump" | cut -d '|' -f 4-18 |
@@ -94,7 +93,7 @@ zzloteria2 ()
 					tr @ '\n'
 				)
 				faixa=$(zzseq -f "\t%d ptos\n" 15 1 11)
-				echo -e "$faixa" > "${cache}"
+				printf '%b\n' "$faixa" > "${cache}"
 				echo "$dump" | cut -d '|' -f 19,21,23,25,27 | tr '|' '\n' > "${cache}.num"
 				echo "$dump" | cut -d '|' -f 20,22,24,26,28 | tr '|' '\n' > "${cache}.val"
 				dump=$(    echo "$dump" | sed 's/.*Estimativa de Pr//')
@@ -112,8 +111,8 @@ zzloteria2 ()
 					tr '|' '\n' |
 					sed 's/^ - //'
 				)
-				faixa=$(echo -e "\tSena|\tQuina|\tQuadra"| tr '|' '\n')
-				echo -e "$faixa" > "${cache}"
+				faixa=$(printf '%b' "\tSena\n\tQuina\n\tQuadra\n")
+				printf '%b\n' "$faixa" > "${cache}"
 				echo "$dump" | cut -d '|' -f 4,6,8 | tr '|' '\n' > "${cache}.num"
 				echo "$dump" | cut -d '|' -f 5,7,9 | tr '|' '\n' > "${cache}.val"
 			;;
@@ -129,8 +128,8 @@ zzloteria2 ()
 					tr '|' '\n' |
 					sed 's/^ - //'
 				)
-				faixa=$(echo -e "\t1ª Sena|\t1ª Quina|\t1ª Quadra||\t2ª Sena|\t2ª Quina|\t2ª Quadra" | tr '|' '\n')
-				echo -e "$faixa" > "${cache}"
+				faixa=$(printf %b "\t1ª Sena\n\t1ª Quina\n\t1ª Quadra\n\n\t2ª Sena\n\t2ª Quina\n\t2ª Quadra\n")
+				printf '%b\n' "$faixa" > "${cache}"
 				echo "$dump" | awk 'BEGIN {FS="|";OFS="\n"} {print $7,$26,$28,"",$9,$10,$13}' > "${cache}.num"
 				echo "$dump" | awk 'BEGIN {FS="|";OFS="\n"} {print $8,$27,$29,"",$11,$12,$14}' > "${cache}.val"
 			;;
@@ -148,7 +147,7 @@ zzloteria2 ()
 					sed 's/^ - // ; 1d'
 				)
 				faixa=$(echo "\tQuina|\tQuadra|\tTerno" | tr '|' '\n')
-				echo -e "$faixa" > "${cache}"
+				printf '%b\n' "$faixa" > "${cache}"
 				echo "$dump" | cut -d '|' -f 7,9,11 | tr '|' '\n' > "${cache}.num"
 				echo "$dump" | cut -d '|' -f 8,10,12 | tr '|' '\n' > "${cache}.val"
 			;;
@@ -181,9 +180,9 @@ zzloteria2 ()
 					tr '|' '\n' |
 					sed 's/^ - //'
 				)
-				resultado=$(echo -e ${resultado}"\nTime: "$(echo "$dump" | cut -d '|' -f 9))
+				resultado=$(printf %b "${resultado}\nTime: "$(echo "$dump" | cut -d '|' -f 9))
 				faixa=$(zzseq -f "\t%d ptos\n" 7 1 3)
-				echo -e "$faixa" > "${cache}"
+				printf '%b\n' "$faixa" > "${cache}"
 				echo "$dump" | cut -d '|' -f 10,12,14,16,18 | tr '|' '\n' > "${cache}.num"
 				echo "$dump" | cut -d '|' -f 11,13,15,17,19 | tr '|' '\n' > "${cache}.val"
 			;;
@@ -193,9 +192,12 @@ zzloteria2 ()
 				acumulado=$(echo "$dump" | awk -F"|" '{print $(NF-1) "|" $(NF)}' )
 				acumulado="${acumulado}_Acumulado para a 1ª faixa "$(echo "$dump" | awk -F"|" '{print $(NF-5)}' )
 				acumulado="${acumulado}_"$(echo "$dump" | awk -F"|" '{print $(NF-2)}' )
-				acumulado=$(echo "${acumulado}" | sed 's/_/\n   /g;s/ Valor //' )
+				acumulado=$(echo "${acumulado}" | sed 's/_/\
+   /g;s/ Valor //' )
 				resultado=$(printf "$dump" | cut -d '|' -f 4 |
-				sed 's/ [0-9] [0-9]* /\n &/g;s/ [0-9]\{2\} [0-9]*/\n&/g' |
+				sed 's/ [0-9] [0-9]* /\
+ &/g;s/ [0-9]\{2\} [0-9]*/\
+&/g' |
 				sed '1d' |
 				zzsemacento |
 				sed 's|\(/[A-Z]\{2\}\) \(JUNIOR\)|-JR\1|g' |
@@ -225,8 +227,9 @@ zzloteria2 ()
 
 					}')
 				faixa=$(zzseq -f '\t%d\n' 14 13)
-				echo -e "$faixa" > "${cache}"
-				echo "$dump" | cut -d '|' -f 5 | sed 's/ [12].\{1,2\} (1[34] acertos)/\n/g;' | sed '1d' | sed 's/[0-9] /&\t/g' > "${cache}.num"
+				printf '%b\n' "$faixa" > "${cache}"
+				echo "$dump" | cut -d '|' -f 5 | sed 's/ [12].\{1,2\} (1[34] acertos)/\
+/g;' | sed '1d' | sed 's/[0-9] /&\t/g' > "${cache}.num"
 				echo '' > "${cache}.val"; echo '' >> "${cache}.val"
 			;;
 		esac
@@ -240,7 +243,7 @@ zzloteria2 ()
 			[ "$acumulado" ] && echo "   Acumulado em R$ $acumulado" | sed 's/|/ para /'
 			if [ "$faixa" ]
 			then
-				echo -e "\tFaixa\tQtde.\tPrêmio" | expand -t 5,17,32
+				printf %b "\tFaixa\tQtde.\tPrêmio\n" | expand -t 5,17,32
 				paste "${cache}" "${cache}.num" "${cache}.val"| expand -t 5,17,32
 			fi
 			echo

@@ -1,81 +1,38 @@
-#!/usr/bin/env bash
+#!/bin/sh
+# run - run tests
 #
-# testador/run
-#
-# Uso:
-#   ./run               # fazer todos os testes
-#   ./run senha cores   # testar somente zzsenha e zzcores
-#
-# Se o teste foi OK, nada será mostrado na tela.
-# Se o teste falhou, o erro será mostrado.
-#
-# Os arquivos .out guardam o texto esperado como resultado.
-# Os arquivos _dados e _empty são usados como fonte de dados em alguns testes.
-# O arquivo _lib traz algumas ferramentas para facilitar a escrita de testes.
-#
-# Exemplo de execução com todos os testes OK:
-#   $ ./run
-#   1. alfabeto
-#   2. ansi2html
-#   3. arrumanome
-#   4. ascii
-#   ...
-#   51. trocapalavra
-#   52. uniq
-#   $
-#
-# Exemplo de execução de uma única função OK:
-#   $ ./run senha
-#   1. senha
-#   $
-#
-# Para adicionar um teste novo:
-# - Crie um arquivo com o nome da função, sem o prefixo zz.
-# - Este arquivo deve ser um script autônomo que testa a função.
-# - Não precisa dar chmod +x no script, ele será executado via "sh script"
-# - Para chamar a função durante o teste, use: ../funcoeszz zzminhafuncao
-# - O script não deve retornar nada na tela caso os testes estejam OK.
-# - O script deve mostrar na tela quando um erro ocorrer.
-#
-# Notas para rodar o testador em sistemas ISO-8859-1:
-# - Renomeie o arquivo funcoeszz-iso para funcoeszz
-# - Converta os seguintes arquivos de UTF-8 para ISO-8859-1:
-#   testador: foneletra, maiusculas, minusculas
-#   testador/internet: dicjargon.ok, dicportugues.ok, whoisbr.ok, wikipedia.ok
-# - Para converter cada arquivo, use:
-#   iconv -f UTF-8 -t ISO-8859-1 arquivo > arquivo-iso
-#   mv arquivo-iso arquivo
-#
+# Usage:
+#   ./run zzsenha.sh zzcores.sh   # test zzsenha and zzcores
+#   ./run                         # run all tests
 
-ignore="LEIAME ansi2html.out arrumanome.out cores.out funcoeszz internet run stats tabuada.out tabuada3.out tabuada99.out unescape.txt unicode2ascii.txt xml.out"
+script_dir=$(dirname "$0")
+zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
+tmp='run.tmp'
+tester='doctest.sh'
 
-alltests=${*:-[a-z]*}  # Translating: $* or [a-z]*
-# zz="../funcoeszz"
-
-# Go to tests folder
-cd $(dirname "$0")
-
-# Remove all cache files
-rm -f ${ZZTMP:-emptyempty}.*
-
-# Generate all-in-one script (way faster)
-zz="./funcoeszz"
-ZZDIR=../zz ZZOFF='' ../funcoeszz --tudo-em-um > "$zz"
-unset ZZDIR
-chmod +x "$zz" || {
-	echo "Error: $zz"
+# Check requirements
+$tester -V > /dev/null || {
+	printf '%s\n' "Ops... Não achei o programa testador: $tester"
+	printf '%s\n' 'Baixe-o deste endereço:'
+	printf '%s\n' 'https://raw.github.com/aureliojargas/?????/master/?????.sh'
 	exit 1
 }
 
-i=0
-for f in $alltests; do
+# Create temporary file with ZZ init in full paths
+cat > "$tmp" <<EOF
+. "$zz_root"/funcoeszz \\
+	--cor 0 \\
+	--path "$zz_root"/funcoeszz \\
+	--dir  "$zz_root"/zz
+EOF
 
-	# Ignore this file?
-	echo $ignore | tr ' ' \\n | grep "^$f$" >/dev/null && continue
+if test $# -gt 0
+then
+	# Test specific file(s)
+	"$tester" --pre-flight ". $tmp" "$@"
+else
+	# Test all files
+	"$tester" --pre-flight ". $tmp" zz*.sh
+fi
 
-	i=$((i+1))
-
-	# Run the test for this file
- 	ZZCOR=1 "$zz" tool eco $i. $f
-	bash $f
-done
+rm "$tmp"

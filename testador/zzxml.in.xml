@@ -1,0 +1,10 @@
+<xml>
+<section>
+	<title>Título</title>
+	<img src="foo.png" />
+	<para>
+		Meu parágrafo, com <strong>negrito</strong> e <em>itálico</em>.
+	</para>
+	<escape>&quot;&amp;&apos;&lt;&gt;</escape>
+</section>
+</xml>
