@@ -26,6 +26,7 @@ cat > "$tmp" <<EOF
 	--dir  "$zz_root"/zz
 EOF
 
+# Note: To remove the dots ........ change 'dot' to 'none'
 if test $# -gt 0
 then
 	# Test specific file(s)
