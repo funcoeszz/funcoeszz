@@ -14,7 +14,7 @@ Todos os arquivos de testes são identificados pelo nome da função e a extens�
 
 ```
 $ ./run zztac.sh
-OK! All 3 tests have passed.
+OK: 5 of 5 tests passed
 $
 ```
 
@@ -23,13 +23,13 @@ Se tudo estiver funcionando, todos os testes serão bem sucedidos e aparecerá e
 ```
 $ ./run zzarrumacidade.sh
 --------------------------------------------------
-[FAILED #12] zzarrumacidade "SAMPA"
+[FAILED #12, line 15] zzarrumacidade "SAMPA"
 @@ -1 +1 @@
 -São Paulo
 +S?o Paulo
 --------------------------------------------------
 
-FAIL: 1 of 66 tests have failed.
+FAIL: 1 of 66 tests failed
 $
 ```
 
@@ -53,15 +53,14 @@ Testing file zzhora.sh
 Testing file zzseq.sh
 Testing file zztac.sh
 
-==================================================
- 58 ok            zzbyte.sh
-  6 ok            zzcidade.sh
- 83 ok            zzhora.sh
- 73 ok            zzseq.sh
-  3 ok            zztac.sh
-==================================================
+     ok  fail  skip
+     58     -     -    zzbyte.sh
+      6     -     -    zzcidade.sh
+     83     -     -    zzhora.sh
+     73     -     -    zzseq.sh
+      5     -     -    zztac.sh
 
-YOU WIN! PERFECT! All 223 tests have passed.
+OK: 225 of 225 tests passed
 $
 ```
 
@@ -172,7 +171,7 @@ OK, já temos quatro testes, está bom pra começar. Agora selecione estas linha
 
 ```
 $ ./run zzfoo.sh
-OK! All 4 tests have passed.
+OK: 4 of 4 tests passed
 $
 ```
 
