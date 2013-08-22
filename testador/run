@@ -4,6 +4,8 @@
 # Usage:
 #   ./run zzsenha.sh zzcores.sh   # test zzsenha and zzcores
 #   ./run                         # run all tests
+#
+# See README.md file for instructions.
 
 script_dir=$(dirname "$0")
 zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
