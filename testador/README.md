@@ -236,6 +236,12 @@ $ pwd                         #→ --eval echo $PWD
 Com `--eval`, o teste passará se o resultado do comando for exatamente igual ao resultado do comando informado. É útil principalmente para expandir o valor de variáveis com guardam o resultado, ou parte dele. Exemplos: [zzmaiusculas.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzmaiusculas.sh), [zzdata.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzdata.sh), [zzgravatar.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzgravatar.sh).
 
 
+Para ver rapidamente os exemplos já utilizados destas opções, use o grep nos arquivos de testes atuais:
+
+```
+grep -- --regex testador/zz*.sh
+```
+
 
 Dicas
 -----
