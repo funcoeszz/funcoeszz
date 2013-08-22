@@ -224,10 +224,10 @@ $ tac /etc/passwd | tac       #→ --file /etc/passwd
 Com `--file`, o teste passará se o resultado do comando for exatamente igual ao conteúdo do arquivo informado. Use testes desse tipo quando o resultado for um texto estruturado, ou em um formato específico, que seja mais cômodo guardar num arquivo externo. Exemplos: [zzcores.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzcores.sh), [zztabuada.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zztabuada.sh), [zzunicode2ascii.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzunicode2ascii.sh).
 
 ```
-$ cat /etc/passwd             #→ --regex ^root:
+$ echo $((2 + 10))            #→ --regex ^\d+$
 ```
 
-Com `--regex`, o teste passará se qualquer uma das linhas do resultado casar com a [expressão regular](http://aurelio.net/regex/) informada (padrão `egrep`). Use testes desse tipo quando o resultado for variável, mas com um padrão conhecido, que você pode casar com uma regex. Exemplos: [zzdado.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzdado.sh), [zzipinternet.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzipinternet.sh), [zzsenha.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzsenha.sh).
+Com `--regex`, o teste passará se a(s) linha(s) do resultado casar com a [expressão regular](http://aurelio.net/regex/) informada (padrão super-poderoso `Perl`). Use testes desse tipo quando o resultado for variável, mas com um padrão conhecido, que você pode casar com uma regex. Exemplos: [zzdado.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzdado.sh), [zzipinternet.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzipinternet.sh), [zzsenha.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzsenha.sh).
 
 ```
 $ pwd                         #→ --eval echo $PWD
