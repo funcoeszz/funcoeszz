@@ -289,13 +289,13 @@ $ rm -f _tmp[12]
 ```
 
 
-cltest
-------
+clitest
+-------
 
-O script `run` é apenas um wrapper pequeno, para facilitar a chamada do testador de verdade, que faz todo o trabalho pesado: `cltest` (*command line tester*).
+O script `run` é apenas um wrapper pequeno, para facilitar a chamada do testador de verdade, que faz todo o trabalho pesado: `clitest` (*command line tester*).
 
-O `cltest` é um projeto separado, também criado pelo Aurelio Jargas e também escrito em shell script. Para mais informações sobre o funcionamento do testador, acesse:
+O `clitest` é um projeto separado, também criado pelo Aurelio Jargas e também escrito em shell script. Para mais informações sobre o funcionamento do testador, acesse:
 
-* <https://github.com/aureliojargas/cltest>
+* <https://github.com/aureliojargas/clitest>
 
 
