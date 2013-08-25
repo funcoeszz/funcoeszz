@@ -263,7 +263,8 @@ zzbolsas ()
 				pags=$(echo "scale=0;($pag_final - 1) / 50" | bc)
 
 				unset vartemp
-				for ((pag=0;pag<=$pags;pag=$pag+1))
+				pag=0
+				while test $pag -le $pags
 				do
 					if test "$1" = "--lista"
 					then
@@ -295,6 +296,7 @@ zzbolsas ()
 
 						if test "$pag" = "$pags";then echo $vartemp;fi
 					fi
+					pag=$(($pag+1))
 				done
 
 			# Valores de uma bolsa ou ação em uma data especificada (histórico)
@@ -437,12 +439,14 @@ zzbolsas ()
 				bolsa=$(echo "$1" | zzmaiusculas)
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa" | sed -n '/Primeira/p;/Primeira/q' | sed 's/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/')
 				pags=$(echo "scale=0;($pag_final - 1) / 50" | bc)
-				for ((pag=0;pag<=$pags;pag=$pag+1))
+				pag=0
+				while test $pag -le $pags
 				do
 					$ZZWWWDUMP "$url/q/cp?s=$bolsa&c=$pag" |
 					sed -n 's/^ *//g;/Símbolo /,/Primeira/p' |
 					sed '/Símbolo /d;/Primeira/d;/^[ ]*$/d' |
 					grep -i "$2"
+					pag=$(($pag+1))
 				done
 			fi
 		;;
