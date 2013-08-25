@@ -375,7 +375,12 @@ zzmat ()
 			local num1 num2
 			num1=$(echo "$2" | tr ',' '.')
 			num2=$(echo "$3" | tr ',' '.')
-			num=$(echo "scale=${precisao};${num1}^${num2}" | bc -l | awk '{ printf "%.'${precisao}'f\n", $1 }')
+			if zztool testa_numero $num2
+			then
+				num=$(echo "scale=${precisao};${num1}^${num2}" | bc -l | awk '{ printf "%.'${precisao}'f\n", $1 }')
+			else
+				num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", ('$num1')^('$num2')}')
+			fi
 		else
 			echo " zzmat $funcao: Um número elevado a um potência"
 			echo " Uso: zzmat $funcao número potência"
