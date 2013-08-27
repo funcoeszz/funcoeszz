@@ -9,7 +9,7 @@
 
 script_dir=$(dirname "$0")
 zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
-tmp='run.tmp'
+tmp='./run.tmp'
 tester='clitest'
 
 # Check requirements
