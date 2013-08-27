@@ -456,7 +456,7 @@ zzajuda ()
 # ----------------------------------------------------------------------------
 zzzz ()
 {
-	local nome_func arg_func padrao
+	local nome_func arg_func padrao func
 	local info_instalado info_instalado_zsh info_cor info_utf8 info_base versao_remota
 	local arquivo_aliases arquivo_zz
 	local n_on n_off
