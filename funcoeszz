@@ -1096,6 +1096,8 @@ then
 			else
 				echo "Função inexistente '$func' (tente --help)"
 			fi
+
+			unset func
 		;;
 	esac
 fi
