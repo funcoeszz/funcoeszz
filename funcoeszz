@@ -1080,24 +1080,24 @@ then
 
 		# Chama a função informada em $1, caso ela exista
 		*)
-			func="$1"
+			zz_func="$1"
 
 			# Garante que a zzzz possa ser chamada por zz somente
-			[ "$func" = 'zz' ] && func='zzzz'
+			[ "$zz_func" = 'zz' ] && zz_func='zzzz'
 
 			# O prefixo zz é opcional: zzdata e data funcionam
-			func="zz${func#zz}"
+			zz_func="zz${zz_func#zz}"
 
 			# A função existe?
-			if type $func >/dev/null 2>&1
+			if type $zz_func >/dev/null 2>&1
 			then
 				shift
-				$func "$@"
+				$zz_func "$@"
 			else
-				echo "Função inexistente '$func' (tente --help)"
+				echo "Função inexistente '$zz_func' (tente --help)"
 			fi
 
-			unset func
+			unset zz_func
 		;;
 	esac
 fi
