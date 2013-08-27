@@ -41,7 +41,7 @@ zztabuada ()
 				done
 				echo "$linha"
 				echo
-			done
+			done | sed '$d'
 		;;
 	esac
 }
