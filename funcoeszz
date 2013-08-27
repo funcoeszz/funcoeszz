@@ -980,7 +980,7 @@ do
 	fi
 
 	# Inclui a função na shell atual
-	source "$zz_arquivo"
+	. "$zz_arquivo"
 
 	# Extrai o texto de ajuda
 	_extrai_ajuda "$zz_arquivo" |
