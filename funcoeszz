@@ -1029,7 +1029,7 @@ unset zz_arquivo
 unset zz_nome
 unset zz_off
 unset zz_sed
-unset _extrai_ajuda
+unset -f _extrai_ajuda
 
 
 ##----------------------------------------------------------------------------
