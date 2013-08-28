@@ -23,7 +23,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-10-02
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzconverte ()
@@ -70,19 +70,22 @@ zzconverte ()
 				echo "obase=2;$1" | bc -l
 			;;
 			bd)
-				echo "$((2#$1))"
+				#echo "$((2#$1))"
+				echo "ibase=2;$1" | bc -l
 			;;
 			cd)
 				printf "%d\n" "'$1"
 			;;
 			dc)
-				echo -e $(printf "\\\x%x" $1)
+				# echo -e $(printf "\\\x%x" $1)
+				awk 'BEGIN {printf "%c\n", '$1'}'
 			;;
 			ch)
 				printf "%x\n" "'$1"
 			;;
 			hc)
-				echo -e "\x${1#0x}"
+				#echo -e "\x${1#0x}"
+				printf '%d\n' "0x${1#0x}" | awk '{printf "%c\n", $1}'
 			;;
 			dh)
 				printf '%x\n' "$1"
