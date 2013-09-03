@@ -109,7 +109,7 @@ zzpalpite ()
 			final=$((final - 1))
 		done
 
-		if test "${#palpites}" -gt 0 
+		if test "${#palpites}" -gt 0
 		then
 			palpites=$(echo "$palpites" | tr ' ' '\n' | sort -n -t ' ' | tr '\n' ' ')
 			if [ $(echo " $palpites" | wc -w ) -ge "10" ]

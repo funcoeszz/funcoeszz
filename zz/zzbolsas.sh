@@ -105,7 +105,7 @@ zzbolsas ()
 			# Lista os códigos da bolsas e seus nomes
 			case "$1" in
 			#Limpa todos os cache acumulado
-			--limpa| --limpar) rm -f $ZZTMP.bolsas.* 2>/dev/null;;
+			--limpa| --limpar) rm -f "$ZZTMP.bolsas".* 2>/dev/null;;
 			-l | --lista)
 				for bolsa in americas europe asia africa
 				do
