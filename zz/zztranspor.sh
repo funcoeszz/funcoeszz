@@ -33,13 +33,13 @@ zztranspor ()
 	do
 		case "$1" in
 			-d | --fs)
-			# Separado de campo no arquivo de entrada
+			# Separador de campos no arquivo de entrada
 				sep="$2"
 				shift
 				shift
 			;;
 			--ofs)
-			# Separado de campoS na saída
+			# Separador de campos na saída
 				ofs="$2"
 				shift
 				shift
@@ -64,9 +64,6 @@ zztranspor ()
 		if (max_nf < NF)
 			max_nf = NF
 
-		# Numero total de linhas
-		max_nr = NR
-
 		# Criando um array indexado por número do campo e número da linha, nessa ordem
 		for (i = 1; i <= NF; i++)
 			vetor[i, NR] = $i
@@ -76,7 +73,7 @@ zztranspor ()
 		# Transformando o campo em linha
 		for (i = 1; i <= max_nf; i++) {
 			# Transformando a linha em campo
-			for (j = 1; j <= max_nr; j++)
+			for (j = 1; j <= NR; j++)
 				linha = sprintf("%s%s%s", linha, vetor[i, j], ofs_awk)
 
 			# Tirando o separador ao final da linha
