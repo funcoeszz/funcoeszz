@@ -11,7 +11,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzunescape zzdatafmt
 # ----------------------------------------------------------------------------
@@ -26,10 +26,10 @@ zzvdp ()
 		url="${url}/"$(zzdatafmt -f 'AAAA/MM/DD' $1)
 	fi
 
-	$ZZWWWHTML $url |
-	sed -n '/title="Link permanente para /,/title="Comentário para /p' |
-	sed 's/<[^>]*>//g;/[0-9]\{1,\} resposta/d;/Tweet/d;s/^[[:blank:]]*//g' |
-	sed '/^ *Camiseta: .*/ a \
+	$ZZWWWHTML $url | sed -n '/category-tirinhas/,/<\/article>/p' |
+	sed -n '/<!-- post title -->/,/<!-- \/post title -->/p;/class="transcription"/,/<\/article>/p' |
+	sed 's/<[^>]*>//g;s/^[[:blank:]]*//g' |
+	sed '/^ *Camiseta .*/ a \
 ----------------------------------------------------------------------------' |
 	zzunescape --html | uniq
 }
