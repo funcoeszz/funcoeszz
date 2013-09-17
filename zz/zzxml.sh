@@ -5,6 +5,7 @@
 #
 # Opções: --tidy      Reorganiza o código, deixando uma tag por linha
 #         --tag       Extrai (grep) uma tag específica
+#         --ident     Promove a identação das tags
 #         --untag     Remove todas as tags, deixando apenas texto
 #         --unescape  Converte as entidades &foo; para caracteres normais
 #
@@ -13,10 +14,12 @@
 #      zzxml --untag --unescape arquivo.xml                     # xml -> txt
 #      zzxml --tag title --untag --unescape arquivo.xml         # títulos
 #      cat arquivo.xml | zzxml --tag item | zzxml --tag title   # aninhado
+#      zzxml --tag item --tag title arquivo.xml                 # tags múltiplas
+#      zzxml --ident arquivo.xml                                # tags identadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzjuntalinhas
 # ----------------------------------------------------------------------------
@@ -28,6 +31,10 @@ zzxml ()
 	local tidy=0
 	local untag=0
 	local unescape=0
+	local ident=0
+	local cache="$ZZTMP.xml"
+
+	rm -f "$cache"
 
 	# Opções de linha de comando
 	while [ "${1#-}" != "$1" ]
@@ -36,11 +43,27 @@ zzxml ()
 			--tidy    ) shift; tidy=1;;
 			--untag   ) shift; untag=1;;
 			--unescape) shift; unescape=1;;
-			--tag     ) shift; tidy=1 tag="$1"; shift;;
+			--tag     )
+				tidy=1
+				shift;
+				tag="$1";
+				echo '/^<'$tag'[^><]*\/>$/ {linha[NR] = $0}' >> $cache
+				echo '/^<'$tag'[^><]*[^/><]+>/, /^<\/'$tag' >/ {linha[NR] = $0}' >> $cache
+				shift
+			;;
+			--ident)
+				shift
+				tidy=1
+				ident=1
+			;;
 			--*       ) echo "Opção inválida $1"; return 1;;
 			*         ) break;;
 		esac
 	done
+
+	# Caso ident=1 mantém uma tag por linha para possibilitar identação.
+	[ "$tag" ] && test $ident -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache
+	[ "$tag" ] && test $ident -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache
 
 	# O código seguinte é um grande filtro, com diversos blocos de comando
 	# IF interligados via pipe (logo após o FI). Cada IF pode aplicar um
@@ -86,13 +109,13 @@ zzxml ()
 				s/</\
 </g
 				# quebra linha após fechamento da tag
-				s/>/>\
-/g' |
+				s/>/ >\
+/g' | sed 's|/ >|/>|g' |
 			# Rejunta o conteúdo do <![CDATA[...]]>, que pode ter tags
 			zzjuntalinhas -i '^<!\[CDATA\[' -f ']]>$' -d '' |
 
 			# Remove linhas em branco (as que adicionamos)
-			sed '/^$/d'
+			sed '/^[[:blank:]]*$/d'
 		else
 			cat -
 		fi |
@@ -101,25 +124,47 @@ zzxml ()
 		# É sempre usada em conjunto com --tidy (automaticamente)
 		if test -n "$tag"
 		then
-			sed -n "
-				# Tags de uma linha
-				# <foo bar='1' />
-				/^<$tag[> ].*\/>$/ p
+			awk -f "$cache"
+		else
+			cat -
+		fi |
 
-				# Tags multilinha
-				# <p>Foo
-				# <b>bar
-				# </b>
-				# </p>
-				/^<$tag[> ]/, /^<\/$tag>/ {
-					H
-					/^<\/$tag>/ {
-						s/.*//
-						x
-						s/\n//g
-						p
+		# Eliminando o espaço adicional colocado antes do fechamento da tag.
+		if test $tidy -eq 1
+		then
+			sed 's| >|>|g'
+		fi |
+
+		# Identando conforme as tags que aparecem, mantendo alinhamento.
+		if test $ident -eq 1
+		then
+			awk '
+				# Para quantificar as tabulações em cada nível.
+				function tabs(t,  saida, i) {
+					saida = ""
+					if (t>0) {
+						for (i=1;i<=t;i++) {
+							saida="	" saida
+						}
 					}
-				}"
+					return saida
+				}
+				BEGIN {
+					# Definições iniciais
+					ntab = 0
+					tag_ini_regex = "^<[^!/<>]*>$"
+					tag_fim_regex = "^</[^/<>]*>$"
+				}
+				$0 ~ tag_fim_regex { ntab-- }
+				{
+					# Suprimindo espaços iniciais da linha
+					sub(/^[\t ]+/,"")
+
+					# Saindo com a linha formatada
+					print tabs(ntab) $0
+				}
+				$0 ~ tag_ini_regex { ntab++ }
+			'
 		else
 			cat -
 		fi |
