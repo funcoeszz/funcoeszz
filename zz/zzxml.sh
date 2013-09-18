@@ -5,23 +5,24 @@
 #
 # Opções: --tidy      Reorganiza o código, deixando uma tag por linha
 #         --tag       Extrai (grep) uma tag específica
+#         --list      Lista sem repetição as tags existentes no arquivo
 #         --ident     Promove a identação das tags
 #         --untag     Remove todas as tags, deixando apenas texto
 #         --unescape  Converte as entidades &foo; para caracteres normais
 #
-# Uso: zzxml [--tidy] [--tag NOME] [--untag] [--unescape] [arquivo(s)]
+# Uso: zzxml [--tidy] [--tag NOME] [--list] [--ident] [--untag] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
-#      zzxml --untag --unescape arquivo.xml                     # xml -> txt
-#      zzxml --tag title --untag --unescape arquivo.xml         # títulos
-#      cat arquivo.xml | zzxml --tag item | zzxml --tag title   # aninhado
-#      zzxml --tag item --tag title arquivo.xml                 # tags múltiplas
-#      zzxml --ident arquivo.xml                                # tags identadas
+#      zzxml --untag --unescape arq.xml                     # xml -> txt
+#      zzxml --tag title --untag --unescape arq.xml         # títulos
+#      cat arq.xml | zzxml --tag item | zzxml --tag title   # aninhado
+#      zzxml --tag item --tag title arq.xml                 # tags múltiplas
+#      zzxml --ident arq.xml                                # tags identadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 3
+# Versão: 4
 # Licença: GPL
-# Requisitos: zzjuntalinhas
+# Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
 zzxml ()
 {
@@ -45,16 +46,40 @@ zzxml ()
 			--unescape) shift; unescape=1;;
 			--tag     )
 				tidy=1
-				shift;
+				shift
 				tag="$1";
 				echo '/^<'$tag'[^><]*\/>$/ {linha[NR] = $0}' >> $cache
 				echo '/^<'$tag'[^><]*[^/><]+>/, /^<\/'$tag' >/ {linha[NR] = $0}' >> $cache
 				shift
 			;;
-			--ident)
+			--ident   )
 				shift
 				tidy=1
 				ident=1
+			;;
+			--list    )
+				shift
+				zztool file_stdin "$@" |
+				sed '
+					# Eliminando texto entre tags
+					s/\(>\)[^><]*\(<\)/\1\2/g
+					# Eliminando texto antes das tags
+					s/^[^<]*//g
+					# Eliminado texto depois das tags
+					s/[^>]*$//g
+					# Eliminando as tags de fechamento
+					s|</[^>]*>||g
+					# Colocando uma tag por linha
+					s/</\
+&/g
+					# Eliminando < e >
+					s/<[?]*//g
+					s|[/]*>||g
+					# Eliminando os atributos das tags
+					s/ .*//g' |
+				sed '/^$/d' |
+				zzuniq
+				return
 			;;
 			--*       ) echo "Opção inválida $1"; return 1;;
 			*         ) break;;
@@ -152,7 +177,7 @@ zzxml ()
 				BEGIN {
 					# Definições iniciais
 					ntab = 0
-					tag_ini_regex = "^<[^!/<>]*>$"
+					tag_ini_regex = "^<[^?!/<>]*>$"
 					tag_fim_regex = "^</[^/<>]*>$"
 				}
 				$0 ~ tag_fim_regex { ntab-- }
