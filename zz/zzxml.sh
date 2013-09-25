@@ -158,6 +158,8 @@ zzxml ()
 		if test $tidy -eq 1
 		then
 			sed 's| >|>|g'
+		else
+			cat -
 		fi |
 
 		# Identando conforme as tags que aparecem, mantendo alinhamento.
