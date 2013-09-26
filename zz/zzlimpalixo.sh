@@ -31,7 +31,7 @@ zzlimpalixo ()
 		shift
 	fi
 
-	# Reconhecimento de comentários do Vim
+	# Reconhecimento de comentários
 	case "$1" in
 		*.vim | *.vimrc*)			comentario='"';;
 		*.asp)					comentario="'";;
@@ -41,6 +41,7 @@ zzlimpalixo ()
 		*.tex)					comentario='%';;
 		*.c | *.css)				multi=1;;
 		*.html | *.htm)				comentario_ini='<!--'; comentario_fim='-->'; multi=1;;
+		*.jsp)					comentario_ini='<%--'; comentario_fim='-->'; multi=1;;
 		*.cc | *.d | *.js | *.php | *.scala)	comentario='\/\/';;
 	esac
 
