@@ -4,13 +4,15 @@
 # Obs.: Necessário pois não há ferramenta portável para lidar com XML no Unix.
 #
 # Opções: --tidy      Reorganiza o código, deixando uma tag por linha
-#         --tag       Extrai (grep) uma tag específica
+#         --tag       Extrai (grep) as tags
+#         --notag     Exclui essas tags (grep -v)
 #         --list      Lista sem repetição as tags existentes no arquivo
 #         --ident     Promove a identação das tags
 #         --untag     Remove todas as tags, deixando apenas texto
 #         --unescape  Converte as entidades &foo; para caracteres normais
+# Obs.: --notag tem precedência sobre --tag.
 #
-# Uso: zzxml [--tidy] [--tag NOME] [--list] [--ident] [--untag] [--unescape] [arquivo(s)]
+# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--ident] [--untag] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
 #      zzxml --untag --unescape arq.xml                     # xml -> txt
 #      zzxml --tag title --untag --unescape arq.xml         # títulos
@@ -20,7 +22,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
@@ -28,7 +30,7 @@ zzxml ()
 {
 	zzzz -h xml "$1" && return
 
-	local tag
+	local tag notag ntag sed_notag
 	local tidy=0
 	local untag=0
 	local unescape=0
@@ -52,6 +54,12 @@ zzxml ()
 				echo '/^<'$tag'[^><]*[^/><]+>/, /^<\/'$tag' >/ {linha[NR] = $0}' >> $cache
 				shift
 			;;
+			--notag   )
+				tidy=1
+				shift
+				notag="$notag $1"
+				shift
+			;;
 			--ident   )
 				shift
 				tidy=1
@@ -59,7 +67,10 @@ zzxml ()
 			;;
 			--list    )
 				shift
-				zztool file_stdin "$@" |
+				zztool file_stdin "$@" | 
+				# Eliminando comentários ( não deveria existir em arquivos xml! :-/ )
+				zzjuntalinhas -i "<!--" -f "-->" | sed '/<!--/d' |
+				# Filtrando apenas as tags válidas
 				sed '
 					# Eliminando texto entre tags
 					s/\(>\)[^><]*\(<\)/\1\2/g
@@ -90,6 +101,12 @@ zzxml ()
 	[ "$tag" ] && test $ident -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache
 	[ "$tag" ] && test $ident -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache
 
+	for ntag in $notag
+	do
+		sed_notag="$sed_notag /<${ntag}[^/>]* >/,/<\/${ntag} >/d;"
+		sed_notag="$sed_notag /<${ntag}[^/>]*\/>/d;"
+	done
+
 	# O código seguinte é um grande filtro, com diversos blocos de comando
 	# IF interligados via pipe (logo após o FI). Cada IF pode aplicar um
 	# filtro (sed, grep, etc) ao código XML, ou passá-lo adiante inalterado
@@ -106,6 +123,9 @@ zzxml ()
 
 	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
+
+	# Eliminando comentários ( não deveria existir em arquivos xml! :-/ )
+	zzjuntalinhas -i "<!--" -f "-->" | sed '/<!--/d' |
 
 		# --tidy
 		if test $tidy -eq 1
@@ -145,6 +165,15 @@ zzxml ()
 			cat -
 		fi |
 
+		# --notag
+		# É sempre usada em conjunto com --tidy (automaticamente)
+		if test -n "$notag"
+		then
+			sed "$sed_notag"
+		else
+			cat -
+		fi |
+
 		# --tag
 		# É sempre usada em conjunto com --tidy (automaticamente)
 		if test -n "$tag"
@@ -154,6 +183,7 @@ zzxml ()
 			cat -
 		fi |
 
+		# --tidy (segunda parte)
 		# Eliminando o espaço adicional colocado antes do fechamento da tag.
 		if test $tidy -eq 1
 		then
@@ -162,7 +192,9 @@ zzxml ()
 			cat -
 		fi |
 
+		# --ident
 		# Identando conforme as tags que aparecem, mantendo alinhamento.
+		# É sempre usada em conjunto com --tidy (automaticamente)
 		if test $ident -eq 1
 		then
 			awk '
