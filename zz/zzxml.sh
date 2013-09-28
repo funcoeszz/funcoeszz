@@ -211,7 +211,8 @@ zzxml ()
 				BEGIN {
 					# Definições iniciais
 					ntab = 0
-					tag_ini_regex = "^<[^?!/<>]*>$"
+					tag_ini_regex = "^<[^a?!/<>][^/<>]*>$"
+					tag_ref_regex = "^<a[^<>]*>$"
 					tag_fim_regex = "^</[^/<>]*>$"
 				}
 				$0 ~ tag_fim_regex { ntab-- }
@@ -223,6 +224,7 @@ zzxml ()
 					print tabs(ntab) $0
 				}
 				$0 ~ tag_ini_regex { ntab++ }
+				$0 ~ tag_ref_regex { ntab++ }
 			'
 		else
 			cat -
