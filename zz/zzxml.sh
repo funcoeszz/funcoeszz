@@ -7,18 +7,18 @@
 #         --tag       Extrai (grep) as tags
 #         --notag     Exclui essas tags (grep -v)
 #         --list      Lista sem repetição as tags existentes no arquivo
-#         --ident     Promove a identação das tags
+#         --indent    Promove a indentação das tags
 #         --untag     Remove todas as tags, deixando apenas texto
 #         --unescape  Converte as entidades &foo; para caracteres normais
 # Obs.: --notag tem precedência sobre --tag.
 #
-# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--ident] [--untag] [--unescape] [arquivo(s)]
+# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
 #      zzxml --untag --unescape arq.xml                     # xml -> txt
 #      zzxml --tag title --untag --unescape arq.xml         # títulos
 #      cat arq.xml | zzxml --tag item | zzxml --tag title   # aninhado
 #      zzxml --tag item --tag title arq.xml                 # tags múltiplas
-#      zzxml --ident arq.xml                                # tags identadas
+#      zzxml --indent arq.xml                               # tags identadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
@@ -34,7 +34,7 @@ zzxml ()
 	local tidy=0
 	local untag=0
 	local unescape=0
-	local ident=0
+	local indent=0
 	local cache="$ZZTMP.xml"
 
 	rm -f "$cache"
@@ -60,10 +60,10 @@ zzxml ()
 				notag="$notag $1"
 				shift
 			;;
-			--ident   )
+			--indent   )
 				shift
 				tidy=1
-				ident=1
+				indent=1
 			;;
 			--list    )
 				shift
@@ -97,9 +97,9 @@ zzxml ()
 		esac
 	done
 
-	# Caso ident=1 mantém uma tag por linha para possibilitar identação.
-	[ "$tag" ] && test $ident -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache
-	[ "$tag" ] && test $ident -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache
+	# Caso indent=1 mantém uma tag por linha para possibilitar indentação.
+	[ "$tag" ] && test $indent -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache
+	[ "$tag" ] && test $indent -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache
 
 	for ntag in $notag
 	do
@@ -192,10 +192,10 @@ zzxml ()
 			cat -
 		fi |
 
-		# --ident
-		# Identando conforme as tags que aparecem, mantendo alinhamento.
+		# --indent
+		# Indentando conforme as tags que aparecem, mantendo alinhamento.
 		# É sempre usada em conjunto com --tidy (automaticamente)
-		if test $ident -eq 1
+		if test $indent -eq 1
 		then
 			awk '
 				# Para quantificar as tabulações em cada nível.
