@@ -18,7 +18,7 @@
 #      zzxml --tag title --untag --unescape arq.xml         # títulos
 #      cat arq.xml | zzxml --tag item | zzxml --tag title   # aninhado
 #      zzxml --tag item --tag title arq.xml                 # tags múltiplas
-#      zzxml --indent arq.xml                               # tags identadas
+#      zzxml --indent arq.xml                               # tags indentadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
@@ -197,6 +197,7 @@ zzxml ()
 		# É sempre usada em conjunto com --tidy (automaticamente)
 		if test $indent -eq 1
 		then
+			sed '/^<[^/]/s@/@|@g' | sed 's@|>$@/>@g' |
 			awk '
 				# Para quantificar as tabulações em cada nível.
 				function tabs(t,  saida, i) {
@@ -211,8 +212,7 @@ zzxml ()
 				BEGIN {
 					# Definições iniciais
 					ntab = 0
-					tag_ini_regex = "^<[^a?!/<>][^/<>]*>$"
-					tag_ref_regex = "^<a[^<>]*>$"
+					tag_ini_regex = "^<[^?!/<>]*>$"
 					tag_fim_regex = "^</[^/<>]*>$"
 				}
 				$0 ~ tag_fim_regex { ntab-- }
@@ -224,8 +224,8 @@ zzxml ()
 					print tabs(ntab) $0
 				}
 				$0 ~ tag_ini_regex { ntab++ }
-				$0 ~ tag_ref_regex { ntab++ }
-			'
+			' |
+			sed '/^[[:blank:]]*<[^/]/s@|@/@g'
 		else
 			cat -
 		fi |
