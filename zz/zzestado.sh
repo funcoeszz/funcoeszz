@@ -12,6 +12,7 @@
 #         --javascript   Formata como arrays do JavaScript
 #         --php          Formata como arrays do PHP
 #         --html         Formata usando a tag <SELECT> do HTML
+#         --xml          Formata como arquivo XML
 #         --url,--url2   Exemplos simples de uso da opção --formato
 #
 # Uso: zzestado [--OPÇÃO]
@@ -25,7 +26,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzestado ()
@@ -143,6 +144,11 @@ TO:Tocantins:tocantins:Palmas"
 			echo '<select>'
 			zzestado --formato '  <option value="{sigla}">{sigla} - {nome}</option>\n'
 			echo '</select>'
+		;;
+		--xml)
+			echo '<estados>'
+			zzestado --formato '\t<uf sigla="{sigla}">\n\t\t<nome>{nome}</nome>\n\t\t<capital>{capital}</capital>\n\t\t<slug>{slug}</slug>\n\t</uf>\n'
+			echo '</estados>'
 		;;
 		--url)
 			zzestado --formato 'http://foo.{sigla}.gov.br\n' | tr '[A-Z]' '[a-z]'
