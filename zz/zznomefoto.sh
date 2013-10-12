@@ -14,7 +14,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-11-10
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zznomefoto ()
@@ -69,10 +69,19 @@ zznomefoto ()
 		echo "Número inválido para a opção -i: $i"
 		return 1
 	fi
-	if test "$dropbox" = 1 && ! type "exiftool" >/dev/null 2>&1
+	if test "$dropbox" = 1
 	then
-		echo "A opção --dropbox requer o comando 'exiftool', instale-o."
-		return 1
+		if type "exiftool" >/dev/null 2>&1
+		then
+			exif_info=1
+		elif type "exiftime" >/dev/null 2>&1
+		then
+			exif_info=2
+		else
+			echo "A opção --dropbox requer o comando 'exiftool' ou 'exiftime', instale um deles."
+			echo "O comando 'exiftime' pode fazer parte do pacote 'exiftags'."
+			return 1
+		fi
 	fi
 
 	# Para cada arquivo que o usuário informou...
@@ -103,8 +112,14 @@ zznomefoto ()
 		#
 		if test "$dropbox" = 1
 		then
-			# Extrai a data+hora em que a foto foi tirada
-			exif_info=$(exiftool -s -S -DateTimeOriginal -d '%Y-%m-%d %H.%M.%S' "$arquivo")
+			# Extrai a data+hora em que a foto foi tirada conforme o comamdo disponível no sistema
+			if test $exif_info -eq 1
+			then
+				exif_info=$(exiftool -s -S -DateTimeOriginal -d '%Y-%m-%d %H.%M.%S' "$arquivo")
+			elif test $exif_info -eq 2
+			then
+				exif_info=$(exiftime -tg "$arquivo" | awk -F':' '{print $2 "-" $3 "-" $4 "." $5 "." $6}' | sed 's/^ *//')
+			fi
 
 			# A extensão do arquivo é em minúsculas
 			extensao=$(echo "$extensao" | zzminusculas)
