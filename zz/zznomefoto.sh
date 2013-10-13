@@ -22,7 +22,7 @@ zznomefoto ()
 	zzzz -h nomefoto "$1" && return
 
 	local arquivo prefixo contagem extensao nome novo nao previa
-	local dropbox exif_info
+	local dropbox exif_info exif_cmd
 	local i=1
 	local digitos=3
 
@@ -73,13 +73,13 @@ zznomefoto ()
 	then
 		if type "exiftool" >/dev/null 2>&1
 		then
-			exif_info=1
+			exif_cmd=1
 		elif type "exiftime" >/dev/null 2>&1
 		then
-			exif_info=2
+			exif_cmd=2
 		elif type "identify" >/dev/null 2>&1
 		then
-			exif_info=3
+			exif_cmd=3
 		else
 			echo "A opção --dropbox requer o comando 'exiftool', 'exiftime' ou 'identify', instale um deles."
 			echo "O comando 'exiftime' pode fazer parte do pacote 'exiftags'."
@@ -117,11 +117,10 @@ zznomefoto ()
 		if test "$dropbox" = 1
 		then
 			# Extrai a data+hora em que a foto foi tirada conforme o comamdo disponível no sistema
-			case $exif_info in
+			case $exif_cmd in
 				1) exif_info=$(exiftool -s -S -DateTimeOriginal -d '%Y-%m-%d %H.%M.%S' "$arquivo") ;;
 				2) exif_info=$(exiftime -tg "$arquivo" | awk -F':' '{print $2 "-" $3 "-" $4 "." $5 "." $6}' | sed 's/^ *//') ;;
 				3) exif_info=$(identify -verbose "$arquivo" | awk -F':' '/DateTimeOriginal/ {print $3 "-" $4 "-" $5 "." $6 "." $7}' | sed 's/^ *//') ;;
-				*) unset exif_info ;;
 			esac
 
 			# A extensão do arquivo é em minúsculas
