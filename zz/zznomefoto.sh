@@ -119,8 +119,14 @@ zznomefoto ()
 			# Extrai a data+hora em que a foto foi tirada conforme o comamdo disponível no sistema
 			case $exif_cmd in
 				1) exif_info=$(exiftool -s -S -DateTimeOriginal -d '%Y-%m-%d %H.%M.%S' "$arquivo") ;;
-				2) exif_info=$(exiftime -tg "$arquivo" | awk -F':' '{print $2 "-" $3 "-" $4 "." $5 "." $6}' | sed 's/^ *//') ;;
-				3) exif_info=$(identify -verbose "$arquivo" | awk -F':' '/DateTimeOriginal/ {print $3 "-" $4 "-" $5 "." $6 "." $7}' | sed 's/^ *//') ;;
+				2)
+					exif_info=$(exiftime -tg "$arquivo" 2>/dev/null |
+					awk -F':' '{print $2 "-" $3 "-" $4 "." $5 "." $6}' |
+					sed 's/^ *//') ;;
+				3)
+					exif_info=$(identify -verbose "$arquivo" |
+					awk -F':' '/DateTimeOriginal/ {print $3 "-" $4 "-" $5 "." $6 "." $7}' |
+					sed 's/^ *//') ;;
 			esac
 
 			# A extensão do arquivo é em minúsculas
