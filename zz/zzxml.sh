@@ -124,8 +124,7 @@ zzxml ()
 	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
 
-	# Eliminando comentários ( não deveria existir em arquivos xml! :-/ )
-	zzjuntalinhas -i "<!--" -f "-->" | sed '/<!--/d' |
+	zzjuntalinhas -i "<!--" -f "-->" |
 
 		# --tidy
 		if test $tidy -eq 1
