@@ -5,13 +5,13 @@
 #   Anapolis               -  32
 #   Cuiaba                 -  10
 #   Guaratingueta          -  21
-#   Juiz de Fora	   -  35
+#   Juiz de Fora           -  35
 #   Milenium               -  29
 #   Manaus Plaza           -  20
 #   Marilia                -  17
-#   Monte Carlos	   -  34
+#   Monte Carlos           -  34
 #   Patos de Minas         -  11
-#   Resende		   -  33
+#   Resende                -  33
 #   Sao Jose do Rio Preto  -  30
 #   Uberaba                -   9
 #   Uberlandia             -   8
