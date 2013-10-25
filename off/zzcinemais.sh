@@ -5,85 +5,88 @@
 #   Anapolis               -  32
 #   Cuiaba                 -  10
 #   Guaratingueta          -  21
+#   Juiz de Fora	   -  35
 #   Milenium               -  29
 #   Manaus Plaza           -  20
 #   Marilia                -  17
+#   Monte Carlos	   -  34
 #   Patos de Minas         -  11
-#   Ribeirao Preto         -  13
+#   Resende		   -  33
 #   Sao Jose do Rio Preto  -  30
-#   Sertaozinho            -  28
-#   Tangara da Serra       -  12
 #   Uberaba                -   9
 #   Uberlandia             -   8
 #
 # Uso: zzcinemais [cidade]
-# Ex.: zzcinemais Uberaba
+# Ex.: zzcinemais milenium
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-08-25
-# Versão: 5
+# Versão: 6
 # Licença: GPLv2
-# Requisitos: zzecho
+# Requisitos: zzecho zzsemacento
 # ----------------------------------------------------------------------------
-# DESATIVADA: 2013-02-28 Parou de funcionar (issue #34)
 zzcinemais ()
 {
 	zzzz -h cinemais "$1" && return
 
 	[ "$1" ] || { zztool uso cinemais; return 1; }
 
-	local codigo cidade sessoes
+	local codigo cidade sessoes controle ih im linha hora minuto i
 
-	cidade=$(echo $* | sed 's/ /_/g')
+	cidade=$(zzsemacento $* | sed 's/ /_/g' | tr '[A-Z]' '[a-z]')
 
 	case "$cidade" in
-		Anapolis)
+		anapolis)
 			codigo=32
-			zztool eco "Anápolis-GO:"
+			zzecho -N -l ciano "Anápolis-GO:"
 		;;
-		Cuiaba)
+		cuiaba)
 			codigo=10
-			zztool eco "Cuiabá-MT:"
+			zzecho -N -l ciano "Cuiabá-MT:"
 		;;
-		Guaratingueta)
+		guaratingueta)
 			codigo=21
-			zztool eco "Guaratinguetá-SP:"
+			zzecho -N -l ciano "Guaratinguetá-SP:"
 		;;
-		Milenium)
+		juiz_de_fora)
+			codigo=35
+			zzecho -N -l ciano "Juíz de Fora-MG:"
+		;;
+		milenium)
 			codigo=29
-			zztool eco "Milenium-AM:"
+			zzecho -N -l ciano "Milenium-AM:"
 		;;
-		Manaus_Plaza)
+		manaus_plaza)
 			codigo=20
-			zztool eco "Manaus Plaza-AM:"
+			zzecho -N -l ciano "Manaus Plaza-AM:"
 		;;
-		Marilia)
+		marilia)
 			codigo=17
-			zztool eco "Marília-SP:"
+			zzecho -N -l ciano "Marília-SP:"
 		;;
-		Patos_de_Minas)
+		monte_carlos)
+			codigo=34
+			zzecho -N -l ciano "Monte Carlos-MG:"
+		;;
+		patos_de_minas)
 			codigo=11
-			zztool eco "Pato de Minas-MG:"
+			zzecho -N -l ciano "Pato de Minas-MG:"
 		;;
-		Sao_Jose_do_Rio_Preto)
-			codigo=13
-			zztool eco "São José do Rio Preto-SP:"
+		resende)
+			codigo=33
+			zzecho -N -l ciano "Resende-MG:"
 		;;
-		Sertaozinho)
-			codigo=28
-			zztool eco "Sertãozinho-SP:"
+		sao_jose_do_rio_preto)
+			codigo=30
+			zzecho -N -l ciano "São José do Rio Preto-SP:"
 		;;
-		Tangara_da_Serra)
-			codigo=12
-			zztool eco "Tangará da Serra-SP:"
-		;;
-		Uberaba)
+		uberaba)
 			codigo=9
-			zztool eco "Uberaba-SP:"
+			zzecho -N -l ciano "Uberaba-SP:"
 		;;
-		Uberlandia)
+		uberlandia)
 			codigo=8
-			zztool eco "Uberlândia-SP:"
+			zzecho -N -l ciano "Uberlândia-SP:"
 		;;
 		*)
 			echo "Cidade não cadastrada. Use a opção -h para ver a lista de cidades."
@@ -91,26 +94,35 @@ zzcinemais ()
 		;;
 	esac
 
-	sessoes=$(
-			$ZZWWWHTML "http://www.cinemais.com.br/programacao/cinema.php?cod=$codigo" |
-			iconv --from-code=ISO-8859-1 --to-code=UTF-8 |
-			grep -A 5 '+[1-8]<' |
-			sed 's/<[^>]*>//g;s/^[ \t]*//g'
-		)
+	sessoes="$(
+			$ZZWWWHTML "http://www.cinemais.com.br/programacao/cinema.php?cc=$codigo" | 
+			iconv --from-code=ISO-8859-1 --to-code=UTF-8 | 
+			grep -A 2 'href="../filmes/f' | 
+			while read linha; do 
+				if [[ $linha =~ Classifica ]]; then 
+					echo $linha | sed 's/.*//g';
+				else 
+					echo $linha | sed 's/<[^>]*>//g;s/^[ \t]*//g'
+				fi
+			done
+		 )"
 
-	hora=`date +%Hh%M | cut -d'h' -f1`
-	minuto=`date +%Hh%M | cut -d'h' -f2`
+	hora=$(date +%Hh%M | cut -d'h' -f1)
+	minuto=$(date +%Hh%M | cut -d'h' -f2)
+
+	echo -ne ' '
 
 	for i in $sessoes; do
-		if [[ $i =~ \+[1-8] ]]; then
-			echo -ne "\n $i | "
-		elif [[ $i =~ Liv\.|[0-9][0-9]a  ]]; then
-			echo -ne "\033[G\033[24C| $i |      -  "
-		elif [[ $i =~ Dub|Leg  ]]; then
-			echo -ne "\033[G\033[31C| $i  "
+		if [[ $i =~ Dub|Leg  ]]; then
+			echo -ne "\033[G\033[32C| $i"
+		elif [[ $i =~ ^-$ ]]; then
+			echo -ne "\033[G\033[39C| "
 		elif [[ $i =~ [0-9][0-9][h][0-9][0-9] ]];then
-			ih=`echo $i | cut -d'h' -f1`
-			im=`echo $i | cut -d'h' -f2 | sed 's/,//g;s/[A-K]//g' | tr -d '\015'`
+			if [[ $controle =~ [a-z]$ ]]; then
+				echo -ne "\033[G\033[32C|      | "
+			fi
+			ih=$(echo $i | cut -d'h' -f1)
+			im=$(echo $i | cut -d'h' -f2 | sed 's/,//g;s/[A-K]//g' | tr -d '\015')
 
 			if [ "$hora" -lt "$ih"  ];then
 				zzecho -n -l verde -N "$i "
@@ -119,11 +131,12 @@ zzcinemais ()
 			else
 				zzecho -n -l vermelho -N "$i "
 			fi
-		elif [[ $i =~ Obs ]]; then
-			echo -ne "\n$i "
+		elif [[ $i =~ -- ]]; then
+			echo -ne "\n "
 		else
-			echo -ne "$i "
+			echo -ne " $i"
 		fi
+		controle=$i
 	done
 
 	echo
