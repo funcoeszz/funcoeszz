@@ -20,18 +20,17 @@
 #      zztradutor --lista                 # Lista todos os idiomas
 #      zztradutor --lista eslo            # Procura por "eslo" nos idiomas
 #      zztradutor --audio                 # Gera um arquivo OUT.WAV
+#      echo "teste" | zztradutor          # test
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 10
+# Versão: 11
 # Licença: GPLv2
 # Requisitos: zzxml zzplay
 # ----------------------------------------------------------------------------
 zztradutor ()
 {
 	zzzz -h tradutor "$1" && return
-
-	[ "$1" ] || { zztool uso tradutor; return 1; }
 
 	# Variaveis locais
 	local padrao
@@ -72,7 +71,7 @@ zztradutor ()
 		;;
 	esac
 
-	padrao=$(echo "$*" | sed "$ZZSEDURL")
+	padrao=$(zztool multi_stdin "$@" | sed "$ZZSEDURL")
 
 	# Exceção para o chinês, que usa um código diferente
 	test $lang_para = 'cn' && lang_para='zh-CN'
