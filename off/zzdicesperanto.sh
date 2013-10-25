@@ -1,36 +1,77 @@
 # ----------------------------------------------------------------------------
-# http://wwwtios.cs.utwente.nl/traduk/
+# http://glosbe.com
 # Dicionário de Esperanto em inglês, português e alemão.
 # Possui busca por palavra nas duas direções. O padrão é português-esperanto.
-# Uso: zzdicesperanto [idioma] palavra
-# Ex.: zzdicesperanto disquete
-#      zzdicesperanto EO-PT espero
+# Mantenedor: Marcell S. Martini <marcellmartini (a) gmail com>
+#
+# Uso: zzdicesperanto [-d pt|en|de|eo] [-p pt|en|de|eo] palavra
+# Ex.: zzdicesperanto esperança
+#      zzdicesperanto -d en job
+#      zzdicesperanto -d eo laboro
+#      zzdicesperanto -p en trabalho
 #
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
-# Co-Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2005-05-20
-# Versão: 3
+# Versão: 4
 # Licença: GPL
-# Requisitos: zzstr2hexa
 # ----------------------------------------------------------------------------
-# DESATIVADA: 2013-02-28 Parou de funcionar (issue #54)
 zzdicesperanto ()
 {
 	zzzz -h dicesperanto "$1" && return
 
 	[ "$1" ] || { zztool uso dicesperanto; return 1; }
 
-	local L='PT-EO'
-	local I='DE-EO EN-EO EO-DE EO-EN EO-PT PT-EO '
+	local de_ling='pt'
+	local para_ling='eo'
+	local url="http://glosbe.com/"
 	local pesquisa
 
-	[ "${I% $1 *}" != "$I" ] && L=$1 && shift
+	while [ "${1#-}" != "$1" ]
+        do
+		case "$1" in
+			-d)
+				case "$2" in
+					pt|en|de|eo)
+						de_ling=$2
+						shift
 
-	pesquisa="$(zzstr2hexa $1 | tr ' ' '%' | sed 's/%$//;s/^/%/')"
+						if test $de_ling == "eo"
+						then
+							para_ling="pt"
+						fi
+					;;
 
-	$ZZWWWDUMP "http://wwwtios.cs.utwente.nl/traduk/$L/Traduku/?$pesquisa" |
-		grep -v ^THE_ |
-		grep -v ___ |
-		grep -v /cxefpagxo\] |
-		grep -v Traduku:\ $1
+					*) 
+						printf "Lingua de origem não suportada\n"
+						return 1
+					;;
+				esac
+			;;
+
+			-p)
+				case "$2" in
+					pt|en|de|eo)
+						para_ling=$2
+						shift
+					;;
+
+					*) 
+						printf "Lingua de destino não suportada\n"
+						return 2
+					;;
+				esac
+			;;
+
+			*)
+				printf "Parametro desconecido\n"
+				return 3
+			;;
+		esac
+		shift
+	done
+
+	pesquisa="$1"
+
+	$ZZWWWHTML $url/$de_ling/$para_ling/$pesquisa |
+		sed -n 's/.*class=" phr">\([^<]*\)<.*/\1/p'
 }
