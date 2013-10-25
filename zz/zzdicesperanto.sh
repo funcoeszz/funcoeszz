@@ -2,7 +2,6 @@
 # http://glosbe.com
 # Dicionário de Esperanto em inglês, português e alemão.
 # Possui busca por palavra nas duas direções. O padrão é português-esperanto.
-# Mantenedor: Marcell S. Martini <marcellmartini (a) gmail com>
 #
 # Uso: zzdicesperanto [-d pt|en|de|eo] [-p pt|en|de|eo] palavra
 # Ex.: zzdicesperanto esperança
