@@ -96,7 +96,7 @@ zzcinemais ()
 
 	sessoes="$(
 			$ZZWWWHTML "http://www.cinemais.com.br/programacao/cinema.php?cc=$codigo" | 
-			iconv --from-code=ISO-8859-1 --to-code=UTF-8 | 
+			zztool texto_em_iso | 
 			grep -A 2 'href="../filmes/f' | 
 			while read linha; do 
 				if [[ $linha =~ Classifica ]]; then 
