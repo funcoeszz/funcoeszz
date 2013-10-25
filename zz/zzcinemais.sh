@@ -110,16 +110,16 @@ zzcinemais ()
 	hora=$(date +%Hh%M | cut -d'h' -f1)
 	minuto=$(date +%Hh%M | cut -d'h' -f2)
 
-	echo -ne ' '
+	printf %b ' '
 
 	for i in $sessoes; do
 		if [[ $i =~ Dub|Leg  ]]; then
-			echo -ne "\033[G\033[32C| $i"
+			printf %b "\033[G\033[32C| $i"
 		elif [[ $i =~ ^-$ ]]; then
-			echo -ne "\033[G\033[39C| "
+			printf %b "\033[G\033[39C| "
 		elif [[ $i =~ [0-9][0-9][h][0-9][0-9] ]];then
 			if [[ $controle =~ [a-z]$ ]]; then
-				echo -ne "\033[G\033[32C|      | "
+				printf %b "\033[G\033[32C|      | "
 			fi
 			ih=$(echo $i | cut -d'h' -f1)
 			im=$(echo $i | cut -d'h' -f2 | sed 's/,//g;s/[A-K]//g' | tr -d '\015')
@@ -132,9 +132,9 @@ zzcinemais ()
 				zzecho -n -l vermelho -N "$i "
 			fi
 		elif [[ $i =~ -- ]]; then
-			echo -ne "\n "
+			printf %b "\n "
 		else
-			echo -ne " $i"
+			printf %b " $i"
 		fi
 		controle=$i
 	done
