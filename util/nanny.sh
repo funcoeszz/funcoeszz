@@ -205,7 +205,9 @@ do
 		# Exceções conhecidas
 		grep -v '^zz/zzferiado.sh: # Requisitos:' |
 		grep -v '^zz/zzloteria2.sh: # Resultados da quina' |
-		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org'
+		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org' |
+		grep -v 'zz/zzpalpite.sh: # Uso: zzpalpite' |
+		grep -v 'zz/zzxml.sh: # Uso: zzxml'
 done
 
 ### Desativada por enquanto, ainda não sei o que fazer com isso
@@ -248,7 +250,7 @@ done
 eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zztool uso'"
 # As seguintes não precisam pois é válido chamá-las sem argumentos
-ok="zzaleatorio zzalfabeto zzansi2html zzarrumacidade zzascii zzbeep zzbissexto zzbolsas zzbraille zzcalcula zzcapitalize zzcaracoroa zzcarnaval zzcidade zzcinemark15h zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcotacao zzcpf zzdado zzdatafmt zzdiadasemana zzdolar zzdos2unix zzestado zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhexa2str zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzlua zzmaiores zzmaiusculas zzmariadb zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpais zzpalpite zzpascoa zzpgsql zzphp zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzstr2hexa zzsubway zztabuada zztac zztelecine zztempo zztv zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvdp zzvira zzxml"
+ok="zzaleatorio zzalfabeto zzansi2html zzarrumacidade zzascii zzbeep zzbissexto zzbolsas zzbraille zzcalcula zzcapitalize zzcaracoroa zzcarnaval zzcidade zzcinemark15h zzcineuci zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcotacao zzcpf zzdado zzdatafmt zzdiadasemana zzdolar zzdos2unix zzestado zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhexa2str zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzlua zzmaiores zzmaiusculas zzmariadb zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpais zzpalpite zzpascoa zzpgsql zzphp zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzstr2hexa zzsubway zztabuada zztac zztelecine zztempo zztranspor zztv zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvdp zzvira zzxml"
 for f in zz/*  # off/*
 do
 	echo " $ok " | grep " $(basename $f .sh) " >/dev/null && continue
