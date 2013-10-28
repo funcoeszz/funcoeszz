@@ -26,7 +26,7 @@ zzdicesperanto ()
 	local pesquisa
 
 	while [ "${1#-}" != "$1" ]
-        do
+	do
 		case "$1" in
 			-d)
 				case "$2" in
@@ -40,7 +40,7 @@ zzdicesperanto ()
 						fi
 					;;
 
-					*) 
+					*)
 						printf "Lingua de origem não suportada\n"
 						return 1
 					;;
@@ -54,7 +54,7 @@ zzdicesperanto ()
 						shift
 					;;
 
-					*) 
+					*)
 						printf "Lingua de destino não suportada\n"
 						return 2
 					;;

@@ -13,7 +13,7 @@
 # ----------------------------------------------------------------------------
 zzcep ()
 {
-	zzzz -h cep $1 && return
+	zzzz -h cep "$1" && return
 
 	local r e query
 	local url='http://www.achecep.com.br'
@@ -46,6 +46,6 @@ zzcep ()
 	# Testando se formou a query string
 	test -n "$query" || { zztool uso cep; return; }
 
-	echo "$query" | $ZZWWWPOST "$url" | 
+	echo "$query" | $ZZWWWPOST "$url" |
 	sed -n '/^[[:blank:]]*CEP/,/^[[:blank:]]*$/p'| sed 's/^ *//g;$d'
 }

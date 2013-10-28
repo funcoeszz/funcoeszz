@@ -94,18 +94,18 @@ zzcinemais ()
 		;;
 	esac
 
-	sessoes="$(
-			$ZZWWWHTML "http://www.cinemais.com.br/programacao/cinema.php?cc=$codigo" | 
-			zztool texto_em_iso | 
-			grep -A 2 'href="../filmes/f' | 
-			while read linha; do 
-				if [[ $linha =~ Classifica ]]; then 
+	sessoes=$(
+			$ZZWWWHTML "http://www.cinemais.com.br/programacao/cinema.php?cc=$codigo" |
+			zztool texto_em_iso |
+			grep -A 2 'href="../filmes/f' |
+			while read linha; do
+				if [[ $linha =~ Classifica ]]; then
 					echo $linha | sed 's/.*//g';
-				else 
+				else
 					echo $linha | sed 's/<[^>]*>//g;s/^[ \t]*//g'
 				fi
 			done
-		 )"
+		)
 
 	hora=$(date +%Hh%M | cut -d'h' -f1)
 	minuto=$(date +%Hh%M | cut -d'h' -f2)

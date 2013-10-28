@@ -8,7 +8,7 @@
 # Funções matemáticas disponíveis.
 # mmc mdc somatoria produtoria media soma fat arranjo arranjo_r combinacao
 # combinacao_r pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
-# converte sen cos tan csc sec cot asen acos atan log ln abs produto
+# converte sen cos tan csc sec cot asen acos atan log ln abs produto r3
 # raiz potencia pow elevado aleatorio random det conf_eq sem_zeros
 # fibonacci (fib) lucas tribonacci (trib) newton binomio_newton
 # Mais detalhes: zzmat função
