@@ -12,7 +12,7 @@
 #
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-17
-# Versão: 20101222
+# Versão: 3
 # Licença: GPLv2
 # Requisitos: pdftk
 # ----------------------------------------------------------------------------

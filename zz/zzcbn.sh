@@ -119,7 +119,8 @@ fi
 	esac
 	Tlinhas=`cat "$ZZTMP.cbn.coment" | sed -n '$='`
 	[ "$Tlinhas" ] ||  { zzecho -l vermelho "Sem comentários"; return; }
-	for ((l=1;$l<=$Tlinhas;l=$l+2))
+	l=1
+	while test $l -le $Tlinhas
 	do
 		P=`expr $l + 1`
 		titulo=`cat "$ZZTMP.cbn.coment" | sed "$l!d"`
@@ -140,6 +141,7 @@ fi
 		#echo $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT
 		echo $titulo - $data
 		zzplay $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT || return
+		l=$(($l+2))
 	done
 	if [ "$Tlinhas" == "0" ]
 	then

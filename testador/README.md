@@ -14,7 +14,7 @@ Todos os arquivos de testes são identificados pelo nome da função e a extens�
 
 ```
 $ ./run zztac.sh
-OK! All 3 tests have passed.
+OK: 5 of 5 tests passed
 $
 ```
 
@@ -23,13 +23,13 @@ Se tudo estiver funcionando, todos os testes serão bem sucedidos e aparecerá e
 ```
 $ ./run zzarrumacidade.sh
 --------------------------------------------------
-[FAILED #12] zzarrumacidade "SAMPA"
+[FAILED #12, line 15] zzarrumacidade "SAMPA"
 @@ -1 +1 @@
 -São Paulo
 +S?o Paulo
 --------------------------------------------------
 
-FAIL: 1 of 66 tests have failed.
+FAIL: 1 of 66 tests failed
 $
 ```
 
@@ -53,15 +53,14 @@ Testing file zzhora.sh
 Testing file zzseq.sh
 Testing file zztac.sh
 
-==================================================
- 58 ok            zzbyte.sh
-  6 ok            zzcidade.sh
- 83 ok            zzhora.sh
- 73 ok            zzseq.sh
-  3 ok            zztac.sh
-==================================================
+     ok  fail  skip
+     58     -     -    zzbyte.sh
+      6     -     -    zzcidade.sh
+     83     -     -    zzhora.sh
+     73     -     -    zzseq.sh
+      5     -     -    zztac.sh
 
-YOU WIN! PERFECT! All 223 tests have passed.
+OK: 225 of 225 tests passed
 $
 ```
 
@@ -172,7 +171,7 @@ OK, já temos quatro testes, está bom pra começar. Agora selecione estas linha
 
 ```
 $ ./run zzfoo.sh
-OK! All 4 tests have passed.
+OK: 4 of 4 tests passed
 $
 ```
 
@@ -225,10 +224,10 @@ $ tac /etc/passwd | tac       #→ --file /etc/passwd
 Com `--file`, o teste passará se o resultado do comando for exatamente igual ao conteúdo do arquivo informado. Use testes desse tipo quando o resultado for um texto estruturado, ou em um formato específico, que seja mais cômodo guardar num arquivo externo. Exemplos: [zzcores.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzcores.sh), [zztabuada.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zztabuada.sh), [zzunicode2ascii.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzunicode2ascii.sh).
 
 ```
-$ cat /etc/passwd             #→ --regex ^root:
+$ echo $((2 + 10))            #→ --regex ^\d+$
 ```
 
-Com `--regex`, o teste passará se qualquer uma das linhas do resultado casar com a [expressão regular](http://aurelio.net/regex/) informada (padrão `egrep`). Use testes desse tipo quando o resultado for variável, mas com um padrão conhecido, que você pode casar com uma regex. Exemplos: [zzdado.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzdado.sh), [zzipinternet.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzipinternet.sh), [zzsenha.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzsenha.sh).
+Com `--regex`, o teste passará se a(s) linha(s) do resultado casar com a [expressão regular](http://aurelio.net/regex/) informada (padrão super-poderoso `Perl`). Use testes desse tipo quando o resultado for variável, mas com um padrão conhecido, que você pode casar com uma regex. Exemplos: [zzdado.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzdado.sh), [zzipinternet.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzipinternet.sh), [zzsenha.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzsenha.sh).
 
 ```
 $ pwd                         #→ --eval echo $PWD
@@ -236,6 +235,12 @@ $ pwd                         #→ --eval echo $PWD
 
 Com `--eval`, o teste passará se o resultado do comando for exatamente igual ao resultado do comando informado. É útil principalmente para expandir o valor de variáveis com guardam o resultado, ou parte dele. Exemplos: [zzmaiusculas.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzmaiusculas.sh), [zzdata.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzdata.sh), [zzgravatar.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzgravatar.sh).
 
+
+Para ver rapidamente os exemplos já utilizados destas opções, use o grep nos arquivos de testes atuais:
+
+```
+grep -- --regex testador/zz*.sh
+```
 
 
 Dicas
@@ -283,5 +288,14 @@ $ zzunicode2ascii _tmp1   #→ --file _tmp2
 $ rm -f _tmp[12]
 ```
 
+
+clitest
+-------
+
+O script `run` é apenas um wrapper pequeno, para facilitar a chamada do testador de verdade, que faz todo o trabalho pesado: `clitest` (*command line tester*).
+
+O `clitest` é um projeto separado, também criado pelo Aurelio Jargas e também escrito em shell script. Para mais informações sobre o funcionamento do testador, acesse:
+
+* <https://github.com/aureliojargas/clitest>
 
 

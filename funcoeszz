@@ -4,6 +4,7 @@
 # INFORMAÇÕES: http://www.funcoeszz.net
 # NASCIMENTO : 22 de Fevereiro de 2000
 # AUTORES    : Aurelio Marinho Jargas <verde (a) aurelio net>
+#              Itamar Santos de Souza <itamarnet (a) yahoo com br>
 #              Thobias Salazar Trevisan <thobias (a) thobias org>
 # DESCRIÇÃO  : Funções de uso geral para o shell Bash, que buscam
 #              informações em arquivos locais e fontes na Internet
@@ -456,7 +457,7 @@ zzajuda ()
 # ----------------------------------------------------------------------------
 zzzz ()
 {
-	local nome_func arg_func padrao
+	local nome_func arg_func padrao func
 	local info_instalado info_instalado_zsh info_cor info_utf8 info_base versao_remota
 	local arquivo_aliases arquivo_zz
 	local n_on n_off
@@ -980,7 +981,7 @@ do
 	fi
 
 	# Inclui a função na shell atual
-	source "$zz_arquivo"
+	. "$zz_arquivo"
 
 	# Extrai o texto de ajuda
 	_extrai_ajuda "$zz_arquivo" |
@@ -1029,7 +1030,7 @@ unset zz_arquivo
 unset zz_nome
 unset zz_off
 unset zz_sed
-unset _extrai_ajuda
+unset -f _extrai_ajuda
 
 
 ##----------------------------------------------------------------------------
@@ -1080,22 +1081,24 @@ then
 
 		# Chama a função informada em $1, caso ela exista
 		*)
-			func="$1"
+			zz_func="$1"
 
 			# Garante que a zzzz possa ser chamada por zz somente
-			[ "$func" = 'zz' ] && func='zzzz'
+			[ "$zz_func" = 'zz' ] && zz_func='zzzz'
 
 			# O prefixo zz é opcional: zzdata e data funcionam
-			func="zz${func#zz}"
+			zz_func="zz${zz_func#zz}"
 
 			# A função existe?
-			if type $func >/dev/null 2>&1
+			if type $zz_func >/dev/null 2>&1
 			then
 				shift
-				$func "$@"
+				$zz_func "$@"
 			else
-				echo "Função inexistente '$func' (tente --help)"
+				echo "Função inexistente '$zz_func' (tente --help)"
 			fi
+
+			unset zz_func
 		;;
 	esac
 fi

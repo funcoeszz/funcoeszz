@@ -12,7 +12,7 @@ cd ../zz
 
 funcoeszz tool eco "Linha que inicia com um espaço"
 grep '^ ' * |
-	grep -v -E '^zz(google|palpite)'  # caso válido, sed multilinha
+	grep -v -E '^zz(google|palpite|loteria2)'  # caso válido, sed multilinha
 
 funcoeszz tool eco "Linha com Tab e espaço misturados"
 grep '	 ' * |

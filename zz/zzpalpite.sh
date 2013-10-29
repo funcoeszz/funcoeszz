@@ -109,7 +109,7 @@ zzpalpite ()
 			final=$((final - 1))
 		done
 
-		if [ "$palpites" ]
+		if test "${#palpites}" -gt 0
 		then
 			palpites=$(echo "$palpites" | tr ' ' '\n' | sort -n -t ' ' | tr '\n' ' ')
 			if [ $(echo " $palpites" | wc -w ) -ge "10" ]
@@ -123,11 +123,12 @@ zzpalpite ()
 		if [ "$qtde" -gt "0" ]
 		then
 			zztool eco $tipo:
-			echo "$palpites" | sed '/^ *$/d'
+			echo "$palpites" | sed '/^ *$/d;s/  *$//g'
 			echo
 
 			#Zerando as variaveis
-			unset num posicao numeros palpites inicial final qtde i
+			unset num posicao numeros palpites inicial final i
+			qtde=0
 		fi
-	done
+	done | sed '$d'
 }

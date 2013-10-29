@@ -8,7 +8,7 @@
 # Funções matemáticas disponíveis.
 # mmc mdc somatoria produtoria media soma fat arranjo arranjo_r combinacao
 # combinacao_r pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
-# converte sen cos tan csc sec cot asen acos atan log ln abs produto
+# converte sen cos tan csc sec cot asen acos atan log ln abs produto r3
 # raiz potencia pow elevado aleatorio random det conf_eq sem_zeros
 # fibonacci (fib) lucas tribonacci (trib) newton binomio_newton
 # Mais detalhes: zzmat função
@@ -21,7 +21,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 17
+# Versão: 18
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio
 # ----------------------------------------------------------------------------
@@ -375,7 +375,12 @@ zzmat ()
 			local num1 num2
 			num1=$(echo "$2" | tr ',' '.')
 			num2=$(echo "$3" | tr ',' '.')
-			num=$(echo "scale=${precisao};${num1}^${num2}" | bc -l | awk '{ printf "%.'${precisao}'f\n", $1 }')
+			if zztool testa_numero $num2
+			then
+				num=$(echo "scale=${precisao};${num1}^${num2}" | bc -l | awk '{ printf "%.'${precisao}'f\n", $1 }')
+			else
+				num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", ('$num1')^('$num2')}')
+			fi
 		else
 			echo " zzmat $funcao: Um número elevado a um potência"
 			echo " Uso: zzmat $funcao número potência"
@@ -915,6 +920,58 @@ zzmat ()
 			echo " Número de tribonacci, na posição especificada."
 			echo " Com o argumento 's' imprime a sequência até a posição."
 			echo " Uso: zzmat $funcao <número> [s]"
+		fi
+	;;
+	r3)
+		shift
+		if test -n "$1"
+		then
+			local num num1 num2 ind
+			local num3=0
+			local num4=0
+			while [ "$1" ]
+			do
+				num="$1"
+				ind=1
+				zztool grep_var "i" "$1" && ind=0 && num=$(echo "$1" | sed 's/i//')
+				if (zzmat testa_num ${num%/*} || test ${num%/*} = 'x') && (zzmat testa_num ${num#*/} || test ${num#*/} = 'x')
+				then
+					num3=$((num3+1))
+					if test $((num3%2)) -eq $ind
+					then
+						test ${num%/*} != 'x' && num1="$num1 ${num%/*}" || num4=$((num4+1))
+						test ${num#*/} != 'x' && num2="$num2 ${num#*/}" || num4=$((num4+1))
+					else
+						test ${num%/*} != 'x' && num2="$num2 ${num%/*}" || num4=$((num4+1))
+						test ${num#*/} != 'x' && num1="$num1 ${num#*/}" || num4=$((num4+1))
+					fi
+				fi
+				shift
+			done
+
+			unset num
+			if test $num4 -eq 1
+			then
+				case $(zzmat compara_num $(echo "$num1" | awk '{print NF}') $(echo "$num2" | awk '{print NF}')) in
+				maior)
+					num=$(echo $(zzmat produto $num1)"/"$(zzmat produto $num2))
+				;;
+				menor)
+					num=$(echo $(zzmat produto $num2)"/"$(zzmat produto $num1))
+				;;
+				*)
+					zzmat $funcao
+				;;
+				esac
+			else
+				zzmat $funcao
+			fi
+		else
+			echo " Calcula o valor de 'x', usando a regra de 3 simples ou composta."
+			echo " Se alguma das frações tiver a letra i justaposta, é considerada inversamente proporcional."
+			echo " Obs.: o i pode ser antes ou depois, mas não pode haver espaço em relação a fração."
+			echo "       no local do valor a ser encontrado, digite apenas 'x', e somente uma vez."
+			echo " Uso: zzmat $funcao <fração1>[i] <fração2>[i] [<fração3>[i] ...]"
 		fi
 	;;
 	eq2g)

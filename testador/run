@@ -4,17 +4,19 @@
 # Usage:
 #   ./run zzsenha.sh zzcores.sh   # test zzsenha and zzcores
 #   ./run                         # run all tests
+#
+# See README.md file for instructions.
 
 script_dir=$(dirname "$0")
 zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
-tmp='run.tmp'
-tester='doctest.sh'
+tmp='./run.tmp'
+tester='clitest'
 
 # Check requirements
 $tester -V > /dev/null || {
 	printf '%s\n' "Ops... Não achei o programa testador: $tester"
 	printf '%s\n' 'Baixe-o deste endereço:'
-	printf '%s\n' 'https://raw.github.com/aureliojargas/?????/master/?????.sh'
+	printf '%s\n' 'https://raw.github.com/aureliojargas/clitest/master/clitest'
 	exit 1
 }
 
@@ -26,13 +28,14 @@ cat > "$tmp" <<EOF
 	--dir  "$zz_root"/zz
 EOF
 
+# Note: To remove the dots ........ change 'dot' to 'none'
 if test $# -gt 0
 then
 	# Test specific file(s)
-	"$tester" --pre-flight ". $tmp" "$@"
+	"$tester" --progress dot --pre-flight ". $tmp" "$@"
 else
 	# Test all files
-	"$tester" --pre-flight ". $tmp" zz*.sh
+	"$tester" --progress dot --pre-flight ". $tmp" zz*.sh
 fi
 
 rm "$tmp"
