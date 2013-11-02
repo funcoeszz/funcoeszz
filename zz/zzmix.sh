@@ -31,7 +31,7 @@ zzmix ()
 		shift
 	done
 
-	[ "$2" ] || { zztool uso mix; return 1; }
+	[ "$2" ] || { zztool uso mix; zztool eco "Necessário 2 arquivos no mínimo."; return 1; }
 
 	for arquivo
 	do
@@ -50,19 +50,20 @@ zzmix ()
 		fi
 
 		# Verifica se arquivos são legíveis
-		zztool arquivo_legivel "$arquivo" || return 1
+		zztool arquivo_legivel "$arquivo" || { zztool eco "Um ou mais arquivos inexistentes ou ilegíveis."; return 1; }
 	done
 
 	# Se opção é um numero, o arquivo base para as linhas é o mesmo da posição equivalente
-	if zztool testa_numero $tipo
+	if zztool testa_numero $tipo && test $tipo -le $#
 	then
 		arquivo=$(awk -v arg=$tipo 'BEGIN { print ARGV[arg] }' $* 2>/dev/null)
 		linhas=$(zztool num_linhas "$arquivo")
 	fi
 
 	# Sem quantidade de linhas mínima não há mistura.
-	[ "$linhas" -eq 0 ] && return 1
+	[ "$linhas" -eq 0 ] && { zztool eco "Não há linhas para serem \"mixadas\"."; return 1; }
 
+	# Onde a "mixagem" ocorre efetivamente.
 	awk -v linhas_awk=$linhas '
 	BEGIN {
 		for (i=1; i<=linhas_awk; i++) {
