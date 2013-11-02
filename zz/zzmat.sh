@@ -950,7 +950,7 @@ zzmat ()
 			done
 
 			unset num
-			if test $num4 -eq 1
+			if test $num4 -eq 1 && test -n "$num1" && test -n "$num2"
 			then
 				case $(zzmat compara_num $(echo "$num1" | awk '{print NF}') $(echo "$num2" | awk '{print NF}')) in
 				maior)
