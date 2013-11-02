@@ -3,14 +3,16 @@
 # Obs.: Este parser é usado pelas Funções ZZ, não serve como parser genérico.
 # Obs.: Necessário pois não há ferramenta portável para lidar com XML no Unix.
 #
-# Opções: --tidy      Reorganiza o código, deixando uma tag por linha
-#         --tag       Extrai (grep) as tags
-#         --notag     Exclui essas tags (grep -v)
-#         --list      Lista sem repetição as tags existentes no arquivo
-#         --indent    Promove a indentação das tags
-#         --untag     Remove todas as tags, deixando apenas texto
-#         --unescape  Converte as entidades &foo; para caracteres normais
-# Obs.: --notag tem precedência sobre --tag.
+# Opções: --tidy        Reorganiza o código, deixando uma tag por linha
+#         --tag         Extrai (grep) as tags
+#         --notag       Exclui essas tags (grep -v)
+#         --list        Lista sem repetição as tags existentes no arquivo
+#         --indent      Promove a indentação das tags
+#         --untag       Remove todas as tags, deixando apenas texto
+#         --untag=<tag> Remove apenas a tag especificada, deixando o texto
+#         --unescape    Converte as entidades &foo; para caracteres normais
+# Obs.: --notag tem precedência sobre --tag e --untag=<tag>.
+#       --untag=<tag> tem precedência sobre --tag.
 #
 # Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
@@ -22,7 +24,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
@@ -30,7 +32,7 @@ zzxml ()
 {
 	zzzz -h xml "$1" && return
 
-	local tag notag ntag sed_notag
+	local tag notag semtag ntag sed_notag
 	local tidy=0
 	local untag=0
 	local unescape=0
@@ -58,6 +60,10 @@ zzxml ()
 				tidy=1
 				shift
 				notag="$notag $1"
+				shift
+			;;
+			--untag=* )
+				semtag="$semtag ${1#*=}"
 				shift
 			;;
 			--indent   )
@@ -105,6 +111,11 @@ zzxml ()
 	do
 		sed_notag="$sed_notag /<${ntag}[^/>]* >/,/<\/${ntag} >/d;"
 		sed_notag="$sed_notag /<${ntag}[^/>]*\/>/d;"
+	done
+
+	for ntag in $semtag
+	do
+		sed_notag="$sed_notag s|<[/]\{0,1\}${ntag}[^>]*>||g;"
 	done
 
 	# O código seguinte é um grande filtro, com diversos blocos de comando
@@ -164,9 +175,8 @@ zzxml ()
 			cat -
 		fi |
 
-		# --notag
-		# É sempre usada em conjunto com --tidy (automaticamente)
-		if test -n "$notag"
+		# --notag ou --notag=tag
+		if test -n "$sed_notag"
 		then
 			sed "$sed_notag"
 		else
