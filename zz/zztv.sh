@@ -2,56 +2,55 @@
 # Mostra a programação da TV, diária ou semanal, com escolha de emissora.
 #
 # Canais:
-# adulto                 espn_brasil        megapix       sony_spin
-# ae                     espn_mais          megapix_hd    space
-# ae_hd                  esporte_interativo mgm           space_hd
-# amazon                 eurochannel        mix_tv        sport_tv
-# animal                 film_arts          mtv           sport_tv2
-# arte1                  for_man            multishow     sport_tv3
-# axn                    fox                nat_geo       studio_universal
-# axn_hd                 fox_hd             nat_geo_hd    super_rede
-# baby                   fox_life           nbr           syfy
-# band                   fox_news           nhk           tbs
-# band_espotes           fox_sports         nickelodeon   tcm
-# band_news              futura             nick_hd       telecine
-# bbc                    fx                 nick_jr       telecine_action
-# bbc_hd                 gazeta             off           telecine_action_hd
-# biography              glitz              playboy       telecine_cult
-# bis_hd                 globo              playboy_tv    telecine_fun
-# bloomberg              globo_bahia        ppv1          telecine_hd
-# boomerang              globo_campinas     ppv2          telecine_pipoca
-# canal_21               globo_df           ppv3          telecine_pipoca_hd
-# canal_boi              globo_eptv         ppv4          telecine_premium
-# canal_brasil           globo_goias        ppv5          tele_sur
-# cancao_nova            globo_minas        ppv6          terra_viva
-# cartoon                globo_news         premiere_fc   tnt
-# casa_clube             globo_poa          private_gold  tnt_hd
-# cinemax                globo_rj           rai           tooncast
-# climatempo             globo_sp           ra_tim_bum    travel
-# cnn                    gloob              record        trutv
-# cnn_espanhol           gnt                record_news   trutv_hd
-# cnt                    golf               redetv        tv5_monde
-# combate                hbo                rede_familia  tv_brasil
-# comedy                 hbo2               rede_genesis  tv_brasil_central
-# concert                hbo_family         rede_vida     tv_camara
-# corinthians            hbo_hd             rit           tv_escola
-# cultura                hbo_plus           rtp           tv_espanha
-# discovery              hbo_plus_e         rural         tv_justica
-# discovery_civilization hbo_signature      rush_hd       tv_uniao
-# discovery_hd           history            santa_cecilia universal
-# discovery_kids         history_hd         sbt           venus
-# discovery_science      home_health        senac         vh1
-# discovery_turbo        htv                senado        vh1_hd
-# disney                 investigacao       sesc          vh1_mega
-# disney_hd              isat               sexy_hot      viva
-# disney_jr              lbv                sexy_prive    warner
-# disney_xd              max                shoptime      warner_hd
-# dwtv                   max_hd             sic           woohoo
-# entertainment          max_prime          sony
-# espn                   max_prime_e        sony_hd
+# ae_hd                   espn_brasil     max_prime_e    sony_hd
+# ae                      espn_mais       max_prime      sony_spin
+# amazon                  espn            max            sony
+# animal                  esporte_inter   megapix_hd     space_hd
+# arte1                   eurochannel     megapix        space
+# axn_hd                  rede_familia    mgm            sport_tv2
+# axn                     film_arts       mix_tv         sport_tv3
+# baby                    fox_hd          mtv            sport_tv
+# band                    fox_life        multishow      studio_universal
+# band_espotes            fox_news        nat_geo_hd     super_rede
+# band_news               fox_sports      nat_geo        syfy
+# bbc_hd                  fox             nbr            tbs
+# bbc                     futura          nhk            tcm
+# biography               fx              nickelodeon    telecine_action_hd
+# bis_hd                  gazeta          nick_hd        telecine_action
+# bloomberg               rede_genesis    nick_jr        telecine_cult
+# boomerang               glitz           off            telecine_fun
+# canal_21                globo_bahia     ppv10          telecine_hd
+# canal_boi               globo_campinas  ppv11          telecine_pipoca_hd
+# canal_brasil            globo_df        ppv12          telecine_pipoca
+# cancao_nova             globo_eptv      ppv1           telecine_premium
+# cartoon                 globo_goias     ppv2           telecine
+# casa_clube              globo_minas     ppv3           tele_sur
+# cinemax                 globo_news      ppv4           terra_viva
+# climatempo              globo_poa       ppv5           tnt_hd
+# cnn_espanhol            globo_rj        ppv6           tnt
+# cnn                     globo_sp        ppv7           tooncast
+# cnt                     globo           ppv7           travel
+# combate                 gloob           ppv8           trutv_hd
+# comedy                  gnt             premiere_fc    trutv
+# concert                 golf            rai            tv5_monde
+# corinthians             hbo2            ra_tim_bum     tv_brasil_central
+# cultura                 hbo_family      record_news    tv_brasil
+# discovery_civilization  hbo_hd          record         tv_camara
+# discovery_hd            hbo_plus_e      rede_tv        tv_escola
+# discovery_kids          hbo_plus        rede_vida      tv_justica
+# discovery_science       hbo_signature   rit            tv_uniao
+# discovery_turbo         hbo             rtp            universal
+# discovery               history_hd      rural          vh1_hd
+# disney_hd               history         rush_hd        vh1_mega
+# disney_jr               home_health     santa_cecilia  vh1
+# disney                  htv             sbt            viva
+# disney_xd               investigacao    senado         warner_hd
+# dwtv ou deutsche        isat            sesc ou senac  warner
+# entertainment           lbv             shoptime       woohoo
+# tv_espanha              max_hd          sic
 #
 # Programação corrente:
-# doc, esportes, filmes, infantil, series, variedades, todos, agora (padrão).
+# doc, esportes, filmes, infantil, series, variedades, aberto, todos (padrão).
 #
 # Se o segundo argumento for "semana" ou "s" mostra toda programação semanal.
 # Opção só é válida para os canais.
@@ -64,7 +63,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzunescape
 # ----------------------------------------------------------------------------
@@ -81,7 +80,6 @@ zztv ()
 	local flag=0
 
 	case "$1" in
-	adulto)                           URL="${URL}/canal/CAD"; desc="Canal Adulto";;
 	ae)                               URL="${URL}/canal/MDO"; desc="A&E";;
 	ae_hd)                            URL="${URL}/canal/MDH"; desc="A&E HD";;
 	amazon)                           URL="${URL}/canal/AMZ"; desc="Amazon Sat";;
@@ -90,8 +88,8 @@ zztv ()
 	axn_hd)                           URL="${URL}/canal/AXH"; desc="AXN HD";;
 	axn)                              URL="${URL}/canal/AXN"; desc="AXN";;
 	baby)                             URL="${URL}/canal/BAB"; desc="Baby TV";;
-	bandeirantes | band)              URL="${URL}/canal/BAN"; desc="Band Rede";;
-	band_espotes)                     URL="${URL}/canal/BSP"; desc="Band Esportes";;
+	band)                             URL="${URL}/canal/BAN"; desc="Band Rede";;
+	band_esportes)                    URL="${URL}/canal/BSP"; desc="Band Esportes";;
 	band_news)                        URL="${URL}/canal/NEW"; desc="Band News";;
 	bbc)                              URL="${URL}/canal/BBC"; desc="BBC World News";;
 	bbc_hd)                           URL="${URL}/canal/BHD"; desc="BBC HD";;
@@ -105,7 +103,7 @@ zztv ()
 	cartoon)                          URL="${URL}/canal/CAR"; desc="Cartoon Network";;
 	casa_clube)                       URL="${URL}/canal/CCL"; desc="Casa Club TV";;
 	max)                              URL="${URL}/canal/MXE"; desc="Max";;
-	canal_boi | boi)                  URL="${URL}/canal/BOI"; desc="Canal do Boi";;
+	canal_boi)                        URL="${URL}/canal/BOI"; desc="Canal do Boi";;
 	cinemax)                          URL="${URL}/canal/MNX"; desc="Cinemax";;
 	climatempo)                       URL="${URL}/canal/CLI"; desc="Climatempo";;
 	cnn_espanhol)                     URL="${URL}/canal/CNE"; desc="CNN Espanhol";;
@@ -116,9 +114,9 @@ zztv ()
 	concert)                          URL="${URL}/canal/100"; desc="Concert Channel";;
 	cultura)                          URL="${URL}/canal/CUL"; desc="TV Cultura";;
 	corinthians)                      URL="${URL}/canal/TCO"; desc="TV Corinthians";;
-	discovery_civilization | civil)   URL="${URL}/canal/DCI"; desc="Discovery Civilization";;
+	discovery_civilization)           URL="${URL}/canal/DCI"; desc="Discovery Civilization";;
 	discovery_hd)                     URL="${URL}/canal/DHD"; desc="Discovery HD Theater";;
-	discovery_kids | kids)            URL="${URL}/canal/DIK"; desc="Discovery Kids";;
+	discovery_kids)                   URL="${URL}/canal/DIK"; desc="Discovery Kids";;
 	discovery_science)                URL="${URL}/canal/DSC"; desc="Discovery Science";;
 	discovery_turbo)                  URL="${URL}/canal/DTU"; desc="Discovery Turbo";;
 	discovery)                        URL="${URL}/canal/DIS"; desc="Discovery Channel";;
@@ -128,15 +126,14 @@ zztv ()
 	disney_xd)                        URL="${URL}/canal/DXD"; desc="Disney XD";;
 	dwtv | deutsche)                  URL="${URL}/canal/DWL"; desc="Deutsche Welle";;
 	entertainment)                    URL="${URL}/canal/EET"; desc="E! Entertainment Television";;
-	espanha | tv_espanha)             URL="${URL}/canal/TVE"; desc="TVE Espanha";;
+	tv_espanha)                       URL="${URL}/canal/TVE"; desc="TVE Espanha";;
 	espn_brasil)                      URL="${URL}/canal/ESB"; desc="ESPN Brasil";;
 	espn)                             URL="${URL}/canal/ESP"; desc="ESPN";;
 	espn_mais)                        URL="${URL}/canal/ESH"; desc="ESPN+";;
-	esporte_interativo)               URL="${URL}/canal/SPI"; desc="Esporte Interativo";;
-	eurochannel | euro)               URL="${URL}/canal/EUR"; desc="Eurochannel";;
-	familia | rede_familia)           URL="${URL}/canal/REF"; desc="Rede Famí­lia";;
+	esporte_inter)                    URL="${URL}/canal/SPI"; desc="Esporte Interativo";;
+	eurochannel)                      URL="${URL}/canal/EUR"; desc="Eurochannel";;
+	rede_familia)                     URL="${URL}/canal/REF"; desc="Rede Famí­lia";;
 	film_arts)                        URL="${URL}/canal/BRA"; desc="Film & Arts";;
-	for_man)                          URL="${URL}/canal/GLS"; desc="For Man";;
 	fox_hd)                           URL="${URL}/canal/FHD"; desc="Fox HD";;
 	fox_life)                         URL="${URL}/canal/FLI"; desc="Fox Life";;
 	fox_news)                         URL="${URL}/canal/FNE"; desc="Fox News";;
@@ -145,12 +142,12 @@ zztv ()
 	futura)                           URL="${URL}/canal/FUT"; desc="Canal Futura";;
 	fx)                               URL="${URL}/canal/CFX"; desc="FX";;
 	gazeta)                           URL="${URL}/canal/GAZ"; desc="TV Gazeta";;
-	genesis | rede_genesis)           URL="${URL}/canal/TVG"; desc="Rede Gênesis";;
+	rede_genesis)                     URL="${URL}/canal/TVG"; desc="Rede Gênesis";;
 	glitz)                            URL="${URL}/canal/FAS"; desc="Glitz*";;
 	globo_bahia)                      URL="${URL}/canal/GBB"; desc="Globo - Rede Bahia";;
 	globo_campinas)                   URL="${URL}/canal/GRC"; desc="Globo - EPTV Campinas";;
 	globo_df)                         URL="${URL}/canal/GHB"; desc="Globo - Brasília";;
-	globo_eptv | eptv)                URL="${URL}/canal/GRP"; desc="Globo - EPTV Ribeirão Preto";;
+	globo_eptv)                       URL="${URL}/canal/GRP"; desc="Globo - EPTV Ribeirão Preto";;
 	globo_goias)                      URL="${URL}/canal/GBG"; desc="Globo - TV Anhanguera Goiás";;
 	globo_minas)                      URL="${URL}/canal/GBM"; desc="Globo - Minas Gerais";;
 	globo_news)                       URL="${URL}/canal/GLN"; desc="Globo News";;
@@ -168,23 +165,23 @@ zztv ()
 	hbo_plus_e)                       URL="${URL}/canal/HPE"; desc="HBO Plus *e";;
 	hbo_plus)                         URL="${URL}/canal/HPL"; desc="HBO Plus";;
 	hbo)                              URL="${URL}/canal/HBO"; desc="HBO";;
-	home_health | health)             URL="${URL}/canal/HEA"; desc="Discovery Home & Health";;
-	htv)                              URL="${URL}/canal/HTV"; desc="Etcetera";;
-	history | history_channel)        URL="${URL}/canal/HIS"; desc="History Channel";;
+	home_health)                      URL="${URL}/canal/HEA"; desc="Discovery Home & Health";;
+	htv)                              URL="${URL}/canal/HTV"; desc="HTV";;
+	history)                          URL="${URL}/canal/HIS"; desc="History Channel";;
 	history_hd)                       URL="${URL}/canal/HIH"; desc="History Channel HD";;
 	investigacao)                     URL="${URL}/canal/LIV"; desc="Investigação Discovery";;
-	isat | sat)                       URL="${URL}/canal/SAT"; desc="i-Sat";;
+	isat)                             URL="${URL}/canal/SAT"; desc="i-Sat";;
 	max_hd)                           URL="${URL}/canal/MHD"; desc="Max HD";;
 	max_prime_e)                      URL="${URL}/canal/MPE"; desc="Max Prime *e";;
 	max_prime)                        URL="${URL}/canal/MAP"; desc="Max Prime";;
 	megapix_hd)                       URL="${URL}/canal/MPH"; desc="Megapix HD";;
 	megapix)                          URL="${URL}/canal/MPX"; desc="Megapix";;
 	mgm)                              URL="${URL}/canal/MGM"; desc="MGM";;
-	mix | mix_tv)                     URL="${URL}/canal/MIX"; desc="Mix TV";;
+	mix_tv)                           URL="${URL}/canal/MIX"; desc="Mix TV";;
 	mtv)                              URL="${URL}/canal/MTV"; desc="MTV Brasil";;
 	multishow)                        URL="${URL}/canal/MSW"; desc="Multishow";;
 	lbv)                              URL="${URL}/canal/LBV"; desc="Boa Vontade TV";;
-	national | nat_geo)               URL="${URL}/canal/SUP"; desc="National Geography";;
+	nat_geo)                          URL="${URL}/canal/SUP"; desc="National Geography";;
 	nat_geo_hd)                       URL="${URL}/canal/NGH"; desc="Nat Geo Wild HD";;
 	nbr)                              URL="${URL}/canal/NBR"; desc="NBR";;
 	nhk)                              URL="${URL}/canal/NHK"; desc="NHK World";;
@@ -192,22 +189,25 @@ zztv ()
 	nick_hd)                          URL="${URL}/canal/NIH"; desc="Nick HD";;
 	nick_jr)                          URL="${URL}/canal/NJR"; desc="Nick Jr.";;
 	off)                              URL="${URL}/canal/OFF"; desc="Canal Off";;
-	playboy_tv)                       URL="${URL}/canal/PLA"; desc="Playboy TV";;
-	playboy)                          URL="${URL}/canal/HEC"; desc="Playboy TV Movies";;
 	ppv1)                             URL="${URL}/canal/PV1"; desc="PPV 1 DLA";;
 	ppv2)                             URL="${URL}/canal/PV2"; desc="PPV 2 DLA";;
 	ppv3)                             URL="${URL}/canal/PV3"; desc="PPV 3 DLA";;
 	ppv4)                             URL="${URL}/canal/PV4"; desc="PPV 4 DLA";;
 	ppv5)                             URL="${URL}/canal/PV5"; desc="PPV 5 DLA";;
 	ppv6)                             URL="${URL}/canal/PV6"; desc="PPV 6 DLA";;
+	ppv7)                             URL="${URL}/canal/PV7"; desc="PPV 7 DLA";;
+	ppv8)                             URL="${URL}/canal/PV8"; desc="PPV 8 DLA";;
+	ppv7)                             URL="${URL}/canal/PV9"; desc="PPV 9 DLA";;
+	ppv10)                            URL="${URL}/canal/P10"; desc="PPV 10 DLA";;
+	ppv11)                            URL="${URL}/canal/P11"; desc="PPV 11 DLA";;
+	ppv12)                            URL="${URL}/canal/P12"; desc="PPV 12 DLA";;
 	premiere_fc)                      URL="${URL}/canal/121"; desc="PremiereFC";;
-	private_gold)                     URL="${URL}/canal/ADM"; desc="Private Gold";;
 	rai)                              URL="${URL}/canal/RAI"; desc="RAI International";;
 	ra_tim_bum)                       URL="${URL}/canal/RTB"; desc="TV Rá-tim-bum";;
-	record_news | recordnews | rnews) URL="${URL}/canal/RCN"; desc="Record News";;
+	record_news)                      URL="${URL}/canal/RCN"; desc="Record News";;
 	record)                           URL="${URL}/canal/REC"; desc="Record";;
-	redetv | rede_tv)                 URL="${URL}/canal/RTV"; desc="Rede TV";;
-	rede_vida | vida)                 URL="${URL}/canal/VDA"; desc="Rede Vida";;
+	rede_tv)                          URL="${URL}/canal/RTV"; desc="Rede TV";;
+	rede_vida)                        URL="${URL}/canal/VDA"; desc="Rede Vida";;
 	rit)                              URL="${URL}/canal/RIT"; desc="Rede Internacional de TV";;
 	rtp)                              URL="${URL}/canal/RTP"; desc="RTP Internacional";;
 	rural)                            URL="${URL}/canal/RUR"; desc="Canal Rural";;
@@ -216,8 +216,6 @@ zztv ()
 	sbt)                              URL="${URL}/canal/SBT"; desc="SBT";;
 	senado)                           URL="${URL}/canal/SEN"; desc="TV Senado";;
 	sesc | senac)                     URL="${URL}/canal/NAC"; desc="SESC TV";;
-	sexy_hot)                         URL="${URL}/canal/HOT"; desc="Sexy Hot";;
-	sexy_prive)                       URL="${URL}/canal/SEX"; desc="Sex Privê Brasileirinhas";;
 	shoptime)                         URL="${URL}/canal/SHO"; desc="Shoptime";;
 	sic)                              URL="${URL}/canal/SIC"; desc="SIC Internacional";;
 	sony_hd)                          URL="${URL}/canal/SEH"; desc="Sony HD";;
@@ -225,10 +223,10 @@ zztv ()
 	sony)                             URL="${URL}/canal/SET"; desc="Sony Entertainment TV";;
 	space_hd)                         URL="${URL}/canal/SPH"; desc="Space HD";;
 	space)                            URL="${URL}/canal/SPA"; desc="Space";;
-	sporttv2 | sport_tv2)             URL="${URL}/canal/SP2"; desc="SporTV 2";;
-	sporttv3 | sport_tv3)             URL="${URL}/canal/SP3"; desc="SporTV 3";;
-	sporttv | sport_tv)               URL="${URL}/canal/SPO"; desc="SporTV";;
-	studio_universal | studio)        URL="${URL}/canal/HAL"; desc="Studio Universal";;
+	sport_tv2)                        URL="${URL}/canal/SP2"; desc="SporTV 2";;
+	sport_tv3)                        URL="${URL}/canal/SP3"; desc="SporTV 3";;
+	sport_tv)                         URL="${URL}/canal/SPO"; desc="SporTV";;
+	studio_universal)                 URL="${URL}/canal/HAL"; desc="Studio Universal";;
 	super_rede)                       URL="${URL}/canal/SRD"; desc="Rede Super de Televisão";;
 	syfy)                             URL="${URL}/canal/SCI"; desc="SyFy";;
 	tbs)                              URL="${URL}/canal/TBS"; desc="TBS";;
@@ -250,15 +248,14 @@ zztv ()
 	travel)                           URL="${URL}/canal/TRV"; desc="Travel & Living";;
 	trutv_hd)                         URL="${URL}/canal/TRH"; desc="TruTV HD";;
 	trutv)                            URL="${URL}/canal/TRU"; desc="TruTV";;
-	tv5_monde | monde | tv5)          URL="${URL}/canal/TV5"; desc="TV5 Monde";;
-	tv_brasil | tvbrasil)             URL="${URL}/canal/TED"; desc="TV Brasil";;
-	tv_brasil_central | central)      URL="${URL}/canal/TBC"; desc="TV Brasil Central";;
+	tv5_monde)                        URL="${URL}/canal/TV5"; desc="TV5 Monde";;
+	tv_brasil)                        URL="${URL}/canal/TED"; desc="TV Brasil";;
+	tv_brasil_central)                URL="${URL}/canal/TBC"; desc="TV Brasil Central";;
 	tv_camara)                        URL="${URL}/canal/CAM"; desc="TV Câmara";;
-	tv_escola | escola)               URL="${URL}/canal/ESC"; desc="TV Escola";;
-	tv_justica | justica)             URL="${URL}/canal/JUS"; desc="TV Justiça";;
+	tv_escola)                        URL="${URL}/canal/ESC"; desc="TV Escola";;
+	tv_justica)                       URL="${URL}/canal/JUS"; desc="TV Justiça";;
 	tv_uniao)                         URL="${URL}/canal/TVU"; desc="TV União";;
 	universal)                        URL="${URL}/canal/USA"; desc="Universal";;
-	venus)                            URL="${URL}/canal/THF"; desc="Vênus XXL";;
 	vh1)                              URL="${URL}/canal/VH1"; desc="VH1";;
 	vh1_hd)                           URL="${URL}/canal/VHD"; desc="VH1 HD";;
 	vh1_mega)                         URL="${URL}/canal/MTH"; desc="VH1 Mega Hits";;
@@ -273,6 +270,7 @@ zztv ()
 	series | seriados)                URL="${URL}/categoria/Series"; flag=1; desc="Séries";;
 	variedades)                       URL="${URL}/categoria/Variedades"; flag=1; desc="Variedades";;
 	cod)                              URL="${URL}/programa/$2"; flag=2;;
+	aberta)                           URL="${URL}/categoria/Aberta"; flag=1; desc="Aberta";;
 	todos | agora | *)                URL="${URL}/categoria/Todos"; flag=1; desc="Agora";;
 	esac
 
