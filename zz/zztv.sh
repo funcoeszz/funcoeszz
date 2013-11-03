@@ -19,18 +19,18 @@
 # bis_hd                  gazeta          nick_hd        telecine_action
 # bloomberg               rede_genesis    nick_jr        telecine_cult
 # boomerang               glitz           off            telecine_fun
-# canal_21                globo_bahia     ppv10          telecine_hd
-# canal_boi               globo_campinas  ppv11          telecine_pipoca_hd
-# canal_brasil            globo_df        ppv12          telecine_pipoca
-# cancao_nova             globo_eptv      ppv1           telecine_premium
-# cartoon                 globo_goias     ppv2           telecine
-# casa_clube              globo_minas     ppv3           tele_sur
-# cinemax                 globo_news      ppv4           terra_viva
-# climatempo              globo_poa       ppv5           tnt_hd
-# cnn_espanhol            globo_rj        ppv6           tnt
-# cnn                     globo_sp        ppv7           tooncast
-# cnt                     globo           ppv7           travel
-# combate                 gloob           ppv8           trutv_hd
+# canal_21                globo_bahia     ppv1           telecine_hd
+# canal_boi               globo_campinas  ppv2           telecine_pipoca_hd
+# canal_brasil            globo_df        ppv3           telecine_pipoca
+# cancao_nova             globo_eptv      ppv4           telecine_premium
+# cartoon                 globo_goias     ppv5           telecine
+# casa_clube              globo_minas     ppv6           tele_sur
+# cinemax                 globo_news      ppv7           terra_viva
+# climatempo              globo_poa       ppv8           tnt_hd
+# cnn_espanhol            globo_rj        ppv9           tnt
+# cnn                     globo_sp        ppv10          tooncast
+# cnt                     globo           ppv11          travel
+# combate                 gloob           ppv12          trutv_hd
 # comedy                  gnt             premiere_fc    trutv
 # concert                 golf            rai            tv5_monde
 # corinthians             hbo2            ra_tim_bum     tv_brasil_central
@@ -50,7 +50,7 @@
 # tv_espanha              max_hd          sic
 #
 # Programação corrente:
-# doc, esportes, filmes, infantil, series, variedades, aberto, todos (padrão).
+# doc, esportes, filmes, infantil, series, variedades, aberta, todos (padrão).
 #
 # Se o segundo argumento for "semana" ou "s" mostra toda programação semanal.
 # Opção só é válida para os canais.
