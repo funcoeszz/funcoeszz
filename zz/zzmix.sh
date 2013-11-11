@@ -1,37 +1,45 @@
 # ----------------------------------------------------------------------------
 # Mistura linha a linha 2 ou mais arquivos, mantendo a sequência.
 # Opções:
+#  -o <arquivo> - Define o arquivo de saida.
 #  -m - Toma como base o arquivo com menos linhas.
 #  -M - Toma como base o arquivo com mais linhas.
 #  -<numero> - Toma como base o arquivo na posição especificada.
 #
 # Sem opção, toma como base o primeiro arquivo declarado.
 #
-# Uso: zzmix [-m | -M | -<numero>] arquivo1 arquivo2 [arquivoN] ...
+# Uso: zzmix [-m | -M | -<numero> | -o <arq>] arquivo1 arquivo2 [arquivoN] ...
 # Ex.: zzmix -m arquivo1 arquivo2 arquivo3 # Base no arquivo com menos linhas
 #      zzmix -2 arquivo1 arquivo2 arquivo3 # Base no segundo arquivo
+#      zzmix -o out.txt arquivo1 arquivo2  # Mixando para o arquivo out.txt
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-11-01
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzmix ()
 {
 	zzzz -h mix "$1" && return
 
-	local lin_arq arquivo
+	local lin_arq arquivo arq_saida
 	local linhas=0
 	local tipo=1
 
-	# Opção -m ou -M, ou -numero
+	# Opção -m ou -M, -numero ou -o
 	while [ "${1#-}" != "$1" ]
 	do
-		tipo="${1#-}"
+		if test "$1" = "-o"
+		then
+			arq_saida="$2"
+			shift
+		else
+			tipo="${1#-}"
+		fi
 		shift
 	done
 
-	[ "$2" ] || { zztool uso mix; zztool eco "Necessário 2 arquivos no mínimo."; return 1; }
+	[ "$2" ] || { zztool uso mix; return 1; }
 
 	for arquivo
 	do
@@ -64,11 +72,16 @@ zzmix ()
 	[ "$linhas" -eq 0 ] && { zztool eco "Não há linhas para serem \"mixadas\"."; return 1; }
 
 	# Onde a "mixagem" ocorre efetivamente.
-	awk -v linhas_awk=$linhas '
+	awk -v linhas_awk=$linhas -v saida_awk="$arq_saida" '
 	BEGIN {
 		for (i=1; i<=linhas_awk; i++) {
 			for(j=1;j<ARGC;j++) {
-				if ((getline linha < ARGV[j]) > 0) print linha
+				if ((getline linha < ARGV[j]) > 0) {
+				if (length(saida_awk)>0)
+					print linha >> saida_awk
+				else
+					print linha
+				}
 			}
 		}
 	}' $* 2>/dev/null
