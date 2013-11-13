@@ -24,7 +24,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
@@ -38,8 +38,13 @@ zzxml ()
 	local unescape=0
 	local indent=0
 	local cache="$ZZTMP.xml"
+	local i=0
 
-	rm -f "$cache"
+	while ! zztool arquivo_vago $cache >/dev/null 2>&1
+	do
+		i=$((i + 1))
+		cache="$ZZTMP.xml.$i"
+	done
 
 	# Opções de linha de comando
 	while [ "${1#-}" != "$1" ]
