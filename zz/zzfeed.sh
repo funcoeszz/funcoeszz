@@ -11,7 +11,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzxml zzunescape
 # ----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ zzfeed ()
 		$ZZWWWHTML "$url" | zzxml --tidy > "$tmp"
 
 		# Tenta identificar o formato: <feed> é Atom, <rss> é RSS
-		formato=$(grep -e '^<feed[ >]' -e '^<rss[ >]' "$tmp")
+		formato=$(grep -e '^<feed[ >]' -e '^<rss[ >]' -e '^<rdf[:>]' "$tmp")
 
 		# Afinal, isso é um feed ou não?
 		if test -n "$formato"
@@ -92,18 +92,18 @@ zzfeed ()
 			# Atom ou RSS, as manchetes estão sempre na tag <title>,
 			# que por sua vez está dentro de <item> ou <entry>.
 
-			if zztool grep_var '<rss' "$formato"
+			if zztool grep_var '<feed' "$formato"
 			then
-				tag_mae='item'
-			else
 				tag_mae='entry'
+			else
+				tag_mae='item'
 			fi
 
 			# Extrai as tags <title> e formata o resultado
-			cat "$tmp" |
-				zzxml --tag $tag_mae |
-				zzxml --tag 'title' --untag |
-				sed "$limite q" |
+				zzxml --tag $tag_mae "$tmp" |
+				zzxml --tag title |
+				zzxml --tidy --untag |
+				sed '/^[[:space:]]*$/d' | sed "$limite q" |
 				zzunescape --html |
 				zztool trim
 		else
@@ -114,6 +114,7 @@ zzfeed ()
 			cat "$tmp" |
 				grep -i \
 					-e '^<link .*application/rss+xml' \
+					-e '^<link .*application/rdf+xml' \
 					-e '^<link .*application/atom+xml' |
 				# Se não tiver href= não vale (o site do Terra é um exemplo)
 				grep -i 'href=' |
