@@ -1,13 +1,15 @@
 # ----------------------------------------------------------------------------
-# Leitor de Feeds RSS e Atom.
+# Leitor de Feeds RSS, RDF e Atom.
 # Se informar a URL de um feed, são mostradas suas últimas notícias.
 # Se informar a URL de um site, mostra a URL do(s) Feed(s).
 # Obs.: Use a opção -n para limitar o número de resultados (Padrão é 10).
+# Para uso via pipe digite dessa forma: "zzfeed -", mesma forma que o cat.
 #
 # Uso: zzfeed [-n número] URL...
 # Ex.: zzfeed http://aurelio.net/feed/
 #      zzfeed -n 5 aurelio.net/feed/          # O http:// é opcional
 #      zzfeed aurelio.net funcoeszz.net       # Mostra URL dos feeds
+#      cat arquivo.rss | zzfeed -             # Para uso via pipe
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
@@ -80,7 +82,13 @@ zzfeed ()
 		[ $# -gt 1 ] && zztool eco "* $url"
 
 		# Baixa e limpa o conteúdo do feed
-		$ZZWWWHTML "$url" | zzxml --tidy > "$tmp"
+		if test "$1" = "-"
+		then
+			zztool file_stdin "$@" 
+		else
+			$ZZWWWHTML "$url"
+		fi |
+		zzxml --tidy > "$tmp"
 
 		# Tenta identificar o formato: <feed> é Atom, <rss> é RSS
 		formato=$(grep -e '^<feed[ >]' -e '^<rss[ >]' -e '^<rdf[:>]' "$tmp")
