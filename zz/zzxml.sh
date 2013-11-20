@@ -14,13 +14,15 @@
 # Obs.: --notag tem precedência sobre --tag e --untag=<tag>.
 #       --untag=<tag> tem precedência sobre --tag.
 #
-# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag] [--unescape] [arquivo(s)]
+# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag[=<tag>]] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
-#      zzxml --untag --unescape arq.xml                     # xml -> txt
-#      zzxml --tag title --untag --unescape arq.xml         # títulos
-#      cat arq.xml | zzxml --tag item | zzxml --tag title   # aninhado
-#      zzxml --tag item --tag title arq.xml                 # tags múltiplas
-#      zzxml --indent arq.xml                               # tags indentadas
+#      zzxml --untag --unescape arq.xml                    # xml -> txt
+#      zzxml --untag=item arq.xml                          # Retira apenas as tags "item"
+#      zzxml --tag title --untag --unescape arq.xml        # títulos
+#      cat arq.xml | zzxml --tag item | zzxml --tag title  # aninhado
+#      zzxml --tag item --tag title arq.xml                # tags múltiplas
+#      zzxml --notag link arq.xml                          # Retira a tag link e o conteúdo
+#      zzxml --indent arq.xml                              # tags indentadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
@@ -32,12 +34,11 @@ zzxml ()
 {
 	zzzz -h xml "$1" && return
 
-	local tag notag semtag ntag sed_notag
+	local tag notag semtag ntag sed_notag cache
 	local tidy=0
 	local untag=0
 	local unescape=0
 	local indent=0
-	local cache="$ZZTMP.xml"
 	local i=0
 
 	while ! zztool arquivo_vago $cache >/dev/null 2>&1

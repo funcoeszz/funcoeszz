@@ -18,7 +18,7 @@ zzcbn ()
 {
 	zzzz -h cbn "$1" && return
 
-	local COMENTARISTAS MP3 RSS data comentarista datafile
+	local COMENTARISTAS RSS MP3 EXT comentarista data linha autor datafile Tlinhas l P titulo hora dois 
 
 #Comentaristas;RSS;Download
 COMENTARISTAS="André_Trigueiro;andretrigueiro;andre-trigueiro;mundo
@@ -86,7 +86,9 @@ fi
 	autor=`echo $linha | cut -d';' -f 3`
 #	[ "$data" ] || data=`LANG=en.US date "+%d %b %Y"`
 #	echo "$RSS`echo $linha | cut -d';' -f 2`.xml"
-	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml" | sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" | sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$ZZTMP.cbn.comentarios"
+	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml" |
+	sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" |
+	sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$ZZTMP.cbn.comentarios"
 
 	zzecho -l ciano `cat "$ZZTMP.cbn.comentarios" | sed -n '1p'`
 
