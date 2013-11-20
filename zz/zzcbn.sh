@@ -40,8 +40,6 @@ Renato_Machado;renatomachado;rmachado
 Sérgio_Abranches;sergioabranches;ecopolitica"
 
 RSS="http://imagens.globoradio.globo.com/cbn/rss/comentaristas/"
-#MP3="http://download3.globo.com/sgr-$EXT/cbn/"
-#EXT="mp3"
 MP3="mms://wm-sgr-ondemand.globo.com/_aberto/sgr/1/cbn/"
 EXT="wma"
 
@@ -71,7 +69,6 @@ fi
 				;;
 			--mp3)
 				EXT="mp3"
-				#MP3="http://download3.globo.com/sgr-$EXT/cbn/"
 				MP3="http://download.sgr.globo.com/sgr-$EXT/cbn/"
 				;;
 			*)
@@ -84,8 +81,7 @@ fi
 
 	linha=`echo $COMENTARISTAS | tr ' ' '\n' | sed  "/$comentarista/!d"`
 	autor=`echo $linha | cut -d';' -f 3`
-#	[ "$data" ] || data=`LANG=en.US date "+%d %b %Y"`
-#	echo "$RSS`echo $linha | cut -d';' -f 2`.xml"
+
 	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml" |
 	sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" |
 	sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$ZZTMP.cbn.comentarios"
@@ -140,9 +136,8 @@ fi
 			esac
 		fi
 		zzecho -l verde "(q) para próximo; CTRL+C para sair"
-		#echo $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT
 		echo $titulo - $data
-		zzplay $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT || return
+		zzplay $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT mplayer || return
 		l=$(($l+2))
 	done
 	if [ "$Tlinhas" == "0" ]
