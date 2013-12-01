@@ -58,10 +58,10 @@ zzbrasileirao ()
 						tam_ini = length()
 						if (linha != 1 )gsub(/^  */,"")
 						tam[linha] = tam_ini - length()
-						jogo[linha] = $0
+						if ($0 !~ /Comunicar erro/) { jogo[linha] = $0 } else { jogo[linha] = "" }
 					}
 					if (linha==6) {
-						printf " %-"tam[3]"s %-"tam[5]-tam[3]"s %-"tam[6]-tam[5]"s\n", jogo[1], jogo[3], jogo[5] " " jogo[6]
+						printf " %-"tam[3]"s %-"tam[5]-tam[3]"s %-"tam[6]-tam[5]"s\n", jogo[1], jogo[3], jogo[5] " (" jogo[6] ")"
 					}
 					linha++
 				}
