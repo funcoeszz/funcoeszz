@@ -29,9 +29,9 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 15
+# Versão: 16
 # Licença: GPL
-# Requisitos: zzjuntalinhas
+# Requisitos: zzxml
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
@@ -49,27 +49,28 @@ zzbrasileirao ()
 	then
 		if [ "$2" ]
 		then
-			$ZZWWWDUMP "${url}/futebol/clubes/$2/todos-os-jogos" | sed -n "/Tabela de jogos/,/http:/p" |
-			sed '
-				1d;$d;
-				/^ *\[/d;
-				/leia Relato/d;
-				/Na Tv:/d;
-				s/^  */ /g;
-				s/\([a-z]\)\([A-Z]\)/\1 - \2/g;
-				s/x\([0-9]\)/x \1/g
-			' |
-			zzjuntalinhas -d ';' -i '[0-9][0-9]/[0-9][0-9]' -f '^ *$' | sed '/^[[:blank:]]*$/d;s/^ *[jfmasond]/\n&/g' |
-			awk -F';' '{
-				if (length($3)<5) { result = "   x "} else { result = $3 }
-				if (NF>=5) { printf "%-38s %18s %-6s %-18s %s\n", $1, toupper($2), result, toupper($4), $5 }
-				else {print $0}
-			}'
+			$ZZWWWDUMP "${url}/futebol/times/$2/resultados" | sed -n "/Data  .*Campeonato/,/Comunicar erro/p" |
+			awk '
+				NR == 1 { print }
+				$2 ~ /[0-9][0-9]h[0-9][0-9]/ { linha=1 }
+				{ if (linha != 2 || linha != 4 || linha > 0)
+					{
+						tam_ini = length()
+						if (linha != 1 )gsub(/^  */,"")
+						tam[linha] = tam_ini - length()
+						jogo[linha] = $0
+					}
+					if (linha==6) {
+						printf " %-"tam[3]"s %-"tam[5]-tam[3]"s %-"tam[6]-tam[5]"s\n", jogo[1], jogo[3], jogo[5] " " jogo[6]
+					}
+					linha++
+				}
+			' 
 			return 0
 		else
-			$ZZWWWHTML "$url/futebol/clubes/" |
-			sed -n '/<li class="aba show serie-[ab]">/,/<\/ul>$/p;/<li class="aba hide serie-[ab]">/,/<\/ul>$/p' |
-			sed -n '/<li class=".*"><a rel="menu"/p' | awk -F'"' '{print $2}' | sort
+			$ZZWWWHTML "$url/futebol/" | zzxml --tidy |
+			sed -n '/<li class="serie-[ab] [^>]*>/p;' |
+			awk '{print $3}' | sort
 			return 0
 		fi
 	else
@@ -93,7 +94,12 @@ zzbrasileirao ()
 		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d'
 	else
 		# urls="${url}/classificacao/classificacao.htm"
-		urls="${url}/classificacao/fase-unica"
+		if [ "$serie" = "a" ]
+		then
+			urls="http://esporte.uol.com.br/futebol/campeonatos/brasileirao/jogos/"
+		else
+			urls="${url}/classificacao/fase-unica"
+		fi
 
 		[ "$serie" = "a" ] && zztool eco "Série A"
 		[ "$serie" = "b" ] && zztool eco "Série B"
@@ -113,7 +119,7 @@ zzbrasileirao ()
 				echo "$url" |sed 's/.*grupo-/Grupo /;s/\.htm//' | tr 'ab' 'AB'
 			fi
 
-			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;" |
+			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;/^ *Classificação *PG/,/20°/p;" |
 			sed '/^ *$/d' | sed '/^ *[0-9]\{1,\} *$/{N;N;s/\n//g;}' | sed 's/\([0-9]\{1,\}\) */\1 /g;/^ *PG/d' |
 			awk -v cor_awk="$ZZCOR" -v serie_awk="$serie" '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
 
