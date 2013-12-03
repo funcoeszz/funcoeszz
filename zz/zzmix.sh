@@ -5,24 +5,33 @@
 #  -m - Toma como base o arquivo com menos linhas.
 #  -M - Toma como base o arquivo com mais linhas.
 #  -<numero> - Toma como base o arquivo na posição especificada.
+#  -p <relação de linhas> - numero de linhas de cada arquivo de origem.
+#    Obs1.: A relação são números de linhas de cada arquivo correspondente na
+#           sequência, justapostos separados por vírgula (,).
+#    Obs2.: Se a quantidade de linhas na relação for menor que a quantidade de
+#           arquivos, os arquivos excedentes adotam a último valor na relação.
 #
 # Sem opção, toma como base o primeiro arquivo declarado.
 #
-# Uso: zzmix [-m | -M | -<numero> | -o <arq>] arquivo1 arquivo2 [arquivoN] ...
-# Ex.: zzmix -m arquivo1 arquivo2 arquivo3 # Base no arquivo com menos linhas
-#      zzmix -2 arquivo1 arquivo2 arquivo3 # Base no segundo arquivo
-#      zzmix -o out.txt arquivo1 arquivo2  # Mixando para o arquivo out.txt
+# Uso: zzmix [-m | -M | -<numero>] [-o <arq>] [-p <relação>] arquivo1 arquivo2 [arquivoN] ...
+# Ex.: zzmix -m arquivo1 arquivo2 arquivo3  # Base no arquivo com menos linhas
+#      zzmix -2 arquivo1 arquivo2 arquivo3  # Base no segundo arquivo
+#      zzmix -o out.txt arquivo1 arquivo2   # Mixando para o arquivo out.txt
+#      zzmix -p 2,5,6 arq1 arq2 arq3 
+#       2 linhas do arq1, 5 linhas do arq2 e 3 linhas do arq3,
+#       e repete a seqUência até o final.
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-11-01
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzmix ()
 {
 	zzzz -h mix "$1" && return
 
-	local lin_arq arquivo arq_saida
+	local lin_arq arquivo arq_saida arq_ref
+	local passos=1
 	local linhas=0
 	local tipo=1
 
@@ -32,6 +41,10 @@ zzmix ()
 		if test "$1" = "-o"
 		then
 			arq_saida="$2"
+			shift
+		elif test "$1" = "-p"
+		then
+			passos="$2"
 			shift
 		else
 			tipo="${1#-}"
@@ -50,10 +63,12 @@ zzmix ()
 			if test "$tipo" = "M" && test $lin_arq -gt $linhas
 			then
 				linhas=$lin_arq
+				arq_ref=$arquivo
 			fi
 			if test "$tipo" = "m" && (test $lin_arq -lt $linhas || test $linhas -eq 0)
 			then
 				linhas=$lin_arq
+				arq_ref=$arquivo
 			fi
 		fi
 
@@ -72,15 +87,37 @@ zzmix ()
 	[ "$linhas" -eq 0 ] && { zztool eco "Não há linhas para serem \"mixadas\"."; return 1; }
 
 	# Onde a "mixagem" ocorre efetivamente.
-	awk -v linhas_awk=$linhas -v saida_awk="$arq_saida" '
+	awk -v linhas_awk=$linhas -v passos_awk="$passos" -v arq_ref_awk="$arq_ref" -v saida_awk="$arq_saida" '
 	BEGIN {
-		for (i=1; i<=linhas_awk; i++) {
-			for(j=1;j<ARGC;j++) {
-				if ((getline linha < ARGV[j]) > 0) {
-				if (length(saida_awk)>0)
-					print linha >> saida_awk
-				else
-					print linha
+		qtde_passos = split(passos_awk, passo, ",")
+
+		if (qtde_passos < ARGC)
+		{
+			ultimo_valor = passo[qtde_passos]
+			for (i = qtde_passos+1; i <= ARGC; i++) {
+				passo[i] = ultimo_valor
+			}
+		}
+
+		div_linhas = 1
+		for (i = 1; i <= ARGC-1; i++) {
+			if (arq_ref_awk == ARGV[i]) {
+				div_linhas = passo[i]
+			}
+		}
+
+		bloco_linhas=int(linhas_awk/div_linhas) + (linhas_awk/div_linhas==int(linhas_awk/div_linhas)?0:1)
+
+		for (i = 1; i <= bloco_linhas; i++) {
+			for(j = 1; j < ARGC; j++) {
+				for (k = 1; k <= passo[j]; k++)
+				{
+					if ((getline linha < ARGV[j]) > 0) {
+						if (length(saida_awk)>0)
+							print linha >> saida_awk
+						else
+							print linha
+					}
 				}
 			}
 		}
