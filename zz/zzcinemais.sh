@@ -99,7 +99,7 @@ zzcinemais ()
 			zztool texto_em_iso |
 			grep -A 2 'href="../filmes/f' |
 			while read linha; do
-				if [[ $linha =~ Classifica ]]; then
+				if echo $linha | grep Classifica > /dev/null; then
 					echo $linha | sed 's/.*//g';
 				else
 					echo $linha | sed 's/<[^>]*>//g;s/^[ \t]*//g'
@@ -113,12 +113,12 @@ zzcinemais ()
 	printf %b ' '
 
 	for i in $sessoes; do
-		if [[ $i =~ Dub|Leg  ]]; then
+		if echo "$i" | grep 'Dub\|Leg' > /dev/null; then
 			printf %b "\033[G\033[32C| $i"
-		elif [[ $i =~ ^-$ ]]; then
+		elif echo "$i" | grep '^-$' > /dev/null ; then
 			printf %b "\033[G\033[39C| "
-		elif [[ $i =~ [0-9][0-9][h][0-9][0-9] ]];then
-			if [[ $controle =~ [a-z]$ ]]; then
+		elif echo "$i" | grep '[0-9][0-9][h][0-9][0-9]' > /dev/null ;then
+			if echo $controle | grep '[a-z]$' > /dev/null; then
 				printf %b "\033[G\033[32C|      | "
 			fi
 			ih=$(echo $i | cut -d'h' -f1)
@@ -131,7 +131,7 @@ zzcinemais ()
 			else
 				zzecho -n -l vermelho -N "$i "
 			fi
-		elif [[ $i =~ -- ]]; then
+		elif echo "$i" | grep '\-\-' > /dev/null; then
 			printf %b "\n "
 		else
 			printf %b " $i"

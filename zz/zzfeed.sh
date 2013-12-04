@@ -1,17 +1,19 @@
 # ----------------------------------------------------------------------------
-# Leitor de Feeds RSS e Atom.
+# Leitor de Feeds RSS, RDF e Atom.
 # Se informar a URL de um feed, são mostradas suas últimas notícias.
 # Se informar a URL de um site, mostra a URL do(s) Feed(s).
 # Obs.: Use a opção -n para limitar o número de resultados (Padrão é 10).
+# Para uso via pipe digite dessa forma: "zzfeed -", mesma forma que o cat.
 #
 # Uso: zzfeed [-n número] URL...
 # Ex.: zzfeed http://aurelio.net/feed/
 #      zzfeed -n 5 aurelio.net/feed/          # O http:// é opcional
 #      zzfeed aurelio.net funcoeszz.net       # Mostra URL dos feeds
+#      cat arquivo.rss | zzfeed -             # Para uso via pipe
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzxml zzunescape
 # ----------------------------------------------------------------------------
@@ -80,10 +82,16 @@ zzfeed ()
 		[ $# -gt 1 ] && zztool eco "* $url"
 
 		# Baixa e limpa o conteúdo do feed
-		$ZZWWWHTML "$url" | zzxml --tidy > "$tmp"
+		if test "$1" = "-"
+		then
+			zztool file_stdin "$@" 
+		else
+			$ZZWWWHTML "$url"
+		fi |
+		zzxml --tidy > "$tmp"
 
 		# Tenta identificar o formato: <feed> é Atom, <rss> é RSS
-		formato=$(grep -e '^<feed[ >]' -e '^<rss[ >]' "$tmp")
+		formato=$(grep -e '^<feed[ >]' -e '^<rss[ >]' -e '^<rdf[:>]' "$tmp")
 
 		# Afinal, isso é um feed ou não?
 		if test -n "$formato"
@@ -92,18 +100,18 @@ zzfeed ()
 			# Atom ou RSS, as manchetes estão sempre na tag <title>,
 			# que por sua vez está dentro de <item> ou <entry>.
 
-			if zztool grep_var '<rss' "$formato"
+			if zztool grep_var '<feed' "$formato"
 			then
-				tag_mae='item'
-			else
 				tag_mae='entry'
+			else
+				tag_mae='item'
 			fi
 
 			# Extrai as tags <title> e formata o resultado
-			cat "$tmp" |
-				zzxml --tag $tag_mae |
-				zzxml --tag 'title' --untag |
-				sed "$limite q" |
+				zzxml --tag $tag_mae "$tmp" |
+				zzxml --tag title |
+				zzxml --tidy --untag |
+				sed '/^[[:space:]]*$/d' | sed "$limite q" |
 				zzunescape --html |
 				zztool trim
 		else
@@ -114,6 +122,7 @@ zzfeed ()
 			cat "$tmp" |
 				grep -i \
 					-e '^<link .*application/rss+xml' \
+					-e '^<link .*application/rdf+xml' \
 					-e '^<link .*application/atom+xml' |
 				# Se não tiver href= não vale (o site do Terra é um exemplo)
 				grep -i 'href=' |

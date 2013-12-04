@@ -3,26 +3,30 @@
 # Obs.: Este parser é usado pelas Funções ZZ, não serve como parser genérico.
 # Obs.: Necessário pois não há ferramenta portável para lidar com XML no Unix.
 #
-# Opções: --tidy      Reorganiza o código, deixando uma tag por linha
-#         --tag       Extrai (grep) as tags
-#         --notag     Exclui essas tags (grep -v)
-#         --list      Lista sem repetição as tags existentes no arquivo
-#         --indent    Promove a indentação das tags
-#         --untag     Remove todas as tags, deixando apenas texto
-#         --unescape  Converte as entidades &foo; para caracteres normais
-# Obs.: --notag tem precedência sobre --tag.
+# Opções: --tidy        Reorganiza o código, deixando uma tag por linha
+#         --tag         Extrai (grep) as tags
+#         --notag       Exclui essas tags (grep -v)
+#         --list        Lista sem repetição as tags existentes no arquivo
+#         --indent      Promove a indentação das tags
+#         --untag       Remove todas as tags, deixando apenas texto
+#         --untag=<tag> Remove apenas a tag especificada, deixando o texto
+#         --unescape    Converte as entidades &foo; para caracteres normais
+# Obs.: --notag tem precedência sobre --tag e --untag=<tag>.
+#       --untag=<tag> tem precedência sobre --tag.
 #
-# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag] [--unescape] [arquivo(s)]
+# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag[=<tag>]] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
-#      zzxml --untag --unescape arq.xml                     # xml -> txt
-#      zzxml --tag title --untag --unescape arq.xml         # títulos
-#      cat arq.xml | zzxml --tag item | zzxml --tag title   # aninhado
-#      zzxml --tag item --tag title arq.xml                 # tags múltiplas
-#      zzxml --indent arq.xml                               # tags indentadas
+#      zzxml --untag --unescape arq.xml                    # xml -> txt
+#      zzxml --untag=item arq.xml                          # Retira apenas as tags "item"
+#      zzxml --tag title --untag --unescape arq.xml        # títulos
+#      cat arq.xml | zzxml --tag item | zzxml --tag title  # aninhado
+#      zzxml --tag item --tag title arq.xml                # tags múltiplas
+#      zzxml --notag link arq.xml                          # Retira a tag link e o conteúdo
+#      zzxml --indent arq.xml                              # tags indentadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 5
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
@@ -30,14 +34,18 @@ zzxml ()
 {
 	zzzz -h xml "$1" && return
 
-	local tag notag ntag sed_notag
+	local tag notag semtag ntag sed_notag cache
 	local tidy=0
 	local untag=0
 	local unescape=0
 	local indent=0
-	local cache="$ZZTMP.xml"
+	local i=0
 
-	rm -f "$cache"
+	while ! zztool arquivo_vago $cache >/dev/null 2>&1
+	do
+		i=$((i + 1))
+		cache="$ZZTMP.xml.$i"
+	done
 
 	# Opções de linha de comando
 	while [ "${1#-}" != "$1" ]
@@ -58,6 +66,10 @@ zzxml ()
 				tidy=1
 				shift
 				notag="$notag $1"
+				shift
+			;;
+			--untag=* )
+				semtag="$semtag ${1#*=}"
 				shift
 			;;
 			--indent   )
@@ -105,6 +117,11 @@ zzxml ()
 	do
 		sed_notag="$sed_notag /<${ntag}[^/>]* >/,/<\/${ntag} >/d;"
 		sed_notag="$sed_notag /<${ntag}[^/>]*\/>/d;"
+	done
+
+	for ntag in $semtag
+	do
+		sed_notag="$sed_notag s|<[/]\{0,1\}${ntag}[^>]*>||g;"
 	done
 
 	# O código seguinte é um grande filtro, com diversos blocos de comando
@@ -164,9 +181,8 @@ zzxml ()
 			cat -
 		fi |
 
-		# --notag
-		# É sempre usada em conjunto com --tidy (automaticamente)
-		if test -n "$notag"
+		# --notag ou --notag=tag
+		if test -n "$sed_notag"
 		then
 			sed "$sed_notag"
 		else

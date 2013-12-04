@@ -9,7 +9,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-12-06
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzseq
 # ----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ zzascii ()
 {
 	zzzz -h ascii "$1" && return
 
-	local referencias decimais decimal hexa octal caractere
+	local referencias decimais decimal hexa octal caractere largura_col
 	local num_colunas="${1:-5}"
 	local largura="${2:-78}"
 	local max_colunas=20
@@ -45,15 +45,7 @@ zzascii ()
 		return 1
 	fi
 
-	# Estamos em um terminal UTF-8?
-	if zztool terminal_utf8
-	then
-		decimais=$(zzseq 32 126)
-	else
-		# Se o sistema for ISO-8859-1, mostra a tabela extendida,
-		# com caracteres acentuados
-		decimais=$(zzseq 32 126 ; zzseq 161 255)
-	fi
+	decimais=$(zzseq 32 126 ; zzseq 161 255)
 
 	# Cálculos das dimensões da tabela
 	local colunas=$(zzseq 0 $((num_colunas - 1)))
@@ -84,10 +76,13 @@ zzascii ()
 		do
 			hexa=$( printf '%X'   $decimal)
 			octal=$(printf '%03o' $decimal) # NNN
-			caractere=$(printf "\x$hexa")
+			caractere=$(awk 'BEGIN { printf "%c", '$decimal' }')
+
+			# Na parte extendida da tabela ascii o tamanho do caractere precisa um espaço adicional.
+			[ $decimal -ge 161 ] && largura_col=$((largura_coluna+1)) || largura_col=$largura_coluna
 
 			# Mostra a célula atual da tabela
-			printf "%${largura_coluna}s" "$decimal $hexa $octal $caractere"
+			printf "%${largura_col}s" "$decimal $hexa $octal $caractere"
 		done
 		echo
 	done
