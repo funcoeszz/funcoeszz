@@ -51,7 +51,7 @@ zzbrasileirao ()
 		then
 			$ZZWWWDUMP "${url}/futebol/times/$2/resultados" | sed -n "/Data  .*Campeonato/,/Comunicar erro/p" |
 			awk '
-				NR == 1 { print }
+				BEGIN { printf "%-14s  %-20s  %-43s %s\n", "     Data","     Campeonato","                   Jogos","     Local"}
 				$2 ~ /[0-9][0-9]h[0-9][0-9]/ { linha=1 }
 				{ if (linha != 2 || linha != 4 || linha > 0)
 					{
@@ -61,11 +61,16 @@ zzbrasileirao ()
 						if ($0 !~ /Comunicar erro/) { jogo[linha] = $0 } else { jogo[linha] = "" }
 					}
 					if (linha==6) {
-						printf " %-"tam[3]"s %-"tam[5]-tam[3]"s %-"tam[6]-tam[5]"s\n", jogo[1], jogo[3], jogo[5] " (" jogo[6] ")"
+						sub(/^ */,"",jogo[1])
+						sub(/^ */,"",jogo[3])
+						sub("penâltis","pen", jogo[3])
+						sub(/^ */,"",jogo[5])
+						sub(/^ */,"",jogo[6])
+						printf "%-35s  %-43s  %s\n", jogo[1], jogo[3], jogo[5] " (" jogo[6] ")"
 					}
 					linha++
 				}
-			' 
+			'
 			return 0
 		else
 			$ZZWWWHTML "$url/futebol/" | zzxml --tidy |
