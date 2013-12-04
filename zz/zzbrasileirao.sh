@@ -62,6 +62,7 @@ zzbrasileirao ()
 					}
 					if (linha==6) {
 						sub(/^ */,"",jogo[1])
+						sub(/^   */,"  ",jogo[1])
 						sub(/^ */,"",jogo[3])
 						sub("penâltis","pen", jogo[3])
 						sub(/^ */,"",jogo[5])
