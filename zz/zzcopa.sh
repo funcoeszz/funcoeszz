@@ -72,7 +72,7 @@ zzcopa ()
 	[a-hA-H])
 		letra=$(echo "$1" | tr '[a-h]' '[A-H]')
 		sed_ini="^Grupo $letra"
-		sed_fim="^Grupo [^${letra}]"
+		[ "$letra" = "H" ] && sed_fim="^Oitavas de Final" || sed_fim="^Grupo [^${letra}]"
 	;;
 	[Cc]lassifica[cç][aã]o)
 		sed_ini="^Grupo "
