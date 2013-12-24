@@ -108,7 +108,7 @@ zzplay ()
 			;;
 		esac
 
-		[ "$cache" ] && $player "$cache" >/dev/null 2>&1 || $player "$1" >/dev/null 2>&1
+		test -s "$cache" && $player "$cache" >/dev/null 2>&1 || $player "$1" >/dev/null 2>&1
 	fi
 
 	rm $cache
