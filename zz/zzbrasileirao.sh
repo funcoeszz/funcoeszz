@@ -86,7 +86,7 @@ zzbrasileirao ()
 		fi
 	fi
 
-	[ $(date +%Y%m%d) -lt 20130525 ] && { zztool eco " Brasileirão 2013 só a partir de 25 de Maio"; return 1; }
+	[ $(date +%Y%m%d) -lt 20140419 ] && { zztool eco " Brasileirão 2014 só a partir de 19 de Abril."; return 1; }
 
 	ano=$(date +%Y)
 
