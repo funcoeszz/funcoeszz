@@ -15,7 +15,7 @@
 #  final ou 6
 #
 # Nomenclatura:
-#	P   - Pontos Ganhos
+#	PG  - Pontos Ganhos
 #	J   - Jogos
 #	V   - Vitórias
 #	E   - Empates
@@ -33,7 +33,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlibertadores ()
@@ -41,57 +41,43 @@ zzlibertadores ()
 	zzzz -h libertadores "$1" && return
 
 	local ano=$(date +%Y)
-	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/$ano"
+	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/jogos"
 	local grupo
 
 	[ "$1" ] || { zztool uso libertadores; return 1; }
 
 	# Mostrando os jogos
 	# Escolhendo as fases
-	url="${url}/tabela-de-jogos"
 	# Fase 1 (Pré-libertadores)
 	case "$1" in
 	1 | pr[eé] | primeira)
-		url="${url}/primeira-fase"
-		$ZZWWWDUMP "$url" | sed -n '/Primeira fase - IDA/,/primeira-fase/p' |
-		sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Primeira fase/\
-&/g' | sed "s/.*${ano}$/\
-&/g"
+		$ZZWWWDUMP "$url" | sed -n '/Primeira Fase/,/Segunda/p' |
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'|
+		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}'
 	;;
 	# Fase 2 (Fase de Grupos)
 	2 | grupos | segunda)
 		for grupo in 1 2 3 4 5 6 7 8
 		do
 			zzlibertadores -g $grupo
+			echo
 		done
 	;;
 	3 | oitavas)
-		url="${url}/oitavas-de-final"
-		$ZZWWWDUMP "$url" | sed -n '/Oitavas de final - IDA/,/^ *$/p' |
-		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-		sed 's/ *Oitavas de final - VOLTA/\
-&/;'
+		$ZZWWWDUMP "$url" | sed -n '/^Oitavas de Final/,/^ *\*/p' |
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
 	;;
 	4 | quartas)
-		url="${url}/quartas-de-final"
-		$ZZWWWDUMP "$url" | sed -n '/Quartas de final - IDA/,/^ *$/p' |
-		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-		sed 's/ *Quartas de final - VOLTA/\
-&/;'
+		$ZZWWWDUMP "$url" | sed -n '/^Quartas de Final/,/^Oitavas de Final/p' |
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
 	;;
 	5 | semi | semi-final)
-		url="${url}/semifinal"
-		$ZZWWWDUMP "$url" | sed -n '/Semifinal - IDA/,/^ *$/p' |
-		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-		sed 's/ *Semifinal - VOLTA/\
-&/;'
+		$ZZWWWDUMP "$url" | sed -n '/^Semifinal/,/^Quartas de Final/p' |
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
 	;;
 	6 | final)
-		url="${url}/final"
-		$ZZWWWDUMP "$url" | sed -n '/Final - IDA/,/^ *$/p' |
-		sed "s/ *RELATO.*//g;s/ *Ler o relato.*//g" | sed '$d;/^ *\*/d' |
-		sed 's/ *Final - VOLTA/\
-&/;'
+		$ZZWWWDUMP "$url" | sed -n '/^Final/,/^Semifinal/p' |
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
 	;;
 	esac
 
@@ -99,10 +85,11 @@ zzlibertadores ()
 	if [ "$1" = "-g" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
 	then
 		grupo="$2"
-		url="${url}/segunda-fase/grupo-${grupo}.htm"
-		$ZZWWWDUMP "$url" | sed -n '/^ *Grupo /,/segunda-fase/p' |
-		sed '$d;s/RELATO//g;s/Ler o relato .*//g;s/^ *Grupo/\
-&/g'
+		echo "Grupo $2"
+		$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Grupo /p" |
+		sed '/Classificados para Oitavas de Final/,$d;s/^ *//' | sed -n '/ X /{N;p;}' |
+		sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}'
 	fi
 
 	# Mostrando a classificação (Fase de grupos)
@@ -111,44 +98,14 @@ zzlibertadores ()
 		if [ "$1" = "-c" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
 		then
 			grupo="$2"
-			url="http://esportes.terra.com.br/bcg/pt-br.libertadores-${ano}_segunda-fase.html"
-			$ZZWWWDUMP "$url"| iconv -f utf8 -t iso-8859-1 | sed -n "/Grupo $grupo/,/Anterior/p" |
-			sed '/^ *$/d;s/Subiu[0-9]*//g;s/Desceu[0-9]*//g;s/Anterior//g;s/Times//g;s/^ *\*//g' |
-			awk -v cor_awk="$ZZCOR" '{
-				if (NF >= 9) {
-					time_fut = $2
-
-					for (i=3;i<(NF-8);i++) {
-						if ($i != $2) {
-							time_fut = time_fut " " $i
-						} else {
-							break
-						}
-					}
-
-					if (NF==9) {
-						printf " %s %-25s", " ", " "
-						printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s\n", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
-					}
-
-					if (NF>9) {
-						if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[42;30m"
-						printf "%s %-25s ", $1, time_fut
-						printf " %3s %3s %3s %3s %3s %3s %3s %3s %3s", $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF
-						if (cor_awk==1 && ($1==1 || $1==2)) printf "\033[m"
-						printf "\n"
-					}
-				}
-				else print
-			}'
-			[ "$3" != "-n" -a "$ZZCOR" -eq "1" ] && printf "\033[42;30m Classificados \033[m\n"
-
+			$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Rodada 1/p" | sed -n '1p;/PG/p;/°/p' |
+			sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
 		else
 			for grupo in 1 2 3 4 5 6 7 8
 			do
-				zzlibertadores -c $grupo -n
+				zzlibertadores -c $grupo
+				echo
 			done
-			[ "$ZZCOR" -eq "1" ] && printf "\033[42;30m Classificados \033[m\n"
 		fi
 	fi
 }
