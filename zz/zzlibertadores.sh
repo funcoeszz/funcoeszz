@@ -87,7 +87,7 @@ zzlibertadores ()
 		grupo="$2"
 		echo "Grupo $2"
 		$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Grupo /p" |
-		sed '/Classificados para Oitavas de Final/,$d;s/^ *//' | sed -n '/ X /{N;p;}' |
+		sed '/Classificados para Oitavas de Final/,$d;/pós jogo/d;s/^ *//' | sed -n '/ X /{N;p;}' |
 		sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
 		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}'
 	fi
