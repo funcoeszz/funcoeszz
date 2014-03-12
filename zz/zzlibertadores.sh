@@ -52,8 +52,10 @@ zzlibertadores ()
 	case "$1" in
 	1 | pr[eé] | primeira)
 		$ZZWWWDUMP "$url" | sed -n '/Primeira Fase/,/Segunda/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'|
-		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}'
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}' |
+		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+
 	;;
 	# Fase 2 (Fase de Grupos)
 	2 | grupos | segunda)
@@ -65,19 +67,27 @@ zzlibertadores ()
 	;;
 	3 | oitavas)
 		$ZZWWWDUMP "$url" | sed -n '/^Oitavas de Final/,/^ *\*/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+
 	;;
 	4 | quartas)
 		$ZZWWWDUMP "$url" | sed -n '/^Quartas de Final/,/^Oitavas de Final/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+
 	;;
 	5 | semi | semi-final)
 		$ZZWWWDUMP "$url" | sed -n '/^Semifinal/,/^Quartas de Final/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+
 	;;
 	6 | final)
 		$ZZWWWDUMP "$url" | sed -n '/^Final/,/^Semifinal/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
+		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+
 	;;
 	esac
 
@@ -89,7 +99,9 @@ zzlibertadores ()
 		$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Grupo /p" |
 		sed '/Classificados para Oitavas de Final/,$d;/pós jogo/d;s/^ *//' | sed -n '/ X /{N;p;}' |
 		sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
-		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}'
+		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}' |
+		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+
 	fi
 
 	# Mostrando a classificação (Fase de grupos)
