@@ -46,10 +46,10 @@ zzaleatorio ()
 	fi
 
 	# Usando o dispositivo /dev/urandom
-	v_temp=$(od -An -N2 -i /dev/urandom | tr -d -c '[0-9]' )
+	v_temp=$(od -An -N2 -d /dev/urandom | tr -d -c '[0-9]' )
 
 	# Se não estiver disponível, usa o dispositivo /dev/random
-	zztool testa_numero $v_temp || v_temp=$(od -An -N2 -i /dev/random | tr -d -c '[0-9]')
+	zztool testa_numero $v_temp || v_temp=$(od -An -N2 -d /dev/random | tr -d -c '[0-9]')
 
 	# Se não estiver disponível, usa o tempo em nanosegundos
 	zztool testa_numero $v_temp || v_temp=$(date +%N)
