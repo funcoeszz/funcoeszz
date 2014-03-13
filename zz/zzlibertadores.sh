@@ -111,7 +111,22 @@ zzlibertadores ()
 		then
 			grupo="$2"
 			$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Rodada 1/p" | sed -n '1p;/PG/p;/°/p' |
-			sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//'
+			sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+			awk '{
+				if (NF <  10) { print }
+				if (NF == 10) {
+					printf "%-28s", $1
+					for (i=2;i<=10;i++) { printf " %3s", $i }
+					print ""
+				}
+				if (NF > 10) {
+					time=""
+					for (i=1;i<NF-8;i++) { time=time " " $i }
+					printf "%-28s", time
+					for (i=NF-8;i<=NF;i++) { printf " %3s", $i }
+					print ""
+				}
+			}'
 		else
 			for grupo in 1 2 3 4 5 6 7 8
 			do
