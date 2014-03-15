@@ -17,6 +17,7 @@
 #      zztradutor pt-de livro             # Buch
 #      zztradutor de-pt Buch              # livro
 #      zztradutor de-es Buch              # Libro
+#      cat arquivo | zztradutor           # Traduz o conteúdo do arquivo
 #      zztradutor --lista                 # Lista todos os idiomas
 #      zztradutor --lista eslo            # Procura por "eslo" nos idiomas
 #      zztradutor --audio                 # Gera um arquivo OUT.WAV
@@ -24,7 +25,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 11
+# Versão: 12
 # Licença: GPLv2
 # Requisitos: zzxml zzplay
 # ----------------------------------------------------------------------------
@@ -46,9 +47,6 @@ zztradutor ()
 			lang_de=${1%-??}
 			lang_para=${1#??-}
 			shift
-
-			# Pega exceção: zztradutor pt-en  (sem mais argumentos)
-			[ "$1" ] || { zztool uso tradutor; return 1; }
 		;;
 		-l | --lista)
 			# Uma tag por linha, então extrai e formata as opções do <SELECT>
@@ -71,7 +69,7 @@ zztradutor ()
 		;;
 	esac
 
-	padrao=$(zztool multi_stdin "$@" | sed "$ZZSEDURL")
+	padrao=$(zztool multi_stdin "$@" | awk '{ if (NR==1) { printf $0 } else { printf "%0a" $0 } }' | sed "$ZZSEDURL")
 
 	# Exceção para o chinês, que usa um código diferente
 	test $lang_para = 'cn' && lang_para='zh-CN'
@@ -80,7 +78,9 @@ zztradutor ()
 	# e limpa essa linha para estar somente o texto desejado.
 	$ZZWWWHTML "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |
 		zztool texto_em_iso |
-		awk 'gsub("<[^/]", "\n&")' |
-		grep '<span title' |
-		sed 's/<[^>]*>//g'
+		zzxml --tidy |
+		sed -n '/id=result_box/,/<\/div>/p' |
+		zzxml --untag |
+		sed '/span title=/d;/onmouseout=/d;/^ *$/d' |
+		zzunescape --html
 }
