@@ -4,17 +4,17 @@
 # Obs.: Necessário pois não há ferramenta portável para lidar com XML no Unix.
 #
 # Opções: --tidy        Reorganiza o código, deixando uma tag por linha
-#         --tag         Extrai (grep) as tags
-#         --notag       Exclui essas tags (grep -v)
+#         --tag <tag>   Extrai (grep) as tags
+#         --notag <tag> Exclui essas tags (grep -v)
 #         --list        Lista sem repetição as tags existentes no arquivo
 #         --indent      Promove a indentação das tags
 #         --untag       Remove todas as tags, deixando apenas texto
 #         --untag=<tag> Remove apenas a tag especificada, deixando o texto
 #         --unescape    Converte as entidades &foo; para caracteres normais
-# Obs.: --notag tem precedência sobre --tag e --untag=<tag>.
-#       --untag=<tag> tem precedência sobre --tag.
+# Obs.: --notag tem precedência sobre --tag e --untag.
+#       --untag tem precedência sobre --tag.
 #
-# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag[=<tag>]] [--unescape] [arquivo(s)]
+# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag [NOME]] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
 #      zzxml --untag --unescape arq.xml                    # xml -> txt
 #      zzxml --untag=item arq.xml                          # Retira apenas as tags "item"
@@ -26,7 +26,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
@@ -34,17 +34,23 @@ zzxml ()
 {
 	zzzz -h xml "$1" && return
 
-	local tag notag semtag ntag sed_notag cache
+	local tag notag semtag ntag sed_notag cache_tag cache_notag
 	local tidy=0
 	local untag=0
 	local unescape=0
 	local indent=0
 	local i=0
 
-	while ! zztool arquivo_vago $cache >/dev/null 2>&1
+	while ! zztool arquivo_vago $cache_tag >/dev/null 2>&1
 	do
 		i=$((i + 1))
-		cache="$ZZTMP.xml.$i"
+		cache_tag="$ZZTMP.xml.${i}_tag"
+	done
+
+	while ! zztool arquivo_vago $cache_notag >/dev/null 2>&1
+	do
+		i=$((i + 1))
+		cache_notag="$ZZTMP.xml.${i}_notag"
 	done
 
 	# Opções de linha de comando
@@ -54,25 +60,23 @@ zzxml ()
 			--tidy    ) shift; tidy=1;;
 			--untag   ) shift; untag=1;;
 			--unescape) shift; unescape=1;;
-			--tag     )
-				tidy=1
-				shift
-				tag="$1";
-				echo '/^<'$tag'[^><]*\/>$/ {linha[NR] = $0}' >> $cache
-				echo '/^<'$tag'[^><]*[^/><]+>/, /^<\/'$tag' >/ {linha[NR] = $0}' >> $cache
-				shift
-			;;
 			--notag   )
 				tidy=1
 				shift
 				notag="$notag $1"
 				shift
 			;;
+			--tag     )
+				tidy=1
+				shift
+				tag="$tag $1";
+				shift
+			;;
 			--untag=* )
 				semtag="$semtag ${1#*=}"
 				shift
 			;;
-			--indent   )
+			--indent  )
 				shift
 				tidy=1
 				indent=1
@@ -109,20 +113,45 @@ zzxml ()
 		esac
 	done
 
-	# Caso indent=1 mantém uma tag por linha para possibilitar indentação.
-	[ "$tag" ] && test $indent -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache
-	[ "$tag" ] && test $indent -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache
-
+	# Montando script awk para excluir tags
+	[ "$notag" ] && echo 'BEGIN { notag=0 } {' >> $cache_notag
 	for ntag in $notag
 	do
-		sed_notag="$sed_notag /<${ntag}[^/>]* >/,/<\/${ntag} >/d;"
+		echo '
+			if ($0 ~ /<'$ntag'[^/>]* >/) { notag++}
+			if (notag==0) print
+			if ($0 ~ /<\/'$ntag' >/) { notag-- }
+		' >> $cache_notag
 		sed_notag="$sed_notag /<${ntag}[^/>]*\/>/d;"
 	done
+	[ "$notag" ] && echo '}' >> $cache_notag
 
+	# Montando script awk para selecionar tags
+	for ntag in $tag
+	do
+		echo 'BEGIN { tag['$ntag']=0 }' >> $cache_tag
+	done
+	[ "$tag" ] && echo '{' >> $cache_tag
+	for ntag in $tag
+	do
+		echo '
+			if ($0 ~ /^<'$ntag'[^><]*\/>$/) { linha[NR] = $0 }
+			if ($0 ~ /^<'$ntag'[^><]*[^/><]+>/) { tag['$ntag']++ } 
+			if (tag['$ntag']>=1) { linha[NR] = $0 }
+			if ($0 ~ /^<\/'$ntag' >/) { tag['$ntag']-- }
+		' >> $cache_tag
+	done
+	[ "$tag" ] && echo '}' >> $cache_tag
+
+	# Montando script sed para apagar determinadas tags
 	for ntag in $semtag
 	do
 		sed_notag="$sed_notag s|<[/]\{0,1\}${ntag}[^>]*>||g;"
 	done
+
+	# Caso indent=1 mantém uma tag por linha para possibilitar indentação.
+	[ "$tag" ] && test $indent -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache_tag
+	[ "$tag" ] && test $indent -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache_tag
 
 	# O código seguinte é um grande filtro, com diversos blocos de comando
 	# IF interligados via pipe (logo após o FI). Cada IF pode aplicar um
@@ -181,7 +210,16 @@ zzxml ()
 			cat -
 		fi |
 
-		# --notag ou --notag=tag
+		# --notag
+		# É sempre usada em conjunto com --tidy (automaticamente)
+		if test -e "$cache_notag"
+		then
+			awk-f "$cache_notag"
+		else
+			cat -
+		fi |
+
+		# --notag ou --notag <tag> ou untag=<tag>
 		if test -n "$sed_notag"
 		then
 			sed "$sed_notag"
@@ -191,9 +229,9 @@ zzxml ()
 
 		# --tag
 		# É sempre usada em conjunto com --tidy (automaticamente)
-		if test -n "$tag"
+		if test -e "$cache_tag"
 		then
-			awk -f "$cache"
+			awk -f "$cache_tag"
 		else
 			cat -
 		fi |
