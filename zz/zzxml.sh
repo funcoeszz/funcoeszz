@@ -212,7 +212,7 @@ zzxml ()
 
 		# --notag
 		# É sempre usada em conjunto com --tidy (automaticamente)
-		if test -e "$cache_notag"
+		if test -n "$notag"
 		then
 			awk-f "$cache_notag"
 		else
@@ -229,7 +229,7 @@ zzxml ()
 
 		# --tag
 		# É sempre usada em conjunto com --tidy (automaticamente)
-		if test -e "$cache_tag"
+		if test -n "$tag"
 		then
 			awk -f "$cache_tag"
 		else
