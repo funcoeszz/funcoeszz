@@ -83,7 +83,7 @@ zzxml ()
 			;;
 			--list    )
 				shift
-				zztool file_stdin "$@" | 
+				zztool file_stdin "$@" |
 				# Eliminando comentários ( não deveria existir em arquivos xml! :-/ )
 				zzjuntalinhas -i "<!--" -f "-->" | sed '/<!--/d' |
 				# Filtrando apenas as tags válidas
@@ -136,7 +136,7 @@ zzxml ()
 	do
 		echo '
 			if ($0 ~ /^<'$ntag'[^><]*\/>$/) { linha[NR] = $0 }
-			if ($0 ~ /^<'$ntag'[^><]*[^/><]+>/) { tag['$ntag']++ } 
+			if ($0 ~ /^<'$ntag'[^><]*[^/><]+>/) { tag['$ntag']++ }
 			if (tag['$ntag']>=1) { linha[NR] = $0 }
 			if ($0 ~ /^<\/'$ntag' >/) { tag['$ntag']-- }
 		' >> $cache_tag
@@ -187,7 +187,7 @@ zzxml ()
 			#   title="Foo">
 			#   --------------------------------------------------------
 			#   <p>Foo <b>bar</b></p>    <p>
-			#                            Foo 
+			#                            Foo
 			#                            <b>
 			#                            bar
 			#                            </b>

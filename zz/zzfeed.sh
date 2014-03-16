@@ -84,7 +84,7 @@ zzfeed ()
 		# Baixa e limpa o conteúdo do feed
 		if test "$1" = "-"
 		then
-			zztool file_stdin "$@" 
+			zztool file_stdin "$@"
 		else
 			$ZZWWWHTML "$url"
 		fi |

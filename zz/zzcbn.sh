@@ -18,7 +18,7 @@ zzcbn ()
 {
 	zzzz -h cbn "$1" && return
 
-	local COMENTARISTAS RSS MP3 EXT comentarista data linha autor datafile Tlinhas l P titulo hora dois 
+	local COMENTARISTAS RSS MP3 EXT comentarista data linha autor datafile Tlinhas l P titulo hora dois
 
 #Comentaristas;RSS;Download
 COMENTARISTAS="André_Trigueiro;andretrigueiro;andre-trigueiro;mundo

@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
-# Dado virtual, caso não seja passado nenhum argumento, exibe um número 
-# aleatório entre 1 e 6. É possível "rolar" dados com outras quantidades de 
-# faces com o argumento -f ou --faces.
-# 
+# Dado virtual.
+# Sem argumento, exibe um número aleatório entre 1 e 6.
+# Com o argumento -f ou --faces, pode mudar a quantidade de lados do dado.
+#
 # Uso: zzdado
 # Ex.: zzdado
 #      zzdado -f 20
@@ -25,7 +25,7 @@ zzdado ()
 	do
 		case "$1" in
 			-f|--faces)
-				if zztool testa_numero $2; 
+				if zztool testa_numero $2;
 				then
 					n_faces="$2"
 				else

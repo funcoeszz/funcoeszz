@@ -12,7 +12,7 @@
 zzurldecode ()
 {
 	zzzz -h urldecode "$1" && return
-	
+
 	zztool multi_stdin "$@" |
 	sed '
 	s/+/ /g;	s/%20/ /g;	s/%21/!/g;	s/%22/"/g;	s/%23/#/g;
