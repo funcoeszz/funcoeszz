@@ -150,8 +150,8 @@ zzxml ()
 	done
 
 	# Caso indent=1 mantém uma tag por linha para possibilitar indentação.
-	[ "$tag" ] && test $indent -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache_tag
-	[ "$tag" ] && test $indent -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache_tag
+	[ "$tag" ] && test $tidy -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache_tag
+	[ "$tag" ] && test $tidy -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache_tag
 
 	# O código seguinte é um grande filtro, com diversos blocos de comando
 	# IF interligados via pipe (logo após o FI). Cada IF pode aplicar um
