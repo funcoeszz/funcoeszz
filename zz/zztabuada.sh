@@ -1,32 +1,42 @@
 # ----------------------------------------------------------------------------
-# Imprime a tabuada de um número de 1 a 10.
+# Imprime a tabuada de qualquer número inteiro positivo ou negativo de 1 a 10.
 # Se não for informado nenhum argumento será impressa a tabuada de 1 a 9.
-# O argumento pode ser entre 0 a 99.
 #
 # Uso: zztabuada [número]
 # Ex.: zztabuada
 #      zztabuada 2
+#      zztabuada -176
 #
 # Autor: Kl0nEz <kl0nez (a) wifi org br>
 # Desde: 2011-08-23
-# Versão: 4
+# Versão: 5
 # Licença: GPLv2
 # ----------------------------------------------------------------------------
 zztabuada ()
 {
 	zzzz -h tabuada "$1" && return
 
-	local i j calcula
+	local i j
 	local linha="+--------------+--------------+--------------+"
 
-	case "$1" in
-		[0-9] | [0-9][0-9])
-			for i in 0 1 2 3 4 5 6 7 8 9 10
-			do
-				printf '%d x %-2d = %d\n' "$1" "$i" $(($1*$i))
-			done
+	case "$#" in
+		1)
+			if zztool testa_numero_sinal "$1"
+			then
+				for i in 0 1 2 3 4 5 6 7 8 9 10
+				do
+					if zztool testa_numero_sinal "$1" && ! zztool testa_numero "$1" && test $i -eq 0
+					then
+						printf '%d x %-2d = %d\n' "$1" "$i" $(($1*$i)) | sed 's/= 0/=  0/'
+					else
+						printf '%d x %-2d = %d\n' "$1" "$i" $(($1*$i))
+					fi
+				done
+			else
+				zztool uso tabuada
+			fi
 		;;
-		*)
+		0)
 			for i in 1 4 7
 			do
 				echo "$linha"
