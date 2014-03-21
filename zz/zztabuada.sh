@@ -25,7 +25,7 @@ zztabuada ()
 			then
 				for i in 0 1 2 3 4 5 6 7 8 9 10
 				do
-					if zztool testa_numero_sinal "$1" && ! zztool testa_numero "$1" && test $i -eq 0
+					if test $i -eq 0 && ! zztool testa_numero "$1"
 					then
 						printf '%d x %-2d = %d\n' "$1" "$i" $(($1*$i)) | sed 's/= 0/=  0/'
 					else
