@@ -35,7 +35,7 @@ zztabuada ()
 			then
 				if zztool testa_numero "$2" && test $2 -le 99
 				then
-					numeros=$(zzseq -f '%d ' $2)
+					numeros=$(zzseq -f '%d ' 0 $2)
 				fi
 
 				for i in $numeros
