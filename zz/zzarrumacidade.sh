@@ -53,7 +53,7 @@ zzarrumacidade ()
 		### Restaura acentuação de maneira pontual:
 
 		# Restaura acentuação às capitais
-		s/^Belem$/Belém/op
+		s/^Belem$/Belém/
 		s/^Brasilia$/Brasília/
 		s/^Cuiaba$/Cuiabá/
 		s/^Florianopolis$/Florianópolis/
