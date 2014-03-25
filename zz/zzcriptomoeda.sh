@@ -14,22 +14,14 @@ zzcriptomoeda ()
     zzzz -h criptomoeda "$1" && return
 
     # Variáveis gerais
-    local moedas_validas=(btc bitcoin ltc litecoin)
     local moeda_informada=$(echo "$1" | zzminusculas | zzsemacento)
 
-    # Se passou moeda válida, atribui valor da query string;
-    # senão, termina.
-    if [[ ${moedas_validas[*]} =~ "$moeda_informada" ]]
-    then
-        local query_string=''
-
-        case "$moeda_informada" in
-            btc|bitcoin  ) query_string='BTC';;
-            ltc|litecoin ) query_string='LTC';;
-        esac
-    else
-        return
-    fi
+    # Se não informou moeda válida, termina
+    case "$moeda_informada" in
+        btc|bitcoin  ) query_string='BTC';;
+        ltc|litecoin ) query_string='LTC';;
+        * ) return;;
+    esac
 
     # Monta URL a ser consultada
     local url="https://www.bitinvest.com.br/?SDCC=$query_string"
