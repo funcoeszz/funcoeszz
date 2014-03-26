@@ -28,10 +28,5 @@ zzcriptomoeda ()
 
     # Retorno
     $ZZWWWDUMP "$url" |
-    sed -n '5{s/^ *//;s/Último //;s/: R\$/: R$ /g ;s/ [BL]TC//;p;}' |
-    sed 's/[0-9] /&\
-    /g' |
-    sed -n 1p |
-    sed -e 's/Preço: //g' |
-    sed 's/ //g'
+    sed -n '5{s/^ *//;s/Último Preço: R\$/R$ /;s/\([0-9]\) .*/\1/;p;}'
 }
