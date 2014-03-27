@@ -40,6 +40,14 @@ zzarrumacidade ()
 		s/^Sampa$/São Paulo/
 		s/^Floripa$/Florianópolis/
 		# s/^Poa$/Porto Alegre/  # Perigoso, pois existe: Poá - SP
+		
+		# Abreviações comuns a Belo Horizonte
+		s/^B\. H\.$/Belo Horizonte/
+		s/^Bhte$/Belo Horizonte/
+		s/^B\. Hte$/Belo Horizonte/
+		s/^B\. Hzte$/Belo Horizonte/
+		s/^Belo Hte$/Belo Horizonte/
+		s/^Belo Hzte$/Belo Horizonte/
 
 
 		### Restaura acentuação de maneira pontual:
