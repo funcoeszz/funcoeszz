@@ -23,7 +23,7 @@ Mas antes, por favor dê uma lida nas [páginas do Wiki](https://github.com/aure
 
 Se precisar de ajuda com o git, leia:
 
-- [Guia pra quem manja de SVN](https://git.wiki.kernel.org/articles/g/i/t/GitSvnCrashCourse_512d.html)
+- [Guia pra quem manja de SVN](https://git.wiki.kernel.org/index.php/GitSvnCrashCourse)
 - [Git Reference](http://gitref.org) — Guia rápido, com exemplos
 - [The Git Parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html) — Entenda a filosofia por trás do git
 
