@@ -27,7 +27,7 @@
 # Desde: 2008-09-02
 # Versão: 12
 # Licença: GPLv2
-# Requisitos: zzxml zzplay
+# Requisitos: zzxml zzplay zzunescape
 # ----------------------------------------------------------------------------
 zztradutor ()
 {
