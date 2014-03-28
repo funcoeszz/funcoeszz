@@ -2,7 +2,7 @@
 # Decodifica uma URL em texto.
 # Uso: zzurldecode [string]
 # Ex.: zzurldecode '%21%40%23%24_%2B%7B%7D%5E%2Babcd'
-#      echo 'http%3A%2F%2F' | zzurlencode
+#      echo 'http%3A%2F%2F' | zzurldecode
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-03-14
