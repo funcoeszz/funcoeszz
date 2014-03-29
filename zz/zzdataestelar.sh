@@ -21,7 +21,7 @@
 # Desde: 2013-10-28
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzdata zzdatafmt zznumero
+# Requisitos: zzdata zzdatafmt zznumero zzhora
 # ----------------------------------------------------------------------------
 zzdataestelar ()
 {

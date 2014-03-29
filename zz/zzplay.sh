@@ -17,7 +17,7 @@
 # Desde: 2013-03-13
 # Versão: 5
 # Licença: GPL
-# Requisitos: zzextensao zzminusculas zzunescape
+# Requisitos: zzextensao zzminusculas zzunescape zzxml
 # ----------------------------------------------------------------------------
 zzplay ()
 {
