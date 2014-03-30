@@ -80,7 +80,7 @@ zzplay ()
 		case "$tipo" in
 			m3u)
 				sed '/^[[:blank:]]*$/d;/^#/d;s/^[[:blank:]]*//g' "$1" |
-				$ZZAWK 'BEGIN { print "[playlist]" } { print "File" NR "=" $0 }' |
+				awk 'BEGIN { print "[playlist]" } { print "File" NR "=" $0 }' |
 				sed 's/%\([0-9A-F][0-9A-F]\)/\\\\x\1/g' |
 				while read linha
 				do
@@ -90,7 +90,7 @@ zzplay ()
 			xspf)
 				zzxml --indent --tag location "$1" | zzxml --untag | zzunescape --html |
 				sed '/^[[:blank:]]*$/d;s/^[[:blank:]]*//g' | sed 's|file://||g' |
-				$ZZAWK 'BEGIN { print "[playlist]" } { print "File" NR "=" $0 }' |
+				awk 'BEGIN { print "[playlist]" } { print "File" NR "=" $0 }' |
 				sed 's/%\([0-9A-F][0-9A-F]\)/\\\\x\1/g' |
 				while read linha
 				do
@@ -99,7 +99,7 @@ zzplay ()
 			;;
 			asx)
 				zzxml --indent --tag ref "$1" | zzunescape --html | sed '/^[[:blank:]]*$/d' |
-				$ZZAWK -F'""' 'BEGIN { print "[playlist]" } { print "File" NR "=" $2 }' |
+				awk -F'""' 'BEGIN { print "[playlist]" } { print "File" NR "=" $2 }' |
 				sed 's/%\([0-9A-F][0-9A-F]\)/\\\\x\1/g' |
 				while read linha
 				do

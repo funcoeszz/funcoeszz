@@ -39,7 +39,7 @@ zzsplit ()
 	if [ "$1" = "-p" ]
 	then
 		passos="$2"
-		qtde=$(echo "$passos" | $ZZAWK -F"," '{ print NF }')
+		qtde=$(echo "$passos" | awk -F"," '{ print NF }')
 		shift
 		shift
 	fi

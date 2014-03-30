@@ -70,7 +70,7 @@ zzjoin ()
 	# Se opção é um numero, o arquivo base para as linhas é o mesmo da posição equivalente
 	if zztool testa_numero $tipo && test $tipo -le $#
 	then
-		arquivo=$($ZZAWK -v arg=$tipo 'BEGIN { print ARGV[arg] }' $* 2>/dev/null)
+		arquivo=$(awk -v arg=$tipo 'BEGIN { print ARGV[arg] }' $* 2>/dev/null)
 		linhas=$(zztool num_linhas "$arquivo")
 	fi
 
