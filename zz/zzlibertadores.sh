@@ -5,6 +5,7 @@
 #    fases: pre ou primeira, grupos ou segunda, oitavas
 #  -g <número>: Jogos da segunda fase do gupo selecionado
 #  -c [numero]: Mostra a classificação, nos grupos da segunda fase
+#  -cg <número> ou -gc <número>: Classificação e jogos do grupo selecionado.
 #
 # As fases podem ser:
 #  pré, pre, primeira ou 1, para a fasé pré-libertadores
@@ -30,10 +31,11 @@
 #      zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
 #      zzlibertadores -c    # Calssificação de todos os grupos
 #      zzlibertadores -c 3  # Classificação no grupo 3
+#      zzlibertadores -cg 7 # Classificação e jogos do grupo 7
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlibertadores ()
@@ -105,9 +107,9 @@ zzlibertadores ()
 	fi
 
 	# Mostrando a classificação (Fase de grupos)
-	if [ "$1" = "-c" ]
+	if [ "$1" = "-c" -o "$1" = "-cg" -o "$1" = "-gc" ]
 	then
-		if [ "$1" = "-c" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
+		if zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
 		then
 			grupo="$2"
 			$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Rodada 1/p" | sed -n '1p;/PG/p;/°/p' |
@@ -127,6 +129,7 @@ zzlibertadores ()
 					print ""
 				}
 			}'
+			[ "$1" = "-cg" -o "$1" = "-gc" ] && { echo; zzlibertadores -g $2; }
 		else
 			for grupo in 1 2 3 4 5 6 7 8
 			do
