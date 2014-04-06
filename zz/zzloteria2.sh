@@ -205,6 +205,10 @@ zzloteria2 ()
 					}
 					{ print }
 				')
+				case $(echo "$num_con" | sed 's/.*=//;s/ *//g') in
+					[1-9] | [1-8][0-9]) faixa=$(zzseq -f '\t%d\n' 14 12);;
+					*) faixa=$(zzseq -f '\t%d\n' 14 13);;
+				esac
 				faixa=$(zzseq -f '\t%d\n' 14 13)
 				printf '%b\n' "$faixa" > "${cache}"
 				echo "$dump" | cut -d '|' -f 5 | sed 's/ [12].\{1,2\} (1[34] acertos)/\
