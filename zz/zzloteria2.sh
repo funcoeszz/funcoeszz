@@ -9,7 +9,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzseq zzsemacento
 # ----------------------------------------------------------------------------
@@ -194,38 +194,17 @@ zzloteria2 ()
 				acumulado="${acumulado}_"$(echo "$dump" | awk -F"|" '{print $(NF-2)}' )
 				acumulado=$(echo "${acumulado}" | sed 's/_/\
    /g;s/ Valor //' )
-				resultado=$(printf "$dump" | cut -d '|' -f 4 |
-				sed 's/ [0-9] [0-9]* /\
- &/g;s/ [0-9]\{2\} [0-9]*/\
-&/g' |
-				sed '1d' |
-				zzsemacento |
-				sed 's|\(/[A-Z]\{2\}\) \(JUNIOR\)|-JR\1|g' |
-				awk '{
-					printf "Jogo %02d ", $1
-						Time=""
-						for (i = 3; i < NF-1; i++)
-							{
-							Time = Time " " $i
-							if (index($i,"/")>0)
-								{
-								if (i < NF-2)  printf "%-24s %2s X %-2s", Time, $2, $(NF-1)
-								if (i == NF-2) printf "%24s", Time
-								Time=""
-								}
-							}
-					if ( length(Time)>0 ) {
-						if (split(Time, arr_time) == 2)
-							printf " %-23s %2s X %-2s %23s", arr_time[1], $2, $(NF-1), arr_time[2]
-						else
-							printf "%2s X %-2s %-47s ", $2, $(NF-1), "(" Time " )"
-						}
-					if ( $2 > $(NF-1) ) printf " %s\n", "- Col.  1 "
-					if ( $2 == $(NF-1) ) printf " %s\n", "- Col. Meio"
-					if ( $2 < $(NF-1) ) printf " %s\n", "- Col.  2"
-					#printf " %-3s\n", $(NF)
-
-					}')
+				resultado=$($ZZWWWDUMP2 "$url/$tipo/${tipo}${sufixo}$num_con" | sed -n '3,17p' |
+				awk '
+					NR == 1 { sub("Data","Coluna"); sub(" X ","   ") }
+					NR >= 2 {
+						if ( $2 > $(NF-1) )  { coluna = "Col.  1" }
+						if ( $2 == $(NF-1) ) { coluna = "Col. Meio" }
+						if ( $2 < $(NF-1) )  { coluna = "Col.  2" }
+						sub($NF "  ", coluna)
+					}
+					{ print }
+				')
 				faixa=$(zzseq -f '\t%d\n' 14 13)
 				printf '%b\n' "$faixa" > "${cache}"
 				echo "$dump" | cut -d '|' -f 5 | sed 's/ [12].\{1,2\} (1[34] acertos)/\
