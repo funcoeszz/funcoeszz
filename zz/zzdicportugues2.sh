@@ -15,7 +15,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-04-16
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
@@ -29,7 +29,7 @@ zzdicportugues2 ()
 	local palavra=$(echo "$1" | zzminusculas)
 	local padrao=$(echo "$palavra" | zzsemacento)
 	local contador=1
-	local resultado
+	local resultado conteudo
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso dicportugues2; return 1; }
@@ -37,8 +37,9 @@ zzdicportugues2 ()
 	# Verificando se a palavra confere na pesquisa
 	until [ "$resultado" = "$palavra" ]
 	do
+		conteudo=$($ZZWWWDUMP "$url/$padrao")
 		resultado=$(
-		$ZZWWWDUMP "$url/$padrao" |
+		echo "$conteudo" |
 			sed -n "
 			/^Significado de /{
 				s/^Significado de //
@@ -55,11 +56,6 @@ zzdicportugues2 ()
 		padrao=${padrao}_${contador}
 	done
 
-	# Restabelecendo o contador
-	padrao=$(echo "$padrao" | sed 's/_[0-9]*$//')
-	contador=$((contador - 1))
-	padrao=$(echo "${padrao}_${contador}" | sed 's/_1$//')
-
 	case "$2" in
 	def) ini='^defini..o de '; fim=' escrit. ao contr.rio: ' ;;
 	conj)
@@ -75,7 +71,7 @@ zzdicportugues2 ()
 
 	case "$2" in
 	conj)
-		$ZZWWWDUMP "$url/$padrao" |
+		echo "$conteudo" |
 		awk 'tolower($0) ~ /'"$ini"'/, tolower($0) ~ /'"$fim"'/ {print} ' |
 			sed '
 				{
@@ -114,7 +110,7 @@ zzdicportugues2 ()
 				}'
 	;;
 	*)
-		$ZZWWWDUMP "$url/$padrao" |
+		echo "$conteudo" |
 		awk 'tolower($0) ~ /'"$ini"'/, tolower($0) ~ /'"$fim"'/ {print} ' |
 			sed "1d;/^Definição de /d;" #/Infinitivo:/,/Particípio passado:/p"
 	;;
