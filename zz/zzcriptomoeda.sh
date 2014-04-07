@@ -1,12 +1,14 @@
 # ----------------------------------------------------------------------------
 # Retorna a cotação de criptomoedas em Reais.
+# Com as opções -a ou --all, várias criptomoedas cotadas em dolar.
 # Uso: zzcriptomoeda [btc|bitcoin|ltc|litecoin]
 # Ex.: zzcriptomoeda btc
 #      zzcriptomoeda litecoin
+#      zzcriptomoeda -a
 #
 # Autor: Tárcio Zemel <tarciozemel (a) gmail com>
 # Desde: 2014-03-24
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento
 # ----------------------------------------------------------------------------
@@ -19,9 +21,29 @@ zzcriptomoeda ()
 
 	# Se não informou moeda válida, termina
 	case "$moeda_informada" in
-		btc|bitcoin  ) query_string='BTC';;
-		ltc|litecoin ) query_string='LTC';;
-		* ) return;;
+		btc | bitcoin  ) query_string='BTC';;
+		ltc | litecoin ) query_string='LTC';;
+		-a | --all )
+			$ZZWWWDUMP "http://coinmarketcap.com/mineable.html" |
+			sed -n '/#/,/Last updated/{/^ *\*/d;/^ *$/d;s/Total Market Cap/Valor Total de Mercado/;s/Last updated/Última atualização/;p}' |
+			awk '
+				NR==1 {printf "%-20s %17s %10s %20s %11s %12s\n", "Nome", "Valor de Mercado", "Preço ", "Total de Oferta", "Volume (24h)", "%Var (24h)"}
+				NR>=2 {
+					if($0 ~ /Última/ || $0 ~ /Total/) { print }
+					else {
+						if (NF<=13) {
+							sub(/\**$/,"",$9)
+							printf "%-20s %17s %10s %20s %11s %12s\n", $3,       $5, $7, $8 " " $9,  $11, $12 $13
+						}
+						else 	{
+							sub(/\**$/,"",$10)
+							printf "%-20s %17s %10s %20s %11s %12s\n", $3 " " $4,$6, $8, $9 " " $10, $12, $13 $14 
+						}
+					}
+				}'
+			return
+		;;
+		* ) return 1;;
 	esac
 
 	# Monta URL a ser consultada
