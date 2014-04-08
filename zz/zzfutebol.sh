@@ -1,12 +1,28 @@
-
+#---------------------------------------------------------------------------------------------------------------
+# http://esporte.uol.com.br/futebol/agenda-de-jogos
+# Mostra todos os jogos de futebol marcados para os proximos dias.
+# Além de mostrar os times que irão jogar, o script também mostra o dia, o horário e por
+# campeonato será o jogo.
+#
+# Uso:  zzfutebol [ --hoje | --amanha | --ontem | --proximo-sabado | --proximo-domingo ]
+# Ex.:  zzfutebol
+#       zzfutebol --hoje  
+#       zzfutebol --proximo-sabado
+#
+# Autor: Jefferson Fausto Vaz (www.faustovaz.com)
+# Desde: 08/04/2014
+# Versão: 1
+# Licensa: GPL
+#---------------------------------------------------------------------------------------------------------------
 zzfutebol(){
+
+    zzzz -h futebol "$1" && return
 
     listajogos(){
         #Função principal.
         #Essa função recebe uma data e lista os jogos desta data passada.
-        local cmd="lynx -dump -nolist -width=300 -accept_all_cookies -display_charset=UTF-8"
-        local link="http://esporte.uol.com.br/futebol/agenda-de-jogos"
-        $cmd $link | awk -v diadojogo="$1" '
+        local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
+        $ZZWWWDUMP $url | awk -v diadojogo="$1" '
         {
             if ( diadojogo == "" )
             {
@@ -82,39 +98,24 @@ zzfutebol(){
         listajogos
     }
 
-    if test "$1" == '--help' || test "$1" == '-h' 
-    then
-    cat <<EOF
-        Futebol: Lista todos os jogos marcados para os proximos dias.
-        Uso:
-            futebol [Opcao]
-        Opcao:
-            hoje                Exibe os jogos de hoje
-            amanha              Exibe os jogos de amanha
-            ontem               Exibe os jogos de ontem
-            proximo-sabado      Exibe os jogos do proximo sabado
-            proximo-domingo     Exibe os jogos do proximo domingo
-EOF
-    else
-        case "$1" in
-            "--hoje")
-                futebolhoje
-                ;;
-            "--amanha")
-                futebolamanha
-                ;;
-            "--ontem")
-                futebolontem
-                ;;
-            "--proximo-sabado")
-                futebolproximosabado
-                ;;
-            "--proximo-domingo")
-                futebolproximodomingo
-                ;;
-            *)
-                futebol
-                ;;
-        esac
-    fi
+    case "$1" in
+        "--hoje")
+            futebolhoje
+            ;;
+        "--amanha")
+            futebolamanha
+            ;;
+        "--ontem")
+            futebolontem
+            ;;
+        "--proximo-sabado")
+            futebolproximosabado
+            ;;
+        "--proximo-domingo")
+            futebolproximodomingo
+            ;;
+        *)
+            futebol
+            ;;
+    esac
 }
