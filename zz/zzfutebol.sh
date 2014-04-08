@@ -19,33 +19,24 @@ zzfutebol(){
     zzzz -h futebol "$1" && return
 
     listajogos(){
-        #Função principal.
-        #Essa função recebe uma data e lista os jogos desta data passada.
         local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
-        $ZZWWWDUMP $url | awk -v diadojogo="$1" '
-        {
-            if ( diadojogo == "" )
-            {
-                if ($1 ~ /[0-9]+\/[0-9]+\/[0-9]+/)
-                {
+        $ZZWWWDUMP $url | awk -v diadojogo="$1" ' {
+            if ( diadojogo == "" ){
+                if ($1 ~ /[0-9]+\/[0-9]+\/[0-9]+/){
                     gsub(/^[\t ]+/, "", $0)
                     dadosdojogo = $0
                     imprimir = 1
                 }
             }
-            else
-            {
-                if ( $1 == diadojogo )
-                {
+            else{
+                if ( $1 == diadojogo ){
                     gsub(/^[\t ]+/, "", $0)
                     dadosdojogo = $0
                     imprimir = 1
                 }
             }
-            if ( imprimir )
-            {
-                if ( $0 ~ /[\w\t -]+ X [\w\t -]+/ )
-                {
+            if ( imprimir ){
+                if ( $0 ~ /[\w\t -]+ X [\w\t -]+/ ){
                     gsub(/^[\t ]+/, "", $0)
                     gsub(/[\t ]+$/, "", $0)
                     printf "%-40s    %s\n", dadosdojogo, $0
