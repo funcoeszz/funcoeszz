@@ -42,7 +42,7 @@ zzfutebol(){
                     gsub(/^[A-Z]+ /, "", $0)
                     gsub(/ [A-Z]+$/, "", $0)
 
-                    printf "%-40s    %s\n", dadosdojogo, $0
+                    printf "%-38s    %s\n", dadosdojogo, $0
                     imprimir = 0
                 }
             }
