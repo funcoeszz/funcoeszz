@@ -39,6 +39,9 @@ zzfutebol(){
                 if ( $0 ~ /[\w\t -]+ X [\w\t -]+/ ){
                     gsub(/^[\t ]+/, "", $0)
                     gsub(/[\t ]+$/, "", $0)
+                    gsub(/^[A-Z]+ /, "", $0)
+                    gsub(/ [A-Z]+$/, "", $0)
+
                     printf "%-40s    %s\n", dadosdojogo, $0
                     imprimir = 0
                 }
