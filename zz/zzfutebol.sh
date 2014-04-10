@@ -22,26 +22,25 @@ zzfutebol(){
         local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
         $ZZWWWDUMP $url | awk -v diadojogo="$1" ' {
             if ( diadojogo == "" ){
-                if ($1 ~ /[0-9]+\/[0-9]+\/[0-9]+/){
-                    gsub(/^[\t ]+/, "", $0)
+                if ( $1 ~ /[0-9]+\/[0-9]+\/[0-9]+/ ){
+                    gsub( /^[\t ]+/, "", $0 )
                     dadosdojogo = $0
                     imprimir = 1
                 }
             }
             else{
                 if ( $1 == diadojogo ){
-                    gsub(/^[\t ]+/, "", $0)
+                    gsub( /^[\t ]+/, "", $0 )
                     dadosdojogo = $0
                     imprimir = 1
                 }
             }
             if ( imprimir ){
                 if ( $0 ~ /[\w\t -]+ X [\w\t -]+/ ){
-                    gsub(/^[\t ]+/, "", $0)
-                    gsub(/[\t ]+$/, "", $0)
-                    gsub(/^[A-Z]+ /, "", $0)
-                    gsub(/ [A-Z]+$/, "", $0)
-
+                    gsub( /^[\t ]+/, "", $0 )
+                    gsub( /[\t ]+$/, "", $0 )
+                    gsub( /^[A-Z]+ /, "", $0 )
+                    gsub( / [A-Z]+$/, "", $0 )
                     printf "%-38s    %s\n", dadosdojogo, $0
                     imprimir = 0
                 }
