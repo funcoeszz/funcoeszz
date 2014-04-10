@@ -47,41 +47,31 @@ zzfutebol(){
     }   
 
     futebolhoje(){
-        local hoje=$( date "+%d/%m/%y" )
+        local hoje=$( zzdata hoje | zzdatafmt -f DD/MM/AA )
         listajogos "$hoje"
     }
 
     futebolamanha(){
-        local agora=$( date "+%s" )
-        local amanha=$( expr $agora + 86400 )
-        amanha=$( date --date=@$amanha "+%d/%m/%y" )
+        local amanha=$( zzdata amanha | zzdatafmt -f DD/MM/AA )
         listajogos "$amanha"
     }
 
     futebolontem(){
-        local agora=$(date "+%s")
-        local ontem=$(expr $agora - 86400)
-        ontem=$(date --date=@$ontem "+%d/%m/%y")
+        local ontem=$( zzdata ontem | zzdatafmt -f DD/MM/AA )
         listajogos "$ontem"
     }
 
     futebolproximosabado(){
-        local agora=$(date "+%s")
-        local diadasemana=$(date "+%u")
-        local proximosabadodias=$(expr 6 - $diadasemana)
-        local proximosabadosegundos=$(expr $proximosabadodias \* 86400)
-        local sabado=$(expr $agora + $proximosabadosegundos)
-        sabado=$(date --date=@$sabado "+%d/%m/%y")
+        local diadasemana=$( date "+%u" )
+        local diasparaproximosabado=$( expr 6 - $diadasemana )
+        local sabado=$( zzdata hoje + $diasparaproximosabado | zzdatafmt -f DD/MM/AA )
         listajogos "$sabado"
     }
 
     futebolproximodomingo(){
-        local agora=$(date "+%s")
-        local diadasemana=$(date "+%u")
-        local proximodomingodias=$(expr 7 - $diadasemana)
-        local proximodomingosegundos=$(expr $proximodomingodias \* 86400)
-        local domingo=$(expr $agora + $proximodomingosegundos)
-        domingo=$(date --date=@$domingo "+%d/%m/%y")
+        local diadasemana=$( date "+%u" )
+        local diasparaproximodomingo=$( expr 7 - $diadasemana )
+        local domingo=$( zzdata hoje + $diasparaproximodomingo | zzdatafmt -f DD/MM/AA )
         listajogos "$domingo"
     }
 
