@@ -1,4 +1,4 @@
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # http://esporte.uol.com.br/futebol/agenda-de-jogos
 # Mostra todos os jogos de futebol marcados para os proximos dias.
 # Além de mostrar os times que irão jogar, o script também mostra o dia, 
@@ -10,10 +10,10 @@
 #       zzfutebol --proximo-sabado
 #
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
-# Desde: 08/04/2014
+# Desde: 2014-04-08
 # Versão: 1
 # Licensa: GPL
-#--------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 zzfutebol(){
 
     zzzz -h futebol "$1" && return
