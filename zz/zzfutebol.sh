@@ -4,10 +4,10 @@
 # Além de mostrar os times que irão jogar, o script também mostra o dia, 
 # o horário e por campeonato será o jogo.
 #
-# Uso:  zzfutebol [ --hoje | --amanha | --ontem | --proximo-sabado | --proximo-domingo ]
+# Uso:  zzfutebol [ hoje | amanha | ontem | sabado | domingo ]
 # Ex.:  zzfutebol
-#       zzfutebol --hoje  
-#       zzfutebol --proximo-sabado
+#       zzfutebol hoje  
+#       zzfutebol sabado
 #
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
 # Desde: 2014-04-08
@@ -80,19 +80,19 @@ zzfutebol(){
     }
 
     case "$1" in
-        "--hoje")
+        "hoje")
             futebolhoje
             ;;
-        "--amanha")
+        "amanha")
             futebolamanha
             ;;
-        "--ontem")
+        "ontem")
             futebolontem
             ;;
-        "--proximo-sabado")
+        "sabado")
             futebolproximosabado
             ;;
-        "--proximo-domingo")
+        "domingo")
             futebolproximodomingo
             ;;
         *)
