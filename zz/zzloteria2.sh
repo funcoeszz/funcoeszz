@@ -11,7 +11,7 @@
 # Desde: 2009-10-04
 # Versão: 7
 # Licença: GPL
-# Requisitos: zzseq zzsemacento
+# Requisitos: zzseq
 # ----------------------------------------------------------------------------
 zzloteria2 ()
 {
