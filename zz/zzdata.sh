@@ -2,6 +2,7 @@
 # Calculadora de datas, trata corretamente os anos bissextos.
 # Você pode somar ou subtrair dias, meses e anos de uma data qualquer.
 # Você pode informar a data dd/mm/aaaa ou usar palavras como: hoje, ontem.
+# Ou os dias da semana como: domingo, seg, ter, qua, qui, sex, sab, dom. 
 # Na diferença entre duas datas, o resultado é o número de dias entre elas.
 # Se informar somente uma data, converte para número de dias (01/01/1970 = 0).
 # Se informar somente um número (de dias), converte de volta para a data.
@@ -11,6 +12,7 @@
 # Ex.: zzdata                           # que dia é hoje?
 #      zzdata anteontem                 # que dia foi anteontem?
 #      zzdata hoje + 15d                # que dia será daqui 15 dias?
+#      zzdata dom                       # que dia será o próximo domingo?
 #      zzdata hoje - 40d                # e 40 dias atrás, foi quando?
 #      zzdata 31/12/2010 + 100d         # 100 dias após a data informada
 #      zzdata 29/02/2001                # data inválida, ano não-bissexto
@@ -21,7 +23,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-02-07
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Tags: data, cálculo
 # ----------------------------------------------------------------------------
@@ -155,6 +157,27 @@ zzdata ()
 					;;
 					tomorrow | amanh[aã])
 						valor=$(zzdata hoje + 1)
+					;;
+					dom | domingo)
+						valor=$(zzdata hoje + $(echo "7 $(date +%u)" | awk '{ print ($1 >= $2 ? $1 - $2 : 7 + ($1 - $2)) }'))
+					;;
+					sab | s[aá]bado)
+						valor=$(zzdata hoje + $(echo "6 $(date +%u)" | awk '{ print ($1 >= $2 ? $1 - $2 : 7 + ($1 - $2)) }'))
+					;;
+					sex | sexta)
+						valor=$(zzdata hoje + $(echo "5 $(date +%u)" | awk '{ print ($1 >= $2 ? $1 - $2 : 7 + ($1 - $2)) }'))
+					;;
+					qui | quinta)
+						valor=$(zzdata hoje + $(echo "4 $(date +%u)" | awk '{ print ($1 >= $2 ? $1 - $2 : 7 + ($1 - $2)) }'))
+					;;
+					qua | quarta)
+						valor=$(zzdata hoje + $(echo "3 $(date +%u)" | awk '{ print ($1 >= $2 ? $1 - $2 : 7 + ($1 - $2)) }'))
+					;;
+					ter | ter[cç]a)
+						valor=$(zzdata hoje + $(echo "2 $(date +%u)" | awk '{ print ($1 >= $2 ? $1 - $2 : 7 + ($1 - $2)) }'))
+					;;
+					seg | segunda)
+						valor=$(zzdata hoje + $(echo "1 $(date +%u)" | awk '{ print ($1 >= $2 ? $1 - $2 : 7 + ($1 - $2)) }'))
 					;;
 					fim)
 						valor=21/12/2012  # ;)
