@@ -11,7 +11,7 @@
 #
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
 # Desde: 2014-04-08
-# Versão: 1
+# Versão: 2
 # Licensa: GPL
 # Requisitos: zzdata zzdatafmt
 # ----------------------------------------------------------------------------
@@ -66,16 +66,12 @@ zzfutebol ()
 	}
 
 	futebolproximosabado(){
-		local diadasemana=$( date "+%u" )
-		local diasparaproximosabado=$( expr 6 - $diadasemana )
-		local sabado=$( zzdata hoje + $diasparaproximosabado | zzdatafmt -f DD/MM/AA )
+		local sabado=$( zzdata sabado | zzdatafmt -f DD/MM/AA )
 		listajogos "$sabado"
 	}
 
 	futebolproximodomingo(){
-		local diadasemana=$( date "+%u" )
-		local diasparaproximodomingo=$( expr 7 - $diadasemana )
-		local domingo=$( zzdata hoje + $diasparaproximodomingo | zzdatafmt -f DD/MM/AA )
+		local domingo=$( zzdata domingo | zzdatafmt -f DD/MM/AA )
 		listajogos "$domingo"
 	}
 
