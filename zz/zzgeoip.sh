@@ -6,7 +6,7 @@
 #
 # Autor: Alexandre Magno <alexandre.mbm (a) gmail com>
 # Desde: 2013-07-06
-# Versão: 2
+# Versão: 3
 # Licença: GPLv2
 # Requisitos: zzxml zzipinternet zzecho zzminiurl
 # ----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ zzgeoip ()
 			cut -f2 -d: |
 			tr ',' '.')
 
-	mapa=$(zzminiurl "$url/mapa.asp?lat=$latitude&lon=$longitude")
+	mapa=$(zzminiurl "$url/mapa.asp?lat=$latitude&lon=$longitude&cidade=$cidade&estado=$uf")
 
 	zzecho -n '       IP: '; zzecho -l verde -N "${ip:- }"
 	zzecho -n '   Cidade: '; zzecho -N "${cidade:- }"
