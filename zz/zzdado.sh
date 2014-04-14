@@ -12,6 +12,7 @@
 # Desde: 2012-12-05
 # Versão: 2
 # Licença: GPL
+# Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
 zzdado ()
 {
@@ -41,6 +42,6 @@ zzdado ()
 		shift
 	done
 
-	# Gera e exibe um numero aleatorio entre 1 e 6
-	expr $(echo $RANDOM) % $n_faces + 1
+	# Gera e exibe um numero aleatorio entre 1 e o total de faces
+	zzaleatorio 1 $n_faces
 }

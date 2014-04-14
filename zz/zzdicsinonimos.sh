@@ -28,8 +28,8 @@ zzdicsinonimos ()
 	# Faz a busca do termo e limpa, deixando somente os sinônimos
 	# O sed no final separa os sentidos, caso a palavra tenha mais de um
 	$ZZWWWDUMP "${url}?q=${parametro_busca}" |
-		sed -nr "/[0-9]{1,} sinônimos? d/,/«/ {
-			/[0-9]{1,} sinônimos? d/d
+		sed -n "/[0-9]\{1,\} sinônimos\{0,1\} d/,/«/ {
+			/[0-9]\{1,\} sinônimos\{0,1\} d/d
 			/«/d
 			/^$/d
 			p

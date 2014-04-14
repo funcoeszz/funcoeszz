@@ -12,6 +12,7 @@
 # Desde: 2004-12-23
 # Versão: 2
 # Licença: GPL
+# Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
 zzlinha ()
 {
@@ -62,8 +63,7 @@ zzlinha ()
 		# Nota: Arquivos via STDIN ou argumentos
 		resultado=$(zztool file_stdin "$@" | grep -h -i -- "${padrao:-.}")
 		num_linhas=$(echo "$resultado" | sed -n '$=')
-		n=$(( (RANDOM % num_linhas) + 1))
-		[ $n -eq 0 ] && n=1
+		n=$(zzaleatorio 1 $num_linhas)
 		echo "$resultado" | sed -n "${n}p"
 	fi
 }
