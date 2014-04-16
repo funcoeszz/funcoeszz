@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# http://funcoeszz.net/locales.txt
 # Busca o código do idioma (locale) - por exemplo, português é pt_BR.
 # Com a opção -c, pesquisa somente nos códigos e não em sua descrição.
 # Uso: zzlocale [-c] código|texto
@@ -8,14 +7,14 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2005-06-30
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlocale ()
 {
 	zzzz -h locale "$1" && return
 
-	local url='http://funcoeszz.net/locales.txt'
+	local url='https://raw.githubusercontent.com/funcoeszz/funcoeszz/master/local/zzlocale.txt'
 	local cache="$ZZTMP.locale"
 	local padrao="$1"
 
