@@ -69,7 +69,7 @@ zzjquery ()
 	# Se o cache está vazio, baixa o conteúdo
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML "https://raw.githubusercontent.com/aureliojargas/funcoeszz/master/local/zzjquery.html" > "$cache"
+		$ZZWWWHTML "https://raw.githubusercontent.com/funcoeszz/funcoeszz/master/local/zzjquery.html" > "$cache"
 	fi
 
 	# Faz a pesquisa e filtra o resultado
