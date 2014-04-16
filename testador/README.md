@@ -92,9 +92,9 @@ Testar todas as funções vai levar alguns minutos, então relaxe.
 Um teste falhou, o que faço agora?
 ----------------------------------
 
-Se aparecer algum erro, por favor [abra um issue](https://github.com/aureliojargas/funcoeszz/issues/new) e cole nele o resultado do testador. Também informe qual a versão do seu sistema operacional e qualquer informação adicional que julgar útil para resolvermos o problema.
+Se aparecer algum erro, por favor [abra um issue](https://github.com/funcoeszz/funcoeszz/issues/new) e cole nele o resultado do testador. Também informe qual a versão do seu sistema operacional e qualquer informação adicional que julgar útil para resolvermos o problema.
 
-Se você manja de shell script, que tal **você mesmo** arregaçar as mangas e arrumar a função? O [código das funções](https://github.com/aureliojargas/funcoeszz/tree/master/zz) é bem amigável: é alinhado e comentado. Experimente, será divertido! Veja [as  instruções](https://github.com/aureliojargas/funcoeszz/blob/master/README.md), ou fale com o [@oreio](https://twitter.com/oreio).
+Se você manja de shell script, que tal **você mesmo** arregaçar as mangas e arrumar a função? O [código das funções](https://github.com/funcoeszz/funcoeszz/tree/master/zz) é bem amigável: é alinhado e comentado. Experimente, será divertido! Veja [as  instruções](https://github.com/funcoeszz/funcoeszz/blob/master/README.md), ou fale com o [@oreio](https://twitter.com/oreio).
 
 
 
@@ -103,7 +103,7 @@ Para adicionar um teste novo
 
 Você não precisa ser programador para adicionar um teste novo. O arquivo de testes é bem simples: é uma cópia literal da própria linha de comando! Veja exemplos de arquivos de testes:
 
-[/testador/zzvira.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzvira.sh):
+[/testador/zzvira.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzvira.sh):
 
 ```
 $ zzvira 'Inverte tudo'
@@ -113,7 +113,7 @@ $ zzvira -X 'De pernas pro ar'
 $
 ```
 
-[/testador/zzalfabeto.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzalfabeto.sh):
+[/testador/zzalfabeto.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzalfabeto.sh):
 
 ```
 $ zzalfabeto --militar ABC
@@ -146,7 +146,7 @@ zzcineuci
 $
 ```
 
-Além de testar o uso normal, tente encontrar exemplos de uso peculiares (e até bizarros), que podem disparar bugs na função. Por exemplo: informar uma letra em vez de um número, informar datas inválidas, opções inválidas, coisas assim. E se a pobre função não aguentar seus testes e falhar, [abra um issue](https://github.com/aureliojargas/funcoeszz/issues/new)!
+Além de testar o uso normal, tente encontrar exemplos de uso peculiares (e até bizarros), que podem disparar bugs na função. Por exemplo: informar uma letra em vez de um número, informar datas inválidas, opções inválidas, coisas assim. E se a pobre função não aguentar seus testes e falhar, [abra um issue](https://github.com/funcoeszz/funcoeszz/issues/new)!
 
 ### Exemplo: criar testes para a zzfoo
 
@@ -215,25 +215,25 @@ Agora, o bom mesmo, é que também é possível usar "opções" neste formato, p
 $ head /etc/passwd            #→ --lines 10
 ```
 
-Com `--lines`, o teste passará se o resultado do comando tiver exatamente o número de linhas informado. Use esta opção quando o texto do resultado for variável e imprevisível, porém o seu número de linhas é sempre constante. Exemplos: [zzlinuxnews.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzlinuxnews.sh), [zzsecurity.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzsecurity.sh).
+Com `--lines`, o teste passará se o resultado do comando tiver exatamente o número de linhas informado. Use esta opção quando o texto do resultado for variável e imprevisível, porém o seu número de linhas é sempre constante. Exemplos: [zzlinuxnews.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzlinuxnews.sh), [zzsecurity.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzsecurity.sh).
 
 ```
 $ tac /etc/passwd | tac       #→ --file /etc/passwd
 ```
 
-Com `--file`, o teste passará se o resultado do comando for exatamente igual ao conteúdo do arquivo informado. Use testes desse tipo quando o resultado for um texto estruturado, ou em um formato específico, que seja mais cômodo guardar num arquivo externo. Exemplos: [zzcores.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzcores.sh), [zztabuada.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zztabuada.sh), [zzunicode2ascii.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzunicode2ascii.sh).
+Com `--file`, o teste passará se o resultado do comando for exatamente igual ao conteúdo do arquivo informado. Use testes desse tipo quando o resultado for um texto estruturado, ou em um formato específico, que seja mais cômodo guardar num arquivo externo. Exemplos: [zzcores.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzcores.sh), [zztabuada.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zztabuada.sh), [zzunicode2ascii.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzunicode2ascii.sh).
 
 ```
 $ echo $((2 + 10))            #→ --regex ^\d+$
 ```
 
-Com `--regex`, o teste passará se a(s) linha(s) do resultado casar com a [expressão regular](http://aurelio.net/regex/) informada (padrão super-poderoso `Perl`). Use testes desse tipo quando o resultado for variável, mas com um padrão conhecido, que você pode casar com uma regex. Exemplos: [zzdado.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzdado.sh), [zzipinternet.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzipinternet.sh), [zzsenha.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzsenha.sh).
+Com `--regex`, o teste passará se a(s) linha(s) do resultado casar com a [expressão regular](http://aurelio.net/regex/) informada (padrão super-poderoso `Perl`). Use testes desse tipo quando o resultado for variável, mas com um padrão conhecido, que você pode casar com uma regex. Exemplos: [zzdado.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzdado.sh), [zzipinternet.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzipinternet.sh), [zzsenha.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzsenha.sh).
 
 ```
 $ pwd                         #→ --eval echo $PWD
 ```
 
-Com `--eval`, o teste passará se o resultado do comando for exatamente igual ao resultado do comando informado. É útil principalmente para expandir o valor de variáveis com guardam o resultado, ou parte dele. Exemplos: [zzmaiusculas.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzmaiusculas.sh), [zzdata.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzdata.sh), [zzgravatar.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zzgravatar.sh).
+Com `--eval`, o teste passará se o resultado do comando for exatamente igual ao resultado do comando informado. É útil principalmente para expandir o valor de variáveis com guardam o resultado, ou parte dele. Exemplos: [zzmaiusculas.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzmaiusculas.sh), [zzdata.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzdata.sh), [zzgravatar.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzgravatar.sh).
 
 
 Para ver rapidamente os exemplos já utilizados destas opções, use o grep nos arquivos de testes atuais:
@@ -255,7 +255,7 @@ root:*:0:0:System Administrator:/var/root:/bin/sh
 $
 ```
 
-Esta tática é usada dezenas de vezes em [zztool.sh](https://github.com/aureliojargas/funcoeszz/tree/master/testador/zztool.sh). Se quiser testar somente o código, ignorando o resultado, basta silenciar o comando:
+Esta tática é usada dezenas de vezes em [zztool.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zztool.sh). Se quiser testar somente o código, ignorando o resultado, basta silenciar o comando:
 
 ```
 $ grep ^root /etc/passwd > /dev/null; echo $?

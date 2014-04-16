@@ -73,5 +73,5 @@ zznome ()
 			p
 		}" 2>/dev/null
 		# Escondendo erros pois a codificação do site é estranha
-		# https://github.com/aureliojargas/funcoeszz/issues/27
+		# https://github.com/funcoeszz/funcoeszz/issues/27
 }
