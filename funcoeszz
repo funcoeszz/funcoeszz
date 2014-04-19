@@ -1014,7 +1014,7 @@ then
 
 	# Agora apaga os textos da ajuda, montando um script em sed e aplicando
 	# Veja issue 5 para mais detalhes:
-	# https://github.com/aureliojargas/funcoeszz/issues/5
+	# https://github.com/funcoeszz/funcoeszz/issues/5
 	zz_sed=$(echo "$zz_off" | sed 's@.*@/^&$/,/^----*$/d;@')  # /^zzfoo$/,/^----*$/d
 	cp "$ZZAJUDA" "$ZZAJUDA.2" &&
 	sed "$zz_sed" "$ZZAJUDA.2" > "$ZZAJUDA"

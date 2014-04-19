@@ -280,7 +280,7 @@ eco ----------------------------------------------------------------
 eco "* Funções que não colocaram aspas ao redor de \$ZZTMP"
 grep '$ZZTMP' off/* zz/* | grep -v '"'
 
-# https://github.com/aureliojargas/funcoeszz/wiki/Arquivos-Temporarios
+# https://github.com/funcoeszz/funcoeszz/wiki/Arquivos-Temporarios
 eco ----------------------------------------------------------------
 eco "* Funções que usaram nome inválido em \$ZZTMP.nome"
 grep '$ZZTMP' zz/* | egrep -v '^zz/zz([^.]*)\.sh:.*\$ZZTMP\.\1'
