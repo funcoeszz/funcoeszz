@@ -2,7 +2,7 @@
 # Calculadora de datas, trata corretamente os anos bissextos.
 # Você pode somar ou subtrair dias, meses e anos de uma data qualquer.
 # Você pode informar a data dd/mm/aaaa ou usar palavras como: hoje, ontem.
-# Ou os dias da semana como: domingo, seg, ter, qua, qui, sex, sab, dom. 
+# Ou os dias da semana como: domingo, seg, ter, qua, qui, sex, sab, dom.
 # Na diferença entre duas datas, o resultado é o número de dias entre elas.
 # Se informar somente uma data, converte para número de dias (01/01/1970 = 0).
 # Se informar somente um número (de dias), converte de volta para a data.

@@ -1,6 +1,11 @@
 # ----------------------------------------------------------------------------
-# http://visualjquery.com/1.1.2.html
 # Exibe a descrição da função jQuery informada.
+#
+# Opções:
+#   --categoria[s]: Lista as Categorias da funções.
+#   --lista: Lista todas as funções.
+#   --lista <categoria>: Listas as funções dentro da categoria informada.
+#
 # Caso não seja passado o nome, serão exibidas informações acerca do $().
 # Se usado o argumento -s, será exibida somente a sintaxe.
 # Uso: zzjquery [-s] funcao
@@ -9,69 +14,92 @@
 #
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
 # Desde: 2007-12-04
-# Versão: 3
+# Versão: 4
 # Licença: GPL
+# Requisitos: zzlimpalixo zzunescape zzxml
 # ----------------------------------------------------------------------------
 zzjquery ()
 {
 	zzzz -h jquery "$1" && return
 
-	local er
-	local cache="$ZZTMP.jquery"
-	local er1="s/^ *<h1>\([\$.]*$2(.*\)<\/h1> *$/- \1/p;"  # <h1>gt(pos)</h1>
-	local er2="
-	/^ *<h1>\([\$.]*$1(.*\)<\/h1> *$/ {
+	local url="http://api.jquery.com/"
+	local url_aux
+	local sintaxe=0
 
-		# Mostra o nome da função e vai pra próxima linha
-		s//\1:/p
-		n
+	case "$1" in
+	--lista)
 
-		### A descrição está numa única linha.
-		#
-		# <h1>$.get(url, params, callback)</h1>
-		# <p>Load a remote page using an HTTP GET request.</p>
-		#
-		# O comando G adiciona uma linha após a descrição.
-		# O comando b pula pro final, já terminamos com esse.
-		#
-		/^ *<p>\(.*\)<\/p> *$/ {
-			s//  \1/
-			G
-			p
-			b
-		}
+		if test -n "$2"
+		then
+			url_aux=$(
+				$ZZWWWHTML http://api.jquery.com |
+				awk '/<aside/,/aside>/{print}' |
+				sed "/<ul class='children'>/,/<\/ul>/d" |
+				zzxml --untag=aside --tag a |
+				awk -F '"' '/href/ {printf $2 " "; getline; print}' |
+				awk '$2 ~ /'$2'/ { print $1 }'
+			)
+			test -n "$url_aux" && url="$url_aux" || url=''
+		fi
 
-		### A descrição está em várias linhas.
-		#
-		# <h1>gt(pos)</h1>
-		# <p>Reduce the set of matched elements to all elements after a given position.
-		#    The position of the element in the set of matched elements
-		#    starts at 0 and goes to length - 1.
-		# </p>
-		#
-		# Esse é mais chato, temos que pegar todo o texto até o </p>.
-		# É feito um loop que termina quando achar o </p>.
-		#
-		:multi
-		/<\/p>/ {
-			s///p
-			b
-		}
-		s/^ *<p>//
-		s/^ */  /p
-		n
-		b multi
-	}
-	"
+		if test -n "$url"
+		then
+			$ZZWWWHTML "$url" |
+			sed -n '/title="Permalink to /{s/^[[:blank:]]*//;s/<[^>]*>//g;s/()//;p;}' |
+			zzunescape --html
+		fi
 
-	[ "$1" = '-s' ] && er="$er1" || er="$er2"
+	;;
+	--categoria | --categorias)
 
-	# Se o cache está vazio, baixa o conteúdo
-	if ! test -s "$cache"
-	then
-		$ZZWWWHTML "https://raw.githubusercontent.com/funcoeszz/funcoeszz/master/local/zzjquery.html" > "$cache"
-	fi
+		$ZZWWWHTML "$url" |
+		awk '/<aside/,/aside>/{print}' |
+		sed "/<ul class='children'>/,/<\/ul>/d" |
+		zzxml --tag li --untag  | zzlimpalixo | zzunescape --html
 
-	# Faz a pesquisa e filtra o resultado
-	sed -n "$er" "$cache"
+	;;
+	*)
+		test "$1" = "-s" && { sintaxe=1; shift; }
+
+		if [ "$1" ]
+		then
+			url_aux=$(
+				$ZZWWWHTML "$url" |
+				sed -n '/title="Permalink to /{s/^[[:blank:]]*//;s/()//g;p;}' |
+				zzunescape --html |
+				awk -F '[<>"]' '{print $3, $9 }' |
+				awk '$2 ~ /^[.:]{0,1}'$1'[^a-z]*$/ { print $1 }'
+			)
+			test -n "$url_aux" && url="$url_aux" || url=''
+		else
+			url=${url}jQuery
+		fi
+
+		if [ "$url" ]
+		then
+			for url_aux in $url
+			do
+				zztool eco ${url_aux#*com/} | tr -d '/'
+				$ZZWWWHTML "$url_aux" |
+				zzxml --tag article |
+				awk '/class="entry(-content| method)"/,/<\/article>/{ print }' |
+				if test "$sintaxe" = "1"
+				then
+					awk '/<ul class="signatures">/,/<div class="longdesc"/ { print }' | awk '/<span class="name">/,/<\/span>/ { print }; /<h4 class="name">/,/<\/h4>/ { print };'
+				else
+					awk '
+							/<ul class="signatures">/,/(<div class="longdesc"|<section class="entry-examples")/ { if ($0 ~ /<\/h4>/ || $0 ~ /<\/span>/ || $0 ~ /<\/div>/) { print } else { printf $0 }}
+							/<span class="name">/,/<\/span>/ { if ($0 ~ /<span class="name">/) { printf "--\n\n" }; print $0 }
+							/<p class="desc"/,/<\/p>/ { if ($0 ~ /<\/p>/) { print } else { printf $0 }}
+						'
+				fi|
+				zzxml --untag | zzlimpalixo |
+				awk '{if ($0 ~ /: *$/) { printf $0; getline; print} else print }' |
+				sed 's/version added: .*//;s/^--//g;/Type: /d'
+				echo
+			done
+		fi
+
+	;;
+	esac
 }
