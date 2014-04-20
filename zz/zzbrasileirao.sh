@@ -120,7 +120,7 @@ zzbrasileirao ()
 					else if ($1 ~ /[1-4]°/) { cor="\033[42;30m" }
 					else { cor="\033[m" }
 				}
-				if ($0 ~ /Grupo/) {print "";print ;getline;getline;getline;getline;}
+				if ($0 ~ /Grupo/) {print "";print ;getline;getline;getline;}
 				else { printf "%s%s\033[m\n", cor, $0 }
 			}'
 			if [ "$ZZCOR" = "1" ]
