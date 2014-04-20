@@ -35,7 +35,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlibertadores ()
@@ -70,25 +70,25 @@ zzlibertadores ()
 	3 | oitavas)
 		$ZZWWWDUMP "$url" | sed -n '/^Oitavas de Final/,/^ *\*/p' |
 		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
-		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
 
 	;;
 	4 | quartas)
 		$ZZWWWDUMP "$url" | sed -n '/^Quartas de Final/,/^Oitavas de Final/p' |
 		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
-		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
 
 	;;
 	5 | semi | semi-final)
 		$ZZWWWDUMP "$url" | sed -n '/^Semifinal/,/^Quartas de Final/p' |
 		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
-		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
 
 	;;
 	6 | final)
 		$ZZWWWDUMP "$url" | sed -n '/^Final/,/^Semifinal/p' |
 		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
-		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
 
 	;;
 	esac
@@ -103,7 +103,6 @@ zzlibertadores ()
 		sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
 		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}' |
 		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
-
 	fi
 
 	# Mostrando a classificação (Fase de grupos)
