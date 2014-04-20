@@ -26,6 +26,7 @@
 # Versão: 7
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# Desativada: 2014-04-20 O site encerrou e ainda não há um substituto equivalente.
 zzcorrida ()
 {
 	zzzz -h corrida "$1" && return
