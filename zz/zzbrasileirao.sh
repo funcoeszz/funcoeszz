@@ -112,15 +112,22 @@ zzbrasileirao ()
 		then
 			zztool eco "Série C"
 			$ZZWWWDUMP $url |
-			awk '
+			awk -v cor_awk="$ZZCOR" '
 			/Grupo (A|B)/,/10°/ {
+				cor="\033[m"
+				if (cor_awk==1) {
+					if ($1 ~ /9°/ || $1 ~ /10°/) { cor"\033[41;30m" }
+					else if ($1 ~ /[1-4]°/) { cor="\033[42;30m" }
+					else { cor="\033[m" }
+				}
 				if ($0 ~ /Grupo/) {print "";print ;getline;getline;getline;getline;}
-				if ($1 ~ /9°/ || $1 ~ /10°/) { printf "\033[41;30m%s\033[m\n", $0 }
-				else if ($1 ~ /[1-4]°/) { printf "\033[42;30m%s\033[m\n", $0 }
-				else { print }
-				}'
-			printf "\n\033[42;30m Quartas de Final \033[m"
-			printf "\033[41;30m Rebaixamento \033[m\n"
+				else { printf "%s%s\033[m\n", cor, $0 }
+			}'
+			if [ "$ZZCOR" = "1" ]
+			then
+				printf "\n\033[42;30m Quartas de Final \033[m"
+				printf "\033[41;30m Rebaixamento \033[m\n"
+			fi
 		else
 
 			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;/^ *Classificação *PG/,/20°/p;" |
@@ -136,9 +143,6 @@ zzbrasileirao ()
 
 				if (NR >= 6 && NR <=13)
 					cor=(serie_awk=="a"?"\033[46;30m":"\033[m")
-
-				if (NR >=10 && NR <= 11 && serie_awk=="c")
-					cor="\033[41;30m"
 
 				if (NR >= 2 && NR <=5)
 					cor="\033[42;30m"
@@ -156,11 +160,9 @@ zzbrasileirao ()
 				then
 					printf "\033[42;30m Libertadores \033[m"
 					printf "\033[46;30m Sul-Americana \033[m"
-				elif test "$serie" = "b"
+				elif [ "$serie" = "b" ]
 				then
 					printf "\033[42;30m   Série  A   \033[m"
-				else
-					printf "\033[42;30m  Classifica  \033[m"
 				fi
 				printf "\033[41;30m Rebaixamento \033[m\n"
 			fi
