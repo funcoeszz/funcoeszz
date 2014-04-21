@@ -60,7 +60,6 @@ zzbolsas ()
 	zzzz -h bolsas "$1" && return
 
 	local url='http://br.finance.yahoo.com'
-	local dj='^DWC'
 	local new_york='^NYA ^NYI ^NYY ^NY ^NYL ^NYK'
 	local nasdaq='^IXIC ^BANK ^NBI ^IXCO ^IXF ^INDS ^INSR ^OFIN ^IXTC ^TRAN ^NDX'
 	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SP600'
@@ -83,8 +82,7 @@ zzbolsas ()
 			zztool eco "\nDow Jones :"
 			$ZZWWWDUMP "$url/usindices" |
 				sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
-				awk '{ printf "%s ", $1}'
-				printf "%s " "$dj";echo
+				awk '{ printf "%s ", $1}';echo
 
 			zztool eco "\nNYSE :"
 			for bolsa in $new_york; do printf "%s " "$bolsa"; done;echo
