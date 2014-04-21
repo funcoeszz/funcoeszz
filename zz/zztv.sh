@@ -37,7 +37,7 @@ zztv ()
 	# 1 = lista programas de vários canais no horário
 	local flag=0
 
-	if [ -s "$cache" ]
+	if ! test -s "$cache"
 	then
 		$ZZWWWHTML ${URL}/categoria/Todos |
 		sed -n '/programacao\/canal/p;/^ *|/p' |
@@ -47,7 +47,7 @@ zztv ()
 		sort >> $cache
 	fi
 	linhas=$(echo "scale=0; ($(wc -l $cache | cut -f1 -d' ') + 1)/ 4 " | bc)
-	largura=$(awk '{print length}' saida | sort -n | sed -n '$p')
+	largura=$(awk '{print length}' $cache | sort -n | sed -n '$p')
 
 	if [ "$1" ] && grep -i "^$1" $cache >/dev/null 2>/dev/null
 	then
