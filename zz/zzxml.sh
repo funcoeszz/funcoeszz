@@ -34,12 +34,14 @@ zzxml ()
 {
 	zzzz -h xml "$1" && return
 
-	local tag notag semtag ntag sed_notag cache_tag cache_notag
+	local tag notag semtag ntag sed_notag
 	local tidy=0
 	local untag=0
 	local unescape=0
 	local indent=0
 	local i=0
+	local cache_tag="$ZZTMP.xml.${i}_tag"
+	local cache_notag="$ZZTMP.xml.${i}_notag"
 
 	while ! zztool arquivo_vago $cache_tag >/dev/null 2>&1
 	do
