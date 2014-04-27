@@ -19,13 +19,13 @@
 # As opções -r, --right, -d, --direita alinham as colunas a direita.
 # As opções -c, --center, --centro centralizam as colunas.
 #
-# As opções -w, --width, --largura seguido de um número, 
+# As opções -w, --width, --largura seguido de um número,
 # determinam a largura que as colunas terão.
 #
-# Uso: zzcoluna [-n|-z] [-l|-r|-c] [-w <largura>] <colunas> arquivo
-# Ex.: zzcoluna 3 arquivo.txt
-#      zzcoluna -c -w 20 -5 arquivo.txt
-#      cat arquivo.txt | zzcoluna -z 4
+# Uso: zzcolunar [-n|-z] [-l|-r|-c] [-w <largura>] <colunas> arquivo
+# Ex.: zzcolunar 3 arquivo.txt
+#      zzcolunar -c -w 20 -5 arquivo.txt
+#      cat arquivo.txt | zzcolunar -z 4
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-04-24

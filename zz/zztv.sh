@@ -22,7 +22,7 @@
 # Desde: 2002-02-19
 # Versão: 11
 # Licença: GPL
-# Requisitos: zzunescape zzdos2unix
+# Requisitos: zzunescape zzdos2unix zzcolunar
 # ----------------------------------------------------------------------------
 zztv ()
 {
@@ -75,12 +75,7 @@ zztv ()
 	fi
 
 	case "$1" in
-	canais)
-		awk -v lin=$linhas -v tam=$largura '
-			{linha[NR]=$0}
-			END {for(i=1;i<=lin;i++) {printf "%-"tam"s %-"tam"s %-"tam"s %-"tam"s\n", linha[i], linha[i+(1*lin)], linha[i+(2*lin)], linha[i+(3*lin)]}}
-		' $cache
-	;;
+	canais) zzcolunar 4 $cache;;
 	aberta)                        URL="${URL}/categoria/Aberta"; flag=1; desc="Aberta";;
 	doc | documentario)            URL="${URL}/categoria/Documentarios"; flag=1; desc="Documentários";;
 	esporte | esportes | futebol)  URL="${URL}/categoria/Esportes"; flag=1; desc="Esportes";;
