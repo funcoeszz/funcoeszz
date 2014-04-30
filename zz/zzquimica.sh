@@ -13,6 +13,7 @@
 # Licença: GPL
 # Requisitos: zzcapitalize zzwikipedia
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2014-04-30 Site não permite uso das informações ver issue #80
 zzquimica ()
 {
 
@@ -24,7 +25,7 @@ zzquimica ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML "http://ptable.com/?lang=pt" |
+		$ZZWWWHTML "outro site" |
 		sed -n '/"Element /p' |
 		sed 's|</*small>| |g;s/<br>/-/g;s/ *<td class="Element \{1,\}//g;s/ \{1,\}[spdf]">/:/g' |
 		sed 's/\(.*\):\(.*\)/\2 (\1)/g' |
