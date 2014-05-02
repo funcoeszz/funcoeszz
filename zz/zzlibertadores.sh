@@ -49,7 +49,7 @@ zzlibertadores ()
 		/Confronto/d; /pós jogo/d
 		/^ *$/d; s/^ *//
 		s/[A-Z][A-Z][A-Z] //; s/ [A-Z][A-Z][A-Z]//
-		s/\([0-9]\{1,\}\) *pênaltis *\([0-9]\{1,\}\)\(.*$\)/\3 (\1x\2)/g
+		s/\([0-9]\{1,\}\) *pênaltis *\([0-9]\{1,\}\)\(.*\) X \(.*$\)/\3 (\1 X \2) \4/g
 	'
 	local grupo
 
@@ -76,22 +76,22 @@ zzlibertadores ()
 	3 | oitavas)
 		$ZZWWWDUMP "$url" | sed -n '/^Oitavas de Final/,/^ *\*/p' |
 		sed "$sed_mata" |
-		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
+		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
 	;;
 	4 | quartas)
 		$ZZWWWDUMP "$url" | sed -n '/^Quartas de Final/,/^Oitavas de Final/p' |
 		sed "$sed_mata" |
-		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
+		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
 	;;
 	5 | semi | semi-final)
 		$ZZWWWDUMP "$url" | sed -n '/^Semifinal/,/^Quartas de Final/p' |
 		sed "$sed_mata" |
-		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
+		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
 	;;
 	6 | final)
 		$ZZWWWDUMP "$url" | sed -n '/^Final/,/^Semifinal/p' |
 		sed "$sed_mata" |
-		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
+		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
 	;;
 	esac
 
