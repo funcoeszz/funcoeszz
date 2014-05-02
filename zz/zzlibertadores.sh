@@ -35,7 +35,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 8
+# Versão: 9
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlibertadores ()
@@ -44,6 +44,13 @@ zzlibertadores ()
 
 	local ano=$(date +%Y)
 	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/jogos"
+	local sed_mata='
+		1d; $d
+		/Confronto/d; /pós jogo/d
+		/^ *$/d; s/^ *//
+		s/[A-Z][A-Z][A-Z] //; s/ [A-Z][A-Z][A-Z]//
+		s/\([0-9]\{1,\}\) *pênaltis *\([0-9]\{1,\}\)\(.*$\)/\3 (\1x\2)/g
+	'
 	local grupo
 
 	[ "$1" ] || { zztool uso libertadores; return 1; }
@@ -54,10 +61,9 @@ zzlibertadores ()
 	case "$1" in
 	1 | pr[eé] | primeira)
 		$ZZWWWDUMP "$url" | sed -n '/Primeira Fase/,/Segunda/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		sed "$sed_mata" |
 		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}' |
 		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
-
 	;;
 	# Fase 2 (Fase de Grupos)
 	2 | grupos | segunda)
@@ -69,27 +75,23 @@ zzlibertadores ()
 	;;
 	3 | oitavas)
 		$ZZWWWDUMP "$url" | sed -n '/^Oitavas de Final/,/^ *\*/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		sed "$sed_mata" |
 		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
-
 	;;
 	4 | quartas)
 		$ZZWWWDUMP "$url" | sed -n '/^Quartas de Final/,/^Oitavas de Final/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		sed "$sed_mata" |
 		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
-
 	;;
 	5 | semi | semi-final)
 		$ZZWWWDUMP "$url" | sed -n '/^Semifinal/,/^Quartas de Final/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		sed "$sed_mata" |
 		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
-
 	;;
 	6 | final)
 		$ZZWWWDUMP "$url" | sed -n '/^Final/,/^Semifinal/p' |
-		sed '1d;$d;/Confronto/d;/pós jogo/d;/^ *$/d;s/^ *//;s/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		sed "$sed_mata" |
 		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%21s X %-21s   ", $1, $2; getline proxima; print proxima } }'
-
 	;;
 	esac
 
