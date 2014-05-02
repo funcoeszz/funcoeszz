@@ -9,7 +9,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-22
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzcapitalize zzwikipedia zzxml
 # ----------------------------------------------------------------------------
@@ -29,18 +29,36 @@ zzquimica ()
 		zzxml --untag=br | zzxml --tidy |
 		sed '/id=57-71/,/<\/td>/d;/id=89-103/,/<\/td>/d' |
 		awk 'BEGIN {print "N.º       Nome      Símbolo    Massa      Orbital             Classificação (estado)" }
-			/^<td /     { info["familia"] = $5; info["estado"] = $7; sub(/.>/, "", info["estado"]) }
+			/^<td /     {
+				info["familia"] = $5
+					sub(/ao/, "ão", info["familia"])
+					sub(/nideo/, "nídeo", info["familia"])
+					sub(/gas/, "gás", info["familia"])
+					sub(/genio/, "gênio", info["familia"])
+					sub(/l[-]t/, "l de t", info["familia"])
+					if (info["familia"] ~ /[los][-][rmn]/)
+						sub(/-/, " ", info["familia"])
+
+				info["estado"] = $7
+					sub(/.>/, "", info["estado"])
+					sub(/solido/, "sólido", info["estado"])
+					sub(/liquido/, "líquido", info["estado"])
+				}
 			/^<a /      { info["url"] = $0; sub(/.*href=./, "", info["url"]); sub(/".*/, "", info["url"]) }
 			/^<strong / { getline info["numero"] }
-			/^<abbr>/   { getline info["simbolo"]; sub(/ */, "", info["simbolo"]) }
-			/^<em>/     { getline info["nome"] }
-			/^<i>/      { getline info["massa"] }
-			/^<small>/  { getline info["orbital"]; gsub(/ /, "-", info["orbital"]) }
+			/^<abbr/    { getline info["simbolo"]; sub(/ */, "", info["simbolo"]) }
+			/^<em/      { getline info["nome"] }
+			/^<i/       { getline info["massa"] }
+			/^<small/   { getline info["orbital"]; gsub(/ /, "-", info["orbital"]) }
+			{
+				if (info["numero"]==114) { info["nome"]="Fleróvio"; info["simbolo"]="Fl" }
+				if (info["numero"]==116) { info["nome"]="Livermório"; info["simbolo"]="Lv" }
+			}
 			/<[/]td>/ { printf "%-5s %-15s %-7s %-12s %-18s %s\n", info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
-		 ' | sort -n > "$cache"
+		' | sort -n > "$cache"
 	fi
 
-	if test -n "$1"
+	if [ "$1" ]
 	then
 		if zztool testa_numero "$1"
 		then
@@ -52,9 +70,9 @@ zzquimica ()
 		fi
 
 		# Se encontrado, pesquisa-o na wikipedia
-		if test ${#elemento} -gt 0
+		if [ ${#elemento} -gt 0 ]
 		then
-			test "$elemento" = "Rádio" -o "$elemento" = "Índio" && elemento="${elemento}_(elemento_químico)"
+			[ "$elemento" = "Rádio" -o "$elemento" = "Índio" ] && elemento="${elemento}_(elemento_químico)"
 			zzwikipedia "$elemento"
 		else
 			zztool uso quimica
