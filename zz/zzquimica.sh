@@ -86,6 +86,6 @@ zzquimica ()
 
 	else
 		# Lista todos os elementos químicos
-		cat "$cache"
+		cat "$cache" | zzcapitalize | sed 's/ D\([eo]\) / d\1 /g'
 	fi
 }
