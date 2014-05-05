@@ -28,7 +28,7 @@ zzquimica ()
 		awk '/class="elemento/,/<\/td>/{print}'|
 		zzxml --untag=br | zzxml --tidy |
 		sed '/id=57-71/,/<\/td>/d;/id=89-103/,/<\/td>/d' |
-		awk 'BEGIN {print "N.º       Nome      Símbolo    Massa      Orbital             Classificação (estado)" }
+		awk 'BEGIN {print "N.º     Nome     Símbolo   Massa            Orbital       Classificação (estado)" }
 			/^<td /     {
 				info["familia"] = $5
 					sub(/ao/, "ão", info["familia"])
@@ -38,6 +38,11 @@ zzquimica ()
 					sub(/l[-]t/, "l de t", info["familia"])
 					if (info["familia"] ~ /[los][-][rmn]/)
 						sub(/-/, " ", info["familia"])
+
+					info["familia"] = info["familia"] ($6 ~ /13$/ ? " [família do boro]":"")
+					info["familia"] = info["familia"] ($6 ~ /14$/ ? " [família do carbono]":"")
+					info["familia"] = info["familia"] ($6 ~ /15$/ ? " [família do nitrogênio]":"")
+					info["familia"] = info["familia"] ($6 ~ /16$/ ? " [calcogênio]":"")
 
 				info["estado"] = $7
 					sub(/.>/, "", info["estado"])
@@ -54,7 +59,7 @@ zzquimica ()
 				if (info["numero"]==114) { info["nome"]="Fleróvio"; info["simbolo"]="Fl" }
 				if (info["numero"]==116) { info["nome"]="Livermório"; info["simbolo"]="Lv" }
 			}
-			/<[/]td>/ { printf "%-5s %-15s %-7s %-12s %-18s %s\n", info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
+			/^<\/td>/ { printf "%-5s %-15s %-7s %-12s %-18s %s\n", info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
 		' | sort -n > "$cache"
 	fi
 
