@@ -363,7 +363,7 @@ zzbolsas ()
 					if ([ "$4" ] && zztool testa_data $(zzdatafmt "$4"))
 					then
 						zzbolsas "$2" "$4" | sed '/Proxima data de anuncio/d' > "${cache}.pag"
-						vartemp=$(wc -l ${cache}.pag | cut -f 1 -d ' ')
+						vartemp=$(zztool num_linhas ${cache}.pag)
 						zzbolsas "$3" "$4" |
 						sed '/Proxima data de anuncio/d;s/^[[:space:]]*//g;s/[[:space:]]*$//g' |
 						sed '2,$s/^[[:upper:][:space:][:space:]][^0-9]*//g' > "${cache}.temp"

@@ -46,7 +46,7 @@ zztv ()
 		zzdos2unix |
 		sort >> $cache
 	fi
-	linhas=$(echo "scale=0; ($(wc -l $cache | cut -f1 -d' ') + 1)/ 4 " | bc)
+	linhas=$(echo "scale=0; ($(zztool num_linhas $cache) + 1)/ 4 " | bc)
 	largura=$(awk '{print length}' $cache | sort -n | sed -n '$p')
 
 	if [ "$1" ] && grep -i "^$1" $cache >/dev/null 2>/dev/null

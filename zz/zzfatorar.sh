@@ -95,7 +95,7 @@ zzfatorar ()
 		tamanho=${#1}
 
 		# Enquanto a resultado for maior que o número primo continua, ou dentro dos primos listados no cache.
-		while [ ${num_atual} -gt ${primo_atual} -a ${linha_atual} -le $(wc -l "$cache" | tr -d -c '[0-9]') ]
+		while [ ${num_atual} -gt ${primo_atual} -a ${linha_atual} -le $(zztool num_linhas "$cache") ]
 		do
 
 			# Repetindo a divisão pelo número primo atual, enquanto for exato
