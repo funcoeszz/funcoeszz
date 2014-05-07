@@ -13,7 +13,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-10-28
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzwikipedia ()
@@ -41,18 +41,25 @@ zzwikipedia ()
 			/^Views$/,$ d
 			/^Vistas$/,$ d
 			/^Ferramentas pessoais$/,$ d
-			/^   #Wikipedia (/d
-			/^   #Editar Wikip.dia /d
-			/^   From Wikipedia,/d
-			/^   Origem: Wikipédia,/d
-			/^   Jump to: /d
-			/^   Ir para: /d
-			/^   This article does not cite any references/d
-			/^   Please help improve this article/d
-			/^   Categorias* ocultas*:/,$d
-			/^   Wikipedia does not have an article with this exact name./q
-			s/^\[edit\] //
-			s/^\[editar\] //
+			/^  *#Wikipedia (/d
+			/^  *#alternat/d
+			/Click here for more information.$/d
+			/^  *#Editar Wikip.dia /d
+			/^  *From Wikipedia,/d
+			/^  *Origem: Wikipédia,/d
+			/^  *Jump to: /d
+			/^  *Ir para: /d
+			/^  *This article does not cite any references/d
+			/^  *Este artigo ou se(c)ção/d
+			/^  *Please help improve this article/d
+			/^  *Por favor, melhore este artigo/d
+			/^  *Encontre fontes: /d
+			/\.svg$/d
+			/^  *Categorias* ocultas*:/,$d
+			/^  *Hidden categories:/,$d
+			/^  *Wikipedia does not have an article with this exact name./q
+			s/\[edit\]//; s/\[edit[^]]*\]//
+			s/\[editar\]//; s/\[editar[^]]*\]//
 
 			# Guarda URL da página e mostra no final, após Categorias
 			# Também adiciona linha em branco antes de Categorias
