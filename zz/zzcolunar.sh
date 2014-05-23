@@ -24,7 +24,7 @@
 #
 # Uso: zzcolunar [-n|-z] [-l|-r|-c] [-w <largura>] <colunas> arquivo
 # Ex.: zzcolunar 3 arquivo.txt
-#      zzcolunar -c -w 20 -5 arquivo.txt
+#      zzcolunar -c -w 20 5 arquivo.txt
 #      cat arquivo.txt | zzcolunar -z 4
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
