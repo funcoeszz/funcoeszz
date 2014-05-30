@@ -29,9 +29,9 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 17
+# Versão: 18
 # Licença: GPL
-# Requisitos: zzxml zzlimpalixo
+# Requisitos: zzxml zzlimpalixo zztac
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
@@ -69,7 +69,13 @@ zzbrasileirao ()
 					{
 						if (length(jogo)==3 && pular == 0) { sub(/^ */,""); jogo["cidade"] = $0 }
 					}
-				}'
+				}' |
+				if test $urls = 'resultados'
+				then
+					zztac
+				else
+					cat -
+				fi
 				echo
 			done
 			return 0
