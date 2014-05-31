@@ -37,11 +37,15 @@ zztweets ()
 	$ZZWWWDUMP $url/$name |
 		sed '1,70 d' |
 		sed '1,/^Tweets/d;/^Sign in to Twitter/,$d' |
-		awk '/@'$name'/,/\* \(BUTTON\)/ {print}' |
+		awk '
+			/@'$name'/, /\* \(BUTTON\)/ {print}
+			/Retweeted by /, /\* \(BUTTON\)/ {print}' |
 		sed "
-			/@$name/d;
-			/(BUTTON)/d;
-			/View summary/d;
+			/Retweeted by /{N;d;}
+			/@$name/d
+			/(BUTTON)/d
+			/View summary/d
+			/View conversation/d
 			/^[[:blank:]]*$/d
 			/^ *YouTube$/d
 			/^ *Play$/d
