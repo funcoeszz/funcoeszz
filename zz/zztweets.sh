@@ -8,7 +8,7 @@
 #
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Desde: 2009-07-30
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztweets ()
@@ -35,9 +35,21 @@ zztweets ()
 	name=$(echo "$1" | tr -d @)
 
 	$ZZWWWDUMP $url/$name |
-		sed '1,50 d' |
-		sed -n '/ .*[0-9]\{1,2\}\./{n;p;}' |
-		sed 's/\[DEL: \(.\) :DEL\] /\1/g; s/^ *//g' |
+		sed '1,70 d' |
+		sed '1,/^Tweets/d;/^Sign in to Twitter/,$d' |
+		awk '/@'$name'/,/\* \(BUTTON\)/ {print}' |
+		sed "
+			/@$name/d;
+			/(BUTTON)/d;
+			/View summary/d;
+			/^[[:blank:]]*$/d
+			/^ *YouTube$/d
+			/^ *Play$/d
+			/^ *View more photos and videos$/d
+			/^ *Embedded image permalink$/d
+			s/\[DEL: \(.\) :DEL\] /\1/g
+			s/^ *//g
+		" |
 		sed "$limite q" |
 		sed G
 
