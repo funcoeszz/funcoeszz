@@ -29,16 +29,17 @@
 #	SG  - Saldo de Gols
 #	(%) - Aproveitamento (pontos)
 #
-# Uso: zzcopa [fase] [grupo] [classificacao|classificação] [jogos]
+# Uso: zzcopa [fase |grupo | classificação | jogos | realizados]
 # Ex.: zzcopa
 #      zzcopa A             # Classificação e jogos do grupo A
 #      zzcopa oitava        # Todos os jogos das oitavas de final
 #      zzcopa classificação # Classificação de todos os grupos.
 #      zzcopa jogos         # Todos os jogos, sem a classificação.
+#      zzcopa realizados    # Todos os jogos já terminados.
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-12-07
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzcopa ()
@@ -82,9 +83,14 @@ zzcopa ()
 		sed_ini="^Jogos"
 		sed_fim="^Grupo "
 	;;
+	[Rr]ealizado | [Rr]ealizados)
+		sed_ini="^Jogos"
+		sed_fim="^Grupo "
+		letra="z"
+	;;
 	esac
 
-	$ZZWWWDUMP "$url" | sed -n "/$sed_ini/,/$sed_fim/p" | sed "/$sed_fim/d;s/ *Links//" |
+	$ZZWWWDUMP "$url" | sed -n "/$sed_ini/,/$sed_fim/p" | sed "/$sed_fim/d;s/ *Links//;/^ *$/d;/([12].T)/d" |
 	awk '
 		no_print=0
 		/Fornecido por Tabela Fácil/ { exit }
@@ -95,6 +101,25 @@ zzcopa ()
 		/^Quartas de Final/          { print;getline;getline; no_print=1 }
 		/^SemiFinal/                 { print;getline;getline; no_print=1 }
 		/^Final/                     { print;getline;getline; no_print=1 }
-		{ if (no_print ==0) print }
-		'
+		{
+			if (no_print == 0) {
+				if ($0 ~ /[0-9]:00/ && $0 !~ / x /) {
+					printf "%s", $0
+					for (i=1;i<=2;i++) {
+						getline
+						printf "%s", $0
+					}
+					print ""
+				}
+				else
+					print
+			}
+		}
+		' |
+		if test "$letra" = "z"
+		then
+			grep '[0-9]x[0-9]'
+		else
+			cat -
+		fi
 }
