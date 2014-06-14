@@ -103,7 +103,7 @@ zzcopa ()
 		/^Final/                     { print;getline;getline; no_print=1 }
 		{
 			if (no_print == 0) {
-				if ($0 ~ /[0-9]:00/ && $0 !~ / x / && $0 !~ /0x0/) {
+				if ($0 ~ /[0-9]:00/ && $0 !~ / x / && $0 !~ /0x0/ && $0 !~ /[0-9]x[0-9].*$/) {
 					printf "%s", $0
 					getline
 					sub(/^[[:blank:]]*/, " ")
