@@ -104,12 +104,12 @@ zzcopa ()
 		{
 			if (no_print == 0) {
 				if ($0 ~ /[0-9]:00/ && $0 !~ / x / && $0 !~ /0x0/ && $0 !~ /[1-9]x[0-9].*$/) {
-					printf "%s", $0
 					if ($0 !~ /0x/) {
-						getline
-						sub(/^[[:blank:]]*/, " ")
 						printf "%s", $0
+						getline
 					}
+					if ($0 !~ /[0-9]x[0-9]/) sub(/^[[:blank:]]*/, " ")
+					printf "%s", $0
 					if($0 !~ /x0/) {
 						getline
 						sub(/^[[:blank:]]*/, " ")
