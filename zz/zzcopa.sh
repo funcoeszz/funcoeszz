@@ -122,6 +122,7 @@ zzcopa ()
 			}
 		}
 		' |
+		sed 's/  *\([0-9]\)x\([0-9]\)  */ \1x\2 /g' |
 		if test "$letra" = "z"
 		then
 			grep '[0-9]x[0-9]'
