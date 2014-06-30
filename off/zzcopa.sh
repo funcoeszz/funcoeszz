@@ -42,6 +42,7 @@
 # Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2014-06-30 Não funciona mais, site usando AJAX :/
 zzcopa ()
 {
 	zzzz -h copa "$1" && return
