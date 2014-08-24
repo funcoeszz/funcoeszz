@@ -1,5 +1,6 @@
 .TH "Funções ZZ" 1 "" ""
 
+
 .SH zzajuda
 
 .nf
@@ -54,6 +55,29 @@ Tipos reconhecidos:
 Uso: zzalfabeto [--TIPO] [palavra]
 Ex.: zzalfabeto --militar
    zzalfabeto --militar cambio
+
+.fi
+
+
+.SH zzalinhar
+
+.nf
+Alinha um texto a esquerda, direita, centro ou justificado.
+
+As opções -l, --left, -e, --esqueda alinham as colunas a esquerda (padrão).
+As opções -r, --right, -d, --direita alinham as colunas a direita.
+As opções -c, --center, --centro centralizam as colunas.
+A opção -j, --justify, --justificar faz o texto ocupar toda a linha.
+
+As opções -w, --width, --largura seguido de um número,
+determinam o tamanho da largura como base ao alinhamento.
+Obs.: Se a largura original for maior é truncada no limite fornecido.
+
+Uso: zzalinhar [-l|-r|-c|-j] [-w <largura>] arquivo
+Ex.: zzalinhar arquivo.txt
+   zzalinhar -c -w 20 arquivo.txt
+   zzalinhar -j arquivo.txt
+   cat arquivo.txt | zzalinhar -r
 
 .fi
 
@@ -526,6 +550,40 @@ Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ
 .fi
 
 
+.SH zzcolunar
+
+.nf
+Transforma uma lista simples, em uma lista de múltiplas colunas.
+É necessário informar a quantidade de colunas como argumento.
+
+Mas opcionalmente pode informar o formato da distribuição das colunas:
+-z:
+1  2  3
+4  5  6
+7  8  9
+10
+
+-n: (padrão)
+1  5  9
+2  6  10
+3  7
+4  8
+
+As opções -l, --left, -e, --esqueda alinham as colunas a esquerda (padrão).
+As opções -r, --right, -d, --direita alinham as colunas a direita.
+As opções -c, --center, --centro centralizam as colunas.
+
+As opções -w, --width, --largura seguido de um número,
+determinam a largura que as colunas terão.
+
+Uso: zzcolunar [-n|-z] [-l|-r|-c] [-w <largura>] <colunas> arquivo
+Ex.: zzcolunar 3 arquivo.txt
+   zzcolunar -c -w 20 5 arquivo.txt
+   cat arquivo.txt | zzcolunar -z 4
+
+.fi
+
+
 .SH zzcontapalavra
 
 .nf
@@ -586,49 +644,6 @@ Ex.: zzconverte cf 5
 .fi
 
 
-.SH zzcopa
-
-.nf
-Mostra a classificação e jogos da Copa de Mundo.
-Opções:
- <fase>: Mostra jogos da fase selecionada
-
-Obs.: Na fase de grupos pode filtrar por mostrar um grupo específico.
-    Pode-se escolher exibir apenas a classificação dos grupos.
-    Pode-se escolher exibir os jogos de todas as fases e grupos.
-
-As fases podem ser:
- grupos
- oitavas
- quartas
- semi, semi-final
- final
-
-Os grupos podem ser qualqer letra entre A e H, inclusive minúscula
-
-Sem argumento mostra tudo (fases, grupos, classificação e jogos).
-
-Nomenclatura na fas de grupos:
-	PG  - Pontos Ganhos
-	J   - Jogos
-	V   - Vitórias
-	E   - Empates
-	D   - Derrotas
-	GP  - Gols Pró
-	GC  - Gols Contra
-	SG  - Saldo de Gols
-	(%) - Aproveitamento (pontos)
-
-Uso: zzcopa [fase] [grupo] [classificacao|classificação] [jogos]
-Ex.: zzcopa
-   zzcopa A             # Classificação e jogos do grupo A
-   zzcopa oitava        # Todos os jogos das oitavas de final
-   zzcopa classificação # Classificação de todos os grupos.
-   zzcopa jogos         # Todos os jogos, sem a classificação.
-
-.fi
-
-
 .SH zzcores
 
 .nf
@@ -649,34 +664,6 @@ Regra: 60 dias depois do domingo de Páscoa.
 Uso: zzcorpuschristi [ano]
 Ex.: zzcorpuschristi
    zzcorpuschristi 2009
-
-.fi
-
-
-.SH zzcorrida
-
-.nf
-Mostra a classificação dos pilotos em várias corridas (F1, Indy, GP, ...).
-
- Use as seguintes combinações para as corridas
-Fórmula 1: f1 ou formula1
-Fórmula Indy: indy ou formula_indy
-GP2: gp2
-Fórmula Truck: truck ou formula_truck
-Fórmula Truck Sul-Americana: truck_sul
-Stock Car: stock ou stock_car
-Moto GP: moto ou moto_gp
-Moto 2: moto2
-Moto 3: moto3
-Rali: rali
-Sprint Cup (Nascar): nascar ou sprint_cup
-Truck Series (Nascar): nascar2 ou truck_series
-Nationwide Series (Nascar): nascar3 ou nationwide
-
-Uso: zzcorrida <f1|indy|gp2|truck|truck_sul|stock|rali>
-Uso: zzcorrida <moto|moto_gp|moto2|moto3>
-Uso: zzcorrida <nascar|sprint_cup|nascar2|truck_series|nascar3|nationwide>
-Ex.: zzcorrida truck
 
 .fi
 
@@ -708,11 +695,11 @@ Ex.: zzcpf 123.456.789-09          # valida o CPF
 .SH zzcriptomoeda
 
 .nf
-Retorna a cotação de criptomoedas em Reais.
+Retorna a cotação de criptomoedas em Reais (bitcoin).
 Com as opções -a ou --all, várias criptomoedas cotadas em dolar.
-Uso: zzcriptomoeda [btc|bitcoin|ltc|litecoin]
-Ex.: zzcriptomoeda btc
-   zzcriptomoeda litecoin
+Uso: zzcriptomoeda [btc|bitcoin|-a|--all]
+Ex.: zzcriptomoeda
+   zzcriptomoeda btc
    zzcriptomoeda -a
 
 .fi
@@ -739,7 +726,7 @@ Ex.: zzdado
 Calculadora de datas, trata corretamente os anos bissextos.
 Você pode somar ou subtrair dias, meses e anos de uma data qualquer.
 Você pode informar a data dd/mm/aaaa ou usar palavras como: hoje, ontem.
-Ou os dias da semana como: domingo, seg, ter, qua, qui, sex, sab, dom. 
+Ou os dias da semana como: domingo, seg, ter, qua, qui, sex, sab, dom.
 Na diferença entre duas datas, o resultado é o número de dias entre elas.
 Se informar somente uma data, converte para número de dias (01/01/1970 = 0).
 Se informar somente um número (de dias), converte de volta para a data.
@@ -1426,8 +1413,13 @@ Ex.: zzjoin -m arquivo1 arquivo2 arquivo3  # Base no arquivo com menos linhas
 .SH zzjquery
 
 .nf
-http://visualjquery.com/1.1.2.html
 Exibe a descrição da função jQuery informada.
+
+Opções:
+--categoria[s]: Lista as Categorias da funções.
+--lista: Lista todas as funções.
+--lista <categoria>: Listas as funções dentro da categoria informada.
+
 Caso não seja passado o nome, serão exibidas informações acerca do $().
 Se usado o argumento -s, será exibida somente a sintaxe.
 Uso: zzjquery [-s] funcao
@@ -1487,6 +1479,26 @@ Uso: zzkill [-n] [comando [comando2 ...]]
 Ex.: zzkill
    zzkill netscape
    zzkill netsc soffice startx
+
+.fi
+
+
+.SH zzlblank
+
+.nf
+Elimina espaços excedentes no início, mantendo alinhamento.
+por padrão transforma todos os TABs em 4 espaços para uniformização.
+Um número como argumento especifica a quantidade de espaços para cada TAB.
+Caso use a opção -s, apenas espaços iniciais serão considerados.
+Caso use a opção -t, apenas TABs iniciais serão considerados.
+ Obs.: Com as opções -s e -t não há a conversão de tabs para espaço.
+
+Uso: zzlblank [-s|-t|<número>] arquivo.txt
+Ex.: zzlblank arq.txt     # Espaços e tabs iniciais
+   zzlblank -s arq.txt  # Apenas espaços iniciais
+   zzlblank -t arq.txt  # Apenas tabs iniciais
+   zzlblank 12 arq.txt  # Tabs são convertidos em 12 espaços
+   cat arq.txt | zzlblank
 
 .fi
 
@@ -1608,7 +1620,6 @@ Ex.: zzlinuxnews
 .SH zzlocale
 
 .nf
-http://funcoeszz.net/locales.txt
 Busca o código do idioma (locale) - por exemplo, português é pt_BR.
 Com a opção -c, pesquisa somente nos códigos e não em sua descrição.
 Uso: zzlocale [-c] código|texto
@@ -2025,6 +2036,28 @@ http://ora-code.com
 Retorna a descrição do erro Oracle (ORA-NNNNN).
 Uso: zzora numero_erro
 Ex.: zzora 1234
+
+.fi
+
+
+.SH zzpad
+
+.nf
+Preenche um texto para um certo tamanho com outra string.
+Pode-se especificar a posição a ser preenchida com os seguintes argumentos:
+ -l ou -e : Preenche a esquerda
+ -r ou -d : Preenche a direita (padrão)
+ -b ou -a : Preenche em ambos os lados
+
+Minimamente é necessário fornecer um número inteiro positivo como tamanho.
+
+Se não for definida a string, adota-se um simples espaço " ".
+
+Uso: zzpad [-l|-e|-r|-d|-b|-a] <número> [string] texto
+Ex.: zzpad 35 "xyz" "Teste"
+   zzpad -a 12 "a" "Teste"
+   echo Teste | zzpad -l 20 "abc"
+   cat arquivo.txt | zzpad 50 "ou"
 
 .fi
 
@@ -2602,65 +2635,21 @@ Ex.: zztrocapalavra excessão exceção *.txt
 .nf
 Mostra a programação da TV, diária ou semanal, com escolha de emissora.
 
-Canais:
-ae_hd                   espn_brasil     max_prime_e    sony_hd
-ae                      espn_mais       max_prime      sony_spin
-amazon                  espn            max            sony
-animal                  esporte_inter   megapix_hd     space_hd
-arte1                   eurochannel     megapix        space
-axn_hd                  rede_familia    mgm            sport_tv2
-axn                     film_arts       mix_tv         sport_tv3
-baby                    fox_hd          mtv            sport_tv
-band                    fox_life        multishow      studio_universal
-band_espotes            fox_news        nat_geo_hd     super_rede
-band_news               fox_sports      nat_geo        syfy
-bbc_hd                  fox             nbr            tbs
-bbc                     futura          nhk            tcm
-biography               fx              nickelodeon    telecine_action_hd
-bis_hd                  gazeta          nick_hd        telecine_action
-bloomberg               rede_genesis    nick_jr        telecine_cult
-boomerang               glitz           off            telecine_fun
-canal_21                globo_bahia     ppv1           telecine_hd
-canal_boi               globo_campinas  ppv2           telecine_pipoca_hd
-canal_brasil            globo_df        ppv3           telecine_pipoca
-cancao_nova             globo_eptv      ppv4           telecine_premium
-cartoon                 globo_goias     ppv5           telecine
-casa_clube              globo_minas     ppv6           tele_sur
-cinemax                 globo_news      ppv7           terra_viva
-climatempo              globo_poa       ppv8           tnt_hd
-cnn_espanhol            globo_rj        ppv9           tnt
-cnn                     globo_sp        ppv10          tooncast
-cnt                     globo           ppv11          travel
-combate                 gloob           ppv12          trutv_hd
-comedy                  gnt             premiere_fc    trutv
-concert                 golf            rai            tv5_monde
-corinthians             hbo2            ra_tim_bum     tv_brasil_central
-cultura                 hbo_family      record_news    tv_brasil
-discovery_civilization  hbo_hd          record         tv_camara
-discovery_hd            hbo_plus_e      rede_tv        tv_escola
-discovery_kids          hbo_plus        rede_vida      tv_justica
-discovery_science       hbo_signature   rit            tv_uniao
-discovery_turbo         hbo             rtp            universal
-discovery               history_hd      rural          vh1_hd
-disney_hd               history         rush_hd        vh1_mega
-disney_jr               home_health     santa_cecilia  vh1
-disney                  htv             sbt            viva
-disney_xd               investigacao    senado         warner_hd
-dwtv ou deutsche        isat            sesc ou senac  warner
-entertainment           lbv             shoptime       woohoo
-tv_espanha              max_hd          sic
+Opções:
+ canais - lista os canais com seus códigos para consulta.
+
+ <código canal> - Programação do canal escolhido.
+ Obs.: Se for seguido de "semana" ou "s" mostra toda programação semanal.
+
+ cod <número> - mostra um resumo do programa.
+Obs: número obtido pelas listagens da programação do canal consultado.
 
 Programação corrente:
  doc ou documentario, esportes ou futebol, filmes, infantil, variedades
  series ou seriados, aberta, todos ou agora (padrão).
 
-Se o segundo argumento for "semana" ou "s" mostra toda programação semanal.
-Opção só é válida para os canais.
-Se o primeiro argumento é cod seguido de um número, obtido pelas listagens
-citadas anteriormente, como segundo argumento, mostra um resumo do programa.
-
-Uso: zztv <emissora> [semana|s]  ou  zztv cod <numero>
-Ex.: zztv cultura
+Uso: zztv <codigo canal> [semana|s]  ou  zztv cod <numero>
+Ex.: zztv CUL          # Programação da TV Cultura
    zztv cod 3235238
 
 .fi
@@ -2925,5 +2914,5 @@ Ex.: zzzz
 .fi
 
 
-.\" man code generated by txt2tags 2.6.1087 (http://txt2tags.org)
+.\" man code generated by txt2tags 2.6 (http://txt2tags.org)
 .\" cmdline: txt2tags manpage.t2t
