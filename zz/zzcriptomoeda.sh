@@ -1,14 +1,14 @@
 # ----------------------------------------------------------------------------
-# Retorna a cotação de criptomoedas em Reais.
+# Retorna a cotação de criptomoedas em Reais (bitcoin).
 # Com as opções -a ou --all, várias criptomoedas cotadas em dolar.
-# Uso: zzcriptomoeda [btc|bitcoin|ltc|litecoin]
-# Ex.: zzcriptomoeda btc
-#      zzcriptomoeda litecoin
+# Uso: zzcriptomoeda [btc|bitcoin|-a|--all]
+# Ex.: zzcriptomoeda
+#      zzcriptomoeda btc
 #      zzcriptomoeda -a
 #
 # Autor: Tárcio Zemel <tarciozemel (a) gmail com>
 # Desde: 2014-03-24
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento
 # ----------------------------------------------------------------------------
@@ -17,39 +17,61 @@ zzcriptomoeda ()
 	zzzz -h criptomoeda "$1" && return
 
 	# Variáveis gerais
-	local moeda_informada=$(echo "$1" | zzminusculas | zzsemacento)
+	local moeda_informada=$(echo "${1:--a}" | zzminusculas | zzsemacento)
+	local url
 
 	# Se não informou moeda válida, termina
 	case "$moeda_informada" in
-		btc | bitcoin  ) query_string='BTC';;
-		ltc | litecoin ) query_string='LTC';;
+		btc | bitcoin  )
+			# Monta URL a ser consultada
+			url="https://www.bitinvest.com.br"
+			$ZZWWWDUMP "$url" | sed -n '1{s/^ .*Último Preço: R\$/R$ /;s/\([0-9]\) .*/\1/;p;}'
+		;;
 		-a | --all )
-			$ZZWWWDUMP "http://coinmarketcap.com/mineable.html" |
-			sed -n '/#/,/Last updated/{/^ *\*/d;/^ *$/d;s/Total Market Cap/Valor Total de Mercado/;s/Last updated/Última atualização/;s/ %//;p}' |
+			url="http://coinmarketcap.com/mineable.html"
+			$ZZWWWDUMP "$url" |
+			sed -n '/#/,/Last updated/{
+				/^ *\*/d;
+				/^ *$/d;
+				s/Total Market Cap/Valor Total de Mercado/;
+				s/Last updated/Última atualização/;
+				s/ %//;
+				s/\$ //g;
+				s/  Name /Nome /;
+				s/ Market Cap/Valor Mercado/;
+				s/     Price/Preço/;
+				s/Total Supply/Total Oferta/;
+				s/ (24h)/(24h)/g;
+				s/Change(24h)/%Var(24h)/;
+				s/ Market Cap Graph (7d)//;
+				/______/d;
+				p}' |
 			awk '
-				NR==1 {printf "%-20s %17s %10s %20s %11s %12s\n", "Nome", "Valor de Mercado", "Preço ", "Total de Oferta", "Volume (24h)", "%Var (24h)"}
+				function espacos(  tamanho, saida, i) {
+					for(i=1;i<=tamanho;i++)
+						saida = saida " "
+					return saida
+				}
+				NR==1 {print}
 				NR>=2 {
-					if($0 ~ /Última/ || $0 ~ /Total/) { print }
-					else {
-						if (NF<=12) {
-							sub(/\**$/,"",$9)
-							printf "%-20s %17s %10s %20s %11s %12s %%\n", $3,       $5, $7, $8 " " $9,  $11, $12
-						}
-						else 	{
-							sub(/\**$/,"",$10)
-							printf "%-20s %17s %10s %20s %11s %12s %%\n", $3 " " $4,$6, $8, $9 " " $10, $12, $13
-						}
+					if($2 == $3) {
+						atual = $2 " " $3
+						novo = $2 " " espacos(length($3))
+						sub(atual, novo)
+						print
 					}
+					else if($2 == $4 && $3 == $5) {
+						gsub(/\)/,"_"); gsub(/\(/,"_")
+						atual = $2 " " $3 " " $4 " " $5
+						novo = $2 " " $3 " " espacos(length($4)+length($5)+1)
+						sub(atual, novo)
+						gsub(/_/," "); gsub(/_/," ")
+						print
+					}
+					else { print }
 				}'
 			return
 		;;
 		* ) return 1;;
 	esac
-
-	# Monta URL a ser consultada
-	local url="https://www.bitinvest.com.br/?SDCC=$query_string"
-
-	# Retorno
-	$ZZWWWDUMP "$url" |
-	sed -n '5{s/^ *//;s/Último Preço: R\$/R$ /;s/\([0-9]\) .*/\1/;p;}'
 }
