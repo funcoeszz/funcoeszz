@@ -9,6 +9,7 @@
 # Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2014-09-01 Site em modo estático. Ver Issue #143
 zzfreshmeat ()
 {
 	zzzz -h freshmeat "$1" && return
