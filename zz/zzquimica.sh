@@ -55,10 +55,6 @@ zzquimica ()
 			/^<em/      { getline info["nome"] }
 			/^<i/       { getline info["massa"] }
 			/^<small/   { getline info["orbital"]; gsub(/ /, "-", info["orbital"]) }
-			{
-				if (info["numero"]==114) { info["nome"]="Fleróvio"; info["simbolo"]="Fl" }
-				if (info["numero"]==116) { info["nome"]="Livermório"; info["simbolo"]="Lv" }
-			}
 			/^<\/td>/ { printf "%-5s %-15s %-7s %-12s %-18s %s\n", info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
 		' | sort -n > "$cache"
 	fi
