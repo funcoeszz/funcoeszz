@@ -19,12 +19,12 @@ zzsigla ()
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso sigla; return 1; }
 
+	local sigla=$1
 	# Pesquisa, baixa os resultados e filtra
-	$ZZWWWDUMP "$url?String=exact&Acronym=$1&Find=Find" |
-		grep '\*\*\*\*' |
-		sed '
-			s/more info from.*//
-			s/\[[a-z0-9]*\.gif\]//
-			s/  *$//
-			s/^ *\*\** *//'
+	# O novo retorno do site retorna todas as opções com três espaços
+	#  antes da sigla, e vários ou um espaço depois dependendo do 
+	#  tamanho da sigla. Assim, o grep utiliza aspas duplas para entender
+	#  a filtragem
+	$ZZWWWDUMP "$url?String=exact&Acronym=$sigla&Find=Find" |
+		grep "    $sigla "
 }
