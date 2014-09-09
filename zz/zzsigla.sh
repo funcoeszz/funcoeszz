@@ -7,7 +7,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-02-21
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzsigla ()
@@ -26,5 +26,5 @@ zzsigla ()
 	#  tamanho da sigla. Assim, o grep utiliza aspas duplas para entender
 	#  a filtragem
 	$ZZWWWDUMP "$url?String=exact&Acronym=$sigla&Find=Find" |
-		grep "    $sigla "
+		grep -i "    $sigla "
 }
