@@ -102,7 +102,7 @@ zzbrasileirao ()
 		$ZZWWWDUMP $url | sed '/pós jogo/d;/ X /s/^/\
 /;' |
 		awk 'BEGIN { FS=" X " }
-			/\. Rodada '$rodada'$/,/(\. Rodada '$((rodada+1))'|Zona)/ {
+			/Rodada '$rodada'$/,/(Rodada '$((rodada+1))'|Zona)/ {
 				if (NF >= 2) {
 					time1 = $1; sub(/^ */,"", time1); sub(/^[A-Z]{3}/,"", time1); sub(/ *$/,"", time1)
 					time2 = $2; sub(/^ */,"", time2); sub(/[A-Z]{3}$/,"", time2); sub(/ *$/,"", time2)
