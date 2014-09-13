@@ -2,6 +2,7 @@
 # Calculadora de datas, trata corretamente os anos bissextos.
 # Você pode somar ou subtrair dias, meses e anos de uma data qualquer.
 # Você pode informar a data dd/mm/aaaa ou usar palavras como: hoje, ontem.
+# Usar a palavra dias informa número de dias desde o começo do ano corrente.
 # Ou os dias da semana como: domingo, seg, ter, qua, qui, sex, sab, dom.
 # Na diferença entre duas datas, o resultado é o número de dias entre elas.
 # Se informar somente uma data, converte para número de dias (01/01/1970 = 0).
@@ -178,6 +179,10 @@ zzdata ()
 					;;
 					seg | segunda)
 						valor=$(zzdata hoje + $(echo "1 $(date +%u)" | awk '{ print ($1 >= $2 ? $1 - $2 : 7 + ($1 - $2)) }'))
+					;;
+					days | dias)
+						# Quantidade transcorridos de dias do ano.
+						valor=$(date +%j)
 					;;
 					fim)
 						valor=21/12/2012  # ;)
