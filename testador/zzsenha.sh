@@ -3,15 +3,12 @@
 $ zzsenha		FOO	#→ Número inválido 'FOO'
 $ zzsenha		-8	#→ Número inválido '-8'
 $ zzsenha		--foo	#→ Número inválido '--foo'
-$ zzsenha		63	#→ O tamanho máximo desse tipo de senha é 62
 
 $ zzsenha	--num	FOO	#→ Número inválido 'FOO'
 $ zzsenha	--num	-8	#→ Número inválido '-8'
-$ zzsenha	--num	11	#→ O tamanho máximo desse tipo de senha é 10
 
 $ zzsenha	--pro	FOO	#→ Número inválido 'FOO'
 $ zzsenha	--pro	-8	#→ Número inválido '-8'
-$ zzsenha	--pro	76	#→ O tamanho máximo desse tipo de senha é 75
 
 # Normal
 

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Gera uma senha aleatória de N caracteres únicos (não repetidos).
+# Gera uma senha aleatória de N caracteres.
 # Obs.: Sem opções, a senha é gerada usando letras e números.
 #
 # Opções: -p, --pro   Usa letras, números e símbolos para compor a senha
@@ -20,7 +20,7 @@ zzsenha ()
 {
 	zzzz -h senha "$1" && return
 
-	local posicao letra maximo senha
+	local posicao letra senha
 	local n=8
 	local alpha='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 	local num='0123456789'
@@ -43,24 +43,16 @@ zzsenha ()
 	# Foi passado um número mesmo?
 	zztool -e testa_numero "$n" || return 1
 
-	# Já que não repete as letras, temos uma limitação de tamanho
-	maximo="${#lista}"
-	if [ "$n" -gt "$maximo" ]
-	then
-		echo "O tamanho máximo desse tipo de senha é $maximo"
-		return 1
-	fi
-
 	# Esquema de geração da senha:
 	# A cada volta é escolhido um número aleatório que indica uma
 	# posição dentro do $lista. A letra dessa posição é mostrada na
-	# tela e removida do $lista para não ser reutilizada.
+	# tela.
 	while [ "$n" -ne 0 ]
 	do
 		n=$((n-1))
 		posicao=$((RANDOM % ${#lista} + 1))
 		letra=$(echo -n "$lista" | cut -c "$posicao")
-		lista=$(echo "$lista" | tr -d "$letra")
+		#lista=$(echo "$lista" | tr -d "$letra")
 		senha="$senha$letra"
 	done
 
