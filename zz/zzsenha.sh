@@ -15,6 +15,7 @@
 # Desde: 2002-11-07
 # Versão: 2
 # Licença: GPL
+# Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
 zzsenha ()
 {
@@ -50,8 +51,8 @@ zzsenha ()
 	while [ "$n" -ne 0 ]
 	do
 		n=$((n-1))
-		posicao=$((RANDOM % ${#lista} + 1))
-		letra=$(echo -n "$lista" | cut -c "$posicao")
+		posicao=$(zzaleatorio 1 ${#lista})
+		letra=$(printf "$lista" | cut -c "$posicao")
 		#lista=$(echo "$lista" | tr -d "$letra")
 		senha="$senha$letra"
 	done
