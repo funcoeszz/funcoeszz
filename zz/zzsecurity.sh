@@ -1,7 +1,9 @@
 # ----------------------------------------------------------------------------
 # http://... - vários
 # Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
-# Suportados: Debian FreeBSD Gentoo Mandriva Slackware Suse Ubuntu.
+# Suportados:
+#  Debian, Ubuntu, FreeBSD, NetBSD, Gentoo, Arch, Mandriva, Mageia,
+#  Slackware, Suse (OpenSuse), RedHat, Fedora.
 # Uso: zzsecurity [distros]
 # Ex.: zzsecutiry
 #      zzsecurity mandriva
@@ -9,9 +11,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 5
+# Versão: 6
 # Licença: GPL
-# Requisitos: zzminusculas zzxml zzfeed
+# Requisitos: zzminusculas zzxml zzfeed zztac zzurldecode zzdata zzdatafmt
 # ----------------------------------------------------------------------------
 zzsecurity ()
 {
@@ -20,18 +22,18 @@ zzsecurity ()
 	local url limite distros
 	local n=5
 	local ano=$(date '+%Y')
-	local distros='debian freebsd gentoo mandriva slackware suse ubuntu'
+	local distros='debian freebsd gentoo mandriva slackware suse ubuntu redhat arch mageia netbsd fedora'
 
 	limite="sed ${n}q"
 
-	[ "$1" ] && distros=$(echo $* | zzminusculas)
+	test -n "$1" && distros=$(echo $* | zzminusculas)
 
 	# Debian
 	if zztool grep_var debian "$distros"
 	then
 		url='http://www.debian.org'
 		echo
-		zztool eco '** Atualizações Debian woody'
+		zztool eco '** Atualizações Debian'
 		echo "$url"
 		$ZZWWWDUMP "$url" |
 			sed -n '
@@ -81,7 +83,9 @@ zzsecurity ()
 		zztool eco '** Atualizações Mandriva'
 		url='http://www.mandriva.com/en/support/security/advisories/feed/'
 		echo "$url"
-		zzfeed -n $n "$url"
+		zzfeed "$url" |
+			grep 'MDVSA' |
+			$limite
 	fi
 
 	# Suse
@@ -95,6 +99,15 @@ zzsecurity ()
 			grep 'SUSE-SU' |
 			sed 's/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
 			$limite
+
+		echo
+		zztool eco '** Atualizações Opensuse'
+		url="http://lists.opensuse.org/opensuse-updates/$(zzdatafmt -f AAAA-MM hoje) http://lists.opensuse.org/opensuse-updates/$(zzdata hoje - 1m | zzdatafmt -f AAAA-MM)"
+		echo "$url"
+		$ZZWWWDUMP $url |
+			grep 'SUSE-SU' |
+			sed 's/^ *\* //;s/ [0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT/,/;s/  *$//' |
+			$limite
 	fi
 
 	# FreeBSD
@@ -106,7 +119,21 @@ zzsecurity ()
 		echo "$url"
 		$ZZWWWDUMP "$url" |
 			zzxml --tag title --untag --unescape |
-			sed 1d |
+			sed -n '/-SA-/ {s/:[^.]*\./ /;p;}' |
+			$limite
+	fi
+
+	# NetBSD
+	if zztool grep_var netbsd "$distros"
+	then
+		echo
+		zztool eco '** Atualizações NetBSD'
+		url='http://ftp.netbsd.org/pub/NetBSD/packages/vulns/pkg-vulnerabilities'
+		echo "$url"
+		$ZZWWWDUMP "$url" |
+			zzurldecode |
+			sed '1,27d;/#CHECKSUM /,$d;s/ *https*:.*//' |
+			zztac |
 			$limite
 	fi
 
@@ -118,5 +145,71 @@ zzsecurity ()
 		zztool eco '** Atualizações Ubuntu'
 		echo "$url"
 		zzfeed -n $n "$url"
+	fi
+
+	# Red Hat
+	if zztool grep_var redhat "$distros"
+	then
+		url='https://access.redhat.com/security/cve'
+		echo
+		zztool eco '** Atualizações Red Hat'
+		echo "$url"
+		 $ZZWWWDUMP "$url" |
+			sed -n '/^ *CVE-/{
+				/\* RESERVED \*/d
+				/Details pending/d
+				s/ [[:alpha:]]\{1,\} [0-9-]\{1,\}$//
+				s/^  *//
+				p}' |
+			zztac |
+			$limite |
+			sed 's/ /:\
+	/'
+	fi
+
+	# Fedora
+	if zztool grep_var fedora "$distros"
+	then
+		echo
+		zztool eco '** Atualizações Fedora'
+		url='http://lwn.net/Alerts/Fedora/'
+		echo "$url"
+		$ZZWWWDUMP "$url" |
+			grep 'FEDORA-' |
+			sed 's/^ *//' |
+			$limite
+	fi
+
+	# Arch
+	if zztool grep_var arch "$distros" 
+	then
+		url="https://wiki.archlinux.org/index.php/CVE-${ano}"
+		echo
+		zztool eco '** Atualizações Archlinux'
+		echo "$url"
+		 $ZZWWWDUMP "$url" |
+			awk '/^ *CVE-[0-9]{4}-[0-9]/{
+					sub(/ temp link/,"")
+					sub(/^  */,"")
+					print
+				}' |
+			$limite
+	fi
+
+	# Mageia
+	if zztool grep_var mageia "$distros" 
+	then
+		url='http://advisories.mageia.org'
+		echo
+		zztool eco '** Atualizações Mageia'
+		echo "$url"
+		 $ZZWWWHTML "$url" |
+			grep '"html"' |
+			zzxml --untag |
+			sed '
+				s/^ *"html" : " *//
+				s/", *$//
+				s/\(security\|bugfix\)[0-9, ]*//' |
+			$limite
 	fi
 }
