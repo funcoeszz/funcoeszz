@@ -10,6 +10,7 @@
 # Desde: 2004-12-23
 # Versão: 1
 # Licença: GPL
+# Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
 zzcnpj ()
 {
@@ -43,7 +44,7 @@ zzcnpj ()
 
 		while [ ${#cnpj} -lt 8 ]
 		do
-			cnpj="$cnpj$((RANDOM % 9))"
+			cnpj="$cnpj$(zzaleatorio 8)""
 		done
 
 		cnpj="${cnpj}0001"

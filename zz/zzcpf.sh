@@ -10,6 +10,7 @@
 # Desde: 2004-12-23
 # Versão: 1
 # Licença: GPL
+# Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
 zzcpf ()
 {
@@ -39,7 +40,7 @@ zzcpf ()
 		# nove dígitos aleatoriamente para formar a base
 		while [ ${#cpf} -lt 9 ]
 		do
-			cpf="$cpf$((RANDOM % 9))"
+			cpf="$cpf$(zzaleatorio 8)"
 		done
 		base="$cpf"
 	fi

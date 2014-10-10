@@ -12,6 +12,7 @@
 # Desde: 2003-06-12
 # Versão: 1
 # Licença: GPL
+# Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
 zzss ()
 {
@@ -115,15 +116,15 @@ zzss ()
 	do
 		# Posiciona o cursor em um ponto qualquer (aleatório) da tela (X,Y)
 		# Detalhe: A mensagem sempre cabe inteira na tela ($coluna)
-		linha=$((RANDOM % linhas + 1))
-		coluna=$((RANDOM % (colunas - tamanho_mensagem + 1) + 1))
+		linha=$(zzaleatorio 1 $linhas)
+		coluna==$(zzaleatorio 1 $((colunas - tamanho_mensagem + 1)))
 		printf "\033[$linha;${coluna}H"
 
 		# Escolhe uma cor aleatória para a mensagem (ou o fundo): 1 - 7
-		cor_muda=$((RANDOM % 7 + 1))
+		cor_muda=$(zzaleatorio 1 7)
 
 		# Usar negrito ou não também é escolhido ao acaso: 0 - 1
-		negrito=$((RANDOM % 2))
+		negrito=$(zzaleatorio 1)
 
 		# Podemos usar cores ou não?
 		if [ "$ZZCOR" = 1 ]

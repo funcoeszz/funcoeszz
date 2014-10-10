@@ -8,7 +8,7 @@
 # Desde: 2008-12-02
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzshuffle
+# Requisitos: zzshuffle zzaleatorio
 # ----------------------------------------------------------------------------
 zzsubway ()
 {
@@ -42,7 +42,7 @@ zzsubway ()
 		if test "$quantidade" = '*'
 		then
 			quantidade=$(echo "$opcoes" | sed -n '$=')
-			quantidade=$((RANDOM % quantidade + 1))
+			quantidade=$(zzaleatorio 1 $quantidade)
 		fi
 
 		# Hora de mostrar os ingredientes.

@@ -9,7 +9,7 @@
 # Desde: 2013-03-03
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzseq
+# Requisitos: zzseq zzaleatorio
 # ----------------------------------------------------------------------------
 zznomealeatorio ()
 {
@@ -46,7 +46,7 @@ zznomealeatorio ()
 		else
 			lista="$vogais"
 		fi
-		posicao=$((RANDOM % ${#lista} + 1))
+		posicao$(zzaleatorio 1 ${#lista})
 		letra=$(echo "$lista" | cut -c "$posicao")
 		nome="$nome$letra"
 	done
