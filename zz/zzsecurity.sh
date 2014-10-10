@@ -22,7 +22,7 @@ zzsecurity ()
 	local url limite distros
 	local n=5
 	local ano=$(date '+%Y')
-	local distros='debian freebsd gentoo mandriva slackware suse ubuntu redhat arch mageia netbsd fedora'
+	local distros='debian freebsd gentoo mandriva slackware suse opensuse ubuntu redhat arch mageia netbsd fedora'
 
 	limite="sed ${n}q"
 
@@ -89,24 +89,25 @@ zzsecurity ()
 	fi
 
 	# Suse
-	if zztool grep_var suse "$distros"
+	if zztool grep_var suse "$distros" || zztool grep_var opensuse "$distros"
 	then
-		echo
-		zztool eco '** Atualizações Suse'
-		url='https://www.suse.com/support/update/'
-		echo "$url"
-		$ZZWWWDUMP "$url" |
-			grep 'SUSE-SU' |
-			sed 's/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
-			$limite
+		#echo
+		#zztool eco '** Atualizações Suse'
+		#url='https://www.suse.com/support/update/'
+		#echo "$url"
+		#$ZZWWWDUMP "$url" |
+		#	grep 'SUSE-SU' |
+		#	sed 's/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
+		#	$limite
 
 		echo
 		zztool eco '** Atualizações Opensuse'
-		url="http://lists.opensuse.org/opensuse-updates/$(zzdatafmt -f AAAA-MM hoje) http://lists.opensuse.org/opensuse-updates/$(zzdata hoje - 1m | zzdatafmt -f AAAA-MM)"
+		url="http://lists.opensuse.org/opensuse-updates/$(zzdata hoje - 1m | zzdatafmt -f AAAA-MM) http://lists.opensuse.org/opensuse-updates/$(zzdatafmt -f AAAA-MM hoje)"
 		echo "$url"
 		$ZZWWWDUMP $url |
 			grep 'SUSE-SU' |
 			sed 's/^ *\* //;s/ [0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT/,/;s/  *$//' |
+			zztac |
 			$limite
 	fi
 
