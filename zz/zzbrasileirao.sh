@@ -135,7 +135,7 @@ zzbrasileirao ()
 					sub(/^ */,""); sub(/^[A-Z]{3}/,""); sub(/[A-Z]{3}$/,"")
 					split($0, times, " X ")
 					getline; if (/pós jogo/) {getline}; sub(/^ */,""); data = $0
-					printf "%20s  X  %-20s  %s\n", times[1], times[2], data length(times)
+					printf "%20s  X  %-20s  %s\n", times[1], times[2], data
 				}
 			}'
 			if [ "$ZZCOR" = "1" ]
