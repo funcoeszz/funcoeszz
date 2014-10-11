@@ -29,7 +29,7 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 18
+# Versão: 19
 # Licença: GPL
 # Requisitos: zzxml zzlimpalixo zztac
 # ----------------------------------------------------------------------------
@@ -126,8 +126,17 @@ zzbrasileirao ()
 					else if ($1 ~ /[1-4]°/) { cor="\033[42;30m" }
 					else { cor="\033[m" }
 				}
-				if ($0 ~ /Grupo/) {print "";print ;getline;getline;getline;}
+				if ($0 ~ /Grupo/) {print "";print $1, $2 ;getline;getline;getline;}
 				else { printf "%s%s\033[m\n", cor, $0 }
+			}
+			/^ *Quartas de Final/,/^ *\*/ {
+				if (/Confronto/) { sub(/^.*C/,"C"); print ""; print }
+				if ($0 ~ / X /) {
+					sub(/^ */,""); sub(/^[A-Z]{3}/,""); sub(/[A-Z]{3}$/,"")
+					split($0, times, " X ")
+					getline; if (/pós jogo/) {getline}; sub(/^ */,""); data = $0
+					printf "%20s  X  %-20s  %s\n", times[1], times[2], data length(times)
+				}
 			}'
 			if [ "$ZZCOR" = "1" ]
 			then
