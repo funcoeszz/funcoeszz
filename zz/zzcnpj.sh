@@ -44,7 +44,7 @@ zzcnpj ()
 
 		while [ ${#cnpj} -lt 8 ]
 		do
-			cnpj="$cnpj$(zzaleatorio 8)""
+			cnpj="$cnpj$(zzaleatorio 8)"
 		done
 
 		cnpj="${cnpj}0001"
