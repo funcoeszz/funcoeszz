@@ -26,8 +26,6 @@ zzalinhar ()
 {
 	zzzz -h alinhar "$1" && return
 
-	test -n "$1" || { zztool uso alinhar; return 1; }
-
 	local alinhamento='l'
 	local largura=0
 
