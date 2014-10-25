@@ -8,6 +8,7 @@
 # Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2014-10-25 Url quebrada. Ver Issue #148
 zzglobo ()
 {
 	zzzz -h globo "$1" && return
