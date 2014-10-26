@@ -30,7 +30,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 10
+# Versão: 11
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -378,7 +378,13 @@ zznumero ()
 							num_int=$(echo "$num_int + 1" | bc)
 						else
 							num_frac=$(echo "$num_frac" | cut -c 1-${prec})
-							num_frac=$(echo "$num_frac + 1" | bc)
+							if echo "$num_frac" | grep -E '^9{1,}$' > /dev/null
+							then
+								num_int=$(echo "$num_int + 1" | bc)
+								num_frac=0
+							else
+								num_frac=$(echo "$num_frac + 1" | bc)
+							fi
 						fi
 
 					elif [ $(echo "$num_frac" | cut -c $((prec + 1))) -le 4 ]
