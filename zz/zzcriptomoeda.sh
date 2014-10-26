@@ -1,16 +1,18 @@
 # ----------------------------------------------------------------------------
-# Retorna a cotação de criptomoedas em Reais (bitcoin).
+# Retorna a cotação de criptomoedas em Reais (bitcoin e litecoins).
+# Opções: btc ou bitecoin / ltc ou litecoin.
 # Com as opções -a ou --all, várias criptomoedas cotadas em dolar.
-# Uso: zzcriptomoeda [btc|bitcoin|-a|--all]
+# Uso: zzcriptomoeda [btc|bitcoin|ltc|litecoin|-a|--all]
 # Ex.: zzcriptomoeda
 #      zzcriptomoeda btc
+#      zzcriptomoeda litecoin
 #      zzcriptomoeda -a
 #
 # Autor: Tárcio Zemel <tarciozemel (a) gmail com>
 # Desde: 2014-03-24
-# Versão: 3
+# Versão: 4
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento
+# Requisitos: zzminusculas zzsemacento zznumero
 # ----------------------------------------------------------------------------
 zzcriptomoeda ()
 {
@@ -18,14 +20,23 @@ zzcriptomoeda ()
 
 	# Variáveis gerais
 	local moeda_informada=$(echo "${1:--a}" | zzminusculas | zzsemacento)
-	local url
+	local url="https://www.mercadobitcoin.com.br/api"
 
 	# Se não informou moeda válida, termina
 	case "$moeda_informada" in
 		btc | bitcoin  )
 			# Monta URL a ser consultada
-			url="https://www.bitinvest.com.br"
-			$ZZWWWDUMP "$url" | sed -n '1{s/^ .*Último Preço: R\$/R$ /;s/\([0-9]\) .*/\1/;p;}'
+			url="${url}/ticker"
+			$ZZWWWHTML "$url" |
+			sed 's/.*"last"://;s/,"buy.*//' |
+			zznumero -m
+		;;
+		ltc | litecoin  )
+			# Monta URL a ser consultada
+			url="${url}/ticker_litecoin"
+			$ZZWWWHTML "$url" |
+			sed 's/.*"last"://;s/,"buy.*//' |
+			zznumero -m
 		;;
 		-a | --all )
 			url="http://coinmarketcap.com/mineable.html"
