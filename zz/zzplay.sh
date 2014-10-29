@@ -3,10 +3,10 @@
 # Também pode tocar lista de reprodução (playlist).
 # Pode-se escolher o player principal passando-o como segundo argumento.
 # - Os players possíveis para cada tipo são:
-#	wav, au, aiff         afplay, play, mplayer, cvlc, avplay
-#	mp2, mp3              afplay, mpg321, mpg123, mplayer, cvlc, avplay
-#	ogg                   ogg123, mplayer, cvlc, avplay
-#	aac, wma, mka         mplayer, cvlc, avplay
+#	wav, au, aiff        afplay, play, mplayer, cvlc, avplay, ffplay
+#	mp2, mp3             afplay, mpg321, mpg123, mplayer, cvlc, avplay, ffplay
+#	ogg                  ogg123, mplayer, cvlc, avplay, ffplay
+#	aac, wma, mka        mplayer, cvlc, avplay, ffplay
 #	pls, m3u, xspf, asx   mplayer, cvlc
 #
 # Uso: zzplay <arquivo-de-áudio> [player]
@@ -34,10 +34,10 @@ zzplay ()
 
 	# Para cada tipo de arquivo de audio ou playlist, seleciona o player disponivel
 	case "$tipo" in
-		wav | au | aiff ) play_lista="afplay play mplayer cvlc avplay";;
-		mp2 | mp3 )       play_lista="afplay mpg321 mpg123 mplayer cvlc avplay" ;;
-		ogg )             play_lista="ogg123 mplayer cvlc avplay";;
-		aac | wma | mka ) play_lista="mplayer cvlc avplay";;
+		wav | au | aiff )        play_lista="afplay play mplayer cvlc avplay ffplay";;
+		mp2 | mp3 )              play_lista="afplay mpg321 mpg123 mplayer cvlc avplay ffplay" ;;
+		ogg )                    play_lista="ogg123 mplayer cvlc avplay ffplay";;
+		aac | wma | mka )        play_lista="mplayer cvlc avplay ffplay";;
 		pls | m3u | xspf | asx ) play_lista="mplayer cvlc"; lista=1;;
 		*) zzplay -h && return;;
 	esac
@@ -74,9 +74,9 @@ zzplay ()
 			zztool eco "Tecla '1' para música anterior na playlist."
 			zztool eco "Tecla '2' para próxima música na playlist."
 			player="$player --global-key-next 2 --global-key-prev 1"
-		elif test "$player" = "avplay"
+		elif test "$player" = "avplay" -o "$player" = "ffplay"
 		then
-			player="avplay -vn -nodisp"
+			player="$player -vn -nodisp"
 		fi
 
 		# Transforma os vários formatos de lista de reprodução numa versão simples de pls
