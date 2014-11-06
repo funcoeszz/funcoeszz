@@ -67,7 +67,7 @@ zzjquery ()
 				$ZZWWWHTML "$url" |
 				sed -n '/title="Permalink to /{s/^[[:blank:]]*//;s/()//g;p;}' |
 				zzunescape --html |
-				awk -F '[<>"]' '{print $3, $9 }' |
+				awk -F '[<>"]' '{print "http:" $3, $9 }' |
 				awk '$2 ~ /^[.:]{0,1}'$1'[^a-z]*$/ { print $1 }'
 			)
 			test -n "$url_aux" && url="$url_aux" || url=''
