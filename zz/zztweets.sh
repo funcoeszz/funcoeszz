@@ -51,6 +51,7 @@ zztweets ()
 			/^ *Play$/d
 			/^ *View more photos and videos$/d
 			/^ *Embedded image permalink$/d
+			/[0-9]\{1,\} replies\{0,1\} [0-9]\{1,\} retweets\{0,1\} [0-9]\{1,\} favorite/d
 			s/\[DEL: \(.\) :DEL\] /\1/g
 			s/^ *//g
 		" |
