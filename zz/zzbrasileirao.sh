@@ -130,6 +130,7 @@ zzbrasileirao ()
 				else { printf "%s%s\033[m\n", cor, $0 }
 			}
 			/^ *Quartas de Final/,/^ *\*/ {
+				if ($NF ~ /[Ff]inal$/) { sub(/^ */,""); print ""; printf $0 }
 				if (/Confronto/) { sub(/^.*C/,"C"); print ""; print }
 				if ($0 ~ / X /) {
 					sub(/^ */,""); sub(/^[A-Z]{3}/,""); sub(/[A-Z]{3}$/,"")
