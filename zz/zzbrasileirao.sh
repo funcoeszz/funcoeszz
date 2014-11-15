@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://esporte.uol.com.br/
-# Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B ou C.
+# Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B, C ou D.
 # Se for fornecido um numero mostra os jogos da rodada, com resultados.
 # Com argumento -l lista os todos os clubes da série A e B.
 # Se o argumento -l for seguido do nome do clube, lista todos os jogos já
@@ -29,7 +29,7 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 19
+# Versão: 21
 # Licença: GPL
 # Requisitos: zzxml zzlimpalixo zztac
 # ----------------------------------------------------------------------------
@@ -43,7 +43,7 @@ zzbrasileirao ()
 	[ $# -gt 2 ] && { zztool uso brasileirao; return 1; }
 
 	serie='a'
-	[ "$1" = "a" -o "$1" = "b" -o "$1" = "c" ] && { serie="$1"; shift; }
+	[ "$1" = "a" -o "$1" = "b" -o "$1" = "c" -o "$1" = "d" ] && { serie="$1"; shift; }
 
 	if [ "$1" = "-l" ]
 	then
@@ -112,14 +112,12 @@ zzbrasileirao ()
 			}
 		' | sed '/^ *$/d'
 	else
-		[ "$serie" = "a" ] && zztool eco "Série A"
-		[ "$serie" = "b" ] && zztool eco "Série B"
+		zztool eco $(echo "Série $serie" | tr 'abcd' 'ABCD')
 		if [ "$serie" = "c" ]
 		then
-			zztool eco "Série C"
 			$ZZWWWDUMP $url |
-			awk -v cor_awk="$ZZCOR" '
-			/Grupo (A|B)/,/10°/ {
+			awk -v cor_awk="$ZZCOR" -v serie_awk=$serie '
+			/Grupo (A|B)/,/10°/ { if (serie_awk=="c") {
 				cor="\033[m"
 				if (cor_awk==1) {
 					if ($1 ~ /9°/ || $1 ~ /10°/) { cor="\033[41;30m" }
@@ -128,21 +126,33 @@ zzbrasileirao ()
 				}
 				if ($0 ~ /Grupo/) {print "";print $1, $2 ;getline;getline;getline;}
 				else { printf "%s%s\033[m\n", cor, $0 }
-			}
+			}}
+			/Grupo A/,/Rodada 1/ { if (serie_awk=="d") {
+				cor="\033[m"
+				if (cor_awk==1) {
+					if ($1 ~ /[12]°/) { cor="\033[42;30m" }
+					else { cor="\033[m" }
+				}
+				if ($0 ~ /Grupo/) {print "";print $1, $2 ;getline;getline;getline;}
+				else if ($0 !~ /Rodada/) { printf "%s%s\033[m\n", cor, $0 }
+			}}
 			/^ *Quartas de Final/,/^ *\*/ {
 				if ($NF ~ /[Ff]inal$/) { sub(/^ */,""); print ""; printf $0 }
 				if (/Confronto/) { sub(/^.*C/,"C"); print ""; print }
 				if ($0 ~ / X /) {
+					if ($1 ~ /pênaltis/ && separador=="   X   ") 
+						{ separador=$1; sub(/pênaltis/,")X(",separador);  separador="(" separador ")"; $1="" }
+					else { separador="   X   " }
 					sub(/^ */,""); sub(/^[A-Z]{3}/,""); sub(/[A-Z]{3}$/,"")
 					split($0, times, " X ")
 					getline; if (/pós jogo/) {getline}; sub(/^ */,""); data = $0
-					printf "%20s  X  %-20s  %s\n", times[1], times[2], data
+					printf "%20s %s %-20s  %s\n", times[1], separador, times[2], data
 				}
 			}'
 			if [ "$ZZCOR" = "1" ]
 			then
 				printf "\n\033[42;30m Quartas de Final \033[m"
-				printf "\033[41;30m Rebaixamento \033[m\n"
+				[ "$serie" = "c" ] && printf "\033[41;30m Rebaixamento \033[m\n"
 			fi
 		else
 
