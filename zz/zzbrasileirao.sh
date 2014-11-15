@@ -113,7 +113,7 @@ zzbrasileirao ()
 		' | sed '/^ *$/d'
 	else
 		zztool eco $(echo "Série $serie" | tr 'abcd' 'ABCD')
-		if [ "$serie" = "c" ]
+		if [ "$serie" = "c" -o "$serie" = "d" ]
 		then
 			$ZZWWWDUMP $url |
 			awk -v cor_awk="$ZZCOR" -v serie_awk=$serie '
