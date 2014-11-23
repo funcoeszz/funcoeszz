@@ -40,7 +40,7 @@ zztweets ()
 
 	$ZZWWWDUMP $url |
 		sed '1,70 d' |
-		sed '1,/(BUTTON) View Tweets/d;/(BUTTON) Try again/,$d' |
+		sed '1,/ View Tweets$/d;/(BUTTON) Try again/,$d' |
 		awk '
 			/ @'$name'/, /\* \(BUTTON\)/ { if(NF>1) print }
 			/Retweeted by /, /\* \(BUTTON\)/ { if(NF>1) print }
@@ -58,6 +58,7 @@ zztweets ()
 			/^ *View more photos and videos$/d
 			/^ *Embedded image permalink$/d
 			/[0-9]\{1,\} replies\{0,1\} [0-9]\{1,\} retweets\{0,1\} [0-9]\{1,\} favorite/d
+			/Twitter may be over capacity or experiencing a momentary hiccup/d
 			s/\[DEL: \(.\) :DEL\] /\1/g
 			s/^ *//g
 		" |
