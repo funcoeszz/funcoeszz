@@ -1,14 +1,16 @@
 # ----------------------------------------------------------------------------
 # Busca as mensagens mais recentes de um usuário do Twitter.
 # Use a opção -n para informar o número de mensagens (padrão é 5, máx 20).
+# Com a opção -r após o nome do usuário, lista também tweets respostas.
 #
-# Uso: zztweets [-n N] username
+# Uso: zztweets [-n N] username [-r]
 # Ex.: zztweets oreio
 #      zztweets -n 10 oreio
+#      zztweets oreio -r
 #
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Desde: 2009-07-30
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztweets ()
@@ -33,20 +35,24 @@ zztweets ()
 
 	# Informar o @ é opcional
 	name=$(echo "$1" | tr -d @)
+	url="${url}/${name}"
+	[ "$2" = '-r' ] && url="${url}/with_replies"
 
-	$ZZWWWDUMP $url/$name |
+	$ZZWWWDUMP $url |
 		sed '1,70 d' |
-		sed '1,/^Tweets/d;/^Sign in to Twitter/,$d' |
+		sed '1,/(BUTTON) View Tweets/d;/(BUTTON) Try again/,$d' |
 		awk '
-			/@'$name'/, /\* \(BUTTON\)/ {print}
-			/Retweeted by /, /\* \(BUTTON\)/ {print}' |
+			/ @'$name'/, /\* \(BUTTON\)/ { if(NF>1) print }
+			/Retweeted by /, /\* \(BUTTON\)/ { if(NF>1) print }
+			/retweeted$/, /\* \(BUTTON\)/ { if(NF>1) print }' |
 		sed "
-			/Retweeted by /{N;d;}
+			/Retweeted by /d
+			/retweeted$/d
+			/  ·  /{s/  ·  .*$/>:/;s/^.*@/@/}
 			/@$name/d
 			/(BUTTON)/d
 			/View summary/d
 			/View conversation/d
-			/^[[:blank:]]*$/d
 			/^ *YouTube$/d
 			/^ *Play$/d
 			/^ *View more photos and videos$/d
@@ -55,6 +61,7 @@ zztweets ()
 			s/\[DEL: \(.\) :DEL\] /\1/g
 			s/^ *//g
 		" |
+		awk '{ if (/>:$/){ sub(/>:$/,": "); printf $0; getline;print } else print }' |
 		sed "$limite q" |
 		sed G
 
