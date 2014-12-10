@@ -73,11 +73,11 @@ ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
 # Caso não exista, usa o local padrão ZZPATH_DFT.
 # Finalmente, força que ZZPATH seja uma rota absoluta.
 #
-[ "${0##*/}" = 'bash' -o "${0#-}" != "$0" ] || ZZPATH="$0"
-[ "$ZZPATH" ] || ZZPATH=$ZZPATH_DFT
-[ "${ZZPATH#/}" = "$ZZPATH" ] && ZZPATH="$PWD/${ZZPATH#./}"
+test "${0##*/}" = 'bash' -o "${0#-}" != "$0" || ZZPATH="$0"
+test -n "$ZZPATH" || ZZPATH=$ZZPATH_DFT
+test "${ZZPATH#/}" = "$ZZPATH" && ZZPATH="$PWD/${ZZPATH#./}"
 
-[ "$ZZDIR" ] || ZZDIR=$ZZDIR_DFT
+test -n "$ZZDIR" || ZZDIR=$ZZDIR_DFT
 
 #
 ### Últimos ajustes
@@ -139,7 +139,7 @@ zztool ()
 		;;
 		eco)
 			# Mostra mensagem colorida caso $ZZCOR esteja ligada
-			if [ "$ZZCOR" != '1' ]
+			if test "$ZZCOR" != '1'
 			then
 				printf "%b\n" "$*"
 			else
@@ -153,7 +153,7 @@ zztool ()
 			local padrao=$(echo "$1" | sed 's,/,\\/,g') # escapa /
 			shift
 			zztool multi_stdin "$@" |
-				if [ "$ZZCOR" != '1' ]
+				if test "$ZZCOR" != '1'
 				then
 					cat -
 				else
@@ -220,7 +220,7 @@ zztool ()
 			# http://en.wikipedia.org/wiki/Leap_year
 			#
 			local y=$1
-			[ $((y%4)) -eq 0 ] && [ $((y%100)) -ne 0 ] || [ $((y%400)) -eq 0 ]
+			test $((y%4)) -eq 0 && test $((y%100)) -ne 0 || test $((y%400)) -eq 0
 			test $? -eq 0 && return 0
 
 			test -n "$erro" && echo "Ano bissexto inválido '$1'"
@@ -297,7 +297,7 @@ zztool ()
 			# ou
 			#     funcao texto
 
-			if [ "$1" ]
+			if test -n "$1"
 			then
 				echo "$*"  # security: always quote to avoid shell expansion
 			else
@@ -435,7 +435,7 @@ zzajuda ()
 		;;
 		*)
 			# Desliga cores para os paginadores antigos
-			[ "$PAGER" = 'less' -o "$PAGER" = 'more' ] && zzcor_pager=0
+			test "$PAGER" = 'less' -o "$PAGER" = 'more' && zzcor_pager=0
 
 			# Mostra a ajuda de todas as funções, paginando
 			cat "$ZZAJUDA" |
@@ -512,14 +512,14 @@ zzzz ()
 			arg_func=$3
 
 			# Nenhum argumento, mostre a ajuda da própria zzzz
-			if ! [ "$nome_func" ]
+			if ! test -n "$nome_func"
 			then
 				nome_func='zz'
 				arg_func='-h'
 			fi
 
 			# Se o usuário informou a opção de ajuda, mostre o texto
-			if [ "$arg_func" = '-h' -o "$arg_func" = '--help'  ]
+			if test "$arg_func" = '-h' -o "$arg_func" = '--help'
 			then
 				# Um xunxo bonito: filtra a saída da zzajuda, mostrando
 				# apenas a função informada.
@@ -574,7 +574,7 @@ zzzz ()
 				fi
 			done
 
-			if [ "$comandos_faltando" ]
+			if test -n "$comandos_faltando"
 			then
 				echo
 				zztool eco "**Atenção**"
@@ -625,13 +625,13 @@ zzzz ()
 			echo
 
 			# Aborta caso não encontrou a versão nova
-			[ "$versao_remota" ] || return
+			test -n "$versao_remota" || return
 
 			# Compara e faz o download
-			if [ "$ZZVERSAO" != "$versao_remota" ]
+			if test "$ZZVERSAO" != "$versao_remota"
 			then
 				# Vamos baixar a versão ISO-8859-1?
-				[ $ZZUTF != '1' ] && url_exe="${url_exe}-iso"
+				test $ZZUTF != '1' && url_exe="${url_exe}-iso"
 
 				echo -n 'Baixando a versão nova... '
 				$ZZWWWHTML "$url_exe" > "funcoeszz-$versao_remota"
@@ -743,10 +743,10 @@ zzzz ()
 		# Mostra informações sobre as funções
 		*)
 			# As funções estão configuradas para usar cores?
-			[ "$ZZCOR" = '1' ] && info_cor='sim' || info_cor='não'
+			test "$ZZCOR" = '1' && info_cor='sim' || info_cor='não'
 
 			# A codificação do arquivo das funções é UTF-8?
-			[ "$ZZUTF" = 1 ] && info_utf8='UTF-8' || info_utf8='ISO-8859-1'
+			test "$ZZUTF" = 1 && info_utf8='UTF-8' || info_utf8='ISO-8859-1'
 
 			# As funções estão instaladas no bashrc?
 			if grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
@@ -1044,7 +1044,7 @@ unset -f _extrai_ajuda
 
 # Se há parâmetros, é porque o usuário está nos chamando pela
 # linha de comando, e não pelo comando source.
-if [ "$1" ]
+if test -n "$1"
 then
 
 	case "$1" in
@@ -1090,7 +1090,7 @@ then
 			zz_func="$1"
 
 			# Garante que a zzzz possa ser chamada por zz somente
-			[ "$zz_func" = 'zz' ] && zz_func='zzzz'
+			test "$zz_func" = 'zz' && zz_func='zzzz'
 
 			# O prefixo zz é opcional: zzdata e data funcionam
 			zz_func="zz${zz_func#zz}"
