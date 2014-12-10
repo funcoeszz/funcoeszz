@@ -141,9 +141,9 @@ zztool ()
 			# Mostra mensagem colorida caso $ZZCOR esteja ligada
 			if [ "$ZZCOR" != '1' ]
 			then
-				echo -e "$*"
+				printf "%b\n" "$*"
 			else
-				echo -e "\033[${ZZCODIGOCOR}m$*\033[m"
+				printf "%b\n" "\033[${ZZCODIGOCOR}m$*\033[m"
 			fi
 		;;
 		acha)
