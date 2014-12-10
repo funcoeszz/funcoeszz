@@ -376,6 +376,49 @@ zztool ()
 				cat -
 			fi
 		;;
+		cache | atualiza)
+		# Limpa o cache se solicitado a atualização
+		# Atualiza o cache se for fornecido a url
+		# e retorna o nome do arquivo de cache
+		# Ex.: local cache=$(zztool cache lua <identificador> '$url' dump) # Nome do cache, e atualiza se necessário
+		# Ex.: local cache=$(zztool cache php) # Apenas retorna o nome do cache
+		# Ex.: zztool cache rm palpite # Apaga o cache diretamente
+			local id
+			case ${1#zz} in
+			on | off | ajuda) break;;
+			rm)
+				if test "$2" = '*'
+				then
+					rm -f ${ZZTMP}*
+					# Restabelecendo zz.ajuda, zz.on, zz.off
+					funcoeszz
+				else
+					test -n "$3" && id=".$3"
+					test -n "$2" && rm -f $ZZTMP.${2#zz}${id}*
+				fi
+			;;
+			*)
+				# Para mais de um arquivo cache pode-se usar um identificador adicional
+				# como PID, um numero incremental ou um sufixo qualquer
+				test -n "$2" && id=".$2"
+
+				# Para atualizar é necessário prevenir a existência prévia do arquivo
+				test "$ferramenta" = "atualiza" && rm -f $ZZTMP.${1#zz}$id
+
+				# Baixo para o cache os dados brutos sem tratamento
+				if ! test -s "$ZZTMP.${1#zz}" && test -n "$3"
+				then
+					case $4 in
+					none    ) : ;;
+					html    ) $ZZWWWHTML "$3" > "$ZZTMP.${1#zz}$id";;
+					list    ) $ZZWWWLIST "$3" > "$ZZTMP.${1#zz}$id";;
+					dump | *) $ZZWWWDUMP "$3" > "$ZZTMP.${1#zz}$id";;
+					esac
+				fi
+				echo "$ZZTMP.${1#zz}$id"
+			;;
+			esac
+		;;
 		# Ferramentas inexistentes são simplesmente ignoradas
 		esac
 }
