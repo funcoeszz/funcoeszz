@@ -14,7 +14,7 @@
 # Obs.: --notag tem precedência sobre --tag e --untag.
 #       --untag tem precedência sobre --tag.
 #
-# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag [NOME]] [--unescape] [arquivo(s)]
+# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag[=NOME]] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
 #      zzxml --untag --unescape arq.xml                    # xml -> txt
 #      zzxml --untag=item arq.xml                          # Retira apenas as tags "item"
@@ -216,7 +216,7 @@ zzxml ()
 		# É sempre usada em conjunto com --tidy (automaticamente)
 		if test -n "$notag"
 		then
-			awk-f "$cache_notag"
+			awk -f "$cache_notag"
 		else
 			cat -
 		fi |
