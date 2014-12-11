@@ -93,6 +93,7 @@ zzmaiores ()
 		resultado=$(
 			du $recursivo "$@" 2>/dev/null |
 				sort -nr |
+				awk '{if (NR==1 && $0 ~ /^[0-9]+[	 ]+total$/){} else print}' |
 				sed "$limite q"
 		)
 	fi
