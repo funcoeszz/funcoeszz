@@ -26,7 +26,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 8
+# Versão: 9
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
@@ -138,7 +138,7 @@ zzxml ()
 	do
 		echo '
 			if ($0 ~ /^<'$ntag'[^><]*\/>$/) { linha[NR] = $0 }
-			if ($0 ~ /^<'$ntag'[^><]*[^/><]+>/) { tag['$ntag']++ }
+			if ($0 ~ /^<'$ntag'[^><]*[^\/><]+>/) { tag['$ntag']++ }
 			if (tag['$ntag']>=1) { linha[NR] = $0 }
 			if ($0 ~ /^<\/'$ntag' >/) { tag['$ntag']-- }
 		' >> $cache_tag
