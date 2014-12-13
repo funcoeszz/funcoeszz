@@ -4,17 +4,16 @@
 # Obs.: Cada site tem uma letra identificadora que pode ser passada como
 #       parâmetro, para informar quais sites você quer pesquisar:
 #
-#          F)reshMeat         Linux T)oday
-#          S)lashDot          Linux W)eekly News
-#          O)S News
+#          S)lashDot          Linux T)oday
+#          O)S News           Linux W)eekly News
 #
 # Uso: zzlinuxnews [sites]
 # Ex.: zzlinuxnews
-#      zzlinuxnews fs
+#      zzlinuxnews ts
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzfeed
 # ----------------------------------------------------------------------------
@@ -24,20 +23,11 @@ zzlinuxnews ()
 
 	local url limite
 	local n=5
-	local sites='fsntwo'
+	local sites='stwo'
 
 	limite="sed ${n}q"
 
 	[ "$1" ] && sites="$1"
-
-	# Freshmeat
-	if zztool grep_var f "$sites"
-	then
-		url='http://freshmeat.net/?format=atom'
-		echo
-		zztool eco "* FreshMeat ($url):"
-		zzfeed -n $n "$url"
-	fi
 
 	# Slashdot
 	if zztool grep_var s "$sites"
