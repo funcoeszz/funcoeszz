@@ -4,8 +4,10 @@
 # Obs.: Cada site tem uma letra identificadora que pode ser passada como
 #       parâmetro, para informar quais sites você quer pesquisar:
 #
-#          S)lashDot          Linux T)oday
-#          O)S News           Linux W)eekly News
+#          S)lashDot            Linux T)oday
+#          O)S News             Linux W)eekly News
+#          Linux I)nsider       Linux N)ews
+#          Linux J)ournal       X) LXer Linux News
 #
 # Uso: zzlinuxnews [sites]
 # Ex.: zzlinuxnews
@@ -13,7 +15,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzfeed
 # ----------------------------------------------------------------------------
@@ -23,7 +25,7 @@ zzlinuxnews ()
 
 	local url limite
 	local n=5
-	local sites='stwo'
+	local sites='stwoxijn'
 
 	limite="sed ${n}q"
 
@@ -64,6 +66,42 @@ zzlinuxnews ()
 		url='http://www.osnews.com/files/recent.xml'
 		echo
 		zztool eco "* OS News - ($url):"
+		zzfeed -n $n "$url"
+	fi
+
+	# LXer Linux News
+	if zztool grep_var x "$sites"
+	then
+		url='http://lxer.com/module/newswire/headlines.rss'
+		echo
+		zztool eco "*  LXer Linux News- ($url):"
+		zzfeed -n $n "$url"
+	fi
+
+	# Linux Insider
+	if zztool grep_var i "$sites"
+	then
+		url='http://www.linuxinsider.com/perl/syndication/rssfull.pl'
+		echo
+		zztool eco "* Linux Insider - ($url):"
+		zzfeed -n $n "$url"
+	fi
+
+	# Linux Journal
+	if zztool grep_var j "$sites"
+	then
+		url='http://feeds.feedburner.com/linuxjournalcom'
+		echo
+		zztool eco "* Linux Journal - ($url):"
+		zzfeed -n $n "$url"
+	fi
+
+	# Linux News
+	if zztool grep_var n "$sites"
+	then
+		url='https://www.linux.com/feeds/all-content'
+		echo
+		zztool eco "* Linux News - ($url):"
 		zzfeed -n $n "$url"
 	fi
 }
