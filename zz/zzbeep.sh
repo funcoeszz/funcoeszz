@@ -28,7 +28,7 @@ zzbeep ()
 	for minutos in $*
 	do
 		# Aguarda o tempo necessário
-		echo -n "Vou bipar em $minutos minutos... "
+		printf "Vou bipar em $minutos minutos... "
 		sleep $((minutos*60))
 
 		# Ajusta o beep para toque longo (Linux modo texto)
