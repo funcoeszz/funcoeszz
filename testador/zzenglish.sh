@@ -5,7 +5,7 @@ $ zzenglish momentum
 
    From The Collaborative International Dictionary of English v.0.48 :
 
-  Momentum \Mo*men"tum\, n.; pl. L. Momenta, F. Momentums. L.
+  Momentum \Mo*men"tum\, n.; pl. L. Momenta, F. Momentums. [L.
      See Moment.]
      1. (Mech.) The quantity of motion in a moving body, being
         always proportioned to the quantity of matter multiplied
