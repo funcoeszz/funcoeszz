@@ -77,8 +77,11 @@ zzconverte ()
 				printf "%d\n" "'$1"
 			;;
 			dc)
-				# echo -e $(printf "\\\x%x" $1)
-				awk 'BEGIN {printf "%c\n", '$1'}'
+				if zztool testa_numero "$1" && test "$1" -gt 0
+				then
+					# echo -e $(printf "\\\x%x" $1)
+					awk 'BEGIN {printf "%c\n", '$1'}'
+				fi
 			;;
 			ch)
 				printf "%x\n" "'$1"

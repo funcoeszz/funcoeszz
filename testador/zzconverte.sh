@@ -9,7 +9,8 @@ $ zzconverte	mk	0	#→ 0 milhas = 0 km
 $ zzconverte	db	0	#→ 0
 $ zzconverte	bd	0	#→ 0
 $ zzconverte	cd	0	#→ 48
-$ zzconverte	dc	0	#→ 
+$ zzconverte	dc	0
+$
 
 $ zzconverte	cf	-0	#→ -0 C = 32.00 F
 $ zzconverte	fc	-0	#→ -0 F = -17.77 C
@@ -22,7 +23,8 @@ $ zzconverte	mk	-0	#→ -0 milhas = 0 km
 $ zzconverte	db	-0	#→ 0
 $ zzconverte	bd	-0	#→ 0
 $ zzconverte	cd	-0	#→ 45
-$ zzconverte	dc	-0	#→ 
+$ zzconverte	dc	-0
+$
 
 $ zzconverte	cf	100	#→ 100 C = 212.00 F
 $ zzconverte	fc	100	#→ 100 F = 37.77 C
@@ -46,12 +48,7 @@ $ zzconverte	fk	-100	#→ -100 F = 199.81 K
 $ zzconverte	km	-100	#→ -100 km = -62.1400 milhas
 $ zzconverte	mk	-100	#→ -100 milhas = -160.900 km
 $ zzconverte	db	-100	#→ -1100100
-$ zzconverte	bd	-100	#→ -100
+$ zzconverte	bd	-100	#→ -4
 $ zzconverte	cd	-100	#→ 45
-
-# $ zzconverte	 dc	-100	#→ "?" # !
-#
-# Aqui no Mac este teste dá um resultado bizarro:
-# $ zzconverte  dc -100
-# ?ffffffffffff9c
-# $
+$ zzconverte	dc	-100
+$
