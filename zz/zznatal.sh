@@ -31,6 +31,6 @@ zznatal ()
 	fi
 
 	# Mostra uma linha qualquer (com o padrão, se informado)
-	echo -n '"Feliz Natal" em '
+	printf %s '"Feliz Natal" em '
 	zzlinha -t "${padrao:-.}" "$cache"
 }
