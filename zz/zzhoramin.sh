@@ -8,7 +8,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-12-05
-# Versão: 3
+# Versão: 4
 # Licença: GPLv2
 # Requisitos: zzhora
 # ----------------------------------------------------------------------------
@@ -36,6 +36,14 @@ zzhoramin ()
 	# passa a hora para hh e minuto para mm
 	hh="${hora%%:*}"
 	mm="${hora##*:}"
+
+	# Retira o zero das horas e minutos menores que 10
+	hh="${hh#0}"
+	mm="${mm#0}"
+
+	# Se tiver algo faltando, salva como zero
+	hh="${hh:-0}"
+	mm="${mm:-0}"
 
 	# faz o cálculo
 	mintotal=$(($hh * 60 $operacao $mm))
