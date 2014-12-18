@@ -7,7 +7,7 @@
 #
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-21
-# Versão: 2
+# Versão: 3
 # Licença: GPLv2
 # ----------------------------------------------------------------------------
 zzextensao ()
@@ -28,5 +28,6 @@ zzextensao ()
 	if [ "$extensao" = "$nome_arquivo" -o ".$extensao" = "$nome_arquivo" ] ; then
 		extensao=""
 	fi
-	echo "$extensao"
+
+	test -n "$extensao" && echo "$extensao"
 }
