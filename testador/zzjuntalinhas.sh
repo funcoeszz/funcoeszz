@@ -52,11 +52,9 @@ $ zzjuntalinhas	-i	2	-f	4	_numeros.txt
 1
 2	3	4
 5
-$ zzjuntalinhas	-i	4	-f	2	_numeros.txt
-1
-2
-3
-4	5
+$
+# Varia conforme o sed, resultado imprevisível (fim antes do início)
+#$ zzjuntalinhas	-i	4	-f	2	_numeros.txt
 $ zzjuntalinhas	-i	4	-f	$	_numeros.txt
 1
 2
