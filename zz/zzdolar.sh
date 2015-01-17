@@ -1,12 +1,13 @@
 # ----------------------------------------------------------------------------
-# http://economia.terra.com.br
-# Busca a cotação do dia do dólar (comercial, turismo e PTAX).
+# zzdolar
+# http://economia.uol.com.br/cotacoes
+# Busca a cotação do dia do dólar (comercial, turismo).
 # Uso: zzdolar
 # Ex.: zzdolar
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdolar ()
@@ -17,28 +18,23 @@ zzdolar ()
 
 	# Faz a consulta e filtra o resultado
 	resultado=$(
-		$ZZWWWDUMP 'http://economia.terra.com.br/stock/divisas.aspx' |
-		egrep  'Dólar (Comercial|Turismo|PTAX)»' |
-		sed 3q |
+		$ZZWWWDUMP 'http://economia.uol.com.br/cotacoes' |
+		egrep  'Dólar (com\.|tur\.|comercial)' |
 		sed '
 			# Linha original:
-			# Dólar Comercial» DOLCM   1,9733 1,9738 0,00 -0,03 %  03h09
+			# Dólar com. 2,6203 2,6212 -0,79%
 
 			# faxina
+    			s/com\./Comercial/
+      			s/tur\./Turismo /
 			s/^  *Dólar //
-			s/»/ /
-
-			# espaçamento dos valores
-			s/ [0-9],[0-9][0-9][0-9][0-9]/  &/g
-
-			# remove variação percentual
-			s/ -\{0,1\}[0-9],[0-9][0-9] .*%  */   /
-		'
+			s/^  *CAPTION: Dólar comercial -/  Compra Venda Variação/
+		' |
+		tr [:blank:] $'\t'
 	)
 
 	if test "$resultado"
 	then
-		echo '                     Compra   Venda'
 		echo "$resultado"
 	fi
 }
