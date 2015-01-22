@@ -25,8 +25,8 @@ zzdolar ()
 			# Dólar com. 2,6203 2,6212 -0,79%
 
 			# faxina
-    			s/com\./Comercial/
-      			s/tur\./Turismo /
+			s/com\./Comercial/
+			s/tur\./Turismo /
 			s/^  *Dólar //
 			s/^  *CAPTION: Dólar comercial -/  Compra Venda Variação/
 		' |
