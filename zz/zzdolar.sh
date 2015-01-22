@@ -15,6 +15,7 @@ zzdolar ()
 	zzzz -h dolar "$1" && return
 
 	local resultado
+	local tab=$(printf '\t')
 
 	# Faz a consulta e filtra o resultado
 	resultado=$(
@@ -30,7 +31,7 @@ zzdolar ()
 			s/^  *Dólar //
 			s/^  *CAPTION: Dólar comercial -/  Compra Venda Variação/
 		' |
-		tr [:blank:] $'\t'
+		tr ' ' "$tab"
 	)
 
 	if test "$resultado"
