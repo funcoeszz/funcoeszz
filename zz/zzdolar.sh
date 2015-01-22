@@ -18,8 +18,7 @@ zzdolar ()
 	local tab=$(printf '\t')
 
 	# Faz a consulta e filtra o resultado
-	resultado=$(
-		$ZZWWWDUMP 'http://economia.uol.com.br/cotacoes' |
+	$ZZWWWDUMP 'http://economia.uol.com.br/cotacoes' |
 		egrep  'Dólar (com\.|tur\.|comercial)' |
 		sed '
 			# Linha original:
@@ -32,10 +31,4 @@ zzdolar ()
 			s/^  *CAPTION: Dólar comercial -/  Compra Venda Variação/
 		' |
 		tr ' ' "$tab"
-	)
-
-	if test "$resultado"
-	then
-		echo "$resultado"
-	fi
 }
