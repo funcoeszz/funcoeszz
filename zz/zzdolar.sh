@@ -15,7 +15,6 @@ zzdolar ()
 	zzzz -h dolar "$1" && return
 
 	local resultado
-	local tab=$(printf '\t')
 
 	# Faz a consulta e filtra o resultado
 	$ZZWWWDUMP 'http://economia.uol.com.br/cotacoes' |
@@ -30,5 +29,5 @@ zzdolar ()
 			s/^  *Dólar //
 			s/^  *CAPTION: Dólar comercial -/  Compra Venda Variação/
 		' |
-		tr ' ' "$tab"
+		tr ' ' '\t'
 }
