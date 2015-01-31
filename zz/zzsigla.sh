@@ -25,6 +25,8 @@ zzsigla ()
 	#  antes da sigla, e vários ou um espaço depois dependendo do 
 	#  tamanho da sigla. Assim, o grep utiliza aspas duplas para entender
 	#  a filtragem
-	$ZZWWWDUMP "$url?String=exact&Acronym=$sigla&Find=Find" |
-		grep -i "    $sigla "
+	$ZZWWWDUMP "$url?acronym=$sigla" |
+		grep -i "   $sigla " |
+		sed 's/^[ ]*//' |
+		sed 's/[ ][ ]*/   /'
 }
