@@ -7,7 +7,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-02-21
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzsigla ()
@@ -27,6 +27,6 @@ zzsigla ()
 	#  a filtragem
 	$ZZWWWDUMP "$url?acronym=$sigla" |
 		grep -i "   $sigla " |
-		sed 's/^[ ]*//' |
-		sed 's/[ ][ ]*/   /'
+		sed 's/^ *//' |
+		sed 's/  */   /'
 }
