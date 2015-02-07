@@ -14,6 +14,20 @@ $ zzsenha	--uniq	FOO	#→ Número inválido 'FOO'
 $ zzsenha	--uniq	-8	#→ Número inválido '-8'
 $ zzsenha	--uniq	63	#→ O tamanho máximo desse tipo de senha é 62
 
+$ zzsenha	--num	--uniq	FOO	#→ Número inválido 'FOO'
+$ zzsenha	--num	--uniq	-8	#→ Número inválido '-8'
+$ zzsenha	--num	--uniq	12	#→ O tamanho máximo desse tipo de senha é 10
+$ zzsenha	--uniq	--num	FOO	#→ Número inválido 'FOO'
+$ zzsenha	--uniq	--num	-8	#→ Número inválido '-8'
+$ zzsenha	--uniq	--num	12	#→ O tamanho máximo desse tipo de senha é 10
+
+$ zzsenha	--pro	--uniq	FOO	#→ Número inválido 'FOO'
+$ zzsenha	--pro	--uniq	-8	#→ Número inválido '-8'
+$ zzsenha	--pro	--uniq	76	#→ O tamanho máximo desse tipo de senha é 75
+$ zzsenha	--uniq	--pro	FOO	#→ Número inválido 'FOO'
+$ zzsenha	--uniq	--pro	-8	#→ Número inválido '-8'
+$ zzsenha	--uniq	--pro	76	#→ O tamanho máximo desse tipo de senha é 75
+
 # Normal
 
 $ zzsenha		0
@@ -44,3 +58,25 @@ $ zzsenha	--uniq	1	#→ --regex ^[A-Za-z0-9]$
 $ zzsenha	--uniq	10	#→ --regex ^[A-Za-z0-9]{10}$
 $ zzsenha	--uniq	62	#→ --regex ^[A-Za-z0-9]{62}$
 $ zzsenha	--uniq		#→ --regex ^[A-Za-z0-9]{8}$
+
+# combinado --num --uniq / --uniq --num
+
+$ zzsenha	--num	--uniq	0
+$ zzsenha	--num	--uniq	1	#→ --regex ^[0-9]$
+$ zzsenha	--num	--uniq	10	#→ --regex ^[0-9]{10}$
+$ zzsenha	--num	--uniq		#→ --regex ^[0-9]{8}$
+$ zzsenha	--uniq	--num	0
+$ zzsenha	--uniq	--num	1	#→ --regex ^[0-9]$
+$ zzsenha	--uniq	--num	10	#→ --regex ^[0-9]{10}$
+$ zzsenha	--uniq	--num		#→ --regex ^[0-9]{8}$
+
+# combinado --pro --uniq / --uniq --pro
+
+$ zzsenha	--pro	--uniq	0
+$ zzsenha	--pro	--uniq	1	#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]$
+$ zzsenha	--pro	--uniq	10	#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]{10}$
+$ zzsenha	--pro	--uniq		#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]{8}$
+$ zzsenha	--uniq	--num	0
+$ zzsenha	--uniq	--num	1	#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]$
+$ zzsenha	--uniq	--num	10	#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]{10}$
+$ zzsenha	--uniq	--num		#→ --regex ^[A-Za-z0-9/:;()$&@.,?!-]{8}$
