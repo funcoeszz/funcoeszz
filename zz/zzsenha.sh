@@ -37,10 +37,13 @@ zzsenha ()
 		case "$1" in
 			-p | --pro)  shift; lista="$alpha$num$pro";;
 			-n | --num)  shift; lista="$num";;
-			-u | --uniq) shift; maximo="${#lista}";;
+			-u | --uniq) shift; uniq=1;;
 			*) break ;;
 		esac
 	done
+
+	# atualiza maximo para ser usado para --uniq
+	[ "uniq" ] && maximo="${#lista}"
 
 	# Guarda o número informado pelo usuário (se existente)
 	[ "$1" ] && n="$1"
@@ -48,13 +51,13 @@ zzsenha ()
 	# Foi passado um número mesmo?
 	zztool -e testa_numero "$n" || return 1
 
-        # Caso não repetita caracteres, existe uma limitação no tamanho
-        # $maximo somente será maior que 8 caso solicitado via --uniq
-        if [ "$maximo" -gt 8  -a "$n" -gt "$maximo" ]
-        then
-                echo "Tamanho máximo para este tipo de senha é $maximo."
-                return 1
-        fi
+	# Caso não repetita caracteres, existe uma limitação no tamanho
+	# $maximo somente será maior que 8 caso solicitado via --uniq
+	if [ "$maximo" -gt 8  -a "$n" -gt "$maximo" ]
+	then
+		echo "O tamanho máximo desse tipo de senha é $maximo"
+		return 1
+	fi
 
 	# Esquema de geração da senha:
 	# A cada volta é escolhido um número aleatório que indica uma
