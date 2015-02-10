@@ -37,13 +37,13 @@ zzsenha ()
 		case "$1" in
 			-p | --pro)  shift; lista="$alpha$num$pro";;
 			-n | --num)  shift; lista="$num";;
-			-u | --uniq) shift; uniq=1;;
+			-u | --uniq) shift; local uniq=1;;
 			*) break ;;
 		esac
 	done
 
 	# atualiza maximo para ser usado para --uniq
-	[ "uniq" ] && maximo="${#lista}"
+	[ "$uniq" ] && maximo="${#lista}"
 
 	# Guarda o número informado pelo usuário (se existente)
 	[ "$1" ] && n="$1"
