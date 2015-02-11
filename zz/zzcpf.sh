@@ -1,14 +1,15 @@
 # ----------------------------------------------------------------------------
-# Gera um CPF válido aleatório ou valida um CPF informado.
+# Cria, valida ou formata um número de CPF.
 # Obs.: O CPF informado pode estar formatado (pontos e hífen) ou não.
 # Uso: zzcpf [cpf]
-# Ex.: zzcpf 123.456.789-09          # valida o CPF
-#      zzcpf 12345678909             # com ou sem formatadores
-#      zzcpf                         # gera um CPF válido
+# Ex.: zzcpf 123.456.789-09          # valida o CPF informado
+#      zzcpf 12345678909             # com ou sem pontuação
+#      zzcpf                         # gera um CPF válido (aleatório)
+#      zzcpf -f 12345678909          # formata, adicionando pontuação
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
@@ -20,6 +21,35 @@ zzcpf ()
 
 	# Remove pontuação do CPF informado, deixando apenas números
 	cpf=$(echo "$*" | tr -d -c 0123456789)
+
+	# Talvez só precisamos formatar e nada mais?
+	if test "$1" = '-f'
+	then
+		# Remove os zeros do início (senão é considerado um octal)
+		cpf=$(echo "$cpf" | sed 's/^0*//')
+
+		# Se o CPF estiver vazio, define com zero
+		: ${cpf:=0}
+
+		if test ${#cpf} -gt 11
+		then
+			echo 'CPF inválido (passou de 11 dígitos)'
+			return 1
+		fi
+
+		# Completa com zeros à esquerda, caso necessário
+		cpf=$(printf %011d "$cpf")
+
+		# Formata com um sed esperto
+		echo $cpf | sed '
+			s/./&-/9
+			s/./&./6
+			s/./&./3
+		'
+
+		# Tudo certo, podemos ir embora
+		return 0
+	fi
 
 	# Extrai os números da base do CPF:
 	# Os 9 primeiros, sem os dois dígitos verificadores.
