@@ -1,14 +1,15 @@
 # ----------------------------------------------------------------------------
-# Gera um CNPJ válido aleatório ou valida um CNPJ informado.
+# Cria, valida ou formata um número de CNPJ.
 # Obs.: O CNPJ informado pode estar formatado (pontos e hífen) ou não.
 # Uso: zzcnpj [cnpj]
-# Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ
-#      zzcnpj 12345678000195          # com ou sem formatadores
-#      zzcnpj                         # gera um CNPJ válido
+# Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ informado
+#      zzcnpj 12345678000195          # com ou sem pontuação
+#      zzcnpj                         # gera um CNPJ válido (aleatório)
+#      zzcnpj -f 12345678000195       # formata, adicionando pontuação
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
@@ -27,6 +28,28 @@ zzcnpj ()
 	# maior de dígitos do CNPJ em relação ao CPF.
 
 	cnpj=$(echo "$*" | tr -d -c 0123456789)
+
+	# Talvez só precisamos formatar e nada mais?
+	if test "$1" = '-f'
+	then
+		cnpj=$(echo "$cnpj" | sed 's/^0*//')
+		: ${cnpj:=0}
+
+		if test ${#cnpj} -gt 14
+		then
+			echo 'CNPJ inválido (passou de 14 dígitos)'
+			return 1
+		fi
+
+		cnpj=$(printf %014d "$cnpj")
+		echo $cnpj | sed '
+			s|.|&-|12
+			s|.|&/|8
+			s|.|&.|5
+			s|.|&.|2
+		'
+		return 0
+	fi
 
 	if [ "$cnpj" ]
 	then
