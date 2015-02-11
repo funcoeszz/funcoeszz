@@ -15,7 +15,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
@@ -69,5 +69,5 @@ zzsenha ()
 	done
 
 	# Mostra a senha
-	echo "$senha"
+	test -n "$senha" && echo "$senha"
 }
