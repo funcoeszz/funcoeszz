@@ -134,7 +134,7 @@ zzfeed ()
 		fi
 
 		rm -f "$tmp"
-		rm -f $ZZTMP.xml.*
+		rm -f "$ZZTMP".xml.*
 
 		# Linha em branco para separar resultados
 		[ $# -gt 1 ] && echo
