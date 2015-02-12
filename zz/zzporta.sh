@@ -27,7 +27,8 @@ zzporta ()
 	expand -t 18 |
 	sed '
 		1d
-		s/<[^>]*>//g # Retira os links
+		# Retira os links
+		s/<[^>]*>//g
 		3,${
 			/^Porta/d
 			/^[[:blank:]]*$/d
