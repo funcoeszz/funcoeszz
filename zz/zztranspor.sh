@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 # Trocar linhas e colunas de um arquivo, fazendo uma simples transposição.
 # Opções:
-#	-d, --fs separador   define o separador de campos na entrada.
-#	--ofs separador      define o separador de campos na saída.
+#   -d, --fs separador   define o separador de campos na entrada.
+#   --ofs separador      define o separador de campos na saída.
 #
 # O separador na entrada pode ser 1 ou mais caracteres ou uma ER.
 # Se não for declarado assume-se espaços em branco como separador.

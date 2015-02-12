@@ -2,9 +2,9 @@
 # Codifica um texto numa URL.
 # Permite especificar um conjunto de caracteres a não serem codificados.
 # Uso: zzurlencode [string]
-# Ex.: zzurlencode '!@#$_+{}^+abcd'	# %21%40%23%24_%2B%7B%7D%5E%2Babcd
-#      zzurlencode ':/' http://		# http://
-#      zzurlencode http://		# http%3A%2F%2F
+# Ex.: zzurlencode '!@#$_+{}^+abcd'     # %21%40%23%24_%2B%7B%7D%5E%2Babcd
+#      zzurlencode ':/' http://         # http://
+#      zzurlencode http://              # http%3A%2F%2F
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2013-03-19

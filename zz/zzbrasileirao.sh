@@ -7,15 +7,15 @@
 # ocorridos do clube desde o começo do ano de qualquer campeonato.
 #
 # Nomenclatura:
-#	PG  - Pontos Ganhos
-#	J   - Jogos
-#	V   - Vitórias
-#	E   - Empates
-#	D   - Derrotas
-#	GP  - Gols Pró
-#	GC  - Gols Contra
-#	SG  - Saldo de Gols
-#	(%) - Aproveitamento (pontos)
+#   PG  - Pontos Ganhos
+#   J   - Jogos
+#   V   - Vitórias
+#   E   - Empates
+#   D   - Derrotas
+#   GP  - Gols Pró
+#   GC  - Gols Contra
+#   SG  - Saldo de Gols
+#   (%) - Aproveitamento (pontos)
 #
 # Uso: zzbrasileirao [a|b|c] [numero rodada] ou zzbrasileirao -l [nome clube]
 # Ex.: zzbrasileirao
@@ -140,7 +140,7 @@ zzbrasileirao ()
 				if ($NF ~ /[Ff]inal$/) { sub(/^ */,""); print ""; printf $0 }
 				if (/Confronto/) { sub(/^.*C/,"C"); print ""; print }
 				if ($0 ~ / X /) {
-					if ($1 ~ /pênaltis/ && separador=="   X   ") 
+					if ($1 ~ /pênaltis/ && separador=="   X   ")
 						{ separador=$1; sub(/pênaltis/,")X(",separador);  separador="(" separador ")"; $1="" }
 					else { separador="   X   " }
 					sub(/^ */,""); sub(/^[A-Z]{3}/,""); sub(/[A-Z]{3}$/,"")

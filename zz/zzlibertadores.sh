@@ -1,30 +1,30 @@
 # ----------------------------------------------------------------------------
 # Mostra a classificação e jogos do torneio Libertadores da América.
 # Opções:
-#  <número> | <fase>: Mostra jogos da fase selecionada
-#    fases: pre ou primeira, grupos ou segunda, oitavas
-#  -g <número>: Jogos da segunda fase do gupo selecionado
-#  -c [numero]: Mostra a classificação, nos grupos da segunda fase
-#  -cg <número> ou -gc <número>: Classificação e jogos do grupo selecionado.
+#   <número> | <fase>: Mostra jogos da fase selecionada
+#   fases: pre ou primeira, grupos ou segunda, oitavas
+#   -g <número>: Jogos da segunda fase do gupo selecionado
+#   -c [numero]: Mostra a classificação, nos grupos da segunda fase
+#   -cg <número> ou -gc <número>: Classificação e jogos do grupo selecionado.
 #
 # As fases podem ser:
-#  pré, pre, primeira ou 1, para a fasé pré-libertadores
-#  grupos, segunda ou 2, para a fase de grupos da libertadores
-#  oitavas ou 3
-#  quartas ou 4
-#  semi, semi-final ou 5
-#  final ou 6
+#   pré, pre, primeira ou 1, para a fasé pré-libertadores
+#   grupos, segunda ou 2, para a fase de grupos da libertadores
+#   oitavas ou 3
+#   quartas ou 4
+#   semi, semi-final ou 5
+#   final ou 6
 #
 # Nomenclatura:
-#	PG  - Pontos Ganhos
-#	J   - Jogos
-#	V   - Vitórias
-#	E   - Empates
-#	D   - Derrotas
-#	GP  - Gols Pró
-#	GC  - Gols Contra
-#	SG  - Saldo de Gols
-#	(%) - Aproveitamento (pontos)
+#   PG  - Pontos Ganhos
+#   J   - Jogos
+#   V   - Vitórias
+#   E   - Empates
+#   D   - Derrotas
+#   GP  - Gols Pró
+#   GC  - Gols Contra
+#   SG  - Saldo de Gols
+#   (%) - Aproveitamento (pontos)
 #
 # Uso: zzlibertadores [ fase | -c [número] | -g <número> ]
 # Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)

@@ -19,15 +19,15 @@
 # Sem argumento mostra tudo (fases, grupos, classificação e jogos).
 #
 # Nomenclatura na fas de grupos:
-#	PG  - Pontos Ganhos
-#	J   - Jogos
-#	V   - Vitórias
-#	E   - Empates
-#	D   - Derrotas
-#	GP  - Gols Pró
-#	GC  - Gols Contra
-#	SG  - Saldo de Gols
-#	(%) - Aproveitamento (pontos)
+#   PG  - Pontos Ganhos
+#   J   - Jogos
+#   V   - Vitórias
+#   E   - Empates
+#   D   - Derrotas
+#   GP  - Gols Pró
+#   GC  - Gols Contra
+#   SG  - Saldo de Gols
+#   (%) - Aproveitamento (pontos)
 #
 # Uso: zzcopa [fase |grupo | classificação | jogos | realizados]
 # Ex.: zzcopa

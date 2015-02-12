@@ -3,11 +3,11 @@
 # Também pode tocar lista de reprodução (playlist).
 # Pode-se escolher o player principal passando-o como segundo argumento.
 # - Os players possíveis para cada tipo são:
-#	wav, au, aiff        afplay, play, mplayer, cvlc, avplay, ffplay
-#	mp2, mp3             afplay, mpg321, mpg123, mplayer, cvlc, avplay, ffplay
-#	ogg                  ogg123, mplayer, cvlc, avplay, ffplay
-#	aac, wma, mka        mplayer, cvlc, avplay, ffplay
-#	pls, m3u, xspf, asx   mplayer, cvlc
+#   wav, au, aiff        afplay, play, mplayer, cvlc, avplay, ffplay
+#   mp2, mp3             afplay, mpg321, mpg123, mplayer, cvlc, avplay, ffplay
+#   ogg                  ogg123, mplayer, cvlc, avplay, ffplay
+#   aac, wma, mka        mplayer, cvlc, avplay, ffplay
+#   pls, m3u, xspf, asx  mplayer, cvlc
 #
 # Uso: zzplay <arquivo-de-áudio> [player]
 # Ex.: zzplay os_seminovos_escolha_ja_seu_nerd.mp3

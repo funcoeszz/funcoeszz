@@ -9,19 +9,19 @@
 #
 # Opções:
 # main,main-src,main-all:
-#	Add repositório main, main source ou ambos.
+#   Add repositório main, main source ou ambos.
 #
 # contrib,contrib-src,contrib-all:
-#	Add repositório contrib, contrib source ou ambos.
+#   Add repositório contrib, contrib source ou ambos.
 #
 # non-free,non-free-src,non-free-all:
-#	Add repositório non-free, non-free source ou ambos.
+#   Add repositório non-free, non-free source ou ambos.
 #
 # security,security-src,security-all:
-#	Add repositório Security updates
+#   Add repositório Security updates
 #
 # updates,updates-src,updates-all:
-#	Add repositório updates
+#   Add repositório updates
 #
 # Uso: zzdebgen -p país -r release -b [branches]
 # Ex.: zzdebgen -p br -r Lenny -b main-all
@@ -150,7 +150,7 @@ zzdebgen ()
 		/#DebGen/d
 		/Debian Sources/d
 		/Home |/d
-		s/Getting/\nGetting/ 
+		s/Getting/\nGetting/
 		s/Alternate/\nAlternate/
 		s/:$/:\n/
 		s/here/here\n/'
