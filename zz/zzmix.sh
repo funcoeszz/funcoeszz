@@ -18,8 +18,8 @@
 #      zzmix -2 arquivo1 arquivo2 arquivo3  # Base no segundo arquivo
 #      zzmix -o out.txt arquivo1 arquivo2   # Mixando para o arquivo out.txt
 #      zzmix -p 2,5,6 arq1 arq2 arq3
-#       2 linhas do arq1, 5 linhas do arq2 e 3 linhas do arq3,
-#       e repete a seqUência até o final.
+#      # 2 linhas do arq1, 5 linhas do arq2 e 6 linhas do arq3,
+#      # e repete a sequência até o final.
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-11-01
