@@ -14,11 +14,11 @@
 # Uso: zzsplit -p <relação> [<numero>] | <numero> <arquivo>
 # Ex.: zzsplit 3 arq.txt  # Separa em 3: arq.txt.1, arq.txt.2, arq.txt.3
 #      zzsplit -p 3,5,4 5 arq.txt  # Separa em 5 arquivos
-#        3 linhas no arq.txt.1, 5 linhas no arq.txt.2 e 4 linhas nos demais.
+#      # 3 linhas no arq.txt.1, 5 linhas no arq.txt.2 e 4 linhas nos demais.
 #      zzsplit -p 3,4,2 arq.txt    # Separa em 3 arquivos
-#        3 linhas no arq.txt.1, 4 linhas no arq.txt.2 e 2 linhas no arq.txt.3
+#      # 3 linhas no arq.txt.1, 4 linhas no arq.txt.2 e 2 linhas no arq.txt.3
 #      zzsplit -p 2,-3,4 arq.txt   # Separa em 2 arquivos
-#        2 linhas no arq.txt.1, pula 3 linhas e 4 linhas no arq.txt.3
+#      # 2 linhas no arq.txt.1, pula 3 linhas e 4 linhas no arq.txt.3
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-11-10
