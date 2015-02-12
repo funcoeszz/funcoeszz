@@ -4,15 +4,15 @@
 # Além de mostrar os times que irão jogar, o script também mostra o dia,
 # o horário e por campeonato será o jogo.
 #
-# Uso:  zzfutebol [ hoje | amanha | ontem | sabado | domingo ]
-# Ex.:  zzfutebol
-#       zzfutebol hoje
-#       zzfutebol sabado
+# Uso: zzfutebol [ hoje | amanha | ontem | sabado | domingo ]
+# Ex.: zzfutebol
+#      zzfutebol hoje
+#      zzfutebol sabado
 #
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
 # Desde: 2014-04-08
 # Versão: 2
-# Licensa: GPL
+# Licença: GPL
 # Requisitos: zzdata zzdatafmt
 # ----------------------------------------------------------------------------
 zzfutebol ()
