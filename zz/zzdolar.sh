@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# zzdolar
 # http://economia.uol.com.br/cotacoes
 # Busca a cotação do dia do dólar (comercial, turismo).
 # Uso: zzdolar
