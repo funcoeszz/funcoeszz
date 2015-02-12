@@ -13,7 +13,7 @@
 #
 # Sem opção, toma como base o primeiro arquivo declarado.
 #
-# Uso: zzmix [-m | -M | -<numero>] [-o <arq>] [-p <relação>] arquivo1 arquivo2 [arquivoN] ...
+# Uso: zzmix [-m | -M | -<num>] [-o <arq>] [-p <relação>] arq1 arq2 [arqN] ...
 # Ex.: zzmix -m arquivo1 arquivo2 arquivo3  # Base no arquivo com menos linhas
 #      zzmix -2 arquivo1 arquivo2 arquivo3  # Base no segundo arquivo
 #      zzmix -o out.txt arquivo1 arquivo2   # Mixando para o arquivo out.txt

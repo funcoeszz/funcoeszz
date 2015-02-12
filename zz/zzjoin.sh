@@ -9,11 +9,11 @@
 #
 # Sem opção, toma como base o primeiro arquivo declarado.
 #
-# Uso: zzjoin [-m | -M | -<numero>] [-o <arq>] [-d <separador>] arquivo1 arquivo2 [arquivoN] ...
-# Ex.: zzjoin -m arquivo1 arquivo2 arquivo3  # Base no arquivo com menos linhas
-#      zzjoin -2 arquivo1 arquivo2 arquivo3  # Base no segundo arquivo
-#      zzjoin -o out.txt arquivo1 arquivo2   # Juntando para o arquivo out.txt
-#      zzjoin -d ":" arquivo1 arquivo2       # Juntando linhas separadas por ":"
+# Uso: zzjoin [-m | -M | -<numero>] [-o <arq>] [-d <sep>] arq1 arq2 [arqN] ...
+# Ex.: zzjoin -m arq1 arq2 arq3      # Base no arquivo com menos linhas
+#      zzjoin -2 arq1 arq2 arq3      # Base no segundo arquivo
+#      zzjoin -o out.txt arq1 arq2   # Juntando para o arquivo out.txt
+#      zzjoin -d ":" arq1 arq2       # Juntando linhas separadas por ":"
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-12-05
