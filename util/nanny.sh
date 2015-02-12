@@ -210,6 +210,10 @@ do
 		grep -v 'zz/zzxml.sh: # Uso: zzxml'
 done
 
+eco ----------------------------------------------------------------
+eco "* Funções com cabeçalho usando TAB (use só espaços)"
+grep -H '^#.*	' zz/*.sh off/*.sh
+
 ### Desativada por enquanto, ainda não sei o que fazer com isso
 #
 # eco ----------------------------------------------------------------
