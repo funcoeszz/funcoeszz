@@ -14,38 +14,38 @@ eco() { echo -e "\033[36;1m$*\033[m"; }
 
 eco ----------------------------------------------------------------
 eco "* Funções que não são UTF-8"
-file --mime zz/* off/* | egrep -vi 'utf-8'
+file --mime zz/*.sh off/*.sh | egrep -vi 'utf-8'
 
 eco ----------------------------------------------------------------
 eco "* Funções com nome de arquivo inválido"
-ls -1 zz/* off/* | grep -v '/zz[a-z0-9]*\.sh$'
+ls -1 zz/*.sh off/*.sh | grep -v '/zz[a-z0-9]*\.sh$'
 
 eco ----------------------------------------------------------------
 eco "* Funções com erro ao importar (source)"
-for f in zz/* off/*; do (source $f); done
+for f in zz/*.sh off/*.sh; do (source $f); done
 
 eco ----------------------------------------------------------------
 eco "* Funções cujo início não é 'zznome ()\\\n'"
-for f in zz/* off/*; do grep "^zz[a-z0-9]* ()$" $f >/dev/null || echo $f; done
+for f in zz/*.sh off/*.sh; do grep "^zz[a-z0-9]* ()$" $f >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções que não terminam em '}' na última linha"
-for f in zz/* off/*; do tail -1 $f | grep "^}$" >/dev/null || echo $f; done
+for f in zz/*.sh off/*.sh; do tail -1 $f | grep "^}$" >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções que falta a quebra de linha na última linha"
-for f in zz/* off/*; do tail -1 $f | od -a | grep '}.*nl' >/dev/null || echo $f; done
+for f in zz/*.sh off/*.sh; do tail -1 $f | od -a | grep '}.*nl' >/dev/null || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções cujo nome não bate com o nome do arquivo"
-for f in zz/* off/*; do grep "^$(basename $f .sh) " $f >/dev/null || echo $f; done
+for f in zz/*.sh off/*.sh; do grep "^$(basename $f .sh) " $f >/dev/null || echo $f; done
 
 
 ### Testes relacionados ao cabeçalho
 
 eco ----------------------------------------------------------------
 eco "* Funções com o cabeçalho mal formatado"
-for f in zz/* off/*
+for f in zz/*.sh off/*.sh
 do
 	wrong=$(sed -n '
 
@@ -123,11 +123,11 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções cuja linha separadora é estranha"
-for f in zz/* off/*; do test $(egrep -c '^# -{76}$' $f) = 2 || echo $f; done
+for f in zz/*.sh off/*.sh; do test $(egrep -c '^# -{76}$' $f) = 2 || echo $f; done
 
 eco ----------------------------------------------------------------
 eco "* Funções com a descrição sem ponto final"
-for f in zz/* off/*; do
+for f in zz/*.sh off/*.sh; do
 	wrong=$(sed -n '2 {
 		/^# http/ n
 		# Deve acabar em ponto final
@@ -138,7 +138,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções com a descrição com mais de um ponto ."
-for f in zz/* off/*; do
+for f in zz/*.sh off/*.sh; do
 	test "$f" = off/zzranking.sh && continue  # tem 2 pontos mas é OK
 	wrong=$(sed -n '2 {
 		/^# http/ n
@@ -150,7 +150,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções com conteúdo inválido no campo Autor:"
-for f in zz/* off/*
+for f in zz/*.sh off/*.sh
 do
 	wrong=$(grep '^# Autor:' $f | egrep -v '^# Autor: [^ ].*$')
 	test -n "$wrong" && echo "$f: $wrong"
@@ -158,7 +158,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções com a data inválida no campo Desde:"
-for f in zz/* off/*
+for f in zz/*.sh off/*.sh
 do
 	wrong=$(grep '^# Desde:' $f | egrep -v '^# Desde: [0-9]{4}-[0-9]{2}-[0-9]{2}$')
 	test -n "$wrong" && echo "$f: $wrong"
@@ -166,7 +166,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções com número inválido no campo Versão: (deve ser decimal)"
-for f in zz/*  #off/*
+for f in zz/*.sh  #off/*.sh
 do
 	wrong=$(grep '^# Versão:' $f | egrep -v '^# Versão: [0-9][0-9]?$')
 	test -n "$wrong" && echo "$f: $wrong"
@@ -174,7 +174,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções com conteúdo inválido no campo Licença:"
-for f in zz/* off/*
+for f in zz/*.sh off/*.sh
 do
 	wrong=$(grep '^# Licença:' $f | egrep -v '^# Licença: (GPL(v2)?|MIT)$')
 	# Se alguém quiser usar outra licença, basta adicionar aqui ^
@@ -183,21 +183,21 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções com campo Requisitos: vazio"
-for f in zz/* off/*
+for f in zz/*.sh off/*.sh
 do
 	grep '^# Requisitos: *$' $f > /dev/null && echo $f
 done
 
 eco ----------------------------------------------------------------
 eco "* Funções com vírgulas no campo Requisitos: (use só espaços)"
-for f in zz/* off/*
+for f in zz/*.sh off/*.sh
 do
 	grep '^# Requisitos:.*,' $f > /dev/null && echo $f
 done
 
 eco ----------------------------------------------------------------
 eco "* Funções com cabeçalho >78 colunas"
-for f in zz/* off/*
+for f in zz/*.sh off/*.sh
 do
 	wrong=$(grep '^# ' $f | egrep '^.{79}' | grep -v DESATIVADA:)
 
@@ -219,7 +219,7 @@ grep -H '^#.*	' zz/*.sh off/*.sh
 # eco ----------------------------------------------------------------
 # eco "* Funções com campo desconhecido"
 # campos='Obs\.|Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos|Nota'
-# for f in zz/* off/*
+# for f in zz/*.sh off/*.sh
 # do
 # 	wrong=$(
 # 		egrep '^# [A-Z][a-z.]+: ' $f |
@@ -237,7 +237,7 @@ grep -H '^#.*	' zz/*.sh off/*.sh
 eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zzzz -h'"
 ok="zztool"
-for f in zz/*  # off/*
+for f in zz/*.sh  # off/*.sh
 do
 	echo " $ok " | grep " $(basename $f) " >/dev/null && continue
 	grep 'zzzz -h ' $f >/dev/null || echo $f
@@ -245,7 +245,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções cuja chamada 'zzzz -h' está incorreta"
-for f in zz/*  # off/*
+for f in zz/*.sh  # off/*.sh
 do
 	# zzzz -h cores $1 && return
 	fgrep "zzzz -h $(basename $f .sh | sed 's/^zz//') \"\$1\" && return" $f >/dev/null || echo $f
@@ -255,7 +255,7 @@ eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zztool uso'"
 # As seguintes não precisam pois é válido chamá-las sem argumentos
 ok="zzaleatorio zzalfabeto zzansi2html zzarrumacidade zzascii zzbeep zzbissexto zzbolsas zzbraille zzcalcula zzcapitalize zzcaracoroa zzcarnaval zzcidade zzcinemark15h zzcineuci zzcnpj zzcontapalavras zzcores zzcorpuschristi zzcotacao zzcpf zzdado zzdatafmt zzdiadasemana zzdolar zzdos2unix zzestado zzeuro zzferiado zzfilme zzfoneletra zzglobo zzhexa2str zzhoracerta zzhoramin zzhorariodeverao zzipinternet zzjquery zzjuntalinhas zzkill zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzlua zzmaiores zzmaiusculas zzmariadb zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpais zzpalpite zzpascoa zzpgsql zzphp zzpiada zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzshuffle zzstr2hexa zzsubway zztabuada zztac zztelecine zztempo zztranspor zztv zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzvdp zzvira zzxml"
-for f in zz/*  # off/*
+for f in zz/*.sh  # off/*.sh
 do
 	echo " $ok " | grep " $(basename $f .sh) " >/dev/null && continue
 	grep 'zztool uso ' $f >/dev/null || echo $f
@@ -263,7 +263,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções com o nome errado em 'zztool uso'"
-for f in zz/*  # off/*
+for f in zz/*.sh  # off/*.sh
 do
 	wrong=$(grep 'zztool uso ' $f | grep -v "zztool uso $(basename $f .sh | sed 's/^zz//')")
 	test -n "$wrong" && echo "$f"  # && echo "$wrong"
@@ -271,7 +271,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções desativadas sem data e motivo para o desligamento"
-for f in off/*
+for f in off/*.sh
 do
 	# # DESATIVADA: 2002-10-30 O programa acabou.
 	egrep '^# DESATIVADA: [0-9]{4}-[0-9]{2}-[0-9]{2} .{10,}' $f >/dev/null || echo $f
@@ -282,12 +282,12 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções que não colocaram aspas ao redor de \$ZZTMP"
-grep '$ZZTMP' off/* zz/* | grep -v '"'
+grep '$ZZTMP' zz/*.sh off/*.sh | grep -v '"'
 
 # https://github.com/funcoeszz/funcoeszz/wiki/Arquivos-Temporarios
 eco ----------------------------------------------------------------
 eco "* Funções que usaram nome inválido em \$ZZTMP.nome"
-grep '$ZZTMP' zz/* | egrep -v '^zz/zz([^.]*)\.sh:.*\$ZZTMP\.\1'
+grep '$ZZTMP' zz/*.sh | egrep -v '^zz/zz([^.]*)\.sh:.*\$ZZTMP\.\1'
 
 
 
