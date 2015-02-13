@@ -18,85 +18,53 @@
 zzfutebol ()
 {
 
-	zzzz -h futebol "$1" && return
+    #zzzz -h futebol "$1" && return
 
-	listajogos(){
-		local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
-		$ZZWWWDUMP $url | awk -v diadojogo="$1" ' {
-			if ( diadojogo == "" ){
-				if ( $1 ~ /[0-9]+\/[0-9]+\/[0-9]+/ ){
-					gsub( /^[\t ]+/, "", $0 )
-					dadosdojogo = $0
-					imprimir = 1
-				}
-			}
-			else{
-				if ( $1 == diadojogo ){
-					gsub( /^[\t ]+/, "", $0 )
-					dadosdojogo = $0
-					imprimir = 1
-				}
-			}
-			if ( imprimir ){
-				if ( $0 ~ /[\w\t -]+ X [\w\t -]+/ ){
-					gsub( /^[\t ]+/, "", $0 )
-					gsub( /[\t ]+$/, "", $0 )
-					gsub( /^[A-Z]+ /, "", $0 )
-					gsub( / [A-Z]+$/, "", $0 )
-					printf "%-38s	%s\n", dadosdojogo, $0
-					imprimir = 0
-				}
-			}
-		}'
-	}
+    listajogos(){
+        local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
+        $ZZWWWDUMP $url | awk ' {
+            gsub(/^[\t ]+/, "", $0)
+            gsub(/[\t ]+$/, "", $0)
+            imprimir=0
 
-	futebolhoje(){
-		local hoje=$( zzdata hoje | zzdatafmt -f DD/MM/AA )
-		listajogos "$hoje"
-	}
+            if ($0 ~ /^[0-9]+\/[0-9]+\/[0-9]+[\t ]+[0-9]+h[0-9]+/){
+                dadosdojogo=$0
+            }
 
-	futebolamanha(){
-		local amanha=$( zzdata amanha | zzdatafmt -f DD/MM/AA )
-		listajogos "$amanha"
-	}
+            if ($0 ~ /^[[:alpha:]\t _-]+X[[:alpha:]\t _-]/){
+                gsub( /^[A-Z]+ /, "", $0 )
+                gsub( / [A-Z]+$/, "", $0 )
+                gsub( / [_X ]+ /, "    x    ", $0)
+                jogo=$0
+                imprimir=1
+            }
 
-	futebolontem(){
-		local ontem=$( zzdata ontem | zzdatafmt -f DD/MM/AA )
-		listajogos "$ontem"
-	}
+            if(imprimir){
+                imprimir=0
+                printf "%-38s %s\n", dadosdojogo, jogo
+            }
 
-	futebolproximosabado(){
-		local sabado=$( zzdata sabado | zzdatafmt -f DD/MM/AA )
-		listajogos "$sabado"
-	}
+        }'
+    }
 
-	futebolproximodomingo(){
-		local domingo=$( zzdata domingo | zzdatafmt -f DD/MM/AA )
-		listajogos "$domingo"
-	}
-
-	futebol(){
-		listajogos
-	}
-
-	case "$1" in
-		"hoje")
-			futebolhoje
-			;;
-		"amanha")
-			futebolamanha
-			;;
-		"ontem")
-			futebolontem
-			;;
-		"sabado")
-			futebolproximosabado
-			;;
-		"domingo")
-			futebolproximodomingo
-			;;
-		*)
-			futebol
-			;;
-	esac
+    case "$1" in
+        "hoje")
+            listajogos | grep -e $( zzdata hoje | zzdatafmt -f DD/MM/AA )
+            ;;
+        "amanha")
+            listajogos | grep -e $( zzdata amanha | zzdatafmt -f DD/MM/AA )
+            ;;
+        "ontem")
+            listajogos | grep -e $( zzdata ontem | zzdatafmt -f DD/MM/AA )
+            ;;
+        "sabado")
+            listajogos | grep -e $( zzdata sabado | zzdatafmt -f DD/MM/AA )
+            ;;
+        "domingo")
+            listajogos | grep -e $( zzdata domingo | zzdatafmt -f DD/MM/AA )
+            ;;
+        *)
+            listajogos
+            ;;
+    esac
 }
