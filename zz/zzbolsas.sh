@@ -65,7 +65,7 @@ zzbolsas ()
 	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SP600'
 	local amex='^XAX ^IIX ^NWX ^XMI'
 	local ind_nac='^IBX50 ^IVBX ^IGCX ^IEE INDX.SA'
-	local cache="$ZZTMP.bolsas.$$"
+	local cache=$(zztool cache bolsas $$)
 	local bolsa pag pags pag_atual data1 data2 vartemp
 
 	case $# in
@@ -103,7 +103,7 @@ zzbolsas ()
 			# Lista os códigos da bolsas e seus nomes
 			case "$1" in
 			#Limpa todos os cache acumulado
-			--limpa| --limpar) rm -f "$ZZTMP.bolsas".* 2>/dev/null;;
+			--limpa| --limpar) zztool cache rm bolsas ;;
 			-l | --lista)
 				for bolsa in americas europe asia africa
 				do

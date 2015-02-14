@@ -21,7 +21,7 @@ zzaleatorio ()
 
 	local inicio=0
 	local fim=32767
-	local cache="$ZZTMP.aleatorio"
+	local cache=$(zztool cache aleatorio)
 	local v_temp
 
 	# Se houver só um número, entre 0 e o número

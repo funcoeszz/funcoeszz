@@ -14,7 +14,7 @@ zzsigla ()
 {
 	zzzz -h sigla "$1" && return
 
-	local url=http://www.acronymfinder.com/af-query.asp
+	local url='http://www.acronymfinder.com/af-query.asp'
 
 	# Verificação dos parâmetros
 	[ "$1" ] || { zztool uso sigla; return 1; }
@@ -22,7 +22,7 @@ zzsigla ()
 	local sigla=$1
 	# Pesquisa, baixa os resultados e filtra
 	# O novo retorno do site retorna todas as opções com três espaços
-	#  antes da sigla, e vários ou um espaço depois dependendo do 
+	#  antes da sigla, e vários ou um espaço depois dependendo do
 	#  tamanho da sigla. Assim, o grep utiliza aspas duplas para entender
 	#  a filtragem
 	$ZZWWWDUMP "$url?acronym=$sigla" |

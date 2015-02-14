@@ -21,7 +21,7 @@ zzloteria2 ()
 	local resultado_val resultado_num num_con sufixo faixa
 	local url='http://www1.caixa.gov.br/loterias/loterias'
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
-	local cache="$ZZTMP.loteria2"
+	local cache=$(zztool cache loteria2)
 
 	if type links >/dev/null 2>&1
 	then

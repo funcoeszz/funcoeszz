@@ -16,7 +16,7 @@ zzdicjargon ()
 
 	local achei achei2 num mais
 	local url='http://catb.org/jargon/html'
-	local cache="$ZZTMP.dicjargon"
+	local cache=$(zztool cache dicjargon)
 	local padrao=$(echo "$*" | sed 's/ /-/g')
 
 	# Verificação dos parâmetros

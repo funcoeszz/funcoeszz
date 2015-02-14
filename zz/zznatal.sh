@@ -16,7 +16,7 @@ zznatal ()
 	zzzz -h natal "$1" && return
 
 	local url='http://www.vidanet.org.br/mensagens/feliz-natal-em-varios-idiomas'
-	local cache="$ZZTMP.natal"
+	local cache=$(zztool cache natal)
 	local padrao=$1
 
 	# Se o cache está vazio, baixa listagem da Internet

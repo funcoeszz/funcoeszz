@@ -40,19 +40,19 @@ zzxml ()
 	local unescape=0
 	local indent=0
 	local i=0
-	local cache_tag="$ZZTMP.xml.${i}_tag"
-	local cache_notag="$ZZTMP.xml.${i}_notag"
+	local cache_tag=$(zztool cache xml ${i}_tag)
+	local cache_notag=$(zztool cache xml ${i}_notag)
 
 	while ! zztool arquivo_vago $cache_tag >/dev/null 2>&1
 	do
 		i=$((i + 1))
-		cache_tag="$ZZTMP.xml.${i}_tag"
+		cache_tag=$(zztool cache xml ${i}_tag)
 	done
 
 	while ! zztool arquivo_vago $cache_notag >/dev/null 2>&1
 	do
 		i=$((i + 1))
-		cache_notag="$ZZTMP.xml.${i}_notag"
+		cache_notag=$(zztool cache xml ${i}_notag)
 	done
 
 	# Opções de linha de comando
@@ -189,7 +189,7 @@ zzxml ()
 			#   title="Foo">
 			#   --------------------------------------------------------
 			#   <p>Foo <b>bar</b></p>    <p>
-			#                            Foo
+			#                            Foo 
 			#                            <b>
 			#                            bar
 			#                            </b>

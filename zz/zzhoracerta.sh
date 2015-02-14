@@ -20,7 +20,7 @@ zzhoracerta ()
 	zzzz -h horacerta "$1" && return
 
 	local codigo localidade localidades
-	local cache="$ZZTMP.horacerta"
+	local cache=$(zztool cache horacerta)
 	local url='http://www.worldtimeserver.com'
 
 	# Opções de linha de comando

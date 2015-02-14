@@ -20,7 +20,7 @@ zzcidade ()
 	zzzz -h cidade "$1" && return
 
 	local url='http://pt.wikipedia.org/wiki/Anexo:Lista_de_munic%C3%ADpios_do_Brasil'
-	local cache="$ZZTMP.cidade"
+	local cache=$(zztool cache cidade)
 	local padrao="$*"
 
 	# Se o cache está vazio, baixa listagem da Internet

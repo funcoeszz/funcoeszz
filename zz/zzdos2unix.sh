@@ -15,7 +15,7 @@ zzdos2unix ()
 	zzzz -h dos2unix "$1" && return
 
 	local arquivo
-	local tmp="$ZZTMP.dos2unix.$$"
+	local tmp=$(zztool cache dos2unix $$)
 	local control_m=$(printf '\r')  # ^M, CR, \r
 
 	# Sem argumentos, lê/grava em STDIN/STDOUT
@@ -53,5 +53,5 @@ zzdos2unix ()
 	done
 
 	# Remove o arquivo temporário
-	rm -f "$tmp"
+	zztool cache rm dos2unix
 }

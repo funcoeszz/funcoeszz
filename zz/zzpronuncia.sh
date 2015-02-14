@@ -16,7 +16,7 @@ zzpronuncia ()
 
 	local wav_file wav_dir wav_url
 	local palavra=$1
-	local cache="$ZZTMP.pronuncia.$palavra.wav"
+	local cache=$(zztool cache pronuncia "$palavra.wav")
 	local url='http://www.m-w.com/dictionary'
 	local url2='http://cougar.eb.com/soundc11'
 

@@ -30,7 +30,7 @@ zztv ()
 
 	local DATA=$(date +%d\\/%m)
 	local URL="http://meuguia.tv/programacao"
-	local cache="$ZZTMP.tv"
+	local cache=$(zztool cache tv)
 	local codigo desc linhas largura
 
 	# 0 = lista canal especifico

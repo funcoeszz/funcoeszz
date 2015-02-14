@@ -18,7 +18,7 @@ zztrocapalavra ()
 	local nova="$2"
 
 	# Precisa do temporário pois nem todos os Sed possuem a opção -i
-	local tmp="$ZZTMP.trocapalavra.$$"
+	local tmp=$(zztool cache trocapalavra $$)
 
 	# Verificação dos parâmetros
 	[ "$3" ] || { zztool uso trocapalavra; return 1; }
@@ -53,5 +53,5 @@ zztrocapalavra ()
 		cat "$tmp" > "$arquivo"
 		return 1
 	done
-	rm -f "$tmp"
+	zztool cache rm trocapalavra
 }

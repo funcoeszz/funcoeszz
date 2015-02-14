@@ -21,11 +21,11 @@ zznarrativa ()
 	local padrao
 	local url='http://translate.google.com.br'
 	local charset_para='UTF-8'
-	local audio_file="$ZZTMP.narrativa.$$.wav"
+	local audio_file=$(zztool cache narrativa "$$.wav")
 
 	# Narrativa
 	padrao=$(echo "$*" | sed "$ZZSEDURL")
 	local audio="translate_tts?ie=$charset_para&q=$padrao&tl=pt"
 	$ZZWWWHTML "$url/$audio" > $audio_file && zzplay $audio_file mplayer
-	rm -f $audio_file
+	zztool cache rm narrativa
 }

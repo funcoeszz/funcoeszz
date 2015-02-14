@@ -16,7 +16,7 @@ zzlembrete ()
 	zzzz -h lembrete "$1" && return
 
 	local arquivo="$HOME/.zzlembrete"
-	local tmp="$ZZTMP.lembrete.$$"
+	local tmp=$(zztool cache lembrete $$)
 	local numero
 
 	# Assegura-se que o arquivo de lembretes existe
