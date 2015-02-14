@@ -18,7 +18,7 @@
 zzfutebol ()
 {
 
-    #zzzz -h futebol "$1" && return
+    zzzz -h futebol "$1" && return
 
     listajogos(){
         local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
