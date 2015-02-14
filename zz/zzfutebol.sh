@@ -20,7 +20,7 @@ zzfutebol ()
 
     zzzz -h futebol "$1" && return
 
-    listajogos(){
+    listajogos=$(
         local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
         $ZZWWWDUMP $url | awk ' {
             gsub(/^[\t ]+/, "", $0)
@@ -45,26 +45,26 @@ zzfutebol ()
             }
 
         }'
-    }
-
+    )
+    
     case "$1" in
         "hoje")
-            listajogos | grep -e $( zzdata hoje | zzdatafmt -f DD/MM/AA )
+            echo "$listajogos" | grep -e $( zzdata hoje | zzdatafmt -f DD/MM/AA )
             ;;
         "amanha")
-            listajogos | grep -e $( zzdata amanha | zzdatafmt -f DD/MM/AA )
+            echo "$listajogos" | grep -e $( zzdata amanha | zzdatafmt -f DD/MM/AA )
             ;;
         "ontem")
-            listajogos | grep -e $( zzdata ontem | zzdatafmt -f DD/MM/AA )
+            echo "$listajogos" | grep -e $( zzdata ontem | zzdatafmt -f DD/MM/AA )
             ;;
         "sabado")
-            listajogos | grep -e $( zzdata sabado | zzdatafmt -f DD/MM/AA )
+            echo "$listajogos" | grep -e $( zzdata sabado | zzdatafmt -f DD/MM/AA )
             ;;
         "domingo")
-            listajogos | grep -e $( zzdata domingo | zzdatafmt -f DD/MM/AA )
+            echo "$listajogos" | grep -e $( zzdata domingo | zzdatafmt -f DD/MM/AA )
             ;;
         *)
-            listajogos
+            echo "$listajogos"
             ;;
     esac
 }
