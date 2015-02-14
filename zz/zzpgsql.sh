@@ -19,7 +19,7 @@ zzpgsql ()
 	zzzz -h pgsql "$1" && return
 
 	local url='http://www.postgresql.org/docs/current/static'
-	local cache="$ZZTMP.pgsql"
+	local cache=$(zztool cache pgsql)
 	local comando
 
 	if ! test -s "$cache"

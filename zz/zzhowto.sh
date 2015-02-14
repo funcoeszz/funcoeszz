@@ -15,7 +15,7 @@ zzhowto ()
 	zzzz -h howto "$1" && return
 
 	local padrao
-	local cache="$ZZTMP.howto"
+	local cache=$(zztool cache howto)
 	local url='http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/'
 
 	# Verificação dos parâmetros

@@ -28,7 +28,7 @@ zzdistro ()
 6 26
 12 52"
 
-	[ "$1" = "-l"  ] && { lista=1; shift; }
+	[ "$1" = "-l" ] && { lista=1; shift; }
 	case $1 in
 	1 | 3 | 6 | 12) url="${url}index.php?dataspan=$(echo "$meses" | awk '$1=='$1' {print $2}')"; shift ;;
 	*)

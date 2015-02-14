@@ -19,6 +19,8 @@ zzcbn ()
 	zzzz -h cbn "$1" && return
 
 	local COMENTARISTAS RSS MP3 EXT comentarista data linha autor datafile Tlinhas l P titulo hora dois
+	local tmp=$(zztool cache cbn comentarios)
+	local cache=$(zztool cache cbn coment)
 
 #Comentaristas;RSS;Download
 COMENTARISTAS="André_Trigueiro;andretrigueiro;andre-trigueiro;mundo
@@ -84,23 +86,23 @@ fi
 
 	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml" |
 	sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" |
-	sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$ZZTMP.cbn.comentarios"
+	sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$tmp"
 
-	zzecho -l ciano `cat "$ZZTMP.cbn.comentarios" | sed -n '1p'`
+	zzecho -l ciano `cat "$tmp" | sed -n '1p'`
 
 	case  "$data" in
 		"ontem")
 			datafile=`date -d "yesterday" +%y%m%d`
 			data=`LANG=en date -d "yesterday" "+%d %b %Y"`
-			cat "$ZZTMP.cbn.comentarios" | sed -n "/$data/{H;x;p;};h" > "$ZZTMP.cbn.coment"
+			cat "$tmp" | sed -n "/$data/{H;x;p;};h" > "$cache"
 		;;
 		"tudo")
-			cat "$ZZTMP.cbn.comentarios" | sed '1d' > "$ZZTMP.cbn.coment"
+			cat "$tmp" | sed '1d' > "$cache"
 		;;
 		"")
 			datafile=`date '+%y%m%d'`
 			data=`LANG=en date "+%d %b %Y"`
-			cat "$ZZTMP.cbn.comentarios" | sed -n "/$data/{H;x;p;};h" > "$ZZTMP.cbn.coment"
+			cat "$tmp" | sed -n "/$data/{H;x;p;};h" > "$cache"
 		;;
 		*)
 			if ! ( zztool testa_data "$data" || zztool testa_numero "$data" )
@@ -111,18 +113,18 @@ fi
 			data="`echo $data | sed 's/\([0-9]*\)\/\([0-9]*\)\/\([0-9]*\)/\3-\2-\1/g'`"
 			datafile=`date -d $data +%y%m%d`
 			data=`LANG=en date -d $data "+%d %b %Y"`
-			cat "$ZZTMP.cbn.comentarios" | sed -n "/$data/{H;x;p;};h" > "$ZZTMP.cbn.coment"
+			cat "$tmp" | sed -n "/$data/{H;x;p;};h" > "$cache"
 
 
 	esac
-	Tlinhas=`cat "$ZZTMP.cbn.coment" | sed -n '$='`
+	Tlinhas=`cat "$cache" | sed -n '$='`
 	[ "$Tlinhas" ] ||  { zzecho -l vermelho "Sem comentários"; return; }
 	l=1
 	while test $l -le $Tlinhas
 	do
 		P=`expr $l + 1`
-		titulo=`cat "$ZZTMP.cbn.coment" | sed "$l!d"`
-		data=`cat "$ZZTMP.cbn.coment" | sed "$P!d"`
+		titulo=`cat "$cache" | sed "$l!d"`
+		data=`cat "$cache" | sed "$P!d"`
 		datafile=`date -d "$data" "+%y%m%d"`
 		hora=`LANG=en date -d "$data" "+%p"`
 		data=`LANG=en date -d "$data" "+%d %b %Y %H:%m"`
@@ -144,6 +146,6 @@ fi
 	then
 		zzecho -l vermelho "Sem comentários"
 	fi
-	rm -f "$ZZTMP.cbn.comentarios"
-	rm -f "$ZZTMP.cbn.coment"
+
+	zztool cache rm cbn
 }

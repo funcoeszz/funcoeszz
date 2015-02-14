@@ -19,7 +19,7 @@ zzquimica ()
 	zzzz -h quimica "$1" && return
 
 	local elemento
-	local cache="$ZZTMP.quimica"
+	local cache=$(zztool cache quimica)
 
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"

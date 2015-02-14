@@ -23,7 +23,7 @@ zztwitter ()
 
 	local USUARIO=''
 	local SENHA=''
-	local cache="$ZZTMP.twitter"
+	local cache=$(zztool cache twitter)
 	local url='https://mobile.twitter.com'
 	local tweet uagent initpage token loginpage composepage tweettoken update logoutpage logouttoken logout com_curl
 
@@ -72,6 +72,6 @@ zztwitter ()
 		logouttoken=$(echo "$logoutpage" | grep "authenticity_token" | sed -e 's/.*value="//' | sed -e 's/" \/>.*//' | tail -n 1)
 		logout=$($com_curl -d "authenticity_token=$logouttoken" "${url}/session/destroy")
 
-		rm $cache
+		zztool cache rm twitter
 	fi
 }

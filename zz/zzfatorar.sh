@@ -25,7 +25,7 @@ zzfatorar ()
 	zzzz -h fatorar "$1" && return
 
 	local url='http://www.primos.mat.br/primeiros_10000_primos.txt'
-	local cache="$ZZTMP.fatorar"
+	local cache=$(zztool cache fatorar)
 	local linha_atual=1
 	local primo_atual=2
 	local bc=0

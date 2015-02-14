@@ -27,7 +27,7 @@ zzenviaemail ()
 	# Declara variaveis.
 	local fromail tomail ccmail bccmail subject msgbody
 	local envia_data=`date +"%Y%m%d_%H%M%S_%N"`
-	local script_eml="$ZZTMP.enviaemail_${envia_data}.eml"
+	local script_eml=$(zztool cache enviaemail "${envia_data}.eml")
 	local nparam=0
 
 	# Opcoes de linha de comando
@@ -93,7 +93,7 @@ zzenviaemail ()
 	cat ${mensagem} >> ${script_eml}
 	ssmtp -F ${fromail} ${tomail} ${ccmail} ${bccmail} < ${script_eml}
 	if [ -s "${script_eml}" ] ; then
-		rm -f "${script_eml}"
+		zztool cache rm enviaemail
 	fi
 
 	set +x

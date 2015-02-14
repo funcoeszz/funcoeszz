@@ -21,8 +21,8 @@ zztempo ()
 	local codigo_pais codigo_localidade localidades
 	local pais="$1"
 	local localidade="$2"
-	local cache_paises="$ZZTMP.tempo"
-	local cache_localidades="$ZZTMP.tempo"
+	local cache_paises=$(zztool cache tempo)
+	local cache_localidades=$(zztool cache tempo)
 	local url='http://weather.noaa.gov'
 
 	# Se o cache de países está vazio, baixa listagem da Internet

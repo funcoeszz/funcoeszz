@@ -15,7 +15,7 @@ zzlocale ()
 	zzzz -h locale "$1" && return
 
 	local url='https://raw.githubusercontent.com/funcoeszz/funcoeszz/master/local/zzlocale.txt'
-	local cache="$ZZTMP.locale"
+	local cache=$(zztool cache locale)
 	local padrao="$1"
 
 	# Opções de linha de comando

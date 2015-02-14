@@ -16,7 +16,7 @@ zzdominiopais ()
 	zzzz -h dominiopais "$1" && return
 
 	local url='http://www.ietf.org/timezones/data/iso3166.tab'
-	local cache="$ZZTMP.dominiopais"
+	local cache=$(zztool cache dominiopais)
 	local sistema='/usr/share/zoneinfo/iso3166.tab'
 	local padrao=$1
 	local arquivo

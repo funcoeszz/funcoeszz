@@ -13,7 +13,7 @@ zztrocaarquivos ()
 	zzzz -h trocaarquivos "$1" && return
 
 	# Um terceiro arquivo é usado para fazer a troca
-	local tmp="$ZZTMP.trocaarquivos.$$"
+	local tmp=$(zztool cache trocaarquivos $$)
 
 	# Verificação dos parâmetros
 	[ $# -eq 2 ] || { zztool uso trocaarquivos; return 1; }
@@ -31,6 +31,6 @@ zztrocaarquivos ()
 	cat "$tmp" > "$1"
 
 	# E foi
-	rm -f "$tmp"
+	zztool cache rm trocaarquivos
 	echo "Feito: $1 <-> $2"
 }

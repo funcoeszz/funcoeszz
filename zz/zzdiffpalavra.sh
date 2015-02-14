@@ -15,8 +15,8 @@ zzdiffpalavra ()
 	zzzz -h diffpalavra "$1" && return
 
 	local esc
-	local tmp1="$ZZTMP.diffpalavra.$$.1"
-	local tmp2="$ZZTMP.diffpalavra.$$.2"
+	local tmp1=$(zztool cache diffpalavra "$$.1")
+	local tmp2=$(zztool cache diffpalavra "$$.2")
 	local n=$(printf '\a')
 
 	# Verificação dos parâmetros
@@ -100,5 +100,5 @@ zzdiffpalavra ()
 			cat -
 		fi
 
-	rm -f "$tmp1" "$tmp2"
+	zztool cache rm diffpalavra
 }

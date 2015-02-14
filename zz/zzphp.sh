@@ -21,7 +21,7 @@ zzphp ()
 	zzzz -h php "$1" && return
 
 	local url='http://www.php.net/manual/pt_BR/indexes.functions.php'
-	local cache="$ZZTMP.php"
+	local cache=$(zztool cache php)
 	local padrao="$*"
 	local end funcao
 

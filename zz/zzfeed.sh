@@ -23,7 +23,7 @@ zzfeed ()
 
 	local url formato tag_mae
 	local limite=10
-	local tmp="$ZZTMP.feed.$$"
+	local tmp=$(zztool cache feed $$)
 
 	# Opções de linha de comando
 	if test "$1" = '-n'
@@ -133,8 +133,8 @@ zzfeed ()
 					s/['\"]//g"
 		fi
 
-		rm -f "$tmp"
-		rm -f "$ZZTMP".xml.*
+		zztool cache rm feed $$
+		zztool cache rm xml
 
 		# Linha em branco para separar resultados
 		[ $# -gt 1 ] && echo

@@ -20,7 +20,7 @@ zzlua ()
 	zzzz -h lua "$1" && return
 
 	local url='http://www.lua.org/manual/5.1/pt/manual.html'
-	local cache="$ZZTMP.lua"
+	local cache=$(zztool cache lua)
 	local padrao="$*"
 
 	# Força atualização da listagem apagando o cache

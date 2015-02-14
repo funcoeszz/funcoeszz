@@ -25,7 +25,7 @@ zzpais ()
 	zzzz -h pais "$1" && return
 
 	local url='http://pt.wikipedia.org/wiki/Anexo:Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais'
-	local cache="$ZZTMP.pais"
+	local cache=$(zztool cache pais)
 	local original=0
 	local idioma=0
 	local padrao
