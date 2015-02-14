@@ -155,7 +155,7 @@ zzsecurity ()
 		echo
 		zztool eco '** Atualizações Red Hat'
 		echo "$url"
-		 $ZZWWWDUMP "$url" |
+		$ZZWWWDUMP "$url" |
 			sed -n '/^ *CVE-/{
 				/\* RESERVED \*/d
 				/Details pending/d
@@ -182,13 +182,13 @@ zzsecurity ()
 	fi
 
 	# Arch
-	if zztool grep_var arch "$distros" 
+	if zztool grep_var arch "$distros"
 	then
 		url="https://wiki.archlinux.org/index.php/CVE-${ano}"
 		echo
 		zztool eco '** Atualizações Archlinux'
 		echo "$url"
-		 $ZZWWWDUMP "$url" |
+		$ZZWWWDUMP "$url" |
 			awk '/^ *CVE-[0-9]{4}-[0-9]/{
 					sub(/ temp link/,"")
 					sub(/^  */,"")
@@ -198,13 +198,13 @@ zzsecurity ()
 	fi
 
 	# Mageia
-	if zztool grep_var mageia "$distros" 
+	if zztool grep_var mageia "$distros"
 	then
 		url='http://advisories.mageia.org'
 		echo
 		zztool eco '** Atualizações Mageia'
 		echo "$url"
-		 $ZZWWWHTML "$url" |
+		$ZZWWWHTML "$url" |
 			grep '"html"' |
 			zzxml --untag |
 			sed '
