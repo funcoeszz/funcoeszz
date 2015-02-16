@@ -20,11 +20,11 @@ zzdiffpalavra ()
 	local n=$(printf '\a')
 
 	# Verificação dos parâmetros
-	[ $# -ne 2 ] && { zztool uso diffpalavra; return 1; }
+	test $# -ne 2 && { zztool uso diffpalavra; return 1; }
 
 	# Verifica se os arquivos existem
-	zztool arquivo_legivel "$1" || return
-	zztool arquivo_legivel "$2" || return
+	zztool arquivo_legivel "$1" || return 1
+	zztool arquivo_legivel "$2" || return 1
 
 	# Deixa uma palavra por linha e marca o início de parágrafos
 	sed "s/^[[:blank:]]*$/$n$n/;" "$1" | tr ' ' '\n' > "$tmp1"
@@ -88,7 +88,7 @@ zzdiffpalavra ()
 		tr "$n" '\n' |
 
 		# Podemos mostrar cores?
-		if [ "$ZZCOR" = 1 ]
+		if test "$ZZCOR" = 1
 		then
 			# Pinta as linhas antigas de vermelho e as novas de azul
 			esc=$(printf '\033')

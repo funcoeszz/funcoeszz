@@ -23,7 +23,7 @@ zzpalpite ()
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
 
 	# Escolhe as loteria
-	[ "$1" ] && tipos=$(echo "$*" | zzminusculas | zzsemacento)
+	test -n "$1" && tipos=$(echo "$*" | zzminusculas | zzsemacento)
 
 	for tipo in $tipos
 	do
@@ -71,7 +71,7 @@ zzpalpite ()
 			loteca)
 				i=1
 				zztool eco $tipo:
-				while [ "$i" -le "14" ]
+				while test "$i" -le "14"
 				do
 					printf " Jogo %0.2d: Coluna %d\n" $i $(zzaleatorio 0 2) | sed 's/ 0$/ do Meio/g'
 					i=$((i + 1))
@@ -83,18 +83,18 @@ zzpalpite ()
 		esac
 
 		# Todos os numeros da loteria seleciona
-		if [ "$qtde" -gt "0" ]
+		if test "$qtde" -gt "0"
 		then
 			numeros=$(zzseq -f '%0.2d ' $inicial $final)
 		fi
 
 		# Loop para gerar os palpites
 		i="$qtde"
-		while [ "$i" -gt "0" ]
+		while test "$i" -gt "0"
 		do
 			# Posicao a ser escolhida
 			posicao=$(zzaleatorio $inicial $final)
-			[ $tipo = "lotomania" ] && posicao=$((posicao + 1))
+			test $tipo = "lotomania" && posicao=$((posicao + 1))
 
 			# Extrai o numero na posicao selecionada
 			num=$(echo $numeros | cut -f $posicao -d ' ')
@@ -112,7 +112,7 @@ zzpalpite ()
 		if test "${#palpites}" -gt 0
 		then
 			palpites=$(echo "$palpites" | tr ' ' '\n' | sort -n -t ' ' | tr '\n' ' ')
-			if [ $(echo " $palpites" | wc -w ) -ge "10" ]
+			if test $(echo " $palpites" | wc -w ) -ge "10"
 			then
 				palpites=$(echo "$palpites" | sed 's/\(\([0-9]\{2\} \)\{5\}\)/\1\
  /g')
@@ -120,7 +120,7 @@ zzpalpite ()
 		fi
 
 		# Exibe palpites
-		if [ "$qtde" -gt "0" ]
+		if test "$qtde" -gt "0"
 		then
 			zztool eco $tipo:
 			echo "$palpites" | sed '/^ *$/d;s/  *$//g'

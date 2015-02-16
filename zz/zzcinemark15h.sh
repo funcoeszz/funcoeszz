@@ -14,7 +14,8 @@ zzcinemark15h ()
 {
 	zzzz -h cinemark15h "$1" && return
 
-	if [ $# = 0 ]; then # mostra opções
+	if test $# = 0; then
+		# mostra opções
 		printf "Cidades disponíveis\n=============================\n"
 		printf "Aracaju\n"
 		printf "Barueri\n"
@@ -53,14 +54,17 @@ zzcinemark15h ()
 	local cidade=$(echo $* | sed 's/ /_/g' | zzminusculas | zzsemacento)
 	local codigo=""
 
-	if zztool testa_numero ${cidade}; then # passou código
-		if [ "$cidade" -ge 1 -a "$cidade" -le 31 ]; then
-			codigo="$cidade" # testa se código é válido
+	# passou código
+	if zztool testa_numero ${cidade}; then
+		# testa se código é válido
+		if test "$cidade" -ge 1 -a "$cidade" -le 31; then
+			codigo="$cidade"
 		else
 			echo "Código de cidade inválido"
 			return 1
 		fi
-	else # passou nome da cidade
+	else
+		# passou nome da cidade
 		case $cidade in
 			aracaju) codigo=10;;
 			barueri) codigo=4;;
@@ -109,7 +113,7 @@ zzcinemark15h ()
 /g;s/<a[^>]*>\([^<]*\)<.a>/	\1\
 /g')
 
-	[ -z "$result" ] && result="Nenhuma sessão com promoção na sua cidade."
+	test -z "$result" && result="Nenhuma sessão com promoção na sua cidade."
 
 	echo "$result"
 	echo

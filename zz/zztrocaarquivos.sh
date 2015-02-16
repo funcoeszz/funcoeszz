@@ -16,14 +16,14 @@ zztrocaarquivos ()
 	local tmp=$(zztool cache trocaarquivos $$)
 
 	# Verificação dos parâmetros
-	[ $# -eq 2 ] || { zztool uso trocaarquivos; return 1; }
+	test $# -eq 2 || { zztool uso trocaarquivos; return 1; }
 
 	# Verifica se os arquivos existem
 	zztool arquivo_legivel "$1" || return
 	zztool arquivo_legivel "$2" || return
 
 	# Tiro no pé? Não, obrigado
-	[ "$1" = "$2" ] && return
+	test "$1" = "$2" && return
 
 	# A dança das cadeiras
 	cat "$2"   > "$tmp"

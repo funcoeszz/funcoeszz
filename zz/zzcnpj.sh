@@ -51,11 +51,11 @@ zzcnpj ()
 		return 0
 	fi
 
-	if [ "$cnpj" ]
+	if test -n "$cnpj"
 	then
 		# CNPJ do usuário
 
-		if [ ${#cnpj} -ne 14 ]
+		if test ${#cnpj} -ne 14
 		then
 			echo 'CNPJ inválido (deve ter 14 dígitos)'
 			return 1
@@ -65,7 +65,7 @@ zzcnpj ()
 	else
 		# CNPJ gerado aleatoriamente
 
-		while [ ${#cnpj} -lt 8 ]
+		while test ${#cnpj} -lt 8
 		do
 			cnpj="$cnpj$(zzaleatorio 8)"
 		done
@@ -87,7 +87,7 @@ zzcnpj ()
 	done
 
 	digito1=$((11 - (somatoria % 11)))
-	[ $digito1 -ge 10 ] && digito1=0
+	test $digito1 -ge 10 && digito1=0
 
 	# Cálculo do dígito verificador 2
 
@@ -103,15 +103,15 @@ zzcnpj ()
 	somatoria=$((somatoria + digito1 * 2))
 
 	digito2=$((11 - (somatoria % 11)))
-	[ $digito2 -ge 10 ] && digito2=0
+	test $digito2 -ge 10 && digito2=0
 
 	# Mostra ou valida o CNPJ
-	if [ ${#cnpj} -eq 12 ]
+	if test ${#cnpj} -eq 12
 	then
 		echo "$cnpj$digito1$digito2" |
 			sed 's|\(..\)\(...\)\(...\)\(....\)|\1.\2.\3/\4-|'
 	else
-		if [ "${cnpj#????????????}" = "$digito1$digito2" ]
+		if test "${cnpj#????????????}" = "$digito1$digito2"
 		then
 			echo 'CNPJ válido'
 		else

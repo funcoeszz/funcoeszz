@@ -29,14 +29,14 @@ zzhora ()
 	local neg2=0
 
 	# Opções de linha de comando
-	if [ "$1" = '-r' ]
+	if test "$1" = '-r'
 	then
 		relativo=1
 		shift
 	fi
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso hora; return 1; }
+	test -n "$1" || { zztool uso hora; return 1; }
 
 	# Cálculos múltiplos? Exemplo: 1:00 + 2:00 + 3:00 - 4:00
 	if test $# -gt 3
@@ -111,16 +111,16 @@ zzhora ()
 	hhmm2="${hhmm2#-}"
 
 	# Guarda a informação de quem era negativo no início
-	[ "$hhmm1" != "$hhmm1_orig" ] && neg1=1
-	[ "$hhmm2" != "$hhmm2_orig" ] && neg2=1
+	test "$hhmm1" != "$hhmm1_orig" && neg1=1
+	test "$hhmm2" != "$hhmm2_orig" && neg2=1
 
 	# Atalhos bacanas para a hora atual
-	[ "$hhmm1" = 'agora' -o "$hhmm1" = 'now' ] && hhmm1=$(date +%H:%M)
-	[ "$hhmm2" = 'agora' -o "$hhmm2" = 'now' ] && hhmm2=$(date +%H:%M)
+	test "$hhmm1" = 'agora' -o "$hhmm1" = 'now' && hhmm1=$(date +%H:%M)
+	test "$hhmm2" = 'agora' -o "$hhmm2" = 'now' && hhmm2=$(date +%H:%M)
 
 	# Se as horas não foram informadas, coloca zero
-	[ "${hhmm1#*:}" = "$hhmm1" ] && hhmm1="0:$hhmm1"
-	[ "${hhmm2#*:}" = "$hhmm2" ] && hhmm2="0:$hhmm2"
+	test "${hhmm1#*:}" = "$hhmm1" && hhmm1="0:$hhmm1"
+	test "${hhmm2#*:}" = "$hhmm2" && hhmm2="0:$hhmm2"
 
 	# Extrai horas e minutos para variáveis separadas
 	hh1="${hhmm1%:*}"
@@ -158,14 +158,14 @@ zzhora ()
 	n2=$((hh2*60 + mm2))
 
 	# Restaura o sinal para as horas negativas
-	[ $neg1 -eq 1 ] && n1="-$n1"
-	[ $neg2 -eq 1 ] && n2="-$n2"
+	test $neg1 -eq 1 && n1="-$n1"
+	test $neg2 -eq 1 && n2="-$n2"
 
 	# Tudo certo, hora de fazer o cálculo
 	resultado=$(($n1 $operacao $n2))
 
 	# Resultado negativo, seta a flag e remove o sinal de menos "-"
-	if [ $resultado -lt 0 ]
+	if test $resultado -lt 0
 	then
 		negativo='-'
 		resultado="${resultado#-}"
@@ -182,9 +182,9 @@ zzhora ()
 	hh="$horas"
 	mm="$minutos"
 	hh_dia="$horas_do_dia"
-	[ $hh -le 9 ] && hh="0$hh"
-	[ $mm -le 9 ] && mm="0$mm"
-	[ $hh_dia -le 9 ] && hh_dia="0$hh_dia"
+	test $hh -le 9 && hh="0$hh"
+	test $mm -le 9 && mm="0$mm"
+	test $hh_dia -le 9 && hh_dia="0$hh_dia"
 
 	# Decide como mostrar o resultado para o usuário.
 	#
@@ -196,14 +196,14 @@ zzhora ()
 	#   $ zzhora 10:00 + 48:00               $ zzhora -r 12:00 - 13:00
 	#   58:00 (2d 10h 0m)                    -01:00 (0d 1h 0m)
 	#
-	if [ $relativo -eq 1 ]
+	if test $relativo -eq 1
 	then
 
 		# Relativo
 
 		# Somente em resultados negativos o relativo é útil.
 		# Para valores positivos não é preciso fazer nada.
-		if [ "$negativo" ]
+		if test -n "$negativo"
 		then
 			# Para o resultado negativo é preciso refazer algumas contas
 			minutos=$(( (60-minutos) % 60))
@@ -212,8 +212,8 @@ zzhora ()
 			mm="$minutos"
 
 			# Zeros para dias e minutos menores que 10
-			[ $mm -le 9 ] && mm="0$mm"
-			[ $hh_dia -le 9 ] && hh_dia="0$hh_dia"
+			test $mm -le 9 && mm="0$mm"
+			test $hh_dia -le 9 && hh_dia="0$hh_dia"
 		fi
 
 		# "Hoje", "amanhã" e "ontem" são simpáticos no resultado

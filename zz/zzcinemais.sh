@@ -29,7 +29,7 @@ zzcinemais ()
 {
 	zzzz -h cinemais "$1" && return
 
-	[ "$1" ] || { zztool uso cinemais; return 1; }
+	test -n "$1" || { zztool uso cinemais; return 1; }
 
 	local codigo cidade sessoes controle ih im linha hora minuto i
 
@@ -124,9 +124,9 @@ zzcinemais ()
 			ih=$(echo $i | cut -d'h' -f1)
 			im=$(echo $i | cut -d'h' -f2 | sed 's/,//g;s/[A-K]//g' | tr -d '\015')
 
-			if [ "$hora" -lt "$ih"  ];then
+			if test "$hora" -lt "$ih" ;then
 				zzecho -n -l verde -N "$i "
-			elif [ "$hora" -eq "$ih" -a "$minuto" -lt "$im" ];then
+			elif test "$hora" -eq "$ih" -a "$minuto" -lt "$im";then
 				zzecho -n -l verde -N "$i "
 			else
 				zzecho -n -l vermelho -N "$i "

@@ -19,7 +19,7 @@ zzkill ()
 	local nao comandos comando processos pid chamada
 
 	# Opções de linha de comando
-	if [ "$1" = '-n' ]
+	if test "$1" = '-n'
 	then
 		nao='[-n]\t'
 		shift
@@ -37,7 +37,7 @@ zzkill ()
 		processos=$(echo "$processos" | grep -vw '\(zz\)*kill')
 
 		# Sem argumentos, apenas mostra a listagem e sai
-		if ! [ "$1" ]
+		if ! test -n "$1"
 		then
 			echo "$processos"
 			return 0
@@ -48,12 +48,12 @@ zzkill ()
 			grep -i "$comando" |
 			while read pid chamada
 			do
-				echo -e "$nao$pid\t$chamada"
-				[ "$nao" ] || kill $pid
+				print '%b\n' "$nao$pid\t$chamada"
+				test -n "$nao" || kill $pid
 			done
 
 		# Próximo da fila!
 		shift
-		[ "$1" ] || break
+		test -n "$1" || break
 	done
 }

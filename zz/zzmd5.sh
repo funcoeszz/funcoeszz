@@ -18,11 +18,11 @@ zzmd5 ()
 	local tab=$(printf '\t')
 
 	# Testa se o comando existe
-	if type md5 >/dev/null 2>&1
+	if which md5 >/dev/null 2>&1
 	then
 		comando="md5"
 
-	elif type md5sum >/dev/null 2>&1
+	elif which md5sum >/dev/null 2>&1
 	then
 		comando="md5sum"
 	else

@@ -24,7 +24,7 @@ zzarrumanome ()
 	local arquivo caminho antigo novo recursivo pastas nao i
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-d) pastas=1    ;;
@@ -36,26 +36,26 @@ zzarrumanome ()
 	done
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso arrumanome; return 1; }
+	test -n "$1" || { zztool uso arrumanome; return 1; }
 
 	# Para cada arquivo que o usuário informou...
 	for arquivo
 	do
 		# Tira a barra no final do nome da pasta
-		[ "$arquivo" != / ] && arquivo=${arquivo%/}
+		test "$arquivo" != / && arquivo=${arquivo%/}
 
 		# Ignora arquivos e pastas não existentes
-		[ -f "$arquivo" -o -d "$arquivo" ] || continue
+		test -f "$arquivo" -o -d "$arquivo" || continue
 
 		# Se for uma pasta...
 		if test -d "$arquivo"
 		then
 			# Arruma arquivos de dentro dela (-r)
-			[ "${recursivo:-0}" -eq 1 ] &&
+			test "${recursivo:-0}" -eq 1 &&
 				zzarrumanome -r ${pastas:+-d} ${nao:+-n} "$arquivo"/*
 
 			# Não renomeia nome da pasta (se não tiver -d)
-			[ "${pastas:-0}" -ne 1 ] && continue
+			test "${pastas:-0}" -ne 1 && continue
 		fi
 
 		# A pasta vai ser a corrente ou o 'dirname' do arquivo (se tiver)
@@ -100,7 +100,7 @@ zzarrumanome ()
 		)
 
 		# Se der problema com a codificação, é o y/// do Sed anterior quem estoura
-		if [ $? -ne 0 ]
+		if test $? -ne 0
 		then
 			echo "Ops. Problemas com a codificação dos caracteres."
 			echo "O arquivo original foi preservado: $arquivo"
@@ -108,7 +108,7 @@ zzarrumanome ()
 		fi
 
 		# Nada mudou, então o nome atual já certo
-		[ "$antigo" = "$novo" ] && continue
+		test "$antigo" = "$novo" && continue
 
 		# Se já existir um arquivo/pasta com este nome, vai
 		# colocando um número no final, até o nome ser único.
@@ -128,6 +128,6 @@ zzarrumanome ()
 		echo "$nao$arquivo -> $caminho/$novo"
 
 		# E faz
-		[ "$nao" ] || mv -- "$arquivo" "$caminho/$novo"
+		test -n "$nao" || mv -- "$arquivo" "$caminho/$novo"
 	done
 }

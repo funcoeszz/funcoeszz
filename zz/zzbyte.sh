@@ -24,7 +24,7 @@ zzbyte ()
 	local saida="${3:-.}"
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso byte; return 1; }
+	test -n "$1" || { zztool uso byte; return 1; }
 
 	# Sejamos amigáveis com o usuário permitindo minúsculas também
 	entrada=$(echo "$entrada" | zzmaiusculas)
@@ -48,11 +48,11 @@ zzbyte ()
 	i_saida=$(  zztool index_var "$saida"   "$unidades")
 
 	# Sem $3, a unidade de saída será otimizada
-	[ $i_saida -eq 0 ] && i_saida=15
+	test $i_saida -eq 0 && i_saida=15
 
 	# A diferença entre as unidades guiará os cálculos
 	diferenca=$((i_saida - i_entrada))
-	if [ "$diferenca" -lt 0 ]
+	if test "$diferenca" -lt 0
 	then
 		operacao='*'
 		passo='-'
@@ -62,18 +62,18 @@ zzbyte ()
 	fi
 
 	i="$i_entrada"
-	while [ "$i" -ne "$i_saida" ]
+	while test "$i" -ne "$i_saida"
 	do
 		# Saída automática (sem $3)
 		# Chegamos em um número menor que 1024, hora de sair
-		[ "$n" -lt 1024 -a "$i_saida" -eq 15 ] && break
+		test "$n" -lt 1024 -a "$i_saida" -eq 15 && break
 
 		# Não ultrapasse a unidade máxima (Yota)
-		[ "$i" -eq ${#unidades} -a "$passo" = '+' ] && break
+		test "$i" -eq ${#unidades} -a "$passo" = '+' && break
 
 		# 0 < n < 1024 para unidade crescente, por exemplo: 1 B K
 		# É hora de dividir com float e colocar zeros à esquerda
-		if [ "$n" -gt 0 -a "$n" -lt 1024 -a "$passo" = '+' ]
+		if test "$n" -gt 0 -a "$n" -lt 1024 -a "$passo" = '+'
 		then
 			# Quantos dígitos ainda faltam?
 			falta=$(( (i_saida - i - 1) * 3))
@@ -83,13 +83,13 @@ zzbyte ()
 
 			# Cálculo preciso usando o bc (Retorna algo como .090)
 			n=$(echo "scale=3; $n / 1024" | bc)
-			[ "$n" = '0' ] && break # 1 / 1024 = 0
+			test "$n" = '0' && break # 1 / 1024 = 0
 
 			# Completa os zeros que faltam
-			[ "$falta" -gt 0 ] && n=$(printf "%0.${falta}f%s" 0 "${n#.}")
+			test "$falta" -gt 0 && n=$(printf "%0.${falta}f%s" 0 "${n#.}")
 
 			# Coloca o zero na frente, caso necessário
-			[ "${n#.}" != "$n" ] && n="0$n"
+			test "${n#.}" != "$n" && n="0$n"
 
 			break
 		fi

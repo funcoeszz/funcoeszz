@@ -293,7 +293,7 @@ zzunescape ()
 	"
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			--html)

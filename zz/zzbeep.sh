@@ -19,7 +19,7 @@ zzbeep ()
 	local minutos frequencia
 
 	# Sem argumentos, apenas restaura a "configuração de fábrica" do beep
-	[ "$1" ] || {
+	test -n "$1" || {
 		printf '\033[10;750]\033[11;100]\a'
 		return 0
 	}

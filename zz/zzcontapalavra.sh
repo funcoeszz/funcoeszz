@@ -21,7 +21,7 @@ zzcontapalavra ()
 	local inteira=1
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-p) inteira=  ;;
@@ -32,7 +32,7 @@ zzcontapalavra ()
 	done
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso contapalavra; return 1; }
+	test -n "$1" || { zztool uso contapalavra; return 1; }
 
 	padrao=$1
 	shift

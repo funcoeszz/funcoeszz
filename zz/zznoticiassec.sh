@@ -28,7 +28,7 @@ zznoticiassec ()
 
 	limite="sed ${n}q"
 
-	[ "$1" ] && sites="$1"
+	test -n "$1" && sites="$1"
 
 	# LinuxSecurity Brasil
 	if zztool grep_var b "$sites"

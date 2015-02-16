@@ -15,7 +15,7 @@ zznarrativa ()
 {
 	zzzz -h narrativa "$1" && return
 
-	[ "$1" ] || { zztool uso narrativa; return 1; }
+	test -n "$1" || { zztool uso narrativa; return 1; }
 
 	# Variaveis locais
 	local padrao

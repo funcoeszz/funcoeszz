@@ -23,7 +23,7 @@ zzloteria2 ()
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
 	local cache=$(zztool cache loteria2)
 
-	if type links >/dev/null 2>&1
+	if which links >/dev/null 2>&1
 	then
 		ZZWWWDUMP2='links -dump'
 	else
@@ -32,14 +32,14 @@ zzloteria2 ()
 
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente
 	zztool testa_numero "$2"
-	if ([ $? -eq 0 ])
+	if (test $? -eq 0)
 	then
 		num_con="?submeteu=sim&opcao=concurso&txtConcurso=$2"
 		tipos="$1"
 	else
 	# Caso contrario mostra todos os tipos, ou alguns selecionados
 		unset num_con
-		[ "$1" ] && tipos="$*"
+		test -n "$1" && tipos="$*"
 	fi
 
 	# Para cada tipo de loteria...
@@ -146,8 +146,8 @@ zzloteria2 ()
 					tr '|' '\n' |
 					sed 's/^ - // ; 1d'
 				)
-				faixa=$(echo "\tQuina|\tQuadra|\tTerno" | tr '|' '\n')
-				printf '%b\n' "$faixa" > "${cache}"
+				faixa=$(printf %b "\tQuina\n\tQuadra\n\tTerno\n")
+				echo "$faixa" > "${cache}"
 				echo "$dump" | cut -d '|' -f 7,9,11 | tr '|' '\n' > "${cache}.num"
 				echo "$dump" | cut -d '|' -f 8,10,12 | tr '|' '\n' > "${cache}.val"
 			;;
@@ -217,13 +217,13 @@ zzloteria2 ()
 		esac
 
 		# Mostra o resultado na tela (caso encontrado algo)
-		if [ "$resultado" ]
+		if test -n "$resultado"
 		then
 			zztool eco $tipo:
 			echo "$resultado" | sed 's/^/   /'
 			echo "   Concurso $numero_concurso ($data)"
-			[ "$acumulado" ] && echo "   Acumulado em R$ $acumulado" | sed 's/|/ para /'
-			if [ "$faixa" ]
+			test -n "$acumulado" && echo "   Acumulado em R$ $acumulado" | sed 's/|/ para /'
+			if test -n "$faixa"
 			then
 				printf %b "\tFaixa\tQtde.\tPrêmio\n" | expand -t 5,17,32
 				paste "${cache}" "${cache}.num" "${cache}.val"| expand -t 5,17,32

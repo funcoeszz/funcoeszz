@@ -38,7 +38,7 @@ zzunix2dos ()
 		sed "s/$control_m*$/$control_m/" "$tmp" > "$arquivo"
 
 		# Segurança
-		if [ $? -ne 0 ]
+		if test $? -ne 0
 		then
 			echo "Ops, algum erro ocorreu em $arquivo"
 			echo "Seu arquivo original está guardado em $tmp"

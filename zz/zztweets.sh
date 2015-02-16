@@ -17,14 +17,14 @@ zztweets ()
 {
 	zzzz -h tweets "$1" && return
 
-	[ "$1" ] || { zztool uso tweets; return 1; }
+	test -n "$1" || { zztool uso tweets; return 1; }
 
 	local name
 	local limite=5
 	local url="https://twitter.com"
 
 	# Opções de linha de comando
-	if [ "$1" = '-n' ]
+	if test "$1" = '-n'
 	then
 		limite="$2"
 		shift
@@ -36,7 +36,7 @@ zztweets ()
 	# Informar o @ é opcional
 	name=$(echo "$1" | tr -d @)
 	url="${url}/${name}"
-	[ "$2" = '-r' ] && url="${url}/with_replies"
+	test "$2" = '-r' && url="${url}/with_replies"
 
 	$ZZWWWDUMP $url |
 		sed '1,70 d' |
@@ -66,7 +66,7 @@ zztweets ()
 		sed "$limite q" |
 		sed G
 
-	# Apagando as 50 primeiras linhas usando apenas números,
+	# Apagando as 70 primeiras linhas usando apenas números,
 	# pois o sed do BSD capota se tentar ler o conteúdo destas
 	# linhas. Leia mais no issue #28.
 }

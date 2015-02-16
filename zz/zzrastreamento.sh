@@ -14,7 +14,7 @@ zzrastreamento ()
 {
 	zzzz -h rastreamento "$1" && return
 
-	[ "$1" ] || { zztool uso rastreamento; return 1; }
+	test -n "$1" || { zztool uso rastreamento; return 1; }
 
 	local url='http://websro.correios.com.br/sro_bin/txect01$.QueryList'
 
@@ -22,7 +22,7 @@ zzrastreamento ()
 	for codigo
 	do
 		# Só mostra o código se houver mais de um
-		[ $# -gt 1 ] && zztool eco "**** $codigo"
+		test $# -gt 1 && zztool eco "**** $codigo"
 
 		$ZZWWWDUMP "$url?P_LINGUA=001&P_TIPO=001&P_COD_UNI=$codigo" |
 			sed '
@@ -31,6 +31,6 @@ zzrastreamento ()
 				s/^   //'
 
 		# Linha em branco para separar resultados
-		[ $# -gt 1 ] && echo
+		test $# -gt 1 && echo
 	done
 }

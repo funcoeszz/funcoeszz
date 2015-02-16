@@ -36,7 +36,7 @@ zzcolunar ()
 {
 	zzzz -h colunar "$1" && return
 
-	[ "$1" ] || { zztool uso colunar; return 1; }
+	test -n "$1" || { zztool uso colunar; return 1; }
 
 	local formato='n'
 	local alinhamento='l'

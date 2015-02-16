@@ -20,7 +20,7 @@ zzgoogle ()
 	local url='http://www.google.com.br/search'
 
 	# Opções de linha de comando
-	if [ "$1" = '-n' ]
+	if test "$1" = '-n'
 	then
 		limite="$2"
 		shift
@@ -30,11 +30,11 @@ zzgoogle ()
 	fi
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso google; return 1; }
+	test -n "$1" || { zztool uso google; return 1; }
 
 	# Prepara o texto a ser pesquisado
 	padrao=$(echo "$*" | sed "$ZZSEDURL")
-	[ "$padrao" ] || return 0
+	test -n "$padrao" || return 0
 
 	# Pesquisa, baixa os resultados e filtra
 	#

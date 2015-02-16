@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Gera uma senha aleatória de N caracteres.
-# Obs.: Sem opções, a senha é gerada usando letras e números
+# Obs.: Sem opções, a senha é gerada usando letras e números.
 #
 # Opções: -p, --pro   Usa letras, números e símbolos para compor a senha
 #         -n, --num   Usa somente números para compor a senha
@@ -31,7 +31,7 @@ zzsenha ()
 	local lista="$alpha$num"   # senha padrão: letras e números
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-p | --pro ) shift; lista="$alpha$num$pro";;
@@ -42,7 +42,7 @@ zzsenha ()
 	done
 
 	# Guarda o número informado pelo usuário (se existente)
-	[ "$1" ] && n="$1"
+	test -n "$1" && n="$1"
 
 	# Foi passado um número mesmo?
 	zztool -e testa_numero "$n" || return 1
@@ -59,7 +59,7 @@ zzsenha ()
 	# posição dentro de $lista. A letra dessa posição é mostrada na
 	# tela. Caso --uniq seja usado, a letra é removida de $lista,
 	# para que não seja reutilizada.
-	while [ "$n" -ne 0 ]
+	while test "$n" -ne 0
 	do
 		n=$((n-1))
 		posicao=$(zzaleatorio 1 ${#lista})

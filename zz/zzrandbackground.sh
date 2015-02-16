@@ -25,11 +25,11 @@ zzrandbackground ()
 
 	# Tratando os parametros
 	# foi passado -l
-	if [ "$1" = "-l" ];then
+	if test "$1" = "-l";then
 
 		# Tem todos os parametros, caso negativo
 		# mostra o uso da funcao
-		if [ $# != "3" ]; then
+		if test $# != "3"; then
 			zztool uso randbackground
 			return 1
 		fi
@@ -57,7 +57,7 @@ zzrandbackground ()
 	else
 		# Caso nao seja passado o -l, só tem o camiho
 		# caso negativo mostra o uso da funcao
-		if [ $# != "1" ]; then
+		if test $# != "1"; then
 			zztool uso randbackground
 			return 1
 		fi
@@ -82,7 +82,7 @@ zzrandbackground ()
 
 	# Agora a execução
 	# Foi passado -l, então entra em loop infinito
-	if [ "$loop" ];then
+	if test -n "$loop";then
 		while test "1"
 		do
 			background=$( echo "$papeisdeparede" |

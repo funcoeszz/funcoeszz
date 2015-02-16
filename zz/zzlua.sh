@@ -24,9 +24,9 @@ zzlua ()
 	local padrao="$*"
 
 	# Força atualização da listagem apagando o cache
-	if [ "$1" = '--atualiza' ]
+	if test "$1" = '--atualiza'
 	then
-		rm -f "$cache"
+		zztool atualiza lua
 		shift
 	fi
 
@@ -36,14 +36,14 @@ zzlua ()
 		$ZZWWWDUMP "$url" | sed -n '/^4.1/,/^ *6/p' | sed '/^ *[4-6]/,/^ *__*$/{/^ *__*$/!d;}' > "$cache"
 	fi
 
-	if [ "$1" = '-d' -o "$1" = '--detalhe' ]
+	if test "$1" = '-d' -o "$1" = '--detalhe'
 	then
 		# Detalhe de uma função específica
-		if [ "$2" ]
+		if test -n "$2"
 		then
 			sed -n "/  $2/,/^ *__*$/p" "$cache" | sed '/^ *__*$/d'
 		fi
-	elif [ "$padrao" ]
+	elif test -n "$padrao"
 	then
 		# Busca a(s) função(ões)
 		sed -n '/^ *__*$/,/^ *[a-z_]/p' "$cache" |

@@ -29,7 +29,7 @@ zzjoin ()
 	local tipo=1
 
 	# Opção -m ou -M, -numero ou -o
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		if test "$1" = "-o"
 		then
@@ -45,7 +45,7 @@ zzjoin ()
 		shift
 	done
 
-	[ "$2" ] || { zztool uso join; return 1; }
+	test -n "$2" || { zztool uso join; return 1; }
 
 	for arquivo
 	do
@@ -75,7 +75,7 @@ zzjoin ()
 	fi
 
 	# Sem quantidade de linhas mínima não há junção.
-	[ "$linhas" -eq 0 ] && { zztool eco "Não há linhas para serem \"juntadas\"."; return 1; }
+	test "$linhas" -eq 0 && { zztool eco "Não há linhas para serem \"juntadas\"."; return 1; }
 
 	# Onde a "junção" ocorre efetivamente.
 	awk -v linhas_awk=$linhas -v saida_awk="$arq_saida" -v sep_awk="$sep" '

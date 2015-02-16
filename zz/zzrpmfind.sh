@@ -21,7 +21,7 @@ zzrpmfind ()
 	local arquitetura=${3:-i386}
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso rpmfind; return 1; }
+	test -n "$1" || { zztool uso rpmfind; return 1; }
 
 	# Faz a consulta e filtra o resultado
 	zztool eco 'ftp://rpmfind.net/linux/'

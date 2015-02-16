@@ -34,7 +34,7 @@ zzmoneylog ()
 	test $# -eq 0 && data=$(zzdatafmt -f AAAA-MM hoje)
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-t | --tag    ) shift; tag="$1";;

@@ -24,14 +24,14 @@ zzmoeda ()
 	local padrao='.'
 
 	# Devemos mostrar todas as moedas?
-	if [ "$1" = '-t' ]
+	if test "$1" = '-t'
 	then
 		extra='divisasregion.aspx?idtel=TODAS'
 		shift
 	fi
 
 	# Prepara o filtro para pesquisar todas as palavras informadas (OU)
-	[ "$1" ] && padrao=$(echo $* | sed 's/ /\\|/g')
+	test -n "$1" && padrao=$(echo $* | sed 's/ /\\|/g')
 
 	# Faz a consulta e filtra o resultado
 	dados=$(
@@ -50,7 +50,7 @@ zzmoeda ()
 	)
 
 	# Pescamos algo?
-	[ "$dados" ] || return
+	test -n "$dados" || return
 
 	echo "        Compra     Venda        Variação"
 	echo "$dados"

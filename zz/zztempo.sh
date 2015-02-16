@@ -35,7 +35,7 @@ zztempo ()
 	fi
 
 	# Se nenhum parâmetro for passado, são listados os países disponíveis
-	if ! [ "$pais" ]
+	if ! test -n "$pais"
 	then
 		sed 's/^[^ ]*  *//' "$cache_paises"
 		return
@@ -45,7 +45,7 @@ zztempo ()
 	codigo_pais=$(grep -i "$1" "$cache_paises" | sed 's/  .*//' | sed 1q)
 
 	# O país existe?
-	if ! [ "$codigo_pais" ]
+	if ! test -n "$codigo_pais"
 	then
 		echo "País \"$pais\" não encontrado"
 		return 1
@@ -63,7 +63,7 @@ zztempo ()
 	fi
 
 	# Se só o país for especificado, são listadas as localidades deste país
-	if ! [ "$localidade" ]
+	if ! test -n "$localidade"
 	then
 		cat "$cache_localidades"
 		return
@@ -73,7 +73,7 @@ zztempo ()
 	localidades=$(grep -i "$localidade" "$cache_localidades")
 
 	# A localidade existe?
-	if ! [ "$localidades" ]
+	if ! test -n "$localidades"
 	then
 		echo "Localidade \"$localidade\" não encontrada"
 		return 1

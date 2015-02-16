@@ -28,14 +28,14 @@ zzdistro ()
 6 26
 12 52"
 
-	[ "$1" = "-l" ] && { lista=1; shift; }
+	test "$1" = "-l" && { lista=1; shift; }
 	case $1 in
 	1 | 3 | 6 | 12) url="${url}index.php?dataspan=$(echo "$meses" | awk '$1=='$1' {print $2}')"; shift ;;
 	*)
 	zztool testa_numero $1 && test $1 -ge 2002 -a $1 -lt $(date +%Y) && url="${url}index.php?dataspan=$1" && shift ;;
 	esac
 
-	[ $1 ] && { zztool uso distro; return 1; }
+	test -n "$1" && { zztool uso distro; return 1; }
 
 	$ZZWWWHTML "$url" | sed '1,/>Rank</d' |
 	awk -F'"' '

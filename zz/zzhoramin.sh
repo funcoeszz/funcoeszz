@@ -29,7 +29,7 @@ zzhoramin ()
 	fi
 
 	# Verifica se a hora é positiva ou negativa
-	if [ "${hora#-}" != "$hora" ]; then
+	if test "${hora#-}" != "$hora"; then
 		operacao='-'
 	fi
 

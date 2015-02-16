@@ -20,13 +20,13 @@ zzdicasl ()
 	local url='http://www.dicas-l.com.br/arquivo/'
 
 	# Guarda as opções para o grep (caso informadas)
-	[ "${1##-*}" ] || {
+	test -n "${1##-*}" || {
 		opcao_grep=$1
 		shift
 	}
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso dicasl; return 1; }
+	test -n "$1" || { zztool uso dicasl; return 1; }
 
 	# Faz a consulta e filtra o resultado
 	zztool eco "$url"

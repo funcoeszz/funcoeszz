@@ -255,7 +255,7 @@ zzbolsas ()
 		2 | 3 | 4)
 			# Lista as ações de uma bolsa especificada
 			bolsa=$(echo "$2" | zzmaiusculas)
-			if [ "$1" = "-l" -o "$1" = "--lista" ] && (zztool grep_var "$bolsa" "$dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
+			if test "$1" = "-l" -o "$1" = "--lista" && (zztool grep_var "$bolsa" "$dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 			then
 				pag_final=$($ZZWWWDUMP "$url/q/cp?s=$bolsa" | sed -n '/Primeira/p;/Primeira/q' | sed "s/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/")
 				pags=$(echo "scale=0;($pag_final - 1) / 50" | bc)
@@ -321,7 +321,7 @@ zzbolsas ()
 &/g' | sed '/^ *$/d' | awk 'BEGIN { print "    '$data1'" } {printf "%14s\n", $1}' > "${cache}.pag_atual"
 					echo "$pag" | sed -n '1p'| sed 's/^ *//'
 
-					if [ "$3" ] && zztool testa_data $(zzdatafmt "$3")
+					if test -n "$3" && zztool testa_data $(zzdatafmt "$3")
 					then
 						vartemp=$(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$3")
 						dd=$(echo $vartemp | cut -f1 -d ' ')
@@ -348,7 +348,7 @@ zzbolsas ()
 						paste "${cache}.pags" "${cache}.pag_atual"
 					fi
 			# Compara duas ações ou bolsas diferentes
-			elif ([ "$1" = "vs" -o "$1" = "comp" ])
+			elif (test "$1" = "vs" -o "$1" = "comp")
 			then
 				if (zztool grep_var "^" "$2" && zztool grep_var "^" "$3")
 				then
@@ -357,10 +357,10 @@ zzbolsas ()
 				then
 					vartemp="0"
 				fi
-				if [ "$vartemp" ]
+				if test -n "$vartemp"
 				then
 					# Compara numa data especifica as ações ou bolsas
-					if ([ "$4" ] && zztool testa_data $(zzdatafmt "$4"))
+					if (test -n "$4" && zztool testa_data $(zzdatafmt "$4"))
 					then
 						zzbolsas "$2" "$4" | sed '/Proxima data de anuncio/d' > "${cache}.pag"
 						vartemp=$(zztool num_linhas ${cache}.pag)
@@ -375,19 +375,19 @@ zzbolsas ()
 						sed 's/^[[:space:]]*//g;3,$s/.*:[[:space:]]*//g' > "${cache}.pags"
 					fi
 					# Imprime efetivamente a comparação
-					if [ $(awk 'END {print NR}' "${cache}.pag") -ge 4 -a $(awk 'END {print NR}' "${cache}.pags") -ge 4 ]
+					if test $(awk 'END {print NR}' "${cache}.pag") -ge 4 -a $(awk 'END {print NR}' "${cache}.pags") -ge 4
 					then
 						paste -d"|" "${cache}.pag" "${cache}.pags" |
 						awk -F"|" '{printf "%-42s %25s\n", $1, $2}'
 					fi
 				fi
 			# Noticias relacionadas a uma ação especifica
-			elif ([ "$1" = "noticias" -o "$1" = "notícias" ] && ! zztool grep_var "^" "$2")
+			elif (test "$1" = "noticias" -o "$1" = "notícias" && ! zztool grep_var "^" "$2")
 			then
 				$ZZWWWDUMP "$url/q/h?s=$bolsa" |
 				sed -n '/^[[:blank:]]\{1,\}\*.*Agencia.*)$/p;/^[[:blank:]]\{1,\}\*.*at noodls.*)$/p' |
 				sed 's/^[[:blank:]]*//g;s/Agencia/ &/g;s/at noodls/ &/g'
-			elif ([ "$1" = "taxas_fixas" ] || [ "$1" = "moedas" ])
+			elif (test "$1" = "taxas_fixas" || test "$1" = "moedas")
 			then
 				case $2 in
 				asia)

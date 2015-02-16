@@ -26,7 +26,7 @@ zzferiado ()
 	hoje=$(date '+%d/%m/%Y')
 
 	# Verifica se foi passado o parâmetro -l
-	if [ "$1" = "-l" ]; then
+	if test "$1" = "-l"; then
 		# Se não for passado $2 pega o ano atual
 		ano=${2:-$(basename $hoje)}
 
@@ -61,7 +61,7 @@ zzferiado ()
 	feriados="01/01:Confraternização Universal $carnaval:Carnaval $sextapaixao:Sexta-ferida da Paixao 21/04:Tiradentes 01/05:Dia do Trabalho $corpuschristi:Corpu Christi 07/09:Independência do Brasil 12/10:Nossa Sra. Aparecida 02/11:Finados 15/11:Proclamação da República 25/12:Natal $ZZFERIADO"
 
 	# Verifica se lista ou nao, caso negativo verifica se a data escolhida é feriado
-	if [ "$listar" = "1" ]; then
+	if test "$listar" = "1"; then
 
 		# Pega os dados, coloca 1 por linha, inverte dd/mm para mm/dd,
 		# ordena, inverte mm/dd para dd/mm

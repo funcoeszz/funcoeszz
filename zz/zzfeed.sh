@@ -34,7 +34,7 @@ zzfeed ()
 	fi
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso feed; return 1; }
+	test -n "$1" || { zztool uso feed; return 1; }
 
 	# Verificação básica
 	if ! zztool testa_numero "$limite"
@@ -79,7 +79,7 @@ zzfeed ()
 	for url
 	do
 		# Só mostra a url se houver mais de uma
-		[ $# -gt 1 ] && zztool eco "* $url"
+		test $# -gt 1 && zztool eco "* $url"
 
 		# Baixa e limpa o conteúdo do feed
 		if test "$1" = "-"

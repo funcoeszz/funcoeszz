@@ -40,13 +40,13 @@ zznomealeatorio ()
 	# página http://geradordenomes.com
 	for contador in $(zzseq "$entrada")
 	do
-		if [ $((contador%2)) -eq 1 ]
+		if test $((contador%2)) -eq 1
 		then
 			lista="$consoantes"
 		else
 			lista="$vogais"
 		fi
-		posicao$(zzaleatorio 1 ${#lista})
+		posicao=$(zzaleatorio 1 ${#lista})
 		letra=$(echo "$lista" | cut -c "$posicao")
 		nome="$nome$letra"
 	done

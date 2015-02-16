@@ -18,14 +18,14 @@ zzdicesperanto ()
 {
 	zzzz -h dicesperanto "$1" && return
 
-	[ "$1" ] || { zztool uso dicesperanto; return 1; }
+	test -n "$1" || { zztool uso dicesperanto; return 1; }
 
 	local de_ling='pt'
 	local para_ling='eo'
 	local url="http://glosbe.com/"
 	local pesquisa
 
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-d)
@@ -34,7 +34,7 @@ zzdicesperanto ()
 						de_ling=$2
 						shift
 
-						if test $de_ling == "eo"
+						if test $de_ling = "eo"
 						then
 							para_ling="pt"
 						fi

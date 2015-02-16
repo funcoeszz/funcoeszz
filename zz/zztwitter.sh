@@ -27,18 +27,18 @@ zztwitter ()
 	local url='https://mobile.twitter.com'
 	local tweet uagent initpage token loginpage composepage tweettoken update logoutpage logouttoken logout com_curl
 
-	if [ $( echo $* | wc -m ) -gt 140 ]
+	if test $( echo $* | wc -m ) -gt 140
 	then
 		echo "Mensagem muito grande."
 		echo "Com $(echo $* | wc -m) caracteres para máximo de 140."
 		return 1
-	elif [ $(echo $* | wc -m) -lt 2 ]
+	elif test $(echo $* | wc -m) -lt 2
 	then
 		echo "Cadê a mensagem?"
 		return 1
 	else
-		[ -z $USUARIO ] && printf %b "Usuário: " && read USUARIO
-		[ -z $SENHA ] && printf '%b\n' "Senha: " && read -s SENHA
+		test -z $USUARIO && printf %b "Usuário: " && read USUARIO
+		test -z $SENHA && printf '%b\n' "Senha: " && read -s SENHA
 
 		tweet="$*"
 

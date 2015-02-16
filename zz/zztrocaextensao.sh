@@ -16,14 +16,14 @@ zztrocaextensao ()
 	local ext1 ext2 arquivo base novo nao
 
 	# Opções de linha de comando
-	if [ "$1" = '-n' ]
+	if test "$1" = '-n'
 	then
 		nao='[-n] '
 		shift
 	fi
 
 	# Verificação dos parâmetros
-	[ "$3" ] || { zztool uso trocaextensao; return 1; }
+	test -n "$3" || { zztool uso trocaextensao; return 1; }
 
 	# Guarda as extensões informadas
 	ext1="$1"
@@ -31,7 +31,7 @@ zztrocaextensao ()
 	shift; shift
 
 	# Tiro no pé? Não, obrigado
-	[ "$ext1" = "$ext2" ] && return
+	test "$ext1" = "$ext2" && return
 
 	# Para cada arquivo que o usuário informou...
 	for arquivo
@@ -43,13 +43,13 @@ zztrocaextensao ()
 		novo="$base$ext2"
 
 		# Testa se o arquivo possui a extensão antiga
-		[ "$base" != "$arquivo" ] || continue
+		test "$base" != "$arquivo" || continue
 
 		# Mostra o que será feito
 		echo "$nao$arquivo -> $novo"
 
 		# Se não tiver -n, vamos renomear o arquivo
-		if [ ! "$nao" ]
+		if test ! -n "$nao"
 		then
 			# Não sobrescreve arquivos já existentes
 			zztool arquivo_vago "$novo" || return

@@ -19,12 +19,12 @@ zzhowto ()
 	local url='http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/'
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso howto; return 1; }
+	test -n "$1" || { zztool uso howto; return 1; }
 
 	# Força atualização da listagem apagando o cache
-	if [ "$1" = '--atualiza' ]
+	if test "$1" = '--atualiza'
 	then
-		rm -f "$cache"
+		zztool atualiza howto
 		shift
 	fi
 
@@ -39,7 +39,7 @@ zzhowto ()
 	fi
 
 	# Pesquisa o termo (se especificado)
-	if [ "$padrao" ]
+	if test -n "$padrao"
 	then
 		zztool eco "$url"
 		grep -i "$padrao" "$cache"

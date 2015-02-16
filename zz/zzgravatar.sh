@@ -42,7 +42,7 @@ zzgravatar ()
 	local url='http://www.gravatar.com/avatar/'
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-t | --tamanho)
@@ -64,7 +64,7 @@ zzgravatar ()
 	done
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso gravatar; return 1; }
+	test -n "$1" || { zztool uso gravatar; return 1; }
 
 	# Guarda o email informado, sempre em minúsculas
 	email=$(zztool trim "$1" | zzminusculas)
@@ -77,7 +77,7 @@ zzgravatar ()
 	fi
 
 	# Temos uma limitação de tamanho
-	if [ $tamanho -gt $tamanho_maximo ]
+	if test $tamanho -gt $tamanho_maximo
 	then
 		echo "O tamanho máximo para a imagem é $tamanho_maximo"
 		return 1

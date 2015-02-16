@@ -43,7 +43,7 @@ zzpais ()
 		sed 's/, *:/:/g;s/^ *//g;s/ *, *,/,/g;s/ *$//g;s/[,:] *$//g;/Taiuã:/d;/^ *$/d' > "$cache"
 	fi
 
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			# Mostra idioma
@@ -56,7 +56,7 @@ zzpais ()
 		esac
 	done
 
-	[ "${#padrao}" -eq 0 ] && padrao="$*"
+	test "${#padrao}" -eq 0 && padrao="$*"
 	if test -z "$padrao"
 	then
 		# Mostra um país qualquer

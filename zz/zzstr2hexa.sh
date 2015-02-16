@@ -39,5 +39,5 @@ zzstr2hexa ()
 		fi
 	done |
 		# Remove o espaço que sobra no final e quebra a linha
-		sed 's/ $//'
+		zztool rtrim
 }

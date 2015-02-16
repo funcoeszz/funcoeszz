@@ -24,7 +24,7 @@ zzhoracerta ()
 	local url='http://www.worldtimeserver.com'
 
 	# Opções de linha de comando
-	if [ "$1" = '-s' ]
+	if test "$1" = '-s'
 	then
 		shift
 		codigo="$1"
@@ -43,14 +43,14 @@ zzhoracerta ()
 	fi
 
 	# Se nenhum parâmetro for passado, são listados os países disponíveis
-	if ! [ "$localidade$codigo" ]
+	if ! test -n "$localidade$codigo"
 	then
 		cat "$cache"
 		return
 	fi
 
 	# Faz a pesquisa por codigo ou texto
-	if [ "$codigo" ]
+	if test -n "$codigo"
 	then
 		localidades=$(grep -i "^[^ ]*$codigo" "$cache")
 	else
@@ -65,7 +65,7 @@ zzhoracerta ()
 	fi
 
 	# A localidade existe?
-	if ! [ "$localidades" ]
+	if ! test -n "$localidades"
 	then
 		echo "Localidade \"$localidade$codigo\" não encontrada"
 		return 1

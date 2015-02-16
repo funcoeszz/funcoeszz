@@ -34,7 +34,7 @@ zzvira ()
 		//D
 		s/.//' |
 
-	if [ "$rasteira" ]
+	if test -n "$rasteira"
 	then
 		zzsemacento |
 		zzminusculas |

@@ -21,7 +21,7 @@ zzmaiores ()
 	local limite=10
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-n)
@@ -45,7 +45,7 @@ zzmaiores ()
 		esac
 	done
 
-	if [ "$modo" = 'f' ]
+	if test "$modo" = 'f'
 	then
 		# Usuário só quer ver os arquivos e não diretórios.
 		# Como o 'du' não tem uma opção para isso, usaremos o 'find'.
@@ -53,16 +53,16 @@ zzmaiores ()
 		# Se forem várias pastas, compõe a lista glob: {um,dois,três}
 		# Isso porque o find não aceita múltiplos diretórios sem glob.
 		# Caso contrário tenta $1 ou usa a pasta corrente "."
-		if [ "$2" ]
+		if test -n "$2"
 		then
 			pastas=$(echo {$*} | tr -s ' ' ',')
 		else
 			pastas=${1:-.}
-			[ "$pastas" = '*' ] && pastas='.'
+			test "$pastas" = '*' && pastas='.'
 		fi
 
-		tab=$(echo -e '\t')
-		[ "$recursivo" ] && recursivo= || recursivo='-maxdepth 1'
+		tab=$(printf %b '\t')
+		test -n "$recursivo" && recursivo= || recursivo='-maxdepth 1'
 
 		resultado=$(
 			find $pastas $recursivo -type f -ls |
@@ -77,7 +77,7 @@ zzmaiores ()
 		# para que funcionasse com o ponto e sem argumentos,
 		# mas no fim é mais fácil chamar a função de novo...
 		pastas="$@"
-		if [ ! "$pastas" -o "$pastas" = '.' ]
+		if test -z "$pastas" -o "$pastas" = '.'
 		then
 			zzmaiores ${recursivo:+-r} -n $limite * .[^.]*
 			return
@@ -86,7 +86,7 @@ zzmaiores ()
 
 		# O du sempre mostra arquivos e diretórios, bacana
 		# Basta definir se vai ser recursivo (-a) ou não (-s)
-		[ "$recursivo" ] && recursivo='-a' || recursivo='-s'
+		test -n "$recursivo" && recursivo='-a' || recursivo='-s'
 
 		# Estou escondendo o erro para caso o * ou o .* não expandam
 		# Bash2: nullglob, dotglob

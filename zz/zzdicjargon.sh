@@ -20,7 +20,7 @@ zzdicjargon ()
 	local padrao=$(echo "$*" | sed 's/ /-/g')
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso dicjargon; return 1; }
+	test -n "$1" || { zztool uso dicjargon; return 1; }
 
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
@@ -35,23 +35,23 @@ zzdicjargon ()
 	achei=$(grep -i "$padrao" $cache)
 	num=$(echo "$achei" | sed -n '$=')
 
-	[ "$achei" ] || return
+	test -n "$achei" || return
 
-	if [ $num -gt 1 ]
+	if test $num -gt 1
 	then
 		mais=$achei
 		achei2=$(echo "$achei" | grep -w "$padrao" | sed 1q)
-		[ "$achei2" ] && achei="$achei2" && num=1
+		test -n "$achei2" && achei="$achei2" && num=1
 	fi
 
-	if [ $num -eq 1 ]
+	if test $num -eq 1
 	then
 		$ZZWWWDUMP -width=72 "$url/$achei" |
 			sed '1,/_\{9\}/d;/_\{9\}/,$d'
-		[ "$mais" ] && zztool eco '\nTermos parecidos:'
+		test -n "$mais" && zztool eco '\nTermos parecidos:'
 	else
 		zztool eco 'Achei mais de um! Escolha qual vai querer:'
 	fi
 
-	[ "$mais" ] && echo "$mais" | sed 's/..// ; s/\.html$//'
+	test -n "$mais" && echo "$mais" | sed 's/..// ; s/\.html$//'
 }

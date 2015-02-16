@@ -20,13 +20,13 @@ zzchecamd5 ()
 	zzzz -h checamd5 "$1" && return
 
 	# Faltou argumento mostrar como se usa a zzchecamd5
-	if [ $# != "2" ];then
+	if test $# != "2";then
 		zztool uso checamd5
 		return 1
 	fi
 
 	# Foi passado o caminho errado do arquivo
-	if [ ! -f $1  ];then
+	if test ! -f $1 ;then
 		echo "Nao foi encontrado: $1"
 		return 1
 	fi
@@ -37,7 +37,7 @@ zzchecamd5 ()
 	valor_md5=$(cat "$arquivo" | zzmd5)
 
 	# Verifica se o arquivo nao foi corrompido
-	if [ "$md5_site" = "$valor_md5" ]; then
+	if test "$md5_site" = "$valor_md5"; then
 		echo "Imagem OK"
 	else
 		echo "O md5sum nao confere!!"

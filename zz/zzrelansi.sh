@@ -16,7 +16,7 @@ zzrelansi ()
 	case $1 in
 	-s | --stop)
 		shopt -q
-		if [ "$relansi_pid" ]
+		if test -n "$relansi_pid"
 		then
 			kill $relansi_pid
 			relansi_write
@@ -26,7 +26,7 @@ zzrelansi ()
 		fi
 	;;
 	*)
-		if [ "$relansi_pid" ]
+		if test -n "$relansi_pid"
 		then
 			echo "RelANSI já está sendo executado pelo processo $relansi_pid"
 		else
@@ -35,7 +35,7 @@ zzrelansi ()
 				{
 				tput sc
 				tput cup 0 $[$relansi_cols-8]
-				[ "$1" ] && date +'%H:%M:%S' || echo '        '
+				test -n "$1" && date +'%H:%M:%S' || echo '        '
 				tput rc
 				}
 			exec 3>&2 2> /dev/null

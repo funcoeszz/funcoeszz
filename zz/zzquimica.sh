@@ -55,11 +55,11 @@ zzquimica ()
 			/^<em/      { getline info["nome"] }
 			/^<i/       { getline info["massa"] }
 			/^<small/   { getline info["orbital"]; gsub(/ /, "-", info["orbital"]) }
-			/^<\/td>/ { printf "%-5s %-15s %-7s %-12s %-18s %s\n", info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
+			/^<\/td>/ { printf "%-4s %-13s %-6s %-12s %-18s %s\n", info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
 		' | sort -n > "$cache"
 	fi
 
-	if [ "$1" ]
+	if test -n "$1"
 	then
 		if zztool testa_numero "$1"
 		then
@@ -71,9 +71,9 @@ zzquimica ()
 		fi
 
 		# Se encontrado, pesquisa-o na wikipedia
-		if [ ${#elemento} -gt 0 ]
+		if test ${#elemento} -gt 0
 		then
-			[ "$elemento" = "Rádio" -o "$elemento" = "Índio" ] && elemento="${elemento}_(elemento_químico)"
+			test "$elemento" = "Rádio" -o "$elemento" = "Índio" && elemento="${elemento}_(elemento_químico)"
 			zzwikipedia "$elemento"
 		else
 			zztool uso quimica

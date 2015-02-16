@@ -18,13 +18,13 @@ zzdicbabylon ()
 
 	local idioma='ptg'
 	local idiomas=' dut fre ger heb ita jap ptg spa '
-	local tab=$(echo -e \\t)
+	local tab=$(printf %b '\t')
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso dicbabylon; return 1; }
+	test -n "$1" || { zztool uso dicbabylon; return 1; }
 
 	# O primeiro argumento é um idioma?
-	if [ "${idiomas% $1 *}" != "$idiomas" ]
+	if test "${idiomas% $1 *}" != "$idiomas"
 	then
 		idioma=$1
 		shift

@@ -37,17 +37,19 @@ zzbrasileirao ()
 {
 	zzzz -h brasileirao "$1" && return
 
+	test $(date +%Y%m%d) -lt 20150509 && { zztool eco " Brasileirão 2015 só a partir de 9 de Maio."; return 1; }
+
 	local rodada serie ano urls
 	local url="http://esporte.uol.com.br/futebol"
 
-	[ $# -gt 2 ] && { zztool uso brasileirao; return 1; }
+	test $# -gt 2 && { zztool uso brasileirao; return 1; }
 
 	serie='a'
-	[ "$1" = "a" -o "$1" = "b" -o "$1" = "c" -o "$1" = "d" ] && { serie="$1"; shift; }
+	test "$1" = "a" -o "$1" = "b" -o "$1" = "c" -o "$1" = "d" && { serie="$1"; shift; }
 
-	if [ "$1" = "-l" ]
+	if test "$1" = "-l"
 	then
-		if [ "$2" ]
+		if test -n "$2"
 		then
 			awk 'BEGIN { printf "%-14s  %-20s  %-43s %s\n", "     Data","     Campeonato","             Jogos","     Local"}'
 			for urls in resultados proximos-jogos
@@ -86,17 +88,15 @@ zzbrasileirao ()
 			return 0
 		fi
 	else
-		if [ "$1" ]
+		if test -n "$1"
 		then
 			zztool testa_numero "$1" && rodada="$1" || { zztool uso brasileirao; return 1; }
 		fi
 	fi
 
-	test $(date +%Y%m%d) -lt 20150509 && { zztool eco " Brasileirão 2015 só a partir de 9 de Maio."; return 1; }
+	test "$serie" = "a" && url="${url}/campeonatos/brasileirao/jogos" || url="${url}/campeonatos/serie-${serie}/jogos"
 
-	[ "$serie" = "a" ] && url="${url}/campeonatos/brasileirao/jogos" || url="${url}/campeonatos/serie-${serie}/jogos"
-
-	if [ "$rodada" ]
+	if test -n "$rodada"
 	then
 		zztool testa_numero $rodada || { zztool uso brasileirao; return 1; }
 		$ZZWWWDUMP $url | sed '/pós jogo/d;/ X /s/^/\
@@ -113,7 +113,7 @@ zzbrasileirao ()
 		' | sed '/^ *$/d'
 	else
 		zztool eco $(echo "Série $serie" | tr 'abcd' 'ABCD')
-		if [ "$serie" = "c" -o "$serie" = "d" ]
+		if test "$serie" = "c" -o "$serie" = "d"
 		then
 			$ZZWWWDUMP $url |
 			awk -v cor_awk="$ZZCOR" -v serie_awk=$serie '
@@ -149,10 +149,10 @@ zzbrasileirao ()
 					printf "%20s %s %-20s  %s\n", times[1], separador, times[2], data
 				}
 			}'
-			if [ "$ZZCOR" = "1" ]
+			if test "$ZZCOR" = "1"
 			then
 				printf "\n\033[42;30m Quartas de Final \033[m"
-				[ "$serie" = "c" ] && printf "\033[41;30m Rebaixamento \033[m\n"
+				test "$serie" = "c" && printf "\033[41;30m Rebaixamento \033[m\n"
 			fi
 		else
 
@@ -179,14 +179,14 @@ zzbrasileirao ()
 			if (NF>9)
 			printf "%s%-23s %3s %3s %3s %3s %3s %3s %3s %3s %4s \033[m\n", cor, time, $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF}'
 
-			if [ "$ZZCOR" = "1" ]
+			if test "$ZZCOR" = "1"
 			then
 				echo
-				if [ "$serie" = "a" ]
+				if test "$serie" = "a"
 				then
 					printf "\033[42;30m Libertadores \033[m"
 					printf "\033[46;30m Sul-Americana \033[m"
-				elif [ "$serie" = "b" ]
+				elif test "$serie" = "b"
 				then
 					printf "\033[42;30m   Série  A   \033[m"
 				fi

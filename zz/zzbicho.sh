@@ -19,7 +19,7 @@ zzbicho ()
 	zzzz -h bicho "$1" && return
 
 	# Verificação dos parâmetros: se há $1, ele deve ser 'g' ou um número
-	if [ $# -gt 0 ] && [ "$1" != 'g' ] && ! zztool testa_numero "$1"
+	if test $# -gt 0 && test "$1" != 'g' && ! zztool testa_numero "$1"
 	then
 		zztool uso bicho
 		return 1
@@ -69,6 +69,5 @@ zzbicho ()
 			numero = substr($1,length($1)-1,2)=="00"?25:int((substr($1,length($1)-1,2) + 3) / 4)
 			print grupo[numero], "(" numero ")"
 		}
-	}' |
-	sed 's/ $//'
+	}' | zztool rtrim
 }

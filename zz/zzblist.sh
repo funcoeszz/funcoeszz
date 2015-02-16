@@ -15,7 +15,7 @@ zzblist ()
 	local URL="http://www.spamblock.com.br/rblcheck.php?ip="
 	local ip="$1"
 
-	[ "$1" ] || { zztool uso blist; return 1; }
+	test -n "$1" || { zztool uso blist; return 1; }
 
 	zztool -e testa_ip "$ip" || return 1
 

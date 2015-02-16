@@ -49,7 +49,7 @@ zztv ()
 	linhas=$(echo "scale=0; ($(zztool num_linhas $cache) + 1)/ 4 " | bc)
 	largura=$(awk '{print length}' $cache | sort -n | sed -n '$p')
 
-	if [ "$1" ] && grep -i "^$1" $cache >/dev/null 2>/dev/null
+	if test -n "$1" && grep -i "^$1" $cache >/dev/null 2>/dev/null
 	then
 		codigo=$(grep -i "^$1" $cache | sed "s/ .*//")
 		desc=$(grep -i "^$1" $cache | sed "s/^[A-Z0-9]\{3\} *//")
@@ -61,7 +61,7 @@ zztv ()
 		sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g' |
 		sed 's/^[[:space:]]*/ /g' |
 		sed '/^[[:space:]]*$/d' |
-		if [ "$2" = "semana" -o "$2" = "s" ]
+		if test "$2" = "semana" -o "$2" = "s"
 		then
 			sed "/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/ { x; p ; x; s//\1/; }" |
 			sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g'
@@ -88,7 +88,7 @@ zztv ()
 	todos | agora | *)             URL="${URL}/categoria/Todos"; flag=1; desc="Agora";;
 	esac
 
-	if [ $flag -eq 1 ]
+	if test $flag -eq 1
 	then
 		zztool eco $desc
 		$ZZWWWHTML "$URL" | sed -n '/<li style/{N;p;}' |
@@ -98,7 +98,7 @@ zztv ()
 		sed '/^[[:space:]]*$/d' |
 		zzunescape --html |
 		awk -F "|" '{ printf "%5s%-57s%s\n", $2, substr($1,1,56), $3 }'
-	elif [ "$1" = "cod" ]
+	elif test "$1" = "cod"
 	then
 		zztool eco "Código: $2"
 		$ZZWWWHTML "$URL" | sed -n '/<span class="tit">/,/Compartilhe:/p' |

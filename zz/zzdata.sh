@@ -12,8 +12,8 @@
 # Uso: zzdata [data [+|- data|número<d|m|a>]]
 # Ex.: zzdata                           # que dia é hoje?
 #      zzdata anteontem                 # que dia foi anteontem?
-#      zzdata hoje + 15d                # que dia será daqui 15 dias?
 #      zzdata dom                       # que dia será o próximo domingo?
+#      zzdata hoje + 15d                # que dia será daqui 15 dias?
 #      zzdata hoje - 40d                # e 40 dias atrás, foi quando?
 #      zzdata 31/12/2010 + 100d         # 100 dias após a data informada
 #      zzdata 29/02/2001                # data inválida, ano não-bissexto
@@ -261,7 +261,7 @@ zzdata ()
 				yyyy=$(echo "$yyyy" | sed 's/^00*//; s/^$/0/')
 
 				# Define o marco inicial e a direção dos cálculos
-				if [ $yyyy -ge $epoch ]
+				if test $yyyy -ge $epoch
 				then
 					# +Epoch: Inicia em 01/01/1970 e avança no tempo
 					y=$epoch          # ano
@@ -286,7 +286,7 @@ zzdata ()
 					zztool testa_ano_bissexto $y && dias_ano=366
 
 					# Vai somando (ou subtraindo) até chegar no ano corrente
-					[ $y -eq $yyyy ] && break
+					test $y -eq $yyyy && break
 					dias=$(($dias $op $dias_ano))
 					y=$(($y $op 1))
 				done
@@ -295,10 +295,10 @@ zzdata ()
 				for i in $dias_mes
 				do
 					# Fevereiro de ano bissexto tem 29 dias
-					[ $dias_ano -eq 366 -a $i -eq 28 ] && i=29
+					test $dias_ano -eq 366 -a $i -eq 28 && i=29
 
 					# Vai somando (ou subtraindo) até chegar no mês corrente
-					[ $m -eq $mm ] && break
+					test $m -eq $mm && break
 					m=$(($m $op 1))
 					dias=$(($dias $op $i))
 				done
@@ -306,13 +306,13 @@ zzdata ()
 
 				# -Epoch: o número de dias indica o quanto deve-se
 				# retroceder à partir do último dia do mês
-				[ $op = '-' ] && dd=$(($dias_neste_mes - $dd))
+				test $op = '-' && dd=$(($dias_neste_mes - $dd))
 
 				# Somando os dias da data aos anos+meses já contados.
 				dias=$(($dias $op $dd))
 
 				# +Epoch: É subtraído um do resultado pois 01/01/1970 == 0
-				[ $op = '+' ] && dias=$((dias - 1))
+				test $op = '+' && dias=$((dias - 1))
 
 				# Feito, só mostrar o resultado
 				echo "$dias"
@@ -336,7 +336,7 @@ zzdata ()
 
 				dias="$dias1"
 
-				if [ $dias -ge 0 ]
+				if test $dias -ge 0
 				then
 					# POSITIVO: Inicia em 01/01/1970 e avança no tempo
 					y=$epoch          # ano
@@ -367,13 +367,13 @@ zzdata ()
 					# Vai descontando os dias de cada ano para saber quantos anos cabem
 
 					# Não muda o ano se o número de dias for insuficiente
-					[ $dd -lt $dias_ano ] && break
+					test $dd -lt $dias_ano && break
 
 					# Se for exatamente igual ao total de dias, não muda o
 					# ano se estivermos indo adiante no tempo (> Epoch).
 					# Caso contrário vai mudar pois cairemos no último dia
 					# do ano anterior.
-					[ $dd -eq $dias_ano -a $op = '+' ] && break
+					test $dd -eq $dias_ano -a $op = '+' && break
 
 					dd=$(($dd - $dias_ano))
 					y=$(($y $op 1))
@@ -384,18 +384,18 @@ zzdata ()
 				for i in $dias_mes
 				do
 					# Fevereiro de ano bissexto tem 29 dias
-					[ $dias_ano -eq 366 -a $i -eq 28 ] && i=29
+					test $dias_ano -eq 366 -a $i -eq 28 && i=29
 
 					# Calcula quantos meses cabem nos dias que sobraram
 
 					# Não muda o mês se o número de dias for insuficiente
-					[ $dd -lt $i ] && break
+					test $dd -lt $i && break
 
 					# Se for exatamente igual ao total de dias, não muda o
 					# mês se estivermos indo adiante no tempo (> Epoch).
 					# Caso contrário vai mudar pois cairemos no último dia
 					# do mês anterior.
-					[ $dd -eq $i -a $op = '+' ] && break
+					test $dd -eq $i -a $op = '+' && break
 
 					dd=$(($dd - $i))
 					mm=$(($mm $op 1))
@@ -406,11 +406,11 @@ zzdata ()
 
 				# Se estivermos antes de Epoch, os número de dias indica quanto
 				# devemos caminhar do último dia do mês até o primeiro
-				[ $op = '-' ] && dd=$(($dias_neste_mes - $dd))
+				test $op = '-' && dd=$(($dias_neste_mes - $dd))
 
 				# Restaura o zero dos meses e dias menores que 10
-				[ $dd -le 9 ] && dd="0$dd"
-				[ $mm -le 9 ] && mm="0$mm"
+				test $dd -le 9 && dd="0$dd"
+				test $mm -le 9 && mm="0$mm"
 
 				# E finalmente mostra o resultado em formato de data
 				echo "$dd/$mm/$yyyy"
@@ -509,8 +509,8 @@ zzdata ()
 				test $dd -eq 29 -a $mm -eq 2 &&	! zztool testa_ano_bissexto $yyyy && dd=28
 
 				# Restaura o zero dos meses e dias menores que 10
-				[ $dd -le 9 ] && dd="0$dd"
-				[ $mm -le 9 ] && mm="0$mm"
+				test $dd -le 9 && dd="0$dd"
+				test $mm -le 9 && mm="0$mm"
 
 				# Tá feito, basta montar a data
 				echo "$dd/$mm/$yyyy"

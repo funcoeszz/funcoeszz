@@ -17,14 +17,14 @@ zzgeoip ()
 	local ip pagina latitude longintude cidade uf pais mapa
 	local url='http://geoip.s12.com.br'
 
-	if [ $# -ge 2 ]
+	if test $# -ge 2
 	then
 		zztool uso geoip
 		return 1
-	elif [ "$1" ]
+	elif test -n "$1"
 	then
 		zztool -e testa_ip "$1"
-		[ $? -ne 0 ] && zztool uso geoip && return 1
+		test $? -ne 0 && zztool uso geoip && return 1
 		ip="$1"
 	else
 		ip=$(zzipinternet)

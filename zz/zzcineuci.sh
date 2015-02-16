@@ -20,7 +20,8 @@ zzcineuci ()
 	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="
 	local cidade=$(echo "$*" | zzminusculas | zzsemacento | sed 's/^ *//;s/ *$//;s/  */_/g')
 
-	if [ $# = 0 ]; then # mostra opções
+	if test $# = 0; then
+		# mostra opções
 		printf "Cidades e cinemas disponíveis\n=============================\n"
 		printf "\nCampo Grande:\n\t20) UCI Bosque do Ipês\n"
 		printf "\nCuritiba:\n\t01) UCI Estação\n\t15) UCI Palladium\n"
@@ -35,9 +36,12 @@ zzcineuci ()
 		return 0
 	fi
 
-	if zztool testa_numero ${cidade}; then # passou código
-		[ "$cidade" -ge 1 -a "$cidade" -le 21 -a "$cidade" -ne 16 ] && codigos="$cidade" # testa se código é válido
-	else # passou nome da cidade
+	# passou código
+	if zztool testa_numero ${cidade}; then
+		# testa se código é válido
+		test "$cidade" -ge 1 -a "$cidade" -le 21 -a "$cidade" -ne 16 && codigos="$cidade"
+	else
+		# passou nome da cidade
 		case $cidade in
 			campo_grande  ) codigos="20";;
 			curitiba      ) codigos="1 15" ;;
@@ -52,7 +56,8 @@ zzcineuci ()
 		esac
 	fi
 
-	[ -z "$codigos" ] && return 1 # se não recebeu cidade ou código válido, sai
+	# se não recebeu cidade ou código válido, sai
+	test -z "$codigos" && return 1
 
 	for codigo in $codigos
 	do

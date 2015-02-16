@@ -29,7 +29,7 @@ zzlinuxnews ()
 
 	limite="sed ${n}q"
 
-	[ "$1" ] && sites="$1"
+	test -n "$1" && sites="$1"
 
 	# Slashdot
 	if zztool grep_var s "$sites"

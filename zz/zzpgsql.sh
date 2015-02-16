@@ -31,7 +31,7 @@ zzpgsql ()
 		sed 's/<[^>]*>//g;s/^>/ /g' > $cache
 	fi
 
-	if [ "$1" ]
+	if test -n "$1"
 	then
 		if zztool testa_numero $1
 		then

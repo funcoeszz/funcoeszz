@@ -54,10 +54,10 @@ zzcpf ()
 	# Extrai os números da base do CPF:
 	# Os 9 primeiros, sem os dois dígitos verificadores.
 	# Esses dois dígitos serão calculados adiante.
-	if [ "$cpf" ]
+	if test -n "$cpf"
 	then
 		# Faltou ou sobrou algum número...
-		if [ ${#cpf} -ne 11 ]
+		if test ${#cpf} -ne 11
 		then
 			echo 'CPF inválido (deve ter 11 dígitos)'
 			return 1
@@ -68,7 +68,7 @@ zzcpf ()
 	else
 		# Não foi informado nenhum CPF, vamos gerar um escolhendo
 		# nove dígitos aleatoriamente para formar a base
-		while [ ${#cpf} -lt 9 ]
+		while test ${#cpf} -lt 9
 		do
 			cpf="$cpf$(zzaleatorio 8)"
 		done
@@ -115,7 +115,7 @@ zzcpf ()
 	# Passo 2
 	digito1=$((11 - (somatoria % 11)))
 	# Passo 3
-	[ $digito1 -ge 10 ] && digito1=0
+	test $digito1 -ge 10 && digito1=0
 
 	### Cálculo do dígito verificador 2
 	# Tudo igual ao anterior, primeiro setando $1, $2, $3, etc e
@@ -135,10 +135,10 @@ zzcpf ()
 	# Passo 2
 	digito2=$((11 - (somatoria % 11)))
 	# Passo 3
-	[ $digito2 -ge 10 ] && digito2=0
+	test $digito2 -ge 10 && digito2=0
 
 	# Mostra ou valida
-	if [ ${#cpf} -eq 9 ]
+	if test ${#cpf} -eq 9
 	then
 		# Esse CPF foi gerado aleatoriamente pela função.
 		# Apenas adiciona os dígitos verificadores e mostra na tela.
@@ -147,7 +147,7 @@ zzcpf ()
 	else
 		# Esse CPF foi informado pelo usuário.
 		# Compara os verificadores informados com os calculados.
-		if [ "${cpf#?????????}" = "$digito1$digito2" ]
+		if test "${cpf#?????????}" = "$digito1$digito2"
 		then
 			echo 'CPF válido'
 		else

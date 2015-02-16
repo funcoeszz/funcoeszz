@@ -22,7 +22,7 @@ zzcalculaip ()
 	local i ip1 ip2 ip3 ip4 nm1 nm2 nm3 nm4 componente
 
 	# Verificação dos parâmetros
-	[ $# -eq 0 -o $# -gt 2 ] && { zztool uso calculaip; return 1; }
+	test $# -eq 0 -o $# -gt 2 && { zztool uso calculaip; return 1; }
 
 	# Obtém a máscara da rede (netmask)
 	if zztool grep_var / "$1"
@@ -33,7 +33,7 @@ zzcalculaip ()
 		endereco=$1
 
 		# Use a máscara informada pelo usuário ou a máscara padrão
-		if [ $# -gt 1 ]
+		if test $# -gt 1
 		then
 			mascara=$2
 		else
@@ -71,7 +71,7 @@ zzcalculaip ()
 	set - $(echo $mascara | tr . ' ')
 
 	# Máscara no formato NN
-	if [ $# -eq 1 ]
+	if test $# -eq 1
 	then
 		# Converte de decimal para binário
 		# Coloca N números 1 grudados '1111111' (N=$1)
@@ -92,7 +92,7 @@ zzcalculaip ()
 		eval ip$i=$(printf '%08d' $(zzconverte db $componente))
 
 		componente=$(echo $mascara | cut -d'.' -f $i)
-		if [ "$2" ]
+		if test -n "$2"
 		then
 			eval nm$i=$(printf '%08d' $(zzconverte db $componente))
 		else

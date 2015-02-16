@@ -34,10 +34,10 @@ zzconverte ()
 	local operacao=$1
 
 	# Verificação dos parâmetros
-	[ "$2" ] || { zztool uso converte; return 1; }
+	test -n "$2" || { zztool uso converte; return 1; }
 
 	shift
-	while [ "$1" ]
+	while test -n "$1"
 	do
 		case "$operacao" in
 			cf)

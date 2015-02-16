@@ -28,7 +28,7 @@ zzpascoa ()
 	# Algoritmo de Jean Baptiste Joseph Delambre (1749-1822)
 	# conforme citado em http://www.ghiorzi.org/portug2.htm
 	#
-	if [ $ano -lt 1583 ]
+	if test $ano -lt 1583
 	then
 		a=$(( ano % 4 ))
 		b=$(( ano % 7 ))
@@ -61,8 +61,8 @@ zzpascoa ()
 	fi
 
 	# Adiciona zeros à esquerda, se necessário
-	[ $dia -lt 10 ] && dia="0$dia"
-	[ $mes -lt 10 ] && mes="0$mes"
+	test $dia -lt 10 && dia="0$dia"
+	test $mes -lt 10 && mes="0$mes"
 
 	echo "$dia/$mes/$ano"
 }

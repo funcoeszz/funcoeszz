@@ -21,7 +21,7 @@ zzvdp ()
 
 	local url="http://vidadeprogramador.com.br"
 
-	if [ "$1" ] && zztool testa_data $(zzdatafmt "$1")
+	if test -n "$1" && zztool testa_data $(zzdatafmt "$1")
 	then
 		url="${url}/"$(zzdatafmt -f 'AAAA/MM/DD' $1)
 	fi

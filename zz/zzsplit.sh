@@ -32,11 +32,11 @@ zzsplit ()
 	local passos=1
 	local qtde=0
 
-	[ "$1" ] || { zztool uso split; return 1; }
+	test -n "$1" || { zztool uso split; return 1; }
 
 	# Quantidade de arquivo a serem separados
 	# Estipulando as quantidades de linhas para cada arquivo de saída
-	if [ "$1" = "-p" ]
+	if test "$1" = "-p"
 	then
 		passos="$2"
 		qtde=$(echo "$passos" | awk -F"," '{ print NF }')

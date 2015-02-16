@@ -20,7 +20,7 @@ zzloteria ()
 	local tipos='quina megasena duplasena lotomania lotofacil'
 
 	# O padrão é mostrar todos os tipos, mas o usuário pode informar alguns
-	[ "$1" ] && tipos=$*
+	test -n "$1" && tipos=$*
 
 	# Para cada tipo de loteria...
 	for tipo in $tipos
@@ -113,11 +113,11 @@ zzloteria ()
 		esac
 
 		# Mostra o resultado na tela (caso encontrado algo)
-		if [ "$resultado" ]
+		if test -n "$resultado"
 		then
 			echo "$resultado" | sed 's/^/   /'
 			echo "   Concurso $numero_concurso ($data)"
-			[ "$acumulado" ] && echo "   Acumulado em R$ $acumulado" | sed 's/|/ para /'
+			test -n "$acumulado" && echo "   Acumulado em R$ $acumulado" | sed 's/|/ para /'
 			echo
 		fi
 	done

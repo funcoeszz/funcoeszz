@@ -34,13 +34,13 @@ zzfrenteverso2pdf ()
 
 	# Determina o diretorio que estao os arquivos a serem mesclados.
 	# Opcoes de linha de comando
-	while [ $# -ge 1 ]
+	while test $# -ge 1
 	do
 		case "$1" in
 			-rf | --frentesreversas) sinal_frente="-" ;;
 			-rv | --versosreversos) sinal_verso="-" ;;
 			-d | --diretorio)
-				[ "$2" ] || { zztool uso frenteverso2pdf; return 1; }
+				test -n "$2" || { zztool uso frenteverso2pdf; return 1; }
 				dir=$2
 				shift
 				;;
@@ -53,7 +53,7 @@ zzfrenteverso2pdf ()
 	done
 
 	# Verifica se os arquivos existem.
-	if [ ! -s "$dir/$arq_frentes" -o ! -s "$dir/$arq_versos" ] ; then
+	if test ! -s "$dir/$arq_frentes" -o ! -s "$dir/$arq_versos" ; then
 		echo "ERRO: Um dos arquivos $dir/$arq_frentes ou $dir/$arq_versos nao existe!"
 		return 1
 	fi
@@ -64,23 +64,23 @@ zzfrenteverso2pdf ()
 
 	# Verifica a compatibilidade do numero de paginas entre os dois arquivos.
 	dif=`expr $n_frentes - $n_versos`
-	if [ $dif -lt 0 -o $dif -gt 1 ] ; then
+	if test $dif -lt 0 -o $dif -gt 1 ; then
 		echo "CUIDADO: O numero de paginas dos arquivos nao parecem compativeis!"
 	fi
 
 	# Cria ordenacao das paginas.
-	if [ "$sinal_frente" = "-" ] ; then
+	if test "$sinal_frente" = "-" ; then
 		ini_frente=`expr $n_frentes + 1`
 	fi
-	if [ "$sinal_verso" = "-" ] ; then
+	if test "$sinal_verso" = "-" ; then
 		ini_verso=`expr $n_versos + 1`
 	fi
 
-	while [ $n_pag -le $n_frentes ] ; do
+	while test $n_pag -le $n_frentes ; do
 		n_pag_frente=`expr $ini_frente $sinal_frente $n_pag`
 		numberlist="$numberlist A$n_pag_frente"
 		n_pag_verso=`expr $ini_verso $sinal_verso $n_pag`
-		if [ $n_pag -le $n_versos ]; then
+		if test $n_pag -le $n_versos; then
 			numberlist="$numberlist B$n_pag_verso"
 		fi
 		n_pag=$(($n_pag + 1))

@@ -29,7 +29,7 @@ zztranspor ()
 
 	local sep ofs
 
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-d | --fs)
@@ -82,5 +82,5 @@ zztranspor ()
 			# Limpando a variável para a próxima iteração
 			linha=""
 		}
-	}' | sed 's/ *$//g'
+	}' | zztool rtrim
 }

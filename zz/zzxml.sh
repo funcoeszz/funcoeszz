@@ -16,13 +16,13 @@
 #
 # Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag[=NOME]] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
-#      zzxml --untag --unescape arq.xml       # xml -> txt
-#      zzxml --untag=item arq.xml             # Retira apenas as tags "item"
-#      zzxml --tag item --tag title arq.xml   # tags múltiplas
-#      zzxml --notag link arq.xml             # Retira a tag link e o conteúdo
-#      zzxml --indent arq.xml                 # tags indentadas
+#      zzxml --untag --unescape arq.xml                    # xml -> txt
+#      zzxml --untag=item arq.xml                          # Retira apenas as tags "item"
 #      zzxml --tag title --untag --unescape arq.xml        # títulos
 #      cat arq.xml | zzxml --tag item | zzxml --tag title  # aninhado
+#      zzxml --tag item --tag title arq.xml                # tags múltiplas
+#      zzxml --notag link arq.xml                          # Retira a tag link e o conteúdo
+#      zzxml --indent arq.xml                              # tags indentadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
@@ -56,7 +56,7 @@ zzxml ()
 	done
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			--tidy    ) shift; tidy=1;;
@@ -116,7 +116,7 @@ zzxml ()
 	done
 
 	# Montando script awk para excluir tags
-	[ "$notag" ] && echo 'BEGIN { notag=0 } {' >> $cache_notag
+	test -n "$notag" && echo 'BEGIN { notag=0 } {' >> $cache_notag
 	for ntag in $notag
 	do
 		echo '
@@ -126,14 +126,14 @@ zzxml ()
 		' >> $cache_notag
 		sed_notag="$sed_notag /<${ntag}[^/>]*\/>/d;"
 	done
-	[ "$notag" ] && echo '}' >> $cache_notag
+	test -n "$notag" && echo '}' >> $cache_notag
 
 	# Montando script awk para selecionar tags
 	for ntag in $tag
 	do
 		echo 'BEGIN { tag['$ntag']=0 }' >> $cache_tag
 	done
-	[ "$tag" ] && echo '{' >> $cache_tag
+	test -n "$tag" && echo '{' >> $cache_tag
 	for ntag in $tag
 	do
 		echo '
@@ -143,7 +143,7 @@ zzxml ()
 			if ($0 ~ /^<\/'$ntag' >/) { tag['$ntag']-- }
 		' >> $cache_tag
 	done
-	[ "$tag" ] && echo '}' >> $cache_tag
+	test -n "$tag" && echo '}' >> $cache_tag
 
 	# Montando script sed para apagar determinadas tags
 	for ntag in $semtag
@@ -152,8 +152,8 @@ zzxml ()
 	done
 
 	# Caso indent=1 mantém uma tag por linha para possibilitar indentação.
-	[ "$tag" ] && test $tidy -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache_tag
-	[ "$tag" ] && test $tidy -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache_tag
+	test -n "$tag" && test $tidy -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache_tag
+	test -n "$tag" && test $tidy -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache_tag
 
 	# O código seguinte é um grande filtro, com diversos blocos de comando
 	# IF interligados via pipe (logo após o FI). Cada IF pode aplicar um

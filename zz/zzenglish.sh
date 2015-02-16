@@ -13,13 +13,13 @@ zzenglish ()
 {
 	zzzz -h english "$1" && return
 
-	[ "$1" ] || { zztool uso english; return 1; }
+	test -n "$1" || { zztool uso english; return 1; }
 
 	local cinza verde amarelo fecha
 	local url="http://www.dict.org/bin/Dict/"
 	local query="Form=Dict1&Query=$1&Strategy=*&Database=*&submit=Submit query"
 
-	if [ $ZZCOR -eq 1 ]
+	if test $ZZCOR -eq 1
 	then
 		cinza=$(  printf '\033[0;34m')
 		verde=$(  printf '\033[0;32;1m')

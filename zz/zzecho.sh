@@ -26,7 +26,7 @@ zzecho ()
 	local quebra_linha='\n'
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-l | --letra)
@@ -67,10 +67,10 @@ zzecho ()
 		shift
 	done
 
-	[ "$1" ] || { zztool uso echo; return 1; }
+	test -n "$1" || { zztool uso echo; return 1; }
 
 	# Mostra códigos ANSI somente quando necessário (e quando ZZCOR estiver ligada)
-	if [ "$ZZCOR" != '1' -o "$fundo$letra$negrito$pisca$sublinhado" = '' ]
+	if test "$ZZCOR" != '1' -o "$fundo$letra$negrito$pisca$sublinhado" = ''
 	then
 		printf -- "$*$quebra_linha"
 	else

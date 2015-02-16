@@ -26,22 +26,22 @@ zzphp ()
 	local end funcao
 
 	# Força atualização da listagem apagando o cache
-	if [ "$1" = '--atualiza' ]
+	if test "$1" = '--atualiza'
 	then
-		rm -f "$cache"
+		zztool atualiza php
 		shift
 	fi
 
-	if [ "$1" = '-d' -o "$1" = '--detalhe' ]
+	if test "$1" = '-d' -o "$1" = '--detalhe'
 	then
 		url='http://www.php.net/manual/pt_BR'
-		if [ "$2" ]
+		if test -n "$2"
 		then
 			funcao=$(echo "$2" | sed 's/ .*//')
 			end=$(cat "$cache" | grep -h -i -- "^$funcao " | cut -f 2 -d"|")
 			# Prevenir casos como do zlib://
 			funcao=$(echo "$funcao" | sed 's|//||g')
-			[ $? -eq 0 ] && $ZZWWWDUMP "${url}/${end}" | sed -n "/^${funcao}/,/add a note add a note/p" | sed '$d;/___*$/,$d'
+			test $? -eq 0 && $ZZWWWDUMP "${url}/${end}" | sed -n "/^${funcao}/,/add a note add a note/p" | sed '$d;/___*$/,$d'
 		fi
 	else
 		# Se o cache está vazio, baixa listagem da Internet
@@ -55,7 +55,7 @@ zzphp ()
 			zzunescape --html > "$cache"
 		fi
 
-		if [ "$padrao" ]
+		if test -n "$padrao"
 		then
 			# Busca a(s) função(ões)
 			cat "$cache" | cut -f 1 -d"|" | grep -h -i -- "$padrao"

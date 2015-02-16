@@ -17,10 +17,10 @@ zzcinclude ()
 	local arquivo="$1"
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso cinclude; return 1; }
+	test -n "$1" || { zztool uso cinclude; return 1; }
 
 	# Se não começar com / (caminho relativo), coloca path padrão
-	[ "${arquivo#/}" = "$arquivo" ] && arquivo="/usr/include/$arquivo.h"
+	test "${arquivo#/}" = "$arquivo" && arquivo="/usr/include/$arquivo.h"
 
 	# Verifica se o arquivo existe
 	zztool arquivo_legivel "$arquivo" || return

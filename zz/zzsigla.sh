@@ -17,7 +17,7 @@ zzsigla ()
 	local url='http://www.acronymfinder.com/af-query.asp'
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso sigla; return 1; }
+	test -n "$1" || { zztool uso sigla; return 1; }
 
 	local sigla=$1
 	# Pesquisa, baixa os resultados e filtra
@@ -27,6 +27,6 @@ zzsigla ()
 	#  a filtragem
 	$ZZWWWDUMP "$url?acronym=$sigla" |
 		grep -i "   $sigla " |
-		sed 's/^ *//' |
+		zztool ltrim |
 		sed 's/  */   /'
 }

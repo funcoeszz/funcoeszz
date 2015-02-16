@@ -61,7 +61,7 @@ zzjquery ()
 	*)
 		test "$1" = "-s" && { sintaxe=1; shift; }
 
-		if [ "$1" ]
+		if test -n "$1"
 		then
 			url_aux=$(
 				$ZZWWWHTML "$url" |
@@ -75,7 +75,7 @@ zzjquery ()
 			url=${url}jQuery
 		fi
 
-		if [ "$url" ]
+		if test -n "$url"
 		then
 			for url_aux in $url
 			do

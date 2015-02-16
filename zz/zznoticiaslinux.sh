@@ -28,7 +28,7 @@ zznoticiaslinux ()
 
 	limite="sed ${n}q"
 
-	[ "$1" ] && sites="$1"
+	test -n "$1" && sites="$1"
 
 	# Yahoo
 	if zztool grep_var y "$sites"

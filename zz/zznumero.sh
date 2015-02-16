@@ -116,7 +116,7 @@ zznumero ()
 8:septilionésimos"
 
 	# Opções
-	while  [ "${1#-}" != "$1" ]
+	while  test "${1#-}" != "$1"
 	do
 		case "$1" in
 		-f)
@@ -125,7 +125,7 @@ zznumero ()
 			n_formato="$2"
 
 			# Sem limites de precisão
-			if [ "$2" = "-" ]
+			if test "$2" = "-"
 			then
 				prec="$2"
 				unset n_formato
@@ -143,11 +143,11 @@ zznumero ()
 
 		--de)
 			# Formato de entrada
-			if [ "$2" = "pt" -o "$2" = "pt-br" ]
+			if test "$2" = "pt" -o "$2" = "pt-br"
 			then
 				milhar_de='.'
 				decimal_de=','
-			elif [ "$2" = "en" ]
+			elif test "$2" = "en"
 			then
 				milhar_de=','
 				decimal_de='.'
@@ -158,11 +158,11 @@ zznumero ()
 
 		--para)
 			# Formato de saída
-			if [ "$2" = "pt" -o "$2" = "pt-br" ]
+			if test "$2" = "pt" -o "$2" = "pt-br"
 			then
 				milhar_para='.'
 				decimal_para=','
-			elif [ "$2" = "en" ]
+			elif test "$2" = "en"
 			then
 				milhar_para=','
 				decimal_para='.'
@@ -194,8 +194,8 @@ zznumero ()
 		-t | --texto)
 			# Variável para número por extenso
 			# Flag para formato por extenso
-			[ "$1" = "-t" ] && texto=1
-			[ "$1" = "--texto" ] && texto=2
+			test "$1" = "-t" && texto=1
+			test "$1" = "--texto" && texto=2
 			shift
 		;;
 
@@ -228,14 +228,14 @@ zznumero ()
 
 	# Armazenando o sinal, se presente
 	sinal=$(echo "$1" | cut -c1)
-	if [ "$sinal" = "+" -o "$sinal" = "-" ]
+	if test "$sinal" = "+" -o "$sinal" = "-"
 	then
 		set - $(echo "$1" | sed 's/^[+-]//')
 	else
 		unset sinal
 	fi
 
-	if [ "$decimal_de" ]
+	if test -n "$decimal_de"
 	then
 		# Trocando o símbolo de milhar de entrada por "m" e depois por . (ponto)
 		# Trocando o símbolo de decimal de entrada por "d" e depois , (vírgula)
@@ -248,19 +248,19 @@ zznumero ()
 	if zztool testa_numero "$1" && ! zztool grep_var 'R$' "$prefixo"
 	then
 	# Testa se o número é um numero inteiro sem parte fracionária ou separador de milhar
-		if [ ${#n_formato} -gt 0 ]
+		if test ${#n_formato} -gt 0
 		then
 			numero=$(printf "${n_formato}" "$1" 2>/dev/null)
 		else
 			numero=$(echo "$1" | zzvira | sed 's/.../&./g;s/\.$//' | zzvira)
 		fi
 		num_int="$1"
-		if [ "$num_part" != "2" ]
+		if test "$num_part" != "2"
 		then
 			num_saida="${sinal}${numero}"
 
 			# Aplicando o formato conforme opção --para
-			if [ "$milhar_para" ]
+			if test -n "$milhar_para"
 			then
 				num_saida=$(echo "$num_saida" | tr '.' "${milhar_para}")
 			fi
@@ -281,7 +281,7 @@ zznumero ()
 
 		# Número com o "ponto decimal" separando a parte fracionária, sem separador de milhar
 		# Se for padrão 999.999, é considerado um inteiro
-		if [ $qtde_p -eq 1 -a $qtde_v -eq 0 ] && zztool testa_numero_fracionario "$1"
+		if test $qtde_p -eq 1 -a $qtde_v -eq 0 && zztool testa_numero_fracionario "$1"
 		then
 			if echo "$1" | grep '^[0-9]\{1,3\}\.[0-9]\{3\}$' >/dev/null
 			then
@@ -292,45 +292,45 @@ zznumero ()
 		fi
 
 		# Número com a "vírgula" separando da parte fracionária, sem separador de milhares
-		if [ $qtde_v -eq 1 -a $qtde_p -eq 0 ] && zztool testa_numero_fracionario "$1"
+		if test $qtde_v -eq 1 -a $qtde_p -eq 0 && zztool testa_numero_fracionario "$1"
 		then
 			numero="$1"
 		fi
 
 		# Número com o "ponto" como separador de milhar, e sem parte fracionária
-		if ([ $qtde_p -gt 1 -a $qtde_v -eq 0 ] && [ ! $numero ])
+		if (test $qtde_p -gt 1 -a $qtde_v -eq 0 && test ! -n $numero )
 		then
 			echo $1 | grep '^[0-9]\{1,3\}\(\.[0-9]\{3\}\)\{1,\}$' >/dev/null
-			[ $? -eq 0  ] && numero=$(echo $1 | tr -d '.')
+			test $? -eq 0  && numero=$(echo $1 | tr -d '.')
 		fi
 
 		# Número com a "vírgula" como separador de milhar, e sem parte fracionária
-		if ([ $qtde_v -gt 1 -a $qtde_p -eq 0 ] && [ ! $numero ])
+		if (test $qtde_v -gt 1 -a $qtde_p -eq 0 && test ! -n $numero )
 		then
 			echo $1 | grep '^[0-9]\{1,3\}\(,[0-9]\{3\}\)\{1,\}$' >/dev/null
-			[ $? -eq 0  ] && numero=$(echo $1 | tr -d ',')
+			test $? -eq 0  && numero=$(echo $1 | tr -d ',')
 		fi
 
 		# Numero começando com ponto ou vírgula, sendo considerado só fracionário
-		if [ ! $numero ]
+		if test ! -n $numero
 		then
 			echo $1 | grep '^[,.][0-9]\{1,\}$' >/dev/null
-			[ $? -eq 0  ] && numero=$(echo "0${1}" | tr '.' ',')
+			test $? -eq 0  && numero=$(echo "0${1}" | tr '.' ',')
 		fi
 
-		if [ ! $numero ]
+		if test ! -n $numero
 		then
 		# Deixando o número com o formato 0000,00 (sem separador de milhar)
 			# Número com o "ponto" separando a parte fracionária e vírgula como separador de milhar
 			echo $1 | grep '^[0-9]\{1,3\}\(,[0-9]\{3\}\)\{1,\}\.[0-9]\{1,\}$' >/dev/null
-			[ $? -eq 0  ] && numero=$(echo $1 | tr -d ',' | tr '.' ',')
+			test $? -eq 0  && numero=$(echo $1 | tr -d ',' | tr '.' ',')
 
 			# Número com a "vírgula" separando a parte fracionária e ponto como separador de milhar
 			echo $1 | grep '^[0-9]\{1,3\}\(\.[0-9]\{3\}\)\{1,\},[0-9]\{1,\}$' >/dev/null
-			[ $? -eq 0  ] && numero=$(echo $1 | tr -d '.')
+			test $? -eq 0  && numero=$(echo $1 | tr -d '.')
 		fi
 
-		if [ $numero ]
+		if test -n $numero
 		then
 			# Separando componentes dos números
 			num_int=${numero%,*}
@@ -338,11 +338,11 @@ zznumero ()
 
 			# Tirando os zeros não significativos
 			num_int=$(echo "$num_int" | sed 's/^0*//')
-			[ ${#num_int} -eq 0 ] && num_int=0
+			test ${#num_int} -eq 0 && num_int=0
 
-			[ ${#num_frac} -gt 0 ] && num_frac=$(echo "$num_frac" | sed 's/0*$//')
+			test ${#num_frac} -gt 0 && num_frac=$(echo "$num_frac" | sed 's/0*$//')
 
-			if [ ${#num_frac} -gt 0 ]
+			if test ${#num_frac} -gt 0
 			then
 				zztool testa_numero $num_frac || { zztool uso numero; return 1; }
 			fi
@@ -356,12 +356,12 @@ zznumero ()
 				#  Se o próximo número além da precisão for 5, vai depender do número anterior
 				#    Se for par arredonda-se para baixo
 				#    Se for ímpar arredonda-se para cima
-				if [ ${#num_frac} -gt $prec ]
+				if test ${#num_frac} -gt $prec
 				then
 
 					# Quando for -f 0, sem casas decimais, guardamos o ultimo digito do num_int (parte inteira)
 					unset n_temp
-					if [ $prec -eq 0 ]
+					if test $prec -eq 0
 					then
 						n_temp=${#num_int}
 						n_temp=$(echo "$num_int" | cut -c $n_temp)
@@ -369,10 +369,10 @@ zznumero ()
 
 					num_frac=$(echo "$num_frac" | cut -c 1-$((prec + 1)))
 
-					if [ $(echo "$num_frac" | cut -c $((prec + 1))) -ge 6 ]
+					if test $(echo "$num_frac" | cut -c $((prec + 1))) -ge 6
 					then
 						# Último número maior que cinco (além da precisão), arredonda pra cima
-						if [ $prec -eq 0 ]
+						if test $prec -eq 0
 						then
 							unset num_frac
 							num_int=$(echo "$num_int + 1" | bc)
@@ -387,10 +387,10 @@ zznumero ()
 							fi
 						fi
 
-					elif [ $(echo "$num_frac" | cut -c $((prec + 1))) -le 4 ]
+					elif test $(echo "$num_frac" | cut -c $((prec + 1))) -le 4
 					then
 						# Último número menor que cinco (além da precisão), arredonda pra baixo (trunca)
-						if [ $prec -eq 0 ]
+						if test $prec -eq 0
 						then
 							unset num_frac
 						else
@@ -398,17 +398,17 @@ zznumero ()
 						fi
 
 					else
-						if [ $prec -eq 0 ]
+						if test $prec -eq 0
 						then
 							unset num_frac
 							# Se o último número do num_int for ímpar, arredonda-se para cima
-							if [ $(($n_temp % 2)) -eq 1 ]
+							if test $(($n_temp % 2)) -eq 1
 							then
 								num_int=$(echo "$num_int + 1" | bc)
 							fi
 						else
 						# Determinando último número dentro da precisão é par
-							if [ $(echo $(($(echo $num_frac | cut -c ${prec}) % 2))) -eq 0 ]
+							if test $(echo $(($(echo $num_frac | cut -c ${prec}) % 2))) -eq 0
 							then
 								# Se sim arredonda-se para baixo (trunca)
 								num_frac=$(echo "$num_frac" | cut -c 1-${prec})
@@ -418,7 +418,7 @@ zznumero ()
 
 								# Exceção: Se num_frac for 9*, vira 0* e aumenta num_int em mais 1
 								echo "$num_frac" | cut -c 1-${prec} | grep '^9\{1,\}$' > /dev/null
-								if [ $? -eq 0 ]
+								if test $? -eq 0
 								then
 									unset num_frac
 									num_int=$(echo "$num_int + 1" | bc)
@@ -430,7 +430,7 @@ zznumero ()
 					fi
 
 					# Restaurando o tamanho do num_frac
-					while [ ${#num_frac} -lt $prec -a ${#num_frac} -gt 0 ]
+					while test ${#num_frac} -lt $prec -a ${#num_frac} -gt 0
 					do
 						num_frac="0${num_frac}"
 					done
@@ -440,40 +440,40 @@ zznumero ()
 				num_frac=$(echo "$num_frac" | sed 's/0*$//')
 			fi
 
-			[ "$num_part" = "1" ] && unset num_frac
-			[ "$num_part" = "2" ] && unset num_int
+			test "$num_part" = "1" && unset num_frac
+			test "$num_part" = "2" && unset num_int
 
 			if zztool grep_var 'R$' "$prefixo"
 			then
 			# Caso especial para opção -m, --moedas ou prefixo 'R$'
 			# Formato R$ 0.000,00 (sempre)
 				# Arredondamento para 2 casas decimais
-				[ ${#num_frac} -eq 0 -a $texto -eq 0 ] && num_frac="00"
-				[ ${#num_frac} -eq 1 ] && num_frac="${num_frac}0"
-				[ ${#num_int} -eq 0 -a $texto -eq 0 ] && num_int=0
+				test ${#num_frac} -eq 0 -a $texto -eq 0 && num_frac="00"
+				test ${#num_frac} -eq 1 && num_frac="${num_frac}0"
+				test ${#num_int} -eq 0 -a $texto -eq 0 && num_int=0
 
 				numero=$(echo "${num_int}" | zzvira | sed 's/.../&\./g;s/\.$//' | zzvira)
 				num_saida="${numero},${num_frac}"
 
 				# Aplicando o formato conforme opção --para
-				if [ "$decimal_para" ]
+				if test -n "$decimal_para"
 				then
 					num_saida=$(echo "$num_saida" | tr '.' 'm' | tr ',' 'd')
 					num_saida=$(echo "$num_saida" | tr 'm' "${milhar_para}" | tr 'd' "${decimal_para}")
 				fi
 
-			elif [ ${#n_formato} -gt 0 ]
+			elif test ${#n_formato} -gt 0
 			then
 
 			# Conforme formato solicitado pelo usuário
-				if [ ${#num_frac} -gt 0 ]
+				if test ${#num_frac} -gt 0
 				then
 				# Se existir parte fracionária
 
 					# Para shell configurado para vírgula como separador da parte decimal
 					numero=$(printf "${n_formato}" "${num_int},${num_frac}" 2>/dev/null)
 					# Para shell configurado para ponto como separador da parte decimal
-					[ $? -ne 0 ] && numero=$(printf "${n_formato}" "${num_int}.${num_frac}" 2>/dev/null)
+					test $? -ne 0 && numero=$(printf "${n_formato}" "${num_int}.${num_frac}" 2>/dev/null)
 				else
 				# Se tiver apenas a parte inteira
 					numero=$(printf "${n_formato}" "${num_int}" 2>/dev/null)
@@ -484,7 +484,7 @@ zznumero ()
 				num_saida="${numero},${num_frac}"
 
 				# Aplicando o formato conforme opção --para
-				if [ "$decimal_para" ]
+				if test -n "$decimal_para"
 				then
 					num_saida=$(echo "$num_saida" | tr '.' 'm' | tr ',' 'd')
 					num_saida=$(echo "$num_saida" | tr 'm' "${milhar_para}" | tr 'd' "${decimal_para}")
@@ -501,7 +501,7 @@ zznumero ()
 		fi
 	fi
 
-	if [ $texto -eq 1 -o $texto -eq 2 ]
+	if test $texto -eq 1 -o $texto -eq 2
 	then
 
 		######################################################################
@@ -519,24 +519,24 @@ zznumero ()
 		# Caso especial para o 0 (zero)
 		if test "$num_int" = "0"
 		then
-			[ $texto -eq 1 ] && num_saida=$num_int
-			[ $texto -eq 2 ] && num_saida='zero'
+			test $texto -eq 1 && num_saida=$num_int
+			test $texto -eq 2 && num_saida='zero'
 		fi
 
-		while [ "$1" ]
+		while test -n "$1"
 		do
 			# Emprestando a variável qtde_v para cada conjunto de 3 números do número original (ordem de grandeza)
 			# Tirando os zeros não significativos nesse contexto
 
 			qtde_v=$(echo "$1" | sed 's/^[ 0]*//')
 
-			if [ ${#qtde_v} -gt 0 ]
+			if test ${#qtde_v} -gt 0
 			then
 				# Emprestando a variável n_formato para guardar a descrição da ordem2
 				n_formato=$(echo "$ordem2" | grep "^${qtde_p}:" 2>/dev/null | cut -f2 -d":")
-				[ "$qtde_v" = "1" ] && n_formato=$(echo "$n_formato" | sed 's/ões/ão/')
+				test "$qtde_v" = "1" && n_formato=$(echo "$n_formato" | sed 's/ões/ão/')
 
-				if [ $texto -eq 2 ]
+				if test $texto -eq 2
 				then
 				# Números também por extenso
 
@@ -546,11 +546,11 @@ zznumero ()
 							numero=$(echo "$ordem1" | grep "^${qtde_v}:" | cut -f2 -d":")
 						;;
 						2)
-							if [ $(echo "$qtde_v" | cut -c1) -eq 1 ]
+							if test $(echo "$qtde_v" | cut -c1) -eq 1
 							then
 								# Entre 10 e 19, captura direta do texto no segundo campo
 								numero=$(echo "$ordem1" | grep "^${qtde_v}:" | cut -f2 -d":")
-							elif [ $(echo "$qtde_v" | cut -c2) -eq 0 ]
+							elif test $(echo "$qtde_v" | cut -c2) -eq 0
 							then
 								# Dezenas, captura direta do texto no terceiro campo
 								n_temp=$(echo "$qtde_v" | cut -c1)
@@ -570,7 +570,7 @@ zznumero ()
 							fi
 						;;
 						3)
-							if [ $qtde_v -eq 100 ]
+							if test $qtde_v -eq 100
 							then
 								# Exceção para o número cem
 								numero="cem"
@@ -582,9 +582,9 @@ zznumero ()
 
 								# Dezena
 								n_temp=$(echo "$qtde_v" | cut -c2)
-								if [ "$n_temp" != "0" ]
+								if test "$n_temp" != "0"
 								then
-									if [ "$n_temp" = "1" ]
+									if test "$n_temp" = "1"
 									then
 										n_temp=$(echo "$qtde_v" | cut -c2-3)
 										n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
@@ -597,10 +597,10 @@ zznumero ()
 
 								# Unidade
 								n_temp=$(echo "$qtde_v" | cut -c2)
-								if [ "$n_temp" != "1" ]
+								if test "$n_temp" != "1"
 								then
 									n_temp=$(echo "$qtde_v" | cut -c3)
-									if [ "$n_temp" != "0" ]
+									if test "$n_temp" != "0"
 									then
 										n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
 										numero="$numero e $n_temp"
@@ -611,11 +611,11 @@ zznumero ()
 					esac
 				fi
 
-				if [ $texto -eq 2 ]
+				if test $texto -eq 2
 				then
-					if [ "$n_formato" ]
+					if test -n "$n_formato"
 					then
-						[ "$num_saida" ] && num_saida="${num_saida}, ${numero} ${n_formato}" || num_saida="${numero} ${n_formato}"
+						test -n "$num_saida" && num_saida="${num_saida}, ${numero} ${n_formato}" || num_saida="${numero} ${n_formato}"
 					else
 						num_saida="${num_saida} ${numero}"
 						num_saida=$(echo "${num_saida}" | sed 's/ilhões  *\([a-z]\)/ilhões, \1/;s/ilhão  *\([a-z]\)/ilhão, \1/')
@@ -628,7 +628,7 @@ zznumero ()
 			qtde_p=$((qtde_p - 1))
 			shift
 		done
-		[ "$num_saida" ] && num_saida=$(echo "${num_saida}" | sed 's/ *$//;s/ \{1,\}/ /g')
+		test -n "$num_saida" && num_saida=$(echo "${num_saida}" | sed 's/ *$//;s/ \{1,\}/ /g')
 
 		# Milhar seguido de uma centena terminada em 00.
 		# Milhar seguida de uma unidade ou dezena
@@ -673,18 +673,18 @@ zznumero ()
 			if ! zztool grep_var ' mil ' "$num_saida"
 			then
 				qtde_v=$(echo "$num_saida" | sed 's/./&\n/g' | grep -c ",")
-				[ $qtde_v -gt 0 ] && num_saida=$(echo "${num_saida}" | sed "s/,/ e /${qtde_v}")
+				test $qtde_v -gt 0 && num_saida=$(echo "${num_saida}" | sed "s/,/ e /${qtde_v}")
 			fi
 		fi
 
 		# Colocando o sufixo
 		num_saida="${num_saida} inteiros"
-		[ "$num_int" = "1" ] && num_saida=$(echo "${num_saida}" | sed 's/inteiros/inteiro/')
+		test "$num_int" = "1" && num_saida=$(echo "${num_saida}" | sed 's/inteiros/inteiro/')
 
 		######################################################################
 
 		# Validando as parte fracionária do número
-		if [ ${#num_frac} -gt 0 ]
+		if test ${#num_frac} -gt 0
 		then
 			zztool testa_numero $num_frac || { zztool uso numero; return 1; }
 		fi
@@ -698,29 +698,29 @@ zznumero ()
 		# Liberando as variáveis numero para receber o número por extenso
 		unset numero
 
-		if [ "$1" ]
+		if test -n "$1"
 		then
 			# Tendo parte fracionário, e inteiro sendo 0 (zero), parte inteira é apagada.
 			test "$num_int" = "0" && unset num_saida
 
 			# Tendo parte fracionária, conecta com o "e"
-			[ "$num_saida" ] && num_saida="${num_saida} e "
+			test -n "$num_saida" && num_saida="${num_saida} e "
 		fi
 
-		while [ "$1" ]
+		while test -n "$1"
 		do
 			# Emprestando a variável qtde_v para cada conjunto de 3 números do número original (ordem de grandeza)
 			# Tirando os zeros não significativos nesse contexto
 			qtde_v=$(echo "$1" | sed 's/^[ 0]*//')
 
-			if [ ${#qtde_v} -gt 0 ]
+			if test ${#qtde_v} -gt 0
 			then
 				# Emprestando a variável n_formato para guardar a descrição da ordem2
 				n_formato=$(echo "$ordem2" | grep "^${qtde_p}:" 2>/dev/null | cut -f2 -d":")
-				[ "$qtde_v" = "1" ] && n_formato=$(echo "$n_formato" | sed 's/ões/ão/')
+				test "$qtde_v" = "1" && n_formato=$(echo "$n_formato" | sed 's/ões/ão/')
 				n_formato=$(echo "$n_formato" | sed 's/inteiros//')
 
-				if [ $texto -eq 2 ]
+				if test $texto -eq 2
 				then
 				# Numeros também por extenso
 					case ${#qtde_v} in
@@ -729,11 +729,11 @@ zznumero ()
 							numero=$(echo "$ordem1" | grep "^${qtde_v}:" | cut -f2 -d":")
 						;;
 						2)
-							if [ $(echo "$qtde_v" | cut -c1) -eq 1 ]
+							if test $(echo "$qtde_v" | cut -c1) -eq 1
 							then
 								# Entre 10 e 19, captura direta do texto no segundo campo
 								numero=$(echo "$ordem1" | grep "^${qtde_v}:" | cut -f2 -d":")
-							elif [ $(echo "$qtde_v" | cut -c2) -eq 0 ]
+							elif test $(echo "$qtde_v" | cut -c2) -eq 0
 							then
 								# Dezenas, captura direta do texto no terceiro campo
 								n_temp=$(echo "$qtde_v" | cut -c1)
@@ -753,7 +753,7 @@ zznumero ()
 							fi
 						;;
 						3)
-							if [ $qtde_v -eq 100 ]
+							if test $qtde_v -eq 100
 							then
 								# Exceção para o número cem
 								numero="cem"
@@ -765,9 +765,9 @@ zznumero ()
 
 								# Dezena
 								n_temp=$(echo "$qtde_v" | cut -c2)
-								if [ "$n_temp" != "0" ]
+								if test "$n_temp" != "0"
 								then
-									if [ "$n_temp" = "1" ]
+									if test "$n_temp" = "1"
 									then
 										n_temp=$(echo "$qtde_v" | cut -c2-3)
 										n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
@@ -780,10 +780,10 @@ zznumero ()
 
 								# Unidade
 								n_temp=$(echo "$qtde_v" | cut -c2)
-								if [ "$n_temp" != "1" ]
+								if test "$n_temp" != "1"
 								then
 									n_temp=$(echo "$qtde_v" | cut -c3)
-									if [ "$n_temp" != "0" ]
+									if test "$n_temp" != "0"
 									then
 										n_temp=$(echo "$ordem1" | grep "^${n_temp}:" | cut -f2 -d":")
 										numero="$numero e $n_temp"
@@ -794,7 +794,7 @@ zznumero ()
 					esac
 				fi
 
-				if [ $texto -eq 2 ]
+				if test $texto -eq 2
 				then
 					num_saida="${num_saida} ${numero} ${n_formato}"
 				else
@@ -806,7 +806,7 @@ zznumero ()
 			shift
 		done
 
-		if [ ${#num_frac} -gt 0 ]
+		if test ${#num_frac} -gt 0
 		then
 			# Primeiro sub-nível (ordem)
 			n_temp=$((${#num_frac} % 3))
@@ -815,7 +815,7 @@ zznumero ()
 
 			# Segundo sub-nível (classes)
 			n_temp=$(((${#num_frac}-1) / 3))
-			[ $((${#num_frac} % 3)) -eq 0  ] && n_temp=$((n_temp + 1))
+			test $((${#num_frac} % 3)) -eq 0  && n_temp=$((n_temp + 1))
 			n_temp=$(echo "$ordem4" | grep "^${n_temp}:" | cut -f2 -d":")
 			num_saida="${num_saida} ${n_temp}"
 
@@ -831,19 +831,19 @@ zznumero ()
 
 		# Zero (0) não é positivo e nem negativo
 		n_temp=$(echo "$num_saida" | sed 's/inteiros//' | tr -d ' ')
-		if [ "$n_temp" != "0" -a "$n_temp" != "zero" ]
+		if test "$n_temp" != "0" -a "$n_temp" != "zero"
 		then
-			[ "$sinal" = '-' ] && num_saida="$num_saida negativos"
-			[ "$sinal" = '+' ] && num_saida="$num_saida positivos"
+			test "$sinal" = '-' && num_saida="$num_saida negativos"
+			test "$sinal" = '+' && num_saida="$num_saida positivos"
 		fi
 
 		# Para o caso de ser o número 1, colocar no singular
-		if [ "$num_int" = "1" ]
+		if test "$num_int" = "1"
 		then
-			if [ ${#num_frac} -eq 0 ]
+			if test ${#num_frac} -eq 0
 			then
 				num_saida=$(echo $num_saida | sed 's/s$//')
-			elif [ "$num_frac" = "00" ]
+			elif test "$num_frac" = "00"
 			then
 				num_saida=$(echo $num_saida | sed 's/s$//')
 			fi
@@ -860,7 +860,7 @@ zznumero ()
 		num_saida=$(echo "$num_saida" | sed 's/ e  *e / e /g; s/  */ /g' | sed 's/^ *e //; s/ e *$//; s/^ *//g')
 
 		# Uma classe numérica por linha
-		if [ $linha -eq 1 ]
+		if test $linha -eq 1
 		then
 			case $texto in
 			1)
@@ -882,18 +882,18 @@ zznumero ()
 		fi
 
 		zztool grep_var 'R$' "$prefixo" && unset prefixo
-		[ "$prefixo" ] && num_saida="${prefixo} ${num_saida}"
+		test -n "$prefixo" && num_saida="${prefixo} ${num_saida}"
 		echo "${num_saida}" | sed 's/ *$//g;s/ \{1,\}/ /g;s/^[ ,]*//g'
 
 	else
 		# Zero (0) não é positivo e nem negativo
 		n_temp=$(echo "$num_saida" | sed 's/^[+-]//')
-		if [ "$n_temp" = "0" -o "$n_temp" = "R$ 0" ]
+		if test "$n_temp" = "0" -o "$n_temp" = "R$ 0"
 		then
 			num_saida=$n_temp
 		fi
 
 		zztool grep_var 'R$' "$prefixo" && unset prefixo
-		[ ${#num_saida} -gt 0 ] && echo ${prefixo}${num_saida}${sufixo}
+		test ${#num_saida} -gt 0 && echo ${prefixo}${num_saida}${sufixo}
 	fi
 }

@@ -38,16 +38,16 @@ zzseq ()
 	fi
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso seq; return 1; }
+	test -n "$1" || { zztool uso seq; return 1; }
 
 	# Se houver só um número, vai "de um ao número"
 	fim="$1"
 
 	# Se houver dois números, vai "do primeiro ao segundo"
-	[ "$2" ] && inicio="$1" fim="$2"
+	test -n "$2" && inicio="$1" fim="$2"
 
 	# Se houver três números, vai "do primeiro ao terceiro em saltos"
-	[ "$3" ] && inicio="$1" passo="$2" fim="$3"
+	test -n "$3" && inicio="$1" passo="$2" fim="$3"
 
 	# Verificações básicas
 	zztool -e testa_numero_sinal "$inicio" || return 1
@@ -61,10 +61,10 @@ zzseq ()
 
 	# Internamente o passo deve ser sempre positivo para simplificar
 	# Assim mesmo que o usuário faça 0 -2 10, vai funcionar
-	[ "$passo" -lt 0 ] && passo=$((0 - passo))
+	test "$passo" -lt 0 && passo=$((0 - passo))
 
 	# Se o primeiro for maior que o segundo, a contagem é regressiva
-	[ "$inicio" -gt "$fim" ] && operacao='-'
+	test "$inicio" -gt "$fim" && operacao='-'
 
 	# Loop que mostra o número e aumenta/diminui a contagem
 	i="$inicio"

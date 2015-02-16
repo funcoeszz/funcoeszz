@@ -28,14 +28,14 @@ zzplay ()
 	local cache="zzplay.pls"
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso play; return 1; }
+	test -n "$1" || { zztool uso play; return 1; }
 
 	tipo=$(zzextensao "$1" | zzminusculas)
 
 	# Para cada tipo de arquivo de audio ou playlist, seleciona o player disponivel
 	case "$tipo" in
 		wav | au | aiff )        play_lista="afplay play mplayer cvlc avplay ffplay";;
-		mp2 | mp3 )              play_lista="afplay mpg321 mpg123 mplayer cvlc avplay ffplay" ;;
+		mp2 | mp3 )              play_lista="afplay mpg321 mpg123 mplayer cvlc avplay ffplay";;
 		ogg )                    play_lista="ogg123 mplayer cvlc avplay ffplay";;
 		aac | wma | mka )        play_lista="mplayer cvlc avplay ffplay";;
 		pls | m3u | xspf | asx ) play_lista="mplayer cvlc"; lista=1;;
@@ -43,7 +43,7 @@ zzplay ()
 	esac
 
 	# Coloca player selecionado como prioritário.
-	if [ "$2" ] && zztool grep_var "$2" "$play_lista"
+	if test -n "$2" && zztool grep_var "$2" "$play_lista"
 	then
 		play_lista=$(echo "$play_lista" | sed "s/$2//")
 		play_lista="$2 $play_lista"
@@ -52,23 +52,23 @@ zzplay ()
 	# Testa sequencialmente até encontrar o player disponível
 	for play_cmd in $play_lista
 	do
-		if type $play_cmd >/dev/null 2>&1
+		if which $play_cmd >/dev/null 2>&1
 		then
 			player="$play_cmd"
 			break
 		fi
 	done
 
-	if [ "$player" ]
+	if test -n "$player"
 	then
 		# Mensagens de ajuda se estiver usando uma lista de reprodução
-		if [ "$player" = "mplayer" -a $lista -eq 1 ]
+		if test "$player" = "mplayer" -a $lista -eq 1
 		then
 			zztool eco "Tecla 'q' para sair."
 			zztool eco "Tecla '<' para música anterior na playlist."
 			zztool eco "Tecla '>' para próxima música na playlist."
 			player="$player -playlist"
-		elif [ "$player" = "cvlc" -a $lista -eq 1 ]
+		elif test "$player" = "cvlc" -a $lista -eq 1
 		then
 			zztool eco "Digitar Crtl+C para sair."
 			zztool eco "Tecla '1' para música anterior na playlist."

@@ -28,7 +28,7 @@ zznomefoto ()
 	local digitos=3
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-p)
@@ -58,7 +58,7 @@ zznomefoto ()
 	done
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso nomefoto; return 1; }
+	test -n "$1" || { zztool uso nomefoto; return 1; }
 
 	if ! zztool testa_numero "$digitos"
 	then
@@ -72,13 +72,13 @@ zznomefoto ()
 	fi
 	if test "$dropbox" = 1
 	then
-		if type "exiftool" >/dev/null 2>&1
+		if which "exiftool" >/dev/null 2>&1
 		then
 			exif_cmd=1
-		elif type "exiftime" >/dev/null 2>&1
+		elif which "exiftime" >/dev/null 2>&1
 		then
 			exif_cmd=2
-		elif type "identify" >/dev/null 2>&1
+		elif which "identify" >/dev/null 2>&1
 		then
 			exif_cmd=3
 		else
@@ -152,7 +152,7 @@ zznomefoto ()
 		# Renomeação normal
 		else
 			# O nome começa com o prefixo, se informado pelo usuário
-			if [ "$prefixo" ]
+			if test -n "$prefixo"
 			then
 				nome=$prefixo
 
@@ -170,7 +170,7 @@ zznomefoto ()
 		# Mostra na tela a mudança
 		previa="$nao$arquivo -> $novo"
 
-		if [ "$novo" = "$arquivo" ]
+		if test "$novo" = "$arquivo"
 		then
 			# Ops, o arquivo novo tem o mesmo nome do antigo
 			echo "$previa" | sed "s/^\[-n\]/[-ERRO-]/"
@@ -182,7 +182,7 @@ zznomefoto ()
 		i=$((i+1))
 
 		# Se não tiver -n, vamos renomear o arquivo
-		if ! [ "$nao" ]
+		if ! test -n "$nao"
 		then
 			# Não sobrescreve arquivos já existentes
 			zztool arquivo_vago "$novo" || return

@@ -23,7 +23,7 @@ zzjuros ()
 	# Testa se foi fornecido um numero dentre as opções disponiveis.
 	if zztool testa_numero $1
 	then
-		[ $1 -gt 25 -o $1 -lt 1 ] && { zztool uso juros; return 1; }
+		test $1 -gt 25 -o $1 -lt 1 && { zztool uso juros; return 1; }
 
 		# Variavel resultado guarda a linha da opção escolhida, com os códigos a seres usados.
 		resultado=$(zzjuros cod | sed -n "/^ *$1 /p" | sed 's/,\([0-9]\)/, \1/g' | tr -d ',)(.')
@@ -42,8 +42,8 @@ zzjuros ()
 		encargo=$(	echo "$resultado" | awk '{print $NF}')
 
 		# Descrições conforme as caracteristas obtidas pelas variáveis acima.
-		[ "$tipo" = "1" ] && echo -n "Pessoa Física - " || echo -n "Pessoa Jurídica - "
-		[ $(echo "$encargo" | cut -c 1) = "1" ] && echo 'Taxas Pré-Fixada' || echo 'Taxas Pós-Fixada'
+		test "$tipo" = "1" && printf %s "Pessoa Física - " || printf %s "Pessoa Jurídica - "
+		test $(echo "$encargo" | cut -c 1) = "1" && echo 'Taxas Pré-Fixada' || echo 'Taxas Pós-Fixada'
 		zztool eco $(echo $resultado | sed 's/^[ 0-9]\{1,\}//;s/[ 0-9]\{1,\}$//')
 
 		# Fazendo a busca e filtrando no site do Banco Central, conforme as variáveis obtidas.

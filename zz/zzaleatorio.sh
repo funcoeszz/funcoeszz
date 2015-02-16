@@ -25,17 +25,17 @@ zzaleatorio ()
 	local v_temp
 
 	# Se houver só um número, entre 0 e o número
-	[ "$1" ] && fim="$1"
+	test -n "$1" && fim="$1"
 
 	# Se houver dois números, entre o primeiro e o segundo
-	[ "$2" ] && inicio="$1" fim="$2"
+	test -n "$2" && inicio="$1" fim="$2"
 
 	# Verificações básicas
 	zztool testa_numero "$inicio" || return 1
 	zztool testa_numero "$fim"    || return 1
 
 	# Se ambos são iguais, retorna o próprio número
-	[ "$inicio" = "$fim" ] && { echo "$fim"; return 0; }
+	test "$inicio" = "$fim" && { echo "$fim"; return 0; }
 
 	# Se o primeiro é maior, inverte a posição
 	if test "$inicio" -gt "$fim"
@@ -62,7 +62,7 @@ zzaleatorio ()
 		# Se existir o cache e o tempo em segundos é o mesmo do atual, aguarda um segundo
 		if test -s "$cache"
 		then
-			[ $(cat "$cache") = $(date +%s) ] && sleep 1
+			test $(cat "$cache") = $(date +%s) && sleep 1
 		fi
 
 		# Cria o cache incondicionalmente nesse caso

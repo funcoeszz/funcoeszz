@@ -19,7 +19,7 @@ zzlocale ()
 	local padrao="$1"
 
 	# Opções de linha de comando
-	if [ "$1" = '-c' ]
+	if test "$1" = '-c'
 	then
 		# Padrão de pesquisa válido para última palavra da linha (código)
 		padrao="$2[^ ]*$"
@@ -27,7 +27,7 @@ zzlocale ()
 	fi
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso locale; return 1; }
+	test -n "$1" || { zztool uso locale; return 1; }
 
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"

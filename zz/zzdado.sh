@@ -22,11 +22,11 @@ zzdado ()
 	# Comando especial das funcoes ZZ
 	zzzz -h dado "$1" && return
 
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-f|--faces)
-				if zztool testa_numero $2;
+				if zztool testa_numero $2
 				then
 					n_faces="$2"
 				else

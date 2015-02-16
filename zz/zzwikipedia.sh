@@ -24,14 +24,14 @@ zzwikipedia ()
 	local idioma='pt'
 
 	# Se o idioma foi informado, guarda-o, retirando o hífen
-	if [ "${1#-}" != "$1" ]
+	if test "${1#-}" != "$1"
 	then
 		idioma="${1#-}"
 		shift
 	fi
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso wikipedia; return 1; }
+	test -n "$1" || { zztool uso wikipedia; return 1; }
 
 	# Faz a consulta e filtra o resultado, paginando
 	url="http://$idioma.wikipedia.org/wiki/"

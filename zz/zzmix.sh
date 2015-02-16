@@ -36,7 +36,7 @@ zzmix ()
 	local tipo=1
 
 	# Opção -m ou -M, -numero ou -o
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		if test "$1" = "-o"
 		then
@@ -52,7 +52,7 @@ zzmix ()
 		shift
 	done
 
-	[ "$2" ] || { zztool uso mix; return 1; }
+	test -n "$2" || { zztool uso mix; return 1; }
 
 	for arquivo
 	do
@@ -79,12 +79,12 @@ zzmix ()
 	# Se opção é um numero, o arquivo base para as linhas é o mesmo da posição equivalente
 	if zztool testa_numero $tipo && test $tipo -le $#
 	then
-		arquivo=$(awk -v arg=$tipo 'BEGIN { print ARGV[arg] }' $* 2>/dev/null)
-		linhas=$(zztool num_linhas "$arquivo")
+		arq_ref=$(awk -v arg=$tipo 'BEGIN { print ARGV[arg] }' $* 2>/dev/null)
+		linhas=$(zztool num_linhas "$arq_ref")
 	fi
 
 	# Sem quantidade de linhas mínima não há mistura.
-	[ "$linhas" -eq 0 ] && { zztool eco "Não há linhas para serem \"mixadas\"."; return 1; }
+	test "$linhas" -eq 0 && { zztool eco "Não há linhas para serem \"mixadas\"."; return 1; }
 
 	# Onde a "mixagem" ocorre efetivamente.
 	awk -v linhas_awk=$linhas -v passos_awk="$passos" -v arq_ref_awk="$arq_ref" -v saida_awk="$arq_saida" '

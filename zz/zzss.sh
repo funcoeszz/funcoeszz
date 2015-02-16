@@ -40,14 +40,14 @@ zzss ()
 
 	# Tenta obter as dimensões atuais da tela/janela
 	dimensoes=$(stty size 2>/dev/null)
-	if [ "$dimensoes" ]
+	if test -n "$dimensoes"
 	then
 		linhas=${dimensoes% *}
 		colunas=${dimensoes#* }
 	fi
 
 	# Opções de linha de comando
-	while [ $# -ge 1 ]
+	while test $# -ge 1
 	do
 		case "$1" in
 			--fundo)
@@ -57,7 +57,7 @@ zzss ()
 				unset pausa
 			;;
 			--tema)
-				[ "$2" ] || { zztool uso ss; return 1; }
+				test -n "$2" || { zztool uso ss; return 1; }
 				tema=$2
 				shift
 			;;
@@ -71,7 +71,7 @@ zzss ()
 	done
 
 	# Extrai a mensagem (desenho) do tema escolhido
-	if [ "$tema" ]
+	if test -n "$tema"
 	then
 		mensagem=$(
 			echo "$temas" |
@@ -80,7 +80,7 @@ zzss ()
 				cut -f2
 		)
 
-		if ! [ "$mensagem" ]
+		if ! test -n "$mensagem"
 		then
 			echo "Tema desconhecido '$tema'"
 			return 1
@@ -88,7 +88,7 @@ zzss ()
 	fi
 
 	# O 'mosaico' é um tema especial que precisa de ajustes
-	if [ "$tema" = 'mosaico' ]
+	if test "$tema" = 'mosaico'
 	then
 		# Configurações para mostrar retângulos coloridos frenéticos
 		mensagem=' '
@@ -97,7 +97,7 @@ zzss ()
 	fi
 
 	# Define se a parte fixa do código de cores será fundo ou frente
-	if [ "$fundo" ]
+	if test -n "$fundo"
 	then
 		cor_fixo='30;4'
 	else
@@ -117,7 +117,7 @@ zzss ()
 		# Posiciona o cursor em um ponto qualquer (aleatório) da tela (X,Y)
 		# Detalhe: A mensagem sempre cabe inteira na tela ($coluna)
 		linha=$(zzaleatorio 1 $linhas)
-		coluna==$(zzaleatorio 1 $((colunas - tamanho_mensagem + 1)))
+		coluna=$(zzaleatorio 1 $((colunas - tamanho_mensagem + 1)))
 		printf "\033[$linha;${coluna}H"
 
 		# Escolhe uma cor aleatória para a mensagem (ou o fundo): 1 - 7
@@ -127,7 +127,7 @@ zzss ()
 		negrito=$(zzaleatorio 1)
 
 		# Podemos usar cores ou não?
-		if [ "$ZZCOR" = 1 ]
+		if test "$ZZCOR" = 1
 		then
 			codigo_cores="$negrito;$cor_fixo$cor_muda"
 			mensagem_colorida="\033[${codigo_cores}m$mensagem\033[m"

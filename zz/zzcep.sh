@@ -19,7 +19,7 @@ zzcep ()
 	local url='http://www.achecep.com.br'
 
 	# Verificação dos parâmetros
-	[ "$1" ] || { zztool uso cep; return; }
+	test -n "$1" || { zztool uso cep; return; }
 
 	# Testando se parametro é o CEP
 	echo "$1" | tr -d '-' | grep -E '[0-9]{8}' > /dev/null

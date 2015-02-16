@@ -31,39 +31,39 @@ zzenviaemail ()
 	local nparam=0
 
 	# Opcoes de linha de comando
-	while [ $# -ge 1 ]
+	while test $# -ge 1
 	do
 		case "$1" in
 			-f | --from)
-				[ "$2" ] || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
 				fromail=$2
 				nparam=$(($nparam + 1))
 				shift
 				;;
 			-t | --to)
-				[ "$2" ] || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
 				tomail=$2
 				nparam=$(($nparam + 1))
 				shift
 				;;
 			-c | --cc)
-				[ "$2" ] || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
 				ccmail=$2
 				shift
 				;;
 			-b | --bcc)
-				[ "$2" ] || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
 				bccmail=$2
 				shift
 				;;
 			-s | --subject)
-				[ "$2" ] || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
 				subject=$2
 				nparam=$(($nparam + 1))
 				shift
 				;;
 			-m | --mensagem)
-				[ "$2" ] || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
 				mensagem=$2
 				nparam=$(($nparam + 1))
 				shift
@@ -77,7 +77,7 @@ zzenviaemail ()
 	done
 
 	# Verifica numero minimo de parametros.
-	if [ "${nparam}" != 4 ] ; then
+	if test "${nparam}" != 4 ; then
 		{ zztool uso enviaemail; set +x; return 1; }
 	fi
 
@@ -92,7 +92,7 @@ zzenviaemail ()
 	echo "Subject: ${subject}" >> ${script_eml}
 	cat ${mensagem} >> ${script_eml}
 	ssmtp -F ${fromail} ${tomail} ${ccmail} ${bccmail} < ${script_eml}
-	if [ -s "${script_eml}" ] ; then
+	if test -s "${script_eml}" ; then
 		zztool cache rm enviaemail
 	fi
 

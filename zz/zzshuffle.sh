@@ -8,6 +8,7 @@
 # Desde: 2008-06-19
 # Versão: 1
 # Licença: GPL
+# Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
 zzshuffle ()
 {
@@ -23,7 +24,7 @@ zzshuffle ()
 		# original. Então os números são removidos.
 		while read linha
 		do
-			echo "$RANDOM $linha"
+			echo "$(zzaleatorio) $linha"
 		done |
 		sort |
 		cut -d ' ' -f 2-

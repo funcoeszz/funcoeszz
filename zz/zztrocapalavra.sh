@@ -21,7 +21,7 @@ zztrocapalavra ()
 	local tmp=$(zztool cache trocapalavra $$)
 
 	# Verificação dos parâmetros
-	[ "$3" ] || { zztool uso trocapalavra; return 1; }
+	test -n "$3" || { zztool uso trocapalavra; return 1; }
 
 	# Escapando a barra "/" dentro dos textos de pesquisa
 	antiga_escapada=$(echo "$antiga" | sed 's,/,\\/,g')

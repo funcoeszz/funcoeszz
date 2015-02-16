@@ -40,7 +40,7 @@ zzromanos ()
 
 	# Se nenhum argumento for passado, mostra lista de algarismos romanos
 	# e seus correspondentes indo-arábicos
-	if [ $# -eq 0 ]
+	if test $# -eq 0
 	then
 		echo "$arabicos_romanos" |
 		grep -v :.. | tr -d '\t' | tr : '\t' |
@@ -51,7 +51,7 @@ zzromanos ()
 	then
 		echo "$arabicos_romanos" | { while IFS=: read arabico romano
 		do
-			while [ "$entrada" -ge "$arabico" ]
+			while test "$entrada" -ge "$arabico"
 			do
 				saida="$saida$romano"
 				entrada=$((entrada-arabico))
@@ -69,7 +69,7 @@ zzromanos ()
 		echo "$arabicos_romanos" | { while IFS=: read arabico romano
 		do
 			comprimento="${#romano}"
-			while [ "$(echo "$entrada" | cut -c$indice-$((indice+comprimento-1)))" = "$romano" ]
+			while test "$(echo "$entrada" | cut -c$indice-$((indice+comprimento-1)))" = "$romano"
 			do
 				indice=$((indice+comprimento))
 				saida=$((saida+arabico))

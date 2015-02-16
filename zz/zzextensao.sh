@@ -17,7 +17,7 @@ zzextensao ()
 	# Declara variaveis.
 	local nome_arquivo extensao arquivo
 
-	[ "$1" ] || { zztool uso extensao; return 1; }
+	test -n "$1" || { zztool uso extensao; return 1; }
 
 
 	arquivo="$1"
@@ -25,7 +25,7 @@ zzextensao ()
 	# Extrai a extensao.
 	nome_arquivo=`echo "$arquivo" | awk 'BEGIN { FS = "/" } END { print $NF }'`
 	extensao=`echo "$nome_arquivo" | awk 'BEGIN { FS = "." } END { print $NF }'`
-	if [ "$extensao" = "$nome_arquivo" -o ".$extensao" = "$nome_arquivo" ] ; then
+	if test "$extensao" = "$nome_arquivo" -o ".$extensao" = "$nome_arquivo" ; then
 		extensao=""
 	fi
 

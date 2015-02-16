@@ -141,7 +141,7 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 
 	# Opção para mudar os símbolos a serem exibidos dentro da célula Braille
 	# E garantindo que seja apenas um caractere usando sed. O cut e o awk falham dependendo do ambiente
-	while [ "$1" ]
+	while test -n "$1"
 	do
 		case $1 in
 			"--s1") c=$(echo "$2" | sed 's/\(.\).*/\1/'); shift; shift;;
@@ -151,7 +151,7 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 	done
 
 	set - $(zztool multi_stdin "$@")
-	while [ "$1" ]
+	while test -n "$1"
 	do
 		# Demarcando início do texto (iniciativa do autor para noção dos limites da célula Braille)
 		# E sinalizando espaço entre as palavras
@@ -166,13 +166,13 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 			linha1=${linha1}' 01'
 			linha2=${linha2}' 01'
 			linha3=${linha3}' 11'
-		elif [ "$1" = $(zzcapitalize "$1") -a "$1" != $(zzminusculas "$1") ]
+		elif test "$1" = $(zzcapitalize "$1") -a "$1" != $(zzminusculas "$1")
 		then
 			linha0=${linha0}' +-' # Para indicar que o texto a seguir está com a primeira letra em maiúscula (capitalize)
 			linha1=${linha1}' 01'
 			linha2=${linha2}' 00'
 			linha3=${linha3}' 01'
-		elif [ "$1" = $(zzmaiusculas "$1") -a "$1" != $(zzminusculas "$1") ]
+		elif test "$1" = $(zzmaiusculas "$1") -a "$1" != $(zzminusculas "$1")
 		then
 			linha0=${linha0}' +++++' # Para indicar que o texto a seguir está todo maiúsculo
 			linha1=${linha1}' 01 01'
@@ -181,17 +181,17 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 		fi
 
 		tamanho=$(echo "${#linha1} + ${#1} * 3" | bc)
-		if [ $tamanho -le $largura ]
+		if test $tamanho -le $largura
 		then
 			for i in $(zzseq ${#1})
 			do
 				letra=$(echo $1| tr ' ' '#' | zzminusculas | sed "s/^\(.\{1,$i\}\).*/\1/" | sed 's/.*\(.\)$/\1/')
 				letra_original=$(echo $1| tr ' ' '#' | sed "s/^\(.\{1,$i\}\).*/\1/" | sed 's/.*\(.\)$/\1/')
-				if [ $letra ]
+				if test -n $letra
 				then
-					[ $letra = '/' ] && letra='\/'
+					test $letra = '/' && letra='\/'
 					codigo=$(echo "$caracter" | sed -n "/^[$letra]/p")
-					if [ $codigo ]
+					if test -n $codigo
 					then
 						letra_original=$(echo $letra_original | tr '#' ' ')
 						linha0=${linha0}'('${letra_original}')'
@@ -199,7 +199,7 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 						linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6}')
 						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7}')
 					else
-						if [ $letra = '\' ]
+						if test $letra = '\'
 						then
 							linha0=${linha0}'-( '${letra_original}' )'
 							linha1=${linha1}' '$(awk 'BEGIN {print "00 00"}')
@@ -207,7 +207,7 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 							linha3=${linha3}' '$(awk 'BEGIN {print "00 10"}')
 						else
 							codigo=$(echo "$caracter_esp" | sed -n "/^[$letra]/p")
-							[ ${#codigo} -ge 25 ] && linha0=${linha0}'-( '${letra_original}' )'|| linha0=${linha0}'('${letra_original}')'
+							test ${#codigo} -ge 25 && linha0=${linha0}'-( '${letra_original}' )'|| linha0=${linha0}'('${letra_original}')'
 							linha1=${linha1}' '$(echo $codigo | awk -F'|' '{print $2 $5, $8 $11}')
 							linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6, $9 $12}')
 							linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7, $10 $13}')

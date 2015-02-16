@@ -14,7 +14,7 @@ zzdivisores ()
 {
 	zzzz -h divisores "$1" && return
 
-	[ "$1" ] || { zztool uso divisores; return 1; }
+	test -n "$1" || { zztool uso divisores; return 1; }
 
 	local fatores fator divisores_temp divisor divisor_atual
 	local divisores="1"
@@ -36,7 +36,7 @@ zzdivisores ()
 
 				# Apenas armazenando se divisor não existir
 				echo "$divisores_temp" | zztool list2lines | grep "^${divisor_atual}$" > /dev/null
-				if [ $? -eq 1 ]
+				if test $? -eq 1
 				then
 					divisores_temp=$( echo "$divisores_temp $divisor_atual")
 				fi

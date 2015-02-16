@@ -21,7 +21,7 @@ zzlinha ()
 	local arquivo n padrao resultado num_linhas
 
 	# Opções de linha de comando
-	if [ "$1" = '-t' ]
+	if test "$1" = '-t'
 	then
 		padrao="$2"
 		shift
@@ -41,7 +41,7 @@ zzlinha ()
 		zztool arquivo_legivel "$arquivo" || return 1
 	done
 
-	if [ "$n" ]
+	if test -n "$n"
 	then
 		# Se foi informado um número, mostra essa linha.
 		# Nota: Suporte a múltiplos arquivos ou entrada padrão (STDIN)
@@ -49,7 +49,7 @@ zzlinha ()
 		do
 			# Usando cat para ler do arquivo ou da STDIN
 			cat "$arquivo" |
-				if [ "$n" -lt 0 ]
+				if test "$n" -lt 0
 				then
 					tail -n "${n#-}" | sed 1q
 				else
