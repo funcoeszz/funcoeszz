@@ -1,30 +1,30 @@
 # ----------------------------------------------------------------------------
 # Mostra a classificação e jogos do torneio Libertadores da América.
 # Opções:
-#   <número> | <fase>: Mostra jogos da fase selecionada
-#   fases: pre ou primeira, grupos ou segunda, oitavas
-#   -g <número>: Jogos da segunda fase do gupo selecionado
-#   -c [numero]: Mostra a classificação, nos grupos da segunda fase
-#   -cg <número> ou -gc <número>: Classificação e jogos do grupo selecionado.
+#  <número> | <fase>: Mostra jogos da fase selecionada
+#    fases: pre ou primeira, grupos ou segunda, oitavas
+#  -g <número>: Jogos da segunda fase do gupo selecionado
+#  -c [número]: Mostra a classificação, nos grupos da segunda fase
+#  -cg <número> ou -gc <número>: Classificação e jogos do grupo selecionado.
 #
 # As fases podem ser:
-#   pré, pre, primeira ou 1, para a fasé pré-libertadores
-#   grupos, segunda ou 2, para a fase de grupos da libertadores
-#   oitavas ou 3
-#   quartas ou 4
-#   semi, semi-final ou 5
-#   final ou 6
+#  pré, pre, primeira ou 1, para a fasé pré-libertadores
+#  grupos, segunda ou 2, para a fase de grupos da libertadores
+#  oitavas ou 3
+#  quartas ou 4
+#  semi, semi-final ou 5
+#  final ou 6
 #
 # Nomenclatura:
-#   PG  - Pontos Ganhos
-#   J   - Jogos
-#   V   - Vitórias
-#   E   - Empates
-#   D   - Derrotas
-#   GP  - Gols Pró
-#   GC  - Gols Contra
-#   SG  - Saldo de Gols
-#   (%) - Aproveitamento (pontos)
+#	PG  - Pontos Ganhos
+#	J   - Jogos
+#	V   - Vitórias
+#	E   - Empates
+#	D   - Derrotas
+#	GP  - Gols Pró
+#	GC  - Gols Contra
+#	SG  - Saldo de Gols
+#	(%) - Aproveitamento (pontos)
 #
 # Uso: zzlibertadores [ fase | -c [número] | -g <número> ]
 # Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)
@@ -35,7 +35,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlibertadores ()
@@ -47,20 +47,20 @@ zzlibertadores ()
 	local sed_mata='
 		1d; $d
 		/Confronto/d; /pós jogo/d
-		/^ *$/d; s/^ *//
+		/^ *$/d; s/^ *//; s/_//g;
 		s/[A-Z][A-Z][A-Z] //; s/ [A-Z][A-Z][A-Z]//
 		s/\([0-9]\{1,\}\) *pênaltis *\([0-9]\{1,\}\)\(.*\) X \(.*$\)/\3 (\1 X \2) \4/g
 	'
 	local grupo
 
-	[ "$1" ] || { zztool uso libertadores; return 1; }
+	test -n "$1" || { zztool uso libertadores; return 1; }
 
 	# Mostrando os jogos
 	# Escolhendo as fases
 	# Fase 1 (Pré-libertadores)
 	case "$1" in
 	1 | pr[eé] | primeira)
-		$ZZWWWDUMP "$url" | sed -n '/Primeira Fase/,/Segunda/p' |
+		$ZZWWWDUMP "$url" | sed -n '/PRIMEIRA FASE/,/SEGUNDA/p' |
 		sed "$sed_mata" |
 		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}' |
 		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
@@ -74,7 +74,7 @@ zzlibertadores ()
 		done
 	;;
 	3 | oitavas)
-		$ZZWWWDUMP "$url" | sed -n '/^Oitavas de Final/,/^ *\*/p' |
+		$ZZWWWDUMP "$url" | sed -n '/^OITAVAS DE FINAL/,/^ *\*/p' |
 		sed "$sed_mata" |
 		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
 	;;
@@ -96,25 +96,25 @@ zzlibertadores ()
 	esac
 
 	# Escolhendo o grupo para os jogos
-	if [ "$1" = "-g" ] && zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
+	if test "$1" = "-g" && zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 	then
 		grupo="$2"
 		echo "Grupo $2"
 		$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Grupo /p" |
-		sed '/Classificados para Oitavas de Final/,$d;/pós jogo/d;s/^ *//' | sed -n '/ X /{N;p;}' |
-		sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+		sed '/Classificados para as oitavas de final/,$d;/pós jogo/d;s/^ *//' | sed -n '/ X /{N;p;}' |
+		sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//; s/ *_* X _* */ X /g' |
 		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}' |
 		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
 	fi
 
 	# Mostrando a classificação (Fase de grupos)
-	if [ "$1" = "-c" -o "$1" = "-cg" -o "$1" = "-gc" ]
+	if test "$1" = "-c" -o "$1" = "-cg" -o "$1" = "-gc"
 	then
-		if zztool testa_numero $2 && [ $2 -le 8  -a $2 -ge 1 ]
+		if zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 		then
 			grupo="$2"
 			$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Rodada 1/p" | sed -n '1p;/PG/p;/°/p' |
-			sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+			sed 's/[^-][A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
 			awk -v cor_awk="$ZZCOR" '{
 				if (NF <  10) { print }
 				if (NF == 10) {
@@ -131,15 +131,15 @@ zzlibertadores ()
 					printf "\033[m\n"
 				}
 			}'
-			[ "$1" = "-cg" -o "$1" = "-gc" ] && { echo; zzlibertadores -g $2 | sed '1d'; }
+			test "$1" = "-cg" -o "$1" = "-gc" && { echo; zzlibertadores -g $2 | sed '1d'; }
 		else
 			for grupo in 1 2 3 4 5 6 7 8
 			do
 				zzlibertadores -c $grupo -n
-				[ "$1" = "-cg" -o "$1" = "-gc" ] && { echo; zzlibertadores -g $grupo | sed '1d'; }
+				test "$1" = "-cg" -o "$1" = "-gc" && { echo; zzlibertadores -g $grupo | sed '1d'; }
 				echo
 			done
 		fi
-		[ "$ZZCOR" = "1" -a "$3" != "-n" ] && printf "\n\033[42;30m Oitavas de Final \033[m\n"
+		test "$ZZCOR" = "1" -a "$3" != "-n" && printf "\n\033[42;30m Oitavas de Final \033[m\n"
 	fi
 }
