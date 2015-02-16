@@ -1,151 +1,153 @@
 # ----------------------------------------------------------------------------
 # http://cbn.globoradio.com.br
 # Busca e toca os últimos comentários dos comentaristas da radio CBN.
-# Uso: zzcbn [--mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn --lista
-# Ex.: zzcbn -c max -d ontem
-#      zzcbn -c mauro -d tudo
-#      zzcbn -c juca -d 13/05/09
+# Uso: zzcbn [--audio] -c COMENTARISTA [-d data] ou  zzcbn --lista
+# Ex.: zzcbn -c max-gehringer -d ontem
+#      zzcbn -c juca-kfouri -d 13/05/09
 #      zzcbn -c miriam
-#      zzcbn --mp3 -c max
+#      zzcbn --audio -c  mario-sergio-cortella -d 16/02/2015
 #
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2009-04-16
-# Versão: 3
+# Versão: 4
 # Licença: GPL
-# Requisitos: zzecho zzplay
+# Requisitos: zzecho zzplay zzcapitalize zzdatafmt
 # ----------------------------------------------------------------------------
 zzcbn ()
 {
 	zzzz -h cbn "$1" && return
 
-	local COMENTARISTAS RSS MP3 EXT comentarista data linha autor datafile Tlinhas l P titulo hora dois
-	local tmp=$(zztool cache cbn comentarios)
-	local cache=$(zztool cache cbn coment)
+	local cache=$(zztool cache cbn)
+	local url='http://cbn.globoradio.globo.com'
+	local audio=0
+	local nome comentarista link fonte rss podcast ordem data_coment data_audio
 
-#Comentaristas;RSS;Download
-COMENTARISTAS="André_Trigueiro;andretrigueiro;andre-trigueiro;mundo
-Arnaldo_Jabor;arnaldojabor;arnaldo-jabor;jabor
-Carlos_Alberto_Sardenberg;carlosalbertosardenberg;sardenberg
-Cony_&_Xexéo;conyxexeo;conyxexeo
-Ethevaldo_Siqueira;ethevaldosiqueira;digital
-Gilberto_Dimenstein;gilbertodimenstein;dimenstein
-Juca_Kfouri;jucakfouri;jkfouri
-Lucia_Hippolito;luciahippolito;lucia
-Luis_Fernando_Correia;luisfernandocorreia;saudefoco
-Mara_Luquet;maraluquet;mara
-Marcos_Petrucelli;marcospetrucelli;petrucelli
-Mauro_Halfeld;maurohalfeld;halfeld
-Max_Gehringer;maxgehringer;max
-Merval_Pereira;mervalpereira;merval
-Miriam_Leitão;miriamleitao;mleitao
-Renato_Machado;renatomachado;rmachado
-Sérgio_Abranches;sergioabranches;ecopolitica"
+	#Verificacao dos parâmetros
+	test -n "$1" || { zztool uso cbn; return 1; }
 
-RSS="http://imagens.globoradio.globo.com/cbn/rss/comentaristas/"
-MP3="mms://wm-sgr-ondemand.globo.com/_aberto/sgr/1/cbn/"
-EXT="wma"
+	# Cache com parametros para nomes e links
+	if ! test -s "$cache" || test $(date -r "$cache" +%F) != $(date +%F)
+	then
+		$ZZWWWHTML "$url" |
+		sed -n '/lista-menu-item comentaristas/,/lista-menu-item boletins/p' |
+		zzxml --tag a |
+		sed -n '/http:..cbn.globoradio.globo.com.comentaristas./{s/.*="//;s/">//;/-e-/d;p;}' |
+		awk -F "/" '{url = $0;gsub(/-/," ", $6); gsub(/\.htm/,"", $6);printf "%s;%s;%s\n", $6, $5, url }'|
+		while read linha
+		do
+			nome=$(echo "$linha" | cut -d ";" -f 1 | zzcapitalize )
+			comentarista=$(echo "$linha" | cut -d ";" -f 2 )
+			link=$(echo "$linha" | cut -d ";" -f 3 )
+			fonte=$($ZZWWWHTML "$link")
+			rss=$(
+				echo "$fonte" |
+				grep 'cbn/rss' |
+				sed 's/.*href="//;s/".*//'
+			)
+			podcast=$(
+				echo "$fonte" |
+				grep 'cbn/podcast' |
+				sed 's/.*href="//;s/".*//'
+			)
+			echo "$nome | $comentarista | $rss | $podcast"
+		done > "$cache"
+	fi
 
-#Verificacao dos parâmetros
-[ "$1" ] || { zztool uso cbn; return 1; }
-
-if [ "$1" == "--lista" ]
-then
-	for i in $COMENTARISTAS
-	do
-		echo `echo $i | sed 's/;/ ou /g' # cut -d';' -f1`
-	done
-	return
-fi
+	# Listagem dos comentaristas
+	if test "$1" = "--lista"
+	then
+		 awk -F " [|] " '{print $2 "\t => " $1}' "$cache" | expand -t 28
+		return
+	fi
 
 # Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			-c)
+				comentarista="$2"
 				shift
-				comentarista="$1"
-				;;
+				shift
+			;;
 			-d)
+				data_coment=$(zzdatafmt --en -f "SSS, DD MMM AAAA" "$2")
+				data_audio=$(zzdatafmt -f "_AAMMDD" "$2")
 				shift
-				data="$1"
-				;;
-			--mp3)
-				EXT="mp3"
-				MP3="http://download.sgr.globo.com/sgr-$EXT/cbn/"
-				;;
+				shift
+			;;
+			--audio)
+				audio=1
+				shift
+				if test -n "$1"
+				then
+					if zztool testa_numero "$1" 
+					then
+						num_audio="$1"
+						shift
+					fi
+				fi
+			;;
 			*)
 				zzecho -l vermelha "Opção inválida!!"
 				return 1
-				;;
+			;;
 		esac
-		shift
 	done
 
-	linha=`echo $COMENTARISTAS | tr ' ' '\n' | sed  "/$comentarista/!d"`
-	autor=`echo $linha | cut -d';' -f 3`
-
-	$ZZWWWHTML "$RSS`echo $linha | cut -d';' -f 2`.xml" |
-	sed -n "/title/p;/pubDate/p" | sed "s/.*A\[\(.*\)]].*/\1/g" |
-	sed "s/.*>\(.*\)<\/.*/\1/g" | sed "2d" > "$tmp"
-
-	zzecho -l ciano `cat "$tmp" | sed -n '1p'`
-
-	case  "$data" in
-		"ontem")
-			datafile=`date -d "yesterday" +%y%m%d`
-			data=`LANG=en date -d "yesterday" "+%d %b %Y"`
-			cat "$tmp" | sed -n "/$data/{H;x;p;};h" > "$cache"
-		;;
-		"tudo")
-			cat "$tmp" | sed '1d' > "$cache"
-		;;
-		"")
-			datafile=`date '+%y%m%d'`
-			data=`LANG=en date "+%d %b %Y"`
-			cat "$tmp" | sed -n "/$data/{H;x;p;};h" > "$cache"
-		;;
-		*)
-			if ! ( zztool testa_data "$data" || zztool testa_numero "$data" )
-			then
-				echo "Data inválida '$data', deve ser dd/mm/aaaa"
-				return 1
-			fi
-			data="`echo $data | sed 's/\([0-9]*\)\/\([0-9]*\)\/\([0-9]*\)/\3-\2-\1/g'`"
-			datafile=`date -d $data +%y%m%d`
-			data=`LANG=en date -d $data "+%d %b %Y"`
-			cat "$tmp" | sed -n "/$data/{H;x;p;};h" > "$cache"
-
-
-	esac
-	Tlinhas=`cat "$cache" | sed -n '$='`
-	[ "$Tlinhas" ] ||  { zzecho -l vermelho "Sem comentários"; return; }
-	l=1
-	while test $l -le $Tlinhas
-	do
-		P=`expr $l + 1`
-		titulo=`cat "$cache" | sed "$l!d"`
-		data=`cat "$cache" | sed "$P!d"`
-		datafile=`date -d "$data" "+%y%m%d"`
-		hora=`LANG=en date -d "$data" "+%p"`
-		data=`LANG=en date -d "$data" "+%d %b %Y %H:%m"`
-		dois="_"
-		if [ "$hora" == "PM" ]
-		then
-			case "$autor" in
-			sardenberg | mleitao | halfeld)
-				dois="2_"
-				;;
-			esac
-		fi
-		zzecho -l verde "(q) para próximo; CTRL+C para sair"
-		echo $titulo - $data
-		zzplay $MP3`date +%Y`/colunas/$autor$dois$datafile.$EXT mplayer || return
-		l=$(($l+2))
-	done
-	if [ "$Tlinhas" == "0" ]
+	# Audio ou comentários feitos pelo comentarista selecionado
+	if test "$audio" -eq 1
 	then
-		zzecho -l vermelho "Sem comentários"
-	fi
+		podcast=$(
+			sed -n "/$comentarista/p" "$cache" |
+			cut -d'|' -f 4| tr -d ' '
+		)
+		if test -n "$podcast"
+		then
+			podcast=$($ZZWWWHTML "$podcast" | grep 'media:content')
+			zztool eco "Áudios diponíveis:"
+			echo "$podcast" |
+			sed 's/.*_//; s/\.mp3.*//; s/\(..\)\(..\)\(..\)/\3\/\2\/20\1/' |
+			awk '{ print NR ".", $0}'
 
-	zztool cache rm cbn
+			podcast=$(
+				echo "$podcast" |
+				if test -n "$data_audio"
+				then
+					sed -n "/${data_audio}/p"
+				else
+					head -n 1
+				fi |
+				sed 's|.*audio=|http://download.sgr.globo.com/sgr-mp3/cbn/|' |
+				sed 's/\.mp3.*/.mp3/'
+			)
+
+			test -n "$podcast" && zzplay "$podcast" mplayer || zzecho -l vermelho "Sem comentários em áudio."
+		else
+			zzecho -l vermelho "Sem comentários em áudio."
+		fi
+
+	else
+		rss=$(
+			sed -n "/$comentarista/p" "$cache" |
+			cut -d'|' -f 3 | tr -d ' '
+		)
+
+		if test -n "$rss"
+		then
+			$ZZWWWHTML "$rss" |
+			zzxml --tag item |
+			zzxml --tag title --tag description --tag pubDate |
+			sed 's/<title>/-----/' |
+			zzxml --untag |
+			sed '/^$/d; s/ [0-2][0-9]:.*//' |
+			if test -n "$data_coment"
+			then
+				grep -B 3 "$data_coment"
+			else
+				cat -
+			fi
+		else
+			zzecho -l vermelho "Sem comentários."
+		fi
+	fi
 }
