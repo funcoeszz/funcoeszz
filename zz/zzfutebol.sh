@@ -18,53 +18,41 @@
 zzfutebol ()
 {
 
-    zzzz -h futebol "$1" && return
+	zzzz -h futebol "$1" && return
 
-    listajogos=$(
-        local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
-        $ZZWWWDUMP $url | awk ' {
-            gsub(/^[\t ]+/, "", $0)
-            gsub(/[\t ]+$/, "", $0)
-            imprimir=0
+	listajogos=$(
+		local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
+		$ZZWWWDUMP $url | awk ' {
+			gsub(/^[\t ]+/, "", $0)
+			gsub(/[\t ]+$/, "", $0)
+			imprimir=0
 
-            if ($0 ~ /^[0-9]+\/[0-9]+\/[0-9]+[\t ]+[0-9]+h[0-9]+/){
-                dadosdojogo=$0
-            }
+			if ($0 ~ /^[0-9]+\/[0-9]+\/[0-9]+[\t ]+[0-9]+h[0-9]+/){
+				dadosdojogo=$0
+			}
 
-            if ($0 ~ /^[[:alpha:]\t _-]+X[[:alpha:]\t _-]/){
-                gsub( /^[A-Z]+ /, "", $0 )
-                gsub( / [A-Z]+$/, "", $0 )
-                gsub( / [_X ]+ /, "    x    ", $0)
-                jogo=$0
-                imprimir=1
-            }
+			if ($0 ~ /^[[:alpha:]\t _-]+X[[:alpha:]\t _-]/){
+				gsub( /^[A-Z]+ /, "", $0 )
+				gsub( / [A-Z]+$/, "", $0 )
+				gsub( / [_X ]+ /, "    x    ", $0)
+				jogo=$0
+				imprimir=1
+			}
 
-            if(imprimir){
-                imprimir=0
-                printf "%-38s %s\n", dadosdojogo, jogo
-            }
+			if(imprimir){
+				imprimir=0
+				printf "%-38s %s\n", dadosdojogo, jogo
+			}
 
-        }'
-    )
-    
-    case "$1" in
-        "hoje")
-            echo "$listajogos" | grep -e $( zzdata hoje | zzdatafmt -f DD/MM/AA )
-            ;;
-        "amanha")
-            echo "$listajogos" | grep -e $( zzdata amanha | zzdatafmt -f DD/MM/AA )
-            ;;
-        "ontem")
-            echo "$listajogos" | grep -e $( zzdata ontem | zzdatafmt -f DD/MM/AA )
-            ;;
-        "sabado")
-            echo "$listajogos" | grep -e $( zzdata sabado | zzdatafmt -f DD/MM/AA )
-            ;;
-        "domingo")
-            echo "$listajogos" | grep -e $( zzdata domingo | zzdatafmt -f DD/MM/AA )
-            ;;
-        *)
-            echo "$listajogos"
-            ;;
-    esac
+		}'
+	)
+
+	case "$1" in
+		hoje | amanh[aã] | ontem | s[aá]bado | domingo)
+			echo "$listajogos" | grep -e $( zzdata $1 | zzdatafmt -f 'DD/MM/AA' )
+			;;
+		*)
+			echo "$listajogos"
+			;;
+	esac
 }
