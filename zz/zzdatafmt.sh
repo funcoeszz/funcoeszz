@@ -19,12 +19,16 @@
 #      MES      fevereiro   Nome do mês
 #      MMM      fev         Nome do mês com três letras
 #      DIA      vinte um    Dia por extenso
+#      SEMANA   Domingo     Dia da semana por extenso
+#      SSS      Dom         Dia da semana com três letras
 #
 # Use as opções de idioma para alterar os nomes dos meses. Estas opções também
 # mudam o formato padrão da data de saída, caso a opção -f não seja informada.
 #     --pt para português     --de para alemão
 #     --en para inglês        --fr para francês
 #     --es para espanhol      --it para italiano
+#     --ptt português textual incluindo os números
+#     --iso formato AAAA-MM-DD
 #
 # Uso: zzdatafmt [-f formato] [data]
 # Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
@@ -42,7 +46,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzdata zzminusculas zznumero
 # Tags: data
@@ -51,56 +55,72 @@ zzdatafmt ()
 {
 	zzzz -h datafmt "$1" && return
 
-	local data data_orig fmt ano mes dia aaaa aa mm dd a m d ano_atual meses
+	local data data_orig fmt ano mes dia aaaa aa mm dd a m d ano_atual meses semana semanas
 	local meses_pt='janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro'
 	local meses_en='January February March April May June July August September October November December'
 	local meses_es='Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre'
 	local meses_de='Januar Februar März April Mai Juni Juli August September Oktober November Dezember'
 	local meses_fr='Janvier Février Mars Avril Mai Juin Juillet Août Septembre Octobre Novembre Décembre'
 	local meses_it='Gennaio Febbraio Marzo Aprile Maggio Giugno Luglio Agosto Settembre Ottobre Novembre Dicembre'
+	local semana_pt='Domingo Segunda-feira Terça-feira Quarta-feira Quinta-feira Sexta-feira Sábado'
+	local semana_en='Sunday Monday Tuesday Wednesday Thursday Friday Saturday'
+	local semana_es='Domingo Lunes Martes Miércoles Jueves Viernes Sábado'
+	local semana_de='Sonntag Montag Dienstag Mittwoch Donnerstag Freitag Samstag'
+	local semana_fr='Dimanche Lundi Mardi Mercredi Juedi Vendredi Samedi'
+	local semana_it='Domenica Lunedi Martedi Mercoledi Giovedi Venerdi Sabato'
 
 	# Idioma padrão
 	meses="$meses_pt"
+	semanas="$semana_pt"
 
 	# Opções de linha de comando
-	while [ "${1#-}" != "$1" ]
+	while test "${1#-}" != "$1"
 	do
 		case "$1" in
 			--en)
 				meses=$meses_en
-				[ "$fmt" ] || fmt='MES, DD AAAA'
+				semanas=$semana_en
+				test -n "$fmt" || fmt='MES, DD AAAA'
 				shift
 			;;
 			--it)
 				meses=$meses_it
-				[ "$fmt" ] || fmt='DD da MES AAAA'
+				semanas=$semana_it
+				test -n "$fmt" || fmt='DD da MES AAAA'
 				shift
 			;;
 			--es)
 				meses=$meses_es
-				[ "$fmt" ] || fmt='DD de MES de AAAA'
+				semanas=$semana_es
+				test -n "$fmt" || fmt='DD de MES de AAAA'
 				shift
 			;;
 			--pt)
 				meses=$meses_pt
-				[ "$fmt" ] || fmt='DD de MES de AAAA'
+				semanas=$semana_pt
+				test -n "$fmt" || fmt='DD de MES de AAAA'
 				shift
 			;;
 			--ptt)
 				meses=$meses_pt
-				[ "$fmt" ] || fmt='DIA de MES de ANO'
+				semanas=$semana_pt
+				test -n "$fmt" || fmt='DIA de MES de ANO'
 				shift
 			;;
 			--de)
 				meses=$meses_de
-				[ "$fmt" ] || fmt='DD. MES AAAA'
+				semanas=$semana_de
+				test -n "$fmt" || fmt='DD. MES AAAA'
 				shift
 			;;
 			--fr)
 				meses=$meses_fr
-				[ "$fmt" ] || fmt='Le DD MES AAAA'
+				semanas=$semana_fr
+				test -n "$fmt" || fmt='Le DD MES AAAA'
 				shift
 			;;
+			--iso)
+				fmt="AAAA-MM-DD"; shift;;
 			-f)
 				fmt="$2"
 				shift
@@ -117,7 +137,15 @@ zzdatafmt ()
 	# Converte datas estranhas para o formato brasileiro ../../..
 	case "$data" in
 		# apelidos
-		hoje | ontem | anteontem | amanh[ãa])
+		hoje | ontem | anteontem | amanh[ãa] | today | yesterday | tomorrow)
+			data=$(zzdata "$data")
+		;;
+		# semana (curto)
+		dom | seg | ter | qua | qui | sex | sab)
+			data=$(zzdata "$data")
+		;;
+		# semana (longo)
+		domingo | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado)
 			data=$(zzdata "$data")
 		;;
 		# data possivelmente em formato textual
@@ -222,6 +250,10 @@ zzdatafmt ()
 		d="${dd#0}"
 		mes=$(echo "$meses" | cut -d ' ' -f "$m" 2>/dev/null)
 		mmm=$(echo "$mes" | sed 's/\(...\).*/\1/')
+		sem=$(date -d "$aaaa-$mm-$dd" +%w)
+		sem=$((sem + 1))
+		semana=$(echo "$semanas" | cut -d ' ' -f "$sem" 2>/dev/null)
+		sss=$(echo "$semana" | sed 's/\(...\).*/\1/')
 
 		# Percorre o formato e vai expandindo, da esquerda para a direita
 		while test -n "$fmt"
@@ -229,6 +261,10 @@ zzdatafmt ()
 			# Atenção à ordem das opções do case: AAAA -> AAA -> AA
 			# Sempre do maior para o menor para evitar matches parciais
 			case "$fmt" in
+				SEMANA*)
+					printf %s "$semana"
+					fmt="${fmt#SEMANA}";;
+				SSS*  ) printf %s "$sss"; fmt="${fmt#SSS}";;
 				ANO*  )
 					printf "$(zznumero --texto $aaaa)"
 					fmt="${fmt#ANO}";;
