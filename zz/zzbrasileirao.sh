@@ -92,7 +92,7 @@ zzbrasileirao ()
 		fi
 	fi
 
-	test $(date +%Y%m%d) -lt 20140419 && { zztool eco " Brasileirão 2014 só a partir de 19 de Abril."; return 1; }
+	test $(date +%Y%m%d) -lt 20150509 && { zztool eco " Brasileirão 2015 só a partir de 9 de Maio."; return 1; }
 
 	[ "$serie" = "a" ] && url="${url}/campeonatos/brasileirao/jogos" || url="${url}/campeonatos/serie-${serie}/jogos"
 
