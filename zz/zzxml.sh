@@ -16,13 +16,13 @@
 #
 # Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag[=NOME]] [--unescape] [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
-#      zzxml --untag --unescape arq.xml                    # xml -> txt
-#      zzxml --untag=item arq.xml                          # Retira apenas as tags "item"
-#      zzxml --tag title --untag --unescape arq.xml        # títulos
-#      cat arq.xml | zzxml --tag item | zzxml --tag title  # aninhado
-#      zzxml --tag item --tag title arq.xml                # tags múltiplas
-#      zzxml --notag link arq.xml                          # Retira a tag link e o conteúdo
-#      zzxml --indent arq.xml                              # tags indentadas
+#      zzxml --untag --unescape arq.xml                   # xml -> txt
+#      zzxml --untag=item arq.xml                         # Apaga tags "item"
+#      zzxml --tag title --untag --unescape arq.xml       # títulos
+#      cat arq.xml | zzxml --tag item | zzxml --tag title # aninhado
+#      zzxml --tag item --tag title arq.xml               # tags múltiplas
+#      zzxml --notag link arq.xml                         # Sem tag e conteúdo
+#      zzxml --indent arq.xml                             # tags indentadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03

@@ -1,11 +1,22 @@
 # ----------------------------------------------------------------------------
-# Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal, timemania e loteca.
+# http://www1.caixa.gov.br/loterias
+# Resultados da seguintes loterias.
+#   quina
+#   megasena
+#   duplasena
+#   lotomania
+#   lotofácil
+#   federal
+#   timemania
+#   loteca
+#
 # Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
 # Se nenhum argumento for passado, todas as loterias são mostradas.
 #
 # Uso: zzloteria2 [[loteria suportada] concurso]
 # Ex.: zzloteria2
 #      zzloteria2 quina megasena
+#      zzloteria2 loteca 550
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
@@ -23,6 +34,9 @@ zzloteria2 ()
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
 	local cache=$(zztool cache loteria2)
 
+	# Usa o links caso esteja instalado, senão usa o lynx normalmente
+	# Isso se deve a um problema recorrente da não funcionar o lynx no site da caixa
+	# Ver issue #159
 	if which links >/dev/null 2>&1
 	then
 		ZZWWWDUMP2='links -dump'

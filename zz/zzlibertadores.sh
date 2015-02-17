@@ -16,15 +16,15 @@
 #  final ou 6
 #
 # Nomenclatura:
-#	PG  - Pontos Ganhos
-#	J   - Jogos
-#	V   - Vitórias
-#	E   - Empates
-#	D   - Derrotas
-#	GP  - Gols Pró
-#	GC  - Gols Contra
-#	SG  - Saldo de Gols
-#	(%) - Aproveitamento (pontos)
+#  PG  - Pontos Ganhos
+#  J   - Jogos
+#  V   - Vitórias
+#  E   - Empates
+#  D   - Derrotas
+#  GP  - Gols Pró
+#  GC  - Gols Contra
+#  SG  - Saldo de Gols
+#  (%) - Aproveitamento (pontos)
 #
 # Uso: zzlibertadores [ fase | -c [número] | -g <número> ]
 # Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)

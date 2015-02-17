@@ -56,7 +56,7 @@ zzcbn ()
 	# Listagem dos comentaristas
 	if test "$1" = "--lista"
 	then
-		 awk -F " [|] " '{print $2 "\t => " $1}' "$cache" | expand -t 28
+		awk -F " [|] " '{print $2 "\t => " $1}' "$cache" | expand -t 28
 		return
 	fi
 
@@ -80,7 +80,7 @@ zzcbn ()
 				shift
 				if test -n "$1"
 				then
-					if zztool testa_numero "$1" 
+					if zztool testa_numero "$1"
 					then
 						num_audio="$1"
 						shift
