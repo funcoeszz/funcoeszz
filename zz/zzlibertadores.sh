@@ -113,7 +113,7 @@ zzlibertadores ()
 		if zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 		then
 			grupo="$2"
-			$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Rodada 1/p" | sed -n '1p;/PG/p;/°/p' |
+			$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Rodada 1/p" | sed -n '/PG/p;/°/p' |
 			sed 's/[^-][A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
 			awk -v cor_awk="$ZZCOR" '{
 				if (NF <  10) { print }
