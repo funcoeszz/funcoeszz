@@ -52,7 +52,7 @@ zzcineuci ()
 	fi
 
 	codigo=$(
-		cat cache |
+		cat $cache |
 		while read linha
 		do
 			echo $linha |
