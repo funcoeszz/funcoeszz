@@ -10,30 +10,79 @@ $
 
 # Tag de uma linha
 
-$ zzxml --tag title         zzxml.in.xml     #→ <title>Título</title>
-$ zzxml --tag title --untag zzxml.in.xml     #→ Título
+$ zzxml --tag title         zzxml.in.xml
+<title>
+Título
+</title>
+$
+
+$ zzxml --tag title --untag zzxml.in.xml
+
+Título
+
+$
 
 # Tag multilinha
-
 $ zzxml --tag para zzxml.in.xml
-<para> 		Meu parágrafo, com <strong>negrito</strong> e <em>itálico</em>. 	</para>
+<para>
+ 		Meu parágrafo, com 
+<strong>
+negrito
+</strong>
+ e 
+<em>
+itálico
+</em>
+. 	
+</para>
+$
+
 $ zzxml --tag para --untag zzxml.in.xml
- 		Meu parágrafo, com negrito e itálico. 	
+
+ 		Meu parágrafo, com 
+
+negrito
+
+ e 
+
+itálico
+
+. 	
+
+$
+
 $ zzxml --tag para --untag --unescape zzxml.in.xml
- 		Meu parágrafo, com negrito e itálico. 	
+
+ 		Meu parágrafo, com 
+
+negrito
+
+ e 
+
+itálico
+
+. 	
+
 $
 
 # Unescape
-
 $ zzxml --tag escape zzxml.in.xml
-<escape>&quot;&amp;&apos;&lt;&gt;</escape>
+<escape>
+&quot;&amp;&apos;&lt;&gt;
+</escape>
+$
+
 $ zzxml --tag escape --unescape zzxml.in.xml
-<escape>"&'<></escape>
+<escape>
+"&'<>
+</escape>
 $
 
 # Untag ocorre antes do unescape, por isso o <> não é afetado
 
 $ zzxml --tag escape --unescape --untag zzxml.in.xml
+
 "&'<>
+
 $
 
