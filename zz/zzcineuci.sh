@@ -52,10 +52,10 @@ zzcineuci ()
 	fi
 
 	codigo=$(
-		cat $cache |
+		cat "$cache" |
 		while read linha
 		do
-			echo $linha | grep ':$' >/dev/null &&
+			echo "$linha" | grep ':$' >/dev/null &&
 			echo "$linha" | zzminusculas | zzsemacento | tr ' ' '_' ||
 			echo "$linha" | sed 's/).*//'
 		done
