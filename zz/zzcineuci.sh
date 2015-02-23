@@ -17,9 +17,8 @@ zzcineuci ()
 	zzzz -h cineuci "$1" && return
 
 	local cache=$(zztool cache cineuci)
-	local codigo codigos
+	local cidade codigo codigos
 	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="
-	local cidade=$(zzsemacento "$*" | zzminusculas | zztool trim | sed 's/ 0/ /g;s/  */_/g')
 
 	if test "$1" = '--atualiza'
 	then
@@ -41,15 +40,17 @@ zzcineuci ()
 			s/ \([1-9]\))/ 0\1)/
 			s/^\([A-Z]\)\(.*\)$/\
 \1\2:/' |
-		zzcapitalize > $cache
+		zzcapitalize > "$cache"
 	fi
 
 	if test $# = 0; then
 		# mostra opções
 		printf "Cidades e cinemas disponíveis\n=============================\n"
-		cat $cache
+		cat "$cache"
 		return 0
 	fi
+
+	cidade=$(zzsemacento "$*" | zzminusculas | zztool trim | sed 's/ 0/ /g;s/  */_/g')
 
 	codigo=$(
 		cat "$cache" |
