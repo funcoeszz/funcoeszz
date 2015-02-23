@@ -164,7 +164,7 @@ zzdatafmt ()
 			mes=$(echo "$data" | cut -d / -f 2)
 			mm=$(echo "$meses_pt" |
 				zzminusculas |
-				awk '{for (i=1;i<=NF;i++){ if (substr($i,1,3) == substr("'$mes'",1,3) ) printf "%02s\n", i}}')
+				awk '{for (i=1;i<=NF;i++){ if (substr($i,1,3) == substr("'$mes'",1,3) ) printf "%02d\n", i}}')
 			zztool testa_numero "$mm" && data=$(echo "$data" | sed "s/$mes/$mm/")
 			unset mes mm
 		;;
