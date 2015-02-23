@@ -84,7 +84,7 @@ zzcinepolis ()
 		zzecho -N -l ciano $(grep " ${codigo})" $cache | sed 's/.*) //')
 		$ZZWWWDUMP -useragent="Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
 		sed -n '/  [0-9]\{1,2\}  /p;/[0-9]h[0-9]/p' |
-		sed 's/\(h[0-9][0-9]\).*/\1/;/OBS\.: /d' |
+		sed 's/\(.*h[0-9][0-9]\).*/\1/;/OBS\.: /d' |
 		sed 's/^ *[0-9 ]* *   //' |
 		awk '{print}; NR%2==0 {print ""}'
 	done  | sed '$d'
