@@ -10,7 +10,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-09-02
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzansi2html ()
@@ -18,6 +18,22 @@ zzansi2html ()
 	zzzz -h ansi2html "$1" && return
 
 	local esc=$(printf '\033')
+	local control_m=$(printf '\r')  # ^M, CR, \r
+
+	# Arquivos via STDIN ou argumentos
+	zztool file_stdin "$@" |
+
+	# Limpeza inicial do texto
+	sed "
+		# No Mac, o ESC[K aparece depois de cada código de cor ao usar
+		# o grep --color. Exemplo: ^[[1;33m^[[Kamarelo^[[m^[[K
+		# Esse código serve pra apagar até o fim da linha, então neste
+		# caso, pode ser removido sem problemas.
+		s/$esc\[K//g
+
+		# O comando script deixa alguns \r inúteis no arquivo de saída
+		s/$control_m*$//
+	" |
 
 	# Um único sed toma conta de toda a tarefa de conversão.
 	#
@@ -35,9 +51,6 @@ zzansi2html ()
 	# que ao serem fechados desligam todos os SPANs anteriores.
 	#    ^[0m  -->  </div><div style="display:inline">
 	#
-
-	# Arquivos via STDIN ou argumentos
-	zztool file_stdin "$@" |
 	sed "
 		# Engloba o código na tag PRE para preservar espaços
 		1 i\\
