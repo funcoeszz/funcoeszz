@@ -31,7 +31,7 @@
 # Desde: 2011-05-28
 # Versão: 21
 # Licença: GPL
-# Requisitos: zzxml zzlimpalixo zztac
+# Requisitos: zzxml zzlimpalixo zztac zzecho
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
@@ -149,11 +149,8 @@ zzbrasileirao ()
 					printf "%20s %s %-20s  %s\n", times[1], separador, times[2], data
 				}
 			}'
-			if test "$ZZCOR" = "1"
-			then
-				printf "\n\033[42;30m Quartas de Final \033[m"
-				test "$serie" = "c" && printf "\033[41;30m Rebaixamento \033[m\n"
-			fi
+			zzecho -f verde -l preto " Quartas de Final "
+			test "$serie" = "c" && zzecho -f vermelho -l preto " Rebaixamento "
 		else
 
 			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;/^ *Classificação *PG/,/20°/p;" |
@@ -179,19 +176,17 @@ zzbrasileirao ()
 			if (NF>9)
 			printf "%s%-23s %3s %3s %3s %3s %3s %3s %3s %3s %4s \033[m\n", cor, time, $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF}'
 
-			if test "$ZZCOR" = "1"
-			then
 				echo
 				if test "$serie" = "a"
 				then
-					printf "\033[42;30m Libertadores \033[m"
-					printf "\033[46;30m Sul-Americana \033[m"
+					zzecho -f verde -l preto  " Libertadores "
+					zzecho -f ciano -l preto  " Sul-Americana "
 				elif test "$serie" = "b"
 				then
-					printf "\033[42;30m   Série  A   \033[m"
+					zzecho -f verde -l preto  "   Série  A   "
 				fi
-				printf "\033[41;30m Rebaixamento \033[m\n"
-			fi
+				zzecho -f vermelho -l preto  " Rebaixamento "
+
 		fi
 	fi
 }

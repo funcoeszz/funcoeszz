@@ -37,6 +37,7 @@
 # Desde: 2013-03-17
 # Versão: 10
 # Licença: GPL
+# Requisitos: zzecho
 # ----------------------------------------------------------------------------
 zzlibertadores ()
 {
@@ -140,6 +141,6 @@ zzlibertadores ()
 				echo
 			done
 		fi
-		test "$ZZCOR" = "1" -a "$3" != "-n" && printf "\n\033[42;30m Oitavas de Final \033[m\n"
+		test "$3" != "-n" && { echo ""; zzecho -f verde -l preto " Oitavas de Final "; }
 	fi
 }
