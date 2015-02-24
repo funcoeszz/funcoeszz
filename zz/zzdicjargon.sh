@@ -47,7 +47,7 @@ zzdicjargon ()
 	if test $num -eq 1
 	then
 		$ZZWWWDUMP -width=72 "$url/$achei" |
-			sed '1,/_\{9\}/d;/_\{9\}/,$d'
+			sed '1,/_\{9\}/d;/_\{9\}/,$d;/^$/d' | zztool ltrim
 		test -n "$mais" && zztool eco '\nTermos parecidos:'
 	else
 		zztool eco 'Achei mais de um! Escolha qual vai querer:'
