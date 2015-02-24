@@ -11,7 +11,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzminusculas zzxml zzfeed zztac zzurldecode zzdata zzdatafmt
 # ----------------------------------------------------------------------------
@@ -184,16 +184,12 @@ zzsecurity ()
 	# Arch
 	if zztool grep_var arch "$distros"
 	then
-		url="https://wiki.archlinux.org/index.php/CVE-${ano}"
+		url="https://wiki.archlinux.org/index.php/CVE"
 		echo
 		zztool eco '** Atualizações Archlinux'
 		echo "$url"
 		$ZZWWWDUMP "$url" |
-			awk '/^ *CVE-[0-9]{4}-[0-9]/{
-					sub(/ temp link/,"")
-					sub(/^  */,"")
-					print
-				}' |
+			sed -n "/^ *CVE-${ano}-[0-9]/{s/templink //;p}" |
 			$limite
 	fi
 
