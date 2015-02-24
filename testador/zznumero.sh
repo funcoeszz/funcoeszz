@@ -3,29 +3,12 @@
 # Ou terá um sufixo adicional 'positivo'
 
 # número inválido ou não reconhecido
-# Não exibe nada, exceto pelo código de retorno 1
-# $ zznumero			foo		#→ Número inválido 'foo'
-# $ zznumero			a5		#→ Número inválido 'a5'
-# $ zznumero			5a		#→ Número inválido '5a'
 $ zznumero			foo
 $ zznumero			a5
 $ zznumero			5a
 $
 
 # decimais e fracionários, incompletos
-# XXX Aqui devemos tentar adivinhar ou simplesmente retornar 'número inválido'?
-#     Acho que quanto menos "espertezas", melhor.
-# Alguns combinaçãos já advinha, mas sempre suprimindo os 0 não significativos.
-# $ zznumero			1.	#→ 1,00
-# $ zznumero			1,	#→ 1,00
-# $ zznumero			,1	#→ 0,1
-# $ zznumero			.	#→ 0
-# $ zznumero			,	#→ 0
-# $ zznumero			-1.	#→ -1,00
-# $ zznumero			-1,	#→ -1,00
-# $ zznumero			-,1	#→ -0,1
-# $ zznumero			-.	#→ 0
-# $ zznumero			-,	#→ 0
 $ zznumero			1.	#→ 1
 $ zznumero			1,	#→ 1
 $ zznumero			,1	#→ 0,1
@@ -41,12 +24,7 @@ $ zznumero			-.
 $ zznumero			-,
 $
 
-### Sem argumentos, formata no padrão brasileiro: 1.234.567,89
 ## Mesmo caso, sempre suprimindo os zeros não significativos.
-# zero
-# $ zznumero			0		#→ 0
-# $ zznumero			0,00		#→ 0,00
-# $ zznumero			0,0000		#→ 0,0000		# XXX o certo é manter as casas ou deixar 2?
 $ zznumero			0		#→ 0
 $ zznumero			0,00		#→ 0
 $ zznumero			0,0000		#→ 0
@@ -73,18 +51,7 @@ $ zznumero			-1234567	#→ -1.234.567
 $ zznumero			-12345678	#→ -12.345.678
 $ zznumero			-123456789	#→ -123.456.789
 $ zznumero			-1234567890	#→ -1.234.567.890
-# fracionários positivos (00)
-# sempre suprimindo os zeros não significativos.
-# $ zznumero			1,00		#→ 1,00
-# $ zznumero			12,00		#→ 12,00
-# $ zznumero			123,00		#→ 123,00
-# $ zznumero			1234,00		#→ 1.234,00
-# $ zznumero			12345,00	#→ 12.345,00
-# $ zznumero			123456,00	#→ 123.456,00
-# $ zznumero			1234567,00	#→ 1.234.567,00
-# $ zznumero			12345678,00	#→ 12.345.678,00
-# $ zznumero			123456789,00	#→ 123.456.789,00
-# $ zznumero			1234567890,00	#→ 1.234.567.890,00
+# fracionários positivos
 $ zznumero			1,00		#→ 1
 $ zznumero			12,00		#→ 12
 $ zznumero			123,00		#→ 123
@@ -96,7 +63,6 @@ $ zznumero			12345678,00	#→ 12.345.678
 $ zznumero			123456789,00	#→ 123.456.789
 $ zznumero			1234567890,00	#→ 1.234.567.890
 # fracionários positivos (uma casa)
-# XXX o certo é deixar 1 ou 2?
 $ zznumero			1,1		#→ 1,1
 $ zznumero			12,1		#→ 12,1
 $ zznumero			123,1		#→ 123,1
@@ -119,7 +85,6 @@ $ zznumero			12345678,12	#→ 12.345.678,12
 $ zznumero			123456789,12	#→ 123.456.789,12
 $ zznumero			1234567890,12	#→ 1.234.567.890,12
 # fracionários positivos (muitas casas)
-# XXX o certo é manter as casas ou deixar 2?
 $ zznumero			1,123456789		#→ 1,123456789
 $ zznumero			12,123456789		#→ 12,123456789
 $ zznumero			123,123456789		#→ 123,123456789
@@ -130,18 +95,8 @@ $ zznumero			1234567,123456789	#→ 1.234.567,123456789
 $ zznumero			12345678,123456789	#→ 12.345.678,123456789
 $ zznumero			123456789,123456789	#→ 123.456.789,123456789
 $ zznumero			1234567890,123456789	#→ 1.234.567.890,123456789
-# fracionários negativos (00)
-# sempre suprimindo os zeros não significativos.
-# $ zznumero			-1,00		#→ -1,00
-# $ zznumero			-12,00		#→ -12,00
-# $ zznumero			-123,00		#→ -123,00
-# $ zznumero			-1234,00	#→ -1.234,00
-# $ zznumero			-12345,00	#→ -12.345,00
-# $ zznumero			-123456,00	#→ -123.456,00
-# $ zznumero			-1234567,00	#→ -1.234.567,00
-# $ zznumero			-12345678,00	#→ -12.345.678,00
-# $ zznumero			-123456789,00	#→ -123.456.789,00
-# $ zznumero			-1234567890,00	#→ -1.234.567.890,00
+# fracionários negativos
+4.567.890,00
 $ zznumero			-1,00		#→ -1
 $ zznumero			-12,00		#→ -12
 $ zznumero			-123,00		#→ -123
@@ -153,7 +108,6 @@ $ zznumero			-12345678,00	#→ -12.345.678
 $ zznumero			-123456789,00	#→ -123.456.789
 $ zznumero			-1234567890,00	#→ -1.234.567.890
 # fracionários negativos (uma casa)
-# XXX o certo é deixar 1 ou 2?
 $ zznumero			-1,1		#→ -1,1
 $ zznumero			-12,1		#→ -12,1
 $ zznumero			-123,1		#→ -123,1
@@ -176,7 +130,6 @@ $ zznumero			-12345678,12	#→ -12.345.678,12
 $ zznumero			-123456789,12	#→ -123.456.789,12
 $ zznumero			-1234567890,12	#→ -1.234.567.890,12
 # fracionários negativos (muitas casas)
-# XXX o certo é manter as casas ou deixar 2?
 $ zznumero			-1,123456789		#→ -1,123456789
 $ zznumero			-12,123456789		#→ -12,123456789
 $ zznumero			-123,123456789		#→ -123,123456789
@@ -346,20 +299,6 @@ $ zznumero		-m	-123456789,123456789	#→ -R$ 123.456.789,12
 $ zznumero		-m	-1234567890,123456789	#→ -R$ 1.234.567.890,12
 # decimais e fracionários, já pontuados (não altera nada)
 # No caso uso da opção -m, sempre será 2 casas decimais
-# $ zznumero		-m	1.234			#→ R$ 1.234
-# $ zznumero		-m	12.345			#→ R$ 12.345
-# $ zznumero		-m	123.456			#→ R$ 123.456
-# $ zznumero		-m	1.234.567		#→ R$ 1.234.567
-# $ zznumero		-m	12.345.678		#→ R$ 12.345.678
-# $ zznumero		-m	123.456.789		#→ R$ 123.456.789
-# $ zznumero		-m	1.234.567.890		#→ R$ 1.234.567.890
-# $ zznumero		-m	-1.234			#→ -R$ 1.234
-# $ zznumero		-m	-12.345			#→ -R$ 12.345
-# $ zznumero		-m	-123.456		#→ -R$ 123.456
-# $ zznumero		-m	-1.234.567		#→ -R$ 1.234.567
-# $ zznumero		-m	-12.345.678		#→ -R$ 12.345.678
-# $ zznumero		-m	-123.456.789		#→ -R$ 123.456.789
-# $ zznumero		-m	-1.234.567.890		#→ -R$ 1.234.567.890
 $ zznumero		-m	1.234			#→ R$ 1.234,00
 $ zznumero		-m	12.345			#→ R$ 12.345,00
 $ zznumero		-m	123.456			#→ R$ 123.456,00

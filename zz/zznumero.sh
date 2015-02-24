@@ -30,7 +30,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 11
+# Versão: 13
 # Licença: GPL
 # Requisitos: zzvira
 # ----------------------------------------------------------------------------
@@ -43,7 +43,10 @@ zznumero ()
 	local linha=0
 	local sufixo=''
 	local num_part=0
-	local milhar_de decimal_de milhar_para decimal_para
+	local milhar_de='.'
+	local decimal_de=','
+	local milhar_para='.'
+	local decimal_para=','
 	local numero qtde_v qtde_p n_formato num_int num_frac num_saida prefixo sinal n_temp
 
 	# Zero a Novecentos e noventa e nove (base para as demais classes)
@@ -147,12 +150,13 @@ zznumero ()
 			then
 				milhar_de='.'
 				decimal_de=','
+				shift
 			elif test "$2" = "en"
 			then
 				milhar_de=','
 				decimal_de='.'
+				shift
 			fi
-			shift
 			shift
 		;;
 
@@ -162,12 +166,13 @@ zznumero ()
 			then
 				milhar_para='.'
 				decimal_para=','
+				shift
 			elif test "$2" = "en"
 			then
 				milhar_para=','
 				decimal_para='.'
+				shift
 			fi
-			shift
 			shift
 		;;
 
@@ -224,6 +229,12 @@ zznumero ()
 	# Adequando entrada do valor a algumas possíveis armadilhas
 	set - $n_temp
 	n_temp=$(echo "$1" | sed 's/[.,]$//')
+	n_temp=$(echo "$n_temp" | sed 's/^\([.,]\)/0\1/')
+
+	# Verificando se a entrada é apenas numérica, incluindo ponto (.) e vírgula (,)
+	test $(printf -- "$n_temp" | tr -d [+0-9.,-] | wc -m) -eq 0 || return 1
+	# Verificando se há números
+	test $(printf -- "$n_temp" | tr -d -c [0-9] | wc -m) -gt 0 || return 1
 	set - $n_temp
 
 	# Armazenando o sinal, se presente
@@ -235,15 +246,12 @@ zznumero ()
 		unset sinal
 	fi
 
-	if test -n "$decimal_de"
-	then
-		# Trocando o símbolo de milhar de entrada por "m" e depois por . (ponto)
-		# Trocando o símbolo de decimal de entrada por "d" e depois , (vírgula)
-		n_temp=$(echo "$1" | tr "${milhar_de}" 'm' | tr "${decimal_de}" 'd')
-		n_temp=$(echo "$n_temp" | tr 'm' '.' | tr 'd' ',')
+	# Trocando o símbolo de milhar de entrada por "m" e depois por . (ponto)
+	# Trocando o símbolo de decimal de entrada por "d" e depois , (vírgula)
+	n_temp=$(echo "$1" | tr "${milhar_de}" 'm' | tr "${decimal_de}" 'd')
+	n_temp=$(echo "$n_temp" | tr 'm' '.' | tr 'd' ',')
 
-		set - $n_temp
-	fi
+	set - $n_temp
 
 	if zztool testa_numero "$1" && ! zztool grep_var 'R$' "$prefixo"
 	then
@@ -260,10 +268,7 @@ zznumero ()
 			num_saida="${sinal}${numero}"
 
 			# Aplicando o formato conforme opção --para
-			if test -n "$milhar_para"
-			then
-				num_saida=$(echo "$num_saida" | tr '.' "${milhar_para}")
-			fi
+			num_saida=$(echo "$num_saida" | tr '.' "${milhar_para}")
 		fi
 
 	else
@@ -298,27 +303,33 @@ zznumero ()
 		fi
 
 		# Número com o "ponto" como separador de milhar, e sem parte fracionária
-		if (test $qtde_p -gt 1 -a $qtde_v -eq 0 && test ! -n $numero )
+		if (test $qtde_p -gt 1 -a $qtde_v -eq 0 && test -z $numero )
 		then
 			echo $1 | grep '^[0-9]\{1,3\}\(\.[0-9]\{3\}\)\{1,\}$' >/dev/null
 			test $? -eq 0  && numero=$(echo $1 | tr -d '.')
 		fi
 
 		# Número com a "vírgula" como separador de milhar, e sem parte fracionária
-		if (test $qtde_v -gt 1 -a $qtde_p -eq 0 && test ! -n $numero )
+		if (test $qtde_v -gt 1 -a $qtde_p -eq 0 && test -z $numero )
 		then
 			echo $1 | grep '^[0-9]\{1,3\}\(,[0-9]\{3\}\)\{1,\}$' >/dev/null
 			test $? -eq 0  && numero=$(echo $1 | tr -d ',')
 		fi
 
+		# Número com uma "vírgula" e um "ponto", nesse caso tem separador de millhar e parte facionária
+		if (test $qtde_p -eq 1 -a $qtde_v -eq 1 && test -z $numero )
+		then
+			numero=$(echo $1 | sed 's/[.,]//' | tr '.' ',')
+		fi
+
 		# Numero começando com ponto ou vírgula, sendo considerado só fracionário
-		if test ! -n $numero
+		if test -z $numero
 		then
 			echo $1 | grep '^[,.][0-9]\{1,\}$' >/dev/null
 			test $? -eq 0  && numero=$(echo "0${1}" | tr '.' ',')
 		fi
 
-		if test ! -n $numero
+		if test -z $numero
 		then
 		# Deixando o número com o formato 0000,00 (sem separador de milhar)
 			# Número com o "ponto" separando a parte fracionária e vírgula como separador de milhar
@@ -456,11 +467,8 @@ zznumero ()
 				num_saida="${numero},${num_frac}"
 
 				# Aplicando o formato conforme opção --para
-				if test -n "$decimal_para"
-				then
-					num_saida=$(echo "$num_saida" | tr '.' 'm' | tr ',' 'd')
-					num_saida=$(echo "$num_saida" | tr 'm' "${milhar_para}" | tr 'd' "${decimal_para}")
-				fi
+				num_saida=$(echo "$num_saida" | tr '.' 'm' | tr ',' 'd')
+				num_saida=$(echo "$num_saida" | tr 'm' "${milhar_para}" | tr 'd' "${decimal_para}")
 
 			elif test ${#n_formato} -gt 0
 			then
@@ -484,11 +492,8 @@ zznumero ()
 				num_saida="${numero},${num_frac}"
 
 				# Aplicando o formato conforme opção --para
-				if test -n "$decimal_para"
-				then
-					num_saida=$(echo "$num_saida" | tr '.' 'm' | tr ',' 'd')
-					num_saida=$(echo "$num_saida" | tr 'm' "${milhar_para}" | tr 'd' "${decimal_para}")
-				fi
+				num_saida=$(echo "$num_saida" | tr '.' 'm' | tr ',' 'd')
+				num_saida=$(echo "$num_saida" | tr 'm' "${milhar_para}" | tr 'd' "${decimal_para}")
 			fi
 
 			if zztool grep_var 'R$' "$prefixo"
