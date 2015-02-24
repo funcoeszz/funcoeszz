@@ -27,7 +27,7 @@ zzcinemais ()
 
 	local cidade cidades codigo
 
-	cidade=$(zzsemacento "$*" | zzminusculas | zztool trim | sed 's/ /_/g')
+	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztool trim | sed 's/ /_/g')
 
 	cidades="9:uberaba:Uberaba  - MG
 	11:patos_de_minas:Patos de Minas - MG

@@ -50,7 +50,7 @@ zzcineuci ()
 		return 0
 	fi
 
-	cidade=$(zzsemacento "$*" | zzminusculas | zztool trim | sed 's/ 0/ /g;s/  */_/g')
+	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztool trim | sed 's/ 0/ /g;s/  */_/g')
 
 	codigo=$(
 		cat "$cache" |
