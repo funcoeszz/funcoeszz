@@ -134,7 +134,6 @@ zzfeed ()
 		fi
 
 		zztool cache rm feed $$
-		zztool cache rm xml
 
 		# Linha em branco para separar resultados
 		[ $# -gt 1 ] && echo

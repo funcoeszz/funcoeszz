@@ -307,4 +307,7 @@ zzxml ()
 		else
 			cat -
 		fi
+
+	# Limpeza
+	zztool cache rm xml
 }
