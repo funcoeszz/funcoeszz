@@ -15,6 +15,7 @@
 # Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2015-02-24 Site foi descontinuado (veja issue #160)
 zzmoeda ()
 {
 	zzzz -h moeda "$1" && return
