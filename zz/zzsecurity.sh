@@ -91,14 +91,14 @@ zzsecurity ()
 	# Suse
 	if zztool grep_var suse "$distros" || zztool grep_var opensuse "$distros"
 	then
-		#echo
-		#zztool eco '** Atualizações Suse'
-		#url='https://www.suse.com/support/update/'
-		#echo "$url"
-		#$ZZWWWDUMP "$url" |
-		#	grep 'SUSE-SU' |
-		#	sed 's/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
-		#	$limite
+		echo
+		zztool eco '** Atualizações Suse'
+		url='https://www.suse.com/support/update/'
+		echo "$url"
+		$ZZWWWDUMP "$url" |
+			grep 'SUSE-SU' |
+			sed 's/^.*\(SUSE-SU\)/ \1/;s/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
+			$limite
 
 		echo
 		zztool eco '** Atualizações Opensuse'

@@ -3,7 +3,7 @@ $ zzsecurity freebsd     #→ --lines 8
 $ zzsecurity gentoo      #→ --lines 8
 $ zzsecurity mandriva    #→ --lines 8
 $ zzsecurity slackware   #→ --lines 8
-$ zzsecurity suse        #→ --lines 8
+$ zzsecurity suse        #→ --lines 16
 $ zzsecurity opensuse    #→ --lines 8
 $ zzsecurity ubuntu      #→ --lines 8
 $ zzsecurity redhat      #→ --lines 13
