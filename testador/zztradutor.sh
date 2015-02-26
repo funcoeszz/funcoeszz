@@ -1,6 +1,3 @@
-$ zztradutor			#→ --regex ^Uso:
-$ zztradutor	pt-en		#→ --regex ^Uso:
-
 $ zztradutor		livro	#→ book
 $ zztradutor	pt-en	livro	#→ book
 $ zztradutor	pt-es	livro	#→ libro
