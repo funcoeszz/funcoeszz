@@ -35,12 +35,12 @@ $ zzmat	log		8	2		#→ 3
 $ zzmat	raiz		3	100		#→ 4.641589
 $ zzmat	elevado		3	3.3		#→ 37.540508
 
-$ zzmat	fib		9			#→ 34 
-$ zzmat	fib		9	s		#→ 0 1 1 2 3 5 8 13 21 34 
-$ zzmat	trib		9			#→ 81 
-$ zzmat	trib		9	s		#→ 0 1 1 2 4 7 13 24 44 81 
-$ zzmat	lucas		9			#→ 76 
-$ zzmat	lucas		9	s		#→ 2 1 3 4 7 11 18 29 47 76 
+$ zzmat	fib		9			#→ 34
+$ zzmat	fib		9	s		#→ 0 1 1 2 3 5 8 13 21 34
+$ zzmat	trib		9			#→ 81
+$ zzmat	trib		9	s		#→ 0 1 1 2 4 7 13 24 44 81
+$ zzmat	lucas		9			#→ 76
+$ zzmat	lucas		9	s		#→ 2 1 3 4 7 11 18 29 47 76
 
 $ zzmat	somatoria	5	2	x^3+2	#→ 232
 $ zzmat	produtoria	3	7	x^2+5	#→ 19527480
