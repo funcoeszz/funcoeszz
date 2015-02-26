@@ -308,6 +308,153 @@ $ zzdatafmt	--it	-f	MMM	01/10/2000	#→ Ott
 $ zzdatafmt	--it	-f	MMM	01/11/2000	#→ Nov
 $ zzdatafmt	--it	-f	MMM	01/12/2000	#→ Dic
 
+# Nome dia da semana em Português
+$ zzdatafmt		-f SEMANA 01/01/2006	#→ Domingo
+$ zzdatafmt		-f SEMANA 02/01/2006	#→ Segunda-feira
+$ zzdatafmt		-f SEMANA 03/01/2006	#→ Terça-feira
+$ zzdatafmt		-f SEMANA 04/01/2006	#→ Quarta-feira
+$ zzdatafmt		-f SEMANA 05/01/2006	#→ Quinta-feira
+$ zzdatafmt		-f SEMANA 06/01/2006	#→ Sexta-feira
+$ zzdatafmt		-f SEMANA 07/01/2006	#→ Sábado
+# Inglês
+$ zzdatafmt	--en	-f SEMANA 01/01/2006	#→ Sunday
+$ zzdatafmt	--en	-f SEMANA 02/01/2006	#→ Monday
+$ zzdatafmt	--en	-f SEMANA 03/01/2006	#→ Tuesday
+$ zzdatafmt	--en	-f SEMANA 04/01/2006	#→ Wednesday
+$ zzdatafmt	--en	-f SEMANA 05/01/2006	#→ Thursday
+$ zzdatafmt	--en	-f SEMANA 06/01/2006	#→ Friday
+$ zzdatafmt	--en	-f SEMANA 07/01/2006	#→ Saturday
+# Espanhol
+$ zzdatafmt	--es	-f SEMANA 01/01/2006	#→ Domingo
+$ zzdatafmt	--es	-f SEMANA 02/01/2006	#→ Lunes
+$ zzdatafmt	--es	-f SEMANA 03/01/2006	#→ Martes
+$ zzdatafmt	--es	-f SEMANA 04/01/2006	#→ Miércoles
+$ zzdatafmt	--es	-f SEMANA 05/01/2006	#→ Jueves
+$ zzdatafmt	--es	-f SEMANA 06/01/2006	#→ Viernes
+$ zzdatafmt	--es	-f SEMANA 07/01/2006	#→ Sábado
+# Alemão
+$ zzdatafmt	--de	-f SEMANA 01/01/2006	#→ Sonntag
+$ zzdatafmt	--de	-f SEMANA 02/01/2006	#→ Montag
+$ zzdatafmt	--de	-f SEMANA 03/01/2006	#→ Dienstag
+$ zzdatafmt	--de	-f SEMANA 04/01/2006	#→ Mittwoch
+$ zzdatafmt	--de	-f SEMANA 05/01/2006	#→ Donnerstag
+$ zzdatafmt	--de	-f SEMANA 06/01/2006	#→ Freitag
+$ zzdatafmt	--de	-f SEMANA 07/01/2006	#→ Samstag
+# Francês
+$ zzdatafmt	--fr	-f SEMANA 01/01/2006	#→ Dimanche
+$ zzdatafmt	--fr	-f SEMANA 02/01/2006	#→ Lundi
+$ zzdatafmt	--fr	-f SEMANA 03/01/2006	#→ Mardi
+$ zzdatafmt	--fr	-f SEMANA 04/01/2006	#→ Mercredi
+$ zzdatafmt	--fr	-f SEMANA 05/01/2006	#→ Juedi
+$ zzdatafmt	--fr	-f SEMANA 06/01/2006	#→ Vendredi
+$ zzdatafmt	--fr	-f SEMANA 07/01/2006	#→ Samedi
+# Italiano
+$ zzdatafmt	--it	-f SEMANA 01/01/2006	#→ Domenica
+$ zzdatafmt	--it	-f SEMANA 02/01/2006	#→ Lunedi
+$ zzdatafmt	--it	-f SEMANA 03/01/2006	#→ Martedi
+$ zzdatafmt	--it	-f SEMANA 04/01/2006	#→ Mercoledi
+$ zzdatafmt	--it	-f SEMANA 05/01/2006	#→ Giovedi
+$ zzdatafmt	--it	-f SEMANA 06/01/2006	#→ Venerdi
+$ zzdatafmt	--it	-f SEMANA 07/01/2006	#→ Sabato
+
+# Nome dia da semana abreviado, em Português
+$ zzdatafmt		-f SSS 01/01/2006	#→ Dom
+$ zzdatafmt		-f SSS 02/01/2006	#→ Seg
+$ zzdatafmt		-f SSS 03/01/2006	#→ Ter
+$ zzdatafmt		-f SSS 04/01/2006	#→ Qua
+$ zzdatafmt		-f SSS 05/01/2006	#→ Qui
+$ zzdatafmt		-f SSS 06/01/2006	#→ Sex
+$ zzdatafmt		-f SSS 07/01/2006	#→ Sáb
+# Inglês
+$ zzdatafmt	--en	-f SSS 01/01/2006	#→ Sun
+$ zzdatafmt	--en	-f SSS 02/01/2006	#→ Mon
+$ zzdatafmt	--en	-f SSS 03/01/2006	#→ Tue
+$ zzdatafmt	--en	-f SSS 04/01/2006	#→ Wed
+$ zzdatafmt	--en	-f SSS 05/01/2006	#→ Thu
+$ zzdatafmt	--en	-f SSS 06/01/2006	#→ Fri
+$ zzdatafmt	--en	-f SSS 07/01/2006	#→ Sat
+# Espanhol
+$ zzdatafmt	--es	-f SSS 01/01/2006	#→ Dom
+$ zzdatafmt	--es	-f SSS 02/01/2006	#→ Lun
+$ zzdatafmt	--es	-f SSS 03/01/2006	#→ Mar
+$ zzdatafmt	--es	-f SSS 04/01/2006	#→ Mié
+$ zzdatafmt	--es	-f SSS 05/01/2006	#→ Jue
+$ zzdatafmt	--es	-f SSS 06/01/2006	#→ Vie
+$ zzdatafmt	--es	-f SSS 07/01/2006	#→ Sáb
+# Alemão
+$ zzdatafmt	--de	-f SSS 01/01/2006	#→ Son
+$ zzdatafmt	--de	-f SSS 02/01/2006	#→ Mon
+$ zzdatafmt	--de	-f SSS 03/01/2006	#→ Die
+$ zzdatafmt	--de	-f SSS 04/01/2006	#→ Mit
+$ zzdatafmt	--de	-f SSS 05/01/2006	#→ Don
+$ zzdatafmt	--de	-f SSS 06/01/2006	#→ Fre
+$ zzdatafmt	--de	-f SSS 07/01/2006	#→ Sam
+# Francês
+$ zzdatafmt	--fr	-f SSS 01/01/2006	#→ Dim
+$ zzdatafmt	--fr	-f SSS 02/01/2006	#→ Lun
+$ zzdatafmt	--fr	-f SSS 03/01/2006	#→ Mar
+$ zzdatafmt	--fr	-f SSS 04/01/2006	#→ Mer
+$ zzdatafmt	--fr	-f SSS 05/01/2006	#→ Jue
+$ zzdatafmt	--fr	-f SSS 06/01/2006	#→ Ven
+$ zzdatafmt	--fr	-f SSS 07/01/2006	#→ Sam
+# Italiano
+$ zzdatafmt	--it	-f SSS 01/01/2006	#→ Dom
+$ zzdatafmt	--it	-f SSS 02/01/2006	#→ Lun
+$ zzdatafmt	--it	-f SSS 03/01/2006	#→ Mar
+$ zzdatafmt	--it	-f SSS 04/01/2006	#→ Mer
+$ zzdatafmt	--it	-f SSS 05/01/2006	#→ Gio
+$ zzdatafmt	--it	-f SSS 06/01/2006	#→ Ven
+$ zzdatafmt	--it	-f SSS 07/01/2006	#→ Sab
+
+# Data com semana em Português
+zzdatafmt		-f "$data #→ SEMANA, DD-MES-AAAA" 01/01/2012	#→ Domingo, 01-janeiro-2012
+zzdatafmt		-f "$data #→ SEMANA, DD-MES-AAAA" 02/02/2012	#→ Quinta-feira, 02-fevereiro-2012
+zzdatafmt		-f "$data #→ SEMANA, DD-MES-AAAA" 03/03/2012	#→ Sábado, 03-março-2012
+zzdatafmt		-f "$data #→ SEMANA, DD-MES-AAAA" 04/04/2012	#→ Quarta-feira, 04-abril-2012
+zzdatafmt		-f "$data #→ SEMANA, DD-MES-AAAA" 05/05/2012	#→ Sábado, 05-maio-2012
+zzdatafmt		-f "$data #→ SEMANA, DD-MES-AAAA" 06/06/2012	#→ Quarta-feira, 06-junho-2012
+zzdatafmt		-f "$data #→ SEMANA, DD-MES-AAAA" 07/07/2012	#→ Sábado, 07-julho-2012
+# Inglês
+zzdatafmt	--en	-f "$data #→ SEMANA, DD-MES-AAAA" 03/03/2012	#→ Saturday, 03-March-2012
+zzdatafmt	--en	-f "$data #→ SEMANA, DD-MES-AAAA" 04/04/2012	#→ Wednesday, 04-April-2012
+zzdatafmt	--en	-f "$data #→ SEMANA, DD-MES-AAAA" 05/05/2012	#→ Saturday, 05-May-2012
+zzdatafmt	--en	-f "$data #→ SEMANA, DD-MES-AAAA" 06/06/2012	#→ Wednesday, 06-June-2012
+zzdatafmt	--en	-f "$data #→ SEMANA, DD-MES-AAAA" 07/07/2012	#→ Saturday, 07-July-2012
+zzdatafmt	--en	-f "$data #→ SEMANA, DD-MES-AAAA" 08/08/2012	#→ Wednesday, 08-August-2012
+zzdatafmt	--en	-f "$data #→ SEMANA, DD-MES-AAAA" 09/09/2012	#→ Sunday, 09-September-2012
+# Espanhol
+zzdatafmt	--es	-f "$data #→ SEMANA, DD-MES-AAAA" 06/06/2012	#→ Miércoles, 06-Junio-2012
+zzdatafmt	--es	-f "$data #→ SEMANA, DD-MES-AAAA" 07/07/2012	#→ Sábado, 07-Julio-2012
+zzdatafmt	--es	-f "$data #→ SEMANA, DD-MES-AAAA" 08/08/2012	#→ Miércoles, 08-Agosto-2012
+zzdatafmt	--es	-f "$data #→ SEMANA, DD-MES-AAAA" 09/09/2012	#→ Domingo, 09-Septiembre-2012
+zzdatafmt	--es	-f "$data #→ SEMANA, DD-MES-AAAA" 10/10/2012	#→ Miércoles, 10-Octubre-2012
+zzdatafmt	--es	-f "$data #→ SEMANA, DD-MES-AAAA" 11/11/2012	#→ Domingo, 11-Noviembre-2012
+zzdatafmt	--es	-f "$data #→ SEMANA, DD-MES-AAAA" 12/12/2012	#→ Miércoles, 12-Diciembre-2012
+# Alemão
+zzdatafmt	--de	-f "$data #→ SEMANA, DD-MES-AAAA" 14/03/2012	#→ Mittwoch, 14-März-2012
+zzdatafmt	--de	-f "$data #→ SEMANA, DD-MES-AAAA" 15/04/2012	#→ Sonntag, 15-April-2012
+zzdatafmt	--de	-f "$data #→ SEMANA, DD-MES-AAAA" 16/05/2012	#→ Mittwoch, 16-Mai-2012
+zzdatafmt	--de	-f "$data #→ SEMANA, DD-MES-AAAA" 17/06/2012	#→ Sonntag, 17-Juni-2012
+zzdatafmt	--de	-f "$data #→ SEMANA, DD-MES-AAAA" 18/07/2012	#→ Mittwoch, 18-Juli-2012
+zzdatafmt	--de	-f "$data #→ SEMANA, DD-MES-AAAA" 19/08/2012	#→ Sonntag, 19-August-2012
+zzdatafmt	--de	-f "$data #→ SEMANA, DD-MES-AAAA" 20/09/2012	#→ Donnerstag, 20-September-2012
+# Francês
+zzdatafmt	--fr	-f "$data #→ SEMANA, DD-MES-AAAA" 24/03/2012	#→ Samedi, 24-Mars-2012
+zzdatafmt	--fr	-f "$data #→ SEMANA, DD-MES-AAAA" 25/04/2012	#→ Mercredi, 25-Avril-2012
+zzdatafmt	--fr	-f "$data #→ SEMANA, DD-MES-AAAA" 26/05/2012	#→ Samedi, 26-Mai-2012
+zzdatafmt	--fr	-f "$data #→ SEMANA, DD-MES-AAAA" 27/06/2012	#→ Mercredi, 27-Juin-2012
+zzdatafmt	--fr	-f "$data #→ SEMANA, DD-MES-AAAA" 28/07/2012	#→ Samedi, 28-Juillet-2012
+zzdatafmt	--fr	-f "$data #→ SEMANA, DD-MES-AAAA" 29/08/2012	#→ Mercredi, 29-Août-2012
+zzdatafmt	--fr	-f "$data #→ SEMANA, DD-MES-AAAA" 30/09/2012	#→ Dimanche, 30-Septembre-2012
+# Italiano
+zzdatafmt	--it	-f "$data #→ SEMANA, DD-MES-AAAA" 20/02/2012	#→ Lunedi, 20-Febbraio-2012
+zzdatafmt	--it	-f "$data #→ SEMANA, DD-MES-AAAA" 21/03/2012	#→ Mercoledi, 21-Marzo-2012
+zzdatafmt	--it	-f "$data #→ SEMANA, DD-MES-AAAA" 22/04/2012	#→ Domenica, 22-Aprile-2012
+zzdatafmt	--it	-f "$data #→ SEMANA, DD-MES-AAAA" 23/05/2012	#→ Mercoledi, 23-Maggio-2012
+zzdatafmt	--it	-f "$data #→ SEMANA, DD-MES-AAAA" 24/06/2012	#→ Domenica, 24-Giugno-2012
+zzdatafmt	--it	-f "$data #→ SEMANA, DD-MES-AAAA" 25/07/2012	#→ Mercoledi, 25-Luglio-2012
+zzdatafmt	--it	-f "$data #→ SEMANA, DD-MES-AAAA" 26/08/2012	#→ Domenica, 26-Agosto-2012
+
 # formato padrão de cada idioma
 $ zzdatafmt	--pt	31/03/2000			#→ 31 de março de 2000
 $ zzdatafmt	--ptt	31/03/2000			#→ trinta e um de março de dois mil
