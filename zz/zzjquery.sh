@@ -14,16 +14,16 @@
 #
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
 # Desde: 2007-12-04
-# Versão: 4
+# Versão: 5
 # Licença: GPL
-# Requisitos: zzlimpalixo zzunescape zzxml
+# Requisitos: zzcapitalize zzlimpalixo zzunescape zzxml
 # ----------------------------------------------------------------------------
 zzjquery ()
 {
 	zzzz -h jquery "$1" && return
 
 	local url="http://api.jquery.com/"
-	local url_aux
+	local url_aux lista_cat
 	local sintaxe=0
 
 	case "$1" in
@@ -31,16 +31,20 @@ zzjquery ()
 
 		if test -n "$2"
 		then
+			lista_cat=$(echo "$2" | zzcapitalize)
+			test "$lista_cat" = "Css" && lista_cat="CSS"
 			url_aux=$(
-				$ZZWWWHTML http://api.jquery.com |
+				$ZZWWWHTML "$url" |
 				awk '/<aside/,/aside>/{print}' |
 				sed "/<ul class='children'>/,/<\/ul>/d" |
 				zzxml --untag=aside --tag a |
 				awk -F '"' '/href/ {printf $2 " "; getline; print}' |
-				awk '$2 ~ /'$2'/ { print $1 }'
+				awk '$2 ~ /'$lista_cat'/ { print $1 }'
 			)
 			test -n "$url_aux" && url="$url_aux" || url=''
 		fi
+
+		zztool grep_var 'http:' "$url" || url="http:$url"
 
 		if test -n "$url"
 		then
@@ -79,6 +83,7 @@ zzjquery ()
 		then
 			for url_aux in $url
 			do
+				zztool grep_var 'http://' "$url_aux" || url_aux="http://$url_aux"
 				zztool eco ${url_aux#*com/} | tr -d '/'
 				$ZZWWWHTML "$url_aux" |
 				zzxml --tag article |
