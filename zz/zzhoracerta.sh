@@ -12,7 +12,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-03-29
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzhoracerta ()
@@ -76,5 +76,5 @@ zzhoracerta ()
 
 	# Faz a consulta e filtra o resultado
 	$ZZWWWDUMP "$url/current_time_in_$localidade.aspx" |
-		sed -n '/The current time/,/UTC/p'
+		grep 'The current time' -B 2 -A 5
 }
