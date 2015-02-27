@@ -62,6 +62,7 @@ zznome ()
 		sed -n "
 		/$ini/,/$fim/ {
 			/$fim/d
+			/\[.*: :.*\]/d
 			/\[[0-9]\{1,\}\.jpg\]/d
 			s/^ *//g
 			s/^Qual a origem/Origem/

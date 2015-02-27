@@ -2,7 +2,9 @@
 
 $ zznome josé
 Origem do nome Jose: BÍBLICO
+
 Significado do nome Jose: "O QUE ACRESCENTA". FORAM VÁRIOS OS PERSONAGENS BÍBLICOS COM ESTE NOME. ENTRE ELES O MARIDO DA VIRGEM MARIA.
+
 $
 
 # Se $2=origem, mostra somente a origem
@@ -59,7 +61,6 @@ as vibrações deste número. 11 - Sempre em busca de ser inspiração para os o
 para levar uma forma espiritual de vida. E há aquelas que buscam ser líderes e se tornar para serem o centro das atenções.
 
 Significado e origem do Nome Jose - Arcanos do Tarot
-
 
 Arcano 1 - O Mago
 
