@@ -23,7 +23,8 @@ $ zzunescape	--html	_tmp4	#→ --file _tmp1
 
 # XML
 
-$ zzunescape	--xml	_tmp5	#→ """ &&& ''' <<< >>>
+#$ zzunescape	--xml	_tmp5	#→ --eval printf """ &&& ''' <<< >>>
+$ zzunescape	--xml	_tmp5	#→ --eval printf "\"\"\" &&& ''' <<< >>>"
 
 # Faxina
 
