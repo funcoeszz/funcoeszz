@@ -2,58 +2,82 @@
 # Busca vários indicadores econômicos e financeiros, da Valor Econômico.
 # As opções são categorizadas conforme segue:
 #
-# - Indicadores Financeiros:
-#     contas ou indicadores - Variação dos indicadores no período
-#     crédito
-#     tr, poupança ou tbf - Taxa Referencial, Poupança e TBF
-#     custo ou dinheiro - Custo do dinheiro
-#     aplicações - Evolução das aplicações financeiras
-#     ima ou anbima - IMA - Índices de Mercado Anbima
-#     mercado - Indicadores do mercado
-#     futuro - Mercado futuro
-#     estoque_cetip - Estoque CETIP
-#     volume_cetip - Volume CETIP
-#     cetip - Estoque e Volume CETIP
+# Indicadores Financeiros:
+#   contas ou indicadores              Variação dos indicadores no período
+#   crédito                            Linhas de crédito
+#   tr, poupança ou tbf                Taxa Referencial, Poupança e TBF
+#   custo ou dinheiro                  Custo do dinheiro
+#   aplicações                         Evolução das aplicações financeiras
+#   ima ou anbima                      IMA - Índices de Mercado Anbima
+#   mercado                            Indicadores do mercado
+#   renda_fixa ou insper               Índice de Renda Fixa Valor/Insper
+#   futuro                             Mercado futuro
+#   estoque_cetip                      Estoque CETIP
+#   volume_cetip                       Volume CETIP
+#   cetip                              Estoque e Volume CETIP
 #
-# - Índices Macroeconômicos:
-#     atividade - Atividade econômica
-#     inflação - Inflação
-#     produção ou investimento - Produção e investimento
-#     dívida_pública ou pública - Dívida e necessidades de financiamento
-#     receitas_tributária ou tributária - Principais receitas tributárias
-#     resultado_fiscal ou fiscal - Resultado fiscal do governo central
-#     previdenciaria ou previdência - Contribuição previdenciária
-#     ir_fonte - IR na fonte
-#     ir_quota - Imposto de Renda Pessoa Física
+# Índices Macroeconômicos:
+#   atividade                          Atividade econômica
+#   inflação                           Variação da Inflação
+#   produção ou investimento           Produção e investimento
+#   dívida_pública ou pública          Dívida e necessidades de financiamento
+#   receitas_tributária ou tributária  Principais receitas tributárias
+#   resultado_fiscal ou fiscal         Resultado fiscal do governo central
+#   previdenciaria ou previdência      Contribuição previdenciária
+#   ir_fonte                           IR na fonte
+#   ir_quota                           Imposto de Renda Pessoa Física
 #
-# - Commodities:
-#     agrícolas = Indicadores
-#     óleo_soja = Óleo de Soja
-#     farelo ou farelo_soja = Farelo de Soja
-#     óleo_vegetal = Óleos Vegetais
-#     suco_laranja = Suco de Laranja
-#     estoque_metais = Estoques de Metais
+# Mercado Externo:
+#   bonus                              Bônus corporativo
+#   captação                           Captações de recursos no exterior
+#   juros_externos                     Juros externos
+#   cds                                Prêmio de risco do CDS
+#   reservas_internacionais            Reservas internacionais
+#
+# Bolsa Nacional
+#   cotações                           Cotações intradia
+#   investimento                       Investimentos, debêntures e títulos
+#   direitos                           Direitos e recibos
+#   imobiliário                        Fundo imobiliário
+#   vista                              Mercado à vista
+#   compra                             Opções de compra
+#   venda                              Opções de venda
+#   venda_indice                       Opções de venda de índice
+#   recuperação                        Recuperação judicial
+#
+# Bolsas Internacionais
+#   adr_brasil ou adr                  ADR Brasil
+#   adr_indices                        ADR - Índices
+#   bolsas                             Bolsas de valores internacionais
+#
+#   moedas                             Variações de moedas internacionais
+#
+# Commodities:
+#   agrícolas                          Indicadores
+#   óleo_soja                          Óleo de Soja
+#   farelo ou farelo_soja              Farelo de Soja
+#   óleo_vegetal                       Óleos Vegetais
+#   suco_laranja                       Suco de Laranja
+#   estoque_metais                     Estoques de Metais
+#
+#   Outro itens em commodities:
 #     açucar       algodão      arroz              batata
-#     bezerro      boi          borracha           cacau
+#     bezerro      boi          cacau              ovos
 #     café         cebola       etanol             feijão
-#     frango       lã           laranja            laticínios
-#     madeira      madioca      milho              ovos
-#     trigo        soja         suínos ou porcos
+#     frango       laranja      laticínios         madeira
+#     madioca      milho        trigo              soja
+#     suínos ou porcos
 #     metais       cobre        outros_metais      petróleo
 #
-# - Mercado Externo:
-#     captação - Captações de recursos no exterior
-#     juros_externos - Juros externos
-#     cds - Prêmio de risco do CDS
-#     reservas_internacionais - Reservas internacionais
 #
 # Uso: zzve <opção>
 # Ex.: zzve tr         # Tabela de Taxa Referencial, Poupança e TBF.
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-07-28
-# Versão: 1
+# Versão: 2
 # Licença: GPL
+# Requisitos: zzuniq
 # ----------------------------------------------------------------------------
 zzve ()
 {
@@ -126,7 +150,6 @@ zzve ()
 		batata)               inicio='Batata'; url=$url_atual;;
 		bezerro)              inicio='Bezerro'; url=$url_atual;;
 		boi)                  inicio='Boi'; url=$url_atual;;
-		borracha)             inicio='Borracha'; url=$url_atual;;
 		cacau)                inicio='Cacau'; url=$url_atual;;
 		caf[ée])              inicio='Café *$'; url=$url_atual;;
 		cebola)               inicio='Cebola'; url=$url_atual;;
@@ -135,7 +158,6 @@ zzve ()
 		[óo]leo_soja)         inicio='Óleo de Soja'; url=$url_atual;;
 		feij[ãa]o)            inicio='Feijão'; url=$url_atual;;
 		frango)               inicio='Frango'; url=$url_atual;;
-		l[ãa])                inicio='Lã'; url=$url_atual;;
 		laranja)              inicio='Laranja'; url=$url_atual;;
 		latic[íi]nios)        inicio='Laticínios'; url=$url_atual;;
 		madeira)              inicio='Madeira'; url=$url_atual;;
@@ -162,15 +184,55 @@ zzve ()
 	# Mercado Externo - Captações de Recursos no Exterior
 	url_atual="${url_base}/internacional/mercado-externo"
 	case "$1" in
+		bonus)                   inicio='Bônus corporativo';url=$url_atual;;
 		capta[çc][ãa]o)          inicio='Captações de recursos no exterior'; url=$url_atual;;
 		juros_externos)          inicio='Juros externos'; url=$url_atual;;
 		cds)                     inicio='Prêmio de risco do CDS'; url=$url_atual;;
 		reservas_internacionais) inicio='Reservas internacionais'; url=$url_atual;;
 	esac
 
-	$ZZWWWDUMP "$url" | sed -n "/^ *${inicio}/,/^ *${fim}/p" | sed '/^[:space:]*$/d;$d' |
-	awk '{
-		if ($0 ~ /^ *Fonte/) { print ""; print $0; print ""}
-		else {print $0}
-	}'
+	# Bolsa Nacional
+	url_atual="${url_base}/bolsas/nacionais"
+	case "$1" in
+		cota[cç][oõ]es)    inicio='Cotações intradia';url=$url_atual;;
+		investimento)      inicio='Certificados de investimentos, debêntures e outros títulos';url=$url_atual;;
+		direitos)          inicio='Direitos e recibos';url=$url_atual;;
+		imobili[aá]rio)    inicio='Fundo imobiliário';url=$url_atual;;
+		vista)             inicio='Mercado à vista';url=$url_atual;;
+		compra)            inicio='Opções de compra';url=$url_atual;;
+		venda)             inicio='Opções de venda';url=$url_atual;;
+		venda_indice)      inicio='Opções de venda de índice';url=$url_atual;;
+		recupera[cç][aã]o) inicio='Recuperação judicial';url=$url_atual;;
+	esac
+
+	# Bolsas Internacionais
+	url_atual="${url_base}/bolsas/internacionais"
+	case "$1" in
+		adr_brasil| adr) inicio='ADR Brasil';url=$url_atual;;
+		adr_indices)     inicio='ADR - Índices';url=$url_atual;;
+		bolsas)          inicio='Bolsas de valores internacionais';url=$url_atual;;
+	esac
+
+	# Moedas estrangeiras
+	case "$1" in
+		moedas)
+			inicio='Dólar & Euro'
+			fim='Valor'
+			url="${url_base}/moedas"
+		;;
+	esac
+
+	$ZZWWWDUMP "$url" |
+		sed -n "/^ *${inicio}/,/^ *${fim}/p" |
+		if test "$1" = "investimento"
+		then
+			zzuniq
+		else
+			cat -
+		fi |
+		sed '/^[:space:]*$/d;$d' |
+		awk '{
+			if ($0 ~ /^ *Fonte/) { print ""; print $0; print ""}
+			else {print $0}
+		}'
 }
