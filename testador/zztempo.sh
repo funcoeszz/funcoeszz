@@ -1,36 +1,34 @@
-# 
-# Porto Alegre Aero-Porto , Brazil
-# 
-#    (SBPA) 30-00S 051-11W 3M
-# 
-#    Conditions at [Aug 08, 2013 - 06:00 PM EDT]
-#    2013.08.08 2200 UTC
-#    Wind from the S (180 degrees) at 15 MPH (13 KT) gusting to 28 MPH (24 KT)
-#    Visibility greater than 7 mile(s)
-#    Sky conditions overcast
-#    Temperature 57 F (14 C)
-#    Dew Point 53 F (12 C)
-#    Relative Humidity 87%
-#    Pressure (altimeter) 29.88 in. Hg (1012 hPa)
-#    ob SBPA 082200Z 18013G24KT 9999 BKN008 SCT025 OVC100 14/12 Q1012 W S R11
-# 
-
-$ zztempo brazil sbpa | sed 's/[0-9][0-9]*/9/g; s/\[... /[MMM /; s/ [AP]M/ ../'
+#Porto Alegre Aero-Porto , Brazil
+#
+#   (SBPA) 30-00S 051-11W 3M
+#
+#   Conditions at [Feb 27, 2015 - 06:00 PM EST]
+#   2015.02.27 2300 UTC
+#   Wind from the SE (140 degrees) at 7 MPH (6 KT) (direction variable)
+#   Visibility greater than 7 mile(s)
+#   Sky conditions mostly cloudy
+#   Temperature 77 F (25 C)
+#   Dew Point 71 F (22 C)
+#   Relative Humidity 83%
+#   Pressure (altimeter) 29.88 in. Hg (1012 hPa)
+#   ob SBPA 272300Z 14006KT 100V180 9999 BKN015 BKN083 25/22 Q1012
+#
+$ zztempo brazil sbpa | sed 's/[0-9][0-9]*/9/g; s/\[... /[MMM /; s/ [AP]M E[DS]T/ .. .../; s/[A-Z]\{1,\} (/X (/; s/ KT).*//; s/\(conditions\) .*/\1/'
 
 Porto Alegre Aero-Porto , Brazil
 
    (SBPA) 9-9S 9-9W 9M
 
-   Conditions at [MMM 9, 9 - 9:9 .. EDT]
+   Conditions at [MMM 9, 9 - 9:9 .. ...]
    9.9.9 9 UTC
-   Wind from the S (9 degrees) at 9 MPH (9 KT) gusting to 9 MPH (9 KT)
+   Wind from the X (9 degrees) at 9 MPH (9
    Visibility greater than 9 mile(s)
-   Sky conditions overcast
-   Temperature 9 F (9 C)
-   Dew Point 9 F (9 C)
+   Sky conditions
+   Temperature 9 X (9 C)
+   Dew Point 9 X (9 C)
    Relative Humidity 9%
    Pressure (altimeter) 9.9 in. Hg (9 hPa)
-   ob SBPA 9Z 9G9KT 9 BKN9 SCT9 OVC9 9/9 Q9 W S R9
+   ob SBPA 9Z 9KT 9V9 9 BKN9 BKN9 9/9 Q9
 
 $ zztempo
 Afghanistan
