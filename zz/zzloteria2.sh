@@ -12,9 +12,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 7
+# Versão: 8
 # Licença: GPL
-# Requisitos: zzseq
+# Requisitos: zzseq zzjuntalinhas
 # ----------------------------------------------------------------------------
 zzloteria2 ()
 {
@@ -140,17 +140,14 @@ zzloteria2 ()
 				echo "$dump" | awk 'BEGIN {FS="|";OFS="\n"} {print $8,$27,$29,"",$11,$12,$14}' > "${cache}.val"
 			;;
 			quina)
-				# O resultado vem duplicado em um único campo, sendo a segunda
-				# parte o resultado ordenado numericamente. Exemplo:
-				# | * 69 * 42 * 13 * 56 * 07 * 07 * 13 * 42 * 56 * 69 |
-
+				# O resultado vem separado por asteriscos. Exemplo:
+				# | * 07 * 13 * 42 * 56 * 69 |
+				dump=$(     echo "$dump" | zzjuntalinhas)
 				data=$(     echo "$dump" | cut -d '|' -f 17)
 				acumulado=$(echo "$dump" | cut -d '|' -f 18,19)
 				resultado=$(echo "$dump" | cut -d '|' -f 15 |
-					sed 's/\* /|/6' |
 					tr '*' '-'  |
-					tr '|' '\n' |
-					sed 's/^ - // ; 1d'
+					sed 's/^ - //'
 				)
 				faixa=$(printf %b "\tQuina\n\tQuadra\n\tTerno\n")
 				echo "$faixa" > "${cache}"
