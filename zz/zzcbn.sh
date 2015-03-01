@@ -1,15 +1,15 @@
 # ----------------------------------------------------------------------------
 # http://cbn.globoradio.com.br
 # Busca e toca os últimos comentários dos comentaristas da radio CBN.
-# Uso: zzcbn [--audio] -c COMENTARISTA [-d data] ou  zzcbn --lista
+# Uso: zzcbn [--audio] [num_audio] -c COMENTARISTA [-d data] ou  zzcbn --lista
 # Ex.: zzcbn -c max-gehringer -d ontem
 #      zzcbn -c juca-kfouri -d 13/05/09
 #      zzcbn -c miriam
-#      zzcbn --audio -c  mario-sergio-cortella -d 16/02/2015
+#      zzcbn --audio 2 -c  mario-sergio-cortella
 #
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2009-04-16
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzecho zzplay zzcapitalize zzdatafmt
 # ----------------------------------------------------------------------------
@@ -20,6 +20,7 @@ zzcbn ()
 	local cache=$(zztool cache cbn)
 	local url='http://cbn.globoradio.globo.com'
 	local audio=0
+	local num_audio=1
 	local nome comentarista link fonte rss podcast ordem data_coment data_audio
 
 	#Verificacao dos parâmetros
@@ -111,12 +112,7 @@ zzcbn ()
 
 			podcast=$(
 				echo "$podcast" |
-				if test -n "$data_audio"
-				then
-					sed -n "/${data_audio}/p"
-				else
-					head -n 1
-				fi |
+				sed -n "${num_audio}p" |
 				sed 's|.*audio=|http://download.sgr.globo.com/sgr-mp3/cbn/|' |
 				sed 's/\.mp3.*/.mp3/'
 			)
