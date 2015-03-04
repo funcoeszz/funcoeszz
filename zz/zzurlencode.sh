@@ -8,7 +8,7 @@
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2013-03-19
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzurlencode ()
@@ -54,4 +54,7 @@ zzurlencode ()
 			fi
 		fi
 	done
+
+	# Garante a quebra de linha no final do resultado
+	echo
 }
