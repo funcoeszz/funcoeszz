@@ -50,6 +50,7 @@ zzcinemark ()
 		echo "                                   Cidades e Salas disponíveis                                   "
 		echo "================================================================================================="
 		cat $cache |
+		sed 's/^ /0/' |
 		sort -n |
 		awk -F ":" '
 			NF==2 {printf "\n%s (Cod: %02d)\n", $2, $1}
