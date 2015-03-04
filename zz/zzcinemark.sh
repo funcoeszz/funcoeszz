@@ -94,9 +94,12 @@ zzcinemark ()
 
 			if test -z "$dia"
 			then
-				zztool testa_data $2 &&
-				dia=$(zzdatafmt -f "DD-MM-AAAA" $2) ||
-				dia=$(zzdatafmt -f "DD-MM-AAAA" hoje)
+				if zztool testa_data $2
+				then
+					dia=$(zzdatafmt -f "DD-MM-AAAA" $2)
+				else
+					dia=$(zzdatafmt -f "DD-MM-AAAA" hoje)
+				fi
 			fi
 		else
 			dia=$(zzdatafmt -f "DD-MM-AAAA" hoje)
