@@ -51,7 +51,7 @@ zzfutebol ()
 			grep --color=never -e $( zzdata $1 | zzdatafmt -f 'DD/MM/AA' )
 			;;
 		*)
-			grep --color=never -i "${1-.}"
+			grep --color=never -i "${1:-.}"
 			;;
 	esac
 }
