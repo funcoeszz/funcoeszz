@@ -7,7 +7,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2012-03-30
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzstr2hexa ()
@@ -26,18 +26,23 @@ zzstr2hexa ()
 		string=$(cat /dev/stdin)
 	fi
 
-	# Loop a cada caractere, e o printf o converte para hexa
-	printf %s "$string" | while IFS= read -r -n 1 caractere
-	do
-		if test "$caractere" = "$nl"
-		then
-			# Exceção para contornar um bug:
-			#   printf %x 'c retorna 0 quando c=\n
-			printf '0a '
-		else
-			printf '%02x ' "'$caractere"
-		fi
-	done |
-		# Remove o espaço que sobra no final e quebra a linha
+	(
+		# Loop a cada caractere, e o printf o converte para hexa
+		printf %s "$string" | while IFS= read -r -n 1 caractere
+		do
+			if test "$caractere" = "$nl"
+			then
+				# Exceção para contornar um bug:
+				#   printf %x 'c retorna 0 quando c=\n
+				printf '0a '
+			else
+				printf '%02x ' "'$caractere"
+			fi
+		done
+
+		# Garante a quebra de linha no final do resultado
+		echo
+	) |
+		# Remove o espaço que sobra no final
 		zztool rtrim
 }
