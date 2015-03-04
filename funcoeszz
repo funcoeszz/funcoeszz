@@ -415,7 +415,7 @@ zztool ()
 					dump | *) $ZZWWWDUMP "$3" > "$ZZTMP.${1#zz}$id";;
 					esac
 				fi
-				echo "$ZZTMP.${1#zz}$id"
+				test "$ferramenta" = "cache" && echo "$ZZTMP.${1#zz}$id"
 			;;
 			esac
 		;;
