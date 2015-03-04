@@ -13,6 +13,7 @@ $ printf '&#38;&#x26;&amp; '	>> _tmp5
 $ printf '&#39;&#x27;&apos; '	>> _tmp5
 $ printf '&#60;&#x3C;&lt; '	>> _tmp5
 $ printf '&#62;&#x3E;&gt;'	>> _tmp5
+$ echo                          >> _tmp5
 $
 
 # HTML
@@ -23,8 +24,7 @@ $ zzunescape	--html	_tmp4	#→ --file _tmp1
 
 # XML
 
-#$ zzunescape	--xml	_tmp5	#→ --eval printf """ &&& ''' <<< >>>
-$ zzunescape	--xml	_tmp5	#→ --eval printf "\"\"\" &&& ''' <<< >>>"
+$ zzunescape	--xml	_tmp5	#→ """ &&& ''' <<< >>>
 
 # Faxina
 
