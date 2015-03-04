@@ -3,3 +3,18 @@ $ zzurlencode '€®ŧ←↓→øþªºłĸħŋđðßæ'		#→ %20AC%AE%167%2190
 $ zzurlencode '«»©“”nµ·̣°'				#→ %AB%BB%A9%201C%201Dn%B5%B7%323%B0
 $ zzurlencode '/\' '"`^:?\<>,./|*'		#→ %22%60%5E%3A%3F\%3C%3E%2C./%7C%2A
 $ zzurlencode '| | |'					#→ %7C%20%7C%20%7C
+
+# Estes não devem ser convertidos
+
+$ zzurlencode ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-
+ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-
+$
+
+# Testa caracteres especiais
+
+$ n="$(printf '.\n.')"
+$ t="$(printf '.\t.')"
+$ zzurlencode	"$t"		#→ .%09.
+$ zzurlencode	"$n"		#→ .%0A.
+$ unset n
+$ unset t
