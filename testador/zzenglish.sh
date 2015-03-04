@@ -47,9 +47,6 @@ $ zzenglish momentum
      impelling force, impetus, impulse, impulsion, incentive,
      incitement, inertia, irresistible force, moment, motive power,
      power, propulsion, push, strength, thrust
-
-
-
 $ zzenglish
 Uso: zzenglish palavra-em-inglês
 $
