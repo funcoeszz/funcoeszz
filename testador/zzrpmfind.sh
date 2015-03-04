@@ -10,5 +10,4 @@ ftp://rpmfind.net/linux/
   dag/redhat/el5/en/i386/dag/RPMS/vim-task-2.1.1-1.el5.rf.i386.rpm
   epel/5/i386/vim-halibut-1.0-2.20100504svn8934.el5.1.i386.rpm
 $ zzrpmfind foobar
-ftp://rpmfind.net/linux/
 $
