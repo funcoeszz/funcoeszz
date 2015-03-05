@@ -21,7 +21,7 @@
 #
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
 # Desde: 2014-04-08
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzdata zzdatafmt
 # ----------------------------------------------------------------------------
@@ -32,7 +32,12 @@ zzfutebol ()
 	local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
 
 	$ZZWWWDUMP "$url" |
-	sed -n '/[0-9]h[0-9]/p;/_ X/p' |
+	sed -n '
+		/[0-9]h[0-9]/p
+
+		# Normaliza e mostra a linha dos times
+		s/___ *X *___/___ X ___/p
+		s/___  *___/___ X ___/p' |
 	zztool trim |
 	awk -F "[_]+" '
 		{
@@ -45,7 +50,8 @@ zzfutebol ()
 				printf "%25s x %-25s\n", $1, $3
 			}
 		}' |
-	sed 's/  x  /x/' |
+	# Normaliza a saída para: Time1 x Time2
+	sed 's/  *x  */ x /' |
 	case "$1" in
 		hoje | amanh[aã] | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado | domingo)
 			grep --color=never -e $( zzdata $1 | zzdatafmt -f 'DD/MM/AA' )
