@@ -10,7 +10,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-09-02
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzansi2html ()
@@ -54,9 +54,9 @@ zzansi2html ()
 	sed "
 		# Engloba o código na tag PRE para preservar espaços
 		1 i\\
-		<pre style=\"background:#000;color:#FFF\"><div style=\"display:inline\">
+<pre style=\"background:#000;color:#FFF\"><div style=\"display:inline\">
 		$ a\\
-		</pre>
+</pre>
 
 		# Escapes do HTML
 		s/&/&amp;/g
