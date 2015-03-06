@@ -6,8 +6,9 @@
 #
 # Autor: Luciano ES
 # Desde: 2008-09-07
-# Versão: 5
+# Versão: 6
 # Licença: GPL
+# Requisitos: zztrim
 # ----------------------------------------------------------------------------
 zzenglish ()
 {
@@ -56,5 +57,6 @@ zzenglish ()
 				s/.*/==================== DICT.ORG ====================/
 				p
 				x
-			}" | zztool rtrim
+			}" |
+		zztrim -V -r
 }
