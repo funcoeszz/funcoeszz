@@ -6,8 +6,9 @@
 #
 # Autor: gabriell nascimento <gabriellhrn (a) gmail com>
 # Desde: 2013-04-15
-# Versão: 2
+# Versão: 3
 # Licença: GPL
+# Requisitos: zztrim
 # ----------------------------------------------------------------------------
 zzdicsinonimos ()
 {
@@ -28,13 +29,16 @@ zzdicsinonimos ()
 	# Faz a busca do termo e limpa, deixando somente os sinônimos
 	# O sed no final separa os sentidos, caso a palavra tenha mais de um
 	$ZZWWWDUMP "${url}?q=${parametro_busca}" |
-		sed -n "/[0-9]\{1,\} sinônimos\{0,1\} d/,/«/ {
-			/[0-9]\{1,\} sinônimos\{0,1\} d/d
-			/«/d
-			/^$/d
-			p
-		}" |
-		sed '/^\s*[A-Z]/ i\ '
+		sed -n "
+			/[0-9]\{1,\} sinônimos\{0,1\} d/,/«/ {
+				/[0-9]\{1,\} sinônimos\{0,1\} d/d
+				/«/d
+				/^$/d
 
-	echo
+				# Linhas em branco antes de Foo:
+				/^ *[A-Z]/ { x;p;x; }
+
+				p
+			}" |
+		zztrim
 }
