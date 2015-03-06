@@ -3,12 +3,12 @@
 # Obs.: Linhas que só possuem espaços e tabs são consideradas em branco.
 #
 # Opções:
-#   -t, --top       Apaga as linhas em branco do início do texto
-#   -b, --bottom    Apaga as linhas em branco do final do texto
-#   -l, --left      Apaga os brancos do início de todas as linhas
-#   -r, --right     Apaga os brancos do final de todas as lihas
-#   --vertical      Apaga as linhas em branco do início e final (-t -b)
-#   --horizontal    Apaga os brancos do início e final das linhas (-l -r)
+#   -t, --top         Apaga as linhas em branco do início do texto
+#   -b, --bottom      Apaga as linhas em branco do final do texto
+#   -l, --left        Apaga os brancos do início de todas as linhas
+#   -r, --right       Apaga os brancos do final de todas as lihas
+#   -V, --vertical    Apaga as linhas em branco do início e final (-t -b)
+#   -H, --horizontal  Apaga os brancos do início e final das linhas (-l -r)
 #
 # Uso: zztrim [texto]
 # Ex.: zztrim "   foo bar   "           # "foo bar"
@@ -18,7 +18,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2015-03-05
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztrim ()
@@ -32,14 +32,14 @@ zztrim ()
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
-			-l | --left  ) shift; left=1;;
-			-r | --right ) shift; right=1;;
-			-t | --top   ) shift; top=1;;
-			-b | --bottom) shift; bottom=1;;
-			--horizontal ) shift; left=1; right=1;;
-			--vertical   ) shift; top=1; bottom=1;;
-			--*          ) echo "Opção inválida $1"; return 1;;
-			*            ) break;;
+			-l | --left      ) shift; left=1;;
+			-r | --right     ) shift; right=1;;
+			-t | --top       ) shift; top=1;;
+			-b | --bottom    ) shift; bottom=1;;
+			-H | --horizontal) shift; left=1; right=1;;
+			-V | --vertical  ) shift; top=1; bottom=1;;
+			--*) echo "Opção inválida $1"; return 1;;
+			*) break;;
 		esac
 	done
 

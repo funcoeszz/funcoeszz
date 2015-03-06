@@ -89,7 +89,17 @@ foo~
 ~
 ~
 ~
+$ printa | zztrim -H | mostra
+~
+~
+~
+foo~
+~
+~
+~
 $ printa | zztrim --vertical | mostra
+ \t foo \t ~
+$ printa | zztrim -V | mostra
  \t foo \t ~
 $
 
@@ -107,7 +117,15 @@ $ printa | zztrim --horizontal -t -b | mostra
 foo~
 $ printa | zztrim --vertical -l -r | mostra
 foo~
+$ printa | zztrim -H -V | mostra
+foo~
+$ printa | zztrim -H -t -b | mostra
+foo~
+$ printa | zztrim -V -l -r | mostra
+foo~
 $ printa | zztrim -t -b -r | mostra  # só mantém o indent original
+ \t foo~
+$ printa | zztrim -V -r | mostra
  \t foo~
 $
 
