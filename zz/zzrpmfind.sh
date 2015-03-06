@@ -8,7 +8,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-02-22
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzrpmfind ()
@@ -24,8 +24,15 @@ zzrpmfind ()
 	test -n "$1" || { zztool uso rpmfind; return 1; }
 
 	# Faz a consulta e filtra o resultado
-	zztool eco 'ftp://rpmfind.net/linux/'
-	$ZZWWWLIST "$url?query=$pacote&submit=Search+...&system=$distro&arch=$arquitetura" |
-		sed -n '/ftp:\/\/rpmfind/ s@^[^A-Z]*/linux/@  @p' |
-		sort
+	resultado=$(
+		$ZZWWWLIST "$url?query=$pacote&submit=Search+...&system=$distro&arch=$arquitetura" |
+			sed -n '/ftp:\/\/rpmfind/ s@^[^A-Z]*/linux/@  @p' |
+			sort
+	)
+
+	if test -n "$resultado"
+	then
+		zztool eco 'ftp://rpmfind.net/linux/'
+		echo "$resultado"
+	fi
 }
