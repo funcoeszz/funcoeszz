@@ -89,24 +89,24 @@ $ zzdiasuteis	31/01/2006	02/01/2006	#→ 22
 $ zzdiasuteis	01/02/2006	02/01/2006	#→ 23
 
 # Sem os zeros (por enquanto não é suportado)
-$ zzdiasuteis	1/2/2008	01/01/1970	#→ --regex ^Data inválida 
-$ zzdiasuteis	01/2/2008	01/01/1970	#→ --regex ^Data inválida 
-$ zzdiasuteis	1/02/2008	01/01/1970	#→ --regex ^Data inválida 
-$ zzdiasuteis	01/01/1970	1/2/2008	#→ --regex ^Data inválida 
-$ zzdiasuteis	01/01/1970	01/2/2008	#→ --regex ^Data inválida 
-$ zzdiasuteis	01/01/1970	1/02/2008	#→ --regex ^Data inválida 
+$ zzdiasuteis	1/2/2008	01/01/1970	#→ --regex ^Data inválida
+$ zzdiasuteis	01/2/2008	01/01/1970	#→ --regex ^Data inválida
+$ zzdiasuteis	1/02/2008	01/01/1970	#→ --regex ^Data inválida
+$ zzdiasuteis	01/01/1970	1/2/2008	#→ --regex ^Data inválida
+$ zzdiasuteis	01/01/1970	01/2/2008	#→ --regex ^Data inválida
+$ zzdiasuteis	01/01/1970	1/02/2008	#→ --regex ^Data inválida
 
 # Erros
-$ zzdiasuteis	1970		01/01/1970	#→ --regex ^Data inválida 
-$ zzdiasuteis	-2000 		01/01/1970	#→ --regex ^Data inválida 
-$ zzdiasuteis	0 		01/01/1970	#→ --regex ^Data inválida 
-$ zzdiasuteis	foo 		01/01/1970	#→ --regex ^Data inválida 
-$ zzdiasuteis	29.02.2008	01/01/1970	#→ --regex ^Data inválida 
-$ zzdiasuteis	01/01/1970	1970		#→ --regex ^Data inválida 
-$ zzdiasuteis	01/01/1970	-2000 		#→ --regex ^Data inválida 
-$ zzdiasuteis	01/01/1970	0 		#→ --regex ^Data inválida 
-$ zzdiasuteis	01/01/1970	foo 		#→ --regex ^Data inválida 
-$ zzdiasuteis	01/01/1970	29.02.2008	#→ --regex ^Data inválida 
+$ zzdiasuteis	1970		01/01/1970	#→ --regex ^Data inválida
+$ zzdiasuteis	-2000 		01/01/1970	#→ --regex ^Data inválida
+$ zzdiasuteis	0 		01/01/1970	#→ --regex ^Data inválida
+$ zzdiasuteis	foo 		01/01/1970	#→ --regex ^Data inválida
+$ zzdiasuteis	29.02.2008	01/01/1970	#→ --regex ^Data inválida
+$ zzdiasuteis	01/01/1970	1970		#→ --regex ^Data inválida
+$ zzdiasuteis	01/01/1970	-2000 		#→ --regex ^Data inválida
+$ zzdiasuteis	01/01/1970	0 		#→ --regex ^Data inválida
+$ zzdiasuteis	01/01/1970	foo 		#→ --regex ^Data inválida
+$ zzdiasuteis	01/01/1970	29.02.2008	#→ --regex ^Data inválida
 
 # Sem argumentos, mostra os total de dias úteis no mês atual
 $ zzdiasuteis					#→ --regex ^[A-Z][a-z]+ de .... tem .. dias úteis\.$
