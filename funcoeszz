@@ -200,6 +200,14 @@ zztool ()
 				wc -l |
 				tr -d ' \t'
 		;;
+		nl_eof)
+			# Garante que a última linha tem um \n no final
+			# Necessário porque o GNU sed não adiciona o \n
+			# printf abc | bsd-sed ''      #-> abc\n
+			# printf abc | gnu-sed ''      #-> abc
+			# printf abc | zztool nl_eof   #-> abc\n
+			sed '$ { G; s/\n//g; }'
+		;;
 		testa_ano)
 			# Testa se $1 é um ano válido: 1-9999
 			# O ano zero nunca existiu, foi de -1 para 1

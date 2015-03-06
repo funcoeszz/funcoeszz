@@ -300,3 +300,12 @@ ok
 $ zztool multi_stdin ok
 ok
 $
+
+# nl_eof
+
+$ printf 'abc' | zztool nl_eof
+abc
+$ printf 'abc\n123' | zztool nl_eof
+abc
+123
+$
