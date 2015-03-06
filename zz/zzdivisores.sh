@@ -1,12 +1,12 @@
 # ----------------------------------------------------------------------------
 # Lista todos os divisores de um número inteiro e positivo, maior que 2.
 #
-# Uso: zzdivisores <numero>
+# Uso: zzdivisores <número>
 # Ex.: zzdivisores 1400
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzfatorar
 # ----------------------------------------------------------------------------
@@ -47,8 +47,7 @@ zzdivisores ()
 		done
 
 		# Elimina-se as repetições e ordena-se os divisores encontrados
-		echo $divisores | zztool list2lines | sort -n | uniq | zztool lines2list
-		echo
+		echo $divisores | zztool list2lines | sort -n | uniq | zztool lines2list | zztool nl_eof
 	else
 		# Se não for um número válido exibe a ajuda
 		zzdivisores -h
