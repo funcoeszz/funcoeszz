@@ -22,7 +22,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-11-10
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzsplit ()
@@ -81,13 +81,13 @@ zzsplit ()
 			sufixo = sprintf("%0" tamanho "d", ordem)
 
 			if (passo[ordem] > 0)
-				print $0 >> FILENAME "." sufixo
+				print $0 >> (FILENAME "." sufixo)
 
 			if (val_abs > 1) {
 				for (i = 2; i <= val_abs; i++) {
 					if (getline > 0) {
 						if (passo[ordem] > 0)
-							print $0 >> FILENAME "." sufixo
+							print $0 >> (FILENAME "." sufixo)
 					}
 				}
 			}
