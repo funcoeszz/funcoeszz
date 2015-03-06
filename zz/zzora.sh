@@ -6,7 +6,7 @@
 #
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2005-11-03
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzora ()
@@ -21,6 +21,7 @@ zzora ()
 	$ZZWWWDUMP "$url" | sed '
 		s/  //g
 		s/^ //
+		/^$/ d
 		/Subject Replies/,$d
 		1,5d
 		s/^Cause:/\
@@ -31,5 +32,4 @@ Action:/
 		/^o /d
 		/\[1\.gif\]/,$d
 		'
-	return 0
 }
