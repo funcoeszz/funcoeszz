@@ -55,7 +55,11 @@ zzdatafmt ()
 {
 	zzzz -h datafmt "$1" && return
 
-	local data data_orig fmt ano mes dia aaaa aa mm dd a m d ano_atual meses semana semanas
+	local data data_orig fmt
+	local ano_atual ano aaaa aa a
+	local meses mes mmm mm m
+	local semanas semana sem sss
+	local dia dd d
 	local meses_pt='janeiro fevereiro março abril maio junho julho agosto setembro outubro novembro dezembro'
 	local meses_en='January February March April May June July August September October November December'
 	local meses_es='Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre'
