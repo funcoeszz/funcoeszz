@@ -18,27 +18,15 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2015-03-05
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztrim ()
 {
 	zzzz -h trim "$1" && return
 
-	local filter top bottom left right
-
-	# Comandos sed para apagar os brancos
-	local delete_top='/[^[:blank:]]/,$!d;'
-	local delete_left='s/^[[:blank:]]*//;'
-	local delete_right='s/[[:blank:]]*$//;'
-	local delete_bottom='
-		:loop
-		/^[[:space:]]*$/ {
-			$ d
-			N
-			b loop
-		}
-	'
+	local top left right bottom
+	local delete_top delete_left delete_right delete_bottom
 
 	# Opções de linha de comando
 	while test "${1#-}" != "$1"
@@ -64,13 +52,27 @@ zztrim ()
 		right=1
 	fi
 
-	# Compõe o filtro sed de acordo com as opções ativas
-	# Nota: a ordem importa, não altere.
-	test -n "$left"   && filter="$filter$delete_left"
-	test -n "$right"  && filter="$filter$delete_right"
-	test -n "$top"    && filter="$filter$delete_top"
-	test -n "$bottom" && filter="$filter$delete_bottom"
+	# Compõe os comandos sed para apagar os brancos,
+	# levando em conta quais são as opções ativas
+	test -n "$top"    && delete_top='/[^[:blank:]]/,$!d;'
+	test -n "$left"   && delete_left='s/^[[:blank:]]*//;'
+	test -n "$right"  && delete_right='s/[[:blank:]]*$//;'
+	test -n "$bottom" && delete_bottom='
+		:loop
+		/^[[:space:]]*$/ {
+			$ d
+			N
+			b loop
+		}
+	'
 
-	# Aplica o filtro, com dados via STDIN ou argumentos
-	zztool multi_stdin "$@" | sed "$filter"
+	# Dados via STDIN ou argumentos
+	zztool multi_stdin "$@" |
+		# Aplica os filtros
+		sed "$delete_top $delete_left $delete_right" |
+		# Este deve vir sozinho, senão afeta os outros (comando N)
+		sed "$delete_bottom"
+
+		# Nota: Não há problema se as variáveis estiverem vazias,
+		#       sed "" é um comando nulo e não fará alterações.
 }

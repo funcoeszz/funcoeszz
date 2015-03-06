@@ -20,7 +20,7 @@
 
 
    	
-			TABs em ambos os laods aqui				
+			TABs em ambos os lados aqui				
    		     Espaços e TABs e ambos os lados agora	     	   	
 	     	   Outra linha com espaços e TABs nos dois lados       				           
  						..só..	
