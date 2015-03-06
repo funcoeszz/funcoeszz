@@ -11,12 +11,9 @@ $
 
 # Palavra com acentos
 
-$ zzdicantonimos ávido
-1. fartável, contentável, generoso.
-2. repimpado, abarrotado.
-3. farto, empanturrado, embuchado, cevado, nutrido, saciado.
-4. cheio, enfartado.
-5. cheio.
+$ zzdicantonimos folgazão
+1. introvertido, sério, tristonho.
+2. rancoroso.
 $
 
 # Palavra não encontrada

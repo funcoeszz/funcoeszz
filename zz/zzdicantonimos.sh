@@ -6,7 +6,7 @@
 #
 # Autor: gabriell nascimento <gabriellhrn (a) gmail com>
 # Desde: 2013-04-15
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdicantonimos ()
@@ -31,8 +31,7 @@ zzdicantonimos ()
 			/[0-9]\{1,\} antônimos\{0,1\} d/d
 			/«/d
 			/^$/d
+			s/^ *//
 			p
 		}"
-
-	echo
 }
