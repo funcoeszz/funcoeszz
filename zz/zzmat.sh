@@ -889,8 +889,9 @@ zzmat ()
 						num2 = num3
 					}
 					if ( seq != 1 ) { printf "%s ", num1 }
-				}' | zztool rtrim
-			echo
+				}' |
+				zztool rtrim |
+				zztool nl_eof
 		else
 			echo " Número de fibonacci ou lucas, na posição especificada."
 			echo " Com o argumento 's' imprime a sequência até a posição."
@@ -914,8 +915,9 @@ zzmat ()
 						num3 = num4
 					}
 					if ( seq != 1 ) { printf "%s ", num1 }
-				}' | zztool rtrim
-			echo
+				}' |
+				zztool rtrim |
+				zztool nl_eof
 		else
 			echo " Número de tribonacci, na posição especificada."
 			echo " Com o argumento 's' imprime a sequência até a posição."
