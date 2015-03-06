@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# http://pt.wikipedia.org/wiki/Anexo:Lista_de_munic%C3%ADpios_do_Brasil
+# http://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Brasil
 # Lista completa com todas as 5.500+ cidades do Brasil, com busca.
 # Obs.: Sem argumentos, mostra uma cidade aleatória.
 #
@@ -11,7 +11,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzlinha
 # ----------------------------------------------------------------------------
@@ -19,7 +19,7 @@ zzcidade ()
 {
 	zzzz -h cidade "$1" && return
 
-	local url='http://pt.wikipedia.org/wiki/Anexo:Lista_de_munic%C3%ADpios_do_Brasil'
+	local url='http://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Brasil'
 	local cache=$(zztool cache cidade)
 	local padrao="$*"
 
