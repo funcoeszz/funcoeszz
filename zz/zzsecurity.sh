@@ -11,7 +11,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # Requisitos: zzminusculas zzxml zzfeed zztac zzurldecode zzdata zzdatafmt
 # ----------------------------------------------------------------------------
@@ -156,12 +156,14 @@ zzsecurity ()
 		zztool eco '** Atualizações Red Hat'
 		echo "$url"
 		$ZZWWWDUMP "$url" |
-			sed -n '/^ *CVE-/{
-				/\* RESERVED \*/d
-				/Details pending/d
-				s/ [[:alpha:]]\{1,\} [0-9-]\{1,\}$//
-				s/^  *//
-				p}' |
+			sed -n '
+				/^ *CVE-/ {
+					/\* RESERVED \*/ d
+					/Details pending/ d
+					s/ [[:alpha:]]\{1,\} [0-9-]\{1,\}$//
+					s/^  *//
+					p
+				}' |
 			zztac |
 			$limite |
 			sed 's/ /:\
