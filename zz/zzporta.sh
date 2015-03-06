@@ -1,4 +1,5 @@
 # ----------------------------------------------------------------------------
+# http://pt.wikipedia.org/wiki/Lista_de_portas_de_protocolos
 # Mostra uma lista das portas de protocolos usados na internet.
 # Se houver um número como argumento, a listagem é filtrada pelo mesmo.
 #
@@ -8,7 +9,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-11-15
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzjuntalinhas
 # ----------------------------------------------------------------------------
@@ -16,7 +17,7 @@ zzporta ()
 {
 	zzzz -h porta "$1" && return
 
-	local url="http://pt.wikipedia.org/wiki/Anexo:Lista_de_portas_de_protocolos"
+	local url="http://pt.wikipedia.org/wiki/Lista_de_portas_de_protocolos"
 	local port=$1
 	zztool testa_numero $port || port='.'
 
