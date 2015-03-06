@@ -109,7 +109,7 @@ $ zzdiasuteis	01/01/1970	foo 		#→ --regex ^Data inválida
 $ zzdiasuteis	01/01/1970	29.02.2008	#→ --regex ^Data inválida
 
 # Sem argumentos, mostra os total de dias úteis no mês atual
-$ zzdiasuteis					#→ --regex ^[A-Z][a-z]+ de .... tem .. dias úteis\.$
+$ zzdiasuteis					#→ --regex ^[A-Z][a-zç]+ de .... tem .. dias úteis\.$
 
 # Falta de argumentos
 $ zzdiasuteis	01/01/1970			#→ --regex ^Uso:
