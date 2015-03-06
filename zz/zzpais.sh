@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# http://pt.wikipedia.org/wiki/Anexo:Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais
+# http://pt.wikipedia.org/wiki/Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais
 # Lista os países.
 # Opções:
 #  -a: Todos os países
@@ -16,7 +16,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-29
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzlinha
 # ----------------------------------------------------------------------------
@@ -24,7 +24,7 @@ zzpais ()
 {
 	zzzz -h pais "$1" && return
 
-	local url='http://pt.wikipedia.org/wiki/Anexo:Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais'
+	local url='http://pt.wikipedia.org/wiki/Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais'
 	local cache=$(zztool cache pais)
 	local original=0
 	local idioma=0
