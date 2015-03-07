@@ -153,6 +153,7 @@ zzcpf ()
 		else
 			# Boa ação do dia: mostrar quais os verificadores corretos
 			echo "CPF inválido (deveria terminar em $digito1$digito2)"
+			return 1
 		fi
 	fi
 }
