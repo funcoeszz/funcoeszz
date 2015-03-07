@@ -37,6 +37,12 @@ zzcpf ()
 			return 1
 		fi
 
+		if test ${cpf} -eq 0
+		then
+			zztool erro 'CPF inválido (não pode conter apenas zeros)'
+			return 1
+		fi
+
 		# Completa com zeros à esquerda, caso necessário
 		cpf=$(printf %011d "$cpf")
 
@@ -60,6 +66,12 @@ zzcpf ()
 		if test ${#cpf} -ne 11
 		then
 			zztool erro 'CPF inválido (deve ter 11 dígitos)'
+			return 1
+		fi
+
+		if test ${cpf} -eq 0
+		then
+			zztool erro 'CPF inválido (não pode conter apenas zeros)'
 			return 1
 		fi
 
