@@ -12,7 +12,7 @@
 # Desde: 2003-06-12
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzaleatorio
+# Requisitos: zzaleatorio zztrim
 # ----------------------------------------------------------------------------
 zzss ()
 {
@@ -76,7 +76,7 @@ zzss ()
 		mensagem=$(
 			echo "$temas" |
 				grep -w "$tema" |
-				zztool trim |
+				zztrim |
 				cut -f2
 		)
 

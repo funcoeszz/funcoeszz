@@ -340,16 +340,6 @@ zztool ()
 				tr '\n' ' ' |
 				sed 's/^ // ; s/ $//'
 		;;
-		trim)
-			zztool multi_stdin "$@" |
-				sed 's/^[[:blank:]]*// ; s/[[:blank:]]*$//'
-		;;
-		ltrim)
-			zztool multi_stdin "$@" | sed 's/^[[:blank:]]*//'
-		;;
-		rtrim)
-			zztool multi_stdin "$@" | sed 's/[[:blank:]]*$//'
-		;;
 		endereco_sed)
 			# Formata um texto para ser usado como endereço no sed.
 			# Números e $ não são alterados, resto fica /entre barras/

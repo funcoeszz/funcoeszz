@@ -10,7 +10,7 @@
 # Desde: 2009-05-04
 # Versão: 8
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzxml zzcapitalize zzjuntalinhas
+# Requisitos: zzminusculas zzsemacento zzxml zzcapitalize zzjuntalinhas zztrim
 # ----------------------------------------------------------------------------
 zzcineuci ()
 {
@@ -50,7 +50,7 @@ zzcineuci ()
 		return 0
 	fi
 
-	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztool trim | sed 's/ 0/ /g;s/  */_/g')
+	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztrim | sed 's/ 0/ /g;s/  */_/g')
 
 	codigo=$(
 		cat "$cache" |

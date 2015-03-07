@@ -20,7 +20,7 @@
 # Desde: 2014-05-23
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzcolunar
+# Requisitos: zzcolunar zztrim
 # ----------------------------------------------------------------------------
 zzalinhar ()
 {
@@ -46,12 +46,12 @@ zzalinhar ()
 		shift
 	done
 
-	zztool file_stdin "$@" | zztool trim |
+	zztool file_stdin "$@" | zztrim |
 	if test $alinhamento != 'j'
 	then
 		zzcolunar -$alinhamento -w $largura 1
 	else
-		zzcolunar -l -w $largura 1 | zztool trim |
+		zzcolunar -l -w $largura 1 | zztrim |
 		awk -v larg=$largura '
 		function juntar(  str_saida, j) {
 			str_saida=""

@@ -9,6 +9,7 @@
 # Desde: 2002-02-21
 # Versão: 3
 # Licença: GPL
+# Requisitos: zztrim
 # ----------------------------------------------------------------------------
 zzsigla ()
 {
@@ -27,6 +28,6 @@ zzsigla ()
 	#  a filtragem
 	$ZZWWWDUMP "$url?acronym=$sigla" |
 		grep -i "   $sigla " |
-		zztool ltrim |
+		zztrim -l |
 		sed 's/  */   /'
 }

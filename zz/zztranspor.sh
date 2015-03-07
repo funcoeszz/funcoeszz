@@ -22,6 +22,7 @@
 # Desde: 2013-09-03
 # Versão: 1
 # Licença: GPL
+# Requisitos: zztrim
 # ----------------------------------------------------------------------------
 zztranspor ()
 {
@@ -82,5 +83,5 @@ zztranspor ()
 			# Limpando a variável para a próxima iteração
 			linha=""
 		}
-	}' | zztool rtrim
+	}' | zztrim -r
 }

@@ -23,7 +23,7 @@
 # Desde: 2011-05-06
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzmd5 zzminusculas
+# Requisitos: zzmd5 zzminusculas zztrim
 # ----------------------------------------------------------------------------
 zzgravatar ()
 {
@@ -67,7 +67,7 @@ zzgravatar ()
 	test -n "$1" || { zztool uso gravatar; return 1; }
 
 	# Guarda o email informado, sempre em minúsculas
-	email=$(zztool trim "$1" | zzminusculas)
+	email=$(zztrim "$1" | zzminusculas)
 
 	# Foi passado um número mesmo?
 	if ! zztool testa_numero "$tamanho" || test "$tamanho" = 0

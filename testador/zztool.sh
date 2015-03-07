@@ -273,10 +273,6 @@ $ zztool testa_hora 911:119		; echo $?  #→ 1
 $ zztool testa_hora 2359		; echo $?  #→ 1
 $ zztool testa_hora :			; echo $?  #→ 1
 
-# trim
-
-$ zztool trim '   testando   '	#→ testando
-
 # endereco_sed
 
 $ zztool endereco_sed $		#→ $

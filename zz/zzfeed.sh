@@ -15,7 +15,7 @@
 # Desde: 2011-05-03
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzxml zzunescape
+# Requisitos: zzxml zzunescape zztrim
 # ----------------------------------------------------------------------------
 zzfeed ()
 {
@@ -113,7 +113,7 @@ zzfeed ()
 				zzxml --tidy --untag |
 				sed '/^[[:space:]]*$/d' | sed "$limite q" |
 				zzunescape --html |
-				zztool trim
+				zztrim
 		else
 			### Não é um feed, pode ser um site normal.
 			# Vamos tentar descobrir o endereço do(s) Feed(s).

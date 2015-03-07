@@ -15,7 +15,7 @@
 # Desde: 2011-07-05
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzdatafmt zzxml zzunescape
+# Requisitos: zzminusculas zzsemacento zzdatafmt zzxml zzunescape zztrim
 # ----------------------------------------------------------------------------
 zzcinemark ()
 {
@@ -119,7 +119,7 @@ zzcinemark ()
 			}' |
 		sed '/date-/{s/.*date-\(....\)-\(..\)-\(..\).*/Dia: \3-\2-\1/}' |
 		sed '/class="exibicao"/d;s/<[^>]*alt="\([A-Za-z0-9 ]*\)">/\1  /g' |
-		zztool trim |
+		zztrim |
 		sed -n "/${dia}/,/Dia: /p" | sed '$d' |
 		zzxml --untag | zzunescape --html
 	fi

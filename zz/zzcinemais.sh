@@ -17,7 +17,7 @@
 # Desde: 2008-08-25
 # Versão: 7
 # Licença: GPLv2
-# Requisitos: zzecho zzsemacento zzminusculas
+# Requisitos: zzecho zzsemacento zzminusculas zztrim
 # ----------------------------------------------------------------------------
 zzcinemais ()
 {
@@ -27,7 +27,7 @@ zzcinemais ()
 
 	local cidade cidades codigo
 
-	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztool trim | sed 's/ /_/g')
+	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztrim | sed 's/ /_/g')
 
 	cidades="9:uberaba:Uberaba  - MG
 	11:patos_de_minas:Patos de Minas - MG
@@ -52,7 +52,7 @@ zzcinemais ()
 			cat -
 		fi |
 		grep -E '(<td><a href|<td><small)' |
-		zztool trim |
+		zztrim |
 		sed 's/<[^>]*>//g' |
 		awk '{print}; NR%2==0 {print ""}' | sed '$d'
 	fi

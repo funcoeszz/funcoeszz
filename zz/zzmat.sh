@@ -23,7 +23,7 @@
 # Desde: 2011-01-19
 # Versão: 18
 # Licença: GPL
-# Requisitos: zzcalcula zzseq zzaleatorio
+# Requisitos: zzcalcula zzseq zzaleatorio zztrim
 # ----------------------------------------------------------------------------
 zzmat ()
 {
@@ -752,7 +752,7 @@ zzmat ()
 				do
 					num2=$(echo "$num1 * $num2" | bc | tr -d '\n\\')
 					printf "%s " $num2
-				done | zztool rtrim
+				done | zztrim -r
 				echo
 			else
 				zzseq $2 | paste -s -d* - | bc | tr -d '\n\\'
@@ -890,7 +890,7 @@ zzmat ()
 					}
 					if ( seq != 1 ) { printf "%s ", num1 }
 				}' |
-				zztool rtrim |
+				zztrim -r |
 				zztool nl_eof
 		else
 			echo " Número de fibonacci ou lucas, na posição especificada."
@@ -916,7 +916,7 @@ zzmat ()
 					}
 					if ( seq != 1 ) { printf "%s ", num1 }
 				}' |
-				zztool rtrim |
+				zztrim -r |
 				zztool nl_eof
 		else
 			echo " Número de tribonacci, na posição especificada."

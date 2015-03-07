@@ -9,6 +9,7 @@
 # Desde: 2012-03-30
 # Versão: 9
 # Licença: GPL
+# Requisitos: zztrim
 # ----------------------------------------------------------------------------
 zzstr2hexa ()
 {
@@ -39,6 +40,6 @@ zzstr2hexa ()
 				printf '%02x ' "'$caractere"
 			fi
 		done |
-		zztool rtrim |
+		zztrim -r |
 		zztool nl_eof
 }

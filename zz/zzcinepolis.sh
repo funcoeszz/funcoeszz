@@ -10,7 +10,7 @@
 # Desde: 2015-02-22
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar
+# Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar zztrim
 # ----------------------------------------------------------------------------
 zzcinepolis ()
 {
@@ -51,7 +51,7 @@ zzcinepolis ()
 		return 0
 	fi
 
-	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztool trim | sed 's/ 0/ /g;s/  */_/g')
+	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztrim | sed 's/ 0/ /g;s/  */_/g')
 
 	codigo=$(
 		cat "$cache" |

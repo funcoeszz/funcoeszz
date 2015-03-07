@@ -23,7 +23,7 @@
 # Desde: 2014-04-08
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzdata zzdatafmt
+# Requisitos: zzdata zzdatafmt zztrim
 # ----------------------------------------------------------------------------
 zzfutebol ()
 {
@@ -38,7 +38,7 @@ zzfutebol ()
 		# Normaliza e mostra a linha dos times
 		s/___ *X *___/___ X ___/p
 		s/___  *___/___ X ___/p' |
-	zztool trim |
+	zztrim |
 	awk -F "[_]+" '
 		{
 			if ($0 ~ /[0-9]h[0-9]/) {

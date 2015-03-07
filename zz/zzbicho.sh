@@ -13,6 +13,7 @@
 # Desde: 2012-08-27
 # Versão: 4
 # Licença: GPL
+# Requisitos: zztrim
 # ----------------------------------------------------------------------------
 zzbicho ()
 {
@@ -69,5 +70,5 @@ zzbicho ()
 			numero = substr($1,length($1)-1,2)=="00"?25:int((substr($1,length($1)-1,2) + 3) / 4)
 			print grupo[numero], "(" numero ")"
 		}
-	}' | zztool rtrim
+	}' | zztrim -r
 }
