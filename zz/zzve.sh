@@ -2,80 +2,24 @@
 # Busca vários indicadores econômicos e financeiros, da Valor Econômico.
 # As opções são categorizadas conforme segue:
 #
-# Indicadores Financeiros:
-#   contas ou indicadores              Variação dos indicadores no período
-#   crédito                            Linhas de crédito
-#   tr, poupança ou tbf                Taxa Referencial, Poupança e TBF
-#   custo ou dinheiro                  Custo do dinheiro
-#   aplicações                         Evolução das aplicações financeiras
-#   ima ou anbima                      IMA - Índices de Mercado Anbima
-#   mercado                            Indicadores do mercado
-#   renda_fixa ou insper               Índice de Renda Fixa Valor/Insper
-#   futuro                             Mercado futuro
-#   estoque_cetip                      Estoque CETIP
-#   volume_cetip                       Volume CETIP
-#   cetip                              Estoque e Volume CETIP
+# 1. Indicadores Financeiros
+# 2. Índices Macroeconômicos
+# 3. Mercado Externo
+# 4. Bolsas
+# 5. Commodities
 #
-# Índices Macroeconômicos:
-#   atividade                          Atividade econômica
-#   inflação                           Variação da Inflação
-#   produção ou investimento           Produção e investimento
-#   dívida_pública ou pública          Dívida e necessidades de financiamento
-#   receitas_tributária ou tributária  Principais receitas tributárias
-#   resultado_fiscal ou fiscal         Resultado fiscal do governo central
-#   previdenciaria ou previdência      Contribuição previdenciária
-#   ir_fonte                           IR na fonte
-#   ir_quota                           Imposto de Renda Pessoa Física
+# Para mais detalhes digite zzve <numero>
 #
-# Mercado Externo:
-#   bonus                              Bônus corporativo
-#   captação                           Captações de recursos no exterior
-#   juros_externos                     Juros externos
-#   cds                                Prêmio de risco do CDS
-#   reservas_internacionais            Reservas internacionais
-#
-# Bolsa Nacional
-#   cotações                           Cotações intradia
-#   investimento                       Investimentos, debêntures e títulos
-#   direitos                           Direitos e recibos
-#   imobiliário                        Fundo imobiliário
-#   vista                              Mercado à vista
-#   compra                             Opções de compra
-#   venda                              Opções de venda
-#   venda_indice                       Opções de venda de índice
-#   recuperação                        Recuperação judicial
-#
-# Bolsas Internacionais
-#   adr_brasil ou adr                  ADR Brasil
-#   adr_indices                        ADR - Índices
-#   bolsas                             Bolsas de valores internacionais
-#
-#   moedas                             Variações de moedas internacionais
-#
-# Commodities:
-#   agrícolas                          Indicadores
-#   óleo_soja                          Óleo de Soja
-#   farelo ou farelo_soja              Farelo de Soja
-#   óleo_vegetal                       Óleos Vegetais
-#   suco_laranja                       Suco de Laranja
-#   estoque_metais                     Estoques de Metais
-#
-#   Outro itens em commodities:
-#     açucar       algodão      arroz              batata
-#     bezerro      boi          cacau              ovos
-#     café         cebola       etanol             feijão
-#     frango       laranja      laticínios         madeira
-#     madioca      milho        trigo              soja
-#     suínos ou porcos
-#     metais       cobre        outros_metais      petróleo
-#
+# moedas       Variações de moedas internacionais
 #
 # Uso: zzve <opção>
 # Ex.: zzve tr         # Tabela de Taxa Referencial, Poupança e TBF.
+#      zzve moedas     # Cotaçoes do Dolar, Euro e outras moedas.
+#      zzve 3          # Mais detalhes de ajuda sobre "Mercado Externo".
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-07-28
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzuniq
 # ----------------------------------------------------------------------------
@@ -84,6 +28,84 @@ zzve ()
 	zzzz -h ve "$1" && return
 
 	test -n "$1" || { zztool uso ve > /dev/stderr; return 1; }
+
+	case $1 in
+	1)
+		echo "Indicadores Financeiros:
+	contas ou indicadores              Variação dos indicadores no período
+	crédito                            Linhas de crédito
+	tr, poupança ou tbf                Taxa Referencial, Poupança e TBF
+	custo ou dinheiro                  Custo do dinheiro
+	aplicações                         Evolução das aplicações financeiras
+	ima ou anbima                      IMA - Índices de Mercado Anbima
+	mercado                            Indicadores do mercado
+	renda_fixa ou insper               Índice de Renda Fixa Valor/Insper
+	futuro                             Mercado futuro
+	estoque_cetip                      Estoque CETIP
+	volume_cetip                       Volume CETIP
+	cetip                              Estoque e Volume CETIP" | expand -t 2
+		return
+	;;
+	2)
+		echo "Índices Macroeconômicos:
+	atividade                          Atividade econômica
+	inflação                           Variação da Inflação
+	produção ou investimento           Produção e investimento
+	dívida_pública ou pública          Dívida e necessidades de financiamento
+	receitas_tributária ou tributária  Principais receitas tributárias
+	resultado_fiscal ou fiscal         Resultado fiscal do governo central
+	previdenciaria ou previdência      Contribuição previdenciária
+	ir_fonte                           IR na fonte
+	ir_quota                           Imposto de Renda Pessoa Física" | expand -t 2
+		return
+	;;
+	3)
+		echo "Mercado Externo:
+	bonus                              Bônus corporativo
+	captação                           Captações de recursos no exterior
+	juros_externos                     Juros externos
+	cds                                Prêmio de risco do CDS
+	reservas_internacionais            Reservas internacionais" | expand -t 2
+		return
+	;;
+	4)
+		echo "Bolsa Nacional:
+	cotações                           Cotações intradia
+	investimento                       Investimentos, debêntures e títulos
+	direitos                           Direitos e recibos
+	imobiliário                        Fundo imobiliário
+	vista                              Mercado à vista
+	compra                             Opções de compra
+	venda                              Opções de venda
+	venda_indice                       Opções de venda de índice
+	recuperação                        Recuperação judicial
+
+Bolsas Internacionais:
+	adr_brasil ou adr                  ADR Brasil
+	adr_indices                        ADR - Índices
+	bolsas                             Bolsas de valores internacionais" | expand -t 2
+		return
+	;;
+	5)
+		echo "Commodities:
+	agrícolas                          Indicadores
+	óleo_soja                          Óleo de Soja
+	farelo ou farelo_soja              Farelo de Soja
+	óleo_vegetal                       Óleos Vegetais
+	suco_laranja                       Suco de Laranja
+	estoque_metais                     Estoques de Metais
+
+	Outro itens em commodities:
+		açucar       algodão      arroz              batata
+		bezerro      boi          cacau              ovos
+		café         cebola       etanol             feijão
+		frango       laranja      laticínios         madeira
+		madioca      milho        trigo              soja
+		suínos ou porcos
+		metais       cobre        outros_metais      petróleo" | expand -t 2
+		return
+	;;
+	esac
 
 	local url_base='http://www.valor.com.br/valor-data'
 	local fim='Ver tabela completa'
