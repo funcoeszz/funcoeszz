@@ -146,6 +146,10 @@ zztool ()
 				printf "%b\n" "\033[${ZZCODIGOCOR}m$*\033[m"
 			fi
 		;;
+		erro)
+			# Mensagem de erro
+			printf "%b\n" "$*" > /dev/stderr
+		;;
 		acha)
 			# Destaca o padrão $1 no texto via STDIN ou $2
 			# O padrão pode ser uma regex no formato BRE (grep/sed)
