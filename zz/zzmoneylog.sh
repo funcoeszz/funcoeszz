@@ -43,7 +43,7 @@ zzmoneylog ()
 			-a | --arquivo) shift; arquivo="$1";;
 			--total) total=1;;
 			--) shift; break;;
-			-*) echo "Opção inválida $1" > /dev/stderr; return 1;;
+			-*) zztool erro "Opção inválida $1"; return 1;;
 			*) break;;
 		esac
 		shift
@@ -52,16 +52,16 @@ zzmoneylog ()
 	# O-oh
 	if test -z "$arquivo"
 	then
-		echo 'Ops, não sei onde encontrar seu arquivo de dados do Moneylog.'
-		echo 'Use a variável $ZZMONEYLOG para indicar o caminho.'
-		echo
-		echo 'Se você usa a versão tudo-em-um, indique o arquivo HTML:'
-		echo '    export ZZMONEYLOG=/home/fulano/moneylog.html'
-		echo
-		echo 'Se você usa vários arquivos TXT, indique a pasta:'
-		echo '    export ZZMONEYLOG=/home/fulano/moneylog/'
-		echo
-		echo 'Além da variável, você também pode usar a opção --arquivo.'
+		zztool erro 'Ops, não sei onde encontrar seu arquivo de dados do Moneylog.'
+		zztool erro 'Use a variável $ZZMONEYLOG para indicar o caminho.'
+		zztool erro
+		zztool erro 'Se você usa a versão tudo-em-um, indique o arquivo HTML:'
+		zztool erro '    export ZZMONEYLOG=/home/fulano/moneylog.html'
+		zztool erro
+		zztool erro 'Se você usa vários arquivos TXT, indique a pasta:'
+		zztool erro '    export ZZMONEYLOG=/home/fulano/moneylog/'
+		zztool erro
+		zztool erro 'Além da variável, você também pode usar a opção --arquivo.'
 		return 1
 	fi
 
@@ -112,7 +112,7 @@ zzmoneylog ()
 		# Deu pau no case?
 		if test $? -ne 0
 		then
-			echo "$data" > /dev/stderr  # Mensagem de erro
+			zztool erro "$data" # Mensagem de erro
 			return 1
 		fi
 	fi
