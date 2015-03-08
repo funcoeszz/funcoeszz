@@ -23,7 +23,7 @@ zztrocaextensao ()
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$3" || { zztool uso trocaextensao; return 1; }
+	test -n "$3" || { zztool uso trocaextensao > /dev/stderr; return 1; }
 
 	# Guarda as extensões informadas
 	ext1="$1"

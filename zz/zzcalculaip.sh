@@ -22,7 +22,7 @@ zzcalculaip ()
 	local i ip1 ip2 ip3 ip4 nm1 nm2 nm3 nm4 componente
 
 	# Verificação dos parâmetros
-	test $# -eq 0 -o $# -gt 2 && { zztool uso calculaip; return 1; }
+	test $# -eq 0 -o $# -gt 2 && { zztool uso calculaip > /dev/stderr; return 1; }
 
 	# Obtém a máscara da rede (netmask)
 	if zztool grep_var / "$1"
@@ -61,7 +61,7 @@ zzcalculaip ()
 		zztool testa_ip $mascara || (
 		zztool testa_numero $mascara && test $mascara -le 32))
 	then
-		echo "Máscara inválida: $mascara"
+		zztool erro "Máscara inválida: $mascara"
 		return 1
 	fi
 	zztool -e testa_ip $endereco || return 1
@@ -106,7 +106,7 @@ zzcalculaip ()
 		zztool testa_binario $mascara_binario &&
 		test ${#mascara_binario} -eq 32)
 	then
-		echo 'Máscara inválida'
+		zztool erro 'Máscara inválida'
 		return 1
 	fi
 

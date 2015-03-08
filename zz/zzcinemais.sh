@@ -23,7 +23,7 @@ zzcinemais ()
 {
 	zzzz -h cinemais "$1" && return
 
-	test -n "$1" || { zztool uso cinemais; return 1; }
+	test -n "$1" || { zztool uso cinemais > /dev/stderr; return 1; }
 
 	local cidade cidades codigo
 

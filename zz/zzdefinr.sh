@@ -14,7 +14,7 @@ zzdefinr ()
 {
 	zzzz -h definr "$1" && return
 
-	test -n "$1" || { zztool uso definr; return 1; }
+	test -n "$1" || { zztool uso definr > /dev/stderr; return 1; }
 
 	local word=$(echo "$*" | sed 's/ /%20/g')
 

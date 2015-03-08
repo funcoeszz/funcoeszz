@@ -21,7 +21,7 @@ zzpronuncia ()
 	local url2='http://cougar.eb.com/soundc11'
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso pronuncia; return 1; }
+	test -n "$1" || { zztool uso pronuncia > /dev/stderr; return 1; }
 
 	# O 'say' é um comando do Mac OS X, aí não precisa baixar nada
 	if test -x /usr/bin/say
@@ -41,7 +41,7 @@ zzpronuncia ()
 		# Ops, não extraiu nada
 		if test -z "$wav_file"
 		then
-			echo "$palavra: palavra não encontrada"
+			zztool erro "$palavra: palavra não encontrada"
 			return 1
 		else
 			wav_file="${wav_file}.wav"

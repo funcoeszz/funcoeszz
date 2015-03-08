@@ -38,8 +38,8 @@ zzlembrete ()
 			# zzlembrete 5d: Apaga linha 5
 			cp "$arquivo" "$tmp" &&
 			sed "${numero:-0} d" "$tmp" > "$arquivo" || {
-				echo "Ops, deu algum erro no arquivo $arquivo"
-				echo "Uma cópia dele está em $tmp"
+				zztool erro "Ops, deu algum erro no arquivo $arquivo"
+				zztool erro "Uma cópia dele está em $tmp"
 				return 1
 			}
 		else
@@ -49,7 +49,7 @@ zzlembrete ()
 	else
 		# zzlembrete texto: Adiciona o texto
 		echo "$*" >> "$arquivo" || {
-			echo "Ops, não consegui adicionar esse lembrete"
+			zztool erro "Ops, não consegui adicionar esse lembrete"
 			return 1
 		}
 	fi

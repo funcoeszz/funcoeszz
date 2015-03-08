@@ -40,7 +40,7 @@ zzecho ()
 					rox[oa] | rosa ) letra=';35' ;;
 					cian[oa]       ) letra=';36' ;;
 					branc[oa]      ) letra=';37' ;;
-					*) zztool uso echo; return 1 ;;
+					*) zztool uso echo > /dev/stderr; return 1 ;;
 				esac
 				shift
 			;;
@@ -54,7 +54,7 @@ zzecho ()
 					roxo | rosa ) fundo='45' ;;
 					ciano       ) fundo='46' ;;
 					branco      ) fundo='47' ;;
-					*) zztool uso echo; return 1 ;;
+					*) zztool uso echo > /dev/stderr; return 1 ;;
 				esac
 				shift
 			;;
@@ -67,7 +67,7 @@ zzecho ()
 		shift
 	done
 
-	test -n "$1" || { zztool uso echo; return 1; }
+	test -n "$1" || { zztool uso echo > /dev/stderr; return 1; }
 
 	# Mostra códigos ANSI somente quando necessário (e quando ZZCOR estiver ligada)
 	if test "$ZZCOR" != '1' -o "$fundo$letra$negrito$pisca$sublinhado" = ''

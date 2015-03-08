@@ -20,7 +20,7 @@ zzdiffpalavra ()
 	local n=$(printf '\a')
 
 	# Verificação dos parâmetros
-	test $# -ne 2 && { zztool uso diffpalavra; return 1; }
+	test $# -ne 2 && { zztool uso diffpalavra > /dev/stderr; return 1; }
 
 	# Verifica se os arquivos existem
 	zztool arquivo_legivel "$1" || return 1

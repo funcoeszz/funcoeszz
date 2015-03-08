@@ -57,7 +57,7 @@ zzss ()
 				unset pausa
 			;;
 			--tema)
-				test -n "$2" || { zztool uso ss; return 1; }
+				test -n "$2" || { zztool uso ss > /dev/stderr; return 1; }
 				tema=$2
 				shift
 			;;
@@ -82,7 +82,7 @@ zzss ()
 
 		if ! test -n "$mensagem"
 		then
-			echo "Tema desconhecido '$tema'"
+			zztool erro "Tema desconhecido '$tema'"
 			return 1
 		fi
 	fi

@@ -30,7 +30,7 @@ zzhorariodeverao ()
 	# Só de 2008 em diante...
 	if test "$ano" -lt 2008
 	then
-		echo 'Antes de 2008 não havia regra fixa para o horário de verão'
+		zztool erro 'Antes de 2008 não havia regra fixa para o horário de verão'
 		return 1
 	fi
 

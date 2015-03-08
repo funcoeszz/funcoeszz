@@ -21,13 +21,13 @@ zzchecamd5 ()
 
 	# Faltou argumento mostrar como se usa a zzchecamd5
 	if test $# != "2";then
-		zztool uso checamd5
+		zztool uso checamd5 > /dev/stderr
 		return 1
 	fi
 
 	# Foi passado o caminho errado do arquivo
 	if test ! -f $1 ;then
-		echo "Nao foi encontrado: $1"
+		zztool erro "Nao foi encontrado: $1"
 		return 1
 	fi
 
@@ -40,6 +40,7 @@ zzchecamd5 ()
 	if test "$md5_site" = "$valor_md5"; then
 		echo "Imagem OK"
 	else
-		echo "O md5sum nao confere!!"
+		zztool erro "O md5sum nao confere!!"
+		return 1
 	fi
 }

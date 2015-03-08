@@ -35,35 +35,35 @@ zzenviaemail ()
 	do
 		case "$1" in
 			-f | --from)
-				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail > /dev/stderr; set +x; return 1; }
 				fromail=$2
 				nparam=$(($nparam + 1))
 				shift
 				;;
 			-t | --to)
-				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail > /dev/stderr; set +x; return 1; }
 				tomail=$2
 				nparam=$(($nparam + 1))
 				shift
 				;;
 			-c | --cc)
-				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail > /dev/stderr; set +x; return 1; }
 				ccmail=$2
 				shift
 				;;
 			-b | --bcc)
-				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail > /dev/stderr; set +x; return 1; }
 				bccmail=$2
 				shift
 				;;
 			-s | --subject)
-				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail > /dev/stderr; set +x; return 1; }
 				subject=$2
 				nparam=$(($nparam + 1))
 				shift
 				;;
 			-m | --mensagem)
-				test -n "$2" || { zztool uso enviaemail; set +x; return 1; }
+				test -n "$2" || { zztool uso enviaemail > /dev/stderr; set +x; return 1; }
 				mensagem=$2
 				nparam=$(($nparam + 1))
 				shift
@@ -71,14 +71,14 @@ zzenviaemail ()
 			-v | --verbose)
 				set -x
 				;;
-			*) { zztool uso enviaemail; set +x; return 1; } ;;
+			*) { zztool uso enviaemail > /dev/stderr; set +x; return 1; } ;;
 		esac
 		shift
 	done
 
 	# Verifica numero minimo de parametros.
 	if test "${nparam}" != 4 ; then
-		{ zztool uso enviaemail; set +x; return 1; }
+		{ zztool uso enviaemail > /dev/stderr; set +x; return 1; }
 	fi
 
 	# Verifica se o arquivo existe.

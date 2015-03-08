@@ -15,7 +15,7 @@ zzminiurl ()
 {
 	zzzz -h miniurl "$1" && return
 
-	test -n "$1" || { zztool uso miniurl; return 1; }
+	test -n "$1" || { zztool uso miniurl > /dev/stderr; return 1; }
 
 	local url="$1"
 	local prefixo='http://'

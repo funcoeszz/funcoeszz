@@ -22,7 +22,7 @@ zzdominiopais ()
 	local arquivo
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso dominiopais; return 1; }
+	test -n "$1" || { zztool uso dominiopais > /dev/stderr; return 1; }
 
 	# Se o padrão inicia com ponto, retira-o e casa somente códigos
 	if test "${padrao#.}" != "$padrao"

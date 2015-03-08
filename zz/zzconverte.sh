@@ -34,7 +34,7 @@ zzconverte ()
 	local operacao=$1
 
 	# Verificação dos parâmetros
-	test -n "$2" || { zztool uso converte; return 1; }
+	test -n "$2" || { zztool uso converte > /dev/stderr; return 1; }
 
 	shift
 	while test -n "$1"

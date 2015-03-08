@@ -210,7 +210,7 @@ zzdatafmt ()
 	# Valida o formato da data
 	if ! echo "$data" | grep '^[0-9][0-9]\{0,1\}/[0-9][0-9]\{0,1\}/[0-9]\{1,4\}$' >/dev/null
 	then
-		echo "Erro: Data em formato desconhecido '$data_orig'"
+		zztool erro "Erro: Data em formato desconhecido '$data_orig'"
 		return 1
 	fi
 

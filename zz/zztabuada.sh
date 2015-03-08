@@ -69,7 +69,7 @@ zztabuada ()
 			done | sed '$d'
 		;;
 		*)
-			zztool uso tabuada
+			zztool uso tabuada > /dev/stderr
 			return 1
 		;;
 	esac

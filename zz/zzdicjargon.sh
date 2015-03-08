@@ -21,7 +21,7 @@ zzdicjargon ()
 	local padrao=$(echo "$*" | sed 's/ /-/g')
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso dicjargon; return 1; }
+	test -n "$1" || { zztool uso dicjargon > /dev/stderr; return 1; }
 
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"

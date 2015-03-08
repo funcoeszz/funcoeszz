@@ -47,7 +47,7 @@ zztempo ()
 	# O país existe?
 	if ! test -n "$codigo_pais"
 	then
-		echo "País \"$pais\" não encontrado"
+		zztool erro "País \"$pais\" não encontrado"
 		return 1
 	fi
 
@@ -75,7 +75,7 @@ zztempo ()
 	# A localidade existe?
 	if ! test -n "$localidades"
 	then
-		echo "Localidade \"$localidade\" não encontrada"
+		zztool erro "Localidade \"$localidade\" não encontrada"
 		return 1
 	fi
 

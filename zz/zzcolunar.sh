@@ -36,7 +36,7 @@ zzcolunar ()
 {
 	zzzz -h colunar "$1" && return
 
-	test -n "$1" || { zztool uso colunar; return 1; }
+	test -n "$1" || { zztool uso colunar > /dev/stderr; return 1; }
 
 	local formato='n'
 	local alinhamento='l'
@@ -52,10 +52,10 @@ zzcolunar ()
 		-r | --right | -d | --direita) alinhamento='r' ;;
 		-c | --center | --centro)      alinhamento='c' ;;
 		-w | --width | --largura)
-			zztool testa_numero "$2" && largura="$2" || { zztool eco "Largura inválida: $2"; return 1; }
+			zztool testa_numero "$2" && largura="$2" || { zztool erro "Largura inválida: $2"; return 1; }
 			shift
 		;;
-		-*) zztool eco "Opção inválida: $1"; return 1 ;;
+		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
 		shift
@@ -66,7 +66,7 @@ zzcolunar ()
 		colunas="$1"
 		shift
 	else
-		zztool uso colunar
+		zztool uso colunar > /dev/stderr
 		return 1
 	fi
 

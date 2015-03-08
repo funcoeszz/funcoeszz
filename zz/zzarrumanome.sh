@@ -36,7 +36,7 @@ zzarrumanome ()
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso arrumanome; return 1; }
+	test -n "$1" || { zztool uso arrumanome > /dev/stderr; return 1; }
 
 	# Para cada arquivo que o usuário informou...
 	for arquivo
@@ -102,8 +102,8 @@ zzarrumanome ()
 		# Se der problema com a codificação, é o y/// do Sed anterior quem estoura
 		if test $? -ne 0
 		then
-			echo "Ops. Problemas com a codificação dos caracteres."
-			echo "O arquivo original foi preservado: $arquivo"
+			zztool erro "Ops. Problemas com a codificação dos caracteres."
+			zztool erro "O arquivo original foi preservado: $arquivo"
 			return 1
 		fi
 

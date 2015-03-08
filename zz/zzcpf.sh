@@ -33,7 +33,7 @@ zzcpf ()
 
 		if test ${#cpf} -gt 11
 		then
-			echo 'CPF inválido (passou de 11 dígitos)'
+			zztool erro 'CPF inválido (passou de 11 dígitos)'
 			return 1
 		fi
 
@@ -59,7 +59,7 @@ zzcpf ()
 		# Faltou ou sobrou algum número...
 		if test ${#cpf} -ne 11
 		then
-			echo 'CPF inválido (deve ter 11 dígitos)'
+			zztool erro 'CPF inválido (deve ter 11 dígitos)'
 			return 1
 		fi
 
@@ -152,7 +152,7 @@ zzcpf ()
 			echo 'CPF válido'
 		else
 			# Boa ação do dia: mostrar quais os verificadores corretos
-			echo "CPF inválido (deveria terminar em $digito1$digito2)"
+			zztool erro "CPF inválido (deveria terminar em $digito1$digito2)"
 			return 1
 		fi
 	fi

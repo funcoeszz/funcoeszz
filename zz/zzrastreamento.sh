@@ -14,7 +14,7 @@ zzrastreamento ()
 {
 	zzzz -h rastreamento "$1" && return
 
-	test -n "$1" || { zztool uso rastreamento; return 1; }
+	test -n "$1" || { zztool uso rastreamento > /dev/stderr; return 1; }
 
 	local url='http://websro.correios.com.br/sro_bin/txect01$.QueryList'
 

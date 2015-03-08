@@ -30,7 +30,7 @@ zzrandbackground ()
 		# Tem todos os parametros, caso negativo
 		# mostra o uso da funcao
 		if test $# != "3"; then
-			zztool uso randbackground
+			zztool uso randbackground > /dev/stderr
 			return 1
 		fi
 
@@ -42,7 +42,7 @@ zzrandbackground ()
 		if test -d $2; then
 			caminho=$2
 		else
-			zztool uso randbackground
+			zztool uso randbackground > /dev/stderr
 			return 1
 		fi
 
@@ -51,14 +51,14 @@ zzrandbackground ()
 		if zztool testa_numero $3; then
 			segundos=$3
 		else
-			zztool uso randbackground
+			zztool uso randbackground > /dev/stderr
 			return 1
 		fi
 	else
 		# Caso nao seja passado o -l, só tem o camiho
 		# caso negativo mostra o uso da funcao
 		if test $# != "1"; then
-			zztool uso randbackground
+			zztool uso randbackground > /dev/stderr
 			return 1
 		fi
 
@@ -67,7 +67,7 @@ zzrandbackground ()
 		if test -d $2; then
 			caminho=$1
 		else
-			zztool uso randbackground
+			zztool uso randbackground > /dev/stderr
 			return 1
 		fi
 	fi

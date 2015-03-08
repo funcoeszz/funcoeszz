@@ -21,7 +21,7 @@ zzdicbabylon ()
 	local tab=$(printf %b '\t')
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso dicbabylon; return 1; }
+	test -n "$1" || { zztool uso dicbabylon > /dev/stderr; return 1; }
 
 	# O primeiro argumento é um idioma?
 	if test "${idiomas% $1 *}" != "$idiomas"

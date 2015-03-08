@@ -34,12 +34,12 @@ zzfeed ()
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso feed; return 1; }
+	test -n "$1" || { zztool uso feed > /dev/stderr; return 1; }
 
 	# Verificação básica
 	if ! zztool testa_numero "$limite"
 	then
-		echo "Número inválido para a opção -n: $limite"
+		zztool erro "Número inválido para a opção -n: $limite"
 		return 1
 	fi
 

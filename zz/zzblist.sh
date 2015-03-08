@@ -16,7 +16,7 @@ zzblist ()
 	local ip="$1"
 	local lista
 
-	test -n "$1" || { zztool uso blist; return 1; }
+	test -n "$1" || { zztool uso blist > /dev/stderr; return 1; }
 
 	zztool -e testa_ip "$ip" || return 1
 

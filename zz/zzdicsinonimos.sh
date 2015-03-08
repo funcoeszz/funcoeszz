@@ -22,7 +22,7 @@ zzdicsinonimos ()
 	# Verifica se recebeu parâmetros
 	if test -z "$1"
 	then
-		zztool uso dicsinonimos
+		zztool uso dicsinonimos > /dev/stderr
 		return 1
 	fi
 

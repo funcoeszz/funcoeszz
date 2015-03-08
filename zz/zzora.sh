@@ -13,7 +13,7 @@ zzora ()
 {
 	zzzz -h ora "$1" && return
 
-	test $# -ne 1 && { zztool uso ora; return 1; } # deve receber apenas um argumento
+	test $# -ne 1 && { zztool uso ora > /dev/stderr; return 1; } # deve receber apenas um argumento
 	zztool -e testa_numero "$1" || return 1 # e este argumento deve ser numérico
 
 	local url="http://ora-$1.ora-code.com"

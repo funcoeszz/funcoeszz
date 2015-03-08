@@ -21,7 +21,7 @@ zztrocapalavra ()
 	local tmp=$(zztool cache trocapalavra $$)
 
 	# Verificação dos parâmetros
-	test -n "$3" || { zztool uso trocapalavra; return 1; }
+	test -n "$3" || { zztool uso trocapalavra > /dev/stderr; return 1; }
 
 	# Escapando a barra "/" dentro dos textos de pesquisa
 	antiga_escapada=$(echo "$antiga" | sed 's,/,\\/,g')
@@ -47,9 +47,8 @@ zztrocapalavra ()
 		}
 
 		# Em caso de erro, recupera o conteúdo original
-		echo
-		echo "Ops, deu algum erro no arquivo $arquivo"
-		echo "Uma cópia dele está em $tmp"
+		zztool erro "Ops, deu algum erro no arquivo $arquivo"
+		zztool erro "Uma cópia dele está em $tmp"
 		cat "$tmp" > "$arquivo"
 		return 1
 	done

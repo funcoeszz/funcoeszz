@@ -17,7 +17,7 @@ zzextensao ()
 	# Declara variaveis.
 	local nome_arquivo extensao arquivo
 
-	test -n "$1" || { zztool uso extensao; return 1; }
+	test -n "$1" || { zztool uso extensao > /dev/stderr; return 1; }
 
 
 	arquivo="$1"

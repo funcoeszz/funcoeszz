@@ -29,12 +29,12 @@ zztwitter ()
 
 	if test $( echo $* | wc -m ) -gt 140
 	then
-		echo "Mensagem muito grande."
-		echo "Com $(echo $* | wc -m) caracteres para máximo de 140."
+		zztool erro "Mensagem muito grande."
+		zztool erro "Com $(echo $* | wc -m) caracteres para máximo de 140."
 		return 1
 	elif test $(echo $* | wc -m) -lt 2
 	then
-		echo "Cadê a mensagem?"
+		zztool erro "Cadê a mensagem?"
 		return 1
 	else
 		test -z $USUARIO && printf %b "Usuário: " && read USUARIO

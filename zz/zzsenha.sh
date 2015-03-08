@@ -50,7 +50,7 @@ zzsenha ()
 	# Quando não se repete caracteres, há uma limitação de tamanho
 	if test -n "$uniq" -a "$n" -gt "${#lista}"
 	then
-		echo "O tamanho máximo desse tipo de senha é ${#lista}"
+		zztool erro "O tamanho máximo desse tipo de senha é ${#lista}"
 		return 1
 	fi
 

@@ -21,7 +21,7 @@ zzmudaprefixo ()
 
 	# Verifica numero minimo de parametros.
 	if test $# -lt 4 ; then
-		zztool uso mudaprefixo
+		zztool uso mudaprefixo > /dev/stderr
 		return 1
 	fi
 
@@ -33,16 +33,16 @@ zzmudaprefixo ()
 	do
 		case "$1" in
 			-a | --antigo)
-				test -n "$2" || { zztool uso mudaprefixo; return 1; }
+				test -n "$2" || { zztool uso mudaprefixo > /dev/stderr; return 1; }
 				antigo=$2
 				shift
 				;;
 			-n | --novo)
-				test -n "$2" || { zztool uso mudaprefixo; return 1; }
+				test -n "$2" || { zztool uso mudaprefixo > /dev/stderr; return 1; }
 				novo=$2
 				shift
 				;;
-			*) { zztool uso mudaprefixo; return 1; } ;;
+			*) { zztool uso mudaprefixo > /dev/stderr; return 1; } ;;
 		esac
 		shift
 	done
@@ -56,7 +56,8 @@ zzmudaprefixo ()
 		if test -f "${antigo}${sufixo}" -a ! -s "${novo}${sufixo}" ; then
 			mv -v "${antigo}${sufixo}" "${novo}${sufixo}"
 		else
-			echo "CUIDADO: Arquivo ${antigo}${sufixo} nao foi movido para ${novo}${sufixo} porque ou nao eh ordinario, ou destino ja existe!"
+			zztool erro "CUIDADO: Arquivo ${antigo}${sufixo} nao foi movido para ${novo}${sufixo} porque ou nao eh ordinario, ou destino ja existe!"
+			return 1
 		fi
 	done
 

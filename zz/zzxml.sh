@@ -110,7 +110,7 @@ zzxml ()
 				zzuniq
 				return
 			;;
-			--*       ) echo "Opção inválida $1"; return 1;;
+			--*       ) echo "Opção inválida $1" > /dev/stderr; return 1;;
 			*         ) break;;
 		esac
 	done

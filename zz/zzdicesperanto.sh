@@ -18,7 +18,7 @@ zzdicesperanto ()
 {
 	zzzz -h dicesperanto "$1" && return
 
-	test -n "$1" || { zztool uso dicesperanto; return 1; }
+	test -n "$1" || { zztool uso dicesperanto > /dev/stderr; return 1; }
 
 	local de_ling='pt'
 	local para_ling='eo'
@@ -41,7 +41,7 @@ zzdicesperanto ()
 					;;
 
 					*)
-						printf "Lingua de origem não suportada\n"
+						zztool erro "Lingua de origem não suportada"
 						return 1
 					;;
 				esac
@@ -55,14 +55,14 @@ zzdicesperanto ()
 					;;
 
 					*)
-						printf "Lingua de destino não suportada\n"
+						zztool erro "Lingua de destino não suportada"
 						return 2
 					;;
 				esac
 			;;
 
 			*)
-				printf "Parametro desconecido\n"
+				zztool erro "Parametro desconecido"
 				return 3
 			;;
 		esac

@@ -64,7 +64,7 @@ zzgravatar ()
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso gravatar; return 1; }
+	test -n "$1" || { zztool uso gravatar > /dev/stderr; return 1; }
 
 	# Guarda o email informado, sempre em minúsculas
 	email=$(zztrim "$1" | zzminusculas)
@@ -72,21 +72,21 @@ zzgravatar ()
 	# Foi passado um número mesmo?
 	if ! zztool testa_numero "$tamanho" || test "$tamanho" = 0
 	then
-		echo "Número inválido para a opção -t: $tamanho"
+		zztool erro "Número inválido para a opção -t: $tamanho"
 		return 1
 	fi
 
 	# Temos uma limitação de tamanho
 	if test $tamanho -gt $tamanho_maximo
 	then
-		echo "O tamanho máximo para a imagem é $tamanho_maximo"
+		zztool erro "O tamanho máximo para a imagem é $tamanho_maximo"
 		return 1
 	fi
 
 	# O default informado é válido?
 	if test -n "$default" && ! zztool grep_var ":$default:"  ":$defaults:"
 	then
-		echo "Valor inválido para a opção -d: '$default'"
+		zztool erro "Valor inválido para a opção -d: '$default'"
 		return 1
 	fi
 
@@ -98,7 +98,7 @@ zzgravatar ()
 	then
 		url="$url$codigo"
 	else
-		echo "Houve um erro na geração do código MD5 do email"
+		zztool erro "Houve um erro na geração do código MD5 do email"
 		return 1
 	fi
 

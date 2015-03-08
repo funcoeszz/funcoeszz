@@ -83,7 +83,7 @@ zzve ()
 {
 	zzzz -h ve "$1" && return
 
-	test -n "$1" || { zztool uso ve; return 1; }
+	test -n "$1" || { zztool uso ve > /dev/stderr; return 1; }
 
 	local url_base='http://www.valor.com.br/valor-data'
 	local fim='Ver tabela completa'

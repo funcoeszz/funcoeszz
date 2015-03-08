@@ -54,7 +54,7 @@ zzlibertadores ()
 	'
 	local grupo
 
-	test -n "$1" || { zztool uso libertadores; return 1; }
+	test -n "$1" || { zztool uso libertadores > /dev/stderr; return 1; }
 
 	# Mostrando os jogos
 	# Escolhendo as fases

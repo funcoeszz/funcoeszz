@@ -31,17 +31,17 @@ zzascii ()
 		test "$num_colunas" -eq 0 ||
 		test "$largura" -eq 0)
 	then
-		zztool uso ascii
+		zztool uso ascii > /dev/stderr
 		return 1
 	fi
 	if test $num_colunas -gt $max_colunas
 	then
-		echo "O número máximo de colunas é $max_colunas"
+		zztool erro "O número máximo de colunas é $max_colunas"
 		return 1
 	fi
 	if test $largura -gt $max_largura
 	then
-		echo "A largura máxima é de $max_largura"
+		zztool erro "A largura máxima é de $max_largura"
 		return 1
 	fi
 

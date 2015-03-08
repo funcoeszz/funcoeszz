@@ -30,7 +30,7 @@ zzgoogle ()
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso google; return 1; }
+	test -n "$1" || { zztool uso google > /dev/stderr; return 1; }
 
 	# Prepara o texto a ser pesquisado
 	padrao=$(echo "$*" | sed "$ZZSEDURL")

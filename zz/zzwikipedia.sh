@@ -31,7 +31,7 @@ zzwikipedia ()
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso wikipedia; return 1; }
+	test -n "$1" || { zztool uso wikipedia > /dev/stderr; return 1; }
 
 	# Faz a consulta e filtra o resultado, paginando
 	url="http://$idioma.wikipedia.org/wiki/"

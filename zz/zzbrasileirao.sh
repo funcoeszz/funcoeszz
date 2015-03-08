@@ -37,12 +37,12 @@ zzbrasileirao ()
 {
 	zzzz -h brasileirao "$1" && return
 
-	test $(date +%Y%m%d) -lt 20150509 && { zztool eco " Brasileirão 2015 só a partir de 9 de Maio."; return 1; }
+	test $(date +%Y%m%d) -lt 20150509 && { zztool eco " Brasileirão 2015 só a partir de 9 de Maio." > /dev/stderr; return 1; }
 
 	local rodada serie ano urls
 	local url="http://esporte.uol.com.br/futebol"
 
-	test $# -gt 2 && { zztool uso brasileirao; return 1; }
+	test $# -gt 2 && { zztool uso brasileirao > /dev/stderr; return 1; }
 
 	serie='a'
 	test "$1" = "a" -o "$1" = "b" -o "$1" = "c" -o "$1" = "d" && { serie="$1"; shift; }
@@ -90,7 +90,7 @@ zzbrasileirao ()
 	else
 		if test -n "$1"
 		then
-			zztool testa_numero "$1" && rodada="$1" || { zztool uso brasileirao; return 1; }
+			zztool testa_numero "$1" && rodada="$1" || { zztool uso brasileirao > /dev/stderr; return 1; }
 		fi
 	fi
 
@@ -98,7 +98,7 @@ zzbrasileirao ()
 
 	if test -n "$rodada"
 	then
-		zztool testa_numero $rodada || { zztool uso brasileirao; return 1; }
+		zztool testa_numero $rodada || { zztool uso brasileirao > /dev/stderr; return 1; }
 		$ZZWWWDUMP $url | sed '/pós jogo/d;/ X /s/^/\
 /;' |
 		awk 'BEGIN { FS=" X " }

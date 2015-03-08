@@ -36,14 +36,14 @@ zzhora ()
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso hora; return 1; }
+	test -n "$1" || { zztool uso hora > /dev/stderr; return 1; }
 
 	# Cálculos múltiplos? Exemplo: 1:00 + 2:00 + 3:00 - 4:00
 	if test $# -gt 3
 	then
 		if test $relativo -eq 1
 		then
-			echo "A opção -r não suporta cálculos múltiplos"
+			zztool erro "A opção -r não suporta cálculos múltiplos"
 			return 1
 		fi
 
@@ -66,7 +66,7 @@ zzhora ()
 		#
 		if test $(($# % 2)) -eq 1
 		then
-			zztool uso hora
+			zztool uso hora > /dev/stderr
 			return 1
 		fi
 
@@ -88,7 +88,12 @@ zzhora ()
 		# Basta mostrar e encerrar, saindo com o exitcode retornado
 		# pela execução da última zzhora. Vai que deu erro?
 		#
-		echo "$resultado"
+		if test $exitcode -ne 0
+		then
+			echo "$resultado"
+		else
+			zztool erro "$resultado"
+		fi
 		return $exitcode
 	fi
 
@@ -102,7 +107,7 @@ zzhora ()
 	# Somente adição e subtração são permitidas
 	if test "$operacao" != '-' -a "$operacao" != '+'
 	then
-		echo "Operação inválida '$operacao'. Deve ser + ou -."
+		zztool erro "Operação inválida '$operacao'. Deve ser + ou -."
 		return 1
 	fi
 
@@ -143,12 +148,12 @@ zzhora ()
 	# Validação dos dados
 	if ! (zztool testa_numero "$hh1" && zztool testa_numero "$mm1")
 	then
-		echo "Horário inválido '$hhmm1_orig', deve ser HH:MM"
+		zztool erro "Horário inválido '$hhmm1_orig', deve ser HH:MM"
 		return 1
 	fi
 	if ! (zztool testa_numero "$hh2" && zztool testa_numero "$mm2")
 	then
-		echo "Horário inválido '$hhmm2_orig', deve ser HH:MM"
+		zztool erro "Horário inválido '$hhmm2_orig', deve ser HH:MM"
 		return 1
 	fi
 

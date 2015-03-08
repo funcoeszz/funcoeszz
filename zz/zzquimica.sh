@@ -76,7 +76,7 @@ zzquimica ()
 			test "$elemento" = "Rádio" -o "$elemento" = "Índio" && elemento="${elemento}_(elemento_químico)"
 			zzwikipedia "$elemento"
 		else
-			zztool uso quimica
+			zztool uso quimica > /dev/stderr
 			return 1
 		fi
 

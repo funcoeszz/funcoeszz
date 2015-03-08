@@ -22,7 +22,7 @@ zzbicho ()
 	# Verificação dos parâmetros: se há $1, ele deve ser 'g' ou um número
 	if test $# -gt 0 && test "$1" != 'g' && ! zztool testa_numero "$1"
 	then
-		zztool uso bicho
+		zztool uso bicho > /dev/stderr
 		return 1
 	fi
 

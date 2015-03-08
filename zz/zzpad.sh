@@ -34,7 +34,7 @@ zzpad ()
 		-l | -e) posicao='l' ;;
 		-r | -d) posicao='r' ;;
 		-b | -a) posicao='b' ;;
-		-*) zztool eco "Opção inválida: $1"; return 1 ;;
+		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
 		shift
@@ -45,7 +45,7 @@ zzpad ()
 	then
 		largura="$1"
 	else
-		zztool uso pad
+		zztool uso pad > /dev/stderr
 		return 1
 	fi
 

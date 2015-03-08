@@ -43,7 +43,7 @@ zzmoneylog ()
 			-a | --arquivo) shift; arquivo="$1";;
 			--total) total=1;;
 			--) shift; break;;
-			-*) echo "Opção inválida $1"; return 1;;
+			-*) echo "Opção inválida $1" > /dev/stderr; return 1;;
 			*) break;;
 		esac
 		shift
@@ -112,7 +112,7 @@ zzmoneylog ()
 		# Deu pau no case?
 		if test $? -ne 0
 		then
-			echo "$data"  # Mensagem de erro
+			echo "$data" > /dev/stderr  # Mensagem de erro
 			return 1
 		fi
 	fi

@@ -24,7 +24,7 @@ zzcbn ()
 	local nome comentarista link fonte rss podcast ordem data_coment data_audio
 
 	#Verificacao dos parâmetros
-	test -n "$1" || { zztool uso cbn; return 1; }
+	test -n "$1" || { zztool uso cbn > /dev/stderr; return 1; }
 
 	# Cache com parametros para nomes e links
 	if ! test -s "$cache" || test $(date -r "$cache" +%F) != $(date +%F)
@@ -89,7 +89,7 @@ zzcbn ()
 				fi
 			;;
 			*)
-				zzecho -l vermelha "Opção inválida!!"
+				zzecho -l vermelha "Opção inválida!!" > /dev/stderr
 				return 1
 			;;
 		esac

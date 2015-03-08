@@ -26,7 +26,7 @@ zzmd5 ()
 	then
 		comando="md5sum"
 	else
-		echo "Erro: Não encontrei um comando para cálculo MD5 em seu sistema"
+		zztool erro "Erro: Não encontrei um comando para cálculo MD5 em seu sistema"
 		return 1
 	fi
 

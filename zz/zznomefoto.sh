@@ -58,16 +58,16 @@ zznomefoto ()
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso nomefoto; return 1; }
+	test -n "$1" || { zztool uso nomefoto > /dev/stderr; return 1; }
 
 	if ! zztool testa_numero "$digitos"
 	then
-		echo "Número inválido para a opção -d: $digitos"
+		zztool erro "Número inválido para a opção -d: $digitos"
 		return 1
 	fi
 	if ! zztool testa_numero "$i"
 	then
-		echo "Número inválido para a opção -i: $i"
+		zztool erro "Número inválido para a opção -i: $i"
 		return 1
 	fi
 	if test "$dropbox" = 1
@@ -82,9 +82,9 @@ zznomefoto ()
 		then
 			exif_cmd=3
 		else
-			echo "A opção --dropbox requer o comando 'exiftool', 'exiftime' ou 'identify', instale um deles."
-			echo "O comando 'exiftime' pode fazer parte do pacote 'exiftags'."
-			echo "O comando 'identify' faz parte do pacote ImageMagick."
+			zztool erro "A opção --dropbox requer o comando 'exiftool', 'exiftime' ou 'identify', instale um deles."
+			zztool erro "O comando 'exiftime' pode fazer parte do pacote 'exiftags'."
+			zztool erro "O comando 'identify' faz parte do pacote ImageMagick."
 			return 1
 		fi
 	fi

@@ -37,7 +37,7 @@ zzcnpj ()
 
 		if test ${#cnpj} -gt 14
 		then
-			echo 'CNPJ inválido (passou de 14 dígitos)'
+			zztool erro 'CNPJ inválido (passou de 14 dígitos)'
 			return 1
 		fi
 
@@ -57,7 +57,7 @@ zzcnpj ()
 
 		if test ${#cnpj} -ne 14
 		then
-			echo 'CNPJ inválido (deve ter 14 dígitos)'
+			zztool erro 'CNPJ inválido (deve ter 14 dígitos)'
 			return 1
 		fi
 

@@ -38,7 +38,7 @@ zztrim ()
 			-b | --bottom    ) shift; bottom=1;;
 			-H | --horizontal) shift; left=1; right=1;;
 			-V | --vertical  ) shift; top=1; bottom=1;;
-			--*) echo "Opção inválida $1"; return 1;;
+			--*) echo "Opção inválida $1" > /dev/stderr; return 1;;
 			*) break;;
 		esac
 	done

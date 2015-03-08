@@ -41,8 +41,8 @@ zzdos2unix ()
 		# Segurança
 		if test $? -ne 0
 		then
-			echo "Ops, algum erro ocorreu em $arquivo"
-			echo "Seu arquivo original está guardado em $tmp"
+			zztool erro "Ops, algum erro ocorreu em $arquivo"
+			zztool erro "Seu arquivo original está guardado em $tmp"
 			return 1
 		fi
 

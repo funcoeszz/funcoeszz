@@ -30,12 +30,12 @@ zzdado ()
 				then
 					n_faces="$2"
 				else
-					echo "Numero inválido"
+					zztool erro "Numero inválido"
 					return 1
 				fi
 			;;
 			*)
-				echo "Opção inválida"
+				zztool erro "Opção inválida"
 				return 2
 			;;
 		esac

@@ -25,7 +25,7 @@ zznome ()
 	local nome=$(echo "$1" | zzminusculas | zzsemacento)
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso nome; return 1; }
+	test -n "$1" || { zztool uso nome > /dev/stderr; return 1; }
 
 	case "$2" in
 		origem)

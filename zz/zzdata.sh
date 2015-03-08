@@ -65,12 +65,12 @@ zzdata ()
 			# Validação rápida
 			if test "$operacao" != '-' -a "$operacao" != '+'
 			then
-				echo "Operação inválida '$operacao'. Deve ser + ou -."
+				zztool erro "Operação inválida '$operacao'. Deve ser + ou -."
 				return 1
 			fi
 		;;
 		*)
-			zztool uso data
+			zztool uso data > /dev/stderr
 			return 1
 		;;
 	esac
@@ -109,7 +109,7 @@ zzdata ()
 				# 29/02 em um ano não-bissexto?
 				if test "$ddmm" = '29/02' && ! zztool testa_ano_bissexto "$yyyy"
 				then
-					echo "Data inválida '$valor', pois $yyyy não é um ano bissexto"
+					zztool erro "Data inválida '$valor', pois $yyyy não é um ano bissexto."
 					return 1
 				fi
 			;;
@@ -122,7 +122,7 @@ zzdata ()
 				# Validação
 				if ! echo "$valor" | grep '^[0-9][0-9]*[dma]$' >/dev/null
 				then
-					echo "Delta inválido '$valor'. Deve ser algo como 5d, 5m ou 5a."
+					zztool erro "Delta inválido '$valor'. Deve ser algo como 5d, 5m ou 5a."
 					return 1
 				fi
 			;;
@@ -135,7 +135,7 @@ zzdata ()
 				# Validação
 				if ! zztool testa_numero_sinal "$valor"
 				then
-					echo "Número inválido '$valor'"
+					zztool erro "Número inválido '$valor'"
 					return 1
 				fi
 			;;
@@ -188,7 +188,7 @@ zzdata ()
 						valor=21/12/2012  # ;)
 					;;
 					*)
-						echo "Data inválida '$valor', deve ser dd/mm/aaaa"
+						zztool erro "Data inválida '$valor', deve ser dd/mm/aaaa"
 						return 1
 				esac
 
@@ -200,7 +200,7 @@ zzdata ()
 				fi
 			;;
 			*)
-				echo "Data inválida '$valor', deve ser dd/mm/aaaa"
+				zztool erro "Data inválida '$valor', deve ser dd/mm/aaaa"
 				return 1
 			;;
 		esac
@@ -214,7 +214,7 @@ zzdata ()
 	# Validação: Se há um delta, o outro valor deve ser uma data ou número
 	if test "$tipo1" = 'delta' -a "$tipo2" = 'delta'
 	then
-		zztool uso data
+		zztool uso data > /dev/stderr
 		return 1
 	fi
 
@@ -417,7 +417,7 @@ zzdata ()
 			;;
 
 			*)
-				echo "Tipo inválido '$tipo1'. Isso não deveria acontecer :/"
+				zztool erro "Tipo inválido '$tipo1'. Isso não deveria acontecer :/"
 				return 1
 			;;
 		esac

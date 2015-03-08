@@ -14,7 +14,7 @@ zzenglish ()
 {
 	zzzz -h english "$1" && return
 
-	test -n "$1" || { zztool uso english; return 1; }
+	test -n "$1" || { zztool uso english > /dev/stderr; return 1; }
 
 	local cinza verde amarelo fecha
 	local url="http://www.dict.org/bin/Dict/"

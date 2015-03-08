@@ -39,7 +39,7 @@ zzdiasuteis ()
 
 	elif test $# -ne 2
 	then
-		zztool uso diasuteis
+		zztool uso diasuteis > /dev/stderr
 		return 1
 	fi
 

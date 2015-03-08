@@ -38,7 +38,7 @@ zzseq ()
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso seq; return 1; }
+	test -n "$1" || { zztool uso seq > /dev/stderr; return 1; }
 
 	# Se houver só um número, vai "de um ao número"
 	fim="$1"
@@ -55,7 +55,7 @@ zzseq ()
 	zztool -e testa_numero_sinal "$fim"    || return 1
 	if test "$passo" -eq 0
 	then
-		echo "O passo não pode ser zero."
+		zztool erro "O passo não pode ser zero."
 		return 1
 	fi
 

@@ -92,7 +92,7 @@ zzdataestelar ()
 		echo "scale=6;(($ano + 4712) * 365.25) - 13.375 + ($dias * (1+59.2/86400)) + ($hora/24) + ($minuto/1440) + ($segundo/86400)" |
 		bc -l | cut -c 3- | zznumero -f "%.2f" | tr ',' '.'
 	else
-		zztool uso dataestelar -h
+		zztool uso dataestelar -h > /dev/stderr
 		return 1
 	fi
 }

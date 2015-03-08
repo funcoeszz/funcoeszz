@@ -24,7 +24,7 @@ zzbyte ()
 	local saida="${3:-.}"
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso byte; return 1; }
+	test -n "$1" || { zztool uso byte > /dev/stderr; return 1; }
 
 	# Sejamos amigáveis com o usuário permitindo minúsculas também
 	entrada=$(echo "$entrada" | zzmaiusculas)
@@ -33,12 +33,12 @@ zzbyte ()
 	# Verificações básicas
 	if ! zztool grep_var "$entrada" "$unidades"
 	then
-		echo "Unidade inválida '$entrada'"
+		zztool erro "Unidade inválida '$entrada'"
 		return 1
 	fi
 	if ! zztool grep_var "$saida" ".$unidades"
 	then
-		echo "Unidade inválida '$saida'"
+		zztool erro "Unidade inválida '$saida'"
 		return 1
 	fi
 	zztool -e testa_numero "$n" || return 1

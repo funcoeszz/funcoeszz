@@ -31,7 +31,7 @@ zzfatorar ()
 	local bc=0
 	local num_atual saida tamanho indice
 
-	test -n "$1" || { zztool uso fatorar; return 1; }
+	test -n "$1" || { zztool uso fatorar > /dev/stderr; return 1; }
 
 	while  test "${1#-}" != "$1"
 	do
@@ -125,7 +125,7 @@ zzfatorar ()
 			then
 				linha_atual=$((${linha_atual} + 1))
 				primo_atual=$(sed -n "${linha_atual}p" "$cache")
-				test ${#primo_atual} -eq 0 && { zztool eco "Valor não fatorável nessa configuração do script!"; return 1; }
+				test ${#primo_atual} -eq 0 && { zztool eco "Valor não fatorável nessa configuração do script!" > /dev/stderr; return 1; }
 			fi
 		done
 

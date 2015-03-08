@@ -67,7 +67,7 @@ zzhoracerta ()
 	# A localidade existe?
 	if ! test -n "$localidades"
 	then
-		echo "Localidade \"$localidade$codigo\" não encontrada"
+		zztool erro "Localidade \"$localidade$codigo\" não encontrada"
 		return 1
 	fi
 
