@@ -105,8 +105,8 @@ $ zzdata	01/03/2000	-	11/11/1999	#→ 111
 # Checagem de ano bissexto
 $ zzdata	29/02/2000				#→ 11016
 $ zzdata	1	+	29/02/2000		#→ 01/03/2000
-$ zzdata	29/02/2001				#→ Data inválida '29/02/2001', pois 2001 não é um ano bissexto
-$ zzdata	1	 + 	29/02/2001		#→ Data inválida '29/02/2001', pois 2001 não é um ano bissexto
+$ zzdata	29/02/2001				#→ Data inválida '29/02/2001', pois 2001 não é um ano bissexto.
+$ zzdata	1	 + 	29/02/2001		#→ Data inválida '29/02/2001', pois 2001 não é um ano bissexto.
 
 # Troca de 29/02 pra 28/02 quando o resultado do delta não é bissexto
 $ zzdata	29/02/2000	+	1a		#→ 28/02/2001
