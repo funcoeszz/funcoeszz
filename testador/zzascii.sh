@@ -1,14 +1,19 @@
 # erro
-$ zzascii a                             #→ --regex ^Uso:
-$ zzascii -1                            #→ --regex ^Uso:
-$ zzascii 0                             #→ --regex ^Uso:
-$ zzascii 10 a                          #→ --regex ^Uso:
-$ zzascii 10 -1                         #→ --regex ^Uso:
-$ zzascii 10 0                          #→ --regex ^Uso:
+$ zzascii a        ;echo $?             #→ --regex ^Uso:.*\n1
+$ zzascii -1       ;echo $?             #→ --regex ^Uso:.*\n1
+$ zzascii 0        ;echo $?             #→ --regex ^Uso:.*\n1
+$ zzascii 10 a     ;echo $?             #→ --regex ^Uso:.*\n1
+$ zzascii 10 -1    ;echo $?             #→ --regex ^Uso:.*\n1
+$ zzascii 10 0     ;echo $?             #→ --regex ^Uso:.*\n1
 
 # max
-$ zzascii 1000                          #→ O número máximo de colunas é 20
-$ zzascii 10 1000                       #→ A largura máxima é de 500
+$ zzascii 1000     ;echo $?
+O número máximo de colunas é 20
+1
+$ zzascii 10 1000  ;echo $?
+A largura máxima é de 500
+1
+$
 
 # ok
 $ zzascii

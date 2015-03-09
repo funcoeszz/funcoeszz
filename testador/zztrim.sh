@@ -139,9 +139,16 @@ $
 
 # Opção inválida
 
-$ echo | zztrim --foo          #→ Opção inválida --foo
-$ zztrim --foo texto           #→ Opção inválida --foo
-$ zztrim -l -r --foo texto     #→ Opção inválida --foo
+$ echo | zztrim --foo       ;echo $?
+Opção inválida --foo
+1
+$ zztrim --foo texto        ;echo $?
+Opção inválida --foo
+1
+$ zztrim -l -r --foo texto  ;echo $?
+Opção inválida --foo
+1
+$
 
 # Teste com o arquivo externo
 

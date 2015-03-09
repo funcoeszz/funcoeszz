@@ -3,10 +3,19 @@ $
 
 # Erros
 
-$ zzmoneylog	-z				#→ Opção inválida -z
-$ zzmoneylog	--foo				#→ Opção inválida --foo
-$ zzmoneylog	-a	foo			#→ Não consegui ler o arquivo foo
-$ zzmoneylog	-a	foo/			#→ Não consegui ler o arquivo foo/
+$ zzmoneylog -z                  ;echo $?
+Opção inválida -z
+1
+$ zzmoneylog --foo               ;echo $?
+Opção inválida --foo
+1
+$ zzmoneylog -a foo              ;echo $?
+Não consegui ler o arquivo foo
+1
+$ zzmoneylog -a foo/             ;echo $?
+Não consegui ler o arquivo foo/
+1
+$
 
 # Pesquisa normal
 
@@ -61,4 +70,3 @@ $ zzmoneylog	-t	livro			#→ 2009-05-23	-39,90	presente, livro| Livro Horóscopo
 $ zzmoneylog	-t	livr			#→ 2009-05-23	-39,90	presente, livro| Livro Horóscopo dos Duendes
 $ zzmoneylog	-t	liv			#→ 2009-05-23	-39,90	presente, livro| Livro Horóscopo dos Duendes
 $ zzmoneylog	-t	vro			#→ 2009-05-23	-39,90	presente, livro| Livro Horóscopo dos Duendes
-
