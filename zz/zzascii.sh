@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Mostra a tabela ASCII com todos os caracteres imprimíveis (32-126,161-255).
-# O formato utilizando é: <decimal> <hexa> <octal> <ascii>.
+# O formato utilizando é: <decimal> <hexa> <octal> <caractere>.
 # O número de colunas e a largura da tabela são configuráveis.
 # Uso: zzascii [colunas] [largura]
 # Ex.: zzascii
@@ -9,7 +9,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-12-06
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzseq zzcolunar
 # ----------------------------------------------------------------------------
@@ -17,12 +17,11 @@ zzascii ()
 {
 	zzzz -h ascii "$1" && return
 
-	local decimais decimal hexa octal caractere largura_col
+	local largura_coluna decimal hexa octal caractere hexa_conversao
 	local num_colunas="${1:-5}"
 	local largura="${2:-78}"
 	local max_colunas=20
 	local max_largura=500
-	local linha=0
 
 	# Verificações básicas
 	if (
@@ -45,28 +44,43 @@ zzascii ()
 		return 1
 	fi
 
-	decimais=$(zzseq 32 126 ; zzseq 161 255)
+	# Largura total de cada coluna, usado no printf
+	largura_coluna=$((largura / num_colunas))
 
-	# Cálculos das dimensões da tabela
-	local largura_coluna=$((largura / num_colunas))
-	local num_caracteres=$(echo "$decimais" | sed -n '$=')
-	# Uma alternativa de cálculo de linhas com awk comentado, mas o bc é mais robustos e rápido
-	#local num_linhas=$(echo "$num_caracteres $num_colunas" | awk '{print int($1/$2.0) + (int($1/$2.0)==$1/$2.0?0:1)}')
-	local num_linhas=$(echo "$num_caracteres / $num_colunas + ($num_caracteres % $num_colunas != 0 || 1 && 0)" | bc)
+	echo 'Tabela ASCII - Imprimíveis (decimal, hexa, octal, caractere)'
+	echo
 
-	# Mostra as dimensões
-	echo $num_caracteres caracteres, $num_colunas colunas, $num_linhas linhas, $largura de largura
+	for decimal in $(zzseq 32 126)
+	do
+		hexa=$( printf '%X'   $decimal)
+		octal=$(printf '%03o' $decimal) # NNN
+		caractere=$(printf "\x$hexa")
+		printf "%${largura_coluna}s\n" "$decimal $hexa $octal $caractere"
+	done | zzcolunar -r $num_colunas
 
-		for decimal in $decimais
-		do
-			hexa=$( printf '%X'   $decimal)
-			octal=$(printf '%03o' $decimal) # NNN
-			caractere=$(awk 'BEGIN { printf "%c", '$decimal' }')
+	echo
+	echo 'Tabela ASCII Extendida (ISO-8859-1, Latin-1) - Imprimíveis'
+	echo
 
-			# Na parte extendida da tabela ascii o tamanho do caractere precisa um espaço adicional.
-			test $decimal -ge 161 && largura_col=$((largura_coluna+1)) || largura_col=$largura_coluna
+	# Cada caractere UTF-8 da faixa seguinte é composto por dois bytes,
+	# por isso precisamos levar isso em conta no printf final
+	largura_coluna=$((largura_coluna + 1))
 
-			# Mostra a célula atual da tabela
-			printf "%${largura_col}s\n" "$decimal $hexa $octal $caractere"
-		done | zzcolunar -r $num_colunas
+	for decimal in $(zzseq 161 255)
+	do
+		hexa=$( printf '%X'   $decimal)
+		octal=$(printf '%03o' $decimal) # NNN
+
+		# http://www.lingua-systems.com/unicode-converter/unicode-mappings/encode-iso-8859-1-to-utf-8-unicode.html
+		if test $decimal -le 191  # 161-191: ¡-¿
+		then
+			caractere=$(printf "\xC2\x$hexa")
+		else                      # 192-255: À-ÿ
+			hexa_conversao=$(printf '%X' $((decimal - 64)))
+			caractere=$(printf "\xC3\x$hexa_conversao")
+		fi
+
+		# Mostra a célula atual da tabela
+		printf "%${largura_coluna}s\n" "$decimal $hexa $octal $caractere"
+	done | zzcolunar -r $num_colunas
 }
