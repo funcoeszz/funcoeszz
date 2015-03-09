@@ -8,13 +8,13 @@
 # 4. Bolsas
 # 5. Commodities
 #
-# Para mais detalhes digite zzve <numero>
+# Para mais detalhes digite: zzve <número>
 #
 # moedas       Variações de moedas internacionais
 #
 # Uso: zzve <opção>
 # Ex.: zzve tr         # Tabela de Taxa Referencial, Poupança e TBF.
-#      zzve moedas     # Cotaçoes do Dolar, Euro e outras moedas.
+#      zzve moedas     # Cotações do Dolar, Euro e outras moedas.
 #      zzve 3          # Mais detalhes de ajuda sobre "Mercado Externo".
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
