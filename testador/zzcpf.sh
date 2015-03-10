@@ -2,7 +2,7 @@
 $ zzcpf 123456789			#→ CPF inválido (deve ter 11 dígitos)
 $ zzcpf 123456789012			#→ CPF inválido (deve ter 11 dígitos)
 
-# CPF com apenas números zeros
+# Apenas números zeros
 $ zzcpf 00000000000			#→ CPF inválido (não pode conter apenas zeros)
 $ zzcpf 000.000.000-00			#→ CPF inválido (não pode conter apenas zeros)
 
@@ -49,14 +49,14 @@ $ zzcpf -f	987654321		#→ 009.876.543-21
 $ zzcpf -f	1987654321		#→ 019.876.543-21
 
 # -f: zeros à esquerda na entrada são removidos/ignorados
-$ zzcpf -f	0			#→ CPF inválido (não pode conter apenas zeros)
-$ zzcpf -f	00000000000000000000	#→ CPF inválido (não pode conter apenas zeros)
+$ zzcpf -f	0			#→ 000.000.000-00
+$ zzcpf -f	00000000000000000000	#→ 000.000.000-00
 $ zzcpf -f	000054321		#→ 000.000.543-21
 $ zzcpf -f	00000000000000054321	#→ 000.000.543-21
 
 # -f: Sem argumentos numéricos, assume zero
-$ zzcpf -f				#→ CPF inválido (não pode conter apenas zeros)
-$ zzcpf -f	foo			#→ CPF inválido (não pode conter apenas zeros)
+$ zzcpf -f				#→ 000.000.000-00
+$ zzcpf -f	foo			#→ 000.000.000-00
 
 # -f: remove símbolos e completa com zeros ao mesmo tempo
 $ zzcpf -f	'(1_2=3*4@5+6?7a8.'	#→ 000.123.456-78

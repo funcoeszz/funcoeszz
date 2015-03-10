@@ -9,7 +9,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
@@ -34,12 +34,6 @@ zzcpf ()
 		if test ${#cpf} -gt 11
 		then
 			zztool erro 'CPF inválido (passou de 11 dígitos)'
-			return 1
-		fi
-
-		if test ${cpf} -eq 0
-		then
-			zztool erro 'CPF inválido (não pode conter apenas zeros)'
 			return 1
 		fi
 
@@ -69,7 +63,7 @@ zzcpf ()
 			return 1
 		fi
 
-		if test ${cpf} -eq 0
+		if test $cpf -eq 0
 		then
 			zztool erro 'CPF inválido (não pode conter apenas zeros)'
 			return 1

@@ -9,7 +9,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzaleatorio
 # ----------------------------------------------------------------------------
@@ -58,6 +58,12 @@ zzcnpj ()
 		if test ${#cnpj} -ne 14
 		then
 			zztool erro 'CNPJ inválido (deve ter 14 dígitos)'
+			return 1
+		fi
+
+		if test $cnpj -eq 0
+		then
+			zztool erro 'CNPJ inválido (não pode conter apenas zeros)'
 			return 1
 		fi
 

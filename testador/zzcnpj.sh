@@ -2,6 +2,10 @@
 $ zzcnpj 123456780001			#→ CNPJ inválido (deve ter 14 dígitos)
 $ zzcnpj 123456780001000		#→ CNPJ inválido (deve ter 14 dígitos)
 
+# Apenas números zeros
+$ zzcnpj 00000000000000			#→ CNPJ inválido (não pode conter apenas zeros)
+$ zzcnpj 00.000.000/0000-00		#→ CNPJ inválido (não pode conter apenas zeros)
+
 # Dígito verificador incorreto
 $ zzcnpj 12345678000100			#→ CNPJ inválido (deveria terminar em 95)
 
