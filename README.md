@@ -1,10 +1,11 @@
 ## Funções ZZ
 
-Funções ZZ é uma coletânea com mais de 130 miniaplicativos de utilidades diversas, prontos para serem usados na linha de comando de sistemas tipo UNIX (Linux, BSD, Cygwin, Mac OS X, entre outros).
+Funções ZZ é uma coletânea com mais de 170 miniaplicativos de utilidades diversas, prontos para serem usados na linha de comando de sistemas tipo UNIX (Linux, BSD, Cygwin, Mac OS X, entre outros).
 
-- Website: [http://funcoeszz.net](http://funcoeszz.net)
-- GitHub: [https://github.com/funcoeszz/funcoeszz](https://github.com/funcoeszz/funcoeszz)
-- Grupo: [http://br.groups.yahoo.com/group/zztabtab/](http://br.groups.yahoo.com/group/zztabtab/)
+- Website: http://funcoeszz.net
+- GitHub: https://github.com/funcoeszz/funcoeszz
+- Grupo: http://br.groups.yahoo.com/group/zztabtab/
+- Twitter: https://twitter.com/Funcoes_ZZ
 
 
 ## Lista de colaboradores
