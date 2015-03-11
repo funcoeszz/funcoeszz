@@ -16,16 +16,7 @@ https://github.com/funcoeszz/funcoeszz/contributors
 
 Forka nóis e pulla! :)
 
-- [Fork, Branch, Track, Squash and Pull Request](http://gun.io/blog/how-to-github-fork-branch-and-pull-request/)
-- [Send pull requests](http://help.github.com/send-pull-requests/)
-
-Mas antes, por favor dê uma lida nas [páginas do Wiki](https://github.com/funcoeszz/funcoeszz/wiki/_pages), especialmente a [Coding Style](https://github.com/funcoeszz/funcoeszz/wiki/Coding-Style).
-
-Se precisar de ajuda com o git, leia:
-
-- [Guia pra quem manja de SVN](https://git.wiki.kernel.org/index.php/GitSvnCrashCourse)
-- [Git Reference](http://gitref.org) — Guia rápido, com exemplos
-- [The Git Parable](http://tom.preston-werner.com/2009/05/19/the-git-parable.html) — Entenda a filosofia por trás do git
+https://github.com/funcoeszz/funcoeszz/blob/master/CONTRIBUTING.md
 
 
 ## Instalação das Funções ZZ (versão de desenvolvimento)
