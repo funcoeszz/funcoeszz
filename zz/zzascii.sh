@@ -11,7 +11,7 @@
 # Desde: 2002-12-06
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzseq zzcolunar
+# Requisitos: zzseq zzcolunar zztrim
 # ----------------------------------------------------------------------------
 zzascii ()
 {
@@ -56,7 +56,7 @@ zzascii ()
 		octal=$(printf '%03o' $decimal) # NNN
 		caractere=$(printf "\x$hexa")
 		printf "%${largura_coluna}s\n" "$decimal $hexa $octal $caractere"
-	done | zzcolunar -r $num_colunas
+	done | zzcolunar -r $num_colunas | zztrim -r
 
 	echo
 	echo 'Tabela ASCII Extendida (ISO-8859-1, Latin-1) - Imprimíveis'
@@ -82,5 +82,5 @@ zzascii ()
 
 		# Mostra a célula atual da tabela
 		printf "%${largura_coluna}s\n" "$decimal $hexa $octal $caractere"
-	done | zzcolunar -r $num_colunas
+	done | zzcolunar -r $num_colunas | zztrim -r
 }
