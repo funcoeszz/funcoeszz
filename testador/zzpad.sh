@@ -46,8 +46,8 @@ $ zzpad	0	a	a 				#→ --regex ^Uso:
 $ zzpad	a	a	a 				#→ --regex ^Uso:
 
 # String de preenchimento maior que o tamanho máximo
-$ zzpad	-e	3	XXXXXX	a			#→ XXa
-$ zzpad	-d	3	XXXXXX	a			#→ aXX
+$ zzpad	-e	3	XXXXXX	a			#→ XXXXXXa
+$ zzpad	-d	3	XXXXXX	a			#→ aXXXXXX
 
 # Texto já maior que o tamanho máximo
 $ zzpad	-d	3	_	paralelepípedo		#→ paralelepípedo
