@@ -52,7 +52,7 @@ zzmix ()
 		shift
 	done
 
-	test -n "$2" || { zztool uso mix > /dev/stderr; return 1; }
+	test -n "$2" || { zztool -e uso mix; return 1; }
 
 	for arquivo
 	do
@@ -73,7 +73,7 @@ zzmix ()
 		fi
 
 		# Verifica se arquivos são legíveis
-		zztool arquivo_legivel "$arquivo" || { zztool eco "Um ou mais arquivos inexistentes ou ilegíveis." > /dev/stderr; return 1; }
+		zztool arquivo_legivel "$arquivo" || { zztool erro "Um ou mais arquivos inexistentes ou ilegíveis."; return 1; }
 	done
 
 	# Se opção é um numero, o arquivo base para as linhas é o mesmo da posição equivalente
@@ -84,7 +84,7 @@ zzmix ()
 	fi
 
 	# Sem quantidade de linhas mínima não há mistura.
-	test "$linhas" -eq 0 && { zztool eco "Não há linhas para serem \"mixadas\"." > /dev/stderr; return 1; }
+	test "$linhas" -eq 0 && { zztool erro "Não há linhas para serem \"mixadas\"."; return 1; }
 
 	# Onde a "mixagem" ocorre efetivamente.
 	awk -v linhas_awk=$linhas -v passos_awk="$passos" -v arq_ref_awk="$arq_ref" -v saida_awk="$arq_saida" '

@@ -45,7 +45,7 @@ zzjoin ()
 		shift
 	done
 
-	test -n "$2" || { zztool uso join > /dev/stderr; return 1; }
+	test -n "$2" || { zztool -e uso join; return 1; }
 
 	for arquivo
 	do
@@ -64,7 +64,7 @@ zzjoin ()
 		fi
 
 		# Verifica se arquivos são legíveis
-		zztool arquivo_legivel "$arquivo" || { zztool eco "Um ou mais arquivos inexistentes ou ilegíveis." > /dev/stderr; return 1; }
+		zztool arquivo_legivel "$arquivo" || { zztool erro "Um ou mais arquivos inexistentes ou ilegíveis."; return 1; }
 	done
 
 	# Se opção é um numero, o arquivo base para as linhas é o mesmo da posição equivalente
@@ -75,7 +75,7 @@ zzjoin ()
 	fi
 
 	# Sem quantidade de linhas mínima não há junção.
-	test "$linhas" -eq 0 && { zztool eco "Não há linhas para serem \"juntadas\"." > /dev/stderr; return 1; }
+	test "$linhas" -eq 0 && { zztool erro "Não há linhas para serem \"juntadas\"."; return 1; }
 
 	# Onde a "junção" ocorre efetivamente.
 	awk -v linhas_awk=$linhas -v saida_awk="$arq_saida" -v sep_awk="$sep" '

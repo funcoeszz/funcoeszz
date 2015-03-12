@@ -32,7 +32,7 @@ zzcontapalavra ()
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso contapalavra > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso contapalavra; return 1; }
 
 	padrao=$1
 	shift

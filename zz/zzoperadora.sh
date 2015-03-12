@@ -22,7 +22,7 @@ zzoperadora ()
 	# Verifica o paramentro
 	if (! zztool testa_numero "$1" || test "$1" -eq 0)
 	then
-		zztool uso operadora > /dev/stderr
+		zztool -e uso operadora
 		return 1
 	fi
 

@@ -45,7 +45,7 @@ zzpad ()
 	then
 		largura="$1"
 	else
-		zztool uso pad > /dev/stderr
+		zztool -e uso pad
 		return 1
 	fi
 

@@ -18,7 +18,7 @@ zzdicesperanto ()
 {
 	zzzz -h dicesperanto "$1" && return
 
-	test -n "$1" || { zztool uso dicesperanto > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso dicesperanto; return 1; }
 
 	local de_ling='pt'
 	local para_ling='eo'

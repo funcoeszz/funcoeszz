@@ -64,8 +64,8 @@ In gravida, neque a mattis tincidunt, velit arcu cursus nisi, eu blandit risus l
 	else
 
 		# Caso o parametro nao seja um numero, exibe o modo de utilizacao
-		zztool uso lorem
-
+		zztool -e uso lorem
+		return 1
 	fi
 
 }

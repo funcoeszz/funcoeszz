@@ -20,7 +20,7 @@ zzdicportugues ()
 	local padrao=$(echo $* | sed "$ZZSEDURL")
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso dicportugues > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso dicportugues; return 1; }
 
 	$ZZWWWDUMP "$url?q=$padrao" |
 		sed -n "

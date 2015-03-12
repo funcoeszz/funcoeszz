@@ -81,6 +81,7 @@ zzromanos ()
 	# Se não é inteiro posivo ou string que representa número romano válido,
 	# imprime mensagem de uso.
 	else
-		zztool uso romanos
+		zztool -e uso romanos
+		return 1
 	fi
 }

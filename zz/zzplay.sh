@@ -28,7 +28,7 @@ zzplay ()
 	local cache="zzplay.pls"
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso play > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso play; return 1; }
 
 	tipo=$(zzextensao "$1" | zzminusculas)
 

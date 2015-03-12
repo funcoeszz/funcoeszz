@@ -19,7 +19,7 @@ zzhowto ()
 	local url='http://www.ibiblio.org/pub/Linux/docs/HOWTO/other-formats/html_single/'
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso howto > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso howto; return 1; }
 
 	# Força atualização da listagem apagando o cache
 	if test "$1" = '--atualiza'

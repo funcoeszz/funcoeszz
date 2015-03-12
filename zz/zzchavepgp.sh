@@ -18,7 +18,7 @@ zzchavepgp ()
 	local padrao=$(echo $* | sed "$ZZSEDURL")
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso chavepgp > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso chavepgp; return 1; }
 
 	$ZZWWWDUMP "http://pgp.mit.edu:11371/pks/lookup?search=$padrao&op=index" |
 		sed 1,2d |

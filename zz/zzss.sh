@@ -57,7 +57,7 @@ zzss ()
 				unset pausa
 			;;
 			--tema)
-				test -n "$2" || { zztool uso ss > /dev/stderr; return 1; }
+				test -n "$2" || { zztool -e uso ss; return 1; }
 				tema=$2
 				shift
 			;;

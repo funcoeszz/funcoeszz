@@ -31,7 +31,7 @@ zzcalcula ()
 	# A opção --soma só lê dados da STDIN, não deve ter argumentos
 	if test -n "$soma" -a $# -gt 0
 	then
-		zztool uso calcula > /dev/stderr
+		zztool -e uso calcula
 		return 1
 	fi
 

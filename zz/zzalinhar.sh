@@ -37,10 +37,10 @@ zzalinhar ()
 		-c | --center | --centro)      alinhamento='c' ;;
 		-j | --justify | --justificar) alinhamento='j' ;;
 		-w | --width | --largura)
-			zztool testa_numero "$2" && largura="$2" || { zztool eco "Largura inválida: $2" > /dev/stderr; return 1; }
+			zztool testa_numero "$2" && largura="$2" || { zztool erro "Largura inválida: $2"; return 1; }
 			shift
 		;;
-		-*) zztool eco "Opção inválida: $1" > /dev/stderr; return 1 ;;
+		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
 		shift

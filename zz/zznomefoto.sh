@@ -58,7 +58,7 @@ zznomefoto ()
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso nomefoto > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso nomefoto; return 1; }
 
 	if ! zztool testa_numero "$digitos"
 	then

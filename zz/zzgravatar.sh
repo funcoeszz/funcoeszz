@@ -64,7 +64,7 @@ zzgravatar ()
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso gravatar > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso gravatar; return 1; }
 
 	# Guarda o email informado, sempre em minúsculas
 	email=$(zztrim "$1" | zzminusculas)

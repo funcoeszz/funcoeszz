@@ -21,7 +21,7 @@ zzmudaprefixo ()
 
 	# Verifica numero minimo de parametros.
 	if test $# -lt 4 ; then
-		zztool uso mudaprefixo > /dev/stderr
+		zztool -e uso mudaprefixo
 		return 1
 	fi
 
@@ -33,16 +33,16 @@ zzmudaprefixo ()
 	do
 		case "$1" in
 			-a | --antigo)
-				test -n "$2" || { zztool uso mudaprefixo > /dev/stderr; return 1; }
+				test -n "$2" || { zztool -e uso mudaprefixo; return 1; }
 				antigo=$2
 				shift
 				;;
 			-n | --novo)
-				test -n "$2" || { zztool uso mudaprefixo > /dev/stderr; return 1; }
+				test -n "$2" || { zztool -e uso mudaprefixo; return 1; }
 				novo=$2
 				shift
 				;;
-			*) { zztool uso mudaprefixo > /dev/stderr; return 1; } ;;
+			*) { zztool -e uso mudaprefixo; return 1; } ;;
 		esac
 		shift
 	done

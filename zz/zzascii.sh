@@ -30,7 +30,7 @@ zzascii ()
 		test "$num_colunas" -eq 0 ||
 		test "$largura" -eq 0)
 	then
-		zztool uso ascii > /dev/stderr
+		zztool -e uso ascii
 		return 1
 	fi
 	if test $num_colunas -gt $max_colunas

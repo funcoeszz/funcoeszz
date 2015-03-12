@@ -19,7 +19,7 @@ zzcep ()
 	local url='http://www.achecep.com.br'
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso cep; return; }
+	test -n "$1" || { zztool -e uso cep; return 1; }
 
 	# Testando se parametro é o CEP
 	echo "$1" | tr -d '-' | grep -E '[0-9]{8}' > /dev/null
@@ -39,12 +39,12 @@ zzcep ()
 			r=$(echo "$*"| sed "$ZZSEDURL")
 			query="uf=${e}&q=$r"
 		else
-			zztool uso cep; return;
+			zztool -e uso cep; return 1;
 		fi
 	fi
 
 	# Testando se formou a query string
-	test -n "$query" || { zztool uso cep; return; }
+	test -n "$query" || { zztool -e uso cep; return 1; }
 
 	echo "$query" | $ZZWWWPOST "$url" |
 	sed -n '/^[[:blank:]]*CEP/,/^[[:blank:]]*$/p'| sed 's/^ *//g;$d'

@@ -35,7 +35,7 @@ zzdistro ()
 	zztool testa_numero $1 && test $1 -ge 2002 -a $1 -lt $(date +%Y) && url="${url}index.php?dataspan=$1" && shift ;;
 	esac
 
-	test -n "$1" && { zztool uso distro > /dev/stderr; return 1; }
+	test -n "$1" && { zztool -e uso distro; return 1; }
 
 	$ZZWWWHTML "$url" | sed '1,/>Rank</d' |
 	awk -F'"' '

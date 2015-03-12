@@ -34,7 +34,7 @@ zzmat ()
 	local LANG=en
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso mat > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso mat; return 1; }
 
 	# Definindo a precisão dos resultados qdo é pertinente. Padrão é 6.
 	echo "$1" | grep '^-p' >/dev/null
@@ -266,7 +266,7 @@ zzmat ()
 			test "$funcao" != "atan" && num2=$(awk 'BEGIN {if ('$num1'>1 || '$num1'<-1) print "erro"}')
 			if test "$num2" = "erro"
 			then
-				zzmat $funcao -h > /dev/stderr;return 1
+				zzmat $funcao -h >&2;return 1
 			fi
 
 			echo "$num1" | grep '^-' >/dev/null && sinal="-" || unset sinal
@@ -412,8 +412,8 @@ zzmat ()
 					num2=$(echo "$4" | tr ',' '.')
 					num="${num1}*${num2}"
 				else
-					printf " Uso: zzmat %s %s " $funcao $2 > /dev/stderr
-					test "$2" = "retangulo" && echo "base altura" > /dev/stderr || echo "diagonal_maior diagonal_menor" > /dev/stderr
+					printf " Uso: zzmat %s %s " $funcao $2 >&2
+					test "$2" = "retangulo" && echo "base altura" >&2 || echo "diagonal_maior diagonal_menor" >&2
 					return 1
 				fi
 			;;
@@ -724,7 +724,7 @@ zzmat ()
 						qtde=$(($qtde+1))
 					fi
 				else
-					zztool uso mat > /dev/stderr; return 1;
+					zztool -e uso mat; return 1;
 				fi
 				shift
 			done

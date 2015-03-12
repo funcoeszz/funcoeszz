@@ -21,7 +21,7 @@ zzchecamd5 ()
 
 	# Faltou argumento mostrar como se usa a zzchecamd5
 	if test $# != "2";then
-		zztool uso checamd5 > /dev/stderr
+		zztool -e uso checamd5
 		return 1
 	fi
 

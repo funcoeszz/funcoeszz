@@ -24,7 +24,7 @@ zzbyte ()
 	local saida="${3:-.}"
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso byte > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso byte; return 1; }
 
 	# Sejamos amigáveis com o usuário permitindo minúsculas também
 	entrada=$(echo "$entrada" | zzmaiusculas)

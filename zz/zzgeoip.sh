@@ -19,12 +19,12 @@ zzgeoip ()
 
 	if test $# -ge 2
 	then
-		zztool uso geoip > /dev/stderr
+		zztool -e uso geoip
 		return 1
 	elif test -n "$1"
 	then
 		zztool -e testa_ip "$1"
-		test $? -ne 0 && zztool uso geoip > /dev/stderr && return 1
+		test $? -ne 0 && zztool -e uso geoip && return 1
 		ip="$1"
 	else
 		ip=$(zzipinternet)

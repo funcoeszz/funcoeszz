@@ -22,7 +22,7 @@ zzhastebin ()
 	# Verifica o parametro da função
 	if ! zztool arquivo_legivel "$1"
 	then
-		zztool uso hastebin > /dev/stderr
+		zztool -e uso hastebin
 		return 1
 	fi
 

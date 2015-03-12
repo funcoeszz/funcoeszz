@@ -32,7 +32,7 @@ zzdicportugues2 ()
 	local resultado conteudo
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso dicportugues2 > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso dicportugues2; return 1; }
 
 	# Verificando se a palavra confere na pesquisa
 	until test "$resultado" = "$palavra"
@@ -48,7 +48,7 @@ zzdicportugues2 ()
 				}" |
 			zzminusculas
 			)
-		test -n "$resultado" || { zztool eco "Palavra não encontrada" > /dev/stderr; return 1; }
+		test -n "$resultado" || { zztool erro "Palavra não encontrada"; return 1; }
 
 		# Incrementando o contador no padrão
 		padrao=$(echo "$padrao" | sed 's/_[0-9]*$//')

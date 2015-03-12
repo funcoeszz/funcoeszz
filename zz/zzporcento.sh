@@ -32,7 +32,7 @@ zzporcento ()
 	local tabela='200 150 125 100 90 80 75 70 60 50 40 30 25 20 15 10 9 8 7 6 5 4 3 2 1'
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso porcento > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso porcento; return 1; }
 
 	# Remove os pontos dos dinheiros para virarem fracionários (1.234,00 > 1234,00)
 	zztool testa_dinheiro "$valor1" && valor1=$(echo "$valor1" | sed 's/\.//g')

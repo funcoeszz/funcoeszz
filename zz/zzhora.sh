@@ -36,7 +36,7 @@ zzhora ()
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso hora > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso hora; return 1; }
 
 	# Cálculos múltiplos? Exemplo: 1:00 + 2:00 + 3:00 - 4:00
 	if test $# -gt 3
@@ -66,7 +66,7 @@ zzhora ()
 		#
 		if test $(($# % 2)) -eq 1
 		then
-			zztool uso hora > /dev/stderr
+			zztool -e uso hora
 			return 1
 		fi
 

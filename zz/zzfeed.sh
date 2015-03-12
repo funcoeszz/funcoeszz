@@ -34,7 +34,7 @@ zzfeed ()
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso feed > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso feed; return 1; }
 
 	# Verificação básica
 	if ! zztool testa_numero "$limite"

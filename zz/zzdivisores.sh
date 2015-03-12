@@ -14,7 +14,7 @@ zzdivisores ()
 {
 	zzzz -h divisores "$1" && return
 
-	test -n "$1" || { zztool uso divisores > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso divisores; return 1; }
 
 	local fatores fator divisores_temp divisor divisor_atual
 	local divisores="1"

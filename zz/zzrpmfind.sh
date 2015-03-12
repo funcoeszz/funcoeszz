@@ -21,7 +21,7 @@ zzrpmfind ()
 	local arquitetura=${3:-i386}
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso rpmfind > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso rpmfind; return 1; }
 
 	# Faz a consulta e filtra o resultado
 	resultado=$(

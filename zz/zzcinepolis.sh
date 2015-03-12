@@ -77,7 +77,7 @@ zzcinepolis ()
 	fi
 
 	# se não recebeu cidade ou código válido, sai
-	test -z "$codigos" && { zztool uso cinepolis > /dev/stderr; return 1; }
+	test -z "$codigos" && { zztool -e uso cinepolis; return 1; }
 
 	for codigo in $codigos
 	do

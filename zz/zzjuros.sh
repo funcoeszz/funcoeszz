@@ -23,7 +23,7 @@ zzjuros ()
 	# Testa se foi fornecido um numero dentre as opções disponiveis.
 	if zztool testa_numero $1
 	then
-		test $1 -gt 25 -o $1 -lt 1 && { zztool uso juros > /dev/stderr; return 1; }
+		test $1 -gt 25 -o $1 -lt 1 && { zztool -e uso juros; return 1; }
 
 		# Variavel resultado guarda a linha da opção escolhida, com os códigos a seres usados.
 		resultado=$(zzjuros cod | sed -n "/^ *$1 /p" | sed 's/,\([0-9]\)/, \1/g' | tr -d ',)(.')

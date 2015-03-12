@@ -48,7 +48,8 @@ zztabuada ()
 					fi
 				done
 			else
-				zztool uso tabuada
+				zztool -e uso tabuada
+				return 1
 			fi
 		;;
 		0)
@@ -69,7 +70,7 @@ zztabuada ()
 			done | sed '$d'
 		;;
 		*)
-			zztool uso tabuada > /dev/stderr
+			zztool -e uso tabuada
 			return 1
 		;;
 	esac

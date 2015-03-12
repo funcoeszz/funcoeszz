@@ -355,7 +355,7 @@ zznumero ()
 
 			if test ${#num_frac} -gt 0
 			then
-				zztool testa_numero $num_frac || { zztool uso numero > /dev/stderr; return 1; }
+				zztool testa_numero $num_frac || { zztool -e uso numero; return 1; }
 			fi
 
 			# Se houver precisão estabelecida pela opção -f
@@ -691,7 +691,7 @@ zznumero ()
 		# Validando as parte fracionária do número
 		if test ${#num_frac} -gt 0
 		then
-			zztool testa_numero $num_frac || { zztool uso numero > /dev/stderr; return 1; }
+			zztool testa_numero $num_frac || { zztool -e uso numero; return 1; }
 		fi
 
 		# Escrevendo a parte fracionária. (usando a variável qtde_p emprestada)

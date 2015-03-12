@@ -70,7 +70,7 @@ zzdata ()
 			fi
 		;;
 		*)
-			zztool uso data > /dev/stderr
+			zztool -e uso data
 			return 1
 		;;
 	esac
@@ -214,7 +214,7 @@ zzdata ()
 	# Validação: Se há um delta, o outro valor deve ser uma data ou número
 	if test "$tipo1" = 'delta' -a "$tipo2" = 'delta'
 	then
-		zztool uso data > /dev/stderr
+		zztool -e uso data
 		return 1
 	fi
 

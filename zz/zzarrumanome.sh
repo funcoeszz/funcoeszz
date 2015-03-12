@@ -36,7 +36,7 @@ zzarrumanome ()
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso arrumanome > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso arrumanome; return 1; }
 
 	# Para cada arquivo que o usuário informou...
 	for arquivo

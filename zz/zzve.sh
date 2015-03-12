@@ -27,7 +27,7 @@ zzve ()
 {
 	zzzz -h ve "$1" && return
 
-	test -n "$1" || { zztool uso ve > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso ve; return 1; }
 
 	case $1 in
 	1)

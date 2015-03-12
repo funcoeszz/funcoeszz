@@ -22,7 +22,7 @@ zzurlencode ()
 
 	# Se foram passados 3 ou mais parâmetros, mostra mensagem de uso.
 	if test $# -ge 3; then
-		zztool uso urlencode > /dev/stderr
+		zztool -e uso urlencode
 		return 1
 	# Se 2 parâmetros foram passados, o 1º indica um conjunto de
 	# caracteres que não serão codificados e o 2º o texto a codificar.

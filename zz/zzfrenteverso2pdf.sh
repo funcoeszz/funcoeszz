@@ -40,14 +40,14 @@ zzfrenteverso2pdf ()
 			-rf | --frentesreversas) sinal_frente="-" ;;
 			-rv | --versosreversos) sinal_verso="-" ;;
 			-d | --diretorio)
-				test -n "$2" || { zztool uso frenteverso2pdf > /dev/stderr; return 1; }
+				test -n "$2" || { zztool -e uso frenteverso2pdf; return 1; }
 				dir=$2
 				shift
 				;;
 			-v | --verbose)
 				set -x
 				;;
-			*) { zztool uso frenteverso2pdf > /dev/stderr; set +x; return 1; } ;;
+			*) { zztool -e uso frenteverso2pdf; set +x; return 1; } ;;
 		esac
 		shift
 	done

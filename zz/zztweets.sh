@@ -17,7 +17,7 @@ zztweets ()
 {
 	zzzz -h tweets "$1" && return
 
-	test -n "$1" || { zztool uso tweets > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso tweets; return 1; }
 
 	local name
 	local limite=5

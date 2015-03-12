@@ -21,7 +21,7 @@ zzdicantonimos ()
 	# Verifica se recebeu parâmetros
 	if test -z "$1"
 	then
-		zztool uso dicantonimos > /dev/stderr
+		zztool -e uso dicantonimos
 		return 1
 	fi
 

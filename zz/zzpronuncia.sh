@@ -21,7 +21,7 @@ zzpronuncia ()
 	local url2='http://cougar.eb.com/soundc11'
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso pronuncia > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso pronuncia; return 1; }
 
 	# O 'say' é um comando do Mac OS X, aí não precisa baixar nada
 	if test -x /usr/bin/say

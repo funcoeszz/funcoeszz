@@ -38,7 +38,7 @@ zzseq ()
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool uso seq > /dev/stderr; return 1; }
+	test -n "$1" || { zztool -e uso seq; return 1; }
 
 	# Se houver só um número, vai "de um ao número"
 	fim="$1"
