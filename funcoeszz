@@ -135,7 +135,7 @@ zztool ()
 	case "$ferramenta" in
 		uso)
 			# Extrai a mensagem de uso da função $1, usando seu --help
-			if test $erro -eq 1
+			if test "$erro" = "1"
 			then
 				zzzz -h "$1" -h | grep Uso >&2
 			else
