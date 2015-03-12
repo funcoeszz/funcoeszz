@@ -258,14 +258,14 @@ ok="zzaleatorio zzalfabeto zzalinhar zzansi2html zzarrumacidade zzascii zzbeep z
 for f in zz/*.sh  # off/*.sh
 do
 	echo " $ok " | grep " $(basename $f .sh) " >/dev/null && continue
-	grep 'zztool uso ' $f >/dev/null || echo $f
+	grep -E 'zztool( -e)? uso ' $f >/dev/null || echo $f
 done
 
 eco ----------------------------------------------------------------
 eco "* Funções com o nome errado em 'zztool uso'"
 for f in zz/*.sh  # off/*.sh
 do
-	wrong=$(grep 'zztool uso ' $f | grep -v "zztool uso $(basename $f .sh | sed 's/^zz//')")
+	wrong=$(grep -E 'zztool( -e)? uso ' $f | grep -vE "zztool( -e)? uso $(basename $f .sh | sed 's/^zz//')")
 	test -n "$wrong" && echo "$f"  # && echo "$wrong"
 done
 
