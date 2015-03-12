@@ -54,6 +54,16 @@ $ zzpad	-d	3	_	paralelepípedo		#→ paralelepípedo
 $ zzpad	-e	3	_	paralelepípedo		#→ paralelepípedo
 $ zzpad	-a	3	_	paralelepípedo		#→ paralelepípedo
 
+# Quando é ambos, primeiro preenche à direita, depois à esquerda
+$ zzpad	-a	2	_	a			#→ a_
+$ zzpad	-a	3	_	a			#→ _a_
+$ zzpad	-a	4	_	a			#→ _a__
+
+# Teste das opções em inglês
+$ zzpad	-r	5	_	a			#→ a____
+$ zzpad	-l	5	_	a			#→ ____a
+$ zzpad	-b	5	_	a			#→ __a__
+
 # Texto em UTF-8 (letras, 2 bytes)
 $ zzpad	-d	5	_	á			#→ á____
 $ zzpad	-e	5	_	á			#→ ____á
