@@ -54,6 +54,22 @@ $ zzpad	-d	3	_	paralelepípedo		#→ paralelepípedo
 $ zzpad	-e	3	_	paralelepípedo		#→ paralelepípedo
 $ zzpad	-a	3	_	paralelepípedo		#→ paralelepípedo
 
+# Texto em UTF-8 (letras, 2 bytes)
+$ zzpad	-d	5	_	á			#→ á____
+$ zzpad	-e	5	_	á			#→ ____á
+$ zzpad	-a	5	_	á			#→ __á__
+$ zzpad	-d	5	_	áé			#→ áé___
+$ zzpad	-e	5	_	áé			#→ ___áé
+$ zzpad	-a	5	_	áé			#→ _áé__
+
+# Texto em UTF-8 (símbolos, 3 bytes)
+$ zzpad	-d	5	_	♥			#→ ♥____
+$ zzpad	-e	5	_	♥			#→ ____♥
+$ zzpad	-a	5	_	♥			#→ __♥__
+$ zzpad	-d	5	_	♥★			#→ ♥★___
+$ zzpad	-e	5	_	♥★			#→ ___♥★
+$ zzpad	-a	5	_	♥★			#→ _♥★__
+
 # Zero padding informando zero
 $ zzpad	-e	1	0	0			#→ 0
 $ zzpad	-e	2	0	0			#→ 00
