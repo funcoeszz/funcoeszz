@@ -17,7 +17,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-05-18
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzpad ()
@@ -61,27 +61,17 @@ zzpad ()
 	fi
 
 	zztool multi_stdin "$@" |
-	awk -v awk_larg=$largura -v awk_pad="$str_pad" -v awk_pos=$posicao '
-		function repetir(texto, tamanho, sentido) {
-			if (length(texto) > 0) {
-				if (sentido == 1) {
-					tamanho = tamanho + (int(tamanho) == tamanho ? 0 : 1)
-				}
-				while (length(texto) < tamanho ) {
-					texto = texto texto
-				}
-				return substr(texto, 1, tamanho)
-			}
-		}
-		{
-			if (length < awk_larg) {
-				if (awk_pos == "r") { print $0 repetir(awk_pad, awk_larg - length, 0) }
-				if (awk_pos == "l") { print repetir(awk_pad, awk_larg - length, 0) $0 }
-				if (awk_pos == "b") {
-					print repetir(awk_pad, (awk_larg - length)/2, 0) $0 repetir(awk_pad, (awk_larg - length)/2, 1)
-				}
-			}
-			else { print }
-		}
-	'
+		zztool nl_eof |
+		case "$posicao" in
+			l) sed -e ':loop' -e "/^.\{$largura\}/ b" -e "s/^/$str_pad/" -e 'b loop';;
+			r) sed -e ':loop' -e "/^.\{$largura\}/ b" -e "s/$/$str_pad/" -e 'b loop';;
+			b) sed -e ':loop' -e "/^.\{$largura\}/ b" -e "s/$/$str_pad/" \
+			                  -e "/^.\{$largura\}/ b" -e "s/^/$str_pad/" -e 'b loop';;
+		esac
+
+	### Explicação do algoritmo sed
+	# Os três comandos são similares, é um loop que só é quebrado quando o
+	# tamanho atual do buffer satisfaz o tamanho desejado ($largura).
+	# A cada volta do loop, é adicionado o texto de padding $str_pad antes
+	# (s/^/…/) e/ou depois (s/$/…/) do texto atual.
 }
