@@ -10,7 +10,7 @@
 #   -V, --vertical    Apaga as linhas em branco do início e final (-t -b)
 #   -H, --horizontal  Apaga os brancos do início e final das linhas (-l -r)
 #
-# Uso: zztrim [texto]
+# Uso: zztrim [opções] [texto]
 # Ex.: zztrim "   foo bar   "           # "foo bar"
 #      zztrim -l "   foo bar   "        # "foo bar   "
 #      zztrim -r "   foo bar   "        # "   foo bar"
