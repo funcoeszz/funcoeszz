@@ -9,15 +9,15 @@
 #
 # Se não for definida a string, adota-se um simples espaço " ".
 #
-# Uso: zzpad [-l|-e|-r|-d|-b|-a] <número> [string] texto
-# Ex.: zzpad 35 "xyz" "Teste"
-#      zzpad -a 12 "a" "Teste"
-#      echo Teste | zzpad -l 20 "abc"
-#      cat arquivo.txt | zzpad 50 "ou"
+# Uso: zzpad [-l|-e|-r|-d|-b|-a] [-x PADDING] <número> texto
+# Ex.: zzpad -x "xyz" 32 "Teste"          # Testexyzxyzxyzxyzxyzxyzxyzxyzxyz
+#      zzpad -a -x "a" 12 "Teste"         # aaaTesteaaaa
+#      echo Teste | zzpad -l -x "abc" 20  # abcabcabcabcabcTeste
+#      cat arquivo.txt | zzpad -x "ou" 50
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-05-18
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzpad ()
@@ -25,39 +25,30 @@ zzpad ()
 	zzzz -h pad "$1" && return
 
 	local posicao='r'
-	local largura str_pad
+	local str_pad=' '
+	local largura
 
 	# Opções da posição do padding (left, right, both | esquerda, direita, ambos)
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
-		-l | -e) posicao='l' ;;
-		-r | -d) posicao='r' ;;
-		-b | -a) posicao='b' ;;
+		-l | -e) posicao='l'; shift ;;
+		-r | -d) posicao='r'; shift ;;
+		-b | -a) posicao='b'; shift ;;
+		-x     ) str_pad="$2"; shift; shift ;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
-		shift
 	done
 
 	# Tamanho da string
 	if zztool testa_numero "$1" && test $1 -gt 0
 	then
 		largura="$1"
+		shift
 	else
 		zztool -e uso pad
 		return 1
-	fi
-
-	# Caracteres a serem usados no padding
-	if test -n "$2"
-	then
-		str_pad="$2"
-		shift
-		shift
-	else
-		str_pad=" "
-		shift
 	fi
 
 	zztool multi_stdin "$@" |
