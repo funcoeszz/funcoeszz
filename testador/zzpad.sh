@@ -65,6 +65,11 @@ $ zzpad	-a	-x	_	2	a			#→ a_
 $ zzpad	-a	-x	_	3	a			#→ _a_
 $ zzpad	-a	-x	_	4	a			#→ _a__
 
+# Opção -x antes das de alinhamento
+$ zzpad	-x	_	-d	5	a			#→ a____
+$ zzpad	-x	_	-e	5	a			#→ ____a
+$ zzpad	-x	_	-a	5	a			#→ __a__
+
 # Teste das opções em inglês
 $ zzpad	-r	-x	_	5	a			#→ a____
 $ zzpad	-l	-x	_	5	a			#→ ____a
