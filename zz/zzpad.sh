@@ -1,15 +1,13 @@
 # ----------------------------------------------------------------------------
 # Preenche um texto para um certo tamanho com outra string.
-# Pode-se especificar a posição a ser preenchida com os seguintes argumentos:
-#  -l ou -e : Preenche a esquerda
-#  -r ou -d : Preenche a direita (padrão)
-#  -b ou -a : Preenche em ambos os lados
 #
-# Minimamente é necessário fornecer um número inteiro positivo como tamanho.
+# Opções:
+#   -d, -r     Preenche à direita (padrão)
+#   -e, -l     Preenche à esquerda
+#   -a, -b     Preenche em ambos os lados
+#   -x STRING  String de preenchimento (padrão=" ")
 #
-# Se não for definida a string, adota-se um simples espaço " ".
-#
-# Uso: zzpad [-l|-e|-r|-d|-b|-a] [-x PADDING] <número> texto
+# Uso: zzpad [-d | -e | -a] [-x STRING] <tamanho> [texto]
 # Ex.: zzpad -x "xyz" 32 "Teste"          # Testexyzxyzxyzxyzxyzxyzxyzxyzxyz
 #      zzpad -a -x "a" 12 "Teste"         # aaaTesteaaaa
 #      echo Teste | zzpad -l -x "abc" 20  # abcabcabcabcabcTeste
