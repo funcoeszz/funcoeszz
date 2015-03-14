@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # Cria, valida ou formata um número de CPF.
 # Obs.: O CPF informado pode estar formatado (pontos e hífen) ou não.
-# Uso: zzcpf [cpf]
+# Uso: zzcpf [-f] [cpf]
 # Ex.: zzcpf 123.456.789-09          # valida o CPF informado
 #      zzcpf 12345678909             # com ou sem pontuação
 #      zzcpf                         # gera um CPF válido (aleatório)

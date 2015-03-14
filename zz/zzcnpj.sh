@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # Cria, valida ou formata um número de CNPJ.
 # Obs.: O CNPJ informado pode estar formatado (pontos e hífen) ou não.
-# Uso: zzcnpj [cnpj]
+# Uso: zzcnpj [-f] [cnpj]
 # Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ informado
 #      zzcnpj 12345678000195          # com ou sem pontuação
 #      zzcnpj                         # gera um CNPJ válido (aleatório)
