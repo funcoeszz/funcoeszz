@@ -17,16 +17,16 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-05-18
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzpad ()
 {
 	zzzz -h pad "$1" && return
 
+	local largura
 	local posicao='r'
 	local str_pad=' '
-	local largura
 
 	# Opções da posição do padding (left, right, both | esquerda, direita, ambos)
 	while test "${1#-}" != "$1"
@@ -48,6 +48,12 @@ zzpad ()
 		shift
 	else
 		zztool -e uso pad
+		return 1
+	fi
+
+	if test -z "$str_pad"
+	then
+		zztool erro "A string de preenchimento está vazia"
 		return 1
 	fi
 

@@ -40,10 +40,16 @@ __4__
 __5__
 $
 
+# String de preenchimento vazia
+$ zzpad -x '' 5 a; echo $?
+A string de preenchimento está vazia
+1
+$
+
 # Valores inválidos para o número (argumento 1)
-$ zzpad	-9	a	a 				#→ Opção inválida: -9
-$ zzpad	0	a	a 				#→ --regex ^Uso:
-$ zzpad	a	a	a 				#→ --regex ^Uso:
+$ zzpad	-9	a					#→ Opção inválida: -9
+$ zzpad	0	a					#→ --regex ^Uso:
+$ zzpad	a	a					#→ --regex ^Uso:
 
 # String de preenchimento maior que o tamanho máximo
 $ zzpad	-e	-x	XXXXXX	3	a			#→ XXXXXXa
