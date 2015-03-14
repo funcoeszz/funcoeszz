@@ -15,7 +15,7 @@
 #         --xml          Formata como arquivo XML
 #         --url,--url2   Exemplos simples de uso da opção --formato
 #
-# Uso: zzestado [--OPÇÃO]
+# Uso: zzestado [opção]
 # Ex.: zzestado                      # [mostra a lista completa]
 #      zzestado --sigla              # AC AL AP AM BA …
 #      zzestado --html               # <option value="AC">AC - Acre</option> …
