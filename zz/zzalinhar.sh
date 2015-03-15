@@ -8,7 +8,7 @@
 #
 # As opções -w, --width, --largura seguido de um número,
 # determinam o tamanho da largura como base ao alinhamento.
-# Obs.: Se a largura original for maior é truncada no limite fornecido.
+# Obs.: Onde a largura é maior do que a informada não é aplicado alinhamento.
 #
 # Uso: zzalinhar [-l|-e|-r|-d|-c|-j] [-w <largura>] arquivo
 # Ex.: zzalinhar arquivo.txt
@@ -18,16 +18,18 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-05-23
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zztrim
+# Requisitos: zzpad zztrim
 # ----------------------------------------------------------------------------
 zzalinhar ()
 {
 	zzzz -h alinhar "$1" && return
 
+	local cache=$(zztool cache alinhar)
 	local alinhamento='r'
 	local largura=0
+	local larg_efet linha
 
 	while test "${1#-}" != "$1"
 	do
@@ -46,54 +48,58 @@ zzalinhar ()
 		shift
 	done
 
-	zztool file_stdin "$@" |
-	if test "$alinhamento" = "j"
-	then
-		sed 's/"/\\"/g'
-	else
-		cat -
-	fi |
-	zztrim -H |
-	awk -v larg=$largura -v opt_pad=$alinhamento '
-		# Função para unir os campos e os separadores de campos(" ")
-		function juntar(  str_saida, j) {
-			str_saida=""
-			for ( j=1; j<=length(campos); j++ ) {
-				str_saida = str_saida campos[j] espacos[j]
+	zztool file_stdin "$@" > $cache
+
+	larg_efet=$(
+		cat "$cache" |
+		while read linha
+		do
+			echo ${#linha}
+		done |
+		sort -nr |
+		head -1
+	)
+
+	test $largura -eq 0 -a $larg_efet -gt $largura && largura=$larg_efet
+
+	case $alinhamento in
+	'j')
+		cat "$cache" |
+		zztrim -H |
+		sed 's/"/\\"/g' | sed "s/'/\\'/g" |
+		awk -v larg=$largura '
+			# Função para unir os campos e os separadores de campos(" ")
+			function juntar(  str_saida, j) {
+				str_saida=""
+				for ( j=1; j<=length(campos); j++ ) {
+					str_saida = str_saida campos[j] espacos[j]
+				}
+				sub(/ *$/, "", str_saida)
+				return str_saida
 			}
-			sub(/ *$/, "", str_saida)
-			return str_saida
-		}
 
-		# Função que aumenta a quantidade de espaços intermadiários
-		function aumentar() {
-			espacos[pos_atual] = espacos[pos_atual] " "
-			pos_atual--
-			pos_atual = (pos_atual == 0 ? qtde : pos_atual)
-		}
-
-		# Função para determinar tamanho da string sem erros com codificação
-		function tam_linha(entrada,  saida, comando) 
-		{
-			comando = ("echo \"" entrada "\" | wc -m")
-			comando | getline saida
-			close(comando)
-			return saida-1
-		}
-
-		{
-			# Guardando as linhas em um array
-			linha[NR] = $0
-
-			# Guardando na variável larg o maior tamanho de linha
-			tam_atual = tam_linha($0)
-			if (larg < tam_atual) {
-				larg = tam_atual
+			# Função que aumenta a quantidade de espaços intermadiários
+			function aumentar_int() {
+				espacos[pos_atual] = espacos[pos_atual] " "
+				pos_atual--
+				pos_atual = (pos_atual == 0 ? qtde : pos_atual)
 			}
-		}
 
-		END {
-			if (opt_pad == "j") {
+			# Função para determinar tamanho da string sem erros com codificação
+			function tam_linha(entrada,  saida, comando)
+			{
+				comando = ("echo \"" entrada "\" | wc -m")
+				comando | getline saida
+				close(comando)
+				return saida-1
+			}
+
+			{
+				# Guardando as linhas em um array
+				linha[NR] = $0
+			}
+
+			END {
 				for (i=1; i<=NR; i++) {
 					if (tam_linha(linha[i]) == larg) { print linha[i] }
 					else {
@@ -105,29 +111,24 @@ zzalinhar ()
 							pos_atual = qtde - 1
 							saida = juntar()
 							while ( tam_linha(saida) < larg ) {
-								aumentar()
+								aumentar_int()
 								saida = juntar()
 							}
 							print saida
 						}
 					}
 				}
-			} else {
-				opt_pad = (opt_pad == "c" ? "a" : opt_pad)
-				command = ("funcoeszz zzpad -" opt_pad " " larg)
-
-				# Usando zzpad para alinhar a partir do array
-				for (num_linha=1; num_linha<=NR; num_linha++) {
-					print linha[num_linha] | command
-				}
-				close(command)
 			}
-		}
-	' |
-	if test "$alinhamento" = "j"
-	then
-		sed 's/\\"/"/g'
-	else
-		cat -
-	fi
+		' | sed 's/\\"/"/g'
+	;;
+	*)
+		test "$alinhamento" = "c" && alinhamento="a"
+
+		cat "$cache" |
+		zztrim -H |
+		zzpad -${alinhamento} $largura
+	;;
+	esac
+
+	zztool cache rm alinhar
 }
