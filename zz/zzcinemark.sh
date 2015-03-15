@@ -15,7 +15,7 @@
 # Desde: 2011-07-05
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzdatafmt zzxml zzunescape zztrim
+# Requisitos: zzdatafmt zzxml zzunescape zztrim zzcolunar
 # ----------------------------------------------------------------------------
 zzcinemark ()
 {

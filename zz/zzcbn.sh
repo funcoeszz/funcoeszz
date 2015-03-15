@@ -11,7 +11,7 @@
 # Desde: 2009-04-16
 # Versão: 5
 # Licença: GPL
-# Requisitos: zzecho zzplay zzcapitalize zzdatafmt
+# Requisitos: zzecho zzplay zzcapitalize zzdatafmt zzxml
 # ----------------------------------------------------------------------------
 zzcbn ()
 {

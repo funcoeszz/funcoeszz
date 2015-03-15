@@ -10,7 +10,7 @@
 # Desde: 2015-02-22
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar zztrim
+# Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar zztrim zzecho
 # ----------------------------------------------------------------------------
 zzcinepolis ()
 {
