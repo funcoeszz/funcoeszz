@@ -21,15 +21,16 @@
 #
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
 # Desde: 2014-04-08
-# Versão: 4
+# Versão: 5
 # Licença: GPL
-# Requisitos: zzdata zzdatafmt zztrim
+# Requisitos: zzdata zzdatafmt zztrim zzpad
 # ----------------------------------------------------------------------------
 zzfutebol ()
 {
 
 	zzzz -h futebol "$1" && return
 	local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
+	local linha local time1 time2
 
 	$ZZWWWDUMP "$url" |
 	sed -n '
@@ -42,16 +43,21 @@ zzfutebol ()
 	awk -F "[_]+" '
 		{
 			if ($0 ~ /[0-9]h[0-9]/) {
-				printf "%-40s", $0
+				printf $0
 			}
 			else {
 				sub(/^[A-Z]+ /, "")
 				sub(/ [A-Z]+$/, "")
-				printf "%25s x %-25s\n", $1, $3
+				print ":" $1 ":" $3
 			}
 		}' |
-	# Normaliza a saída para: Time1 x Time2
-	sed 's/  *x  */ x /' |
+	while read linha
+	do
+		local=$(echo $linha | cut -d":" -f 1)
+		time1=$(echo $linha | cut -d":" -f 2)
+		time2=$(echo $linha | cut -d":" -f 3)
+		echo "$(zzpad -r 40 $local) $(zzpad -l 25 $time1) x $(zzpad -r 25 $time2)"
+	done |
 	case "$1" in
 		hoje | amanh[aã] | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado | domingo)
 			grep --color=never -e $( zzdata $1 | zzdatafmt -f 'DD/MM/AA' )
