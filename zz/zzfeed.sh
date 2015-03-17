@@ -108,7 +108,7 @@ zzfeed ()
 			fi
 
 			# Extrai as tags <title> e formata o resultado
-				zzxml --tag $tag_mae "$tmp" |
+			zzxml --tag $tag_mae "$tmp" |
 				zzxml --tag title |
 				zzxml --tidy --untag |
 				sed '/^[[:space:]]*$/d' | sed "$limite q" |
