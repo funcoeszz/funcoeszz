@@ -9,7 +9,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-12-06
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzseq zzcolunar
 # ----------------------------------------------------------------------------
@@ -17,7 +17,7 @@ zzascii ()
 {
 	zzzz -h ascii "$1" && return
 
-	local largura_coluna decimal hexa octal caractere hexa_conversao
+	local largura_coluna decimal hexa octal caractere octal_conversao
 	local num_colunas="${1:-5}"
 	local largura="${2:-78}"
 	local max_colunas=20
@@ -54,7 +54,7 @@ zzascii ()
 	do
 		hexa=$( printf '%X'   $decimal)
 		octal=$(printf '%03o' $decimal) # NNN
-		caractere=$(printf "\x$hexa")
+		caractere=$(printf "\\$octal")
 		printf "%${largura_coluna}s\n" "$decimal $hexa $octal $caractere"
 	done | zzcolunar -r -w ${largura_coluna} ${num_colunas} |
 	sed 's/\(  \)\(32 20 040\)/\2\1/'
@@ -76,10 +76,10 @@ zzascii ()
 		# http://www.lingua-systems.com/unicode-converter/unicode-mappings/encode-iso-8859-1-to-utf-8-unicode.html
 		if test $decimal -le 191  # 161-191: ¡-¿
 		then
-			caractere=$(printf "\xC2\x$hexa")
+			caractere=$(printf "\302\\$octal")
 		else                      # 192-255: À-ÿ
-			hexa_conversao=$(printf '%X' $((decimal - 64)))
-			caractere=$(printf "\xC3\x$hexa_conversao")
+			octal_conversao=$(printf '%03o' $((decimal - 64)))
+			caractere=$(printf "\303\\$octal_conversao")
 		fi
 
 		# Mostra a célula atual da tabela
