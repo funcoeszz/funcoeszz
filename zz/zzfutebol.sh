@@ -30,7 +30,7 @@ zzfutebol ()
 
 	zzzz -h futebol "$1" && return
 	local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
-	local linha local time1 time2
+	local linha campeonato time1 time2
 
 	$ZZWWWDUMP "$url" |
 	sed -n '
@@ -61,9 +61,9 @@ zzfutebol ()
 	esac |
 	while read linha
 	do
-		local=$(echo $linha | cut -d":" -f 1)
+		campeonato=$(echo $linha | cut -d":" -f 1)
 		time1=$(echo $linha | cut -d":" -f 2)
 		time2=$(echo $linha | cut -d":" -f 3 | zztrim)
-		echo "$(zzpad -r 40 $local) $(zzpad -l 25 $time1) x $time2"
+		echo "$(zzpad -r 40 $campeonato) $(zzpad -l 25 $time1) x $time2"
 	done
 }
