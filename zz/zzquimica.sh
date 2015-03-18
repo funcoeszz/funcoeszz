@@ -58,14 +58,8 @@ zzquimica ()
 			/^<\/td>/ { print info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
 		' |
 		sort -n |
-		while read linha
+		while IFS=':' read numero nome simbolo massa orbital familia
 		do
-			numero=$( echo "$linha" | cut -d ":" -f 1)
-			nome=$(   echo "$linha" | cut -d ":" -f 2)
-			simbolo=$(echo "$linha" | cut -d ":" -f 3)
-			massa=$(  echo "$linha" | cut -d ":" -f 4)
-			orbital=$(echo "$linha" | cut -d ":" -f 5)
-			familia=$(echo "$linha" | cut -d ":" -f 6)
 			echo "$(zzpad 4 $numero) $(zzpad 13 $nome) $(zzpad 7 $simbolo) $(zzpad 12 $massa) $(zzpad 18 $orbital) $familia"
 		done > "$cache"
 	fi
