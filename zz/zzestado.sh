@@ -155,13 +155,10 @@ TO:Tocantins:tocantins:Palmas"
 		;;
 		*)
 			echo "$dados" |
-			while read resultado
-			do
-				sigla=$(  echo $resultado | cut -f 1 -d ":")
-				nome=$(   echo $resultado | cut -f 2 -d ":")
-				capital=$(echo $resultado | cut -f 4 -d ":")
-				echo "$sigla    $(zzpad 22 $nome) $capital"
-			done
+				while IFS=':' read sigla nome slug capital
+				do
+					echo "$sigla    $(zzpad 22 $nome) $capital"
+				done
 		;;
 	esac
 }
