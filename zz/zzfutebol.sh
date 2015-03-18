@@ -51,13 +51,6 @@ zzfutebol ()
 				print ":" $1 ":" $3
 			}
 		}' |
-	while read linha
-	do
-		local=$(echo $linha | cut -d":" -f 1)
-		time1=$(echo $linha | cut -d":" -f 2)
-		time2=$(echo $linha | cut -d":" -f 3)
-		echo "$(zzpad -r 40 $local) $(zzpad -l 25 $time1) x $(zzpad -r 25 $time2)"
-	done |
 	case "$1" in
 		hoje | amanh[aã] | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado | domingo)
 			grep --color=never -e $( zzdata $1 | zzdatafmt -f 'DD/MM/AA' )
@@ -65,5 +58,12 @@ zzfutebol ()
 		*)
 			grep --color=never -i "${1:-.}"
 			;;
-	esac
+	esac |
+	while read linha
+	do
+		local=$(echo $linha | cut -d":" -f 1)
+		time1=$(echo $linha | cut -d":" -f 2)
+		time2=$(echo $linha | cut -d":" -f 3 | zztrim)
+		echo "$(zzpad -r 40 $local) $(zzpad -l 25 $time1) x $time2"
+	done
 }
