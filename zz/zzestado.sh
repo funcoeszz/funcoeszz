@@ -163,7 +163,7 @@ TO:Tocantins:tocantins:Palmas"
 				sigla=$(  echo $resultado | cut -f 1 -d ":")
 				nome=$(   echo $resultado | cut -f 2 -d ":")
 				capital=$(echo $resultado | cut -f 4 -d ":")
-				echo "$(zzpad 6 $sigla) $(zzpad 22 $nome) $capital"
+				echo "$sigla    $(zzpad 22 $nome) $capital"
 			done
 		;;
 	esac
