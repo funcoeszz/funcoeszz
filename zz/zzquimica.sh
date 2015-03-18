@@ -9,7 +9,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-22
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzcapitalize zzwikipedia zzxml
 # ----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ zzquimica ()
 			massa=$(  echo "$linha" | cut -d ":" -f 4)
 			orbital=$(echo "$linha" | cut -d ":" -f 5)
 			familia=$(echo "$linha" | cut -d ":" -f 6)
-			echo "$(zzpad 4 $numero) $(zzpad 13 $nome) $(zzpad 6 $simbolo) $(zzpad 12 $massa) $(zzpad 18 $orbital) $familia"
+			echo "$(zzpad 4 $numero) $(zzpad 13 $nome) $(zzpad 7 $simbolo) $(zzpad 12 $massa) $(zzpad 18 $orbital) $familia"
 		done > "$cache"
 	fi
 
