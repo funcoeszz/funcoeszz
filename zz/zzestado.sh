@@ -26,7 +26,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzestado ()
@@ -157,7 +157,14 @@ TO:Tocantins:tocantins:Palmas"
 			zzestado --formato 'http://foo.com.br/{slug}/\n'
 		;;
 		*)
-			zzestado --formato '{sigla}\t{nome}\t{capital}\n' | expand -t 6,29
+			echo "$dados" |
+			while read resultado
+			do
+				sigla=$(  echo $resultado | cut -f 1 -d ":")
+				nome=$(   echo $resultado | cut -f 2 -d ":")
+				capital=$(echo $resultado | cut -f 4 -d ":")
+				echo "$(zzpad 6 $sigla) $(zzpad 22 $nome) $capital"
+			done
 		;;
 	esac
 }

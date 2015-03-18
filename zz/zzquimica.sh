@@ -9,7 +9,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-22
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzcapitalize zzwikipedia zzxml
 # ----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ zzquimica ()
 
 	zzzz -h quimica "$1" && return
 
-	local elemento
+	local elemento linha numero nome simbolo massa orbital familia
 	local cache=$(zztool cache quimica)
 
 	# Se o cache está vazio, baixa listagem da Internet
@@ -28,7 +28,7 @@ zzquimica ()
 		awk '/class="elemento/,/<\/td>/{print}'|
 		zzxml --untag=br | zzxml --tidy |
 		sed '/id=57-71/,/<\/td>/d;/id=89-103/,/<\/td>/d' |
-		awk 'BEGIN {print "N.º     Nome     Símbolo   Massa            Orbital       Classificação (estado)" }
+		awk 'BEGIN {print "N.º:Nome:Símbolo:Massa:Orbital:Classificação (estado)"; OFS=":" }
 			/^<td /     {
 				info["familia"] = $5
 					sub(/ao/, "ão", info["familia"])
@@ -55,7 +55,7 @@ zzquimica ()
 			/^<em/      { getline info["nome"] }
 			/^<i/       { getline info["massa"] }
 			/^<small/   { getline info["orbital"]; gsub(/ /, "-", info["orbital"]) }
-			/^<\/td>/ { printf "%-4s %-13s %-6s %-12s %-18s %s\n", info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
+			/^<\/td>/ { print info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
 		' | sort -n > "$cache"
 	fi
 
@@ -82,6 +82,16 @@ zzquimica ()
 
 	else
 		# Lista todos os elementos químicos
-		cat "$cache" | zzcapitalize | sed 's/ D\([eo]\) / d\1 /g'
+		cat "$cache" | zzcapitalize | sed 's/ D\([eo]\) / d\1 /g' |
+		while read linha
+		do
+			numero=$( echo "$linha" | cut -d ":" -f 1)
+			nome=$(   echo "$linha" | cut -d ":" -f 2)
+			simbolo=$(echo "$linha" | cut -d ":" -f 3)
+			massa=$(  echo "$linha" | cut -d ":" -f 4)
+			orbital=$(echo "$linha" | cut -d ":" -f 5)
+			familia=$(echo "$linha" | cut -d ":" -f 6)
+			echo "$(zzpad 4 $numero) $(zzpad 13 $nome) $(zzpad 6 $simbolo) $(zzpad 12 $massa) $(zzpad 18 $orbital) $familia"
+		done
 	fi
 }
