@@ -94,12 +94,12 @@ $
 $ sed 's/[<>]/ X /g;s|/| _ |g;' zzxml.in.xml | zztrim -H | zzalinhar -j
 X                                       xml                                       X
 X                                     section                                     X
-X        title        X         Título         X          _         title         X
-X               img               src="foo.png"                 _                 X
+X        title         X         Título         X         _         title         X
+X                img                src="foo.png"                _                X
 X                                      para                                       X
 Meu parágrafo, com  X strong X negrito X  _ strong X  e  X em X itálico X  _ em X .
-X                          _                         para                         X
-X     escape     X      &quot;&amp;&apos;&lt;&gt;      X       _      escape      X
-X                         _                        section                        X
-X                          _                         xml                          X
+X                         _                         para                          X
+X     escape      X      &quot;&amp;&apos;&lt;&gt;      X      _      escape      X
+X                        _                        section                         X
+X                         _                          xml                          X
 $

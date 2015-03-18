@@ -105,7 +105,10 @@ zzalinhar ()
 					else {
 						split("", campos)
 						split("", espacos)
-						qtde = split(linha[i], campos, " ", espacos)
+						qtde = split(linha[i], campos)
+						for (x in campos) {
+							espacos[x] = " "
+						}
 						if ( qtde <= 1 ) { print linha[i] }
 						else {
 							pos_atual = qtde - 1
