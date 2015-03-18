@@ -56,7 +56,18 @@ zzquimica ()
 			/^<i/       { getline info["massa"] }
 			/^<small/   { getline info["orbital"]; gsub(/ /, "-", info["orbital"]) }
 			/^<\/td>/ { print info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
-		' | sort -n > "$cache"
+		' |
+		sort -n |
+		while read linha
+		do
+			numero=$( echo "$linha" | cut -d ":" -f 1)
+			nome=$(   echo "$linha" | cut -d ":" -f 2)
+			simbolo=$(echo "$linha" | cut -d ":" -f 3)
+			massa=$(  echo "$linha" | cut -d ":" -f 4)
+			orbital=$(echo "$linha" | cut -d ":" -f 5)
+			familia=$(echo "$linha" | cut -d ":" -f 6)
+			echo "$(zzpad 4 $numero) $(zzpad 13 $nome) $(zzpad 6 $simbolo) $(zzpad 12 $massa) $(zzpad 18 $orbital) $familia"
+		done > "$cache"
 	fi
 
 	if test -n "$1"
@@ -82,16 +93,6 @@ zzquimica ()
 
 	else
 		# Lista todos os elementos químicos
-		cat "$cache" | zzcapitalize | sed 's/ D\([eo]\) / d\1 /g' |
-		while read linha
-		do
-			numero=$( echo "$linha" | cut -d ":" -f 1)
-			nome=$(   echo "$linha" | cut -d ":" -f 2)
-			simbolo=$(echo "$linha" | cut -d ":" -f 3)
-			massa=$(  echo "$linha" | cut -d ":" -f 4)
-			orbital=$(echo "$linha" | cut -d ":" -f 5)
-			familia=$(echo "$linha" | cut -d ":" -f 6)
-			echo "$(zzpad 4 $numero) $(zzpad 13 $nome) $(zzpad 6 $simbolo) $(zzpad 12 $massa) $(zzpad 18 $orbital) $familia"
-		done
+		cat "$cache" | zzcapitalize | sed 's/ D\([eo]\) / d\1 /g'
 	fi
 }
