@@ -75,9 +75,7 @@ TO:Tocantins:tocantins:Palmas"
 		--formato)
 			fmt="$2"
 			echo "$dados" |
-			(
-				IFS=:
-				while read sigla nome slug capital
+				while IFS=':' read sigla nome slug capital
 				do
 					resultado=$(printf %s "$fmt" | sed "
 						s/{sigla}/$sigla/g
@@ -87,7 +85,6 @@ TO:Tocantins:tocantins:Palmas"
 					")
 					printf "$resultado"
 				done
-			)
 		;;
 		--python | --py)
 			sigla=$(  zzestado --formato "'{sigla}', "   | sed 's/, $//')
