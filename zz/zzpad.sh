@@ -15,7 +15,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-05-18
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzpad ()
@@ -54,6 +54,9 @@ zzpad ()
 		zztool erro "A string de preenchimento está vazia"
 		return 1
 	fi
+
+	# Escapa caracteres especiais no s/// do sed: \ / &
+	str_pad=$(echo "$str_pad" | sed 's,\\,\\\\,g; s,/,\\/,g; s,&,\\&,g')
 
 	zztool multi_stdin "$@" |
 		zztool nl_eof |

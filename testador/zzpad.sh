@@ -46,6 +46,21 @@ A string de preenchimento está vazia
 1
 $
 
+# Tab como preenchimento
+$ zzpad	-d	-x	'	'	5	a	#→ --regex ^a\t{4}$
+
+# Aspas como preenchimento
+$ zzpad	-d	-x	\"	5	a		#→ a""""
+$ zzpad	-d	-x	\'	5	a		#→ a''''
+
+# Caracteres especiais do s/// do sed como preenchimento
+$ zzpad	-d	-x	'&'	5	a		#→ a&&&&
+$ zzpad	-d	-x	'&&'	5	a		#→ a&&&&
+$ zzpad	-d	-x	/	5	a		#→ a////
+$ zzpad	-d	-x	//	5	a		#→ a////
+$ zzpad	-d	-x	\\	5	a		#→ a\\\\
+$ zzpad	-d	-x	\\\\	5	a		#→ a\\\\
+
 # Valores inválidos para o número (argumento 1)
 $ zzpad	-9	a					#→ Opção inválida: -9
 $ zzpad	0	a					#→ --regex ^Uso:
