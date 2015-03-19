@@ -29,7 +29,7 @@ $ zzquimica | grep Família
 113  Ununtrio      Uut     (284)        2-8-18-32-32-18-3  Metal Representativo [Família do Boro] (Desconhecido)
 114  Fleróvio      Fl      (289)        2-8-18-32-32-18-4  Metal Representativo [Família do Carbono] (Desconhecido)
 115  Ununpentio    Uup     (288)        2-8-18-32-32-18-5  Metal Representativo [Família do Nitrogênio] (Desconhecido)
-$ zzquimica | cut -c 1-26 | sed 's/$/~/'
+$ zzquimica | sed 's/^\(.\{26\}\).*/\1/' | sed 's/$/~/'
 N.º  Nome          Símbolo~
 1    Hidrogênio    H      ~
 2    Hélio         He     ~
