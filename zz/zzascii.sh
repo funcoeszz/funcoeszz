@@ -56,9 +56,10 @@ zzascii ()
 		octal=$(printf '%03o' $decimal) # NNN
 		caractere=$(printf "\\$octal")
 		printf "%${largura_coluna}s\n" "$decimal $hexa $octal $caractere"
-	done | zzcolunar -r -w ${largura_coluna} ${num_colunas} |
-	sed 's/\(  \)\(32 20 040\)/\2\1/'
-	# Sed acima é devido ao alinhamento no zzcolunar que elimina um espaço válido.
+	done |
+		zzcolunar -r -w $largura_coluna $num_colunas |
+		sed 's/\(  \)\(32 20 040\)/\2\1/'
+		# Sed acima é devido ao alinhamento no zzcolunar que elimina um espaço válido
 
 	echo
 	echo 'Tabela ASCII Extendida (ISO-8859-1, Latin-1) - Imprimíveis'
@@ -84,5 +85,6 @@ zzascii ()
 
 		# Mostra a célula atual da tabela
 		printf "%${largura_coluna}s\n" "$decimal $hexa $octal $caractere"
-	done | zzcolunar -r -w $((largura_coluna-1)) $num_colunas
+	done |
+		zzcolunar -r -w $((largura_coluna - 1)) $num_colunas
 }
