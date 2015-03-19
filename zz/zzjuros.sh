@@ -2,7 +2,7 @@
 # Mostra a listagem de taxas de juros que o Banco Central acompanha.
 # São intituições financeiras, que estão sob a supervisão do Banco Central.
 # Com argumento numérico, detalha a listagem solicitada.
-# A numeração fica entre 1 e 25
+# A numeração fica entre 1 e 27
 #
 # Uso: zzjuros [numero consulta]
 # Ex.: zzjuros
@@ -10,44 +10,42 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-06
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzjuros ()
 {
 	zzzz -h juros "$1" && return
 
-	local resultado tipo modalidade encargo
-	local url='http://www.bcb.gov.br/pt-br/sfn/infopban/txcred/txjuros/Paginas'
+	local nome
+	local url='http://www.bcb.gov.br/pt-br/sfn/infopban/txcred/txjuros/Paginas/default.aspx'
+	local cache=$(
+				$ZZWWWHTML "$url" |
+				sed -n '/Modalidades de/,/Histórico/p'|
+				zzxml --tag a --tag strong |
+				sed '/Historico.aspx/,$d;/^<\//d' |
+				awk '/href|strong/ {
+					printf $0 "|"
+					getline
+					print
+					}' |
+				sed '1d;$d;s/.*="//;s/">//' |
+				awk '{if ($0 ~ /pt-br/) { print $0 "|" ++item } else print }'
+				)
 
 	# Testa se foi fornecido um numero dentre as opções disponiveis.
 	if zztool testa_numero $1
 	then
-		test $1 -gt 25 -o $1 -lt 1 && { zztool -e uso juros; return 1; }
+		test $1 -gt 27 -o $1 -lt 1 && { zztool -e uso juros; return 1; }
 
-		# Variavel resultado guarda a linha da opção escolhida, com os códigos a seres usados.
-		resultado=$(zzjuros cod | sed -n "/^ *$1 /p" | sed 's/,\([0-9]\)/, \1/g' | tr -d ',)(.')
+		# Buscando o nome e a url a ser pesquisada
+		nome=$(echo "$cache" | grep "|${1}$" | cut -f 2 -d "|")
+		url=$(echo "$cache" | grep "|${1}$" | zzunescape --html | cut -f 1 -d "|")
+		url="http://www.bcb.gov.br${url}"
 
-		# Redefine a url conforme a opção escolhida
-		if zztool grep_var 'Financiamento' "$resultado"
-		then
-			url="$url/RelTxJurosMensal.aspx"
-		else
-			url="$url/RelTxJuros.aspx"
-		fi
-
-		# Captura os valores de novas variáveis dentro da variavel resultado.
-		tipo=$(		echo "$resultado" | awk '{print $(NF-2)}')
-		modalidade=$(	echo "$resultado" | awk '{print $(NF-1)}')
-		encargo=$(	echo "$resultado" | awk '{print $NF}')
-
-		# Descrições conforme as caracteristas obtidas pelas variáveis acima.
-		test "$tipo" = "1" && printf %s "Pessoa Física - " || printf %s "Pessoa Jurídica - "
-		test $(echo "$encargo" | cut -c 1) = "1" && echo 'Taxas Pré-Fixada' || echo 'Taxas Pós-Fixada'
-		zztool eco $(echo $resultado | sed 's/^[ 0-9]\{1,\}//;s/[ 0-9]\{1,\}$//')
-
-		# Fazendo a busca e filtrando no site do Banco Central, conforme as variáveis obtidas.
-		$ZZWWWDUMP "${url}?tipoPessoa=${tipo}&modalidade=${modalidade}&encargo=${encargo}" |
+		# Fazendo a busca e filtrando no site do Banco Central.
+		zztool eco "$nome"
+		$ZZWWWDUMP "$url" |
 		sed -n '/^ *Posição *$/,/^ *Atendimento/p' | sed '$d' |
 		awk '{
 			gsub(/  */," ")
@@ -61,34 +59,16 @@ zzjuros ()
 		}'
 
 	else
-		# Sem opções, mostra a lista de taxas que podem ser pesquisadas.
-		$ZZWWWDUMP http://www.bcb.gov.br/pt-br/sfn/infopban/txcred/txjuros/Paginas/default.aspx |
-		sed -n '/Modalidades de/,/Histórico/p' | sed '1d;$d;/^ *$/d;s/^  */ /g' |
-		awk '
-			BEGIN { item = 1}
-			{
-				if (NF>0) {
-					if ($2 == "Pessoa") { $1 = ""; printf "\n\n%s", $2 " " $3 }
-					else if ($1 == "*" || $1 == "Taxas" || $2 == "Taxas") {
-						if ($1 == "*" && $2 != "Taxas") {
-							$1 = (item<10?" ":"") " " item++
-						}
-						printf "\n%s", $0
-					}
-					else {
-						printf "%s", $0
-					}
-				}
+
+		echo "$cache" |
+		awk -F "|" '{
+			if ($1 ~ /strong/) {
+				if ($2 ~ /jurídica/) print ""
+				print $2
+			} else {
+				printf "%3s. %s\n", $3, $2
 			}
-			END { print "" }
-		' | sed '1,2d;s/^[ *]*Taxas /Taxas /g' |
-		if test "$1" = "cod"
-		then
-			# Usado internamente, mostra a listagem com as opções a serem colocadas na url.
-			cat -
-		else
-			# Em outros casos, elimina exibição das opções.
-			sed 's/ *(.*$//g'
-		fi
+		}'
+
 	fi
 }
