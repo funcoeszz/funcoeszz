@@ -5,14 +5,14 @@
 #
 # Uso: zzmariadb [ código | filtro ]
 # Ex.: zzmariadb        # Lista os comandos disponíveis
-#      zzmariadb 18     # Consulta o comando CREATE DATABASE
+#      zzmariadb 18     # Consulta o comando DROP USER
 #      zzmariadb alter  # Filtra os comandos que possuam alter na declaração
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-07-03
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento
+# Requisitos: zzminusculas zzsemacento zztrim
 # ----------------------------------------------------------------------------
 zzmariadb ()
 {
@@ -41,8 +41,9 @@ zzmariadb ()
 		then
 			comando=$(sed -n "${1}p" $cache | sed "s/^${1} //;s| / |-|g;s/ - /-/g;s/ /-/g;s/\.//g" | zzminusculas | zzsemacento)
 			$ZZWWWDUMP "${url}/${comando}" |
-			sed -n '/^Localized Versions/,/^Comments/p' |
-			sed '1d;2d;/^  *\*.*\]$/d;/^ *Tweet */d;/^ *\* *$/d;$d'
+			sed -n '/^Localized Versions/,/* ←/p' |
+			sed '1d;2d;/^  *\*.*\]$/d;/^ *Tweet */d;/^ *\* *$/d;$d' |
+			zztrim -V
 		else
 			grep -i $1 $cache
 		fi
