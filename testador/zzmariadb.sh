@@ -1,4 +1,4 @@
-$ zzmariadb 
+$ zzmariadb
 1 ALTER DATABASE
 2 ALTER EVENT
 3 ALTER FUNCTION
@@ -39,8 +39,6 @@ $ zzmariadb create
 $
 
 $ zzmariadb 28
-
-
 Sintaxe:
 
 START TRANSACTION [WITH CONSISTENT SNAPSHOT] | BEGIN [WORK]
@@ -73,15 +71,9 @@ START TRANSACTION;
 SELECT @A:=SUM(salary) FROM table1 WHERE type=1;
 UPDATE table2 SET summary=@A WHERE type=1;
 COMMIT;
-
-     * ← Sobre o Mariadb
-     * ↑ MariaDB - Brazilian Portuguese ↑
-
 $
 
 $ zzmariadb 18
-
-
 Sintaxe:
 
 DROP USER user [, user] ...
@@ -92,8 +84,4 @@ Descrição:
    formato que na instrução CREATE USER; por exemplo, 'jeffrey'@'localhost'. Se você somente especificar a parte do nome de usuário no nome de conta, uma parte do hostname de '%' será usada. Para informações adicionais sobre especificação de nomes de conta, veja CREATE USER.
 
    Se alguma das contas de usuário especificadas não existe, aparecerá ERROR 1396 (HY000). Se um erro ocorrer, DROP USER ainda irá suprimir as contas que não resultam em erro.
-     * ← DEALLOCATE / DROP prepared statement
-     * ↑ MariaDB - Brazilian Portuguese ↑
-     * Executando o MariaDB a partir do diretório fonte →
-
 $
