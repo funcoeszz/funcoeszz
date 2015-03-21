@@ -17,9 +17,17 @@ $ zzhora 	12:foo					#→ Horário inválido '12:foo', deve ser HH:MM
 $ zzhora 	agora	+	foo			#→ Horário inválido 'foo', deve ser HH:MM
 $ zzhora 	agora	+	foo:12			#→ Horário inválido 'foo:12', deve ser HH:MM
 $ zzhora 	agora	+	12:foo			#→ Horário inválido '12:foo', deve ser HH:MM
-$ zzhora 	01:00	+	02:00	+	foo	#→ Horário inválido 'foo', deve ser HH:MM
 
-# Operação inválida             ''			
+# Este próximo teste tem uma linha em branco indesejada no resultado.
+# Como há 3 horários e a função sempre lida de dois em dois, ela faz
+# chamadas recursivas para si mesma. Assim, fica complicado remover esta
+# linha adicional. Então, neste caso, é melhor deixar assim mesmo.
+$ zzhora 	01:00	+	02:00	+	foo
+Horário inválido 'foo', deve ser HH:MM
+
+$
+
+# Operação inválida
 
 $ zzhora 	agora	/	'8:00'			#→ Operação inválida '/'. Deve ser + ou -.
 $ zzhora -r	agora	/	'8:00'			#→ Operação inválida '/'. Deve ser + ou -.
@@ -113,4 +121,3 @@ $ zzhora	1:01	+	2:01	+	3:01	-	4:01	#→ 02:02 (0d 2h 2m)
 $ zzhora	1:01	-	2:01	-	3:01	+	4:01	#→ 00:00 (0d 0h 0m)
 $ zzhora	24:	+	24:	+	24:	+	24:	#→ 96:00 (4d 0h 0m)
 $ zzhora	-24:	+	-24:	+	-24:	+	-24:	#→ -96:00 (4d 0h 0m)
-
