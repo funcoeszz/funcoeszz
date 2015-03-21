@@ -49,10 +49,7 @@ zznoticiassec ()
 		url='http://www.linuxsecurity.com/linuxsecurity_advisories.rdf'
 		echo
 		zztool eco "* Linux Security ($url):"
-		$ZZWWWHTML "$url" |
-			zzxml --tag title --untag --unescape |
-			sed 1d |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# CERT/CC
@@ -61,10 +58,7 @@ zznoticiassec ()
 		url='http://www.us-cert.gov/channels/techalerts.rdf'
 		echo
 		zztool eco "* CERT/CC ($url):"
-		$ZZWWWHTML "$url" |
-			zzxml --tag title --untag --unescape |
-			sed 1d |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Linux Today - Security
