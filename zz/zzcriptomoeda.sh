@@ -55,8 +55,10 @@ zzcriptomoeda ()
 				s/ (24h)/(24h)/g;
 				s/Change(24h)/%Var(24h)/;
 				s/ Market Cap Graph (7d)//;
+				s/ Price Graph (7d)//;
 				/______/d;
-				p}' |
+				p;
+				}' |
 			awk '
 				function espacos(  tamanho, saida, i) {
 					for(i=1;i<=tamanho;i++)
