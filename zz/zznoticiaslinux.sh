@@ -42,11 +42,11 @@ zznoticiaslinux ()
 	# Viva o Linux
 	if zztool grep_var v "$sites"
 	then
-		url='http://www.vivaolinux.com.br'
+		url='http://www.vivaolinux.com.br/index.rdf'
 		echo
 		zztool eco "* Viva o Linux ($url):"
 
-		$ZZWWWHTML "$url/index.rdf" |
+		$ZZWWWHTML "$url" |
 			zztool texto_em_iso |
 			zzxml --tag title --untag --unescape |
 			sed '1,2 d' |
