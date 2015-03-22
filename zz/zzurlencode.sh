@@ -8,7 +8,7 @@
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2013-03-19
-# Versão: 3
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzurlencode ()
@@ -46,7 +46,7 @@ zzurlencode ()
 		else
 			# Não usei zztool grep_var porque ele considera ?
 			# caractere especial (glob)
-			if test $(printf "$nao_converter") != $(printf "$nao_converter" | sed "s/$caractere//")
+			if printf "$nao_converter" | fgrep "$caractere" > /dev/null
 			then
 				printf "$caractere"
 			else
