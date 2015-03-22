@@ -2,11 +2,11 @@
 # Retorna a cotação de criptomoedas em Reais (bitcoin e litecoins).
 # Opções: btc ou bitecoin / ltc ou litecoin.
 # Com as opções -a ou --all, várias criptomoedas cotadas em dolar.
-# Uso: zzcriptomoeda [btc|bitcoin|ltc|litecoin|-a|--all]
-# Ex.: zzcriptomoeda
-#      zzcriptomoeda btc
-#      zzcriptomoeda litecoin
-#      zzcriptomoeda -a
+# Uso: zzcoin [btc|bitcoin|ltc|litecoin|-a|--all]
+# Ex.: zzcoin
+#      zzcoin btc
+#      zzcoin litecoin
+#      zzcoin -a
 #
 # Autor: Tárcio Zemel <tarciozemel (a) gmail com>
 # Desde: 2014-03-24
@@ -14,9 +14,9 @@
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento zznumero
 # ----------------------------------------------------------------------------
-zzcriptomoeda ()
+zzcoin ()
 {
-	zzzz -h criptomoeda "$1" && return
+	zzzz -h coin "$1" && return
 
 	# Variáveis gerais
 	local moeda_informada=$(echo "${1:--a}" | zzminusculas | zzsemacento)
