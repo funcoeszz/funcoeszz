@@ -3,9 +3,8 @@
 # Obs.: Cada site tem uma letra identificadora que pode ser passada como
 #       parâmetro, para informar quais sites você quer pesquisar:
 #
-#         Y)ahoo Linux         B)r Linux
+#         B)r Linux            N)otícias linux
 #         V)iva o Linux        U)nder linux
-#         N)otícias linux
 #
 # Uso: zznoticiaslinux [sites]
 # Ex.: zznoticiaslinux
@@ -13,7 +12,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzfeed zzxml
 # ----------------------------------------------------------------------------
@@ -28,15 +27,6 @@ zznoticiaslinux ()
 	limite="sed ${n}q"
 
 	test -n "$1" && sites="$1"
-
-	# Yahoo
-	if zztool grep_var y "$sites"
-	then
-		url='http://br.noticias.yahoo.com/rss/linux'
-		echo
-		zztool eco "* Yahoo Linux ($url):"
-		zzfeed -n $n "$url"
-	fi
 
 	# Viva o Linux
 	if zztool grep_var v "$sites"
