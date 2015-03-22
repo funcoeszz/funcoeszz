@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# http://... - vários
 # Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
 # Suportados:
 #  Debian, Ubuntu, FreeBSD, NetBSD, Gentoo, Arch, Mandriva, Mageia,

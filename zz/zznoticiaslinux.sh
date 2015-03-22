@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# http://... - vários
 # Busca as últimas notícias sobre Linux em sites nacionais.
 # Obs.: Cada site tem uma letra identificadora que pode ser passada como
 #       parâmetro, para informar quais sites você quer pesquisar:
