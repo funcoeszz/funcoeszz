@@ -15,17 +15,17 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-04-16
-# Versão: 7
+# Versão: 8
 # Licença: GPL
-# Requisitos: zzsemacento zzminusculas
+# Requisitos: zzsemacento zzminusculas zztrim
 # ----------------------------------------------------------------------------
 zzdicportugues2 ()
 {
 	zzzz -h dicportugues2 "$1" && return
 
 	local url='http://dicio.com.br'
-	local ini='^significado de '
-	local fim='^defini..o de '
+	local ini='^Significado de '
+	local fim='^Defini..o de '
 	local palavra=$(echo "$1" | zzminusculas)
 	local padrao=$(echo "$palavra" | zzsemacento)
 	local contador=1
@@ -57,14 +57,14 @@ zzdicportugues2 ()
 	done
 
 	case "$2" in
-	def) ini='^defini..o de '; fim=' escrit. ao contr.rio: ' ;;
+	def) ini='^Defini..o de '; fim=' escrit. ao contr.rio: ' ;;
 	conj)
-		ini='^ *infinitivo:'; fim='(rimas com |anagramas de )'
+		ini='^ *Infinitivo:'; fim='(Rimas com |Anagramas de )'
 		case "$3" in
-			ind) ini='^ *indicativo'; fim='^ *subjuntivo' ;;
-			sub | conj) ini='^ *subjuntivo'; fim='^ *imperativo' ;;
-			imp) ini='^ *imperativo'; fim='^ *infinitivo' ;;
-			inf) ini='^ *infinitivo *$' ;;
+			ind) ini='^ *Indicativo'; fim='^ *Subjuntivo' ;;
+			sub | conj) ini='^ *Subjuntivo'; fim='^ *Imperativo' ;;
+			imp) ini='^ *Imperativo'; fim='^ *Infinitivo' ;;
+			inf) ini='^ *Infinitivo *$' ;;
 		esac
 	;;
 	esac
@@ -72,7 +72,7 @@ zzdicportugues2 ()
 	case "$2" in
 	conj)
 		echo "$conteudo" |
-		awk 'tolower($0) ~ /'"$ini"'/, tolower($0) ~ /'"$fim"'/ {print} ' |
+		awk '/'"$ini"'/, /'"$fim"'/ ' |
 			sed '
 				{
 				/^ *INDICATIVO *$/d;
@@ -107,13 +107,14 @@ zzdicportugues2 ()
 #/;
 				s/^[a-z]/ &/g;
 				#p
-				}'
+				}' |
+				zztrim -V
 	;;
 	*)
 		echo "$conteudo" |
-		awk 'tolower($0) ~ /'"$ini"'/, tolower($0) ~ /'"$fim"'/ {print} ' |
-			sed "1d;/^Definição de /d;"
-			#/Infinitivo:/,/Particípio passado:/p"
+		awk '/'"$ini"'/, /'"$fim"'/ ' |
+			sed "1d;/^Definição de /d;" |
+			zztrim -V
 	;;
 	esac
 }
