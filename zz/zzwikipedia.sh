@@ -41,6 +41,7 @@ zzwikipedia ()
 			/^Views$/,$ d
 			/^Vistas$/,$ d
 			/^Ferramentas pessoais$/,$ d
+			/^.Ligações externas/,$ d
 			/^  *#Wikipedia (/d
 			/^  *#alternat/d
 			/Click here for more information.$/d
@@ -51,9 +52,10 @@ zzwikipedia ()
 			/^  *Ir para: /d
 			/^  *This article does not cite any references/d
 			/^  *Este artigo ou se(c)ção/d
+			/^  *Esta página ou secção/d
 			/^  *Please help improve this article/d
 			/^  *Por favor, melhore este artigo/d
-			/^  *Encontre fontes: /d
+			/^  *—*Encontre fontes: /d
 			/\.svg$/d
 			/^  *Categorias* ocultas*:/,$d
 			/^  *Hidden categories:/,$d
