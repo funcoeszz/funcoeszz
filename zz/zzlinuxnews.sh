@@ -1,6 +1,5 @@
 # ----------------------------------------------------------------------------
-# http://... - vários
-# Busca as últimas notícias sobre linux em sites em inglês.
+# Busca as últimas notícias sobre Linux em sites em inglês.
 # Obs.: Cada site tem uma letra identificadora que pode ser passada como
 #       parâmetro, para informar quais sites você quer pesquisar:
 #

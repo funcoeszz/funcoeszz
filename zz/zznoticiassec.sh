@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# http://... - vários
 # Busca as últimas notícias em sites especializados em segurança.
 # Obs.: Cada site tem uma letra identificadora que pode ser passada como
 #       parâmetro, para informar quais sites você quer pesquisar:
