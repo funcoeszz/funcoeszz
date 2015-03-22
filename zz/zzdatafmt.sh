@@ -254,7 +254,7 @@ zzdatafmt ()
 		d="${dd#0}"
 		mes=$(echo "$meses" | cut -d ' ' -f "$m" 2>/dev/null)
 		mmm=$(echo "$mes" | sed 's/\(...\).*/\1/')
-		sem=$(date -j -f "%Y-%m-%d" "$aaaa-$mm-$dd" +%w 2>/dev/null || date -d "$aaaa-$mm-$dd" +%w)
+		sem=$(date -j -f "%Y-%m-%d" "$aaaa-$mm-$dd" +%w 2>/dev/null || date -d "$aaaa-$mm-$dd" +%w 2>/dev/null)
 		sem=$((sem + 1))
 		semana=$(echo "$semanas" | cut -d ' ' -f "$sem" 2>/dev/null)
 		sss=$(echo "$semana" | sed 's/\(...\).*/\1/')
