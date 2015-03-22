@@ -59,12 +59,12 @@ zzdicportugues2 ()
 	case "$2" in
 	def) ini='^Defini..o de '; fim=' escrit. ao contr.rio: ' ;;
 	conj)
-		ini='^ *Infinitivo:'; fim='(Rimas com |Anagramas de )'
+		ini='^ *Infinitivo:';  fim='(Rimas com |Anagramas de )'
 		case "$3" in
-			ind) ini='^ *Indicativo'; fim='^ *Subjuntivo' ;;
+			ind)        ini='^ *Indicativo'; fim='^ *Subjuntivo' ;;
 			sub | conj) ini='^ *Subjuntivo'; fim='^ *Imperativo' ;;
-			imp) ini='^ *Imperativo'; fim='^ *Infinitivo' ;;
-			inf) ini='^ *Infinitivo *$' ;;
+			imp)        ini='^ *Imperativo'; fim='^ *Infinitivo' ;;
+			inf)        ini='^ *Infinitivo *$' ;;
 		esac
 	;;
 	esac
