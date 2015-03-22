@@ -112,7 +112,8 @@ zzdicportugues2 ()
 	*)
 		echo "$conteudo" |
 		awk 'tolower($0) ~ /'"$ini"'/, tolower($0) ~ /'"$fim"'/ {print} ' |
-			sed "1d;/^Definição de /d;" #/Infinitivo:/,/Particípio passado:/p"
+			sed "1d;/^Definição de /d;"
+			#/Infinitivo:/,/Particípio passado:/p"
 	;;
 	esac
 }
