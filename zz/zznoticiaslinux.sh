@@ -12,9 +12,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
-# Versão: 4
+# Versão: 5
 # Licença: GPL
-# Requisitos: zzfeed zzxml
+# Requisitos: zzfeed
 # ----------------------------------------------------------------------------
 zznoticiaslinux ()
 {
@@ -34,12 +34,7 @@ zznoticiaslinux ()
 		url='http://www.vivaolinux.com.br/index.rdf'
 		echo
 		zztool eco "* Viva o Linux ($url):"
-
-		$ZZWWWHTML "$url" |
-			zztool texto_em_iso |
-			zzxml --tag title --untag --unescape |
-			sed '1,2 d' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Br Linux
@@ -66,10 +61,6 @@ zznoticiaslinux ()
 		url='http://feeds.feedburner.com/NoticiasLinux'
 		echo
 		zztool eco "* Notícias Linux ($url):"
-		$ZZWWWHTML "$url" |
-			zztool texto_em_iso |
-			zzxml --tag title --untag --unescape |
-			sed 1d |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 }
