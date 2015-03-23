@@ -10,7 +10,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzminusculas zzxml zzfeed zztac zzurldecode zzdata zzdatafmt
 # ----------------------------------------------------------------------------
@@ -82,9 +82,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Mandriva'
 		url='http://www.mandriva.com/en/support/security/advisories/feed/'
 		echo "$url"
-		zzfeed "$url" |
-			grep 'MDVSA' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Suse
@@ -194,17 +192,10 @@ zzsecurity ()
 	# Mageia
 	if zztool grep_var mageia "$distros"
 	then
-		url='http://advisories.mageia.org'
+		url='http://advisories.mageia.org/advisories.rss'
 		echo
 		zztool eco '** Atualizações Mageia'
 		echo "$url"
-		$ZZWWWHTML "$url" |
-			grep '"html"' |
-			zzxml --untag |
-			sed '
-				s/^ *"html" : " *//
-				s/", *$//
-				s/\(security\|bugfix\)[0-9, ]*//' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 }
