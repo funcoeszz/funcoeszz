@@ -1,3 +1,16 @@
+# Erros
+
+$ zzdicportugues2; echo $?
+Uso: zzdicportugues2 palavra [def|conj [ind|sub|conj|imp|inf]]
+1
+$ zzdicportugues2 foobar; echo $?
+Palavra não encontrada
+1
+$
+
+
+# Uso normal - acentuação
+
 $ zzdicportugues2 maca
 maca,1
 f.
@@ -60,6 +73,9 @@ Figurado. Viçoso; que é bonito de se ver: cachoeira louçã.
 Gram. Feminino: louçã.
 (Etm. talvez do latim: lautianus)
 $
+
+
+# Uso normal - verbos e conjugação
 
 $ zzdicportugues2 compilar def
 Classe gramatical: verbo transitivo direto
