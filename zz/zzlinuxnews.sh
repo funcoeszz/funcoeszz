@@ -14,7 +14,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzfeed
 # ----------------------------------------------------------------------------
