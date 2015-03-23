@@ -1,9 +1,9 @@
 # Erros
 
-$ zzdicportugues2; echo $?
-Uso: zzdicportugues2 palavra [def|conj [ind|sub|conj|imp|inf]]
+$ zzdicportugues; echo $?
+Uso: zzdicportugues palavra [def|conj [ind|sub|conj|imp|inf]]
 1
-$ zzdicportugues2 foobar; echo $?
+$ zzdicportugues foobar; echo $?
 Palavra não encontrada
 1
 $
@@ -11,7 +11,7 @@ $
 
 # Uso normal - acentuação
 
-$ zzdicportugues2 maca
+$ zzdicportugues maca
 maca,1
 f.
 Cama de lona, para descanso dos marinheiros, a bordo.
@@ -26,7 +26,7 @@ Ave doméstica do Peru.
 $
 
 
-$ zzdicportugues2 maça
+$ zzdicportugues maça
 f.
 Pau pesado, mais grosso numa extremidade que na outra.
 Espécie de pilão cylindrico, usado no serviço de calceteiro.
@@ -49,23 +49,23 @@ Sinônimos de Maça
 Sinônimo de maça: clava e tacape
 $
 
-$ zzdicportugues2 maçã
+$ zzdicportugues maçã
 s.f. Fruta de cultivo mais disseminado pelo mundo.
 Maçã do rosto, região malar. As macieiras crescem tanto na Europa como na América do Sul, na África, na América do Norte, na Austrália e na Ásia. Só não suportam as regiões de calor ou frio muito intensos.
 $
 
-$ zzdicportugues2 louca
+$ zzdicportugues louca
 s.f. Condição, geralmente de caráter temporário, de loucura ou falta de sanidade mental.
 (Etm. Fem. de louco)
 $
 
-$ zzdicportugues2 louça
+$ zzdicportugues louça
 s.f. Artefato de barro, porcelana etc., destinado especialmente ao serviço de mesa.
 Qualquer produto de cerâmica.
 Vasilhame: vá lavar a louça!
 $
 
-$ zzdicportugues2 louçã
+$ zzdicportugues louçã
 Louçã é uma palavra derivada de loução
 Loução: adj. Pej. Garrido; elegante em excesso; que tem muita elegância.
 Louçainho; muito enfeitado; repleto de adornos.
@@ -77,7 +77,7 @@ $
 
 # Uso normal - verbos e conjugação
 
-$ zzdicportugues2 compilar def
+$ zzdicportugues compilar def
 Classe gramatical: verbo transitivo direto
 Tipo do verbo compilar: regular
 Separação das sílabas: com-pi-lar
@@ -97,7 +97,7 @@ Possui as consoantes: c l m p r
 O verbo escrito ao contrário: ralipmoc
 $
 
-$ zzdicportugues2 comer
+$ zzdicportugues comer
 v.t. Levar à boca e engolir.
 Fig. Carcomer, roer, consumir: a ferrugem come o ferro.
 Fig. Omitir: comeu duas palavras na transcrição.
@@ -112,7 +112,7 @@ Sinônimos de Comer
 Sinônimo de comer: consumir e manducar
 $
 
-$ zzdicportugues2 comer def
+$ zzdicportugues comer def
 Classe gramatical: substantivo masculino, verbo intransitivo, verbo pronominal, verbo transitivo direto e verbo transitivo indireto
 Tipo do verbo comer: regular
 Separação das sílabas: co-mer
@@ -141,7 +141,7 @@ Possui as consoantes: c m r
 O verbo escrito ao contrário: remoc
 $
 
-$ zzdicportugues2 comer conj inf
+$ zzdicportugues comer conj inf
 * Infinitivo Pessoal
 por comer eu
 por comeres tu
@@ -151,7 +151,7 @@ por comerdes vós
 por comerem eles
 $
 
-$ zzdicportugues2 comer conj imp
+$ zzdicportugues comer conj imp
 * Imperativo Afirmativo
 come tu
 coma ele
@@ -167,7 +167,7 @@ não comais vós
 não comam eles
 $
 
-$ zzdicportugues2 comer conj sub
+$ zzdicportugues comer conj sub
 * Presente do Subjuntivo
 que eu coma
 que tu comas
@@ -193,7 +193,7 @@ quando vós comerdes
 quando eles comerem
 $
 
-$ zzdicportugues2 comer conj ind
+$ zzdicportugues comer conj ind
 * Presente do Indicativo
 eu como
 tu comes

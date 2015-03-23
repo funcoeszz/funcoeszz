@@ -9,19 +9,19 @@
 # desejado:
 # ind (indicativo), sub (subjuntivo), imp (imperativo), inf (infinitivo)
 #
-# Uso: zzdicportugues2 palavra [def|conj [ind|sub|conj|imp|inf]]
-# Ex.: zzdicportugues2 bolacha
-#      zzdicportugues2 verbo conj sub
+# Uso: zzdicportugues palavra [def|conj [ind|sub|conj|imp|inf]]
+# Ex.: zzdicportugues bolacha
+#      zzdicportugues verbo conj sub
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
-# Desde: 2011-04-16
+# Desde: 2003-02-26
 # Versão: 9
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas zztrim
 # ----------------------------------------------------------------------------
-zzdicportugues2 ()
+zzdicportugues ()
 {
-	zzzz -h dicportugues2 "$1" && return
+	zzzz -h dicportugues "$1" && return
 
 	local url='http://dicio.com.br'
 	local ini='^Significado de '
@@ -32,7 +32,7 @@ zzdicportugues2 ()
 	local resultado conteudo
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso dicportugues2; return 1; }
+	test -n "$1" || { zztool -e uso dicportugues; return 1; }
 
 	# Verificando se a palavra confere na pesquisa
 	until test "$resultado" = "$palavra"
