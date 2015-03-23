@@ -51,12 +51,10 @@ zzlinuxnews ()
 	# LWN
 	if zztool grep_var w "$sites"
 	then
-		url='http://lwn.net/Articles'
+		url='http://lwn.net/headlines/newrss'
 		echo
 		zztool eco "* Linux Weekly News - ($url):"
-		$ZZWWWHTML "$url" |
-			sed '/class="Headline"/!d;s/^ *//;s/<[^>]*>//g' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# OS News
