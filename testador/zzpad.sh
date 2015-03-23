@@ -106,6 +106,14 @@ $ zzpad	-d	-x	_	5	♥★			#→ ♥★___
 $ zzpad	-e	-x	_	5	♥★			#→ ___♥★
 $ zzpad	-a	-x	_	5	♥★			#→ _♥★__
 
+# Texto e preenchimento em UTF-8
+$ zzpad	-a	-x	'é'	5	aaa			#→ éaaaé
+$ zzpad	-a	-x	'é'	5	áaá			#→ éáaáé
+$ zzpad	-a	-x	'é'	5	♥♥♥			#→ é♥♥♥é
+$ zzpad	-a	-x	'★'	5	aaa			#→ ★aaa★
+$ zzpad	-a	-x	'★'	5	áaá			#→ ★áaá★
+$ zzpad	-a	-x	'★'	5	♥♥♥			#→ ★♥♥♥★
+
 # Zero padding informando zero
 $ zzpad	-e	-x	0	1	0			#→ 0
 $ zzpad	-e	-x	0	2	0			#→ 00
