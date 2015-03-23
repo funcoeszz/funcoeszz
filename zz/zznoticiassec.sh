@@ -13,9 +13,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-07-13
-# Versão: 3
+# Versão: 4
 # Licença: GPL
-# Requisitos: zzfeed zzxml
+# Requisitos: zzfeed
 # ----------------------------------------------------------------------------
 zznoticiassec ()
 {
@@ -35,11 +35,7 @@ zznoticiassec ()
 		url='http://www.linuxsecurity.com.br/share.php'
 		echo
 		zztool eco "* LinuxSecurity Brasil ($url):"
-		$ZZWWWHTML "$url" |
-			zztool texto_em_iso |
-			zzxml --tag title --untag --unescape |
-			sed 1d |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# Linux Security
