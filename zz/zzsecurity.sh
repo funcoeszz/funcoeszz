@@ -117,10 +117,7 @@ zzsecurity ()
 		zztool eco '** Atualizações FreeBSD'
 		url='http://www.freebsd.org/security/advisories.rdf'
 		echo "$url"
-		$ZZWWWDUMP "$url" |
-			zzxml --tag title --untag --unescape |
-			sed -n '/-SA-/ {s/:[^.]*\./ /;p;}' |
-			$limite
+		zzfeed -n $n "$url"
 	fi
 
 	# NetBSD
