@@ -13,9 +13,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzxml zzunescape zztrim
+# Requisitos: zzxml zzunescape zztrim zzutf8
 # ----------------------------------------------------------------------------
 zzfeed ()
 {
@@ -88,7 +88,8 @@ zzfeed ()
 		else
 			$ZZWWWHTML "$url"
 		fi |
-		zzxml --tidy > "$tmp"
+			zzutf8 |
+			zzxml --tidy > "$tmp"
 
 		# Tenta identificar o formato: <feed> é Atom, <rss> é RSS
 		formato=$(grep -e '^<feed[ >]' -e '^<rss[ >]' -e '^<rdf[:>]' "$tmp")
