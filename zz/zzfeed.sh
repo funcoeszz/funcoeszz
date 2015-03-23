@@ -13,7 +13,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzxml zzunescape zztrim zzutf8
 # ----------------------------------------------------------------------------
@@ -42,6 +42,9 @@ zzfeed ()
 		zztool erro "Número inválido para a opção -n: $limite"
 		return 1
 	fi
+
+	# Zero notícias? Tudo bem.
+	test $limite -eq 0 && return 0
 
 	#-----------------------------------------------------------------
 	# ATOM:

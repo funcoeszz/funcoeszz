@@ -11,6 +11,8 @@ $
 $ zzfeed -n X http://aurelio.net/feed/; echo $?
 Número inválido para a opção -n: X
 1
+$ zzfeed -n 0 http://aurelio.net/feed/; echo $?
+0
 $ zzfeed -n 4 http://aurelio.net/feed/  #→ --lines 4
 
 # Via STDIN
