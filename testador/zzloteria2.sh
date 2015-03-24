@@ -43,7 +43,7 @@ lotomania:
    99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99
    99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99
    Concurso NUM (DATA)
-   Acumulado em R$ VALOR para DATA
+   Acumulado em R$ VALOR
      Faixa       Qtde.          Prêmio
      XX ptos     QTDE           VALOR
      XX ptos     QTDE           VALOR
@@ -96,7 +96,7 @@ TIME
 
 $
 
-$ zzloteria2 loteca | sed 's|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;s/[0-9.]\{1,\},[0-9]\{2\}/VALOR/;s/1ª/Pª/;3,20{s/[0-9]/N/g;s/Meio/ N/};22,23{s/1[432]   /FAIXA/;s/ [0-9]\{1,4\} */QTDE           /};3,16s/\(.\{15\}\)\(.\{57\}\)/\1TIME1                                              TIME2 /'
+$ zzloteria2 loteca | sed 's|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;s/ cinco / NUM /;s/ zero / NUM /;s/[0-9.]\{1,\},[0-9]\{2\}/VALOR/;s/1ª/Pª/;3,20{s/[0-9]/N/g;s/Meio/ N/};22,23{s/1[432]   /FAIXA/;s/ [.0-9]\{1,6\} */QTDE           /};3,16s/\(.\{15\}\)\(.\{57\}\)/\1TIME1                                              TIME2 /'
 loteca:
       Jogo     Coluna 1                                        Coluna 2     Coluna 
        N    N  TIME1                                              TIME2  N  Col.  N
@@ -116,7 +116,7 @@ loteca:
    Concurso NNN (DATA)
    Acumulado em R$ VALOR para DATA
    Acumulado para a Pª faixa VALOR
-   Acumulado para o proximo concurso de final cinco (NNN): R$ VALOR
+   Acumulado para o proximo concurso de final NUM (NNN): R$ VALOR
      Faixa       Qtde.          Prêmio
      FAIXA       QTDE           VALOR 
      FAIXA       QTDE           VALOR   
