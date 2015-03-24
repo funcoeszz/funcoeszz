@@ -37,7 +37,7 @@ zzbrasileirao ()
 {
 	zzzz -h brasileirao "$1" && return
 
-	test $(date +%Y%m%d) -lt 20150509 && { zztool erro " Brasileirão 2015 só a partir de 9 de Maio."; return 1; }
+	test $(date +%Y%m%d) -lt 20150509 && { zztool erro "Brasileirão 2015 só a partir de 9 de Maio."; return 1; }
 
 	local rodada serie ano urls
 	local url="http://esporte.uol.com.br/futebol"
