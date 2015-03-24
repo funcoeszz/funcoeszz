@@ -8,10 +8,11 @@
 #   -x STRING  String de preenchimento (padrão=" ")
 #
 # Uso: zzpad [-d | -e | -a] [-x STRING] <tamanho> [texto]
-# Ex.: zzpad -x "xyz" 32 "Teste"          # Testexyzxyzxyzxyzxyzxyzxyzxyzxyz
-#      zzpad -a -x "a" 12 "Teste"         # aaaTesteaaaa
-#      echo Teste | zzpad -l -x "abc" 20  # abcabcabcabcabcTeste
-#      cat arquivo.txt | zzpad -x "ou" 50
+# Ex.: zzpad -x 'NO' 21 foo     # fooNONONONONONONONONO
+#      zzpad -a -x '_' 9 foo    # ___foo___
+#      zzpad -d -x '♥' 9 foo    # foo♥♥♥♥♥♥
+#      zzpad -e -x '0' 9 123    # 000000123
+#      cat arquivo.txt | zzpad -x '_' 99
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-05-18
