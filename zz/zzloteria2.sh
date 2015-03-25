@@ -239,7 +239,7 @@ zzloteria2 ()
 					tr '|' '\n' |
 					sed 's/^ - //'
 				)
-				faixa=$(printf %b "\t1ª Sena\n\t1ª Quina\n\t1ª Quadra\n\n\t2ª Sena\n\t2ª Quina\n\t2ª Quadra\n")
+				faixa=$(printf %b "\t1a Sena\n\t1a Quina\n\t1a Quadra\n\n\t2a Sena\n\t2a Quina\n\t2a Quadra\n")
 				echo "$faixa" > "${cache}"
 				echo "$dump" | awk 'BEGIN {FS="|";OFS="\n"} {print $7,$26,$28,"",$9,$10,$13}' > "${cache}.num"
 				echo "$dump" | awk 'BEGIN {FS="|";OFS="\n"} {print $8,$27,$29,"",$11,$12,$14}' > "${cache}.val"
@@ -294,7 +294,7 @@ zzloteria2 ()
 					tr '|' '\n' |
 					sed 's/^ - //' > "${cache}.val"
 
-				zzseq -f "%dº Prêmio\n" 1 1 5 > $cache
+				zzseq -f "%do Prêmio\n" 1 1 5 > $cache
 
 				resultado=$(paste "$cache" "${cache}.num" "${cache}.val")
 				unset faixa resultado_num resultado_val
@@ -318,7 +318,7 @@ zzloteria2 ()
 				dump=$(     echo "$dump" | sed 's/[A-Z]|[A-Z]/-/g')
 				data=$(     echo "$dump" | awk -F"|" '{print $(NF-4)}' )
 				acumulado=$(echo "$dump" | awk -F"|" '{print $(NF-1) "|" $(NF)}' )
-				acumulado="${acumulado}_Acumulado para a 1ª faixa "$(echo "$dump" | awk -F"|" '{print $(NF-5)}' )
+				acumulado="${acumulado}_Acumulado para a 1a faixa "$(echo "$dump" | awk -F"|" '{print $(NF-5)}' )
 				acumulado="${acumulado}_"$(echo "$dump" | awk -F"|" '{print $(NF-2)}' )
 				acumulado=$(echo "${acumulado}" | sed 's/_/\
    /g;s/ Valor //' )

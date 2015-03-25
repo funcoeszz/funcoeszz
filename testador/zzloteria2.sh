@@ -21,20 +21,20 @@ megasena:
 
 $
 
-$ zzloteria2 duplasena | sed '2,3{s/[0-9][0-9]/99/g;};4{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;5,${s/[123]ª/Pª/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
+$ zzloteria2 duplasena | sed '2,3{s/[0-9][0-9]/99/g;};4{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;5,${s/[123]a/Pa/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
 duplasena:
    99 - 99 - 99 - 99 - 99 - 99 
    99 - 99 - 99 - 99 - 99 - 99 
    Concurso NUM (DATA)
    Acumulado em R$ VALOR para DATA
      Faixa       Qtde.          Prêmio
-     Pª Sena    QTDE           VALOR
-     Pª Quina   QTDE           VALOR
-     Pª Quadra  QTDE           VALOR
+     Pa Sena     QTDE           VALOR
+     Pa Quina    QTDE           VALOR
+     Pa Quadra   QTDE           VALOR
                  
-     Pª Sena    QTDE           VALOR
-     Pª Quina   QTDE           VALOR
-     Pª Quadra  QTDE           VALOR
+     Pa Sena     QTDE           VALOR
+     Pa Quina    QTDE           VALOR
+     Pa Quadra   QTDE           VALOR
 
 $
 
@@ -70,13 +70,13 @@ lotofacil:
 
 $
 
-$ zzloteria2 federal| sed '7{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;2,6{s/[1-5]º/Pº/;s/[0-9.]\{1,\}/NUMERO/;s/[0-9.,]\{1,\}/VALOR/;}'
+$ zzloteria2 federal| sed '7{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;2,6{s/[1-5]o /Po /;s/[0-9.]\{1,\}/NUMERO/;s/[0-9.,]\{1,\}/VALOR/;}'
 federal:
-   Pº Prêmio	NUMERO	VALOR
-   Pº Prêmio	NUMERO	VALOR
-   Pº Prêmio	NUMERO	VALOR
-   Pº Prêmio	NUMERO	VALOR
-   Pº Prêmio	NUMERO	VALOR
+   Po Prêmio	NUMERO	VALOR
+   Po Prêmio	NUMERO	VALOR
+   Po Prêmio	NUMERO	VALOR
+   Po Prêmio	NUMERO	VALOR
+   Po Prêmio	NUMERO	VALOR
    Concurso NUM (DATA)
 
 $
@@ -96,7 +96,7 @@ TIME
 
 $
 
-$ zzloteria2 loteca | sed 's|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;s/ cinco / NUM /;s/ zero / NUM /;s/[0-9.]\{1,\},[0-9]\{2\}/VALOR/;s/1ª/Pª/;3,20{s/[0-9]/N/g;s/Meio/ N/;};22,23{s/1[432]   /FAIXA/;s/ [.0-9]\{1,6\} */QTDE           /;};3,16s/\(.\{15\}\)\(.\{57\}\)/\1TIME1                                              TIME2 /'
+$ zzloteria2 loteca | sed 's|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;s/ cinco / NUM /;s/ zero / NUM /;s/[0-9.]\{1,\},[0-9]\{2\}/VALOR/;s/1a /Pa /;3,20{s/[0-9]/N/g;s/Meio/ N/;};22,23{s/1[432]   /FAIXA/;s/ [.0-9]\{1,6\} */QTDE           /;};3,16s/\(.\{15\}\)\(.\{57\}\)/\1TIME1                                              TIME2 /'
 loteca:
       Jogo     Coluna 1                                        Coluna 2     Coluna 
        N    N  TIME1                                              TIME2  N  Col.  N
@@ -115,7 +115,7 @@ loteca:
        NN   N  TIME1                                              TIME2  N  Col.  N
    Concurso NNN (DATA)
    Acumulado em R$ VALOR para DATA
-   Acumulado para a Pª faixa VALOR
+   Acumulado para a Pa faixa VALOR
    Acumulado para o proximo concurso de final NUM (NNN): R$ VALOR
      Faixa       Qtde.          Prêmio
      FAIXA       QTDE           VALOR 
@@ -142,7 +142,7 @@ loteca:
        14   1  AMERICA/MG                                   ATLETICO/MG  2  Col.  2
    Concurso 500 (05/03/2012)
    Acumulado em R$ 300.000,00 para 12/03/2012
-   Acumulado para a 1ª faixa 0,00
+   Acumulado para a 1a faixa 0,00
    Acumulado para o proximo concurso de final cinco (505): R$ 91.107,15
      Faixa       Qtde.          Prêmio
      14           93            9.644,55 
@@ -167,11 +167,11 @@ $
 
 $ zzloteria2 federal 2500
 federal:
-   1º Prêmio	66.069	200.000,00
-   2º Prêmio	77.589	8.000,00
-   3º Prêmio	60.325	5.000,00
-   4º Prêmio	03.547	4.000,00
-   5º Prêmio	48.642	2.000,00
+   1o Prêmio	66.069	200.000,00
+   2o Prêmio	77.589	8.000,00
+   3o Prêmio	60.325	5.000,00
+   4o Prêmio	03.547	4.000,00
+   5o Prêmio	48.642	2.000,00
    Concurso 02500 (11/01/1989)
 
 $
@@ -183,13 +183,13 @@ duplasena:
    Concurso 1000 (06/09/2011)
    Acumulado em R$ 1.950.000,00 para 09/09/2011
      Faixa       Qtde.          Prêmio
-     1ª Sena    0              0,00
-     1ª Quina   55             2.224,60
-     1ª Quadra  2368           49,20
+     1a Sena     0              0,00
+     1a Quina    55             2.224,60
+     1a Quadra   2368           49,20
                  
-     2ª Sena    1              163.137,83
-     2ª Quina   77             1.589,00
-     2ª Quadra  2560           45,51
+     2a Sena     1              163.137,83
+     2a Quina    77             1.589,00
+     2a Quadra   2560           45,51
 
 $
 
