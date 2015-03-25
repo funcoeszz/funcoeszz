@@ -30,7 +30,7 @@ do
 		grep -v '^[ 	]*#' $f |
 		grep 'zz[a-z]' |
 		grep -v '()$' |
-		grep -o 'zz[a-z0-9]*' |
+		egrep -o 'zz[a-z0-9]+' |
 		egrep -v 'zztool|zzzz' |
 		sort |
 		uniq)

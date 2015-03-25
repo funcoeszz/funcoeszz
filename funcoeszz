@@ -569,7 +569,7 @@ zzzz ()
 			fi
 
 			# Se o usuário informou a opção de ajuda, mostre o texto
-			if test "$arg_func" = '-h' -o "$arg_func" = '--help'
+			if test '-h' = "$arg_func" -o '--help' = "$arg_func"
 			then
 				# Um xunxo bonito: filtra a saída da zzajuda, mostrando
 				# apenas a função informada.

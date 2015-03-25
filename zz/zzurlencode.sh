@@ -8,7 +8,7 @@
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2013-03-19
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzurlencode ()
@@ -18,7 +18,7 @@ zzurlencode ()
 	local string
 	local caractere
 	local nl=$(printf '\n')
-	local nao_converter='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.-'
+	local nao_converter='-ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.'
 
 	# Se foram passados 3 ou mais parâmetros, mostra mensagem de uso.
 	if test $# -ge 3; then
@@ -46,7 +46,7 @@ zzurlencode ()
 		else
 			# Não usei zztool grep_var porque ele considera ?
 			# caractere especial (glob)
-			if printf "$nao_converter" | fgrep "$caractere" > /dev/null
+			if printf %s "$nao_converter" | fgrep "$caractere" > /dev/null
 			then
 				printf "$caractere"
 			else

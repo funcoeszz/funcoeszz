@@ -11,7 +11,7 @@
 # Desde: 2013-03-22
 # Versão: 7
 # Licença: GPL
-# Requisitos: zzcapitalize zzwikipedia zzxml
+# Requisitos: zzcapitalize zzwikipedia zzxml zzpad
 # ----------------------------------------------------------------------------
 zzquimica ()
 {
