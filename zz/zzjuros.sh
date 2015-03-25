@@ -12,6 +12,7 @@
 # Desde: 2013-05-06
 # Versão: 2
 # Licença: GPL
+# Requisitos: zzxml zzunescape
 # ----------------------------------------------------------------------------
 zzjuros ()
 {
