@@ -14,7 +14,7 @@
 # Desde: 2009-10-04
 # Versão: 9
 # Licença: GPL
-# Requisitos: zzseq zzjuntalinhas
+# Requisitos: zzseq zzjuntalinhas zzdatafmt
 # ----------------------------------------------------------------------------
 zzloteria2 ()
 {
@@ -301,7 +301,7 @@ zzloteria2 ()
 			timemania)
 				data=$(     echo "$dump" | cut -d '|' -f 2)
 				acumulado=$(echo "$dump" | cut -d '|' -f 24)
-				acumulado=${acumulado}"|"$(echo "$dump" | cut -d '|' -f 23)
+				acumulado=${acumulado}"|"$(echo "$dump" | cut -d '|' -f 23 | zzdatafmt)
 				resultado=$(echo "$dump" | cut -d '|' -f 8 |
 					tr '*' '-'  |
 					tr '|' '\n' |
@@ -351,6 +351,7 @@ zzloteria2 ()
 		then
 			zztool eco $tipo:
 			echo "$resultado" | sed 's/^/   /'
+			data=$(echo "$data" | zzdatafmt)
 			echo "   Concurso $numero_concurso ($data)"
 			test -n "$acumulado" && echo "   Acumulado em R$ $acumulado" | sed 's/|/ para /'
 			if test -n "$faixa"
