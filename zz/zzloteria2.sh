@@ -12,7 +12,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzseq zzjuntalinhas
 # ----------------------------------------------------------------------------
@@ -25,6 +25,7 @@ zzloteria2 ()
 	local url='http://www1.caixa.gov.br/loterias/loterias'
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
 	local cache=$(zztool cache loteria2)
+	local tab=$(printf '\t')
 
 	if which links >/dev/null 2>&1
 	then
@@ -341,7 +342,7 @@ zzloteria2 ()
 				esac
 				echo "$faixa" > "${cache}"
 				echo "$dump" | cut -d '|' -f 5 | sed 's/ [123].\{1,2\} (1[234] acertos)/\
-/g;' | sed '1d' | sed 's/[0-9] /&\t/g' > "${cache}.num"
+/g;' | sed '1d' | sed "s/[0-9] /&${tab}/g" > "${cache}.num"
 				echo '' > "${cache}.val"; echo '' >> "${cache}.val"
 			;;
 		esac
