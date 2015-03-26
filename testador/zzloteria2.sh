@@ -43,7 +43,7 @@ lotomania:
    99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99
    99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99
    Concurso NUM (DATA)
-   Acumulado em R$ VALOR
+   Acumulado em R$ VALOR para DATA
      Faixa       Qtde.          Prêmio
      XX ptos     QTDE           VALOR
      XX ptos     QTDE           VALOR
