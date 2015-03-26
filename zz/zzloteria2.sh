@@ -89,7 +89,7 @@ zzloteria2 ()
 				# |01|04|06|12|21|25|27|36|42|44|50|51|53|59|68|69|74|78|87|91|91|
 
 				data=$(     echo "$dump" | cut -d '|' -f 42)
-				acumulado=$(echo "$dump" | cut -d '|' -f 70)
+				acumulado=$(echo "$dump "| awk -F "|" '{print $69 "|" $70}')
 				resultado=$(echo "$dump" | cut -d '|' -f 7-26 |
 					sed 's/|/@/10 ; s/|/ - /g' |
 					tr @ '\n'
