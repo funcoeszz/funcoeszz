@@ -100,7 +100,7 @@ zzloteria2 ()
 				if ! test -e ${ZZTMP}.lotomania.htm || ! $(grep "^$num_com " ${ZZTMP}.lotomania.htm >/dev/null)
 				then
 					wget -q "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotoma.zip" -O "${ZZTMP}.lotomania.zip" 2>/dev/null
-					unzip -q -o -d "${ZZTMP%/*}" "${ZZTMP}.lotomania.zip" 2>/dev/null
+					unzip -q -o "${ZZTMP}.lotomania.zip" -d "${ZZTMP%/*}" 2>/dev/null
 					mv "${ZZTMP%/*}/D_LOTMAN.HTM" ${ZZTMP}.lotomania.htm
 					rm -f ${ZZTMP}.lotomania.zip ${ZZTMP%/*}/*.GIF
 				fi
@@ -169,7 +169,7 @@ zzloteria2 ()
 					if ! test -e ${ZZTMP}.lotofacil.htm || ! $(grep "^$num_com " ${ZZTMP}.lotofacil.htm >/dev/null)
 					then
 						wget -q "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip" -O "${ZZTMP}.lotofacil.zip" 2>/dev/null
-						unzip -q -o -d "${ZZTMP%/*}" "${ZZTMP}.lotofacil.zip" 2>/dev/null
+						unzip -q -o "${ZZTMP}.lotofacil.zip" -d "${ZZTMP%/*}" 2>/dev/null
 						mv "${ZZTMP%/*}/D_LOTFAC.HTM" ${ZZTMP}.lotofacil.htm
 						rm -f ${ZZTMP}.lotofacil.zip ${ZZTMP%/*}/*.GIF
 					fi
@@ -213,7 +213,7 @@ zzloteria2 ()
 					if ! test -e ${ZZTMP}.mega.htm || ! $(grep "^$num_com " ${ZZTMP}.mega.htm >/dev/null)
 					then
 						wget -q "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_mgsasc.zip" -O "${ZZTMP}.mega.zip" 2>/dev/null
-						unzip -q -o -d "${ZZTMP%/*}" "${ZZTMP}.mega.zip" 2>/dev/null
+						unzip -q -o "${ZZTMP}.mega.zip" -d "${ZZTMP%/*}" 2>/dev/null
 						mv "${ZZTMP%/*}/d_megasc.htm" ${ZZTMP}.mega.htm
 						rm -f ${ZZTMP}.mega.zip ${ZZTMP%/*}/*.GIF
 					fi
@@ -265,7 +265,7 @@ zzloteria2 ()
 					if ! test -e ${ZZTMP}.quina.htm || ! $(grep "^$num_com " ${ZZTMP}.quina.htm >/dev/null)
 					then
 						wget -q "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_quina.zip" -O "${ZZTMP}.quina.zip" 2>/dev/null
-						unzip -q -o -d "${ZZTMP%/*}" "${ZZTMP}.quina.zip" 2>/dev/null
+						unzip -q -o "${ZZTMP}.quina.zip" -d "${ZZTMP%/*}" 2>/dev/null
 						mv "${ZZTMP%/*}/D_QUINA.HTM" ${ZZTMP}.quina.htm
 						rm -f ${ZZTMP}.quina.zip ${ZZTMP%/*}/*.GIF
 					fi
