@@ -15,7 +15,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-02-26
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas zztrim
 # ----------------------------------------------------------------------------
@@ -113,7 +113,13 @@ zzdicportugues ()
 	*)
 		echo "$conteudo" |
 		awk '/'"$ini"'/, /'"$fim"'/ ' |
-			sed "1d;/^Definição de /d;" |
+			sed "
+				1d
+				/^Definição de /d
+				/^Sinônimos de /{N;d;}
+				/Mais sinônimos /d
+				/^Antônimos de /{N;d;}
+				/Mais antônimos /d" |
 			zztrim
 	;;
 	esac
