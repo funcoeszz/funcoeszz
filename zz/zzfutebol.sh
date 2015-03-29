@@ -43,6 +43,7 @@ zzfutebol ()
 	awk -F "[_]+" '
 		{
 			if ($0 ~ /[0-9]h[0-9]/) {
+				sub(/Amistoso.*/,"Amistoso")
 				printf $0
 			}
 			else {
