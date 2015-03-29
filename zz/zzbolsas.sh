@@ -46,14 +46,14 @@
 #      zzbolsas volume           # Lista ações em alta em volume de negócios
 #      zzbolsas taxas_fixas
 #      zzbolsas taxas_cruzadas
-#      zzbolsas noticias         # Noticias recentes do mercado financeiro
-#      zzbolsas vs petr3.sa vale5.sa # Compara ambas cotações
+#      zzbolsas noticias sbsp3.sa    # Noticias recentes no mercadp da Sabesp
+#      zzbolsas vs petr3.sa vale3.sa # Compara ambas cotações
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 21
+# Versão: 22
 # Licença: GPL
-# Requisitos: zzmaiusculas zzsemacento zzdatafmt zzuniq
+# Requisitos: zzmaiusculas zzsemacento zzdatafmt
 # ----------------------------------------------------------------------------
 zzbolsas ()
 {
@@ -188,22 +188,6 @@ zzbolsas ()
 				zztool eco "CLP - Peso Chileno"
 				zztool eco "PEN - Nuevo Sol (Peru)"
 			;;
-			not[íi]cias | economia | pol[íi]tica | servi[çc]os)
-				case "$1" in
-				economia | pol[íi]tica) vartemp=$($ZZWWWDUMP "$url/noticias/categoria-economia-politica-governo") ;;
-				servi[çc]os) vartemp=$($ZZWWWDUMP "$url/noticias/setor-servicos") ;;
-				not[íi]cias)
-					zztool eco "Economia - Política - Governo"
-					zzbolsas economia
-					zztool eco "Setor de Serviços"
-					zzbolsas servicos
-					return
-				;;
-				esac
-				echo "$vartemp" |
-				sed -n '/^[[:space:]]\{1,\}.*atrás[[:space:]]*$/p;/^[[:space:]]\{1,\}.*BRT[[:space:]]*$/p' |
-				sed 's/^[[:space:]]\{1,\}//g' | zzuniq
-			;;
 			volume | alta | baixa)
 				case "$1" in
 					volume) pag='actives';;
@@ -216,17 +200,17 @@ zzbolsas ()
 				sed '1d;s/Down /-/g;s/ de /-/g;s/Up /+/g;s/Gráfico, .*//g' |
 				sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
 				awk 'BEGIN {
-							printf "%-10s  %-24s  %-24s  %-18s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
+							printf "%-15s  %-24s  %-24s  %-19s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
 						}
 					{
 						if (NF > 6) {
 							nome = ""
-							printf "%-10s ", $1;
+							printf "%-15s ", $1;
 							for(i=2; i<=NF-5; i++) {nome = nome sprintf( "%s ", $i)};
 							printf " %-24s ", nome;
 							for(i=NF-4; i<=NF-3; i++) printf " %-8s ", $i;
 							printf "  "
-							printf " %-6s ", $(NF-2); printf " %-9s ", $(NF-1);
+							printf " %-7s ", $(NF-2); printf " %-9s ", $(NF-1);
 							printf " %11s", $NF
 							print ""
 						}
@@ -298,7 +282,7 @@ zzbolsas ()
 				done
 
 			# Valores de uma bolsa ou ação em uma data especificada (histórico)
-			elif zztool testa_data $(zzdatafmt "$2")
+			elif zztool testa_data $(zzdatafmt "$2" 2>/dev/null)
 			then
 				vartemp=$(zzdatafmt -f "DD MM AAAA DD/MM/AAAA" "$2")
 				dd=$(echo $vartemp | cut -f1 -d ' ')
