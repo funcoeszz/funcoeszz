@@ -20,12 +20,12 @@ EH -- Western Sahara
 YE -- Yemen
 ZM -- Zambia
 ZW -- Zimbabwe
-$ zzhoracerta rio grande do sul | sed 's/[0-9]/N/g; s/^N:/NN:/; s/ [AP]M$//; s/.* NN, NNNN$/DATA/'
+$ zzhoracerta rio grande do sul | sed 's/[0-9]/N/g; s/ N:/NN:/; s/ [AP]M$//; s/.* N\{1,2\}, NNNN$/DATA/'
 Rio Grande do Sul, Brazil
 
 The current time and date right now
 
-   N:NN
+   NN:NN
 DATA
    Brasilia Time (BRT) -NNNN UTC
 DATA
