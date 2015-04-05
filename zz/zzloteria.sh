@@ -31,7 +31,7 @@ zzloteria ()
 	then
 		ZZWWWDUMP2='links -dump'
 	else
-		zztool erro 'Instale o navegador de modo texto "links", "links2" ou "elinks".'
+		zztool erro 'Para esta função funcionar, é necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'
 		return 1
 	fi
 
