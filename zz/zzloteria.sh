@@ -5,26 +5,26 @@
 # Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
 # Se nenhum argumento for passado, todas as loterias são mostradas.
 #
-# Uso: zzloteria2 [[loteria suportada] concurso]
-# Ex.: zzloteria2
-#      zzloteria2 quina megasena
-#      zzloteria2 loteca 550
+# Uso: zzloteria [[loteria suportada] concurso]
+# Ex.: zzloteria
+#      zzloteria quina megasena
+#      zzloteria loteca 550
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
-# Desde: 2009-10-04
+# Desde: 2004-05-18
 # Versão: 10
 # Licença: GPL
 # Requisitos: zzseq zzjuntalinhas zzdatafmt
 # ----------------------------------------------------------------------------
-zzloteria2 ()
+zzloteria ()
 {
-	zzzz -h loteria2 "$1" && return
+	zzzz -h loteria "$1" && return
 
 	local dump numero_concurso data resultado acumulado tipo ZZWWWDUMP2
 	local resultado_val resultado_num num_con sufixo faixa
 	local url='http://www1.caixa.gov.br/loterias/loterias'
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
-	local cache=$(zztool cache loteria2)
+	local cache=$(zztool cache loteria)
 	local tab=$(printf '\t')
 
 	if which links >/dev/null 2>&1

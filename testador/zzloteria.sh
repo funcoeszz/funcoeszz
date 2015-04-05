@@ -1,4 +1,4 @@
-$ zzloteria2 quina | sed '2{s/[0-9][0-9]/99/g;};3{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;4,${s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
+$ zzloteria quina | sed '2{s/[0-9][0-9]/99/g;};3{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;4,${s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
 quina:
    99 - 99 - 99 - 99 - 99 
    Concurso NUM (DATA)
@@ -9,7 +9,7 @@ quina:
      Terno       QTDE           VALOR
 
 $
-$ zzloteria2 megasena | sed '2{s/[0-9][0-9]/99/g;};3{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;4,${s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
+$ zzloteria megasena | sed '2{s/[0-9][0-9]/99/g;};3{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;4,${s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
 megasena:
    99 - 99 - 99 - 99 - 99 - 99 
    Concurso NUM (DATA)
@@ -21,7 +21,7 @@ megasena:
 
 $
 
-$ zzloteria2 duplasena | sed '2,3{s/[0-9][0-9]/99/g;};4{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;5,${s/[123]a/Pa/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
+$ zzloteria duplasena | sed '2,3{s/[0-9][0-9]/99/g;};4{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;5,${s/[123]a/Pa/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
 duplasena:
    99 - 99 - 99 - 99 - 99 - 99 
    99 - 99 - 99 - 99 - 99 - 99 
@@ -38,7 +38,7 @@ duplasena:
 
 $
 
-$ zzloteria2 lotomania | sed '2,3{s/[0-9][0-9]/99/g;};4{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;5,${s/[ 12][09876] ptos/XX ptos/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
+$ zzloteria lotomania | sed '2,3{s/[0-9][0-9]/99/g;};4{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;5,${s/[ 12][09876] ptos/XX ptos/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
 lotomania:
    99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99
    99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99 - 99
@@ -54,7 +54,7 @@ lotomania:
 
 $
 
-$ zzloteria2 lotofacil | sed '2,4{s/[0-9][0-9]/99/g;};5{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;6,${s/1[1-5] ptos/XX ptos/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
+$ zzloteria lotofacil | sed '2,4{s/[0-9][0-9]/99/g;};5{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;6,${s/1[1-5] ptos/XX ptos/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
 lotofacil:
    99 - 99 - 99 - 99 - 99
    99 - 99 - 99 - 99 - 99
@@ -70,7 +70,7 @@ lotofacil:
 
 $
 
-$ zzloteria2 federal| sed '7{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;2,6{s/[1-5]o /Po /;s/[0-9.]\{1,\}/NUMERO/;s/[0-9.,]\{1,\}/VALOR/;}'
+$ zzloteria federal| sed '7{s/[0-9]\{1,\}/NUM/;};s|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;2,6{s/[1-5]o /Po /;s/[0-9.]\{1,\}/NUMERO/;s/[0-9.,]\{1,\}/VALOR/;}'
 federal:
    Po Prêmio	NUMERO	VALOR
    Po Prêmio	NUMERO	VALOR
@@ -81,7 +81,7 @@ federal:
 
 $
 
-$ zzloteria2 timemania | sed '2{s/[0-9][0-9]/99/g;};3s/^ *Time:.*/TIME/;4{s/[0-9]\{1,\}/NUM/;};s|[0-9]\{1,2\}/[0-9]\{1,2\}/[0-9][0-9][0-9][0-9]|DATA|;5,${s/[3-7] ptos/X ptos/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
+$ zzloteria timemania | sed '2{s/[0-9][0-9]/99/g;};3s/^ *Time:.*/TIME/;4{s/[0-9]\{1,\}/NUM/;};s|[0-9]\{1,2\}/[0-9]\{1,2\}/[0-9][0-9][0-9][0-9]|DATA|;5,${s/[3-7] ptos/X ptos/;s/ [0-9.]\{1,\} \{1,\}/ QTDE           /;s/ [0-9.,]\{1,\}/ VALOR/;}'
 timemania:
    99 - 99 - 99 - 99 - 99 - 99 - 99 
 TIME
@@ -96,7 +96,7 @@ TIME
 
 $
 
-$ zzloteria2 loteca | sed 's|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;s/ cinco / NUM /;s/ zero / NUM /;s/[0-9.]\{1,\},[0-9]\{2\}/VALOR/;s/1a /Pa /;3,20{s/[0-9]/N/g;s/Meio/ N/;};22,23{s/1[432]   /FAIXA/;s/ [.0-9]\{1,6\} */QTDE           /;};3,16s/\(.\{15\}\)\(.\{57\}\)/\1TIME1                                              TIME2 /'
+$ zzloteria loteca | sed 's|[0-9][0-9]/[0-9][0-9]/[0-9][0-9][0-9][0-9]|DATA|;s/ cinco / NUM /;s/ zero / NUM /;s/[0-9.]\{1,\},[0-9]\{2\}/VALOR/;s/1a /Pa /;3,20{s/[0-9]/N/g;s/Meio/ N/;};22,23{s/1[432]   /FAIXA/;s/ [.0-9]\{1,6\} */QTDE           /;};3,16s/\(.\{15\}\)\(.\{57\}\)/\1TIME1                                              TIME2 /'
 loteca:
       Jogo     Coluna 1                                        Coluna 2     Coluna 
        N    N  TIME1                                              TIME2  N  Col.  N
@@ -123,7 +123,7 @@ loteca:
 
 $
 
-$ zzloteria2 loteca 500
+$ zzloteria loteca 500
 loteca:
       Jogo     Coluna 1                                        Coluna 2     Coluna 
        1    1  SANTOS/SP                                 CORINTHIANS/SP  0  Col.  1
@@ -150,7 +150,7 @@ loteca:
 
 $
 
-$ zzloteria2 timemania 600
+$ zzloteria timemania 600
 timemania:
    13 - 19 - 27 - 29 - 42 - 44 - 57 
    Time: YPIRANGA/AP
@@ -165,7 +165,7 @@ timemania:
 
 $
 
-$ zzloteria2 federal 2500
+$ zzloteria federal 2500
 federal:
    1o Prêmio	66.069	200.000,00
    2o Prêmio	77.589	8.000,00
@@ -176,7 +176,7 @@ federal:
 
 $
 
-$ zzloteria2 duplasena 1000
+$ zzloteria duplasena 1000
 duplasena:
    07 - 09 - 18 - 42 - 45 - 46 
    03 - 13 - 31 - 32 - 36 - 39 
@@ -193,7 +193,7 @@ duplasena:
 
 $
 
-$ zzloteria2 quina 3000
+$ zzloteria quina 3000
 quina:
    02 - 21 - 31 - 37 - 57
    Concurso 3000 (20/09/2012)
@@ -205,7 +205,7 @@ quina:
 
 $
 
-$ zzloteria2 megasena 1111
+$ zzloteria megasena 1111
 megasena:
    04 - 09 - 25 - 32 - 33 - 43
    Concurso 1111 (23/09/2009)
@@ -217,7 +217,7 @@ megasena:
 
 $
 
-$ zzloteria2 lotomania 750
+$ zzloteria lotomania 750
 lotomania:
    04 - 07 - 19 - 22 - 24 - 30 - 38 - 41 - 45 - 53
    57 - 66 - 68 - 72 - 75 - 77 - 80 - 83 - 92 - 94
@@ -233,7 +233,7 @@ lotomania:
 
 $
 
-$ zzloteria2 lotofacil 1099
+$ zzloteria lotofacil 1099
 lotofacil:
    02 - 03 - 06 - 07 - 08
    11 - 12 - 13 - 14 - 16
