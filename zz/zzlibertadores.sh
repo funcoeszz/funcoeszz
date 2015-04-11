@@ -35,9 +35,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 10
+# Versão: 11
 # Licença: GPL
-# Requisitos: zzecho
+# Requisitos: zzecho zzpad
 # ----------------------------------------------------------------------------
 zzlibertadores ()
 {
@@ -45,14 +45,18 @@ zzlibertadores ()
 
 	local ano=$(date +%Y)
 	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/jogos"
+	local awk_jogo='
+		NR % 3 == 1 { time1=$0 }
+		NR % 3 == 2 { if ($NF ~ /^[0-9]$/) { reserva=$NF " "; $NF=""; } else reserva=""; time2=reserva $0 }
+		NR % 3 == 0 { sub(/  *$/,""); print time1 "|" time2 "|" $0 }
+		'
 	local sed_mata='
 		1d; $d
-		/Confronto/d; /pós jogo/d
-		/^ *$/d; s/^ *//; s/_//g;
-		s/[A-Z][A-Z][A-Z] //; s/ [A-Z][A-Z][A-Z]//
+		/Confronto/d;/^ *$/d;
+		s/pós[ -]jogo//; s/^ *//; s/__*//g; s/[A-Z][A-Z][A-Z] //;
 		s/\([0-9]\{1,\}\) *pênaltis *\([0-9]\{1,\}\)\(.*\) X \(.*$\)/\3 (\1 X \2) \4/g
 	'
-	local grupo
+	local time1 time2 horario linha
 
 	test -n "$1" || { zztool -e uso libertadores; return 1; }
 
@@ -63,8 +67,14 @@ zzlibertadores ()
 	1 | pr[eé] | primeira)
 		$ZZWWWDUMP "$url" | sed -n '/PRIMEIRA FASE/,/SEGUNDA/p' |
 		sed "$sed_mata" |
-		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}' |
-		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+		awk "$awk_jogo" |
+		while read linha
+		do
+			time1=$(  echo $linha | cut -d"|" -f 1 )
+			time2=$(  echo $linha | cut -d"|" -f 2 )
+			horario=$(echo $linha | cut -d"|" -f 3 )
+			echo "$(zzpad -l 28 $time1) X $(zzpad -r 28 $time2) $horario"
+		done
 	;;
 	# Fase 2 (Fase de Grupos)
 	2 | grupos | segunda)
@@ -77,7 +87,15 @@ zzlibertadores ()
 	3 | oitavas)
 		$ZZWWWDUMP "$url" | sed -n '/^OITAVAS DE FINAL/,/^ *\*/p' |
 		sed "$sed_mata" |
-		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
+		sed 's/.*\([0-9]º\)/\1/' |
+		awk "$awk_jogo" |
+		while read linha
+		do
+			time1=$(  echo $linha | cut -d"|" -f 1 )
+			time2=$(  echo $linha | cut -d"|" -f 2 )
+			horario=$(echo $linha | cut -d"|" -f 3 )
+			echo "$(zzpad -l 28 $time1) X $(zzpad -r 28 $time2) $horario"
+		done
 	;;
 	4 | quartas)
 		$ZZWWWDUMP "$url" | sed -n '/^Quartas de Final/,/^Oitavas de Final/p' |
@@ -99,13 +117,23 @@ zzlibertadores ()
 	# Escolhendo o grupo para os jogos
 	if test "$1" = "-g" && zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 	then
-		grupo="$2"
 		echo "Grupo $2"
-		$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Grupo /p" |
-		sed '/Classificados para as oitavas de final/,$d;/pós jogo/d;s/^ *//' | sed -n '/ X /{N;p;}' |
-		sed 's/[A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//; s/ *_* X _* */ X /g' |
-		awk '{if (NR%2==0){print} else {printf "%-60s ", $0}}' |
-		awk 'BEGIN {FS="( X )|( {4,})"} {if (NF>=2){printf "%29s X %-29s %s\n", $1, $2, $3} else print }'
+		$ZZWWWDUMP "$url" |
+		sed -n "/^ *Grupo $2/,/Grupo /p" |
+		sed '
+			/Rodada [2-9]/d;
+			/Classificados para as oitavas de final/,$d
+			1,5d' |
+		sed "$sed_mata" |
+		awk "$awk_jogo" |
+		sed 's/\(h[0-9][0-9]\).*$/\1/' |
+		while read linha
+		do
+			time1=$(  echo $linha | cut -d"|" -f 1 )
+			time2=$(  echo $linha | cut -d"|" -f 2 )
+			horario=$(echo $linha | cut -d"|" -f 3 )
+			echo "$(zzpad -l 28 $time1) X $(zzpad -r 28 $time2) $horario"
+		done
 	fi
 
 	# Mostrando a classificação (Fase de grupos)
