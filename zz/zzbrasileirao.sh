@@ -29,9 +29,9 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 21
+# Versão: 22
 # Licença: GPL
-# Requisitos: zzxml zzlimpalixo zztac zzecho
+# Requisitos: zzecho zzpad
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
@@ -39,59 +39,19 @@ zzbrasileirao ()
 
 	test $(date +%Y%m%d) -lt 20150509 && { zztool erro "Brasileirão 2015 só a partir de 9 de Maio."; return 1; }
 
-	local rodada serie ano urls
+	local rodada serie ano time1 time2 horario linha num_linha
 	local url="http://esporte.uol.com.br/futebol"
 
 	test $# -gt 2 && { zztool -e uso brasileirao; return 1; }
 
 	serie='a'
-	test "$1" = "a" -o "$1" = "b" -o "$1" = "c" -o "$1" = "d" && { serie="$1"; shift; }
+	case $1 in
+	a | b | c | d) serie="$1"; shift;;
+	esac
 
-	if test "$1" = "-l"
+	if test -n "$1"
 	then
-		if test -n "$2"
-		then
-			awk 'BEGIN { printf "%-14s  %-20s  %-43s %s\n", "     Data","     Campeonato","             Jogos","     Local"}'
-			for urls in resultados proximos-jogos
-			do
-				$ZZWWWDUMP "${url}/times/$2/${urls}" | sed -n "/Data .*Campeonato/,/Comunicar erro/{/pós jogo/d;p;}" | zzlimpalixo |
-				awk 'BEGIN { split("",jogo) }
-				{
-					if (length(jogo)>0 && ( $2 ~ /[0-9][0-9]h[0-9][0-9]/ || $0 ~ /Comunicar erro/))
-					{
-						printf "%-35s  %-43s  %s\n", jogo["data"], jogo["times"], jogo["estadio"] (length(jogo)==4 ? " (" jogo["cidade"] ")" :  "")
-						split("",jogo)
-					}
-					pular = 0
-					if ($2 ~ /[0-9][0-9]h[0-9][0-9]/) { sub(/^/,"   ",$3); sub(/^ */,""); jogo["data"] = $0 }
-					if ($0 ~ / X /) { sub(/^ */,""); sub(/^[A-Z]{3}/,""); sub(/[A-Z]{3}$/,""); jogo["times"] = $0}
-					{
-						if (length(jogo)==2) { getline; sub(/^ */,""); jogo["estadio"] = $0; pular = 1 }
-					}
-					{
-						if (length(jogo)==3 && pular == 0) { sub(/^ */,""); jogo["cidade"] = $0 }
-					}
-				}' |
-				if test $urls = 'resultados'
-				then
-					zztac
-				else
-					cat -
-				fi
-				echo
-			done
-			return 0
-		else
-			$ZZWWWHTML "$url" | zzxml --tidy |
-			sed -n '/<li class="serie-[ab] [^>]*>/p;' |
-			awk '{print $3}' | sort
-			return 0
-		fi
-	else
-		if test -n "$1"
-		then
-			zztool testa_numero "$1" && rodada="$1" || { zztool -e uso brasileirao; return 1; }
-		fi
+		zztool testa_numero "$1" && rodada="$1" || { zztool -e uso brasileirao; return 1; }
 	fi
 
 	test "$serie" = "a" && url="${url}/campeonatos/brasileirao/jogos" || url="${url}/campeonatos/serie-${serie}/jogos"
@@ -99,93 +59,84 @@ zzbrasileirao ()
 	if test -n "$rodada"
 	then
 		zztool testa_numero $rodada || { zztool -e uso brasileirao; return 1; }
-		$ZZWWWDUMP $url | sed '/pós jogo/d;/ X /s/^/\
-/;' |
-		awk 'BEGIN { FS=" X " }
-			/Rodada '$rodada'$/,/(Rodada '$((rodada+1))'|Zona)/ {
-				if (NF >= 2) {
-					time1 = $1; sub(/^ */,"", time1); sub(/^[A-Z]{3}/,"", time1); sub(/ *$/,"", time1)
-					time2 = $2; sub(/^ */,"", time2); sub(/[A-Z]{3}$/,"", time2); sub(/ *$/,"", time2)
-					getline; sub(/^ */,""); data = $0
-					printf "%20s  X  %-20s  %s\n", time1, time2, data
-				}
-			}
-		' | sed '/^ *$/d'
+		$ZZWWWDUMP "$url" |
+		sed -n "/Rodada ${rodada}$/,/\(Rodada\|^ *$\)/p" |
+		sed '
+		/Rodada /d
+		s/^ *//
+		/[0-9]h[0-9]/{s/pós[ -]jogo//; s/\(h[0-9][0-9]\).*/\1/;}
+		s/[A-Z][A-Z][A-Z]//
+		s/ *__*//' |
+		awk '
+			NR % 3 == 1 { time1=$0 }
+			NR % 3 == 2 { if ($NF ~ /^[0-9]$/) { reserva=$NF " "; $NF=""; } else reserva=""; time2=reserva $0 }
+			NR % 3 == 0 { sub(/  *$/,""); print time1 "|" time2 "|" $0 }
+		' |
+		sed '/^ *$/d' |
+		while read linha
+		do
+			time1=$(  echo $linha | cut -d"|" -f 1 )
+			time2=$(  echo $linha | cut -d"|" -f 2 )
+			horario=$(echo $linha | cut -d"|" -f 3 )
+			echo "$(zzpad -l 22 $time1) X $(zzpad -r 22 $time2) $horario"
+		done
 	else
 		zztool eco $(echo "Série $serie" | tr 'abcd' 'ABCD')
 		if test "$serie" = "c" -o "$serie" = "d"
 		then
-			$ZZWWWDUMP $url |
-			awk -v cor_awk="$ZZCOR" -v serie_awk=$serie '
-			/Grupo (A|B)/,/10°/ { if (serie_awk=="c") {
-				cor="\033[m"
-				if (cor_awk==1) {
-					if ($1 ~ /9°/ || $1 ~ /10°/) { cor="\033[41;30m" }
-					else if ($1 ~ /[1-4]°/) { cor="\033[42;30m" }
-					else { cor="\033[m" }
-				}
-				if ($0 ~ /Grupo/) {print "";print $1, $2 ;getline;getline;getline;}
-				else { printf "%s%s\033[m\n", cor, $0 }
-			}}
-			/Grupo A/,/Rodada 1/ { if (serie_awk=="d") {
-				cor="\033[m"
-				if (cor_awk==1) {
-					if ($1 ~ /[12]°/) { cor="\033[42;30m" }
-					else { cor="\033[m" }
-				}
-				if ($0 ~ /Grupo/) {print "";print $1, $2 ;getline;getline;getline;}
-				else if ($0 !~ /Rodada/) { printf "%s%s\033[m\n", cor, $0 }
-			}}
-			/^ *Quartas de Final/,/^ *\*/ {
-				if ($NF ~ /[Ff]inal$/) { sub(/^ */,""); print ""; printf $0 }
-				if (/Confronto/) { sub(/^.*C/,"C"); print ""; print }
-				if ($0 ~ / X /) {
-					if ($1 ~ /pênaltis/ && separador=="   X   ")
-						{ separador=$1; sub(/pênaltis/,")X(",separador);  separador="(" separador ")"; $1="" }
-					else { separador="   X   " }
-					sub(/^ */,""); sub(/^[A-Z]{3}/,""); sub(/[A-Z]{3}$/,"")
-					split($0, times, " X ")
-					getline; if (/pós jogo/) {getline}; sub(/^ */,""); data = $0
-					printf "%20s %s %-20s  %s\n", times[1], separador, times[2], data
-				}
-			}'
+			$ZZWWWDUMP "$url" |
+			sed -n "/Grupo \(A\|B\)/,/Rodada 1/{s/^/_/;s/.*Rodada.*//;s/°/./;p;}" |
+			while read linha
+			do
+				if echo "$linha" | grep -E '[12]\.' >/dev/null
+				then
+					zzecho -f verde -l preto "$linha"
+				elif echo "$linha" | grep -E '[34]\.' >/dev/null && test "$serie" = "c"
+				then
+					zzecho -f verde -l preto "$linha"
+				elif echo "$linha" | grep -E '(9\.|10\.)' >/dev/null && test "$serie" = "c"
+				then
+					zzecho -f vermelho -l preto "$linha"
+				else
+					echo "$linha"
+				fi
+			done |
+			tr -d _
 			zzecho -f verde -l preto " Quartas de Final "
-			test "$serie" = "c" && zzecho -f vermelho -l preto " Rebaixamento "
+			test "$serie" = "c" && zzecho -f vermelho -l preto " Rebaixamento     "
 		else
-
-			$ZZWWWDUMP $url | sed  -n "/^ *Time *PG/,/^ *\* /p;/^ *Classificação *PG/,/20°/p;" |
-			sed '/^ *$/d' | sed '/^ *[0-9]\{1,\} *$/{N;N;s/\n//g;}' | sed 's/\([0-9]\{1,\}\) */\1 /g;/^ *PG/d' |
-			awk -v cor_awk="$ZZCOR" -v serie_awk="$serie" '{ time=""; for(ind=1;ind<=(NF-9);ind++) { time = time sprintf(" %3s",$ind) }
-
-			if (cor_awk==1)
-			{
-				cor="\033[m"
-
-				if (NR >= 18 && NR <=21)
-					cor="\033[41;30m"
-
-				if (NR >= 6 && NR <=13)
-					cor=(serie_awk=="a"?"\033[46;30m":"\033[m")
-
-				if (NR >= 2 && NR <=5)
-					cor="\033[42;30m"
-			}
-
-			gsub(/ +/," ",time)
-			sub (/^ [0-9] /, " &", time)
-			if (NF>9)
-			printf "%s%-23s %3s %3s %3s %3s %3s %3s %3s %3s %4s \033[m\n", cor, time, $(NF-8), $(NF-7), $(NF-6), $(NF-5), $(NF-4), $(NF-3), $(NF-2), $(NF-1), $NF}'
+			num_linha=0
+			$ZZWWWDUMP "$url" |
+			sed -n "/^ *Classificação *PG/,/20°/{s/^/_/;s/°/./;p}" |
+			while read linha
+			do
+				num_linha=$((num_linha + 1))
+				case $num_linha in
+					[2-5])          zzecho -f verde    -l preto "$linha";;
+					[6-9] | 1[0-3])
+						if test "$serie" = "a"
+						then
+							zzecho -f ciano    -l preto "$linha"
+						else
+							echo "$linha"
+						fi
+					;;
+					1[89] | 2[01] ) zzecho -f vermelho -l preto "$linha";;
+					*) echo "$linha";;
+				esac
+			done |
+			tr -d _
 
 				echo
 				if test "$serie" = "a"
 				then
-					zzecho -f verde -l preto  " Libertadores "
+					zzecho -f verde -l preto  " Libertadores  "
 					zzecho -f ciano -l preto  " Sul-Americana "
 				elif test "$serie" = "b"
 				then
-					zzecho -f verde -l preto  "   Série  A   "
+					zzecho -f verde -l preto  "   Série  A    "
 				fi
-				zzecho -f vermelho -l preto  " Rebaixamento "
+				zzecho -f vermelho -l preto   " Rebaixamento  "
 
 		fi
 	fi
