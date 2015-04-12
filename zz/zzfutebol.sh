@@ -21,7 +21,7 @@
 #
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
 # Desde: 2014-04-08
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzdata zzdatafmt zztrim zzpad
 # ----------------------------------------------------------------------------
@@ -29,29 +29,19 @@ zzfutebol ()
 {
 
 	zzzz -h futebol "$1" && return
-	local url="http://esporte.uol.com.br/futebol/agenda-de-jogos"
+	local url="http://esporte.uol.com.br/futebol/central-de-jogos/proximos-jogos"
 	local linha campeonato time1 time2
 
 	$ZZWWWDUMP "$url" |
 	sed -n '
 		/[0-9]h[0-9]/p
-
-		# Normaliza e mostra a linha dos times
-		s/___ *X *___/___ X ___/p
-		s/___  *___/___ X ___/p' |
+		/ __*$/ {s/ [A-Z][A-Z][A-Z]//; s/ __*//; p;}' |
 	zztrim |
-	awk -F "[_]+" '
-		{
-			if ($0 ~ /[0-9]h[0-9]/) {
-				sub(/Amistoso.*/,"Amistoso")
-				printf $0
-			}
-			else {
-				sub(/^[A-Z]+ /, "")
-				sub(/ [A-Z]+$/, "")
-				print ":" $1 ":" $3
-			}
-		}' |
+	awk '
+		NR % 3 == 1 { campeonato = $0 }
+		NR % 3 == 2 { time1 = $0 }
+		NR % 3 == 0 { print campeonato ":" time1 ":" $0 }
+		' |
 	case "$1" in
 		hoje | amanh[aã] | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado | domingo)
 			grep --color=never -e $( zzdata $1 | zzdatafmt -f 'DD/MM/AA' )
