@@ -35,7 +35,8 @@ zzfutebol ()
 	$ZZWWWDUMP "$url" |
 	sed -n '
 		/[0-9]h[0-9]/p
-		/ __*$/ {s/ [A-Z][A-Z][A-Z]//; s/ __*//; p;}' |
+		/ __*$/ {s/ [A-Z][A-Z][A-Z]//; s/ __*//; p;}
+		/º / { s/.*\([0-9]\{1,\}º\)/\1/;p }' |
 	zztrim |
 	awk '
 		NR % 3 == 1 { campeonato = $0 }
