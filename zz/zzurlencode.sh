@@ -17,6 +17,7 @@
 # Desde: 2013-03-19
 # Versão: 4
 # Licença: GPL
+# Requisitos: zzmaiusculas
 # ----------------------------------------------------------------------------
 zzurlencode ()
 {
