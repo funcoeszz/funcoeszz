@@ -10,7 +10,7 @@
 # Desde: 2015-02-22
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar zztrim zzecho
+# Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar zztrim zzecho zzutf8
 # ----------------------------------------------------------------------------
 zzcinepolis ()
 {
@@ -32,12 +32,7 @@ zzcinepolis ()
 	then
 		$ZZWWWHTML -useragent="Mozilla/5.0" "$url" 2>/dev/null |
 		grep -E '(class="amarelo"|\?cc=)' |
-		if test $ZZUTF -eq 1
-		then
-			zztool texto_em_iso
-		else
-			cat -
-		fi |
+		zzutf8 |
 		sed '/img /d;/>Estreias</d;s/.*"amarelo">//;s/.*cc=/ /;s/".*">/) /' |
 		sed 's/<[^>]*>//' |
 		sed 's/^\([A-Z]\)\(.*\)$/\
@@ -84,8 +79,8 @@ zzcinepolis ()
 		zzecho -N -l ciano $(grep " ${codigo})" $cache | sed 's/.*) //')
 		$ZZWWWDUMP -useragent="Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
 		sed -n '/  [0-9]\{1,2\}  /p;/[0-9]h[0-9]/p' |
-		sed 's/\(.*h[0-9][0-9]\).*/\1/;/OBS\.: /d' |
-		sed 's/^ *[0-9 ]* *   //' |
-		awk '{print}; NR%2==0 {print ""}'
+		sed 's/\(.*h[0-9][0-9]\).*/\1/;s/\^.//g;/OBS\.: /d' |
+		sed 's/^ *\([0-9]\)* *   /\1 /' |
+		awk '$1 ~ /[0-9]{1,}/ {printf "Sala: ";$1=$1 " -"}; {print}; NR%2==0 {print ""}'
 	done  | sed '$d'
 }

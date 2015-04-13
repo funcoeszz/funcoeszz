@@ -17,7 +17,7 @@
 # Desde: 2008-08-25
 # Versão: 7
 # Licença: GPLv2
-# Requisitos: zzecho zzsemacento zzminusculas zztrim
+# Requisitos: zzecho zzsemacento zzminusculas zztrim zzutf8
 # ----------------------------------------------------------------------------
 zzcinemais ()
 {
@@ -45,15 +45,10 @@ zzcinemais ()
 	then
 		zzecho -N -l ciano $(echo "$cidades" | grep "${cidade}:" | cut -f 3 -d ":")
 		$ZZWWWHTML -useragent="Mozilla/5.0" "http://www.cinemais.com.br/programacao/cinema.php?cc=$codigo" 2>/dev/null |
-		if test $ZZUTF -eq 1
-		then
-			zztool texto_em_iso
-		else
-			cat -
-		fi |
-		grep -E '(<td><a href|<td><small)' |
+		zzutf8 |
+		grep -E '(<td><a href|<td><small|[0-9] a [0-9])' |
 		zztrim |
-		sed 's/<[^>]*>//g' |
-		awk '{print}; NR%2==0 {print ""}' | sed '$d'
+		sed 's/<[^>]*>//g;s/Programa.* - //' |
+		awk '{print}; NR%2==1 {print ""}' | sed '$d'
 	fi
 }
