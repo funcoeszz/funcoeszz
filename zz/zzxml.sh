@@ -309,5 +309,5 @@ zzxml ()
 		fi
 
 	# Limpeza
-	zztool cache rm xml
+	rm -f $cache_tag $cache_notag
 }
