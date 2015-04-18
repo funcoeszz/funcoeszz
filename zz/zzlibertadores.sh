@@ -26,6 +26,8 @@
 #  SG  - Saldo de Gols
 #  (%) - Aproveitamento (pontos)
 #
+# Obs.: Se a opção for --atualiza, o cache usado é renovado
+#
 # Uso: zzlibertadores [ fase | -c [número] | -g <número> ]
 # Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)
 #      zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
@@ -35,7 +37,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 11
+# Versão: 12
 # Licença: GPL
 # Requisitos: zzecho zzpad
 # ----------------------------------------------------------------------------
@@ -44,10 +46,11 @@ zzlibertadores ()
 	zzzz -h libertadores "$1" && return
 
 	local ano=$(date +%Y)
-	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/jogos"
+	local cache=$(zztool cache libertadores)
+	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/jogos/"
 	local awk_jogo='
 		NR % 3 == 1 { time1=$0 }
-		NR % 3 == 2 { if ($NF ~ /^[0-9]$/) { reserva=$NF " "; $NF=""; } else reserva=""; time2=reserva $0 }
+		NR % 3 == 2 { if ($NF ~ /^[0-9-]$/) { reserva=$NF " "; $NF=""; } else reserva=""; time2=reserva $0 }
 		NR % 3 == 0 { sub(/  *$/,""); print time1 "|" time2 "|" $0 }
 		'
 	local sed_mata='
@@ -60,12 +63,19 @@ zzlibertadores ()
 
 	test -n "$1" || { zztool -e uso libertadores; return 1; }
 
+	# Tempo de resposta do site está elevando, usando cache para minimizar efeito
+	test "$1" = "--atualiza" && { zztool cache rm libertadores; shift; }
+	if ! test -s "$cache" || test $(date -r "$cache" +%F) != $(date +%F)
+	then
+		$ZZWWWDUMP "$url" > "$cache"
+	fi
+
 	# Mostrando os jogos
 	# Escolhendo as fases
 	# Fase 1 (Pré-libertadores)
 	case "$1" in
 	1 | pr[eé] | primeira)
-		$ZZWWWDUMP "$url" | sed -n '/PRIMEIRA FASE/,/SEGUNDA/p' |
+		sed -n '/PRIMEIRA FASE/,/SEGUNDA/p' "$cache" |
 		sed "$sed_mata" |
 		awk "$awk_jogo" |
 		while read linha
@@ -85,7 +95,7 @@ zzlibertadores ()
 		done
 	;;
 	3 | oitavas)
-		$ZZWWWDUMP "$url" | sed -n '/^OITAVAS DE FINAL/,/^ *\*/p' |
+		sed -n '/^OITAVAS DE FINAL/,/^ *\*/p' "$cache" |
 		sed "$sed_mata" |
 		sed 's/.*\([0-9]º\)/\1/' |
 		awk "$awk_jogo" |
@@ -98,17 +108,17 @@ zzlibertadores ()
 		done
 	;;
 	4 | quartas)
-		$ZZWWWDUMP "$url" | sed -n '/^Quartas de Final/,/^Oitavas de Final/p' |
+		sed -n '/^Quartas de Final/,/^Oitavas de Final/p' "$cache" |
 		sed "$sed_mata" |
 		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
 	;;
 	5 | semi | semi-final)
-		$ZZWWWDUMP "$url" | sed -n '/^Semifinal/,/^Quartas de Final/p' |
+		sed -n '/^Semifinal/,/^Quartas de Final/p' "$cache" |
 		sed "$sed_mata" |
 		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
 	;;
 	6 | final)
-		$ZZWWWDUMP "$url" | sed -n '/^Final/,/^Semifinal/p' |
+		sed -n '/^Final/,/^Semifinal/p' "$cache" |
 		sed "$sed_mata" |
 		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
 	;;
@@ -118,8 +128,7 @@ zzlibertadores ()
 	if test "$1" = "-g" && zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 	then
 		echo "Grupo $2"
-		$ZZWWWDUMP "$url" |
-		sed -n "/^ *Grupo $2/,/Grupo /p" |
+		sed -n "/^ *Grupo $2/,/Grupo /p"  "$cache"|
 		sed '
 			/Rodada [2-9]/d;
 			/Classificados para as oitavas de final/,$d
@@ -142,7 +151,7 @@ zzlibertadores ()
 		if zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 		then
 			grupo="$2"
-			$ZZWWWDUMP "$url" | sed -n "/^ *Grupo $2/,/Rodada 1/p" | sed -n '/PG/p;/°/p' |
+			sed -n "/^ *Grupo $2/,/Rodada 1/p" "$cache" | sed -n '/PG/p;/°/p' |
 			sed 's/[^-][A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
 			awk -v cor_awk="$ZZCOR" '{
 				if (NF <  10) { print }
