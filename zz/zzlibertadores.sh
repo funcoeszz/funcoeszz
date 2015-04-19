@@ -49,9 +49,20 @@ zzlibertadores ()
 	local cache=$(zztool cache libertadores)
 	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/jogos/"
 	local awk_jogo='
-		NR % 3 == 1 { time1=$0 }
-		NR % 3 == 2 { if ($NF ~ /^[0-9-]$/) { reserva=$NF " "; $NF=""; } else reserva=""; time2=reserva $0 }
-		NR % 3 == 0 { sub(/  *$/,""); print time1 "|" time2 "|" $0 }
+		NR % 3 == 1 { time1=$0; if ($(NF-1) ~ /^[0-9]{1,}$/) { penais1=$(NF -1)} else {penais1=""} }
+		NR % 3 == 2 { 
+			if ($NF ~ /^[0-9-]{1,}$/) { reserva=$NF " "; $NF=""; } else reserva=""
+			time2=reserva $0
+			if ($(NF-1) ~ /^[0-9]{1,}$/ ) { penais2=$(NF -1)} else {penais2=""}
+			if (length(penais1)>0 && length(penais2)>0) {
+				sub(" " penais1, "", time1)
+				sub(" " penais2, "", time2)
+				penais1 = " ( " penais1
+				penais2 = penais2 " ) "
+			}
+			else {penais1="";penais2=""}
+		}
+		NR % 3 == 0 { sub(/  *$/,""); print time1 penais1 "|" penais2 time2 "|" $0 }
 		'
 	local sed_mata='
 		1d; $d
@@ -161,12 +172,12 @@ zzlibertadores ()
 					print ""
 				}
 				if (NF > 10) {
-					if (cor_awk==1 && ($1 == "1°" || $1 == "2°")) { printf "\033[42;30m" } else { printf "\033[m" }
+					if (cor_awk==1 && ($1 == "1°" || $1 == "2°")) { printf "\033[42;30m" }
 					time=""
 					for (i=1;i<NF-8;i++) { time=time " " $i }
 					printf "%-28s", time
 					for (i=NF-8;i<=NF;i++) { printf " %3s", $i }
-					printf "\033[m\n"
+					if (cor_awk==1) { printf "\033[m\n" } else {print ""}
 				}
 			}'
 			test "$1" = "-cg" -o "$1" = "-gc" && { echo; zzlibertadores -g $2 | sed '1d'; }
@@ -178,6 +189,9 @@ zzlibertadores ()
 				echo
 			done
 		fi
-		test "$3" != "-n" && { echo ""; zzecho -f verde -l preto " Oitavas de Final "; }
+		if test $ZZCOR -eq 1
+		then
+			test "$3" != "-n" && { echo ""; zzecho -f verde -l preto " Oitavas de Final "; }
+		fi
 	fi
 }
