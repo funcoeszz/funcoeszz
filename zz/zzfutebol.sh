@@ -25,7 +25,7 @@
 #
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
 # Desde: 2014-04-08
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # Requisitos: zzdata zzdatafmt zztrim zzpad
 # ----------------------------------------------------------------------------
@@ -50,11 +50,18 @@ zzfutebol ()
 	zztrim |
 	awk '
 		NR % 3 == 1 { campeonato = $0 }
-		NR % 3 == 2 { time1 = $0 }
-		# NR % 3 == 0 { print campeonato ":" time1 ":" $0 }
+		NR % 3 == 2 { time1 = $0; if ($(NF-1) ~ /^[0-9]{1,}$/) { penais1=$(NF -1)} else {penais1=""} }
 		NR % 3 == 0 {
-			if ($NF ~ /^[0-9]$/) { reserva=$NF " "; $NF=""; } else { reserva="" }
-			print campeonato ":" time1 ":" reserva $0
+			if ($NF ~ /^[0-9]{1,}$/) { reserva=$NF " "; $NF=""; } else { reserva="" }
+			if ($(NF-1) ~ /^[0-9]{1,}$/ ) { penais2=$(NF -1)} else {penais2=""}
+			if (length(penais1)>0 && length(penais2)>0) {
+				sub(" " penais1, "", time1)
+				sub(" " penais2, "")
+				penais1 = " ( " penais1
+				penais2 = penais2 " ) "
+			}
+			else {penais1="";penais2=""}
+			print campeonato ":" time1 penais1 ":" penais2 reserva $0
 		}
 		' |
 	case "$1" in
