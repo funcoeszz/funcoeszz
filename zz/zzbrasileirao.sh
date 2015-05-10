@@ -77,7 +77,7 @@ zzbrasileirao ()
 		do
 			time1=$(  echo $linha | cut -d"|" -f 1 )
 			time2=$(  echo $linha | cut -d"|" -f 2 )
-			horario=$(echo $linha | cut -d"|" -f 3 )
+			horario=$(echo $linha | cut -d"|" -f 3 | sed 's/^ *//' )
 			echo "$(zzpad -l 22 $time1) X $(zzpad -r 22 $time2) $horario"
 		done
 	else
