@@ -110,13 +110,14 @@ zzbrasileirao ()
 			sed -n "/^ *Classificação *PG/,/20°/{s/^/_/;s/°/./;p}" |
 			while read linha
 			do
+				linha=$(echo "$linha" | awk '{pontos=sprintf("%3d", $NF);sub(/[0-9]+$/,pontos);print}')
 				num_linha=$((num_linha + 1))
 				case $num_linha in
-					[2-5])          zzecho -f verde    -l preto "$linha";;
+					[2-5]) zzecho -f verde -l preto "$linha";;
 					[6-9] | 1[0-3])
 						if test "$serie" = "a"
 						then
-							zzecho -f ciano    -l preto "$linha"
+							zzecho -f ciano -l preto "$linha"
 						else
 							echo "$linha"
 						fi
