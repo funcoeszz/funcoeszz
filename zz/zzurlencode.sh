@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://en.wikipedia.org/wiki/Percent-encoding
-# Codifica o texto como %HH, para ser usado numa URL (a/b → a%2Fb)
+# Codifica o texto como %HH, para ser usado numa URL (a/b → a%2Fb).
 # Obs.: Por padrão, letras, números e _.~- não são codificados (RFC 3986)
 #
 # Opções:

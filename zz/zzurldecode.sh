@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://en.wikipedia.org/wiki/Percent-encoding
-# Decodifica textos no formato %HH, geralmente usados em URLs (%40 → @)
+# Decodifica textos no formato %HH, geralmente usados em URLs (%40 → @).
 #
 # Uso: zzurldecode [texto]
 # Ex.: zzurldecode '%73%65%67%72%65%64%6F'
