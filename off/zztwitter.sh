@@ -15,8 +15,8 @@
 # Desde: 2009-09-24
 # Versão: 2
 # Licença: GPL
-# DESATIVADA: 2015-04-05 Parou de funcionar (veja issue #205)
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2015-04-05 Parou de funcionar (veja issue #205)
 
 zztwitter ()
 {
