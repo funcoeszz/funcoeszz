@@ -37,9 +37,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 12
+# Versão: 13
 # Licença: GPL
-# Requisitos: zzecho zzpad
+# Requisitos: zzecho zzpad zzdatafmt
 # ----------------------------------------------------------------------------
 zzlibertadores ()
 {
@@ -76,9 +76,10 @@ zzlibertadores ()
 
 	# Tempo de resposta do site está elevando, usando cache para minimizar efeito
 	test "$1" = "--atualiza" && { zztool cache rm libertadores; shift; }
-	if ! test -s "$cache" || test $(date -r "$cache" +%F) != $(date +%F)
+	if ! test -s "$cache" || test $(head -n 1 "$cache") != $(zzdatafmt --iso hoje)
 	then
-		$ZZWWWDUMP "$url" > "$cache"
+		zzdatafmt --iso hoje > "$cache"
+		$ZZWWWDUMP "$url" >> "$cache"
 	fi
 
 	# Mostrando os jogos
@@ -118,20 +119,25 @@ zzlibertadores ()
 			echo "$(zzpad -l 28 $time1) X $(zzpad -r 28 $time2) $horario"
 		done
 	;;
-	4 | quartas)
-		sed -n '/^Quartas de Final/,/^Oitavas de Final/p' "$cache" |
+	4 | quartas | 5 | semi | semi-final | 6 | final)
+		case $1 in
+		4 | quartas)
+			sed -n '/^QUARTAS DE FINAL/,/^OITAVAS DE FINAL/p' "$cache";;
+		5 | semi | semi-final)
+			sed -n '/^SEMIFINAIS/,/^QUARTAS DE FINAL/p' "$cache";;
+		6 | final)
+			sed -n '/^FINAL/,/^SEMIFINAIS/p' "$cache";;
+		esac |
 		sed "$sed_mata" |
-		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
-	;;
-	5 | semi | semi-final)
-		sed -n '/^Semifinal/,/^Quartas de Final/p' "$cache" |
-		sed "$sed_mata" |
-		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
-	;;
-	6 | final)
-		sed -n '/^Final/,/^Semifinal/p' "$cache" |
-		sed "$sed_mata" |
-		awk 'BEGIN {FS=" X "} {if (NF>=2){printf "%23s X %-23s   ", $1, $2; getline proxima; print proxima } }'
+		sed 's/.*Vencedor/Vencedor/' |
+		awk "$awk_jogo" |
+		while read linha
+		do
+			time1=$(  echo $linha | cut -d"|" -f 1 )
+			time2=$(  echo $linha | cut -d"|" -f 2 )
+			horario=$(echo $linha | cut -d"|" -f 3 )
+			echo "$(zzpad -l 28 $time1) X $(zzpad -r 28 $time2) $horario"
+		done
 	;;
 	esac
 
