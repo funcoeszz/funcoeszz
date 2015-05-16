@@ -305,3 +305,24 @@ $ printf 'abc\n123' | zztool nl_eof
 abc
 123
 $
+
+# mktemp
+
+$ file=$(zztool mktemp foooo)
+$ echo "$file" | sed "s|$ZZTMP|prefix|; s/......$/XXXXXX/"
+prefix.foooo.XXXXXX
+$ test -r "$file" && echo ok
+ok
+$ rm "$file"
+$
+
+# mktemp - segurança, funciona mesmo sem $ZZTMP
+
+$ ZZTMP_ORIG="$ZZTMP"
+$ unset ZZTMP
+$ file=$(zztool mktemp foooo)
+$ echo "$file" | sed 's/......$/XXXXXX/'
+/tmp/zz.foooo.XXXXXX
+$ rm "$file"
+$ ZZTMP="$ZZTMP_ORIG"
+$

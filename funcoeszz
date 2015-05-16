@@ -383,6 +383,17 @@ zztool ()
 				cat -
 			fi
 		;;
+		mktemp)
+			# Cria um arquivo temporário de nome único, usando $1.
+			# Lembre-se de removê-lo no final da função.
+			#
+			# Exemplo de uso:
+			#   local tmp=$(zztool mktemp arrumanome)
+			#   foo --bar > "$tmp"
+			#   rm "$tmp"
+
+			mktemp "${ZZTMP:-/tmp/zz}.${1:-anonimo}.XXXXXX"
+		;;
 		cache | atualiza)
 		# Limpa o cache se solicitado a atualização
 		# Atualiza o cache se for fornecido a url
@@ -600,7 +611,7 @@ zzzz ()
 			### Todos os comandos necessários estão instalados?
 
 			local comando tipo_comando comandos_faltando
-			local comandos='awk- bc cat chmod- clear- cp cpp- cut diff- du- find- fmt grep iconv- lynx mv od- ps- rm sed sleep sort tail- tr uniq'
+			local comandos='awk- bc cat chmod- clear- cp cpp- cut diff- du- find- fmt grep iconv- lynx mktemp mv od- ps- rm sed sleep sort tail- tr uniq'
 
 			for comando in $comandos
 			do
