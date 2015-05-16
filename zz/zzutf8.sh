@@ -19,31 +19,31 @@ zzutf8 ()
 	zzzz -h utf8 "$1" && return
 
 	local encoding
-	local cache=$(zztool mktemp utf8)
+	local tmp=$(zztool mktemp utf8)
 
 	# Guarda o texto de entrada
-	zztool file_stdin "$@" > "$cache"
+	zztool file_stdin "$@" > "$tmp"
 
 	# Qual a sua codificação atual?
-	encoding=$(zzencoding "$cache")
+	encoding=$(zzencoding "$tmp")
 
 	case "$encoding" in
 
 		# Encoding já compatível com UTF-8, nada a fazer
 		utf-8 | us-ascii)
-			cat "$cache"
+			cat "$tmp"
 		;;
 
 		# Arquivo vazio ou encoding desconhecido, não mexe
 		'')
-			cat "$cache"
+			cat "$tmp"
 		;;
 
 		# Encoding detectado, converte pra UTF-8
 		*)
-			iconv -f "$encoding" -t utf-8 "$cache"
+			iconv -f "$encoding" -t utf-8 "$tmp"
 		;;
 	esac
 
-	rm -f "$cache"
+	rm -f "$tmp"
 }
