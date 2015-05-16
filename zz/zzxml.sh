@@ -26,7 +26,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 10
+# Versão: 11
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
@@ -39,22 +39,8 @@ zzxml ()
 	local untag=0
 	local unescape=0
 	local indent=0
-	local i=1
-	pid_xml=$$
-	local cache_tag=$(zztool cache xml ${i}_tag.$pid_xml)
-	local cache_notag=$(zztool cache xml ${i}_notag.$pid_xml)
-
-	while ! zztool arquivo_vago $cache_tag >/dev/null 2>&1
-	do
-		i=$((i + 1))
-		cache_tag=$(zztool cache xml ${i}_tag.$pid_xml)
-	done
-
-	while ! zztool arquivo_vago $cache_notag >/dev/null 2>&1
-	do
-		i=$((i + 1))
-		cache_notag=$(zztool cache xml ${i}_notag.$pid_xml)
-	done
+	local cache_tag=$(zztool mktemp xml.tag)
+	local cache_notag=$(zztool mktemp xml.notag)
 
 	# Opções de linha de comando
 	while test "${1#-}" != "$1"
@@ -319,5 +305,5 @@ zzxml ()
 		fi
 
 	# Limpeza
-	rm -f $cache_tag $cache_notag
+	rm -f "$cache_tag" "$cache_notag"
 }
