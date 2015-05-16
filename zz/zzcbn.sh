@@ -9,7 +9,7 @@
 #
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2009-04-16
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzecho zzplay zzcapitalize zzdatafmt zzxml
 # ----------------------------------------------------------------------------
@@ -27,7 +27,7 @@ zzcbn ()
 	test -n "$1" || { zztool -e uso cbn; return 1; }
 
 	# Cache com parametros para nomes e links
-	if ! test -s "$cache" || test $(date -r "$cache" +%F) != $(date +%F)
+	if ! test -s "$cache" || test $(tail -n 1 "$cache") != $(date +%F)
 	then
 		$ZZWWWHTML "$url" |
 		sed -n '/lista-menu-item comentaristas/,/lista-menu-item boletins/p' |
@@ -52,12 +52,13 @@ zzcbn ()
 			)
 			echo "$nome | $comentarista | $rss | $podcast"
 		done > "$cache"
+		zzdatafmt --iso hoje >> "$cache"
 	fi
 
 	# Listagem dos comentaristas
 	if test "$1" = "--lista"
 	then
-		awk -F " [|] " '{print $2 "\t => " $1}' "$cache" | expand -t 28
+		sed '$d' "$cache" | awk -F " [|] " '{print $2 "\t => " $1}' | expand -t 28
 		return
 	fi
 
