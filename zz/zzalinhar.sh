@@ -18,7 +18,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-05-23
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzpad zztrim
 # ----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ zzalinhar ()
 {
 	zzzz -h alinhar "$1" && return
 
-	local cache=$(zztool cache alinhar)
+	local cache=$(zztool mktemp alinhar)
 	local alinhamento='r'
 	local largura=0
 	local larg_efet linha
@@ -133,5 +133,5 @@ zzalinhar ()
 	;;
 	esac
 
-	zztool cache rm alinhar
+	rm -f "$cache"
 }

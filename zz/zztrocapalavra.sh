@@ -6,7 +6,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztrocapalavra ()
@@ -18,7 +18,7 @@ zztrocapalavra ()
 	local nova="$2"
 
 	# Precisa do temporário pois nem todos os Sed possuem a opção -i
-	local tmp=$(zztool cache trocapalavra $$)
+	local tmp=$(zztool mktemp trocapalavra)
 
 	# Verificação dos parâmetros
 	test -n "$3" || { zztool -e uso trocapalavra; return 1; }
@@ -52,5 +52,5 @@ zztrocapalavra ()
 		cat "$tmp" > "$arquivo"
 		return 1
 	done
-	zztool cache rm trocapalavra
+	rm -f "$tmp"
 }

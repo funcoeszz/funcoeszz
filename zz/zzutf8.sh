@@ -10,7 +10,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2015-03-21
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzencoding
 # ----------------------------------------------------------------------------
@@ -19,7 +19,7 @@ zzutf8 ()
 	zzzz -h utf8 "$1" && return
 
 	local encoding
-	local cache=$(zztool cache utf8 $$)
+	local cache=$(zztool mktemp utf8)
 
 	# Guarda o texto de entrada
 	zztool file_stdin "$@" > "$cache"

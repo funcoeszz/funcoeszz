@@ -51,7 +51,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 22
+# Versão: 23
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt
 # ----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ zzbolsas ()
 	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SP600'
 	local amex='^XAX ^IIX ^NWX ^XMI'
 	local ind_nac='^IBX50 ^IVBX ^IGCX ^IEE INDX.SA'
-	local cache=$(zztool cache bolsas $$)
+	local cache=$(zztool mktemp bolsas)
 	local bolsa pag pags pag_atual data1 data2 vartemp
 
 	case $# in
@@ -103,7 +103,7 @@ zzbolsas ()
 			# Lista os códigos da bolsas e seus nomes
 			case "$1" in
 			#Limpa todos os cache acumulado
-			--limpa| --limpar) zztool cache rm bolsas ;;
+			--limpa| --limpar) rm -f "${cache:-xxxx}.*" ;;
 			-l | --lista)
 				for bolsa in americas europe asia africa
 				do
@@ -433,4 +433,6 @@ zzbolsas ()
 			fi
 		;;
 	esac
+
+	rm -f "${cache:-xxxx}.*"
 }

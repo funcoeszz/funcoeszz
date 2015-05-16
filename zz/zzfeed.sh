@@ -13,7 +13,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzxml zzunescape zztrim zzutf8
 # ----------------------------------------------------------------------------
@@ -21,9 +21,8 @@ zzfeed ()
 {
 	zzzz -h feed "$1" && return
 
-	local url formato tag_mae
+	local url formato tag_mae tmp
 	local limite=10
-	local tmp=$(zztool cache feed $$)
 
 	# Opções de linha de comando
 	if test "$1" = '-n'
@@ -81,6 +80,8 @@ zzfeed ()
 	# Para cada URL que o usuário informou...
 	for url
 	do
+		tmp=$(zztool mktemp feed)
+
 		# Só mostra a url se houver mais de uma
 		test $# -gt 1 && zztool eco "* $url"
 
@@ -137,7 +138,7 @@ zzfeed ()
 					s/['\"]//g"
 		fi
 
-		zztool cache rm feed $$
+		rm -f "$tmp"
 
 		# Linha em branco para separar resultados
 		[ $# -gt 1 ] && echo

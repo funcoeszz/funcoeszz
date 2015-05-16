@@ -7,7 +7,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-07-23
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdiffpalavra ()
@@ -15,8 +15,8 @@ zzdiffpalavra ()
 	zzzz -h diffpalavra "$1" && return
 
 	local esc
-	local tmp1=$(zztool cache diffpalavra "$$.1")
-	local tmp2=$(zztool cache diffpalavra "$$.2")
+	local tmp1=$(zztool mktemp diffpalavra)
+	local tmp2=$(zztool mktemp diffpalavra)
 	local n=$(printf '\a')
 
 	# Verificação dos parâmetros
@@ -100,5 +100,5 @@ zzdiffpalavra ()
 			cat -
 		fi
 
-	zztool cache rm diffpalavra
+	rm -f "$tmp1" "$tmp2"
 }

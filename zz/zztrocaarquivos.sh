@@ -5,7 +5,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-06-12
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztrocaarquivos ()
@@ -13,7 +13,7 @@ zztrocaarquivos ()
 	zzzz -h trocaarquivos "$1" && return
 
 	# Um terceiro arquivo é usado para fazer a troca
-	local tmp=$(zztool cache trocaarquivos $$)
+	local tmp=$(zztool mktemp trocaarquivos)
 
 	# Verificação dos parâmetros
 	test $# -eq 2 || { zztool -e uso trocaarquivos; return 1; }
@@ -31,6 +31,6 @@ zztrocaarquivos ()
 	cat "$tmp" > "$1"
 
 	# E foi
-	zztool cache rm trocaarquivos
+	rm -f "$tmp"
 	echo "Feito: $1 <-> $2"
 }
