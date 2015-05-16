@@ -6,11 +6,24 @@
 # pois ficou muito extenso colocar no help do zzmat apenas.
 #
 # Funções matemáticas disponíveis.
-# mmc mdc somatoria produtoria media soma fat arranjo arranjo_r combinacao
-# combinacao_r pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
-# converte sen cos tan csc sec cot asen acos atan log ln abs produto r3
-# raiz potencia pow elevado aleatorio random det conf_eq sem_zeros
-# fibonacci (fib) lucas tribonacci (trib) newton binomio_newton
+# Aritméticas:                     Trigonométricas:
+#  mmc mdc                          sen cos tan
+#  somatoria produtoria             csc sec cot
+#  media soma produto               asen acos atan
+#  log ln
+#  raiz, pow, potencia ou elevado
+#
+# Combinatória:             Sequências:          Funções:
+#  fat                       pa pa2 pg lucas      area volume r3
+#  arranjo arranjo_r         fibonacci ou fib     det vetor d2p
+#  combinacao combinacao_r   tribonacci ou trib
+#
+# Equações:                  Auxiliares:
+#  eq2g egr err                converte
+#  egc egc3p ege               abs int sem_zeros
+#  newton ou binomio_newton    aleatorio random
+#  conf_eq                     compara_num
+#
 # Mais detalhes: zzmat função
 #
 # Uso: zzmat [-pnumero] funcoes [número] [número]
@@ -21,7 +34,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 18
+# Versão: 19
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio zztrim
 # ----------------------------------------------------------------------------
@@ -123,30 +136,34 @@ zzmat ()
 	;;
 	int)
 		local num1
+		if test "$2" = "-h"
+		then
+			zztool erro " zzmat $funcao: Valor Inteiro"
+			zztool erro " Uso: zzmat $funcao numero"
+			zztool erro "      echo numero | zzmat $funcao"
+			return
+		fi
 		shift
 		num1=$(zztool multi_stdin "$@" | tr ',' '.')
 		if zzmat testa_num $num1
 		then
 			echo $num1 | sed 's/\..*$//'
-		else
-			zztool erro " zzmat $funcao: Valor Inteiro"
-			zztool erro " Uso: zzmat $funcao numero"
-			zztool erro "      echo numero | zzmat $funcao"
-			return 1
 		fi
 	;;
 	abs)
 		local num1
+		if test "$2" = "-h"
+		then
+			zztool erro " zzmat $funcao: Valor Absoluto"
+			zztool erro " Uso: zzmat $funcao numero"
+			zztool erro "      echo numero | zzmat $funcao"
+			return
+		fi
 		shift
 		num1=$(zztool multi_stdin "$@" | tr ',' '.')
 		if zzmat testa_num $num1
 		then
 			echo "$num1" | sed 's/^[-+]//'
-		else
-			zztool erro " zzmat $funcao: Valor Absoluto"
-			zztool erro " Uso: zzmat $funcao numero"
-			zztool erro "      echo numero | zzmat $funcao"
-			return 1
 		fi
 	;;
 	converte)
@@ -352,11 +369,19 @@ zzmat ()
 		then
 			local num1 num2
 			case "$2" in
-			quadrada) num1=2;;
-			cubica)   num1=3;;
-			*)          num1="$2";;
+			quadrada)  num1=2;;
+			c[úu]bica) num1=3;;
+			*)         num1="$2";;
 			esac
 			num2=$(echo "$3" | tr ',' '.')
+			if test $(($num1 % 2)) -eq 0
+			then
+				if echo "$num2" | grep '^-' > /dev/null
+				then
+					zztool erro " Não há solução nos números reais para radicando negativo e índice par."
+					return 1
+				fi
+			fi
 			if zzmat testa_num $num1
 			then
 				num=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '$num2'^(1/'$num1')}')
