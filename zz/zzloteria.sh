@@ -12,7 +12,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2004-05-18
-# Versão: 10
+# Versão: 11
 # Licença: GPL
 # Requisitos: zzseq zzjuntalinhas zzdatafmt
 # ----------------------------------------------------------------------------
@@ -21,7 +21,7 @@ zzloteria ()
 	zzzz -h loteria "$1" && return
 
 	local dump numero_concurso data resultado acumulado tipo ZZWWWDUMP2
-	local resultado_val resultado_num num_con sufixo faixa
+	local resultado_val resultado_num num_con sufixo faixa download
 	local url='http://www1.caixa.gov.br/loterias/loterias'
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
 	local cache=$(zztool cache loteria)
@@ -30,6 +30,7 @@ zzloteria ()
 	if which links >/dev/null 2>&1
 	then
 		ZZWWWDUMP2='links -dump'
+		download='links -source'
 	else
 		zztool erro 'Para esta função funcionar, é necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'
 		return 1
@@ -99,7 +100,7 @@ zzloteria ()
 			else
 				if ! test -e ${ZZTMP}.lotomania.htm || ! $(grep "^$num_com " ${ZZTMP}.lotomania.htm >/dev/null)
 				then
-					wget -q "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotoma.zip" -O "${ZZTMP}.lotomania.zip" 2>/dev/null
+					$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotoma.zip" > "${ZZTMP}.lotomania.zip" 2>/dev/null
 					unzip -q -o "${ZZTMP}.lotomania.zip" -d "${ZZTMP%/*}" 2>/dev/null
 					mv "${ZZTMP%/*}/D_LOTMAN.HTM" ${ZZTMP}.lotomania.htm
 					rm -f ${ZZTMP}.lotomania.zip ${ZZTMP%/*}/*.GIF
@@ -168,7 +169,7 @@ zzloteria ()
 				else
 					if ! test -e ${ZZTMP}.lotofacil.htm || ! $(grep "^$num_com " ${ZZTMP}.lotofacil.htm >/dev/null)
 					then
-						wget -q "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip" -O "${ZZTMP}.lotofacil.zip" 2>/dev/null
+						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip" > "${ZZTMP}.lotofacil.zip" 2>/dev/null
 						unzip -q -o "${ZZTMP}.lotofacil.zip" -d "${ZZTMP%/*}" 2>/dev/null
 						mv "${ZZTMP%/*}/D_LOTFAC.HTM" ${ZZTMP}.lotofacil.htm
 						rm -f ${ZZTMP}.lotofacil.zip ${ZZTMP%/*}/*.GIF
@@ -212,7 +213,7 @@ zzloteria ()
 				else
 					if ! test -e ${ZZTMP}.mega.htm || ! $(grep "^$num_com " ${ZZTMP}.mega.htm >/dev/null)
 					then
-						wget -q "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_mgsasc.zip" -O "${ZZTMP}.mega.zip" 2>/dev/null
+						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_mgsasc.zip" > "${ZZTMP}.mega.zip" 2>/dev/null
 						unzip -q -o "${ZZTMP}.mega.zip" -d "${ZZTMP%/*}" 2>/dev/null
 						mv "${ZZTMP%/*}/d_megasc.htm" ${ZZTMP}.mega.htm
 						rm -f ${ZZTMP}.mega.zip ${ZZTMP%/*}/*.GIF
@@ -264,7 +265,7 @@ zzloteria ()
 				else
 					if ! test -e ${ZZTMP}.quina.htm || ! $(grep "^$num_com " ${ZZTMP}.quina.htm >/dev/null)
 					then
-						wget -q "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_quina.zip" -O "${ZZTMP}.quina.zip" 2>/dev/null
+						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_quina.zip" > "${ZZTMP}.quina.zip" 2>/dev/null
 						unzip -q -o "${ZZTMP}.quina.zip" -d "${ZZTMP%/*}" 2>/dev/null
 						mv "${ZZTMP%/*}/D_QUINA.HTM" ${ZZTMP}.quina.htm
 						rm -f ${ZZTMP}.quina.zip ${ZZTMP%/*}/*.GIF
