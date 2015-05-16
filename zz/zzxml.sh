@@ -26,7 +26,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
@@ -39,20 +39,21 @@ zzxml ()
 	local untag=0
 	local unescape=0
 	local indent=0
-	local i=0
-	local cache_tag=$(zztool cache xml ${i}_tag)
-	local cache_notag=$(zztool cache xml ${i}_notag)
+	local i=1
+	pid_xml=$$
+	local cache_tag=$(zztool cache xml ${i}_tag.$pid_xml)
+	local cache_notag=$(zztool cache xml ${i}_notag.$pid_xml)
 
 	while ! zztool arquivo_vago $cache_tag >/dev/null 2>&1
 	do
 		i=$((i + 1))
-		cache_tag=$(zztool cache xml ${i}_tag)
+		cache_tag=$(zztool cache xml ${i}_tag.$pid_xml)
 	done
 
 	while ! zztool arquivo_vago $cache_notag >/dev/null 2>&1
 	do
 		i=$((i + 1))
-		cache_notag=$(zztool cache xml ${i}_notag)
+		cache_notag=$(zztool cache xml ${i}_notag.$pid_xml)
 	done
 
 	# Opções de linha de comando
@@ -116,40 +117,49 @@ zzxml ()
 	done
 
 	# Montando script awk para excluir tags
-	test -n "$notag" && echo 'BEGIN { notag=0 } {' >> $cache_notag
-	for ntag in $notag
-	do
-		echo '
-			if ($0 ~ /<'$ntag'[^/>]* >/) { notag++}
-			if (notag==0) print
-			if ($0 ~ /<\/'$ntag' >/) { notag-- }
-		' >> $cache_notag
-		sed_notag="$sed_notag /<${ntag}[^/>]*\/>/d;"
-	done
-	test -n "$notag" && echo '}' >> $cache_notag
+	if test -n "$notag"
+	then
+		echo 'BEGIN { notag=0 } {' >> $cache_notag
+		for ntag in $notag
+		do
+			echo '
+				if ($0 ~ /<'$ntag'[^/>]* >/) { notag++}
+				if (notag==0) print
+				if ($0 ~ /<\/'$ntag' >/) { notag-- }
+			' >> $cache_notag
+			sed_notag="$sed_notag /<${ntag}[^/>]*\/>/d;"
+		done
+		echo '}' >> $cache_notag
+	fi
 
 	# Montando script awk para selecionar tags
-	for ntag in $tag
-	do
-		echo 'BEGIN { tag['$ntag']=0 }' >> $cache_tag
-	done
-	test -n "$tag" && echo '{' >> $cache_tag
-	for ntag in $tag
-	do
-		echo '
-			if ($0 ~ /^<'$ntag'[^><]*\/>$/) { linha[NR] = $0 }
-			if ($0 ~ /^<'$ntag'[^><]*[^\/><]+>/) { tag['$ntag']++ }
-			if (tag['$ntag']>=1) { linha[NR] = $0 }
-			if ($0 ~ /^<\/'$ntag' >/) { tag['$ntag']-- }
-		' >> $cache_tag
-	done
-	test -n "$tag" && echo '}' >> $cache_tag
+	if test -n "$tag"
+	then
+		for ntag in $tag
+		do
+			echo 'BEGIN { tag['$ntag']=0 }' >> $cache_tag
+		done
+		test -n "$tag" && echo '{' >> $cache_tag
+		for ntag in $tag
+		do
+			echo '
+				if ($0 ~ /^<'$ntag'[^><]*\/>$/) { linha[NR] = $0 }
+				if ($0 ~ /^<'$ntag'[^><]*[^\/><]+>/) { tag['$ntag']++ }
+				if (tag['$ntag']>=1) { linha[NR] = $0 }
+				if ($0 ~ /^<\/'$ntag' >/) { tag['$ntag']-- }
+			' >> $cache_tag
+		done
+		echo '}' >> $cache_tag
+	fi
 
 	# Montando script sed para apagar determinadas tags
-	for ntag in $semtag
-	do
-		sed_notag="$sed_notag s|<[/]\{0,1\}${ntag}[^>]*>||g;"
-	done
+	if test -n "$semtag"
+	then
+		for ntag in $semtag
+		do
+			sed_notag="$sed_notag s|<[/]\{0,1\}${ntag}[^>]*>||g;"
+		done
+	fi
 
 	# Caso indent=1 mantém uma tag por linha para possibilitar indentação.
 	test -n "$tag" && test $tidy -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache_tag
