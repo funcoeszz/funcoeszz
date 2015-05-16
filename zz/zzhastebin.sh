@@ -6,7 +6,7 @@
 # Ex.: zzhastebin helloworld.sh
 #
 # Autor: Jones Dias <diasjones07 (a) gmail.com>
-# Desde: 2013-03-07
+# Desde: 2015-02-12
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
