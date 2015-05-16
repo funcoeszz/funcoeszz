@@ -390,7 +390,7 @@ zztool ()
 			# Exemplo de uso:
 			#   local tmp=$(zztool mktemp arrumanome)
 			#   foo --bar > "$tmp"
-			#   rm "$tmp"
+			#   rm -f "$tmp"
 
 			mktemp "${ZZTMP:-/tmp/zz}.${1:-anonimo}.XXXXXX"
 		;;
