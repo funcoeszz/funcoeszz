@@ -13,7 +13,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzxml zzunescape zztrim zzutf8
 # ----------------------------------------------------------------------------
@@ -142,8 +142,5 @@ zzfeed ()
 
 		# Linha em branco para separar resultados
 		[ $# -gt 1 ] && echo
-
-		# Tem mais de um site pra procurar?
-		continue
 	done
 }
