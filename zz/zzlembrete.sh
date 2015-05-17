@@ -8,16 +8,15 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-22
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzlembrete ()
 {
 	zzzz -h lembrete "$1" && return
 
+	local numero tmp
 	local arquivo="$HOME/.zzlembrete"
-	local tmp=$(zztool cache lembrete $$)
-	local numero
 
 	# Assegura-se que o arquivo de lembretes existe
 	test -f "$arquivo" || touch "$arquivo"
@@ -36,12 +35,14 @@ zzlembrete ()
 		if zztool grep_var d "$*"
 		then
 			# zzlembrete 5d: Apaga linha 5
+			tmp=$(zztool mktemp lembrete)
 			cp "$arquivo" "$tmp" &&
 			sed "${numero:-0} d" "$tmp" > "$arquivo" || {
 				zztool erro "Ops, deu algum erro no arquivo $arquivo"
 				zztool erro "Uma cópia dele está em $tmp"
 				return 1
 			}
+			rm -f "$tmp"
 		else
 			# zzlembrete 5: Mostra linha 5
 			sed -n "$numero p" "$arquivo"
