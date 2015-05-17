@@ -7,7 +7,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdos2unix ()
@@ -15,7 +15,7 @@ zzdos2unix ()
 	zzzz -h dos2unix "$1" && return
 
 	local arquivo
-	local tmp=$(zztool cache dos2unix $$)
+	local tmp=$(zztool mktemp dos2unix)
 	local control_m=$(printf '\r')  # ^M, CR, \r
 
 	# Sem argumentos, lê/grava em STDIN/STDOUT
@@ -53,5 +53,5 @@ zzdos2unix ()
 	done
 
 	# Remove o arquivo temporário
-	zztool cache rm dos2unix
+	rm -f "$tmp"
 }
