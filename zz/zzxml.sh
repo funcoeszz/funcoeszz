@@ -4,8 +4,8 @@
 # Obs.: Necessário pois não há ferramenta portável para lidar com XML no Unix.
 #
 # Opções: --tidy        Reorganiza o código, deixando uma tag por linha
-#         --tag <tag>   Extrai (grep) as tags
-#         --notag <tag> Exclui essas tags (grep -v)
+#         --tag <tag>   Extrai (grep) as tags e seu conteúdo
+#         --notag <tag> Exclui essas tags (grep -v) e seu conteúdo
 #         --list        Lista sem repetição as tags existentes no arquivo
 #         --indent      Promove a indentação das tags
 #         --untag       Remove todas as tags, deixando apenas texto
