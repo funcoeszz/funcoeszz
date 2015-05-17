@@ -5,6 +5,20 @@ Opção inválida --foo
 $
 
 #----------------------------------------------------------------------
+# --list: Lista todas as tags XML encontradas
+
+$ zzxml --list zzxml.in.xml
+xml
+section
+title
+img
+para
+strong
+em
+escape
+$
+
+#----------------------------------------------------------------------
 # --tidy: Formata o XML, uma tag por linha
 
 $ zzxml --tidy zzxml.in.xml
@@ -29,6 +43,80 @@ itálico
 &quot;&amp;&apos;&lt;&gt;
 </escape>
 </section>
+</xml>
+$
+
+#----------------------------------------------------------------------
+# --indent: Formata o XML, com indent (implica --tidy)
+
+$ zzxml --indent zzxml.in.xml 
+<xml>
+	<section>
+		<title>
+			Título
+		</title>
+		<img src="foo.png" />
+		<para>
+			Meu parágrafo, com 
+			<strong>
+				negrito
+			</strong>
+			e 
+			<em>
+				itálico
+			</em>
+			. 	
+		</para>
+		<escape>
+			&quot;&amp;&apos;&lt;&gt;
+		</escape>
+	</section>
+</xml>
+$
+
+#----------------------------------------------------------------------
+# --notag TAG: Remove uma tag e seu conteúdo (implica --tidy)
+
+$ zzxml --notag para zzxml.in.xml
+<xml>
+<section>
+<title>
+Título
+</title>
+<img src="foo.png" />
+<escape>
+&quot;&amp;&apos;&lt;&gt;
+</escape>
+</section>
+</xml>
+$
+
+#----------------------------------------------------------------------
+# Combina --notag TAG com --indent (em qualquer ordem)
+
+$ zzxml --notag para --indent zzxml.in.xml
+<xml>
+	<section>
+		<title>
+			Título
+		</title>
+		<img src="foo.png" />
+		<escape>
+			&quot;&amp;&apos;&lt;&gt;
+		</escape>
+	</section>
+</xml>
+$ zzxml --indent --notag para zzxml.in.xml
+<xml>
+	<section>
+		<title>
+			Título
+		</title>
+		<img src="foo.png" />
+		<escape>
+			&quot;&amp;&apos;&lt;&gt;
+		</escape>
+	</section>
 </xml>
 $
 
