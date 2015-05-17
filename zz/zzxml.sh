@@ -284,8 +284,16 @@ zzxml ()
 		# --untag
 		if test $untag -eq 1
 		then
-			# Caso especial: <![CDATA[Foo bar.]]>
-			sed 's/<!\[CDATA\[//g ; s/]]>//g ; s/<[^>]*>//g'
+			sed '
+				# Caso especial: <![CDATA[Foo bar.]]>
+				s/<!\[CDATA\[//g
+				s/]]>//g
+
+				# Evita linhas vazias inúteis na saída
+				/^[[:blank:]]*<[^>]*>[[:blank:]]*$/ d
+
+				# Remove as tags inline
+				s/<[^>]*>//g'
 		else
 			cat -
 		fi |

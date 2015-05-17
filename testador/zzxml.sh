@@ -135,16 +135,9 @@ $
 # --untag sozinho remove todas as tags e deixa o conteúdo
 
 $ zzxml --untag zzxml.in.xml
-
-
 	Título
-	
-	
 		Meu parágrafo, com negrito e itálico.
-	
 	&quot;&amp;&apos;&lt;&gt;
-
-
 $
 
 #----------------------------------------------------------------------
@@ -185,7 +178,6 @@ $
 $ zzxml --tag 'img' zzxml.in.xml
 <img src="foo.png" />
 $ zzxml --tag 'img' --untag zzxml.in.xml
-
 $
 
 #----------------------------------------------------------------------
@@ -198,9 +190,7 @@ Título
 $
 
 $ zzxml --tag 'title' --untag zzxml.in.xml
-
 Título
-
 $
 
 #----------------------------------------------------------------------
@@ -221,31 +211,19 @@ itálico
 $
 
 $ zzxml --tag 'para' --untag zzxml.in.xml
-
  		Meu parágrafo, com 
-
 negrito
-
  e 
-
 itálico
-
 . 	
-
 $
 
 $ zzxml --tag 'para' --untag --unescape zzxml.in.xml
-
  		Meu parágrafo, com 
-
 negrito
-
  e 
-
 itálico
-
 . 	
-
 $
 
 #----------------------------------------------------------------------
@@ -267,12 +245,8 @@ $
 # STDIN e simula zzfeed
 
 $ cat zzxml.in.xml zzxml.in.xml | zzxml --tag title --untag --unescape
-
 Título
-
-
 Título
-
 $
 
 #----------------------------------------------------------------------
@@ -303,7 +277,5 @@ $
 # Untag ocorre antes do unescape, por isso o <> não é afetado
 
 $ zzxml --tag 'escape' --unescape --untag zzxml.in.xml
-
 "&'<>
-
 $
