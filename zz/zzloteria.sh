@@ -100,10 +100,11 @@ zzloteria ()
 			else
 				if ! test -e ${ZZTMP}.lotomania.htm || ! $(grep "^$num_com " ${ZZTMP}.lotomania.htm >/dev/null)
 				then
+					rm -f ${ZZTMP}.lotomania.htm
 					$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotoma.zip" > "${ZZTMP}.lotomania.zip" 2>/dev/null
 					unzip -q -o "${ZZTMP}.lotomania.zip" -d "${ZZTMP%/*}" 2>/dev/null
 					mv "${ZZTMP%/*}/D_LOTMAN.HTM" ${ZZTMP}.lotomania.htm
-					rm -f ${ZZTMP}.lotomania.zip ${ZZTMP%/*}/*.GIF
+					rm -f ${ZZTMP}.lotomania.zip ${ZZTMP%/*}/T11.GIF
 				fi
 				numero_concurso=$num_con
 				dump=$($ZZWWWDUMP2 ${ZZTMP}.lotomania.htm | awk '$1=='$num_con)
@@ -169,10 +170,11 @@ zzloteria ()
 				else
 					if ! test -e ${ZZTMP}.lotofacil.htm || ! $(grep "^$num_com " ${ZZTMP}.lotofacil.htm >/dev/null)
 					then
+						rm -f ${ZZTMP}.lotofacil.htm
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip" > "${ZZTMP}.lotofacil.zip" 2>/dev/null
 						unzip -q -o "${ZZTMP}.lotofacil.zip" -d "${ZZTMP%/*}" 2>/dev/null
 						mv "${ZZTMP%/*}/D_LOTFAC.HTM" ${ZZTMP}.lotofacil.htm
-						rm -f ${ZZTMP}.lotofacil.zip ${ZZTMP%/*}/*.GIF
+						rm -f ${ZZTMP}.lotofacil.zip ${ZZTMP%/*}/LOTFACIL.GIF
 					fi
 					numero_concurso=$num_con
 					dump=$($ZZWWWDUMP2 ${ZZTMP}.lotofacil.htm | awk '$1=='$num_con)
@@ -213,10 +215,11 @@ zzloteria ()
 				else
 					if ! test -e ${ZZTMP}.mega.htm || ! $(grep "^$num_com " ${ZZTMP}.mega.htm >/dev/null)
 					then
+						rm -f ${ZZTMP}.mega.htm
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_mgsasc.zip" > "${ZZTMP}.mega.zip" 2>/dev/null
 						unzip -q -o "${ZZTMP}.mega.zip" -d "${ZZTMP%/*}" 2>/dev/null
 						mv "${ZZTMP%/*}/d_megasc.htm" ${ZZTMP}.mega.htm
-						rm -f ${ZZTMP}.mega.zip ${ZZTMP%/*}/*.GIF
+						rm -f ${ZZTMP}.mega.zip ${ZZTMP%/*}/T2.GIF
 					fi
 					numero_concurso=$num_con
 					dump=$($ZZWWWDUMP2 ${ZZTMP}.mega.htm | awk '$1=='$num_con)
@@ -265,10 +268,11 @@ zzloteria ()
 				else
 					if ! test -e ${ZZTMP}.quina.htm || ! $(grep "^$num_com " ${ZZTMP}.quina.htm >/dev/null)
 					then
+						rm -f ${ZZTMP}.quina.htm
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_quina.zip" > "${ZZTMP}.quina.zip" 2>/dev/null
 						unzip -q -o "${ZZTMP}.quina.zip" -d "${ZZTMP%/*}" 2>/dev/null
 						mv "${ZZTMP%/*}/D_QUINA.HTM" ${ZZTMP}.quina.htm
-						rm -f ${ZZTMP}.quina.zip ${ZZTMP%/*}/*.GIF
+						rm -f ${ZZTMP}.quina.zip ${ZZTMP%/*}/T7.GIF
 					fi
 					numero_concurso=$num_con
 					dump=$($ZZWWWDUMP2 ${ZZTMP}.quina.htm | awk '$1=='$num_con)
