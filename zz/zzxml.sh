@@ -105,27 +105,27 @@ zzxml ()
 	# Montando script awk para excluir tags
 	if test -n "$notag"
 	then
-		echo 'BEGIN { notag=0 } {' >> $cache_notag
+		echo 'BEGIN { notag=0 } {' > $cache_notag
 		for ntag in $notag
 		do
 			echo '
-				if ($0 ~ /<'$ntag'[^\/>]* >/) { notag++}
-				if (notag==0) print
-				if ($0 ~ /<\/'$ntag' >/) { notag-- }
+				if ($0 ~ /<'$ntag'[^\/>]* >/) { notag++ }
+				if ($0 ~ /<\/'$ntag' >/) { notag--; if (notag==0) { next } }
 			' >> $cache_notag
 			sed_notag="$sed_notag /<${ntag}[^/>]*\/>/d;"
 		done
-		echo '}' >> $cache_notag
+		echo 'if (notag==0) { nolinha[NR] = $0 } }' >> $cache_notag
 	fi
 
 	# Montando script awk para selecionar tags
 	if test -n "$tag"
 	then
+		echo 'BEGIN {' > $cache_tag
 		for ntag in $tag
 		do
-			echo 'BEGIN { tag['$ntag']=0 }' >> $cache_tag
+			echo 'tag['$ntag']=0' >> $cache_tag
 		done
-		test -n "$tag" && echo '{' >> $cache_tag
+		echo '} {' >> $cache_tag
 		for ntag in $tag
 		do
 			echo '
@@ -148,8 +148,24 @@ zzxml ()
 	fi
 
 	# Caso indent=1 mantém uma tag por linha para possibilitar indentação.
-	test -n "$tag" && test $tidy -eq 0 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache_tag
-	test -n "$tag" && test $tidy -eq 1 && echo ' END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache_tag
+	if test -n "$tag" 
+	then
+		if test $tidy -eq 0
+		then
+			echo 'END { for (lin=1;lin<=NR;lin++) { if (lin in linha) printf "%s", linha[lin] } print ""}' >> $cache_tag
+		else
+			echo 'END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache_tag
+		fi
+	fi
+	if test -n "$notag" 
+	then
+		if test $tidy -eq 0
+		then
+			echo 'END { for (lin=1;lin<=NR;lin++) { if (lin in nolinha) printf "%s", nolinha[lin] } print ""}' >> $cache_notag
+		else
+			echo 'END { for (lin=1;lin<=NR;lin++) { if (lin in nolinha) print nolinha[lin] } }' >> $cache_notag
+		fi
+	fi
 
 	# O código seguinte é um grande filtro, com diversos blocos de comando
 	# IF interligados via pipe (logo após o FI). Cada IF pode aplicar um
