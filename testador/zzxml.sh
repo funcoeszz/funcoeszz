@@ -77,7 +77,7 @@ $
 #----------------------------------------------------------------------
 # --notag TAG: Remove uma tag e seu conteúdo (implica --tidy)
 
-$ zzxml --notag para zzxml.in.xml
+$ zzxml --notag 'para' zzxml.in.xml
 <xml>
 <section>
 <title>
@@ -94,7 +94,7 @@ $
 #----------------------------------------------------------------------
 # Combina --notag TAG com --indent (em qualquer ordem)
 
-$ zzxml --notag para --indent zzxml.in.xml
+$ zzxml --notag 'para' --indent zzxml.in.xml
 <xml>
 	<section>
 		<title>
@@ -106,7 +106,7 @@ $ zzxml --notag para --indent zzxml.in.xml
 		</escape>
 	</section>
 </xml>
-$ zzxml --indent --notag para zzxml.in.xml
+$ zzxml --indent --notag 'para' zzxml.in.xml
 <xml>
 	<section>
 		<title>
@@ -124,22 +124,22 @@ $
 #----------------------------------------------------------------------
 # Tag única (sem fecha tag)
 
-$ zzxml --tag img zzxml.in.xml
+$ zzxml --tag 'img' zzxml.in.xml
 <img src="foo.png" />
-$ zzxml --tag img --untag zzxml.in.xml
+$ zzxml --tag 'img' --untag zzxml.in.xml
 
 $
 
 #----------------------------------------------------------------------
 # Tag de uma linha
 
-$ zzxml --tag title zzxml.in.xml
+$ zzxml --tag 'title' zzxml.in.xml
 <title>
 Título
 </title>
 $
 
-$ zzxml --tag title --untag zzxml.in.xml
+$ zzxml --tag 'title' --untag zzxml.in.xml
 
 Título
 
@@ -148,7 +148,7 @@ $
 #----------------------------------------------------------------------
 # Tag multilinha
 
-$ zzxml --tag para zzxml.in.xml
+$ zzxml --tag 'para' zzxml.in.xml
 <para>
  		Meu parágrafo, com 
 <strong>
@@ -162,7 +162,7 @@ itálico
 </para>
 $
 
-$ zzxml --tag para --untag zzxml.in.xml
+$ zzxml --tag 'para' --untag zzxml.in.xml
 
  		Meu parágrafo, com 
 
@@ -176,7 +176,7 @@ itálico
 
 $
 
-$ zzxml --tag para --untag --unescape zzxml.in.xml
+$ zzxml --tag 'para' --untag --unescape zzxml.in.xml
 
  		Meu parágrafo, com 
 
@@ -193,13 +193,13 @@ $
 #----------------------------------------------------------------------
 # Unescape
 
-$ zzxml --tag escape zzxml.in.xml
+$ zzxml --tag 'escape' zzxml.in.xml
 <escape>
 &quot;&amp;&apos;&lt;&gt;
 </escape>
 $
 
-$ zzxml --tag escape --unescape zzxml.in.xml
+$ zzxml --tag 'escape' --unescape zzxml.in.xml
 <escape>
 "&'<>
 </escape>
@@ -208,7 +208,7 @@ $
 #----------------------------------------------------------------------
 # Untag ocorre antes do unescape, por isso o <> não é afetado
 
-$ zzxml --tag escape --unescape --untag zzxml.in.xml
+$ zzxml --tag 'escape' --unescape --untag zzxml.in.xml
 
 "&'<>
 
