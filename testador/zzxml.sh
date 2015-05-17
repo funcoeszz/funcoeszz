@@ -75,7 +75,7 @@ $ zzxml --indent zzxml.in.xml
 $
 
 #----------------------------------------------------------------------
-# --notag TAG: Remove uma tag e seu conteúdo (implica --tidy)
+# --notag NOME: Remove uma tag e seu conteúdo (implica --tidy)
 
 $ zzxml --notag 'para' zzxml.in.xml
 <xml>
@@ -92,7 +92,7 @@ Título
 $
 
 #----------------------------------------------------------------------
-# Combina --notag TAG com --indent (em qualquer ordem)
+# Combina --notag NOME com --indent (em qualquer ordem)
 
 $ zzxml --notag 'para' --indent zzxml.in.xml
 <xml>
@@ -120,6 +120,64 @@ $ zzxml --indent --notag 'para' zzxml.in.xml
 </xml>
 $
 
+#----------------------------------------------------------------------
+# --notag NOME chamado múltiplas vezes
+
+$ zzxml --notag 'para' --notag 'escape' --notag 'title' zzxml.in.xml
+<xml>
+<section>
+<img src="foo.png" />
+</section>
+</xml>
+$
+
+#----------------------------------------------------------------------
+# --untag sozinho remove todas as tags e deixa o conteúdo
+
+$ zzxml --untag zzxml.in.xml
+
+
+	Título
+	
+	
+		Meu parágrafo, com negrito e itálico.
+	
+	&quot;&amp;&apos;&lt;&gt;
+
+
+$
+
+#----------------------------------------------------------------------
+# --untag=NOME remove apenas a tags NOME, deixando o seu conteúdo
+
+$ zzxml --untag=para zzxml.in.xml
+<xml>
+<section>
+	<title>Título</title>
+	<img src="foo.png" />
+	
+		Meu parágrafo, com <strong>negrito</strong> e <em>itálico</em>.
+	
+	<escape>&quot;&amp;&apos;&lt;&gt;</escape>
+</section>
+</xml>
+$
+
+#----------------------------------------------------------------------
+# --untag=NOME chamado múltiplas vezes
+
+$ zzxml --untag=para --untag=escape --untag=title zzxml.in.xml
+<xml>
+<section>
+	Título
+	<img src="foo.png" />
+	
+		Meu parágrafo, com <strong>negrito</strong> e <em>itálico</em>.
+	
+	&quot;&amp;&apos;&lt;&gt;
+</section>
+</xml>
+$
 
 #----------------------------------------------------------------------
 # Tag única (sem fecha tag)
@@ -188,6 +246,42 @@ itálico
 
 . 	
 
+$
+
+#----------------------------------------------------------------------
+# --tag NOME chamado múltiplas vezes
+
+$ zzxml --tag escape --tag title --tag strong zzxml.in.xml
+<title>
+Título
+</title>
+<strong>
+negrito
+</strong>
+<escape>
+&quot;&amp;&apos;&lt;&gt;
+</escape>
+$
+
+#----------------------------------------------------------------------
+# STDIN e simula zzfeed
+
+$ cat zzxml.in.xml zzxml.in.xml | zzxml --tag title --untag --unescape
+
+Título
+
+
+Título
+
+$
+
+#----------------------------------------------------------------------
+# Chamadas aninhadas
+
+$ cat zzxml.in.xml | zzxml --tag xml | zzxml --tag para | zzxml --tag strong
+<strong>
+negrito
+</strong>
 $
 
 #----------------------------------------------------------------------
