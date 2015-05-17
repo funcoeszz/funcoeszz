@@ -4,17 +4,17 @@
 # Obs.: Necessário pois não há ferramenta portável para lidar com XML no Unix.
 #
 # Opções: --tidy        Reorganiza o código, deixando uma tag por linha
-#         --tag <tag>   Extrai (grep) as tags e seu conteúdo
-#         --notag <tag> Exclui essas tags (grep -v) e seu conteúdo
+#         --tag NOME    Extrai (grep) todas as tags NOME e seu conteúdo
+#         --notag NOME  Exclui (grep -v) todas as tags NOME e seu conteúdo
 #         --list        Lista sem repetição as tags existentes no arquivo
 #         --indent      Promove a indentação das tags
 #         --untag       Remove todas as tags, deixando apenas texto
-#         --untag=<tag> Remove apenas a tag especificada, deixando o texto
+#         --untag=NOME  Remove apenas a tag NOME, deixando o seu conteúdo
 #         --unescape    Converte as entidades &foo; para caracteres normais
 # Obs.: --notag tem precedência sobre --tag e --untag.
 #       --untag tem precedência sobre --tag.
 #
-# Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag[=NOME]] [--unescape] [arquivo(s)]
+# Uso: zzxml <opções> [arquivo(s)]
 # Ex.: zzxml --tidy arquivo.xml
 #      zzxml --untag --unescape arq.xml                   # xml -> txt
 #      zzxml --untag=item arq.xml                         # Apaga tags "item"
