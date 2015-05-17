@@ -26,7 +26,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 12
+# Versão: 13
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
