@@ -50,7 +50,7 @@ zzlibertadores ()
 	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/jogos/"
 	local awk_jogo='
 		NR % 3 == 1 { time1=$0; if ($(NF-1) ~ /^[0-9]{1,}$/) { penais1=$(NF -1)} else {penais1=""} }
-		NR % 3 == 2 { 
+		NR % 3 == 2 {
 			if ($NF ~ /^[0-9-]{1,}$/) { reserva=$NF " "; $NF=""; } else reserva=""
 			time2=reserva $0
 			if ($(NF-1) ~ /^[0-9]{1,}$/ ) { penais2=$(NF -1)} else {penais2=""}
