@@ -26,7 +26,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 11
+# Versão: 12
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq
 # ----------------------------------------------------------------------------
@@ -58,7 +58,7 @@ zzxml ()
 			--tag     )
 				tidy=1
 				shift
-				tag="$tag $1";
+				tag="$tag $1"
 				shift
 			;;
 			--untag=* )
@@ -109,7 +109,7 @@ zzxml ()
 		for ntag in $notag
 		do
 			echo '
-				if ($0 ~ /<'$ntag'[^/>]* >/) { notag++}
+				if ($0 ~ /<'$ntag'[^\/>]* >/) { notag++}
 				if (notag==0) print
 				if ($0 ~ /<\/'$ntag' >/) { notag-- }
 			' >> $cache_notag
