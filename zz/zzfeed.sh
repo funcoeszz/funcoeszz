@@ -13,7 +13,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zzxml zzunescape zztrim zzutf8
 # ----------------------------------------------------------------------------
@@ -114,9 +114,8 @@ zzfeed ()
 
 			# Extrai as tags <title> e formata o resultado
 			zzxml --tag $tag_mae "$tmp" |
-				zzxml --tag title |
-				zzxml --tidy --untag |
-				sed '/^[[:space:]]*$/d' | sed "$limite q" |
+				zzxml --tag title --untag |
+				sed "$limite q" |
 				zzunescape --html |
 				zztrim
 		else
