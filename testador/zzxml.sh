@@ -75,6 +75,34 @@ $ zzxml --indent zzxml.in.xml
 $
 
 #----------------------------------------------------------------------
+# --indent com um XML sem quebras de linha
+
+$ zzxml --tidy zzxml.in.xml | tr -d '\n' | zzxml --indent 
+<xml>
+	<section>
+		<title>
+			Título
+		</title>
+		<img src="foo.png" />
+		<para>
+			Meu parágrafo, com 
+			<strong>
+				negrito
+			</strong>
+			e 
+			<em>
+				itálico
+			</em>
+			. 	
+		</para>
+		<escape>
+			&quot;&amp;&apos;&lt;&gt;
+		</escape>
+	</section>
+</xml>
+$
+
+#----------------------------------------------------------------------
 # --notag NOME: Remove uma tag e seu conteúdo (implica --tidy)
 
 $ zzxml --notag 'para' zzxml.in.xml
