@@ -30,33 +30,18 @@ zzgeoip ()
 		ip=$(zzipinternet)
 	fi
 
-	pagina=$($ZZWWWHTML http://geoip.s12.com.br?ip=$ip |
-				zzxml --tidy --untag --tag td |
-				sed '/^[[:blank:]]*$/d;/&/d' |
-				awk '{if ($0 ~ /:/) { printf "\n%s",$0 } else printf $0}'
-			)
+	pagina=$(
+		$ZZWWWHTML http://geoip.s12.com.br?ip=$ip |
+			zzxml --tidy --untag --tag td |
+			sed '/^[[:blank:]]*$/d;/&/d' |
+			awk '{if ($0 ~ /:/) { printf "\n%s",$0 } else printf $0}'
+	)
 
-	cidade=$(echo "$pagina" |
-			grep 'Cidade:' |
-			cut -f2 -d:)
-
-	uf=$(echo "$pagina" |
-			grep 'Estado:' |
-			cut -f2 -d:)
-
-	pais=$(echo "$pagina" |
-			grep 'País:' |
-			cut -f2 -d:)
-
-	latitude=$(echo "$pagina" |
-			grep 'Latitude:' |
-			cut -f2 -d: |
-			tr ',' '.')
-
-	longitude=$(echo "$pagina" |
-			grep 'Longitude:' |
-			cut -f2 -d: |
-			tr ',' '.')
+	cidade=$(   echo "$pagina" | grep 'Cidade:'    | cut -d : -f 2         )
+ 	uf=$(       echo "$pagina" | grep 'Estado:'    | cut -d : -f 2         )
+	pais=$(     echo "$pagina" | grep 'País:'      | cut -d : -f 2         )
+	latitude=$( echo "$pagina" | grep 'Latitude:'  | cut -d : -f 2 | tr , .)
+	longitude=$(echo "$pagina" | grep 'Longitude:' | cut -d : -f 2 | tr , .)
 
 	mapa=$(zzminiurl "$url/mapa.asp?lat=$latitude&lon=$longitude&cidade=$cidade&estado=$uf")
 
