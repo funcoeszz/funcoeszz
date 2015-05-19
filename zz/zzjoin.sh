@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # Junta as linhas de 2 ou mais arquivos, mantendo a sequência.
 # Opções:
-#  -o <arquivo> - Define o arquivo de saida.
+#  -o <arquivo> - Define o arquivo de saída.
 #  -m - Toma como base o arquivo com menos linhas.
 #  -M - Toma como base o arquivo com mais linhas.
 #  -<numero> - Toma como base o arquivo na posição especificada.

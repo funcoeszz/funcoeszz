@@ -8,7 +8,7 @@
 #
 # Caso não seja passado o nome, serão exibidas informações acerca do $().
 # Se usado o argumento -s, será exibida somente a sintaxe.
-# Uso: zzjquery [-s] funcao
+# Uso: zzjquery [-s] função
 # Ex.: zzjquery gt
 #      zzjquery -s gt
 #

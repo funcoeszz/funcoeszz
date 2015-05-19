@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
 # Retorna a cotação de criptomoedas em Reais (bitcoin e litecoins).
 # Opções: btc ou bitecoin / ltc ou litecoin.
-# Com as opções -a ou --all, várias criptomoedas cotadas em dolar.
+# Com as opções -a ou --all, várias criptomoedas cotadas em dólar.
 # Uso: zzcoin [btc|bitcoin|ltc|litecoin|-a|--all]
 # Ex.: zzcoin
 #      zzcoin btc

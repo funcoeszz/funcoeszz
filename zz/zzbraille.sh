@@ -12,7 +12,7 @@
 # Com a opção --s2 muda o símbolo ○ (plano, sem destaque, vazio)
 #
 # Abaixo de cada célula Braille, aparece o caractere correspondente.
-# Incluindo especiais de maiúscula, numérico, espaço, muti-células.
+# Incluindo especiais de maiúscula, numérico, espaço, multi-células.
 # +++++ : Maiúsculo
 # +-    : Capitalize
 # __    : Espaço

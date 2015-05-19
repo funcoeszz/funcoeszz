@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://esporte.uol.com.br/futebol/agenda-de-jogos
-# Mostra todos os jogos de futebol marcados para os proximos dias.
+# Mostra todos os jogos de futebol marcados para os próximos dias.
 # Ou os resultados de jogos recentes.
 # Além de mostrar os times que jogam, o script também mostra o dia,
 # o horário e por qual campeonato será ou foi o jogo.

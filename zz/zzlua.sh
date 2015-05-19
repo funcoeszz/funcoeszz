@@ -6,7 +6,7 @@
 #
 # Uso: zzlua <palavra|regex>
 # Ex.: zzlua --atualiza        # Força atualização do cache
-#      zzlua file              # mostra as funçoes com "file" no nome
+#      zzlua file              # mostra as funções com "file" no nome
 #      zzlua -d debug.debug    # mostra descrição da função debug.debug
 #      zzlua ^d                # mostra as funções que começam com d
 #

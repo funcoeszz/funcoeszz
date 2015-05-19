@@ -15,7 +15,7 @@
 #   3  7
 #   4  8
 #
-# As opções -l, --left, -e, --esqueda alinham as colunas a esquerda (padrão).
+# As opções -l, --left, -e, --esquerda alinham as colunas a esquerda (padrão).
 # As opções -r, --right, -d, --direita alinham as colunas a direita.
 # As opções -c, --center, --centro centralizam as colunas.
 # A opção -j justifica as colunas.

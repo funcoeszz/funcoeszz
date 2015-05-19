@@ -6,7 +6,7 @@
 #
 # Uso: zzphp <palavra|regex>
 # Ex.: zzphp --atualiza              # Força atualização do cache
-#      zzphp array                   # mostra as funçoes com "array" no nome
+#      zzphp array                   # mostra as funções com "array" no nome
 #      zzphp -d mysql_fetch_object   # mostra descrição do  mysql_fetch_object
 #      zzphp ^X                      # mostra as funções que começam com X
 #

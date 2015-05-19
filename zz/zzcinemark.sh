@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 # http://cinemark.com.br/programacao
 # Exibe a programação dos cinemas Cinemark de sua cidade.
-# Sem argumento lista todass as cidades e todas as salas mostrando os códigos.
-# Com cógido da cidade lista as salas dessa cidade.
+# Sem argumento lista todas as cidades e todas as salas mostrando os códigos.
+# Com o cógigo da cidade lista as salas dessa cidade.
 # Com o código das salas mostra os filmes do dia.
 # Um segundo argumento caso pode ser a data, para listar os filmes desse dia.
 # As datas devem ser futuras e conforme a padrão zzdata

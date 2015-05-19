@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Lista o ranking das distribuições no distrowatch.
+# Lista o ranking das distribuições no DistroWatch.
 # Sem argumentos lista dos últimos 6 meses
 # Se o argumento for 1, 3, 6 ou 12 é a ranking nos meses correspondente.
 # Se o argumento for 2002 até o ano passado, é a ranking final desse ano.

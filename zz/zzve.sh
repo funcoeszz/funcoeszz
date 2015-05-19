@@ -14,7 +14,7 @@
 #
 # Uso: zzve <opção>
 # Ex.: zzve tr         # Tabela de Taxa Referencial, Poupança e TBF.
-#      zzve moedas     # Cotações do Dolar, Euro e outras moedas.
+#      zzve moedas     # Cotações do Dólar, Euro e outras moedas.
 #      zzve 3          # Mais detalhes de ajuda sobre "Mercado Externo".
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>

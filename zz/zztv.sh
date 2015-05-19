@@ -14,7 +14,7 @@
 #  doc ou documentario, esportes ou futebol, filmes, infantil, variedades
 #  series ou seriados, aberta, todos ou agora (padrão).
 #
-# Uso: zztv <codigo canal> [semana|s]  ou  zztv cod <numero>
+# Uso: zztv <código canal> [semana|s]  ou  zztv cod <número>
 # Ex.: zztv CUL          # Programação da TV Cultura
 #      zztv cod 3235238
 #

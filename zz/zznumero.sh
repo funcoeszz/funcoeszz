@@ -9,7 +9,7 @@
 #   -s <sufixo>          Um sufixo para o número
 #   -m | --moeda         Trata valor monetário, sobrepondo as configurações de
 #                        -p, -s e -f
-#   -t                   Número parcialmente por extenso, ex: 2 mihões 350 mil
+#   -t                   Número parcialmente por extenso, ex: 2 milhões 350 mil
 #   --texto              Número inteiramente por extenso, ex: quatro mil e cem
 #   -l                   Uma classe numérica por linha, quando optar no número
 #                        por extenso

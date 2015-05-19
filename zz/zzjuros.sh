@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Mostra a listagem de taxas de juros que o Banco Central acompanha.
-# São intituições financeiras, que estão sob a supervisão do Banco Central.
+# São instituições financeiras, que estão sob a supervisão do Banco Central.
 # Com argumento numérico, detalha a listagem solicitada.
 # A numeração fica entre 1 e 27
 #

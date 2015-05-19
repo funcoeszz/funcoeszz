@@ -2,7 +2,7 @@
 # Retira linhas em branco e comentários.
 # Para ver rapidamente quais opções estão ativas num arquivo de configuração.
 # Além do tradicional #, reconhece comentários de vários tipos de arquivos.
-#  vim, asp, asm, ada, sql, e, bat, tex, c, css, html, cc, d, js, php. scala.
+#  vim, asp, asm, ada, sql, e, bat, tex, c, css, html, cc, d, js, php, scala.
 # E inclui os comentários multilinhas (/* ... */), usando opção --multi.
 # Obs.: Aceita dados vindos da entrada padrão (STDIN).
 # Uso: zzlimpalixo [--multi] [arquivos]

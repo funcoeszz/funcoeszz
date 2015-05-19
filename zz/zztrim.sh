@@ -6,7 +6,7 @@
 #   -t, --top         Apaga as linhas em branco do início do texto
 #   -b, --bottom      Apaga as linhas em branco do final do texto
 #   -l, --left        Apaga os brancos do início de todas as linhas
-#   -r, --right       Apaga os brancos do final de todas as lihas
+#   -r, --right       Apaga os brancos do final de todas as linhas
 #   -V, --vertical    Apaga as linhas em branco do início e final (-t -b)
 #   -H, --horizontal  Apaga os brancos do início e final das linhas (-l -r)
 #

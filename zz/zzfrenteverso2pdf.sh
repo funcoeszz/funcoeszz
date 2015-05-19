@@ -3,7 +3,7 @@
 # Opções:
 #   -rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.
 #   -rv, --versosreversos   informa ordem reversa no arquivo versos.pdf.
-#    -d, --diretorio        informa o diretório de entrada/saída. Padrao=".".
+#    -d, --diretorio        informa o diretório de entrada/saída. Padrão=".".
 #    -v, --verbose          exibe informações de debug durante a execução.
 # Uso: zzfrenteverso2pdf [-rf] [-rv] [-d diretorio]
 # Ex.: zzfrenteverso2pdf

@@ -6,11 +6,11 @@
 #  -l ou --lista: apenas mostra as bolsas disponíveis e seus nomes.
 #  --limpa ou --limpar: exclui todos os arquivos de cache.
 #  commodities: produtos de origem primária nas bolsas.
-#  taxas_fixas ou moedas: exibe tabela de comparação de câmbio (pricipais).
+#  taxas_fixas ou moedas: exibe tabela de comparação de câmbio (principais).
 #  taxas_cruzadas: exibe a tabela cartesiana do câmbio.
 #  nome_moedas ou moedas_nome: lista códigos e nomes das moedas usadas.
 #  servicos, economia ou politica: mostra notícias relativas a esse assuntos.
-#  noticias: junta as notícias de servicos e economia.
+#  noticias: junta as notícias de serviços e economia.
 #  volume: lista ações líderes em volume de negócios na Bovespa.
 #  alta ou baixa: lista as ações nessa condição na BMFBovespa.
 #  "código de bolsa ou ação": mostra sua última cotação.
@@ -29,8 +29,8 @@
 #  "código de bolsa ou ação" e 2 datas: pesquisa as cotações nos dias com
 #    comparações entre datas e variações da ação ou bolsa pesquisada.
 #  vs (ou comp) e 2 códigos de bolsas ou ações: faz a comparação entre as duas
-#   ações ou bolsas. Se houver um quarto parametro como uma data faz essa
-#   comparaçao na data especificada. Mas não compara ações com bolsas.
+#   ações ou bolsas. Se houver um quarto parâmetro como uma data faz essa
+#   comparação na data especificada. Mas não compara ações com bolsas.
 #
 # Uso: zzbolsas [-l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
 # Ex.: zzbolsas                  # Lista das bolsas (códigos)
@@ -46,7 +46,7 @@
 #      zzbolsas volume           # Lista ações em alta em volume de negócios
 #      zzbolsas taxas_fixas
 #      zzbolsas taxas_cruzadas
-#      zzbolsas noticias sbsp3.sa    # Noticias recentes no mercadp da Sabesp
+#      zzbolsas noticias sbsp3.sa    # Noticias recentes no mercado da Sabesp
 #      zzbolsas vs petr3.sa vale3.sa # Compara ambas cotações
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>

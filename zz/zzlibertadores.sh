@@ -3,12 +3,12 @@
 # Opções:
 #  <número> | <fase>: Mostra jogos da fase selecionada
 #    fases: pre ou primeira, grupos ou segunda, oitavas
-#  -g <número>: Jogos da segunda fase do gupo selecionado
+#  -g <número>: Jogos da segunda fase do grupo selecionado
 #  -c [número]: Mostra a classificação, nos grupos da segunda fase
 #  -cg <número> ou -gc <número>: Classificação e jogos do grupo selecionado.
 #
 # As fases podem ser:
-#  pré, pre, primeira ou 1, para a fasé pré-libertadores
+#  pré, pre, primeira ou 1, para a fase pré-libertadores
 #  grupos, segunda ou 2, para a fase de grupos da libertadores
 #  oitavas ou 3
 #  quartas ou 4
@@ -31,7 +31,7 @@
 # Uso: zzlibertadores [ fase | -c [número] | -g <número> ]
 # Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)
 #      zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
-#      zzlibertadores -c    # Calssificação de todos os grupos
+#      zzlibertadores -c    # Classificação de todos os grupos
 #      zzlibertadores -c 3  # Classificação no grupo 3
 #      zzlibertadores -cg 7 # Classificação e jogos do grupo 7
 #

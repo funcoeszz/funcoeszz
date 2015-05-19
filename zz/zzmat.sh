@@ -26,7 +26,7 @@
 #
 # Mais detalhes: zzmat função
 #
-# Uso: zzmat [-pnumero] funcoes [número] [número]
+# Uso: zzmat [-pnumero] funções [número] [número]
 # Ex.: zzmat mmc 8 12
 #      zzmat media 5[2] 7 4[3]
 #      zzmat somatoria 3 9 2x+3
