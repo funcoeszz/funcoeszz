@@ -4,13 +4,14 @@
 # Use a opção -w para adicionar caracteres de palavra (Padrão: A-Za-z0-9áéí…)
 #
 # Uso: zzcapitalize [texto]
-# Ex.: zzcapitalize root                                 # Root
-#      zzcapitalize kung fu panda                        # Kung Fu Panda
-#      zzcapitalize -1 kung fu panda                     # Kung fu panda
-#      zzcapitalize quero-quero                          # Quero-Quero
-#      echo eu_uso_camel_case | zzcapitalize             # Eu_Uso_Camel_Case
-#      echo "i don't care" | zzcapitalize                # I Don'T Care
-#      echo "i don't care" | zzcapitalize -w \'          # I Don't Care
+# Ex.: zzcapitalize root                             # Root
+#      zzcapitalize kung fu panda                    # Kung Fu Panda
+#      zzcapitalize -1 kung fu panda                 # Kung fu panda
+#      zzcapitalize quero-quero                      # Quero-Quero
+#      zzcapitalize água ênfase último               # Água Ênfase Último
+#      echo eu_uso_camel_case | zzcapitalize         # Eu_Uso_Camel_Case
+#      echo "i don't care" | zzcapitalize            # I Don'T Care
+#      echo "i don't care" | zzcapitalize -w \'      # I Don't Care
 #      cat arquivo.txt | zzcapitalize
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
