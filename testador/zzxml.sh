@@ -286,6 +286,30 @@ negrito
 </strong>
 $
 
+#
+#----------------------------------------------------------------------
+# Precedência de --untag=NOME sobre --tag NOME.
+$ zzxml --untag='em' --tag 'em' zzxml.in.xml
+$
+
+# Precedência de --notag NOME sobre --untag=NOME.
+#----------------------------------------------------------------------
+$ zzxml --untag='em' --tag 'para' --notag 'em' zzxml.in.xml
+<para>
+ 		Meu parágrafo, com 
+<strong>
+negrito
+</strong>
+ e 
+. 	
+</para>
+$
+
+# Precedência de --notag NOME sobre --tag NOME.
+#----------------------------------------------------------------------
+$ zzxml --tag 'strong' --notag 'para' zzxml.in.xml
+$
+
 #----------------------------------------------------------------------
 # Unescape
 
@@ -301,7 +325,7 @@ $ zzxml --tag 'escape' --unescape zzxml.in.xml
 </escape>
 $
 
-#----------------------------------------------------------------------
+#----------------------------------------------------------------------'
 # Untag ocorre antes do unescape, por isso o <> não é afetado
 
 $ zzxml --tag 'escape' --unescape --untag zzxml.in.xml
