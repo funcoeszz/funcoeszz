@@ -1,10 +1,10 @@
 # ----------------------------------------------------------------------------
-# Gera um número aleatório, conforme o $RANDOM no bash.
+# Gera um número aleatório.
 # Sem argumentos, comporta-se igual a $RANDOM.
 # Apenas um argumento, número entre 0 e o valor fornecido.
-# Com dois argumentos, número entre esses limites dados.
+# Com dois argumentos, número entre esses limites informados.
 #
-# Uso: zzaleatorio [numero] [numero]
+# Uso: zzaleatorio [número] [número]
 # Ex.: zzaleatorio 10
 #      zzaleatorio 5 15
 #      zzaleatorio
@@ -46,7 +46,7 @@ zzaleatorio ()
 	fi
 
 	# Usando o dispositivo /dev/urandom
-	v_temp=$(od -An -N2 -d /dev/urandom | tr -d -c '[0-9]' )
+	v_temp=$(od -An -N2 -d /dev/urandom | tr -d -c '[0-9]')
 
 	# Se não estiver disponível, usa o dispositivo /dev/random
 	zztool testa_numero $v_temp || v_temp=$(od -An -N2 -d /dev/random | tr -d -c '[0-9]')
