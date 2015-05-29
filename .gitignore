@@ -8,6 +8,3 @@ _tmp
 
 # Arquivo do release, porém ainda na pasta de build
 /release/funcoeszz-*.sh
-
-# Estou trabalhando no site, não mexer por enquanto
-/website/
