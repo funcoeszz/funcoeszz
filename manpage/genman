@@ -2,7 +2,7 @@
 # 2010-12-23
 # Aurelio Jargas
 #
-# Generate the Funcoes ZZ manpage from the SVN sources, in txt2tags format.
+# Generate the Funcoes ZZ manpage from the Git sources, in txt2tags format.
 # It uses the --help of each function to compose the contents.
 #
 # Note: The manpage.t2t file is also used in the website for zzajuda.html.
@@ -26,7 +26,7 @@ echo "Funções ZZ
 %!target:man
 %!encoding:utf-8
 %!options(html): --toc
-%!options(man): -o manpage-utf8.man
+%!options(man): -o manpage.man
 %!postproc(man): '^  ' ''
 "
 
@@ -54,4 +54,4 @@ txt2tags "$out"
 # iconv -f utf-8 -t iso-8859-1 manpage-utf8.man > manpage-latin1.man
 
 # Convert to HTML
-txt2tags -t html "$out"
+# txt2tags -t html "$out"
