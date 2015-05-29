@@ -86,6 +86,7 @@ $ zzjquery --lista css
 .innerHeight
 .innerWidth
 jQuery.cssHooks
+jQuery.cssNumber
 .offset
 .outerHeight
 .outerWidth
