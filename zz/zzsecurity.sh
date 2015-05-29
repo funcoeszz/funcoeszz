@@ -10,7 +10,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 10
+# Versão: 11
 # Licença: GPL
 # Requisitos: zzminusculas zzfeed zztac zzurldecode zzdata zzdatafmt
 # ----------------------------------------------------------------------------
@@ -185,7 +185,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Archlinux'
 		echo "$url"
 		$ZZWWWDUMP "$url" |
-			sed -n "/^ *CVE-${ano}-[0-9]/{s/templink //;p}" |
+			sed -n "/^ *CVE-${ano}-[0-9]/{s/templink //;p;}" |
 			$limite
 	fi
 
