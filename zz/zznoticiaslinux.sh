@@ -12,7 +12,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzfeed
 # ----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ zznoticiaslinux ()
 	# UnderLinux
 	if zztool grep_var u "$sites"
 	then
-		url='https://under-linux.org/external.php?do=rss&type=newcontent'
+		url='https://under-linux.org/external.php?do=rss&type=newcontent&sectionid=1&days=120'
 		echo
 		zztool eco "* UnderLinux ($url):"
 		zzfeed -n $n "$url"
