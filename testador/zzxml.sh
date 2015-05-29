@@ -325,7 +325,7 @@ $ zzxml --tag 'escape' --unescape zzxml.in.xml
 </escape>
 $
 
-#----------------------------------------------------------------------'
+#----------------------------------------------------------------------
 # Untag ocorre antes do unescape, por isso o <> não é afetado
 
 $ zzxml --tag 'escape' --unescape --untag zzxml.in.xml
