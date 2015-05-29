@@ -11,11 +11,12 @@
 zzglobo ()
 {
 	zzzz -h globo "$1" && return
-	
+
 	local DATA=`date +%d | sed 's/^0//'`
 	local URL="http://vejonatv.com.br/programacao/globo-rede.html"
-	
+
 	$ZZWWWDUMP "$URL" |
-		sed -n "/Hoje \[[0-9]*\-[0-9]*\-[0-9]*\]/,/Amanhã .*/p" | sed '$d' |
+		sed -n "/Hoje \[[0-9]*\-[0-9]*\-[0-9]*\]/,/Amanhã .*/p" |
+		sed '$d' |
 		uniq
 }
