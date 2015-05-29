@@ -13,7 +13,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-10-28
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzwikipedia ()
@@ -41,7 +41,7 @@ zzwikipedia ()
 			/^Views$/,$ d
 			/^Vistas$/,$ d
 			/^Ferramentas pessoais$/,$ d
-			/^.Ligações externas/,$ d
+			/^.\{0,1\}Ligações externas/,$ d
 			/^  *#Wikipedia (/d
 			/^  *#alternat/d
 			/Click here for more information.$/d
