@@ -27,7 +27,7 @@ zzquimica ()
 		$ZZWWWHTML "http://www.tabelaperiodicacompleta.com/" |
 		awk '/class="elemento/,/<\/td>/{print}'|
 		zzxml --untag=br | zzxml --tidy |
-		sed '/id=57-71/,/<\/td>/d;/id=89-103/,/<\/td>/d' |
+		sed '/id="57-71"/,/<\/td>/d;/id="89-103"/,/<\/td>/d' |
 		awk 'BEGIN {print "N.º:Nome:Símbolo:Massa:Orbital:Classificação (estado)"; OFS=":" }
 			/^<td /     {
 				info["familia"] = $5
