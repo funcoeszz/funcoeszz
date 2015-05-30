@@ -1,21 +1,21 @@
 # ----------------------------------------------------------------------------
-# zziostat
-# Monitora a utilização dos discos para Linux usando o comando iostat
+# Monitora a utilização dos discos no Linux.
 #
-# Opções: -t [numero]	Mostra apenas os discos mais utilizados
-#         -i [segundos]	Intervalo em segundos entre as coletas
-#         -d [discos]	Mostra apenas os discos que comecam a string passada
-#                   	O padrao é 'sd'
-#         -o [trwT]	Ordena os dicos por:
-#                  		t (tps)
-#                    		r (read/s)
-#                    		w (write/s)
-#                    		T (total/s = read/s+write/s)
+# Opções:
+#   -t [número]    Mostra apenas os discos mais utilizados
+#   -i [segundos]  Intervalo em segundos entre as coletas
+#   -d [discos]    Mostra apenas os discos que começam com a string passada
+#                  O padrão é 'sd'
+#   -o [trwT]      Ordena os discos por:
+#                      t (tps)
+#                      r (read/s)
+#                      w (write/s)
+#                      T (total/s = read/s+write/s)
 #
-# Obs.: Se não for usada a opção -t, é mostrado a soma da utilização 
-#       de todos os dicos
+# Obs.: Se não for usada a opção -t, é mostrada a soma da utilização
+#       de todos os discos.
 #
-# Uso: zziostat [-t numero] [-i segundos] [-d discos] [-o trwT]
+# Uso: zziostat [-t número] [-i segundos] [-d discos] [-o trwT]
 # Ex.: zziostat
 #      zziostat -t 10
 #      zziostat -i 5 -o T
@@ -37,21 +37,26 @@ zziostat ()
 	while [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
-			-t ) shift; top=$1
-			     zztool testa_numero $top || { echo "Número inválido $top"; return 1; }
-			     ;;
-			-i ) shift; delay=$1
-			     zztool testa_numero $delay || { echo "Número inválido $delay"; return 1; }
-			     ;;
-			-d ) shift; disk=$1
-			     ;;
-			-o ) shift; orderby=$1
-			     if ! echo $orderby | grep -qs '^[rwtT]$'; then
-			     	echo "Opção inválida '$orderby'"
-				return 1
-			     fi
-			     ;;
-			 * ) echo "Opção inválida $1"; return 1;;
+			-t )
+				shift; top=$1
+				zztool testa_numero $top || { echo "Número inválido $top"; return 1; }
+				;;
+			-i )
+				shift; delay=$1
+				zztool testa_numero $delay || { echo "Número inválido $delay"; return 1; }
+				;;
+			-d )
+				shift; disk=$1
+				;;
+			-o )
+				shift; orderby=$1
+				if ! echo $orderby | grep -qs '^[rwtT]$'; then
+					echo "Opção inválida '$orderby'"
+					return 1
+				fi
+				;;
+			 * )
+				echo "Opção inválida $1"; return 1;;
 		esac
 		shift
 	done
@@ -77,10 +82,10 @@ $line"
 				date '+%d/%m/%y - %H:%M:%S'
 				echo 'Device:            tps    MB_read/s    MB_wrtn/s    MB_read    MB_wrtn        MB_total/s'
 				echo "$cycle" |
-				    sed -n "/^${disk}[a-zA-Z]\+[[:blank:]]/p" |
-				    awk '{print $0"         "$3+$4}' |
-				    sort -k $orderby -r -n |
-				    head -$top
+					sed -n "/^${disk}[a-zA-Z]\+[[:blank:]]/p" |
+					awk '{print $0"         "$3+$4}' |
+					sort -k $orderby -r -n |
+					head -$top
 			else
 				local tps reads writes totals
 				cycle=$(echo "$cycle" | sed -n "/^${disk}[a-zA-Z]\+[[:blank:]]/p")
