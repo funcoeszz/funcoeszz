@@ -4,7 +4,7 @@ Funções ZZ
 %!target:man
 %!encoding:utf-8
 %!options(html): --toc
-%!options(man): -o manpage-utf8.man
+%!options(man): -o manpage.man
 %!postproc(man): '^  ' ''
 
 = zzajuda =[zzajuda]
@@ -19,12 +19,12 @@ Ex.: zzajuda
 ```
 = zzaleatorio =[zzaleatorio]
 ```
-Gera um número aleatório, conforme o $RANDOM no bash.
+Gera um número aleatório.
 Sem argumentos, comporta-se igual a $RANDOM.
 Apenas um argumento, número entre 0 e o valor fornecido.
-Com dois argumentos, número entre esses limites dados.
+Com dois argumentos, número entre esses limites informados.
 
-Uso: zzaleatorio [numero] [numero]
+Uso: zzaleatorio [número] [número]
 Ex.: zzaleatorio 10
      zzaleatorio 5 15
      zzaleatorio
@@ -60,16 +60,16 @@ Ex.: zzalfabeto --militar
 ```
 Alinha um texto a esquerda, direita, centro ou justificado.
 
-As opções -l, --left, -e, --esqueda alinham as colunas a esquerda (padrão).
+As opções -l, --left, -e, --esquerda alinham as colunas a esquerda (padrão).
 As opções -r, --right, -d, --direita alinham as colunas a direita.
 As opções -c, --center, --centro centralizam as colunas.
 A opção -j, --justify, --justificar faz o texto ocupar toda a linha.
 
 As opções -w, --width, --largura seguido de um número,
 determinam o tamanho da largura como base ao alinhamento.
-Obs.: Se a largura original for maior é truncada no limite fornecido.
+Obs.: Onde a largura é maior do que a informada não é aplicado alinhamento.
 
-Uso: zzalinhar [-l|-r|-c|-j] [-w <largura>] arquivo
+Uso: zzalinhar [-l|-e|-r|-d|-c|-j] [-w <largura>] arquivo
 Ex.: zzalinhar arquivo.txt
      zzalinhar -c -w 20 arquivo.txt
      zzalinhar -j arquivo.txt
@@ -118,7 +118,7 @@ Ex.: zzarrumanome *
 = zzascii =[zzascii]
 ```
 Mostra a tabela ASCII com todos os caracteres imprimíveis (32-126,161-255).
-O formato utilizando é: <decimal> <hexa> <octal> <ascii>.
+O formato utilizando é: <decimal> <hexa> <octal> <caractere>.
 O número de colunas e a largura da tabela são configuráveis.
 Uso: zzascii [colunas] [largura]
 Ex.: zzascii
@@ -161,7 +161,7 @@ Ex.: zzbissexto
 ```
 = zzblist =[zzblist]
 ```
-Mostra se o IP informado está em alguma blacklist (SBL, PBL e XBL).
+Mostra se o IP informado está em alguma blacklist.
 Uso: zzblist IP
 Ex.: zzblist 200.199.198.197
 
@@ -175,11 +175,11 @@ Com 1 parâmetro:
  -l ou --lista: apenas mostra as bolsas disponíveis e seus nomes.
  --limpa ou --limpar: exclui todos os arquivos de cache.
  commodities: produtos de origem primária nas bolsas.
- taxas_fixas ou moedas: exibe tabela de comparação de câmbio (pricipais).
+ taxas_fixas ou moedas: exibe tabela de comparação de câmbio (principais).
  taxas_cruzadas: exibe a tabela cartesiana do câmbio.
  nome_moedas ou moedas_nome: lista códigos e nomes das moedas usadas.
  servicos, economia ou politica: mostra notícias relativas a esse assuntos.
- noticias: junta as notícias de servicos e economia.
+ noticias: junta as notícias de serviços e economia.
  volume: lista ações líderes em volume de negócios na Bovespa.
  alta ou baixa: lista as ações nessa condição na BMFBovespa.
  "código de bolsa ou ação": mostra sua última cotação.
@@ -198,8 +198,8 @@ Com 3 parâmetros ou mais:
  "código de bolsa ou ação" e 2 datas: pesquisa as cotações nos dias com
    comparações entre datas e variações da ação ou bolsa pesquisada.
  vs (ou comp) e 2 códigos de bolsas ou ações: faz a comparação entre as duas
-  ações ou bolsas. Se houver um quarto parametro como uma data faz essa
-  comparaçao na data especificada. Mas não compara ações com bolsas.
+  ações ou bolsas. Se houver um quarto parâmetro como uma data faz essa
+  comparação na data especificada. Mas não compara ações com bolsas.
 
 Uso: zzbolsas [-l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
 Ex.: zzbolsas                  # Lista das bolsas (códigos)
@@ -215,8 +215,8 @@ Ex.: zzbolsas                  # Lista das bolsas (códigos)
      zzbolsas volume           # Lista ações em alta em volume de negócios
      zzbolsas taxas_fixas
      zzbolsas taxas_cruzadas
-     zzbolsas noticias         # Noticias recentes do mercado financeiro
-     zzbolsas vs petr3.sa vale5.sa # Compara ambas cotações
+     zzbolsas noticias sbsp3.sa    # Noticias recentes no mercado da Sabesp
+     zzbolsas vs petr3.sa vale3.sa # Compara ambas cotações
 
 ```
 = zzbraille =[zzbraille]
@@ -234,7 +234,7 @@ Com a opção --s1 muda o símbolo ● (relevo, em destaque, cheio)
 Com a opção --s2 muda o símbolo ○ (plano, sem destaque, vazio)
 
 Abaixo de cada célula Braille, aparece o caractere correspondente.
-Incluindo especiais de maiúscula, numérico, espaço, muti-células.
+Incluindo especiais de maiúscula, numérico, espaço, multi-células.
 +++++ : Maiúsculo
 +-    : Capitalize
 __    : Espaço
@@ -253,22 +253,22 @@ Ex.: zzbraille 'Olá mundo!'
 = zzbrasileirao =[zzbrasileirao]
 ```
 http://esporte.uol.com.br/
-Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B ou C.
+Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B, C ou D.
 Se for fornecido um numero mostra os jogos da rodada, com resultados.
 Com argumento -l lista os todos os clubes da série A e B.
 Se o argumento -l for seguido do nome do clube, lista todos os jogos já
 ocorridos do clube desde o começo do ano de qualquer campeonato.
 
 Nomenclatura:
-	PG  - Pontos Ganhos
-	J   - Jogos
-	V   - Vitórias
-	E   - Empates
-	D   - Derrotas
-	GP  - Gols Pró
-	GC  - Gols Contra
-	SG  - Saldo de Gols
-	(%) - Aproveitamento (pontos)
+  PG  - Pontos Ganhos
+  J   - Jogos
+  V   - Vitórias
+  E   - Empates
+  D   - Derrotas
+  GP  - Gols Pró
+  GC  - Gols Contra
+  SG  - Saldo de Gols
+  (%) - Aproveitamento (pontos)
 
 Uso: zzbrasileirao [a|b|c] [numero rodada] ou zzbrasileirao -l [nome clube]
 Ex.: zzbrasileirao
@@ -324,13 +324,14 @@ Use a opção -1 para converter somente a primeira letra de cada linha.
 Use a opção -w para adicionar caracteres de palavra (Padrão: A-Za-z0-9áéí…)
 
 Uso: zzcapitalize [texto]
-Ex.: zzcapitalize root                                 # Root
-     zzcapitalize kung fu panda                        # Kung Fu Panda
-     zzcapitalize -1 kung fu panda                     # Kung fu panda
-     zzcapitalize quero-quero                          # Quero-Quero
-     echo eu_uso_camel_case | zzcapitalize             # Eu_Uso_Camel_Case
-     echo "i don't care" | zzcapitalize                # I Don'T Care
-     echo "i don't care" | zzcapitalize -w \'          # I Don't Care
+Ex.: zzcapitalize root                             # Root
+     zzcapitalize kung fu panda                    # Kung Fu Panda
+     zzcapitalize -1 kung fu panda                 # Kung fu panda
+     zzcapitalize quero-quero                      # Quero-Quero
+     zzcapitalize água ênfase último               # Água Ênfase Último
+     echo eu_uso_camel_case | zzcapitalize         # Eu_Uso_Camel_Case
+     echo "i don't care" | zzcapitalize            # I Don'T Care
+     echo "i don't care" | zzcapitalize -w \'      # I Don't Care
      cat arquivo.txt | zzcapitalize
 
 ```
@@ -355,12 +356,11 @@ Ex.: zzcarnaval
 ```
 http://cbn.globoradio.com.br
 Busca e toca os últimos comentários dos comentaristas da radio CBN.
-Uso: zzcbn [--mp3] [-c COMENTARISTA] [-d data]  ou  zzcbn --lista
-Ex.: zzcbn -c max -d ontem
-     zzcbn -c mauro -d tudo
-     zzcbn -c juca -d 13/05/09
+Uso: zzcbn [--audio] [num_audio] -c COMENTARISTA [-d data] ou  zzcbn --lista
+Ex.: zzcbn -c max-gehringer -d ontem
+     zzcbn -c juca-kfouri -d 13/05/09
      zzcbn -c miriam
-     zzcbn --mp3 -c max
+     zzcbn --audio 2 -c  mario-sergio-cortella
 
 ```
 = zzcep =[zzcep]
@@ -392,7 +392,7 @@ Ex.: zzchecamd5 ./ubuntu-8.10.iso f9e0494e91abb2de4929ef6e957f7753
 ```
 = zzcidade =[zzcidade]
 ```
-http://pt.wikipedia.org/wiki/Anexo:Lista_de_munic%C3%ADpios_do_Brasil
+http://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Brasil
 Lista completa com todas as 5.500+ cidades do Brasil, com busca.
 Obs.: Sem argumentos, mostra uma cidade aleatória.
 
@@ -417,30 +417,41 @@ Ex.: zzcinclude stdio
 http://www.cinemais.com.br
 Busca horários das sessões dos filmes no site do Cinemais.
 Cidades disponíveis:
-  Anapolis               -  32
-  Cuiaba                 -  10
-  Guaratingueta          -  21
-  Juiz de Fora           -  35
-  Milenium               -  29
-  Manaus Plaza           -  20
-  Marilia                -  17
-  Monte Carlos           -  34
-  Patos de Minas         -  11
-  Resende                -  33
-  Sao Jose do Rio Preto  -  30
   Uberaba                -   9
-  Uberlandia             -   8
+  Patos de Minas         -  11
+  Guaratingueta          -  21
+  Anapolis               -  32
+  Resende                -  33
+  Monte Carlos           -  34
+  Juiz de Fora           -  35
 
 Uso: zzcinemais [cidade]
 Ex.: zzcinemais milenium
 
 ```
-= zzcinemark15h =[zzcinemark15h]
+= zzcinemark =[zzcinemark]
 ```
-http://cinemark.com.br/programacao/cidade/1
-Exibe os filmes com sessão às 15h (mais barata) no Cinemark da sua cidade.
-Uso: zzcinemark15h [cidade | codigo_cinema]
-Ex.: zzcinemark15h sao paulo
+http://cinemark.com.br/programacao
+Exibe a programação dos cinemas Cinemark de sua cidade.
+Sem argumento lista todas as cidades e todas as salas mostrando os códigos.
+Com o cógigo da cidade lista as salas dessa cidade.
+Com o código das salas mostra os filmes do dia.
+Um segundo argumento caso pode ser a data, para listar os filmes desse dia.
+As datas devem ser futuras e conforme a padrão zzdata
+
+Uso: zzcinemark [codigo_cidade | codigo_cinema] [data]
+Ex.: zzcinemark 1            # Lista os cinemas de São Paulo
+     zzcinemark 662 sab      # Filmes de Raposo Shopping no sábado
+
+```
+= zzcinepolis =[zzcinepolis]
+```
+http://www.cinepolis.com.br/
+Exibe a programação dos cinemas Cinepólis de sua cidade.
+Se não for passado nenhum parâmetro, são listadas as cidades e cinemas.
+Uso: zzcinepolis [cidade | codigo_cinema]
+Ex.: zzcinepolis barueri
+     zzcinepolis 36
 
 ```
 = zzcineuci =[zzcineuci]
@@ -455,12 +466,25 @@ Ex.: zzcineuci recife
 ```
 = zzcnpj =[zzcnpj]
 ```
-Gera um CNPJ válido aleatório ou valida um CNPJ informado.
+Cria, valida ou formata um número de CNPJ.
 Obs.: O CNPJ informado pode estar formatado (pontos e hífen) ou não.
-Uso: zzcnpj [cnpj]
-Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ
-     zzcnpj 12345678000195          # com ou sem formatadores
-     zzcnpj                         # gera um CNPJ válido
+Uso: zzcnpj [-f] [cnpj]
+Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ informado
+     zzcnpj 12345678000195          # com ou sem pontuação
+     zzcnpj                         # gera um CNPJ válido (aleatório)
+     zzcnpj -f 12345678000195       # formata, adicionando pontuação
+
+```
+= zzcoin =[zzcoin]
+```
+Retorna a cotação de criptomoedas em Reais (bitcoin e litecoins).
+Opções: btc ou bitecoin / ltc ou litecoin.
+Com as opções -a ou --all, várias criptomoedas cotadas em dólar.
+Uso: zzcoin [btc|bitcoin|ltc|litecoin|-a|--all]
+Ex.: zzcoin
+     zzcoin btc
+     zzcoin litecoin
+     zzcoin -a
 
 ```
 = zzcolunar =[zzcolunar]
@@ -481,9 +505,10 @@ Mas opcionalmente pode informar o formato da distribuição das colunas:
   3  7
   4  8
 
-As opções -l, --left, -e, --esqueda alinham as colunas a esquerda (padrão).
+As opções -l, --left, -e, --esquerda alinham as colunas a esquerda (padrão).
 As opções -r, --right, -d, --direita alinham as colunas a direita.
 As opções -c, --center, --centro centralizam as colunas.
+A opção -j justifica as colunas.
 
 As opções -w, --width, --largura seguido de um número,
 determinam a largura que as colunas terão.
@@ -573,22 +598,13 @@ Ex.: zzcotacao
 ```
 = zzcpf =[zzcpf]
 ```
-Gera um CPF válido aleatório ou valida um CPF informado.
+Cria, valida ou formata um número de CPF.
 Obs.: O CPF informado pode estar formatado (pontos e hífen) ou não.
-Uso: zzcpf [cpf]
-Ex.: zzcpf 123.456.789-09          # valida o CPF
-     zzcpf 12345678909             # com ou sem formatadores
-     zzcpf                         # gera um CPF válido
-
-```
-= zzcriptomoeda =[zzcriptomoeda]
-```
-Retorna a cotação de criptomoedas em Reais (bitcoin).
-Com as opções -a ou --all, várias criptomoedas cotadas em dolar.
-Uso: zzcriptomoeda [btc|bitcoin|-a|--all]
-Ex.: zzcriptomoeda
-     zzcriptomoeda btc
-     zzcriptomoeda -a
+Uso: zzcpf [-f] [cpf]
+Ex.: zzcpf 123.456.789-09          # valida o CPF informado
+     zzcpf 12345678909             # com ou sem pontuação
+     zzcpf                         # gera um CPF válido (aleatório)
+     zzcpf -f 12345678909          # formata, adicionando pontuação
 
 ```
 = zzdado =[zzdado]
@@ -608,6 +624,7 @@ Ex.: zzdado
 Calculadora de datas, trata corretamente os anos bissextos.
 Você pode somar ou subtrair dias, meses e anos de uma data qualquer.
 Você pode informar a data dd/mm/aaaa ou usar palavras como: hoje, ontem.
+Usar a palavra dias informa número de dias desde o começo do ano corrente.
 Ou os dias da semana como: domingo, seg, ter, qua, qui, sex, sab, dom.
 Na diferença entre duas datas, o resultado é o número de dias entre elas.
 Se informar somente uma data, converte para número de dias (01/01/1970 = 0).
@@ -617,8 +634,8 @@ Esta função também pode ser usada para validar uma data.
 Uso: zzdata [data [+|- data|número<d|m|a>]]
 Ex.: zzdata                           # que dia é hoje?
      zzdata anteontem                 # que dia foi anteontem?
-     zzdata hoje + 15d                # que dia será daqui 15 dias?
      zzdata dom                       # que dia será o próximo domingo?
+     zzdata hoje + 15d                # que dia será daqui 15 dias?
      zzdata hoje - 40d                # e 40 dias atrás, foi quando?
      zzdata 31/12/2010 + 100d         # 100 dias após a data informada
      zzdata 29/02/2001                # data inválida, ano não-bissexto
@@ -671,12 +688,16 @@ Use a opção -f para mudar o formato de saída (o padrão é DD/MM/AAAA):
      MES      fevereiro   Nome do mês
      MMM      fev         Nome do mês com três letras
      DIA      vinte um    Dia por extenso
+     SEMANA   Domingo     Dia da semana por extenso
+     SSS      Dom         Dia da semana com três letras
 
 Use as opções de idioma para alterar os nomes dos meses. Estas opções também
 mudam o formato padrão da data de saída, caso a opção -f não seja informada.
     --pt para português     --de para alemão
     --en para inglês        --fr para francês
     --es para espanhol      --it para italiano
+    --ptt português textual incluindo os números
+    --iso formato AAAA-MM-DD
 
 Uso: zzdatafmt [-f formato] [data]
 Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
@@ -780,15 +801,6 @@ Ex.: zzdicjargon vi
 ```
 http://www.dicio.com.br
 Dicionário de português.
-Obs.: Ainda não funciona com palavras acentuadas :( [issue #41]
-Uso: zzdicportugues palavra
-Ex.: zzdicportugues bolacha
-
-```
-= zzdicportugues2 =[zzdicportugues2]
-```
-http://www.dicio.com.br
-Dicionário de português.
 Definição de palavras e conjugação verbal
 Fornecendo uma "palavra" como argumento retorna seu significado e sinônimo.
 Se for seguida do termo "def", retorna suas definições.
@@ -797,9 +809,9 @@ Pode-se filtrar pelos modos de conjugação, fornecendo após o "conj" o modo
 desejado:
 ind (indicativo), sub (subjuntivo), imp (imperativo), inf (infinitivo)
 
-Uso: zzdicportugues2 palavra [def|conj [ind|sub|conj|imp|inf]]
-Ex.: zzdicportugues2 bolacha
-     zzdicportugues2 verbo conj sub
+Uso: zzdicportugues palavra [def|conj [ind|sub|conj|imp|inf]]
+Ex.: zzdicportugues bolacha
+     zzdicportugues verbo conj sub
 
 ```
 = zzdicsinonimos =[zzdicsinonimos]
@@ -819,18 +831,33 @@ Uso: zzdiffpalavra arquivo1 arquivo2
 Ex.: zzdiffpalavra texto-orig.txt texto-novo.txt
 
 ```
+= zzdistro =[zzdistro]
+```
+Lista o ranking das distribuições no DistroWatch.
+Sem argumentos lista dos últimos 6 meses
+Se o argumento for 1, 3, 6 ou 12 é a ranking nos meses correspondente.
+Se o argumento for 2002 até o ano passado, é a ranking final desse ano.
+Se o primeiro argumento for -l, lista os links da distribuição no site.
+
+Uso: zzdistro [-l] [meses|ano]
+Ex.: zzdistro
+     zzdistro 2010  # Ranking em 2010
+     zzdistro 3     # Ranking dos últimos 3 meses.
+     zzdistro       # Ranking dos últimos 6 meses, com os links.
+
+```
 = zzdivisores =[zzdivisores]
 ```
 Lista todos os divisores de um número inteiro e positivo, maior que 2.
 
-Uso: zzdivisores <numero>
+Uso: zzdivisores <número>
 Ex.: zzdivisores 1400
 
 ```
 = zzdolar =[zzdolar]
 ```
-http://economia.terra.com.br
-Busca a cotação do dia do dólar (comercial, turismo e PTAX).
+http://economia.uol.com.br/cotacoes
+Busca a cotação do dia do dólar (comercial, turismo).
 Uso: zzdolar
 Ex.: zzdolar
 
@@ -869,6 +896,17 @@ Uso: zzecho [-f cor] [-l cor] [-p] [-s] [-N] [-n] [texto]
 Ex.: zzecho -l amarelo Texto em amarelo
      zzecho -f azul -l branco -N Texto branco em negrito, com fundo azul
      zzecho -p -s Texto piscante e sublinhado
+
+```
+= zzencoding =[zzencoding]
+```
+Informa qual a codificação de um arquivo (ou texto via STDIN).
+
+Uso: zzencoding [arquivo]
+Ex.: zzencoding /etc/passwd          # us-ascii
+     zzencoding index-iso.html       # iso-8859-1
+     echo FooBar | zzencoding        # us-ascii
+     echo Bênção | zzencoding        # utf-8
 
 ```
 = zzenglish =[zzenglish]
@@ -915,7 +953,7 @@ Opções: --sigla        Mostra somente as siglas
         --xml          Formata como arquivo XML
         --url,--url2   Exemplos simples de uso da opção --formato
 
-Uso: zzestado [--OPÇÃO]
+Uso: zzestado [opção]
 Ex.: zzestado                      # [mostra a lista completa]
      zzestado --sigla              # AC AL AP AM BA …
      zzestado --html               # <option value="AC">AC - Acre</option> …
@@ -993,7 +1031,7 @@ Combina 2 arquivos, frentes.pdf e versos.pdf, em um único frenteverso.pdf.
 Opções:
   -rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.
   -rv, --versosreversos   informa ordem reversa no arquivo versos.pdf.
-   -d, --diretorio        informa o diretório de entrada/saída. Padrao=".".
+   -d, --diretorio        informa o diretório de entrada/saída. Padrão=".".
    -v, --verbose          exibe informações de debug durante a execução.
 Uso: zzfrenteverso2pdf [-rf] [-rv] [-d diretorio]
 Ex.: zzfrenteverso2pdf
@@ -1001,25 +1039,31 @@ Ex.: zzfrenteverso2pdf
      zzfrenteverso2pdf -rv -d "/tmp/dir_teste"
 
 ```
-= zzfreshmeat =[zzfreshmeat]
-```
-http://freshmeat.net
-Procura por programas na base do site Freshmeat.
-Uso: zzfreshmeat programa
-Ex.: zzfreshmeat tetris
-
-```
 = zzfutebol =[zzfutebol]
 ```
 http://esporte.uol.com.br/futebol/agenda-de-jogos
-Mostra todos os jogos de futebol marcados para os proximos dias.
-Além de mostrar os times que irão jogar, o script também mostra o dia,
-o horário e por campeonato será o jogo.
+Mostra todos os jogos de futebol marcados para os próximos dias.
+Ou os resultados de jogos recentes.
+Além de mostrar os times que jogam, o script também mostra o dia,
+o horário e por qual campeonato será ou foi o jogo.
 
-Uso:  zzfutebol [ hoje | amanha | ontem | sabado | domingo ]
-Ex.:  zzfutebol
-      zzfutebol hoje
-      zzfutebol sabado
+Suporta um argumento que pode ser um dos dias da semana, como:
+ hoje, amanhã, segunda, terça, quarta, quinta, sexta, sábado, domingo.
+
+Ou um ou dois argumentos para ver resultados do jogos:
+  resultado ou placar, que pode ser acompanhado de hoje, ontem, anteontem.
+
+Um filtro com nome do campeonato, nome do time, ou horário de uma partida.
+
+Uso: zzfutebol [resultado | placar ] [ argumento ]
+Ex.: zzfutebol                 # Todas as partidas nos próximos dias.
+     zzfutebol hoje            # Partidas que acontecem hoje.
+     zzfutebol sabado          # Partidas que acontecem no sábado.
+     zzfutebol libertadores    # Próximas partidas da Libertadores.
+     zzfutebol 21h             # Partidas que começam entre 21 e 22h.
+     zzfutebol resultado       # Placar dos jogos já ocorridos.
+     zzfutebol placar ontem    # Placar dos jogos de ontem.
+     zzfutebol placar espanhol # Placar dos jogos do Campeonato Espanhol.
 
 ```
 = zzgeoip =[zzgeoip]
@@ -1032,7 +1076,7 @@ Ex.: zzgeoip
 ```
 = zzglobo =[zzglobo]
 ```
-Mostra a programação Rede Globo do dia.
+Mostra a programação da Rede Globo do dia.
 Uso: zzglobo
 Ex.: zzglobo
 
@@ -1067,6 +1111,15 @@ Uso: zzgravatar [--tamanho N] [--default tipo] email
 Ex.: zzgravatar fulano@dominio.com.br
      zzgravatar -t 128 -d mm fulano@dominio.com.br
      zzgravatar --tamanho 256 --default retro fulano@dominio.com.br
+
+```
+= zzhastebin =[zzhastebin]
+```
+http://hastebin.com/
+Gera link para arquivos de texto em geral.
+
+Uso: zzhastebin [arquivo]
+Ex.: zzhastebin helloworld.sh
 
 ```
 = zzhexa2str =[zzhexa2str]
@@ -1137,6 +1190,31 @@ Ex.: zzhowto apache
      zzhowto --atualiza
 
 ```
+= zziostat =[zziostat]
+```
+Monitora a utilização dos discos no Linux.
+
+Opções:
+  -t [número]    Mostra apenas os discos mais utilizados
+  -i [segundos]  Intervalo em segundos entre as coletas
+  -d [discos]    Mostra apenas os discos que começam com a string passada
+                 O padrão é 'sd'
+  -o [trwT]      Ordena os discos por:
+                     t (tps)
+                     r (read/s)
+                     w (write/s)
+                     T (total/s = read/s+write/s)
+
+Obs.: Se não for usada a opção -t, é mostrada a soma da utilização
+      de todos os discos.
+
+Uso: zziostat [-t número] [-i segundos] [-d discos] [-o trwT]
+Ex.: zziostat
+     zziostat -t 10
+     zziostat -i 5 -o T
+     zziostat -d emcpower
+
+```
 = zzipinternet =[zzipinternet]
 ```
 http://www.getip.com
@@ -1149,7 +1227,7 @@ Ex.: zzipinternet
 ```
 Junta as linhas de 2 ou mais arquivos, mantendo a sequência.
 Opções:
- -o <arquivo> - Define o arquivo de saida.
+ -o <arquivo> - Define o arquivo de saída.
  -m - Toma como base o arquivo com menos linhas.
  -M - Toma como base o arquivo com mais linhas.
  -<numero> - Toma como base o arquivo na posição especificada.
@@ -1157,11 +1235,11 @@ Opções:
 
 Sem opção, toma como base o primeiro arquivo declarado.
 
-Uso: zzjoin [-m | -M | -<numero>] [-o <arq>] [-d <separador>] arquivo1 arquivo2 [arquivoN] ...
-Ex.: zzjoin -m arquivo1 arquivo2 arquivo3  # Base no arquivo com menos linhas
-     zzjoin -2 arquivo1 arquivo2 arquivo3  # Base no segundo arquivo
-     zzjoin -o out.txt arquivo1 arquivo2   # Juntando para o arquivo out.txt
-     zzjoin -d ":" arquivo1 arquivo2       # Juntando linhas separadas por ":"
+Uso: zzjoin [-m | -M | -<numero>] [-o <arq>] [-d <sep>] arq1 arq2 [arqN] ...
+Ex.: zzjoin -m arq1 arq2 arq3      # Base no arquivo com menos linhas
+     zzjoin -2 arq1 arq2 arq3      # Base no segundo arquivo
+     zzjoin -o out.txt arq1 arq2   # Juntando para o arquivo out.txt
+     zzjoin -d ":" arq1 arq2       # Juntando linhas separadas por ":"
 
 ```
 = zzjquery =[zzjquery]
@@ -1175,7 +1253,7 @@ Opções:
 
 Caso não seja passado o nome, serão exibidas informações acerca do $().
 Se usado o argumento -s, será exibida somente a sintaxe.
-Uso: zzjquery [-s] funcao
+Uso: zzjquery [-s] função
 Ex.: zzjquery gt
      zzjquery -s gt
 
@@ -1205,9 +1283,9 @@ Ex.: zzjuntalinhas arquivo.txt
 = zzjuros =[zzjuros]
 ```
 Mostra a listagem de taxas de juros que o Banco Central acompanha.
-São intituições financeiras, que estão sob a supervisão do Banco Central.
+São instituições financeiras, que estão sob a supervisão do Banco Central.
 Com argumento numérico, detalha a listagem solicitada.
-A numeração fica entre 1 e 25
+A numeração fica entre 1 e 27
 
 Uso: zzjuros [numero consulta]
 Ex.: zzjuros
@@ -1258,12 +1336,12 @@ Mostra a classificação e jogos do torneio Libertadores da América.
 Opções:
  <número> | <fase>: Mostra jogos da fase selecionada
    fases: pre ou primeira, grupos ou segunda, oitavas
- -g <número>: Jogos da segunda fase do gupo selecionado
- -c [numero]: Mostra a classificação, nos grupos da segunda fase
+ -g <número>: Jogos da segunda fase do grupo selecionado
+ -c [número]: Mostra a classificação, nos grupos da segunda fase
  -cg <número> ou -gc <número>: Classificação e jogos do grupo selecionado.
 
 As fases podem ser:
- pré, pre, primeira ou 1, para a fasé pré-libertadores
+ pré, pre, primeira ou 1, para a fase pré-libertadores
  grupos, segunda ou 2, para a fase de grupos da libertadores
  oitavas ou 3
  quartas ou 4
@@ -1271,20 +1349,22 @@ As fases podem ser:
  final ou 6
 
 Nomenclatura:
-	PG  - Pontos Ganhos
-	J   - Jogos
-	V   - Vitórias
-	E   - Empates
-	D   - Derrotas
-	GP  - Gols Pró
-	GC  - Gols Contra
-	SG  - Saldo de Gols
-	(%) - Aproveitamento (pontos)
+ PG  - Pontos Ganhos
+ J   - Jogos
+ V   - Vitórias
+ E   - Empates
+ D   - Derrotas
+ GP  - Gols Pró
+ GC  - Gols Contra
+ SG  - Saldo de Gols
+ (%) - Aproveitamento (pontos)
+
+Obs.: Se a opção for --atualiza, o cache usado é renovado
 
 Uso: zzlibertadores [ fase | -c [número] | -g <número> ]
 Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)
      zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
-     zzlibertadores -c    # Calssificação de todos os grupos
+     zzlibertadores -c    # Classificação de todos os grupos
      zzlibertadores -c 3  # Classificação no grupo 3
      zzlibertadores -cg 7 # Classificação e jogos do grupo 7
 
@@ -1294,7 +1374,7 @@ Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)
 Retira linhas em branco e comentários.
 Para ver rapidamente quais opções estão ativas num arquivo de configuração.
 Além do tradicional #, reconhece comentários de vários tipos de arquivos.
- vim, asp, asm, ada, sql, e, bat, tex, c, css, html, cc, d, js, php. scala.
+ vim, asp, asm, ada, sql, e, bat, tex, c, css, html, cc, d, js, php, scala.
 E inclui os comentários multilinhas (/* ... */), usando opção --multi.
 Obs.: Aceita dados vindos da entrada padrão (STDIN).
 Uso: zzlimpalixo [--multi] [arquivos]
@@ -1324,18 +1404,18 @@ Ex.: zzlinux
 ```
 = zzlinuxnews =[zzlinuxnews]
 ```
-http://... - vários
-Busca as últimas notícias sobre linux em sites em inglês.
+Busca as últimas notícias sobre Linux em sites em inglês.
 Obs.: Cada site tem uma letra identificadora que pode ser passada como
       parâmetro, para informar quais sites você quer pesquisar:
 
-         F)reshMeat         Linux T)oday
-         S)lashDot          Linux W)eekly News
-         O)S News
+         S)lashDot            Linux T)oday
+         O)S News             Linux W)eekly News
+         Linux I)nsider       Linux N)ews
+         Linux J)ournal       X) LXer Linux News
 
 Uso: zzlinuxnews [sites]
 Ex.: zzlinuxnews
-     zzlinuxnews fs
+     zzlinuxnews ts
 
 ```
 = zzlocale =[zzlocale]
@@ -1359,22 +1439,15 @@ Ex.: zzlorem 10
 = zzloteria =[zzloteria]
 ```
 http://www1.caixa.gov.br/loterias
-Consulta os resultados da quina, megasena, duplasena, lotomania e lotofácil.
-Obs.: Se nenhum argumento for passado, todas as loterias são mostradas.
-Uso: zzloteria [quina | megasena | duplasena | lotomania | lotofacil]
-Ex.: zzloteria
-     zzloteria quina megasena
-
-```
-= zzloteria2 =[zzloteria2]
-```
 Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal, timemania e loteca.
+
 Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
 Se nenhum argumento for passado, todas as loterias são mostradas.
 
-Uso: zzloteria2 [[loteria suportada] concurso]
-Ex.: zzloteria2
-     zzloteria2 quina megasena
+Uso: zzloteria [[loteria suportada] concurso]
+Ex.: zzloteria
+     zzloteria quina megasena
+     zzloteria loteca 550
 
 ```
 = zzlua =[zzlua]
@@ -1386,7 +1459,7 @@ com a opção --atualiza força a atualização do cache local
 
 Uso: zzlua <palavra|regex>
 Ex.: zzlua --atualiza        # Força atualização do cache
-     zzlua file              # mostra as funçoes com "file" no nome
+     zzlua file              # mostra as funções com "file" no nome
      zzlua -d debug.debug    # mostra descrição da função debug.debug
      zzlua ^d                # mostra as funções que começam com d
 
@@ -1419,7 +1492,7 @@ E filtra a busca se fornecer um texto.
 
 Uso: zzmariadb [ código | filtro ]
 Ex.: zzmariadb        # Lista os comandos disponíveis
-     zzmariadb 18     # Consulta o comando CREATE DATABASE
+     zzmariadb 18     # Consulta o comando DROP USER
      zzmariadb alter  # Filtra os comandos que possuam alter na declaração
 
 ```
@@ -1432,14 +1505,27 @@ Em cada função foi colocado um pequeno help um pouco mais detalhado,
 pois ficou muito extenso colocar no help do zzmat apenas.
 
 Funções matemáticas disponíveis.
-mmc mdc somatoria produtoria media soma fat arranjo arranjo_r combinacao
-combinacao_r pa pa2 pg area volume eq2g d2p egr err egc egc3p ege vetor
-converte sen cos tan csc sec cot asen acos atan log ln abs produto r3
-raiz potencia pow elevado aleatorio random det conf_eq sem_zeros
-fibonacci (fib) lucas tribonacci (trib) newton binomio_newton
+Aritméticas:                     Trigonométricas:
+ mmc mdc                          sen cos tan
+ somatoria produtoria             csc sec cot
+ media soma produto               asen acos atan
+ log ln
+ raiz, pow, potencia ou elevado
+
+Combinatória:             Sequências:          Funções:
+ fat                       pa pa2 pg lucas      area volume r3
+ arranjo arranjo_r         fibonacci ou fib     det vetor d2p
+ combinacao combinacao_r   tribonacci ou trib
+
+Equações:                  Auxiliares:
+ eq2g egr err                converte
+ egc egc3p ege               abs int sem_zeros
+ newton ou binomio_newton    aleatorio random
+ conf_eq                     compara_num
+
 Mais detalhes: zzmat função
 
-Uso: zzmat [-pnumero] funcoes [número] [número]
+Uso: zzmat [-pnumero] funções [número] [número]
 Ex.: zzmat mmc 8 12
      zzmat media 5[2] 7 4[3]
      zzmat somatoria 3 9 2x+3
@@ -1478,7 +1564,7 @@ Ex.: zzminusculas NÃO ESTOU GRITANDO             # via argumentos
 ```
 Mistura linha a linha 2 ou mais arquivos, mantendo a sequência.
 Opções:
- -o <arquivo> - Define o arquivo de saida.
+ -o <arquivo> - Define o arquivo de saída.
  -m - Toma como base o arquivo com menos linhas.
  -M - Toma como base o arquivo com mais linhas.
  -<numero> - Toma como base o arquivo na posição especificada.
@@ -1490,27 +1576,13 @@ Opções:
 
 Sem opção, toma como base o primeiro arquivo declarado.
 
-Uso: zzmix [-m | -M | -<numero>] [-o <arq>] [-p <relação>] arquivo1 arquivo2 [arquivoN] ...
+Uso: zzmix [-m | -M | -<num>] [-o <arq>] [-p <relação>] arq1 arq2 [arqN] ...
 Ex.: zzmix -m arquivo1 arquivo2 arquivo3  # Base no arquivo com menos linhas
      zzmix -2 arquivo1 arquivo2 arquivo3  # Base no segundo arquivo
      zzmix -o out.txt arquivo1 arquivo2   # Mixando para o arquivo out.txt
      zzmix -p 2,5,6 arq1 arq2 arq3
-      2 linhas do arq1, 5 linhas do arq2 e 3 linhas do arq3,
-      e repete a seqUência até o final.
-
-```
-= zzmoeda =[zzmoeda]
-```
-http://br.invertia.com
-Busca a cotação de várias moedas (mais de 100!) em relação ao dólar.
-Com a opção -t, mostra TODAS as moedas, sem ela, apenas as principais.
-É possível passar várias palavras de pesquisa para filtrar o resultado.
-Obs.: Hora GMT, Dólares por unidade monetária para o Euro e a Libra.
-Uso: zzmoeda [-t] [pesquisa]
-Ex.: zzmoeda
-     zzmoeda -t
-     zzmoeda euro libra
-     zzmoeda -t peso
+     # 2 linhas do arq1, 5 linhas do arq2 e 6 linhas do arq3,
+     # e repete a sequência até o final.
 
 ```
 = zzmoneylog =[zzmoneylog]
@@ -1603,14 +1675,12 @@ Ex.: zznomefoto -n *                        # tire o -n para renomear!
 ```
 = zznoticiaslinux =[zznoticiaslinux]
 ```
-http://... - vários
 Busca as últimas notícias sobre Linux em sites nacionais.
 Obs.: Cada site tem uma letra identificadora que pode ser passada como
       parâmetro, para informar quais sites você quer pesquisar:
 
-        Y)ahoo Linux         B)r Linux
+        B)r Linux            N)otícias linux
         V)iva o Linux        U)nder linux
-        N)otícias linux
 
 Uso: zznoticiaslinux [sites]
 Ex.: zznoticiaslinux
@@ -1619,7 +1689,6 @@ Ex.: zznoticiaslinux
 ```
 = zznoticiassec =[zznoticiassec]
 ```
-http://... - vários
 Busca as últimas notícias em sites especializados em segurança.
 Obs.: Cada site tem uma letra identificadora que pode ser passada como
       parâmetro, para informar quais sites você quer pesquisar:
@@ -1639,20 +1708,20 @@ Formata um número como: inteiro, moeda, por extenso, entre outros.
 Nota: Por extenso suporta 81 dígitos inteiros e até 26 casas decimais.
 
 Opções:
-  -f <padrão|número>   Padrão de formatação do printf, incluindo %'d e %'.f
-                       ou precisão se apenas informado um número
-  -p <prefixo>         Um prefixo para o número, se for R$ igual a opção -m
-  -s <sufixo>          Um sufixo para o número
-  -m | --moeda         Trata valor monetário, sobrepondo as configurações de
-                       -p, -s e -f
-  -t                   Número parcialmente por extenso, ex: 2 mihões 350 mil
-  --texto              Número inteiramente por extenso, ex: quatro mil e cem
-  -l                   Uma classe numérica por linha, quando optar no número
-                       por extenso
-  --de <formato>       Formato de entrada
-  --para <formato>     Formato de saída
-  --int                Parte inteira do número, sem arredondamento
-  --frac               Parte fracionária do número
+  -f <padrão|número>  Padrão de formatação do printf, incluindo %'d e %'.f
+                      ou precisão se apenas informado um número
+  -p <prefixo>        Um prefixo para o número, se for R$ igual a opção -m
+  -s <sufixo>         Um sufixo para o número
+  -m | --moeda        Trata valor monetário, sobrepondo as configurações de
+                      -p, -s e -f
+  -t                  Número parcialmente por extenso, ex: 2 milhões 350 mil
+  --texto             Número inteiramente por extenso, ex: quatro mil e cem
+  -l                  Uma classe numérica por linha, quando optar no número
+                      por extenso
+  --de <formato>      Formato de entrada
+  --para <formato>    Formato de saída
+  --int               Parte inteira do número, sem arredondamento
+  --frac              Parte fracionária do número
 
 Formatos para as opções --de e --para:
   pt ou pt-br => português (brasil)
@@ -1667,7 +1736,7 @@ Ex.: zznumero 12445.78                      # 12.445,78
 ```
 = zzoperadora =[zzoperadora]
 ```
-http://www.qualoperadora.net
+http://consultaoperadora.com.br
 Consulta operadora de um número de telefone fixo/celular.
 O formato utilizado é: <DDD><NÚMERO>
 Não utilize espaços, (), -
@@ -1686,25 +1755,24 @@ Ex.: zzora 1234
 = zzpad =[zzpad]
 ```
 Preenche um texto para um certo tamanho com outra string.
-Pode-se especificar a posição a ser preenchida com os seguintes argumentos:
- -l ou -e : Preenche a esquerda
- -r ou -d : Preenche a direita (padrão)
- -b ou -a : Preenche em ambos os lados
 
-Minimamente é necessário fornecer um número inteiro positivo como tamanho.
+Opções:
+  -d, -r     Preenche à direita (padrão)
+  -e, -l     Preenche à esquerda
+  -a, -b     Preenche em ambos os lados
+  -x STRING  String de preenchimento (padrão=" ")
 
-Se não for definida a string, adota-se um simples espaço " ".
-
-Uso: zzpad [-l|-e|-r|-d|-b|-a] <número> [string] texto
-Ex.: zzpad 35 "xyz" "Teste"
-     zzpad -a 12 "a" "Teste"
-     echo Teste | zzpad -l 20 "abc"
-     cat arquivo.txt | zzpad 50 "ou"
+Uso: zzpad [-d | -e | -a] [-x STRING] <tamanho> [texto]
+Ex.: zzpad -x 'NO' 21 foo     # fooNONONONONONONONONO
+     zzpad -a -x '_' 9 foo    # ___foo___
+     zzpad -d -x '♥' 9 foo    # foo♥♥♥♥♥♥
+     zzpad -e -x '0' 9 123    # 000000123
+     cat arquivo.txt | zzpad -x '_' 99
 
 ```
 = zzpais =[zzpais]
 ```
-http://pt.wikipedia.org/wiki/Anexo:Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais
+http://pt.wikipedia.org/wiki/Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais
 Lista os países.
 Opções:
  -a: Todos os países
@@ -1763,7 +1831,7 @@ com a opção --atualiza força a atualização co cache local
 
 Uso: zzphp <palavra|regex>
 Ex.: zzphp --atualiza              # Força atualização do cache
-     zzphp array                   # mostra as funçoes com "array" no nome
+     zzphp array                   # mostra as funções com "array" no nome
      zzphp -d mysql_fetch_object   # mostra descrição do  mysql_fetch_object
      zzphp ^X                      # mostra as funções que começam com X
 
@@ -1782,11 +1850,11 @@ Toca o arquivo de áudio, escolhendo o player mais adequado instalado.
 Também pode tocar lista de reprodução (playlist).
 Pode-se escolher o player principal passando-o como segundo argumento.
 - Os players possíveis para cada tipo são:
-	wav, au, aiff		afplay, play, mplayer, cvlc
-	mp2, mp3		afplay, mpg321, mpg123, mplayer, cvlc
-	ogg			ogg123, mplayer, cvlc
-	aac, wma, mka		mplayer, cvlc
-	pls, m3u, xspf, asx	mplayer, cvlc
+  wav, au, aiff        afplay, play, mplayer, cvlc, avplay, ffplay
+  mp2, mp3             afplay, mpg321, mpg123, mplayer, cvlc, avplay, ffplay
+  ogg                  ogg123, mplayer, cvlc, avplay, ffplay
+  aac, wma, mka        mplayer, cvlc, avplay, ffplay
+  pls, m3u, xspf, asx  mplayer, cvlc
 
 Uso: zzplay <arquivo-de-áudio> [player]
 Ex.: zzplay os_seminovos_escolha_ja_seu_nerd.mp3
@@ -1810,6 +1878,17 @@ Ex.: zzporcento 500           # Tabela de porcentagens de 500
      zzporcento 500 1000      # Mostra a porcentagem de 1000 para 500 (200%)
      zzporcento 500,00 2,5%   # Mostra quanto é 2,5% de 500,00
      zzporcento 500,00 +2,5%  # Mostra quanto é 500,00 + 2,5%
+
+```
+= zzporta =[zzporta]
+```
+http://pt.wikipedia.org/wiki/Lista_de_portas_de_protocolos
+Mostra uma lista das portas de protocolos usados na internet.
+Se houver um número como argumento, a listagem é filtrada pelo mesmo.
+
+Uso: zzporta [porta]
+Ex.: zzporta
+     zzporta 513
 
 ```
 = zzpronuncia =[zzpronuncia]
@@ -1908,9 +1987,10 @@ Ex.: zzrpmfind sed
 ```
 = zzsecurity =[zzsecurity]
 ```
-http://... - vários
 Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
-Suportados: Debian FreeBSD Gentoo Mandriva Slackware Suse Ubuntu.
+Suportados:
+ Debian, Ubuntu, FreeBSD, NetBSD, Gentoo, Arch, Mandriva, Mageia,
+ Slackware, Suse (OpenSuse), RedHat, Fedora.
 Uso: zzsecurity [distros]
 Ex.: zzsecutiry
      zzsecurity mandriva
@@ -1927,17 +2007,19 @@ Ex.: zzsemacento AÇÃO 1ª bênção           # Retorna: ACAO 1a bencao
 ```
 = zzsenha =[zzsenha]
 ```
-Gera uma senha aleatória de N caracteres únicos (não repetidos).
+Gera uma senha aleatória de N caracteres.
 Obs.: Sem opções, a senha é gerada usando letras e números.
 
 Opções: -p, --pro   Usa letras, números e símbolos para compor a senha
         -n, --num   Usa somente números para compor a senha
+        -u, --uniq  Gera senhas com caracteres únicos (não repetidos)
 
 Uso: zzsenha [--pro|--num] [n]     (padrão n=8)
 Ex.: zzsenha
      zzsenha 10
      zzsenha --num 9
      zzsenha --pro 30
+     zzsenha --uniq 10
 
 ```
 = zzseq =[zzseq]
@@ -2002,11 +2084,11 @@ Opção:
 Uso: zzsplit -p <relação> [<numero>] | <numero> <arquivo>
 Ex.: zzsplit 3 arq.txt  # Separa em 3: arq.txt.1, arq.txt.2, arq.txt.3
      zzsplit -p 3,5,4 5 arq.txt  # Separa em 5 arquivos
-       3 linhas no arq.txt.1, 5 linhas no arq.txt.2 e 4 linhas nos demais.
+     # 3 linhas no arq.txt.1, 5 linhas no arq.txt.2 e 4 linhas nos demais.
      zzsplit -p 3,4,2 arq.txt    # Separa em 3 arquivos
-       3 linhas no arq.txt.1, 4 linhas no arq.txt.2 e 2 linhas no arq.txt.3
+     # 3 linhas no arq.txt.1, 4 linhas no arq.txt.2 e 2 linhas no arq.txt.3
      zzsplit -p 2,-3,4 arq.txt   # Separa em 2 arquivos
-       2 linhas no arq.txt.1, pula 3 linhas e 4 linhas no arq.txt.3
+     # 2 linhas no arq.txt.1, pula 3 linhas e 4 linhas no arq.txt.3
 
 ```
 = zzss =[zzss]
@@ -2115,8 +2197,8 @@ Ex.: zztradutor o livro está na mesa    # the book is on the table
 ```
 Trocar linhas e colunas de um arquivo, fazendo uma simples transposição.
 Opções:
-	-d, --fs separador   define o separador de campos na entrada.
-	--ofs separador      define o separador de campos na saída.
+  -d, --fs separador   define o separador de campos na entrada.
+  --ofs separador      define o separador de campos na saída.
 
 O separador na entrada pode ser 1 ou mais caracteres ou uma ER.
 Se não for declarado assume-se espaços em branco como separador.
@@ -2131,6 +2213,26 @@ Se o separador da entrada é uma ER, é bom declarar o separador de saída.
 Uso: zztranspor [-d | --fs <separador>] [--ofs <separador>] <arquivo>
 Ex.: zztranspor -d ":" --ofs "-" num.txt
      sed -n '2,5p' num.txt | zztranspor --fs '[\t:]' --ofs '\t'
+
+```
+= zztrim =[zztrim]
+```
+Apaga brancos (" " \t \n) ao redor do texto: direita, esquerda, cima, baixo.
+Obs.: Linhas que só possuem espaços e tabs são consideradas em branco.
+
+Opções:
+  -t, --top         Apaga as linhas em branco do início do texto
+  -b, --bottom      Apaga as linhas em branco do final do texto
+  -l, --left        Apaga os brancos do início de todas as linhas
+  -r, --right       Apaga os brancos do final de todas as linhas
+  -V, --vertical    Apaga as linhas em branco do início e final (-t -b)
+  -H, --horizontal  Apaga os brancos do início e final das linhas (-l -r)
+
+Uso: zztrim [opções] [texto]
+Ex.: zztrim "   foo bar   "           # "foo bar"
+     zztrim -l "   foo bar   "        # "foo bar   "
+     zztrim -r "   foo bar   "        # "   foo bar"
+     echo "   foo bar   " | zztrim    # "foo bar"
 
 ```
 = zztrocaarquivos =[zztrocaarquivos]
@@ -2173,7 +2275,7 @@ Programação corrente:
  doc ou documentario, esportes ou futebol, filmes, infantil, variedades
  series ou seriados, aberta, todos ou agora (padrão).
 
-Uso: zztv <codigo canal> [semana|s]  ou  zztv cod <numero>
+Uso: zztv <código canal> [semana|s]  ou  zztv cod <número>
 Ex.: zztv CUL          # Programação da TV Cultura
      zztv cod 3235238
 
@@ -2182,25 +2284,12 @@ Ex.: zztv CUL          # Programação da TV Cultura
 ```
 Busca as mensagens mais recentes de um usuário do Twitter.
 Use a opção -n para informar o número de mensagens (padrão é 5, máx 20).
+Com a opção -r após o nome do usuário, lista também tweets respostas.
 
-Uso: zztweets [-n N] username
+Uso: zztweets [-n N] username [-r]
 Ex.: zztweets oreio
      zztweets -n 10 oreio
-
-```
-= zztwitter =[zztwitter]
-```
-Envia mensagens para o twitter direto do console.
-
-Função recuperada baseada no script:
-http://360percents.com/posts/..
-..command-line-twitter-status-update-for-linux-and-mac/
-Author: Luka Pusic <pusic93@gmail.com>
-Sugerido por Edson Ramiro Lucas Filho ( http://www.inf.ufpr.br/erlfilho/ )
-
-Uso: zztwitter [mensagem]
-Ex.: zztwitter Enviar mensagens direto do console é mais fácil.
-     zztwitter bla bla bla ...
+     zztweets oreio -r
 
 ```
 = zzunescape =[zzunescape]
@@ -2246,20 +2335,41 @@ Ex.: zzunix2dos frases.txt
 ```
 = zzurldecode =[zzurldecode]
 ```
-Decodifica uma URL em texto.
-Uso: zzurldecode [string]
-Ex.: zzurldecode '%21%40%23%24_%2B%7B%7D%5E%2Babcd'
+http://en.wikipedia.org/wiki/Percent-encoding
+Decodifica textos no formato %HH, geralmente usados em URLs (%40 → @).
+
+Uso: zzurldecode [texto]
+Ex.: zzurldecode '%73%65%67%72%65%64%6F'
      echo 'http%3A%2F%2F' | zzurldecode
 
 ```
 = zzurlencode =[zzurlencode]
 ```
-Codifica um texto numa URL.
-Permite especificar um conjunto de caracteres a não serem codificados.
-Uso: zzurlencode [string]
-Ex.: zzurlencode '!@#$_+{}^+abcd'	# %21%40%23%24_%2B%7B%7D%5E%2Babcd
-     zzurlencode ':/' http://		# http://
-     zzurlencode http://		# http%3A%2F%2F
+http://en.wikipedia.org/wiki/Percent-encoding
+Codifica o texto como %HH, para ser usado numa URL (a/b → a%2Fb).
+Obs.: Por padrão, letras, números e _.~- não são codificados (RFC 3986)
+
+Opções:
+  -t, --todos  Codifica todos os caracteres, sem exceção
+  -n STRING    Informa caracteres adicionais que não devem ser codificados
+
+Uso: zzurlencode [texto]
+Ex.: zzurlencode http://www            # http%3A%2F%2Fwww
+     zzurlencode -n : http://www       # http:%2F%2Fwww
+     zzurlencode -t http://www         # %68%74%74%70%3A%2F%2F%77%77%77
+     zzurlencode -t -n w/ http://www   # %68%74%74%70%3A//www
+
+```
+= zzutf8 =[zzutf8]
+```
+Converte o texto para UTF-8, se necessário.
+Obs.: Caso o texto já seja UTF-8, não há conversão.
+
+Uso: zzutf8 [arquivo]
+Ex.: zzutf8 /etc/passwd
+     zzutf8 index-iso.html
+     echo Bênção | zzutf8        # Bênção
+     printf '\341\n' | zzutf8    # á
 
 ```
 = zzvdp =[zzvdp]
@@ -2280,53 +2390,20 @@ Ex.: zzvdp
 Busca vários indicadores econômicos e financeiros, da Valor Econômico.
 As opções são categorizadas conforme segue:
 
-- Indicadores Financeiros:
-	contas ou indicadores - Variação dos indicadores no período
-	crédito
-	tr, poupança ou tbf - Taxa Referencial, Poupança e TBF
-	custo ou dinheiro - Custo do dinheiro
-	aplicações - Evolução das aplicações financeiras
-	ima ou anbima - IMA - Índices de Mercado Anbima
-	mercado - Indicadores do mercado
-	futuro - Mercado futuro
-	estoque_cetip - Estoque CETIP
-	volume_cetip - Volume CETIP
-	cetip - Estoque e Volume CETIP
+1. Indicadores Financeiros
+2. Índices Macroeconômicos
+3. Mercado Externo
+4. Bolsas
+5. Commodities
 
-- Índices Macroeconômicos:
-	atividade - Atividade econômica
-	inflação - Inflação
-	produção ou investimento - Produção e investimento
-	dívida_pública ou pública - Dívida e necessidades de financiamento
-	receitas_tributária ou tributária - Principais receitas tributárias
-	resultado_fiscal ou fiscal - Resultado fiscal do governo central
-	previdenciaria ou previdência - Contribuição previdenciária
-	ir_fonte - IR na fonte
-	ir_quota - Imposto de Renda Pessoa Física
+Para mais detalhes digite: zzve <número>
 
-- Commodities:
-	agrícolas = Indicadores
-	óleo_soja = Óleo de Soja
-	farelo ou farelo_soja = Farelo de Soja
-	óleo_vegetal = Óleos Vegetais
-	suco_laranja = Suco de Laranja
-	estoque_metais = Estoques de Metais
-	açucar		algodão		arroz		batata
-	bezerro		boi		borracha	cacau
-	café		cebola		etanol		feijão
-	frango		lã		laranja		laticínios
-	madeira		madioca		milho		ovos
-	trigo		soja		suínos ou porcos
-	metais		cobre		outros_metais	petróleo
-
-- Mercado Externo:
-	captação - Captações de recursos no exterior
-	juros_externos - Juros externos
-	cds - Prêmio de risco do CDS
-	reservas_internacionais - Reservas internacionais
+moedas       Variações de moedas internacionais
 
 Uso: zzve <opção>
 Ex.: zzve tr         # Tabela de Taxa Referencial, Poupança e TBF.
+     zzve moedas     # Cotações do Dólar, Euro e outras moedas.
+     zzve 3          # Mais detalhes de ajuda sobre "Mercado Externo".
 
 ```
 = zzvira =[zzvira]
@@ -2361,25 +2438,25 @@ Obs.: Este parser é usado pelas Funções ZZ, não serve como parser genérico.
 Obs.: Necessário pois não há ferramenta portável para lidar com XML no Unix.
 
 Opções: --tidy        Reorganiza o código, deixando uma tag por linha
-        --tag <tag>   Extrai (grep) as tags
-        --notag <tag> Exclui essas tags (grep -v)
+        --tag NOME    Extrai (grep) todas as tags NOME e seu conteúdo
+        --notag NOME  Exclui (grep -v) todas as tags NOME e seu conteúdo
         --list        Lista sem repetição as tags existentes no arquivo
         --indent      Promove a indentação das tags
         --untag       Remove todas as tags, deixando apenas texto
-        --untag=<tag> Remove apenas a tag especificada, deixando o texto
+        --untag=NOME  Remove apenas a tag NOME, deixando o seu conteúdo
         --unescape    Converte as entidades &foo; para caracteres normais
 Obs.: --notag tem precedência sobre --tag e --untag.
       --untag tem precedência sobre --tag.
 
-Uso: zzxml [--tidy] [--tag NOME] [--notag NOME] [--list] [--indent] [--untag [NOME]] [--unescape] [arquivo(s)]
+Uso: zzxml <opções> [arquivo(s)]
 Ex.: zzxml --tidy arquivo.xml
-     zzxml --untag --unescape arq.xml                    # xml -> txt
-     zzxml --untag=item arq.xml                          # Retira apenas as tags "item"
-     zzxml --tag title --untag --unescape arq.xml        # títulos
-     cat arq.xml | zzxml --tag item | zzxml --tag title  # aninhado
-     zzxml --tag item --tag title arq.xml                # tags múltiplas
-     zzxml --notag link arq.xml                          # Retira a tag link e o conteúdo
-     zzxml --indent arq.xml                              # tags indentadas
+     zzxml --untag --unescape arq.xml                   # xml -> txt
+     zzxml --untag=item arq.xml                         # Apaga tags "item"
+     zzxml --tag title --untag --unescape arq.xml       # títulos
+     cat arq.xml | zzxml --tag item | zzxml --tag title # aninhado
+     zzxml --tag item --tag title arq.xml               # tags múltiplas
+     zzxml --notag link arq.xml                         # Sem tag e conteúdo
+     zzxml --indent arq.xml                             # tags indentadas
 
 ```
 = zzzz =[zzzz]
