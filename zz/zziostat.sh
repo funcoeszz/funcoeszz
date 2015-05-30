@@ -33,7 +33,7 @@ zziostat ()
 
 	local top delay=2 orderby='t' line cycle disk='sd'
 
-	# Opções de linha de comando
+	# Opcoes de linha de comando
 	while [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
