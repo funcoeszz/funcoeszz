@@ -31,7 +31,10 @@ zziostat ()
 {
 	zzzz -h iostat "$1" && return
 
-	local top delay=2 orderby='t' line cycle disk='sd'
+	local top line cycle tps reads writes totals
+	local delay=2
+	local orderby='t'
+	local disk='sd'
 
 	# Opcoes de linha de comando
 	while [ "${1#-}" != "$1" ]
@@ -87,7 +90,6 @@ $line"
 					sort -k $orderby -r -n |
 					head -$top
 			else
-				local tps reads writes totals
 				cycle=$(echo "$cycle" | sed -n "/^${disk}[a-zA-Z]\+[[:blank:]]/p")
 				tps=$(echo "$cycle" | awk '{ sum += $2 } END { print sum }')
 				reads=$(echo "$cycle" | awk '{ sum += $3 } END { print sum }')
