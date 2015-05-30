@@ -72,6 +72,8 @@ zziostat ()
 	[ "$orderby" = "T" ] && orderby=7
 
 	# Executa o iostat, le a saida e agrupa cada "ciclo de execucao"
+	# -d device apenas, -m mostra saida em MB/s
+	iostat -d -m $delay |
 	while read line; do
 		# faz o append da linha do iostat
 		if [ "$line" ]; then
@@ -99,5 +101,5 @@ $line"
 			fi
 			cycle='' # zera ciclo
 		fi
-	done < <(iostat -d -m $delay) # -d device apenas, -m mostra saida em MB/s
+	done
 }
