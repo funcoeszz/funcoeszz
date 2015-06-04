@@ -29,7 +29,7 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 22
+# Versão: 23
 # Licença: GPL
 # Requisitos: zzecho zzpad
 # ----------------------------------------------------------------------------
@@ -64,13 +64,21 @@ zzbrasileirao ()
 		sed '
 		/Rodada /d
 		s/^ *//
-		/[0-9]h[0-9]/{s/pós[ -]jogo//; s/\(h[0-9][0-9]\).*/\1/;}
-		s/[A-Z][A-Z][A-Z]//
+		/[0-9]h[0-9]/{s/pós[ -]jogo *//; s/\(h[0-9][0-9]\).*/\1/;}
+		s/ [A-Z][A-Z][A-Z]$//
 		s/ *__*//' |
 		awk '
-			NR % 3 == 1 { time1=$0 }
-			NR % 3 == 2 { if ($NF ~ /^[0-9]$/) { reserva=$NF " "; $NF=""; } else reserva=""; time2=reserva $0 }
-			NR % 3 == 0 { sub(/  *$/,""); print time1 "|" time2 "|" $0 }
+			NR % 3 ~ /^[12]$/ {
+				if ($1 ~ /^[0-9-]{1,}$/) {
+					placar[NR % 3]=$1; $1=""
+				}
+				sub(/^ */,"");sub(/ *$/,"")
+				time[NR % 3]=" " $0 " "
+			}
+			NR % 3 == 0 {
+				sub(/  *$/,""); print time[1] placar[1] "|" placar[2] time[2] "|" $0
+				placar[1]="";placar[2]=""
+			}
 		' |
 		sed '/^ *$/d' |
 		while read linha

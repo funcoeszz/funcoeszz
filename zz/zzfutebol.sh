@@ -25,7 +25,7 @@
 #
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
 # Desde: 2014-04-08
-# Versão: 8
+# Versão: 9
 # Licença: GPL
 # Requisitos: zzdata zzdatafmt zztrim zzpad
 # ----------------------------------------------------------------------------
@@ -44,24 +44,33 @@ zzfutebol ()
 	$ZZWWWDUMP "$url" |
 	sed -n '/[0-9]h[0-9]/{N;N;p;}' |
 	sed '
-		s/[A-Z][A-Z][A-Z] //
-		s/__*//
-		/º / { s/.*\([0-9]\{1,\}º\)/\1/ }' |
+		s/^ *__* *$/XXX/
+		s/Amistoso.*/Amistoso/
+		s/ [A-Z][A-Z][A-Z]$//
+		s/__*//' |
 	zztrim |
 	awk '
 		NR % 3 == 1 { campeonato = $0 }
-		NR % 3 == 2 { time1 = $0; if ($(NF-1) ~ /^[0-9]{1,}$/) { penais1=$(NF -1)} else {penais1=""} }
-		NR % 3 == 0 {
-			if ($NF ~ /^[0-9]{1,}$/) { reserva=$NF " "; $NF=""; } else { reserva="" }
-			if ($(NF-1) ~ /^[0-9]{1,}$/ ) { penais2=$(NF -1)} else {penais2=""}
-			if (length(penais1)>0 && length(penais2)>0) {
-				sub(" " penais1, "", time1)
-				sub(" " penais2, "")
-				penais1 = " ( " penais1
-				penais2 = penais2 " ) "
+		NR % 3 ~ /^[02]$/ {
+			if ($1 ~ /^[0-9-]{1,}$/ && $2 ~ /^[0-9-]{1,}$/) {
+				penais[NR % 3]=$1; placar[NR % 3]=$2; $1=""; $2=""
 			}
-			else {penais1="";penais2=""}
-			print campeonato ":" time1 penais1 ":" penais2 reserva $0
+			else if ($1 ~ /^[0-9-]{1,}$/ && $2 !~ /^[0-9-]{1,}$/) {
+				penais[NR % 3]=""; placar[NR % 3]=$1; $1=""
+			}
+			sub(/^ */,"");sub(/ *$/,"")
+			time[NR % 3]=" " $0 " "
+		}
+		NR % 3 == 0 {
+			if (length(penais[0])>0 && length(penais[2])>0) {
+				placar[2] = placar[2] " ( " penais[2]
+				placar[0] = penais[0] " ) " placar[2]
+			}
+			else {
+				penais[0]=""; penais[2]=""
+			}
+			sub(/  *$/,""); print campeonato ":" time[2] placar[2] ":" placar[0] time[0]
+			placar[0]="";placar[2]=""
 		}
 		' |
 	case "$1" in

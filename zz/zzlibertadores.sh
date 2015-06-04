@@ -37,7 +37,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 13
+# Versão: 14
 # Licença: GPL
 # Requisitos: zzecho zzpad zzdatafmt
 # ----------------------------------------------------------------------------
@@ -49,26 +49,32 @@ zzlibertadores ()
 	local cache=$(zztool cache libertadores)
 	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/jogos/"
 	local awk_jogo='
-		NR % 3 == 1 { time1=$0; if ($(NF-1) ~ /^[0-9]{1,}$/) { penais1=$(NF -1)} else {penais1=""} }
-		NR % 3 == 2 {
-			if ($NF ~ /^[0-9-]{1,}$/) { reserva=$NF " "; $NF=""; } else reserva=""
-			time2=reserva $0
-			if ($(NF-1) ~ /^[0-9]{1,}$/ ) { penais2=$(NF -1)} else {penais2=""}
-			if (length(penais1)>0 && length(penais2)>0) {
-				sub(" " penais1, "", time1)
-				sub(" " penais2, "", time2)
-				penais1 = " ( " penais1
-				penais2 = penais2 " ) "
+		NR % 3 ~ /^[12]$/ {
+			if ($1 ~ /^[0-9-]{1,}$/ && $2 ~ /^[0-9-]{1,}$/) {
+				penais[NR % 3]=$1; placar[NR % 3]=$2; $1=""; $2=""
 			}
-			else {penais1="";penais2=""}
+			else if ($1 ~ /^[0-9-]{1,}$/ && $2 !~ /^[0-9-]{1,}$/) {
+				penais[NR % 3]=""; placar[NR % 3]=$1; $1=""
+			}
+			sub(/^ */,"");sub(/ *$/,"")
+			time[NR % 3]=" " $0 " "
 		}
-		NR % 3 == 0 { sub(/  *$/,""); print time1 penais1 "|" penais2 time2 "|" $0 }
+		NR % 3 == 0 {
+			if (length(penais[1])>0 && length(penais[2])>0) {
+				placar[1] = placar[1] " ( " penais[1]
+				placar[2] = penais[2] " ) " placar[2]
+			}
+			else {
+				penais[1]="";penais[2]=""
+			}
+			sub(/  *$/,""); print time[1] placar[1] "|" placar[2] time[2] "|" $0
+			placar[1]="";placar[2]=""
+		}
 		'
 	local sed_mata='
 		1d; $d
 		/Confronto/d;/^ *$/d;
-		s/pós[ -]jogo//; s/^ *//; s/__*//g; s/[A-Z][A-Z][A-Z] //;
-		s/\([0-9]\{1,\}\) *pênaltis *\([0-9]\{1,\}\)\(.*\) X \(.*$\)/\3 (\1 X \2) \4/g
+		s/pós[ -]jogo *//; s/^ *//; s/__*//g; s/ [A-Z][A-Z][A-Z]//;
 	'
 	local time1 time2 horario linha
 
