@@ -141,7 +141,7 @@ zzselic ()
 	query=$(echo "$query" | sed "s|DI|$(zzurlencode $data_inicial)|; s|DF|$(zzurlencode $data_final)|")
 
 	# Faz a consulta ao site do BC e limpa a saída.
-	saida=$(echo "$query" | $ZZWWWPOST "$url" | zzdos2unix | zzutf8 | sed '1d')
+	saida=$(echo "$query" | $ZZWWWPOST "$url" | zzutf8 | zzdos2unix | sed '1d')
 
 	# A data final é dia útil? Se não for, o comportamento do site de retornar
 	# o dia útil subsequente vai causar problemas novamente...
