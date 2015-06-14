@@ -64,7 +64,7 @@ zzfutebol ()
 		NR % 3 == 0 {
 			if (length(penais[0])>0 && length(penais[2])>0) {
 				placar[2] = placar[2] " ( " penais[2]
-				placar[0] = penais[0] " ) " placar[2]
+				placar[0] = penais[0] " ) " placar[0]
 			}
 			else {
 				penais[0]=""; penais[2]=""
