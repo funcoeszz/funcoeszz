@@ -46,9 +46,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
-# Versão: 10
+# Versão: 11
 # Licença: GPL
-# Requisitos: zzdata zzminusculas zznumero
+# Requisitos: zzdata zzminusculas zznumero zzdiadasemana
 # Tags: data
 # ----------------------------------------------------------------------------
 zzdatafmt ()
@@ -254,8 +254,7 @@ zzdatafmt ()
 		d="${dd#0}"
 		mes=$(echo "$meses" | cut -d ' ' -f "$m" 2>/dev/null)
 		mmm=$(echo "$mes" | sed 's/\(...\).*/\1/')
-		sem=$(date -j -f "%Y-%m-%d" "$aaaa-$mm-$dd" +%w 2>/dev/null || date -d "$aaaa-$mm-$dd" +%w 2>/dev/null)
-		sem=$((sem + 1))
+		sem=$(zzdiadasemana -n $dd/$mm/$aaaa)
 		semana=$(echo "$semanas" | cut -d ' ' -f "$sem" 2>/dev/null)
 		sss=$(echo "$semana" | sed 's/\(...\).*/\1/')
 
