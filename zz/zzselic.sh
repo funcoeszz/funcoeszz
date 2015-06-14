@@ -48,7 +48,7 @@ zzselic ()
 			-e)	estatisticas=1 ;;
 			-c)	csv=1 ;;
 			-*)
-				echo "Opção $1 desconhecida" 1>&2
+				zztool erro "Opção $1 desconhecida"
 				zztool -e uso selic
 				return 1
 			;;
@@ -81,27 +81,27 @@ zzselic ()
 	# A data inicial é antes disso?
 	if test $(zzdata "$data_inicial" - 04/06/1986) -lt 0
 	then
-		echo "Dados disponíveis apenas a partir de 04/06/1986." 1>&2
+		zztool erro "Dados disponíveis apenas a partir de 04/06/1986."
 		return 1
 	fi
 
 	# A data inicial é anterior à data final?
 	if test $(zzdata "$data_inicial" - "$data_final") -gt 0
 	then
-		echo "Data inicial depois da final." 1>&2
+		zztool erro "Data inicial depois da final."
 		return 1
 	fi
 
 	# Alguma das datas está no futuro?
 	if test $(zzdata "$data_inicial" - hoje) -gt 0
 	then
-		echo "Data inicial no futuro." 1>&2
+		zztool erro "Data inicial no futuro."
 		return 1
 	fi
 
 	if test $(zzdata "$data_final" - hoje) -gt 0
 	then
-		echo "Data final no futuro." 1>&2
+		zztool erro "Data final no futuro."
 		return 1
 	fi
 
@@ -133,7 +133,7 @@ zzselic ()
 
 	if test "$achei_dia_util" -eq 0
 	then
-		echo "Não há dias úteis entre as datas informadas." 1>&2
+		zztool erro "Não há dias úteis entre as datas informadas."
 		return 1
 	fi
 
