@@ -19,7 +19,7 @@
 # Desde: 2015-06-07
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8 
+# Requisitos: zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8
 # ----------------------------------------------------------------------------
 
 zzselic ()
@@ -59,7 +59,7 @@ zzselic ()
 				else
 					return 1
 				fi
-			;;	
+			;;
 		esac
 		shift
 	done
@@ -94,7 +94,7 @@ zzselic ()
 
 	# Alguma das datas está no futuro?
 	if test $(zzdata "$data_inicial" - hoje) -gt 0
-	then 
+	then
 		echo "Data inicial no futuro." 1>&2
 		return 1
 	fi
@@ -108,12 +108,12 @@ zzselic ()
 	# Existem dias úteis no intervalo?
 	# O site do BC tenta "ajudar" o usuário fornecendo o dia útil subsequente
 	# caso a data inicial seja dia não útil. Também faz isso com a data final.
-	# No site, tem-se o aviso de que dias subsequentes foram retornados e o 
+	# No site, tem-se o aviso de que dias subsequentes foram retornados e o
 	# usuário pode decidir se usa esse resultado ou se faz nova requisição.
 	#
 	# Numa ZZ, que pode estar sendo usada por um script ou outra ZZ, esse
 	# comportamento pode induzir a erros. Um exemplo é se o usuário consultar
-	# o intervalo de 18/04/2014 a 20/04/2014. O site fornecerá como resposta 
+	# o intervalo de 18/04/2014 a 20/04/2014. O site fornecerá como resposta
 	# apenas o dia 22/04/2014, 2 dias depois da data final do intervalo
 	# desejado, porque dia 18 e 21 foram feriados e 19 e 20 foram final
 	# de semana.
@@ -150,14 +150,14 @@ zzselic ()
 	# taxa de -100,00. Exemplo: o usuário fez a consulta num sábado usando como
 	# data final "hoje". O site retornará a segunda-feira com taxa de -100,00
 	saida=$(echo "$saida" | sed '/-100,00/d')
-	
+
 	# ...se o dia útil subsequente à data final estiver no passado, ele será
 	# retornado mesmo não estando no intervalo pedido pelo usuário.
 	# Exemplo: a data final é 31/01/2015 (sábado) e o dia 02/02/2015 (segunda)
 	# é retornado. Abaixo, certifica-se que a última data na resposta não seja
 	# depois da data final.
 	#
-	# Mas não é tão simples quanto verificar se o 1º campo na última linha é 
+	# Mas não é tão simples quanto verificar se o 1º campo na última linha é
 	# depois da data final. O tal "-100,00" pode vir como taxa na data atual,
 	# mesmo sendo dia útil e não estando no futuro, se a taxa ainda não foi
 	# divulgada. Isso é um problema se o usuário solicitou apenas a taxa de
