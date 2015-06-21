@@ -6,7 +6,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdolar ()
@@ -24,7 +24,9 @@ zzdolar ()
 			s/com\./Comercial/
 			s/tur\./Turismo /
 			s/^  *Dólar //
-			s/^  *CAPTION: Dólar comercial -/  Compra Venda Variação/
+			s/\(.*\) - \(.*\) \([0-9][0-9]h[0-9][0-9]\)/\2|\3\
+\1/
+			s/  *CAPTION: Dólar comercial/  Compra Venda Variação/
 		' |
-		tr ' ' '\t'
+		tr ' |' '\t '
 }
