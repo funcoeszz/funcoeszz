@@ -7,10 +7,9 @@
 # 3. Mercado Externo
 # 4. Bolsas
 # 5. Commodities
+# moedas       Variações de moedas internacionais
 #
 # Para mais detalhes digite: zzve <número>
-#
-# moedas       Variações de moedas internacionais
 #
 # Uso: zzve <opção>
 # Ex.: zzve tr         # Tabela de Taxa Referencial, Poupança e TBF.
@@ -19,7 +18,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-07-28
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzuniq
 # ----------------------------------------------------------------------------
@@ -50,7 +49,7 @@ zzve ()
 		echo "Índices Macroeconômicos:
 	atividade                          Atividade econômica
 	inflação                           Variação da Inflação
-	produção ou investimento           Produção e investimento
+	produção                           Produção e investimento
 	dívida_pública ou pública          Dívida e necessidades de financiamento
 	receitas_tributária ou tributária  Principais receitas tributárias
 	resultado_fiscal ou fiscal         Resultado fiscal do governo central
@@ -141,9 +140,9 @@ Bolsas Internacionais:
 	# Índices Macroeconômicos - Atividade Econômica
 	url_atual="${url_base}/indices-macroeconomicos/atividade-economica"
 	case "$1" in
-		atividade)                     inicio='Atividade econômica'; url=$url_atual;;
-		infla[çc][ãa]o)                inicio='Inflação'; url=$url_atual;;
-		produ[çc][ãa]o | investimento) inicio='Produção e investimento'; url=$url_atual;;
+		atividade)       inicio='Atividade econômica'; url=$url_atual;;
+		infla[çc][ãa]o)  inicio='Inflação'; url=$url_atual;;
+		produ[çc][ãa]o)  inicio='Produção e investimento'; url=$url_atual;;
 	esac
 
 	# Índices Macroeconômicos - Finanças Públicas
@@ -256,5 +255,37 @@ Bolsas Internacionais:
 		awk '{
 			if ($0 ~ /^ *Fonte/) { print ""; print $0; print ""}
 			else {print $0}
-		}'
+		}' |
+		case "$inicio" in
+			"ADR Brasil")
+				sed '3,$ {
+					s/^   //
+					s/ financeiro / /
+					s/Número de ações por /Açoes\//
+					s/Data do ú/Ú/;s/ em /-/g
+					s/Volume/    Volume/
+					s/ \{22\}Fec/Fec/
+					s/    Maior/Maior    /
+					s/No dia/  Dia /g
+					s/No mês/  Mês /
+					s/No ano/  Ano /
+					s/Em 12 meses/ 12 meses /
+					s/\([0-9]\) \{14\}/\1/
+					s/\([0-9]\) \{15\}/\1        /
+					}'
+			;;
+			"Variação dos indicadores no período")
+				sed 's/^ *//;s/Em //g;s/12 meses \*/12_meses(*)/;' |
+				awk '
+					NR == 1
+					NR==3 {
+						printf "%-12s %12s %12s %12s %12s %12s %12s %12s %12s %12s %12s\n", "Mês", "TR (1)", "Poupança (2)", "Poupança (3)", "TBF (1)", "Selic (4)", "TJLP (%)", "FGTS (5)", "CUB/SP (%)", "UPC (R$)", "Salário mínimo (R$)"
+					}
+					NF==11 && NR >3 {
+						printf "%-12s %12s %12s %12s %12s %12s %12s %12s %12s %12s %12s\n", $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+					}
+					NF!=11 && NR >3 {print}'
+				;;
+			*) cat - ;;
+		esac
 }
