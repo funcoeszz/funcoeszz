@@ -16,7 +16,7 @@
 # Combinatória:             Sequências:          Funções:
 #  fat                       pa pa2 pg lucas      area volume r3
 #  arranjo arranjo_r         fibonacci ou fib     det vetor d2p
-#  combinacao combinacao_r   tribonacci ou trib
+#  combinacao combinacao_r   tribonacci ou trib   collatz
 #
 # Equações:                  Auxiliares:
 #  eq2g egr err                converte
@@ -34,7 +34,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 19
+# Versão: 20
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio zztrim
 # ----------------------------------------------------------------------------
@@ -948,6 +948,27 @@ zzmat ()
 			echo " Com o argumento 's' imprime a sequência até a posição."
 			echo " Uso: zzmat $funcao <número> [s]"
 		fi
+	;;
+	collatz)
+	# Sequência de Collatz
+	if zztool testa_numero "$2"
+	then
+		awk '
+				function collatz(num) {
+					printf num " "
+					if (num>1) {
+						if (num%2==0) { collatz(num/2) }
+						else { collatz(3*num+1) }
+					}
+				}
+				BEGIN { collatz('$2')}
+			' |
+			zztrim -r |
+			zztool nl_eof
+	else
+		echo " Sequência de Collatz"
+		echo " Uso: zzmat $funcao <número>"
+	fi
 	;;
 	r3)
 		shift
