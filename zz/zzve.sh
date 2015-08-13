@@ -278,13 +278,13 @@ Bolsas Internacionais:
 				sed 's/^ *//;s/Em //g;s/12 meses \*/12_meses(*)/;' |
 				awk '
 					NR == 1
-					NR==3 {
-						printf "%-12s %12s %12s %12s %12s %12s %12s %12s %12s %12s %12s\n", "Mês", "TR (1)", "Poupança (2)", "Poupança (3)", "TBF (1)", "Selic (4)", "TJLP (%)", "FGTS (5)", "CUB/SP (%)", "UPC (R$)", "Salário mínimo (R$)"
+					NR == 3 {
+						printf "%-12s %6s %12s %12s %7s %9s %8s %8s %10s %8s %12s\n", "Mês", "TR(1)", "Poupança(2)", "Poupança(3)", "TBF(1)", "Selic(4)", "TJLP(%)", "FGTS(5)", "CUB/SP(%)", "UPC(R$)", "Salário mínimo(R$)"
 					}
-					NF==11 && NR >3 {
-						printf "%-12s %12s %12s %12s %12s %12s %12s %12s %12s %12s %12s\n", $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+					NF == 11 && NR > 3 {
+						printf "%-12s %6s %12s %12s %7s %9s %8s %8s %10s %8s %12s\n", $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
 					}
-					NF!=11 && NR >3 {print}'
+					NF !=11 && NR > 3 {print}'
 				;;
 			*) cat - ;;
 		esac
