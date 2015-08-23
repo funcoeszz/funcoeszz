@@ -16,7 +16,8 @@
 # Combinatória:             Sequências:          Funções:
 #  fat                       pa pa2 pg lucas      area volume r3
 #  arranjo arranjo_r         fibonacci ou fib     det vetor d2p
-#  combinacao combinacao_r   tribonacci ou trib   collatz
+#  combinacao                tribonacci ou trib
+#  combinacao_r              collatz
 #
 # Equações:                  Auxiliares:
 #  eq2g egr err                converte
