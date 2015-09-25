@@ -1,11 +1,11 @@
 # ----------------------------------------------------------------------------
-# Reduz vários espaços consecutivos vertical ou horizaontamente em apenas um.
+# Reduz vários espaços consecutivos vertical ou horizontalmente em apenas um.
 #
 # Opções:
 #  -l ou --linha: Apenas linhas vazias consecutivas, se reduzem a uma.
 #  -c ou --coluna: Espaços consecutivos em cada linha, são unidos em um.
 #
-# Obs.: Linhas inteiras com espaços ou tabulações, 
+# Obs.: Linhas inteiras com espaços ou tabulações,
 #        tornam-se linhas de comprimento zero (sem nenhum caractere).
 #
 # Uso: zzsqueeze [-l|--linha] [-c|--coluna] arquivo
