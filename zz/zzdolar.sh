@@ -6,7 +6,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdolar ()
@@ -21,6 +21,7 @@ zzdolar ()
 			# Dólar com. 2,6203 2,6212 -0,79%
 
 			# faxina
+			/Bovespa/d
 			s/com\./Comercial/
 			s/tur\./Turismo /
 			s/^  *Dólar //
