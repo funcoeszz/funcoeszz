@@ -9,9 +9,9 @@
 #
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2009-04-16
-# Versão: 6
+# Versão: 7
 # Licença: GPL
-# Requisitos: zzecho zzplay zzcapitalize zzdatafmt zzxml
+# Requisitos: zzecho zzplay zzcapitalize zzdatafmt zzxml zzutf8
 # ----------------------------------------------------------------------------
 zzcbn ()
 {
@@ -30,9 +30,10 @@ zzcbn ()
 	if ! test -s "$cache" || test $(tail -n 1 "$cache") != $(date +%F)
 	then
 		$ZZWWWHTML "$url" |
-		sed -n '/lista-menu-item comentaristas/,/lista-menu-item boletins/p' |
+		sed -n '/<ul class="lvl3 /p' |
 		zzxml --tag a |
-		sed -n '/http:..cbn.globoradio.globo.com.comentaristas./{s/.*="//;s/">//;/-e-/d;p;}' |
+		sort -n |
+		sed -n '/http:..cbn.globoradio.globo.com.comentaristas./{s/.*="//;s/">//;p;}' |
 		awk -F "/" '{url = $0;gsub(/-/," ", $6); gsub(/\.htm/,"", $6);printf "%s;%s;%s\n", $6, $5, url }'|
 		while read linha
 		do
@@ -42,13 +43,11 @@ zzcbn ()
 			fonte=$($ZZWWWHTML "$link")
 			rss=$(
 				echo "$fonte" |
-				grep 'cbn/rss' |
-				sed 's/.*href="//;s/".*//'
+				sed -n '/RSS/{s/.*href="//;s/".*//;p;}'
 			)
 			podcast=$(
 				echo "$fonte" |
-				grep 'cbn/podcast' |
-				sed 's/.*href="//;s/".*//'
+				sed -n '/>Podcast</{s/Podcast<.*//;s/.*?q=//;s/".*//;p;}'
 			)
 			echo "$nome | $comentarista | $rss | $podcast"
 		done > "$cache"
@@ -58,7 +57,7 @@ zzcbn ()
 	# Listagem dos comentaristas
 	if test "$1" = "--lista"
 	then
-		sed '$d' "$cache" | awk -F " [|] " '{print $2 "\t => " $1}' | expand -t 28
+		sed '$d' "$cache" | awk -F " [|] " '{print $2 "\t => " $1}' | expand -t 44
 		return
 	fi
 
@@ -105,7 +104,7 @@ zzcbn ()
 		)
 		if test -n "$podcast"
 		then
-			podcast=$($ZZWWWHTML "$podcast" | grep 'media:content')
+			podcast=$($ZZWWWHTML "$podcast" | sed -n '/media:content/p')
 			zztool eco "Áudios diponíveis:"
 			echo "$podcast" |
 			sed 's/.*_//; s/\.mp3.*//; s/\(..\)\(..\)\(..\)/\3\/\2\/20\1/' |
@@ -132,9 +131,10 @@ zzcbn ()
 		if test -n "$rss"
 		then
 			$ZZWWWHTML "$rss" |
+			zzutf8 |
 			zzxml --tag item |
-			zzxml --tag title --tag description --tag pubDate |
-			sed 's/<title>/-----/' |
+			zzxml --tag titleApp --tag descriptionApp --tag pubDate |
+			sed 's/<titleApp>/-----/' |
 			zzxml --untag |
 			sed '/^$/d; s/ [0-2][0-9]:.*//' |
 			if test -n "$data_coment"
