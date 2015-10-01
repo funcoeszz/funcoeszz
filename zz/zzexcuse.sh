@@ -1,8 +1,4 @@
 #!/bin/bash
-
-source /usr/bin/funcoeszz    # inclui o ambiente ZZ
-ZZPATH=$PWD/excuse.sh        # o PATH desse script
-
 # ----------------------------------------------------------------------------
 # Da uma desculpa comum de desenvolvedor ( em ingles )
 # Fonte de pesquisa: http://programmingexcuses.com/
@@ -13,7 +9,6 @@ ZZPATH=$PWD/excuse.sh        # o PATH desse script
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
-
 zzexcuse ()
 {
     zzzz -h excuse "$1" && return
