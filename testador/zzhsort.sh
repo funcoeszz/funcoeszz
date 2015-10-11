@@ -17,4 +17,4 @@ $
 $ zzhsort --ofs "-" "1 a z x 5 o"				#→ 1-5-a-o-x-z
 $ zzhsort -r -d ":" --ofs "\t" "1:a:z:x:5:o"	#→ z	x	o	a	5	1
 $ zzhsort -r --ofs "-" "1 a z x 5 o"			#→ z-x-o-a-5-1
-$ zzhsort "isso está desordenado"				#→ desordenado está isto
+$ zzhsort "isso está desordenado"				#→ desordenado está isso

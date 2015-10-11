@@ -16,7 +16,7 @@
 # Se o separador da entrada é uma ER, é bom declarar o separador de saída.
 #
 # Uso: zzhsort [-d | --fs <separador>] [--ofs <separador>] <Texto>
-# Ex.: zzhsort "isso está desordenado"            # desordenado está isto
+# Ex.: zzhsort "isso está desordenado"            # desordenado está isso
 #      zzhsort -r -d ":" --ofs "-" "1:a:z:x:5:o"  # z-x-o-a-5-1
 #      cat num.txt | zzhsort --fs '[\t:]' --ofs '\t'
 #
