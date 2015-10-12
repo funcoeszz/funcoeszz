@@ -35,7 +35,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 20
+# Versão: 21
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio zztrim
 # ----------------------------------------------------------------------------
@@ -770,20 +770,22 @@ zzmat ()
 	fat)
 		if (test $# -eq "2" -o $# -eq "3" && zztool testa_numero "$2" && test "$2" -ge "1")
 		then
+			local num1 num2
 			if test "$3" = "s"
 			then
-				local num1 num2
-				num2=1
-				for num1 in $(zzseq $2)
-				do
-					num2=$(echo "$num1 * $num2" | bc | tr -d '\n\\')
-					printf "%s " $num2
-				done | zztrim -r
-				echo
+				num1=$(zzseq $2)
 			else
-				zzseq $2 | paste -s -d* - | bc | tr -d '\n\\'
-				echo
+				num1="$2"
 			fi
+			for num2 in $(echo "$num1")
+			do
+				echo "define fat(x) { if (x <= 1) return (1); return (fat(x-1) * x); }; fat($num2)" |
+				bc |
+				tr -d '\\\n'
+				echo
+			done |
+			tr '\n' ' ' | zztrim -H
+			echo
 		else
 			zztool erro " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
 			zztool erro " Com o argumento 's' imprime a sequência até a posição."
