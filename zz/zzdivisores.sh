@@ -8,6 +8,7 @@
 # Desde: 2013-03-25
 # Versão: 4
 # Licença: GPL
+# Requisitos: zzjuntalinha
 # ----------------------------------------------------------------------------
 zzdivisores ()
 {
@@ -31,13 +32,14 @@ zzdivisores ()
 					}
 					i++
 				}
-				asort(result)
-				printf 1
+				print 1
 				for (j in result) {
-					printf " " result[j]
+					print result[j]
 				}
-				print " " $1
-		}'
+				print $1
+		}' |
+		sort -n |
+		zzjuntalinhas -d ' '
 	else
 		# Se não for um número válido exibe a ajuda
 		zzdivisores -h
