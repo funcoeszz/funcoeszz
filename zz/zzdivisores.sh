@@ -8,7 +8,7 @@
 # Desde: 2013-03-25
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzjuntalinha
+# Requisitos: zzjuntalinhas
 # ----------------------------------------------------------------------------
 zzdivisores ()
 {
