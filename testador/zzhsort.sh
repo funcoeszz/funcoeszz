@@ -1,20 +1,20 @@
 $ cat _dados.txt | zzhsort -d ":"
-1:one:um
-2:dois:two
-3:three:tres
-4:four:quatro
-5:cinco:five
+one:um:1
+dois:two:2
+three:tres:3
+four:quatro:4
+cinco:five:5
 $
 
 $ cat _dados.txt | zzhsort -r -d ":" --ofs _
-um_one_1
-two_dois_2
-tres_three_3
-quatro_four_4
-five_cinco_5
+1_um_one
+2_two_dois
+3_tres_three
+4_quatro_four
+5_five_cinco
 $
 
-$ zzhsort --ofs "-" "1 a z x 5 o"				#→ 1-5-a-o-x-z
-$ zzhsort -r -d ":" --ofs "\t" "1:a:z:x:5:o"	#→ z	x	o	a	5	1
-$ zzhsort -r --ofs "-" "1 a z x 5 o"			#→ z-x-o-a-5-1
+$ zzhsort --ofs "-" "1 a z x 5 o"				#→ a-o-x-z-1-5
+$ zzhsort -r -d ":" --ofs "\t" "1:a:z:x:5:o"	#→ 5	1	z	x	o	a
+$ zzhsort -r --ofs "-" "1 a z x 5 o"			#→ 5-1-z-x-o-a
 $ zzhsort "isso está desordenado"				#→ desordenado está isso
