@@ -966,7 +966,7 @@ zzmat ()
 				}
 				BEGIN { collatz('$2')}
 			' |
-			zztrim -r |
+			zztrim |
 			zztool nl_eof
 	else
 		echo " Sequência de Collatz"
