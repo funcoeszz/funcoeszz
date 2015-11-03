@@ -781,11 +781,12 @@ zzmat ()
 			do
 				echo "define fat(x) { if (x <= 1) return (1); return (fat(x-1) * x); }; fat($num2)" |
 				bc |
-				tr -d '\\\n'
-				echo
+				tr -d '\\\n' |
+				zztool nl_eof
 			done |
-			tr '\n' ' ' | zztrim -H
-			echo
+			tr '\n' ' ' |
+			zztrim |
+			zztool nl_eof
 		else
 			zztool erro " zzmat $funcao: Resultado do produto de 1 ao numero atual (fatorial)"
 			zztool erro " Com o argumento 's' imprime a sequência até a posição."
