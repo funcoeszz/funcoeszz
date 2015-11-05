@@ -6,9 +6,8 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
-# Versão: 4
+# Versão: 5
 # Licença: GPL
-# Requisitos: zzjuntalinhas
 # ----------------------------------------------------------------------------
 zzdivisores ()
 {
@@ -39,7 +38,7 @@ zzdivisores ()
 				print $1
 		}' |
 		sort -n |
-		zzjuntalinhas -d ' '
+		zztool lines2list
 	else
 		# Se não for um número válido exibe a ajuda
 		zzdivisores -h
