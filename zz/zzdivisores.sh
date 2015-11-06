@@ -38,7 +38,7 @@ zzdivisores ()
 				print $1
 		}' |
 		sort -n |
-		zztool lines2list
+		zztool lines2list | zztool nl_eof
 	else
 		# Se não for um número válido exibe a ajuda
 		zzdivisores -h
