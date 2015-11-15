@@ -62,10 +62,10 @@ zzpad ()
 	zztool multi_stdin "$@" |
 		zztool nl_eof |
 		case "$posicao" in
-			l) sed -e ':loop' -e "/^.\{$largura\}/ b" -e "s/^/$str_pad/" -e 'b loop';;
-			r) sed -e ':loop' -e "/^.\{$largura\}/ b" -e "s/$/$str_pad/" -e 'b loop';;
-			b) sed -e ':loop' -e "/^.\{$largura\}/ b" -e "s/$/$str_pad/" \
-			                  -e "/^.\{$largura\}/ b" -e "s/^/$str_pad/" -e 'b loop';;
+			l) sed -e ':loop'	-e "/^.\{$largura\}/ b" -e "s/^/$str_pad/" -e 'b loop';;
+			r) sed -e ':loop'	-e "/^.\{$largura\}/ b" -e "s/$/$str_pad/" -e 'b loop';;
+			b) sed -e ':loop'	-e "/^.\{$largura\}/ b" -e "s/$/$str_pad/" \
+								-e "/^.\{$largura\}/ b" -e "s/^/$str_pad/" -e 'b loop';;
 		esac
 
 	### Explicação do algoritmo sed

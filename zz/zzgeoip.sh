@@ -38,7 +38,7 @@ zzgeoip ()
 	)
 
 	cidade=$(   echo "$pagina" | grep 'Cidade:'    | cut -d : -f 2         )
- 	uf=$(       echo "$pagina" | grep 'Estado:'    | cut -d : -f 2         )
+	uf=$(       echo "$pagina" | grep 'Estado:'    | cut -d : -f 2         )
 	pais=$(     echo "$pagina" | grep 'País:'      | cut -d : -f 2         )
 	latitude=$( echo "$pagina" | grep 'Latitude:'  | cut -d : -f 2 | tr , .)
 	longitude=$(echo "$pagina" | grep 'Longitude:' | cut -d : -f 2 | tr , .)
