@@ -24,12 +24,12 @@ zzloteria ()
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
 	local cache=$(zztool cache loteria)
 	local tab=$(printf '\t')
+	local un_zip='unzip -q -a -C -o'
 
 	if which links >/dev/null 2>&1
 	then
 		ZZWWWDUMP2='links -dump'
 		download='links -source'
-		un_zip='unzip -q -a -C -o'
 	else
 		zztool erro 'Para esta função funcionar, é necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'
 		return 1
@@ -55,6 +55,7 @@ zzloteria ()
 		zztool eco "${tipo}:"
 		if ! test -n "$num_con"
 		then
+			# Resultados mais recentes das loterias selecionadas.
 			dump=$($ZZWWWDUMP2 "${url}/${tipo}" | sed -n '/Resultado Concurso/,/^ *Arrecada/p' | sed '2,6d;s/^Resultado //')
 			case "$tipo" in
 				lotomania | lotofacil)
@@ -66,13 +67,15 @@ zzloteria ()
 						$1 ~ /Estimativa/ || $2 ~ /acertos/ {printf $0;getline;print}
 						/^ *Acumulado/
 					' |
-					sed '
-						s/^ *Estimativa/\n&/
-						s/^ *\(20\|15\) acertos/\n&/
+					sed "
+						/^ *Estimativa/ i \
+
+						/^ *\(20\|15\) acertos/ i \
+
 						s/ 0 /  0 /
-						s/acertos */pts.\t/
-						s/ *apostas\{0,1\} ganhadoras\{0,1\},/\t/
-					' | expand -t 5,15,25
+						s/acertos */pts.${tab}/
+						s/ *apostas\{0,1\} ganhadoras\{0,1\},/${tab}/
+					" | expand -t 5,15,25
 				;;
 				megasena | duplasena | quina | timemania)
 					echo "$dump" |
@@ -81,25 +84,28 @@ zzloteria ()
 						NR==1{print}
 						/ sorteio$/{print "";print}
 						/^ *Premiac/{print}
-						$1 ~ /Estimativa/ || $NF ~ /acertados|Corac.*ao$/{printf $0;getline;print}
-						/\/[A-Z]/ {getline; print "\t" $0}
+						$1 ~ /Estimativa/ {printf "\n\n" $0;getline;print}
+						$NF ~ /acertados|Corac.*ao$/ {printf $0;getline;print}
+						/\/[A-Z]/ {getline; if ($0 ~ /^ *[0-9]+ /) {sub(/^ */,"");print "\t" $0} else print "\n\n" $0}
 						/^ *Acumulado/
 						/^ *Valor acumulado/
 						/\* [0-9]/{printf $0}
 					' |
-					sed '
-						s/ *Estimativa/\n\n&/
+					sed "
 						s/^ *\([12]-o\)/  \1/
 						s/  \* //g
 						s/Premiac[^0-9]*//
 						s/ - [0-9]//
-						s/numeros acertados */pts.\t/
-						s/ *apostas\{0,1\} ganhadoras\{0,1\},/\t/
-						s/Time do Corac.\{0,1\}ao/\n   Time:/
-					' |
+						s/numeros acertados */pts.${tab}/
+						s/ *apostas\{0,1\} ganhadoras\{0,1\},/${tab}/
+						s/Time do Corac.\{0,1\}ao/ Time:/
+						/Time/ i \
+
+					" |
 					if test "$tipo" = "duplasena"
 					then
-						sed '2d;s/^\( *\)\([12]\)-o/\n\1\2º/;s/a pts./a/'
+						sed '2d;s/^\( *\)\([12]\)-o/\1\2º/;s/a pts./a/;/º [Ss]orteio/ i \
+'
 					else
 						sed 's/\([ao]\) pts./\1/'
 					fi |
@@ -123,17 +129,20 @@ zzloteria ()
 						/Estimativa| acertos\)/ {printf $0;getline;print}
 						/^ *Acumulado/
 					' |
-					sed '
-						s/^ *Estimativa/\n&/
+					sed "
+						/^ *Estimativa/ i \
+
 						s/[12].*(//
-						s/acertos) */pts.\t/
-						s/ *apostas\{0,1\} ganhadoras\{0,1\},/\t/
-					' |
-					sed 's/^ *14/\n&/'
+						s/acertos) */pts.${tab}/
+						s/ *apostas\{0,1\} ganhadoras\{0,1\},/${tab}/
+					" |
+					sed '/^ *14/ i \
+'
 				;;
 			esac
 			echo
 		else
+			# Resultados históricos das loterias selecionadas.
 			case "$tipo" in
 				lotomania)
 					if ! test -e ${cache}.lotomania.htm || ! $($ZZWWWDUMP ${cache}.lotomania.htm | grep "^ *$num_con " >/dev/null)
