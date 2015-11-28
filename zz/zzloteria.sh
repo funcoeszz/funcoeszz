@@ -116,8 +116,16 @@ zzloteria ()
 				;;
 				loteca)
 					echo "$dump" |
-					sed -n '1p;/Coluna 1/,/^ *14/p' |
-					sed '2s/.*//;3,${s/^ *//;s/  */|/;s/  */|/;s/   */|/g;s/\([0-9]\) /\1|/}' |
+					sed -n '1p;/Coluna 1/,/^ *14/{s/[[:blank:]]*$//;p;}' |
+					sed '
+						2s/.*//
+						3,${
+							s/^ *//
+							s/  */|/
+							s/  */|/
+							s/   */|/;
+							s/[[:blank:]]\{1,\}\([0-9]\{1,\}\)[[:blank:]]\([^[:blank:]]\{1,\}\)$/|\1|\2/
+						}' |
 					awk -F "|" '
 						NR==1
 						NR==2 { printf " Jogo %60s\n", "Resultado" }
