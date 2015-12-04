@@ -56,6 +56,7 @@ zzcoin ()
 				s/Change(24h)/%Var(24h)/;
 				s/ Market Cap Graph (7d)//;
 				s/ Price Graph (7d)//;
+				s/ *sparkline *//;
 				/______/d;
 				p;
 				}' |
