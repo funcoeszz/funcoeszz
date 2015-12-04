@@ -11,6 +11,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar zztrim zzecho zzutf8
+# Tags: cinema
 # ----------------------------------------------------------------------------
 zzcinepolis ()
 {

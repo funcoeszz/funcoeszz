@@ -9,15 +9,19 @@
 #   Resende                -  33
 #   Monte Carlos           -  34
 #   Juiz de Fora           -  35
+#   Ituiutaba              -  36
+#   Araxá                  -  37
+#   Lorena                 -  38
 #
 # Uso: zzcinemais [cidade]
 # Ex.: zzcinemais milenium
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-08-25
-# Versão: 7
+# Versão: 8
 # Licença: GPLv2
 # Requisitos: zzecho zzsemacento zzminusculas zztrim zzutf8
+# Tags: cinema
 # ----------------------------------------------------------------------------
 zzcinemais ()
 {
@@ -35,7 +39,10 @@ zzcinemais ()
 	32:anapolis:Anápolis - GO
 	33:resende:Resende - RJ
 	34:monte_carlos:Montes Claros - MG
-	35:juiz_de_fora:Juiz de Fora - MG"
+	35:juiz_de_fora:Juiz de Fora - MG
+	36:ituiutaba:Ituiutaba - MG
+	37:araxa:Araxá - MG
+	38:lorena:Lorena - SP"
 
 	codigo=$(echo "$cidades" | grep "${cidade}:" 2>/dev/null | cut -f 1 -d ":")
 

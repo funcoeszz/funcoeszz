@@ -16,6 +16,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzdatafmt zzxml zzunescape zztrim zzcolunar
+# Tags: cinema
 # ----------------------------------------------------------------------------
 zzcinemark ()
 {

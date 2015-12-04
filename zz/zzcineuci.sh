@@ -11,6 +11,7 @@
 # Versão: 8
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento zzxml zzcapitalize zzjuntalinhas zztrim
+# Tags: cinema
 # ----------------------------------------------------------------------------
 zzcineuci ()
 {
