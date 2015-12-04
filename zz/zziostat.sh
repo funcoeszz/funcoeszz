@@ -42,11 +42,11 @@ zziostat ()
 		case "$1" in
 			-t )
 				shift; top=$1
-				zztool testa_numero $top || { echo "Número inválido $top"; return 1; }
+				zztool testa_numero $top || { zztool erro "Número inválido $top"; return 1; }
 				;;
 			-i )
 				shift; delay=$1
-				zztool testa_numero $delay || { echo "Número inválido $delay"; return 1; }
+				zztool testa_numero $delay || { zztool erro "Número inválido $delay"; return 1; }
 				;;
 			-d )
 				shift; disk=$1
@@ -54,12 +54,12 @@ zziostat ()
 			-o )
 				shift; orderby=$1
 				if ! echo $orderby | grep -qs '^[rwtT]$'; then
-					echo "Opção inválida '$orderby'"
+					zztool erro "Opção inválida '$orderby'"
 					return 1
 				fi
 				;;
 			* )
-				echo "Opção inválida $1"; return 1;;
+				zztool erro "Opção inválida $1"; return 1;;
 		esac
 		shift
 	done
