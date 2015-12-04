@@ -10,7 +10,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 11
+# Versão: 12
 # Licença: GPL
 # Requisitos: zzminusculas zzfeed zztac zzurldecode zzdata zzdatafmt
 # ----------------------------------------------------------------------------
@@ -21,7 +21,7 @@ zzsecurity ()
 	local url limite distros
 	local n=5
 	local ano=$(date '+%Y')
-	local distros='debian freebsd gentoo mandriva slackware suse opensuse ubuntu redhat arch mageia netbsd fedora'
+	local distros='debian freebsd gentoo slackware suse opensuse ubuntu arch mageia netbsd fedora'
 
 	limite="sed ${n}q"
 
@@ -75,16 +75,6 @@ zzsecurity ()
 			$limite
 	fi
 
-	# Mandriva
-	if zztool grep_var mandriva "$distros"
-	then
-		echo
-		zztool eco '** Atualizações Mandriva'
-		url='http://www.mandriva.com/en/support/security/advisories/feed/'
-		echo "$url"
-		zzfeed -n $n "$url"
-	fi
-
 	# Suse
 	if zztool grep_var suse "$distros" || zztool grep_var opensuse "$distros"
 	then
@@ -126,7 +116,6 @@ zzsecurity ()
 		url='http://ftp.netbsd.org/pub/NetBSD/packages/vulns/pkg-vulnerabilities'
 		echo "$url"
 		$ZZWWWDUMP "$url" |
-			zzurldecode |
 			sed '1,27d;/#CHECKSUM /,$d;s/ *https*:.*//' |
 			zztac |
 			$limite
@@ -140,28 +129,6 @@ zzsecurity ()
 		zztool eco '** Atualizações Ubuntu'
 		echo "$url"
 		zzfeed -n $n "$url"
-	fi
-
-	# Red Hat
-	if zztool grep_var redhat "$distros"
-	then
-		url='https://access.redhat.com/security/cve'
-		echo
-		zztool eco '** Atualizações Red Hat'
-		echo "$url"
-		$ZZWWWDUMP "$url" |
-			sed -n '
-				/^ *CVE-/ {
-					/\* RESERVED \*/ d
-					/Details pending/ d
-					s/ [[:alpha:]]\{1,\} [0-9-]\{1,\}$//
-					s/^  *//
-					p
-				}' |
-			zztac |
-			$limite |
-			sed 's/ /:\
-	/'
 	fi
 
 	# Fedora
