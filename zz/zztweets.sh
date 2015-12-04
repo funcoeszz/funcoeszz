@@ -42,7 +42,7 @@ zztweets ()
 	$ZZWWWDUMP $url |
 		sed '1,70 d' |
 		sed -n '/View Tweets/,/Back to top/p' |
-		sed '
+		sed '1d
 			/ followed *$/d
 			s/ *(BUTTON) View translation *//
 			/^ *(BUTTON) /d
