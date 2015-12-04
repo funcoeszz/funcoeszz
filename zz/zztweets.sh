@@ -10,8 +10,9 @@
 #
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Desde: 2009-07-30
-# Versão: 8
+# Versão: 9
 # Licença: GPL
+# Requisitos: zzsqueeze
 # ----------------------------------------------------------------------------
 zztweets ()
 {
@@ -40,33 +41,39 @@ zztweets ()
 
 	$ZZWWWDUMP $url |
 		sed '1,70 d' |
-		sed '1,/ View Tweets$/d;/(BUTTON) Try again/,$d' |
-		awk '
-			/ @'$name'/, /\* \(BUTTON\)/ { if(NF>1) print }
-			/Retweeted by /, /\* \(BUTTON\)/ { if(NF>1) print }
-			/retweeted$/, /\* \(BUTTON\)/ { if(NF>1) print }' |
-		sed "
-			/Retweeted by /d
-			/retweeted$/d
-			/  ·  /{s/  ·  .*$/>:/;s/^.*@/@/}
-			/@$name/d
-			/(BUTTON)/d
-			/View summary/d
-			/View conversation/d
-			/^ *YouTube$/d
-			/^ *Play$/d
+		sed -n '/View Tweets/,/Back to top/p' |
+		sed '
+			/ followed *$/d
+			s/ *(BUTTON) View translation *//
+			/^ *(BUTTON) /d
+			/ · Details *$/d
+			/ tweeted yet\. *$/d
+			/^   [1-9 ][0-9]\./i \
+
+			/\. Pinned Tweet *$/{N;d;}
+			/ Retweeted *$/{N;d;}
+			/. Retweeted ./d
+			/^    *[1-9 ][0-9]\./d
+			/^ *Translated from /d
+			/^ *View media/d
+			/^ *View summary/d
+			/^ *View conversation/d
 			/^ *View more photos and videos$/d
 			/^ *Embedded image permalink$/d
-			/[0-9,]\{1,\} retweets\{0,1\} [0-9,]\{1,\} favorite/d
-			/Twitter may be over capacity or experiencing a momentary hiccup/d
+			/[0-9,]\{1,\} retweets\{0,1\} [0-9,]\{1,\} like/,/[o+] (BUTTON) Embed Tweet/d
+			/[o+] (BUTTON) /d
 			s/\[DEL: \(.\) :DEL\] /\1/g
 			s/^ *//g
-		" |
-		awk '{ if (/>:$/){ sub(/>:$/,": "); printf $0; getline;print } else print }' |
-		sed "$limite q" |
-		sed G
+		' |
+		zzsqueeze -l |
+		sed '/. added,$/{N;d;}' |
+		awk -v lim=$limite '$0 ~ /^[[:blank:]]*$/ {blanks++};{if(blanks>lim) exit; print}'
 
 	# Apagando as 70 primeiras linhas usando apenas números,
 	# pois o sed do BSD capota se tentar ler o conteúdo destas
 	# linhas. Leia mais no issue #28.
+
+	# O último sed está destacado, pois seu funcionamento no sed anterior
+	# estava irregular, aplicando o comando apenas em alguns momentos.
+	# Não tenho explicação para isso!
 }
