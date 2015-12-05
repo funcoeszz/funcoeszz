@@ -9,8 +9,6 @@
 #  taxas_fixas ou moedas: exibe tabela de comparação de câmbio (principais).
 #  taxas_cruzadas: exibe a tabela cartesiana do câmbio.
 #  nome_moedas ou moedas_nome: lista códigos e nomes das moedas usadas.
-#  servicos, economia ou politica: mostra notícias relativas a esse assuntos.
-#  noticias: junta as notícias de serviços e economia.
 #  volume: lista ações líderes em volume de negócios na Bovespa.
 #  alta ou baixa: lista as ações nessa condição na BMFBovespa.
 #  "código de bolsa ou ação": mostra sua última cotação.
@@ -51,7 +49,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 23
+# Versão: 24
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt
 # ----------------------------------------------------------------------------
@@ -200,7 +198,7 @@ zzbolsas ()
 				sed '1d;s/Down /-/g;s/ de /-/g;s/Up /+/g;s/Gráfico, .*//g' |
 				sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
 				awk 'BEGIN {
-							printf "%-15s  %-24s  %-24s  %-19s  %-10s\n","Símbolo","Nome","Última Transação","Variação","Volume"
+							printf "%-15s  %-25s  %-29s  %-19s  %s\n","Símbolo","Nome","Última Transação","Variação","Volume"
 						}
 					{
 						if (NF > 6) {
@@ -208,9 +206,9 @@ zzbolsas ()
 							printf "%-15s ", $1;
 							for(i=2; i<=NF-5; i++) {nome = nome sprintf( "%s ", $i)};
 							printf " %-24s ", nome;
-							for(i=NF-4; i<=NF-3; i++) printf " %-8s ", $i;
-							printf "  "
-							printf " %-7s ", $(NF-2); printf " %-9s ", $(NF-1);
+							for(i=NF-4; i<=NF-3; i++) printf " %-11s ", $i;
+							printf " "
+							printf " %-10s", $(NF-2); printf " %10s", $(NF-1);
 							printf " %11s", $NF
 							print ""
 						}
@@ -256,7 +254,7 @@ zzbolsas ()
 						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d' |
 						sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
 						awk -v pag_awk=$pag '
-						BEGIN { if (pag_awk==0) {printf "%-14s %-54s %-23s %-15s %-10s\n", "Símbolo", "Empresa", "Última Transação", "Variação", "Volume"} }
+						BEGIN { if (pag_awk==0) {printf "%-14s %-59s %-25s %-14s %s\n", "Símbolo", "Empresa", "Última Transação", "Variação", "Volume"} }
 						{
 							nome = ""
 							if (NF>=7) {
@@ -265,7 +263,8 @@ zzbolsas ()
 									if (ajuste == 0 ) { data_hora = $(NF-3) }
 									else if (ajuste == 2 ) { data_hora = $(NF-5) " " $(NF-4) " " $(NF-3) }
 									for(i=2;i<=(NF-5-ajuste);i++) {nome = nome " " $i }
-									printf "%-13s %-50s %10s %10s %10s %9s %10s\n", $1, nome, $(NF-4-ajuste), data_hora, $(NF-2), $(NF-1), $NF
+									sub(/ de /,"-",data_hora)
+									printf "%-13s %-55s %10s %10s %10s %9s %11s\n", $1, nome, $(NF-4-ajuste), data_hora, $(NF-2), $(NF-1), $NF
 								}
 							}
 						}'
@@ -362,7 +361,7 @@ zzbolsas ()
 					if test $(awk 'END {print NR}' "${cache}.pag") -ge 4 -a $(awk 'END {print NR}' "${cache}.pags") -ge 4
 					then
 						paste -d"|" "${cache}.pag" "${cache}.pags" |
-						awk -F"|" '{printf "%-42s %25s\n", $1, $2}'
+						awk -F"|" 'NR==2{gsub(/ de /,"-")};{printf "%-44s  %25s\n", $1, $2}'
 					fi
 				fi
 			# Noticias relacionadas a uma ação especifica
