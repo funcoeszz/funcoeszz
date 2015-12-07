@@ -12,7 +12,7 @@
 # Desde: 2004-12-23
 # Versão: 12
 # Licença: GPL
-# Requisitos: zzminusculas zzfeed zztac zzurldecode zzdata zzdatafmt
+# Requisitos: zzminusculas zzfeed zztac zzdata zzdatafmt
 # ----------------------------------------------------------------------------
 zzsecurity ()
 {
