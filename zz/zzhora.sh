@@ -14,7 +14,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzhora ()
@@ -212,7 +212,7 @@ zzhora ()
 		then
 			# Para o resultado negativo é preciso refazer algumas contas
 			minutos=$(( (60-minutos) % 60))
-			dias=$((horas/24 + (minutos>0) ))
+			dias=$((horas/24))
 			hh_dia=$(( (24 - horas_do_dia - (minutos>0)) % 24))
 			mm="$minutos"
 

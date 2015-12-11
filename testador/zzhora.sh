@@ -65,7 +65,7 @@ $ zzhora -r	01:00	-	02:00			#→ 23:00 (ontem)
 
 $ zzhora -r	01:00	-	24:59			#→ 00:01 (ontem)
 $ zzhora -r	01:00	-	25:00			#→ 00:00 (ontem)
-$ zzhora -r	01:00	-	25:01			#→ 23:59 (-2 dias)
+$ zzhora -r	01:00	-	25:01			#→ 23:59 (anteontem)
 
 $ zzhora -r	23:00	+	00:59			#→ 23:59 (hoje)
 $ zzhora -r	23:00	+	01:00			#→ 00:00 (amanhã)
