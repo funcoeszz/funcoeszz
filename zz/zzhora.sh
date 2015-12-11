@@ -198,7 +198,7 @@ zzhora ()
 	#   10:00 (2 dias)                       23:00 (ontem)
 	#
 	# Normal:
-	#   $ zzhora 10:00 + 48:00               $ zzhora -r 12:00 - 13:00
+	#   $ zzhora 10:00 + 48:00               $ zzhora 12:00 - 13:00
 	#   58:00 (2d 10h 0m)                    -01:00 (0d 1h 0m)
 	#
 	if test $relativo -eq 1
@@ -227,9 +227,12 @@ zzhora ()
 				extra='amanhã'
 			;;
 			-1)
+				test ${horas_do_dia} -ne 0 -o ${minutos} -ne 0 && extra='anteontem' || extra='ontem'
+			;;
+			-0)
 				extra='ontem'
 			;;
-			0 | -0)
+			0)
 				extra='hoje'
 			;;
 			*)
