@@ -6,22 +6,27 @@
 #         --hex         Codifica caracteres em códigos hexadecimais
 #         --dec         Codifica caracteres em códigos decimais
 #         -s            Com essa opção também codifica os espaços
+#         --listar      Mostra a listagem completa de codificação
+#                       Ou só a listagem da codificação escolhida
 #
-# Uso: zzcodchar [-s] [--html|--xml|--dec|--hex] [arquivo(s)]
+# Uso: zzcodchar [-s] [--listar] [--html|--xml|--dec|--hex] [arquivo(s)]
 # Ex.: zzcodchar --html arquivo.xml
 #      zzcodchar --hex  arquivo.html
 #      cat arquivo.html | zzcodchar --dec
+#      zzcodchar --listar --html     #  Listagem dos caracteres e códigos html
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-12-07
-# Versão: 1
+# Versão: 2
 # Licença: GPL
+# Requisitos: zztrim zzpad
 # ----------------------------------------------------------------------------
 zzcodchar ()
 {
 	zzzz -h codchar "$1" && return
 
 	local cods codspace codsed
+	local char html hex dec
 
 	codspace="s/ /\&	nbsp	#xA0	#160	;/g;"
 
@@ -290,6 +295,29 @@ s/♦/\&	diams	#x2666	#9830	;/g;
 			--dec)
 				codsed=$(echo "$cods" | awk 'BEGIN {FS="\t"};{print $1 $4 $5}');
 				shift
+			;;
+			--listar)
+				printf '%s' 'char'
+				case $2 in
+				--html|--xml|--hex|--dec) printf '\t%b\n' "${2#--}";;
+				*) printf '%b' ' html        hex         dec\n';;
+				esac
+				echo "$cods" |
+				zztrim |
+				sed 's|s/||;s|	;/g;||;s|/\\&||;${s| |"&"|}' |
+				case $2 in
+				--html|--xml) sed 's/	/	\&/;s/	#.*/;/;$s/" "/ /';;
+				--hex)        sed 's/	.*#x/	\&#x/;s/	[#0-9]*$/;/;$s/" "/ /';;
+				--dec)        sed 's/	.*	/	\&/;s/$/;/;$s/" "/ /';;
+				*)
+					sed 's/	/	\&/g;s/	/;	/2g;s/$/;/' |
+					while read char html hex dec
+					do
+						echo "$(zzpad 4 $char) $(zzpad 11 $html) $(zzpad 11 $hex) $dec"
+					done |
+					sed '$s/"  *"  */     /;s/;	&/;      \&/'
+				esac
+				return
 			;;
 			*) break ;;
 		esac
