@@ -20,17 +20,21 @@
 # As opções -c, --center, --centro centralizam as colunas.
 # A opção -j justifica as colunas.
 #
+# As opções -H ou --header usa a primeira linha como cabeçalho,
+# repetindo-a no início de cada coluna.
+#
 # As opções -w, --width, --largura seguido de um número,
 # determinam a largura que as colunas terão.
 #
-# Uso: zzcolunar [-n|-z] [-l|-r|-c] [-w <largura>] <colunas> arquivo
+# Uso: zzcolunar [-n|-z] [-H] [-l|-r|-c|-j] [-w <largura>] <colunas> arquivo
 # Ex.: zzcolunar 3 arquivo.txt
 #      zzcolunar -c -w 20 5 arquivo.txt
 #      cat arquivo.txt | zzcolunar -z 4
+#      zzcolunar --header 3 arquivo.txt
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-04-24
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzalinhar zztrim
 # ----------------------------------------------------------------------------
@@ -43,13 +47,15 @@ zzcolunar ()
 	local formato='n'
 	local alinhamento='-l'
 	local largura=0
+	local header=0
 	local colunas
 
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
-		-[nN]) formato='n';shift ;;
-		-[zZ]) formato='z';shift ;;
+		-[nN])                         formato='n';      shift ;;
+		-[zZ])                         formato='z';      shift ;;
+		-H | --header)                 header=1;         shift ;;
 		-l | --left | -e | --esqueda)  alinhamento='-l'; shift ;;
 		-r | --right | -d | --direita) alinhamento='-r'; shift ;;
 		-c | --center | --centro)      alinhamento='-c'; shift ;;
@@ -75,12 +81,19 @@ zzcolunar ()
 
 	zztool file_stdin "$@" |
 	zzalinhar -w $largura ${alinhamento} |
-	awk -v cols=$colunas -v formato=$formato '
+	awk -v cols=$colunas -v formato=$formato -v cab=$header '
 
-		{ linha[NR] = $0 }
+		NR==1 { if(cab) header = $0 }
+
+		{ linha[NR - cab] = $0 }
 
 		END {
-			lin = ( int(NR/cols)==(NR/cols) ? NR/cols : int(NR/cols)+1 )
+			lin = ( int((NR-cab)/cols)==((NR-cab)/cols) ? (NR-cab)/cols : int((NR-cab)/cols)+1 )
+
+			if (cab) {
+				for ( j = 1; j <= cols; j++ ) { printf header (j<cols?" ":"") }
+				print ""
+			}
 
 			# Formato N ( na verdade é И )
 			if (formato == "n") {
