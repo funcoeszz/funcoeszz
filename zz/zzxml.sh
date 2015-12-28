@@ -26,9 +26,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 13
+# Versão: 14
 # Licença: GPL
-# Requisitos: zzjuntalinhas zzuniq
+# Requisitos: zzjuntalinhas zzuniq zzunescape
 # ----------------------------------------------------------------------------
 zzxml ()
 {
@@ -109,10 +109,10 @@ zzxml ()
 		for ntag in $notag
 		do
 			echo '
-				if ($0 ~ /<'$ntag'[^\/>]* >/) { notag++ }
+				if ($0 ~ /<'$ntag' [^\/>]*>/) { notag++ }
 				if ($0 ~ /<\/'$ntag' >/) { notag--; if (notag==0) { next } }
 			' >> $cache_notag
-			sed_notag="$sed_notag /<${ntag}[^/>]*\/>/d;"
+			sed_notag="$sed_notag /<${ntag} [^/>]*\/>/d;"
 		done
 		echo 'if (notag==0) { nolinha[NR] = $0 } }' >> $cache_notag
 	fi
@@ -129,8 +129,8 @@ zzxml ()
 		for ntag in $tag
 		do
 			echo '
-				if ($0 ~ /^<'$ntag'[^><]*\/>$/) { linha[NR] = $0 }
-				if ($0 ~ /^<'$ntag'[^><]*[^\/><]+>/) { tag['$ntag']++ }
+				if ($0 ~ /^<'$ntag' [^><]*\/>$/) { linha[NR] = $0 }
+				if ($0 ~ /^<'$ntag' [^\/><]*>/) { tag['$ntag']++ }
 				if (tag['$ntag']>=1) { linha[NR] = $0 }
 				if ($0 ~ /^<\/'$ntag' >/) { tag['$ntag']-- }
 			' >> $cache_tag
@@ -143,7 +143,7 @@ zzxml ()
 	then
 		for ntag in $semtag
 		do
-			sed_notag="$sed_notag s|<[/]\{0,1\}${ntag}[^>]*>||g;"
+			sed_notag="$sed_notag s|<[/]\{0,1\}${ntag} [^>]*>||g;"
 		done
 	fi
 
@@ -214,15 +214,19 @@ zzxml ()
 </g
 				# quebra linha após fechamento da tag
 				s/>/ >\
-/g' | sed 's|/ >|/>|g' |
+/g' |
 			# Rejunta o conteúdo do <![CDATA[...]]>, que pode ter tags
 			zzjuntalinhas -i '^<!\[CDATA\[' -f ']]>$' -d '' |
 
 			# Remove linhas em branco (as que adicionamos)
 			sed '/^[[:blank:]]*$/d'
 		else
-			cat -
+			# Espaço antes do fechamento da tag (Recurso usado no script para tag não ambígua)
+			sed 's/>/ >/g'
 		fi |
+
+		# Corrigindo espaço de fechamento de tag única  (Recurso usado no script para tag não ambígua)
+		sed 's|/ >| />|g' |
 
 		# --notag
 		# É sempre usada em conjunto com --tidy (automaticamente)
@@ -250,14 +254,8 @@ zzxml ()
 			cat -
 		fi |
 
-		# --tidy (segunda parte)
-		# Eliminando o espaço adicional colocado antes do fechamento da tag.
-		if test $tidy -eq 1
-		then
-			sed 's| >|>|g'
-		else
-			cat -
-		fi |
+		# Eliminando o espaço adicional colocado antes do fechamento das tags.
+		sed 's| >|>|g;s| />|/>|g' |
 
 		# --indent
 		# Indentando conforme as tags que aparecem, mantendo alinhamento.
@@ -317,13 +315,7 @@ zzxml ()
 		# --unescape
 		if test $unescape -eq 1
 		then
-			sed "
-				s/&quot;/\"/g
-				s/&amp;/\&/g
-				s/&apos;/'/g
-				s/&lt;/</g
-				s/&gt;/>/g
-				"
+			zzunescape --xml
 		else
 			cat -
 		fi
