@@ -264,6 +264,8 @@ zzxml ()
 		sed "
 			s/\([[:blank:]]\)$sep/\1/g
 			s/$sep\([[:blank:]]\)/\1/g
+			s/^$sep//
+			s/$sep$//
 			s/$sep/ /g
 		" |
 
