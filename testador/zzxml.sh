@@ -29,7 +29,7 @@ Título
 </title>
 <img src="foo.png" />
 <para>
- 		Meu parágrafo, com 
+		Meu parágrafo, com 
 <strong>
 negrito
 </strong>
@@ -37,7 +37,7 @@ negrito
 <em>
 itálico
 </em>
-. 	
+.	
 </para>
 <escape>
 &quot;&amp;&apos;&lt;&gt;
@@ -65,7 +65,7 @@ $ zzxml --indent zzxml.in.xml
 			<em>
 				itálico
 			</em>
-			. 	
+			.	
 		</para>
 		<escape>
 			&quot;&amp;&apos;&lt;&gt;
@@ -93,7 +93,7 @@ $ zzxml --tidy zzxml.in.xml | tr -d '\n' | zzxml --indent
 			<em>
 				itálico
 			</em>
-			. 	
+			.	
 		</para>
 		<escape>
 			&quot;&amp;&apos;&lt;&gt;
@@ -226,7 +226,7 @@ $
 
 $ zzxml --tag 'para' zzxml.in.xml
 <para>
- 		Meu parágrafo, com 
+		Meu parágrafo, com 
 <strong>
 negrito
 </strong>
@@ -234,24 +234,24 @@ negrito
 <em>
 itálico
 </em>
-. 	
+.	
 </para>
 $
 
 $ zzxml --tag 'para' --untag zzxml.in.xml
- 		Meu parágrafo, com 
+		Meu parágrafo, com 
 negrito
  e 
 itálico
-. 	
+.	
 $
 
 $ zzxml --tag 'para' --untag --unescape zzxml.in.xml
- 		Meu parágrafo, com 
+		Meu parágrafo, com 
 negrito
  e 
 itálico
-. 	
+.	
 $
 
 #----------------------------------------------------------------------
@@ -296,12 +296,12 @@ $
 #----------------------------------------------------------------------
 $ zzxml --untag='em' --tag 'para' --notag 'em' zzxml.in.xml
 <para>
- 		Meu parágrafo, com 
+		Meu parágrafo, com 
 <strong>
 negrito
 </strong>
  e 
-. 	
+.	
 </para>
 $
 

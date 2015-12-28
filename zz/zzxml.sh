@@ -26,7 +26,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 14
+# Versão: 15
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq zzunescape
 # ----------------------------------------------------------------------------
@@ -34,13 +34,15 @@ zzxml ()
 {
 	zzzz -h xml "$1" && return
 
-	local tag notag semtag ntag sed_notag
+	local tag notag semtag ntag sed_notag sep
 	local tidy=0
 	local untag=0
 	local unescape=0
 	local indent=0
 	local cache_tag=$(zztool mktemp xml.tag)
 	local cache_notag=$(zztool mktemp xml.notag)
+
+	sep=$(echo '&thinsp;' | zzunescape --html)
 
 	# Opções de linha de comando
 	while test "${1#-}" != "$1"
@@ -207,7 +209,8 @@ zzxml ()
 			#                            </b>
 			#                            </p>
 
-			zzjuntalinhas -d ' ' |
+			# Usando um tipo espcial de espaço com zzjuntalinhas
+			zzjuntalinhas -d "$sep" |
 			sed '
 				# quebra linha na abertura da tag
 				s/</\
@@ -256,6 +259,13 @@ zzxml ()
 
 		# Eliminando o espaço adicional colocado antes do fechamento das tags.
 		sed 's| >|>|g;s| />|/>|g' |
+
+		# Removendo ou trocando um tipo de espaço especial usado com zzjuntalinhas
+		sed "
+			s/\([[:blank:]]\)$sep/\1/g
+			s/$sep\([[:blank:]]\)/\1/g
+			s/$sep/ /g
+		" |
 
 		# --indent
 		# Indentando conforme as tags que aparecem, mantendo alinhamento.
