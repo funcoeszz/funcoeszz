@@ -9,11 +9,11 @@
 #         --listar      Mostra a listagem completa de codificação
 #                       Ou só a listagem da codificação escolhida
 #
-# Uso: zzcodchar [-s] [--listar] [--html|--xml|--dec|--hex] [arquivo(s)]
+# Uso: zzcodchar [-s] [--listar cod] [--html|--xml|--dec|--hex] [arquivo(s)]
 # Ex.: zzcodchar --html arquivo.xml
 #      zzcodchar --hex  arquivo.html
 #      cat arquivo.html | zzcodchar --dec
-#      zzcodchar --listar --html     #  Listagem dos caracteres e códigos html
+#      zzcodchar --listar html     #  Listagem dos caracteres e códigos html
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-12-07
@@ -299,16 +299,16 @@ s/♦/\&	diams	#x2666	#9830	;/g;
 			--listar)
 				printf '%s' 'char'
 				case $2 in
-				--html|--xml|--hex|--dec) printf '\t%b\n' "${2#--}";;
+				html|xml|hex|dec) printf '\t%b\n' "$2";;
 				*) printf '%b' ' html        hex         dec\n';;
 				esac
 				echo "$cods" |
 				zztrim |
 				sed 's|s/||;s|	;/g;||;s|/\\&||;${s| |"&"|}' |
 				case $2 in
-				--html|--xml) sed 's/	/	\&/;s/	#.*/;/;$s/" "/ /';;
-				--hex)        sed 's/	.*#x/	\&#x/;s/	[#0-9]*$/;/;$s/" "/ /';;
-				--dec)        sed 's/	.*	/	\&/;s/$/;/;$s/" "/ /';;
+				html|xml) sed 's/	/	\&/;s/	#.*/;/;$s/" "/ /';;
+				hex)      sed 's/	.*#x/	\&#x/;s/	[#0-9]*$/;/;$s/" "/ /';;
+				dec)      sed 's/	.*	/	\&/;s/$/;/;$s/" "/ /';;
 				*)
 					sed 's/	/	\&/g;s/	/;	/2g;s/$/;/' |
 					while read char html hex dec
