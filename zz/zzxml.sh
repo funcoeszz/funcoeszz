@@ -34,13 +34,11 @@ zzxml ()
 {
 	zzzz -h xml "$1" && return
 
-	local tag notag semtag ntag sed_notag sep
+	local tag notag semtag ntag sed_notag sep cache_tag cache_notag
 	local tidy=0
 	local untag=0
 	local unescape=0
 	local indent=0
-	local cache_tag=$(zztool mktemp xml.tag)
-	local cache_notag=$(zztool mktemp xml.notag)
 
 	sep=$(echo '&thinsp;' | zzunescape --html)
 
@@ -103,6 +101,9 @@ zzxml ()
 			*         ) break;;
 		esac
 	done
+
+	cache_tag=$(zztool mktemp xml.tag)
+	cache_notag=$(zztool mktemp xml.notag)
 
 	# Montando script awk para excluir tags
 	if test -n "$notag"
