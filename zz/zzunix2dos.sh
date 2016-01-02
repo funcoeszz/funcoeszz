@@ -13,8 +13,7 @@ zzunix2dos ()
 {
 	zzzz -h unix2dos "$1" && return
 
-	local arquivo
-	local tmp=$(zztool mktemp unix2dos)
+	local arquivo tmp
 	local control_m=$(printf '\r')  # ^M, CR, \r
 
 	# Sem argumentos, lê/grava em STDIN/STDOUT
@@ -25,6 +24,9 @@ zzunix2dos ()
 		# Facinho, terminou já
 		return
 	fi
+
+	# Definindo arquivo temporário quando há argumentos.
+	tmp=$(zztool mktemp unix2dos)
 
 	# Usuário passou uma lista de arquivos
 	# Os arquivos serão sobrescritos, todo cuidado é pouco

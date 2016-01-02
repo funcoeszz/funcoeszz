@@ -26,10 +26,9 @@ zzalinhar ()
 {
 	zzzz -h alinhar "$1" && return
 
-	local cache=$(zztool mktemp alinhar)
 	local alinhamento='r'
 	local largura=0
-	local larg_efet linha
+	local larg_efet linha cache
 
 	while test "${1#-}" != "$1"
 	do
@@ -47,6 +46,8 @@ zzalinhar ()
 		esac
 		shift
 	done
+
+	cache=$(zztool mktemp alinhar)
 
 	zztool file_stdin "$@" > $cache
 

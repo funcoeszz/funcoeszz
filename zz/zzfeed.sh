@@ -77,11 +77,11 @@ zzfeed ()
 	# </rss>
 	#-----------------------------------------------------------------
 
+	tmp=$(zztool mktemp feed)
+
 	# Para cada URL que o usuário informou...
 	for url
 	do
-		tmp=$(zztool mktemp feed)
-
 		# Só mostra a url se houver mais de uma
 		test $# -gt 1 && zztool eco "* $url"
 
@@ -137,9 +137,8 @@ zzfeed ()
 					s/['\"]//g"
 		fi
 
-		rm -f "$tmp"
-
 		# Linha em branco para separar resultados
 		[ $# -gt 1 ] && echo
 	done
+	rm -f "$tmp"
 }

@@ -14,9 +14,7 @@ zzdiffpalavra ()
 {
 	zzzz -h diffpalavra "$1" && return
 
-	local esc
-	local tmp1=$(zztool mktemp diffpalavra)
-	local tmp2=$(zztool mktemp diffpalavra)
+	local esc tmp1 tmp2
 	local n=$(printf '\a')
 
 	# Verificação dos parâmetros
@@ -25,6 +23,9 @@ zzdiffpalavra ()
 	# Verifica se os arquivos existem
 	zztool arquivo_legivel "$1" || return 1
 	zztool arquivo_legivel "$2" || return 1
+
+	tmp1=$(zztool mktemp diffpalavra)
+	tmp2=$(zztool mktemp diffpalavra)
 
 	# Deixa uma palavra por linha e marca o início de parágrafos
 	sed "s/^[[:blank:]]*$/$n$n/;" "$1" | tr ' ' '\n' > "$tmp1"
