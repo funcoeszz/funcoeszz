@@ -83,9 +83,9 @@ zzloteria ()
 					awk '
 						NR==1{print}
 						/ sorteio$/{print "";print}
-						/^ *Premiac/{print}
+						/^ *Premia/{print}
 						$1 ~ /Estimativa/ {printf "\n\n" $0;getline;print}
-						$NF ~ /acertados|Corac.*ao$/ {printf $0;getline;print}
+						$NF ~ /acertados|Cora.*o$/ {printf $0;getline;print}
 						/\/[A-Z]/ {getline; if ($0 ~ /^ *[0-9]+ /) {sub(/^ */,"");print "\t" $0} else print "\n\n" $0}
 						/^ *Acumulado/
 						/^ *Valor acumulado/
@@ -94,17 +94,17 @@ zzloteria ()
 					sed "
 						s/^ *\([12]-o\)/  \1/
 						s/  \* //g
-						s/Premiac[^0-9]*//
+						s/Premia[^0-9]*//
 						s/ - [0-9]//
-						s/numeros acertados */pts.${tab}/
+						s/n.meros acertados */pts.${tab}/
 						s/ *apostas\{0,1\} ganhadoras\{0,1\},/${tab}/
-						s/Time do Corac.\{0,1\}ao/ Time:/
+						s/Time do Cora..o/ Time:/
 						/Time/ i \
 
 					" |
 					if test "$tipo" = "duplasena"
 					then
-						sed '2d;s/^\( *\)\([12]\)-o/\1\2º/;s/a pts./a/;/º [Ss]orteio/ i \
+						sed '2d;s/^\( *\)\([12]\)\(-o\|º\)/  \2º/;s/a pts./a/;/º [Ss]orteio/ i \
 '
 					else
 						sed 's/\([ao]\) pts./\1/'
@@ -112,7 +112,7 @@ zzloteria ()
 					expand -t 15,25,35
 				;;
 				federal)
-					echo "$dump" | sed -n '1p;/^ *[1-5]-o/p;2s/.*//p' | sed 's/-o/º Prêmio/;s/\([0-9.,]\{1,\}\) *$/R$ &/'
+					echo "$dump" | sed -n '1p;/^ *[1-5]\(-o\|º\)/p;2s/.*//p;/^ *Destino/p' | sed 's/-o/º/;s/\([0-9.,]\{1,\}\) *$/R$ &/'
 				;;
 				loteca)
 					echo "$dump" |
@@ -128,9 +128,9 @@ zzloteria ()
 						}' |
 					awk -F "|" '
 						NR==1
-						NR==2 { printf " Jogo %60s\n", "Resultado" }
+						NR==2 { printf " Jogo %66s\n", "Resultado" }
 						NR>2 {
-							printf " %2d  %20s %2d X %-2d %-20s  %8s\n", $1, $3, $2, $5, $4, "Col. " ($2==$5?"Meio":($2>$5?"1":"2"))}
+							printf " %2d  %23s %2d X %-2d %-23s  %8s\n", $1, $3, $2, $5, $4, "Col. " ($2==$5?"Meio":($2>$5?"1":"2"))}
 					'
 					echo "$dump" |
 					awk '
