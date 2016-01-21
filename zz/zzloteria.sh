@@ -98,7 +98,7 @@ zzloteria ()
 						s/ - [0-9]//
 						s/n.meros acertados */pts.${tab}/
 						s/ *apostas\{0,1\} ganhadoras\{0,1\},/${tab}/
-						s/Time do Cora..o/ Time:/
+						s/Time do Cora[^ ]*/ Time:/
 						/Time/ i \
 
 					" |
