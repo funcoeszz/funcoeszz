@@ -8,7 +8,7 @@
 #
 # Autor: Mauricio Calligaris <mauriciocalligaris@gmail.com>
 # Desde: 2013-06-19
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 
@@ -16,8 +16,8 @@ zzoperadora ()
 {
 	zzzz -h operadora "$1" && return
 
-	local url="http://consultaoperadora.com.br"
-	local post="numero=$1"
+	local url="http://qualoperadora.info/consulta"
+	local post="tel=$1"
 
 	# Verifica o paramentro
 	if (! zztool testa_numero "$1" || test "$1" -eq 0)
@@ -27,8 +27,7 @@ zzoperadora ()
 	fi
 
 	# Faz a consulta no site
-	echo "${post}&tipo=consulta" |
+	echo "$post" |
 	$ZZWWWPOST "$url" |
-	sed -n '/Número:/p' |
-	awk '{print $1, $2; print $3, $4; for(i=6;i<=NF;i++) {printf  $i " "}; print ""}'
+	awk 'NR==4 {print "   Número:", $0}; NR==6{printf $0 "   -"}; NR>6 && NR<14 && NF>0'
 }
