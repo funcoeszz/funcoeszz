@@ -3,18 +3,26 @@
 # Opções:
 #   -n: Os números são ampliados para um formato de 5 linhas e 6 colunas.
 #   -x char: Igual a -n, mas os números são compostos pelo caracter "char".
+#   -y nums chars: Troca os nums por chars, igual ao comando 'y' no sed.
+#      Obs.: nums e chars tem que ter a mesma qauntidade de caracteres.
+#   -c: Apenas converte o tempo em segundos.
+#   -s: Aguarda o tempo como sleep, sem mostrar o cronômetro.
+#   -p: Usa uma temporização mais precisa, porém usa mais recursos.
 #
 # Obs: Máximo de 99 horas.
 #
-# Uso: zztimer [-n|-x [char]] [[hh:]mm:]ss
+# Uso: zztimer [-c|-s|-n|-x char|-y nums chars] [-p] [[hh:]mm:]ss
 # Ex.: zztimer 90         # Cronomêtro regressivo a partir de 1:30
-#      zztimer 2:56
+#      zztimer 2:56       # Cronometragem regressiva simples.
+#      zztimer -c 2:22    # Exibe o tempo em segundos (no caso 142)
+#      zztimer -s 5:34    # Exite o tempo em segundos e aguarda o tempo.
 #      zztimer -n 1:7:23  # Formato ampliado do número
 #      zztimer -x H 65    # Com números feito pela letra 'H'
+#      zztimer -y 0123456789 9876543210 60  # Troca os números
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-01-25
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztimer ()
@@ -22,7 +30,8 @@ zztimer ()
 
 	zzzz -h timer "$1" && return
 
-	local opt str num
+	local opt str num seg char_para
+	local prec='s'
 
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso timer; return 1; }
@@ -31,12 +40,27 @@ zztimer ()
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
-		-n) opt='n'; shift ;;
-		-x) opt='s'; str=$(echo "$2" | sed 's/.//2g'); shift; shift ;;
+		-n) opt='n';  shift ;;
+		-x) opt='x';  str=$(echo "$2" | sed 's/.//2g'); shift; shift ;;
+		-y)
+			opt='x';  str="$2"; char_para="$3";
+			if test ${#str} -ne ${#char_para}
+			then
+				opt='n'
+				unset str
+				unset char_para
+			fi
+			shift; shift; shift
+		;;
+		-c) opt='c';  shift ;;
+		-s) opt='s';  shift ;;
+		-p) prec='p'; shift ;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
 	done
+
+	echo "$1" | grep '^[0-9:]\{1,\}$' >/dev/null || { zztool erro "Entrada inválida"; return 1; }
 
 	# Separando cada elemento de tempo hora, minutos e segundos
 	# E ajustando minutos e segundos que extrapolem o limite de 60{min,s}
@@ -54,6 +78,8 @@ zztimer ()
 	if test $1 -lt 360000
 	then
 		num=$1
+		test "$opt" = "c" && { echo $num; return; }
+		test "$opt" = "s" && { echo $1; sleep $num; return; }
 	else
 		zztool erro "Valor $1 muito elevado."
 		return 1
@@ -61,6 +87,10 @@ zztimer ()
 
 	while test $num -ge 0
 	do
+
+		# Definindo segundo atual
+		seg=$(date +%S)
+
 		# Marcando ponto para retorno do cursor
 		tput sc
 
@@ -94,13 +124,25 @@ zztimer ()
 		}' |
 		if test -n "$str"
 		then
-			sed "s/[0-9#]/$str/g"
+			if test "${#char_para}" -gt 0
+			then
+				sed "y/$str/$char_para/"
+			else
+				sed "s/[0-9#]/$str/g"
+			fi
 		else
 			cat -
 		fi
 
-		# Temporizar
-		sleep 1
+		# Temporizar (p = mais preciso / s = usando sleep )
+		if test "$prec" = 'p'
+		then
+			# Mais preciso, mas sobrecarrega o processamento
+			while test "$seg" = $(date +%S);do :;done
+		else
+			# Menos preciso, porém mais leve ( padrão )
+			sleep 1
+		fi
 
 		# Decrementar o contador
 		num=$((num-1))
