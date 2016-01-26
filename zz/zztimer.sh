@@ -85,6 +85,9 @@ zztimer ()
 		return 1
 	fi
 
+	# Restaurando terminal
+	tput reset
+
 	while test $num -ge 0
 	do
 
@@ -151,8 +154,6 @@ zztimer ()
 		if test $num -ge 0
 		then
 			tput rc
-			tput el
 		fi
 	done
-
 }
