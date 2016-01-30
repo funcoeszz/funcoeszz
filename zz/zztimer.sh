@@ -4,7 +4,7 @@
 #   -n: Os números são ampliados para um formato de 5 linhas e 6 colunas.
 #   -x char: Igual a -n, mas os números são compostos pelo caracter "char".
 #   -y nums chars: Troca os nums por chars, igual ao comando 'y' no sed.
-#      Obs.: nums e chars tem que ter a mesma qauntidade de caracteres.
+#      Obs.: nums e chars tem que ter a mesma quantidade de caracteres.
 #   -c: Apenas converte o tempo em segundos.
 #   -s: Aguarda o tempo como sleep, sem mostrar o cronômetro.
 #   -p: Usa uma temporização mais precisa, porém usa mais recursos.
@@ -137,7 +137,7 @@ zztimer ()
 			cat -
 		fi
 
-		# Temporizar (p = mais preciso / s = usando sleep )
+		# Temporizar ( p = mais preciso / s = usando sleep )
 		if test "$prec" = 'p'
 		then
 			# Mais preciso, mas sobrecarrega o processamento
