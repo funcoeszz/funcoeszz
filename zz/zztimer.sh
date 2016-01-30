@@ -8,21 +8,23 @@
 #   -c: Apenas converte o tempo em segundos.
 #   -s: Aguarda o tempo como sleep, sem mostrar o cronômetro.
 #   -p: Usa uma temporização mais precisa, porém usa mais recursos.
+#   --center ou --centro: Mostra o cronomêtro centralizado no terminal.
 #
 # Obs: Máximo de 99 horas.
 #
 # Uso: zztimer [-c|-s|-n|-x char|-y nums chars] [-p] [[hh:]mm:]ss
-# Ex.: zztimer 90         # Cronomêtro regressivo a partir de 1:30
-#      zztimer 2:56       # Cronometragem regressiva simples.
-#      zztimer -c 2:22    # Exibe o tempo em segundos (no caso 142)
-#      zztimer -s 5:34    # Exite o tempo em segundos e aguarda o tempo.
-#      zztimer -n 1:7:23  # Formato ampliado do número
-#      zztimer -x H 65    # Com números feito pela letra 'H'
+# Ex.: zztimer 90           # Cronomêtro regressivo a partir de 1:30
+#      zztimer 2:56         # Cronometragem regressiva simples.
+#      zztimer -c 2:22      # Exibe o tempo em segundos (no caso 142)
+#      zztimer -s 5:34      # Exibe o tempo em segundos e aguarda o tempo.
+#      zztimer --centro 20  # Centralizado horizontal e verticalmente
+#      zztimer -n 1:7:23    # Formato ampliado do número
+#      zztimer -x H 65      # Com números feito pela letra 'H'
 #      zztimer -y 0123456789 9876543210 60  # Troca os números
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-01-25
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztimer ()
@@ -30,7 +32,7 @@ zztimer ()
 
 	zzzz -h timer "$1" && return
 
-	local opt str num seg char_para
+	local opt str num seg char_para centro
 	local prec='s'
 
 	# Verificação dos parâmetros
@@ -55,6 +57,7 @@ zztimer ()
 		-c) opt='c';  shift ;;
 		-s) opt='s';  shift ;;
 		-p) prec='p'; shift ;;
+		--center | --centro) centro='1'; shift ;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
@@ -88,6 +91,18 @@ zztimer ()
 	# Restaurando terminal
 	tput reset
 
+	# Centralizar?
+	if test -n "$centro"
+	then
+		if test -n "$opt"
+		then
+			tput cup $(tput lines | awk '{print int(($1 - 5) / 2)}') 0
+			centro=$(tput cols | awk '{print int(($1 - 56) / 2)}')
+		else
+			tput cup $(tput lines | awk '{print int($1 / 2)}') $(tput cols | awk '{print int(($1 - 8) / 2)}')
+		fi
+	fi
+
 	while test $num -ge 0
 	do
 
@@ -99,8 +114,9 @@ zztimer ()
 
 		# Exibindo os números do cronômetro
 		echo "$num" |
-		awk -v formato="$opt" '
-		function formatar(hora,  i, j) {
+		awk -v formato="$opt" -v desl="$centro" '
+		function formatar(hora,  i, j, space) {
+			space=(length(desl)>0?sprintf("%"desl"s"," "):"")
 			numero[0, 1] = numero[0, 5] = " 0000 "; numero[0, 2] = numero[0, 3] = numero[0, 4] = "0    0"
 			numero[1, 1] = " 111  "; numero[1, 2] = numero[1, 3] = numero[1, 4] = "  11  "; numero[1, 5] = "111111"
 			numero[2, 1] = " 2222 "; numero[2, 2] = "    22"; numero[2, 3] = "   22 "; numero[2, 4] = " 22   "; numero[2, 5] = "222222"
@@ -113,7 +129,7 @@ zztimer ()
 			numero[9, 1] = numero[9, 5] = " 9999 "; numero[9, 2] = "9    9"; numero[9, 3] = " 99999"; numero[9, 4] = "     9"
 			numero["x", 1] = numero["x", 3] = numero["x", 5] = "      "; numero["x", 2] = numero["x", 4] = "  #   "
 			for (i=1; i<6; i++)
-				print numero[substr(hora,1,1), i], numero[substr(hora,2,1), i], numero["x", i], numero[substr(hora,4,1), i], numero[substr(hora,5,1), i], numero["x", i], numero[substr(hora,7,1), i], numero[substr(hora,8,1), i]
+				print space numero[substr(hora,1,1), i], numero[substr(hora,2,1), i], numero["x", i], numero[substr(hora,4,1), i], numero[substr(hora,5,1), i], numero["x", i], numero[substr(hora,7,1), i], numero[substr(hora,8,1), i]
 		}
 		{
 			hh = $1/3600
