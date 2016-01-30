@@ -4,7 +4,7 @@
 # Ex.: zzromanos 1987                # Retorna: MCMLXXXVII
 #      zzromanos XLIII               # Retorna: 43
 #
-# Autor: Guilherme Magalhães Gall <gmgall (a) gmail com> twitter: @gmgall
+# Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2011-07-19
 # Versão: 3
 # Licença: GPL
