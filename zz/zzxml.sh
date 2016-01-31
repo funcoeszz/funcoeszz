@@ -112,10 +112,10 @@ zzxml ()
 		for ntag in $notag
 		do
 			echo '
-				if ($0 ~ /<'$ntag' [^\/>]*>/) { notag++ }
-				if ($0 ~ /<\/'$ntag' >/) { notag--; if (notag==0) { next } }
+				if ($0 ~ /<'$ntag' [^>]*[^\/>]>/) { notag++ }
+				if ($0 ~ /<\/'$ntag'  >/) { notag--; if (notag==0) { next } }
 			' >> $cache_notag
-			sed_notag="$sed_notag /<${ntag} [^/>]*\/>/d;"
+			sed_notag="$sed_notag /<${ntag} [^>]*\/>/d;"
 		done
 		echo 'if (notag==0) { nolinha[NR] = $0 } }' >> $cache_notag
 	fi
@@ -132,10 +132,10 @@ zzxml ()
 		for ntag in $tag
 		do
 			echo '
-				if ($0 ~ /^<'$ntag' [^><]*\/>$/) { linha[NR] = $0 }
-				if ($0 ~ /^<'$ntag' [^\/><]*>/) { tag['$ntag']++ }
+				if ($0 ~ /^<'$ntag' [^>]*\/>$/) { linha[NR] = $0 }
+				if ($0 ~ /^<'$ntag' [^>]*[^\/>]>/) { tag['$ntag']++ }
 				if (tag['$ntag']>=1) { linha[NR] = $0 }
-				if ($0 ~ /^<\/'$ntag' >/) { tag['$ntag']-- }
+				if ($0 ~ /^<\/'$ntag'  >/) { tag['$ntag']-- }
 			' >> $cache_tag
 		done
 		echo '}' >> $cache_tag
@@ -217,7 +217,7 @@ zzxml ()
 				s/</\
 </g
 				# quebra linha após fechamento da tag
-				s/>/ >\
+				s/ *>/  >\
 /g' |
 			# Rejunta o conteúdo do <![CDATA[...]]>, que pode ter tags
 			zzjuntalinhas -i '^<!\[CDATA\[' -f ']]>$' -d '' |
@@ -226,11 +226,11 @@ zzxml ()
 			sed '/^[[:blank:]]*$/d'
 		else
 			# Espaço antes do fechamento da tag (Recurso usado no script para tag não ambígua)
-			sed 's/>/ >/g'
+			sed 's/ *>/  >/g'
 		fi |
 
 		# Corrigindo espaço de fechamento de tag única  (Recurso usado no script para tag não ambígua)
-		sed 's|/ >| />|g' |
+		sed 's|/  *>|  />|g' |
 
 		# --notag
 		# É sempre usada em conjunto com --tidy (automaticamente)
@@ -259,7 +259,7 @@ zzxml ()
 		fi |
 
 		# Eliminando o espaço adicional colocado antes do fechamento das tags.
-		sed 's| >|>|g;s| />|/>|g' |
+		sed 's| *>|>|g;s|  */>| />|g' |
 
 		# Removendo ou trocando um tipo de espaço especial usado com zzjuntalinhas
 		sed "
