@@ -37,7 +37,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
-# Versão: 14
+# Versão: 15
 # Licença: GPL
 # Requisitos: zzecho zzpad zzdatafmt
 # ----------------------------------------------------------------------------
@@ -93,7 +93,7 @@ zzlibertadores ()
 	# Fase 1 (Pré-libertadores)
 	case "$1" in
 	1 | pr[eé] | primeira)
-		sed -n '/PRIMEIRA FASE/,/SEGUNDA/p' "$cache" |
+		sed -n '/PRIMEIRA FASE/,/FASE DE GRUPOS/p' "$cache" |
 		sed "$sed_mata" |
 		awk "$awk_jogo" |
 		while read linha
@@ -153,9 +153,9 @@ zzlibertadores ()
 		echo "Grupo $2"
 		sed -n "/^ *Grupo $2/,/Grupo /p"  "$cache"|
 		sed '
-			/Rodada [2-9]/d;
+			1d; /°/d; /Rodada [2-9]/d;
 			/Classificados para as oitavas de final/,$d
-			1,5d' |
+			' |
 		sed "$sed_mata" |
 		awk "$awk_jogo" |
 		sed 's/\(h[0-9][0-9]\).*$/\1/' |
@@ -175,7 +175,9 @@ zzlibertadores ()
 		then
 			grupo="$2"
 			sed -n "/^ *Grupo $2/,/Rodada 1/p" "$cache" | sed -n '/PG/p;/°/p' |
+			sed 's/ LDU / ldu /g'|
 			sed 's/[^-][A-Z][A-Z][A-Z] //;s/ [A-Z][A-Z][A-Z]//' |
+			sed 's/ ldu / LDU /g'|
 			awk -v cor_awk="$ZZCOR" '{
 				if (NF <  10) { print }
 				if (NF == 10) {
