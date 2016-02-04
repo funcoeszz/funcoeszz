@@ -56,7 +56,7 @@ zzconverte ()
 
 	local s2='scale=2'
 	local operacao=$1
-	local resp
+	local resp suf1 suf2 bc_expr
 
 	# Verificação dos parâmetros
 	test -n "$2" || { zztool -e uso converte; return 1; }
@@ -162,17 +162,21 @@ zzconverte ()
 				suf1="°"; suf2="gon"
 				resp=$(echo "$1/0.9" | bc -l | awk '{printf "%.02f\n", $1}')
 			;;
+			*) zztool erro "Conversão inválida"; return 1; ;;
 		esac
 
 		test -n "$bc_expr" && resp=$(echo "$bc_expr" | bc -l)
 
-		if test "$opt" = "e"
+		if test -n "$resp"
 		then
-			test "$suf1" != "°" && suf1=" $suf1"
-			test "$suf2" != "°" && suf2=" $suf2"
-			echo "${1}${suf1} = ${resp}${suf2}"
-		else
-			echo "$resp"
+			if test "$opt" = "e"
+			then
+				test "$suf1" != "°" && suf1=" $suf1"
+				test "$suf2" != "°" && suf2=" $suf2"
+				echo "${1}${suf1} = ${resp}${suf2}"
+			else
+				echo "$resp"
+			fi
 		fi
 
 		shift
