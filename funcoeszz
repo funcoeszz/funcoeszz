@@ -573,7 +573,7 @@ zzzz ()
 			arg_func=$3
 
 			# Nenhum argumento, mostre a ajuda da própria zzzz
-			if ! test -n "$nome_func"
+			if test -z "$nome_func"
 			then
 				nome_func='zz'
 				arg_func='-h'
@@ -694,7 +694,7 @@ zzzz ()
 				# Vamos baixar a versão ISO-8859-1?
 				test $ZZUTF != '1' && url_exe="${url_exe}-iso"
 
-				echo -n 'Baixando a versão nova... '
+				printf 'Baixando a versão nova... '
 				$ZZWWWHTML "$url_exe" > "funcoeszz-$versao_remota"
 				echo 'PRONTO!'
 				echo "Arquivo 'funcoeszz-$versao_remota' baixado, instale-o manualmente."
