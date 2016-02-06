@@ -1,36 +1,34 @@
 # ----------------------------------------------------------------------------
-# Faz várias conversões como: caracteres, temperatura e distância.
+# Faz várias conversões como: caracteres, temperatura, distância e ângulo.
 #  Opções:
 #   -e: Resposta expandida, mais explicativa.
 #      Obs: sem essa opção a resposta é curta, apenas o número convertivo.
 #
-#  Códigos:
-#          cf = (C)elsius             para (F)ahrenheit
-#          fc = (F)ahrenheit          para (C)elsius
-#          ck = (C)elsius             para (K)elvin
-#          kc = (K)elvin              para (C)elsius
-#          fk = (F)ahrenheit          para (K)elvin
-#          kf = (K)elvin              para (F)ahrenheit
-#          km = (K)Quilômetros        para (M)ilhas
-#          mk = (M)ilhas              para (K)Quilômetros
-#          db = (D)ecimal             para (B)inário
-#          bd = (B)inário             para (D)ecimal
-#          cd = (C)aractere           para (D)ecimal
-#          dc = (D)ecimal             para (C)aractere
-#          do = (D)ecimal             para (O)ctal
-#          od = (O)ctal               para (D)ecimal
-#          ho = (H)exadecimal         para (O)ctal
-#          oh = (O)ctal               para (H)exadecimal
-#          hc = (H)exadecimal         para (C)aractere
-#          ch = (C)aractere           para (H)exadecimal
-#          dh = (D)ecimal             para (H)exadecimal
-#          hd = (H)exadecimal         para (D)ecimal
-#          gr = (G)raus               para (R)adianos
-#          rg = (R)adianos            para (G)raus
-#          ar = Gr(A)dos              para (R)adianos
-#          ra = (R)adianos            para Gr(A)dos
-#          ag = Gr(A)dos              para (G)raus
-#          ga = (G)raus               para Gr(A)dos
+# Temperatura:
+#  cf = (C)elsius      => (F)ahrenheit  | fc = (F)ahrenheit  => (C)elsius
+#  ck = (C)elsius      => (K)elvin      | kc = (K)elvin      => (C)elsius
+#  fk = (F)ahrenheit   => (K)elvin      | kf = (K)elvin      => (F)ahrenheit
+#
+# Distância:
+#  km = (K)Quilômetros => (M)ilhas      | mk = (M)ilhas      => (K)Quilômetros
+#  mj = (M)etros       => (J)ardas      | jm = (J)ardas      => (M)etros
+#  mp = (M)etros       => (P)és         | pm = (P)és         => (M)etros
+#  jp = (J)ardas       => (P)és         | pj = (P)és         => (J)ardas
+#
+# Ângulo:
+#  gr = (G)raus        => (R)adianos    | rg = (R)adianos    => (G)raus
+#  ga = (G)raus        => Gr(A)dos      | ag = Gr(A)dos      => (G)raus
+#  ra = (R)adianos     => Gr(A)dos      | ar = Gr(A)dos      => (R)adianos
+#
+# Número:
+#  db = (D)ecimal      => (B)inário     | bd = (B)inário     => (D)ecimal
+#  dc = (D)ecimal      => (C)aractere   | cd = (C)aractere   => (D)ecimal
+#  do = (D)ecimal      => (O)ctal       | od = (O)ctal       => (D)ecimal
+#  dh = (D)ecimal      => (H)exadecimal | hd = (H)exadecimal => (D)ecimal
+#  hc = (H)exadecimal  => (C)aractere   | ch = (C)aractere   => (H)exadecimal
+#  ho = (H)exadecimal  => (O)ctal       | oh = (O)ctal       => (H)exadecimal
+#  hb = (H)exadecimal  => (B)inário     | bh = (B)inário     => (H)exadecimal
+#  ob = (O)ctal        => (B)inário     | bo = (B)inário     => (O)ctal
 #
 # Uso: zzconverte [-e] <código(s)> número [numero ...]
 # Ex.: zzconverte cf 5
@@ -39,7 +37,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-10-02
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzconverte ()
@@ -55,8 +53,10 @@ zzconverte ()
 	fi
 
 	local s2='scale=2'
+	local pi='pi=4*a(1)'
+	local awk_print='{saida=sprintf("%.04f", $1); sub(/[0]+$/,"",saida); sub(/\.$/,"",saida); print saida}'
 	local operacao=$1
-	local resp suf1 suf2 bc_expr
+	local resp suf1 suf2 bc_expr num_hex
 
 	# Verificação dos parâmetros
 	test -n "$2" || { zztool -e uso converte; return 1; }
@@ -64,104 +64,58 @@ zzconverte ()
 	shift
 	while test -n "$1"
 	do
+		# Verificando consistência para números
 		case "$operacao" in
-			cf)
-				suf1="°C"; suf2="°F"; bc_expr="$s2;($1*9/5)+32"
+			b*) zztool testa_binario "$1"                         || { shift; continue; } ;;
+			d*) zztool testa_numero  "$1"                         || { shift; continue; } ;;
+			o*) echo "$1" | grep '^[0-7]\{1,\}$' >/dev/null       || { shift; continue; } ;;
+			h*)
+				echo "$1" | grep '^[0-9A-Fa-f]\{1,\}$' >/dev/null || { shift; continue; }
+				num_hex=$(echo ${1#0x} | tr [a-f] [A-F])
 			;;
-			fc)
-				suf1="°F"; suf2="°C"; bc_expr="$s2;($1-32)*5/9"
-			;;
-			ck)
-				suf1="°C"; suf2="K"; bc_expr="$s2;$1+273.15"
-			;;
-			kc)
-				suf1="K"; suf2="°C"; bc_expr="$s2;$1-273.15"
-			;;
-			kf)
-				suf1="K"; suf2="°F"; bc_expr="$s2;($1*1.8)-459.67"
-			;;
-			fk)
-				suf1="°F"; suf2="K"; bc_expr="$s2;($1+459.67)/1.8"
-			;;
-			km)
-				suf1="km"; suf2="mi"; bc_expr="$s2;$1*0.6214"
-				# resultado com 4 casas porque bc usa o mesmo do 0.6214
-			;;
-			mk)
-				suf1="mi"; suf2="km"; bc_expr="$s2;$1*1.609"
-				# resultado com 3 casas porque bc usa o mesmo do 1.609
-			;;
-			db)
-				suf1="em decimal"; suf2="em binário"; bc_expr="obase=2;$1"
-			;;
-			bd)
-				suf1="em binário"; suf2="em decimal"; bc_expr="ibase=2;$1"
-				#echo "$((2#$1))"
-			;;
-			do)
-				suf1="em decimal"; suf2="em octal"; bc_expr="obase=8;$1"
-			;;
-			od)
-				suf1="em octal"; suf2="em decimal"; bc_expr="ibase=8;$1"
-			;;
-			ho)
-				suf1="em hexadecimal"; suf2="em octal"; bc_expr="obase=8;ibase=16;$1"
-			;;
-			oh)
-				suf1="em octal"; suf2="em hexadecimal"; bc_expr="obase=16;ibase=8;$1"
-			;;
-			cd)
-				suf1="em caractere"; suf2="em decimal"
-				resp=$(printf "%d\n" "'$1")
-			;;
-			dc)
-				suf1="em decimal"; suf2="em caractere"
-				if zztool testa_numero "$1" && test "$1" -gt 0
-				then
-					# echo -e $(printf "\\\x%x" $1)
-					resp=$(awk 'BEGIN {printf "%c\n", '$1'}')
-				fi
-			;;
-			ch)
-				suf1="em caractere"; suf2="em hexadecimal"
-				resp=$(printf "%x\n" "'$1")
-			;;
-			hc)
-				suf1="em hexadecimal"; suf2="em caractere"
-				resp=$(printf '%d\n' "0x${1#0x}" | awk '{printf "%c\n", $1}')
-			;;
-			dh)
-				suf1="em decimal"; suf2="em hexadecimal"
-				resp=$(printf '%x\n' "$1")
-			;;
-			hd)
-				suf1="em hexadecimal"; suf2="em decimal"
-				resp=$(printf '%d\n' "0x${1#0x}")
-			;;
-			gr)
-				suf1="°"; suf2="rad"
-				resp=$(echo "pi=4*a(1);$1*pi/180" | bc -l | awk '{printf "%.04f\n", $1}')
-			;;
-			rg)
-				suf1="rad"; suf2="°"
-				resp=$(echo "pi=4*a(1);$1*180/pi" | bc -l | awk '{printf "%.04f\n", $1}')
-			;;
-			ar)
-				suf1="gon"; suf2="rad"
-				resp=$(echo "pi=4*a(1);$1*pi/200" | bc -l | awk '{printf "%.04f\n", $1}')
-			;;
-			ra)
-				suf1="rad"; suf2="gon"
-				resp=$(echo "pi=4*a(1);$1*200/pi" | bc -l | awk '{printf "%.04f\n", $1}')
-			;;
-			ag)
-				suf1="gon"; suf2="°"
-				resp=$(echo "$1*0.9" | bc -l | awk '{printf "%.02f\n", $1}')
-			;;
-			ga)
-				suf1="°"; suf2="gon"
-				resp=$(echo "$1/0.9" | bc -l | awk '{printf "%.02f\n", $1}')
-			;;
+		esac
+
+		case "$operacao" in
+			# Temperatura
+			cf) suf1="°C";             suf2="°F";             bc_expr="$s2;($1*9/5)+32" ;;
+			fc) suf1="°F";             suf2="°C";             bc_expr="$s2;($1-32)*5/9" ;;
+			ck) suf1="°C";             suf2="K";              bc_expr="$s2;$1+273.15" ;;
+			kc) suf1="K";              suf2="°C";             bc_expr="$s2;$1-273.15" ;;
+			fk) suf1="°F";             suf2="K";              bc_expr="$s2;($1+459.67)/1.8" ;;
+			kf) suf1="K";              suf2="°F";             bc_expr="$s2;($1*1.8)-459.67" ;;
+			# Distância:
+			km) suf1="km";             suf2="mi";             bc_expr="$s2;$1*0.6214" ;;
+			mk) suf1="mi";             suf2="km";             bc_expr="$s2;$1*1.609" ;;
+			mj) suf1="m";              suf2="yd";             bc_expr="$s2;$1/0.9144" ;;
+			jm) suf1="yd";             suf2="m";              bc_expr="$s2;$1*0.9144" ;;
+			mp) suf1="m";              suf2="ft";             bc_expr="$s2;$1/0.3048" ;;
+			pm) suf1="ft";             suf2="m";              bc_expr="$s2;$1*0.3048" ;;
+			jp) suf1="yd";             suf2="ft";             bc_expr="$s2;$1*3" ;;
+			pj) suf1="ft";             suf2="yd";             bc_expr="$s2;$1/3" ;;
+			# Número:
+			db) suf1="em decimal";     suf2="em binário";     bc_expr="obase=2;$1" ;;
+			bd) suf1="em binário";     suf2="em decimal";     bc_expr="ibase=2;$1" ;;
+			dc) suf1="em decimal";     suf2="em caractere";   resp=$(awk 'BEGIN {printf "%c\n", '$1'}') ;;
+			cd) suf1="em caractere";   suf2="em decimal";     resp=$(printf "%d\n" "'$1") ;;
+			do) suf1="em decimal";     suf2="em octal";       bc_expr="obase=8;$1" ;;
+			od) suf1="em octal";       suf2="em decimal";     bc_expr="ibase=8;${1#0}" ;;
+			dh) suf1="em decimal";     suf2="em hexadecimal"; resp=$(printf '%x\n' "$1" | tr [a-f] [A-F]) ;;
+			hd) suf1="em hexadecimal"; suf2="em decimal";     resp=$(printf '%d\n' "0x${1#0x}") ;;
+			hc) suf1="em hexadecimal"; suf2="em caractere";   resp=$(printf '%d\n' "0x${1#0x}" | awk '{printf "%c\n", $1}') ;;
+			ch) suf1="em caractere";   suf2="em hexadecimal"; resp=$(printf "%x\n" "'$1" | tr [a-f] [A-F]) ;;
+			ho) suf1="em hexadecimal"; suf2="em octal";       bc_expr="obase=8;ibase=16;$num_hex" ;;
+			hb) suf1="em hexadecimal"; suf2="em binário";     bc_expr="obase=2;ibase=16;$num_hex" ;;
+			bh) suf1="em binário";     suf2="em hexadecimal"; bc_expr="obase=16;ibase=2;$1" ;;
+			oh) suf1="em octal";       suf2="em hexadecimal"; bc_expr="obase=16;ibase=8;${1#0}" ;;
+			ob) suf1="em octal";       suf2="em binário";     bc_expr="obase=2;ibase=8;${1#0}" ;;
+			bo) suf1="em binário";     suf2="em octal";       bc_expr="obase=8;ibase=2;$1" ;;
+			# Ângulo:
+			gr) suf1="°";              suf2="rad";            resp=$(echo "$pi;$1*pi/180" | bc -l | awk "$awk_print") ;;
+			rg) suf1="rad";            suf2="°";              resp=$(echo "$pi;$1*180/pi" | bc -l | awk "$awk_print") ;;
+			ga) suf1="°";              suf2="gon";            resp=$(echo "$1/0.9" | bc -l | awk "$awk_print") ;;
+			ag) suf1="gon";            suf2="°";              resp=$(echo "$1*0.9" | bc -l | awk "$awk_print") ;;
+			ra) suf1="rad";            suf2="gon";            resp=$(echo "$pi;$1*200/pi" | bc -l | awk "$awk_print") ;;
+			ar) suf1="gon";            suf2="rad";            resp=$(echo "$pi;$1*pi/200" | bc -l | awk "$awk_print") ;;
 			*) zztool erro "Conversão inválida"; return 1; ;;
 		esac
 
