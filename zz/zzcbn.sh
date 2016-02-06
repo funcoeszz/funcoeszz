@@ -9,7 +9,7 @@
 #
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2009-04-16
-# Versão: 7
+# Versão: 8
 # Licença: GPL
 # Requisitos: zzecho zzplay zzcapitalize zzdatafmt zzxml zzutf8
 # ----------------------------------------------------------------------------
@@ -32,9 +32,9 @@ zzcbn ()
 		$ZZWWWHTML "$url" |
 		sed -n '/<ul class="lvl3 /p' |
 		zzxml --tag a |
-		sort -n |
 		sed -n '/http:..cbn.globoradio.globo.com.comentaristas./{s/.*="//;s/">//;p;}' |
-		awk -F "/" '{url = $0;gsub(/-/," ", $6); gsub(/\.htm/,"", $6);printf "%s;%s;%s\n", $6, $5, url }'|
+		awk -F "/" 'BEGIN {OFS=";"};{url = $0;gsub(/-/," ", $6); gsub(/\.htm/,"", $6);print $6, $5, url }'|
+		sort | uniq |
 		while read linha
 		do
 			nome=$(echo "$linha" | cut -d ";" -f 1 | zzcapitalize )
@@ -43,13 +43,13 @@ zzcbn ()
 			fonte=$($ZZWWWHTML "$link")
 			rss=$(
 				echo "$fonte" |
-				sed -n '/RSS/{s/.*href="//;s/".*//;p;}'
+				sed -n '/\<RSS\>/{s/.*href="//;s/".*//;p;}'
 			)
 			podcast=$(
 				echo "$fonte" |
 				sed -n '/>Podcast</{s/Podcast<.*//;s/.*?q=//;s/".*//;p;}'
 			)
-			echo "$nome | $comentarista | $rss | $podcast"
+			test -n "$rss$podcast" && echo "$nome | $comentarista | $rss | $podcast | $link"
 		done > "$cache"
 		zzdatafmt --iso hoje >> "$cache"
 	fi
@@ -98,10 +98,7 @@ zzcbn ()
 	# Audio ou comentários feitos pelo comentarista selecionado
 	if test "$audio" -eq 1
 	then
-		podcast=$(
-			sed -n "/$comentarista/p" "$cache" |
-			cut -d'|' -f 4| tr -d ' '
-		)
+		podcast=$( awk -F ' [|] ' '$2 ~ /'$comentarista'/ {print $4}' "$cache" )
 		if test -n "$podcast"
 		then
 			podcast=$($ZZWWWHTML "$podcast" | sed -n '/media:content/p')
@@ -123,10 +120,7 @@ zzcbn ()
 		fi
 
 	else
-		rss=$(
-			sed -n "/$comentarista/p" "$cache" |
-			cut -d'|' -f 3 | tr -d ' '
-		)
+		rss=$( awk -F ' [|] ' '$2 ~ /'$comentarista'/ {print $3}' "$cache" )
 
 		if test -n "$rss"
 		then
