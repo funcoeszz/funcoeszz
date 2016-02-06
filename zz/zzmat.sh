@@ -20,8 +20,8 @@
 #  combinacao_r              collatz
 #
 # Equações:                  Auxiliares:
-#  eq2g egr err                converte
-#  egc egc3p ege               abs int sem_zeros
+#  eq2g egr err                abs int
+#  egc egc3p ege               sem_zeros
 #  newton ou binomio_newton    aleatorio random
 #  conf_eq                     compara_num
 #
@@ -35,9 +35,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 21
+# Versão: 22
 # Licença: GPL
-# Requisitos: zzcalcula zzseq zzaleatorio zztrim
+# Requisitos: zzcalcula zzseq zzaleatorio zztrim zzconverte
 # ----------------------------------------------------------------------------
 zzmat ()
 {
@@ -167,71 +167,6 @@ zzmat ()
 			echo "$num1" | sed 's/^[-+]//'
 		fi
 	;;
-	converte)
-		if (test $# -eq "3" && zzmat testa_num $3)
-		then
-			local num1
-			num1=$(echo "$3" | tr ',' '.')
-			case $2 in
-			gr) num="$num1*$pi/180";;
-			rg) num="$num1*180/$pi";;
-			dr) num="$num1*$pi/200";;
-			rd) num="$num1*200/$pi";;
-			dg) num="$num1*0.9";;
-			gd) num="$num1/0.9";;
-			??)
-				local grandeza1 grandeza2 fator divisor potencia letra
-				local grandezas="y z a f p n u m c d 1 D H K M G T P E Z Y"
-				local potencias="-24 -21 -18 -15 -12 -9 -6 -3 -2 -1 0 1 2 3 6 9 12 15 18 21 24"
-				local posicao='1'
-
-				precisao=24
-				grandeza1=$(echo "$2" | sed 's/\([[:alpha:]1]\)[[:alpha:]1]/\1/')
-				grandeza2=$(echo "$2" | sed 's/[[:alpha:]1]\([[:alpha:]1]\)/\1/')
-				if (test "$grandeza1" != "$grandeza2")
-				then
-					for letra in $(echo "$grandezas")
-					do
-						potencia=$(echo "$potencias" | awk '{print $'$posicao'}')
-						test "$grandeza1" = "$letra" && fator=$potencia
-						test "$grandeza2" = "$letra" && divisor=$potencia
-						posicao=$((posicao + 1))
-					done
-					if (test -n "$fator" && test -n "$divisor")
-					then
-						precisao=$(zzmat abs $(($fator - $divisor)))
-						potencia=$(echo "$precisao" | awk '{printf 1;for (i=1;i<=$1;i++) {printf 0 }}')
-						case $(zzmat compara_num 0 $(($fator - $divisor))) in
-							'menor') letra='*';;
-							'maior') letra='/';;
-						esac
-						echo "scale=$precisao;${num1} ${letra} ${potencia}" | bc -l |
-						awk '{printf "%.'${precisao}'f\n", $1}' |
-						zzmat -p${precisao} sem_zeros
-					fi
-				fi
-			;;
-			esac
-		else
-			zztool erro " zzmat $funcao: Conversões de unidades (não contempladas no zzconverte)"
-			zztool erro " Sub-funções:
-	gr: graus para radiano
-	rg: radiano para graus
-	dr: grado para radiano
-	rd: radiano para grado
-	dg: grado para graus
-	gd: graus para grado
-	ou com os pares do Sistema Internacional de Unidade
-	(y z a f p n u m c d 1 D H K M G T P E Z Y)
-	usando a combição dessa letras em pares, sendo na ordem 'de' 'para'.
-	Obs: o 1 no centro representa a unidade de medida que não possui prefixo.
-	Atenção: Dependendo do computador, arquitetura e a precisao do sistema
-			podem haver distorções em valores muito distantes entre si.
-	Exempo: Kd converte de Kilo para deci."
-			zztool erro " Uso: zzmat $funcao sub-função número"
-			return 1
-		fi
-	;;
 	sen | cos | tan | csc | sec | cot)
 		if (test $# -eq "2")
 		then
@@ -242,8 +177,8 @@ zzmat ()
 			if (test "$?" -eq "0" && zzmat testa_num $num1)
 			then
 				case $ang in
-				g)   num2=$(zzmat converte gr $num1);;
-				gr)  num2=$(zzmat converte dr $num1);;
+				g)   num2=$(zzconverte -p$((precisao+2)) gr $num1);;
+				gr)  num2=$(zzconverte  -p$((precisao+2)) ar $num1);;
 				rad) num2=$num1;;
 				esac
 
@@ -323,8 +258,8 @@ zzmat ()
 			echo "$4" | grep 'r' >/dev/null && num2=$(echo "($num2)-2*($pi)" | bc -l)
 
 			case $3 in
-			g)        num=$(zzmat converte rg $num2);;
-			gr)       num=$(zzmat converte rd $num2);;
+			g)        num=$(zzconverte -p$((precisao+2)) rg $num2);;
+			gr)       num=$(zzconverte -p$((precisao+2)) ra $num2);;
 			rad | "") num="$num2";;
 			esac
 		else
@@ -1122,8 +1057,8 @@ zzmat ()
 					if (test "$?" -eq "0" && zzmat testa_num $num1)
 					then
 						case $ang in
-						g)   fi=$(zzmat converte gr $num1);;
-						gr)  fi=$(zzmat converte dr $num1);;
+						g)   fi=$(zzconverte -p$((precisao+2)) gr $num1);;
+						gr)  fi=$(zzconverte -p$((precisao+2)) ar $num1);;
 						rad) fi=$num1;;
 						esac
 						z1=$(echo "$z1 $oper $(zzmat cos ${fi}rad) * $valor" | bc -l)
@@ -1141,8 +1076,8 @@ zzmat ()
 					if (test "$?" -eq "0" && zzmat testa_num $num1)
 					then
 						case $ang in
-						g)   teta=$(zzmat converte gr $num1);;
-						gr)  teta=$(zzmat converte dr $num1);;
+						g)   teta=$(zzconverte -p$((precisao+2)) gr $num1);;
+						gr)  teta=$(zzconverte -p$((precisao+2)) ar $num1);;
 						rad) teta=$num1;;
 						esac
 					else
@@ -1167,12 +1102,12 @@ zzmat ()
 
 			case $saida in
 			g)
-				teta=$(zzmat converte rg $teta)
-				fi=$(zzmat converte rg $fi)
+				teta=$(zzconverte -p$((precisao+2)) rg $teta)
+				fi=$(zzconverte -p$((precisao+2)) rg $fi)
 			;;
 			gr)
-				teta=$(zzmat converte rd $teta)
-				fi=$(zzmat converte rd $fi)
+				teta=$(zzconverte -p$((precisao+2)) ra $teta)
+				fi=$(zzconverte -p$((precisao+2)) ra $fi)
 			;;
 			*) saida="rad";;
 			esac
