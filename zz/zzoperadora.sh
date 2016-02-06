@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# http://consultaoperadora.com.br
 # Consulta operadora de um número de telefone fixo/celular.
 # O formato utilizado é: <DDD><NÚMERO>
 # Não utilize espaços, (), -
