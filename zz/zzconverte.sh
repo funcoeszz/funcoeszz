@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------
-# Faz várias conversões como: caracteres, temperatura, distância e ângulo.
+# Faz várias conversões como:
+# caracteres, temperatura, distância, ângulo, grandeza e escala.
 #  Opções:
 #   -e: Resposta expandida, mais explicativa.
 #      Obs: sem essa opção a resposta é curta, apenas o número convertivo.
@@ -30,10 +31,22 @@
 #  hb = (H)exadecimal  => (B)inário     | bh = (B)inário     => (H)exadecimal
 #  ob = (O)ctal        => (B)inário     | bo = (B)inário     => (O)ctal
 #
-# Uso: zzconverte [-e] <código(s)> número [numero ...]
+# Escala:
+#  Y => yotta      G => giga       d => deci       p => pico
+#  Z => zetta      M => mega       c => centi      f => femto
+#  E => exa        K => quilo      m => mili       a => atto
+#  P => peta       H => hecto      u => micro      z => zepto
+#  T => tera       D => deca       n => nano       y => yocto
+#  un => unidade  ou  _ =>  unidade
+#
+# Uso: zzconverte [-e] <código(s)> [código grandeza] número [número ...]
 # Ex.: zzconverte cf 5
 #      zzconverte dc 65
 #      zzconverte db 32 47 28
+#      zzconverte G u 32    # Converte 32 gigas em 32000000000000000 micros
+#      zzconverte f H 7     # Converte 7 femtos em 0.00000000000000007 hecto
+#      zzconverte T 4       # Converte 4 teras em 4000000000000 unidades
+#      zzconverte un M 3    # Converte 3 unidades em 0.000003 megas
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-10-02
@@ -56,7 +69,10 @@ zzconverte ()
 	local pi='pi=4*a(1)'
 	local awk_print='{saida=sprintf("%.04f", $1); sub(/[0]+$/,"",saida); sub(/\.$/,"",saida); print saida}'
 	local operacao=$1
-	local resp suf1 suf2 bc_expr num_hex
+	local unid_escala="yzafpnumcd_DHKMGTPEZY"
+	local nome_escala="yocto zepto atto femto pico nano micro mili centi deci un deca hecto quilo mega giga tera peta exa zetta yotta"
+	local potencias="-24 -21 -18 -15 -12 -9 -6 -3 -2 -1 0 1 2 3 6 9 12 15 18 21 24"
+	local resp suf1 suf2 bc_expr num_hex fator
 
 	# Verificação dos parâmetros
 	test -n "$2" || { zztool -e uso converte; return 1; }
@@ -66,17 +82,34 @@ zzconverte ()
 	do
 		# Verificando consistência para números
 		case "$operacao" in
-			b*) zztool testa_binario "$1"                         || { shift; continue; } ;;
-			d*) zztool testa_numero  "$1"                         || { shift; continue; } ;;
-			o*) echo "$1" | grep '^[0-7]\{1,\}$' >/dev/null       || { shift; continue; } ;;
-			h*)
+			b[dho]) zztool testa_binario "$1"                     || { shift; continue; } ;;
+			d[boh]) zztool testa_numero  "$1"                     || { shift; continue; } ;;
+			o[bdh]) echo "$1" | grep '^[0-7]\{1,\}$' >/dev/null   || { shift; continue; } ;;
+			h[bdo])
 				echo "$1" | grep '^[0-9A-Fa-f]\{1,\}$' >/dev/null || { shift; continue; }
 				num_hex=$(echo ${1#0x} | tr [a-f] [A-F])
 			;;
 		esac
 
 		case "$operacao" in
-			# Temperatura
+			# Escala:
+			y|z|a|f|p|n|u|m|c|d|un|D|H|K|M|G|T|P|E|Z|Y)
+				num_hex=$(echo $operacao | sed 's/un/_/')
+				fator=$(echo "$potencias $(zztool index_var $num_hex $unid_escala)" | awk '{print $$NF}')
+				suf1=$(echo "$nome_escala $(zztool index_var $num_hex $unid_escala)" | awk '{print $$NF}')
+				case "$1" in
+					y|z|a|f|p|n|u|m|c|d|un|D|H|K|M|G|T|P|E|Z|Y)
+						num_hex=$(echo $1 | sed 's/un/_/')
+						fator=$(echo "$potencias $(zztool index_var $num_hex $unid_escala)" | awk '{print '$fator' - $$NF}')
+						suf2=$(echo "$nome_escala $(zztool index_var $num_hex $unid_escala)" | awk '{print $$NF}')
+						shift
+					;;
+					*) suf2='un' ;;
+				esac
+				test $fator -lt 0 && s2="scale=${fator#-}"
+				bc_expr="$s2;${1:-1}*10^$fator"
+			;;
+			# Temperatura:
 			cf) suf1="°C";             suf2="°F";             bc_expr="$s2;($1*9/5)+32" ;;
 			fc) suf1="°F";             suf2="°C";             bc_expr="$s2;($1-32)*5/9" ;;
 			ck) suf1="°C";             suf2="K";              bc_expr="$s2;$1+273.15" ;;
@@ -119,7 +152,7 @@ zzconverte ()
 			*) zztool erro "Conversão inválida"; return 1; ;;
 		esac
 
-		test -n "$bc_expr" && resp=$(echo "$bc_expr" | bc -l)
+		test -n "$bc_expr" && resp=$(echo "$bc_expr" | bc -l | sed 's/\./0./')
 
 		if test -n "$resp"
 		then
@@ -127,7 +160,7 @@ zzconverte ()
 			then
 				test "$suf1" != "°" && suf1=" $suf1"
 				test "$suf2" != "°" && suf2=" $suf2"
-				echo "${1}${suf1} = ${resp}${suf2}"
+				echo "${1:-1}${suf1} = ${resp}${suf2}"
 			else
 				echo "$resp"
 			fi
