@@ -17,6 +17,7 @@
 #    --names                 Nomes de pessoas, em inglês
 #    --lapd                  Polícia de Los Angeles (EUA)
 #    --morse                 Código Morse
+#    --german                Nomes de pessoas, em alemão
 #    --all | --todos         Todos os códigos lado a lado
 #
 # Uso: zzalfabeto [--TIPO] [palavra]
@@ -27,7 +28,7 @@
 # Desde: 2008-07-23
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzmaiusculas zztrim zzsemacento
+# Requisitos: zzmaiusculas zztrim
 # ----------------------------------------------------------------------------
 zzalfabeto ()
 {
@@ -37,32 +38,32 @@ zzalfabeto ()
 
 	local coluna=1
 	local dados="\
-A:Alpha:Apples:Ack:Ace:Apple:Able/Affirm:Able:Aveiro:Alan:Adam:.-
-B:Bravo:Butter:Beer:Beer:Beer:Baker:Baker:Bragança:Bobby:Boy:-...
-C:Charlie:Charlie:Charlie:Charlie:Charlie:Charlie:Charlie:Coimbra:Charlie:Charles:-.-.
-D:Delta:Duff:Don:Don:Dog:Dog:Dog:Dafundo:David:David:-..
-E:Echo:Edward:Edward:Edward:Edward:Easy:Easy:Évora:Edward:Edward:.
-F:Foxtrot:Freddy:Freddie:Freddie:Freddy:Fox:Fox:Faro:Frederick:Frank:..-.
-G:Golf:George:Gee:George:George:George:George:Guarda:George:George:--.
-H:Hotel:Harry:Harry:Harry:Harry:How:How:Horta:Howard:Henry:....
-I:India:Ink:Ink:Ink:In:Item/Interrogatory:Item:Itália:Isaac:Ida:..
-J:Juliet:Johnnie:Johnnie:Johnnie:Jug/Johnny:Jig/Johnny:Jig:José:James:John:.---
-K:Kilo:King:King:King:King:King:King:Kilograma:Kevin:King:-.-
-L:Lima:London:London:London:Love:Love:Love:Lisboa:Larry:Lincoln:.-..
-M:Mike:Monkey:Emma:Monkey:Mother:Mike:Mike:Maria:Michael:Mary:--
-N:November:Nuts:Nuts:Nuts:Nuts:Nab/Negat:Nan:Nazaré:Nicholas:Nora:-.
-O:Oscar:Orange:Oranges:Orange:Orange:Oboe:Oboe:Ovar:Oscar:Ocean:---
-P:Papa:Pudding:Pip:Pip:Peter:Peter/Prep:Peter:Porto:Peter:Paul:.--.
-Q:Quebec:Queenie:Queen:Queen:Queen:Queen:Queen:Queluz:Quincy:Queen:--.-
-R:Romeo:Robert:Robert:Robert:Roger/Robert:Roger:Roger:Rossio:Robert:Robert:.-.
-S:Sierra:Sugar:Esses:Sugar:Sugar:Sugar:Sugar:Setúbal:Stephen:Sam:...
-T:Tango:Tommy:Toc:Toc:Tommy:Tare:Tare:Tavira:Trevor:Tom:-
-U:Uniform:Uncle:Uncle:Uncle:Uncle:Uncle:Uncle:Unidade:Ulysses:Union:..-
-V:Victor:Vinegar:Vic:Vic:Vic:Victor:Victor:Viseu:Vincent:Victor:...-
-W:Whiskey:Willie:William:William:William:William:William:Washington:William:William:.--
-X:X-ray/Xadrez:Xerxes:X-ray:X-ray:X-ray:X-ray:X-ray:Xavier:Xavier:X-ray:-..-
-Y:Yankee:Yellow:Yorker:Yorker:Yoke/Yorker:Yoke:Yoke:York:Yaakov:Young:-.--
-Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
+A:Alpha:Apples:Ack:Ace:Apple:Able/Affirm:Able:Aveiro:Alan:Adam:.-:Anton
+B:Bravo:Butter:Beer:Beer:Beer:Baker:Baker:Bragança:Bobby:Boy:-...:Berta
+C:Charlie:Charlie:Charlie:Charlie:Charlie:Charlie:Charlie:Coimbra:Charlie:Charles:-.-.:Casar
+D:Delta:Duff:Don:Don:Dog:Dog:Dog:Dafundo:David:David:-..:Dora
+E:Echo:Edward:Edward:Edward:Edward:Easy:Easy:Évora:Edward:Edward:.:Emil
+F:Foxtrot:Freddy:Freddie:Freddie:Freddy:Fox:Fox:Faro:Frederick:Frank:..-.:Friedrich
+G:Golf:George:Gee:George:George:George:George:Guarda:George:George:--.:Gustav
+H:Hotel:Harry:Harry:Harry:Harry:How:How:Horta:Howard:Henry:....:Heinrich
+I:India:Ink:Ink:Ink:In:Item/Interrogatory:Item:Itália:Isaac:Ida:..:Ida
+J:Juliet:Johnnie:Johnnie:Johnnie:Jug/Johnny:Jig/Johnny:Jig:José:James:John:.---:Julius
+K:Kilo:King:King:King:King:King:King:Kilograma:Kevin:King:-.-:Kaufmann/Konrad
+L:Lima:London:London:London:Love:Love:Love:Lisboa:Larry:Lincoln:.-..:Ludwig
+M:Mike:Monkey:Emma:Monkey:Mother:Mike:Mike:Maria:Michael:Mary:--:Martha
+N:November:Nuts:Nuts:Nuts:Nuts:Nab/Negat:Nan:Nazaré:Nicholas:Nora:-.:Nordpol
+O:Oscar:Orange:Oranges:Orange:Orange:Oboe:Oboe:Ovar:Oscar:Ocean:---:Otto
+P:Papa:Pudding:Pip:Pip:Peter:Peter/Prep:Peter:Porto:Peter:Paul:.--.:Paula
+Q:Quebec:Queenie:Queen:Queen:Queen:Queen:Queen:Queluz:Quincy:Queen:--.-:Quelle
+R:Romeo:Robert:Robert:Robert:Roger/Robert:Roger:Roger:Rossio:Robert:Robert:.-.:Richard
+S:Sierra:Sugar:Esses:Sugar:Sugar:Sugar:Sugar:Setúbal:Stephen:Sam:...:Samuel/Siegfried
+T:Tango:Tommy:Toc:Toc:Tommy:Tare:Tare:Tavira:Trevor:Tom:-:Theodor
+U:Uniform:Uncle:Uncle:Uncle:Uncle:Uncle:Uncle:Unidade:Ulysses:Union:..-:Ulrich
+V:Victor:Vinegar:Vic:Vic:Vic:Victor:Victor:Viseu:Vincent:Victor:...-:Viktor
+W:Whiskey:Willie:William:William:William:William:William:Washington:William:William:.--:Wilhelm
+X:X-ray/Xadrez:Xerxes:X-ray:X-ray:X-ray:X-ray:X-ray:Xavier:Xavier:X-ray:-..-:Xanthippe/Xavier
+Y:Yankee:Yellow:Yorker:Yorker:Yoke/Yorker:Yoke:Yoke:York:Yaakov:Young:-.--:Ypsilon
+Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--..:Zacharias/Zurich"
 
 	# Escolhe o alfabeto a ser utilizado
 	case "$1" in
@@ -79,6 +80,7 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 		--name | --names              ) coluna=10 ; shift ;;
 		--lapd                        ) coluna=11 ; shift ;;
 		--morse                       ) coluna=12 ; shift ;;
+		--german                      ) coluna=13 ; shift ;;
 		--all | --todos               ) unset coluna; shift ;;
 	esac
 
@@ -92,7 +94,7 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 /g' |
 			while IFS='' read -r char
 			do
-				letra=$(echo "$char" | sed 's/[^A-Z]//g' | zzsemacento)
+				letra=$(echo "$char" | sed 's/[^A-Z]//g;s/[ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑÐ£Ø§Ý]//g')
 				if test -n "$letra"
 				then
 					echo "$dados" | grep "^$letra" |
@@ -108,11 +110,11 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 			done |
 			awk -F':' -v col="$coluna" '
 				BEGIN { if (length(col)==0) {
-					print "ROMANO MORSE MILITAR ROYAL-NAVY SIGNALESE RAF24 RAF42 RAF US NAMES LAPD PORTUGAL" }
+					print "ROMANO MORSE MILITAR ROYAL-NAVY SIGNALESE RAF24 RAF42 RAF US NAMES LAPD GERMAN PORTUGAL" }
 				}
-				{ print $1, $12, $2, $3, $4, $5, $6, $7, $8, $10, $11, $9 }' |
+				{ print $1, $12, $2, $3, $4, $5, $6, $7, $8, $10, $11, $13, $9 }' |
 			sed 's/ /\t/g' |
-			expand -t 8,15,29,41,52,61,75,95,104,115,124 | zztrim
+			expand -t 8,15,29,41,52,61,75,95,104,115,124,142 | zztrim
 	else
 		# Apenas mostre a tabela
 		echo "$dados" |
@@ -120,10 +122,10 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 		then
 			cut -d : -f $coluna
 		else
-			awk -F':' 'BEGIN { print "ROMANO MORSE MILITAR ROYAL-NAVY SIGNALESE RAF24 RAF42 RAF US NAMES LAPD PORTUGAL" }
-			{ print $1, $12, $2, $3, $4, $5, $6, $7, $8, $10, $11, $9 }' |
+			awk -F':' 'BEGIN { print "ROMANO MORSE MILITAR ROYAL-NAVY SIGNALESE RAF24 RAF42 RAF US NAMES LAPD GERMAN PORTUGAL" }
+			{ print $1, $12, $2, $3, $4, $5, $6, $7, $8, $10, $11, $13, $9 }' |
 			sed 's/ /\t/g' |
-			expand -t 8,15,29,41,52,61,75,95,104,115,124 | zztrim
+			expand -t 8,15,29,41,52,61,75,95,104,115,124,142 | zztrim
 		fi
 	fi
 }
