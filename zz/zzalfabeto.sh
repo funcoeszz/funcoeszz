@@ -92,7 +92,7 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 /g' |
 			while IFS='' read -r char
 			do
-				letra=$(echo "$char" | sed 's/[^A-Z]//g')
+				letra=$(echo "$char" | sed 's/[^A-Z]//g' | zzsemacento)
 				if test -n "$letra"
 				then
 					echo "$dados" | grep "^$letra" |
