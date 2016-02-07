@@ -27,7 +27,7 @@
 # Desde: 2008-07-23
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzmaiusculas zztrim
+# Requisitos: zzmaiusculas zztrim zzsemacento
 # ----------------------------------------------------------------------------
 zzalfabeto ()
 {
