@@ -17,6 +17,7 @@
 #    --names                 Nomes de pessoas, em inglês
 #    --lapd                  Polícia de Los Angeles (EUA)
 #    --morse                 Código Morse
+#    --all | --todos         Todos os códigos lado a lado
 #
 # Uso: zzalfabeto [--TIPO] [palavra]
 # Ex.: zzalfabeto --militar
@@ -24,9 +25,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-07-23
-# Versão: 3
+# Versão: 4
 # Licença: GPL
-# Requisitos: zzmaiusculas
+# Requisitos: zzmaiusculas zztrim
 # ----------------------------------------------------------------------------
 zzalfabeto ()
 {
@@ -78,6 +79,7 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 		--name | --names              ) coluna=10 ; shift ;;
 		--lapd                        ) coluna=11 ; shift ;;
 		--morse                       ) coluna=12 ; shift ;;
+		--all | --todos               ) unset coluna; shift ;;
 	esac
 
 	if test "$1"
@@ -93,13 +95,35 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--.."
 				letra=$(echo "$char" | sed 's/[^A-Z]//g')
 				if test -n "$letra"
 				then
-					echo "$dados" | grep "^$letra" | cut -d : -f $coluna
+					echo "$dados" | grep "^$letra" |
+					if test -n "$coluna"
+					then
+						cut -d : -f $coluna
+					else
+						cat -
+					fi
 				else
 					test -n "$char" && echo "$char"
 				fi
-			done
+			done |
+			awk -F':' -v col="$coluna" '
+				BEGIN { if (length(col)==0) {
+					print "ROMANO MORSE MILITAR ROYAL-NAVY SIGNALESE RAF24 RAF42 RAF US NAMES LAPD PORTUGAL" }
+				}
+				{ print $1, $12, $2, $3, $4, $5, $6, $7, $8, $10, $11, $9 }' |
+			sed 's/ /\t/g' |
+			expand -t 8,15,29,41,52,61,75,95,104,115,124 | zztrim
 	else
 		# Apenas mostre a tabela
-		echo "$dados" | cut -d : -f $coluna
+		echo "$dados" |
+		if test -n "$coluna"
+		then
+			cut -d : -f $coluna
+		else
+			awk -F':' 'BEGIN { print "ROMANO MORSE MILITAR ROYAL-NAVY SIGNALESE RAF24 RAF42 RAF US NAMES LAPD PORTUGAL" }
+			{ print $1, $12, $2, $3, $4, $5, $6, $7, $8, $10, $11, $9 }' |
+			sed 's/ /\t/g' |
+			expand -t 8,15,29,41,52,61,75,95,104,115,124 | zztrim
+		fi
 	fi
 }
