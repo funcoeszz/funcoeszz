@@ -121,16 +121,9 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--..:Zacharias/
 		# Definindo cabeçalho e espaçamento
 		cab=$(echo "$cab" | tr ' ' ':' | awk -v colunas="$colunas" "$awk_code")
 		tam=$(echo "$tam" | tr ' ' ':' | awk -v colunas="$colunas" "$awk_code" |
-			awk '{ if (NF > 2){ tot=$1;for(i=2;i<=NF;i++) { printf tot ","; tot+=$i } } } END {print ++tot}'
+			awk '{ if (NF > 1){ tot=$1;for(i=2;i<=NF;i++) { printf tot ","; tot+=$i } } } END {print ++tot}'
 		)
 
-		# Caso excepcional se for 2 opções
-		if test $(echo "$cab" | wc -w) -eq 2
-		then
-			tam=20
-		fi
-
-		coluna=$(echo "$colunas" | tr ' ' , | tr -s ',')
 	fi
 
 	if test -n "$1"
