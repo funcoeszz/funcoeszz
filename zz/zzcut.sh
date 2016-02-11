@@ -8,13 +8,21 @@
 #  -d DELIM    usa DELIM em vez de TAB (padrão) como delimitador de campo.
 #
 #  -f LISTA    seleciona somente estes campos; também exibe qualquer
-#              linha que não contenha o caractere delimitador, a
-#              menos que a opção -s esteja especificada.
+#              linha que não contenha o caractere delimitador.
 #
 #  -s          não emite linhas que não contenham delimitadores.
 #
 #  --od TEXTO  usa TEXTO como delimitador da saída
 #              o padrão é usar o delimitador de entrada.
+#
+#  Obs.:  1) Se o delimitador da entrada for uma Expressão Regular,
+#            é recomendando declarar o delimitador de saída.
+#         2) Se o delimitador de entrada for ou possuir:
+#             - '\' (contra-barra), use '\\' (1 escape) para cada '\'.
+#             - '/' (barra), use '[/]' (lista em ER) para cada '\'.
+#         3) Se o delimitador de saída for ou possuir:
+#             - '\' (contra-barra), use '\\\\' (3 escapes) para cada '\'.
+#             - '/' (barra), use '\/' (1 escape) para cada '\'.
 #
 #  Use uma, e somente uma, das opções -c ou -f.
 #  Cada LISTA é feita de um ou vários intervalos separados por vírgulas.
@@ -181,7 +189,7 @@ zzcut ()
 								}
 						}
 						printf " ; print \"\" }"
-					}'
+					}' 2>/dev/null
 				)
 				;;
 			esac
@@ -204,7 +212,8 @@ zzcut ()
 					for (i=ini; i<=NF; i++) saida = saida \$i sep
 					return saida
 				}
-				$only_delim $codscript" | sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//"
+				$only_delim $codscript" 2>/dev/null |
+			sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//"
 		;;
 	esac
 
