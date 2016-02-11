@@ -40,7 +40,6 @@
 # Desde: 2016-02-09
 # Versão: 1
 # Licença: GPL
-# Requisitos: 
 # ----------------------------------------------------------------------------
 zzcut ()
 {
@@ -200,7 +199,6 @@ zzcut ()
 			sed -n "$codscript" | awk -v div="$qtd_campos" '{ printf $0 }; NR % div == 0 { print ""}'
 		;;
 		f)
-			
 			awk -F "$delim" "
 				function ate_fim (ini, sep,   saida) {
 					for (i=ini; i<=NF; i++) saida = saida \$i sep

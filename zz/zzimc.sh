@@ -14,6 +14,10 @@ zzimc ()
 
 	zzzz -h imc "$1" && return
 
+	# Verificação dos parâmetros
+	test -n "$1" || { zztool -e uso imc; return 1; }
+	test -n "$2" || { zztool -e uso imc; return 1; }
+
 	local PESO=`echo "$1" | tr "," "."`
 	local ALTURA=`echo "$2" | tr "," "."`
 

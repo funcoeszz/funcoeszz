@@ -66,7 +66,7 @@ zztop ()
 			zztac | zzcolunar -w 20 3
 			return 0
 		;;
-		-*) return 1;;
+		-*) zztool -e uso top; return 1 ;;
 		esac
 	done
 
