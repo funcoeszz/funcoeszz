@@ -5,20 +5,20 @@
 # Tipos reconhecidos:
 #
 #    --militar | --radio | --fone | --otan | --icao | --ansi
-#                            Alfabeto radiotelefônico internacional
-#    --romano | --latino     A B C D E F...
-#    --royal-navy            Marinha Real - Reino Unido, 1914-1918
-#    --signalese             Primeira Guerra, 1914-1918
-#    --raf24                 Força Aérea Real - Reino Unido, 1924-1942
-#    --raf42                 Força Aérea Real - Reino Unido, 1942-1943
-#    --raf                   Força Aérea Real - Reino Unido, 1943-1956
-#    --us                    Alfabeto militar norte-americano, 1941-1956
-#    --portugal              Lugares de Portugal
-#    --names                 Nomes de pessoas, em inglês
-#    --lapd                  Polícia de Los Angeles (EUA)
-#    --morse                 Código Morse
-#    --german                Nomes de pessoas, em alemão
-#    --all | --todos         Todos os códigos lado a lado
+#                                   Radiotelefônico internacional
+#    --romano | --latino            A B C D E F...
+#    --royal-navy | --royal         Marinha Real - Reino Unido, 1914-1918
+#    --signalese | --western-front  Primeira Guerra, 1914-1918
+#    --raf24                        Força Aérea Real - Reino Unido, 1924-1942
+#    --raf42                        Força Aérea Real - Reino Unido, 1942-1943
+#    --raf | --raf43                Força Aérea Real - Reino Unido, 1943-1956
+#    --us | --us41                  Militar norte-americano, 1941-1956
+#    --portugal | --pt              Lugares de Portugal
+#    --name | --names               Nomes de pessoas, em inglês
+#    --lapd                         Polícia de Los Angeles (EUA)
+#    --morse                        Código Morse
+#    --german                       Nomes de pessoas, em alemão
+#    --all | --todos                Todos os códigos lado a lado
 #
 # Uso: zzalfabeto [--TIPO] [palavra]
 # Ex.: zzalfabeto --militar
