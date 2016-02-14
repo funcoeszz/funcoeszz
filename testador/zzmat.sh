@@ -26,10 +26,6 @@ $ zzmat	egc		1,1	5		#→ x^2+y^2-2x-2y-23=0
 $ zzmat	ege		1,2,3	4		#→ x^2+y^2+z^2-2x-4y-6z-2=0
 $ zzmat	ege		1,2,3	-1,-2,-3	#→ x^2+y^2+z^2-2x-4y-6z-42=0
 
-$ zzmat	converte	gr	60		#→ 1.047198
-$ zzmat	converte	rg	1		#→ 57.29578
-$ zzmat	converte	K1	2		#→ 2000
-
 $ zzmat	ln		8			#→ 2.079442
 $ zzmat	log		8	2		#→ 3
 $ zzmat	raiz		3	100		#→ 4.641589
