@@ -81,7 +81,7 @@ zzconverte ()
 	local unid_escala="yzafpnumcd_DHKMGTPEZY"
 	local nome_escala="yocto zepto atto femto pico nano micro mili centi deci un deca hecto quilo mega giga tera peta exa zetta yotta"
 	local potencias="-24 -21 -18 -15 -12 -9 -6 -3 -2 -1 0 1 2 3 6 9 12 15 18 21 24"
-	local resp suf1 suf2 bc_expr num_hex fator
+	local resp suf1 suf2 bc_expr num_hex fator operacao2
 
 	# Verificação dos parâmetros
 	test -n "$2" || { zztool -e uso converte; return 1; }
@@ -103,18 +103,20 @@ zzconverte ()
 		case "$operacao" in
 			# Escala:
 			y|z|a|f|p|n|u|m|c|d|un|D|H|K|M|G|T|P|E|Z|Y)
+				case "$1" in
+					y|z|a|f|p|n|u|m|c|d|un|D|H|K|M|G|T|P|E|Z|Y) operacao2="$1"; shift ;;
+				esac
 				num_hex=$(echo $operacao | sed 's/un/_/')
 				fator=$(echo "$potencias $(zztool index_var $num_hex $unid_escala)" | awk '{print $$NF}')
 				suf1=$(echo "$nome_escala $(zztool index_var $num_hex $unid_escala)" | awk '{print $$NF}')
-				case "$1" in
-					y|z|a|f|p|n|u|m|c|d|un|D|H|K|M|G|T|P|E|Z|Y)
-						num_hex=$(echo $1 | sed 's/un/_/')
-						fator=$(echo "$potencias $(zztool index_var $num_hex $unid_escala)" | awk '{print '$fator' - $$NF}')
-						suf2=$(echo "$nome_escala $(zztool index_var $num_hex $unid_escala)" | awk '{print $$NF}')
-						shift
-					;;
-					*) suf2='un' ;;
-				esac
+				if test -n "$operacao2"
+				then
+					num_hex=$(echo $operacao2 | sed 's/un/_/')
+					fator=$(echo "$potencias $(zztool index_var $num_hex $unid_escala)" | awk '{print '$fator' - $$NF}')
+					suf2=$(echo "$nome_escala $(zztool index_var $num_hex $unid_escala)" | awk '{print $$NF}')
+				else
+					suf2='un'
+				fi
 				test $fator -lt 0 && s2="scale=${fator#-}"
 				bc_expr="$s2;${1:-1}*10^$fator"
 			;;
