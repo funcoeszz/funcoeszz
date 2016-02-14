@@ -177,7 +177,8 @@ zzcut ()
 											faixa[2] = "1," faixa[1] - faixa[2] + 1
 											faixa[1] = temp
 										}
-										print "g;" (faixa[1]>1 ? "s/^.\\{1,"faixa[1]-1"\\}//;" : "" ) "s/^\\(.\\{" faixa[2] "\\}\\)" (faixa[2]!="*"?".*":"") "/\\1/;p"
+										printf "g;" (faixa[1]>1 ? "s/^.\\{1,"faixa[1]-1"\\}//;" : "" )
+										print "s/^\\(." (faixa[2]!="*"?"\\{":"") faixa[2] (faixa[2]!="*"?"\\}":"") "\\)" (faixa[2]!="*"?".*":"") "/\\1/;p"
 									}
 								}
 							}'
@@ -268,7 +269,7 @@ zzcut ()
 			sed -n "$codscript" |
 			if test "$inverte" = '1'
 			then
-				tr -d "$sp"
+				sed "s/$sp//g"
 			else
 				awk -v div="${qtd_campos:-1}" '{ printf $0 }; NR % div == 0 { print ""}'
 			fi
