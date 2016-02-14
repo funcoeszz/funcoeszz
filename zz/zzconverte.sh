@@ -38,7 +38,7 @@
 #  E => exa        K => quilo      m => mili       a => atto
 #  P => peta       H => hecto      u => micro      z => zepto
 #  T => tera       D => deca       n => nano       y => yocto
-#  un => unidade  ou  _ =>  unidade
+#  un => unidade
 #
 # Uso: zzconverte [-p<número>] [-e] <código(s)> [<código>] número [número ...]
 # Ex.: zzconverte cf 5
@@ -91,10 +91,11 @@ zzconverte ()
 	do
 		# Verificando consistência para números
 		case "$operacao" in
-			b[dho]) zztool testa_binario "$1"                     || { shift; continue; } ;;
-			d[boh]) zztool testa_numero  "$1"                     || { shift; continue; } ;;
-			o[bdh]) echo "$1" | grep '^[0-7]\{1,\}$' >/dev/null   || { shift; continue; } ;;
-			h[bdo])
+			c[dh])   echo "$1" | grep '^-' >/dev/null             && { shift; continue; } ;;
+			b[dho])  zztool testa_binario "$1"                    || { shift; continue; } ;;
+			d[bohc]) zztool testa_numero  "$1"                    || { shift; continue; } ;;
+			o[bdh])  echo "$1" | grep '^[0-7]\{1,\}$' >/dev/null  || { shift; continue; } ;;
+			h[bdoc])
 				echo "$1" | grep '^[0-9A-Fa-f]\{1,\}$' >/dev/null || { shift; continue; }
 				num_hex=$(echo ${1#0x} | tr [a-f] [A-F])
 			;;
