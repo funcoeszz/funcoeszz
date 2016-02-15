@@ -11,6 +11,7 @@
 # Licença: GPLv2
 # Requisitos: zzplay
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2016-02-15 Apenas para usuário autenticado ( Veja issue #231 )
 zznarrativa ()
 {
 	zzzz -h narrativa "$1" && return
