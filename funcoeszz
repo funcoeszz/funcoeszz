@@ -243,6 +243,17 @@ zztool ()
 			test -n "$erro" && echo "Ano bissexto inválido '$1'" >&2
 			return 1
 		;;
+		testa_mac)
+			# Teste se $1 é tem um formato de mac válido
+			# O MAC poderá ser nos formatos 00:00:00:00:00:00  ou 00-00-00-00-00-00
+			if [[ $1 =~ ^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$ ]]
+			then
+				return 0
+			else
+				echo "MAC Address inválido '$1'" >&2
+				return 1
+			fi
+		;;
 		testa_numero)
 			# Testa se $1 é um número positivo
 			echo "$1" | grep '^[0-9]\{1,\}$' >/dev/null && return 0
