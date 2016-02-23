@@ -20,7 +20,6 @@ zzmacvendor ()
         zztool -e testa_mac $mac || return 1
 
         local url="http://www.macvendorlookup.com/api/v2/$mac/pipe"
-        #
-        $ZZWWWDUMP "$url" 2>/dev/null |
-        awk -F "|" '{printf "\n%18s %15s %15s\n", $3-5, $8, $9}'
+        $ZZWWWDUMP "$url" |
+        awk -F "|" '{printf "%18s %15s %15s\n", $5, $8, $9}'
 }
