@@ -23,12 +23,11 @@ Porto Alegre Aero-Porto , Brazil
    9.9.9 9 UTC
    Wind from the X (9 degrees) at 9 MPH (9
    Visibility greater than 9 mile(s)
-   Sky conditions
    Temperature 9 X (9 C)
    Dew Point 9 X (9 C)
    Relative Humidity 9%
    Pressure (altimeter) 9.9 in. Hg (9 hPa)
-   ob SBPA 9Z 9KT 9V9 9 BKN9 BKN9 9/9 Q9
+   ob SBPA 9Z 9KT CAVOK 9/9 Q9
 
 $ zztempo
 Afghanistan

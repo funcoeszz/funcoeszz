@@ -25,9 +25,9 @@ Rio Grande do Sul, Brazil
 
 The current time and date right now
 
-   NN:NN
+  NN:NN:NN
 DATA
-   Brasilia Time (BRT) -NNNN UTC
+   Brasília Time (BRT) -NNNN UTC
 DATA
 $
 # Exemplo de saída:

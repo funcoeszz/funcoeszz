@@ -62,7 +62,7 @@ zzlinha ()
 		# aleatória deste resultado.
 		# Nota: Arquivos via STDIN ou argumentos
 		resultado=$(zztool file_stdin "$@" | grep -h -i -- "${padrao:-.}")
-		num_linhas=$(echo "$resultado" | sed -n '$=')
+		num_linhas=$(echo "$resultado" | zztool num_linhas)
 		n=$(zzaleatorio 1 $num_linhas)
 		echo "$resultado" | sed -n "${n}p"
 	fi

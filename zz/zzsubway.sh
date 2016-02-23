@@ -41,7 +41,7 @@ zzsubway ()
 		# número qualquer dentre as opções disponíveis.
 		if test "$quantidade" = '*'
 		then
-			quantidade=$(echo "$opcoes" | sed -n '$=')
+			quantidade=$(echo "$opcoes" | zztool num_linhas)
 			quantidade=$(zzaleatorio 1 $quantidade)
 		fi
 

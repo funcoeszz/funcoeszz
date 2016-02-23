@@ -34,7 +34,7 @@ zzdicjargon ()
 	fi
 
 	achei=$(grep -i "$padrao" $cache)
-	num=$(echo "$achei" | sed -n '$=')
+	num=$(echo "$achei" | zztool num_linhas)
 
 	test -n "$achei" || return
 
