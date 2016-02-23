@@ -80,7 +80,7 @@ zztempo ()
 	fi
 
 	# Se mais de uma localidade for encontrada, mostre-as
-	if test $(echo "$localidades" | sed -n '$=') != 1
+	if test $(echo "$localidades" | zztool num_linhas) != 1
 	then
 		echo "$localidades"
 		return 0
