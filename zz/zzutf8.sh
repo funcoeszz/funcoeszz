@@ -35,7 +35,7 @@ zzutf8 ()
 		;;
 
 		# Arquivo vazio ou encoding desconhecido, não mexe
-		'')
+		'' | unknown* )
 			cat "$tmp"
 		;;
 
