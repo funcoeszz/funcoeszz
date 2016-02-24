@@ -12,9 +12,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
-# Versão: 6
+# Versão: 7
 # Licença: GPL
-# Requisitos: zzfeed
+# Requisitos: zzfeed zzxml zzunescape
 # ----------------------------------------------------------------------------
 zznoticiaslinux ()
 {
@@ -34,7 +34,12 @@ zznoticiaslinux ()
 		url='http://www.vivaolinux.com.br/index.rdf'
 		echo
 		zztool eco "* Viva o Linux ($url):"
-		zzfeed -n $n "$url"
+		$ZZWWWHTML "$url" |
+		iconv -f iso-8859-1 -t utf-8 |
+		zzxml --tag item |
+		zzxml --tag title --untag |
+		zzunescape --html |
+		$limite
 	fi
 
 	# Br Linux
