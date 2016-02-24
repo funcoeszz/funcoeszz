@@ -35,7 +35,7 @@ zznoticiassec ()
 		url='http://www.linuxsecurity.com.br/share.php'
 		echo
 		zztool eco "* LinuxSecurity Brasil ($url):"
-		zzfeed -n $n "$url"
+		zzfeed -u -n $n "$url"
 	fi
 
 	# Linux Security
