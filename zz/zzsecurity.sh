@@ -82,8 +82,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Suse'
 		url='https://www.suse.com/support/update/'
 		echo "$url"
-		curl -s "$url" |
-		$ZZWWWDUMP  -stdin |
+		$ZZWWWDUMP "$url" |
 			grep 'SUSE-SU' |
 			sed 's/^.*\(SUSE-SU\)/ \1/;s/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
 			$limite
