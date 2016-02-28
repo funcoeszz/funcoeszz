@@ -44,7 +44,8 @@ zzit ()
 	$ZZWWWHTML "$url2" |
 	zzutf8 |
 	awk '/<div id="manchete">/,/Leia mais/' |
-	zzxml --tag a --untag=img |
+	zzxml --untag=i --untag=u --untag=b --untag=img |
+	zzxml --tag a |
 	sed '/^<\/a>$/,/^<\/a>$/d;/^ *$/d;/assunto=/{N;d;}' |
 	if test -z "$num"
 	then
