@@ -1,35 +1,37 @@
 # ----------------------------------------------------------------------------
 # http://vidadeprogramador.com.br
 # Mostra o texto das últimas tirinhas de Vida de Programador.
-# Se fornecer uma data, mostra a tirinha do dia escolhido.
-# Você pode informar a data dd/mm/aaaa ou usar palavras: hoje, (ante)ontem.
-# Usando a mesma sintaxe do zzdata
+# Sem opção mostra a tirinha mais recente.
+# Se a opção for um número, mostra a tirinha que ocupa essa ordem
+# Se a opção for 0, mostra todas mais recentes
 #
-# Uso: zzvdp [data [+|- data|número<d|m|a>]]
-# Ex.: zzvdp
-#      zzvdp anteontem
+# Uso: zzvdp [número]
+# Ex.: zzvdp    # Mostra a tirinha mais recente
+#      zzvdp 5  # Mostra a quinta tirinha mais recente
+#      zzvdp 0  # Mostra todas as tirinhas mais recentes
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
-# Versão: 5
+# Versão: 6
 # Licença: GPL
-# Requisitos: zzunescape zzdatafmt
 # ----------------------------------------------------------------------------
 zzvdp ()
 {
 	zzzz -h vdp "$1" && return
 
 	local url="http://vidadeprogramador.com.br"
+	local sep='------------------------------------------------------------------------------'
+	local ord=1
 
-	if test -n "$1" && zztool testa_data $(zzdatafmt "$1")
+	zztool testa_numero "$1" && ord=$1
+
+	$ZZWWWDUMP  "$url" |
+	sed -n "/^ *Transcrição/,/^ *tags:/{/^ *Transcrição/d;s/^ *tags:.*/$sep/;p;}" |
+	if test $ord -eq 0
 	then
-		url="${url}/"$(zzdatafmt -f 'AAAA/MM/DD' $1)
+		cat -
+	else
+		awk -v ord=$ord '/---/{i++;next};{if(i==ord-1) print; if (i==ord) {print;exit} }'
 	fi
 
-	$ZZWWWHTML $url | sed -n '/category-tirinhas/,/<\/article>/p' |
-	sed -n '/<!-- post title -->/,/<!-- \/post title -->/p;/class="transcription"/,/<\/article>/p' |
-	sed 's/<[^>]*>//g;s/^[[:blank:]]*//g' |
-	sed '/^ *Camiseta .*/ a \
-----------------------------------------------------------------------------' |
-	zzunescape --html | uniq
 }
