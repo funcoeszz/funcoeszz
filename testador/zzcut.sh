@@ -26,6 +26,18 @@ dois
 tres
 quatro
 cinco
+$ zzcut	-d:	-f	-2	_dados.txt
+1:um
+2:dois
+3:tres
+4:quatro
+5:cinco
+$ zzcut	-v	-d:	-f	-2	_dados.txt
+one
+two
+three
+four
+five
 $ zzcut		-c-5	_tmp1
 1♦um♦
 2♦doi
@@ -56,6 +68,24 @@ dois
 tres
 quatro
 cinco
+$ zzcut	-c	~2	_dados.txt
+:moe
+:osto
+:rstre
+:utofu
+:ic:ie
+$ zzcut	-c	1~3	_tmp1
+1mne
+2o♦o
+3r♦r
+4urfr
+5ioi
+$ zzcut	-v	-c	1~3	_tmp1
+♦u♦oe
+♦distw
+♦testhee
+♦qato♦ou
+♦cnc♦fve
 $
 
 # Faxina
