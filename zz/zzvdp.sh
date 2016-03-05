@@ -12,7 +12,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzvdp ()
@@ -26,12 +26,26 @@ zzvdp ()
 	zztool testa_numero "$1" && ord=$1
 
 	$ZZWWWDUMP  "$url" |
-	sed -n "/^ *Transcrição/,/^ *tags:/{/^ *Transcrição/d;s/^ *tags:.*/$sep/;p;}" |
+	sed -n "
+		/^\[Vídeo\]/d
+		/[0-3][0-9]\/[01][0-9]\/20[0-3][0-9] [0-2][0-9]:[0-5][0-9]$/p
+		/^ *Transcrição/,/^ *tags:/{/^ *Transcrição/d;s/^ *tags:.*/$sep/;p}
+	" |
+	awk '{
+		if ($0 ~ / [0-3][0-9]\/[01][0-9]\/20[0-3][0-9] [0-2][0-9]:[0-5][0-9]/) {
+			titulo=$0
+			next
+		}
+		if (length(titulo)>0) { print titulo; titulo="" }
+		print
+	}' |
 	if test $ord -eq 0
 	then
-		cat -
+		sed 's/^\[.*\] //; s/ [0-3][0-9]\/[01][0-9]\/20[0-3][0-9] [0-2][0-9]:[0-5][0-9]//;'
 	else
-		awk -v ord=$ord '/---/{i++;next};{if(i==ord-1) print; if (i==ord) {print;exit} }'
+		awk -v ord=$ord '/---/{i++;next};{if(i==ord-1) print; if (i==ord) {print;exit} }' |
+		sed '1s/^\[.*\] //; 1s/ [0-3][0-9]\/[01][0-9]\/20[0-3][0-9] [0-2][0-9]:[0-5][0-9]//;' |
+		sed '2,${/ [0-3][0-9]\/[01][0-9]\/20[0-3][0-9] [0-2][0-9]:[0-5][0-9]/d}'
 	fi
 
 }
