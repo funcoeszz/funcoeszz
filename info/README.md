@@ -29,9 +29,20 @@ Obs.:
 ```
 requisitos_zz.sh:  Listar dependências e dependentes de cada função.
                    Lista as funções com suas dependẽncias e também as funções que são dependentes dela.
-                   Possibilita avaliar o impacto que mudanças, rastreando aquelas funções que dependem da função alterada.
-                   Se usar o argumento zztool/tool, faz-se o rastreamento das funções que dependam das ferramentas da zztool.
+                   Possibilita avaliar o impacto que mudanças, rastreando aquelas funções que dependem
+                   da função alterada.
+                   Se usar o argumento zztool/tool, faz-se o rastreamento das funções que dependam das
+                   ferramentas da zztool.
                    Com um segundo argumento, filtra-se apenas pela ferramenta da zztool selecionada.
+                   Ex.: ./requisitos_zz.sh                # Todas as funções com seus requisitos
+                                                          # e as funções que tem dependência da mesma
+
+                        ./requisitos_zz.sh zzutf8         # Requisitos da zzutf8
+                                                          # e funções que dependem da zzutf8
+
+                        ./requisitos_zz.sh zztool         # Funções que dependem de alguma zztool
+                        ./requisitos_zz.sh zztool nl_eof  # Funções que dependem de zztool nl_eof
+                                                          # Obs.: eco e erro não são pesquisados
 ```
 Obs.: Apenas faz análise das funções ativas.
 
