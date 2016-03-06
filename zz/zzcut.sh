@@ -37,7 +37,7 @@
 #    -M    Do primeiro caractere ou campo até a posição M.
 #    -     Do primeiro caractere ou campo até ao fim da linha.
 #    N~M   Do caractere ou campo na posição N até o final indo em M saltos.
-#    ~     Do começo até o fim da linha em M saltos de caracteres ou campos
+#    ~M    Do começo até o fim da linha em M saltos de caracteres ou campos
 #
 #          Obs.: Em N-M, se N for menor que M trata o intervalo como M-N.
 #
