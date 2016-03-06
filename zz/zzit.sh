@@ -34,10 +34,13 @@ zzit ()
 	local url='http://www.inovacaotecnologica.com.br'
 	local ano url2 opcao num
 
-	if test "$1" -ge 2001 -a "$1" -le $(zzdatafmt -f AAAA hoje)
+	if test -n "$1" && zztool testa_numero $1
 	then
-		ano=$1
-		shift
+		if test "$1" -ge 2001 -a "$1" -le $(zzdatafmt -f AAAA hoje)
+		then
+			ano=$1
+			shift
+		fi
 	fi
 
 	opcao=$(echo "$1" | zzsemacento)
