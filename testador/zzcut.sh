@@ -1,5 +1,7 @@
 # Preparativos
 $ sed 's/:/♦/g' _dados.txt > _tmp1
+$ echo 'abcdefghijklmnopqrstuvwxyz0123456789€®ŧ←↓→øþæßðđŋħł»©“”nµ·§¬¹²³£¢' > _tmp2
+$ echo 'abcde:fghij:klmno:pqrst:uvwxy:z0123:45678:9€®ŧ←:↓→øþæ:ßðđŋħ:ł»©“”:nµ·§¬:¹²³£¢' > _tmp3
 $
 
 $ zzcut		-c7,3	_dados.txt
@@ -86,8 +88,18 @@ $ zzcut	-v	-c	1~3	_tmp1
 ♦testhee
 ♦qato♦ou
 ♦cnc♦fve
+$ zzcut	-c	30-45,15-10,75-,-8	_tmp2
+3456789€®ŧ←↓→øþæjklmnoabcdefgh
+$ zzcut	-v	-c	10-55,15-10,62-,-2	_tmp2
+cdefghinµ·§¬¹
+$ zzcut	-d:	-f5-3	_tmp3
+klmno:pqrst:uvwxy
+$ zzcut	-d:	-f-3,12-	_tmp3
+abcde:fghij:klmno:nµ·§¬:¹²³£¢
+$ zzcut	-v	-d:	-f-3,5-8,12-	_tmp3
+pqrst:↓→øþæ:ßðđŋħ:ł»©“”
 $
 
 # Faxina
-$ rm -f _tmp1
+$ rm -f _tmp[123]
 $

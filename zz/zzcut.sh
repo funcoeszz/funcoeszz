@@ -197,9 +197,7 @@ zzcut ()
 										faixa[2]=(length(faixa[2])>0?faixa[2]:"*")
 										# Se segundo número for menor
 										if (faixa[2]!="*" && faixa[2] < faixa[1]) {
-											temp = faixa[2]
-											faixa[2] = "1," faixa[1] - faixa[2] + 1
-											faixa[1] = temp
+											temp = faixa[2]; faixa[2] = faixa[1]; faixa[1] = temp
 										}
 										printf "g;" (faixa[1]>1 ? "s/^.\\{1,"faixa[1]-1"\\}//;" : "" )
 										print "s/^\\(." (faixa[2]!="*"?"\\{":"") faixa[2]-faixa[1]+1 (faixa[2]!="*"?"\\}":"") "\\)" (faixa[2]!="*"?".*":"") "/\\1/;p"
