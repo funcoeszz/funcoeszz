@@ -52,7 +52,7 @@
 #                               # O 8º campo 3 vezes. Delimitador é ";"
 #      zzcut -f 10,6 -d: --od _ arq.txt
 #                               # 10º e 6º campos mudando delimitador : por _
-#      zzcut -c 1,10 --od: arq.txt
+#      zzcut -c 1,d,10 --od: arq.txt
 #                               # O 1º e 10º caracteres separados por :
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
