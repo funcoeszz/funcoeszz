@@ -37,20 +37,27 @@
 #    -M    Do primeiro caractere ou campo até a posição M.
 #    -     Do primeiro caractere ou campo até ao fim da linha.
 #    N~M   Do caractere ou campo na posição N até o final indo em M saltos.
-#    ~M    Do começo até o fim da linha em M saltos de caracteres ou campos
+#    ~M    Do começo até o fim da linha em M saltos de caracteres ou campos.
+#    d     Caractere "d", posicionar o delimitador na saida de caracteres.
 #
 #          Obs.: Em N-M, se N for menor que M trata o intervalo como M-N.
 #
-# Uso: zzcut <-c|-f> <número[s]|range> [-d <delimitador>]
+# Uso: zzcut <-c|-f> <número[s]|range> [-d <delimitador>] [-v]
 # Ex.: zzcut -c 5,2 arq.txt     # 5º caractere, seguido pelo 2º caractere
 #      zzcut -c 7-4,9- arq.txt  # 4º ao 7º e depois do 9º ao fim da linha
-#      zzcut -f 1,-,3           # 1º campo, toda linha e 3º campo
-#      zzcut -f 8,8,8 -d ";"    # O 8º campo três vezes. Delimitador é ";"
-#      zzcut -f 10,6 -d: --od _ # 10º e 6º campos mudando delimitador : por _
+#      zzcut -v -c 3-8 arq.txt  # Exclui do 3º ao 8º caractere
+#      zzcut -f 1,-,3  arq.txt  # 1º campo, toda linha e 3º campo
+#      zzcut -v -f 6-  arq.txt  # Exclui a partir do 6º campo
+#      zzcut -f 8,8,8 -d ";" arq.txt
+#                               # O 8º campo 3 vezes. Delimitador é ";"
+#      zzcut -f 10,6 -d: --od _ arq.txt
+#                               # 10º e 6º campos mudando delimitador : por _
+#      zzcut -c 1,10 --od: arq.txt
+#                               # O 1º e 10º caracteres separados por :
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-09
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzunescape
 # ----------------------------------------------------------------------------
@@ -116,7 +123,7 @@ zzcut ()
 			# Apenas linha que possuam delimitadores
 			-s) only_delim='1'; shift ;;
 			-v) inverte='1';    shift ;;
-			*) break ;;
+			* ) break ;;
 		esac
 	done
 
@@ -124,12 +131,12 @@ zzcut ()
 	test -z "$tipo" && { zztool erro "Deve-se especificar uma lista de caracteres ou campos"; return 1; }
 
 	# O range é mandatório, seja qual for o tipo
-	# O range só pode ser composto de números [0-9], traço [-], til [~] ou vírgula [,]
+	# O range só pode ser composto de números [0-9], traço [-], til [~], vírgula [,]  ou "d"
 	if test -n "$range"
 	then
-		if echo "${range#=}" | grep -E '^[0-9,~-]{1,}$' 2>/dev/null >/dev/null
+		if echo "${range#=}" | grep -E '^[d0-9,~-]{1,}$' 2>/dev/null >/dev/null
 		then
-			range=$(echo "${range#=}" | sed 's/,,*/,/g;s/^,//;s/,$//')
+			range=$(echo "${range#=}" | sed 's/[^,]d//g;s/d[^,]//g;s/,,*/,/g;s/^,//;s/,$//')
 
 			case "$tipo" in
 				c)
@@ -174,18 +181,21 @@ zzcut ()
 							'
 						)
 					else
+						ofd="${ofd:-$delim}"
+
 						qtd_campos=$(echo "$range" |
 								awk -F "," '{
 									while(NF){
-										if ($NF ~ /^[0-9]*~[0-9]+$/ || $NF ~ /^[0-9]*-[0-9]*$/ || $NF ~ /^[0-9]+$/) i++
+										if ($NF ~ /^[0-9]*~[0-9]+$/ || $NF ~ /^[0-9]*-[0-9]*$/ || $NF ~ /^[d0-9]+$/) i++
 										NF--
 									}
 									print i
 								}'
 							)
+
 						codscript=$(
 							echo "$range" |
-							awk -F "," 'BEGIN {print "h;"} {
+							awk -F "," -v ofs="$ofd" 'BEGIN {print "h;"} {
 								for (i=1; i<=NF; i++) {
 									# Apenas um número, um caractere
 									if ($i ~ /^[0-9]+$/) print "g;" ($i>1 ? "s/^.\\{1,"$i-1"\\}//;" : "" ) "s/^\\(.\\).*/\\1/;p"
@@ -212,6 +222,7 @@ zzcut ()
 										if (faixa[2]>1) printf "s/\\(.\\).\\{" faixa[2]-1 "\\}/\\1/g;"
 										print "p"
 									}
+									if ($i == "d") { print "g;s/.*/" ofs "/g;p" }
 								}
 							}'
 						)
@@ -229,7 +240,7 @@ zzcut ()
 					then
 						codscript=$(
 							echo "$range" | zztool list2lines | sort -n |
-							awk  -v ofs="$ofd" 'BEGIN { print "BEGIN { OFS=\"" ofs "\" } { " }
+							awk -v ofs="$ofd" 'BEGIN { print "BEGIN { OFS=\"" ofs "\" } { " }
 								{
 								# Apenas um número, um campo
 								if ($1 ~ /^[0-9]+$/) { print "$" $1 "=\"\""}

@@ -96,8 +96,18 @@ $ zzcut	-d:	-f5-3	_tmp3
 klmno:pqrst:uvwxy
 $ zzcut	-d:	-f-3,12-	_tmp3
 abcde:fghij:klmno:nµ·§¬:¹²³£¢
+$ zzcut	-d:	-f	-3,6,7,12-	--od	zzz	_tmp3
+abcdezzzfghijzzzklmnozzzz0123zzz45678zzznµ·§¬zzz¹²³£¢
 $ zzcut	-v	-d:	-f-3,5-8,12-	_tmp3
 pqrst:↓→øþæ:ßðđŋħ:ł»©“”
+$ zzcut	-c	35-45,d,12-18,d,50-60	--od	.oOo.	_tmp2
+89€®ŧ←↓→øþæ.oOo.lmnopqr.oOo.ħł»©“”nµ·§¬
+$ zzcut	-c	1,d,10-12,d,40-50	--od	";"	_tmp2
+a;jkl;←↓→øþæßðđŋħ
+$ zzcut	--od:	-c 2-5,d,10-12,d,40-50	_tmp2
+bcde:jkl:←↓→øþæßðđŋħ
+$ zzcut	-c	d,60-,d,15-25,d,-7,d --od _	_tmp2
+_¬¹²³£¢_opqrstuvwxy_abcdefg_
 $
 
 # Faxina
