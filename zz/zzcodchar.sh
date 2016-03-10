@@ -17,7 +17,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-12-07
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zztrim zzpad
 # ----------------------------------------------------------------------------
@@ -47,6 +47,7 @@ s/©/\&	copy	#xA9	#169	;/g;
 s/ª/\&	ordf	#xAA	#170	;/g;
 s/«/\&	laquo	#xAB	#171	;/g;
 s/¬/\&	not	#xAC	#172	;/g;
+s/­/\&	shy	#xAD	#173	;/g;
 s/®/\&	reg	#xAE	#174	;/g;
 s/¯/\&	macr	#xAF	#175	;/g;
 s/°/\&	deg	#xB0	#176	;/g;
@@ -192,6 +193,10 @@ s/ϖ/\&	piv	#x3D6	#982	;/g;
 s/ /\&	ensp	#x2002	#8194	;/g;
 s/ /\&	emsp	#x2003	#8195	;/g;
 s/ /\&	thinsp	#x2009	#8201	;/g;
+s/‌/\&	zwnj	#x200C	#8204	;/g;
+s/‍/\&	zwj	#x200D	#8205	;/g;
+s/‎/\&	lrm	#x200E	#8206	;/g;
+s/‏/\&	rlm	#x200F	#8207	;/g;
 s/–/\&	ndash	#x2013	#8211	;/g;
 s/—/\&	mdash	#x2014	#8212	;/g;
 s/‘/\&	lsquo	#x2018	#8216	;/g;

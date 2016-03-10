@@ -36,19 +36,26 @@
 #    N-M   Do caractere ou campo na posição N até a posição M.
 #    -M    Do primeiro caractere ou campo até a posição M.
 #    -     Do primeiro caractere ou campo até ao fim da linha.
+#    N~M   Do caractere ou campo na posição N até o final indo em M saltos.
+#    ~M    Do começo até o fim da linha em M saltos de caracteres ou campos.
+#    d     Caractere "d", posicionar o delimitador na saida de caracteres.
 #
-#          Obs.: Se N for menor que M, trata o intervalo como M-N.
-#
-# Uso: zzcut <-c|-f> <número[s]|range> [-d <delimitador>]
+# Uso: zzcut <-c|-f> <número[s]|range> [-d <delimitador>] [-v]
 # Ex.: zzcut -c 5,2 arq.txt     # 5º caractere, seguido pelo 2º caractere
-#      zzcut -c 7-4,9- arq.txt  # 4º ao 7º e depois do 9º ao fim da linha
-#      zzcut -f 1,-,3           # 1º campo, toda linha e 3º campo
-#      zzcut -f 8,8,8 -d ";"    # O 8º campo três vezes. Delimitador é ";"
-#      zzcut -f 10,6 -d: --od _ # 10º e 6º campos mudando delimitador : por _
+#      zzcut -c 7-4,9- arq.txt  # 7º ao 4º e depois do 9º ao fim da linha
+#      zzcut -v -c 3-8 arq.txt  # Exclui do 3º ao 8º caractere
+#      zzcut -f 1,-,3  arq.txt  # 1º campo, toda linha e 3º campo
+#      zzcut -v -f 6-  arq.txt  # Exclui a partir do 6º campo
+#      zzcut -f 8,8,8 -d ";" arq.txt
+#                               # O 8º campo 3 vezes. Delimitador é ";"
+#      zzcut -f 10,6 -d: --od _ arq.txt
+#                               # 10º e 6º campos mudando delimitador : por _
+#      zzcut -c 1,d,10 --od: arq.txt
+#                               # O 1º e 10º caracteres separados por :
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-09
-# Versão: 2
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzunescape
 # ----------------------------------------------------------------------------
@@ -60,7 +67,7 @@ zzcut ()
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso cut; return 1; }
 
-	local tipo range ofd codscript qtd_campos only_delim inverte sp
+	local tipo range ofd codscript qtd_campos only_delim inverte sp rlm
 	local delim=$(printf '\t')
 
 	# Opções de linha de comando
@@ -114,20 +121,20 @@ zzcut ()
 			# Apenas linha que possuam delimitadores
 			-s) only_delim='1'; shift ;;
 			-v) inverte='1';    shift ;;
-			*) break ;;
+			* ) break ;;
 		esac
 	done
 
 	# Um tipo de lista é mandatório
 	test -z "$tipo" && { zztool erro "Deve-se especificar uma lista de caracteres ou campos"; return 1; }
 
-	# O range é mandatória, seja qual for o tipo
-	# O range só pode ser composto de números [0-9], traço [-] ou vírgula [,]
+	# O range é mandatório, seja qual for o tipo
+	# O range só pode ser composto de números [0-9], traço [-], til [~], vírgula [,]  ou "d"
 	if test -n "$range"
 	then
-		if echo "${range#=}" | grep -E '^[0-9,-]{1,}$' 2>/dev/null >/dev/null
+		if echo "${range#=}" | grep -E '^[d0-9,~-]{1,}$' 2>/dev/null >/dev/null
 		then
-			range=$(echo "${range#=}" | sed 's/,,*/,/g;s/^,//;s/,$//')
+			range=$(echo "${range#=}" | sed 's/[^,]d//g;s/d[^,]//g;s/,,*/,/g;s/^,//;s/,$//')
 
 			case "$tipo" in
 				c)
@@ -137,19 +144,33 @@ zzcut ()
 						codscript=$(
 							echo "$range" | zztool list2lines | sort -n |
 							awk -v tsp="$sp" '
+								# Apagar linha toda
 								/^-$/ { print "s/.*//";exit }
+								# Apagar desde o início da linha até um caractere
 								/^-[0-9]+$/ && NR==1 {sub(/-/,""); inicio = $1 }
-								/^[0-9]+-$/ {sub(/-/,""); print "s/.\\{"$1"\\}$//;"; exit}
+								# Apagar de um caractere até o fim da linha
+								/^[0-9]+-$/ {sub(/-/,""); print "s/^\\(.\\{"$1-1"\\}\\).*$/\\1/;"; exit}
+								Apagar um caractere ou um trecho
 								/^[0-9]+(-[0-9]+)*$/ {
 									if ($1 ~ /^[0-9]+$/ && $1 > inicio ) { printf "s/./" tsp "/" $1 ";" }
 									else {
 										split("", faixa); split($1, faixa, "-")
 										if (faixa[1] == faixa[2] && faixa[1] > inicio ) { printf "s/./" tsp "/" faixa[1] ";" }
-										else if (faixa[2] < faixa[1]) {
-											temp = faixa[2]; faixa[2] = faixa[1]; faixa[1] = temp
+										else {
+											if (faixa[2] < faixa[1]) {
+												temp = faixa[2]; faixa[2] = faixa[1]; faixa[1] = temp
+											}
 											for (i=faixa[1]; i<=faixa[2]; i++) { printf "s/./" tsp "/" i ";" }
 										}
 									}
+								}
+								# Apagar caracteres em saltos N~M.
+								/^[0-9]*~[0-9]+$/ {
+									split("", faixa); split($i, faixa, "~")
+									faixa[2]*=(faixa[2]>=0?1:-1)
+									faixa[2]=(faixa[2]==0?1:faixa[2])
+									faixa[1]=(length(faixa[1])>0 && faixa[1]>0?faixa[1]:faixa[2])
+									printf "s/./" tsp "/" faixa[1] "; :a; s/\\(" tsp ".\\{" faixa[2]-1 "\\}\\)[^" tsp "]/\\1" tsp "/g; ta;"
 								}
 								END {
 									if (inicio) print "s/^.\\{" inicio "\\}//;"
@@ -158,14 +179,26 @@ zzcut ()
 							'
 						)
 					else
-						qtd_campos=$(echo "$range" | awk -F "," '{print NF}')
+						ofd="${ofd:-$delim}"
+						rlm=$(echo "&rlm;" | zzunescape --html)
+
+						qtd_campos=$(echo "$range" |
+								awk -F "," '{
+									while(NF){
+										if ($NF ~ /^[0-9]*~[0-9]+$/ || $NF ~ /^[0-9]*-[0-9]*$/ || $NF ~ /^[d0-9]+$/) i++
+										NF--
+									}
+									print i
+								}'
+							)
+
 						codscript=$(
 							echo "$range" |
-							awk -F "," 'BEGIN {print "h"} {
+							awk -F "," -v ofs="$ofd" -v rlm="$rlm" 'BEGIN {print "h;"} {
 								for (i=1; i<=NF; i++) {
 									# Apenas um número, um caractere
 									if ($i ~ /^[0-9]+$/) print "g;" ($i>1 ? "s/^.\\{1,"$i-1"\\}//;" : "" ) "s/^\\(.\\).*/\\1/;p"
-									# Uma faixa N-M, uma faixa de caracteres
+									# Linha inteira ou faixa N-M (faixa de caracteres)
 									if ($i ~ /^-$/) print "g;p"
 									else if ($i ~ /^[0-9]*-[0-9]*$/) {
 										split("", faixa); split($i, faixa, "-")
@@ -173,13 +206,24 @@ zzcut ()
 										faixa[2]=(length(faixa[2])>0?faixa[2]:"*")
 										# Se segundo número for menor
 										if (faixa[2]!="*" && faixa[2] < faixa[1]) {
-											temp = faixa[2]
-											faixa[2] = "1," faixa[1] - faixa[2] + 1
-											faixa[1] = temp
+											temp = faixa[2]; faixa[2] = faixa[1]; faixa[1] = temp
+											inv=1
 										}
+										else inv=0
 										printf "g;" (faixa[1]>1 ? "s/^.\\{1,"faixa[1]-1"\\}//;" : "" )
-										print "s/^\\(." (faixa[2]!="*"?"\\{":"") faixa[2] (faixa[2]!="*"?"\\}":"") "\\)" (faixa[2]!="*"?".*":"") "/\\1/;p"
+										print "s/^\\(." (faixa[2]!="*"?"\\{":"") faixa[2]-faixa[1]+1 (faixa[2]!="*"?"\\}":"") "\\)" (faixa[2]!="*"?".*":"") "/" (inv==1?rlm:"") "\\1/;p"
 									}
+									# Caracteres em saltos N~M.
+									if ($i ~ /^[0-9]*~[0-9]+$/) {
+										split("", faixa); split($i, faixa, "~")
+										faixa[2]*=(faixa[2]>=0?1:-1)
+										faixa[2]=(faixa[2]==0?1:faixa[2])
+										faixa[1]=(length(faixa[1])>0 && faixa[1]>0?faixa[1]:faixa[2])
+										printf "g;" ( faixa[1]>1 ? "s/^.\\{1," faixa[1]-1 "\\}//;" : "" )
+										if (faixa[2]>1) printf "s/\\(.\\).\\{" faixa[2]-1 "\\}/\\1/g;"
+										print "p"
+									}
+									if ($i == "d") { print "g;s/.*/" ofs "/g;p" }
 								}
 							}'
 						)
@@ -197,7 +241,7 @@ zzcut ()
 					then
 						codscript=$(
 							echo "$range" | zztool list2lines | sort -n |
-							awk  -v ofs="$ofd" 'BEGIN { print "BEGIN { OFS=\"" ofs "\" } { " }
+							awk -v ofs="$ofd" 'BEGIN { print "BEGIN { OFS=\"" ofs "\" } { " }
 								{
 								# Apenas um número, um campo
 								if ($1 ~ /^[0-9]+$/) { print "$" $1 "=\"\""}
@@ -211,7 +255,7 @@ zzcut ()
 										temp = faixa[2]; faixa[2] = faixa[1]; faixa[1] = temp
 									}
 									if (faixa[2]=="FIM") {
-										print " ate_fim(" faixa[1] ", \"\") "
+										print " ate_fim(" faixa[1] ", \"\", 1) "
 									}
 									else {
 										for (j=faixa[1]; j<=faixa[2]; j++) {
@@ -219,8 +263,15 @@ zzcut ()
 										}
 									}
 								}
+								# Apagar caracteres em saltos N~M.
+								if ($1 ~ /^[0-9]*~[0-9]+$/) {
+									split("", faixa); split($1, faixa, "~")
+									faixa[2]=(faixa[2]==0?1:faixa[2])
+									faixa[1]=(length(faixa[1])>0 && faixa[1]>0?faixa[1]:faixa[2])
+									print " ate_fim(" faixa[1] ", \"\", " faixa[2] ") "
+								}
 							}
-							END { print "print }" }'
+							END { print " print }" }'
 						)
 					else
 						codscript=$(
@@ -235,12 +286,14 @@ zzcut ()
 									split("", faixa); split($i, faixa, "-")
 									faixa[1]=(length(faixa[1])>0?faixa[1]:1)
 									faixa[2]=(length(faixa[2])>0?faixa[2]:"FIM")
-									# Se segundo número for menor
-									if (faixa[2] < faixa[1]) {
-										temp = faixa[2]; faixa[2] = faixa[1]; faixa[1] = temp
-									}
+
 									if (faixa[2]=="FIM") {
-										printf " ate_fim("faixa[1] ", \"" ofs "\") "
+										printf " ate_fim("faixa[1] ", \"" ofs "\", 1) "
+									}
+									else if (faixa[2] < faixa[1]) {
+										for (j=faixa[1]; j>=faixa[2]; j--) {
+											printf "$" j "\"" ofs "\""
+										}
 									}
 									else {
 										for (j=faixa[1]; j<=faixa[2]; j++) {
@@ -248,8 +301,15 @@ zzcut ()
 										}
 									}
 								}
+								# Caracteres em saltos N~M.
+								if ($i ~ /^[0-9]*~[0-9]+$/) {
+									split("", faixa); split($i, faixa, "~")
+									faixa[2]=(faixa[2]==0?1:faixa[2])
+									faixa[1]=(length(faixa[1])>0 && faixa[1]>0?faixa[1]:faixa[2])
+									printf " ate_fim(" faixa[1] ", \"" ofs "\", " faixa[2] ") "
+								}
 							}
-							printf " ; print \"\" }"
+							printf "; print \"\" }"
 						}' 2>/dev/null
 					)
 				fi
@@ -260,7 +320,7 @@ zzcut ()
 			zztool erro "Formato inválido para a lista de caracteres ou campos"; return 1
 		fi
 	else
-		zztool erro "Deve-se definir pelos um range de caracteres ou campos"; return 1
+		zztool erro "Deve-se definir pelo menos um range de caracteres ou campos"; return 1
 	fi
 
 	zztool file_stdin "$@" |
@@ -271,14 +331,22 @@ zzcut ()
 			then
 				sed "s/$sp//g"
 			else
+				sed "
+				/$rlm/ {
+					:ini
+					s/\(.*\)$rlm\(.\)/\2\1$rlm/
+					t ini
+					s/$rlm//g
+				}
+				" |
 				awk -v div="${qtd_campos:-1}" '{ printf $0 }; NR % div == 0 { print ""}'
 			fi
 		;;
 		f)
 			awk -F "$delim" -v tsp="$inverte" "
-				function ate_fim (ini, sep,   saida) {
-						for (i=ini; i<=NF; i++) {
-							if (tsp == 1) { \$i="\"\"" }
+				function ate_fim (ini, sep, salto,  saida) {
+						for (i=ini; i<=NF; i+=salto) {
+							if (tsp == 1) { \$i=\"\" }
 							else { saida = saida \$i sep }
 						}
 						if (tsp != 1) return saida
@@ -287,5 +355,4 @@ zzcut ()
 				sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//"
 		;;
 	esac
-
 }

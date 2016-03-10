@@ -3,16 +3,17 @@
 # Obs.: Cada site tem uma letra identificadora que pode ser passada como
 #       parâmetro, para informar quais sites você quer pesquisar:
 #
-#         B)r Linux            N)otícias linux
+#         B)r Linux            D)iolinux
 #         V)iva o Linux        U)nder linux
+#         E)spírito Livre      S)empre Update
 #
 # Uso: zznoticiaslinux [sites]
 # Ex.: zznoticiaslinux
-#      zznoticiaslinux yn
+#      zznoticiaslinux bv
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
-# Versão: 6
+# Versão: 9
 # Licença: GPL
 # Requisitos: zzfeed
 # ----------------------------------------------------------------------------
@@ -22,7 +23,7 @@ zznoticiaslinux ()
 
 	local url limite
 	local n=5
-	local sites='byvucin'
+	local sites='bdvues'
 
 	limite="sed ${n}q"
 
@@ -34,7 +35,7 @@ zznoticiaslinux ()
 		url='http://www.vivaolinux.com.br/index.rdf'
 		echo
 		zztool eco "* Viva o Linux ($url):"
-		zzfeed -n $n "$url"
+		zzfeed --iso -n $n "$url"
 	fi
 
 	# Br Linux
@@ -55,12 +56,30 @@ zznoticiaslinux ()
 		zzfeed -n $n "$url"
 	fi
 
-	# Notícias Linux
-	if zztool grep_var n "$sites"
+	# Diolinux
+	if zztool grep_var d "$sites"
 	then
-		url='http://feeds.feedburner.com/NoticiasLinux'
+		url='http://www.diolinux.com.br/feeds/posts/default'
 		echo
-		zztool eco "* Notícias Linux ($url):"
+		zztool eco "* Dioinux ($url):"
+		zzfeed -n $n "$url"
+	fi
+
+	# Espírito Livre
+	if zztool grep_var e "$sites"
+	then
+		url='http://www.revista.espiritolivre.org/feed'
+		echo
+		zztool eco "* Espírito Livre ($url):"
+		zzfeed -n $n "$url"
+	fi
+
+	# Sempre Update
+	if zztool grep_var s "$sites"
+	then
+		url='http://sempreupdate.org/feed'
+		echo
+		zztool eco "* Sempre Update ($url):"
 		zzfeed -n $n "$url"
 	fi
 }

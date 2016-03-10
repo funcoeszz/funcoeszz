@@ -6,7 +6,7 @@
 # Ex.: zzcep SP Rua Santa Ifigênia
 #      zzcep 01310-000
 #
-# Autor: Aurélio Marinho Jargas, www.aurelio.net
+# Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-11-08
 # Versão: 2
 # Licença: GPL

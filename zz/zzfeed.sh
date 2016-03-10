@@ -2,18 +2,25 @@
 # Leitor de Feeds RSS, RDF e Atom.
 # Se informar a URL de um feed, são mostradas suas últimas notícias.
 # Se informar a URL de um site, mostra a URL do(s) Feed(s).
-# Obs.: Use a opção -n para limitar o número de resultados (Padrão é 10).
+#
+# Opções:
+#  -n para limitar o número de resultados (Padrão é 10).
+#  -u para simular navegador Mozilla/Firefox (alguns sites precisam disso).
+#  --iso ou --utf para determinar explicitamente a codificação da origem.
+#
 # Para uso via pipe digite dessa forma: "zzfeed -", mesma forma que o cat.
 #
 # Uso: zzfeed [-n número] URL...
 # Ex.: zzfeed http://aurelio.net/feed/
+#      zzfeed --utf http://aurelio.net/feed/  # O coding é utf-8
 #      zzfeed -n 5 aurelio.net/feed/          # O http:// é opcional
 #      zzfeed aurelio.net funcoeszz.net       # Mostra URL dos feeds
+#      zzfeed -u funcoeszz.net                # UserAgent do lynx diferente
 #      cat arquivo.rss | zzfeed -             # Para uso via pipe
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 7
+# Versão: 9
 # Licença: GPL
 # Requisitos: zzxml zzunescape zztrim zzutf8
 # ----------------------------------------------------------------------------
@@ -21,16 +28,20 @@ zzfeed ()
 {
 	zzzz -h feed "$1" && return
 
-	local url formato tag_mae tmp
+	local url formato tag_mae tmp useragent coding
 	local limite=10
 
 	# Opções de linha de comando
-	if test "$1" = '-n'
-	then
-		limite=$2
+	while test "${1#-}" != "$1"
+	do
+		case "$1" in
+		-n) limite=$2; shift ;;
+		-u) useragent='-useragent="Mozilla/5.0"' ;;
+		--iso | --utf) coding="${1#--}" ;;
+		* ) break ;;
+		esac
 		shift
-		shift
-	fi
+	done
 
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso feed; return 1; }
@@ -90,9 +101,13 @@ zzfeed ()
 		then
 			zztool file_stdin "$@"
 		else
-			$ZZWWWHTML "$url"
+			$ZZWWWHTML $useragent "$url" 2>/dev/null
 		fi |
-			zzutf8 |
+			case "$coding" in
+				iso) zztool texto_em_iso ;;
+				utf) zztool texto_em_utf ;;
+				*  ) zzutf8 ;;
+			esac |
 			zzxml --tidy > "$tmp"
 
 		# Tenta identificar o formato: <feed> é Atom, <rss> é RSS
