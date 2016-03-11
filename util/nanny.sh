@@ -47,6 +47,7 @@ eco ----------------------------------------------------------------
 eco "* Funções com o cabeçalho mal formatado"
 for f in zz/*.sh off/*.sh
 do
+	echo "$f" | grep 'zzcorrida' > /dev/null && continue
 	wrong=$(sed -n '
 
 		# Script sed que vai lendo o cabeçalho linha a linha e
@@ -204,10 +205,11 @@ do
 	test -n "$wrong" && printf "%s: %s\n" $f "$wrong" |
 		# Exceções conhecidas
 		grep -v '^zz/zzferiado.sh: # Requisitos:' |
-		grep -v '^zz/zzloteria2.sh: # Resultados da quina' |
+		grep -v '^zz/zzloteria.sh: # Resultados da quina' |
 		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org' |
 		grep -v 'zz/zzpalpite.sh: # Uso: zzpalpite' |
-		grep -v 'zz/zzxml.sh: # Uso: zzxml'
+		grep -v 'zz/zzxml.sh: # Uso: zzxml' |
+		grep -v 'zz/zzcinepolis.sh: # Requisitos:'
 done
 
 eco ----------------------------------------------------------------
@@ -254,7 +256,7 @@ done
 eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zztool uso'"
 # As seguintes não precisam pois é válido chamá-las sem argumentos
-ok="zzaleatorio zzalfabeto zzalinhar zzansi2html zzarrumacidade zzascii zzbeep zzbissexto zzbolsas zzbraille zzcalcula zzcapitalize zzcaracoroa zzcarnaval zzcidade zzcinemark zzcineuci zzcnpj zzcodchar zzcoin zzcontapalavras zzcores zzcorpuschristi zzcotacao zzcpf zzdado zzdatafmt zzdiadasemana zzdolar zzdos2unix zzencoding zzestado zzexcuse zzeuro zzferiado zzfilme zzfoneletra zzfutebol zzglobo zzhexa2str zzhoracerta zzhoramin zzhorariodeverao zziostat zzipinternet zzjquery zzjuntalinhas zzkill zzlblank zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzlua zzmaiores zzmaiusculas zzmariadb zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpais zzpalpite zzpascoa zzpgsql zzphp zzpiada zzporta zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzsheldon zzshuffle zzstr2hexa zzsubway zztabuada zztac zztelecine zztempo zztradutor zztranspor zztrim zztv zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzurldecode zzurlencode zzutf8 zzvdp zzvira zzxml"
+ok="zzaleatorio zzalfabeto zzalinhar zzansi2html zzarrumacidade zzascii zzbeep zzbissexto zzbolsas zzbraille zzcalcula zzcapitalize zzcaracoroa zzcarnaval zzcidade zzcinemark zzcineuci zzcnpj zzcodchar zzcoin zzcontapalavras zzcores zzcorpuschristi zzcotacao zzcpf zzdado zzdatafmt zzdiadasemana zzdolar zzdos2unix zzencoding zzestado zzexcuse zzeuro zzferiado zzfilme zzfoneletra zzfutebol zzglobo zzhexa2str zzhoracerta zzhoramin zzhorariodeverao zziostat zzipinternet zzit zzjquery zzjuntalinhas zzkill zzlblank zzlembrete zzlimpalixo zzlinha zzlinux zzlinuxnews zzloteria zzloteria2 zzlua zzmaiores zzmaiusculas zzmariadb zzmd5 zzminusculas zzmoeda zzmoneylog zznatal zznoticias zznoticiaslinux zznoticiassec zzpais zzpalpite zzpascoa zzpgsql zzphp zzpiada zzporta zzppt zzramones zzranking zzrelansi zzrot13 zzrot47 zzsecurity zzsemacento zzsenha zzsextapaixao zzsheldon zzshuffle zzstr2hexa zzsubway zztabuada zztac zztelecine zztempo zztradutor zztranspor zztrim zztv zztwitter zzunescape zzunicode2ascii zzuniq zzunix2dos zzurldecode zzurlencode zzutf8 zzvdp zzvira zzxml"
 for f in zz/*.sh  # off/*.sh
 do
 	echo " $ok " | grep " $(basename $f .sh) " >/dev/null && continue
