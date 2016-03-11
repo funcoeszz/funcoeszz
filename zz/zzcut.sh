@@ -46,12 +46,9 @@
 #      zzcut -v -c 3-8 arq.txt  # Exclui do 3º ao 8º caractere
 #      zzcut -f 1,-,3  arq.txt  # 1º campo, toda linha e 3º campo
 #      zzcut -v -f 6-  arq.txt  # Exclui a partir do 6º campo
-#      zzcut -f 8,8,8 -d ";" arq.txt
-#                               # O 8º campo 3 vezes. Delimitador é ";"
-#      zzcut -f 10,6 -d: --od _ arq.txt
-#                               # 10º e 6º campos mudando delimitador : por _
-#      zzcut -c 1,d,10 --od: arq.txt
-#                               # O 1º e 10º caracteres separados por :
+#      zzcut -f 8,8,8 -d ";" arq.txt    # 8º campo 3 vezes. Delimitador ";"
+#      zzcut -f 10,6 -d: --od _ arq.txt # 10º e 6º campos, novo delimitador _
+#      zzcut -c 1,d,10 --od: arq.txt    # 1º e 10º caracteres. Delimitador :
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-09
