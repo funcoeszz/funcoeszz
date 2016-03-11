@@ -107,7 +107,7 @@ zzwc ()
 			elif test -n "$mc"
 			then
 				sed 's/././g' | wc -c
-			elif test -n "mw"
+			elif test -n "$mw"
 			then
 				wc -w
 			fi
