@@ -57,7 +57,7 @@ zzwc ()
 		tb=0; tl=0; tw=0
 	fi
 
-	conteudo=$(zztool file_stdin "$@")
+	conteudo=$(zztool file_stdin "$@" | sed '${s/$/ /}')
 
 	# Linhas
 	if test -n "$tl"
@@ -77,6 +77,7 @@ zzwc ()
 	if test -n "$tc"
 	then
 		tc=$(echo "$conteudo" | sed 's/././g' | tr -d '\r\n' | wc -c)
+		tc=$((tc-1))
 		test -n "$saida" && saida="$saida|$tc" || saida="$tc"
 	fi
 
@@ -84,6 +85,7 @@ zzwc ()
 	if test -n "$tb"
 	then
 		tb=$(echo "$conteudo" | tr -d '\r\n' | wc -c)
+		tb=$((tb-1))
 		test -n "$saida" && saida="$saida|$tb" || saida="$tb"
 	fi
 
