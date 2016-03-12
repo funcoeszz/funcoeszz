@@ -61,7 +61,7 @@ zznoticiaslinux ()
 	then
 		url='http://www.diolinux.com.br/feeds/posts/default'
 		echo
-		zztool eco "* Dioinux ($url):"
+		zztool eco "* Diolinux ($url):"
 		zzfeed -n $n "$url"
 	fi
 
