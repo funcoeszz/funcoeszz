@@ -134,5 +134,11 @@ zzcolunar ()
 				}
 			}
 		}
-	' | zztrim -V
+	' | zztrim -V |
+	if test "$sep" != ' '
+	then
+		sed "s/${sep}$//"
+	else
+		cat -
+	fi
 }
