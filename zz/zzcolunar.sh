@@ -26,6 +26,9 @@
 # As opções -w, --width, --largura seguido de um número,
 # determinam a largura que as colunas terão.
 #
+# A opção -s seguida de um TEXTO determina o separador de colunas,
+# se não for declarado assume por padrão um espaço simples.
+#
 # Uso: zzcolunar [-n|-z] [-H] [-l|-r|-c|-j] [-w <largura>] <colunas> arquivo
 # Ex.: zzcolunar 3 arquivo.txt
 #      zzcolunar -c -w 20 5 arquivo.txt
@@ -34,7 +37,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-04-24
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzalinhar zztrim
 # ----------------------------------------------------------------------------
@@ -48,6 +51,7 @@ zzcolunar ()
 	local alinhamento='-l'
 	local largura=0
 	local header=0
+	local sep=' '
 	local colunas
 
 	while test "${1#-}" != "$1"
@@ -60,6 +64,7 @@ zzcolunar ()
 		-r | --right | -d | --direita) alinhamento='-r'; shift ;;
 		-c | --center | --centro)      alinhamento='-c'; shift ;;
 		-j)                            alinhamento='-j'; shift ;;
+		-s)                            sep="$2";  shift; shift ;;
 		-w | --width | --largura)
 			zztool testa_numero "$2" && largura="$2" || { zztool erro "Largura inválida: $2"; return 1; }
 			shift
@@ -75,13 +80,14 @@ zzcolunar ()
 		colunas="$1"
 		shift
 	else
+		zztool erro "Quantidade de colunas inválidas";
 		zztool -e uso colunar
 		return 1
 	fi
 
 	zztool file_stdin "$@" |
 	zzalinhar -w $largura ${alinhamento} |
-	awk -v cols=$colunas -v formato=$formato -v cab=$header '
+	awk -v cols=$colunas -v formato=$formato -v cab=$header -v delim="$sep" '
 
 		NR==1 { if(cab) header = $0 }
 
@@ -91,7 +97,7 @@ zzcolunar ()
 			lin = ( int((NR-cab)/cols)==((NR-cab)/cols) ? (NR-cab)/cols : int((NR-cab)/cols)+1 )
 
 			if (cab) {
-				for ( j = 1; j <= cols; j++ ) { printf header (j<cols?" ":"") }
+				for ( j = 1; j <= cols; j++ ) { printf header (j<cols ? delim : "") }
 				print ""
 			}
 
@@ -102,7 +108,7 @@ zzcolunar ()
 
 					for ( j = 0; j < cols; j++ ) {
 							if ( i + (j * lin ) <= NR )
-								linha_saida = linha_saida (j==0 ? "" : " ") linha[ i + ( j * lin ) ]
+								linha_saida = linha_saida (j==0 ? "" : delim) linha[ i + ( j * lin ) ]
 					}
 
 					print linha_saida
@@ -116,7 +122,7 @@ zzcolunar ()
 				{
 					for ( j = 1; j <= cols; j++ ) {
 						if ( i <= NR )
-							linha_saida = linha_saida (j==1 ? "" : " ") linha[i]
+							linha_saida = linha_saida (j==1 ? "" : delim) linha[i]
 
 						if (j == cols || i == NR) {
 							print linha_saida
