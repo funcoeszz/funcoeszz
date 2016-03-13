@@ -20,7 +20,7 @@
 # Desde: 2014-05-23
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzpad zztrim
+# Requisitos: zzpad zztrim zzwc
 # ----------------------------------------------------------------------------
 zzalinhar ()
 {
@@ -51,15 +51,7 @@ zzalinhar ()
 
 	zztool file_stdin "$@" > $cache
 
-	larg_efet=$(
-		cat "$cache" |
-		while read linha
-		do
-			echo ${#linha}
-		done |
-		sort -nr |
-		head -1
-	)
+	larg_efet=$(zzwc -L "$cache")
 
 	test $largura -eq 0 -a $larg_efet -gt $largura && largura=$larg_efet
 
