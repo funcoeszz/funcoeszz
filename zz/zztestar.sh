@@ -1,0 +1,214 @@
+# ----------------------------------------------------------------------------
+# Testa a validade do número no tipo de categoria selecionada.
+# Nada é ecoado na saída padrão, apenas deve-se analisar o código de retorno.
+# Pode-se ecoar a saída de erro usando a opção -e antes da categoria.
+#
+#  Categorias:
+#   ano                        =>  Ano válido
+#   ano_bissexto | bissexto    =>  Ano Bissexto
+#   exp | exponencial          =>  Número em notação científica
+#   numero | natural           =>  Número Natural ( inteiro positivo )
+#   numero_sinal | inteiro     =>  Número Inteiro ( positivo ou negativo )
+#   numero_fracionario | real  =>  Número Real ( casas decimais possíveis )
+#   complexo                   =>  Número Complexo ( a+bi )
+#   dinheiro                   =>  Formato Monetário ( 2 casas decimais )
+#   bin | binario              =>  Número Binário ( apenas 0 e 1 )
+#   octal | octadecimal        =>  Número Octal ( de 0 a 7 )
+#   hexa | hexadecimal         =>  Número Hexadecimal ( de 0 a 9 e A até F )
+#   ip                         =>  Endereço de rede IPV4
+#   ip6 | ipv6                 =>  Endereço de rede IPV6
+#   mac                        =>  Código MAC Address válido
+#   data                       =>  Data com formatação válida ( dd/mm/aaa )
+#   hora                       =>  Hora com formatação válida ( hh:mm )
+#
+#   Obs.: ano, ano_bissextto e os
+#         números naturais, inteiros e reais sem separador de milhar.
+#
+# Uso: zztestar [-e] categoria número
+# Ex.: zztestar ano 1999
+#      zztestar ip 192.168.1.1
+#      zztestar hexa 4ca9
+#      zztestar real -45,678
+#
+# Autor: Itamar <itamarnet (a) yahoo com br>
+# Desde: 2016-03-14
+# Versão: 1
+# Licença: GPL
+# ----------------------------------------------------------------------------
+zztestar ()
+{
+	zzzz -h testar "$1" && return
+
+	local erro
+
+	# Devo mostrar a mensagem de erro?
+	test "$1" = '-e' && erro=1 && shift
+
+	# Verificação dos parâmetros
+	test -n "$1" || { zztool -e uso testar; return 1; }
+
+	case "$1" in
+		ano)
+			# Testa se $2 é um ano válido: 1-9999
+			# O ano zero nunca existiu, foi de -1 para 1
+			# Ano maior que 9999 pesa no processamento
+			echo "$2" | grep -v '^00*$' | grep '^[0-9]\{1,4\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Ano inválido '$1'"
+			return 1
+		;;
+
+		ano_bissexto | bissexto)
+			# Testa se $2 é um ano bissexto
+			#
+			# A year is a leap year if it is evenly divisible by 4
+			# ...but not if it's evenly divisible by 100
+			# ...unless it's also evenly divisible by 400
+			# http://timeanddate.com
+			# http://www.delorie.com/gnu/docs/gcal/gcal_34.html
+			# http://en.wikipedia.org/wiki/Leap_year
+			#
+			local y=$2
+			test $((y%4)) -eq 0 && test $((y%100)) -ne 0 || test $((y%400)) -eq 0
+			test $? -eq 0 && return 0
+
+			test -n "$erro" && zztool erro "Ano bissexto inválido '$1'"
+			return 1
+		;;
+
+		exp | exponencial)
+			# Testa se $2 é um número em notação científica
+			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
+			grep '^[+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}[eE][+-]\{0,1\}[0-9]\{1,\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número Exponencial inválido '$2'"
+			return 1
+		;;
+
+		numero | natural)
+			# Testa se $2 é um número positivo
+			echo "$2" | grep '^[0-9]\{1,\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número Natural inválido '$2'"
+			return 1
+		;;
+
+		numero_sinal | inteiro)
+			# Testa se $2 é um número (pode ter sinal: -2 +2)
+			echo "$2" | grep '^[+-]\{0,1\}[0-9]\{1,\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número Inteiro inválido '$2'"
+			return 1
+		;;
+
+		numero_fracionario | real)
+			# Testa se $2 é um número fracionário (1.234 ou 1,234)
+			# regex: \d+([,.]\d+)?
+			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
+			grep '^[+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número Real inválido '$2'"
+			return 1
+		;;
+
+		complexo)
+			# Testa se $2 é um número complexo (3+5i ou -9i)
+			# regex: ((\d+([,.]\d+)?)?[+-])?\d+([,.]\d+)?i
+			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
+			grep '^\(\([+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}\)\{0,1\}[+-]\)\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}i$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número Complexo inválido '$2'"
+			return 1
+		;;
+
+		dinheiro)
+			# Testa se $2 é um valor monetário (1.234,56 ou 1234,56)
+			# regex: (  \d{1,3}(\.\d\d\d)+  |  \d+  ),\d\d
+			echo "$2" | grep '^[+-]\{0,1\}\([0-9]\{1,3\}\(\.[0-9][0-9][0-9]\)\{1,\}\|[0-9]\{1,\}\),[0-9][0-9]$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Valor inválido '$2'"
+			return 1
+		;;
+
+		bin | binario)
+			# Testa se $2 é um número binário
+			echo "$2" | grep '^[01]\{1,\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número Binário inválido '$2'"
+			return 1
+		;;
+
+		octal | octadecimal)
+			# Testa se $2 é um número octal
+			echo "$2" | grep '^[0-7]\{1,\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número Octal inválido '$2'"
+			return 1
+		;;
+
+		hexa | hexadecimal)
+			# Testa se $2 é um número hexadecimal
+			echo "$2" | grep '^[0-9A-Fa-f]\{1,\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número Hexadecimal inválido '$2'"
+			return 1
+		;;
+
+		ip)
+			# Testa se $2 é um número IPV4 (nnn.nnn.nnn.nnn)
+			local nnn="\([0-9]\{1,2\}\|1[0-9][0-9]\|2[0-4][0-9]\|25[0-5]\)" # 0-255
+			echo "$2" | grep "^$nnn\.$nnn\.$nnn\.$nnn$" >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número IP inválido '$2'"
+			return 1
+		;;
+
+		ip6 | ipv6)
+			# Testa se $2 é um número IPV6 (hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:hhhh)
+			echo "$2" |
+			awk -F : '
+				/^:[^:]/ || /:{3,}/ || /:$/ { exit 1 }
+				NF<8 && $0 !~ /::/ { exit 1 }
+				NF>8  { exit 1 }
+				NF<=8 { while (NF) { if ($NF !~ /^[0-9A-Fa-f]{0,4}$/) { exit 1 }; NF-- } }
+			' && return 0
+
+			test -n "$erro" && zztool erro "Número IPV6 inválido '$2'"
+			return 1
+		;;
+
+		mac)
+			# Testa se $2 tem um formato de MAC válido
+			# O MAC poderá ser nos formatos 00:00:00:00:00:00 ou 00-00-00-00-00-00
+			echo "$2" | grep '\([0-9A-Fa-f]\{2\}[:-]\)\{5\}[0-9A-Fa-f]\{2\}' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "MAC Address inválido '$2'"
+			return 1
+		;;
+
+		data)
+			# Testa se $2 é uma data (dd/mm/aaaa)
+			local d29='\(0[1-9]\|[12][0-9]\)/\(0[1-9]\|1[012]\)'
+			local d30='30/\(0[13-9]\|1[012]\)'
+			local d31='31/\(0[13578]\|1[02]\)'
+			echo "$2" | grep "^\($d29\|$d30\|$d31\)/[0-9]\{1,4\}$" >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Data inválida '$2', deve ser dd/mm/aaaa"
+			return 1
+		;;
+
+		hora)
+			# Testa se $2 é uma hora (hh:mm)
+			echo "$2" | grep "^\(0\{0,1\}[0-9]\|1[0-9]\|2[0-3]\):[0-5][0-9]$" >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Hora inválida '$2'"
+			return 1
+		;;
+
+		*)
+			# Qualquer outra opção retorna erro
+			test -n "$erro" && zztool erro "Opção '$1' inválida"
+			return 1
+		;;
+	esac
+}
