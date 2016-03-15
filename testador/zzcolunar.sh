@@ -97,6 +97,23 @@ numeros        numeros        numeros        numeros
 13:XIII        50:L           500:D          3999:MMMCMXCIX
 $
 
+$ awk 'BEGIN {print "numeros"}{print}' zzromanos.in.txt | zzcolunar -c -s '|'  -H 4
+   numeros    |   numeros    |   numeros    |   numeros    
+     1:I      |    14:XIV    |    60:LX     |    600:DC    
+     2:II     |    15:XV     |    70:LXX    |   700:DCC    
+    3:III     |    16:XVI    |   80:LXXX    |   800:DCCC   
+     4:IV     |   17:XVII    |    90:XC     |    900:CM    
+     5:V      |   18:XVIII   |   99:XCIX    |   990:CMXC   
+     6:VI     |    19:XIX    |    100:C     |  999:CMXCIX  
+    7:VII     |    20:XX     |    101:CI    |    1000:M    
+    8:VIII    |    25:XXV    |   111:CXI    |   1100:MC    
+     9:IX     |    30:XXX    |  199:CXCIX   |   1110:MCX   
+     10:X     |   35:XXXV    |    200:CC    |  1111:MCXI   
+    11:XI     |    40:XL     |   300:CCC    |   2000:MM    
+    12:XII    |    45:XLV    |    400:CD    |   3000:MMM   
+   13:XIII    |     50:L     |    500:D     |3999:MMMCMXCIX
+$
+
 $ zzbicho | awk 'BEGIN {print "NN Bicho"}{print}' | zzcolunar -z -H 4
 NN Bicho     NN Bicho     NN Bicho     NN Bicho    
 01 Avestruz  02 Águia     03 Burro     04 Borboleta
@@ -106,4 +123,15 @@ NN Bicho     NN Bicho     NN Bicho     NN Bicho
 17 Macaco    18 Porco     19 Pavão     20 Peru     
 21 Touro     22 Tigre     23 Urso      24 Veado    
 25 Vaca      
+$
+
+$ zzbicho | awk 'BEGIN {print "NN Bicho"}{print}' | zzcolunar -s ' >.< ' -H 4
+NN Bicho     >.< NN Bicho     >.< NN Bicho     >.< NN Bicho    
+01 Avestruz  >.< 08 Camelo    >.< 15 Jacaré    >.< 22 Tigre    
+02 Águia     >.< 09 Cobra     >.< 16 Leão      >.< 23 Urso     
+03 Burro     >.< 10 Coelho    >.< 17 Macaco    >.< 24 Veado    
+04 Borboleta >.< 11 Cavalo    >.< 18 Porco     >.< 25 Vaca     
+05 Cachorro  >.< 12 Elefante  >.< 19 Pavão    
+06 Cabra     >.< 13 Galo      >.< 20 Peru     
+07 Carneiro  >.< 14 Gato      >.< 21 Touro    
 $

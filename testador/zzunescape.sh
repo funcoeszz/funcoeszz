@@ -1,6 +1,6 @@
 # Preparativos
 
-$ cut -f 1 zzunescape.in.txt > _tmp1
+$ sed -n 's/\(.\).*/\1/p' zzunescape.in.txt > _tmp1
 $ cut -f 2 zzunescape.in.txt > _tmp2
 $ cut -f 3 zzunescape.in.txt > _tmp3
 $ cut -f 4 zzunescape.in.txt > _tmp4
