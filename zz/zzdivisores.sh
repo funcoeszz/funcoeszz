@@ -40,7 +40,8 @@ zzdivisores ()
 		sort -n |
 		zztool lines2list | zztool nl_eof
 	else
-		# Se não for um número válido exibe a ajuda
-		zzdivisores -h
+		# Se não for um número válido.
+		zztool erro "Apenas números naturais maiores ou iguais a 2."
+		return 1
 	fi
 }
