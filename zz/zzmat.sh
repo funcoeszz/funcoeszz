@@ -6,24 +6,24 @@
 # pois ficou muito extenso colocar no help do zzmat apenas.
 #
 # Funções matemáticas disponíveis.
-# Aritméticas:                     Trigonométricas:
-#  mmc mdc                          sen cos tan
-#  somatoria produtoria             csc sec cot
-#  media soma produto               asen acos atan
-#  log ln
-#  raiz, pow, potencia ou elevado
+# Aritméticas:               | Trigonométricas:
+#  mmc    mdc                |  sen   cos   tan
+#  media  soma  produto      |  csc   sec   cot
+#  log    ln    raiz         |  asen  acos  atan
+#  somatoria    produtoria
+#  pow, potencia ou elevado
 #
-# Combinatória:             Sequências:          Funções:
-#  fat                       pa pa2 pg lucas      area volume r3
-#  arranjo arranjo_r         fibonacci ou fib     det vetor d2p
-#  combinacao                tribonacci ou trib
-#  combinacao_r              collatz
+# Combinatória:        | Sequências:          | Funções:
+#  fat                 |  pa  pa2  pg  lucas  |  area  volume  r3
+#  arranjo  arranjo_r  |  fibonacci  ou fib   |  det   vetor   d2p
+#  combinacao          |  tribonacci ou trib
+#  combinacao_r        |  mersenne  recaman  collatz
 #
-# Equações:                  Auxiliares:
-#  eq2g egr err                abs int
-#  egc egc3p ege               sem_zeros
-#  newton ou binomio_newton    aleatorio random
-#  conf_eq                     compara_num
+# Equações:                  | Auxiliares:
+#  eq2g  egr    err          |  abs  int
+#  egc   egc3p  ege          |  sem_zeros
+#  newton ou binomio_newton  |  aleatorio  random
+#  conf_eq                   |  compara_num
 #
 # Mais detalhes: zzmat função
 #
@@ -35,7 +35,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
-# Versão: 22
+# Versão: 23
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio zztrim zzconverte
 # ----------------------------------------------------------------------------
@@ -857,7 +857,7 @@ zzmat ()
 				zztrim -r |
 				zztool nl_eof
 		else
-			echo " Número de fibonacci ou lucas, na posição especificada."
+			echo " Número de Fibonacci ou Lucas na posição especificada."
 			echo " Com o argumento 's' imprime a sequência até a posição."
 			echo " Uso: zzmat $funcao <número> [s]"
 		fi
@@ -869,7 +869,7 @@ zzmat ()
 			awk 'BEGIN {
 					seq = ( "'$3'" == "s" ? 1 : 0 )
 					num1 = 0
-					num2 = 1
+					num2 = 0
 					num3 = 1
 					for ( i = 0; i < '$2' + seq; i++ ) {
 						if ( seq == 1 ) { printf "%s ", num1 }
@@ -883,9 +883,51 @@ zzmat ()
 				zztrim -r |
 				zztool nl_eof
 		else
-			echo " Número de tribonacci, na posição especificada."
+			echo " Número de Tribonacci na posição especificada."
 			echo " Com o argumento 's' imprime a sequência até a posição."
 			echo " Uso: zzmat $funcao <número> [s]"
+		fi
+	;;
+	recaman)
+	# Sequência ou número Recamán
+		if zztool testa_numero "$2"
+		then
+			awk 'BEGIN {
+					seq = ( "'$3'" == "s" ? 1 : 0 )
+					a[0]=0; b[0]=0
+					for ( i = 1; i <= '$2'; i++ ) {
+						num=a[i-1]
+						a[i] = ((num > i && ! ((num - i) in b)) ? num - i : num + i)
+						b[a[i]]=i
+					}
+					if ( seq ) { for (i=0; i<length(a); i++) printf "%d ", a[i] }
+					else { print a[length(a)-1] }
+				}' |
+				zztrim -r |
+				zztool nl_eof
+		else
+			echo " Número de Recamán na posição especificada."
+			echo " Com o argumento 's' imprime a sequência até a posição."
+			echo " Uso: zzmat $funcao <número> [s]"
+		fi
+	;;
+	mersenne)
+	# Sequência ou número de Mersenne
+		if zztool testa_numero "$2"
+		then
+			zzseq -f '2^%d-1\n' 0 $2 |
+			bc |
+			awk '{ if ($0 ~ /\\$/) { sub(/\\/,""); printf $0 } else { print } }' |
+			if test "s" = "$3"
+			then
+				zztool lines2list | zztool nl_eof
+			else
+				sed -n '$p'
+			fi
+		else
+				echo " Número de Mersenne na posição especificada."
+				echo " Com o argumento 's' imprime a sequência até a posição."
+				echo " Uso: zzmat $funcao <número> [s]"
 		fi
 	;;
 	collatz)
