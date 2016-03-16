@@ -75,29 +75,6 @@ zzmat ()
 	fi
 
 	case "$funcao" in
-	testa_num)
-		# Testa se $2 é um número não coberto pela zztool testa_numero*
-		echo "$2" | sed 's/^-[\.,]/-0\./;s/^[\.,]/0\./' |
-		grep '^[+-]\{0,1\}[0-9]\{1,\}[,.]\{0,1\}[0-9]*$' >/dev/null
-	;;
-	testa_num_exp)
-		local num1 num2 num3
-		echo "$2" | grep -E '(e|E)' >/dev/null
-		if test $? -eq 0
-		then
-			num3=$(echo "$2" | tr 'E,' 'e.')
-			num1=${num3%e*}
-			num2=${num3#*e}
-			if zztestar real $num1 && zztestar numero_sinal $num2 2>/dev/null 1>/dev/null
-			then
-				return 0
-			else
-				return 1
-			fi
-		else
-			return 1
-		fi
-	;;
 	sem_zeros)
 		# Elimina o zeros nao significativos
 		local num1
