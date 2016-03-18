@@ -95,16 +95,15 @@ zzmat ()
 	compara_num)
 		if (test $# -eq "3" && zztestar real $2 && zztestar real $3)
 		then
-			local num1 num2 retorno
+			local num1 num2
 			num1=$(echo "$2" | tr ',' '.')
 			num2=$(echo "$3" | tr ',' '.')
-			retorno=$(
-			awk 'BEGIN {
-				if ('$num1' > '$num2') {print "maior"}
-				if ('$num1' == '$num2') {print "igual"}
-				if ('$num1' < '$num2') {print "menor"}
-			}')
-			echo "$retorno"
+			echo "$num1 $num2" |
+			awk '
+				$1 > $2  { print "maior" }
+				$1 == $2 { print "igual" }
+				$1 < $2  { print "menor" }
+			'
 		else
 			zztool erro " zzmat $funcao: Compara 2 numeros"
 			zztool erro " Retorna o texto 'maior', 'menor' ou 'igual'"
@@ -149,7 +148,7 @@ zzmat ()
 		then
 			local num1 num2 ang
 			num1=$(echo "$2" | sed 's/g$//; s/gr$//; s/rad$//' | tr , .)
-			ang=${2#$num1}
+			ang=$(echo "$2" | tr -d '[0-9,.]')
 			echo "$2" | grep -E '(g|rad|gr)$' >/dev/null
 			if (test "$?" -eq "0" && zztestar real $num1)
 			then
@@ -160,16 +159,16 @@ zzmat ()
 				esac
 
 				case $funcao in
-				sen) num1=$(awk 'BEGIN {printf "%.'${precisao}'f\n", sin('$num2')}');;
-				cos) num1=$(awk 'BEGIN {printf "%.'${precisao}'f\n", cos('$num2')}');;
+				sen) num1="scale=${precisao};s(${num2})" ;;
+				cos) num1="scale=${precisao};c(${num2})" ;;
 				tan)
-					num1=$(awk 'BEGIN {div=sprintf("%.6f", cos('$num2'));if (div!="0.000000") printf "%.'${precisao}'f\n", sin('$num2')/cos('$num2');}');;
+					num1="scale=${precisao};if (c(${num2})) {s(${num2})/c(${num2})}" ;;
 				sec)
-					num1=$(awk 'BEGIN {div=sprintf("%.6f", cos('$num2'));if (div!="0.000000") printf "%.'${precisao}'f\n", 1/cos('$num2');}');;
+					num1="scale=${precisao};if (c(${num2})) {1/c(${num2})}" ;;
 				csc)
-					num1=$(awk 'BEGIN {div=sprintf("%.6f", sin('$num2'));if (div!="0.000000") printf "%.'${precisao}'f\n", 1/sin('$num2');}');;
+					num1="scale=${precisao};if (s(${num2})) {1/s(${num2})}" ;;
 				cot)
-					num1=$(awk 'BEGIN {div=sprintf("%.6f", sin('$num2'));if (div!="0.000000") printf "%.'${precisao}'f\n", cos('$num2')/sin('$num2');}');;
+					num1="scale=${precisao};if (s(${num2})) {c(${num2})/s(${num2})}" ;;
 				esac
 
 				test -n "$num1" && num="$num1"
