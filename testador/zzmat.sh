@@ -4,7 +4,7 @@ $ zzmat	-p3	sen		60g			#→ 0.866
 $ zzmat		cos		60g			#→ 0.5
 $ zzmat	-p5	tan		30g			#→ 0.57735
 $ zzmat		sec		30g			#→ 1.154701
-$ zzmat		csc		45g			#→ 1.414214
+$ zzmat		csc		45g			#→ 1.414215
 $ zzmat		cot		45g			#→ 1
 
 $ zzmat	mmc		8	12		#→ 24
@@ -65,7 +65,7 @@ $ zzmat	acos		0.5	g			#→ 60
 $ zzmat	atan		2	rad	r2		#→ -2.034444
 
 $ zzmat	-p4	vetor	2,45g,45g	4,-60g,-30g	g
-5.5912, 89.9999g, 29.2505g
+5.5912, 90g, 29.2505g
 $
 
 $ zzmat	conf_eq	'x^2+3*(y-1)-2z+5'	7,6.8,9	3,2,5.1

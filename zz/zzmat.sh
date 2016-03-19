@@ -148,13 +148,13 @@ zzmat ()
 		then
 			local num1 num2 ang
 			num1=$(echo "$2" | sed 's/g$//; s/gr$//; s/rad$//' | tr , .)
-			ang=$(echo "$2" | tr -d '[0-9,.]')
+			ang=$(echo "$2" | tr -d -c '[grad]')
 			echo "$2" | grep -E '(g|rad|gr)$' >/dev/null
 			if (test "$?" -eq "0" && zztestar real $num1)
 			then
 				case $ang in
 				g)   num2=$(zzconverte -p$((precisao+2)) gr $num1);;
-				gr)  num2=$(zzconverte  -p$((precisao+2)) ar $num1);;
+				gr)  num2=$(zzconverte -p$((precisao+2)) ar $num1);;
 				rad) num2=$num1;;
 				esac
 
@@ -1070,7 +1070,7 @@ zzmat ()
 				if (test -n "$fi" && zztestar real $valor)
 				then
 					num1=$(echo "$fi" | sed 's/g$//; s/gr$//; s/rad$//')
-					ang=${fi#$num1}
+					ang=$(echo "$fi" | tr -d -c '[grad]')
 					echo "$fi" | grep -E '(g|rad|gr)$' >/dev/null
 					if (test "$?" -eq "0" && zztestar real $num1)
 					then
@@ -1089,7 +1089,7 @@ zzmat ()
 				if (test -n "$teta" && zztestar real $valor)
 				then
 					num1=$(echo "$teta" | sed 's/g$//; s/gr$//; s/rad$//')
-					ang=${teta#$num1}
+					ang=$(echo "$teta" | tr -d -c '[grad]')
 					echo "$teta" | grep -E '(g|rad|gr)$' >/dev/null
 					if (test "$?" -eq "0" && zztestar real $num1)
 					then
