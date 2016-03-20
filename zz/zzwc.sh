@@ -102,7 +102,7 @@ zzwc ()
 		echo "$conteudo" |
 		while read linha
 		do
-			printf "$linha" |
+			printf "%s" "$linha" |
 			if test -n "$mb"
 			then
 				wc -c
