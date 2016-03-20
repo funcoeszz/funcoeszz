@@ -40,7 +40,8 @@ do
 	for req in $requisitos
 	do
 		# Se o requisito não for uma função zz, ignore
-		echo $req | grep ^zz >/dev/null || continue
+		echo $req | grep ^zz >/dev/null ||
+			{ echo "$f: $req não é uma funcão zz, registre em 'Notas'" ; continue; }
 
 		echo "$base" | grep -w $req >/dev/null &&
 			echo "$f: Função-base, não deve estar em Requisitos: $req"
@@ -58,9 +59,6 @@ do
 			do
 				# Uma função usar ela mesma está OK
 				test $funcao.sh = $f && continue
-
-				# Exceção: a zzconverte é apenas citada nos comentários
-				test $f = 'zzmat.sh' -a $funcao = 'zzconverte' && continue
 
 				echo $requisitos | grep -w $funcao >/dev/null ||
 					echo "$f: # Requisitos: $funcao"
