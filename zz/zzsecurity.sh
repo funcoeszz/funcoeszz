@@ -1,11 +1,11 @@
 # ----------------------------------------------------------------------------
 # Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
 # Suportados:
-#  Debian, Ubuntu, FreeBSD, NetBSD, Gentoo, Arch, Mandriva, Mageia,
-#  Slackware, Suse (OpenSuse), RedHat, Fedora.
+#  Debian, Ubuntu, FreeBSD, NetBSD, Gentoo, Arch, Mageia,
+#  Slackware, Suse, OpenSuse, Fedora.
 # Uso: zzsecurity [distros]
 # Ex.: zzsecutiry
-#      zzsecurity mandriva
+#      zzsecurity mageia
 #      zzsecurity debian gentoo
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
