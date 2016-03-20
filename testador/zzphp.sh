@@ -4,6 +4,8 @@ json_decode - Decodifica uma string JSON
 json_encode - Retorna a representação JSON de um valor
 json_last_error - Retorna o último erro ocorrido
 json_last_error_msg - Retorna uma string contento a mensagem de erro da ultima chamada de json_encode() ou json_decode()
+MongoDB\BSON\fromJSON - Returns the BSON representation of a JSON value
+MongoDB\BSON\toJSON - Returns the JSON representation of a BSON value
 $
 
 $ zzphp ^xml_
@@ -39,7 +41,7 @@ $
 $ zzphp -d str_pad
 str_pad
 
-   (PHP 4 >= 4.0.1, PHP 5)
+   (PHP 4 >= 4.0.1, PHP 5, PHP 7)
 
    str_pad — Preenche uma string para um certo tamanho com outra string
 

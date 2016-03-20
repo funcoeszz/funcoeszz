@@ -24,6 +24,7 @@ País                                       Capital
 ------------------------------------------ ----------------------------------
 República Centro-Africana                  Bangui                             
 República Checa                            Praga                              
+República da China, ou Taiwan              Taipé                              
 República Popular da China                 Pequim                             
 República Turca de Chipre do Norte         Nicósia                            
 República do Congo                         Brazavile                          

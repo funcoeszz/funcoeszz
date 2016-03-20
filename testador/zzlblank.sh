@@ -22,7 +22,7 @@ $ zzxml --indent zzxml.in.xml | sed '1d;$d' | zzlblank
         <em>
             itálico
         </em>
-        .     
+        .    
     </para>
     <escape>
         &quot;&amp;&apos;&lt;&gt;
@@ -44,7 +44,7 @@ $ zzxml --indent zzxml.in.xml | sed -n '3,20p' | zzlblank
     <em>
         itálico
     </em>
-    .     
+    .    
 </para>
 <escape>
     &quot;&amp;&apos;&lt;&gt;
@@ -65,7 +65,7 @@ $ zzxml --indent zzxml.in.xml | sed -n '3,20p' | zzlblank -t
 	<em>
 		itálico
 	</em>
-	. 	
+	.	
 </para>
 <escape>
 	&quot;&amp;&apos;&lt;&gt;
@@ -83,7 +83,7 @@ $ zzxml --indent zzxml.in.xml | sed -n '6,20p' | zzlblank 12
             <em>
                         itálico
             </em>
-            .             
+            .            
 </para>
 <escape>
             &quot;&amp;&apos;&lt;&gt;

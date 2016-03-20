@@ -27,29 +27,29 @@ $
 
 
 $ zzdicportugues maça
-f.
-Pau pesado, mais grosso numa extremidade que na outra.
-Espécie de pilão cylindrico, usado no serviço de calceteiro.
-Clava.
-* Prov. alent.
-Núcleo central das rodas dos carros, ligado pelos raios ás pinas.
-*
-Pau, terminado por uma cabeça ovóide ou esphérica, ás vezes recoberta de pelle, e com que se toca o bombo.
-* Ant.
-A polpa interior da noz moscada.
-* Geol.
-Formação eruptiva, desenvolvida irregularmente em qualquer direcção, antes de attingir a superfície do globo. Cf. Gonç. Guimarães, Geol., 143.
-* Prov. trasm.
-Maça da perna, a coxa.
-(Do lat. matea)
-[Dicionário Candido de Figueiredo, 1913]
+s.f. Pedaço de madeira que possui uma de suas extremidades mais grossa.
+Arma composta por um cabo com uma bola de ferro pesada e presa, geralmente por uma corrente, numa de suas extremidades.
+Maço; tipo de instrumento que se assemelha ao pilão cilíndrico, usado por trabalhadores que calçam ruas com pedras.
+Peça de madeira com o formato de uma garrafa usada por malabaristas.
+Tipo de martelo que possui duas extremidades (cabeças).
+Têxtil. Instrumento utilizado para bater ou maçar o linho, geralmente tem o formato de um pilão.
+Culinária. Polpa feita com noz moscada.
+Não confundir com: massa.
+(Etm. do latim: matea; mattea; mateola)
 
-Sinônimo de maça: clava e tacape
+Maça é sinônimo de: clava, tacape
 $
 
 $ zzdicportugues maçã
-s.f. Fruta de cultivo mais disseminado pelo mundo.
-Maçã do rosto, região malar. As macieiras crescem tanto na Europa como na América do Sul, na África, na América do Norte, na Austrália e na Ásia. Só não suportam as regiões de calor ou frio muito intensos.
+s.f. Nome do fruto produzido pela macieira: adoro comer maçã!
+P.ext. O que se assemelha a uma maçã, em seu formato, aparência ou gosto; feito com esse fruto: caderno em forma de maçã; vinagre de maçã.
+Maçaneta; a parte da frente, mais alta, de uma sela.
+Zoologia. Bezoar; tipo de pedra carnosa que, encontrada no estômago de certos animais, para algumas pessoas tem propriedade terapêutica.
+Gram. Diminutivo irregular: maçanilha.
+Maçã do rosto. A parte saliente do rosto que, situada abaixo dos olhos, é formada pelo osso malar.
+(Etm. do latim: matiana; mattiana)
+
+Maçã é sinônimo de: maçaneta, bezoar
 $
 
 $ zzdicportugues louca
@@ -58,18 +58,24 @@ s.f. Condição, geralmente de caráter temporário, de loucura ou falta de sani
 $
 
 $ zzdicportugues louça
-s.f. Artefato de barro, porcelana etc., destinado especialmente ao serviço de mesa.
-Qualquer produto de cerâmica.
-Vasilhame: vá lavar a louça!
+s.f. Produtos e/ou objetos feitos em cerâmica, barro ou porcelana para servir refeições; esses utensílios: serviu o jantar com a louça antiga.
+Produto de cerâmica esmaltada, usado de diversas maneiras, normalmente na confecção de objetos domésticos: bule de louça.
+Informal. Os utensílios domésticos usados na cozinha: preciso lavar a louça.
+P.ext. Xícara usada em bares e botequins; o café que se serve nessa xícara.
+Desuso. Penico; objeto ou recipiente usado para urinar ou defecar.
+(Etm. de origem questionável)
+
+Louça é sinônimo de: loiça, penico
 $
 
 $ zzdicportugues louçã
-Louçã é uma palavra derivada de loução
-Loução: adj. Pej. Garrido; elegante em excesso; que tem muita elegância.
-Louçainho; muito enfeitado; repleto de adornos.
-Figurado. Viçoso; que é bonito de se ver: cachoeira louçã.
-Gram. Feminino: louçã.
-(Etm. talvez do latim: lautianus)
+adj. Enfeitado; coberto por adornos, enfeites.
+Figurado. Belo; repleto de brilho; bonito de se ver: pintura louçã.
+Pej. Janota; que se veste exageradamente elegante.
+Gíria. Doidice; que se comporta loucamente.
+(Etm. Fem. de loução)
+
+Louçã é sinônimo de: janota, belo
 $
 
 
@@ -82,10 +88,14 @@ Separação das sílabas: com-pi-lar
 
 Exemplos com o verbete compilar
 
-No Japão, o mercado fechou no negativo puxado pela queda de 6,6% no índice de preços ao produtor em junho, na comparação com o mesmo período de 2008. A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta
-sexta-feira. Folha de São Paulo, 10/07/2009
+A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta sexta-feira. Folha de São Paulo, 10/07/2009
+A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta sexta-feira. Folha de São Paulo, 10/07/2009
 A gravadora Columbia Records vai compilar todo o material produzido pelo trompetista Miles Davis durante o contrato do músico com o selo em um box de grandes proporções. Folha de São Paulo, 21/08/2009
-Os preços ao produtor no Japão caíram 6,6% em junho na comparação com o mesmo período de 2008. A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta sexta-feira. Folha de São Paulo, 10/07/2009
+compilar
+
+Palavras da Mesma Família de Compilar
+
+compilador
 
 Outras informações sobre o verbete
 
@@ -108,9 +118,9 @@ s.m. Ação ou efeito de falar; ato de se expressar através de palavras; conver
 Linguística. Variante de uma língua que depende de sua região; dialeto: o falar mineiro.
 (Etm. do latim: fabulare)
 
-Sinônimo de falar: comunicar, conversar, discursar, exprimir e orar
+Falar é sinônimo de: exprimir, comunicar, orar, conversar, discursar
 
-Antônimo de falar: calar, emudecer e silenciar
+Falar é o contrário de: calar, emudecer, silenciar
 $
 
 $ zzdicportugues comer
@@ -123,7 +133,7 @@ V.i. Tomar refeição, alimentar-se habitualmente: comer em restaurante.
 Roubar.
 Comer com os olhos, encarar atentamente; desejar com avidez.
 
-Sinônimo de comer: consumir e manducar
+Comer é sinônimo de: manducar, consumir
 $
 
 $ zzdicportugues comer def
@@ -133,19 +143,22 @@ Separação das sílabas: co-mer
 
 Frases com o verbo comer
 
+Fonte: Pensador
 Recolha um cão de rua, dê-lhe de comer e ele não morderá: eis a diferença fundamental entre o cão e o Homem.
--- Mark Twain
+- Mark Twain
 Ele transa bem? Leva você para comer bons queijos e vinhos? É seu amigo? Então fica com ele. É o máximo que você vai conseguir de um homem.
--- Marília Gabi Gabriela
-Fonte: pensador
+- Marília Gabi Gabriela
 
 Exemplos com o verbete comer
 
+Um exemplo é o "I Can Has Cheezburger?: A LOLcat Colleckshun" (posso comer um cheeseburguer?, uma coleção de gatos hilários; Gotham Books, US$ 10), que reúne posts do blog que o originou (icanhascheezburger. Folha de São Paulo, 27/06/2009
 Para comer, a casa mantém a sua linha de combinados com sushi, sashimi, entradas e pratos quentes. Folha de São Paulo, 27/06/2009
-Um exemplo é o "I Can Has Cheezburger?: A LOLcat Colleckshun" (posso comer um cheeseburguer?, uma coleção de gatos hilários; Gotham Books, US$ 10), que reúne posts do blog que o originou (icanhascheezburger.com), em que fotos de gatos em situações engraçadas e inusitadas ganham legendas
-nonsense. Folha de São Paulo, 27/06/2009
-FOLHA - Arrependeu-se da cirurgia? SCARPA - Por enquanto, estou arrependido. Mas é algo para o resto da vida. Minha irmã Fátima fez e perdeu 58 kg, mas deixaram o estômago dela menor, só pode comer 25 mililitros, senão vomita. O meu tem 500 mililitros. Dá para comer uma picanha inteira.
-Folha de São Paulo, 27/06/2009
+Minha irmã Fátima fez e perdeu 58 kg, mas deixaram o estômago dela menor, só pode comer 25 mililitros, senão vomita. Folha de São Paulo, 27/06/2009
+comer
+
+Palavras da Mesma Família de Comer
+
+comedor
 
 Outras informações sobre o verbete
 

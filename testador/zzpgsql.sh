@@ -1,51 +1,52 @@
-$ zzpgsql alter
-  2 ALTER AGGREGATE -- change the definition of an aggregate function
-  3 ALTER COLLATION -- change the definition of a collation
-  4 ALTER CONVERSION -- change the definition of a conversion
-  5 ALTER DATABASE -- change a database
-  6 ALTER DEFAULT PRIVILEGES -- define default access privileges
-  7 ALTER DOMAIN -- change the definition of a domain
-  8 ALTER EVENT TRIGGER -- change the definition of an event trigger
-  9 ALTER EXTENSION -- change the definition of an extension
- 10 ALTER FOREIGN DATA WRAPPER -- change the definition of a foreign-data wrapper
- 11 ALTER FOREIGN TABLE -- change the definition of a foreign table
- 12 ALTER FUNCTION -- change the definition of a function
- 13 ALTER GROUP -- change role name or membership
- 14 ALTER INDEX -- change the definition of an index
- 15 ALTER LANGUAGE -- change the definition of a procedural language
- 16 ALTER LARGE OBJECT -- change the definition of a large object
- 17 ALTER MATERIALIZED VIEW -- change the definition of a materialized view
- 18 ALTER OPERATOR -- change the definition of an operator
- 19 ALTER OPERATOR CLASS -- change the definition of an operator class
- 20 ALTER OPERATOR FAMILY -- change the definition of an operator family
- 21 ALTER ROLE -- change a database role
- 22 ALTER RULE -- change the definition of a rule
- 23 ALTER SCHEMA -- change the definition of a schema
- 24 ALTER SEQUENCE -- change the definition of a sequence generator
- 25 ALTER SERVER -- change the definition of a foreign server
- 26 ALTER SYSTEM -- change a server configuration parameter
- 27 ALTER TABLE -- change the definition of a table
- 28 ALTER TABLESPACE -- change the definition of a tablespace
- 29 ALTER TEXT SEARCH CONFIGURATION -- change the definition of a text search configuration
- 30 ALTER TEXT SEARCH DICTIONARY -- change the definition of a text search dictionary
- 31 ALTER TEXT SEARCH PARSER -- change the definition of a text search parser
- 32 ALTER TEXT SEARCH TEMPLATE -- change the definition of a text search template
- 33 ALTER TRIGGER -- change the definition of a trigger
- 34 ALTER TYPE -- change the definition of a type
- 35 ALTER USER -- change a database role
- 36 ALTER USER MAPPING -- change the definition of a user mapping
- 37 ALTER VIEW -- change the definition of a view
+$ zzpgsql alter | sed 's/.../NNN/'
+NNN ALTER AGGREGATE -- change the definition of an aggregate function
+NNN ALTER COLLATION -- change the definition of a collation
+NNN ALTER CONVERSION -- change the definition of a conversion
+NNN ALTER DATABASE -- change a database
+NNN ALTER DEFAULT PRIVILEGES -- define default access privileges
+NNN ALTER DOMAIN -- change the definition of a domain
+NNN ALTER EVENT TRIGGER -- change the definition of an event trigger
+NNN ALTER EXTENSION -- change the definition of an extension
+NNN ALTER FOREIGN DATA WRAPPER -- change the definition of a foreign-data wrapper
+NNN ALTER FOREIGN TABLE -- change the definition of a foreign table
+NNN ALTER FUNCTION -- change the definition of a function
+NNN ALTER GROUP -- change role name or membership
+NNN ALTER INDEX -- change the definition of an index
+NNN ALTER LANGUAGE -- change the definition of a procedural language
+NNN ALTER LARGE OBJECT -- change the definition of a large object
+NNN ALTER MATERIALIZED VIEW -- change the definition of a materialized view
+NNN ALTER OPERATOR -- change the definition of an operator
+NNN ALTER OPERATOR CLASS -- change the definition of an operator class
+NNN ALTER OPERATOR FAMILY -- change the definition of an operator family
+NNN ALTER POLICY -- change the definition of a row level security policy
+NNN ALTER ROLE -- change a database role
+NNN ALTER RULE -- change the definition of a rule
+NNN ALTER SCHEMA -- change the definition of a schema
+NNN ALTER SEQUENCE -- change the definition of a sequence generator
+NNN ALTER SERVER -- change the definition of a foreign server
+NNN ALTER SYSTEM -- change a server configuration parameter
+NNN ALTER TABLE -- change the definition of a table
+NNN ALTER TABLESPACE -- change the definition of a tablespace
+NNN ALTER TEXT SEARCH CONFIGURATION -- change the definition of a text search configuration
+NNN ALTER TEXT SEARCH DICTIONARY -- change the definition of a text search dictionary
+NNN ALTER TEXT SEARCH PARSER -- change the definition of a text search parser
+NNN ALTER TEXT SEARCH TEMPLATE -- change the definition of a text search template
+NNN ALTER TRIGGER -- change the definition of a trigger
+NNN ALTER TYPE -- change the definition of a type
+NNN ALTER USER -- change a database role
+NNN ALTER USER MAPPING -- change the definition of a user mapping
+NNN ALTER VIEW -- change the definition of a view
 $
 
-$ zzpgsql commit
- 44 COMMIT -- commit the current transaction
- 45 COMMIT PREPARED -- commit a transaction that was earlier prepared for two-phase commit
-122 END -- commit the current transaction
-134 PREPARE TRANSACTION -- prepare the current transaction for two-phase commit
-142 ROLLBACK PREPARED -- cancel a transaction that was earlier prepared for two-phase commit
+$ zzpgsql commit | sed 's/.../NNN/'
+NNN COMMIT -- commit the current transaction
+NNN COMMIT PREPARED -- commit a transaction that was earlier prepared for two-phase commit
+NNN END -- commit the current transaction
+NNN PREPARE TRANSACTION -- prepare the current transaction for two-phase commit
+NNN ROLLBACK PREPARED -- cancel a transaction that was earlier prepared for two-phase commit
 $
 
-$ zzpgsql 44
+$ zzpgsql 45
 
 COMMIT
 

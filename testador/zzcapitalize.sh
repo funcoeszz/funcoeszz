@@ -34,8 +34,12 @@ $
 
 
 # Unicode
-$ zzcapitalize 'x©x®x²xªx½x»x→x⇒x♣x♥x♠x♦x★x'
-X©X®X²XªX½X»X→X⇒X♣X♥X♠X♦X★X
+#$ zzcapitalize 'x©x®x²xªx½x»x→x⇒x♣x♥x♠x♦x★x'
+#X©X®X²XªX½X»X→X⇒X♣X♥X♠X♦X★X
+#$
+
+$ zzcapitalize 'x©x®x²x½x»x→x⇒x♣x♥x♠x♦x★x'
+X©X®X²X½X»X→X⇒X♣X♥X♠X♦X★X
 $
 
 #######################################################################

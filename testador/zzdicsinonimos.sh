@@ -1,126 +1,121 @@
 $ zzdicsinonimos certo
 Correto:
-1 bem, correto, direito, verdadeiro.
+1 verdadeiro, direito, bem, correto.
 
 Certeiro:
-2 acertado, acurado, certeiro, definido, exato, justo, preciso, rigoroso.
+2 definido, rigoroso, certeiro, exato, justo, preciso, acurado, acertado.
 
 Garantido:
-3 axiomático, claro, efetivo, garantido, incontestável, indiscutível, indubitável, inevitável, infalível.
+3 axiomático, indiscutível, inevitável, infalível, garantido, incontestável, indubitável, efetivo, claro.
 
 Combinado:
-4 ajustado, aprovado, combinado, contratado, determinado, fixo, pactuado, predeterminado.
+4 aprovado, determinado, predeterminado, fixo, ajustado, pactuado, contratado, combinado.
 
 Apropriado:
-5 adequado, apropriado, conveniente, devido, pertinente, próprio.
+5 pertinente, devido, conveniente, adequado, apropriado, próprio.
 
 Convencido:
-6 convencido, convicto, persuadido, seguro.
+6 convicto, convencido, persuadido, seguro.
 
 Advérbio:
-7 certamente, com certeza, corretamente, decerto, exatamente, isso, por certo, positivo, precisamente, sem dúvida.
+7 certamente, com certeza, decerto, por certo, sem dúvida, exatamente, corretamente, isso, precisamente, positivo.
 
 Pronome indefinido:
 8 algum, qualquer, um.
 
-A palavra certo aparece também nas seguintes entradas:
-adaptado, conforme, bonito, emendado, reparado, limpo, autêntico, bom, tranquilo, rígido, evidente, manifesto, notório, pleno, entendido, conciso, permanente, corrigido, dado, talhado, transparente, forçoso, fiel, inegável, legal, moral, assegurado, correspondente, indefectível,
-iniludível, irrefragável, linheiro, líquido, pontual, tal, vero, algébrico, católico, retificado, confiável, válido, devidamente, isto
+Relacionada
+dar certo,
 $
 
 
 
 $ zzdicsinonimos errado
 Que tem erros:
-1 errôneo, falso, imperfeito, impreciso, incorreto, inexato, inverídico.
+1 errôneo, inexato, incorreto, impreciso, inverídico, falso, imperfeito.
 
 Que está enganado:
-2 desacertado, enganado, equivocado.
+2 enganado, equivocado, desacertado.
 
 Que não é adequado:
-3 condenável, impróprio, inaceitável, inadequado, incivil, inconveniente.
+3 incivil, condenável, inaceitável, inadequado, impróprio, inconveniente.
 
 Pessoa que comete muitos enganos:
-4 desajeitado, desastrado, desjeitoso, trapalhão.
-
-A palavra errado aparece também nas seguintes entradas:
-infiel, mau, torto, tortuoso, deficiente, desajuizado, descontrolado, indevido
+4 trapalhão, desastrado, desjeitoso, desajeitado.
 $
 
 
 
 $ zzdicsinonimos bom
 Bondoso:
-1 bem-intencionado, benevolente, benévolo, benfeitor, benigno, bondoso, caridoso, caritativo, clemente, generoso, humano, indulgente, misericordioso, piedoso.
+1 clemente, bondoso, benfeitor, piedoso, misericordioso, indulgente, humano, bem-intencionado, caritativo, caridoso, generoso, benévolo, benigno, benevolente.
 
 Agradável :
-2 afável, agradável, ameno, aprazível, deleitável, encantador, prazeroso.
+2 prazeroso, agradável, encantador, afável, aprazível, deleitável, ameno.
 
 Adequado:
-3 acertado, adaptado, adequado, apropriado, certo, conveniente, correto, ideal, próprio.
+3 adaptado, acertado, apropriado, conveniente, certo, adequado, próprio, correto, ideal.
 
 Educado:
-4 bem-criado, cortês, decente, delicado, digno, disciplinado, educado, gentil, honesto, honrado, irrepreensível, íntegro, justo, nobre, obediente, sério, virtuoso.
+4 íntegro, sério, virtuoso, nobre, irrepreensível, digno, obediente, educado, justo, disciplinado, bem-criado, honesto, delicado, cortês, gentil, decente, honrado.
 
 Competente:
-5 apto, capaz, competente, eficiente, expedito, habilitado, hábil.
+5 capaz, eficiente, expedito, hábil, apto, competente, habilitado.
 
 Saboroso:
-6 apetitoso, deleitoso, delicioso, gostoso, saboroso.
+6 saboroso, delicioso, apetitoso, gostoso, deleitoso.
 
 Bravo:
-7 bravo, destemido, impávido, intrépido, meritório, resoluto, valente.
+7 intrépido, meritório, valente, destemido, bravo, resoluto, impávido.
 
 Assegurado:
-8 assegurado, considerável, estável, favorável, firme, garantido, grande, legal, lícito, lucrativo, propício, rendoso, seguro, significante, vantajoso, válido.
+8 vantajoso, válido, firme, rendoso, seguro, garantido, considerável, significante, assegurado, favorável, propício, grande, lucrativo, lícito, legal, estável.
 
 Salutar:
-9 benéfico, sadio, salutar, saudável, são.
+9 são, saudável, salutar, benéfico, sadio.
 
 Curado:
-10 curado, livre, recuperado, restabelecido, sarado.
+10 restabelecido, sarado, curado, recuperado, livre.
 
-A palavra bom aparece também nas seguintes entradas:
-completo, rico, sincero, aceitável, positivo, feliz, grato, bonito, manso, largo, amável, bicho, oportuno, limpo, verdadeiro, patriarcal, proveitoso, probo, duradouro, fiel, robusto, poderoso, vigoroso, sensível, primeiro, resistente, moral, almo, angélico, efetivo, estimável, impecável,
-lindo, louvável, macanudo, macota, pertinente, rendável, sopa, taco, tal, bacana, beneficente, rentável, suruba, cômodo
+Relacionadas
+bom gosto, bom humor, bom senso,
 $
 
 
 
 $ zzdicsinonimos mal
 De modo errado:
-1 defeituosamente, desarmoniosamente, erradamente, ilegalmente, inadequadamente, incorretamente, irregularmente.
+1 erradamente, defeituosamente, ilegalmente, incorretamente, irregularmente, inadequadamente, desarmoniosamente.
 
 De modo insuficiente:
-2 de leve, deficientemente, imperfeitamente, incompletamente, insatisfatoriamente, insuficientemente, pouco, rapidamente.
+2 deficientemente, imperfeitamente, de leve, insatisfatoriamente, rapidamente, pouco, insuficientemente, incompletamente.
 
 Com dificuldade:
-3 a custo, apenas, com dificuldade, desfavoravelmente, dificilmente, dificultosamente, negativamente, penosamente.
+3 negativamente, dificilmente, penosamente, apenas, a custo, com dificuldade, dificultosamente, desfavoravelmente.
 
 De modo indelicado ou cruel:
-4 barbaramente, bruscamente, cruelmente, desumanamente, duramente, grosseiramente, impropriamente, inconvenientemente, indevidamente, injustamente, rudemente, severamente.
+4 severamente, duramente, injustamente, rudemente, indevidamente, inconvenientemente, impropriamente, grosseiramente, desumanamente, cruelmente, barbaramente, bruscamente.
 
 De modo algum:
-5 jamais, não, nunca.
+5 nunca, jamais, não.
 
 Logo que:
 6 assim que, logo que, mal que.
 
 Desgraça:
-7 acidente, adversidade, azar, calamidade, dano, desastre, desdita, desfortúnio, desgosto, desgraceira, desgraça, desventura, estrago, fatalidade, infelicidade, infortúnio, lástima, maldição, má sorte, mofina, perda, prejuízo, revés, tragédia, tribulação.
+7 lástima, acidente, desgraceira, mofina, desfortúnio, maldição, infelicidade, desventura, revés, tragédia, tribulação, dano, estrago, perda, prejuízo, azar, desgosto, infortúnio, fatalidade, desgraça, desdita, desastre, adversidade, má sorte, calamidade.
 
 Doença:
-8 adoecimento, distúrbio, doença, enfermidade, mazela, moléstia, morbo.
+8 adoecimento, doença, enfermidade, moléstia, morbo, mazela, distúrbio.
 
 Pesar:
-9 aflição, angústia, castigo, correção, dor, expiação, inquietação, mágoa, pena, pesar, punição, sofrimento.
+9 aflição, dor, mágoa, angústia, pesar, inquietação, sofrimento, castigo, correção, pena, punição, expiação.
 
 Defeito:
-10 defeito, deficiência, deformidade, desvantagem, eiva, falha, fraco, fraqueza, imperfeição, inconveniência, mancha, mácula, pecado, problema, senão, vício.
+10 deficiência, desvantagem, mácula, mancha, vício, fraqueza, eiva, senão, falha, fraco, defeito, inconveniência, deformidade, imperfeição, problema, pecado.
 
 Maldade:
-11 crueldade, maldade, malefício, malevolência, malfeito, malignidade, nocividade, perniciosidade, perversidade, ruindade.
+11 nocividade, perversidade, malevolência, malfeito, malefício, ruindade, crueldade, maldade, malignidade, perniciosidade.
 
-A palavra mal aparece também nas seguintes entradas:
-achaque, afecção, padecimento, conforme, epidemia, chaga, lesão, crime, diabrura, lepra, torto, troço, erroneamente, embaixo, malfeitoria, equivocadamente
+Relacionadas
+mal-estar, mal-entendido,
 $
