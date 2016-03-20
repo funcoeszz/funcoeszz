@@ -39,6 +39,6 @@ $
 # vazio
 
 $ zzencoding _vazio.txt
-$ echo | zzencoding	→ --regex ^(binary)?$
+$ echo | zzencoding	#→ --regex ^(binary)?$
 $ printf '' | zzencoding
 $
