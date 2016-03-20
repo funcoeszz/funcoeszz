@@ -14,6 +14,7 @@
 # Versão: 13
 # Licença: GPL
 # Requisitos: zzlimpalixo
+# Nota: requer links
 # ----------------------------------------------------------------------------
 zzloteria ()
 {

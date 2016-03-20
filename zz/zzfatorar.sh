@@ -19,6 +19,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzdos2unix
+# Nota: opcional 7z factor
 # ----------------------------------------------------------------------------
 zzfatorar ()
 {

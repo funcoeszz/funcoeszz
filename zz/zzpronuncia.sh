@@ -8,6 +8,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzplay
+# Nota: opcional say
 # ----------------------------------------------------------------------------
 zzpronuncia ()
 {
