@@ -25,7 +25,7 @@
 # Desde: 2015-02-17
 # Versão: 1
 # Licença: GPL
-# Requisitos: iostat
+# Nota: requer iostat
 # ----------------------------------------------------------------------------
 zziostat ()
 {

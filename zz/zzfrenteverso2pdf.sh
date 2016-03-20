@@ -14,7 +14,7 @@
 # Desde: 2009-09-17
 # Versão: 3
 # Licença: GPLv2
-# Requisitos: pdftk
+# Nota: requer pdftk
 # ----------------------------------------------------------------------------
 zzfrenteverso2pdf ()
 {

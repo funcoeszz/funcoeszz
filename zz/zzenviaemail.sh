@@ -18,7 +18,7 @@
 # Desde: 2009-09-17
 # Versão: 2
 # Licença: GPLv2
-# Requisitos: ssmtp
+# Nota: requer ssmtp
 # ----------------------------------------------------------------------------
 zzenviaemail ()
 {
