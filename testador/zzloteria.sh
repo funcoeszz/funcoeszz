@@ -1,16 +1,16 @@
-$ ZZCOR=0 zzloteria quina | tr '[0-9]' 'N' | head -3
+$ zzloteria quina | tr '[0-9]' 'N' | head -3
 quina:
 Concurso NNNN (NN/NN/NNNN)
    NN   NN   NN   NN   NN
 $
 
-$ ZZCOR=0 zzloteria megasena | tr '[0-9]' 'N' | head -3
+$ zzloteria megasena | tr '[0-9]' 'N' | head -3
 megasena:
 Concurso NNNN (NN/NN/NNNN)
    NN   NN   NN   NN   NN   NN
 $
 
-$ ZZCOR=0 zzloteria duplasena | tr '[0-9]' 'N' | head -8
+$ zzloteria duplasena | tr '[0-9]' 'N' | head -8
 duplasena:
 Concurso NNNN (NN/NN/NNNN)
 
@@ -21,7 +21,7 @@ Concurso NNNN (NN/NN/NNNN)
    NN   NN   NN   NN   NN   NN
 $
 
-$ ZZCOR=0 zzloteria lotomania | tr '[0-9]' 'N' | head -6 | sed 's/ *$//'
+$ zzloteria lotomania | tr '[0-9]' 'N' | head -6 | sed 's/ *$//'
 lotomania:
 Concurso NNNN (NN/NN/NNNN)
    NN     NN     NN     NN     NN
@@ -29,7 +29,7 @@ Concurso NNNN (NN/NN/NNNN)
    NN     NN     NN     NN     NN
    NN     NN     NN     NN     NN
 $
-$ ZZCOR=0 zzloteria lotofacil | tr '[0-9]' 'N' | head -5 | sed 's/ *$//'
+$ zzloteria lotofacil | tr '[0-9]' 'N' | head -5 | sed 's/ *$//'
 lotofacil:
 Concurso NNNN (NN/NN/NNNN)
    NN     NN     NN     NN     NN
@@ -37,7 +37,7 @@ Concurso NNNN (NN/NN/NNNN)
    NN     NN     NN     NN     NN
 $
 
-$ ZZCOR=0 zzloteria federal | tr '[0-9.]' 'N' | sed 's/ *$//'
+$ zzloteria federal | tr '[0-9.]' 'N' | sed 's/ *$//'
 federal:
 Concurso NNNNN (NN/NN/NNNN)
 
@@ -50,13 +50,13 @@ Concurso NNNNN (NN/NN/NNNN)
 
 $
 
-$ ZZCOR=0 zzloteria timemania | tr '[0-9.]' 'N' | head -3
+$ zzloteria timemania | tr '[0-9.]' 'N' | head -3
 timemania:
 Concurso NNN (NN/NN/NNNN)
    NN   NN   NN   NN   NN   NN   NN
 $
 
-$ ZZCOR=0 zzloteria loteca | tr '[0-9]' 'N' | head -17 | sed 's/Meio/N/;s/^ *N\{1,2\} .*\(N X\)/NN TIME1 N X/; s/X N.* Col\./X N TIME2 Col./;s/ *Jogo *Resultado/Jogo                 Resultado/'
+$ zzloteria loteca | tr '[0-9]' 'N' | head -17 | sed 's/Meio/N/;s/^ *N\{1,2\} .*\(N X\)/NN TIME1 N X/; s/X N.* Col\./X N TIME2 Col./;s/ *Jogo *Resultado/Jogo                 Resultado/'
 loteca:
 Concurso NNN (NN/NN/NNNN)
 Jogo                 Resultado
@@ -76,7 +76,7 @@ NN TIME1 N X N TIME2 Col. N
 NN TIME1 N X N TIME2 Col. N
 $
 
-$ ZZCOR=0 zzloteria loteca 500 | tr '[0-9]' 'N' | head -17 | sed 's/Col. Meio/  Col. N/'
+$ zzloteria loteca 500 | tr '[0-9]' 'N' | head -17 | sed 's/Col. Meio/  Col. N/'
 loteca:
 Concurso NNN (NN/NN/NNNN)
  Jogo   Resultado
@@ -96,13 +96,13 @@ Concurso NNN (NN/NN/NNNN)
  NN      Col. N
 $
 
-$ ZZCOR=0 zzloteria timemania 600 | tr '[0-9]' 'N' | head -3
+$ zzloteria timemania 600 | tr '[0-9]' 'N' | head -3
 timemania:
 Concurso NNN (NN/NN/NNNN)
    NN   NN   NN   NN   NN   NN   NN
 $
 
-$ ZZCOR=0 zzloteria federal 2500
+$ zzloteria federal 2500
 federal:
 Concurso 02500 (11/01/1989)
 
