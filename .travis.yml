@@ -14,6 +14,7 @@ before_install:
   - test "$TRAVIS_OS_NAME" = osx && brew update       || true
   - test "$TRAVIS_OS_NAME" = osx && brew install lynx || true
   - curl -O https://raw.github.com/aureliojargas/clitest/master/clitest
+  - bash clitest --help
 
 script:
   - echo $PATH
