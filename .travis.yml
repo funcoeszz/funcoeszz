@@ -1,0 +1,21 @@
+language: bash
+
+os:
+  - linux
+  - osx
+
+# Prepare the environment
+addons:
+  apt:
+    packages:
+      - lynx
+before_install:
+  # OS X: install packages (||true to avoid Linux fail)
+  - test "$TRAVIS_OS_NAME" = osx && brew update       || true
+  - test "$TRAVIS_OS_NAME" = osx && brew install lynx || true
+
+script:
+  - cd testador && ./run
+
+notifications:
+  email: false
