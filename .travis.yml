@@ -13,8 +13,10 @@ before_install:
   # OS X: install packages (||true to avoid Linux fail)
   - test "$TRAVIS_OS_NAME" = osx && brew update       || true
   - test "$TRAVIS_OS_NAME" = osx && brew install lynx || true
+  - curl -O https://raw.github.com/aureliojargas/clitest/master/clitest
 
 script:
+  - echo $PATH
   - cd testador && ./run
 
 notifications:
