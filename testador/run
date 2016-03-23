@@ -32,10 +32,10 @@ EOF
 if test $# -gt 0
 then
 	# Test specific file(s)
-	$tester --progress dot --pre-flight ". $tmp" "$@"
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" "$@"
 else
 	# Test all files
-	$tester --progress dot --pre-flight ". $tmp" zz*.sh
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" zz*.sh
 fi
 
 rm "$tmp"
