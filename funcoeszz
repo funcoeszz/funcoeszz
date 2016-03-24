@@ -107,7 +107,7 @@ done
 case "$ZZBROWSER" in
 	links)
 		ZZWWWDUMP='links -dump'
-		ZZWWWLIST='?fixme?'
+		ZZWWWLIST='links -html-numbered-links 1'
 		ZZWWWPOST='?fixme?'
 		ZZWWWHTML='links -source'
 	;;
