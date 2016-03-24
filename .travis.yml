@@ -15,10 +15,11 @@ before_install:
   - test "$TRAVIS_OS_NAME" = osx && brew install lynx || true
   - pwd
   - ls
-  - curl -o clitest https://raw.github.com/aureliojargas/clitest/master/clitest
-  - ls -l
-  - curl -o /tmp/clitest https://raw.github.com/aureliojargas/clitest/master/clitest
-  - ls -l /tmp
+  - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
+  - ls -la
+  - wget https://raw.github.com/aureliojargas/clitest/master/clitest
+  - touch foobar
+  - ls -la
 
 script:
   - ls
