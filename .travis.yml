@@ -16,11 +16,13 @@ before_install:
   - pwd
   - ls
   - curl -o clitest https://raw.github.com/aureliojargas/clitest/master/clitest
-  - bash clitest --help
-  - ls
+  - ls -l
+  - curl -o /tmp/clitest https://raw.github.com/aureliojargas/clitest/master/clitest
+  - ls -l /tmp
 
 script:
   - ls
+  - pwd
   - echo $PATH
   - cd testador && ./run
 
