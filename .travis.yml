@@ -16,7 +16,8 @@ before_install:
   - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
   - chmod +x clitest
   - mv clitest ~/bin
-  - which clitest
+  - ls -la
+  - ls -la ~/bin
   - clitest --help
   - bash clitest --help
 
