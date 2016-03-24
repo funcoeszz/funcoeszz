@@ -13,18 +13,19 @@ before_install:
   # OS X: install packages (||true to avoid Linux fail)
   - test "$TRAVIS_OS_NAME" = osx && brew update       || true
   - test "$TRAVIS_OS_NAME" = osx && brew install lynx || true
-  - pwd
-  - ls
   - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
-  - ls -la
-  - wget https://raw.github.com/aureliojargas/clitest/master/clitest
-  - touch foobar
-  - ls -la
+  - chmod +x clitest
+  - mv clitest ~/bin
+  - which clitest
+  - clitest --help
+  - bash clitest --help
 
 script:
   - ls
   - pwd
   - echo $PATH
+  - clitest --help
+  - bash clitest --help
   - cd testador && ./run
 
 notifications:
