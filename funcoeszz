@@ -31,6 +31,7 @@ ZZUTF=1
 #      $ZZDIR      - Caminho completo para o diretório com as funções
 #      $ZZTMPDIR   - Diretório para armazenar arquivos temporários
 #      $ZZOFF      - Lista das funções que você não quer carregar
+#      $ZZBROWSER  - Navegador modo texto a utilizar: lynx, links
 #
 # Nota: Se você é paranóico com segurança, configure a ZZTMPDIR para
 #       um diretório dentro do seu HOME.
@@ -44,6 +45,7 @@ ZZCOR_DFT=1                       # colorir mensagens? 1 liga, 0 desliga
 ZZPATH_DFT="/usr/bin/funcoeszz"   # rota absoluta deste arquivo
 ZZDIR_DFT="$HOME/zz"              # rota absoluta do diretório com as funções
 ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
+ZZBROWSER_DFT="lynx"              # navegador modo texto: lynx, links
 #
 #
 ##############################################################################
@@ -57,10 +59,6 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 #
 #
 
-ZZWWWDUMP='lynx -dump      -nolist -width=300 -accept_all_cookies -display_charset=UTF-8'
-ZZWWWLIST='lynx -dump              -width=300 -accept_all_cookies -display_charset=UTF-8'
-ZZWWWPOST='lynx -post-data -nolist -width=300 -accept_all_cookies -display_charset=UTF-8'
-ZZWWWHTML='lynx -source'
 ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
 ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
 ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
@@ -83,6 +81,7 @@ test -n "$ZZDIR" || ZZDIR=$ZZDIR_DFT
 ### Últimos ajustes
 #
 ZZCOR="${ZZCOR:-$ZZCOR_DFT}"
+ZZBROWSER="${ZZBROWSER:-$ZZBROWSER_DFT}"
 ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}"
 ZZTMP="${ZZTMP%/}/zz"  # prefixo comum a todos os arquivos temporários
 ZZAJUDA="$ZZTMP.ajuda"
@@ -94,12 +93,32 @@ unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 while test $# -gt 0
 do
 	case "$1" in
-		--path) ZZPATH="$2"   ; shift; shift ;;
-		--dir ) ZZDIR="${2%/}"; shift; shift ;;
-		--cor ) ZZCOR="$2"    ; shift; shift ;;
+		--path   ) ZZPATH="$2"   ; shift; shift ;;
+		--dir    ) ZZDIR="${2%/}"; shift; shift ;;
+		--cor    ) ZZCOR="$2"    ; shift; shift ;;
+		--browser) ZZBROWSER="$2"; shift; shift ;;
 		*) break;;
 	esac
 done
+
+#
+### Configura os comandos para baixar arquivos
+#
+case "$ZZBROWSER" in
+	links)
+		ZZWWWDUMP='links -dump'
+		ZZWWWLIST='?fixme?'
+		ZZWWWPOST='?fixme?'
+		ZZWWWHTML='links -source'
+	;;
+	*)  # Lynx é o default
+		ZZWWWDUMP='lynx -dump      -nolist -width=300 -accept_all_cookies -display_charset=UTF-8'
+		ZZWWWLIST='lynx -dump              -width=300 -accept_all_cookies -display_charset=UTF-8'
+		ZZWWWPOST='lynx -post-data -nolist -width=300 -accept_all_cookies -display_charset=UTF-8'
+		ZZWWWHTML='lynx -source'
+	;;
+esac
+
 #
 #
 ##############################################################################
