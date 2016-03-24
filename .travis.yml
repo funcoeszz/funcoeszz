@@ -2,13 +2,13 @@ language: bash
 
 os:
   - linux
-  - osx
+  # - osx
 
 # Prepare the environment
 addons:
   apt:
     packages:
-      - lynx
+      - links
 before_install:
   # OS X: install packages (||true to avoid Linux fail)
   - test "$TRAVIS_OS_NAME" = osx && brew update       || true
@@ -16,16 +16,11 @@ before_install:
   - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
   - chmod +x clitest
   - mv clitest testador
-  - ls -la
-  - ls -la testador
   - bash testador/clitest --help
 
 script:
-  - ls
-  - pwd
-  - echo $PATH
-  - clitest --help
-  - bash clitest --help
+  - export ZZWWWDUMP='links -dump'
+  - export ZZWWWHTML='links -source'
   - cd testador && ./run
 
 notifications:
