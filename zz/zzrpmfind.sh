@@ -25,7 +25,7 @@ zzrpmfind ()
 
 	# Faz a consulta e filtra o resultado
 	resultado=$(
-		$ZZWWWLIST "$url?query=$pacote&submit=Search+...&system=$distro&arch=$arquitetura" |
+		zztool list "$url?query=$pacote&submit=Search+...&system=$distro&arch=$arquitetura" |
 			sed -n '/ftp:\/\/rpmfind/ s@^[^A-Z]*/linux/@  @p' |
 			sort
 	)

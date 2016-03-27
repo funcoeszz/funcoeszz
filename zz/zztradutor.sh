@@ -50,7 +50,7 @@ zztradutor ()
 		;;
 		-l | --lista)
 			# Uma tag por linha, então extrai e formata as opções do <SELECT>
-			$ZZWWWHTML "$url" |
+			zztool source "$url" |
 			zzxml --tag option |
 			sed -n '/<option value=af>/,/<option value=yi>/p' |
 			zztool texto_em_iso | sort -u |
@@ -63,7 +63,7 @@ zztradutor ()
 				shift
 				padrao=$(echo "$*" | sed "$ZZSEDURL")
 				local audio="translate_tts?ie=$charset_para&q=$padrao&tl=pt&prev=input"
-				$ZZWWWHTML "$url/$audio" > $audio_file && zzplay $audio_file mplayer
+				zztool source "$url/$audio" > $audio_file && zzplay $audio_file mplayer
 				rm -f $audio_file
 				return
 		;;
@@ -76,7 +76,7 @@ zztradutor ()
 
 	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
 	# e limpa essa linha para estar somente o texto desejado.
-	$ZZWWWHTML "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |
+	zztool source "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |
 		zztool texto_em_iso |
 		zzxml --tidy |
 		sed -n '/id=result_box/,/<\/div>/p' |

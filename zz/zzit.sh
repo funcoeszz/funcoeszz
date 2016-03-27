@@ -76,7 +76,7 @@ zzit ()
 			awk '{ printf "%02d - %s\n", NR, $0 }'
 		else
 			url2=$(
-			$ZZWWWHTML "$url2" | zzutf8 |
+			zztool source "$url2" | zzutf8 |
 			sed -n '/Notícias /,/- Arquivo/{/^<li>/!d;s/.*="//;s/".*//;p}' |
 			zzlinha $num
 			)
@@ -88,7 +88,7 @@ zzit ()
 			zzsqueeze | fmt -w 120
 		fi
 	else
-		$ZZWWWHTML "$url2" |
+		zztool source "$url2" |
 		zzutf8 |
 		awk '/<div id="manchete">/,/Leia mais/' |
 		zzxml --untag=i --untag=u --untag=b --untag=img |

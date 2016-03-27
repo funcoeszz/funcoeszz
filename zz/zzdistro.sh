@@ -37,7 +37,7 @@ zzdistro ()
 
 	test -n "$1" && { zztool -e uso distro; return 1; }
 
-	$ZZWWWHTML "$url" | sed '1,/>Rank</d' |
+	zztool source "$url" | sed '1,/>Rank</d' |
 	awk -F'"' '
 		/phr1/ || /<th class="News">[0-9]{1,3}<\/th>/ {
 			printf "%s\t", $3

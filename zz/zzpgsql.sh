@@ -24,7 +24,7 @@ zzpgsql ()
 
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML "${url}/sql-commands.html" |
+		zztool source "${url}/sql-commands.html" |
 		awk '{printf "%s",$0; if ($0 ~ /<\/dt>/) {print ""} }'|
 		zzunescape --html | sed -n '/<dt>/p' | sed 's/  */ /g' |
 		awk -F'"' '{ printf "%3s %s\n", NR, substr($3,2) ":" $2 }' |

@@ -27,11 +27,10 @@ zzcinepolis ()
 		shift
 	fi
 
-	# Necessário fazer uso do argumento -useragent="Mozilla/5.0", pois o site se recusa a funcionar com lynx, links, curl e w3m.
-	# Uma ridícula implementação do site :( ( Desculpe pelo protesto, de novo! )
+	# Especificando User Agent na opçãp -u "Mozilla/5.0"
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML -useragent="Mozilla/5.0" "$url" 2>/dev/null |
+		zztool source -u "Mozilla/5.0" "$url" 2>/dev/null |
 		grep -E '(class="amarelo"|\?cc=)' |
 		zzutf8 |
 		sed '/img /d;/>Estreias</d;s/.*"amarelo">//;s/.*cc=/ /;s/".*">/) /' |

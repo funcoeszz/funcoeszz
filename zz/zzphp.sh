@@ -49,7 +49,7 @@ zzphp ()
 		then
 			# Formato do arquivo:
 			# nome da função - descrição da função : link correspondente
-			$ZZWWWHTML "$url" | sed -n '/class="index"/p' |
+			zztool source "$url" | sed -n '/class="index"/p' |
 			awk -F'"' '{print substr($5,2) "|" $2}' |
 			sed 's/<[^>]*>//g' |
 			zzunescape --html > "$cache"

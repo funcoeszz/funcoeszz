@@ -46,12 +46,11 @@ zzcinemais ()
 
 	codigo=$(echo "$cidades" | grep "${cidade}:" 2>/dev/null | cut -f 1 -d ":")
 
-	# Necessário fazer uso do argumento -useragent="Mozilla/5.0", pois o site se recusa a funcionar com lynx, links, curl e w3m.
-	# Uma ridícula implementação do site :( ( Desculpe pelo protesto! )
+	# Especificando User Agent na opçãp -u "Mozilla/5.0"
 	if test -n "$codigo"
 	then
 		zzecho -N -l ciano $(echo "$cidades" | grep "${cidade}:" | cut -f 3 -d ":")
-		$ZZWWWHTML -useragent="Mozilla/5.0" "http://www.cinemais.com.br/programacao/cinema.php?cc=$codigo" 2>/dev/null |
+		zztool source -u "Mozilla/5.0" "http://www.cinemais.com.br/programacao/cinema.php?cc=$codigo" 2>/dev/null |
 		zzutf8 |
 		grep -E '(<td><a href|<td><small|[0-9] a [0-9])' |
 		zztrim |

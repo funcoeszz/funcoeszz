@@ -29,7 +29,7 @@ zzcbn ()
 	# Cache com parametros para nomes e links
 	if ! test -s "$cache" || test $(tail -n 1 "$cache") != $(date +%F)
 	then
-		$ZZWWWHTML "$url" |
+		zztool source "$url" |
 		sed -n '/<ul class="lvl3 /p' |
 		zzxml --tag a |
 		sed -n '/http:..cbn.globoradio.globo.com.comentaristas./{s/.*="//;s/">//;p;}' |
@@ -40,7 +40,7 @@ zzcbn ()
 			nome=$(echo "$linha" | cut -d ";" -f 1 | zzcapitalize )
 			comentarista=$(echo "$linha" | cut -d ";" -f 2 )
 			link=$(echo "$linha" | cut -d ";" -f 3 )
-			fonte=$($ZZWWWHTML "$link")
+			fonte=$(zztool source "$link")
 			rss=$(
 				echo "$fonte" |
 				sed -n '/\<RSS\>/{s/.*href="//;s/".*//;p;}'
@@ -101,7 +101,7 @@ zzcbn ()
 		podcast=$( awk -F ' [|] ' '$2 ~ /'$comentarista'/ {print $4}' "$cache" )
 		if test -n "$podcast"
 		then
-			podcast=$($ZZWWWHTML "$podcast" | sed -n '/media:content/p')
+			podcast=$(zztool source "$podcast" | sed -n '/media:content/p')
 			zztool eco "Áudios diponíveis:"
 			echo "$podcast" |
 			sed 's/.*_//; s/\.mp3.*//; s/\(..\)\(..\)\(..\)/\3\/\2\/20\1/' |
@@ -124,7 +124,7 @@ zzcbn ()
 
 		if test -n "$rss"
 		then
-			$ZZWWWHTML "$rss" |
+			zztool source "$rss" |
 			zzutf8 |
 			zzxml --tag item |
 			zzxml --tag titleApp --tag descriptionApp --tag pubDate |

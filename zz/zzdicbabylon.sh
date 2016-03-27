@@ -30,7 +30,7 @@ zzdicbabylon ()
 		shift
 	fi
 
-	$ZZWWWHTML "http://online.babylon.com/cgi-bin/trans.cgi?lang=$idioma&word=$1" |
+	zztool source "http://online.babylon.com/cgi-bin/trans.cgi?lang=$idioma&word=$1" |
 		sed "
 			/OT_CopyrightStyle/,$ d
 			/definition/,/<\/div>/!d
