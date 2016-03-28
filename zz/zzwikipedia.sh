@@ -35,7 +35,7 @@ zzwikipedia ()
 
 	# Faz a consulta e filtra o resultado, paginando
 	url="http://$idioma.wikipedia.org/wiki/"
-	$ZZWWWDUMP "$url$(echo "$*" | sed 's/  */_/g')" |
+	zztool dump "$url$(echo "$*" | sed 's/  */_/g')" |
 		sed '
 			# Limpeza do conteúdo
 			/^Views$/,$ d

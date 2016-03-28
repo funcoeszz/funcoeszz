@@ -18,7 +18,7 @@ zzora ()
 
 	local url="http://ora-$1.ora-code.com"
 
-	$ZZWWWDUMP "$url" | sed '
+	zztool dump "$url" | sed '
 		s/  //g
 		s/^ //
 		/^$/ d

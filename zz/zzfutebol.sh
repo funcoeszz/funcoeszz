@@ -41,7 +41,7 @@ zzfutebol ()
 		ontem | anteontem)  url="http://esporte.uol.com.br/futebol/central-de-jogos/resultados";;
 	esac
 
-	$ZZWWWDUMP "$url" |
+	zztool dump "$url" |
 	sed -n '/[0-9]h[0-9]/{N;N;p;}' |
 	sed '
 		s/^ *__* *$/XXX/

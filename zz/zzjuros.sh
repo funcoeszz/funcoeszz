@@ -46,7 +46,7 @@ zzjuros ()
 
 		# Fazendo a busca e filtrando no site do Banco Central.
 		zztool eco "$nome"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 		sed -n '/^ *Posição *$/,/^ *Atendimento/p' | sed '$d' |
 		awk '{
 			gsub(/  */," ")

@@ -21,7 +21,7 @@ zzblist ()
 	zztool -e testa_ip "$ip" || return 1
 
 	lista=$(
-		$ZZWWWDUMP "${URL}${ip}" |
+		zztool dump "${URL}${ip}" |
 		grep 'Listed' |
 		sed '/ahbl\.org/d;/=/d;/ *Not/d'
 	)

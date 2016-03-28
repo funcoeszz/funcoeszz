@@ -75,6 +75,6 @@ zzhoracerta ()
 	localidade=$(echo "$localidades" | sed 's/ .*//')
 
 	# Faz a consulta e filtra o resultado
-	$ZZWWWDUMP "$url/current_time_in_$localidade.aspx" |
+	zztool dump "$url/current_time_in_$localidade.aspx" |
 		grep 'The current time' -B 2 -A 5
 }

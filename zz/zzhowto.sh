@@ -33,7 +33,7 @@ zzhowto ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 			grep 'text/html' |
 			sed 's/^  *//; s/ [0-9][0-9]:.*//' > "$cache"
 	fi

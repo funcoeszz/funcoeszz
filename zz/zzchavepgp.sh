@@ -20,7 +20,7 @@ zzchavepgp ()
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso chavepgp; return 1; }
 
-	$ZZWWWDUMP "http://pgp.mit.edu:11371/pks/lookup?search=$padrao&op=index" |
+	zztool dump "http://pgp.mit.edu:11371/pks/lookup?search=$padrao&op=index" |
 		sed 1,2d |
 		sed '
 			# Remove linhas em branco

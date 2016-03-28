@@ -36,7 +36,7 @@ zzpgsql ()
 		if zztool testa_numero $1
 		then
 			comando=$(cat $cache | sed -n "/^ *${1} /p" | cut -f2 -d":")
-			$ZZWWWDUMP "${url}/${comando}" | sed -n '/^ *__*/,/^ *__*/p' | sed '1d;$d'
+			zztool dump "${url}/${comando}" | sed -n '/^ *__*/,/^ *__*/p' | sed '1d;$d'
 		else
 			grep -i $1 $cache | cut -f1 -d":"
 		fi

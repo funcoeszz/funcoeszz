@@ -66,7 +66,7 @@ zzit ()
 	then
 		if test -z "$num"
 		then
-			$ZZWWWDUMP "$url2" |
+			zztool dump "$url2" |
 			if test "$opcao" = "plantao"
 			then
 				sed -n '/^ *Plantão /,/- Arquivo/{/^ *\*/!d;s/^ *\* *//;p}'
@@ -81,7 +81,7 @@ zzit ()
 			zzlinha $num
 			)
 			zztool eco "$url2"
-			$ZZWWWDUMP "$url2" |
+			zztool dump "$url2" |
 			sed '1,/^ *Livros$/d; s/ *\( Bibliografia:\)/\
 \1/' |
 			sed '1,/^ *$/d; /INS: :INS/,$d' |
@@ -100,7 +100,7 @@ zzit ()
 		else
 			url2=$(awk -v linha=$num 'NR == linha * 2 -1' | sed 's/">//;s/.*"//;s|\.\./||' | sed "s|^|${url}/|")
 			zztool eco "$url2"
-			$ZZWWWDUMP "$url2" |
+			zztool dump "$url2" |
 			sed '1,/^ *Livros$/d; s/ *\( Bibliografia:\)/\
 \1/' |
 			sed '1,/^ *$/d; /INS: :INS/,$d' |

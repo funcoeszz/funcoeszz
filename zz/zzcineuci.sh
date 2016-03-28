@@ -82,7 +82,7 @@ zzcineuci ()
 
 	for codigo in $codigos
 	do
-		$ZZWWWDUMP "$url$codigo" | sed '
+		zztool dump "$url$codigo" | sed '
 
 			# Faxina
 			s/^  *//

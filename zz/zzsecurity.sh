@@ -34,7 +34,7 @@ zzsecurity ()
 		echo
 		zztool eco '** Atualizações Debian'
 		echo "$url"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 			sed -n '
 				/Security Advisories/,/_______/ {
 					/\[[0-9]/ s/^ *//p
@@ -49,7 +49,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Slackware'
 		url="http://www.slackware.com/security/list.php?l=slackware-security&y=$ano"
 		echo "$url"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 			sed '
 				/[0-9]\{4\}-[0-9][0-9]/!d
 				s/\[sla.*ty\]//
@@ -64,7 +64,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Gentoo'
 		url='http://www.gentoo.org/security/en/index.xml'
 		echo "$url"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 			sed -n '
 				s/^  *//
 				/^GLSA/, /^$/ !d
@@ -82,7 +82,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Suse'
 		url='https://www.suse.com/support/update/'
 		echo "$url"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 			grep 'SUSE-SU' |
 			sed 's/^.*\(SUSE-SU\)/ \1/;s/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
 			$limite
@@ -91,7 +91,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Opensuse'
 		url="http://lists.opensuse.org/opensuse-updates/$(zzdata hoje - 1m | zzdatafmt -f AAAA-MM) http://lists.opensuse.org/opensuse-updates/$(zzdatafmt -f AAAA-MM hoje)"
 		echo "$url"
-		$ZZWWWDUMP $url |
+		zztool dump $url |
 			grep 'SUSE-SU' |
 			sed 's/^ *\* //;s/ [0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT/,/;s/  *$//' |
 			zztac |
@@ -115,7 +115,7 @@ zzsecurity ()
 		zztool eco '** Atualizações NetBSD'
 		url='http://ftp.netbsd.org/pub/NetBSD/packages/vulns/pkg-vulnerabilities'
 		echo "$url"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 			sed '1,27d;/#CHECKSUM /,$d;s/ *https*:.*//' |
 			zztac |
 			$limite
@@ -138,7 +138,7 @@ zzsecurity ()
 		zztool eco '** Atualizações Fedora'
 		url='http://lwn.net/Alerts/Fedora/'
 		echo "$url"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 			grep 'FEDORA-' |
 			sed 's/^ *//' |
 			$limite
@@ -151,7 +151,7 @@ zzsecurity ()
 		echo
 		zztool eco '** Atualizações Archlinux'
 		echo "$url"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 			sed -n "/^ *CVE-${ano}-[0-9]/{s/templink //;p;}" |
 			$limite
 	fi

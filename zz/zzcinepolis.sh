@@ -77,7 +77,7 @@ zzcinepolis ()
 	for codigo in $codigos
 	do
 		zzecho -N -l ciano $(grep " ${codigo})" $cache | sed 's/.*) //')
-		$ZZWWWDUMP -useragent="Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
+		zztool dump -useragent="Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
 		sed -n '/  [0-9]\{1,2\}  /p;/[0-9]h[0-9]/p' |
 		sed 's/\(.*h[0-9][0-9]\).*/\1/;s/\^.//g;/OBS\.: /d' |
 		sed 's/^ *\([0-9]\)* *   /\1 /' |

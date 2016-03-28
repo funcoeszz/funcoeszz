@@ -40,7 +40,7 @@ zzcoin ()
 		;;
 		-a | --all )
 			url="http://coinmarketcap.com/mineable.html"
-			$ZZWWWDUMP "$url" |
+			zztool dump "$url" |
 			sed -n '/#/,/Last updated/{
 				/^ *\*/d;
 				/^ *$/d;

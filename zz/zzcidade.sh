@@ -27,7 +27,7 @@ zzcidade ()
 	if ! test -s "$cache"
 	then
 		# Exemplo:^     * Aracaju (SE)
-		$ZZWWWDUMP "$url" | sed -n 's/^  *\* \(.* (..)\)$/\1/p' > "$cache"
+		zztool dump "$url" | sed -n 's/^  *\* \(.* (..)\)$/\1/p' > "$cache"
 	fi
 
 	if test -z "$padrao"

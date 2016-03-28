@@ -24,7 +24,7 @@ zzrastreamento ()
 		# Só mostra o código se houver mais de um
 		test $# -gt 1 && zztool eco "**** $codigo"
 
-		$ZZWWWDUMP "$url?P_LINGUA=001&P_TIPO=001&P_COD_UNI=$codigo" |
+		zztool dump "$url?P_LINGUA=001&P_TIPO=001&P_COD_UNI=$codigo" |
 			sed '
 				/ Data /,/___/ !d
 				/___/d

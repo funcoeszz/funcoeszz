@@ -47,7 +47,7 @@ zzdicjargon ()
 
 	if test $num -eq 1
 	then
-		#$ZZWWWDUMP -width=72 "$url/$achei" |
+		#zztool dump -width=72 "$url/$achei" |
 		zztool dump -w 72 "$url/$achei" |
 			sed '1,/_\{9\}/d;/_\{9\}/,$d;/^$/d' | zztrim -l
 		test -n "$mais" && zztool eco '\nTermos parecidos:'

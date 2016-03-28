@@ -85,7 +85,7 @@ zzlibertadores ()
 	if ! test -s "$cache" || test $(head -n 1 "$cache") != $(zzdatafmt --iso hoje)
 	then
 		zzdatafmt --iso hoje > "$cache"
-		$ZZWWWDUMP "$url" >> "$cache"
+		zztool dump "$url" >> "$cache"
 	fi
 
 	# Mostrando os jogos
