@@ -425,10 +425,10 @@ zztool ()
 			output_width="${output_width:-300}"
 
 			# Para POST se não houver ao menos 2 parâmetros (url e dados) interrompe.
-			test "$ferramenta" = 'post' && test "$#" -lt 2 && return 1
+			test "$ferramenta" = 'post' && test $# -lt 2 && return 1
 
 			# Para outras requisições ao menos 1 parâmetro (url), se não interrompe.
-			test "$ferramenta" != 'post' && test "$#" -lt 1 && return 1
+			test "$ferramenta" != 'post' && test $# -lt 1 && return 1
 
 			# Caracterizando os paramêtros conforme cada navegador.
 			case "$browser" in
