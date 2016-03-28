@@ -469,18 +469,18 @@ zztool ()
 				case "$browser" in
 					lynx)
 						echo "$2" |
-							lynx "${opt_common}" -post-data -nolist "$1"
+							lynx ${opt_common} -post-data -nolist "$1"
 					;;
 					links | w3m)
 						local post_temp
 						post_temp=$(zztool mktemp post)
-						curl -s "${user_agent:+-A}" "${user_agent}" -o "$post_temp" --data "$2" "$1"
+						curl -s ${user_agent:+-A} ${user_agent} -o "$post_temp" --data "$2" "$1"
 
 						if test "$browser" = 'links'
 						then
-							links "${opt_common}" -dump       file://"$post_temp"
+							links ${opt_common} -dump       file://"$post_temp"
 						else
-							w3m   "${opt_common}" -dump -T text/html "$post_temp"
+							w3m   ${opt_common} -dump -T text/html "$post_temp"
 						fi
 
 						rm -f "$post_temp"
@@ -489,33 +489,33 @@ zztool ()
 			;;
 			dump)
 				case "$browser" in
-					lynx ) lynx  "${opt_common}" -dump -nolist      "$1" ;;
-					links) links "${opt_common}" -dump              "$1" ;;
-					w3m  ) w3m   "${opt_common}" -dump -T text/html "$1" ;;
+					lynx ) lynx  ${opt_common} -dump -nolist      "$1" ;;
+					links) links ${opt_common} -dump              "$1" ;;
+					w3m  ) w3m   ${opt_common} -dump -T text/html "$1" ;;
 				esac
 			;;
 			source)
 				case "$browser" in
-					lynx ) lynx -source "${user_agent:+-useragent=}${user_agent}" "$1" ;;
-					*    ) curl -s      "${user_agent:+-A}" "${user_agent}"       "$1" ;;
+					lynx ) lynx -source ${user_agent:+-useragent=}${user_agent} "$1" ;;
+					*    ) curl -s      ${user_agent:+-A} ${user_agent}       "$1" ;;
 				esac
 			;;
 			list)
 				case "$browser" in
-					lynx ) lynx  "${opt_common}" -dump                        "$1" ;;
-					links) links "${opt_common}" -dump -html-numbered-links 1 "$1" ;;
+					lynx ) lynx  ${opt_common} -dump                        "$1" ;;
+					links) links ${opt_common} -dump -html-numbered-links 1 "$1" ;;
 					#w3m ) FIXME ;;
 				esac | sed -n '/^ *[0-9]\{1,\}\. /{s/.* //;p;}'
 			;;
 			download)
 				local arq_dest
-				test -n "$2" && arq_dest="$2" || arq_dest=${1##*/}
+				test -n "$2" && arq_dest="$2" || arq_dest=$(basename "$1")
 				if   type wget >/dev/null 2>&1
 				then
-					wget -q "${user_agent:+-U}" "${user_agent}" "$1" -O "$arq_dest"
+					wget -q ${user_agent:+-U} ${user_agent} "$1" -O "$arq_dest"
 				elif type curl >/dev/null 2>&1
 				then
-					curl -s "${user_agent:+-A}" "${user_agent}" "$1" -o "$arq_dest"
+					curl -s ${user_agent:+-A} ${user_agent} "$1" -o "$arq_dest"
 				else
 					case "$browser" in
 						lynx | links) $browser -source          "$1"  > "$arq_dest" ;;
@@ -826,7 +826,7 @@ zzzz ()
 				test $ZZUTF != '1' && url_exe="${url_exe}-iso"
 
 				printf 'Baixando a versão nova... '
-				zztool source "$url_exe" > "funcoeszz-$versao_remota"
+				zztool download "$url_exe" "funcoeszz-$versao_remota"
 				echo 'PRONTO!'
 				echo "Arquivo 'funcoeszz-$versao_remota' baixado, instale-o manualmente."
 				echo "O caminho atual é $ZZPATH"
