@@ -24,7 +24,7 @@ Pronome indefinido:
 8 algum, qualquer, um.
 
 Relacionada
-dar certo,
+dar certo
 $
 
 
@@ -77,7 +77,7 @@ Curado:
 10 restabelecido, sarado, curado, recuperado, livre.
 
 Relacionadas
-bom gosto, bom humor, bom senso,
+bom gosto, bom humor, bom senso
 $
 
 
@@ -117,5 +117,5 @@ Maldade:
 11 nocividade, perversidade, malevolência, malfeito, malefício, ruindade, crueldade, maldade, malignidade, perniciosidade.
 
 Relacionadas
-mal-estar, mal-entendido,
+mal-estar, mal-entendido
 $
