@@ -78,7 +78,7 @@ test -n "$ZZDIR" || ZZDIR=$ZZDIR_DFT
 # Descobre qual o navegador em modo texto está disponível no sistema
 for ZZBROWSER in lynx links w3m
 do
-	if type "$ZZBROWSER" >/dev/null 2>&1; then break; fi
+	type "$ZZBROWSER" >/dev/null 2>&1 && break
 done
 
 #
