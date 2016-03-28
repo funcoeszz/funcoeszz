@@ -442,8 +442,7 @@ zztool ()
 				# Post conforme o navegador escolhido
 				case "$browser" in
 					lynx)
-						echo "$2" |
-							lynx ${opt_common} -post-data -nolist "$1"
+						echo "$2" | lynx ${opt_common} -post-data -nolist "$1"
 					;;
 					links | w3m)
 						local post_temp
@@ -492,7 +491,7 @@ zztool ()
 					curl -s "${user_agent:+-A}" "${user_agent}" "$1" -o "$arq_dest"
 				else
 					case "$browser" in
-						lynx | links) $browser -source          "$1"  > "$arq_dest" ;;
+						lynx | links) $browser -source      "$1"  > "$arq_dest" ;;
 					esac
 				fi
 			;;
