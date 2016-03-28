@@ -28,15 +28,8 @@ zzloteria ()
 	local un_zip='unzip -q -a -C -o'
 
 	which links >/dev/null 2>&1 || { zztool erro 'Necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'; return 1; }
-#	then
-#		ZZWWWDUMP2='links -dump'
 
 	download='links -source'
-
-#	else
-#		zztool erro 'Para esta função funcionar, é necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'
-#		return 1
-#	fi
 
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente
 	if zztool testa_numero "$2"
