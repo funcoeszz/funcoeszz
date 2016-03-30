@@ -113,7 +113,7 @@ zzlibertadores ()
 		done
 	;;
 	3 | oitavas)
-		sed -n '/^OITAVAS DE FINAL/,/^ *\*/p' "$cache" |
+		sed -n '/^OITAVAS DE FINAL/,/^Notícias/p' "$cache" |
 		sed "$sed_mata" |
 		sed 's/.*\([0-9]º\)/\1/' |
 		awk "$awk_jogo" |
