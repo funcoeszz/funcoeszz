@@ -51,4 +51,5 @@
 			cat -
 		fi |
 		sed 's/--//'
-	fi
+	fi |
+	fmt -s -w $(tput cols)
