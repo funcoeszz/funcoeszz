@@ -57,8 +57,9 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 #
 #
 
-ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
+# shellcheck disable=SC2034
 ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
+ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
 ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
 
 #
@@ -161,8 +162,9 @@ zztool ()
 		acha)
 			# Destaca o padrão $1 no texto via STDIN ou $2
 			# O padrão pode ser uma regex no formato BRE (grep/sed)
-			local esc=$(printf '\033')
-			local padrao=$(echo "$1" | sed 's,/,\\/,g') # escapa /
+			local esc padrao
+			esc=$(printf '\033')
+			padrao=$(echo "$1" | sed 's,/,\\/,g') # escapa /
 			shift
 			zztool multi_stdin "$@" |
 				if test "$ZZCOR" != '1'
@@ -504,8 +506,11 @@ zztool ()
 		# Ex.: local cache=$(zztool cache php) # Apenas retorna o nome do cache
 		# Ex.: zztool cache rm palpite # Apaga o cache diretamente
 			local id
-			case ${1#zz} in
-			on | off | ajuda) break;;
+			case "${1#zz}" in
+			on | off | ajuda)
+				# shellcheck disable=SC2104
+				break
+			;;
 			rm)
 				if test "$2" = '*'
 				then
@@ -628,7 +633,7 @@ zzzz ()
 {
 	local nome_func arg_func padrao func
 	local info_instalado info_instalado_zsh info_cor info_utf8 info_base versao_remota
-	local arquivo_aliases arquivo_zz
+	local arquivo_aliases
 	local n_on n_off
 	local bashrc="$HOME/.bashrc"
 	local tcshrc="$HOME/.tcshrc"
@@ -733,7 +738,7 @@ zzzz ()
 					echo 'OK'
 				else
 					zztool eco "Comando $tipo_comando '$comando' não encontrado"
-					comandos_faltando="$comando_faltando $tipo_comando"
+					comandos_faltando="$comandos_faltando $tipo_comando"
 				fi
 			done
 
