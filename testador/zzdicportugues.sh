@@ -144,15 +144,15 @@ Separação das sílabas: co-mer
 Frases com o verbo comer
 
 Fonte: Pensador
-Recolha um cão de rua, dê-lhe de comer e ele não morderá: eis a diferença fundamental entre o cão e o Homem.
-- Mark Twain
 Ele transa bem? Leva você para comer bons queijos e vinhos? É seu amigo? Então fica com ele. É o máximo que você vai conseguir de um homem.
 - Marília Gabi Gabriela
+Recolha um cão de rua, dê-lhe de comer e ele não morderá: eis a diferença fundamental entre o cão e o Homem.
+- Mark Twain
 
 Exemplos com o verbete comer
 
-Um exemplo é o "I Can Has Cheezburger?: A LOLcat Colleckshun" (posso comer um cheeseburguer?, uma coleção de gatos hilários; Gotham Books, US$ 10), que reúne posts do blog que o originou (icanhascheezburger. Folha de São Paulo, 27/06/2009
 Para comer, a casa mantém a sua linha de combinados com sushi, sashimi, entradas e pratos quentes. Folha de São Paulo, 27/06/2009
+Um exemplo é o "I Can Has Cheezburger?: A LOLcat Colleckshun" (posso comer um cheeseburguer?, uma coleção de gatos hilários; Gotham Books, US$ 10), que reúne posts do blog que o originou (icanhascheezburger. Folha de São Paulo, 27/06/2009
 Minha irmã Fátima fez e perdeu 58 kg, mas deixaram o estômago dela menor, só pode comer 25 mililitros, senão vomita. Folha de São Paulo, 27/06/2009
 comer
 

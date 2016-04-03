@@ -85,7 +85,7 @@ zzfatorar ()
 		elif ! test -s "$cache"
 		then
 			# Se o cache está vazio, baixa listagem da Internet
-			$ZZWWWDUMP "$url" | awk '{for(i=1;i<=NF;i++) print $i }' > "$cache"
+			zztool dump "$url" | awk '{for(i=1;i<=NF;i++) print $i }' > "$cache"
 		fi
 
 		# Se o número fornecido for primo, retorna-o e sai

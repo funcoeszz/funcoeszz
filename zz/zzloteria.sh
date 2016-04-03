@@ -20,21 +20,19 @@ zzloteria ()
 {
 	zzzz -h loteria "$1" && return
 
-	local dump tipo num_con ZZWWWDUMP2 download
+	local dump tipo num_con download
 	local url='http://loterias.caixa.gov.br/wps/portal/loterias/landing'
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
 	local cache=$(zztool cache loteria)
 	local tab=$(printf '\t')
 	local un_zip='unzip -q -a -C -o'
 
-	if which links >/dev/null 2>&1
-	then
-		ZZWWWDUMP2='links -dump'
-		download='links -source'
-	else
-		zztool erro 'Para esta função funcionar, é necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'
+	which links >/dev/null 2>&1 || {
+		zztool erro 'Necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'
 		return 1
-	fi
+	}
+
+	download='links -source'
 
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente
 	if zztool testa_numero "$2"
@@ -57,7 +55,7 @@ zzloteria ()
 		if ! test -n "$num_con"
 		then
 			# Resultados mais recentes das loterias selecionadas.
-			dump=$($ZZWWWDUMP2 "${url}/${tipo}" | sed -n '/Resultado Concurso/,/^ *Arrecada/p' | sed '2,6d;s/^Resultado //')
+			dump=$(zztool dump links "${url}/${tipo}" | sed -n '/Resultado Concurso/,/^ *Arrecada/p' | sed '2,6d;s/^Resultado //')
 			case "$tipo" in
 				lotomania | lotofacil)
 					echo "$dump" |
@@ -154,14 +152,14 @@ zzloteria ()
 			# Resultados históricos das loterias selecionadas.
 			case "$tipo" in
 				lotomania)
-					if ! test -e ${cache}.lotomania.htm || ! $($ZZWWWDUMP ${cache}.lotomania.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.lotomania.htm || ! $(zztool dump ${cache}.lotomania.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotoma.zip" > "${cache}.lotomania.zip" 2>/dev/null
 						$un_zip "${cache}.lotomania.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_LOTMAN.HTM" ${cache}.lotomania.htm
 						rm -f ${cache}.lotomania.zip
 					fi
-					$ZZWWWDUMP ${cache}.lotomania.htm |
+					zztool dump ${cache}.lotomania.htm |
 					grep "^ *$num_con " 2>/dev/null |
 					awk ' {
 						print "Concurso", $1, "(" $2 ")"
@@ -178,14 +176,14 @@ zzloteria ()
 					}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
 				;;
 				lotofacil)
-					if ! test -e ${cache}.lotofacil.htm || ! $($ZZWWWDUMP ${cache}.lotofacil.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.lotofacil.htm || ! $(zztool dump ${cache}.lotofacil.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip" > "${cache}.lotofacil.zip" 2>/dev/null
 						$un_zip "${cache}.lotofacil.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_LOTFAC.HTM" ${cache}.lotofacil.htm
 						rm -f ${cache}.lotofacil.zip
 					fi
-					$ZZWWWDUMP ${cache}.lotofacil.htm |
+					zztool dump ${cache}.lotofacil.htm |
 					grep "^ *$num_con " 2>/dev/null |
 					awk '{
 						print "Concurso", $1, "(" $2 ")"
@@ -201,14 +199,14 @@ zzloteria ()
 					}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
 				;;
 				megasena)
-					if ! test -e ${cache}.mega.htm || ! $($ZZWWWDUMP ${cache}.megasena.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.mega.htm || ! $(zztool dump ${cache}.megasena.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_mgsasc.zip" > "${cache}.megasena.zip" 2>/dev/null
 						$un_zip "${cache}.megasena.zip" "*.htm" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/d_megasc.htm" ${cache}.megasena.htm
 						rm -f ${cache}.megasena.zip
 					fi
-					$ZZWWWDUMP ${cache}.megasena.htm |
+					zztool dump ${cache}.megasena.htm |
 					grep "^ *$num_con " 2>/dev/null |
 					awk '{
 						print "Concurso", $1, "(" $2 ")"
@@ -220,14 +218,14 @@ zzloteria ()
 					}' | expand -t 15,25,35
 				;;
 				duplasena)
-					if ! test -e ${cache}.duplasena.htm || ! $($ZZWWWDUMP ${cache}.duplasena.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.duplasena.htm || ! $(zztool dump ${cache}.duplasena.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_dplsen.zip" > "${cache}.duplasena.zip" 2>/dev/null
 						$un_zip "${cache}.duplasena.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_DPLSEN.HTM" ${cache}.duplasena.htm
 						rm -f ${cache}.duplasena.zip
 					fi
-					$ZZWWWDUMP ${cache}.duplasena.htm |
+					zztool dump ${cache}.duplasena.htm |
 					grep "^ *$num_con " 2>/dev/null |
 					awk '{
 						print "Concurso", $1, "(" $2 ")"
@@ -249,14 +247,14 @@ zzloteria ()
 					}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g'
 				;;
 				quina)
-					if ! test -e ${cache}.quina.htm || ! $($ZZWWWDUMP ${cache}.quina.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.quina.htm || ! $(zztool dump ${cache}.quina.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_quina.zip" > "${cache}.quina.zip" 2>/dev/null
 						$un_zip "${cache}.quina.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_QUINA.HTM" ${cache}.quina.htm
 						rm -f ${cache}.quina.zip
 					fi
-					$ZZWWWDUMP ${cache}.quina.htm |
+					zztool dump ${cache}.quina.htm |
 					grep "^ *$num_con " 2>/dev/null |
 					awk '{
 						print "Concurso", $1, "(" $2 ")"
@@ -270,14 +268,14 @@ zzloteria ()
 					}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g' | expand -t 15,25,35
 				;;
 				federal)
-					if ! test -e ${cache}.federal.htm || ! $($ZZWWWDUMP ${cache}.federal.htm | grep "^[ 0]*$num_con " >/dev/null)
+					if ! test -e ${cache}.federal.htm || ! $(zztool dump ${cache}.federal.htm | grep "^[ 0]*$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_federa.zip" > "${cache}.federal.zip" 2>/dev/null
 						$un_zip "${cache}.federal.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_LOTFED.HTM" ${cache}.federal.htm
 						rm -f ${cache}.federal.zip
 					fi
-					$ZZWWWDUMP ${cache}.federal.htm |
+					zztool dump ${cache}.federal.htm |
 					grep "^[ 0]*$num_con " 2>/dev/null |
 					awk '{
 						print "Concurso", $1, "(" $2 ")"
@@ -290,14 +288,14 @@ zzloteria ()
 					}'
 				;;
 				timemania)
-					if ! test -e ${cache}.timemania.htm || ! $($ZZWWWDUMP ${cache}.timemania.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.timemania.htm || ! $(zztool dump ${cache}.timemania.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_timasc.zip" > "${cache}.timemania.zip" 2>/dev/null
 						$un_zip "${cache}.timemania.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_TIMASC.HTM" ${cache}.timemania.htm
 						rm -f ${cache}.timemania.zip
 					fi
-					$ZZWWWDUMP ${cache}.timemania.htm |
+					zztool dump ${cache}.timemania.htm |
 					grep "^ *$num_con " 2>/dev/null |
 					sed 's/\([[:upper:]]\) \([[:upper:]]\)/\1_\2/g' |
 					awk '{
@@ -313,14 +311,14 @@ zzloteria ()
 					}' | expand -t 15,25,35
 				;;
 				loteca)
-					if ! test -e ${cache}.loteca.htm || ! $($ZZWWWDUMP ${cache}.loteca.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.loteca.htm || ! $(zztool dump ${cache}.loteca.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_loteca.zip" > "${cache}.loteca.zip" 2>/dev/null
 						$un_zip "${cache}.loteca.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_LOTECA.HTM" ${cache}.loteca.htm
 						rm -f ${cache}.loteca.zip
 					fi
-					$ZZWWWDUMP ${cache}.loteca.htm |
+					zztool dump ${cache}.loteca.htm |
 					grep "^ *$num_con " 2>/dev/null |
 					awk '{
 						print "Concurso", $1, "(" $2 ")"

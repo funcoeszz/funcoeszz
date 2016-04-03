@@ -22,7 +22,7 @@ zznatal ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		$ZZWWWDUMP "$url" | sed '
+		zztool dump "$url" | sed '
 			1,10d
 			77,179d
 			s/^  *//

@@ -243,7 +243,7 @@ Bolsas Internacionais:
 		;;
 	esac
 
-	$ZZWWWDUMP "$url" |
+	zztool dump "$url" |
 		sed -n "/^ *${inicio}/,/^ *${fim}/p" |
 		if test "$1" = "investimento"
 		then

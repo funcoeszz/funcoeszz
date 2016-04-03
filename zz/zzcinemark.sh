@@ -35,12 +35,12 @@ zzcinemark ()
 	if ! test -s "$cache"
 	then
 		# Lista de Cidades
-		$ZZWWWHTML "$url" |
+		zztool source "$url" |
 		grep '_Cidades\[' |
 		sed "s/.*'\([0-9]\{1,2\}\)'/ \1/;s/] = '/:/;s/'.*//" > $cache
 
 		# Lista de Salas por cidade
-		$ZZWWWHTML "$url" |
+		zztool source "$url" |
 		grep '_Cinemas\[' |
 		sed "s/.*'\([0-9]\{1,2\}\)'/\1/;s/');//;s/].*( '/:/;s/'[^']*'/:/g" >> $cache
 	fi
@@ -109,7 +109,7 @@ zzcinemark ()
 
 		zztool eco $(grep ":$1:" $cache | sed "s/.*:$1://;s/:.*//")
 
-		$ZZWWWHTML "${url}/cinema/$1" |
+		zztool source "${url}/cinema/$1" |
 		sed -n '/class="date-tab-content"/,/_Cidades/p' |
 		sed -n '/class="date-tab-content"/p;/<h4>/p;/[0-9]h[0-9]/p;/images\/\(exibicao\|censura\)\//p' |
 		awk '{

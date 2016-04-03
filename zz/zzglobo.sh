@@ -15,7 +15,7 @@ zzglobo ()
 
 	local url="http://vejonatv.com.br/programacao/globo-rede.html"
 
-	$ZZWWWDUMP -assume_charset=utf-8 "$url" |
+	zztool dump -i utf-8 "$url" |
 		sed -n "/Hoje \[[0-9]*\-[0-9]*\-[0-9]*\]/,/Amanhã .*/p" |
 		sed '$d ; /Carregando\.\.\./d' |
 		uniq |

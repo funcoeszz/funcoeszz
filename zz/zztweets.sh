@@ -39,7 +39,7 @@ zztweets ()
 	url="${url}/${name}"
 	test "$2" = '-r' && url="${url}/with_replies"
 
-	$ZZWWWDUMP $url |
+	zztool dump $url |
 		sed '1,70 d' |
 		sed -n '/View Tweets/,/Back to top/p' |
 		sed '1d

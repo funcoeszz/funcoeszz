@@ -26,7 +26,7 @@ zzdicantonimos ()
 	fi
 
 	# Faz a busca do termo no site, deixando somente os antônimos
-	$ZZWWWDUMP "${url}?q=${palavra_busca}" |
+	zztool dump "${url}?q=${palavra_busca}" |
 		sed -n "/[0-9]\{1,\} antônimos\{0,1\} d/,/«/ {
 			/[0-9]\{1,\} antônimos\{0,1\} d/d
 			/«/d

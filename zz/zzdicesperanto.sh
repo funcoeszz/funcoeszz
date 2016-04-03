@@ -71,6 +71,6 @@ zzdicesperanto ()
 
 	pesquisa="$1"
 
-	$ZZWWWHTML $url/$de_ling/$para_ling/$pesquisa |
+	zztool source $url/$de_ling/$para_ling/$pesquisa |
 		sed -n 's/.*class=" phr">\([^<]*\)<.*/\1/p'
 }

@@ -13,7 +13,7 @@
 #   Pressure (altimeter) 29.88 in. Hg (1012 hPa)
 #   ob SBPA 272300Z 14006KT 100V180 9999 BKN015 BKN083 25/22 Q1012
 #
-$ zztempo brazil sbpa | sed 's/[0-9][0-9]*/9/g; s/\[... /[MMM /; s/ [AP]M E[DS]T/ .. .../; s/[A-Z]\{1,\} (/X (/; s/ KT).*//; s/\(conditions\) .*/\1/'
+$ zztempo brazil sbpa | sed 's/[0-9][0-9]*/9/g; s/\[... /[MMM /; s/ [AP]M E[DS]T/ .. .../; s/[A-Z]\{1,\} (/X (/; s/ KT).*//; / conditions/d; /^ *ob /d'
 
 Porto Alegre Aero-Porto , Brazil
 
@@ -23,12 +23,10 @@ Porto Alegre Aero-Porto , Brazil
    9.9.9 9 UTC
    Wind from the X (9 degrees) at 9 MPH (9
    Visibility greater than 9 mile(s)
-   Sky conditions
    Temperature 9 X (9 C)
    Dew Point 9 X (9 C)
    Relative Humidity 9%
    Pressure (altimeter) 9.9 in. Hg (9 hPa)
-   ob SBPA 9Z 9KT 9 BKN9 OVC9 9/9 Q9
 
 $ zztempo
 Afghanistan

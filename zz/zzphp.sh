@@ -41,7 +41,7 @@ zzphp ()
 			end=$(cat "$cache" | grep -h -i -- "^$funcao " | cut -f 2 -d"|")
 			# Prevenir casos como do zlib://
 			funcao=$(echo "$funcao" | sed 's|//||g')
-			test $? -eq 0 && $ZZWWWDUMP "${url}/${end}" | sed -n "/^${funcao}/,/add a note add a note/p" | sed '$d;/___*$/,$d'
+			test $? -eq 0 && zztool dump "${url}/${end}" | sed -n "/^${funcao}/,/add a note add a note/p" | sed '$d;/___*$/,$d'
 		fi
 	else
 		# Se o cache está vazio, baixa listagem da Internet
@@ -49,7 +49,7 @@ zzphp ()
 		then
 			# Formato do arquivo:
 			# nome da função - descrição da função : link correspondente
-			$ZZWWWHTML "$url" | sed -n '/class="index"/p' |
+			zztool source "$url" | sed -n '/class="index"/p' |
 			awk -F'"' '{print substr($5,2) "|" $2}' |
 			sed 's/<[^>]*>//g' |
 			zzunescape --html > "$cache"

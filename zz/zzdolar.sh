@@ -14,7 +14,7 @@ zzdolar ()
 	zzzz -h dolar "$1" && return
 
 	# Faz a consulta e filtra o resultado
-	$ZZWWWDUMP 'http://economia.uol.com.br/cotacoes' |
+	zztool dump 'http://economia.uol.com.br/cotacoes' |
 		egrep  'Dólar (com\.|tur\.|comercial)' |
 		sed '
 			# Linha original:

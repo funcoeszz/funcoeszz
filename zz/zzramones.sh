@@ -23,7 +23,7 @@ zzramones ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		$ZZWWWDUMP "$url" > "$cache"
+		zztool dump "$url" > "$cache"
 	fi
 
 	# Mostra uma linha qualquer (com o padrão, se informado)

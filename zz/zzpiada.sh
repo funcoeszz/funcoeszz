@@ -12,6 +12,6 @@
 zzpiada ()
 {
 	zzzz -h piada "$1" && return
-	$ZZWWWDUMP -assume_charset=latin1 'http://www.xalexandre.com.br/piadasAleiatorias/' |
+	zztool dump -i latin1 'http://www.xalexandre.com.br/piadasAleiatorias/' |
 		sed 's/^ *//'
 }

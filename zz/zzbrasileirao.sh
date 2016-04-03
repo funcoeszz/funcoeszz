@@ -59,7 +59,7 @@ zzbrasileirao ()
 	if test -n "$rodada"
 	then
 		zztool testa_numero $rodada || { zztool -e uso brasileirao; return 1; }
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 		sed -n "/Rodada ${rodada}$/,/\(Rodada\|^ *$\)/p" |
 		sed '
 		/Rodada /d
@@ -92,7 +92,7 @@ zzbrasileirao ()
 		zztool eco $(echo "Série $serie" | tr 'abcd' 'ABCD')
 		if test "$serie" = "c" -o "$serie" = "d"
 		then
-			$ZZWWWDUMP "$url" |
+			zztool dump "$url" |
 			sed -n "/Grupo \(A\|B\)/,/Rodada 1/{s/^/_/;s/.*Rodada.*//;s/°/./;p;}" |
 			while read linha
 			do
@@ -114,7 +114,7 @@ zzbrasileirao ()
 			test "$serie" = "c" && zzecho -f vermelho -l preto " Rebaixamento     "
 		else
 			num_linha=0
-			$ZZWWWDUMP "$url" |
+			zztool dump "$url" |
 			sed -n "/^ *Classificação *PG/,/20°/{s/^/_/;s/°/./;p}" |
 			while read linha
 			do

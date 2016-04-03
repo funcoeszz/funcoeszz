@@ -20,7 +20,7 @@ zzsheldon ()
 	local begin="Quote from the episode"
 	local end="Correct this quote"
 
-	$ZZWWWDUMP ${url}$(zzaleatorio 123) |
+	zztool dump ${url}$(zzaleatorio 123) |
 	sed -n "/$begin/,/$end/p" |
 	zztrim -H |
 	zzjuntalinhas -i "$begin" -f "$end" -d "|" |

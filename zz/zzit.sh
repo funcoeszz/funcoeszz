@@ -66,7 +66,7 @@ zzit ()
 	then
 		if test -z "$num"
 		then
-			$ZZWWWDUMP "$url2" |
+			zztool dump "$url2" |
 			if test "$opcao" = "plantao"
 			then
 				sed -n '/^ *Plantão /,/- Arquivo/{/^ *\*/!d;s/^ *\* *//;p}'
@@ -76,19 +76,19 @@ zzit ()
 			awk '{ printf "%02d - %s\n", NR, $0 }'
 		else
 			url2=$(
-			$ZZWWWHTML "$url2" | zzutf8 |
+			zztool source "$url2" | zzutf8 |
 			sed -n '/Notícias /,/- Arquivo/{/^<li>/!d;s/.*="//;s/".*//;p}' |
 			zzlinha $num
 			)
 			zztool eco "$url2"
-			$ZZWWWDUMP "$url2" |
+			zztool dump "$url2" |
 			sed '1,/^ *Livros$/d; s/ *\( Bibliografia:\)/\
 \1/' |
 			sed '1,/^ *$/d; /INS: :INS/,$d' |
 			zzsqueeze | fmt -w 120
 		fi
 	else
-		$ZZWWWHTML "$url2" |
+		zztool source "$url2" |
 		zzutf8 |
 		awk '/<div id="manchete">/,/Leia mais/' |
 		zzxml --untag=i --untag=u --untag=b --untag=img |
@@ -100,7 +100,7 @@ zzit ()
 		else
 			url2=$(awk -v linha=$num 'NR == linha * 2 -1' | sed 's/">//;s/.*"//;s|\.\./||' | sed "s|^|${url}/|")
 			zztool eco "$url2"
-			$ZZWWWDUMP "$url2" |
+			zztool dump "$url2" |
 			sed '1,/^ *Livros$/d; s/ *\( Bibliografia:\)/\
 \1/' |
 			sed '1,/^ *$/d; /INS: :INS/,$d' |

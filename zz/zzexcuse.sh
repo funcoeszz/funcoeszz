@@ -17,7 +17,7 @@ zzexcuse ()
 
 	local url='http://programmingexcuses.com/'
 
-	$ZZWWWDUMP "$url" |
+	zztool dump "$url" |
 	sed '$d' |
 	zztrim |
 	case $1 in

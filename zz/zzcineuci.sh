@@ -29,7 +29,7 @@ zzcineuci ()
 
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML "http://www.ucicinemas.com.br/localizacao+e+precos" |
+		zztool source "http://www.ucicinemas.com.br/localizacao+e+precos" |
 		zzxml --tidy |
 		sed -n "/\(class=.heading-bg.\|class=.btn-holder.\)/{n;p;}" |
 		sed '
@@ -82,7 +82,7 @@ zzcineuci ()
 
 	for codigo in $codigos
 	do
-		$ZZWWWDUMP "$url$codigo" | sed '
+		zztool dump "$url$codigo" | sed '
 
 			# Faxina
 			s/^  *//
