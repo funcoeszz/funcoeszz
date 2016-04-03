@@ -2,7 +2,7 @@ language: bash
 
 os:
   - linux
-  # - osx
+  # - osx  Disabled until we get 100% green on Linux
 
 # Prepare the environment
 addons:
@@ -19,7 +19,6 @@ before_install:
   - bash testador/clitest --help
 
 script:
-  - echo $PATH
   - cd testador && ./run
 
 notifications:
