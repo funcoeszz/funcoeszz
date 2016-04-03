@@ -115,7 +115,7 @@ zzbrasileirao ()
 		else
 			num_linha=0
 			zztool dump "$url" |
-			sed -n "/^ *Classificação *PG/,/20°/{s/^/_/;s/°/./;p}" |
+			sed -n "/^ *Classificação *PG/,/20°/{ s/^/_/; s/°/./; p; }" |
 			while read linha
 			do
 				linha=$(echo "$linha" | awk '{pontos=sprintf("%3d", $NF);sub(/[0-9]+$/,pontos);print}')

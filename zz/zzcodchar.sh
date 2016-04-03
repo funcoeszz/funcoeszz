@@ -309,7 +309,7 @@ s/♦/\&	diams	#x2666	#9830	;/g;
 				esac
 				echo "$cods" |
 				zztrim |
-				sed 's|s/||;s|	;/g;||;s|/\\&||;${s| |"&"|}' |
+				sed 's|s/||; s|	;/g;||; s|/\\&||; ${ s| |"&"|; }' |
 				case $2 in
 				html|xml) sed 's/	/	\&/;s/	#.*/;/;$s/" "/ /';;
 				hex)      sed 's/	.*#x/	\&#x/;s/	[#0-9]*$/;/;$s/" "/ /';;

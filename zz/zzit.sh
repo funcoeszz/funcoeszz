@@ -69,15 +69,15 @@ zzit ()
 			zztool dump "$url2" |
 			if test "$opcao" = "plantao"
 			then
-				sed -n '/^ *Plantão /,/- Arquivo/{/^ *\*/!d;s/^ *\* *//;p}'
+				sed -n '/^ *Plantão /,/- Arquivo/{ /^ *\*/!d; s/^ *\* *//; p; }'
 			else
-				sed -n '/^ *Notícias /,/- Arquivo/{/^ *\*/!d;s/^ *\* *//;p}'
+				sed -n '/^ *Notícias /,/- Arquivo/{ /^ *\*/!d; s/^ *\* *//; p; }'
 			fi |
 			awk '{ printf "%02d - %s\n", NR, $0 }'
 		else
 			url2=$(
 			zztool source "$url2" | zzutf8 |
-			sed -n '/Notícias /,/- Arquivo/{/^<li>/!d;s/.*="//;s/".*//;p}' |
+			sed -n '/Notícias /,/- Arquivo/{ /^<li>/!d; s/.*="//; s/".*//; p; }' |
 			zzlinha $num
 			)
 			zztool eco "$url2"
