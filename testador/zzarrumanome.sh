@@ -52,15 +52,23 @@ $ zzarrumanome -n -r                              #→ --regex ^Uso:
 $ zzarrumanome -n XXnotfoundXX
 $
 
-$ zzarrumanome -n "$tmp"/*
+# Portability: Not using $tmp/* to avoid glob expansion A-Z ordering issues
+$ zzarrumanome -n "$tmp"/"$file0"
 [-n] /tmp/zzarrumanome.test/  a   -> /tmp/zzarrumanome.test/a
-[-n] /tmp/zzarrumanome.test/!@#$%&*( )+=[]{}<>^~,:;?\| -> /tmp/zzarrumanome.test/_
-[-n] /tmp/zzarrumanome.test/' -> /tmp/zzarrumanome.test/_
-[-n] /tmp/zzarrumanome.test/--help -> /tmp/zzarrumanome.test/_-help
-[-n] /tmp/zzarrumanome.test/RAMONES  -  I Don't Care (live) .MP3 -> /tmp/zzarrumanome.test/ramones-i_dont_care_live.mp3
-[-n] /tmp/zzarrumanome.test/a - a . a -> /tmp/zzarrumanome.test/a-a.a
-[-n] /tmp/zzarrumanome.test/a====a -> /tmp/zzarrumanome.test/a_a
+$ zzarrumanome -n "$tmp"/"$file1"
 [-n] /tmp/zzarrumanome.test/don't "do" it -> /tmp/zzarrumanome.test/dont_do_it
+$ zzarrumanome -n "$tmp"/"$file2"
+[-n] /tmp/zzarrumanome.test/--help -> /tmp/zzarrumanome.test/_-help
+$ zzarrumanome -n "$tmp"/"$file4"
+[-n] /tmp/zzarrumanome.test/!@#$%&*( )+=[]{}<>^~,:;?\| -> /tmp/zzarrumanome.test/_
+$ zzarrumanome -n "$tmp"/"$file5"
+[-n] /tmp/zzarrumanome.test/a====a -> /tmp/zzarrumanome.test/a_a
+$ zzarrumanome -n "$tmp"/"$file6"
+[-n] /tmp/zzarrumanome.test/a - a . a -> /tmp/zzarrumanome.test/a-a.a
+$ zzarrumanome -n "$tmp"/"$file7"
+[-n] /tmp/zzarrumanome.test/' -> /tmp/zzarrumanome.test/_
+$ zzarrumanome -n "$tmp"/"$file8"
+[-n] /tmp/zzarrumanome.test/RAMONES  -  I Don't Care (live) .MP3 -> /tmp/zzarrumanome.test/ramones-i_dont_care_live.mp3
 $
 
 # faxina
