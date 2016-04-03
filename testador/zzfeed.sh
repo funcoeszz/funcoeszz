@@ -17,7 +17,7 @@ $ zzfeed -n 4 http://aurelio.net/feed/  #→ --lines 4
 
 # Via STDIN
 
-$ $ZZWWWHTML http://aurelio.net/feed/ | zzfeed -n 4 -  #→ --lines 4
+$ zztool source http://aurelio.net/feed/ | zzfeed -n 4 -  #→ --lines 4
 
 
 # Tipos de feed e codificações

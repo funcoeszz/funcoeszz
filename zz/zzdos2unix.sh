@@ -34,7 +34,7 @@ zzdos2unix ()
 	for arquivo
 	do
 		# O arquivo existe?
-		zztool arquivo_legivel "$arquivo" || continue
+		zztool -e arquivo_legivel "$arquivo" || continue
 
 		# Remove o \r
 		cp "$arquivo" "$tmp" &&

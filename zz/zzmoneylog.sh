@@ -68,7 +68,7 @@ zzmoneylog ()
 	# Consigo ler o arquivo? (Se não for pasta nem STDIN)
 	if ! test -d "$arquivo" && test "$arquivo" != '-'
 	then
-		zztool arquivo_legivel "$arquivo" || return 1
+		zztool -e arquivo_legivel "$arquivo" || return 1
 	fi
 
 	### DATA

@@ -33,7 +33,7 @@ zzunix2dos ()
 	for arquivo
 	do
 		# O arquivo existe?
-		zztool arquivo_legivel "$arquivo" || continue
+		zztool -e arquivo_legivel "$arquivo" || continue
 
 		# Adiciona um único CR no final de cada linha
 		cp "$arquivo" "$tmp" &&

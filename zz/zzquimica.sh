@@ -24,7 +24,7 @@ zzquimica ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML "http://www.tabelaperiodicacompleta.com/" |
+		zztool source "http://www.tabelaperiodicacompleta.com/" |
 		awk '/class="elemento/,/<\/td>/{print}'|
 		zzxml --untag=br | zzxml --tidy |
 		sed '/id="57-71"/,/<\/td>/d;/id="89-103"/,/<\/td>/d' |

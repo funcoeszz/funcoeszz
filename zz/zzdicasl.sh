@@ -30,7 +30,7 @@ zzdicasl ()
 
 	# Faz a consulta e filtra o resultado
 	zztool eco "$url"
-	$ZZWWWHTML "$url" |
+	zztool source "$url" |
 		zztool texto_em_iso |
 		grep -i $opcao_grep "$*" |
 		sed -n 's@^<LI><A HREF=/arquivo/\([^>]*\)> *\([^ ].*\)</A>@\1@p'

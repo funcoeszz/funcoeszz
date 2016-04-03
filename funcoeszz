@@ -57,10 +57,6 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 #
 #
 
-ZZWWWDUMP='lynx -dump      -nolist -width=300 -accept_all_cookies -display_charset=UTF-8'
-ZZWWWLIST='lynx -dump              -width=300 -accept_all_cookies -display_charset=UTF-8'
-ZZWWWPOST='lynx -post-data -nolist -width=300 -accept_all_cookies -display_charset=UTF-8'
-ZZWWWHTML='lynx -source'
 ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
 ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
 ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
@@ -78,6 +74,12 @@ test -n "$ZZPATH" || ZZPATH=$ZZPATH_DFT
 test "${ZZPATH#/}" = "$ZZPATH" && ZZPATH="$PWD/${ZZPATH#./}"
 
 test -n "$ZZDIR" || ZZDIR=$ZZDIR_DFT
+
+# Descobre qual o navegador em modo texto está disponível no sistema
+for ZZBROWSER in lynx links w3m
+do
+	type "$ZZBROWSER" >/dev/null 2>&1 && break
+done
 
 #
 ### Últimos ajustes
@@ -100,6 +102,7 @@ do
 		*) break;;
 	esac
 done
+
 #
 #
 ##############################################################################
@@ -189,7 +192,7 @@ zztool ()
 			# Verifica se o nome de arquivo informado está vago
 			if test -e "$1"
 			then
-				echo "Arquivo $1 já existe. Abortando." >&2
+				test -n "$erro" && echo "Arquivo $1 já existe. Abortando." >&2
 				return 1
 			fi
 		;;
@@ -197,7 +200,7 @@ zztool ()
 			# Verifica se o arquivo existe e é legível
 			if ! test -r "$1"
 			then
-				echo "Não consegui ler o arquivo $1" >&2
+				test -n "$erro" && echo "Não consegui ler o arquivo $1" >&2
 				return 1
 			fi
 
@@ -206,8 +209,7 @@ zztool ()
 		num_linhas)
 			# Informa o número de linhas, sem formatação
 			zztool file_stdin "$@" |
-				wc -l |
-				tr -d ' \t'
+				sed -n '$='
 		;;
 		nl_eof)
 			# Garante que a última linha tem um \n no final
@@ -394,6 +396,106 @@ zztool ()
 
 			mktemp "${ZZTMP:-/tmp/zz}.${1:-anonimo}.XXXXXX"
 		;;
+		post | dump | source | list | download)
+			# Estrutura do comando:
+			# zztool <post|dump|source|list|download> [browser] [opções] <url> [dados_post]
+
+			local browser input_charset output_charset output_width user_agent opt_common
+
+			# A função pode chamar um navegador específico ou assumir o padrão $ZZBROWSER
+			case "$1" in
+				lynx | links | w3m) browser="$1"; shift  ;;
+				*                 ) browser="$ZZBROWSER" ;;
+			esac
+
+			# Parâmetros que podem ser modificados na linha de comando.
+			while test "${1#-}" != "$1"
+			do
+				case "$1" in
+					-i) input_charset="$2";  shift; shift ;;
+					-o) output_charset="$2"; shift; shift ;;
+					-w) output_width="$2";   shift; shift ;;
+					-u) user_agent="$2";     shift; shift ;;
+					-*) break ;;
+				esac
+			done
+
+			output_charset="${output_charset:-UTF-8}"
+			output_width="${output_width:-300}"
+
+			# Para POST se não houver ao menos 2 parâmetros (url e dados) interrompe.
+			test "$ferramenta" = 'post' && test $# -lt 2 && return 1
+
+			# Para outras requisições ao menos 1 parâmetro (url), se não interrompe.
+			test "$ferramenta" != 'post' && test $# -lt 1 && return 1
+
+			# Caracterizando os paramêtros conforme cada navegador.
+			case "$browser" in
+				lynx ) opt_common="-width=${output_width} -display_charset=${output_charset} -accept_all_cookies ${input_charset:+-assume_charset=}${input_charset} ${user_agent:+-useragent=}${user_agent}" ;;
+				links) opt_common="-width ${output_width} -codepage ${output_charset} ${input_charset:+-html-assume-codepage} ${input_charset} ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
+				w3m  ) opt_common="-cols ${output_width}  -O ${output_charset} -cookie ${input_charset:+-I} ${input_charset}" ;;
+			esac
+
+			case "$ferramenta" in
+			post)
+				# Post conforme o navegador escolhido
+				case "$browser" in
+					lynx)
+						echo "$2" | lynx ${opt_common} -post-data -nolist "$1"
+					;;
+					links | w3m)
+						local post_temp
+						post_temp=$(zztool mktemp post)
+						curl -s "${user_agent:+-A}" "${user_agent}" -o "$post_temp" --data "$2" "$1"
+
+						if test "$browser" = 'links'
+						then
+							links ${opt_common} -dump       file://"$post_temp"
+						else
+							w3m   ${opt_common} -dump -T text/html "$post_temp"
+						fi
+
+						rm -f "$post_temp"
+					;;
+				esac
+			;;
+			dump)
+				case "$browser" in
+					lynx ) lynx  ${opt_common} -dump -nolist      "$1" ;;
+					links) links ${opt_common} -dump              "$1" ;;
+					w3m  ) w3m   ${opt_common} -dump -T text/html "$1" ;;
+				esac
+			;;
+			source)
+				case "$browser" in
+					lynx ) lynx -source "${user_agent:+-useragent=}${user_agent}" "$1" ;;
+					*    ) curl -s      "${user_agent:+-A}" "${user_agent}"       "$1" ;;
+				esac
+			;;
+			list)
+				case "$browser" in
+					lynx ) lynx  ${opt_common} -dump                        "$1" ;;
+					links) links ${opt_common} -dump -html-numbered-links 1 "$1" ;;
+					#w3m ) FIXME ;;
+				esac | sed -n '/^ *[0-9]\{1,\}\. /{s/.* //;p;}'
+			;;
+			download)
+				local arq_dest
+				test -n "$2" && arq_dest="$2" || arq_dest=$(basename "$1")
+				if   type wget >/dev/null 2>&1
+				then
+					wget -q "${user_agent:+-U}" "${user_agent}" "$1" -O "$arq_dest"
+				elif type curl >/dev/null 2>&1
+				then
+					curl -s "${user_agent:+-A}" "${user_agent}" "$1" -o "$arq_dest"
+				else
+					case "$browser" in
+						lynx | links) $browser -source      "$1"  > "$arq_dest" ;;
+					esac
+				fi
+			;;
+			esac
+		;;
 		cache | atualiza)
 		# Limpa o cache se solicitado a atualização
 		# Atualiza o cache se for fornecido a url
@@ -428,9 +530,9 @@ zztool ()
 				then
 					case $4 in
 					none    ) : ;;
-					html    ) $ZZWWWHTML "$3" > "$ZZTMP.${1#zz}$id";;
-					list    ) $ZZWWWLIST "$3" > "$ZZTMP.${1#zz}$id";;
-					dump | *) $ZZWWWDUMP "$3" > "$ZZTMP.${1#zz}$id";;
+					html    ) zztool source "$3" > "$ZZTMP.${1#zz}$id";;
+					list    ) zztool list   "$3" > "$ZZTMP.${1#zz}$id";;
+					dump | *) zztool dump   "$3" > "$ZZTMP.${1#zz}$id";;
 					esac
 				fi
 				test "$ferramenta" = "cache" && echo "$ZZTMP.${1#zz}$id"
@@ -611,7 +713,7 @@ zzzz ()
 			### Todos os comandos necessários estão instalados?
 
 			local comando tipo_comando comandos_faltando
-			local comandos='awk- bc cat chmod- clear- cp cpp- cut diff- du- find- fmt grep iconv- lynx mktemp mv od- ps- rm sed sleep sort tail- tr uniq'
+			local comandos='awk- bc cat chmod- clear- cp cpp- curl cut diff- du- find- fmt grep iconv links- lynx- mktemp mv od- ps- rm sed sleep sort tail- tr uniq'
 
 			for comando in $comandos
 			do
@@ -680,7 +782,7 @@ zzzz ()
 		--atualiza)
 
 			echo 'Procurando a versão nova, aguarde.'
-			versao_remota=$($ZZWWWDUMP "$url_site/v")
+			versao_remota=$(zztool dump "$url_site/v")
 			echo "versão local : $ZZVERSAO"
 			echo "versão remota: $versao_remota"
 			echo
@@ -695,7 +797,7 @@ zzzz ()
 				test $ZZUTF != '1' && url_exe="${url_exe}-iso"
 
 				printf 'Baixando a versão nova... '
-				$ZZWWWHTML "$url_exe" > "funcoeszz-$versao_remota"
+				zztool download "$url_exe" "funcoeszz-$versao_remota"
 				echo 'PRONTO!'
 				echo "Arquivo 'funcoeszz-$versao_remota' baixado, instale-o manualmente."
 				echo "O caminho atual é $ZZPATH"

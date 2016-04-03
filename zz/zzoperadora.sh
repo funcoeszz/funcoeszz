@@ -9,6 +9,7 @@
 # Desde: 2013-06-19
 # Versão: 4
 # Licença: GPL
+# Requisitos: zzutf8
 # ----------------------------------------------------------------------------
 
 zzoperadora ()
@@ -26,7 +27,6 @@ zzoperadora ()
 	fi
 
 	# Faz a consulta no site
-	echo "$post" |
-	$ZZWWWPOST "$url" |
+	zztool post lynx "$url" "$post" | zzutf8 |
 	awk 'NR==4 {print "   Número:", $0}; NR==6{printf $0 "   -"}; NR>6 && NR<14 && NF>0'
 }

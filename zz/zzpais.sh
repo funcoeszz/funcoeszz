@@ -33,7 +33,7 @@ zzpais ()
 	# Se o cache está vazio, baixa-o da Internet
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML "$url" |
+		zztool source "$url" |
 		sed -n '/class="wikitable"/,/<\/table>/p' |
 		sed '/<th/d;s|</td>|:|g;s|</tr>|--n--|g;s|<br */*>|, |g;s/<[^>]*>//g;s/([^)]*)//g;s/\[.\]//g' |
 		awk '{

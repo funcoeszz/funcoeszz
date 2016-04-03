@@ -18,7 +18,7 @@ zzdefinr ()
 
 	local word=$(echo "$*" | sed 's/ /%20/g')
 
-	$ZZWWWHTML "http://definr.com/$word" |
+	zztool source "http://definr.com/$word" |
 		sed '
 			/<div id="meaning">/,/<\/div>/!d
 			s/<[^>]*>//g

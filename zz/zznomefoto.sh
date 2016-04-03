@@ -94,7 +94,7 @@ zznomefoto ()
 	for arquivo
 	do
 		# O arquivo existe?
-		zztool arquivo_legivel "$arquivo" || continue
+		zztool -e arquivo_legivel "$arquivo" || continue
 
 		# Componentes do nome novo
 		contagem=$(printf "%0${digitos}d" $i)
@@ -186,7 +186,7 @@ zznomefoto ()
 		if ! test -n "$nao"
 		then
 			# Não sobrescreve arquivos já existentes
-			zztool arquivo_vago "$novo" || return
+			zztool -e arquivo_vago "$novo" || return
 
 			# E finalmente, renomeia
 			mv -- "$arquivo" "$novo"

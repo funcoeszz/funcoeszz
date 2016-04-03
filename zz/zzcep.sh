@@ -10,6 +10,7 @@
 # Desde: 2000-11-08
 # Versão: 2
 # Licença: GPL
+# Requisitos: zzutf8
 # ----------------------------------------------------------------------------
 zzcep ()
 {
@@ -46,6 +47,6 @@ zzcep ()
 	# Testando se formou a query string
 	test -n "$query" || { zztool -e uso cep; return 1; }
 
-	echo "$query" | $ZZWWWPOST "$url" |
+	zztool post lynx "$url" "$query" | zzutf8 |
 	sed -n '/^[[:blank:]]*CEP/,/^[[:blank:]]*$/p'| sed 's/^ *//g;$d'
 }

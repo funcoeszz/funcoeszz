@@ -60,7 +60,7 @@ zztop ()
 		;;
 		-l)
 		# Meses e anos disponíveis, representado por um número sequencial
-			$ZZWWWHTML "${url}/statistics/list" |
+			zztool source "${url}/statistics/list" |
 			sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/\t/;p;}' |
 			sed '/June 1993$/q' | expand -t 3 |
 			zztac | zzcolunar -w 20 3
@@ -71,7 +71,7 @@ zztop ()
 	done
 
 	all_releases=$(
-		$ZZWWWHTML "${url}/statistics/list" |
+		zztool source "${url}/statistics/list" |
 		sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/\t/;p;}' |
 		sed '/June 1993$/q'
 	)
@@ -121,7 +121,7 @@ zztop ()
 	fi
 
 	# Cacheando
-	cache=$($ZZWWWHTML "$url")
+	cache=$(zztool source "$url")
 
 	# Data da lista
 	if test -n "$ano"

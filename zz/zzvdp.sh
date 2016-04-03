@@ -25,7 +25,7 @@ zzvdp ()
 
 	zztool testa_numero "$1" && ord=$1
 
-	$ZZWWWDUMP  "$url" |
+	zztool dump  "$url" |
 	sed -n "
 		/^\[Vídeo\]/d
 		/[0-3][0-9]\/[01][0-9]\/20[0-3][0-9] [0-2][0-9]:[0-5][0-9]$/p

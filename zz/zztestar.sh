@@ -48,15 +48,7 @@ zztestar ()
 	test -n "$1" || { zztool -e uso testar; return 1; }
 
 	case "$1" in
-		ano)
-			# Testa se $2 é um ano válido: 1-9999
-			# O ano zero nunca existiu, foi de -1 para 1
-			# Ano maior que 9999 pesa no processamento
-			echo "$2" | grep -v '^00*$' | grep '^[0-9]\{1,4\}$' >/dev/null && return 0
-
-			test -n "$erro" && zztool erro "Ano inválido '$1'"
-			return 1
-		;;
+		ano) zztool ${erro:+-e} testa_ano "$2" ;;
 
 		ano_bissexto | bissexto)
 			# Testa se $2 é um ano bissexto
@@ -85,13 +77,7 @@ zztestar ()
 			return 1
 		;;
 
-		numero | natural)
-			# Testa se $2 é um número positivo
-			echo "$2" | grep '^[0-9]\{1,\}$' >/dev/null && return 0
-
-			test -n "$erro" && zztool erro "Número Natural inválido '$2'"
-			return 1
-		;;
+		numero | natural) zztool ${erro:+-e} testa_numero "$2" ;;
 
 		numero_sinal | inteiro)
 			# Testa se $2 é um número (pode ter sinal: -2 +2)
@@ -186,16 +172,7 @@ zztestar ()
 			return 1
 		;;
 
-		data)
-			# Testa se $2 é uma data (dd/mm/aaaa)
-			local d29='\(0[1-9]\|[12][0-9]\)/\(0[1-9]\|1[012]\)'
-			local d30='30/\(0[13-9]\|1[012]\)'
-			local d31='31/\(0[13578]\|1[02]\)'
-			echo "$2" | grep "^\($d29\|$d30\|$d31\)/[0-9]\{1,4\}$" >/dev/null && return 0
-
-			test -n "$erro" && zztool erro "Data inválida '$2', deve ser dd/mm/aaaa"
-			return 1
-		;;
+		data) zztool ${erro:+-e} testa_data "$2" ;;
 
 		hora)
 			# Testa se $2 é uma hora (hh:mm)

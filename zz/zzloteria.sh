@@ -2,16 +2,18 @@
 # Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal, timemania e loteca.
 #
 # Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
+# Se o 2º argumento for a palavra "quantidade" ou "qtde" mostra quantas vezes
+#  um número foi sorteado. ( Não se aplica para federal e loteca )
 # Se nenhum argumento for passado, todas as loterias são mostradas.
 #
-# Uso: zzloteria [[loteria suportada] concurso]
+# Uso: zzloteria [[loterias suportadas] [concurso|[quantidade|qtde]]
 # Ex.: zzloteria
 #      zzloteria quina megasena
 #      zzloteria loteca 550
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-05-18
-# Versão: 13
+# Versão: 14
 # Licença: GPL
 # Requisitos: zzlimpalixo
 # Nota: requer links
@@ -20,27 +22,29 @@ zzloteria ()
 {
 	zzzz -h loteria "$1" && return
 
-	local dump tipo num_con ZZWWWDUMP2 download
+	local dump tipo num_con download qtde
 	local url='http://loterias.caixa.gov.br/wps/portal/loterias/landing'
 	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
 	local cache=$(zztool cache loteria)
 	local tab=$(printf '\t')
 	local un_zip='unzip -q -a -C -o'
 
-	if which links >/dev/null 2>&1
-	then
-		ZZWWWDUMP2='links -dump'
-		download='links -source'
-	else
-		zztool erro 'Para esta função funcionar, é necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'
+	which links >/dev/null 2>&1 || {
+		zztool erro 'Necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'
 		return 1
-	fi
+	}
+
+	download='links -source'
 
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente
 	if zztool testa_numero "$2"
 	then
 		tipos=$1
 		num_con=$2
+	elif test 'quantidade' = "$2" -o 'qtde' = "$2"
+	then
+		tipos=$1
+		num_con=0
 	else
 		unset num_con
 		test -n "$1" && tipos="$*"
@@ -57,7 +61,7 @@ zzloteria ()
 		if ! test -n "$num_con"
 		then
 			# Resultados mais recentes das loterias selecionadas.
-			dump=$($ZZWWWDUMP2 "${url}/${tipo}" | sed -n '/Resultado Concurso/,/^ *Arrecada/p' | sed '2,6d;s/^Resultado //')
+			dump=$(zztool dump links "${url}/${tipo}" | sed -n '/Resultado Concurso/,/^ *Arrecada/p' | sed '2,6d;s/^Resultado //')
 			case "$tipo" in
 				lotomania | lotofacil)
 					echo "$dump" |
@@ -154,130 +158,212 @@ zzloteria ()
 			# Resultados históricos das loterias selecionadas.
 			case "$tipo" in
 				lotomania)
-					if ! test -e ${cache}.lotomania.htm || ! $($ZZWWWDUMP ${cache}.lotomania.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.lotomania.htm || ! $(zztool dump ${cache}.lotomania.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotoma.zip" > "${cache}.lotomania.zip" 2>/dev/null
 						$un_zip "${cache}.lotomania.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_LOTMAN.HTM" ${cache}.lotomania.htm
 						rm -f ${cache}.lotomania.zip
 					fi
-					$ZZWWWDUMP ${cache}.lotomania.htm |
-					grep "^ *$num_con " 2>/dev/null |
-					awk ' {
-						print "Concurso", $1, "(" $2 ")"
-						comando="sort -n | paste -d _ - - - - -"
-						for (i=3;i<23;i++) {print $i | comando }
-						close(comando)
-						print ""
-						printf "20 pts.\t%s\t%s\n", ($24==0?"Nao houve acertador!":$24), ($24==0?"":"R$ " $(NF-13))
-						printf "19 pts.\t%s\t%s\n", $(NF-18), "R$ " $(NF-12)
-						printf "18 pts.\t%s\t%s\n", $(NF-17), "R$ " $(NF-11)
-						printf "17 pts.\t%s\t%s\n", $(NF-16), "R$ " $(NF-10)
-						printf "16 pts.\t%s\t%s\n", $(NF-15), "R$ " $(NF-9)
-						printf " 0 pts.\t%s\t%s\n", ($(NF-14)==0?"Nao houve acertador!":$(NF-14)), ($(NF-14)==0?"":"R$ " $(NF-8))
-					}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
+					zztool dump ${cache}.lotomania.htm |
+					if test 0 = "$num_con"
+					then
+						awk '
+						BEGIN { printf "## QTD\t## QTD\t## QTD\t## QTD\n" }
+						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<23;i++) numeros[$i]++ }
+						END {
+							for (i=0;i<25;i++) {
+								num=sprintf("%02d",i)
+								printf "%02d %d\t%02d %d\t%02d %d\t%02d %d\n", i, numeros[num], i+25, numeros[i+25], i+50, numeros[i+50], i+75, numeros[i+75]
+							}
+						}
+						' | expand -t 10
+					else
+						grep "^ *$num_con " 2>/dev/null |
+						awk ' {
+							print "Concurso", $1, "(" $2 ")"
+							comando="sort -n | paste -d _ - - - - -"
+							for (i=3;i<23;i++) {print $i | comando }
+							close(comando)
+							print ""
+							printf "20 pts.\t%s\t%s\n", ($24==0?"Nao houve acertador!":$24), ($24==0?"":"R$ " $(NF-13))
+							printf "19 pts.\t%s\t%s\n", $(NF-18), "R$ " $(NF-12)
+							printf "18 pts.\t%s\t%s\n", $(NF-17), "R$ " $(NF-11)
+							printf "17 pts.\t%s\t%s\n", $(NF-16), "R$ " $(NF-10)
+							printf "16 pts.\t%s\t%s\n", $(NF-15), "R$ " $(NF-9)
+							printf " 0 pts.\t%s\t%s\n", ($(NF-14)==0?"Nao houve acertador!":$(NF-14)), ($(NF-14)==0?"":"R$ " $(NF-8))
+						}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
+					fi
 				;;
 				lotofacil)
-					if ! test -e ${cache}.lotofacil.htm || ! $($ZZWWWDUMP ${cache}.lotofacil.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.lotofacil.htm || ! $(zztool dump ${cache}.lotofacil.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip" > "${cache}.lotofacil.zip" 2>/dev/null
 						$un_zip "${cache}.lotofacil.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_LOTFAC.HTM" ${cache}.lotofacil.htm
 						rm -f ${cache}.lotofacil.zip
 					fi
-					$ZZWWWDUMP ${cache}.lotofacil.htm |
-					grep "^ *$num_con " 2>/dev/null |
-					awk '{
-						print "Concurso", $1, "(" $2 ")"
-						comando="sort -n | paste -d _ - - - - -"
-						for (i=3;i<18;i++) {print $i | comando }
-						close(comando)
-						print ""
-						printf "15 pts.\t%s\t%s\n", ($19==0?"Nao houve acertador!":$19), ($19==0?"":"R$ " $(NF-7))
-						printf "14 pts.\t%s\t%s\n", $(NF-11), "R$ " $(NF-6)
-						printf "13 pts.\t%s\t%s\n", $(NF-10), "R$ " $(NF-5)
-						printf "12 pts.\t%s\t%s\n", $(NF-9), "R$ " $(NF-4)
-						printf "11 pts.\t%s\t%s\n", $(NF-8), "R$ " $(NF-3)
-					}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
+					zztool dump ${cache}.lotofacil.htm |
+					if test 0 = "$num_con"
+					then
+						awk '
+						BEGIN { print "## QTD" }
+						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<18;i++) numeros[$i]++ }
+						END {
+							for (i=1;i<=25;i++) {
+								num=sprintf("%02d",i)
+								printf "%02d %d\n", i, numeros[num]
+							}
+						}
+						' | expand -t 10
+					else
+						grep "^ *$num_con " 2>/dev/null |
+						awk '{
+							print "Concurso", $1, "(" $2 ")"
+							comando="sort -n | paste -d _ - - - - -"
+							for (i=3;i<18;i++) {print $i | comando }
+							close(comando)
+							print ""
+							printf "15 pts.\t%s\t%s\n", ($19==0?"Nao houve acertador!":$19), ($19==0?"":"R$ " $(NF-7))
+							printf "14 pts.\t%s\t%s\n", $(NF-11), "R$ " $(NF-6)
+							printf "13 pts.\t%s\t%s\n", $(NF-10), "R$ " $(NF-5)
+							printf "12 pts.\t%s\t%s\n", $(NF-9), "R$ " $(NF-4)
+							printf "11 pts.\t%s\t%s\n", $(NF-8), "R$ " $(NF-3)
+						}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
+					fi
 				;;
 				megasena)
-					if ! test -e ${cache}.mega.htm || ! $($ZZWWWDUMP ${cache}.megasena.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.mega.htm || ! $(zztool dump ${cache}.megasena.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_mgsasc.zip" > "${cache}.megasena.zip" 2>/dev/null
 						$un_zip "${cache}.megasena.zip" "*.htm" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/d_megasc.htm" ${cache}.megasena.htm
 						rm -f ${cache}.megasena.zip
 					fi
-					$ZZWWWDUMP ${cache}.megasena.htm |
-					grep "^ *$num_con " 2>/dev/null |
-					awk '{
-						print "Concurso", $1, "(" $2 ")"
-						printf "%4s %4s %4s %4s %4s %4s\n", $3, $4, $5, $6, $7, $8
-						print ""
-						printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador!":$10), ($10==0?"":"R$ " $(NF-8))
-						printf "   Quina \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
-						printf "   Quadra\t%s\t%s\n", $(NF-5), "R$ " $(NF-4)
-					}' | expand -t 15,25,35
+					zztool dump ${cache}.megasena.htm |
+					if test 0 = "$num_con"
+					then
+						awk '
+						BEGIN { printf "## QTD\t## QTD\t## QTD\n" }
+						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<9;i++) numeros[$i]++ }
+						END {
+							for (i=1;i<=20;i++) {
+								num=sprintf("%02d",i)
+								printf "%02d %d\t%02d %d\t%02d %d\n", i, numeros[num], i+20, numeros[i+20], i+40, numeros[i+40]
+							}
+						}
+						' | expand -t 10
+					else
+						grep "^ *$num_con " 2>/dev/null |
+						awk '{
+							print "Concurso", $1, "(" $2 ")"
+							printf "%4s %4s %4s %4s %4s %4s\n", $3, $4, $5, $6, $7, $8
+							print ""
+							printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador!":$10), ($10==0?"":"R$ " $(NF-8))
+							printf "   Quina \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
+							printf "   Quadra\t%s\t%s\n", $(NF-5), "R$ " $(NF-4)
+						}' | expand -t 15,25,35
+					fi
 				;;
 				duplasena)
-					if ! test -e ${cache}.duplasena.htm || ! $($ZZWWWDUMP ${cache}.duplasena.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.duplasena.htm || ! $(zztool dump ${cache}.duplasena.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_dplsen.zip" > "${cache}.duplasena.zip" 2>/dev/null
 						$un_zip "${cache}.duplasena.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_DPLSEN.HTM" ${cache}.duplasena.htm
 						rm -f ${cache}.duplasena.zip
 					fi
-					$ZZWWWDUMP ${cache}.duplasena.htm |
-					grep "^ *$num_con " 2>/dev/null |
-					awk '{
-						print "Concurso", $1, "(" $2 ")"
-						printf "\n  1º sorteio\n"
-						comando="sort -n | paste -d _ - - - - - -"
-						for (i=3;i<9;i++) {print $i | comando }
-						close(comando)
-						printf "\n  2º sorteio\n"
-						for (i=12;i>6;i--) {print $(NF-i) | comando }
-						close(comando)
-						printf "\n  1º Sorteio\n"
-						printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador":$10), ($10==0?"":"R$ " $(NF-19))
-						printf "   Quina \t%s\t%s\n", $(NF-18), "R$ " $(NF-17)
-						printf "   Quadra\t%s\t%s\n", $(NF-16), "R$ " $(NF-16)
-						printf "\n  2º Sorteio\n"
-						printf "   Sena  \t%s\t%s\n", ($(NF-6)==0?"Nao houve acertador":$(NF-6)), ($(NF-6)==0?"":"R$ " $(NF-5))
-						printf "   Quina \t%s\t%s\n", $(NF-4), "R$ " $(NF-3)
-						printf "   Quadra\t%s\t%s\n", $(NF-2), "R$ " $(NF-1)
-					}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g'
+					zztool dump ${cache}.duplasena.htm |
+					if test 0 = "$num_con"
+					then
+						awk '
+						BEGIN {
+							printf "1º sorteio          2º sorteio\n"
+							printf "## QTD\t## QTD\t## QTD\t## QTD\n"
+							}
+						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ {
+							for (i=3;i<9;i++)  numeros1[$i]++
+							for (i=12;i>6;i--) numeros2[$(NF-i) ]++
+						}
+						END {
+							for (i=1;i<=25;i++) {
+								num=sprintf("%02d",i)
+								printf "%02d %d\t%02d %d\t%02d %d\t%02d %d\n", i, numeros1[num], i+25, numeros1[i+25], i, numeros2[num], i+25, numeros2[i+25]
+							}
+						}
+						' | expand -t 10
+					else
+						grep "^ *$num_con " 2>/dev/null |
+						awk '{
+							print "Concurso", $1, "(" $2 ")"
+							printf "\n  1º sorteio\n"
+							comando="sort -n | paste -d _ - - - - - -"
+							for (i=3;i<9;i++) {print $i | comando }
+							close(comando)
+							printf "\n  2º sorteio\n"
+							for (i=12;i>6;i--) {print $(NF-i) | comando }
+							close(comando)
+							printf "\n  1º Sorteio\n"
+							printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador":$10), ($10==0?"":"R$ " $(NF-19))
+							printf "   Quina \t%s\t%s\n", $(NF-18), "R$ " $(NF-17)
+							printf "   Quadra\t%s\t%s\n", $(NF-16), "R$ " $(NF-16)
+							printf "\n  2º Sorteio\n"
+							printf "   Sena  \t%s\t%s\n", ($(NF-6)==0?"Nao houve acertador":$(NF-6)), ($(NF-6)==0?"":"R$ " $(NF-5))
+							printf "   Quina \t%s\t%s\n", $(NF-4), "R$ " $(NF-3)
+							printf "   Quadra\t%s\t%s\n", $(NF-2), "R$ " $(NF-1)
+						}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g'
+					fi
 				;;
 				quina)
-					if ! test -e ${cache}.quina.htm || ! $($ZZWWWDUMP ${cache}.quina.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.quina.htm || ! $(zztool dump ${cache}.quina.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_quina.zip" > "${cache}.quina.zip" 2>/dev/null
 						$un_zip "${cache}.quina.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_QUINA.HTM" ${cache}.quina.htm
 						rm -f ${cache}.quina.zip
 					fi
-					$ZZWWWDUMP ${cache}.quina.htm |
-					grep "^ *$num_con " 2>/dev/null |
-					awk '{
-						print "Concurso", $1, "(" $2 ")"
-						comando="sort -n | paste -d _ - - - - -"
-						for (i=3;i<8;i++) {print $i | comando }
-						close(comando)
-						print ""
-						printf "   Quina \t%s\t%s\n", ($9==0?"Nao houve acertador":$9), ($9==0?"":"R$ " $(NF-8))
-						printf "   Quadra\t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
-						printf "   Terno \t%s\t%s\n", $(NF-5), "R$ " $(NF-5)
-					}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g' | expand -t 15,25,35
+					zztool dump ${cache}.quina.htm |
+					if test 0 = "$num_con"
+					then
+						awk '
+						BEGIN { printf "## QTD\t## QTD\t## QTD\t## QTD\n" }
+						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<8;i++) numeros[$i]++ }
+						END {
+							for (i=1;i<=20;i++) {
+								num=sprintf("%02d",i)
+								printf "%02d %d\t%02d %d\t%02d %d\t%02d %d\n", i, numeros[num], i+20, numeros[i+20], i+40, numeros[i+40], i+60, numeros[i+60]
+							}
+						}
+						' | expand -t 10
+					else
+						grep "^ *$num_con " 2>/dev/null |
+						awk '{
+							print "Concurso", $1, "(" $2 ")"
+							comando="sort -n | paste -d _ - - - - -"
+							for (i=3;i<8;i++) {print $i | comando }
+							close(comando)
+							print ""
+							printf "   Quina \t%s\t%s\n", ($9==0?"Nao houve acertador":$9), ($9==0?"":"R$ " $(NF-8))
+							printf "   Quadra\t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
+							printf "   Terno \t%s\t%s\n", $(NF-5), "R$ " $(NF-5)
+						}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g' | expand -t 15,25,35
+					fi
 				;;
 				federal)
-					if ! test -e ${cache}.federal.htm || ! $($ZZWWWDUMP ${cache}.federal.htm | grep "^[ 0]*$num_con " >/dev/null)
+					if test 0 = "$num_con"
+					then
+						zztool erro "Não se aplica a loteria federal."
+						return 1
+					fi
+
+					if ! test -e ${cache}.federal.htm || ! $(zztool dump ${cache}.federal.htm | grep "^[ 0]*$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_federa.zip" > "${cache}.federal.zip" 2>/dev/null
 						$un_zip "${cache}.federal.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_LOTFED.HTM" ${cache}.federal.htm
 						rm -f ${cache}.federal.zip
 					fi
-					$ZZWWWDUMP ${cache}.federal.htm |
+					zztool dump ${cache}.federal.htm |
 					grep "^[ 0]*$num_con " 2>/dev/null |
 					awk '{
 						print "Concurso", $1, "(" $2 ")"
@@ -290,37 +376,57 @@ zzloteria ()
 					}'
 				;;
 				timemania)
-					if ! test -e ${cache}.timemania.htm || ! $($ZZWWWDUMP ${cache}.timemania.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.timemania.htm || ! $(zztool dump ${cache}.timemania.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_timasc.zip" > "${cache}.timemania.zip" 2>/dev/null
 						$un_zip "${cache}.timemania.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_TIMASC.HTM" ${cache}.timemania.htm
 						rm -f ${cache}.timemania.zip
 					fi
-					$ZZWWWDUMP ${cache}.timemania.htm |
-					grep "^ *$num_con " 2>/dev/null |
-					sed 's/\([[:upper:]]\) \([[:upper:]]\)/\1_\2/g' |
-					awk '{
-						print "Concurso", $1, "(" $2 ")"
-						printf "%5s %4s %4s %4s %4s %4s %4s\n", $3, $4, $5, $6, $7, $8, $9
-						print ""
-						printf "   7 pts.\t%s\t%s\n", ($12==0?"Nao houve acertador!":$12), ($12==0?"":"R$ " $(NF-7))
-						printf "   6 pts.\t%s\t%s\n", $(NF-12), "R$ " $(NF-6)
-						printf "   5 pts.\t%s\t%s\n", $(NF-11), "R$ " $(NF-5)
-						printf "   4 pts.\t%s\t%s\n", $(NF-10), "R$ " $(NF-4)
-						printf "   3 pts.\t%s\t%s\n", $(NF-9), "R$ " $(NF-3)
-						printf "\n   Time: %s\t\n\t%s\t%s\n", $10, $(NF-8),  "R$ " $(NF-2)
-					}' | expand -t 15,25,35
+					zztool dump ${cache}.timemania.htm |
+					if test 0 = "$num_con"
+					then
+						awk '
+						BEGIN { printf "## QTD\t## QTD\t## QTD\t## QTD\n" }
+						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<10;i++) numeros[$i]++ }
+						END {
+							for (i=1;i<=20;i++) {
+								num=sprintf("%02d",i)
+								printf "%02d %d\t%02d %d\t%02d %d\t%02d %d\n", i, numeros[num], i+20, numeros[i+20], i+40, numeros[i+40], i+60, numeros[i+60]
+							}
+						}
+						' | expand -t 10
+					else
+						grep "^ *$num_con " 2>/dev/null |
+						sed 's/\([[:upper:]]\) \([[:upper:]]\)/\1_\2/g' |
+						awk '{
+							print "Concurso", $1, "(" $2 ")"
+							printf "%5s %4s %4s %4s %4s %4s %4s\n", $3, $4, $5, $6, $7, $8, $9
+							print ""
+							printf "   7 pts.\t%s\t%s\n", ($12==0?"Nao houve acertador!":$12), ($12==0?"":"R$ " $(NF-7))
+							printf "   6 pts.\t%s\t%s\n", $(NF-12), "R$ " $(NF-6)
+							printf "   5 pts.\t%s\t%s\n", $(NF-11), "R$ " $(NF-5)
+							printf "   4 pts.\t%s\t%s\n", $(NF-10), "R$ " $(NF-4)
+							printf "   3 pts.\t%s\t%s\n", $(NF-9), "R$ " $(NF-3)
+							printf "\n   Time: %s\t\n\t%s\t%s\n", $10, $(NF-8),  "R$ " $(NF-2)
+						}' | expand -t 15,25,35
+					fi
 				;;
 				loteca)
-					if ! test -e ${cache}.loteca.htm || ! $($ZZWWWDUMP ${cache}.loteca.htm | grep "^ *$num_con " >/dev/null)
+					if test 0 = "$num_con"
+					then
+						zztool erro "Não se aplica a loteca."
+						return 1
+					fi
+
+					if ! test -e ${cache}.loteca.htm || ! $(zztool dump ${cache}.loteca.htm | grep "^ *$num_con " >/dev/null)
 					then
 						$download "http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_loteca.zip" > "${cache}.loteca.zip" 2>/dev/null
 						$un_zip "${cache}.loteca.zip" "*.HTM" -d "${ZZTMP%/*}" 2>/dev/null
 						mv -f "${ZZTMP%/*}/D_LOTECA.HTM" ${cache}.loteca.htm
 						rm -f ${cache}.loteca.zip
 					fi
-					$ZZWWWDUMP ${cache}.loteca.htm |
+					zztool dump ${cache}.loteca.htm |
 					grep "^ *$num_con " 2>/dev/null |
 					awk '{
 						print "Concurso", $1, "(" $2 ")"

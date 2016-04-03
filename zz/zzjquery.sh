@@ -34,7 +34,7 @@ zzjquery ()
 			lista_cat=$(echo "$2" | zzcapitalize)
 			test "$lista_cat" = "Css" && lista_cat="CSS"
 			url_aux=$(
-				$ZZWWWHTML "$url" |
+				zztool source "$url" |
 				awk '/<aside/,/aside>/{print}' |
 				sed "/<ul class='children'>/,/<\/ul>/d" |
 				zzxml --untag=aside --tag a |
@@ -48,7 +48,7 @@ zzjquery ()
 
 		if test -n "$url"
 		then
-			$ZZWWWHTML "$url" |
+			zztool source "$url" |
 			sed -n '/title="Permalink to /{s/^[[:blank:]]*//;s/<[^>]*>//g;s/()//;p;}' |
 			zzunescape --html
 		fi
@@ -56,7 +56,7 @@ zzjquery ()
 	;;
 	--categoria | --categorias)
 
-		$ZZWWWHTML "$url" |
+		zztool source "$url" |
 		awk '/<aside/,/aside>/{print}' |
 		sed "/<ul class='children'>/,/<\/ul>/d" |
 		zzxml --tag li --untag  | zzlimpalixo | zzunescape --html
@@ -68,7 +68,7 @@ zzjquery ()
 		if test -n "$1"
 		then
 			url_aux=$(
-				$ZZWWWHTML "$url" |
+				zztool source "$url" |
 				sed -n '/title="Permalink to /{s/^[[:blank:]]*//;s/()//g;p;}' |
 				zzunescape --html |
 				awk -F '[<>"]' '{print "http:" $3, $9 }' |
@@ -85,7 +85,7 @@ zzjquery ()
 			do
 				zztool grep_var 'http://' "$url_aux" || url_aux="http://$url_aux"
 				zztool eco ${url_aux#*com/} | tr -d '/'
-				$ZZWWWHTML "$url_aux" |
+				zztool source "$url_aux" |
 				zzxml --tag article |
 				awk '/class="entry(-content| method)"/,/<\/article>/{ print }' |
 				if test "$sintaxe" = "1"

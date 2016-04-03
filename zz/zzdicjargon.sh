@@ -26,9 +26,9 @@ zzdicjargon ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		$ZZWWWLIST "$url/go01.html" |
+		zztool list "$url/go01.html" |
 			sed '
-				/^ *[0-9][0-9]*\. /!d
+				#/^ *[0-9][0-9]*\. /!d
 				s@.*/html/@@
 				/^[A-Z0]\//!d' > "$cache"
 	fi
@@ -47,7 +47,7 @@ zzdicjargon ()
 
 	if test $num -eq 1
 	then
-		$ZZWWWDUMP -width=72 "$url/$achei" |
+		zztool dump -w 72 "$url/$achei" |
 			sed '1,/_\{9\}/d;/_\{9\}/,$d;/^$/d' | zztrim -l
 		test -n "$mais" && zztool eco '\nTermos parecidos:'
 	else

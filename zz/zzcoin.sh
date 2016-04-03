@@ -27,20 +27,20 @@ zzcoin ()
 		btc | bitcoin  )
 			# Monta URL a ser consultada
 			url="${url}/ticker"
-			$ZZWWWHTML "$url" |
+			zztool source "$url" |
 			sed 's/.*"last"://;s/,"buy.*//' |
 			zznumero -m
 		;;
 		ltc | litecoin  )
 			# Monta URL a ser consultada
 			url="${url}/ticker_litecoin"
-			$ZZWWWHTML "$url" |
+			zztool source "$url" |
 			sed 's/.*"last"://;s/,"buy.*//' |
 			zznumero -m
 		;;
 		-a | --all )
 			url="http://coinmarketcap.com/mineable.html"
-			$ZZWWWDUMP "$url" |
+			zztool dump "$url" |
 			sed -n '/#/,/Last updated/{
 				/^ *\*/d;
 				/^ *$/d;
@@ -68,13 +68,13 @@ zzcoin ()
 				}
 				NR==1 {print}
 				NR>=2 {
-					if($2 == $3) {
+					if($2 == $3 || $3 ~ /\.\.\.$/) {
 						atual = $2 " " $3
 						novo = $2 " " espacos(length($3))
 						sub(atual, novo)
 						print
 					}
-					else if($2 == $4 && $3 == $5) {
+					else if(($2 == $4 && $3 == $5) || $5 ~ /\.\.\.$/) {
 						gsub(/\)/,"_"); gsub(/\(/,"_")
 						atual = $2 " " $3 " " $4 " " $5
 						novo = $2 " " $3 " " espacos(length($4)+length($5)+1)

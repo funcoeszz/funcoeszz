@@ -28,7 +28,7 @@ zztempo ()
 	# Se o cache de países está vazio, baixa listagem da Internet
 	if ! test -s "$cache_paises"
 	then
-		$ZZWWWHTML "$url" | sed -n '
+		zztool source "$url" | sed -n '
 			/="country"/,/\/select/ {
 				s/.*="\([a-zA-Z]*\)">\(.*\) <.*/\1 \2/p
 			}' > "$cache_paises"
@@ -55,7 +55,7 @@ zztempo ()
 	cache_localidades=$cache_localidades.$codigo_pais
 	if ! test -s "$cache_localidades"
 	then
-		$ZZWWWHTML "$url/weather/${codigo_pais}_cc.html" | sed -n '
+		zztool source "$url/weather/${codigo_pais}_cc.html" | sed -n '
 			/="cccc"/,/\/select/ {
 				//d
 				s/.*="\([a-zA-Z]*\)">/\1 /p
@@ -91,7 +91,7 @@ zztempo ()
 
 	# Faz a consulta e filtra o resultado
 	echo
-	$ZZWWWDUMP "$url/weather/current/${codigo_localidade}.html" | sed -n '
+	zztool dump "$url/weather/current/${codigo_localidade}.html" | sed -n '
 		/Current Weather/,/24 Hour/ {
 			//d
 			/____*/d

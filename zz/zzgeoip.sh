@@ -31,7 +31,7 @@ zzgeoip ()
 	fi
 
 	pagina=$(
-		$ZZWWWHTML http://geoip.s12.com.br?ip=$ip |
+		zztool source http://geoip.s12.com.br?ip=$ip |
 			zzxml --tidy --untag --tag td |
 			sed '/^[[:blank:]]*$/d;/&/d' |
 			awk '{if ($0 ~ /:/) { printf "\n%s",$0 } else printf $0}'

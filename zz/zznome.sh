@@ -58,7 +58,7 @@ zznome ()
 		;;
 	esac
 
-	$ZZWWWDUMP "$url/nomes/?q=$nome" |
+	zztool dump "$url/nomes/?q=$nome" |
 		sed -n "
 		/$ini/,/$fim/ {
 			/$fim/d

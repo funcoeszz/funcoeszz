@@ -39,7 +39,7 @@ zztv ()
 
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML ${URL}/categoria/Todos |
+		zztool source ${URL}/categoria/Todos |
 		sed -n '/programacao\/canal/p;/^ *|/p' |
 		awk -F '("| [|] )' '{print $2, $6 }' |
 		sed 's/<[^>]*>//g;s|^.*/||' |
@@ -55,7 +55,7 @@ zztv ()
 		desc=$(grep -i "^$1" $cache | sed "s/^[A-Z0-9]\{3\} *//")
 
 		zztool eco $desc
-		$ZZWWWHTML "${URL}/canal/$codigo" |
+		zztool source "${URL}/canal/$codigo" |
 		sed -n '/<li class/{N;p;}' |
 		sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g' |
 		sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g' |
@@ -91,7 +91,7 @@ zztv ()
 	if test $flag -eq 1
 	then
 		zztool eco $desc
-		$ZZWWWHTML "$URL" | sed -n '/<li style/{N;p;}' |
+		zztool source "$URL" | sed -n '/<li style/{N;p;}' |
 		sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g' |
 		sed 's/.*title="//g;s/">.*<br \/>/ | /g;s/<[^>]*>/ /g' |
 		sed 's/[[:space:]]\{1,\}/ /g' |
@@ -101,7 +101,7 @@ zztv ()
 	elif test "$1" = "cod"
 	then
 		zztool eco "Código: $2"
-		$ZZWWWHTML "$URL" | sed -n '/<span class="tit">/,/Compartilhe:/p' |
+		zztool source "$URL" | sed -n '/<span class="tit">/,/Compartilhe:/p' |
 		sed 's/<span class="tit">/Título: /;s/<span class="tit_orig">/Título Original: /' |
 		sed 's/<[^>]*>/ /g;s/amp;//g;s/\&ccedil;/ç/g;s/\&atilde;/ã/g;s/.*str="//;s/";//;s/[\|] //g' |
 		sed 's/^[[:space:]]*/ /g' |

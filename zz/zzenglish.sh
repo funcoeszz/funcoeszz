@@ -8,7 +8,7 @@
 # Desde: 2008-09-07
 # Versão: 6
 # Licença: GPL
-# Requisitos: zztrim
+# Requisitos: zztrim zzutf8
 # ----------------------------------------------------------------------------
 zzenglish ()
 {
@@ -28,8 +28,7 @@ zzenglish ()
 		fecha=$(  printf '\033[m')
 	fi
 
-	echo "$query" |
-		$ZZWWWPOST "$url" |
+	zztool post "$url" "$query" | zzutf8 |
 		sed "
 			# pega o trecho da página que nos interessa
 			/[0-9]\{1,\} definitions\{0,1\} found/,/_______________/!d

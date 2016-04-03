@@ -37,7 +37,7 @@ zzdicportugues ()
 	# Verificando se a palavra confere na pesquisa
 	until test "$resultado" = "$palavra"
 	do
-		conteudo=$($ZZWWWDUMP "$url/$padrao")
+		conteudo=$(zztool dump "$url/$padrao")
 		resultado=$(
 		echo "$conteudo" |
 			sed -n "

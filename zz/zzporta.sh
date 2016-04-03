@@ -21,7 +21,7 @@ zzporta ()
 	local port=$1
 	zztool testa_numero $port || port='.'
 
-	$ZZWWWHTML "$url" |
+	zztool source "$url" |
 	awk '/"wikitable"/,/<\/table>/ { sub (/ bgcolor.*>/,">"); print }' |
 	zzjuntalinhas -d '' -i '<tr>' -f '</tr>' |
 	awk -F '</?t[^>]+>' 'BEGIN {OFS="\t"}{ print $3, $5 }' |

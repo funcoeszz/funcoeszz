@@ -27,11 +27,10 @@ zzcinepolis ()
 		shift
 	fi
 
-	# Necessário fazer uso do argumento -useragent="Mozilla/5.0", pois o site se recusa a funcionar com lynx, links, curl e w3m.
-	# Uma ridícula implementação do site :( ( Desculpe pelo protesto, de novo! )
+	# Especificando User Agent na opçãp -u "Mozilla/5.0"
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML -useragent="Mozilla/5.0" "$url" 2>/dev/null |
+		zztool source -u "Mozilla/5.0" "$url" 2>/dev/null |
 		grep -E '(class="amarelo"|\?cc=)' |
 		zzutf8 |
 		sed '/img /d;/>Estreias</d;s/.*"amarelo">//;s/.*cc=/ /;s/".*">/) /' |
@@ -78,7 +77,7 @@ zzcinepolis ()
 	for codigo in $codigos
 	do
 		zzecho -N -l ciano $(grep " ${codigo})" $cache | sed 's/.*) //')
-		$ZZWWWDUMP -useragent="Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
+		zztool dump -useragent="Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
 		sed -n '/  [0-9]\{1,2\}  /p;/[0-9]h[0-9]/p' |
 		sed 's/\(.*h[0-9][0-9]\).*/\1/;s/\^.//g;/OBS\.: /d' |
 		sed 's/^ *\([0-9]\)* *   /\1 /' |

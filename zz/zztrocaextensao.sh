@@ -37,7 +37,7 @@ zztrocaextensao ()
 	for arquivo
 	do
 		# O arquivo existe?
-		zztool arquivo_legivel "$arquivo" || continue
+		zztool -e arquivo_legivel "$arquivo" || continue
 
 		base="${arquivo%$ext1}"
 		novo="$base$ext2"
@@ -52,7 +52,7 @@ zztrocaextensao ()
 		if test ! -n "$nao"
 		then
 			# Não sobrescreve arquivos já existentes
-			zztool arquivo_vago "$novo" || return
+			zztool -e arquivo_vago "$novo" || return
 
 			# Vamos lá
 			mv -- "$arquivo" "$novo"

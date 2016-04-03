@@ -35,7 +35,7 @@ zzpronuncia ()
 	then
 		# Extrai o nome do arquivo no site do dicionário
 		audio_file=$(
-			$ZZWWWHTML "$url/$palavra" |
+			zztool source "$url/$palavra" |
 			sed -n "/data-file=\"[^\"]*$palavra[^\"]*\"/{s/.*data-file=\"//;s/\".*//;p;}" |
 			uniq)
 
@@ -54,7 +54,7 @@ zzpronuncia ()
 		echo $audio_dir | grep '[0-9]' >/dev/null && audio_dir='number'
 
 		# Compõe a URL do arquivo e salva-o localmente (cache)
-		$ZZWWWHTML "$url2/$audio_dir/$audio_file" > "$cache"
+		zztool source "$url2/$audio_dir/$audio_file" > "$cache"
 	fi
 
 	# Fala que eu te escuto

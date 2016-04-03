@@ -6,7 +6,7 @@
 	if test "$1" = "zztool" -o "$1" = "tool"
 	then
 		fzz=$(sed -n '/^zztool/,/simplesmente ignoradas$/{/^		[a-z]/!d;/\(uso\|\erro\))/d;s/	*//;s/)//;s/ | /\
-/;p;}' ../funcoeszz)
+/g;p;}' ../funcoeszz)
 		test -n "$2" -a "$2" = "--listar" && { echo "$fzz"; exit; }
 
 		requisitos=$(
@@ -51,4 +51,5 @@
 			cat -
 		fi |
 		sed 's/--//'
-	fi
+	fi |
+	fmt -s -w $(tput cols)

@@ -71,7 +71,7 @@ zznoticiassec ()
 		url='http://www.securityfocus.com/bid'
 		echo
 		zztool eco "* SecurityFocus Vulns Archive ($url):"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 			sed -n '
 				/^ *\([0-9]\{4\}-[0-9][0-9]-[0-9][0-9]\)/ {
 					G

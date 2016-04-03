@@ -21,7 +21,7 @@ zzjuros ()
 	local nome
 	local url='http://www.bcb.gov.br/pt-br/sfn/infopban/txcred/txjuros/Paginas/default.aspx'
 	local cache=$(
-				$ZZWWWHTML "$url" |
+				zztool source "$url" |
 				sed -n '/Modalidades de/,/Histórico/p'|
 				zzxml --tag a --tag strong |
 				sed '/Historico.aspx/,$d;/^<\//d' |
@@ -46,7 +46,7 @@ zzjuros ()
 
 		# Fazendo a busca e filtrando no site do Banco Central.
 		zztool eco "$nome"
-		$ZZWWWDUMP "$url" |
+		zztool dump "$url" |
 		sed -n '/^ *Posição *$/,/^ *Atendimento/p' | sed '$d' |
 		awk '{
 			gsub(/  */," ")

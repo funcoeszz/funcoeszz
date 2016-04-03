@@ -24,7 +24,7 @@ zzpgsql ()
 
 	if ! test -s "$cache"
 	then
-		$ZZWWWHTML "${url}/sql-commands.html" |
+		zztool source "${url}/sql-commands.html" |
 		awk '{printf "%s",$0; if ($0 ~ /<\/dt>/) {print ""} }'|
 		zzunescape --html | sed -n '/<dt>/p' | sed 's/  */ /g' |
 		awk -F'"' '{ printf "%3s %s\n", NR, substr($3,2) ":" $2 }' |
@@ -36,7 +36,7 @@ zzpgsql ()
 		if zztool testa_numero $1
 		then
 			comando=$(cat $cache | sed -n "/^ *${1} /p" | cut -f2 -d":")
-			$ZZWWWDUMP "${url}/${comando}" | sed -n '/^ *__*/,/^ *__*/p' | sed '1d;$d'
+			zztool dump "${url}/${comando}" | sed -n '/^ *__*/,/^ *__*/p' | sed '1d;$d'
 		else
 			grep -i $1 $cache | cut -f1 -d":"
 		fi

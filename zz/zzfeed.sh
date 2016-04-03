@@ -36,7 +36,7 @@ zzfeed ()
 	do
 		case "$1" in
 		-n) limite=$2; shift ;;
-		-u) useragent='-useragent="Mozilla/5.0"' ;;
+		-u) useragent='-u "Mozilla/5.0"' ;;
 		--iso | --utf) coding="${1#--}" ;;
 		* ) break ;;
 		esac
@@ -101,7 +101,7 @@ zzfeed ()
 		then
 			zztool file_stdin "$@"
 		else
-			$ZZWWWHTML $useragent "$url" 2>/dev/null
+			zztool source $useragent "$url" 2>/dev/null
 		fi |
 			case "$coding" in
 				iso) zztool texto_em_iso ;;
