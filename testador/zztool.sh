@@ -1,7 +1,7 @@
 $ zztool uso zztool			#→ Uso: zztool [-e] ferramenta [argumentos]
 $ zztool index_var tan testando		#→ 4
-$ zztool arquivo_vago _dados.txt	#→ Arquivo _dados.txt já existe. Abortando.
-$ zztool arquivo_legivel _fake_		#→ Não consegui ler o arquivo _fake_
+$ zztool -e arquivo_vago _dados.txt	#→ Arquivo _dados.txt já existe. Abortando.
+$ zztool -e arquivo_legivel _fake_		#→ Não consegui ler o arquivo _fake_
 
 # eco
 

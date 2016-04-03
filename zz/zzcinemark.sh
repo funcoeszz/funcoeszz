@@ -118,7 +118,7 @@ zzcinemark ()
 			else if ($0 ~ /[0-9]h[0-9]/){ print reserva; print; print "" }
 			else print
 			}' |
-		sed '/date-/{s/.*date-\(....\)-\(..\)-\(..\).*/Dia: \3-\2-\1/}' |
+		sed '/date-/{ s/.*date-\(....\)-\(..\)-\(..\).*/Dia: \3-\2-\1/; }' |
 		sed '/class="exibicao"/d;s/<[^>]*alt="\([A-Za-z0-9 ]*\)">/\1  /g' |
 		zztrim |
 		sed -n "/${dia}/,/Dia: /p" | sed '$d' |

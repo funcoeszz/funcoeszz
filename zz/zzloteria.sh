@@ -73,9 +73,9 @@ zzloteria ()
 						/^ *Acumulado/
 					' |
 					sed "
-						/^ *Estimativa/ i \
+						/^ *Estimativa/ i \\
 
-						/^ *\(20\|15\) acertos/ i \
+						/^ *\(20\|15\) acertos/ i \\
 
 						s/ 0 /  0 /
 						s/acertos */pts.${tab}/
@@ -104,7 +104,7 @@ zzloteria ()
 						s/n.meros acertados */pts.${tab}/
 						s/ *apostas\{0,1\} ganhadoras\{0,1\},/${tab}/
 						s/Time do Cora[^ ]*/ Time:/
-						/Time/ i \
+						/Time/ i \\
 
 					" |
 					if test "$tipo" = "duplasena"
@@ -143,7 +143,7 @@ zzloteria ()
 						/^ *Acumulado/
 					' |
 					sed "
-						/^ *Estimativa/ i \
+						/^ *Estimativa/ i \\
 
 						s/[12].*(//
 						s/acertos) */pts.${tab}/
