@@ -11,16 +11,15 @@ addons:
       - links
 before_install:
   # OS X: install packages (||true to avoid Linux fail)
-  - test "$TRAVIS_OS_NAME" = osx && brew update       || true
-  - test "$TRAVIS_OS_NAME" = osx && brew install lynx || true
+  #- test "$TRAVIS_OS_NAME" = osx && brew update         || true
+  #- test "$TRAVIS_OS_NAME" = osx && brew install elinks || true
   - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
   - chmod +x clitest
   - mv clitest testador
   - bash testador/clitest --help
 
 script:
-  - export ZZWWWDUMP='links -dump'
-  - export ZZWWWHTML='links -source'
+  - echo $PATH
   - cd testador && ./run
 
 notifications:
