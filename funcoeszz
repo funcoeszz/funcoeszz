@@ -209,8 +209,7 @@ zztool ()
 		num_linhas)
 			# Informa o número de linhas, sem formatação
 			zztool file_stdin "$@" |
-				wc -l |
-				tr -d ' \t'
+				sed -n '$='
 		;;
 		nl_eof)
 			# Garante que a última linha tem um \n no final
