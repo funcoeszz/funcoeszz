@@ -192,7 +192,7 @@ zztool ()
 			# Verifica se o nome de arquivo informado está vago
 			if test -e "$1"
 			then
-				echo "Arquivo $1 já existe. Abortando." >&2
+				test -n "$erro" && echo "Arquivo $1 já existe. Abortando." >&2
 				return 1
 			fi
 		;;
@@ -200,7 +200,7 @@ zztool ()
 			# Verifica se o arquivo existe e é legível
 			if ! test -r "$1"
 			then
-				echo "Não consegui ler o arquivo $1" >&2
+				test -n "$erro" && echo "Não consegui ler o arquivo $1" >&2
 				return 1
 			fi
 

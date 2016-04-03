@@ -33,7 +33,7 @@ zztrocapalavra ()
 	for arquivo
 	do
 		# O arquivo existe?
-		zztool arquivo_legivel "$arquivo" || continue
+		zztool -e arquivo_legivel "$arquivo" || continue
 
 		# Um teste rápido para saber se o arquivo tem a palavra antiga,
 		# evitando gravar o temporário desnecessariamente

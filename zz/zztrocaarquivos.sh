@@ -19,8 +19,8 @@ zztrocaarquivos ()
 	test $# -eq 2 || { zztool -e uso trocaarquivos; return 1; }
 
 	# Verifica se os arquivos existem
-	zztool arquivo_legivel "$1" || return
-	zztool arquivo_legivel "$2" || return
+	zztool -e arquivo_legivel "$1" || return
+	zztool -e arquivo_legivel "$2" || return
 
 	# Tiro no pé? Não, obrigado
 	test "$1" = "$2" && return

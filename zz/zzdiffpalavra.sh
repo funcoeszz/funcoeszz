@@ -21,8 +21,8 @@ zzdiffpalavra ()
 	test $# -ne 2 && { zztool -e uso diffpalavra; return 1; }
 
 	# Verifica se os arquivos existem
-	zztool arquivo_legivel "$1" || return 1
-	zztool arquivo_legivel "$2" || return 1
+	zztool -e arquivo_legivel "$1" || return 1
+	zztool -e arquivo_legivel "$2" || return 1
 
 	tmp1=$(zztool mktemp diffpalavra)
 	tmp2=$(zztool mktemp diffpalavra)
