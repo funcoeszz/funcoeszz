@@ -21,8 +21,11 @@ before_install:
 
 script:
   - type lynx
+  - type links
+  - type w3m
+  - type elinks
   # Not using zz*.sh because zzbraile is freezing :(
-  - cd testador && ./run zza*.sh zz{beep,bicho,bissexto,blist,byte}.sh zz[c-z]*.sh
+  #- cd testador && ./run zza*.sh zz{beep,bicho,bissexto,blist,byte}.sh zz[c-z]*.sh
 
 notifications:
   email: false
