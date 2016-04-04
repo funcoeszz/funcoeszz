@@ -1,0 +1,33 @@
+language: bash
+
+os:
+  - linux
+  # - osx  Disabled until we get 100% green on Linux
+
+# Prepare the environment
+addons:
+  apt:
+    packages:
+      - bc
+      - links
+before_install:
+  # OS X: install packages (||true to avoid Linux fail)
+  #- test "$TRAVIS_OS_NAME" = osx && brew update         || true
+  #- test "$TRAVIS_OS_NAME" = osx && brew install elinks || true
+  - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
+  - chmod +x clitest
+  - mv clitest testador
+  - bash testador/clitest --help
+
+script:
+  - type lynx
+  - type links
+  - type w3m
+  - type elinks
+  - . funcoeszz
+  - echo $ZZBROWSER
+  # Not using zz*.sh because zzbraile is freezing :(
+  - cd testador && ./run zza*.sh zz{beep,bicho,bissexto,blist,byte}.sh zz[c-z]*.sh
+
+notifications:
+  email: false
