@@ -83,7 +83,7 @@ $ zzconverte		do	100	#→ 144
 $ zzconverte		od	100	#→ 64
 $ zzconverte		dh	100	#→ 64
 $ zzconverte		hd	100	#→ 256
-$ zzconverte		hc	100	#→ Ā
+$ zzconverte		hc	100
 $ zzconverte		ch	100	#→ 31
 $ zzconverte		ho	100	#→ 400
 $ zzconverte		oh	100	#→ 40
@@ -91,11 +91,13 @@ $ zzconverte		hb	100	#→ 100000000
 $ zzconverte		bh	100	#→ 4
 $ zzconverte		ob	100	#→ 1000000
 $ zzconverte		bo	100	#→ 4
+$ zzconverte		oc	100	#→ @
+$ zzconverte		co	100	#→ 61
 $ zzconverte	-e	do	100	#→ 100 em decimal = 144 em octal
 $ zzconverte	-e	od	100	#→ 100 em octal = 64 em decimal
 $ zzconverte	-e	dh	100	#→ 100 em decimal = 64 em hexadecimal
 $ zzconverte	-e	hd	100	#→ 100 em hexadecimal = 256 em decimal
-$ zzconverte	-e	hc	100	#→ 100 em hexadecimal = Ā em caractere
+$ zzconverte	-e	hc	100
 $ zzconverte	-e	ch	100	#→ 100 em caractere = 31 em hexadecimal
 $ zzconverte	-e	ho	100	#→ 100 em hexadecimal = 400 em octal
 $ zzconverte	-e	oh	100	#→ 100 em octal = 40 em hexadecimal
@@ -103,6 +105,8 @@ $ zzconverte	-e	hb	100	#→ 100 em hexadecimal = 100000000 em binário
 $ zzconverte	-e	bh	100	#→ 100 em binário = 4 em hexadecimal
 $ zzconverte	-e	ob	100	#→ 100 em octal = 1000000 em binário
 $ zzconverte	-e	bo	100	#→ 100 em binário = 4 em octal
+$ zzconverte	-e	oc	100	#→ 100 em octal = @ em caractere
+$ zzconverte	-e	co	100	#→ 100 em caractere = 61 em octal
 
 $ zzconverte		cf	-100	#→ -148.00
 $ zzconverte	-e	cf	-100	#→ -100 °C = -148.00 °F

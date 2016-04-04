@@ -52,7 +52,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-10-02
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzconverte ()
@@ -122,46 +122,74 @@ zzconverte ()
 				bc_expr="$s2;${1:-1}*10^$fator"
 			;;
 			# Temperatura:
-			cf) suf1="°C";             suf2="°F";             bc_expr="$s2;($1*9/5)+32" ;;
-			fc) suf1="°F";             suf2="°C";             bc_expr="$s2;($1-32)*5/9" ;;
-			ck) suf1="°C";             suf2="K";              bc_expr="$s2;$1+273.15" ;;
-			kc) suf1="K";              suf2="°C";             bc_expr="$s2;$1-273.15" ;;
-			fk) suf1="°F";             suf2="K";              bc_expr="$s2;($1+459.67)/1.8" ;;
-			kf) suf1="K";              suf2="°F";             bc_expr="$s2;($1*1.8)-459.67" ;;
+			cf) suf1="°C";                 suf2="°F";             bc_expr="$s2;($1*9/5)+32" ;;
+			fc) suf1="°F";                 suf2="°C";             bc_expr="$s2;($1-32)*5/9" ;;
+			ck) suf1="°C";                 suf2="K";              bc_expr="$s2;$1+273.15" ;;
+			kc) suf1="K";                  suf2="°C";             bc_expr="$s2;$1-273.15" ;;
+			fk) suf1="°F";                 suf2="K";              bc_expr="$s2;($1+459.67)/1.8" ;;
+			kf) suf1="K";                  suf2="°F";             bc_expr="$s2;($1*1.8)-459.67" ;;
 			# Distância:
-			km) suf1="km";             suf2="mi";             bc_expr="$s2;$1*0.6214" ;;
-			mk) suf1="mi";             suf2="km";             bc_expr="$s2;$1*1.609" ;;
-			mj) suf1="m";              suf2="yd";             bc_expr="$s2;$1/0.9144" ;;
-			jm) suf1="yd";             suf2="m";              bc_expr="$s2;$1*0.9144" ;;
-			mp) suf1="m";              suf2="ft";             bc_expr="$s2;$1/0.3048" ;;
-			pm) suf1="ft";             suf2="m";              bc_expr="$s2;$1*0.3048" ;;
-			jp) suf1="yd";             suf2="ft";             bc_expr="$s2;$1*3" ;;
-			pj) suf1="ft";             suf2="yd";             bc_expr="$s2;$1/3" ;;
+			km) suf1="km";                 suf2="mi";             bc_expr="$s2;$1*0.6214" ;;
+			mk) suf1="mi";                 suf2="km";             bc_expr="$s2;$1*1.609" ;;
+			mj) suf1="m";                  suf2="yd";             bc_expr="$s2;$1/0.9144" ;;
+			jm) suf1="yd";                 suf2="m";              bc_expr="$s2;$1*0.9144" ;;
+			mp) suf1="m";                  suf2="ft";             bc_expr="$s2;$1/0.3048" ;;
+			pm) suf1="ft";                 suf2="m";              bc_expr="$s2;$1*0.3048" ;;
+			jp) suf1="yd";                 suf2="ft";             bc_expr="$s2;$1*3" ;;
+			pj) suf1="ft";                 suf2="yd";             bc_expr="$s2;$1/3" ;;
 			# Número:
-			db) suf1="em decimal";     suf2="em binário";     bc_expr="obase=2;$1" ;;
-			bd) suf1="em binário";     suf2="em decimal";     bc_expr="ibase=2;$1" ;;
-			dc) suf1="em decimal";     suf2="em caractere";   resp=$(awk 'BEGIN {printf "%c\n", '$1'}') ;;
-			cd) suf1="em caractere";   suf2="em decimal";     resp=$(printf "%d\n" "'$1") ;;
-			do) suf1="em decimal";     suf2="em octal";       bc_expr="obase=8;$1" ;;
-			od) suf1="em octal";       suf2="em decimal";     bc_expr="ibase=8;${1#0}" ;;
-			dh) suf1="em decimal";     suf2="em hexadecimal"; resp=$(printf '%x\n' "$1" | tr [a-f] [A-F]) ;;
-			hd) suf1="em hexadecimal"; suf2="em decimal";     resp=$(printf '%d\n' "0x${1#0x}") ;;
-			hc) suf1="em hexadecimal"; suf2="em caractere";   resp=$(printf '%d\n' "0x${1#0x}" | awk '{printf "%c\n", $1}') ;;
-			ch) suf1="em caractere";   suf2="em hexadecimal"; resp=$(printf "%x\n" "'$1" | tr [a-f] [A-F]) ;;
-			ho) suf1="em hexadecimal"; suf2="em octal";       bc_expr="obase=8;ibase=16;$num_hex" ;;
-			hb) suf1="em hexadecimal"; suf2="em binário";     bc_expr="obase=2;ibase=16;$num_hex" ;;
-			bh) suf1="em binário";     suf2="em hexadecimal"; bc_expr="obase=16;ibase=2;$1" ;;
-			oh) suf1="em octal";       suf2="em hexadecimal"; bc_expr="obase=16;ibase=8;${1#0}" ;;
-			ob) suf1="em octal";       suf2="em binário";     bc_expr="obase=2;ibase=8;${1#0}" ;;
-			bo) suf1="em binário";     suf2="em octal";       bc_expr="obase=8;ibase=2;$1" ;;
+				# Binário:
+				bo) suf1="em binário";     suf2="em octal";       bc_expr="obase=8;ibase=2;$1" ;;
+				bd) suf1="em binário";     suf2="em decimal";     bc_expr="ibase=2;$1" ;;
+				bh) suf1="em binário";     suf2="em hexadecimal"; bc_expr="obase=16;ibase=2;$1" ;;
+				# Decimal:
+				db) suf1="em decimal";     suf2="em binário";     bc_expr="obase=2;$1" ;;
+				do) suf1="em decimal";     suf2="em octal";       bc_expr="obase=8;$1" ;;
+				dh) suf1="em decimal";     suf2="em hexadecimal"; resp=$(printf '%x\n' "$1" | tr [a-f] [A-F]) ;;
+				# Octal:
+				ob) suf1="em octal";       suf2="em binário";     bc_expr="obase=2;ibase=8;${1#0}" ;;
+				od) suf1="em octal";       suf2="em decimal";     bc_expr="ibase=8;${1#0}" ;;
+				oh) suf1="em octal";       suf2="em hexadecimal"; bc_expr="obase=16;ibase=8;${1#0}" ;;
+				# Hexadecimal:
+				hb) suf1="em hexadecimal"; suf2="em binário";     bc_expr="obase=2;ibase=16;$num_hex" ;;
+				ho) suf1="em hexadecimal"; suf2="em octal";       bc_expr="obase=8;ibase=16;$num_hex" ;;
+				hd) suf1="em hexadecimal"; suf2="em decimal";     resp=$(printf '%d\n' "0x${1#0x}") ;;
+			# Caractere:
+				# Para:
+				dc | hc | oc)
+					case "$operacao" in
+						dc) suf1="em decimal";     fator="$1" ;;
+						hc) suf1="em hexadecimal"; fator=$(printf '%d\n' "0x${1#0x}") ;;
+						oc) suf1="em octal";       fator=$(echo "ibase=8;${1#0}" | bc) ;;
+					esac
+					suf2="em caractere"
+
+					if test "$fator" -ge 32 -a "$fator" -le 126
+					then
+						octal=$(printf "%03o\n" "$fator")
+						resp=$(printf "\\$octal")
+					elif test "$fator" -ge 161 -a "$fator" -le 191
+					then
+						octal=$(echo "obase=8;$fator" | bc)
+						resp=$(printf "\302\\$octal")
+					elif test "$fator" -ge 192 -a "$fator" -le 255
+					then
+							octal=$(printf '%03o' $((fator - 64)))
+							resp=$(printf "\303\\$octal")
+					fi
+				;;
+				# De:
+				cd) suf1="em caractere";  suf2="em decimal";     resp=$(printf "%d\n" "'$1") ;;
+				ch) suf1="em caractere";  suf2="em hexadecimal"; resp=$(printf "%x\n" "'$1" | tr [a-f] [A-F]) ;;
+				co) suf1="em caractere";  suf2="em octal";       resp=$(printf "%o\n" "'$1") ;;
 			# Ângulo:
-			gr) suf1="°";              suf2="rad";            resp=$(echo "$s2;$pi;$1*pi/180" | bc -l | awk "$awk_print") ;;
-			rg) suf1="rad";            suf2="°";              resp=$(echo "$s2;$pi;$1*180/pi" | bc -l | awk "$awk_print") ;;
-			ga) suf1="°";              suf2="gon";            resp=$(echo "$s2;$1/0.9" | bc -l | awk "$awk_print") ;;
-			ag) suf1="gon";            suf2="°";              resp=$(echo "$s2;$1*0.9" | bc -l | awk "$awk_print") ;;
-			ra) suf1="rad";            suf2="gon";            resp=$(echo "$s2;$pi;$1*200/pi" | bc -l | awk "$awk_print") ;;
-			ar) suf1="gon";            suf2="rad";            resp=$(echo "$s2;$pi;$1*pi/200" | bc -l | awk "$awk_print") ;;
-			*) zztool erro "Conversão inválida $operacao"; return 1; ;;
+			gr) suf1="°";                 suf2="rad";            resp=$(echo "$s2;$pi;$1*pi/180" | bc -l | awk "$awk_print") ;;
+			rg) suf1="rad";               suf2="°";              resp=$(echo "$s2;$pi;$1*180/pi" | bc -l | awk "$awk_print") ;;
+			ga) suf1="°";                 suf2="gon";            resp=$(echo "$s2;$1/0.9" | bc -l | awk "$awk_print") ;;
+			ag) suf1="gon";               suf2="°";              resp=$(echo "$s2;$1*0.9" | bc -l | awk "$awk_print") ;;
+			ra) suf1="rad";               suf2="gon";            resp=$(echo "$s2;$pi;$1*200/pi" | bc -l | awk "$awk_print") ;;
+			ar) suf1="gon";               suf2="rad";            resp=$(echo "$s2;$pi;$1*pi/200" | bc -l | awk "$awk_print") ;;
+			* ) zztool erro "Conversão inválida $operacao"; return 1 ;;
 		esac
 
 		test -n "$bc_expr" && resp=$(echo "$bc_expr" | bc -l | sed 's/^\./0./')
