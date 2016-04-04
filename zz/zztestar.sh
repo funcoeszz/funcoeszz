@@ -156,7 +156,7 @@ zztestar ()
 				/^:[^:]/ || /:{3,}/ || /:$/ { exit 1 }
 				NF<8 && $0 !~ /::/ { exit 1 }
 				NF>8  { exit 1 }
-				NF<=8 { while (NF) { if ($NF !~ /^[0-9A-Fa-f]{0,4}$/) { exit 1 }; NF-- } }
+				NF<=8 { for (i=1; i<=NF; i++) { if ($i !~ /^[0-9A-Fa-f]{0,4}$/) { exit 1 } } }
 			' && return 0
 
 			test -n "$erro" && zztool erro "Número IPV6 inválido '$2'"
