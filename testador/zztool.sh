@@ -289,6 +289,12 @@ $ zztool endereco_sed /a/	#→ /\/a\//
 $ zztool endereco_sed /a/b/c	#→ /\/a\/b\/c/
 $ zztool endereco_sed 'a b c'	#→ /a b c/
 
+# num_linhas
+$ true     | zztool num_linhas	#→ 0
+$ echo     | zztool num_linhas	#→ 1
+$ printf x | zztool num_linhas	#→ 1
+$ zzseq 9  | zztool num_linhas	#→ 9
+
 # multi_stdin
 
 $ echo ok | zztool multi_stdin
