@@ -81,6 +81,7 @@ for ZZBROWSER in lynx links w3m
 do
 	type "$ZZBROWSER" >/dev/null 2>&1 && break
 done
+export ZZBROWSER
 
 #
 ### Últimos ajustes
