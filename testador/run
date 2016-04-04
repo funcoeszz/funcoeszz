@@ -33,9 +33,12 @@ if test $# -gt 0
 then
 	# Test specific file(s)
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" "$@"
+	exitcode=$?
 else
 	# Test all files
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" zz*.sh
+	exitcode=$?
 fi
 
 rm "$tmp"
+exit "$exitcode"
