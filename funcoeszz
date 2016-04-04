@@ -514,12 +514,12 @@ zztool ()
 			rm)
 				if test "$2" = '*'
 				then
-					rm -f ${ZZTMP:-XXXX}*
+					rm -f "${ZZTMP:-XXXX}"*
 					# Restabelecendo zz.ajuda, zz.on, zz.off
 					funcoeszz
 				else
 					test -n "$3" && id=".$3"
-					test -n "$2" && rm -f ${ZZTMP:-XXXX}.${2#zz}${id}*
+					test -n "$2" && rm -f "${ZZTMP:-XXXX}.${2#zz}${id}"*
 				fi
 			;;
 			*)
@@ -528,7 +528,7 @@ zztool ()
 				test -n "$2" && id=".$2"
 
 				# Para atualizar é necessário prevenir a existência prévia do arquivo
-				test "$ferramenta" = "atualiza" && rm -f ${ZZTMP:-XXXX}.${1#zz}$id
+				test "$ferramenta" = "atualiza" && rm -f "${ZZTMP:-XXXX}.${1#zz}$id"
 
 				# Baixo para o cache os dados brutos sem tratamento
 				if ! test -s "$ZZTMP.${1#zz}" && test -n "$3"
@@ -854,7 +854,7 @@ zzzz ()
 			fi
 
 			# Cria o arquivo de aliases
-			echo > $arquivo_aliases
+			echo > "$arquivo_aliases"
 			for func in $(ZZCOR=0 zzzz | grep -v '^(' | sed 's/,//g')
 			do
 				echo "alias zz$func 'funcoeszz zz$func'" >> "$arquivo_aliases"
@@ -892,7 +892,7 @@ zzzz ()
 			fi
 
 			# Cria o arquivo de aliases
-			echo > $arquivo_aliases
+			echo > "$arquivo_aliases"
 			for func in $(ZZCOR=0 zzzz | grep -v '^(' | sed 's/,//g')
 			do
 				echo "alias zz$func='funcoeszz zz$func'" >> "$arquivo_aliases"
@@ -933,7 +933,7 @@ zzzz ()
 			fi
 
 			# Formata funções essenciais
-			info_base=$(echo $ZZBASE | sed 's/ /, /g')
+			info_base=$(echo "$ZZBASE" | sed 's/ /, /g')
 
 			# Informações, uma por linha
 			zztool acha '^[^)]*)' "(script) $ZZPATH"
@@ -954,7 +954,7 @@ zzzz ()
 			then
 				set |
 					sed -n '/^zz[a-z0-9]/ s/ *().*//p' |
-					egrep -v "$(echo $ZZBASE | sed 's/ /|/g')" |
+					egrep -v "$(echo "$ZZBASE" | sed 's/ /|/g')" |
 					sort > "$ZZTMP.on"
 			fi
 
@@ -1180,7 +1180,7 @@ then
 		echo "$ZZOFF" |
 		zztool list2lines |
 		sed 's/^zz// ; s/^/zz/' |
-		egrep -v "$(echo $ZZBASE | sed 's/ /|/g')"
+		egrep -v "$(echo "$ZZBASE" | sed 's/ /|/g')"
 	)
 
 	# Desliga todas em uma só linha (note que não usei aspas)
