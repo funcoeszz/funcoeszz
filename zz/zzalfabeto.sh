@@ -150,6 +150,6 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--..:Zacharias/
 		echo "$dados" |
 		awk -v colunas="${colunas:-$coluna}" "$awk_code"
 	fi |
-	awk -v cab="$cab" "$awk_code" | sed 's/ /\t/g' |
+	awk -v cab="$cab" "$awk_code" | tr ' ' '\t' |
 	expand -t "${tam:-8}" | zztrim
 }
