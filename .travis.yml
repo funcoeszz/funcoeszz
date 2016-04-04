@@ -8,6 +8,7 @@ os:
 addons:
   apt:
     packages:
+      - bc
       - links
 before_install:
   # OS X: install packages (||true to avoid Linux fail)
