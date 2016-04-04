@@ -163,7 +163,7 @@ zzcut ()
 								}
 								# Apagar caracteres em saltos N~M.
 								/^[0-9]*~[0-9]+$/ {
-									split("", faixa); split($i, faixa, "~")
+									split("", faixa); split($1, faixa, "~")
 									faixa[2]*=(faixa[2]>=0?1:-1)
 									faixa[2]=(faixa[2]==0?1:faixa[2])
 									faixa[1]=(length(faixa[1])>0 && faixa[1]>0?faixa[1]:faixa[2])
