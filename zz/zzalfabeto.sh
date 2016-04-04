@@ -151,5 +151,5 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--..:Zacharias/
 		awk -v colunas="${colunas:-$coluna}" "$awk_code"
 	fi |
 	awk -v cab="$cab" "$awk_code" | sed 's/ /\t/g' |
-	expand -t "$tam" | zztrim
+	expand -t "${tam:-8}" | zztrim
 }
