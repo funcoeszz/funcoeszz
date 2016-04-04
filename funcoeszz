@@ -210,8 +210,9 @@ zztool ()
 		;;
 		num_linhas)
 			# Informa o número de linhas, sem formatação
-			zztool file_stdin "$@" |
-				sed -n '$='
+			local linhas
+			linhas=$(zztool file_stdin "$@" | sed -n '$=')
+			echo "${linhas:-0}"
 		;;
 		nl_eof)
 			# Garante que a última linha tem um \n no final
