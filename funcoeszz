@@ -1184,7 +1184,7 @@ then
 	)
 
 	# Desliga todas em uma só linha (note que não usei aspas)
-	unset $zz_off
+	unset zz_off
 
 	# Agora apaga os textos da ajuda, montando um script em sed e aplicando
 	# Veja issue 5 para mais detalhes:
