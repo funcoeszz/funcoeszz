@@ -29,7 +29,6 @@ zzora ()
 		zztool dump "$link" |
 		sed -n "/^ *[A-Z0-9]\{1,\}-$cod/,/-[0-9]\{5\}[^0-9]/p" |
 		sed '/___/,$d; 2,${ /-[0-9]\{5\}[^0-9]/d; }' |
-		fmt -w 120 |
 		sed '1s/^ *//; 2,$s/^  */  /'
 		echo
 	done | awk '
