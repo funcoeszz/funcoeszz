@@ -152,12 +152,17 @@ zztestar ()
 		ip6 | ipv6)
 			# Testa se $2 é um número IPV6 (hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:hhhh)
 			echo "$2" |
-			awk -F : '
-				/^:[^:]/ || /:{3,}/ || /:$/ { exit 1 }
-				NF<8 && $0 !~ /::/ { exit 1 }
-				NF>8  { exit 1 }
-				NF<=8 { for (i=1; i<=NF; i++) { if ($i !~ /^[0-9A-Fa-f]{0,4}$/) { exit 1 } } }
-			' && return 0
+			awk -F : '{
+				if( $0 ~ /^:[^:]/ || $0 ~ /:{3,}/ || $0 ~ /:$/ ) { print "1"; exit }
+				else if ( NF<8 && $0 !~ /::/ ) { print "1"; exit }
+				else if ( NF>8 ) { print "1"; exit }
+				else if ( NF<=8 ) {
+					for (i=1; i<=NF; i++) {
+						if ($i !~ /^[0-9A-Fa-f]{0,4}$/) { print "1"; exit }
+					}
+					print "0"
+				}
+			}' | grep '0' >/dev/null && return 0
 
 			test -n "$erro" && zztool erro "Número IPV6 inválido '$2'"
 			return 1
