@@ -26,14 +26,14 @@ zzcoin ()
 	case "$moeda_informada" in
 		btc | bitcoin  )
 			# Monta URL a ser consultada
-			url="${url}/ticker"
+			url="${url}/ticker/"
 			zztool source "$url" |
 			sed 's/.*"last"://;s/,"buy.*//' |
 			zznumero -m
 		;;
 		ltc | litecoin  )
 			# Monta URL a ser consultada
-			url="${url}/ticker_litecoin"
+			url="${url}/ticker_litecoin/"
 			zztool source "$url" |
 			sed 's/.*"last"://;s/,"buy.*//' |
 			zznumero -m
