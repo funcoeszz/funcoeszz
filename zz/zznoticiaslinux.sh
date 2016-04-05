@@ -59,7 +59,7 @@ zznoticiaslinux ()
 	# Diolinux
 	if zztool grep_var d "$sites"
 	then
-		url='http://www.diolinux.com.br/feeds/posts/default'
+		url='http://www.diolinux.com.br/feeds/posts/default/'
 		echo
 		zztool eco "* Diolinux ($url):"
 		zzfeed -n $n "$url"
@@ -68,7 +68,7 @@ zznoticiaslinux ()
 	# Espírito Livre
 	if zztool grep_var e "$sites"
 	then
-		url='http://www.revista.espiritolivre.org/feed'
+		url='http://www.revista.espiritolivre.org/feed/'
 		echo
 		zztool eco "* Espírito Livre ($url):"
 		zzfeed -n $n "$url"
@@ -77,7 +77,7 @@ zznoticiaslinux ()
 	# Sempre Update
 	if zztool grep_var s "$sites"
 	then
-		url='http://sempreupdate.org/feed'
+		url='http://sempreupdate.org/feed/'
 		echo
 		zztool eco "* Sempre Update ($url):"
 		zzfeed -n $n "$url"

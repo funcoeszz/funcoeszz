@@ -59,7 +59,7 @@ zznoticiassec ()
 	# Linux Today - Security
 	if zztool grep_var t "$sites"
 	then
-		url='http://feeds.feedburner.com/linuxtoday/linux'
+		url='http://feeds.feedburner.com/linuxtoday/linux/'
 		echo
 		zztool eco "* Linux Today - Security ($url):"
 		zzfeed -n $n "$url"
@@ -68,7 +68,7 @@ zznoticiassec ()
 	# Security Focus
 	if zztool grep_var f "$sites"
 	then
-		url='http://www.securityfocus.com/bid'
+		url='http://www.securityfocus.com/bid/'
 		echo
 		zztool eco "* SecurityFocus Vulns Archive ($url):"
 		zztool dump "$url" |
