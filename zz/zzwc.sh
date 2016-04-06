@@ -62,14 +62,14 @@ zzwc ()
 	# Linhas
 	if test -n "$tl"
 	then
-		tl=$(echo "$conteudo" | sed -n '$=')
+		tl=$(echo "$conteudo" | zztool num_linhas)
 		saida="$tl"
 	fi
 
 	# Palavras
 	if test -n "$tw"
 	then
-		tw=$(echo "$conteudo" | wc -w)
+		tw=$(echo "$conteudo" | wc -w | tr -d -c '[0-9]')
 		test -n "$saida" && saida="$saida|$tw" || saida="$tw"
 	fi
 
@@ -108,7 +108,7 @@ zzwc ()
 				wc -c
 			elif test -n "$mc"
 			then
-				sed 's/././g' | wc -c
+				sed 's/[^[:cntrl:]]/./g' | wc -c
 			elif test -n "$mw"
 			then
 				wc -w
