@@ -62,9 +62,9 @@ zzalinhar ()
 		sed 's/"/\\"/g' | sed "s/'/\\'/g" |
 		awk -v larg=$largura '
 			# Função para unir os campos e os separadores de campos(" ")
-			function juntar(  str_saida, j) {
+			function juntar(qtde_campos,  str_saida, j) {
 				str_saida=""
-				for ( j=1; j<=length(campos); j++ ) {
+				for ( j=1; j<=qtde_campos; j++ ) {
 					str_saida = str_saida campos[j] espacos[j]
 				}
 				sub(/ *$/, "", str_saida)
@@ -105,10 +105,10 @@ zzalinhar ()
 						if ( qtde <= 1 ) { print linha[i] }
 						else {
 							pos_atual = qtde - 1
-							saida = juntar()
+							saida = juntar(qtde)
 							while ( tam_linha(saida) < larg ) {
 								aumentar_int()
-								saida = juntar()
+								saida = juntar(qtde)
 							}
 							print saida
 						}
