@@ -161,6 +161,7 @@ zztestar ()
 				if ( NF>8 )               { exit 1 }
 				if ( NF<=8 ) {
 					for (i=1; i<=NF; i++) {
+						if (length($i)>4)  { exit 1 }
 						if (length($i)>0 && $i !~ /^[0-9A-Fa-f]+$/) { exit 1 }
 					}
 				}
