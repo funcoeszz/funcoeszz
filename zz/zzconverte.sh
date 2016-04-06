@@ -54,6 +54,7 @@
 # Desde: 2003-10-02
 # Versão: 6
 # Licença: GPL
+# Requisitos: zznumero
 # ----------------------------------------------------------------------------
 zzconverte ()
 {
@@ -76,7 +77,6 @@ zzconverte ()
 
 	local s2="scale=$precisao"
 	local pi='pi=4*a(1)'
-	local awk_print='{saida=sprintf("%.0'$precisao'f", $1); sub(/[0]+$/,"",saida); sub(/\.$/,"",saida); print saida}'
 	local operacao=$1
 	local unid_escala="yzafpnumcd_DHKMGTPEZY"
 	local nome_escala="yocto zepto atto femto pico nano micro mili centi deci un deca hecto quilo mega giga tera peta exa zetta yotta"
@@ -183,12 +183,12 @@ zzconverte ()
 				ch) suf1="em caractere";  suf2="em hexadecimal"; resp=$(printf "%x\n" "'$1" | tr [a-f] [A-F]) ;;
 				co) suf1="em caractere";  suf2="em octal";       resp=$(printf "%o\n" "'$1") ;;
 			# Ângulo:
-			gr) suf1="°";                 suf2="rad";            resp=$(echo "$s2;$pi;$1*pi/180" | bc -l | awk "$awk_print") ;;
-			rg) suf1="rad";               suf2="°";              resp=$(echo "$s2;$pi;$1*180/pi" | bc -l | awk "$awk_print") ;;
-			ga) suf1="°";                 suf2="gon";            resp=$(echo "$s2;$1/0.9" | bc -l | awk "$awk_print") ;;
-			ag) suf1="gon";               suf2="°";              resp=$(echo "$s2;$1*0.9" | bc -l | awk "$awk_print") ;;
-			ra) suf1="rad";               suf2="gon";            resp=$(echo "$s2;$pi;$1*200/pi" | bc -l | awk "$awk_print") ;;
-			ar) suf1="gon";               suf2="rad";            resp=$(echo "$s2;$pi;$1*pi/200" | bc -l | awk "$awk_print") ;;
+			gr) suf1="°";                 suf2="rad";            resp=$(echo "$s2;$pi;$1*pi/180" | bc -l | zznumero --para en | tr -d ,) ;;
+			rg) suf1="rad";               suf2="°";              resp=$(echo "$s2;$pi;$1*180/pi" | bc -l | zznumero --para en | tr -d ,) ;;
+			ga) suf1="°";                 suf2="gon";            resp=$(echo "$s2;$1/0.9" | bc -l | zznumero --para en | tr -d ,) ;;
+			ag) suf1="gon";               suf2="°";              resp=$(echo "$s2;$1*0.9" | bc -l | zznumero --para en | tr -d ,) ;;
+			ra) suf1="rad";               suf2="gon";            resp=$(echo "$s2;$pi;$1*200/pi" | bc -l | zznumero --para en | tr -d ,) ;;
+			ar) suf1="gon";               suf2="rad";            resp=$(echo "$s2;$pi;$1*pi/200" | bc -l | zznumero --para en | tr -d ,) ;;
 			* ) zztool erro "Conversão inválida $operacao"; return 1 ;;
 		esac
 
