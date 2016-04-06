@@ -48,9 +48,9 @@ zzsqueeze ()
 	if test $linha -eq 1
 	then
 		awk '
-			/^[[:blank:]]*$/{ branco++ }
+			/^[ 	]*$/{ branco++ }
 
-			! /^[[:blank:]]*$/ {
+			! /^[ 	]*$/ {
 				if(branco>0) { print ""; branco=0 }
 				print
 			}
@@ -58,6 +58,6 @@ zzsqueeze ()
 			END { if(branco>0) print "" }
 		'
 	else
-		sed 's/^[[:blank:]]*$//'
+		sed 's/^[ 	]*$//'
 	fi
 }
