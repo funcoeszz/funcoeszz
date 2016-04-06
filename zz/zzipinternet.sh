@@ -16,5 +16,5 @@ zzipinternet ()
 	local url='http://www.getip.com'
 
 	# O resultado já vem pronto!
-	zztool dump "$url" | sed -n 's/^Current IP: //p'
+	zztool dump "$url" | sed -n 's/^.*Current IP: //p'
 }
