@@ -32,7 +32,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-03-14
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztestar ()
@@ -151,23 +151,20 @@ zztestar ()
 
 		ip6 | ipv6)
 			# Testa se $2 é um número IPV6 (hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:hhhh:hhhh)
-			local saida
-			saida=$(
-				echo "$2" |
-				awk -F : ' BEGIN { saida = 0 }
-				{
-					if( $0 ~ /^:[^:]/ || $0 ~ /:{3,}/ || $0 ~ /:$/ ) { saida = 1 }
-					if ( NF<8 && $0 !~ /::/ ) { saida = 1 }
-					if ( NF>8 ) { saida = 1 }
-					if ( NF<=8 ) {
-						for (i=1; i<=NF; i++) {
-							if ($i !~ /^[0-9A-Fa-f]{0,4}$/) { saida = 1 }
-						}
+			echo "$2" |
+			awk -F : '
+			{
+				if ( $0 ~ /^:[^:]/ )      { exit 1 }
+				if ( $0 ~ /:::/  )        { exit 1 }
+				if ( $0 ~ /:$/ )          { exit 1 }
+				if ( NF<8 && $0 !~ /::/ ) { exit 1 }
+				if ( NF>8 )               { exit 1 }
+				if ( NF<=8 ) {
+					for (i=1; i<=NF; i++) {
+						if (length($i)>0 && $i !~ /^[0-9A-Fa-f]+$/) { exit 1 }
 					}
 				}
-				END { print saida }'
-			)
-			test "$saida" -eq 0 && return 0
+			}' && return 0
 
 			test -n "$erro" && zztool erro "Número IPV6 inválido '$2'"
 			return 1
