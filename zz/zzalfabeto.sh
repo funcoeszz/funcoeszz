@@ -27,7 +27,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-07-23
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzmaiusculas zztrim
 # ----------------------------------------------------------------------------
@@ -40,9 +40,9 @@ zzalfabeto ()
 				BEGIN {FS=":"; if (length(cab)>0) { print cab }}
 				function campo(campos,  i, arr_camp) {
 					split("", arr_camp)
-					split(campos, arr_camp, " ")
-					for (i=1;i<=length(arr_camp);i++) {
-						printf $(arr_camp[i]) (i<length(arr_camp)?" ":"")
+					qtd_camp = split(campos, arr_camp, " ")
+					for (i=1;i<=qtd_camp;i++) {
+						printf $(arr_camp[i]) (i<qtd_camp?" ":"")
 					}
 					print ""
 				}
