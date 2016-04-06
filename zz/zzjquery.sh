@@ -72,11 +72,11 @@ zzjquery ()
 				sed -n '/title="Permalink to /{s/^[[:blank:]]*//;s/()//g;p;}' |
 				zzunescape --html |
 				awk -F '[<>"]' '{print "http:" $3, $9 }' |
-				awk '$2 ~ /^[.:]{0,1}'$1'[^a-z]*$/ { print $1 }'
+				awk '$2 ~ /^[.:]?'$1'[^a-z]*$/ { print $1 }'
 			)
 			test -n "$url_aux" && url="$url_aux" || url=''
 		else
-			url=${url}jQuery
+			url="${url}jQuery/"
 		fi
 
 		if test -n "$url"
@@ -85,12 +85,13 @@ zzjquery ()
 			do
 				zztool grep_var 'http://' "$url_aux" || url_aux="http://$url_aux"
 				zztool eco ${url_aux#*com/} | tr -d '/'
-				zztool source "$url_aux" |
+				zztool source links "$url_aux" |
 				zzxml --tag article |
 				awk '/class="entry(-content| method)"/,/<\/article>/{ print }' |
 				if test "$sintaxe" = "1"
 				then
-					awk '/<ul class="signatures">/,/<div class="longdesc"/ { print }' | awk '/<span class="name">/,/<\/span>/ { print }; /<h4 class="name">/,/<\/h4>/ { print };'
+					awk '/<ul class="signatures">/,/<div class="longdesc"/ { print }' |
+					awk '/<span class="name">/,/<\/span>/ { print }; /<h4 class="name">/,/<\/h4>/ { print };'
 				else
 					awk '
 							/<ul class="signatures">/,/(<div class="longdesc"|<section class="entry-examples")/ { if ($0 ~ /<\/h4>/ || $0 ~ /<\/span>/ || $0 ~ /<\/div>/) { print } else { printf $0 }}
