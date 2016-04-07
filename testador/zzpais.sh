@@ -1,69 +1,69 @@
 $ zzpais -i unidos
-País                                       Capital                            
+País                                       Capital
 ------------------------------------------ ----------------------------------
-Emirados Árabes Unidos                     Abu Dabi                           
+Emirados Árabes Unidos                     Abu Dabi
 Idioma(s): Árabe
 
-Estados Unidos da América                  Washington, D.C.                   
+Estados Unidos da América                  Washington, D.C.
 Idioma(s): Inglês, Espanhol, Francês, Línguas indígenas, Havaiano
 
-Ilhas Virgens dos Estados Unidos           Charlotte Amalie                   
+Ilhas Virgens dos Estados Unidos           Charlotte Amalie
 Idioma(s): Inglês
 
 $
 
 $ zzpais ^Z
-País                                       Capital                            
+País                                       Capital
 ------------------------------------------ ----------------------------------
-Zâmbia                                     Lusaca                             
-Zimbábue                                   Harare                             
+Zâmbia                                     Lusaca
+Zimbábue                                   Harare
 $
 
 $ zzpais República
-País                                       Capital                            
+País                                       Capital
 ------------------------------------------ ----------------------------------
-República Centro-Africana                  Bangui                             
-República Checa                            Praga                              
-República da China, ou Taiwan              Taipé                              
-República Popular da China                 Pequim                             
-República Turca de Chipre do Norte         Nicósia                            
-República do Congo                         Brazavile                          
-República Democrática do Congo             Quinxasa                           
-República Dominicana                       São Domingos                       
-República Árabe Saariana Democrática       El Aiune                           
+República Centro-Africana                  Bangui
+República Checa                            Praga
+República da China, ou Taiwan              Taipé
+República Popular da China                 Pequim
+República Turca de Chipre do Norte         Nicósia
+República do Congo                         Brazavile
+República Democrática do Congo             Quinxasa
+República Dominicana                       São Domingos
+República Árabe Saariana Democrática       El Aiune
 $
 
 $ zzpais l$
-País                                       Capital                            
+País                                       Capital
 ------------------------------------------ ----------------------------------
-África do Sul                              Pretória, Cape Town, Bloemfontein  
-Brasil                                     Brasília                           
-Guiné Equatorial                           Malabo                             
-Israel                                     Jerusalém                          
-Ilhas Marechal                             Majuro                             
-Nepal                                      Catmandu                           
-Ossétia do Sul                             Tskhinval                          
-Portugal                                   Lisboa                             
-Senegal                                    Dacar                              
-Sudão do Sul                               Juba                               
+África do Sul                              Pretória, Cape Town, Bloemfontein
+Brasil                                     Brasília
+Guiné Equatorial                           Malabo
+Israel                                     Jerusalém
+Ilhas Marechal                             Majuro
+Nepal                                      Catmandu
+Ossétia do Sul                             Tskhinval
+Portugal                                   Lisboa
+Senegal                                    Dacar
+Sudão do Sul                               Juba
 $
 
 $ zzpais -i ^J
-País                                       Capital                            
+País                                       Capital
 ------------------------------------------ ----------------------------------
-Jamaica                                    Kingston                           
+Jamaica                                    Kingston
 Idioma(s): Inglês
 
-Japão                                      Tóquio                             
+Japão                                      Tóquio
 Idioma(s): Japonês
 
-Jérsia                                     Saint Helier                       
+Jérsia                                     Saint Helier
 Idioma(s): Inglês, Francês, Jersês
 
-Jibuti                                     Jibuti                             
+Jibuti                                     Jibuti
 Idioma(s): Árabe, Francês
 
-Jordânia                                   Amã                                
+Jordânia                                   Amã
 Idioma(s): Árabe
 
 $
