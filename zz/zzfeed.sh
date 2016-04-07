@@ -20,7 +20,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzxml zzunescape zztrim zzutf8
 # ----------------------------------------------------------------------------
@@ -28,7 +28,7 @@ zzfeed ()
 {
 	zzzz -h feed "$1" && return
 
-	local url formato tag_mae tmp useragent coding
+	local url formato tag_mae tmp useragent coding cache
 	local limite=10
 
 	# Opções de linha de comando
@@ -89,6 +89,7 @@ zzfeed ()
 	#-----------------------------------------------------------------
 
 	tmp=$(zztool mktemp feed)
+	cache=$(zztool mktemp feed)
 
 	# Para cada URL que o usuário informou...
 	for url
@@ -99,16 +100,22 @@ zzfeed ()
 		# Baixa e limpa o conteúdo do feed
 		if test "$1" = "-"
 		then
-			zztool file_stdin "$@"
-		else
-			zztool source $useragent "$url" 2>/dev/null
-		fi |
+			zztool file_stdin "$@" |
 			case "$coding" in
 				iso) zztool texto_em_iso ;;
 				utf) zztool texto_em_utf ;;
 				*  ) zzutf8 ;;
 			esac |
 			zzxml --tidy > "$tmp"
+		else
+			case "$coding" in
+				iso) coding='-i iso-8859-1' ;;
+				utf) coding='-i utf-8'       ;;
+				*  ) coding=''              ;;
+			esac
+			zztool download $useragent $coding "$url" "$cache"
+			zzxml --tidy "$cache" > "$tmp"
+		fi
 
 		# Tenta identificar o formato: <feed> é Atom, <rss> é RSS
 		formato=$(grep -e '^<feed[ >]' -e '^<rss[ >]' -e '^<rdf[:>]' "$tmp")
@@ -155,5 +162,5 @@ zzfeed ()
 		# Linha em branco para separar resultados
 		[ $# -gt 1 ] && echo
 	done
-	rm -f "$tmp"
+	rm -f "$tmp" "$cache"
 }
