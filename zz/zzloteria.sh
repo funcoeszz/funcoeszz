@@ -13,7 +13,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-05-18
-# Versão: 14
+# Versão: 15
 # Licença: GPL
 # Requisitos: zzlimpalixo
 # Nota: requer links
@@ -170,7 +170,7 @@ zzloteria ()
 					then
 						awk '
 						BEGIN { printf "## QTD\t## QTD\t## QTD\t## QTD\n" }
-						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<23;i++) numeros[$i]++ }
+						$2 ~ /[0-9]\/[0-9][0-9]\/[0-9]/ { for (i=3;i<23;i++) numeros[$i]++ }
 						END {
 							for (i=0;i<25;i++) {
 								num=sprintf("%02d",i)
@@ -180,18 +180,20 @@ zzloteria ()
 						' | expand -t 10
 					else
 						grep "^ *$num_con " 2>/dev/null |
+						tr -d '[A-Z]' |
 						awk ' {
 							print "Concurso", $1, "(" $2 ")"
 							comando="sort -n | paste -d _ - - - - -"
 							for (i=3;i<23;i++) {print $i | comando }
 							close(comando)
+							i=(NF==42?1:0)
 							print ""
-							printf "20 pts.\t%s\t%s\n", ($24==0?"Nao houve acertador!":$24), ($24==0?"":"R$ " $(NF-13))
-							printf "19 pts.\t%s\t%s\n", $(NF-18), "R$ " $(NF-12)
-							printf "18 pts.\t%s\t%s\n", $(NF-17), "R$ " $(NF-11)
-							printf "17 pts.\t%s\t%s\n", $(NF-16), "R$ " $(NF-10)
-							printf "16 pts.\t%s\t%s\n", $(NF-15), "R$ " $(NF-9)
-							printf " 0 pts.\t%s\t%s\n", ($(NF-14)==0?"Nao houve acertador!":$(NF-14)), ($(NF-14)==0?"":"R$ " $(NF-8))
+							printf "20 pts.\t%s\t%s\n", ($24==0?"Nao houve acertador!":$24), ($24==0?"":"R$ " $(NF-13+i))
+							printf "19 pts.\t%s\t%s\n", $(NF-18+i), "R$ " $(NF-12+i)
+							printf "18 pts.\t%s\t%s\n", $(NF-17+i), "R$ " $(NF-11+i)
+							printf "17 pts.\t%s\t%s\n", $(NF-16+i), "R$ " $(NF-10+i)
+							printf "16 pts.\t%s\t%s\n", $(NF-15+i), "R$ " $(NF-9+i)
+							printf " 0 pts.\t%s\t%s\n", ($(NF-14+i)==0?"Nao houve acertador!":$(NF-14+i)), ($(NF-14+i)==0?"":"R$ " $(NF-8+i))
 						}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
 					fi
 				;;
@@ -208,7 +210,7 @@ zzloteria ()
 					then
 						awk '
 						BEGIN { print "## QTD" }
-						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<18;i++) numeros[$i]++ }
+						$2 ~ /[0-9]\/[0-9][0-9]\/[0-9]/ { for (i=3;i<18;i++) numeros[$i]++ }
 						END {
 							for (i=1;i<=25;i++) {
 								num=sprintf("%02d",i)
@@ -245,7 +247,7 @@ zzloteria ()
 					then
 						awk '
 						BEGIN { printf "## QTD\t## QTD\t## QTD\n" }
-						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<9;i++) numeros[$i]++ }
+						$2 ~ /[0-9]\/[0-9][0-9]\/[0-9]/ { for (i=3;i<9;i++) numeros[$i]++ }
 						END {
 							for (i=1;i<=20;i++) {
 								num=sprintf("%02d",i)
@@ -281,7 +283,7 @@ zzloteria ()
 							printf "1º sorteio          2º sorteio\n"
 							printf "## QTD\t## QTD\t## QTD\t## QTD\n"
 							}
-						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ {
+						$2 ~ /[0-9]\/[0-9][0-9]\/[0-9]/ {
 							for (i=3;i<9;i++)  numeros1[$i]++
 							for (i=12;i>6;i--) numeros2[$(NF-i) ]++
 						}
@@ -327,7 +329,7 @@ zzloteria ()
 					then
 						awk '
 						BEGIN { printf "## QTD\t## QTD\t## QTD\t## QTD\n" }
-						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<8;i++) numeros[$i]++ }
+						$2 ~ /[0-9]\/[0-9][0-9]\/[0-9]/ { for (i=3;i<8;i++) numeros[$i]++ }
 						END {
 							for (i=1;i<=20;i++) {
 								num=sprintf("%02d",i)
@@ -388,7 +390,7 @@ zzloteria ()
 					then
 						awk '
 						BEGIN { printf "## QTD\t## QTD\t## QTD\t## QTD\n" }
-						$2 ~ /[0-9]\/[0-9]{2}\/[0-9]/ { for (i=3;i<10;i++) numeros[$i]++ }
+						$2 ~ /[0-9]\/[0-9][0-9]\/[0-9]/ { for (i=3;i<10;i++) numeros[$i]++ }
 						END {
 							for (i=1;i<=20;i++) {
 								num=sprintf("%02d",i)

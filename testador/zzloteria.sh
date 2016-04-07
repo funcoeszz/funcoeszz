@@ -21,20 +21,20 @@ Concurso NNNN (NN/NN/NNNN)
    NN   NN   NN   NN   NN   NN
 $
 
-$ zzloteria lotomania | tr '[0-9]' 'N' | head -6 | sed 's/ *$//'
+$ zzloteria lotomania | tr '[0-9]' 'N' | head -6 | sed 's/ *$//;s/N  *N/N N/g'
 lotomania:
 Concurso NNNN (NN/NN/NNNN)
-   NN     NN     NN     NN     NN
-   NN     NN     NN     NN     NN
-   NN     NN     NN     NN     NN
-   NN     NN     NN     NN     NN
+   NN NN NN NN NN
+   NN NN NN NN NN
+   NN NN NN NN NN
+   NN NN NN NN NN
 $
-$ zzloteria lotofacil | tr '[0-9]' 'N' | head -5 | sed 's/ *$//'
+$ zzloteria lotofacil | tr '[0-9]' 'N' | head -5 | sed 's/ *$//;s/N  *N/N N/g'
 lotofacil:
 Concurso NNNN (NN/NN/NNNN)
-   NN     NN     NN     NN     NN
-   NN     NN     NN     NN     NN
-   NN     NN     NN     NN     NN
+   NN NN NN NN NN
+   NN NN NN NN NN
+   NN NN NN NN NN
 $
 
 $ zzloteria federal | tr '[0-9.]' 'N' | sed 's/ *$//;s/º  */º      /;s/  *R\$/   R$/;s/  *\([BV]\)/ \1/g'
@@ -166,12 +166,12 @@ Concurso 750 (18/08/2007)
    57     66     68     72     75
    77     80     83     92     94
 
-   20 pts.     5         R$ 3
-   19 pts.     AM        R$ 1.364.031,89
-   18 pts.     66        R$ 7.504,25
-   17 pts.     595       R$ 832,40
-   16 pts.     4489      R$ 54,96
-    0 pts.     21493     R$ 11,48
+   20 pts.     5         R$ 1.364.031,89
+   19 pts.     66        R$ 7.504,25
+   18 pts.     595       R$ 832,40
+   17 pts.     4489      R$ 54,96
+   16 pts.     21493     R$ 11,48
+    0 pts.     3         R$ 82.546,71
 
 $
 
