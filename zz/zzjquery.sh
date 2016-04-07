@@ -85,7 +85,7 @@ zzjquery ()
 			do
 				zztool grep_var 'http://' "$url_aux" || url_aux="http://$url_aux"
 				zztool eco ${url_aux#*com/} | tr -d '/'
-				zztool source links "$url_aux" |
+				zztool source "$url_aux" |
 				zzxml --tag article |
 				awk '/class="entry(-content| method)"/,/<\/article>/{ print }' |
 				if test "$sintaxe" = "1"
