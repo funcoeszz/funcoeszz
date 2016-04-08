@@ -35,7 +35,7 @@ zztradutor ()
 
 	# Variaveis locais
 	local padrao
-	local url='http://translate.google.com.br'
+	local url='https://translate.google.com.br'
 	local lang_de='pt'
 	local lang_para='en'
 	local charset_para='UTF-8'
@@ -76,7 +76,7 @@ zztradutor ()
 
 	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
 	# e limpa essa linha para estar somente o texto desejado.
-	zztool source "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |
+	zztool source w3m -u "Mozilla/5.0" "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |
 		zztool texto_em_iso |
 		zzxml --tidy |
 		sed -n '/id=result_box/,/<\/div>/p' |
