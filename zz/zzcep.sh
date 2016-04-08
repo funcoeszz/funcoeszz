@@ -1,52 +1,46 @@
 # ----------------------------------------------------------------------------
 # http://www.achecep.com.br
 # Busca o CEP de qualquer rua de qualquer cidade do país ou vice-versa.
-# Pode-se fornecer apenas o CEP, ou o estado com endereço.
-# Uso: zzcep <estado endereço | CEP>
-# Ex.: zzcep SP Rua Santa Ifigênia
+# Pode-se fornecer apenas o CEP, ou o endereço com estado.
+# Uso: zzcep <endereço estado| CEP>
+# Ex.: zzcep Rua Santa Ifigênia, SP
 #      zzcep 01310-000
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-11-08
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzutf8
+# Requisitos: zzxml zzlimpalixo zzjuntalinhas zzsemacento zzminusculas
 # ----------------------------------------------------------------------------
 zzcep ()
 {
 	zzzz -h cep "$1" && return
 
-	local r e query
-	local url='http://www.achecep.com.br'
+	local end
+	local url='http://cep.guiamais.com.br'
 
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso cep; return 1; }
 
 	# Testando se parametro é o CEP
-	echo "$1" | tr -d '-' | grep -E '[0-9]{8}' > /dev/null
-	if test $? -eq 0
+	if echo "$1" | grep -E '[0-9]{5}-[0-9]{5}' > /dev/null
 	then
-		query=$(echo "q=$1" | tr -d '-')
+		url="${url}/cep/$1"
+	else
+		end=$(echo "$*" | zzsemacento | zzminusculas | sed "s/, */-/g;$ZZSEDURL")
+		url="${url}/busca/$end"
 	fi
 
-	# Conferindo se é sigla do Estado e endereço
-	if test -z $query && test -n "$2"
-	then
-		echo $1 | grep -E '[a-zA-Z]{2}' > /dev/null
-		if test $? -eq 0
-		then
-			e="$1"
-			shift
-			r=$(echo "$*"| sed "$ZZSEDURL")
-			query="uf=${e}&q=$r"
-		else
-			zztool -e uso cep; return 1;
-		fi
-	fi
-
-	# Testando se formou a query string
-	test -n "$query" || { zztool -e uso cep; return 1; }
-
-	zztool post lynx "$url" "$query" | zzutf8 |
-	sed -n '/^[[:blank:]]*CEP/,/^[[:blank:]]*$/p'| sed 's/^ *//g;$d'
+	zztool source "$url" |
+	zzxml --tag tbody --untag=a --untag=br --untag=label |
+	zzlimpalixo | zzjuntalinhas -i '<tr' -f 'tr>' |
+	sed '
+		s|</*tr[^>]*>[[:blank:]]*||g
+		s|[[:blank:]]*</td>[[:blank:]]*||g
+		s/<td[^>]*>//g
+		s/[[:blank:]]*Ver$//
+		s/^[[:blank:]]*//
+		1d
+		$d
+		/^[[:blank:]]*$/d'
 }
