@@ -19,8 +19,7 @@ before_install:
   - mv clitest testador
 
 script:
-  # Not using zz*.sh because zzbraille is freezing :(
-  - cd testador && ./run zza*.sh zz{beep,bicho,bissexto,blist,byte}.sh zz[c-z]*.sh
+  - cd testador && ./run
 
 notifications:
   email: false
