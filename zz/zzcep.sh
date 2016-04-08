@@ -23,7 +23,7 @@ zzcep ()
 	test -n "$1" || { zztool -e uso cep; return 1; }
 
 	# Testando se parametro é o CEP
-	if echo "$1" | grep -E '[0-9]{5}-[0-9]{5}' > /dev/null
+	if echo "$1" | grep -E '^[0-9]{5}-[0-9]{3}$' > /dev/null
 	then
 		url="${url}/cep/$1"
 	else
