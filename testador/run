@@ -26,6 +26,7 @@ cat > "$tmp" <<EOF
 	--cor 0 \\
 	--path "$zz_root"/funcoeszz \\
 	--dir  "$zz_root"/zz
+zztool cache rm '*'
 EOF
 
 # Note: To remove the dots ........ change 'dot' to 'none'
