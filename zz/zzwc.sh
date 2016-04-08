@@ -108,7 +108,7 @@ zzwc ()
 				wc -c
 			elif test -n "$mc"
 			then
-				sed 's/[^[:cntrl:]]/./g' | wc -c
+				sed 's/[^[:cntrl:]]/./g' | awk 'BEGIN {FS=""} { print NF }'
 			elif test -n "$mw"
 			then
 				wc -w
