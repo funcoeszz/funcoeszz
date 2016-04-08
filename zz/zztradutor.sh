@@ -76,7 +76,7 @@ zztradutor ()
 
 	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
 	# e limpa essa linha para estar somente o texto desejado.
-	zztool source -u "Mozilla/5.0" "$url?tr=$lang_de&hl=$lang_para&text=$padrao" |
+	zztool source -u "Mozilla/5.0" "$url?tr=$lang_de&hl=$lang_para&text=$padrao" 2>/dev/null |
 		zztool texto_em_iso |
 		zzxml --tidy |
 		sed -n '/id=result_box/,/<\/div>/p' |
