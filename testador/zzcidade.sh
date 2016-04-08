@@ -5,8 +5,8 @@ $ zzcidade			#→ --regex ^[A-ZÁÂÉÓ].* \([A-Z][A-Z]\)$
 # Com argumento, procura pelo texto
 
 $ zzcidade curitiba
-Curitiba (PR)
 Curitibanos (SC)
+Curitiba (PR)
 $
 
 # Exemplos do texto de ajuda
@@ -22,8 +22,8 @@ Campos do Jordão (SP)
 Campos dos Goytacazes (RJ)
 Campos Gerais (MG)
 Campos Lindos (TO)
-Campos Novos (SC)
 Campos Novos Paulista (SP)
+Campos Novos (SC)
 Campos Sales (CE)
 Campos Verdes (GO)
 Capitão de Campos (PI)
