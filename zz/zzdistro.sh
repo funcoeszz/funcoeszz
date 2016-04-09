@@ -39,7 +39,7 @@ zzdistro ()
 
 	zztool source "$url" | sed '1,/>Rank</d' |
 	awk -F'"' '
-		/phr1/ || /<th class="News">[0-9]{1,3}<\/th>/ {
+		/phr1/ || /<th class="News">[0-9][0-9]?[0-9]?<\/th>/ {
 			printf "%s\t", $3
 			getline
 			printf "%s\thttp://distrowatch.com/%s\n", $5, $4
