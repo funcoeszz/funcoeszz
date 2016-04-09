@@ -29,7 +29,8 @@ zzcidade ()
 		zztool dump "$url" |
 		sed -n '/A\[/,/Ver também\[/p' |
 		sed '/[•*]/!d;s//\
-/g;' | zztrim | zzlimpalixo | sort > "$cache"
+/g;' | zztrim | zzlimpalixo |
+		LC_ALL=C sort > "$cache"
 	fi
 
 	if test -z "$padrao"
