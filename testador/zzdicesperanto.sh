@@ -1,42 +1,56 @@
 $ zzdicesperanto -d pt -p eo função
 funkcio
 ofico
+aktiveco
+celo
+farado
+laboro
+okupo
+posteno
+profesio
+rolo
+tasko
 $
 
-$ zzdicesperanto -p en trabalho
+$ zzdicesperanto -p en trabalho | head -20
 work
 labour
 job
 business
 employment
 occupation
-working
+labor
 accomplishment
 achievement
 feat
-drudgery
-labor
-mechanical work
-ado
-effort
-exercise
-operation
-paper
-task
 toil
+drudgery
+working
+effort
+endeavor
+enterprise
+exercise
+line
+line of work
+operation
 $
 
 $ zzdicesperanto -p de novo
 neu
 frisch
+jung
+neuartig
+unberührt
+Neu
 erneut
 ferner
-jung
+jüngst
 kühl
-neuartig
+kürzlich
 neue
+neueste
 neun
-unberührt
+rezent
 weiter
 $
 
@@ -44,17 +58,38 @@ $ zzdicesperanto -d de Frieden
 paco
 Paco
 pacakordo
+ripozo
+trankvileco
+trankvilo
 $
 
 $ zzdicesperanto -p de vitória
 Sieg
 Triumph
+Erfolg
+Gewinn
+Treffer
 $
 
 $ zzdicesperanto saudade
+nostalgio
 saŭdado
 sopiro
+dezirego
+deziro
+hejmsopiro
+hejmveo
+sopirado
+tenesmo
 $
 
-$ zzdicesperanto esperança    #→ espero
-$ zzdicesperanto -d en never  #→ neniam
+$ zzdicesperanto esperança
+espero
+esperi
+prikalkulo
+$
+
+$ zzdicesperanto -d en never
+neniam
+iam ajn
+$
