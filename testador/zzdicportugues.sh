@@ -11,7 +11,7 @@ $
 
 # Uso normal - acentuação
 
-$ zzdicportugues maca
+$ zzdicportugues maca | sed '/^ *$/d'
 maca,1
 f.
 Cama de lona, para descanso dos marinheiros, a bordo.
@@ -88,9 +88,9 @@ Separação das sílabas: com-pi-lar
 
 Exemplos com o verbete compilar
 
-A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta sexta-feira. Folha de São Paulo, 10/07/2009
-A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta sexta-feira. Folha de São Paulo, 10/07/2009
 A gravadora Columbia Records vai compilar todo o material produzido pelo trompetista Miles Davis durante o contrato do músico com o selo em um box de grandes proporções. Folha de São Paulo, 21/08/2009
+A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta sexta-feira. Folha de São Paulo, 10/07/2009
+A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta sexta-feira. Folha de São Paulo, 10/07/2009
 compilar
 
 Palavras da Mesma Família de Compilar
@@ -151,8 +151,8 @@ Recolha um cão de rua, dê-lhe de comer e ele não morderá: eis a diferença f
 
 Exemplos com o verbete comer
 
-Para comer, a casa mantém a sua linha de combinados com sushi, sashimi, entradas e pratos quentes. Folha de São Paulo, 27/06/2009
 Um exemplo é o "I Can Has Cheezburger?: A LOLcat Colleckshun" (posso comer um cheeseburguer?, uma coleção de gatos hilários; Gotham Books, US$ 10), que reúne posts do blog que o originou (icanhascheezburger. Folha de São Paulo, 27/06/2009
+Para comer, a casa mantém a sua linha de combinados com sushi, sashimi, entradas e pratos quentes. Folha de São Paulo, 27/06/2009
 Minha irmã Fátima fez e perdeu 58 kg, mas deixaram o estômago dela menor, só pode comer 25 mililitros, senão vomita. Folha de São Paulo, 27/06/2009
 comer
 
