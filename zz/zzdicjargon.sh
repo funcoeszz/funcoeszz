@@ -49,8 +49,7 @@ zzdicjargon ()
 	then
 		zztool dump "$url/$achei" |
 			sed '1,/[_-]\{9\}/d;/[_-]\{9\}/,$d;/^$/d' |
-			zztrim -l |
-			fmt -s -w 72
+			zztrim -l
 		test -n "$mais" && zztool eco '\nTermos parecidos:'
 	else
 		zztool eco 'Achei mais de um! Escolha qual vai querer:'
