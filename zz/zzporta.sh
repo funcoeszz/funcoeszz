@@ -17,7 +17,7 @@ zzporta ()
 {
 	zzzz -h porta "$1" && return
 
-	local url="http://pt.wikipedia.org/wiki/Lista_de_portas_de_protocolos"
+	local url="https://pt.wikipedia.org/wiki/Lista_de_portas_de_protocolos"
 	local port=$1
 	zztool testa_numero $port || port='.'
 
