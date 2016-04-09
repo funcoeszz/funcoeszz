@@ -7,7 +7,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zztrim
 # ----------------------------------------------------------------------------
@@ -47,8 +47,10 @@ zzdicjargon ()
 
 	if test $num -eq 1
 	then
-		zztool dump -w 72 "$url/$achei" |
-			sed '1,/_\{9\}/d;/_\{9\}/,$d;/^$/d' | zztrim -l
+		zztool dump "$url/$achei" |
+			sed '1,/[_-]\{9\}/d;/[_-]\{9\}/,$d;/^$/d' |
+			zztrim -l |
+			fmt -s -w 72
 		test -n "$mais" && zztool eco '\nTermos parecidos:'
 	else
 		zztool eco 'Achei mais de um! Escolha qual vai querer:'
