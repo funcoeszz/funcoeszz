@@ -1,23 +1,23 @@
 # ----------------------------------------------------------------------------
 # http://www.babylon.com
 # Tradução de uma palavra em inglês para vários idiomas.
-# Francês, alemão, japonês, italiano, hebreu, espanhol, holandês e português.
+# Francês, alemão, italiano, hebreu, espanhol, holandês e português.
 # Se nenhum idioma for informado, o padrão é o português.
-# Uso: zzdicbabylon [idioma] palavra   #idioma:dut fre ger heb ita jap ptg spa
+# Uso: zzdicbabylon [idioma] palavra   #idiomas: nl fr de he it pt es 
 # Ex.: zzdicbabylon hardcore
 #      zzdicbabylon jap tree
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdicbabylon ()
 {
 	zzzz -h dicbabylon "$1" && return
 
-	local idioma='ptg'
-	local idiomas=' dut fre ger heb ita jap ptg spa '
+	local idioma='pt'
+	local idiomas=' nl fr de he it pt es '
 	local tab=$(printf %b '\t')
 
 	# Verificação dos parâmetros
@@ -30,16 +30,16 @@ zzdicbabylon ()
 		shift
 	fi
 
-	zztool source "http://online.babylon.com/cgi-bin/trans.cgi?lang=$idioma&word=$1" |
-		sed "
+	zztool source "http://bis.babylon.com/?rt=ol&tid=pop&mr=2&term=$1&tl=$idioma" |
+		sed '
 			/OT_CopyrightStyle/,$ d
-			/definition/,/<\/div>/!d
-			/GA_google/d
+			/div class="definition"/,/<\/div>/!d
 			s/^[$tab ]*//
 			s/<[^>]*>//g
 			/^$/d
 			N;s/\n/ /
 			s/      / /
-			" |
+			' |
 		zztool texto_em_utf8
 }
+
