@@ -27,8 +27,8 @@ zzdolar ()
 			s/  *\(CAPTION: \)\{0,1\}Dólar comercial/  Compra Venda Variação/
 			s/tur\./Turismo /
 			s/^  *Dólar //
+			s/[[:blank:]]*$//
 			s/\(.*\) - \(.*\) \([0-9][0-9]h[0-9][0-9]\)/\2|\3\
-\1/
-		' |
+\1/' |
 		tr ' |' '\t '
 }
