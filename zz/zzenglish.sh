@@ -29,6 +29,8 @@ zzenglish ()
 
 	zztool dump "$url" | zzutf8 |
 		sed "
+			/Questions or comments about this site./d
+
 			# pega o trecho da página que nos interessa
 			/[0-9]\{1,\} definitions\{0,1\} found/,/ *[_-][_-][_-][_-][_-]* *$/!d
 			s/[_-][_-][_-][_-][_-]*//
