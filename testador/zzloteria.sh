@@ -37,16 +37,16 @@ Concurso NNNN (NN/NN/NNNN)
    NN NN NN NN NN
 $
 
-$ zzloteria federal | tr '[0-9.]' 'N' | sed 's/ *$//;s/º  */º      /;s/  *R\$/   R$/;s/  *\([BV]\)/ \1/g'
+$ zzloteria federal | tr '[0-9.]' 'N' | sed 's/ *$//;s/º  */º      /;s/  *R\$/   R$/;s/  *\([BV]\)/ \1/g;s/NN*,/NNN,/'
 federal:
 Concurso NNNNN (NN/NN/NNNN)
 
    Destino Bilhete Valor do Prêmio (R$)
-   Nº      NNNNN   R$ NNNNNNN,NN
-   Nº      NNNNN   R$ NNNNNN,NN
-   Nº      NNNNN   R$ NNNNNN,NN
-   Nº      NNNNN   R$ NNNNNN,NN
-   Nº      NNNNN   R$ NNNNNN,NN
+   Nº      NNNNN   R$ NNN,NN
+   Nº      NNNNN   R$ NNN,NN
+   Nº      NNNNN   R$ NNN,NN
+   Nº      NNNNN   R$ NNN,NN
+   Nº      NNNNN   R$ NNN,NN
 
 $
 
