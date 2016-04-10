@@ -90,7 +90,7 @@ zztempo ()
 	codigo_localidade=$(echo "$localidades" | sed 's/  .*//')
 
 	# Faz a consulta e filtra o resultado
-	zztool dump "$url/weather/current/${codigo_localidade}.html" | sed -n '
+	zztool dump links "$url/weather/current/${codigo_localidade}.html" | sed -n '
 		/Current Weather/,/24 Hour/ {
 			//d
 			/____*/d
@@ -98,7 +98,7 @@ zztempo ()
 			/^ *$/d
 			s/ *$//
 			s/^ *//
-			/Conditions at /,/ UTC/ { // !d; }
+			/Conditions at /,/ UTC/ { // !d; s/\[//; s/\]//; }
 			p
 		}' |
 		sed '2,$ s/^/   /'
