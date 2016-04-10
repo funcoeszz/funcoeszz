@@ -33,7 +33,7 @@ zzlua ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		zztool dump "$url" | sed -n '/^4.1/,/^ *6/p' | sed '/^ *[4-6]/,/^ *__*$/{/^ *__*$/!d;}' > "$cache"
+		zztool dump links "$url" | sed -n '/^4.1/,/^ *6/p' | sed '/^ *[4-6]/,/^ *[_-][_-]*$/{/^ *[_-][_-]*$/!d;}' > "$cache"
 	fi
 
 	if test "$1" = '-d' -o "$1" = '--detalhe'
@@ -41,17 +41,17 @@ zzlua ()
 		# Detalhe de uma função específica
 		if test -n "$2"
 		then
-			sed -n "/  $2/,/^ *__*$/p" "$cache" | sed '/^ *__*$/d'
+			sed -n "/  $2/,/^ *[_-][_-]*$/p" "$cache" | sed '/^ *[_-][_-]*$/d' | sed '$ {/^ *$/ d;}'
 		fi
 	elif test -n "$padrao"
 	then
 		# Busca a(s) função(ões)
-		sed -n '/^ *__*$/,/^ *[a-z_]/p' "$cache" |
-		sed '/^ *__*$/d;/^ *$/d;s/^  //g;s/\([^ ]\) .*$/\1/g' |
+		sed -n '/^ *[_-][_-]*$/,/^ *[a-z_]/p' "$cache" |
+		sed '/^ *[_-][_-]*$/d;/^ *$/d;s/^  //g;s/\([^ ]\) .*$/\1/g' |
 		grep -h -i -- "$padrao"
 	else
 		# Lista todas as funções
-		sed -n '/^ *__*$/,/^ *[a-z_]/p' "$cache" |
-		sed '/^ *__*$/d;/^ *$/d;s/\([^ ]\) .*$/\1/g'
+		sed -n '/^ *[_-][_-]*$/,/^ *[a-z_]/p' "$cache" |
+		sed '/^ *[_-][_-]*$/d;/^ *$/d;s/\([^ ]\) .*$/\1/g'
 	fi
 }
