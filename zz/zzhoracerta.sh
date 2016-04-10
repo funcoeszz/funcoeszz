@@ -12,7 +12,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-03-29
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzhoracerta ()
@@ -76,5 +76,6 @@ zzhoracerta ()
 
 	# Faz a consulta e filtra o resultado
 	zztool dump "$url/current_time_in_$localidade.aspx" |
-		grep 'The current time' -B 2 -A 5
+		grep 'The current time' -B 2 -A 6 |
+		sed '/Time:/d;/^ *$/d; s/^ *//'
 }

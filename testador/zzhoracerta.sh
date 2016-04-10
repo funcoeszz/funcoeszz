@@ -20,22 +20,18 @@ EH -- Western Sahara
 YE -- Yemen
 ZM -- Zambia
 ZW -- Zimbabwe
-$ zzhoracerta rio grande do sul | sed 's/[0-9]/N/g; s/ N:/NN:/; s/ [AP]M$//; s/.* N\{1,2\}, NNNN$/DATA/'
+$ zzhoracerta rio grande do sul | sed 's/[0-9]/N/g; s/^N:/NN:/; s/ [AP]M$//; s/.* N\{1,2\}, NNNN$/DATA/'
 Rio Grande do Sul, Brazil
-
 The current time and date right now
-
-  NN:NN:NN
+NN:NN:NN
 DATA
-   Brasília Time (BRT) -NNNN UTC
+Brasília Time (BRT) -NNNN UTC
 DATA
 $
 # Exemplo de saída:
 #Rio Grande do Sul, Brazil
-#
 #The current time and date right now
-#
-#   8:10 PM
-#   Friday, February 27, 2015
-#   Brasilia Time (BRT) -0300 UTC
-#   UTC/GMT is 23:10 on Friday, February 27, 2015
+#8:10 PM
+#Friday, February 27, 2015
+#Brasilia Time (BRT) -0300 UTC
+#UTC/GMT is 23:10 on Friday, February 27, 2015
