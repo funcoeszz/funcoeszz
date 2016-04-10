@@ -33,7 +33,7 @@ zzlua ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		zztool dump links "$url" | sed -n '/^4.1/,/^ *6/p' | sed '/^ *[4-6]/,/^ *[_-][_-]*$/{/^ *[_-][_-]*$/!d;}' > "$cache"
+		zztool dump "$url" | sed -n '/^4.1/,/^ *6/p' | sed '/^ *[4-6]/,/^ *[_-][_-]*$/{/^ *[_-][_-]*$/!d;}' > "$cache"
 	fi
 
 	if test "$1" = '-d' -o "$1" = '--detalhe'

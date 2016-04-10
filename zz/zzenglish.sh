@@ -6,9 +6,9 @@
 #
 # Autor: Luciano ES
 # Desde: 2008-09-07
-# Versão: 6
+# Versão: 7
 # Licença: GPL
-# Requisitos: zztrim zzutf8
+# Requisitos: zztrim zzutf8 zzsqueeze
 # ----------------------------------------------------------------------------
 zzenglish ()
 {
@@ -17,8 +17,7 @@ zzenglish ()
 	test -n "$1" || { zztool -e uso english; return 1; }
 
 	local cinza verde amarelo fecha
-	local url="http://www.dict.org/bin/Dict/"
-	local query="Form=Dict1&Query=$1&Strategy=*&Database=*&submit=Submit query"
+	local url="http://www.dict.org/bin/Dict?Form=Dict2&Database=*&Query=$1"
 
 	if test $ZZCOR -eq 1
 	then
@@ -28,11 +27,11 @@ zzenglish ()
 		fecha=$(  printf '\033[m')
 	fi
 
-	zztool post "$url" "$query" | zzutf8 |
+	zztool dump "$url" | zzutf8 |
 		sed "
 			# pega o trecho da página que nos interessa
-			/[0-9]\{1,\} definitions\{0,1\} found/,/_______________/!d
-			s/____*//
+			/[0-9]\{1,\} definitions\{0,1\} found/,/ *[_-][_-][_-][_-][_-]* *$/!d
+			s/[_-][_-][_-][_-][_-]*//
 
 			# protege os colchetes dos sinônimos contra o cinza escuro
 			s/\[syn:/@SINONIMO@/g
@@ -57,5 +56,6 @@ zzenglish ()
 				p
 				x
 			}" |
-		zztrim -V -r
+		zztrim -V -r |
+		zzsqueeze -l
 }
