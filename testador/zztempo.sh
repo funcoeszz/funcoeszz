@@ -14,11 +14,8 @@
 #   ob SBPA 272300Z 14006KT 100V180 9999 BKN015 BKN083 25/22 Q1012
 #
 $ zztempo brazil sbpa | sed 's/[0-9][0-9]*/9/g; s/\[... /[MMM /; s/ [AP]M E[DS]T/ .. .../; s/[A-Z]\{1,\} (/X (/; s/ KT).*//; / conditions/d; /^ *ob /d; /Heat index/d'
-
 Porto Alegre Aero-Porto , Brazil
-
    (SBPA) 9-9S 9-9W 9M
-
    Conditions at [MMM 9, 9 - 9:9 .. ...]
    9.9.9 9 UTC
    Wind from the X (9 degrees) at 9 MPH (9
@@ -27,7 +24,6 @@ Porto Alegre Aero-Porto , Brazil
    Dew Point 9 X (9 C)
    Relative Humidity 9%
    Pressure (altimeter) 9.9 in. Hg (9 hPa)
-
 $ zztempo
 Afghanistan
 Albania
