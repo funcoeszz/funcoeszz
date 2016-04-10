@@ -15,6 +15,7 @@ zzdolar ()
 
 	# Faz a consulta e filtra o resultado
 	zztool dump 'http://economia.uol.com.br/cotacoes' |
+		tr -s ' ' |
 		egrep  'Dólar (com\.|tur\.|comercial)' |
 		sed '
 			# Linha original:
@@ -23,11 +24,11 @@ zzdolar ()
 			# faxina
 			/Bovespa/d
 			s/com\./Comercial/
+			s/  *\(CAPTION: \)\{0,1\}Dólar comercial/  Compra Venda Variação/
 			s/tur\./Turismo /
 			s/^  *Dólar //
 			s/\(.*\) - \(.*\) \([0-9][0-9]h[0-9][0-9]\)/\2|\3\
 \1/
-			s/  *CAPTION: Dólar comercial/  Compra Venda Variação/
 		' |
 		tr ' |' '\t '
 }
