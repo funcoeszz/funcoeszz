@@ -29,5 +29,5 @@ zzsigla ()
 	zztool dump "$url?acronym=$sigla" |
 		grep -i "   $sigla " |
 		zztrim -l |
-		sed 's/  */   /'
+		sed 's/  */   /; s/ *$//'
 }
