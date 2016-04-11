@@ -30,8 +30,9 @@ zzmariadb ()
 
 	if ! test -s "$cache"
 	then
-		zztool dump "${url}/mariadb-brazilian-portuguese" |
-		sed -n '/^[A-Z]\{4,\}/p' |
+		zztool dump "${url}/mariadb-brazilian-portuguese/" |
+		sed -n '/^\( *\* \)\{,1\}[A-Z]\{4,\}/p' |
+		sed 's/  *\* *//' |
 		awk '{print NR, $0}'> $cache
 	fi
 
@@ -40,8 +41,8 @@ zzmariadb ()
 		if zztool testa_numero $1
 		then
 			comando=$(sed -n "${1}p" $cache | sed "s/^${1} //;s| / |-|g;s/ - /-/g;s/ /-/g;s/\.//g" | zzminusculas | zzsemacento)
-			zztool dump "${url}/${comando}" |
-			sed -n '/^Localized Versions/,/* ←/p' |
+			zztool dump "${url}/${comando}/" |
+			sed -n '/^ *Localized Versions/,/\* ←/p' |
 			sed '1d;2d;/^  *\*.*\]$/d;/^ *Tweet */d;/^ *\* *$/d;$d' |
 			zztrim -V
 		else
