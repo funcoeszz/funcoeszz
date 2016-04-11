@@ -10,9 +10,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-11
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzunescape
+# Requisitos: zzunescape zztrim
 # ----------------------------------------------------------------------------
 zzpgsql ()
 {
@@ -36,7 +36,9 @@ zzpgsql ()
 		if zztool testa_numero $1
 		then
 			comando=$(cat $cache | sed -n "/^ *${1} /p" | cut -f2 -d":")
-			zztool dump "${url}/${comando}" | sed -n '/^ *__*/,/^ *__*/p' | sed '1d;$d'
+			zztool dump "${url}/${comando}" |
+			sed -n '/^ *[_-][_-][_-][_-]*/,/^ *[_-][_-][_-][_-]*/p' |
+			sed '1d;$d;' | zztrim -V | sed '1s/^ *//;s/        */       /'
 		else
 			grep -i $1 $cache | cut -f1 -d":"
 		fi

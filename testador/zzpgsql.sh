@@ -46,44 +46,26 @@ NNN PREPARE TRANSACTION -- prepare the current transaction for two-phase commit
 NNN ROLLBACK PREPARED -- cancel a transaction that was earlier prepared for two-phase commit
 $
 
-$ zzpgsql 45
-
+$ zzpgsql 45 | sed '/^ *$/d; s/^ *//'
 COMMIT
-
 Name
-
-   COMMIT -- commit the current transaction
-
+COMMIT -- commit the current transaction
 Synopsis
-
 COMMIT [ WORK | TRANSACTION ]
-
 Description
-
-   COMMIT commits the current transaction. All changes made by the transaction become visible to others and are guaranteed to be durable if a crash occurs.
-
+COMMIT commits the current transaction. All changes made by the transaction become visible to others and are guaranteed to be durable if a crash occurs.
 Parameters
-
-   WORK
-          TRANSACTION
-          Optional key words. They have no effect.
-
+WORK
+TRANSACTION
+Optional key words. They have no effect.
 Notes
-
-   Use ROLLBACK to abort a transaction.
-
-   Issuing COMMIT when not inside a transaction does no harm, but it will provoke a warning message.
-
+Use ROLLBACK to abort a transaction.
+Issuing COMMIT when not inside a transaction does no harm, but it will provoke a warning message.
 Examples
-
-   To commit the current transaction and make all changes permanent:
+To commit the current transaction and make all changes permanent:
 COMMIT;
-
 Compatibility
-
-   The SQL standard only specifies the two forms COMMIT and COMMIT WORK. Otherwise, this command is fully conforming.
-
+The SQL standard only specifies the two forms COMMIT and COMMIT WORK. Otherwise, this command is fully conforming.
 See Also
-
-   BEGIN, ROLLBACK
+BEGIN, ROLLBACK
 $
