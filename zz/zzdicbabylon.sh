@@ -3,7 +3,7 @@
 # Tradução de uma palavra em inglês para vários idiomas.
 # Francês, alemão, italiano, hebreu, espanhol, holandês e português.
 # Se nenhum idioma for informado, o padrão é o português.
-# Uso: zzdicbabylon [idioma] palavra   #idiomas: nl fr de he it pt es 
+# Uso: zzdicbabylon [idioma] palavra   #idiomas: nl fr de he it pt es
 # Ex.: zzdicbabylon hardcore
 #      zzdicbabylon jap tree
 #
@@ -42,4 +42,3 @@ zzdicbabylon ()
 			' |
 		zztool texto_em_utf8
 }
-
