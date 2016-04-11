@@ -12,7 +12,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-06
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzunescape
 # ----------------------------------------------------------------------------
@@ -41,7 +41,9 @@ zzphp ()
 			end=$(cat "$cache" | grep -h -i -- "^$funcao " | cut -f 2 -d"|")
 			# Prevenir casos como do zlib://
 			funcao=$(echo "$funcao" | sed 's|//||g')
-			test $? -eq 0 && zztool dump "${url}/${end}" | sed -n "/^${funcao}/,/add a note add a note/p" | sed '$d;/___*$/,$d'
+			test $? -eq 0 && zztool dump "${url}/${end}" |
+			sed -n "/^ *${funcao}/,/add a note add a note/{p; /add a note/q; }" |
+			sed '$d; /[_-][_-][_-][_-]*$/,$d; s/        */       /'
 		fi
 	else
 		# Se o cache está vazio, baixa listagem da Internet
