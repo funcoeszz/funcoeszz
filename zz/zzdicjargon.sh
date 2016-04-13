@@ -48,6 +48,10 @@ zzdicjargon ()
 	if test $num -eq 1
 	then
 		zztool dump "$url/$achei" |
+			awk '
+				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }
+				$0 !~ /^$/  { for (i=1;i<=branco;i++) { print "" }; print ; branco = 0 }
+			' |
 			sed '1,/[_-]\{9\}/d;/[_-]\{9\}/,$d;/^$/d' |
 			zztrim -l
 		test -n "$mais" && zztool eco '\nTermos parecidos:'
