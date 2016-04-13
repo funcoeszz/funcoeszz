@@ -9,7 +9,7 @@
 # Desde: 2000-02-22
 # Versão: 2
 # Licença: GPL
-# Requisitos: zztrim
+# Requisitos: zztrim zzdividirtexto
 # ----------------------------------------------------------------------------
 zzdicjargon ()
 {
@@ -47,12 +47,13 @@ zzdicjargon ()
 
 	if test $num -eq 1
 	then
-		zztool dump "$url/$achei" |
+		zztool dump -w 1000 "$url/$achei" |
 			awk '
 				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }
 				$0 !~ /^$/  { for (i=1;i<=branco;i++) { print "" }; print ; branco = 0 }
 			' |
 			sed '1,/[_-]\{9\}/d;/[_-]\{9\}/,$d;/^$/d' |
+			zzdividirtexto 20 |
 			zztrim -l
 		test -n "$mais" && zztool eco '\nTermos parecidos:'
 	else
