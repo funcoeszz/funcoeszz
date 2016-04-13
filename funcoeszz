@@ -450,7 +450,7 @@ zztool ()
 					links | w3m)
 						local post_temp
 						post_temp=$(zztool mktemp post)
-						curl -s "${user_agent:+-A}" "${user_agent}" -o "$post_temp" --data "$2" "$1"
+						curl -L -s "${user_agent:+-A}" "${user_agent}" -o "$post_temp" --data "$2" "$1"
 
 						if test "$browser" = 'links'
 						then
@@ -473,7 +473,7 @@ zztool ()
 			source)
 				case "$browser" in
 					lynx ) lynx -source "${user_agent:+-useragent=}${user_agent}" "$1" ;;
-					*    ) curl -s      "${user_agent:+-A}" "${user_agent}"       "$1" ;;
+					*    ) curl -L -s      "${user_agent:+-A}" "${user_agent}"       "$1" ;;
 				esac
 			;;
 			list)
@@ -491,7 +491,7 @@ zztool ()
 					wget -q "${user_agent:+-U}" "${user_agent}" "$1" -O "$arq_dest"
 				elif type curl >/dev/null 2>&1
 				then
-					curl -s "${user_agent:+-A}" "${user_agent}" "$1" -o "$arq_dest"
+					curl -L -s "${user_agent:+-A}" "${user_agent}" "$1" -o "$arq_dest"
 				else
 					case "$browser" in
 						lynx | links) $browser -source      "$1"  > "$arq_dest" ;;
