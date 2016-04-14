@@ -106,19 +106,19 @@ O verbo escrito ao contrário: ralipmoc
 $
 
 $ zzdicportugues falar
-v.reg.mult. Expressar-se através das palavras: falou mentiras; falou mentiras aos pais; quase nunca falava; não se falavam.
-v.i. Dizer a verdade: o bandido se recusava a falar.
-Ter valimento, exercer influência: a honra deve falar mais alto que o interesse.
-v.t.d. v.t.i. e v.i. Conversar; iniciar um assunto; contar alguma coisa: falavam sobre o filme; falou do filme à mãe; não quero mais falar.
-v.t.d. v.t.i. v.i. e v.pron. Figurado. Ser expressivo ou compreensível; demonstrar: o coração falava o que o pensamento negava; as ações falam sozinhas; olhos que falam.
-v.t.d. v.t.i. v.bit. e v.pron. Expressar-se numa outra língua: fala espanhol com perfeição; fala mais de um idioma; falou aos clientes em alemão; falavam-se em italiano.
-v.t.i. Criticar; falar mal de alguém ou de alguma coisa: fala da vizinha.
-v.pron. Permanecer em contato com alguém; ter uma relação: os pais não se falam.
-s.m. Ação ou efeito de falar; ato de se expressar através de palavras; conversa: não ouço o falar do professor.
+v.reg.mult. Expressar-se através das palavras; dizer: falou mentiras; falou mentiras aos pais; quase nunca falava; não se falavam.
+Dizer a verdade; revelar: o réu se recusava a falar ao juri.
+Exercer influência: a honra deve falar mais alto que o interesse.
+Iniciar um assunto; contar alguma coisa: falavam sobre o filme.
+Figurado. Ser expressivo ou compreensível; demonstrar: as ações falam sozinhas; olhos que falam.
+Expressar-se numa outra língua: fala espanhol com perfeição.
+v.t.i. Falar mal de; criticar: fala sempre da vizinha.
+v.pron. Permanecer em contato com alguém: os pais não se falam.
+s.m. Ato de se expressar, de conversar: não ouço o falar do professor.
 Linguística. Variante de uma língua que depende de sua região; dialeto: o falar mineiro.
 (Etm. do latim: fabulare)
 
-Falar é sinônimo de: exprimir, comunicar, orar, conversar, discursar
+Falar é sinônimo de: comunicar, conversar, discursar, exprimir, criticar, conversa, dialeto, dizer, revelar
 
 Falar é o contrário de: calar, emudecer, silenciar
 $

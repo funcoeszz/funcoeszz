@@ -1,6 +1,8 @@
 $ zzrastreamento notfound
 $ zzrastreamento TE123456789BR
 Data               Local                                        Situação
+14/04/2016 17:46   CEE ITAJAI - Itajai/SC                       Entrega Efetuada
+14/04/2016 08:37   Itajai/SC                                    Saiu para entrega ao destinatário
 31/03/2016 16:43   CDD BELFORD ROXO - Belford Roxo/RJ           Área com distribuição sujeita a prazo diferenciado
                    Restrição Temporária
 29/01/2016 17:58   CDD BRASILIA-ASA NORTE - Brasilia/DF         Cancelada a última informação
