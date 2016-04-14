@@ -47,7 +47,7 @@ zzdicjargon ()
 
 	if test $num -eq 1
 	then
-		zztool dump -w 1000 "$url/$achei" |
+		zztool dump -w 500 "$url/$achei" |
 			awk '
 				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }
 				$0 !~ /^$/  { for (i=1;i<=branco;i++) { print "" }; print ; branco = 0 }
