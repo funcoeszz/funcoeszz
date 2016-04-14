@@ -9,6 +9,7 @@
 # Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2016-04-14 Site inativo
 zzpiada ()
 {
 	zzzz -h piada "$1" && return
