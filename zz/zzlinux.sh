@@ -13,5 +13,5 @@ zzlinux ()
 {
 	zzzz -h linux "$1" && return
 
-	zztool dump http://www.kernel.org/kdist/finger_banner | grep -v '^$'
+	zztool source http://www.kernel.org/kdist/finger_banner | grep -v '^$'
 }
