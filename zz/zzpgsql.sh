@@ -37,6 +37,10 @@ zzpgsql ()
 		then
 			comando=$(cat $cache | sed -n "/^ *${1} /p" | cut -f2 -d":")
 			zztool dump "${url}/${comando}" |
+			awk '
+				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }
+				$0 !~ /^$/  { for (i=1;i<=branco;i++) { print "" }; print ; branco = 0 }
+			' |
 			sed -n '/^ *[_-][_-][_-][_-]*/,/^ *[_-][_-][_-][_-]*/p' |
 			sed '1d;$d;' | zztrim -V | sed '1s/^ *//;s/        */       /'
 		else
