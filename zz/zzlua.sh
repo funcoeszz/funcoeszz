@@ -33,7 +33,12 @@ zzlua ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		zztool dump "$url" | sed -n '/^ *4\.1/,/^ *6/p' |
+		zztool dump "$url" |
+		awk '
+				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }
+				$0 !~ /^$/  { for (i=1;i<=branco;i++) { print "" }; print ; branco = 0 }
+			' |
+		sed -n '/^ *4\.1/,/^ *6/p' |
 		sed '/^ *[4-6]/,/^ *[_-][_-][_-][_-]*$/{/^ *[_-][_-][_-][_-]*$/!d;}' > "$cache"
 	fi
 
