@@ -7,8 +7,9 @@
 #
 # Autor: Frederico Freire Boaventura <anonymous (a) galahad com br>
 # Desde: 2007-06-25
-# Versão: 3
+# Versão: 4
 # Licença: GPL
+# Requisitos: zzutf8 zzxml zzjuntalinhas
 # ----------------------------------------------------------------------------
 zzrastreamento ()
 {
@@ -24,11 +25,16 @@ zzrastreamento ()
 		# Só mostra o código se houver mais de um
 		test $# -gt 1 && zztool eco "**** $codigo"
 
-		zztool dump "$url?P_LINGUA=001&P_TIPO=001&P_COD_UNI=$codigo" |
-			sed '
-				/ Data /,/___/ !d
-				/___/d
-				s/^   //'
+		zztool source "$url?P_LINGUA=001&P_TIPO=001&P_COD_UNI=$codigo" |
+			zzutf8 |
+			zzxml --tag tr --untag=FONT --untag=font |
+			sed '/^ *$/d' |
+			zzjuntalinhas -i '<tr' -f '</tr>' |
+			sed 's/<[^>]*>//g' |
+			tr -s '\t' |
+			sed '2,$s/^	\([^0-9]\)/		\1/'|
+			expand -t 1,20,65 |
+			sed 's/ //; s/ *$//'
 
 		# Linha em branco para separar resultados
 		test $# -gt 1 && echo
