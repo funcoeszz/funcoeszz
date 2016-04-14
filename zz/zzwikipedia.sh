@@ -50,15 +50,18 @@ zzwikipedia ()
 			/^  *Origem: Wikipédia,/d
 			/^  *Jump to: /d
 			/^  *Ir para: /d
+			/^  *Link: /d
 			/^  *This article does not cite any references/d
-			/^  *Este artigo ou se(c)ção/d
-			/^  *Esta página ou secção/d
+			/  *Este artigo ou se(c)ção não cita fontes confiáveis/d
+			/  *Esta página ou secção não cita fontes confiáveis/d
 			/^  *Please help improve this article/d
 			/^  *Por favor, melhore este artigo/d
 			/^  *—*Encontre fontes: /d
 			/\.svg$/d
 			/^  *Categorias* ocultas*:/,$d
 			/^  *Hidden categories:/,$d
+			/^  *\[IMG\]$/d
+			/^  *Ampliar$/d
 			/^  *Wikipedia does not have an article with this exact name./q
 			s/\[edit\]//; s/\[edit[^]]*\]//
 			s/\[editar\]//; s/\[editar[^]]*\]//
