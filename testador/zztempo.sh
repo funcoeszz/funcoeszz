@@ -13,7 +13,7 @@
 #   Pressure (altimeter) 29.88 in. Hg (1012 hPa)
 #   ob SBPA 272300Z 14006KT 100V180 9999 BKN015 BKN083 25/22 Q1012
 #
-$ zztempo brazil sbpa | sed 's/[0-9][0-9]*/9/g; s/ at ... / at MMM /; s/ [AP]M E[DS]T/ .. .../; s/[A-Z]\{1,\} (/X (/; s/ KT).*//; s/Visibility.* [0-9]/Visibility 9/; / conditions/d; /^ *ob /d; /Heat index/d'
+$ zztempo brazil sbpa | sed 's/[0-9][0-9]*/9/g; s/ at ... / at MMM /; s/ [AP]M E[DS]T/ .. .../; s/[A-Z]\{1,\} (/X (/; s/ KT).*//; s/Visibility.* [0-9]/Visibility 9/; / conditions/d; /^ *ob /d; /Heat index/d' | sed -n '1p; /9/p'
 Porto Alegre Aero-Porto , Brazil
    (SBPA) 9-9S 9-9W 9M
    Conditions at MMM 9, 9 - 9:9 .. ...
