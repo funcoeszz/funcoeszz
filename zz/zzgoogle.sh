@@ -7,7 +7,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-04-03
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 # FIXME: zzgoogle rato roeu roupa rei roma [PPS], [PDF]
@@ -15,9 +15,8 @@ zzgoogle ()
 {
 	zzzz -h google "$1" && return
 
-	local padrao
+	local padrao url
 	local limite=10
-	local url='http://www.google.com.br/search'
 
 	# Opções de linha de comando
 	if test "$1" = '-n'
@@ -37,12 +36,13 @@ zzgoogle ()
 	test -n "$padrao" || return 0
 
 	# Pesquisa, baixa os resultados e filtra
-	#
+	case $ZZBROWSER in
+	lynx)
 	# O Google condensa tudo em um única longa linha, então primeiro é preciso
 	# inserir quebras de linha antes de cada resultado. Identificadas as linhas
 	# corretas, o filtro limpa os lixos e formata o resultado.
-
-	zztool source "$url?q=$padrao&num=$limite&ie=UTF-8&oe=UTF-8&hl=pt-BR" |
+		url='http://www.google.com.br/search'
+		zztool source "$url?q=$padrao&num=$limite&ie=UTF-8&oe=UTF-8&hl=pt-BR" |
 		sed 's/<p>/\
 @/g' |
 		sed '
@@ -72,4 +72,23 @@ zzgoogle ()
 			s/\([^ ]*\) \(.*\)/\2\
   \1\
 /'
+	;;
+	*)
+	# Com outros navegadores o google tem problemas
+	# Então usa-se outro site de busca: o duckduckgo.com
+	# Que perminte usar normalmente com o dump.
+		limite=$((limite+1))
+		url='https://duckduckgo.com'
+		zztool dump "${url}/?q=$padrao" |
+		sed -n '/ [ []\{,2\}Search[] ]\{,2\}$/,/ [ []\{,2\}Search[] ]\{,2\}$/ {
+			//d
+			/Next Page >/d
+			/^ *$/d
+			/No results.$/d
+			s/ *$//
+			p
+		}' |
+		sed -n "1,/^ *${limite}\. /{ /^ *${limite}\. /d; p; } "
+	;;
+	esac
 }
