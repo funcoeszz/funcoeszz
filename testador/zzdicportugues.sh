@@ -81,23 +81,10 @@ $
 
 # Uso normal - verbos e conjugação
 
-$ zzdicportugues compilar def
+$ zzdicportugues compilar def | zzsqueeze -l
 Classe gramatical: verbo transitivo direto
 Tipo do verbo compilar: regular
 Separação das sílabas: com-pi-lar
-
-Exemplos com o verbete compilar
-
-A gravadora Columbia Records vai compilar todo o material produzido pelo trompetista Miles Davis durante o contrato do músico com o selo em um box de grandes proporções. Folha de São Paulo, 21/08/2009
-A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta sexta-feira. Folha de São Paulo, 10/07/2009
-A queda é a maior desde 1960, quando o Banco do Japão (o banco central do país) começou a compilar os dados, informa a instituição nesta sexta-feira. Folha de São Paulo, 10/07/2009
-compilar
-
-Palavras da Mesma Família de Compilar
-
-compilador
-
-Outras informações sobre o verbete
 
 Possui 8 letras
 Possui as vogais: a i o
@@ -136,7 +123,7 @@ Comer com os olhos, encarar atentamente; desejar com avidez.
 Comer é sinônimo de: manducar, consumir
 $
 
-$ zzdicportugues comer def
+$ zzdicportugues comer def | zzsqueeze -l
 Classe gramatical: substantivo masculino, verbo intransitivo, verbo pronominal, verbo transitivo direto e verbo transitivo indireto
 Tipo do verbo comer: regular
 Separação das sílabas: co-mer
@@ -148,19 +135,6 @@ Ele transa bem? Leva você para comer bons queijos e vinhos? É seu amigo? Entã
 - Marília Gabi Gabriela
 Recolha um cão de rua, dê-lhe de comer e ele não morderá: eis a diferença fundamental entre o cão e o Homem.
 - Mark Twain
-
-Exemplos com o verbete comer
-
-Um exemplo é o "I Can Has Cheezburger?: A LOLcat Colleckshun" (posso comer um cheeseburguer?, uma coleção de gatos hilários; Gotham Books, US$ 10), que reúne posts do blog que o originou (icanhascheezburger. Folha de São Paulo, 27/06/2009
-Para comer, a casa mantém a sua linha de combinados com sushi, sashimi, entradas e pratos quentes. Folha de São Paulo, 27/06/2009
-Minha irmã Fátima fez e perdeu 58 kg, mas deixaram o estômago dela menor, só pode comer 25 mililitros, senão vomita. Folha de São Paulo, 27/06/2009
-comer
-
-Palavras da Mesma Família de Comer
-
-comedor
-
-Outras informações sobre o verbete
 
 Possui 5 letras
 Possui as vogais: e o
