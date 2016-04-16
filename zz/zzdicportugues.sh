@@ -116,7 +116,7 @@ zzdicportugues ()
 			sed "
 				1d
 				/^Definição de /d
-				/^Exemplos com .*${palavra}$/,/^Outras informações sobre /d
+				/^ *Exemplos com .*${palavra}$/,/^ *Outras informações sobre /d
 				/^Sinônimos de /{N;d;}
 				/Mais sinônimos /d
 				/^Antônimos de /{N;d;}
