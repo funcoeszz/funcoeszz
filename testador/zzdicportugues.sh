@@ -123,18 +123,10 @@ Comer com os olhos, encarar atentamente; desejar com avidez.
 Comer é sinônimo de: manducar, consumir
 $
 
-$ zzdicportugues comer def | zzsqueeze -l
+$ zzdicportugues comer def | sed '/Frases com o verbo comer/,/Possui/{/Possui/!d;}' | zzsqueeze -l
 Classe gramatical: substantivo masculino, verbo intransitivo, verbo pronominal, verbo transitivo direto e verbo transitivo indireto
 Tipo do verbo comer: regular
 Separação das sílabas: co-mer
-
-Frases com o verbo comer
-
-Fonte: Pensador
-Ele transa bem? Leva você para comer bons queijos e vinhos? É seu amigo? Então fica com ele. É o máximo que você vai conseguir de um homem.
-- Marília Gabi Gabriela
-Recolha um cão de rua, dê-lhe de comer e ele não morderá: eis a diferença fundamental entre o cão e o Homem.
-- Mark Twain
 
 Possui 5 letras
 Possui as vogais: e o
