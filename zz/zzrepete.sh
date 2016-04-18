@@ -2,7 +2,7 @@
 # Repete um dado texto na quantidade de vezes solicitada.
 # Com a opção -l ou --linha cada repetição é uma nova linha.
 #
-# Uso: zzrepete [-l | -linha] <repetições> <texto>
+# Uso: zzrepete [-l | --linha] <repetições> <texto>
 # Ex.: zzrepete 15 Foo     # FooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>

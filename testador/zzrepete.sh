@@ -1,5 +1,5 @@
 $ zzrepete 
-Uso: zzrepete [-l | -linha] <repetições> <texto>
+Uso: zzrepete [-l | --linha] <repetições> <texto>
 $ zzrepete abre alas
 Número inválido para repetições: abre
 $ zzrepete -5 Foo baR
