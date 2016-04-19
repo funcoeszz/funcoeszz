@@ -9,7 +9,7 @@
 # Desde: 2016-02-03
 # Versão: 1
 # Licença: GPL
-# Requisitos: zztestar zztrim
+# Requisitos: zztestar
 # ----------------------------------------------------------------------------
 zzmacvendor ()
 {
@@ -25,6 +25,10 @@ zzmacvendor ()
 
 	local url="http://www.macvendorlookup.com/api/v2/$mac/pipe"
 	zztool dump "$url" |
-	awk -F "|" '{printf "%18s - %15s - %15s\n", $5, $8, $9}' |
-	zztrim -l | tr -s ' '
+	tr -s ' ' |
+	awk -F "|" '{
+		print "Fabricante: " $5
+		print "Endereço:   " $8
+		print "País:       " $9
+	}'
 }
