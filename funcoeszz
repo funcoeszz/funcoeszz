@@ -431,7 +431,7 @@ zztool ()
 			# Para POST se não houver ao menos 2 parâmetros (url e dados) interrompe.
 			test "$ferramenta" = 'post' && test $# -lt 2 && return 1
 
-			# Para outras requisições ao menos 1 parâmetro (url), se não interrompe.
+			# Para outras requisições ao menos 1 parâmetro (url), senão interrompe.
 			test "$ferramenta" != 'post' && test $# -lt 1 && return 1
 
 			# Caracterizando os paramêtros conforme cada navegador.
@@ -474,7 +474,6 @@ zztool ()
 			source)
 				case "$browser" in
 					lynx ) lynx ${opt_common} -source                     "$1" ;;
-					w3m  ) w3m  ${opt_common} -dump -T text/plain         "$1" ;;
 					*    ) curl -L -s "${user_agent:+-A}" "${user_agent}" "$1" ;;
 				esac
 			;;
