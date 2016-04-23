@@ -20,9 +20,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
-# Versão: 11
+# Versão: 12
 # Licença: GPL
-# Requisitos: zzunescape zzdos2unix zzcolunar
+# Requisitos: zzunescape zzdos2unix zzcolunar zzpad zzcut
 # ----------------------------------------------------------------------------
 zztv ()
 {
@@ -31,7 +31,7 @@ zztv ()
 	local DATA=$(date +%d\\/%m)
 	local URL="http://meuguia.tv/programacao"
 	local cache=$(zztool cache tv)
-	local codigo desc linhas largura
+	local codigo desc linhas
 
 	# 0 = lista canal especifico
 	# 1 = lista programas de vários canais no horário
@@ -46,8 +46,6 @@ zztv ()
 		zzdos2unix |
 		sort >> $cache
 	fi
-	linhas=$(echo "scale=0; ($(zztool num_linhas $cache) + 1)/ 4 " | bc)
-	largura=$(awk '{print length}' $cache | sort -n | sed -n '$p')
 
 	if test -n "$1" && grep -i "^$1" $cache >/dev/null 2>/dev/null
 	then
@@ -70,7 +68,16 @@ zztv ()
 			sed '$d;1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g'
 		fi |
 		zzunescape --html |
-		awk -F " Cod: " '{ if (NF==2) { printf "%-64s Cod: %s\n", substr($1,1,63), substr($2, 1, index($2, "-")-1) } else print }'
+		sed 's/ Cod: /|/' |
+		while read linhas
+		do
+			if zztool grep_var "|" "$linhas"
+			then
+				echo "$(zzpad 64 $(echo "$linhas" | zzcut -f 1 -d "|"))" Cod: "$(echo "$linhas" | zzcut -f 2 -d "|" | sed 's/-[^0-9].*//')"
+			else
+				echo "$linhas"
+			fi
+		done
 		return
 	fi
 
@@ -97,7 +104,10 @@ zztv ()
 		sed 's/[[:space:]]\{1,\}/ /g' |
 		sed '/^[[:space:]]*$/d' |
 		zzunescape --html |
-		awk -F "|" '{ printf "%5s%-57s%s\n", $2, substr($1,1,56), $3 }'
+		while read linhas
+		do
+			echo "$(zzpad 5 $(echo "$linhas" | zzcut -f 2 -d "|")) $(zzpad 57 $(echo "$linhas" | zzcut -f 1 -d "|" | zzcut -c -56)) $(echo "$linhas" | zzcut -f 3 -d "|")"
+		done
 	elif test "$1" = "cod"
 	then
 		zztool eco "Código: $2"
