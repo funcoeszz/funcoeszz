@@ -50,10 +50,10 @@ zzlibertadores ()
 	local url="http://esporte.uol.com.br/futebol/campeonatos/libertadores/jogos/"
 	local awk_jogo='
 		NR % 3 ~ /^[12]$/ {
-			if ($1 ~ /^[0-9-]{1,}$/ && $2 ~ /^[0-9-]{1,}$/) {
+			if ($1 ~ /^[0-9-]+$/ && $2 ~ /^[0-9-]+$/) {
 				penais[NR % 3]=$1; placar[NR % 3]=$2; $1=""; $2=""
 			}
-			else if ($1 ~ /^[0-9-]{1,}$/ && $2 !~ /^[0-9-]{1,}$/) {
+			else if ($1 ~ /^[0-9-]+$/ && $2 !~ /^[0-9-]+$/) {
 				penais[NR % 3]=""; placar[NR % 3]=$1; $1=""
 			}
 			sub(/^ */,"");sub(/ *$/,"")
