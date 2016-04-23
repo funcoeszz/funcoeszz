@@ -111,7 +111,7 @@ zzbrasileirao ()
 			done |
 			tr -d _
 			zzecho -f verde -l preto " Quartas de Final "
-			test "$serie" = "c" && zzecho -f vermelho -l preto " Rebaixamento     "
+			test "$serie" = "c" && zzecho -f vermelho -l preto "   Rebaixamento   "
 		else
 			num_linha=0
 			zztool dump "$url" |
