@@ -8,9 +8,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-02-22
-# Versão: 1
+# Versão: 2
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar zztrim zzecho zzutf8
+# Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar zztrim zzecho zzutf8 zzpad
 # Tags: cinema
 # ----------------------------------------------------------------------------
 zzcinepolis ()
@@ -19,7 +19,7 @@ zzcinepolis ()
 
 	local cache=$(zztool cache cinepolis)
 	local url='http://www.cinepolis.com.br/programacao'
-	local cidade codigo codigos
+	local cidade codigo codigos linha sala filme censura horario
 
 	if test "$1" = '--atualiza'
 	then
@@ -31,7 +31,7 @@ zzcinepolis ()
 	if ! test -s "$cache"
 	then
 		zztool source -u "Mozilla/5.0" "$url" 2>/dev/null |
-		grep -E '(class="amarelo"|\?cc=)' |
+		sed -n '/class="amarelo"\|\?cc=/p' |
 		zzutf8 |
 		sed '/img /d;/>Estreias</d;s/.*"amarelo">//;s/.*cc=/ /;s/".*">/) /' |
 		sed 's/<[^>]*>//' |
@@ -77,10 +77,30 @@ zzcinepolis ()
 	for codigo in $codigos
 	do
 		zzecho -N -l ciano $(grep " ${codigo})" $cache | sed 's/.*) //')
-		zztool dump -useragent="Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
-		sed -n '/  [0-9]\{1,2\}  /p;/[0-9]h[0-9]/p' |
-		sed 's/\(.*h[0-9][0-9]\).*/\1/;s/\^.//g;/OBS\.: /d' |
-		sed 's/^ *\([0-9]\)* *   /\1 /' |
-		awk '$1 ~ /[0-9]{1,}/ {printf "Sala: ";$1=$1 " -"}; {print}; NR%2==0 {print ""}'
-	done  | sed '$d'
+		zztool dump -u "Mozilla/5.0" "${url}/cinema.php?cc=$codigo" 2>/dev/null |
+		sed -n '/\/[0-9][0-9]\//p;/^ *sala .* horários *$/,/^ *Tweet *$/p' |
+		zztrim -H |
+		sed 's/    */\t/g; s/ *\[.*//; /^ *Tweet *$/d; s/ *[•*] *//; s/\^[A-Z]//g' |
+		awk '{
+			if ($0 ~ /\/[0-9][0-9]\//) { periodo[++i]=$0 }
+			else if ($0 ~ /^sala.*rios$/) { print periodo[++j]; print }
+			else if ($0 ~ /[0-9][0-9]h[0-9][0-9]/) { print }
+			else printf "%s\t", $0
+		}' |
+		zztrim -H |
+		tr -s '\t' '|' |
+		while read linha
+		do
+			if zztool grep_var '|' "$linha"
+			then
+				sala=$(   echo "$linha" | cut -f 1 -d '|')
+				filme=$(  echo "$linha" | cut -f 2 -d '|')
+				censura=$(echo "$linha" | cut -f 3 -d '|')
+				horario=$(echo "$linha" | cut -f 4 -d '|')
+				echo "$(zzpad -b 5 "$sala") $(zzpad 50 "$filme") $(zzpad 10 "$censura") $horario"
+			else
+				echo "$linha"
+			fi
+		done
+	done
 }
