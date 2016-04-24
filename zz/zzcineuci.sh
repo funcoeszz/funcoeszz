@@ -8,9 +8,9 @@
 #
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2009-05-04
-# Versão: 8
+# Versão: 9
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzxml zzcapitalize zzjuntalinhas zztrim
+# Requisitos: zzunescape zztrim zzcolunar
 # Tags: cinema
 # ----------------------------------------------------------------------------
 zzcineuci ()
@@ -18,8 +18,8 @@ zzcineuci ()
 	zzzz -h cineuci "$1" && return
 
 	local cache=$(zztool cache cineuci)
-	local cidade codigo codigos
-	local url="http://www.ucicinemas.com.br/controles/listaFilmeCinemaHome.aspx?cinemaID="
+	local cinema codigo
+	local url="http://www.ucicinemas.com.br"
 
 	if test "$1" = '--atualiza'
 	then
@@ -27,77 +27,35 @@ zzcineuci ()
 		shift
 	fi
 
+	# Cidades e código cinemas e cinemas
 	if ! test -s "$cache"
 	then
-		zztool source "http://www.ucicinemas.com.br/localizacao+e+precos" |
-		zzxml --tidy |
-		sed -n "/\(class=.heading-bg.\|class=.btn-holder.\)/{n;p;}" |
-		sed '
-			s/.*cinema-/ /
-			s/uci/UCI/
-			s/-/) /
-			s/.>//
-			s/+/ /g
-			s/ \([1-9]\))/ 0\1)/
-			s/^\([A-Z]\)\(.*\)$/\
-\1\2:/' |
-		zzcapitalize > "$cache"
+		zztool source "${url}/cinemas" |
+		sed -n '/class="cinemas /{s/.*_//;s/".*//;n;p;}; /Avatar/{s|.*Avatar/||;s|/Avatar\..*||;p;}; /strong/,/strong/{/strong/d; p;}'|
+		zzunescape --html |
+		zztrim |
+		awk '{ if ($0 ~/^[0-9]+$/) {cod=sprintf("%02d",$0);getline; print " " cod " - " $0} else print "\n" $0}' |
+		zztrim -V > "$cache"
 	fi
 
-	if test $# = 0; then
+	if test $# = 0
+	then
 		# mostra opções
-		printf "Cidades e cinemas disponíveis\n=============================\n"
+		printf "       Cidades e cinemas disponíveis\n============================================\n"
 		cat "$cache"
-		return 0
+	elif zztool testa_numero "$1"
+	then
+		codigo=$(sed 's/^[ 0]*//' "$cache" | grep -o --color=never "^$1 " | tr -d ' ')
+		cinema=$(sed 's/^[ 0]*//' "$cache" | grep --color=never "^$1 " | sed 's/.* - //')
+		if test -n "$codigo"
+		then
+			zztool eco "$cinema"
+			zztool source "${url}/api/Filmes/ListarFilmes/cinemas/${codigo}" |
+			tr '[{}],' '\n\n\n\n\n' |
+			sed -n '/"NomeDestaque":/p; /"Duracao":/,/"Censura":/p' |
+			sed 's/.*":"//;s/"//' |
+			awk 'BEGIN { printf "Filme\nDuração(min)\nGênero\nCensura\n" }; 1' |
+			zzcolunar -z 4
+		fi
 	fi
-
-	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztrim | sed 's/ 0/ /g;s/  */_/g')
-
-	codigo=$(
-		cat "$cache" |
-		while read linha
-		do
-			echo "$linha" | grep ':$' >/dev/null &&
-			echo "$linha" | zzminusculas | zzsemacento | tr ' ' '_' ||
-			echo "$linha" | sed 's/).*//'
-		done
-		)
-
-	# passou código
-	if zztool testa_numero ${cidade}; then
-		# testa se código é válido
-		cidade=$(printf "%02d" $cidade)
-		echo "$codigo" | grep "$cidade" >/dev/null && codigos="$cidade"
-	else
-		# passou nome da cidade
-		codigos=$(
-			echo "$codigo" |
-			sed -n "/${cidade}:/,/^$/{/:/d;p;}" |
-			zzjuntalinhas
-			)
-	fi
-
-	# se não recebeu cidade ou código válido, sai
-	test -z "$codigos" && return 1
-
-	for codigo in $codigos
-	do
-		zztool dump "$url$codigo" | sed '
-
-			# Faxina
-			s/^  *//
-			/^$/ d
-			/^Horários para/ d
-
-			# Destaque ao redor do nome do cinema, quebra linha após
-			1 i\
-=================================================
-			1 a\
-=================================================\
-
-
-			# Quebra linha após o horário
-			/^Sala / G
-		'
-	done
 }
