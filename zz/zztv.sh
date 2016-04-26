@@ -22,7 +22,7 @@
 # Desde: 2002-02-19
 # Versão: 12
 # Licença: GPL
-# Requisitos: zzunescape zzdos2unix zzcolunar zzpad zzcut
+# Requisitos: zzunescape zzxml zzcolunar zzpad zzcut
 # ----------------------------------------------------------------------------
 zztv ()
 {
@@ -35,16 +35,18 @@ zztv ()
 
 	# 0 = lista canal especifico
 	# 1 = lista programas de vários canais no horário
+	# 2 = Detalhes do programa através do código
 	local flag=0
 
 	if ! test -s "$cache"
 	then
-		zztool source ${URL}/categoria/Todos |
-		sed -n '/programacao\/canal/p;/^ *|/p' |
-		awk -F '("| [|] )' '{print $2, $6 }' |
-		sed 's/<[^>]*>//g;s|^.*/||' |
-		zzdos2unix |
-		sort >> $cache
+		zztool source "${URL}/categoria/Todos/" |
+		zzxml --tidy |
+		sed -n '/<ul>/,/<\/ul>/{/\/programacao\/canal\//p;/ *|/p;}' |
+		sed 's|.*/||;s/".*//;s/ *|//' |
+		zzunescape --html |
+		awk 'NR%2==1 {printf $0}; NR%2==0 {print}' |
+		sort > "$cache"
 	fi
 
 	if test -n "$1" && grep -i "^$1" $cache >/dev/null 2>/dev/null
@@ -54,26 +56,34 @@ zztv ()
 
 		zztool eco $desc
 		zztool source "${URL}/canal/$codigo" |
-		sed -n '/<li class/{N;p;}' |
-		sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g' |
-		sed 's/^.*programa\///g;s/".*title="/_/g;s/">//g;s/<span .*//g;s/<[^>]*>/ /g;s/amp;//g' |
-		sed 's/^[[:space:]]*/ /g' |
-		sed '/^[[:space:]]*$/d' |
-		if test "$2" = "semana" -o "$2" = "s"
+		sed -n '/<li class/,/li>/p' |
+		zzxml --tidy |
+		sed -n '/, *[0-9][0-9]/p; /<a /p; /[0-9]h[0-9]/p;' |
+		awk '
+			/href=/ {
+				title=$0; cod=$0;
+				sub(/.*title="/,"", title); sub(/".*/,"",title);
+				sub(/.*href=".*programa\//,"",cod); sub(/-.*/,"",cod)
+			}
+			/[0-9]h[0-9]/ { print $0, title "|" cod }
+			/, *[0-9][0-9]/ { print ""; print }
+		' |
+		if test "$2" != "semana" -a "$2" != "s"
 		then
-			sed "/^ \([STQD].*[0-9][0-9]\/[0-9][0-9]\)/ { x; p ; x; s//\1/; }" |
-			sed 's/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g'
+			sed -n "/, $DATA/,/^ *[STQD].*[0-9][0-9]\/[0-9][0-9]/ {
+				/^ *$/d
+				/, $DATA/p
+				/^ *[STQD].*[0-9][0-9]\/[0-9][0-9]/!p
+			}"
 		else
-			sed -n "/, $DATA/,/^ [STQD].*[0-9][0-9]\/[0-9][0-9]/p" |
-			sed '$d;1s/^ *//;2,$s/^ \(.*\)_\(.*\)\([0-9][0-9]h[0-9][0-9]\)/ \3 \2 Cod: \1/g'
+			cat -
 		fi |
 		zzunescape --html |
-		sed 's/ Cod: /|/' |
 		while read linhas
 		do
 			if zztool grep_var "|" "$linhas"
 			then
-				echo "$(zzpad 64 $(echo "$linhas" | zzcut -f 1 -d "|"))" Cod: "$(echo "$linhas" | zzcut -f 2 -d "|" | sed 's/-[^0-9].*//')"
+				echo "$(zzpad 64 $(echo "$linhas" | zzcut -f 1 -d "|"))" Cod: "$(echo "$linhas" | zzcut -f 2 -d "|" | sed 's/-.*//')"
 			else
 				echo "$linhas"
 			fi
