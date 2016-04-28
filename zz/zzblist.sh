@@ -23,7 +23,7 @@ zzblist ()
 	lista=$(
 		zztool dump "${URL}${ip}" |
 		grep 'Listed' |
-		sed '/\(shlink\|ahbl\)\.org/d;/=/d;/ *Not/d'
+		sed '/ahbl\.org/d; /shlink\.org/d; /=/d; / *Not/d'
 	)
 
 	if test "$(echo "$lista" | sed '/^ *$/d' | zztool num_linhas)" -eq 0
