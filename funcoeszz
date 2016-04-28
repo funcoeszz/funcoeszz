@@ -44,7 +44,7 @@ ZZCOR_DFT=1                       # colorir mensagens? 1 liga, 0 desliga
 ZZPATH_DFT="/usr/bin/funcoeszz"   # rota absoluta deste arquivo
 ZZDIR_DFT="$HOME/zz"              # rota absoluta do diretório com as funções
 ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
-ZZBROWSER_ALL='lynx links w3m'    # Todos os navegadores possíveis
+ZZBROWSER_ALL='lynx links links2 elinks w3m'  # Todos os navegadores possíveis
 #
 #
 ##############################################################################
@@ -409,8 +409,8 @@ zztool ()
 
 			# A função pode chamar um navegador específico ou assumir o padrão $ZZBROWSER
 			case "$1" in
-				lynx | links | w3m) browser="$1"; shift  ;;
-				*                 ) browser="$ZZBROWSER" ;;
+				lynx | links | links2 | elinks | w3m) browser="$1"; shift  ;;
+				*                                   ) browser="$ZZBROWSER" ;;
 			esac
 
 			# Parâmetros que podem ser modificados na linha de comando.
@@ -436,8 +436,9 @@ zztool ()
 
 			# Caracterizando os paramêtros conforme cada navegador.
 			case "$browser" in
+				links | links2 | elinks)
+				       opt_common="-width ${output_width} -codepage ${output_charset}        ${input_charset:+-html-assume-codepage} ${input_charset} ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
 				lynx ) opt_common="-width=${output_width} -display_charset=${output_charset} ${input_charset:+-assume_charset=}${input_charset}       ${user_agent:+-useragent=}${user_agent}            -accept_all_cookies" ;;
-				links) opt_common="-width ${output_width} -codepage ${output_charset}        ${input_charset:+-html-assume-codepage} ${input_charset} ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
 				w3m  ) opt_common="-cols ${output_width}  -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    ${user_agent:+-o user_agent=}${user_agent}         -cookie -o follow_redirection=9" ;;
 			esac
 
@@ -446,18 +447,18 @@ zztool ()
 				# Post conforme o navegador escolhido
 				case "$browser" in
 					lynx)
-						echo "$2" | lynx ${opt_common} -post-data -nolist "$1"
+						echo "$2" | $browser ${opt_common} -post-data -nolist "$1"
 					;;
-					links | w3m)
+					links | links2 | elinks | w3m)
 						local post_temp
 						post_temp=$(zztool mktemp post)
 						curl -L -s "${user_agent:+-A}" "${user_agent}" -o "$post_temp" --data "$2" "$1"
 
-						if test "$browser" = 'links'
+						if test "$browser" = 'w3m'
 						then
-							links ${opt_common} -dump       file://"$post_temp"
+							$browser ${opt_common} -dump -T text/html "$post_temp"
 						else
-							w3m   ${opt_common} -dump -T text/html "$post_temp"
+							$browser ${opt_common} -dump       file://"$post_temp"
 						fi
 
 						rm -f "$post_temp"
@@ -466,22 +467,24 @@ zztool ()
 			;;
 			dump)
 				case "$browser" in
-					lynx ) lynx  ${opt_common} -dump -nolist      "$1" ;;
-					links) links ${opt_common} -dump              "$1" ;;
-					w3m  ) w3m   ${opt_common} -dump -T text/html "$1" ;;
+					links | links2 | elinks)
+					       $browser ${opt_common} -dump              "$1" ;;
+					lynx ) $browser ${opt_common} -dump -nolist      "$1" ;;
+					w3m  ) $browser ${opt_common} -dump -T text/html "$1" ;;
 				esac
 			;;
 			source)
 				case "$browser" in
-					lynx ) lynx ${opt_common} -source                     "$1" ;;
+					lynx ) $browser ${opt_common} -source                 "$1" ;;
 					*    ) curl -L -s "${user_agent:+-A}" "${user_agent}" "$1" ;;
 				esac
 			;;
 			list)
 				case "$browser" in
-					lynx ) LANG=C lynx  ${opt_common} -dump                                       "$1" ;;
-					links)        links ${opt_common} -html-numbered-links 1   -dump              "$1" ;;
-					w3m  )        w3m   ${opt_common} -o display_link_number=1 -dump -T text/html "$1" ;;
+					links | links2 | elinks)
+					              $browser ${opt_common} -html-numbered-links 1   -dump              "$1" ;;
+					lynx ) LANG=C $browser ${opt_common} -dump                                       "$1" ;;
+					w3m  )        $browser ${opt_common} -o display_link_number=1 -dump -T text/html "$1" ;;
 				esac |
 				case "$browser" in
 					lynx ) sed '1,/^References/d; /Visible links/d; /Hidden links/d' ;;
@@ -501,7 +504,7 @@ zztool ()
 					curl -L -s "${user_agent:+-A}" "${user_agent}" "$1" -o "$arq_dest"
 				else
 					case "$browser" in
-						lynx | links) $browser -source      "$1"  > "$arq_dest" ;;
+						lynx | links | links2 | elinks) $browser -source "$1" > "$arq_dest" ;;
 					esac
 				fi
 			;;
@@ -727,7 +730,7 @@ zzzz ()
 			### Todos os comandos necessários estão instalados?
 
 			local comando tipo_comando comandos_faltando
-			local comandos='awk- bc cat chmod- clear- cp cpp- curl cut diff- du- find- fmt grep iconv links- lynx- mktemp mv od- ps- rm sed sleep sort tail- tr uniq'
+			local comandos='awk- bc cat chmod- clear- cp cpp- curl cut diff- du- find- fmt grep iconv links- elinks- lynx- mktemp mv od- ps- rm sed sleep sort tail- tr uniq'
 
 			for comando in $comandos
 			do
