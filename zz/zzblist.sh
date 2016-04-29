@@ -5,7 +5,7 @@
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2008-10-16
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzblist ()
@@ -23,7 +23,15 @@ zzblist ()
 	lista=$(
 		zztool dump "${URL}${ip}" |
 		grep 'Listed' |
-		sed '/ahbl\.org/d; /shlink\.org/d; /=/d; / *Not/d'
+		sed '
+			# Elimina falsos-positivos
+			/ahbl\.org/d
+			/shlink\.org/d
+
+			# Elimina lixos
+			/=/d
+			/ *Not/d
+		'
 	)
 
 	if test "$(echo "$lista" | sed '/^ *$/d' | zztool num_linhas)" -eq 0
