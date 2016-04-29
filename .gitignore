@@ -3,8 +3,12 @@
 /testador/run.tmp
 /testador/_tmp?
 
+# Executável do testador
+/testador/clitest
+
 # Arquivo temporário genérico
 _tmp
 
 # Arquivo do release, porém ainda na pasta de build
 /release/funcoeszz-*.sh
+
