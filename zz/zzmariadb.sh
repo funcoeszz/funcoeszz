@@ -10,7 +10,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-07-03
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento zztrim
 # ----------------------------------------------------------------------------
@@ -31,7 +31,7 @@ zzmariadb ()
 	if ! test -s "$cache"
 	then
 		zztool dump "${url}/mariadb-brazilian-portuguese/" |
-		sed -n '/^\( *\* \)\{,1\}[A-Z]\{4,\}/p' |
+		sed -n '/^\( *\* \)\{0,1\}[A-Z]\{4,\}/p' |
 		sed 's/  *\* *//' |
 		awk '{print NR, $0}'> $cache
 	fi
