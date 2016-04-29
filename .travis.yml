@@ -1,7 +1,7 @@
 language: bash
 
 os:
-  - linux
+  #- linux
   - osx
 
 # Prepare the environment
@@ -14,12 +14,15 @@ before_install:
   # OS X: install packages (||true to avoid Linux fail)
   - test "$TRAVIS_OS_NAME" = osx && brew update         || true
   - test "$TRAVIS_OS_NAME" = osx && brew install elinks || true
-  - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
-  - chmod +x clitest
-  - mv clitest testador
+  #- links -version || true
+  - elinks -version || true
+  - type elinks; echo $?
+  #- curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
+  #- chmod +x clitest
+  #- mv clitest testador
 
 script:
-  - cd testador && ./run
+  #- cd testador && ./run
 
 notifications:
   email: false
