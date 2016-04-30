@@ -436,10 +436,10 @@ zztool ()
 
 			# Caracterizando os paramêtros conforme cada navegador.
 			case "$browser" in
-				links | links2) opt_common="-width ${output_width}      -codepage ${output_charset}        ${input_charset:+-html-assume-codepage} ${input_charset}                                     ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
-				lynx          ) opt_common="-width=${output_width}      -display_charset=${output_charset} ${input_charset:+-assume_charset=}${input_charset}       -accept_all_cookies                 ${user_agent:+-useragent=}${user_agent}" ;;
-				w3m           ) opt_common="-cols ${output_width}       -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    -cookie -o follow_redirection=9     ${user_agent:+-o user_agent=}${user_agent}" ;;
-				elinks        ) opt_common="-dump-width ${output_width} -dump-charset ${output_charset}    -no-numbering                                            -eval 'set cookies.accept_policy 2' ${user_agent:+-eval 'set protocol.http.user_agent = $user_agent'}" ;;
+				links | links2) opt_common="-width ${output_width}      -codepage ${output_charset}        ${input_charset:+-html-assume-codepage} ${input_charset} ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
+				lynx          ) opt_common="-width=${output_width}      -display_charset=${output_charset} ${input_charset:+-assume_charset=}${input_charset}       ${user_agent:+-useragent=}${user_agent}            -accept_all_cookies" ;;
+				w3m           ) opt_common="-cols ${output_width}       -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    ${user_agent:+-o user_agent=}${user_agent}         -cookie -o follow_redirection=9" ;;
+				elinks        ) opt_common="-dump-width ${output_width} -dump-charset ${output_charset}    -no-numbering                                            ${user_agent:+-eval 'set protocol.http.user_agent = $user_agent'}" ;;
 			esac
 
 			case "$ferramenta" in
