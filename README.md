@@ -1,6 +1,6 @@
 ## Funções ZZ [![Build Status](https://travis-ci.org/funcoeszz/funcoeszz.svg?branch=master)](https://travis-ci.org/funcoeszz/funcoeszz)
 
-Funções ZZ é uma coletânea com mais de 170 miniaplicativos de utilidades diversas, prontos para serem usados na linha de comando de sistemas tipo UNIX (Linux, BSD, Cygwin, Mac OS X, entre outros).
+Funções ZZ é uma coletânea com mais de 180 miniaplicativos de utilidades diversas, prontos para serem usados na linha de comando de sistemas tipo UNIX (Linux, BSD, Cygwin, Mac OS X, entre outros).
 
 - Website: http://funcoeszz.net
 - GitHub: https://github.com/funcoeszz/funcoeszz
