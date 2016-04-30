@@ -19,7 +19,7 @@ before_install:
   - mv clitest testador
 
 script:
-  - cd testador && ./run zzdic*.sh
+  - cd testador && ./run
 
 notifications:
   email: false
