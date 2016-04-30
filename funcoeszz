@@ -439,7 +439,9 @@ zztool ()
 				links | links2) opt_common="-width ${output_width}      -codepage ${output_charset}        ${input_charset:+-html-assume-codepage} ${input_charset} ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
 				lynx          ) opt_common="-width=${output_width}      -display_charset=${output_charset} ${input_charset:+-assume_charset=}${input_charset}       ${user_agent:+-useragent=}${user_agent}            -accept_all_cookies" ;;
 				w3m           ) opt_common="-cols ${output_width}       -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    ${user_agent:+-o user_agent=}${user_agent}         -cookie -o follow_redirection=9" ;;
-				elinks        ) opt_common="-dump-width ${output_width} -dump-charset ${output_charset}    -no-numbering                                            ${user_agent:+-eval 'set protocol.http.user_agent = $user_agent'}" ;;
+				elinks        ) opt_common="-dump-width ${output_width} -dump-charset ${output_charset}    -no-numbering                                            ${user_agent:+-eval 'set protocol.http.user_agent = $user_agent'}"
+				                local nbsp_utf=$(printf '\302\240')
+				;;
 			esac
 
 			case "$ferramenta" in
@@ -459,7 +461,7 @@ zztool ()
 							$browser ${opt_common} -dump -T text/html   "$post_temp"
 						elif test "$browser" = 'elinks'
 						then
-							$browser ${opt_common} -dump -no-references "$post_temp"
+							$browser ${opt_common} -dump -no-references "$post_temp" | sed "s/${nbsp_utf}/ /g"
 						else
 							$browser ${opt_common} -dump         file://"$post_temp"
 						fi
@@ -473,7 +475,7 @@ zztool ()
 					links | links2) $browser ${opt_common} -dump                "$1" ;;
 					lynx          ) $browser ${opt_common} -dump -nolist        "$1" ;;
 					w3m           ) $browser ${opt_common} -dump -T text/html   "$1" ;;
-					elinks        ) $browser ${opt_common} -dump -no-references "$1" ;;
+					elinks        ) $browser ${opt_common} -dump -no-references "$1" | sed "s/${nbsp_utf}/ /g" ;;
 				esac
 			;;
 			source)
@@ -487,7 +489,7 @@ zztool ()
 				esac |
 				case "$browser" in
 					links | links2) sed '1,/^Links:/d' ;;
-					lynx  | elinks) sed '1,/^References/d; /Visible links/d; /Hidden links/d' ;;
+					lynx  | elinks) sed '1,/^References/d; /Visible links/d; /Hidden links/d' | sed "s/${nbsp_utf}/ /g" ;;
 					w3m           ) sed '1,/^References:/d' ;;
 				esac |
 				sed '/^ *$/d; s/.* //;'
