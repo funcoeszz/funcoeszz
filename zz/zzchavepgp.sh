@@ -26,5 +26,5 @@ zzchavepgp ()
 			# Remove linhas em branco
 			/^$/ d
 			# Remove linhas ____________________
-			/^ *___*$/ d'
+			/^ *[_-][_-][_-]*$/ d'
 }
