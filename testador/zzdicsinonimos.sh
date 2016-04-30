@@ -49,7 +49,7 @@ $ zzdicsinonimos bom
 Bondoso:
 1 clemente, bondoso, benfeitor, piedoso, misericordioso, indulgente, humano, bem-intencionado, caritativo, caridoso, generoso, benévolo, benigno, benevolente.
 
-Agradável :
+Agradável:
 2 prazeroso, agradável, encantador, afável, aprazível, deleitável, ameno.
 
 Adequado:
