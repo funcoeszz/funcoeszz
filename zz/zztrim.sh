@@ -27,7 +27,6 @@ zztrim ()
 
 	local top left right bottom
 	local delete_top delete_left delete_right delete_bottom
-	local sp_utf=$(printf '\302\240')
 
 	# Opções de linha de comando
 	while test "${1#-}" != "$1"
@@ -55,12 +54,12 @@ zztrim ()
 
 	# Compõe os comandos sed para apagar os brancos,
 	# levando em conta quais são as opções ativas
-	test -n "$top"    && delete_top='/[^[:blank:]'${sp_utf}']/,$!d;'
-	test -n "$left"   && delete_left='s/^[[:blank:]'${sp_utf}']*//;'
-	test -n "$right"  && delete_right='s/[[:blank:]'${sp_utf}']*$//;'
+	test -n "$top"    && delete_top='/[^[:blank:]]/,$!d;'
+	test -n "$left"   && delete_left='s/^[[:blank:]]*//;'
+	test -n "$right"  && delete_right='s/[[:blank:]]*$//;'
 	test -n "$bottom" && delete_bottom='
 		:loop
-		/^[[:space:]'${sp_utf}']*$/ {
+		/^[[:space:]]*$/ {
 			$ d
 			N
 			b loop
