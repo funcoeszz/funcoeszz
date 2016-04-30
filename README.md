@@ -50,8 +50,8 @@ Agora sim, você pode usar as Funções ZZ em toda a sua glória. Abra um novo t
     $ zzcalcula 10+5
     15
     
-    $ zzbissexto
-    2012 é bissexto
+    $ zzbissexto 2016
+    2016 é bissexto
     
     $ zzmaiusculas tá funcionando
     TÁ FUNCIONANDO
