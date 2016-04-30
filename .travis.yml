@@ -19,7 +19,7 @@ before_install:
   - mv clitest testador
 
 script:
-  - cd testador && ./run zzblist.sh zzchavepgp.sh
+  - cd testador && ./run zzcidade.sh
 
 notifications:
   email: false
