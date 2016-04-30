@@ -40,7 +40,7 @@ zzcoin ()
 		;;
 		-a | --all )
 			url="http://coinmarketcap.com/mineable.html"
-			zztool dump "$url" |
+			zztool dump elinks "$url" |
 			sed -n '/#/,/Last updated/{
 				/^ *\*/d;
 				/^ *$/d;
@@ -57,7 +57,7 @@ zzcoin ()
 				s/ Market Cap Graph (7d)//;
 				s/ Price Graph (7d)//;
 				s/ *sparkline *//;
-				/______/d;
+				/[_-][_-][_-][_-][_-][_-]/d;
 				p;
 				}' |
 			awk '
