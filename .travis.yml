@@ -13,7 +13,7 @@ addons:
 before_install:
   # OS X: install packages (||true to avoid Linux fail)
   - test "$TRAVIS_OS_NAME" = osx && brew update         || true
-  - test "$TRAVIS_OS_NAME" = osx && brew install elinks || true
+  - test "$TRAVIS_OS_NAME" = osx && brew install elinks-0.12pre6 || true
   - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
   - chmod +x clitest
   - mv clitest testador
