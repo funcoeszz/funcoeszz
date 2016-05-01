@@ -49,11 +49,13 @@ zzalinhar ()
 
 	cache=$(zztool mktemp alinhar)
 
-	zztool file_stdin "$@" > $cache
+	zztool file_stdin "$@" > "$cache"
+
+	test $(zztrim "$cache" | zzwc -l) -gt 0 || return 1
 
 	larg_efet=$(zzwc -L "$cache")
 
-	test $largura -eq 0 -a $larg_efet -gt $largura && largura=$larg_efet
+	test "$largura" -eq 0 -a "${larg_efet:-0}" -gt "$largura" && largura=$larg_efet
 
 	case $alinhamento in
 	'j')
@@ -122,7 +124,7 @@ zzalinhar ()
 
 		cat "$cache" |
 		zztrim -H |
-		zzpad -${alinhamento} $largura
+		zzpad -${alinhamento} "$largura" 2>/dev/null
 	;;
 	esac
 
