@@ -41,7 +41,7 @@ zzpad ()
 	done
 
 	# Tamanho da string
-	if zztool testa_numero "$1" && test $1 -gt 0
+	if zztool testa_numero "$1" && test "$1" -gt 0
 	then
 		largura="$1"
 		shift
