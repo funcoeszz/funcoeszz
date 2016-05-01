@@ -477,7 +477,7 @@ zztool ()
 					links | links2)      $browser ${opt_common} -dump                "$1" ;;
 					lynx          )      $browser ${opt_common} -dump -nolist        "$1" ;;
 					w3m           )      $browser ${opt_common} -dump -T text/html   "$1" ;;
-					elinks        ) eval $browser ${opt_common} -dump -no-references "$1" | sed "s/${nbsp_utf}/ /g" ;;
+					elinks        ) eval $browser ${opt_common} -dump -no-references $(echo "$1" | sed 's/\&/\\&/g') | sed "s/${nbsp_utf}/ /g" ;;
 				esac
 			;;
 			source)
@@ -485,10 +485,10 @@ zztool ()
 			;;
 			list)
 				case "$browser" in
-					links | links2)             $browser ${opt_common} -dump              -html-numbered-links 1   "$1" ;;
-					lynx          ) LANG=C      $browser ${opt_common} -dump                                       "$1" ;;
-					elinks        ) LANG=C eval $browser ${opt_common} -dump                                       "$1" ;;
-					w3m           )             $browser ${opt_common} -dump -T text/html -o display_link_number=1 "$1" ;;
+					links | links2)             $browser ${opt_common} -dump                -html-numbered-links 1   "$1" ;;
+					lynx          ) LANG=C      $browser ${opt_common} -dump                                         "$1" ;;
+					elinks        ) LANG=C eval $browser ${opt_common} -dump              $(echo "$1" | sed 's/\&/\\&/g') ;;
+					w3m           )             $browser ${opt_common} -dump -T text/html   -o display_link_number=1 "$1" ;;
 				esac |
 				case "$browser" in
 					links | links2) sed '1,/^Links:/d' ;;
