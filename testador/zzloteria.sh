@@ -34,7 +34,7 @@ Concurso NNNN (NN/NN/NNNN)
    NN NN NN NN NN
    NN NN NN NN NN
 $
-$ zzloteria federal
+$ zztool dump links 'http://loterias.caixa.gov.br/wps/portal/loterias/landing/federal'
 $ zzloteria federal | tr '[0-9.]' 'N' | sed 's/ *$//;s/º  */º      /;s/  *R\$/   R$/;s/  *\([BV]\)/ \1/g;s/NN*,/NNN,/'
 federal:
 Concurso NNNNN (NN/NN/NNNN)
