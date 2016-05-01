@@ -10,15 +10,13 @@ Concurso NNNN (NN/NN/NNNN)
    NN   NN   NN   NN   NN   NN
 $
 
-$ zzloteria duplasena | tr '[0-9]' 'N' | head -8
+$ zzloteria duplasena | tr '[0-9]' 'N' | sed '/^ *$/d;s/^ *//' | head -6
 duplasena:
 Concurso NNNN (NN/NN/NNNN)
-
-  Nº sorteio
-   NN   NN   NN   NN   NN   NN
-
-  Nº sorteio
-   NN   NN   NN   NN   NN   NN
+Nº sorteio
+NN   NN   NN   NN   NN   NN
+Nº sorteio
+NN   NN   NN   NN   NN   NN
 $
 
 $ zzloteria lotomania | tr '[0-9]' 'N' | head -6 | sed 's/ *$//;s/N  *N/N N/g'
