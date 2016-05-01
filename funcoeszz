@@ -436,11 +436,13 @@ zztool ()
 
 			# Caracterizando os paramêtros conforme cada navegador.
 			case "$browser" in
-				links | links2) opt_common="-width ${output_width}      -codepage ${output_charset}        ${input_charset:+-html-assume-codepage} ${input_charset} ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
-				lynx          ) opt_common="-width=${output_width}      -display_charset=${output_charset} ${input_charset:+-assume_charset=}${input_charset}       ${user_agent:+-useragent=}${user_agent}            -accept_all_cookies" ;;
-				w3m           ) opt_common="-cols ${output_width}       -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    ${user_agent:+-o user_agent=}${user_agent}         -cookie -o follow_redirection=9" ;;
-				elinks        ) opt_common="-dump-width ${output_width} -dump-charset ${output_charset}    -no-numbering                                            ${user_agent:+-eval 'set protocol.http.user_agent = $user_agent'}"
-				                local nbsp_utf=$(printf '\302\240')
+				links | links2) opt_common="-width ${output_width} -codepage ${output_charset}        ${input_charset:+-html-assume-codepage} ${input_charset} ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
+				lynx          ) opt_common="-width=${output_width} -display_charset=${output_charset} ${input_charset:+-assume_charset=}${input_charset}       ${user_agent:+-useragent=}${user_agent}            -accept_all_cookies" ;;
+				w3m           ) opt_common="-cols ${output_width}  -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    ${user_agent:+-o user_agent=}${user_agent}         -cookie -o follow_redirection=9" ;;
+				elinks        )
+					local aspas='"'
+					local nbsp_utf=$(printf '\302\240')
+					opt_common="-dump-width ${output_width} -dump-charset ${output_charset} ${input_charset:+-eval 'set document.codepage.assume = ${aspas}${input_charset}${aspas}'} ${user_agent:+-eval 'set protocol.http.user_agent = $user_agent'} -no-numbering"
 				;;
 			esac
 
@@ -461,7 +463,7 @@ zztool ()
 							$browser ${opt_common} -dump -T text/html   "$post_temp"
 						elif test "$browser" = 'elinks'
 						then
-							$browser ${opt_common} -dump -no-references "$post_temp" | sed "s/${nbsp_utf}/ /g"
+							eval $browser ${opt_common} -dump -no-references "$post_temp" | sed "s/${nbsp_utf}/ /g"
 						else
 							$browser ${opt_common} -dump         file://"$post_temp"
 						fi
@@ -472,10 +474,10 @@ zztool ()
 			;;
 			dump)
 				case "$browser" in
-					links | links2) $browser ${opt_common} -dump                "$1" ;;
-					lynx          ) $browser ${opt_common} -dump -nolist        "$1" ;;
-					w3m           ) $browser ${opt_common} -dump -T text/html   "$1" ;;
-					elinks        ) $browser ${opt_common} -dump -no-references "$1" | sed "s/${nbsp_utf}/ /g" ;;
+					links | links2)      $browser ${opt_common} -dump                "$1" ;;
+					lynx          )      $browser ${opt_common} -dump -nolist        "$1" ;;
+					w3m           )      $browser ${opt_common} -dump -T text/html   "$1" ;;
+					elinks        ) eval $browser ${opt_common} -dump -no-references "$1" | sed "s/${nbsp_utf}/ /g" ;;
 				esac
 			;;
 			source)
@@ -483,9 +485,10 @@ zztool ()
 			;;
 			list)
 				case "$browser" in
-					links | links2)        $browser ${opt_common} -dump              -html-numbered-links 1   "$1" ;;
-					lynx  | elinks) LANG=C $browser ${opt_common} -dump                                       "$1" ;;
-					w3m           )        $browser ${opt_common} -dump -T text/html -o display_link_number=1 "$1" ;;
+					links | links2)             $browser ${opt_common} -dump              -html-numbered-links 1   "$1" ;;
+					lynx          ) LANG=C      $browser ${opt_common} -dump                                       "$1" ;;
+					elinks        ) LANG=C eval $browser ${opt_common} -dump                                       "$1" ;;
+					w3m           )             $browser ${opt_common} -dump -T text/html -o display_link_number=1 "$1" ;;
 				esac |
 				case "$browser" in
 					links | links2) sed '1,/^Links:/d' ;;
