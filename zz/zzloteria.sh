@@ -75,7 +75,9 @@ zzloteria ()
 					sed "
 						/^ *Estimativa/ i \\
 
-						/^ *\(20\|15\) acertos/ i \\
+						/^ *20 acertos/ i \\
+
+						/^ *15 acertos/ i \\
 
 						s/ 0 /  0 /
 						s/acertos */pts.${tab}/
@@ -109,7 +111,7 @@ zzloteria ()
 					" |
 					if test "$tipo" = "duplasena"
 					then
-						sed '2d;s/^\( *\)\([12]\)\(-o\|º\)/  \2º/;s/a pts./a/;/º [Ss]orteio/ i \
+						sed '2d;s/^\( *\)\([12]\)[-]\{0,1\}[oº]/  \2º/;s/a pts./a/;/º [Ss]orteio/ i \
 '
 					else
 						sed 's/\([ao]\) pts./\1/'
@@ -117,7 +119,7 @@ zzloteria ()
 					expand -t 15,25,35
 				;;
 				federal)
-					echo "$dump" | sed -n '1p;/^ *[1-5]\(-o\|º\)/p;2s/.*//p;/^ *Destino/p' | sed 's/-o/º/;s/\([0-9.,]\{1,\}\) *$/R$ &/'
+					echo "$dump" | sed -n '1p;/^ *[1-5][-]\{0,1\}[oº]/p;2s/.*//p;/^ *Destino/p' | sed 's/-o/º/;s/\([0-9.,]\{1,\}\) *$/R$ &/'
 				;;
 				loteca)
 					echo "$dump" |
