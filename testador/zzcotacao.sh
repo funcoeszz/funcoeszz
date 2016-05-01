@@ -1,4 +1,4 @@
-$ zzcotacao | sed 's/[0-9],[0-9]\{3\}/9.999/g;s|  n/d|9.999|g;s/[_+-]/ /;s/[0-9],[0-9]\{2\}/9.99/g'
+$ zzcotacao | sed 's/[0-9],[0-9]\{3\}/9.999/g;s|  n/d|9.999|g;s/[-+_]/ /;s/[0-9],[0-9]\{2\}/9.99/g'
                     Compra   Venda   Var(%)
 Dolar Comercial      9.999   9.999    9.99
 Dolar Turismo        9.999   9.999    9.99
