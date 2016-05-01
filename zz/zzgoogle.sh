@@ -80,7 +80,7 @@ zzgoogle ()
 		limite=$((limite+1))
 		url='https://duckduckgo.com'
 		zztool dump "${url}/?q=$padrao" |
-		sed -n '/ [ []\{,2\}Search[] ]\{,2\}$/,/ [ []\{,2\}Search[] ]\{,2\}$/ {
+		sed -n '/ [ []\{0,2\}Search[] ]\{0,2\}$/,/ [ []\{0,2\}Search[] ]\{0,2\}$/ {
 			//d
 			/Next Page >/d
 			/^ *$/d
