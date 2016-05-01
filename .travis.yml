@@ -20,7 +20,7 @@ before_install:
   - mv clitest testador
 
 script:
-  - cd testador && ./run zz[a-j]*.sh zzl[bieu]*.sh zzlocale.sh zzlorem.sh zz[m-x]*.sh
+  - cd testador && ./run zz[a-b]*.sh zzc[a-p]*.sh zz[d-j]*.sh zzl[bieu]*.sh zzlocale.sh zzlorem.sh zzmacvendor.sh zzmaiusculas.sh zzmat.sh zzm[d-o]*.sh zz[n-x]*.sh
 
 notifications:
   email: false
