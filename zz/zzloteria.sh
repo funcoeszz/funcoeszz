@@ -30,7 +30,7 @@ zzloteria ()
 	local un_zip='unzip -q -a -C -o'
 
 	which links >/dev/null 2>&1 || {
-		zztool erro 'Necessário instalar o navegador de modo texto "links", "links2" ou "elinks".'
+		zztool erro 'Necessário instalar o navegador de modo texto "links" ou "links2".'
 		return 1
 	}
 
