@@ -108,13 +108,8 @@ zzfeed ()
 			esac |
 			zzxml --tidy > "$tmp"
 		else
-			case "$coding" in
-				iso) coding='-i iso-8859-1' ;;
-				utf) coding='-i utf-8'       ;;
-				*  ) coding=''              ;;
-			esac
-			zztool download $useragent $coding "$url" "$cache"
-			zzxml --tidy "$cache" > "$tmp"
+			zztool download $useragent "$url" "$cache"
+			zzutf8 "$cache" | zzxml --tidy > "$tmp"
 		fi
 
 		# Tenta identificar o formato: <feed> é Atom, <rss> é RSS
