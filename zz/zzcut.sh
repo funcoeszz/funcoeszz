@@ -167,7 +167,7 @@ zzcut ()
 									faixa[2]*=(faixa[2]>=0?1:-1)
 									faixa[2]=(faixa[2]==0?1:faixa[2])
 									faixa[1]=(length(faixa[1])>0 && faixa[1]>0?faixa[1]:faixa[2])
-									printf "s/./" tsp "/" faixa[1] "; :a; s/\\(" tsp ".\\{" faixa[2]-1 "\\}\\)[^" tsp "]/\\1" tsp "/g; ta;"
+									printf "s/./" tsp "/" faixa[1] "; :a; /\\(" tsp ".\\{" faixa[2]-1 "\\}\\)[^" tsp "]/{s//\\1" tsp "/g; b a;};"
 								}
 								END {
 									if (inicio) print "s/^.\\{" inicio "\\}//;"
