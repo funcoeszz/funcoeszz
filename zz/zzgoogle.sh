@@ -9,6 +9,7 @@
 # Desde: 2003-04-03
 # Versão: 3
 # Licença: GPL
+# Requisitos: zztrim
 # ----------------------------------------------------------------------------
 # FIXME: zzgoogle rato roeu roupa rei roma [PPS], [PDF]
 zzgoogle ()
@@ -85,9 +86,9 @@ zzgoogle ()
 			/Next Page >/d
 			/^ *$/d
 			/No results.$/d
-			s/ *$//
 			p
 		}' |
+		zztrim -r |
 		sed -n "1,/^ *${limite}\. /{ /^ *${limite}\. /d; p; } "
 	;;
 	esac
