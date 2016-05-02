@@ -20,7 +20,7 @@ zzcep ()
 	local url='http://cep.guiamais.com.br'
 
 	# Verificação dos parâmetros
-#	test -n "$1" || { zztool -e uso cep; return 1; }
+	test -n "$1" || { zztool -e uso cep; return 1; }
 
 	# Testando se parametro é o CEP
 	if echo "$1" | grep -E '^[0-9]{5}-[0-9]{3}$' > /dev/null
@@ -44,21 +44,24 @@ zzcep ()
 	else
 		echo "$pagina1"
 	fi |
-	zzxml --tag th --tag td |
-	zzjuntalinhas -i '<td' -f '</td>' -d ' ' | zzjuntalinhas -i '<th' -f '</th>' -d ' ' |
-	sed 's|> </a>|> - </a>|g' |
-	zzxml --untag |
-	if test "$end" -eq 1
-	then
-		awk 'NR % 5 != 4' | zzcolunar -s '|' -z 4
-	else
-		awk 'NR % 5 != 4 && NR % 5 != 0' | zzcolunar -s '|' -z 3
-	fi |
-	sed '2,$ { /LOGRADOURO/d; }' |
-	zztrim | tr -s ' ' |
-	while IFS="|" read logradouro bairro cidade cep
-	do
-		echo "$(zzpad 65 $logradouro) $(zzpad 25 $bairro) $(zzpad 30 $cidade) $cep"
-	done |
-	zztrim
+		zzxml --tag th --tag td |
+		zzjuntalinhas -i '<td' -f '</td>' -d ' ' |
+		zzjuntalinhas -i '<th' -f '</th>' -d ' ' |
+		sed 's|> </a>|> - </a>|g' |
+		zzxml --untag |
+		if test "$end" -eq 1
+		then
+			awk 'NR % 5 != 4' |
+			zzcolunar -s '|' -z 4
+		else
+			awk 'NR % 5 != 4 && NR % 5 != 0' |
+			zzcolunar -s '|' -z 3
+		fi |
+		sed '2,$ { /LOGRADOURO/d; }' |
+		zztrim | tr -s ' ' |
+		while IFS="|" read logradouro bairro cidade cep
+		do
+			echo "$(zzpad 65 $logradouro) $(zzpad 25 $bairro) $(zzpad 30 $cidade) $cep"
+		done |
+		zztrim
 }
