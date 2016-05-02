@@ -500,13 +500,7 @@ zztool ()
 			download)
 				local arq_dest
 				test -n "$2" && arq_dest="$2" || arq_dest=$(basename "$1")
-				if   type wget >/dev/null 2>&1
-				then
-					wget -q "${user_agent:+-U}" "${user_agent}" "$1" -O "$arq_dest"
-				elif type curl >/dev/null 2>&1
-				then
-					curl -L -s "${user_agent:+-A}" "${user_agent}" "$1" -o "$arq_dest"
-				fi
+				zztool source "$1" > "$arq_dest"
 			;;
 			esac
 		;;
