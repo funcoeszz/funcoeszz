@@ -33,7 +33,8 @@ zzenglish ()
 
 			# pega o trecho da página que nos interessa
 			/[0-9]\{1,\} definitions\{0,1\} found/,/ *[_-][_-][_-][_-][_-]* *$/!d
-			s/[_-][_-][_-][_-][_-]*//
+			s/_____*//
+			s/-----*//
 
 			# protege os colchetes dos sinônimos contra o cinza escuro
 			s/\[syn:/@SINONIMO@/g
