@@ -14,13 +14,13 @@ before_install:
   # OS X: install packages (||true to avoid Linux fail)
   - test "$TRAVIS_OS_NAME" = osx && brew update                 || true
   - test "$TRAVIS_OS_NAME" = osx && brew install --devel elinks || true
-  #- test "$TRAVIS_OS_NAME" = osx && brew install links          || true
+  - test "$TRAVIS_OS_NAME" = osx && brew install links          || true
   - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
   - chmod +x clitest
   - mv clitest testador
 
 script:
-  - cd testador && ./run zz[a-b]*.sh zzc[a-p]*.sh zz[d-j]*.sh zzl[bieu]*.sh zzlocale.sh zzlorem.sh zzmacvendor.sh zzmaiusculas.sh zzmat.sh zzm[d-o]*.sh zz[n-x]*.sh
+  - cd testador && ./run
 
 notifications:
   email: false
