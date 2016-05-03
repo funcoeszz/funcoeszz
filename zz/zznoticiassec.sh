@@ -3,13 +3,12 @@
 # Obs.: Cada site tem uma letra identificadora que pode ser passada como
 #       parâmetro, para informar quais sites você quer pesquisar:
 #
-#       Linux Security B)rasil    Linux T)oday - Security
-#       Linux S)ecurity           Security F)ocus
-#       C)ERT/CC
+#       C)ERT/CC            Linux T)oday - Security
+#       Linux S)ecurity     Security F)ocus
 #
 # Uso: zznoticiassec [sites]
 # Ex.: zznoticiassec
-#      zznoticiassec bcf
+#      zznoticiassec cft
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-07-13
@@ -23,20 +22,11 @@ zznoticiassec ()
 
 	local url limite
 	local n=5
-	local sites='bsctf'
+	local sites='sctf'
 
 	limite="sed ${n}q"
 
 	test -n "$1" && sites="$1"
-
-	# LinuxSecurity Brasil
-	if zztool grep_var b "$sites"
-	then
-		url='http://www.linuxsecurity.com.br/share.php'
-		echo
-		zztool eco "* LinuxSecurity Brasil ($url):"
-		zzfeed -u -n $n "$url"
-	fi
 
 	# Linux Security
 	if zztool grep_var s "$sites"

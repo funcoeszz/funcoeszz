@@ -436,10 +436,14 @@ zztool ()
 
 			# Caracterizando os paramêtros conforme cada navegador.
 			case "$browser" in
-				links | links2 | elinks)
-				       opt_common="-width ${output_width} -codepage ${output_charset}        ${input_charset:+-html-assume-codepage} ${input_charset} ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
-				lynx ) opt_common="-width=${output_width} -display_charset=${output_charset} ${input_charset:+-assume_charset=}${input_charset}       ${user_agent:+-useragent=}${user_agent}            -accept_all_cookies" ;;
-				w3m  ) opt_common="-cols ${output_width}  -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    ${user_agent:+-o user_agent=}${user_agent}         -cookie -o follow_redirection=9" ;;
+				links | links2) opt_common="-width ${output_width} -codepage ${output_charset}        ${input_charset:+-html-assume-codepage} ${input_charset} ${user_agent:+-http.fake-user-agent} ${user_agent}" ;;
+				lynx          ) opt_common="-width=${output_width} -display_charset=${output_charset} ${input_charset:+-assume_charset=}${input_charset}       ${user_agent:+-useragent=}${user_agent}            -accept_all_cookies" ;;
+				w3m           ) opt_common="-cols ${output_width}  -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    ${user_agent:+-o user_agent=}${user_agent}         -cookie -o follow_redirection=9" ;;
+				elinks        )
+					local aspas='"'
+					local nbsp_utf=$(printf '\302\240')
+					opt_common="-dump-width ${output_width} -dump-charset ${output_charset} ${input_charset:+-eval 'set document.codepage.assume = ${aspas}${input_charset}${aspas}'} ${user_agent:+-eval 'set protocol.http.user_agent = $user_agent'} -no-numbering"
+				;;
 			esac
 
 			case "$ferramenta" in
@@ -456,9 +460,12 @@ zztool ()
 
 						if test "$browser" = 'w3m'
 						then
-							$browser ${opt_common} -dump -T text/html "$post_temp"
+							$browser ${opt_common} -dump -T text/html   "$post_temp"
+						elif test "$browser" = 'elinks'
+						then
+							eval $browser ${opt_common} -dump -no-references "$post_temp" | sed "s/${nbsp_utf}/ /g"
 						else
-							$browser ${opt_common} -dump       file://"$post_temp"
+							$browser ${opt_common} -dump         file://"$post_temp"
 						fi
 
 						rm -f "$post_temp"
@@ -467,46 +474,33 @@ zztool ()
 			;;
 			dump)
 				case "$browser" in
-					links | links2 | elinks)
-					       $browser ${opt_common} -dump              "$1" ;;
-					lynx ) $browser ${opt_common} -dump -nolist      "$1" ;;
-					w3m  ) $browser ${opt_common} -dump -T text/html "$1" ;;
+					links | links2)      $browser ${opt_common} -dump                "$1" ;;
+					lynx          )      $browser ${opt_common} -dump -nolist        "$1" ;;
+					w3m           )      $browser ${opt_common} -dump -T text/html   "$1" ;;
+					elinks        ) eval $browser ${opt_common} -dump -no-references $(echo "$1" | sed 's/\&/\\&/g') | sed "s/${nbsp_utf}/ /g" ;;
 				esac
 			;;
 			source)
-				case "$browser" in
-					lynx ) $browser ${opt_common} -source                 "$1" ;;
-					*    ) curl -L -s "${user_agent:+-A}" "${user_agent}" "$1" ;;
-				esac
+				curl -L -s "${user_agent:+-A}" "${user_agent}" "$1"
 			;;
 			list)
 				case "$browser" in
-					links | links2 | elinks)
-					              $browser ${opt_common} -html-numbered-links 1   -dump              "$1" ;;
-					lynx ) LANG=C $browser ${opt_common} -dump                                       "$1" ;;
-					w3m  )        $browser ${opt_common} -o display_link_number=1 -dump -T text/html "$1" ;;
+					links | links2)             $browser ${opt_common} -dump                -html-numbered-links 1   "$1" ;;
+					lynx          ) LANG=C      $browser ${opt_common} -dump                                         "$1" ;;
+					elinks        ) LANG=C eval $browser ${opt_common} -dump              $(echo "$1" | sed 's/\&/\\&/g') ;;
+					w3m           )             $browser ${opt_common} -dump -T text/html   -o display_link_number=1 "$1" ;;
 				esac |
 				case "$browser" in
-					lynx ) sed '1,/^References/d; /Visible links/d; /Hidden links/d' ;;
-					w3m  ) sed '1,/^References:/d' ;;
-					links) sed '1,/^Links:/d'
+					links | links2) sed '1,/^Links:/d' ;;
+					lynx  | elinks) sed '1,/^References/d; /Visible links/d; /Hidden links/d' | sed "s/${nbsp_utf}/ /g" ;;
+					w3m           ) sed '1,/^References:/d' ;;
 				esac |
 				sed '/^ *$/d; s/.* //;'
 			;;
 			download)
 				local arq_dest
 				test -n "$2" && arq_dest="$2" || arq_dest=$(basename "$1")
-				if   type wget >/dev/null 2>&1
-				then
-					wget -q "${user_agent:+-U}" "${user_agent}" "$1" -O "$arq_dest"
-				elif type curl >/dev/null 2>&1
-				then
-					curl -L -s "${user_agent:+-A}" "${user_agent}" "$1" -o "$arq_dest"
-				else
-					case "$browser" in
-						lynx | links | links2 | elinks) $browser -source "$1" > "$arq_dest" ;;
-					esac
-				fi
+				zztool source "$1" > "$arq_dest"
 			;;
 			esac
 		;;

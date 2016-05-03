@@ -111,20 +111,25 @@ Falar é o contrário de: calar, emudecer, silenciar
 $
 
 $ zzdicportugues comer
-v.t. Levar à boca e engolir.
-Fig. Carcomer, roer, consumir: a ferrugem come o ferro.
-Fig. Omitir: comeu duas palavras na transcrição.
-Fig. Eliminar, ganhar (pedras em jogo de tabuleiro).
-Chul. Possuir carnalmente.
-V.i. Tomar refeição, alimentar-se habitualmente: comer em restaurante.
-Roubar.
-Comer com os olhos, encarar atentamente; desejar com avidez.
+v.t.d. Ingerir algum alimento, levando à boca e engolindo: ele não gosta de comer legumes; adorava comer tortas.
+Roubar ou apropriar-se do não lhe pertence: os impostos comiam meu salário.
+Deixar de ver; ocultar ou omitir: durante a leitura, comia palavras.
+Figurado. Gastar completamente; consumir: comeu a herança da filha.
+Figurado. Acreditar muito em: o delegado não comeu sua história.
+Figurado. Vulgar. Possuir sexualmente outra pessoa.
+v.pron. Consumir-se por: comia-se de raiva!
+v.i. Alimentar-se habitualmente: não como em restaurantes.
+Provar pela primeira vez; experimentar: comer da maçã proibida.
+Figurado. Carcomer, roer, consumir: a ferrugem come o ferro.
+Figurado. Eliminar ou ganhar pedras em jogo de tabuleiro.
+s.m. Ação de comer; aquilo que se come ou ingere; alimento: o comer não lhe satisfaz.
+(Etm. do latim: comedere)
 
-Comer é sinônimo de: manducar, consumir
+Comer é sinônimo de: consumir, manducar, ingerir, ocultar, alimentar, roer, carcomer, manjar, papar
 $
 
 $ zzdicportugues comer def | sed '/Frases com o verbo comer/,/Possui/{/Possui/!d;}' | zzsqueeze -l
-Classe gramatical: substantivo masculino, verbo intransitivo, verbo pronominal, verbo transitivo direto e verbo transitivo indireto
+Classe gramatical: substantivo masculino, verbo intransitivo, verbo pronominal e verbo transitivo direto
 Tipo do verbo comer: regular
 Separação das sílabas: co-mer
 

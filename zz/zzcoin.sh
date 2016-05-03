@@ -42,23 +42,24 @@ zzcoin ()
 			url="http://coinmarketcap.com/mineable.html"
 			zztool dump "$url" |
 			sed -n '/#/,/Last updated/{
-				/^ *\*/d;
-				/^ *$/d;
-				s/Total Market Cap/Valor Total de Mercado/;
-				s/Last updated/Última atualização/;
-				s/ %//;
-				s/\$ //g;
-				s/  Name /Nome /;
-				s/ Market Cap/Valor Mercado/;
-				s/     Price/Preço/;
-				s/Total Supply/Total Oferta/;
-				s/ (24h)/(24h)/g;
-				s/Change(24h)/%Var(24h)/;
-				s/ Market Cap Graph (7d)//;
-				s/ Price Graph (7d)//;
-				s/ *sparkline *//;
-				/______/d;
-				p;
+				/^ *\*/d
+				/^ *$/d
+				s/Total Market Cap/Valor Total de Mercado/
+				s/Last updated/Última atualização/
+				s/ %//
+				s/\$ //g
+				s/  Name /Nome /
+				s/ Market Cap/Valor Mercado/
+				s/     Price/Preço/
+				s/Total Supply/Total Oferta/
+				s/ (24h)/(24h)/g
+				s/Change(24h)/%Var(24h)/
+				s/ Market Cap Graph (7d)//
+				s/ Price Graph (7d)//
+				s/ *sparkline *//
+				/______/d
+				/------/d
+				p
 				}' |
 			awk '
 				function espacos(  tamanho, saida, i) {

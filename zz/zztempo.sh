@@ -98,7 +98,7 @@ zztempo ()
 			/^ *$/d
 			s/ *$//
 			s/^ *//
-			/Conditions at /,/ UTC/ { // !d; s/\[//; s/\]//; }
+			/Conditions at /d
 			p
 		}' |
 		sed '2,$ s/^/   /'

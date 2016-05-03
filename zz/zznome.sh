@@ -58,7 +58,7 @@ zznome ()
 		;;
 	esac
 
-	zztool dump "$url/nomes/?q=$nome" |
+	zztool dump -i 'iso-8859-1' "$url/nomes/?q=$nome" |
 		sed -n "
 		/$ini/,/$fim/ {
 			/$fim/d
