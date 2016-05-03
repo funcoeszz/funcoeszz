@@ -15,8 +15,8 @@ zzcotacao ()
 	zzzz -h cotacao "$1" && return
 
 	zztool dump "http://www.infomoney.com.br/mercados/cambio" |
-	sed -n '/^Real vs. Moedas/,/^Cota/p' |
-	sed -n '3p;/^   [DLPFIE]/p' |
+	sed -n '/Real vs. Moedas/,/Hist.rico de Cota..es/p' |
+	sed  '1d; $d; /^ *$/d' |
 	sed 's/Venda  *Var/Venda Var/;s/\[//g;s/\]//g' |
 	zzsemacento |
 	awk '{
