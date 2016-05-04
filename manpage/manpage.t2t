@@ -1992,7 +1992,7 @@ Suportados:
  Debian, Ubuntu, FreeBSD, NetBSD, Gentoo, Arch, Mandriva, Mageia,
  Slackware, Suse (OpenSuse), RedHat, Fedora.
 Uso: zzsecurity [distros]
-Ex.: zzsecutiry
+Ex.: zzsecurity
      zzsecurity mandriva
      zzsecurity debian gentoo
 

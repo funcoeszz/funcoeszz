@@ -4,7 +4,7 @@
 #  Debian, Ubuntu, FreeBSD, NetBSD, Gentoo, Arch, Mageia,
 #  Slackware, Suse, OpenSuse, Fedora.
 # Uso: zzsecurity [distros]
-# Ex.: zzsecutiry
+# Ex.: zzsecurity
 #      zzsecurity mageia
 #      zzsecurity debian gentoo
 #
