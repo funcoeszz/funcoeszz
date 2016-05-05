@@ -4,30 +4,30 @@ $ zzseq				#→ --regex ^Uso:
 
 # Erro: float com ponto
 
-$ zzseq	1.0			#→ Número inválido '1.0'
-$ zzseq	1.0	1		#→ Número inválido '1.0'
-$ zzseq	1.0	1	1	#→ Número inválido '1.0'
-$ zzseq	1	1.0		#→ Número inválido '1.0'
-$ zzseq	1	1.0	1	#→ Número inválido '1.0'
-$ zzseq	1	1	1.0	#→ Número inválido '1.0'
+$ zzseq	1.0			#→ Número Inteiro inválido '1.0'
+$ zzseq	1.0	1		#→ Número Inteiro inválido '1.0'
+$ zzseq	1.0	1	1	#→ Número Inteiro inválido '1.0'
+$ zzseq	1	1.0		#→ Número Inteiro inválido '1.0'
+$ zzseq	1	1.0	1	#→ Número Inteiro inválido '1.0'
+$ zzseq	1	1	1.0	#→ Número Inteiro inválido '1.0'
 
 # Erro: float com vírgula
 
-$ zzseq	1,0			#→ Número inválido '1,0'
-$ zzseq	1,0	1		#→ Número inválido '1,0'
-$ zzseq	1,0	1	1	#→ Número inválido '1,0'
-$ zzseq	1	1,0		#→ Número inválido '1,0'
-$ zzseq	1	1,0	1	#→ Número inválido '1,0'
-$ zzseq	1	1	1,0	#→ Número inválido '1,0'
+$ zzseq	1,0			#→ Número Inteiro inválido '1,0'
+$ zzseq	1,0	1		#→ Número Inteiro inválido '1,0'
+$ zzseq	1,0	1	1	#→ Número Inteiro inválido '1,0'
+$ zzseq	1	1,0		#→ Número Inteiro inválido '1,0'
+$ zzseq	1	1,0	1	#→ Número Inteiro inválido '1,0'
+$ zzseq	1	1	1,0	#→ Número Inteiro inválido '1,0'
 
 # Erro: string
 
-$ zzseq	x			#→ Número inválido 'x'
-$ zzseq	x	1		#→ Número inválido 'x'
-$ zzseq	x	1	1	#→ Número inválido 'x'
-$ zzseq	1	x		#→ Número inválido 'x'
-$ zzseq	1	x	1	#→ Número inválido 'x'
-$ zzseq	1	1	x	#→ Número inválido 'x'
+$ zzseq	x			#→ Número Inteiro inválido 'x'
+$ zzseq	x	1		#→ Número Inteiro inválido 'x'
+$ zzseq	x	1	1	#→ Número Inteiro inválido 'x'
+$ zzseq	1	x		#→ Número Inteiro inválido 'x'
+$ zzseq	1	x	1	#→ Número Inteiro inválido 'x'
+$ zzseq	1	1	x	#→ Número Inteiro inválido 'x'
 
 # Erro: passo zero
 

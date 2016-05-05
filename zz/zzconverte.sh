@@ -54,7 +54,7 @@
 # Desde: 2003-10-02
 # Versão: 6
 # Licença: GPL
-# Requisitos: zznumero
+# Requisitos: zznumero zztestar
 # ----------------------------------------------------------------------------
 zzconverte ()
 {
@@ -91,12 +91,11 @@ zzconverte ()
 	do
 		# Verificando consistência para números
 		case "$operacao" in
-			c[dh])   echo "$1" | grep '^-' >/dev/null             && { shift; continue; } ;;
-			b[dho])  zztool testa_binario "$1"                    || { shift; continue; } ;;
-			d[bohc]) zztool testa_numero  "$1"                    || { shift; continue; } ;;
-			o[bdh])  echo "$1" | grep '^[0-7]\{1,\}$' >/dev/null  || { shift; continue; } ;;
-			h[bdoc])
-				echo "$1" | grep '^[0-9A-Fa-f]\{1,\}$' >/dev/null || { shift; continue; }
+			c[dh]  ) echo "$1" | grep '^-' >/dev/null && { shift; continue; } ;;
+			b[dho] ) zztestar binario "$1"            || { shift; continue; } ;;
+			d[bohc]) zztestar numero  "$1"            || { shift; continue; } ;;
+			o[bdh] ) zztestar octal   "$1"            || { shift; continue; } ;;
+			h[bdoc]) zztestar hexa    "$1"            || { shift; continue; }
 				num_hex=$(echo ${1#0x} | tr [a-f] [A-F])
 			;;
 		esac

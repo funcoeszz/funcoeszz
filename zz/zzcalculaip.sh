@@ -11,7 +11,7 @@
 # Desde: 2005-09-01
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzconverte
+# Requisitos: zzconverte zztestar
 # ----------------------------------------------------------------------------
 zzcalculaip ()
 {
@@ -58,13 +58,13 @@ zzcalculaip ()
 
 	# Verificações básicas
 	if ! (
-		zztool testa_ip $mascara || (
+		zztestar ip $mascara || (
 		zztool testa_numero $mascara && test $mascara -le 32))
 	then
 		zztool erro "Máscara inválida: $mascara"
 		return 1
 	fi
-	zztool -e testa_ip $endereco || return 1
+	zztestar -e ip $endereco || return 1
 
 	# Guarda os componentes da máscara em $1, $2, ...
 	# Ou é um ou quatro componentes: 24 ou 255.255.255.0
@@ -103,7 +103,7 @@ zzcalculaip ()
 	# Uma verificação na máscara depois das conversões
 	mascara_binario=$nm1$nm2$nm3$nm4
 	if ! (
-		zztool testa_binario $mascara_binario &&
+		zztestar binario $mascara_binario &&
 		test ${#mascara_binario} -eq 32)
 	then
 		zztool erro 'Máscara inválida'

@@ -19,7 +19,7 @@
 # Desde: 2011-08-23
 # Versão: 6
 # Licença: GPLv2
-# Requisitos: zzseq
+# Requisitos: zzseq zztestar
 # ----------------------------------------------------------------------------
 zztabuada ()
 {
@@ -31,7 +31,7 @@ zztabuada ()
 
 	case "$#" in
 		1 | 2)
-			if zztool testa_numero_sinal "$1"
+			if zztestar numero_sinal "$1"
 			then
 				if zztool testa_numero "$2" && test $2 -le 99
 				then
