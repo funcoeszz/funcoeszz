@@ -31,7 +31,7 @@
 # Desde: 2013-05-26
 # Versão: 5
 # Licença: GPL
-# Requisitos: zzminusculas zzmaiusculas zzcapitalize zzseq
+# Requisitos: zzminusculas zzmaiusculas zzcapitalize zzseq zztestar
 # ----------------------------------------------------------------------------
 zzbraille ()
 {
@@ -160,7 +160,7 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 		linha2=${linha2}' 00'
 		linha3=${linha3}' 00'
 
-		if zztool testa_numero "$1" || zztool testa_numero_fracionario "$1"
+		if zztestar numero "$1" || zztestar numero_fracionario "$1"
 		then
 			linha0=${linha0}' ##' # Para indicar que começa um número, nas apontamento abaixo da célula
 			linha1=${linha1}' 01'
