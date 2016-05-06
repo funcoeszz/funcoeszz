@@ -73,7 +73,7 @@ zztestar ()
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^[+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}[eE][+-]\{0,1\}[0-9]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Exponencial inválido '$2'"
+			test -n "$erro" && zztool erro "Número exponencial inválido '$2'"
 			return 1
 		;;
 
@@ -83,7 +83,7 @@ zztestar ()
 			# Testa se $2 é um número (pode ter sinal: -2 +2)
 			echo "$2" | grep '^[+-]\{0,1\}[0-9]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Inteiro inválido '$2'"
+			test -n "$erro" && zztool erro "Número inteiro inválido '$2'"
 			return 1
 		;;
 
@@ -93,7 +93,7 @@ zztestar ()
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^[+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Real inválido '$2'"
+			test -n "$erro" && zztool erro "Número real inválido '$2'"
 			return 1
 		;;
 
@@ -103,7 +103,7 @@ zztestar ()
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^\(\([+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}\)\{0,1\}[+-]\)\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}i$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Complexo inválido '$2'"
+			test -n "$erro" && zztool erro "Número complexo inválido '$2'"
 			return 1
 		;;
 
@@ -120,7 +120,7 @@ zztestar ()
 			# Testa se $2 é um número binário
 			echo "$2" | grep '^[01]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Binário inválido '$2'"
+			test -n "$erro" && zztool erro "Número binário inválido '$2'"
 			return 1
 		;;
 
@@ -128,7 +128,7 @@ zztestar ()
 			# Testa se $2 é um número octal
 			echo "$2" | grep '^[0-7]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Octal inválido '$2'"
+			test -n "$erro" && zztool erro "Número octal inválido '$2'"
 			return 1
 		;;
 
@@ -136,7 +136,7 @@ zztestar ()
 			# Testa se $2 é um número hexadecimal
 			echo "$2" | grep '^[0-9A-Fa-f]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Hexadecimal inválido '$2'"
+			test -n "$erro" && zztool erro "Número hexadecimal inválido '$2'"
 			return 1
 		;;
 
@@ -176,7 +176,7 @@ zztestar ()
 			# O MAC poderá ser nos formatos 00:00:00:00:00:00 ou 00-00-00-00-00-00
 			echo "$2" | grep '\([0-9A-Fa-f]\{2\}[:-]\)\{5\}[0-9A-Fa-f]\{2\}' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "MAC Address inválido '$2'"
+			test -n "$erro" && zztool erro "MAC address inválido '$2'"
 			return 1
 		;;
 
