@@ -85,7 +85,7 @@ zzporcento ()
 
 			# Se o valor é inteiro (escala=0) e a porcentagem fracionária,
 			# é preciso forçar uma escala para que o resultado apareça correto.
-			test $escala -eq 0 && { escala=2; valor1="$valor1.00"; }
+			test $escala -eq 0 && escala=2 valor1="$valor1.00"
 
 		# Porcentagem inteira ou erro
 		elif ! zztool testa_numero "$porcentagem"
