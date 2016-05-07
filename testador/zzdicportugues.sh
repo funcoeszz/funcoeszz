@@ -1,7 +1,7 @@
 # Erros
 
 $ zzdicportugues; echo $?
-Uso: zzdicportugues palavra [def|conj [ind|sub|conj|imp|inf]]
+Uso: zzdicportugues palavra [def]
 1
 $ zzdicportugues foobar; echo $?
 Palavra não encontrada
@@ -137,106 +137,4 @@ Possui 5 letras
 Possui as vogais: e o
 Possui as consoantes: c m r
 O verbo escrito ao contrário: remoc
-$
-
-$ zzdicportugues comer conj inf
-* Infinitivo Pessoal
-por comer eu
-por comeres tu
-por comer ele
-por comermos nós
-por comerdes vós
-por comerem eles
-$
-
-$ zzdicportugues comer conj imp
-* Imperativo Afirmativo
-come tu
-coma ele
-comamos nós
-comei vós
-comam eles
-
-* Imperativo Negativo
-não comas tu
-não coma ele
-não comamos nós
-não comais vós
-não comam eles
-$
-
-$ zzdicportugues comer conj sub
-* Presente do Subjuntivo
-que eu coma
-que tu comas
-que ele coma
-que nós comamos
-que vós comais
-que eles comam
-
-* Pretérito Imperfeito do Subjuntivo
-se eu comesse
-se tu comesses
-se ele comesse
-se nós comêssemos
-se vós comêsseis
-se eles comessem
-
-* Futuro do Subjuntivo
-quando eu comer
-quando tu comeres
-quando ele comer
-quando nós comermos
-quando vós comerdes
-quando eles comerem
-$
-
-$ zzdicportugues comer conj ind
-* Presente do Indicativo
-eu como
-tu comes
-ele come
-nós comemos
-vós comeis
-eles comem
-
-* Pretérito Imperfeito do Indicativo
-eu comia
-tu comias
-ele comia
-nós comíamos
-vós comíeis
-eles comiam
-
-* Pretérito Perfeito do Indicativo
-eu comi
-tu comeste
-ele comeu
-nós comemos
-vós comestes
-eles comeram
-
-* Mais-que-perfeito do Indicativo
-eu comera
-tu comeras
-ele comera
-nós comêramos
-vós comêreis
-eles comeram
-
-* Futuro do Pretérito do Indicativo
-eu comeria
-tu comerias
-ele comeria
-nós comeríamos
-vós comeríeis
-eles comeriam
-
-* Futuro do Presente do Indicativo
-eu comerei
-tu comerás
-ele comerá
-nós comeremos
-vós comereis
-eles comerão
 $
