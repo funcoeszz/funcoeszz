@@ -40,7 +40,7 @@ zzconjugar ()
 		return 1
 	fi
 
-	test -n "$*" && modos="$*"
+	test -n "$1" && modos="$*"
 
 	# Verificando se a palavra confere na pesquisa
 	until test "$resultado" = "$palavra"
@@ -58,23 +58,23 @@ zzconjugar ()
 
 	conteudo=$(
 		echo "$conteudo" |
-		zzjuntalinhas -i '<h2'                    -f '</h2>'     -d ' ' |
-		zzjuntalinhas -i '<h3'                    -f '</h3>'     -d ' ' |
-		zzjuntalinhas -i '<strong'                -f '</strong>' -d ' ' |
-		zzjuntalinhas -i '<span'                  -f '</span>'   -d ' ' |
-		zzjuntalinhas -i '> Gerúndio <'           -f '</span>'   -d ' ' |
-		zzjuntalinhas -i '> Particípio passado <' -f '</span>'   -d ' ' |
-		zzjuntalinhas -i '> Infinitivo <'         -f ": $palavra"      -d ' ' |
-		zzjuntalinhas -i '<u'                     -f '</u>'      -d ' ' |
-		zzjuntalinhas -i 'Separação silábica:'    -f '</u>'      -d ''
+		zzjuntalinhas -i '<h2'                    -f '</h2>'      -d ' ' |
+		zzjuntalinhas -i '<h3'                    -f '</h3>'      -d ' ' |
+		zzjuntalinhas -i '<strong'                -f '</strong>'  -d ' ' |
+		zzjuntalinhas -i '<span'                  -f '</span>'    -d ' ' |
+		zzjuntalinhas -i '> Gerúndio <'           -f '</span>'    -d ' ' |
+		zzjuntalinhas -i '> Particípio passado <' -f '</span>'    -d ' ' |
+		zzjuntalinhas -i '> Infinitivo <'         -f ": $palavra" -d ' ' |
+		zzjuntalinhas -i '<u'                     -f '</u>'       -d ' ' |
+		zzjuntalinhas -i 'Separação silábica:'    -f '</u>'       -d ''
 	)
 
 	for modo in $modos
 	do
-		if test 'def' = "$modo"
-		then
-			echo
-			zztool eco $(echo "$conteudo" | head -2 | sed 's/<[^>]*>//g; s/^ *//; s/ *$//')
+		echo
+		case "$modo" in
+		def)
+			zztool eco $(echo "$conteudo" | sed -n '2 { s/<[^>]*>//g; s/^ *//; s/ *$//; p; }')
 			echo "$conteudo" |
 			sed '/id="conjugacao"/q' |
 			zzxml --untag |
@@ -82,11 +82,9 @@ zzconjugar ()
 			zzsqueeze |
 			zzcolunar 2 |
 			zztrim -H
-		fi
-
-		if test 'ind' = "$modo"
-		then
-			zztool eco "\nIndicativo"
+		;;
+		ind)
+			zztool eco Indicativo
 			echo "$conteudo" |
 			sed -n '/> Indicativo </,/> Subjuntivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/<strong/ {print ""; print; next}; /<br / {print ""; next}; {printf $0}' |
@@ -95,11 +93,9 @@ zzconjugar ()
 			awk 'NR % 8 == 3 || NR % 8 == 4 {sub(/  /,"   ")}; NR % 8 == 0 {sub(/  /," ")}; 1' |
 			zzcolunar -w 30 3 |
 			zztrim -H
-		fi
-
-		if test 'sub' = "$modo"
-		then
-			zztool eco "\nSubjuntivo"
+		;;
+		sub)
+			zztool eco Subjuntivo
 			echo "$conteudo" |
 			sed -n '/> Subjuntivo </,/> Imperativo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/<strong/ {print ""; print; next}; /<br / {print ""; next}; {printf $0}' |
@@ -108,11 +104,9 @@ zzconjugar ()
 			awk 'NR % 8 == 3 || NR % 8 == 4 {sub(/  /,"   ")}; NR % 8 == 0 {sub(/  /," ")}; 1' |
 			zzcolunar -w 30 3 |
 			zztrim -H
-		fi
-
-		if test 'imp' = "$modo"
-		then
-			zztool eco "\nImperativo"
+		;;
+		imp)
+			zztool eco Imperativo
 			echo "$conteudo" |
 			sed -n '/> Imperativo </,/> Infinitivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/<strong/ {print ""; print; next}; /<br / {print ""; next}; {printf $0}' |
@@ -121,11 +115,9 @@ zzconjugar ()
 			awk 'NR % 8 == 4 {sub(/^/,"  ",$NF)}; NR % 8 > 4 && NR % 8 <= 7 {sub(/^/," ",$NF)}; 1' |
 			zzcolunar -r -w 30 2 |
 			zzlblank
-		fi
-
-		if test 'inf' = "$modo"
-		then
-			zztool eco "\nInfinitivo"
+		;;
+		inf)
+			zztool eco Infinitivo
 			echo "$conteudo" |
 			sed -n '/"> Infinitivo </,/<h2 / {/^<h[23]/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/<strong/ {print; next}; /<br / {print ""; next}; {printf $0}' |
@@ -134,6 +126,7 @@ zzconjugar ()
 			awk 'NR % 8 == 2 || NR % 8 == 3 {sub(/^/,"  ",$NF)}; NR % 8 > 3 && NR % 8 < 7 {sub(/^/," ",$NF)}; 1' |
 			zzalinhar -r -w 30 |
 			zzlblank
-		fi
+		;;
+		esac
 	done
 }
