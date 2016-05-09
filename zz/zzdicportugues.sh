@@ -1,7 +1,6 @@
 # ----------------------------------------------------------------------------
 # http://www.dicio.com.br
 # Dicionário de português.
-# Definição de palavras e conjugação verbal
 # Fornecendo uma "palavra" como argumento retorna seu significado e sinônimo.
 # Se for seguida do termo "def", retorna suas definições.
 #
