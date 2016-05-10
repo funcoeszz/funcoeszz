@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Testa a validade do número no tipo de categoria selecionada.
+# Testa a validade de um número na categoria selecionada ou um link ativo.
 # Nada é ecoado na saída padrão, apenas deve-se analisar o código de retorno.
 # Pode-se ecoar a saída de erro usando a opção -e antes da categoria.
 #
@@ -32,7 +32,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-03-14
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztestar ()
@@ -45,7 +45,7 @@ zztestar ()
 	test "$1" = '-e' && erro=1 && shift
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso testar; return 1; }
+	test -n "$2" || { zztool -e uso testar; return 1; }
 
 	case "$1" in
 		ano) zztool ${erro:+-e} testa_ano "$2" ;;
@@ -64,7 +64,7 @@ zztestar ()
 			test $((y%4)) -eq 0 && test $((y%100)) -ne 0 || test $((y%400)) -eq 0
 			test $? -eq 0 && return 0
 
-			test -n "$erro" && zztool erro "Ano bissexto inválido '$1'"
+			test -n "$erro" && zztool erro "Ano bissexto inválido '$2'"
 			return 1
 		;;
 
@@ -198,6 +198,16 @@ zztestar ()
 			test -n "$erro" && zztool erro "Hora inválida '$2'"
 			return 1
 		;;
+
+		url_ok)
+ 			# Testa se um site está ativo
+ 			local url="$2"
+ 			echo "$url" | grep -E '^(https?|ftp|mms)://' >/dev/null || url="http://${url}"
+ 			zztool source "http://isup.me/${url}" | grep ' is up\.$' >/dev/null && return 0
+ 
+ 			test -n "$erro" && zztool erro "Url inacessível no momento '$2'"
+ 			return 1
+ 		;;
 
 		*)
 			# Qualquer outra opção retorna erro
