@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Testa a validade do número no tipo de categoria selecionada.
+# Testa a validade de um número na categoria selecionada ou um link ativo.
 # Nada é ecoado na saída padrão, apenas deve-se analisar o código de retorno.
 # Pode-se ecoar a saída de erro usando a opção -e antes da categoria.
 #
@@ -32,7 +32,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-03-14
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztestar ()
@@ -45,7 +45,7 @@ zztestar ()
 	test "$1" = '-e' && erro=1 && shift
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso testar; return 1; }
+	test -n "$2" || { zztool -e uso testar; return 1; }
 
 	case "$1" in
 		ano) zztool ${erro:+-e} testa_ano "$2" ;;
@@ -64,7 +64,7 @@ zztestar ()
 			test $((y%4)) -eq 0 && test $((y%100)) -ne 0 || test $((y%400)) -eq 0
 			test $? -eq 0 && return 0
 
-			test -n "$erro" && zztool erro "Ano bissexto inválido '$1'"
+			test -n "$erro" && zztool erro "Ano bissexto inválido '$2'"
 			return 1
 		;;
 
@@ -73,7 +73,7 @@ zztestar ()
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^[+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}[eE][+-]\{0,1\}[0-9]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Exponencial inválido '$2'"
+			test -n "$erro" && zztool erro "Número exponencial inválido '$2'"
 			return 1
 		;;
 
@@ -83,17 +83,26 @@ zztestar ()
 			# Testa se $2 é um número (pode ter sinal: -2 +2)
 			echo "$2" | grep '^[+-]\{0,1\}[0-9]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Inteiro inválido '$2'"
+			test -n "$erro" && zztool erro "Número inteiro inválido '$2'"
 			return 1
 		;;
 
-		numero_fracionario | real)
+		numero_fracionario)
 			# Testa se $2 é um número fracionário (1.234 ou 1,234)
-			# regex: \d+([,.]\d+)?
+			# regex: \d+[,.]\d+
+			echo "$2" | grep '^[0-9]\{1,\}[,.][0-9]\{1,\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número fracionário inválido '$2'" >&2
+			return 1
+		;;
+
+		real)
+			# Testa se $2 é um número real (1.234; 1,234; -56.789; 123)
+			# regex: [+-]?\d+([,.]\d+)?
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^[+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Real inválido '$2'"
+			test -n "$erro" && zztool erro "Número real inválido '$2'"
 			return 1
 		;;
 
@@ -103,7 +112,7 @@ zztestar ()
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^\(\([+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}\)\{0,1\}[+-]\)\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}i$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Complexo inválido '$2'"
+			test -n "$erro" && zztool erro "Número complexo inválido '$2'"
 			return 1
 		;;
 
@@ -120,7 +129,7 @@ zztestar ()
 			# Testa se $2 é um número binário
 			echo "$2" | grep '^[01]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Binário inválido '$2'"
+			test -n "$erro" && zztool erro "Número binário inválido '$2'"
 			return 1
 		;;
 
@@ -128,7 +137,7 @@ zztestar ()
 			# Testa se $2 é um número octal
 			echo "$2" | grep '^[0-7]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Octal inválido '$2'"
+			test -n "$erro" && zztool erro "Número octal inválido '$2'"
 			return 1
 		;;
 
@@ -136,7 +145,7 @@ zztestar ()
 			# Testa se $2 é um número hexadecimal
 			echo "$2" | grep '^[0-9A-Fa-f]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Hexadecimal inválido '$2'"
+			test -n "$erro" && zztool erro "Número hexadecimal inválido '$2'"
 			return 1
 		;;
 
@@ -176,7 +185,7 @@ zztestar ()
 			# O MAC poderá ser nos formatos 00:00:00:00:00:00 ou 00-00-00-00-00-00
 			echo "$2" | grep '\([0-9A-Fa-f]\{2\}[:-]\)\{5\}[0-9A-Fa-f]\{2\}' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "MAC Address inválido '$2'"
+			test -n "$erro" && zztool erro "MAC address inválido '$2'"
 			return 1
 		;;
 
@@ -189,6 +198,16 @@ zztestar ()
 			test -n "$erro" && zztool erro "Hora inválida '$2'"
 			return 1
 		;;
+
+		url_ok)
+ 			# Testa se um site está ativo
+ 			local url="$2"
+ 			echo "$url" | grep -E '^(https?|ftp|mms)://' >/dev/null || url="http://${url}"
+ 			zztool source "http://isup.me/${url}" | grep ' is up\.$' >/dev/null && return 0
+ 
+ 			test -n "$erro" && zztool erro "Url inacessível no momento '$2'"
+ 			return 1
+ 		;;
 
 		*)
 			# Qualquer outra opção retorna erro

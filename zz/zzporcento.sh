@@ -19,6 +19,7 @@
 # Desde: 2008-12-11
 # Versão: 6
 # Licença: GPL
+# Requisitos: zztestar
 # ----------------------------------------------------------------------------
 zzporcento ()
 {
@@ -35,13 +36,13 @@ zzporcento ()
 	test -n "$1" || { zztool -e uso porcento; return 1; }
 
 	# Remove os pontos dos dinheiros para virarem fracionários (1.234,00 > 1234,00)
-	zztool testa_dinheiro "$valor1" && valor1=$(echo "$valor1" | sed 's/\.//g')
-	zztool testa_dinheiro "$valor2" && valor2=$(echo "$valor2" | sed 's/\.//g')
+	zztestar dinheiro "$valor1" && valor1=$(echo "$valor1" | sed 's/\.//g')
+	zztestar dinheiro "$valor2" && valor2=$(echo "$valor2" | sed 's/\.//g')
 
 	### Vamos analisar o primeiro valor
 
 	# Número fracionário (1.2345 ou 1,2345)
-	if zztool testa_numero_fracionario "$valor1"
+	if zztestar numero_fracionario "$valor1"
 	then
 		separador=$(echo "$valor1" | tr -d 0-9)
 		escala=$(echo "$valor1" | sed 's/.*[.,]//')
@@ -74,8 +75,14 @@ zzporcento ()
 		fi
 
 		# Porcentagem fracionada
-		if zztool testa_numero_fracionario "$porcentagem"
+		if zztestar numero_fracionario "$porcentagem"
 		then
+			if echo "$porcentagem" | grep -E '^(0\.|\.)' >/dev/null
+			then
+				zztool erro "O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5."
+				return 1
+			fi
+
 			# Se o valor é inteiro (escala=0) e a porcentagem fracionária,
 			# é preciso forçar uma escala para que o resultado apareça correto.
 			test $escala -eq 0 && escala=2 valor1="$valor1.00"
@@ -97,7 +104,7 @@ zzporcento ()
 		# Sempre usar o ponto como separador interno (para os cálculos)
 
 		# Número fracionário
-		if zztool testa_numero_fracionario "$valor2"
+		if zztestar numero_fracionario "$valor2"
 		then
 			separador=$(echo "$valor2" | tr -d 0-9)
 			valor2=$(echo "$valor2" | sed 'y/,/./')
@@ -152,5 +159,5 @@ zzporcento ()
 	fi |
 
 	# Assegura 0.123 (em vez de .123) e restaura o separador original
-	sed "s/^\./0./; y/./$separador/"
+	sed "/\./ { s/^\./0./; y/./$separador/; }"
 }

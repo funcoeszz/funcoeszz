@@ -8,6 +8,7 @@
 # Desde: 2015-10-30
 # Versão: 1
 # Licença: GPL
+# Requisitos: zztestar
 # ----------------------------------------------------------------------------
 zzimc ()
 {
@@ -21,14 +22,14 @@ zzimc ()
 	local PESO=`echo "$1" | tr "," "."`
 	local ALTURA=`echo "$2" | tr "," "."`
 
-	if ! ( zztool testa_numero "$PESO" || zztool testa_numero_fracionario "$PESO" )
+	if ! ( zztestar real "$PESO" )
 	then
 
 		zztool erro "Valor inserido para o peso está inválido, favor verificar!"
 		return 1
 	fi
 
-	if ! ( zztool testa_numero "$ALTURA" || zztool testa_numero_fracionario "$ALTURA" )
+	if ! ( zztestar real "$ALTURA" )
 	then
 
 		zztool erro "Valor inserido para a altura está inválido, favor verificar!"

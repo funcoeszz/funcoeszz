@@ -10,7 +10,7 @@
 # Desde: 2008-12-05
 # Versão: 4
 # Licença: GPLv2
-# Requisitos: zzhora
+# Requisitos: zzhora zztestar
 # ----------------------------------------------------------------------------
 zzhoramin ()
 {
@@ -22,7 +22,7 @@ zzhoramin ()
 	operacao='+'
 
 	# Testa se o parâmetro passado é uma hora valida
-	if ! zztool testa_hora "${1#-}"; then
+	if ! zztestar hora "${1#-}"; then
 		hora=$(zzhora agora | cut -d ' ' -f 1)
 	else
 		hora="$1"

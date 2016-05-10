@@ -26,6 +26,7 @@
 # Desde: 2003-02-07
 # Versão: 5
 # Licença: GPL
+# Requisitos: zztestar
 # Tags: data, cálculo
 # ----------------------------------------------------------------------------
 zzdata ()
@@ -107,7 +108,7 @@ zzdata ()
 				zztool -e testa_data "$valor" || return 1
 
 				# 29/02 em um ano não-bissexto?
-				if test "$ddmm" = '29/02' && ! zztool testa_ano_bissexto "$yyyy"
+				if test "$ddmm" = '29/02' && ! zztestar ano_bissexto "$yyyy"
 				then
 					zztool erro "Data inválida '$valor', pois $yyyy não é um ano bissexto."
 					return 1
@@ -133,7 +134,7 @@ zzdata ()
 				tipo='dias'
 
 				# Validação
-				if ! zztool testa_numero_sinal "$valor"
+				if ! zztestar numero_sinal "$valor"
 				then
 					zztool erro "Número inválido '$valor'"
 					return 1
@@ -283,7 +284,7 @@ zzdata ()
 				do
 					# Sim, os anos bissextos são levados em conta!
 					dias_ano=365
-					zztool testa_ano_bissexto $y && dias_ano=366
+					zztestar ano_bissexto $y && dias_ano=366
 
 					# Vai somando (ou subtraindo) até chegar no ano corrente
 					test $y -eq $yyyy && break
@@ -362,7 +363,7 @@ zzdata ()
 				do
 					# Novamente, o ano bissexto é levado em conta
 					dias_ano=365
-					zztool testa_ano_bissexto $y && dias_ano=366
+					zztestar ano_bissexto $y && dias_ano=366
 
 					# Vai descontando os dias de cada ano para saber quantos anos cabem
 
@@ -506,7 +507,7 @@ zzdata ()
 				fi
 
 				# Se o resultado for 29/02 em um ano não-bissexto, muda pra 28/02
-				test $dd -eq 29 -a $mm -eq 2 &&	! zztool testa_ano_bissexto $yyyy && dd=28
+				test $dd -eq 29 -a $mm -eq 2 &&	! zztestar ano_bissexto $yyyy && dd=28
 
 				# Restaura o zero dos meses e dias menores que 10
 				test $dd -le 9 && dd="0$dd"

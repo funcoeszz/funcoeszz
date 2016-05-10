@@ -12,7 +12,7 @@
 # Desde: 2004-12-23
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzaleatorio
+# Requisitos: zzaleatorio zztestar
 # ----------------------------------------------------------------------------
 zzlinha ()
 {
@@ -29,7 +29,7 @@ zzlinha ()
 	fi
 
 	# Talvez o $1 é o número da linha desejada?
-	if zztool testa_numero_sinal "$1"
+	if zztestar numero_sinal "$1"
 	then
 		n="$1"
 		shift
