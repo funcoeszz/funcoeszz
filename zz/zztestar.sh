@@ -92,7 +92,7 @@ zztestar ()
 			# regex: \d+[,.]\d+
 			echo "$2" | grep '^[0-9]\{1,\}[,.][0-9]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número fracionário inválido '$2'" >&2
+			test -n "$erro" && zztool erro "Número fracionário inválido '$2'"
 			return 1
 		;;
 
