@@ -87,9 +87,18 @@ zztestar ()
 			return 1
 		;;
 
-		numero_fracionario | real)
+		numero_fracionario)
 			# Testa se $2 é um número fracionário (1.234 ou 1,234)
-			# regex: \d+([,.]\d+)?
+			# regex: \d+[,.]\d+
+			echo "$2" | grep '^[0-9]\{1,\}[,.][0-9]\{1,\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número fracionário inválido '$2'" >&2
+			return 1
+		;;
+
+		real)
+			# Testa se $2 é um número real (1.234; 1,234; -56.789; 123)
+			# regex: [+-]?\d+([,.]\d+)?
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^[+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}$' >/dev/null && return 0
 

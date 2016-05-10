@@ -115,13 +115,13 @@ $ zztestar numero_fracionario 00000,0	; echo $?  #→ 0
 $ zztestar numero_fracionario 0.0		; echo $?  #→ 0
 $ zztestar numero_fracionario 000.000	; echo $?  #→ 0
 $ zztestar numero_fracionario XXX		; echo $?  #→ 1
-$ zztestar numero_fracionario -9.9		; echo $?  #→ 0
-$ zztestar numero_fracionario +9.9		; echo $?  #→ 0
-$ zztestar numero_fracionario 9		; echo $?  #→ 0
-$ zztestar numero_fracionario +9		; echo $?  #→ 0
-$ zztestar numero_fracionario -9		; echo $?  #→ 0
-$ zztestar numero_fracionario ,9		; echo $?  #→ 0
-$ zztestar numero_fracionario .9		; echo $?  #→ 0
+$ zztestar numero_fracionario -9.9		; echo $?  #→ 1
+$ zztestar numero_fracionario +9.9		; echo $?  #→ 1
+$ zztestar numero_fracionario 9		; echo $?  #→ 1
+$ zztestar numero_fracionario +9		; echo $?  #→ 1
+$ zztestar numero_fracionario -9		; echo $?  #→ 1
+$ zztestar numero_fracionario ,9		; echo $?  #→ 1
+$ zztestar numero_fracionario .9		; echo $?  #→ 1
 
 # dinheiro
 $ zztestar dinheiro 0,00			; echo $?  #→ 0

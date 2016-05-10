@@ -42,7 +42,7 @@ zzporcento ()
 	### Vamos analisar o primeiro valor
 
 	# Número fracionário (1.2345 ou 1,2345)
-	if zztestar numero_fracionario "$valor1" && ! zztestar inteiro "$valor1"
+	if zztestar numero_fracionario "$valor1"
 	then
 		separador=$(echo "$valor1" | tr -d 0-9)
 		escala=$(echo "$valor1" | sed 's/.*[.,]//')
@@ -75,7 +75,7 @@ zzporcento ()
 		fi
 
 		# Porcentagem fracionada
-		if zztestar numero_fracionario "$porcentagem" && ! zztestar inteiro "$porcentagem"
+		if zztestar numero_fracionario "$porcentagem"
 		then
 			if echo "$porcentagem" | grep -E '^(0\.|\.)' >/dev/null
 			then
@@ -104,7 +104,7 @@ zzporcento ()
 		# Sempre usar o ponto como separador interno (para os cálculos)
 
 		# Número fracionário
-		if zztestar numero_fracionario "$valor2" && ! zztestar inteiro "$valor2"
+		if zztestar numero_fracionario "$valor2"
 		then
 			separador=$(echo "$valor2" | tr -d 0-9)
 			valor2=$(echo "$valor2" | sed 'y/,/./')

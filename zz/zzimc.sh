@@ -22,14 +22,14 @@ zzimc ()
 	local PESO=`echo "$1" | tr "," "."`
 	local ALTURA=`echo "$2" | tr "," "."`
 
-	if ! ( zztestar numero "$PESO" || zztestar numero_fracionario "$PESO" )
+	if ! ( zztestar real "$PESO" )
 	then
 
 		zztool erro "Valor inserido para o peso está inválido, favor verificar!"
 		return 1
 	fi
 
-	if ! ( zztestar numero "$ALTURA" || zztestar numero_fracionario "$ALTURA" )
+	if ! ( zztestar real "$ALTURA" )
 	then
 
 		zztool erro "Valor inserido para a altura está inválido, favor verificar!"
