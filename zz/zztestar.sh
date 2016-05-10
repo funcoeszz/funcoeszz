@@ -200,14 +200,14 @@ zztestar ()
 		;;
 
 		url_ok)
- 			# Testa se um site está ativo
- 			local url="$2"
- 			echo "$url" | grep -E '^(https?|ftp|mms)://' >/dev/null || url="http://${url}"
- 			zztool source "http://isup.me/${url}" | grep ' is up\.$' >/dev/null && return 0
- 
- 			test -n "$erro" && zztool erro "Url inacessível no momento '$2'"
- 			return 1
- 		;;
+			# Testa se um site está ativo
+			local url="$2"
+			echo "$url" | grep -E '^(https?|ftp|mms)://' >/dev/null || url="http://${url}"
+			zztool source "http://isup.me/${url}" | grep ' is up\.$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Url inacessível no momento '$2'"
+			return 1
+		;;
 
 		*)
 			# Qualquer outra opção retorna erro
