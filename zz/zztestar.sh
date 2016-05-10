@@ -45,7 +45,7 @@ zztestar ()
 	test "$1" = '-e' && erro=1 && shift
 
 	# Verificação dos parâmetros
-	test -n "$2" || { zztool -e uso testar; return 1; }
+	test -n "$1" || { zztool -e uso testar; return 1; }
 
 	case "$1" in
 		ano) zztool ${erro:+-e} testa_ano "$2" ;;
