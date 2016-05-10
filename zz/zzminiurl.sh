@@ -37,5 +37,5 @@ zzminiurl ()
 		)
 	fi
 
-	test -n "$shorturl" && echo "$shorturl
+	test -n "$shorturl" && echo "$shorturl"
 }
