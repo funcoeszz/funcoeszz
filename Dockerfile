@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:jessie
 MAINTAINER Aurelio Jargas <verde@aurelio.net>
 
 RUN apt-get update && apt-get install -y bc curl lynx
