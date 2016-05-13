@@ -14,17 +14,17 @@ $ zztestar exp 9,1; echo $?	#→ 1
 $ zztestar exp 8e7.83; echo $?	#→ 1
 
 # natural
-$ zztestar natural 77; echo $?	#→ 0
-$ zztestar natural -2; echo $?	#→ 1
+$ zztestar numero_natural 77; echo $?	#→ 0
+$ zztestar numero_natural -2; echo $?	#→ 1
 
 # inteiro
 $ zztestar inteiro -2; echo $?	#→ 0
 $ zztestar inteiro 6.3; echo $?	#→ 1
 
 # real
-$ zztestar real 3.8501; echo $?	#→ 0
-$ zztestar real -1,941; echo $?	#→ 0
-$ zztestar real 789026; echo $?	#→ 0
+$ zztestar numero_real 3.8501; echo $?	#→ 0
+$ zztestar numero_real -1,941; echo $?	#→ 0
+$ zztestar numero_real 789026; echo $?	#→ 0
 
 # dinheiro
 $ zztestar dinheiro 6,55; echo $?	#→ 0
