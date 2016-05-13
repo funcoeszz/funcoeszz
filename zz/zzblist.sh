@@ -7,6 +7,7 @@
 # Desde: 2008-10-16
 # Versão: 5
 # Licença: GPL
+# Requisitos: zztestar
 # ----------------------------------------------------------------------------
 zzblist ()
 {
@@ -18,7 +19,7 @@ zzblist ()
 
 	test -n "$1" || { zztool -e uso blist; return 1; }
 
-	zztool -e testa_ip "$ip" || return 1
+	zztestar -e ip "$ip" || return 1
 
 	lista=$(
 		zztool dump "${URL}${ip}" |
