@@ -52,6 +52,7 @@ zzhsort ()
 				direcao="-r"
 				shift
 			;;
+			--) shift; break;;
 			-*) zztool -e uso hsort; return 1;;
 			*) break;;
 		esac
