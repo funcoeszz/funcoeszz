@@ -1,9 +1,9 @@
 # ----------------------------------------------------------------------------
 # Ordenar palavras ou números horizontalmente.
 # Opções:
-#   -r                   define o sentido da ordenação reversa.
-#   -d, --fs separador   define o separador de campos na entrada.
-#   --ofs separador      define o separador de campos na saída.
+#   -r                              define o sentido da ordenação reversa.
+#   -d <sep>                        define o separador de campos na entrada.
+#   -D, --output-demilimiter <sep>  define o separador de campos na saída.
 #
 # O separador na entrada pode ser 1 ou mais caracteres ou uma ER.
 # Se não for declarado assume-se espaços em branco como separador.
@@ -35,15 +35,15 @@ zzhsort ()
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
-			-d | --fs)
+			-d)
 			# Separador de campos na entrada
 				sep="-d $2"
 				shift
 				shift
 			;;
-			--ofs)
+			-D | --output-demilimiter)
 			# Separador de campos na saída
-				ofs="--ofs $2"
+				ofs="-D $2"
 				shift
 				shift
 			;;

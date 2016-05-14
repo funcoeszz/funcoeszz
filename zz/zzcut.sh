@@ -12,7 +12,7 @@
 #
 #  -s          não emite linhas que não contenham delimitadores.
 #
-#  --od TEXTO  usa TEXTO como delimitador da saída
+#  -D TEXTO    usa TEXTO como delimitador da saída
 #              o padrão é usar o delimitador de entrada.
 #
 #  -v          Inverter o sentido, apagando as partes selecionadas.
@@ -65,6 +65,7 @@ zzcut ()
 	test -n "$1" || { zztool -e uso cut; return 1; }
 
 	local tipo range ofd codscript qtd_campos only_delim inverte sp rlm
+	local aspas=$(echo "&zwnj;" | zzunescape --html)
 	local delim=$(printf '\t')
 
 	# Opções de linha de comando
@@ -104,10 +105,11 @@ zzcut ()
 					delim="$2"
 					shift
 				fi
+				delim=$(echo "$delim" | sed 's/"/'${aspas}'/g')
 				shift
 			;;
-			--od*)
-				ofd="${1#--od}"
+			-D*)
+				ofd="${1#-D}"
 				if test -z "$ofd"
 				then
 					ofd="$2"
@@ -228,6 +230,7 @@ zzcut ()
 				;;
 				f)
 					ofd="${ofd:-$delim}"
+					ofd=$(echo "$ofd" | sed 's/"/'${aspas}'/g')
 
 					if test "$only_delim" = "1"
 					then
@@ -321,6 +324,7 @@ zzcut ()
 	fi
 
 	zztool file_stdin "$@" |
+	sed 's/"/'${aspas}'/g' |
 	case "$tipo" in
 		c)
 			sed -n "$codscript" |
@@ -349,7 +353,8 @@ zzcut ()
 						if (tsp != 1) return saida
 				}
 				$only_delim $codscript" 2>/dev/null |
-				sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//"
+				sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//" |
+				sed 's/'${aspas}'/"/g'
 		;;
 	esac
 }
