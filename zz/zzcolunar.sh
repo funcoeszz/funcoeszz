@@ -70,6 +70,7 @@ zzcolunar ()
 			shift
 			shift
 		;;
+		--) shift; break;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac

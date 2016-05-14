@@ -46,6 +46,7 @@ zzwc ()
 			-C) mb=0  ;;
 			-L) mc=0  ;;
 			-W) mw=0  ;;
+			--) shift; break ;;
 			-*) zztool -e uso wc; return 1 ;;
 			* ) break ;;
 		esac

@@ -41,6 +41,7 @@ zzalinhar ()
 			zztool testa_numero "$2" && largura="$2" || { zztool erro "Largura inválida: $2"; return 1; }
 			shift
 		;;
+		--) shift; break;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac

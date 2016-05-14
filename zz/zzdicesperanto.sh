@@ -61,6 +61,8 @@ zzdicesperanto ()
 				esac
 			;;
 
+			--) shift; break;;
+
 			*)
 				zztool erro "Parametro desconecido"
 				return 3

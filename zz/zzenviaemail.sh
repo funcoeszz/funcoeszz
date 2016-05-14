@@ -71,6 +71,7 @@ zzenviaemail ()
 			-v | --verbose)
 				set -x
 				;;
+			--) shift; break;;
 			*) { zztool -e uso enviaemail; set +x; return 1; } ;;
 		esac
 		shift
