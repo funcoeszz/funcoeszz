@@ -14,9 +14,9 @@
 #
 # Se o separador da entrada é uma ER, é bom declarar o separador de saída.
 #
-# Uso: zztranspor [-d <separador>] [-D <separador>] <arquivo>
-# Ex.: zztranspor -d ":" --ofs "-" num.txt
-#      sed -n '2,5p' num.txt | zztranspor --fs '[\t:]' --ofs '\t'
+# Uso: zztranspor [-d <sep>] [-D | --output-demilimiter <sep>] <arquivo>
+# Ex.: zztranspor -d ":" --output-demilimiter "-" num.txt
+#      sed -n '2,5p' num.txt | zztranspor -d '[\t:]' -D '\t'
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-09-03

@@ -15,10 +15,10 @@
 #
 # Se o separador da entrada é uma ER, é bom declarar o separador de saída.
 #
-# Uso: zzhsort [-d | --fs <separador>] [--ofs <separador>] <Texto>
+# Uso: zzhsort [-d <sep>] [-D | --output-demilimiter <sep>] <Texto>
 # Ex.: zzhsort "isso está desordenado"            # desordenado está isso
-#      zzhsort -r -d ":" --ofs "-" "1:a:z:x:5:o"  # z-x-o-a-5-1
-#      cat num.txt | zzhsort --fs '[\t:]' --ofs '\t'
+#      zzhsort -r -d ":" -D "-" "1:a:z:x:5:o"  # z-x-o-a-5-1
+#      cat num.txt | zzhsort -d '[\t:]' --output-demilimiter '\t'
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-10-07
