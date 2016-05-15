@@ -65,8 +65,18 @@ zzcut ()
 	test -n "$1" || { zztool -e uso cut; return 1; }
 
 	local tipo range ofd codscript qtd_campos only_delim inverte sp rlm
-	local aspas=$(echo "&zwnj;" | zzunescape --html)
 	local delim=$(printf '\t')
+
+	# Recurso para oferecer a oportunidade de aspas serem usadas no delimitador
+	# Usando um caractere não imprimível no lugar da aspas
+	local aspas=$(echo "&zwnj;" | zzunescape --html)
+
+	# Definindo qual delimitador apresenta a aspas pelos dois bits na variável
+	# O primeiro bit define o delimitador na entrada
+	# O segundo bit define o delimitador na saída
+	# 0 = não há aspas no delimitador
+	# 1 = há aspas no delimitador
+	local bit_aspas='00'
 
 	# Opções de linha de comando
 	while test "${1#-}" != "$1"
@@ -105,7 +115,13 @@ zzcut ()
 					delim="$2"
 					shift
 				fi
-				delim=$(echo "$delim" | sed 's/"/'${aspas}'/g')
+
+				# Apenas usa o recurso se houver aspas no delimitador de entrada
+				if zztool grep_var '"' "$delim"
+				then
+					delim=$(echo "$delim" | sed 's/"/'${aspas}'/g')
+					bit_aspas=$(echo "$bit_aspas" | sed 's/^./1/')
+				fi
 				shift
 			;;
 			-D*)
@@ -119,6 +135,7 @@ zzcut ()
 			;;
 			# Apenas linha que possuam delimitadores
 			-s) only_delim='1'; shift ;;
+			# Invertendo a seleção
 			-v) inverte='1';    shift ;;
 			* ) break ;;
 		esac
@@ -230,7 +247,12 @@ zzcut ()
 				;;
 				f)
 					ofd="${ofd:-$delim}"
-					ofd=$(echo "$ofd" | sed 's/"/'${aspas}'/g')
+					# Apenas usa o recurso se houver aspas no delimitador de saída
+					if zztool grep_var '"' "$ofd"
+					then
+						ofd=$(echo "$ofd" | sed 's/"/'${aspas}'/g')
+						bit_aspas=$(echo "$bit_aspas" | sed 's/.$/1/')
+					fi
 
 					if test "$only_delim" = "1"
 					then
@@ -324,7 +346,12 @@ zzcut ()
 	fi
 
 	zztool file_stdin "$@" |
-	sed 's/"/'${aspas}'/g' |
+	if test $((bit_aspas / 10)) -eq 1
+	then
+		sed 's/"/'${aspas}'/g'
+	else
+		cat -
+	fi |
 	case "$tipo" in
 		c)
 			sed -n "$codscript" |
@@ -353,8 +380,13 @@ zzcut ()
 						if (tsp != 1) return saida
 				}
 				$only_delim $codscript" 2>/dev/null |
-				sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//" |
-				sed 's/'${aspas}'/"/g'
+				sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//"
 		;;
-	esac
+	esac |
+	if test "$bit_aspas" != '00'
+	then
+		sed 's/'${aspas}'/"/g'
+	else
+		cat -
+	fi
 }

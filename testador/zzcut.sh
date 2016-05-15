@@ -110,6 +110,14 @@ $ zzcut	-c	d,60-,d,15-25,d,-7,d -D _	_tmp2
 _¬¹²³£¢_opqrstuvwxy_abcdefg_
 $ echo "abcde12345" | zzcut -c 1-5,5-1,10-6,6-10
 abcdeedcba5432112345
+$ echo 'nome:"jose",sobrenome:"silva",nacionalidade:"brasileira"' | zzcut -f 2,4 -d \" -D " da "
+jose da silva
+$ echo 'nome:"jose",sobrenome:"silva",nacionalidade:"brasileira"' | zzcut -f 4,4 -d \" -D ' e '
+silva e silva
+$ echo 'nome:"jose",sobrenome:"silva",nacionalidade:"brasileira"' | zzcut -f 6 -d '"'
+brasileira
+$ echo 'nome:"jose",sobrenome:"silva",nacionalidade:"brasileira"' | zzcut -c d,13-21,d,22-29 -D\"
+"sobrenome":"silva"
 $
 
 # Faxina
