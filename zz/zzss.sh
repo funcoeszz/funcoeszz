@@ -61,7 +61,6 @@ zzss ()
 				tema=$2
 				shift
 			;;
-			--) shift; break;;
 			*)
 				mensagem="$*"
 				unset tema
