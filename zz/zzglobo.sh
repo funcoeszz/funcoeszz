@@ -5,7 +5,7 @@
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2007-11-30
-# Versão: 6
+# Versão: 7
 # Licença: GPL
 # Requisitos: zztrim
 # ----------------------------------------------------------------------------
@@ -16,7 +16,7 @@ zzglobo ()
 	local url="http://vejonatv.com.br/programacao/globo-rede.html"
 
 	zztool dump -i utf-8 "$url" |
-		sed -n "/Hoje \[[0-9]*\-[0-9]*\-[0-9]*\]/,/Amanhã .*/p" |
+		sed -n '/Hoje \[[0-9]*[\/-][0-9]*[\/-][0-9]*\]/,/Amanhã .*/p' |
 		sed '$d ; 3,$ { /^ *$/ d; }; /Carregando\.\.\./d' |
 		uniq |
 		zztrim

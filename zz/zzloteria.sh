@@ -348,9 +348,9 @@ zzloteria ()
 							for (i=3;i<8;i++) {print $i | comando }
 							close(comando)
 							print ""
-							printf "   Quina \t%s\t%s\n", ($9==0?"Nao houve acertador":$9), ($9==0?"":"R$ " $(NF-8))
-							printf "   Quadra\t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
-							printf "   Terno \t%s\t%s\n", $(NF-5), "R$ " $(NF-5)
+							printf "   Quina \t%s\t%s\n", ($9==0?"Nao houve acertador":$9), ($9==0?"":"R$ " $(NF-10))
+							printf "   Quadra\t%s\t%s\n", $(NF-9), "R$ " $(NF-8)
+							printf "   Terno \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
 						}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g' | expand -t 15,25,35
 					fi
 				;;

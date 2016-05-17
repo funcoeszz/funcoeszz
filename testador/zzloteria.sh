@@ -141,7 +141,7 @@ Concurso 3000 (20/09/2012)
 
    Quina       Nao houve acertador 
    Quadra      54        R$ 6.681,90
-   Terno       4528      R$ 4528
+   Terno       4528      R$ 113,83
 
 $
 

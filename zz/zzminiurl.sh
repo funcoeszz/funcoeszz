@@ -1,6 +1,5 @@
 # ----------------------------------------------------------------------------
-# http://migre.me
-# Encurta uma URL utilizando o site migre.me.
+# Encurta uma URL utilizando o site http://migre.me ou http://is.gd
 # Obs.: Se a URL não tiver protocolo no início, será colocado http://
 # Uso: zzminiurl URL
 # Ex.: zzminiurl http://www.funcoeszz.net
@@ -8,7 +7,7 @@
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2010-04-26
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzminiurl ()
@@ -19,10 +18,20 @@ zzminiurl ()
 
 	local url="$1"
 	local prefixo='http://'
+	local shorturl
 
 	# Se o usuário não informou o protocolo, adiciona o padrão
 	echo "$url" | egrep '^(https?|ftp|mms)://' >/dev/null || url="$prefixo$url"
 
-	zztool source "http://migre.me/api.txt?url=$url" 2>/dev/null
-	echo
+	shorturl=$(zztool source "http://migre.me/api.txt?url=$url" 2>/dev/null)
+
+	if test -n "$shorturl"
+	then
+		echo "$shorturl"
+	else
+		curl -L -s --data "url=$url" http://is.gd/create.php |
+		grep 'short_url' |
+		grep -o 'value="[^"]*"' |
+		cut -f 2 -d \"
+	fi
 }
