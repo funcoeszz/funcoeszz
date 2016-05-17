@@ -72,7 +72,6 @@ zzconverte ()
 				zztool testa_numero $precisao || precisao='2'
 				shift
 			;;
-			--) shift; break;;
 		esac
 	done
 
