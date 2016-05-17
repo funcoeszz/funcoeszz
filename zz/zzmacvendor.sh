@@ -23,7 +23,7 @@ zzmacvendor ()
 	# Validação
 	zztestar mac "$mac" || return 1
 
-	mac=$(echo "$mac"  | tr -d ':-')
+	mac=$(echo "$mac"  | tr -d ':-' | sed 's/^\(....\)\(....\)/\1\.\2\./')
 
 	local url="http://www.macvendorlookup.com/api/v2/$mac/pipe"
 	zztool dump "$url" |
