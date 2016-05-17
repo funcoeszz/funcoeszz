@@ -7,7 +7,7 @@
 #
 # Autor: Rafael S. Guimaraes, www.rafaelguimaraes.net
 # Desde: 2016-02-03
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zztestar
 # ----------------------------------------------------------------------------
@@ -22,6 +22,8 @@ zzmacvendor ()
 
 	# Validação
 	zztestar mac "$mac" || return 1
+
+	mac=$(echo "$mac"  | tr -d ':-' | sed 's/^\(....\)\(....\)/\1\.\2\./')
 
 	local url="http://www.macvendorlookup.com/api/v2/$mac/pipe"
 	zztool dump "$url" |
