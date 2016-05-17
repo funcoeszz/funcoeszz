@@ -1,5 +1,5 @@
 # ---------------------------------------------------------------------------
-# http://developers.agenciaideias.com.br/horoscopo
+# http://m.horoscopovirtual.bol.uol.com.br/horoscopo/
 # Consulta o horóscopo do dia.
 # Deve ser informado o signo que se deseja obter a previsão.
 # 
@@ -27,28 +27,27 @@ zzhoroscopo ()
 	fi
 
 	# Normaliza o signo para pacilitar sua busca
-	local signo=$(zztrim "$1" | zzunicode2ascii | zzcapitalize)
+	local signo=$(zztrim "$1" | zzunicode2ascii | zzminusculas)
 
 	# Lista de signos válidos
-	local signos='Aquario Peixes Aries Touro Gemeos Cancer Leao Virgem Libra Escorpiao Sagitario Capricornio'
+	local signos='aquario peixes aries touro gemeos cancer leao virgem libra escorpiao sagitario capricornio'
 
 	# Se o signo informado pelo usuário for válido faz a consulta ao serviço
 	if test "${signos#*$signo}" != "$signos"
 	then
 		# Define as regras para remover tudo que não se refere ao signo desejado
-		local padrao_signo='[ACEGLPSTV][a-z]\{3,10\}'
-		local padrao_data='[0123][0-9]\/[01][0-9]'
-		local remove_ini="s/^.*$signo de $padrao_data a $padrao_data //"
-		local remove_fim="s/ $padrao_signo de $padrao_data a $padrao_data .*$//"
+		local remove_ini='s/^<article><p>//'
+		local remove_fim='s/<\/p><\/article>.*$//'
 
 		# Endereço do serviço de consulta do horóscopo
-		local url='http://developers.agenciaideias.com.br/horoscopo/xml'
+		local url="http://m.horoscopovirtual.bol.uol.com.br/horoscopo/$signo"
 
 		# Faz a mágica acontecer
-		zztool dump -i 'utf-8' "$url" |
-			tr -ds '\011\012\015' ' ' |
-			zzunicode2ascii |
-			sed "$remove_ini;$remove_fim"
+		zztool source -u 'Mozilla/5.0' "$url" |
+		    zzxml --tag 'article' |
+		    tr -ds '\011\012\015' ' ' |
+		    sed "$remove_ini;$remove_fim" |
+		    zzxml --untag
 	else
 		return 1
 	fi
