@@ -58,7 +58,7 @@ zzwc ()
 		tb=0; tl=0; tw=0
 	fi
 
-	conteudo=$(zztool file_stdin "$@" | sed '${ s/$/ /; }')
+	conteudo=$(zztool file_stdin -- "$@" | sed '${ s/$/ /; }')
 
 	# Linhas
 	if test -n "$tl"
