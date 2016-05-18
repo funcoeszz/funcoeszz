@@ -311,5 +311,5 @@ zzunescape ()
 
 	# Faz a conversão
 	# Arquivos via STDIN ou argumentos
-	zztool file_stdin "$@" | sed "$filtro"
+	zztool file_stdin -- "$@" | sed "$filtro"
 }
