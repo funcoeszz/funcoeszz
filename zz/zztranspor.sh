@@ -2,7 +2,7 @@
 # Trocar linhas e colunas de um arquivo, fazendo uma simples transposição.
 # Opções:
 #   -d <sep>                        define o separador de campos na entrada.
-#   -D, --output-demilimiter <sep>  define o separador de campos na saída.
+#   -D, --output-delimiter <sep>  define o separador de campos na saída.
 #
 # O separador na entrada pode ser 1 ou mais caracteres ou uma ER.
 # Se não for declarado assume-se espaços em branco como separador.
@@ -14,8 +14,8 @@
 #
 # Se o separador da entrada é uma ER, é bom declarar o separador de saída.
 #
-# Uso: zztranspor [-d <sep>] [-D | --output-demilimiter <sep>] <arquivo>
-# Ex.: zztranspor -d ":" --output-demilimiter "-" num.txt
+# Uso: zztranspor [-d <sep>] [-D | --output-delimiter <sep>] <arquivo>
+# Ex.: zztranspor -d ":" --output-delimiter "-" num.txt
 #      sed -n '2,5p' num.txt | zztranspor -d '[\t:]' -D '\t'
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
@@ -39,7 +39,7 @@ zztranspor ()
 				shift
 				shift
 			;;
-			-D | --output-demilimiter)
+			-D | --output-delimiter)
 			# Separador de campos na saída
 				ofs="$2"
 				shift

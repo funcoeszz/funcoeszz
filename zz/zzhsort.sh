@@ -3,7 +3,7 @@
 # Opções:
 #   -r                              define o sentido da ordenação reversa.
 #   -d <sep>                        define o separador de campos na entrada.
-#   -D, --output-demilimiter <sep>  define o separador de campos na saída.
+#   -D, --output-delimiter <sep>  define o separador de campos na saída.
 #
 # O separador na entrada pode ser 1 ou mais caracteres ou uma ER.
 # Se não for declarado assume-se espaços em branco como separador.
@@ -15,10 +15,10 @@
 #
 # Se o separador da entrada é uma ER, é bom declarar o separador de saída.
 #
-# Uso: zzhsort [-d <sep>] [-D | --output-demilimiter <sep>] <Texto>
+# Uso: zzhsort [-d <sep>] [-D | --output-delimiter <sep>] <Texto>
 # Ex.: zzhsort "isso está desordenado"            # desordenado está isso
 #      zzhsort -r -d ":" -D "-" "1:a:z:x:5:o"  # z-x-o-a-5-1
-#      cat num.txt | zzhsort -d '[\t:]' --output-demilimiter '\t'
+#      cat num.txt | zzhsort -d '[\t:]' --output-delimiter '\t'
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-10-07
@@ -41,7 +41,7 @@ zzhsort ()
 				shift
 				shift
 			;;
-			-D | --output-demilimiter)
+			-D | --output-delimiter)
 			# Separador de campos na saída
 				ofs="-D $2"
 				shift
