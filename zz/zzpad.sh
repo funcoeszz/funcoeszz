@@ -35,7 +35,6 @@ zzpad ()
 		-r | -d) posicao='r'; shift ;;
 		-b | -a) posicao='b'; shift ;;
 		-x     ) str_pad="$2"; shift; shift ;;
-		--) shift; break;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
