@@ -346,7 +346,7 @@ zzcut ()
 	fi
 
 	zztool file_stdin "$@" |
-	if test $((bit_aspas / 10)) -eq 1
+	if echo "$bit_aspas" | grep '^1' >/dev/null
 	then
 		sed 's/"/'${aspas}'/g'
 	else
