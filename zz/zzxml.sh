@@ -186,7 +186,7 @@ zzxml ()
 	# esquema precisará ser revisto.
 
 	# Arquivos via STDIN ou argumentos
-	zztool file_stdin "$@" |
+	zztool file_stdin -- "$@" |
 
 	zzjuntalinhas -i "<!--" -f "-->" |
 
