@@ -38,7 +38,6 @@ zztrim ()
 			-b | --bottom    ) shift; bottom=1;;
 			-H | --horizontal) shift; left=1; right=1;;
 			-V | --vertical  ) shift; top=1; bottom=1;;
-			--               ) shift; break;;
 			--*) zztool erro "Opção inválida $1"; return 1;;
 			*) break;;
 		esac
