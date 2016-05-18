@@ -54,7 +54,6 @@ zzlimpalixo ()
 		--jsp)                               comentario_ini='<%--'; comentario_fim='-->'; multi=1; shift;;
 		*.cc | *.d | *.js | *.php | *.scala) comentario='\/\/';;
 		--cc | --d | --js | --php | --scala) comentario='\/\/'; shift;;
-		--) shift; break;;
 	esac
 
 	# Arquivos via STDIN ou argumentos
