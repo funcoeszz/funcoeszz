@@ -4,6 +4,7 @@ $ sed -n 's/\(.\).*/\1/p' zzunescape.in.txt > _tmp1
 $ cut -f 2 zzunescape.in.txt > _tmp2
 $ cut -f 3 zzunescape.in.txt > _tmp3
 $ cut -f 4 zzunescape.in.txt > _tmp4
+$ cat _tmp2 > "-_tmp2"
 $
 
 # Preparativos - XML
@@ -21,6 +22,7 @@ $
 $ zzunescape --html _tmp2        #→ --file _tmp1
 $ zzunescape --html _tmp3        #→ --file _tmp1
 $ zzunescape --html _tmp4        #→ --file _tmp1
+$ zzunescape --html -- -_tmp2    #→ --file _tmp1
 
 # XML
 
@@ -28,5 +30,5 @@ $ zzunescape --xml  _tmp5        #→ """ &&& ''' <<< >>>
 
 # Faxina
 
-$ rm -f _tmp[1-5]
+$ rm -f _tmp[1-5] ./-_tmp2
 $

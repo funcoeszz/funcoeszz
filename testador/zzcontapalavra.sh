@@ -1,3 +1,7 @@
+# Preparando arquivo de nome incomun
+$ cat _dados.txt > "-_tmp1"
+$
+
 $ cat _dados.txt
 1:um:one
 2:dois:two
@@ -17,6 +21,8 @@ $ zzcontapalavra -i one _dados.txt		#→ 1
 # (diferente do grep -c)
 $ zzcontapalavra -p o _dados.txt		#→ 6
 $ zzcontapalavra -i -p o _dados.txt		#→ 6
+$ zzcontapalavra -p o -- -_tmp1			#→ 6
+$ zzcontapalavra -i -p o -- -_tmp1		#→ 6
 
 # Palavra parcial, mas sem -p
 $ zzcontapalavra o _dados.txt			#→ 0
@@ -24,3 +30,6 @@ $ zzcontapalavra o _dados.txt			#→ 0
 # Não conta símbolos
 $ zzcontapalavra : _dados.txt			#→ 0
 
+# Limpeza
+$ rm -f ./-_tmp1
+$
