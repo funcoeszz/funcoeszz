@@ -13,7 +13,7 @@
 # Desde: 2016-05-07
 # Versão: 1
 # Licença: GPL
-# Requisitos: zztrim zzunicode2ascii zzcapitalize
+# Requisitos: zzsemacento zzminusculas zzxml
 # ---------------------------------------------------------------------------
 zzhoroscopo ()
 {
@@ -27,13 +27,13 @@ zzhoroscopo ()
 	fi
 
 	# Normaliza o signo para pacilitar sua busca
-	local signo=$(zztrim "$1" | zzunicode2ascii | zzminusculas)
+	local signo=$(zzsemacento "$1" | zzminusculas)
 
 	# Lista de signos válidos
 	local signos='aquario peixes aries touro gemeos cancer leao virgem libra escorpiao sagitario capricornio'
 
 	# Se o signo informado pelo usuário for válido faz a consulta ao serviço
-	if test "${signos#*$signo}" != "$signos"
+	if zztool grep_var $signo "$signos"
 	then
 		# Define as regras para remover tudo que não se refere ao signo desejado
 		local remove_ini='s/^<article><p>//'
@@ -45,7 +45,7 @@ zzhoroscopo ()
 		# Faz a mágica acontecer
 		zztool source -u 'Mozilla/5.0' "$url" |
 		    zzxml --tag 'article' |
-		    tr -ds '\011\012\015' ' ' |
+		    tr -ds '\t\n\r' ' ' |
 		    sed "$remove_ini;$remove_fim" |
 		    zzxml --untag
 	else
