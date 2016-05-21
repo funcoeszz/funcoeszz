@@ -209,7 +209,9 @@ do
 		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org' |
 		grep -v 'zz/zzpalpite.sh: # Uso: zzpalpite' |
 		grep -v 'zz/zzxml.sh: # Uso: zzxml' |
-		grep -v 'zz/zzcinepolis.sh: # Requisitos:'
+		grep -v 'zz/zzcinepolis.sh: # Requisitos:' |
+		grep -v 'zz/zzcep.sh: # Requisitos:' |
+		grep -v 'zz/zzconjugar.sh: # Requisitos:'
 done
 
 eco ----------------------------------------------------------------
