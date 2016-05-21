@@ -1,108 +1,108 @@
 $ zzmacvendor 84:B8:02:43:E1:D0
-Fabricante: Cisco
-Endereço:   San Jose CA 95134
-País:       UNITED STATES
+Fabricante: Cisco Systems, Inc
+Endereço:   170 West Tasman Drive,San Jose CA 95134
+País:       United States
 $ zzmacvendor 50-55-27-A3-A9-89
 Fabricante: LG Electronics
-Endereço:   Seoul 153-801
-País:       KOREA, REPUBLIC OF
+Endereço:   60-39, Gasan-dong, Geumcheon-gu,Seoul 153-801
+País:       Korea (South)
 $ zzmacvendor 10-3B-59-AF-FD-97
 Fabricante: Samsung Electronics Co.,Ltd
-Endereço:   Gumi Gyeongbuk 730-350
-País:       KOREA, REPUBLIC OF
+Endereço:   #94-1,Imsoo-Dong,Gumi Gyeongbuk 730-350
+País:       Korea (South)
 $ zzmacvendor 00-40-a7-1e-1c-c6
 Fabricante: ITAUTEC PHILCO S.A.
-Endereço:   RUA SANTA CATARINA, 1 03086-020 SAO PAUL
-País:       BRAZIL
+Endereço:   GRUPO ITAUTEC PHILCO,
+País:       Brazil
 $ zzmacvendor 84:B8:02:43:E8:70
-Fabricante: Cisco
-Endereço:   San Jose CA 95134
-País:       UNITED STATES
+Fabricante: Cisco Systems, Inc
+Endereço:   170 West Tasman Drive,San Jose CA 95134
+País:       United States
 $ zzmacvendor A8:66:7F:77:D8:7B
 Fabricante: Apple, Inc.
-Endereço:   Cupertino CA 95014
-País:       UNITED STATES
+Endereço:   1 Infinite Loop,Cupertino CA 95014
+País:       United States
 $ zzmacvendor F0-27-65-5B-41-D1
-Fabricante: Murata Manufactuaring Co.,Ltd.
-Endereço:   Nagaokakyo-shi Kyoto 617-8555
-País:       JAPAN
+Fabricante: Murata Manufacturing Co., Ltd.
+Endereço:   1-10-1 Higashikotari,Nagaokakyo-shi Kyoto 617-8555
+País:       Japan
 $ zzmacvendor 9C-D9-17-02-E0-00
-Fabricante: Motorola Mobility LLC
-Endereço:   Chicago IL 60654
-País:       UNITED STATES
+Fabricante: Motorola Mobility LLC, a Lenovo Company
+Endereço:   222 Merchandise Mart Plaza, Suite 1800,Chicago IL 60654
+País:       United States
 $ zzmacvendor 1c:c1:de:97:23:89
-Fabricante: Hewlett-Packard Company
-Endereço:   Houston Texas 77070
-País:       UNITED STATES
+Fabricante: Hewlett Packard
+Endereço:   11445 Compaq Center Drive,Houston 77070
+País:       United States
 $ zzmacvendor E8-91-20-BD-EB-C8
 Fabricante: Motorola Mobility LLC, a Lenovo Company
-Endereço:   Chicago IL 60654
-País:       UNITED STATES
+Endereço:   222 West Merchandise Mart Plaza,Chicago IL 60654
+País:       United States
 $ zzmacvendor 84:B8:02:43:E1:E0
-Fabricante: Cisco
-Endereço:   San Jose CA 95134
-País:       UNITED STATES
+Fabricante: Cisco Systems, Inc
+Endereço:   170 West Tasman Drive,San Jose CA 95134
+País:       United States
 $ zzmacvendor D8:67:D9:D1:DC:88
-Fabricante: CISCO SYSTEMS, INC.
-Endereço:   SAN JOSE CA 95134-1706
-País:       UNITED STATES
+Fabricante: Cisco Systems, Inc
+Endereço:   80 West Tasman Drive,San Jose CA 94568
+País:       United States
 $ zzmacvendor 84:B8:02:43:E8:7F
-Fabricante: Cisco
-Endereço:   San Jose CA 95134
-País:       UNITED STATES
+Fabricante: Cisco Systems, Inc
+Endereço:   170 West Tasman Drive,San Jose CA 95134
+País:       United States
 $ zzmacvendor 08:86:3B:6F:0D:38
-Fabricante: Belkin International, Inc.
-Endereço:   Playa Vista CA 90094
-País:       UNITED STATES
+Fabricante: Belkin International Inc.
+Endereço:   12045 East Waterfront Drive,Playa Vista CA 90094
+País:       United States
 $ zzmacvendor 00-23-14-e3-ff-a8
 Fabricante: Intel Corporate
-Endereço:   Kulim Kedah 09000
-País:       MALAYSIA
+Endereço:   Lot 8, Jalan Hi-Tech 2/3,Kulim Kedah 09000
+País:       Malaysia
 $ zzmacvendor 54:BE:F7:21:9F:F7
 Fabricante: PEGATRON CORPORATION
-Endereço:   Taipei 112
-País:       TAIWAN, PROVINCE OF CHINA
+Endereço:   5F No. 76, Ligong St., Beitou District,Taipei City Taiwan 112
+País:       Taiwan
 $ zzmacvendor B8-8D-12-60-17-F5
-Fabricante: Apple
-Endereço:   Cupertino CA 95014
-País:       UNITED STATES
+Fabricante: Apple, Inc.
+Endereço:   1 Infinite Loop,CUPERTINO CA 95014
+País:       United States
 $ zzmacvendor 00-23-14-E3-54-3C
 Fabricante: Intel Corporate
-Endereço:   Kulim Kedah 09000
-País:       MALAYSIA
+Endereço:   Lot 8, Jalan Hi-Tech 2/3,Kulim Kedah 09000
+País:       Malaysia
 $ zzmacvendor 7C:E9:D3:4F:2C:EB
 Fabricante: Hon Hai Precision Ind. Co.,Ltd.
-Endereço:   Shanghai 201613
-País:       CHINA
+Endereço:   NO.1925,Nanle Road ,Songjiang Export Processing Zone,Shanghai 201613
+País:       China
 $ zzmacvendor 00-1A-3F-6A-05-79
 Fabricante: intelbras
-Endereço:   sao jose sc 88104800
-País:       BRAZIL
+Endereço:   rodovia br 101 km 210,sao jose sc 88104800
+País:       Brazil
 $ zzmacvendor 84:B8:02:43:E1:EF
-Fabricante: Cisco
-Endereço:   San Jose CA 95134
-País:       UNITED STATES
+Fabricante: Cisco Systems, Inc
+Endereço:   170 West Tasman Drive,San Jose CA 95134
+País:       United States
 $ zzmacvendor 00-0D-F0-AD-9D-67
 Fabricante: QCOM TECHNOLOGY INC.
-Endereço:   TAIPEI 105
-País:       TAIWAN, PROVINCE OF CHINA
+Endereço:   7F., NO 178, MING CHUAN E. RD., SEC. 3,,TAIPEI 105
+País:       Taiwan
 $ zzmacvendor E0-06-E6-D1-A8-1B
 Fabricante: Hon Hai Precision Ind. Co.,Ltd.
-Endereço:   Shanghai 201613
-País:       CHINA
+Endereço:   NO.1925,Nanle Road ,Songjiang Export Processing Zone,Shanghai 201613
+País:       China
 $ zzmacvendor 00-50-56-8f-2e-4f
 Fabricante: VMware, Inc.
-Endereço:   PALO ALTO CA 94304
-País:       UNITED STATES
+Endereço:   3401 Hillview Avenue,PALO ALTO CA 94304
+País:       United States
 $ zzmacvendor 00-0D-F0-AD-9F-76
 Fabricante: QCOM TECHNOLOGY INC.
-Endereço:   TAIPEI 105
-País:       TAIWAN, PROVINCE OF CHINA
+Endereço:   7F., NO 178, MING CHUAN E. RD., SEC. 3,,TAIPEI 105
+País:       Taiwan
 $ zzmacvendor 44:74:6C:F2:2E:0F
 Fabricante: Sony Mobile Communications AB
-Endereço:   Lund SE 22188
-País:       SWEDEN
+Endereço:   Nya Vattentornet,Lund SE 22128
+País:       Sweden
 $ zzmacvendor F0-27-65-6B-A5-B2
-Fabricante: Murata Manufactuaring Co.,Ltd.
-Endereço:   Nagaokakyo-shi Kyoto 617-8555
-País:       JAPAN
+Fabricante: Murata Manufacturing Co., Ltd.
+Endereço:   1-10-1 Higashikotari,Nagaokakyo-shi Kyoto 617-8555
+País:       Japan
