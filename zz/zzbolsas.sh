@@ -169,7 +169,7 @@ zzbolsas ()
 				zztool eco "Taxas Cruzadas"
 				zztool dump "$url/moedas/principais" |
 				grep -E -B 11 '^ *Not.cias e coment.rios *$' |
-				sed '/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g; s/           //; s/^  *//'
+				sed '/Taxas cruzadas/d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g; s/           //; s/^  *//'
 			;;
 			moedas_nome | nome_moedas)
 				zztool eco "BRL - Real"
