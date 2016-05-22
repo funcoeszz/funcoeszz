@@ -57,7 +57,7 @@ zzbolsas ()
 {
 	zzzz -h bolsas "$1" && return
 
-	local url='http://br.finance.yahoo.com'
+	local url='http://br.financas.yahoo.com'
 	local new_york='^NYA ^NYI ^NYY ^NY ^NYL ^NYK'
 	local nasdaq='^IXIC ^BANK ^NBI ^IXCO ^IXF ^INDS ^INSR ^OFIN ^IXTC ^TRAN ^NDX'
 	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SP600'
@@ -158,7 +158,7 @@ zzbolsas ()
 			commodities)
 				zztool eco  "Commodities"
 				zztool dump "$url/moedas/mercado.html" |
-				sed -n '/^Commodities/,/Mais commodities/p' |
+				sed -n '/^ *Commodities/,/Mais commodities/p' |
 				sed '1d;$d;/^ *$/d;s/CAPTION: //g;s/ *Metais/\
 &/'| sed 's/^   //g'
 			;;
@@ -168,8 +168,8 @@ zzbolsas ()
 			taxas_cruzadas)
 				zztool eco "Taxas Cruzadas"
 				zztool dump "$url/moedas/principais" |
-				sed -n '/CAPTION: Taxas cruzadas/,/Not.cias e coment.rios/p' |
-				sed '1d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g; s/           //; s/^  *//'
+				grep -E -B 11 '^ *Not.cias e coment.rios *$' |
+				sed '/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g; s/           //; s/^  *//'
 			;;
 			moedas_nome | nome_moedas)
 				zztool eco "BRL - Real"
@@ -394,14 +394,14 @@ zzbolsas ()
 				zztool dump "$url" |
 					sed -n '
 						# grepa apenas as linhas das moedas e os títulos
-						/CAPTION: Taxas fixas/,/CAPTION: Taxas cruzadas/ {
+						/^  *Par cambial.*Inverter pares/,/ Taxas cruzadas/ {
 							/^  *[A-Z][A-Z][A-Z]\/[A-Z][A-Z][A-Z]/ p
 							/^  *Par cambial/ p
 						}' |
 					sed '
 						# Remove lixos
 						s/ *Visualização do gráfico//g
-						s/ Inverter pares /                /g
+						s/ *Inverter pares /                /g
 
 						# A segunda tabela é invertida
 						3,$ s/Par cambial             /Par cambial inv./

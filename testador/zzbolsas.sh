@@ -25,7 +25,7 @@ Standard & Poors :
  ^GSPC ^OEX ^MID ^SPSUPX ^SP600
 
 Amex :
- ^XAX ^IIX ^NWX ^XMI
+ ^XAX ^NWX ^XMI ^SPHYDA
 
 Outros Índices Nacionais :
  ^IBX50 ^IVBX ^IGCX ^IEE INDX.SA
@@ -159,6 +159,8 @@ $
 
 $ zzbolsas commodities     #→ --lines 17
 $ zzbolsas moedas          #→ --lines 19
+$ zzbolsas moedas latina   #→ --lines 15
+$ zzbolsas moedas europa   #→ --lines 17
 $ zzbolsas taxas_cruzadas  #→ --lines 9
 $ zzbolsas volume          #→ --lines 102
 $ zzbolsas alta            #→ --lines 102
