@@ -49,7 +49,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
-# Versão: 24
+# Versão: 25
 # Licença: GPL
 # Requisitos: zzmaiusculas zzsemacento zzdatafmt
 # ----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ zzbolsas ()
 	local new_york='^NYA ^NYI ^NYY ^NY ^NYL ^NYK'
 	local nasdaq='^IXIC ^BANK ^NBI ^IXCO ^IXF ^INDS ^INSR ^OFIN ^IXTC ^TRAN ^NDX'
 	local sp='^GSPC ^OEX ^MID ^SPSUPX ^SP600'
-	local amex='^XAX ^IIX ^NWX ^XMI'
+	local amex='^XAX ^NWX ^XMI ^SPHYDA'
 	local ind_nac='^IBX50 ^IVBX ^IGCX ^IEE INDX.SA'
 	local cache=$(zztool mktemp bolsas)
 	local bolsa pag pags pag_atual data1 data2 vartemp
@@ -74,28 +74,28 @@ zzbolsas ()
 				zztool eco "\n$bolsa :"
 				zztool dump "$url/intlindices?e=$bolsa" |
 					sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
-					awk '{ printf "%s ", $1}';echo
+					awk '{ printf " %s", $1}';echo
 			done
 
 			zztool eco "\nDow Jones :"
 			zztool dump "$url/usindices" |
 				sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
-				awk '{ printf "%s ", $1}';echo
+				awk '{ printf " %s", $1}';echo
 
 			zztool eco "\nNYSE :"
-			for bolsa in $new_york; do printf "%s " "$bolsa"; done;echo
+			for bolsa in $new_york; do printf " %s" "$bolsa"; done;echo
 
 			zztool eco "\nNasdaq :"
-			for bolsa in $nasdaq; do printf "%s " "$bolsa"; done;echo
+			for bolsa in $nasdaq; do printf " %s" "$bolsa"; done;echo
 
 			zztool eco "\nStandard & Poors :"
-			for bolsa in $sp; do printf "%s " "$bolsa"; done;echo
+			for bolsa in $sp; do printf " %s" "$bolsa"; done;echo
 
 			zztool eco "\nAmex :"
-			for bolsa in $amex; do printf "%s " "$bolsa"; done;echo
+			for bolsa in $amex; do printf " %s" "$bolsa"; done;echo
 
 			zztool eco "\nOutros Índices Nacionais :"
-			for bolsa in $ind_nac; do printf "%s " "$bolsa"; done;echo
+			for bolsa in $ind_nac; do printf " %s" "$bolsa"; done;echo
 		;;
 		1)
 			# Lista os códigos da bolsas e seus nomes
@@ -323,7 +323,7 @@ zzbolsas ()
 						paste "${cache}.pag_atual" "${cache}.pag" | while read data1 data2
 						do
 							echo "$data1 $data2" | tr -d '.' | tr ',' '.' |
-							awk '{ if (index($1,"/")==0) {printf "%15.2f\t", $2-$1; if ($1 != 0) {printf "%7.2f%\n", (($2-$1)/$1)*100}}}' 2>/dev/null
+							awk '{ if (index($1,"/")==0) {printf "%15.2f\t", $2-$1; if ($1 != 0) {printf "%7.2f%", (($2-$1)/$1)*100};print ""}}' 2>/dev/null
 						done >> "${cache}.vartemp"
 
 						paste "${cache}.pags" "${cache}.pag_atual" "${cache}.pag" "${cache}.vartemp"
