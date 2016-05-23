@@ -67,14 +67,14 @@ $ zztestar ip6 fee::2; echo $?	#→ 0
 # mac
 $ zztestar mac 00:19:B9:FB:E2:57; echo $?	#→ 0
 $ zztestar mac 00-88-14-4D-4C-FB; echo $?	#→ 0
-$ zztestar mac 00:1D:7D:B2:34:F9; echo $?	#→ 0
-$ zztestar mac 00-0C-6E-3C-D1-6D; echo $?	#→ 0
+$ zztestar mac 00:1D-7D:B2-34:F9; echo $?	#→ 1
+$ zztestar mac 00-0C:6E-3C:D1-6D; echo $?	#→ 1
 $ zztestar mac 84B8.0243.E870; echo $?	#→ 0
-$ zztestar mac A866.7F77.D87B; echo $?	#→ 0
+$ zztestar mac A866.7F77:D87B; echo $?	#→ 1
 $ zztestar mac F027.655B.41D1; echo $?	#→ 0
-$ zztestar mac 9CD9.1702.E000; echo $?	#→ 0
-$ zztestar mac 1cc1.de97.2389; echo $?	#→ 0
-$ zztestar mac E891.20BD.EBC8; echo $?	#→ 0
+$ zztestar mac 9CD9-1702.E000; echo $?	#→ 1
+$ zztestar mac 1cc1.di97.2389; echo $?	#→ 1
+$ zztestar mac E89120BDEBC8; echo $?	#→ 1
 
 # data
 $ zztestar data 31/12/2010; echo $?	#→ 0

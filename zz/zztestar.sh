@@ -184,7 +184,8 @@ zztestar ()
 		mac)
 			# Testa se $2 tem um formato de MAC válido
 			# O MAC poderá ser nos formatos 00:00:00:00:00:00, 00-00-00-00-00-00 ou 0000.0000.0000
-			echo "$2" | grep '\([0-9A-Fa-f]\{2\}[:-]\)\{5\}[0-9A-Fa-f]\{2\}' >/dev/null && return 0
+			echo "$2" | grep '\([0-9A-Fa-f]\{2\}-\)\{5\}[0-9A-Fa-f]\{2\}' >/dev/null && return 0
+			echo "$2" | grep '\([0-9A-Fa-f]\{2\}:\)\{5\}[0-9A-Fa-f]\{2\}' >/dev/null && return 0
 			echo "$2" | grep '\([0-9A-Fa-f]\{4\}\.\)\{2\}[0-9A-Fa-f]' >/dev/null && return 0
 
 			test -n "$erro" && zztool erro "MAC address inválido '$2'"
