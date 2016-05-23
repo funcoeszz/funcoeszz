@@ -218,18 +218,18 @@ zzbolsas ()
 				bolsa=$(echo "$1" | zzmaiusculas)
 				# Último índice da bolsa citada ou cotação da ação
 				zztool dump "$url/q?s=$bolsa" |
-				sed -n "/($bolsa)/,/Cotações atrasadas, salvo indicação/p" |
-				sed '{
-						/^[[:space:]]*$/d
-						/IFRAME:/d;
-						/^[[:space:]]*-/d
-						/Adicionar ao portfólio/d
-						/As pessoas que viram/d
-						/Cotações atrasadas, salvo indicação/,$d
-						/Próxima data de anúncio/d
-						s/[[:space:]]\{1,\}/ /g
-						s|p/ *|p/|g
-					}' |
+				sed -n "/($bolsa)/,/Cotações atrasadas, salvo indicação/ {
+					/Cotações atrasadas/q
+					/^[[:space:]]*$/d
+					/IFRAME:/d;
+					/^[[:space:]]*-/d
+					/Adicionar ao portfólio/d
+					/As pessoas que viram/d
+					/Próxima data de anúncio/d
+					s/[[:space:]]\{1,\}/ /g
+					s|p/ *|p/|g
+					p
+				}" |
 				zzsemacento | awk -F":" '{if ( $1 != $2 && length($2)>0 ) {printf "%-20s%s\n", $1 ":", $2} else { print $1 } }'
 			;;
 			esac
@@ -249,9 +249,15 @@ zzbolsas ()
 					if test "$1" = "--lista"
 					then
 						# Listar as ações com descrição e suas últimas posições
-						zztool dump "$url/q/cp?s=$bolsa&c=$pag" |
-						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p' |
-						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d' |
+						zztool source "$url/q/cp?s=$bolsa&c=$pag" |
+						zzxml --tag table |
+						sed -n '/<table width="100%" cellpadding="0" cellspacing="0" border="0" class="yfnc_tableout1">/,/<\/table>/p' |
+						zzxml --untag=table --untag=b --untag=a --untag=span --untag=nobr --untag=small --untag=img |
+						zzlimpalixo |
+						zzjuntalinhas -i '<tr' -f '</tr>' -d ' ' |
+						zzxml --untag |
+						zztrim |
+						zzsqueeze |
 						sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
 						awk -v pag_awk=$pag '
 						BEGIN { if (pag_awk==0) {printf "%-14s %-59s %-25s %-14s %s\n", "Símbolo", "Empresa", "Última Transação", "Variação", "Volume"} }
@@ -270,12 +276,12 @@ zzbolsas ()
 						}'
 					else
 						# Lista apenas os códigos das ações
-						vartemp=${vartemp}$(zztool dump "$url/q/cp?s=$bolsa&c=$pag" |
-						sed -n 's/^ *//g;/Símbolo /,/^Tudo /p' |
-						sed '/Símbolo /d;/^Tudo /d;/^[ ]*$/d' |
-						awk '{printf "%s  ",$1}')
+						vartemp="${vartemp} $(zztool dump "$url/q/cp?s=$bolsa&c=$pag" |
+						sed -n 's/^ *//g;/Símbolo /,/^ *Tudo /p' |
+						sed '/Símbolo /d;/^Tudo /d;/^ *$/d;s/DE CV/de CV/' |
+						awk 'BEGIN {print ""};$1 ~ /^[A-Z&0-9.-]*$/ && $2 ~ /[A-Z]/ {print $1}')"
 
-						if test "$pag" = "$pags";then echo $vartemp;fi
+						test "$pag" = "$pags" && echo "$vartemp"| zztrim | zzcolunar 7
 					fi
 					pag=$(($pag+1))
 				done
