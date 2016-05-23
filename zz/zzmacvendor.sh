@@ -22,7 +22,7 @@ zzmacvendor ()
 	local fab end pais linha
 
 	# Validação
-	zztestar mac "$mac" || return 1
+	zztestar -e mac "$mac" || return 1
 
 	mac=$(echo "$mac"  | tr -d ':-')
 
