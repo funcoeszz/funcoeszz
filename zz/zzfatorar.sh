@@ -17,8 +17,8 @@
 # Desde: 2013-03-14
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzjuntalinhas zzdos2unix
-# Nota: opcional 7z factor
+# Requisitos: zzjuntalinhas
+# Nota: opcional factor
 # ----------------------------------------------------------------------------
 zzfatorar ()
 {
@@ -41,23 +41,6 @@ zzfatorar ()
 			zztool atualiza fatorar
 			shift
 		;;
-#		'--atualiza-1m')
-#			# Atualiza o cache com uma listagem com 1 milhão de números primos.
-#			# É um processo bem mais lento, devendo ser usado quando o cache normal não atende.
-#			rm -f "$cache"
-#			if which 7z >/dev/null 2>&1 && ! which factor >/dev/null 2>&1
-#			then
-#				zztool eco "Atualizando cache."
-#				wget -q http://www.primos.mat.br/dados/50M_part1.7z -O /tmp/primos.7z
-#				7z e /tmp/primos.7z >/dev/null 2>&1
-#				rm -f /tmp/primos.7z
-#				awk '{for(i=1;i<=NF;i++) print $i }' 50M_part1.txt > "$cache"
-#				rm -f 50M_part1.txt
-#				zzdos2unix "$cache" >/dev/null 2>&1
-#				zztool eco "Cache atualizado."
-#			fi
-#			shift
-#		;;
 		'--bc')
 			# Apenas sai a expressão matemática que pode ser usado no bc ou awk
 			test "$bc" -eq 0 && bc=1
