@@ -1,8 +1,8 @@
 # ----------------------------------------------------------------------------
 # Trocar linhas e colunas de um arquivo, fazendo uma simples transposição.
 # Opções:
-#   -d, --fs separador   define o separador de campos na entrada.
-#   --ofs separador      define o separador de campos na saída.
+#   -d <sep>                        define o separador de campos na entrada.
+#   -D, --output-delimiter <sep>  define o separador de campos na saída.
 #
 # O separador na entrada pode ser 1 ou mais caracteres ou uma ER.
 # Se não for declarado assume-se espaços em branco como separador.
@@ -14,9 +14,9 @@
 #
 # Se o separador da entrada é uma ER, é bom declarar o separador de saída.
 #
-# Uso: zztranspor [-d | --fs <separador>] [--ofs <separador>] <arquivo>
-# Ex.: zztranspor -d ":" --ofs "-" num.txt
-#      sed -n '2,5p' num.txt | zztranspor --fs '[\t:]' --ofs '\t'
+# Uso: zztranspor [-d <sep>] [-D | --output-delimiter <sep>] <arquivo>
+# Ex.: zztranspor -d ":" --output-delimiter "-" num.txt
+#      sed -n '2,5p' num.txt | zztranspor -d '[\t:]' -D '\t'
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-09-03
@@ -33,13 +33,13 @@ zztranspor ()
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
-			-d | --fs)
+			-d)
 			# Separador de campos no arquivo de entrada
 				sep="$2"
 				shift
 				shift
 			;;
-			--ofs)
+			-D | --output-delimiter)
 			# Separador de campos na saída
 				ofs="$2"
 				shift
