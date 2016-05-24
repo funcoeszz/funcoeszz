@@ -7,9 +7,9 @@
 #
 # Autor: Rafael S. Guimaraes, www.rafaelguimaraes.net
 # Desde: 2016-02-03
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zztestar
+# Requisitos: zztestar zzcut zzdominiopais
 # ----------------------------------------------------------------------------
 zzmacvendor ()
 {
@@ -19,18 +19,36 @@ zzmacvendor ()
 	test -n "$1" || { zztool -e uso macvendor; return 1; }
 
 	local mac="$1"
+	local fab end pais linha
 
 	# Validação
-	zztestar mac "$mac" || return 1
+	zztestar -e mac "$mac" || return 1
 
-	mac=$(echo "$mac"  | tr -d ':-' | sed 's/^\(....\)\(....\)/\1\.\2\./')
+	mac=$(echo "$mac"  | tr -d ':-')
 
-	local url="http://www.macvendorlookup.com/api/v2/$mac/pipe"
-	zztool dump "$url" |
-	tr -s ' ' |
-	awk -F "|" '{
-		print "Fabricante: " $5
-		print "Endereço:   " $8
-		print "País:       " $9
-	}'
+	local url="https://macvendors.co/api/$mac/pipe"
+	zztool source "$url" |
+	tr -s ' "' '  ' |
+	zzcut -f 1,3,6 -d "|" | tr '|' '\n' |
+	sed '2{s/,[^,]*$//;}' |
+	while read linha
+	do
+		if test -z "$fab"
+		then
+			fab="$linha"
+			echo 'Fabricante:' $fab
+			continue
+		fi
+		if test -z "$end"
+		then
+			end="$linha"
+			echo 'Endereço:  ' $end
+			continue
+		fi
+		if test -z "$pais"
+		then
+			pais="$linha"
+			echo 'País:      ' $(zzdominiopais ".$pais" | sed 's/.*- //')
+		fi
+	done
 }
