@@ -5,7 +5,7 @@
 #
 #         B)r Linux            D)iolinux
 #         V)iva o Linux        U)nder linux
-#         E)spírito Livre      S)empre Update
+#         E)spírito Livre
 #
 # Uso: zznoticiaslinux [sites]
 # Ex.: zznoticiaslinux
@@ -13,7 +13,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzfeed
 # ----------------------------------------------------------------------------
@@ -23,7 +23,7 @@ zznoticiaslinux ()
 
 	local url limite
 	local n=5
-	local sites='bdvues'
+	local sites='bdvue'
 
 	limite="sed ${n}q"
 
@@ -74,12 +74,4 @@ zznoticiaslinux ()
 		zzfeed -n $n "$url"
 	fi
 
-	# Sempre Update
-	if zztool grep_var s "$sites"
-	then
-		url='http://sempreupdate.org/feed/'
-		echo
-		zztool eco "* Sempre Update ($url):"
-		zzfeed -n $n "$url"
-	fi
 }
