@@ -31,4 +31,4 @@ $ zzfatorar 56877
 $
 
 $ zzfatorar 167                         #→ 167 é um número primo.
-zzfatorar 1871                          #→ 1871 é um número primo.
+$ zzfatorar 1871                        #→ 1871 é um número primo.

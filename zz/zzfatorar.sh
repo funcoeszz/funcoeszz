@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# http://www.primos.mat.br
 # Fatora um número em fatores primos.
 # Com as opções:
 #   --atualiza: atualiza o cache com 10 mil primos (padrão e rápida).
@@ -16,7 +15,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-14
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzdos2unix
 # Nota: opcional 7z factor
@@ -25,7 +24,7 @@ zzfatorar ()
 {
 	zzzz -h fatorar "$1" && return
 
-	local url='http://www.primos.mat.br/primeiros_10000_primos.txt'
+	local url='https://raw.githubusercontent.com/funcoeszz/funcoeszz/master/local/zzfatorar.txt'
 	local cache=$(zztool cache fatorar)
 	local linha_atual=1
 	local primo_atual=2
@@ -42,23 +41,23 @@ zzfatorar ()
 			zztool atualiza fatorar
 			shift
 		;;
-		'--atualiza-1m')
-			# Atualiza o cache com uma listagem com 1 milhão de números primos.
-			# É um processo bem mais lento, devendo ser usado quando o cache normal não atende.
-			rm -f "$cache"
-			if which 7z >/dev/null 2>&1 && ! which factor >/dev/null 2>&1
-			then
-				zztool eco "Atualizando cache."
-				wget -q http://www.primos.mat.br/dados/50M_part1.7z -O /tmp/primos.7z
-				7z e /tmp/primos.7z >/dev/null 2>&1
-				rm -f /tmp/primos.7z
-				awk '{for(i=1;i<=NF;i++) print $i }' 50M_part1.txt > "$cache"
-				rm -f 50M_part1.txt
-				zzdos2unix "$cache" >/dev/null 2>&1
-				zztool eco "Cache atualizado."
-			fi
-			shift
-		;;
+#		'--atualiza-1m')
+#			# Atualiza o cache com uma listagem com 1 milhão de números primos.
+#			# É um processo bem mais lento, devendo ser usado quando o cache normal não atende.
+#			rm -f "$cache"
+#			if which 7z >/dev/null 2>&1 && ! which factor >/dev/null 2>&1
+#			then
+#				zztool eco "Atualizando cache."
+#				wget -q http://www.primos.mat.br/dados/50M_part1.7z -O /tmp/primos.7z
+#				7z e /tmp/primos.7z >/dev/null 2>&1
+#				rm -f /tmp/primos.7z
+#				awk '{for(i=1;i<=NF;i++) print $i }' 50M_part1.txt > "$cache"
+#				rm -f 50M_part1.txt
+#				zzdos2unix "$cache" >/dev/null 2>&1
+#				zztool eco "Cache atualizado."
+#			fi
+#			shift
+#		;;
 		'--bc')
 			# Apenas sai a expressão matemática que pode ser usado no bc ou awk
 			test "$bc" -eq 0 && bc=1
