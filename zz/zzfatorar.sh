@@ -1,15 +1,13 @@
 # ----------------------------------------------------------------------------
 # Fatora um número em fatores primos.
 # Com as opções:
-#   --atualiza: atualiza o cache com 10 mil primos (padrão e rápida).
-#   --atualiza-1m: atualiza o cache com 1 milhão de primos (mais lenta).
 #   --bc: saída apenas da expressão, que pode ser usado no bc, awk ou etc.
 #   --no-bc: saída apenas do fatoramento.
 #    por padrão exibe tanto o fatoramento como a expressão.
 #
 # Se o número for primo, é exibido a mensagem apenas.
 #
-# Uso: zzfatorar [--atualiza|--atualiza-1m] [--bc|--no-bc] <número>
+# Uso: zzfatorar [--bc | --no-bc] <número>
 # Ex.: zzfatorar 1458
 #      zzfatorar --bc 1296
 #
@@ -35,17 +33,12 @@ zzfatorar ()
 	while  test "${1#-}" != "$1"
 	do
 		case "$1" in
-		'--atualiza')
-			# Força atualizar o cache
-			zztool atualiza fatorar
-			shift
-		;;
-		'--bc')
+		--bc)
 			# Apenas sai a expressão matemática que pode ser usado no bc ou awk
 			test "$bc" -eq 0 && bc=1
 			shift
 		;;
-		'--no-bc')
+		--no-bc)
 			# Apenas sai a fatoração
 			test "$bc" -eq 0 && bc=2
 			shift
@@ -127,4 +120,7 @@ zzfatorar ()
 			echo "$1 = $saida"
 		fi
 	fi
+
+	# Limpeza
+	rm -f "$cache"
 }
