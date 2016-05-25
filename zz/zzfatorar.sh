@@ -17,19 +17,18 @@
 # Desde: 2013-03-14
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzjuntalinhas
+# Requisitos: zzjuntalinhas zzdivisores
 # Nota: opcional factor
 # ----------------------------------------------------------------------------
 zzfatorar ()
 {
 	zzzz -h fatorar "$1" && return
 
-	local url='https://raw.githubusercontent.com/funcoeszz/funcoeszz/master/local/zzfatorar.txt'
 	local cache=$(zztool cache fatorar)
 	local linha_atual=1
 	local primo_atual=2
 	local bc=0
-	local num_atual saida tamanho indice
+	local num_atual saida tamanho indice linha
 
 	test -n "$1" || { zztool -e uso fatorar; return 1; }
 
@@ -64,10 +63,18 @@ zzfatorar ()
 			# Se existe o camando factor usa-o
 			factor $1 | sed 's/.*: //g' | awk '{for(i=1;i<=NF;i++) print $i }' | uniq > "$cache"
 			primo_atual=$(head -n 1 "$cache")
-		elif ! test -s "$cache"
-		then
-			# Se o cache está vazio, baixa listagem da Internet
-			zztool dump "$url" | awk '{for(i=1;i<=NF;i++) print $i }' > "$cache"
+		else
+			# Aqui lista todos os divisores do número informado não considerando o 1
+			# E descobre entre os divisores, quem é primo usando zzdivisores novamente.
+			# Aqueles que tiverem apenas 2 divisores (primos) são mantidos, além do próprio número.
+			zzdivisores $1 |
+			tr ' ' '\n' |
+			sed '1d; $!{ /.\{1,\}[024568]$/d; }' |
+			while read linha
+			do
+				zzdivisores $linha |
+				awk 'NF==2{print $2}'
+			done > "$cache"
 		fi
 
 		# Se o número fornecido for primo, retorna-o e sai
