@@ -73,8 +73,9 @@ zzfatorar ()
 			while read linha
 			do
 				zzdivisores $linha |
-				awk 'NF==2{print $2}'
-			done > "$cache"
+				awk 'NF==2 {print $2}'
+			done |
+			sort -n > "$cache"
 		fi
 
 		# Se o número fornecido for primo, retorna-o e sai
