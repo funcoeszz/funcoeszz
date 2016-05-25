@@ -62,7 +62,6 @@ zzfatorar ()
 		then
 			# Se existe o camando factor usa-o
 			factor $1 | sed 's/.*: //g' | awk '{for(i=1;i<=NF;i++) print $i }' | uniq > "$cache"
-			primo_atual=$(head -n 1 "$cache")
 		else
 			# Aqui lista todos os divisores do número informado não considerando o 1
 			# E descobre entre os divisores, quem é primo usando zzdivisores novamente.
@@ -74,9 +73,9 @@ zzfatorar ()
 			do
 				zzdivisores $linha |
 				awk 'NF==2 {print $2}'
-			done |
-			sort -n > "$cache"
+			done > "$cache"
 		fi
+		primo_atual=$(head -n 1 "$cache")
 
 		# Se o número fornecido for primo, retorna-o e sai
 		grep "^${1}$" ${cache} > /dev/null
