@@ -51,7 +51,7 @@
 # Desde: 2009-10-04
 # Versão: 25
 # Licença: GPL
-# Requisitos: zzmaiusculas zzsemacento zzdatafmt
+# Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzlimpalixo zzmaiusculas zzsemacento zzsqueeze zztrim zzunescape zzxml
 # ----------------------------------------------------------------------------
 zzbolsas ()
 {
@@ -72,15 +72,27 @@ zzbolsas ()
 			for bolsa in americas europe asia africa
 			do
 				zztool eco "\n$bolsa :"
-				zztool dump "$url/intlindices?e=$bolsa" |
-					sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
-					awk '{ printf " %s", $1}';echo
+				zztool source "$url/intlindices?e=$bolsa" |
+				zzxml --tag table |
+				sed -n '/<table cellpadding="0" cellspacing="0">/,/<\/table>/p' |
+				zzjuntalinhas -i '<tr' -f '</tr>' |
+				sed -n '/^<tr.*Componentes/p' |
+				zzxml --untag |
+				zzsqueeze |
+				awk '{printf " " $1}' |
+				zztool nl_eof
 			done
 
 			zztool eco "\nDow Jones :"
-			zztool dump "$url/usindices" |
-				sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
-				awk '{ printf " %s", $1}';echo
+			zztool source "$url/usindices" |
+			zzxml --tag table |
+			sed -n '/<table cellpadding="0" cellspacing="0">/,/<\/table>/p' |
+			zzjuntalinhas -i '<tr' -f '</tr>' |
+			sed -n '/^<tr.*Componentes/p' |
+			zzxml --untag |
+			zzsqueeze |
+			awk '{printf " " $1}' |
+			zztool nl_eof
 
 			zztool eco "\nNYSE :"
 			for bolsa in $new_york; do printf " %s" "$bolsa"; done;echo
@@ -106,70 +118,104 @@ zzbolsas ()
 				for bolsa in americas europe asia africa
 				do
 					zztool eco "\n$bolsa :"
-					zztool dump "$url/intlindices?e=$bolsa" |
-						sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
-						sed 's/[0-9]*\.*[0-9]*,[0-9].*//g' |
-						awk '{ printf " %-10s ", $1; for(i=2; i<=NF-1; i++) printf "%s ",$i; print $NF}'
+					zztool source "$url/intlindices?e=$bolsa" |
+						zzxml --tag table |
+						sed -n '/<table cellpadding="0" cellspacing="0">/,/<\/table>/p' |
+						zzjuntalinhas -i '<tr' -f '</tr>' |
+						sed -n '/^<tr.*Componentes/{s,</td>,|,g;p;}' |
+						zzxml --untag |
+						zzsqueeze |
+						zztrim |
+						awk -F "|" '{ printf " %-10s%s\n", $1, $2 }'
 				done
 
 				zztool eco "\nDow Jones :"
-				zztool dump "$url/usindices" |
-					sed -n '/Última/,/_/p' | sed '/Componentes,/!d' |
-					sed 's/[0-9]*\.*[0-9]*,[0-9].*//g' |
-					awk '{ printf " %-10s ", $1; for(i=2; i<=NF-1; i++) printf "%s ",$i; print $NF}'
-					printf " %-10s " "$dj";zztool dump "$url/q?s=$dj" |
-					sed -n "/($dj)/{p;q;}" | sed "s/^ *//;s/ *($dj)//"
+				zztool source "$url/usindices" |
+					zzxml --tag table |
+					sed -n '/<table cellpadding="0" cellspacing="0">/,/<\/table>/p' |
+					zzjuntalinhas -i '<tr' -f '</tr>' |
+					sed -n '/^<tr.*Componentes/{s,</td>,|,g;p;}' |
+					zzxml --untag |
+					zzsqueeze |
+					zztrim |
+					awk -F "|" '{ printf " %-10s%s\n", $1, $2 }'
 
 				zztool eco "\nNYSE :"
 				for bolsa in $new_york;
 				do
-					printf " %-10s " "$bolsa";zztool dump "$url/q?s=$bolsa" |
-					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//"
+					printf " %-10s " "$bolsa"
+					zztool dump "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" |
+					sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nNasdaq :"
 				for bolsa in $nasdaq;
 				do
-					printf " %-10s " "$bolsa";zztool dump "$url/q?s=$bolsa" |
-					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//"
+					printf " %-10s " "$bolsa"
+					zztool dump "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" |
+					sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nStandard & Poors :"
 				for bolsa in $sp;
 				do
-					printf " %-10s " "$bolsa";zztool dump "$url/q?s=$bolsa" |
-					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//"
+					printf " %-10s " "$bolsa"
+					zztool dump "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" |
+					sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nAmex :"
 				for bolsa in $amex;
 				do
-					printf " %-10s " "$bolsa";zztool dump "$url/q?s=$bolsa" |
-					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//"
+					printf " %-10s " "$bolsa"
+					zztool dump "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" |
+					sed "s/^ *//;s/ *($bolsa)//"
 				done
 
 				zztool eco "\nOutros Índices Nacionais :"
 				for bolsa in $ind_nac;
 				do
-					printf " %-10s " "$bolsa";zztool dump "$url/q?s=$bolsa" |
-					sed -n "/($bolsa)/{p;q;}" | sed "s/^ *//;s/ *($bolsa)//;s/ *-$//"
+					printf " %-10s " "$bolsa"
+					zztool dump "$url/q?s=$bolsa" |
+					sed -n "/($bolsa)/{p;q;}" |
+					sed "s/^ *//;s/ *($bolsa)//;s/ *-$//"
 				done
 			;;
 			commodities)
 				zztool eco  "Commodities"
-				zztool dump "$url/moedas/mercado.html" |
-				sed -n '/^ *Commodities/,/Mais commodities/p' |
-				sed '1d;$d;/^ *$/d;s/CAPTION: //g;s/ *Metais/\
-&/'| sed 's/^   //g'
+				zztool source "$url/moedas/principais" |
+					zzxml --tidy |
+					sed -n '
+					/<table id="yfi-commodities-energy" summary="Index for energia">/,/<\/table>/p
+					/<table id="yfi-commodities-metals" summary="Index for metais">/,/<\/table>/p' |
+					zzjuntalinhas -i '<tr' -f '</tr>' |
+					sed -n '/^<tr/{s,</t[dh]>,|,g;p;}' |
+					zzxml --untag |
+					zzsqueeze |
+					sed 's/ *| */|/g' |
+					awk -F '|' '
+						$1 ~ "Nome" { print ""; print (NR==1? "Energia" : "Metais") }
+						{ printf "%-32s %10s %10s %12s\n", $1, $2, $3, $4 }'
 			;;
 			taxas_fixas | moedas)
 				zzbolsas $1 principais
 			;;
 			taxas_cruzadas)
 				zztool eco "Taxas Cruzadas"
-				zztool dump "$url/moedas/principais" |
-				grep -E -B 11 '^ *Not.cias e coment.rios *$' |
-				sed '/Taxas cruzadas/d;/^[[:space:]]*$/d;$d;s/ .ltima transação /                  /g; s, N/D,    ,g; s/           //; s/^  *//'
+				zztool source "$url/moedas/principais" |
+				zzxml --tidy |
+				sed -n '/<table id="cross-rates-table"/,/<\/table>/p' |
+				zzjuntalinhas -i '<tr' -f '</tr>' |
+				sed -n '/^<tr/{s,</t[dh]>,|,g;p;}' |
+				zzxml --untag |
+				zzsqueeze |
+				sed 's/ *| */|/g; s| N/D||g; s/ .ltima transação//' |
+				zzunescape --html |
+				awk -F '|' '{ printf " %-8s  %8s  %8s  %8s  %8s  %8s  %8s  %8s\n", $1, $2, $3, $4, $5, $6, $7, $8 }'
 			;;
 			moedas_nome | nome_moedas)
 				zztool eco "BRL - Real"
@@ -193,26 +239,17 @@ zzbolsas ()
 					baixa)	pag='losers';;
 				esac
 				zztool eco "Maiores ${1}s"
-				zztool dump "$url/${pag}?e=sa" |
-				sed -n '/Informações relacionadas/,/^[[:space:]]*$/p' |
-				sed '1d;s/Down /-/g;s/ de /-/g;s/Up /+/g;s/Gráfico, .*//g' |
-				sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
-				awk 'BEGIN {
-							printf "%-15s  %-25s  %-29s  %-19s  %s\n","Símbolo","Nome","Última Transação","Variação","Volume"
-						}
-					{
-						if (NF > 6) {
-							nome = ""
-							printf "%-15s ", $1;
-							for(i=2; i<=NF-5; i++) {nome = nome sprintf( "%s ", $i)};
-							printf " %-24s ", nome;
-							for(i=NF-4; i<=NF-3; i++) printf " %-11s ", $i;
-							printf " "
-							printf " %-10s", $(NF-2); printf " %10s", $(NF-1);
-							printf " %11s", $NF
-							print ""
-						}
-					}'
+				zztool source "$url/${pag}?e=sa" |
+				zzxml --tag table |
+				sed -n '/<table cellpadding="0" cellspacing="0">/,/<\/table>/p' |
+				zzjuntalinhas -i '<tr' -f '</tr>' |
+				sed -n '/^<tr/{s,</td>,|,g;p;}' |
+				zzxml --untag |
+				zzsqueeze |
+				sed 's/ *| */|/g' |
+				awk -F '|' '
+					BEGIN { printf "%-17s  %-26s  %29s  %19s  %12s\n","Símbolo","Nome","Última Transação","Variação","Volume" }
+					{ sub(/ de /,"/", $3); printf "%-17s  %-26s  %29s  %19s  %12s\n", $1, $2, $3, $4, $5 }'
 			;;
 			*)
 				bolsa=$(echo "$1" | zzmaiusculas)
@@ -239,15 +276,15 @@ zzbolsas ()
 			bolsa=$(echo "$2" | zzmaiusculas)
 			if test "$1" = "-l" -o "$1" = "--lista" && (zztool grep_var "$bolsa" "$dj $new_york $nasdaq $sp $amex $ind_nac" || zztool grep_var "^" "$bolsa")
 			then
-				pag_final=$(zztool dump "$url/q/cp?s=$bolsa" | sed -n '/Primeira/p;/Primeira/q' | sed "s/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/")
-				pags=$(echo "scale=0;($pag_final - 1) / 50" | bc)
+				if test "$1" = "--lista" -o "$1" = "-l"
+				then
+					pag_final=$(zztool source "$url/q/cp?s=$bolsa" | zzxml --tidy | sed -n '/^1 - /{s/.*de //;s/ .*//;p;q;}')
+					pags=$(echo "scale=0;($pag_final - 1) / 50" | bc)
 
-				unset vartemp
-				pag=0
-				while test $pag -le $pags
-				do
-					if test "$1" = "--lista"
-					then
+					unset vartemp
+					pag=0
+					while test $pag -le $pags
+					do
 						# Listar as ações com descrição e suas últimas posições
 						zztool source "$url/q/cp?s=$bolsa&c=$pag" |
 						zzxml --tag table |
@@ -255,36 +292,25 @@ zzbolsas ()
 						zzxml --untag=table --untag=b --untag=a --untag=span --untag=nobr --untag=small --untag=img |
 						zzlimpalixo |
 						zzjuntalinhas -i '<tr' -f '</tr>' -d ' ' |
+						sed -n '/^<tr/{s,</t[dh]>,|,g;p;}' |
 						zzxml --untag |
 						zztrim |
 						zzsqueeze |
-						sed 's/ *Para *cima */ +/g;s/ *Para *baixo */ -/g' |
-						awk -v pag_awk=$pag '
-						BEGIN { if (pag_awk==0) {printf "%-14s %-59s %-25s %-14s %s\n", "Símbolo", "Empresa", "Última Transação", "Variação", "Volume"} }
-						{
-							nome = ""
-							if (NF>=7) {
-								if (index($(NF-3),":") != 0) { ajuste=0; limite = 7 } else { ajuste=2; limite = 9 }
-								if (NF>=limite) {
-									if (ajuste == 0 ) { data_hora = $(NF-3) }
-									else if (ajuste == 2 ) { data_hora = $(NF-5) " " $(NF-4) " " $(NF-3) }
-									for(i=2;i<=(NF-5-ajuste);i++) {nome = nome " " $i }
-									sub(/ de /,"-",data_hora)
-									printf "%-13s %-55s %10s %10s %10s %9s %11s\n", $1, nome, $(NF-4-ajuste), data_hora, $(NF-2), $(NF-1), $NF
-								}
-							}
-						}'
-					else
-						# Lista apenas os códigos das ações
-						vartemp="${vartemp} $(zztool dump "$url/q/cp?s=$bolsa&c=$pag" |
-						sed -n 's/^ *//g;/Símbolo /,/^ *Tudo /p' |
-						sed '/Símbolo /d;/^Tudo /d;/^ *$/d;s/DE CV/de CV/' |
-						awk 'BEGIN {print ""};$1 ~ /^[A-Z&0-9.-]*$/ && $2 ~ /[A-Z]/ {print $1}')"
-
-						test "$pag" = "$pags" && echo "$vartemp"| zztrim | zzcolunar 7
-					fi
-					pag=$(($pag+1))
-				done
+						sed 's/ *| */|/g' |
+						zzunescape --html |
+						awk -F '|' -v pag_awk=$pag '
+							BEGIN { if (pag_awk==0) printf "%-14s %-59s %25s %15s %15s\n", "Símbolo", "Nome", "Última transação", "Variação   ", "Volume  " }
+							$2=="Nome" {next}
+							{ sub(/ de /,"/", $3); printf "%-14s %-59s %25s %15s %15s\n", $1, $2, $3, $4, $5 }'
+						pag=$(($pag+1))
+					done
+				fi |
+				if test "$1" = "-l"
+				then
+					sed '1d; s/ .*//' | zzcolunar 7
+				else
+					cat -
+				fi
 
 			# Valores de uma bolsa ou ação em uma data especificada (histórico)
 			elif zztool testa_data $(zzdatafmt "$2" 2>/dev/null)
@@ -373,9 +399,15 @@ zzbolsas ()
 			# Noticias relacionadas a uma ação especifica
 			elif (test "$1" = "noticias" -o "$1" = "notícias" && ! zztool grep_var "^" "$2")
 			then
-				zztool dump "$url/q/h?s=$bolsa" |
-				sed -n '/^[[:blank:]]\{1,\}\*.*Agencia.*)$/p;/^[[:blank:]]\{1,\}\*.*at noodls.*)$/p' |
-				sed 's/^[[:blank:]]*//g;s/Agencia/ &/g;s/at noodls/ &/g'
+				zztool source "$url/q/h?s=$bolsa" |
+				zzxml --tag li --tag h3 |
+				zzjuntalinhas -i '<li' -f '</li>' |
+				zzjuntalinhas -i '<h3>' -f '</h3>' |
+				sed -n '/<cite>/{s/<cite>/|/;p;}; /<h3>.*<span>[[:blank:]]*/{s///;p;}' |
+				zzxml --untag |
+				zzsqueeze |
+				zzunescape --html |
+				awk '$0 !~ /^ / {print ""};1'
 			elif (test "$1" = "taxas_fixas" || test "$1" = "moedas")
 			then
 				case $2 in
@@ -397,31 +429,17 @@ zzbolsas ()
 				;;
 				esac
 
-				zztool dump "$url" |
-					sed -n '
-						# grepa apenas as linhas das moedas e os títulos
-						/^  *Par cambial.*Inverter pares/,/ Taxas cruzadas/ {
-							/^  *[A-Z][A-Z][A-Z]\/[A-Z][A-Z][A-Z]/ p
-							/^  *Par cambial/ p
-						}' |
-					sed '
-						# Remove lixos
-						s/ *Visualização do gráfico//g
-						s/ *Inverter pares /                /g
-
-						# A segunda tabela é invertida
-						3,$ s/Par cambial             /Par cambial inv./
-
-						# Diminuição do espaçamento para caber em 80 colunas
-						s/^  *//
-						s/        //
-
-						# Quebra linha antes do título das duas tabelas
-						/^Par cambial/ s/^/\
-/
-						# Apagando linha duplicada com valores em branco
-						/[A-Z]\{3\}\/[A-Z]\{3\} *$/d
-						'
+				zztool source "$url" |
+				zzxml --tidy |
+				sed -n '/<table.*summary="Tabela de moedas com taxas fixas">/,/<\/table>/p' |
+				zzjuntalinhas -i '<tr' -f '</tr>' |
+				sed -n '/^<tr/{s,</t[dh]>,|,g;p;}' |
+				zzxml --untag |
+				zzsqueeze |
+				sed 's/ *| */|/g; s/Par c/C/; 2,$s/Cambial/& inv./' |
+				awk -F '|' '
+					$1 ~ "Cambial" && NR>1 {print ""}
+					{ printf " %-14s  %8s  %10s  %12s  %19s  %19s\n", $1, $2, $3, $4, $5, $6 }'
 			else
 				bolsa=$(echo "$1" | zzmaiusculas)
 				pag_final=$(zztool dump "$url/q/cp?s=$bolsa" | sed -n '/Primeira/p;/Primeira/q' | sed 's/^ *//g;s/.* of *\([0-9]\{1,\}\) .*/\1/;s/.* de *\([0-9]\{1,\}\) .*/\1/')
