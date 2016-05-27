@@ -161,6 +161,7 @@ $ zzbolsas ^bvsp paulo | sed 's/^\(.\{68\}\).*/\1/'
 Símbolo        Nome                                                 
 CESP6.SA       CESP - Cia Energetica de Sao Paulo                   
 SBSP3.SA       Companhia de Saneamento Basico do Estado de Sao Paulo
+$
 
 $ zzbolsas commodities     #→ --lines 18
 $ zzbolsas moedas          #→ --lines 18
