@@ -157,8 +157,7 @@ Volume              3.731.500               2.701.500
 Enc ajustado*           36,85               28,49
 $
 
-$ zzbolsas ^bvsp paulo | sed 's/^\(.\{68\}\).*/\1/'
-Símbolo        Nome                                                 
+$ zzbolsas ^bvsp paulo | sed '1d;s/^\(.\{68\}\).*/\1/'
 CESP6.SA       CESP - Cia Energetica de Sao Paulo                   
 SBSP3.SA       Companhia de Saneamento Basico do Estado de Sao Paulo
 $

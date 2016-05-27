@@ -363,7 +363,7 @@ zzbolsas ()
 							for (i=1;i<=7;i++) {
 								printf "%-15s %15s %15s", linha[i], linha[i+7], linha[i+14]
 								if (i==1)
-									printf "%15s\n", "Variação (%)"
+									print "   Variação (%)"
 								else {
 									gsub(/\./,"",linha[i+7]); gsub(/\./,"",linha[i+14])
 									gsub(/,/,".",linha[i+7]); gsub(/,/,".",linha[i+14])
