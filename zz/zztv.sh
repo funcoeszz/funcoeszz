@@ -20,9 +20,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
-# Versão: 12
+# Versão: 13
 # Licença: GPL
-# Requisitos: zzunescape zzxml zzcolunar zzpad zzcut
+# Requisitos: zzunescape zzxml zzcolunar zzpad zzcut zzjuntalinhas
 # ----------------------------------------------------------------------------
 zztv ()
 {
@@ -41,11 +41,11 @@ zztv ()
 	if ! test -s "$cache"
 	then
 		zztool source "${URL}/categoria/Todos/" |
-		zzxml --tidy |
-		sed -n '/<ul>/,/<\/ul>/{/\/programacao\/canal\//p;/ *|/p;}' |
-		sed 's|.*/||;s/".*//;s/ *|//' |
+		zzxml --tag ul |
+		zzxml --tag a |
+		zzjuntalinhas -i '<a ' -f '</a>' -d ' ' |
+		sed 's,.*canal/\([^"]*\).* [|] \([^<]*\) <.*,\1 \2,' |
 		zzunescape --html |
-		awk 'NR%2==1 {printf $0}; NR%2==0 {print}' |
 		sort > "$cache"
 	fi
 
@@ -108,15 +108,15 @@ zztv ()
 	if test $flag -eq 1
 	then
 		zztool eco $desc
-		zztool source "$URL" | sed -n '/<li style/{N;p;}' |
-		sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g' |
-		sed 's/.*title="//g;s/">.*<br \/>/ | /g;s/<[^>]*>/ /g' |
-		sed 's/[[:space:]]\{1,\}/ /g' |
-		sed '/^[[:space:]]*$/d' |
+		zztool source "$URL" |
+		zzxml --tag ul |
+		zzxml --tag a |
+		zzjuntalinhas -i '<a ' -f '</a>' -d ' ' |
+		sed 's/.*title="\([^"]*\)".*> \([0-9]\{1,2\}h[0-9]\{2\}\) <.* [|] \([^<]*\) <.*/\2 \1|\3/' |
 		zzunescape --html |
 		while read linhas
 		do
-			echo "$(zzpad 5 $(echo "$linhas" | zzcut -f 2 -d "|")) $(zzpad 57 $(echo "$linhas" | zzcut -f 1 -d "|" | zzcut -c -56)) $(echo "$linhas" | zzcut -f 3 -d "|")"
+			echo "$(zzpad 64 $(echo "$linhas" | zzcut -f 1 -d "|" | zzcut -c -56)) $(echo "$linhas" | zzcut -f 2 -d "|")"
 		done
 	elif test "$1" = "cod"
 	then
