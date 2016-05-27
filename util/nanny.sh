@@ -207,11 +207,12 @@ do
 		grep -v '^zz/zzferiado.sh: # Requisitos:' |
 		grep -v '^zz/zzloteria.sh: # Resultados da quina' |
 		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org' |
-		grep -v 'zz/zzpalpite.sh: # Uso: zzpalpite' |
-		grep -v 'zz/zzxml.sh: # Uso: zzxml' |
-		grep -v 'zz/zzcinepolis.sh: # Requisitos:' |
-		grep -v 'zz/zzcep.sh: # Requisitos:' |
-		grep -v 'zz/zzconjugar.sh: # Requisitos:'
+		grep -v '^zz/zzpalpite.sh: # Uso: zzpalpite' |
+		grep -v '^zz/zzxml.sh: # Uso: zzxml' |
+		grep -v '^zz/zzcinepolis.sh: # Requisitos:' |
+		grep -v '^zz/zzcep.sh: # Requisitos:' |
+		grep -v '^zz/zzconjugar.sh: # Requisitos:' |
+		grep -v '^zz/zzbolsas.sh: # Requisitos:'
 done
 
 eco ----------------------------------------------------------------
