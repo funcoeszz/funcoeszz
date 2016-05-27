@@ -367,7 +367,7 @@ zzbolsas ()
 								else {
 									gsub(/\./,"",linha[i+7]); gsub(/\./,"",linha[i+14])
 									gsub(/,/,".",linha[i+7]); gsub(/,/,".",linha[i+14])
-									printf "%10s (%.2f%)\n", linha[i+14] - linha[i+7], linha[i+7]==0 ? 0 : ((linha[i+14]/linha[i+7])-1)*100
+									printf "%10s (%.2f%)\n", linha[i+14] - linha[i+7], (linha[i+7]==0 ? 0 : ((linha[i+14]/linha[i+7])-1)*100)
 								}
 							}
 						}
