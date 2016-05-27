@@ -370,7 +370,7 @@ zzbolsas ()
 									if (linha[i+7]==0)
 										printf "%10s\n", 0
 									else
-										printf "%10s (%.2f%)\n", linha[i+14] - linha[i+7], ((linha[i+14]/linha[i+7])-1)*100
+										printf "%10s (%.2f%%)\n", linha[i+14] - linha[i+7], ((linha[i+14]/linha[i+7])-1)*100
 								}
 							}
 						}
