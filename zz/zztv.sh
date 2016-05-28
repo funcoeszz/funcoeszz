@@ -5,7 +5,8 @@
 #  canais - lista os canais com seus códigos para consulta.
 #
 #  <código canal> - Programação do canal escolhido.
-#  Obs.: Se for seguido de "semana" ou "s" mostra toda programação semanal.
+#  Obs.: Seguido de "semana" ou "s": toda programação das próximas semanas.
+#        Se for seguido de uma data, mostra a programação da data informada.
 #
 #  cod <número> - mostra um resumo do programa.
 #   Obs: número obtido pelas listagens da programação do canal consultado.
@@ -14,15 +15,16 @@
 #  doc ou documentario, esportes ou futebol, filmes, infantil, variedades
 #  series ou seriados, aberta, todos ou agora (padrão).
 #
-# Uso: zztv <código canal> [semana|s]  ou  zztv cod <número>
+# Uso: zztv [<código canal> [s | <DATA>]]  ou  zztv [cod <número> | canais]
 # Ex.: zztv CUL          # Programação da TV Cultura
-#      zztv cod 3235238
+#      zztv fox 31/5     # Programação da Fox na data, se disponível
+#      zztv cod 3235238  # Detalhes do programa identificado pelo código
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
 # Versão: 13
 # Licença: GPL
-# Requisitos: zzunescape zzxml zzcolunar zzpad zzcut zzjuntalinhas
+# Requisitos: zzunescape zzxml zzcolunar zzpad zzcut zzjuntalinhas zzdatafmt
 # ----------------------------------------------------------------------------
 zztv ()
 {
@@ -47,6 +49,11 @@ zztv ()
 		sed 's,.*canal/\([^"]*\).* [|] \([^<]*\) <.*,\1 \2,' |
 		zzunescape --html |
 		sort > "$cache"
+	fi
+
+	if test -n "$2"
+	then
+		DATA=$(zzdatafmt -f 'DD\/MM' "$2" 2>/dev/null || echo "$DATA")
 	fi
 
 	if test -n "$1" && grep -i "^$1" $cache >/dev/null 2>/dev/null
