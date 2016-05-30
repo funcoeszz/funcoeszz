@@ -5,7 +5,8 @@
 #  canais - lista os canais com seus códigos para consulta.
 #
 #  <código canal> - Programação do canal escolhido.
-#  Obs.: Se for seguido de "semana" ou "s" mostra toda programação semanal.
+#  Obs.: Seguido de "semana" ou "s": toda programação das próximas semanas.
+#        Se for seguido de uma data, mostra a programação da data informada.
 #
 #  cod <número> - mostra um resumo do programa.
 #   Obs: número obtido pelas listagens da programação do canal consultado.
@@ -14,15 +15,16 @@
 #  doc ou documentario, esportes ou futebol, filmes, infantil, variedades
 #  series ou seriados, aberta, todos ou agora (padrão).
 #
-# Uso: zztv <código canal> [semana|s]  ou  zztv cod <número>
+# Uso: zztv [<código canal> [s | <DATA>]]  ou  zztv [cod <número> | canais]
 # Ex.: zztv CUL          # Programação da TV Cultura
-#      zztv cod 3235238
+#      zztv fox 31/5     # Programação da Fox na data, se disponível
+#      zztv cod 3235238  # Detalhes do programa identificado pelo código
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
-# Versão: 12
+# Versão: 13
 # Licença: GPL
-# Requisitos: zzunescape zzxml zzcolunar zzpad zzcut
+# Requisitos: zzunescape zzxml zzcolunar zzpad zzcut zzjuntalinhas zzdatafmt
 # ----------------------------------------------------------------------------
 zztv ()
 {
@@ -41,12 +43,17 @@ zztv ()
 	if ! test -s "$cache"
 	then
 		zztool source "${URL}/categoria/Todos/" |
-		zzxml --tidy |
-		sed -n '/<ul>/,/<\/ul>/{/\/programacao\/canal\//p;/ *|/p;}' |
-		sed 's|.*/||;s/".*//;s/ *|//' |
+		zzxml --tag ul |
+		zzxml --tag a |
+		zzjuntalinhas -i '<a ' -f '</a>' -d ' ' |
+		sed 's,.*canal/\([^"]*\).* [|] \([^<]*\) <.*,\1 \2,' |
 		zzunescape --html |
-		awk 'NR%2==1 {printf $0}; NR%2==0 {print}' |
 		sort > "$cache"
+	fi
+
+	if test -n "$2"
+	then
+		DATA=$(zzdatafmt -f 'DD\/MM' "$2" 2>/dev/null || echo "$DATA")
 	fi
 
 	if test -n "$1" && grep -i "^$1" $cache >/dev/null 2>/dev/null
@@ -108,15 +115,15 @@ zztv ()
 	if test $flag -eq 1
 	then
 		zztool eco $desc
-		zztool source "$URL" | sed -n '/<li style/{N;p;}' |
-		sed '/^[[:space:]]*$/d;/.*<\/*li/s/<[^>]*>//g' |
-		sed 's/.*title="//g;s/">.*<br \/>/ | /g;s/<[^>]*>/ /g' |
-		sed 's/[[:space:]]\{1,\}/ /g' |
-		sed '/^[[:space:]]*$/d' |
+		zztool source "$URL" |
+		zzxml --tag ul |
+		zzxml --tag a |
+		zzjuntalinhas -i '<a ' -f '</a>' -d ' ' |
+		sed 's/.*title="\([^"]*\)".*> \([0-9]\{1,2\}h[0-9]\{2\}\) <.* [|] \([^<]*\) <.*/\2 \1|\3/' |
 		zzunescape --html |
 		while read linhas
 		do
-			echo "$(zzpad 5 $(echo "$linhas" | zzcut -f 2 -d "|")) $(zzpad 57 $(echo "$linhas" | zzcut -f 1 -d "|" | zzcut -c -56)) $(echo "$linhas" | zzcut -f 3 -d "|")"
+			echo "$(zzpad 64 $(echo "$linhas" | zzcut -f 1 -d "|" | zzcut -c -56)) $(echo "$linhas" | zzcut -f 2 -d "|")"
 		done
 	elif test "$1" = "cod"
 	then
