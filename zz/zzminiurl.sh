@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Encurta uma URL utilizando o site http://migre.me ou http://is.gd
+# Encurta uma URL utilizando o site "http://migre.me" ou "http://is.gd".
 # Obs.: Se a URL não tiver protocolo no início, será colocado http://
 # Uso: zzminiurl URL
 # Ex.: zzminiurl http://www.funcoeszz.net
