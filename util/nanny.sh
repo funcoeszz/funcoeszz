@@ -204,15 +204,12 @@ do
 
 	test -n "$wrong" && printf "%s: %s\n" $f "$wrong" |
 		# Exceções conhecidas
-		grep -v '^zz/zzferiado.sh: # Requisitos:' |
+		# Linha de Requisitos é exceção sempre
+		grep -v '^zz/zz[[:alnum:]]*.sh: # Requisitos:' |
 		grep -v '^zz/zzloteria.sh: # Resultados da quina' |
 		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org' |
 		grep -v '^zz/zzpalpite.sh: # Uso: zzpalpite' |
-		grep -v '^zz/zzxml.sh: # Uso: zzxml' |
-		grep -v '^zz/zzcinepolis.sh: # Requisitos:' |
-		grep -v '^zz/zzcep.sh: # Requisitos:' |
-		grep -v '^zz/zzconjugar.sh: # Requisitos:' |
-		grep -v '^zz/zzbolsas.sh: # Requisitos:'
+		grep -v '^zz/zzxml.sh: # Uso: zzxml'
 done
 
 eco ----------------------------------------------------------------

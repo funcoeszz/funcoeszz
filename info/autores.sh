@@ -14,7 +14,7 @@
 		off ) grep -E '# (Autor|Desde): ' ../off/*.sh      ;;
 		tudo) grep -E '# (Autor|Desde): ' ../{zz,off}/*.sh ;;
 	esac |
-	sed 's|.*/||; s/\.sh//; s/#.*: //; s/\(, \| [(<]\).*//' |
+	sed 's|.*/zz|zz|; s/\.sh//; s/#.*: //; s/\(, \| [(<]\).*//' |
 	awk -F : '
 		NR % 2 == 1 {autor = $2 }
 		NR % 2 == 0 { print $2, $1 "\t" autor}
