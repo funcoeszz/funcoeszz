@@ -64,8 +64,7 @@ zzfatorar ()
 			sed '1d; $!{ /.\{1,\}[024568]$/d; }' |
 			while read linha
 			do
-				zzdivisores $linha |
-				awk 'NF==2 {print $2}'
+				zzdivisores $linha | awk 'NF==2 {print $2}'
 			done > "$cache"
 		fi
 		primo_atual=$(head -n 1 "$cache")
@@ -82,6 +81,7 @@ zzfatorar ()
 		do
 
 			# Repetindo a divisão pelo número primo atual, enquanto for exato
+			# e ecoando a fatoração formatada
 			while test $((${num_atual} % ${primo_atual})) -eq 0
 			do
 				test "$bc" != "1" && printf "%${tamanho}s | %s\n" ${num_atual} ${primo_atual}
@@ -90,7 +90,8 @@ zzfatorar ()
 				test "$bc" != "1" -a "${num_atual}" = "1" && { printf "%${tamanho}s |\n" 1; break; }
 			done
 
-			# Se o número atual é primo
+			# Se o número atual é primo finaliza a fatoração
+			# ecoando os 2 últimos elementos
 			grep "^${num_atual}$" ${cache} > /dev/null
 			if test "$?" = "0"
 			then
@@ -103,7 +104,7 @@ zzfatorar ()
 				break
 			fi
 
-			# Definindo o número primo a ser usado
+			# Definindo o próximo número primo a ser usado
 			if test "${num_atual}" != "1"
 			then
 				linha_atual=$((${linha_atual} + 1))
@@ -114,8 +115,15 @@ zzfatorar ()
 
 		if test "$bc" != "2"
 		then
-			saida=$(echo "$saida " | sed 's/ /&\
-/g' | sed '/^ *$/d;s/^ *//g' | uniq -c | awk '{ if ($1==1) {print $2} else {print $2 "^" $1} }' | zzjuntalinhas -d ' * ')
+			# Formatando a fórmula ao final da fatoração
+			saida=$(
+				echo "$saida " |
+				tr ' ' '\n' |
+				sed '/^ *$/d;s/^ *//g' |
+				uniq -c |
+				awk '{ if ($1==1) {print $2} else {print $2 "^" $1} }' |
+				zzjuntalinhas -d ' * '
+			)
 			test "$bc" -eq "1" || echo
 			echo "$1 = $saida"
 		fi
