@@ -151,7 +151,7 @@ zzxml ()
 	fi
 
 	# Caso indent=1 mantém uma tag por linha para possibilitar indentação.
-	if test -n "$tag" 
+	if test -n "$tag"
 	then
 		if test $tidy -eq 0
 		then
@@ -160,7 +160,7 @@ zzxml ()
 			echo 'END { for (lin=1;lin<=NR;lin++) { if (lin in linha) print linha[lin] } }' >> $cache_tag
 		fi
 	fi
-	if test -n "$notag" 
+	if test -n "$notag"
 	then
 		if test $tidy -eq 0
 		then
