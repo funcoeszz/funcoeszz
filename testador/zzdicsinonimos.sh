@@ -117,5 +117,5 @@ Maldade:
 11 nocividade, perversidade, malevolência, malfeito, malefício, ruindade, crueldade, maldade, malignidade, perniciosidade.
 
 Relacionadas
-mal-estar, mal-entendido
+foi mal, mal-estar, mal-entendido
 $
