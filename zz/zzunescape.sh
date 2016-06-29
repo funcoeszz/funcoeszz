@@ -297,18 +297,19 @@ zzunescape ()
 	do
 		case "$1" in
 			--html)
-				filtro="$filtro$html";
+				filtro="$filtro$html"
 				shift
 			;;
 			--xml)
-				filtro="$filtro$xml";
+				filtro="$filtro$xml"
 				shift
 			;;
+			--) shift; break ;;
 			*) break ;;
 		esac
 	done
 
 	# Faz a conversão
 	# Arquivos via STDIN ou argumentos
-	zztool file_stdin "$@" | sed "$filtro"
+	zztool file_stdin -- "$@" | sed "$filtro"
 }

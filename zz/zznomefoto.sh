@@ -52,9 +52,7 @@ zznomefoto ()
 				dropbox=1
 				shift
 			;;
-			*)
-				break
-			;;
+			* ) break ;;
 		esac
 	done
 

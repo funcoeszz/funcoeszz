@@ -97,6 +97,7 @@ zzxml ()
 				zzuniq
 				return
 			;;
+			--        ) shift; break;;
 			--*       ) zztool erro "Opção inválida $1"; return 1;;
 			*         ) break;;
 		esac
@@ -185,7 +186,7 @@ zzxml ()
 	# esquema precisará ser revisto.
 
 	# Arquivos via STDIN ou argumentos
-	zztool file_stdin "$@" |
+	zztool file_stdin -- "$@" |
 
 	zzjuntalinhas -i "<!--" -f "-->" |
 

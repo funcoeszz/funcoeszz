@@ -47,6 +47,7 @@ zzfrenteverso2pdf ()
 			-v | --verbose)
 				set -x
 				;;
+			--) shift; break ;;
 			*) { zztool -e uso frenteverso2pdf; set +x; return 1; } ;;
 		esac
 		shift

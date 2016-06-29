@@ -1,3 +1,7 @@
+# Preparando arquivo de nome incomun
+$ cat zzxml.in.xml > "-_tmp1"
+$
+
 # Erros
 
 $ zzxml --foo zzxml.in.xml
@@ -8,6 +12,17 @@ $
 # --list: Lista todas as tags XML encontradas
 
 $ zzxml --list zzxml.in.xml
+xml
+section
+title
+img
+para
+strong
+em
+escape
+$
+
+$ zzxml --list -- -_tmp1
 xml
 section
 title
@@ -119,6 +134,20 @@ Título
 </xml>
 $
 
+$ zzxml --notag 'para' -- -_tmp1
+<xml>
+<section>
+<title>
+Título
+</title>
+<img src="foo.png" />
+<escape>
+&quot;&amp;&apos;&lt;&gt;
+</escape>
+</section>
+</xml>
+$
+
 #----------------------------------------------------------------------
 # Combina --notag NOME com --indent (em qualquer ordem)
 
@@ -152,6 +181,14 @@ $
 # --notag NOME chamado múltiplas vezes
 
 $ zzxml --notag 'para' --notag 'escape' --notag 'title' zzxml.in.xml
+<xml>
+<section>
+<img src="foo.png" />
+</section>
+</xml>
+$
+
+$ zzxml --notag 'para' --notag 'escape' --notag 'title' -- -_tmp1
 <xml>
 <section>
 <img src="foo.png" />
@@ -330,4 +367,8 @@ $
 
 $ zzxml --tag 'escape' --unescape --untag zzxml.in.xml
 "&'<>
+$
+
+# Limpeza
+$ rm -f ./-_tmp1
 $
