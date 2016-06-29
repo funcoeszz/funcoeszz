@@ -21,7 +21,7 @@ grep '	 ' * |
 
 funcoeszz tool eco "Linha com Tabs ou espaços inúteis no final"
 grep '[^ 	][ 	]\{1,\}$' * |
-	grep -v ^zzxml  # exceção, usado num comentário
+	grep -v '^zzxml.sh:.*Foo $'  # exceção, usado num comentário
 
 funcoeszz tool eco "Linhas vazias, mas com brancos"
 egrep '^[	 ]+$' *
