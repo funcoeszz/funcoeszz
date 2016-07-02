@@ -288,7 +288,7 @@ zzloteria ()
 							}
 						$2 ~ /[0-9]\/[0-9][0-9]\/[0-9]/ {
 							for (i=3;i<9;i++)  numeros1[$i]++
-							for (i=12;i>6;i--) numeros2[$(NF-i) ]++
+							for (i=15;i>9;i--) numeros2[$(NF-i) ]++
 						}
 						END {
 							for (i=1;i<=25;i++) {
@@ -306,16 +306,16 @@ zzloteria ()
 							for (i=3;i<9;i++) {print $i | comando }
 							close(comando)
 							printf "\n  2º sorteio\n"
-							for (i=12;i>6;i--) {print $(NF-i) | comando }
+							for (i=15;i>9;i--) {print $(NF-i) | comando }
 							close(comando)
 							printf "\n  1º Sorteio\n"
-							printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador":$10), ($10==0?"":"R$ " $(NF-19))
-							printf "   Quina \t%s\t%s\n", $(NF-18), "R$ " $(NF-17)
-							printf "   Quadra\t%s\t%s\n", $(NF-16), "R$ " $(NF-16)
+							printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador":$10), ($10==0?"":"R$ " $(NF-22))
+							printf "   Quina \t%s\t%s\n", $(NF-21), "R$ " $(NF-20)
+							printf "   Quadra\t%s\t%s\n", $(NF-19), "R$ " $(NF-19)
 							printf "\n  2º Sorteio\n"
-							printf "   Sena  \t%s\t%s\n", ($(NF-6)==0?"Nao houve acertador":$(NF-6)), ($(NF-6)==0?"":"R$ " $(NF-5))
-							printf "   Quina \t%s\t%s\n", $(NF-4), "R$ " $(NF-3)
-							printf "   Quadra\t%s\t%s\n", $(NF-2), "R$ " $(NF-1)
+							printf "   Sena  \t%s\t%s\n", ($(NF-9)==0?"Nao houve acertador":$(NF-9)), ($(NF-9)==0?"":"R$ " $(NF-8))
+							printf "   Quina \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
+							printf "   Quadra\t%s\t%s\n", $(NF-5), "R$ " $(NF-4)
 						}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g'
 					fi
 				;;
