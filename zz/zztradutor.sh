@@ -25,9 +25,9 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
-# Versão: 12
+# Versão: 13
 # Licença: GPLv2
-# Requisitos: zzxml zzplay zzunescape
+# Requisitos: zzxml zzplay zzunescape zzutf8
 # ----------------------------------------------------------------------------
 zztradutor ()
 {
@@ -53,7 +53,8 @@ zztradutor ()
 			zztool source "$url" |
 			zzxml --tag option |
 			sed -n '/<option value=af>/,/<option value=yi>/p' |
-			zztool texto_em_iso | sort -u |
+			zzutf8 |
+			sort -u |
 			sed 's/.*value=\([^>]*\)>\([^<]*\)<.*/\1: \2/g;s/zh-CN/cn/g' |
 			grep ${2:-:}
 			return
@@ -77,7 +78,7 @@ zztradutor ()
 	# Baixa a URL, coloca cada tag em uma linha, pega a linha desejada
 	# e limpa essa linha para estar somente o texto desejado.
 	zztool source -u "Mozilla/5.0" "$url?tr=$lang_de&hl=$lang_para&text=$padrao" 2>/dev/null |
-		zztool texto_em_iso |
+		zzutf8 |
 		zzxml --tidy |
 		sed -n '/id=result_box/,/<\/div>/p' |
 		zzxml --untag |
