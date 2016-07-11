@@ -80,8 +80,7 @@ zzconjugar ()
 			zzxml --untag |
 			sed '1d; s/- /-/; s/ *:/:/;' |
 			zzsqueeze |
-			zzcolunar 2 |
-			zztrim -H
+			zztrim
 		;;
 		ind)
 			zztool eco Indicativo

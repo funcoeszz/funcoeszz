@@ -1,9 +1,12 @@
 $ zzconjugar calcar
 
 Verbo Calcar
-Gerúndio: calcando          Morfologia: verbo regular
-Particípio passado: calcado Semântica: verbo transitivo
-Infinitivo: calcar          Separação silábica: cal-car
+Gerúndio: calcando
+Particípio passado: calcado
+Infinitivo: calcar
+Morfologia: verbo regular
+Semântica: verbo transitivo
+Separação silábica: cal-car
 
 Indicativo
 Presente                       Pretérito Perfeito             Futuro do Presente
@@ -77,9 +80,12 @@ $
 $ zzconjugar comemorar def
 
 Verbo Comemorar
-Gerúndio: comemorando            Morfologia: verbo regular
-Particípio passado: comemorado   Semântica: verbo transitivo
-Infinitivo: comemorar            Separação silábica: co-me-mo-rar
+Gerúndio: comemorando
+Particípio passado: comemorado
+Infinitivo: comemorar
+Morfologia: verbo regular
+Semântica: verbo transitivo
+Separação silábica: co-me-mo-rar
 $
 
 $ zzconjugar ler imp sub
@@ -115,9 +121,13 @@ que vós  vades                 se vós  fôsseis                quando vós  fo
 que eles vão                   se eles fossem                 quando eles forem
 
 Verbo Ir
-Gerúndio: indo                            Morfologia: verbo irregular
-Particípio passado: ido                   Semântica: verbo intransitivo e reflexivo
-Infinitivo: ir                            Separação silábica: ir
+O verbo ir é um verbo extremamente irregular que apresenta alterações tanto no radical como nas terminações, quando conjugado. Apresenta três radicais distintos: eu vou, eu fui, eu ia. Possui conjugações iguais ao verbo ser no pretérito perfeito do indicativo (eu fui), no pretérito mais-que-perfeito do indicativo (eu fora), no pretérito imperfeito do subjuntivo (se eu fosse) e no futuro do subjuntivo (quando eu for).
+Gerúndio: indo
+Particípio passado: ido
+Infinitivo: ir
+Morfologia: verbo irregular
+Semântica: verbo intransitivo e reflexivo
+Separação silábica: ir
 $
 
 $ zzconjugar impor imp ind
@@ -202,9 +212,12 @@ $
 $ zzconjugar intervir
 
 Verbo Intervir
-Gerúndio: intervindo           Morfologia: verbo regular
-Particípio passado: intervindo Semântica: verbo intransitivo
-Infinitivo: intervir           Separação silábica: in-ter-vir
+Gerúndio: intervindo
+Particípio passado: intervindo
+Infinitivo: intervir
+Morfologia: verbo regular
+Semântica: verbo intransitivo
+Separação silábica: in-ter-vir
 
 Indicativo
 Presente                       Pretérito Perfeito             Futuro do Presente
