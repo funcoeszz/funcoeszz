@@ -1,12 +1,12 @@
 # Normal
 
 $ zzdicantonimos alto
-1. anão, raso, baixo, pequeno, reduzido, diminuto.
-2. flácido, anão, caído, barato, pequeno, fraco.
-3. módico, vulgar, fraco, leve, insignificante, modesto.
-4. torpe, pior, sórdido, rasteiro, indigno, vil, inferior, lento, razoável.
-5. acessível, cristalino, razoável, compreensível, descomplicado.
-6. sopé, falda, base.
+1. anão, diminuto, reduzido, raso, pequeno, baixo.
+2. anão, barato, pequeno, caído, flácido, fraco.
+3. módico, fraco, vulgar, leve, insignificante, modesto.
+4. torpe, sórdido, pior, rasteiro, indigno, acessível, razoável, lento, vil, inferior.
+5. compreensível, cristalino, descomplicado, acessível, razoável.
+6. falda, base, sopé.
 $
 
 # Palavra com acentos
