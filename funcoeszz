@@ -343,7 +343,7 @@ zztool ()
 			# Estrutura do comando:
 			# zztool <post|dump|source|list|download> [browser] [opções] <url> [dados_post]
 
-			local browser input_charset output_charset output_width user_agent opt_common
+			local browser input_charset output_charset output_width user_agent opt_common nbsp_utf
 
 			# A função pode chamar um navegador específico ou assumir o padrão $ZZBROWSER
 			case "$1" in
@@ -365,6 +365,7 @@ zztool ()
 
 			output_charset="${output_charset:-UTF-8}"
 			output_width="${output_width:-300}"
+			nbsp_utf=$(printf '\302\240')
 
 			# Para POST se não houver ao menos 2 parâmetros (url e dados) interrompe.
 			test "$ferramenta" = 'post' && test $# -lt 2 && return 1
@@ -379,7 +380,6 @@ zztool ()
 				w3m           ) opt_common="-cols ${output_width}  -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    ${user_agent:+-o user_agent=}${user_agent}         -cookie -o follow_redirection=9" ;;
 				elinks        )
 					local aspas='"'
-					local nbsp_utf=$(printf '\302\240')
 					opt_common="-dump-width ${output_width} -dump-charset ${output_charset} ${input_charset:+-eval 'set document.codepage.assume = ${aspas}${input_charset}${aspas}'} ${user_agent:+-eval 'set protocol.http.user_agent = $user_agent'} -no-numbering"
 				;;
 			esac
