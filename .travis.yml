@@ -2,25 +2,15 @@ language: bash
 
 os:
   - linux
-  - osx
 
-# Prepare the environment
-addons:
-  apt:
-    packages:
-      - bc
-      - links
 before_install:
-  # OS X: install packages (||true to avoid Linux fail)
-  - test "$TRAVIS_OS_NAME" = osx && brew update                 || true
-  - test "$TRAVIS_OS_NAME" = osx && brew install --devel elinks || true
-  - test "$TRAVIS_OS_NAME" = osx && brew install links          || true
-  - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
+  - url_base="https://raw.githubusercontent.com/aureliojargas/clitest"
+  - curl -sOL "${url_base}/master/clitest"
   - chmod +x clitest
   - mv clitest testador
 
 script:
-  - cd testador && ./run
+  - cd testador && ./run zzcores.sh
 
 notifications:
   email: false
