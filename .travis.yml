@@ -1,8 +1,5 @@
 language: bash
 
-os:
-  - linux
-
 before_install:
   - url_base="https://raw.githubusercontent.com/aureliojargas/clitest"
   - curl -sOL "${url_base}/master/clitest"
