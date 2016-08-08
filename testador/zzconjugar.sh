@@ -4,8 +4,8 @@ Verbo Calcar
 Gerúndio: calcando
 Particípio passado: calcado
 Infinitivo: calcar
-Morfologia: verbo regular
-Semântica: verbo transitivo
+Tipo de verbo: regular
+Transitividade: transitivo
 Separação silábica: cal-car
 
 Indicativo
@@ -83,8 +83,8 @@ Verbo Comemorar
 Gerúndio: comemorando
 Particípio passado: comemorado
 Infinitivo: comemorar
-Morfologia: verbo regular
-Semântica: verbo transitivo
+Tipo de verbo: regular
+Transitividade: transitivo
 Separação silábica: co-me-mo-rar
 $
 
@@ -124,8 +124,8 @@ Verbo Ir
 Gerúndio: indo
 Particípio passado: ido
 Infinitivo: ir
-Morfologia: verbo irregular
-Semântica: verbo intransitivo e reflexivo
+Tipo de verbo: irregular
+Transitividade: intransitivo e reflexivo
 Separação silábica: ir
 $
 
@@ -214,8 +214,8 @@ Verbo Intervir
 Gerúndio: intervindo
 Particípio passado: intervindo
 Infinitivo: intervir
-Morfologia: verbo regular
-Semântica: verbo intransitivo
+Tipo de verbo: regular
+Transitividade: intransitivo
 Separação silábica: in-ter-vir
 
 Indicativo
