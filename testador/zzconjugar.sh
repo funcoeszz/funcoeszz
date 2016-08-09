@@ -4,8 +4,8 @@ Verbo Calcar
 Gerúndio: calcando
 Particípio passado: calcado
 Infinitivo: calcar
-Morfologia: verbo regular
-Semântica: verbo transitivo
+Tipo de verbo: regular
+Transitividade: transitivo
 Separação silábica: cal-car
 
 Indicativo
@@ -83,8 +83,8 @@ Verbo Comemorar
 Gerúndio: comemorando
 Particípio passado: comemorado
 Infinitivo: comemorar
-Morfologia: verbo regular
-Semântica: verbo transitivo
+Tipo de verbo: regular
+Transitividade: transitivo
 Separação silábica: co-me-mo-rar
 $
 
@@ -109,7 +109,7 @@ que vós  leiais                se vós  lêsseis                quando vós  le
 que eles leiam                 se eles lessem                 quando eles lerem
 $
 
-$ zzconjugar ir sub def
+$ zzconjugar ir sub def | sed '/extremamente irregular/d'
 
 Subjuntivo
 Presente                       Pretérito Imperfeito           Futuro
@@ -121,12 +121,11 @@ que vós  vades                 se vós  fôsseis                quando vós  fo
 que eles vão                   se eles fossem                 quando eles forem
 
 Verbo Ir
-O verbo ir é um verbo extremamente irregular que apresenta alterações tanto no radical como nas terminações, quando conjugado. Apresenta três radicais distintos: eu vou, eu fui, eu ia. Possui conjugações iguais ao verbo ser no pretérito perfeito do indicativo (eu fui), no pretérito mais-que-perfeito do indicativo (eu fora), no pretérito imperfeito do subjuntivo (se eu fosse) e no futuro do subjuntivo (quando eu for).
 Gerúndio: indo
 Particípio passado: ido
 Infinitivo: ir
-Morfologia: verbo irregular
-Semântica: verbo intransitivo e reflexivo
+Tipo de verbo: irregular
+Transitividade: intransitivo e reflexivo
 Separação silábica: ir
 $
 
@@ -215,8 +214,8 @@ Verbo Intervir
 Gerúndio: intervindo
 Particípio passado: intervindo
 Infinitivo: intervir
-Morfologia: verbo regular
-Semântica: verbo intransitivo
+Tipo de verbo: regular
+Transitividade: intransitivo
 Separação silábica: in-ter-vir
 
 Indicativo
