@@ -65,7 +65,7 @@ zztestar ()
 			test $((y%4)) -eq 0 && test $((y%100)) -ne 0 || test $((y%400)) -eq 0
 			test $? -eq 0 && return 0
 
-			test -n "$erro" && zztool erro "Ano bissexto inválido '$1'"
+			test -n "$erro" && zztool erro "Ano bissexto inválido '$2'"
 			return 1
 		;;
 
@@ -93,7 +93,7 @@ zztestar ()
 			# regex: \d+[,.]\d+
 			echo "$2" | grep '^[0-9]\{1,\}[,.][0-9]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número fracionário inválido '$2'" >&2
+			test -n "$erro" && zztool erro "Número fracionário inválido '$2'"
 			return 1
 		;;
 
