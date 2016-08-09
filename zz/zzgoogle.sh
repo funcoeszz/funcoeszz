@@ -89,7 +89,7 @@ zzgoogle ()
 			p
 		}' |
 		zztrim -r |
-		sed -n "1,/^ *${limite}\. /{ /^ *${limite}\. /d; p; } "
+		sed -n "/^ *1\. /,/^ *${limite}\. /{ /^ *${limite}\. /d; p; } "
 	;;
 	esac
 }
