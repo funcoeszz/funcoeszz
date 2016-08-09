@@ -32,6 +32,14 @@ zzdicantonimos ()
 			/«/d
 			/^$/d
 			s/^ *//
+			s/^[0-9]*\. //
+			s/,//g
+			s/\.$//
 			p
-		}"
+		}" |
+		zztool list2lines |
+		sort |
+		uniq |
+		zztool lines2list |
+		zztool nl_eof
 }
