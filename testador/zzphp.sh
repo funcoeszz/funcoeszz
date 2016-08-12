@@ -1,4 +1,12 @@
 $ zzphp json
+Ds\Deque::jsonSerialize - Returns a representation that can be converted to JSON.
+Ds\Map::jsonSerialize - Returns a representation that can be converted to JSON.
+Ds\Pair::jsonSerialize - Returns a representation that can be converted to JSON.
+Ds\PriorityQueue::jsonSerialize - Returns a representation that can be converted to JSON.
+Ds\Queue::jsonSerialize - Returns a representation that can be converted to JSON.
+Ds\Set::jsonSerialize - Returns a representation that can be converted to JSON.
+Ds\Stack::jsonSerialize - Returns a representation that can be converted to JSON.
+Ds\Vector::jsonSerialize - Returns a representation that can be converted to JSON.
 JsonSerializable::jsonSerialize - Specify data which should be serialized to JSON
 json_decode - Decodifica uma string JSON
 json_encode - Retorna a representação JSON de um valor
