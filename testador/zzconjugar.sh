@@ -124,8 +124,8 @@ Verbo Ir
 Gerúndio: indo
 Particípio passado: ido
 Infinitivo: ir
-Tipo de verbo: irregular
-Transitividade: intransitivo e reflexivo
+Tipo de verbo: irregular, pronominal, de ligação, auxiliar
+Transitividade: transitivo indireto, intransitivo
 Separação silábica: ir
 $
 
