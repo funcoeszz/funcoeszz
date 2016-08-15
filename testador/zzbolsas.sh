@@ -167,6 +167,6 @@ $ zzbolsas moedas          #→ --lines 18
 $ zzbolsas moedas latina   #→ --lines 14
 $ zzbolsas moedas europa   #→ --lines 16
 $ zzbolsas taxas_cruzadas  #→ --lines 9
-$ zzbolsas volume          #→ --lines 102
-$ zzbolsas alta            #→ --lines 102
-$ zzbolsas baixa           #→ --lines 102
+$ zzbolsas volume | head -n 90          #→ --lines 90
+$ zzbolsas alta | head -n 90            #→ --lines 90
+$ zzbolsas baixa | head -n 90           #→ --lines 90
