@@ -14,6 +14,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2016-08-28 Site foi descontinuado (veja issue #333)
 zztempo ()
 {
 	zzzz -h tempo "$1" && return
