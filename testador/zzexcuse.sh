@@ -8,5 +8,5 @@ Uso: zzexcuse [-t|--traduzir]
 Ex.: zzexcuse
 
 $
-$ zzexcuse | grep . | wc -l	#→ 1
-$ zzexcuse -t | grep . | wc -l	#→ 1
+$ zzexcuse | sed '/^ *$/d' | wc -l	#→ 1
+$ zzexcuse -t | sed '/^ *$/d' | wc -l	#→ 1
