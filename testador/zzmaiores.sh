@@ -1,4 +1,4 @@
-$ zzmaiores -n 9
+$ zzmaiores | sed '/clitest/d' | head -n 9
 28	zznumero.sh
 28	zzdatafmt.sh
 16	zzansi2html.out.html

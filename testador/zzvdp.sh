@@ -1,8 +1,8 @@
-$ zzvdp | sed '1s/^[^ ].*/OK/;2s/^$/Ok/;3,$s/^[ ]\{3\}.*/ok/'| uniq
+$ zzvdp | sed '1s/^[^ ].*/OK/;2s/^$/Ok/;3,$s/.*/ok/'| uniq
 OK
 Ok
 ok
-$ zzvdp 3 | sed '1s/^[^ ].*/OK/;2s/^$/Ok/;3,$s/^[ ]\{3\}.*/ok/'| uniq
+$ zzvdp 3 | sed '1s/^[^ ].*/OK/;2s/^$/Ok/;3,$s/.*/ok/'| uniq
 OK
 Ok
 ok
