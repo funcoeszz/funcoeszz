@@ -16,8 +16,8 @@ $ zzve contas | awk '$1 ~ /\// { print NF }' | uniq	#→ 11
 $ zzve credito | awk '/.*\. *[0-9]+,/ { sub(/.*a\.[am]\. */,""); print NF }' | uniq	#→ 6
 $ zzve tr | awk '/\/[0-9][0-9] a [0-9][0-9]\//{ print NF }' | uniq	#→ 14
 $ zzve custo | awk '/ ao (ano|mês)/ { sub(/.*ao (ano|mês)\)* */,""); print NF }' | uniq	#→ 6
-$ zzve aplicacoes | sed -n '/[0-9],[0-9]/{s/ *IBrX 50 *//;s/.*[a-zA-Z)] *//g;p;}' | awk '{ print NF }' | uniq	#→ 8
-$ zzve ima  | awk '/I[RM].-/ { gsub("*",""); print NF }' | uniq	#→ 6
+$ zzve aplicacoes | sed -n '/[0-9],[0-9]/{/para o mês de/d;s/ *IBrX 50 *//;s/.*[a-zA-Z)] *//g;p;}' | awk '{ print NF }' | uniq	#→ 8
+$ zzve ima  | awk '/I[RM].-/ { gsub(/\*/,""); print NF }' | uniq	#→ 6
 $ zzve mercado | awk '/[0-9],[0-9]/ { sub(/.*[)*] */,""); print NF }' | uniq	#→ 6
 $ zzve insper | sed -n '/[0-9],/{s/.*dias//;s/^[^0-9]*//;s/[0-9.]*,[0-9]*/9,9/g;s/  */ /g;s/ $//;p;}'
 9,9 9,9 9,9 9,9 9,9
