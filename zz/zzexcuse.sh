@@ -18,7 +18,7 @@ zzexcuse ()
 	local url='http://programmingexcuses.com/'
 
 	zztool dump "$url" |
-	sed '$d' |
+	sed '$d;/Link: /d' |
 	zztrim |
 	case $1 in
 	-t | --traduzir ) zztradutor en-pt ;;

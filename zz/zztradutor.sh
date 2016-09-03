@@ -70,7 +70,7 @@ zztradutor ()
 		;;
 	esac
 
-	padrao=$(zztool multi_stdin "$@" | awk '{ if (NR==1) { printf $0 } else { printf "%0a" $0 } }' | sed "$ZZSEDURL")
+	padrao=$(zztool multi_stdin "$@" | awk '{ if (NR==1) { printf $0 } else { printf "%%0a" $0 } }' | sed "$ZZSEDURL")
 
 	# Exceção para o chinês, que usa um código diferente
 	test $lang_para = 'cn' && lang_para='zh-CN'
