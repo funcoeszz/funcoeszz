@@ -24,7 +24,7 @@ zzsheldon ()
 	sed 's|Correct this quote|<p>&</p>|g'|
 	zzxml --tag p |
 	zzjuntalinhas -i '<p' -f '</p>' |
-	sed 's_<br />_|_g' |
+	sed 's/<br \/>/|/g' |
 	zzxml --untag |
 	zzsqueeze |
 	sed -n "/$begin/,/$end/p" |

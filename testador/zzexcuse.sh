@@ -8,5 +8,5 @@ Uso: zzexcuse [-t|--traduzir]
 Ex.: zzexcuse
 
 $
-$ zzexcuse | wc -l	#→ 1
-$ zzexcuse -t | wc -l	#→ 1
+$ zzexcuse | zzwc -l	#→ 1
+$ zzexcuse -t | zzwc -l	#→ 1
