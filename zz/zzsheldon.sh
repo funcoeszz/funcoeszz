@@ -27,7 +27,8 @@ zzsheldon ()
 	sed 's/<br \/>/|/g' |
 	zzxml --untag |
 	zzsqueeze |
-	sed -n "/$begin/,/$end/p" |
+	awk '/'"${begin}"'/,/'"${end}"'/' |
+	#sed -n "/$begin/,/$end/p" |
 	zztrim -H |
 	zzjuntalinhas -i "$begin" -f "$end" -d "|" |
 	zzlinha |
@@ -38,6 +39,6 @@ zzsheldon ()
 		*) cat - ;;
 		esac |
 	zztrim -H |
-	#sed "2,$ { /:/!s/^/	/; s/: /:	/; }" |
+	sed "2,$ { /:/!s/^/	/; s/: /:	/; }" |
 	expand -t 10
 }
