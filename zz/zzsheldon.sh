@@ -38,6 +38,6 @@ zzsheldon ()
 		*) cat - ;;
 		esac |
 	zztrim -H |
-	sed "2,$ { /:/!s/^/\t/; s/: /:\t/; }" |
+	sed "2,$ { /:/!s/^/	/; s/: /:	/; }" |
 	expand -t 10
 }
