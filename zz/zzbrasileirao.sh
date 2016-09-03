@@ -96,7 +96,6 @@ zzbrasileirao ()
 			sed -n "/Grupo [AB] *PG .*/,/Rodada 1 *$/{s/^/_/;/.* Rodada .*/d;s/°/./;p;}" |
 			while read linha
 			do
-				echo "|${linha}|"
 				if echo "$linha" | grep -E '[12]\.' >/dev/null
 				then
 					zzecho -f verde -l preto "$linha"
