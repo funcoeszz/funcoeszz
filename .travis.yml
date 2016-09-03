@@ -20,7 +20,7 @@ before_install:
   - mv clitest testador
 
 script:
-  - cd testador && ./run zzbrasileirao.sh zzexcuse.sh zzmaiores.sh zzoperadora.sh zzsheldon.sh zztop.sh
+  - cd testador && ./run zzbrasileirao.sh zzoperadora.sh zzsheldon.sh zztop.sh
 
 notifications:
   email: false
