@@ -61,7 +61,7 @@ zztop ()
 		-l)
 		# Meses e anos disponíveis, representado por um número sequencial
 			zztool source "${url}/statistics/list" |
-			sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/\t/;p;}' |
+			sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/	/;p;}' |
 			sed '/June 1993$/q' | expand -t 3 |
 			zztac | zzcolunar -w 20 3
 			return 0
@@ -72,7 +72,7 @@ zztop ()
 
 	all_releases=$(
 		zztool source "${url}/statistics/list" |
-		sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/\t/;p;}' |
+		sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/	/;p;}' |
 		sed '/June 1993$/q'
 	)
 
