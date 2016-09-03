@@ -23,9 +23,9 @@ zzsheldon ()
 	zztool source ${url}$(zzaleatorio 144) |
 	sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
 	zzxml --tag p |
-	zzjuntalinhas -i '<p' -f '</p>' |
+	zzjuntalinhas -i '<p' -f '<\/p>' -d ' ' |
 	sed 's/<br \/>/|/g' |
-	sed 's/<[^>]*>//g' |
+	zzxml --untag |
 	zzsqueeze |
 	sed -n "/$begin/,/$end/p" |
 	zztrim -H |
