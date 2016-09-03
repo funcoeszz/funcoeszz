@@ -92,6 +92,7 @@ zzbrasileirao ()
 		zztool eco $(echo "Série $serie" | tr 'abcd' 'ABCD')
 		if test "$serie" = "c" -o "$serie" = "d"
 		then
+			zztool dump "$url"
 			zztool dump "$url" |
 			sed -n "/Grupo \(A\|B\)/,/Rodada 1/{s/^/_/;s/.*Rodada.*//;s/°/./;p;}" |
 			while read linha
