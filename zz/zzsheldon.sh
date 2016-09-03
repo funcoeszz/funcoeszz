@@ -25,10 +25,9 @@ zzsheldon ()
 	zzxml --tag p |
 	zzjuntalinhas -i '<p' -f '</p>' |
 	sed 's/<br \/>/|/g' |
-	zzxml --untag |
+	sed 's/<[^>]*>//g' |
 	zzsqueeze |
-	awk '/'"${begin}"'/,/'"${end}"'/' |
-	#sed -n "/$begin/,/$end/p" |
+	sed -n "/$begin/,/$end/p" |
 	zztrim -H |
 	zzjuntalinhas -i "$begin" -f "$end" -d "|" |
 	zzlinha |
