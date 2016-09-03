@@ -11,7 +11,7 @@
 # Licença: GPL
 # Requisitos: zzutf8
 # ----------------------------------------------------------------------------
-
+# DESATIVADA: 2016-09-03 Site usam AJAX, impossível consultar :(
 zzoperadora ()
 {
 	zzzz -h operadora "$1" && return
