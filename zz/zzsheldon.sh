@@ -32,12 +32,12 @@ zzsheldon ()
 	zzjuntalinhas -i "$begin" -f "$end" -d "|" |
 	zzlinha |
 	tr '|' '\n' |
-	#sed "/$end/d;s/$begin/Episode -/;/^[[:blank:]]*$/d" |
+	sed "/$end/d;s/$begin/Episode -/;/^[[:blank:]]*$/d" |
 	case $1 in
 		-t | --traduzir ) zztradutor en-pt ;;
 		*) cat - ;;
 		esac |
 	zztrim -H |
-	sed "2,$ { /:/!s/^/	/; s/: /:	/; }" |
+	#sed "2,$ { /:/!s/^/	/; s/: /:	/; }" |
 	expand -t 10
 }
