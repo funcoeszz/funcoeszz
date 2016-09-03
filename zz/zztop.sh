@@ -138,8 +138,9 @@ zztop ()
 	then
 		echo "$cache" |
 		sed -n "/dataTable.addRows/{n;p;}" |
-		sed "s/^ *//;s|\\\||g;s/',/\t/g"|
-		tr -d "['," | tr ']' '\n' | expand -t $ntab
+		sed "s/^ *//;s/',/	/g" |
+		tr -d '\\' | tr -d "['," | tr ']' '\n' |
+		expand -t $ntab
 	else
 		echo "$cache" | sed '/<td style=/,/<\/td>/d' |
 		zzxml --tag td --notag thead --untag |
