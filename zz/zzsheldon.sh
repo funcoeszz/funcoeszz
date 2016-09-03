@@ -21,10 +21,10 @@ zzsheldon ()
 	local end="Correct this quote"
 
 	zztool source ${url}$(zzaleatorio 144) |
-	#sed 's/Correct this quote/<p>&<\/p>/g' |
+	sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
 	zzxml --tag p |
 	zzjuntalinhas -i '<p' -f '</p>' |
-	sed 's/<br \/>/|/g' |
+	#sed 's/<br \/>/|/g' |
 	zzxml --untag |
 	zzsqueeze |
 	sed -n "/$begin/,/$end/p" |
