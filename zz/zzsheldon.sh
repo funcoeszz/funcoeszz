@@ -21,6 +21,7 @@ zzsheldon ()
 	local end="Correct this quote"
 
 	zztool source ${url}$(zzaleatorio 144) |
+	zzutf8 |
 	sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
 	zzxml --tag p |
 	zzjuntalinhas -i '<p' -f '<.p>' -d ' ' |
