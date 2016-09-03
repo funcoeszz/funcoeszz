@@ -8,7 +8,5 @@ Uso: zzexcuse [-t|--traduzir]
 Ex.: zzexcuse
 
 $
-$ zzexcuse | sed 's/^/|/;s/$/|/'
-$
-$ zzexcuse -t | sed 's/^/|/;s/$/|/'
-$
+$ zzexcuse | wc -l	#→ 1
+$ zzexcuse -t | wc -l	#→ 1
