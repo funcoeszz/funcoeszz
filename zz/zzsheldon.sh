@@ -24,7 +24,7 @@ zzsheldon ()
 	sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
 	zzxml --tag p |
 	zzjuntalinhas -i '<p' -f '</p>' |
-	#sed 's/<br \/>/|/g' |
+	sed 's/<br \/>/|/g' |
 	zzxml --untag |
 	zzsqueeze |
 	sed -n "/$begin/,/$end/p" |
@@ -32,7 +32,7 @@ zzsheldon ()
 	zzjuntalinhas -i "$begin" -f "$end" -d "|" |
 	zzlinha |
 	tr '|' '\n' |
-	sed "/$end/d;s/$begin/Episode -/;/^[[:blank:]]*$/d" |
+	#sed "/$end/d;s/$begin/Episode -/;/^[[:blank:]]*$/d" |
 	case $1 in
 		-t | --traduzir ) zztradutor en-pt ;;
 		*) cat - ;;
