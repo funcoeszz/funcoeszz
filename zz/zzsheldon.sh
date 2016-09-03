@@ -23,7 +23,7 @@ zzsheldon ()
 	zztool source ${url}$(zzaleatorio 144) |
 	sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
 	zzxml --tag p |
-	zzjuntalinhas -i '<p' -f '</p>' -d ' ' |
+	zzjuntalinhas -i '<p' -f '<.p>' -d ' ' |
 	sed 's/<br \/>/|/g' |
 	zzxml --untag |
 	zzsqueeze |
