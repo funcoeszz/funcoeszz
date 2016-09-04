@@ -44,7 +44,7 @@ zztimer ()
 	do
 		case "$1" in
 		-n) opt='n';  shift ;;
-		-x) opt='x';  str=$(echo "$2" | sed 's/.//2g'); shift; shift ;;
+		-x) opt='x';  str=$(echo "$2" | sed 's/\(.\).*/\1/'); shift; shift ;;
 		-y)
 			opt='x';  str="$2"; char_para="$3";
 			if test ${#str} -ne ${#char_para}
