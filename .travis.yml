@@ -20,7 +20,7 @@ before_install:
   - mv clitest testador
 
 script:
-  - cd testador && ./run zzzz.sh
+  - cd testador && ./run
 
 notifications:
   email: false
