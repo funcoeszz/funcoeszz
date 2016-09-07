@@ -58,7 +58,7 @@ Mercado Externo:
   reservas_internacionais            Reservas internacionais
 $ zzve bonus | sed -n '/[0-9],[0-9]/{s|.* \([0-9][0-9]/[0-9]\)|\1|;p;}' | awk '{ print NF }' | uniq	#→ 7
 $ zzve captação | sed -n '/[0-9],[0-9]/{s|.*/[0-9][0-9] *||;p;}' | awk '{ print NF }' | uniq	#→ 5
-$ zzve juros_externos | awk '/[0-9],[0-9]/{ for (i=NF-5;i<NF;i++) printf $i " "; print $NF }' | sed 's/[0-9-]*,[0-9]*/9,9/g;s/-/9,9/g' | uniq
+$ zzve juros_externos | awk '/[0-9],[0-9]/{ for (i=NF-5;i<NF;i++) printf $i " "; print $NF }' | sed 's/[0-9-]*,[0-9]*/9,9/g;s/-/9,9/g;s/Feriado/9,9/g' | uniq
 9,9 9,9 9,9 9,9 9,9 9,9
 $ zzve cds | awk '/[0-9],[0-9]/{ for (i=NF-6;i<NF;i++) printf $i " "; print $NF }' | sed 's/[0-9-]*,[0-9]*/9,9/g;s/-/9,9/g' | uniq
 9,9 9,9 9,9 9,9 9,9 9,9 9,9
