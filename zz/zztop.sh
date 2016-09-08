@@ -61,7 +61,7 @@ zztop ()
 		-l)
 		# Meses e anos disponíveis, representado por um número sequencial
 			zztool source "${url}/statistics/list" |
-			sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/\t/;p;}' |
+			sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/	/;p;}' |
 			sed '/June 1993$/q' | expand -t 3 |
 			zztac | zzcolunar -w 20 3
 			return 0
@@ -72,7 +72,7 @@ zztop ()
 
 	all_releases=$(
 		zztool source "${url}/statistics/list" |
-		sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/\t/;p;}' |
+		sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/	/;p;}' |
 		sed '/June 1993$/q'
 	)
 
@@ -138,8 +138,9 @@ zztop ()
 	then
 		echo "$cache" |
 		sed -n "/dataTable.addRows/{n;p;}" |
-		sed "s/^ *//;s|\\\||g;s/',/\t/g"|
-		tr -d "['," | tr ']' '\n' | expand -t $ntab
+		sed "s/^ *//;s/',/	/g" |
+		tr -d '\\' | tr -d "['," | tr ']' '\n' |
+		expand -t $ntab
 	else
 		echo "$cache" | sed '/<td style=/,/<\/td>/d' |
 		zzxml --tag td --notag thead --untag |

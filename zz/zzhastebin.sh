@@ -15,16 +15,14 @@ zzhastebin ()
 
 	zzzz -h hastebin "$1" && return
 
+	test -n "$1" || { zztool -e uso hastebin; return 1; }
+
+	# Verifica o parametro da função
+	zztool arquivo_legivel "$1" || { zztool -e uso hastebin; return 1; }
+
 	local hst="http://hastebin.com/"
 	local uri
 	local ext=$(basename $1 | cut -d\. -f2)
-
-	# Verifica o parametro da função
-	if ! zztool arquivo_legivel "$1"
-	then
-		zztool -e uso hastebin
-		return 1
-	fi
 
 	# Retorna o ID
 	uri="$(curl -s --data-binary @$1 ${hst}documents | cut -d\" -f 4)"

@@ -1,5 +1,5 @@
 $ zzrastreamento notfound
-$ zzrastreamento TE123456789BR | sed -n '/[0-9]:[0-9]/ { s|/[A-Z][A-Z]|/EE|; s/[0-9]/N/g; s|:NN\(.*\)/EE|:NN LOCAL/EE|; s|/EE \(.*\)|/EE EXPLICACAO|; p; }' | sed 's|NN/NN/NN*|DATA|; s/NN:NN/HORA/; 5q'
+$ zzrastreamento TE123456789BR | sed -n '/[0-9]:[0-9]/ { s|/[A-Z][A-Z]|/EE|g; s/[0-9]/N/g; s|:NN\(.*\)/EE|:NN LOCAL/EE|; s|/EE \(.*\)|/EE EXPLICACAO|; p; }' | sed 's|NN/NN/NN*|DATA|; s/NN:NN/HORA/; 5q'
 DATA HORA LOCAL/EE EXPLICACAO
 DATA HORA LOCAL/EE EXPLICACAO
 DATA HORA LOCAL/EE EXPLICACAO
