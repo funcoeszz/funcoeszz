@@ -52,19 +52,19 @@ zzfrenteverso2pdf ()
 		esac
 		shift
 	done
-    
+
 	# Verifica se os arquivos existem.
 	if test ! -s "$dir/$arq_frentes" -o ! -s "$dir/$arq_versos" ; then
 		zztool erro "ERRO: Um dos arquivos $dir/$arq_frentes ou $dir/$arq_versos nao existe!"
 		return 1
 	fi
-    
-    # Verifica se pdftk existe.
+
+	# Verifica se pdftk existe.
 	if ! [ -x "$(command -v pdftk)" ]; then
 		zztool erro "ERRO: pdftk nao esta instalado!"
 		return 2
 	fi
-    
+
 	# Determina o numero de paginas de cada arquivo.
 	n_frentes=`pdftk "$dir/$arq_frentes" dump_data | grep "NumberOfPages" | cut -d" " -f2`
 	n_versos=`pdftk "$dir/$arq_versos" dump_data | grep "NumberOfPages" | cut -d" " -f2`
