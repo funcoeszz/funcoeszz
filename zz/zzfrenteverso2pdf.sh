@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------
 # Combina 2 arquivos, frentes.pdf e versos.pdf, em um único frenteverso.pdf.
+# Nota: requer o programa "pdftk"!
 # Opções:
 #   -rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.
 #   -rv, --versosreversos   informa ordem reversa no arquivo versos.pdf.
@@ -10,11 +11,10 @@
 #      zzfrenteverso2pdf -rf
 #      zzfrenteverso2pdf -rv -d "/tmp/dir_teste"
 #
-# Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
-# Desde: 2009-09-17
-# Versão: 3
+# Autor: Lauro Cavalcanti de Sa <laurocdesa (a) gmail com>
+# Desde: 2016-09-10
+# Versão: 4
 # Licença: GPLv2
-# Nota: requer pdftk
 # ----------------------------------------------------------------------------
 zzfrenteverso2pdf ()
 {
@@ -52,13 +52,19 @@ zzfrenteverso2pdf ()
 		esac
 		shift
 	done
-
+    
 	# Verifica se os arquivos existem.
 	if test ! -s "$dir/$arq_frentes" -o ! -s "$dir/$arq_versos" ; then
 		zztool erro "ERRO: Um dos arquivos $dir/$arq_frentes ou $dir/$arq_versos nao existe!"
 		return 1
 	fi
-
+    
+    # Verifica se pdftk existe.
+	if ! [ -x "$(command -v pdftk)" ]; then
+		zztool erro "ERRO: pdftk nao esta instalado!"
+		return 2
+	fi
+    
 	# Determina o numero de paginas de cada arquivo.
 	n_frentes=`pdftk "$dir/$arq_frentes" dump_data | grep "NumberOfPages" | cut -d" " -f2`
 	n_versos=`pdftk "$dir/$arq_versos" dump_data | grep "NumberOfPages" | cut -d" " -f2`
