@@ -31,7 +31,13 @@ zzcineuci ()
 	if ! test -s "$cache"
 	then
 		zztool source "${url}/cinemas" |
-		sed -n '/class="cinemas /{s/.*_//;s/".*//;n;p;}; /Avatar/{s|.*Avatar/||;s|/Avatar\..*||;p;}; /strong/,/strong/{/strong/d; p;}'|
+		sed -n '
+			1,/<content>/d
+			/class="cinemas / { s/.*_//;s/".*//;n; p; }
+			/Avatar/ { s|.*Avatar/||; s|/Avatar\..*||; p; }
+			/strong/,/strong/ { /strong/d; p; }
+			/<\/content>/q
+		' |
 		zzunescape --html |
 		zztrim |
 		awk '{ if ($0 ~/^[0-9]+$/) {cod=sprintf("%02d",$0);getline; print " " cod " - " $0} else print "\n" $0}' |
@@ -46,7 +52,7 @@ zzcineuci ()
 	elif zztool testa_numero "$1"
 	then
 		codigo=$(sed 's/^[ 0]*//' "$cache" | grep -o --color=never "^$1 " | tr -d ' ')
-		cinema=$(sed 's/^[ 0]*//' "$cache" | grep --color=never "^$1 " | sed 's/.* - //')
+		cinema=$(sed 's/^[ 0]*//' "$cache" | grep --color=never "^$1 " | sed 's/.* - //' | zztrim)
 		if test -n "$codigo"
 		then
 			zztool eco "$cinema"
@@ -55,7 +61,8 @@ zzcineuci ()
 			sed -n '/"NomeDestaque":/p; /"Duracao":/,/"Censura":/p' |
 			sed 's/.*":"//;s/"//' |
 			awk 'BEGIN { printf "Filme\nDuração(min)\nGênero\nCensura\n" }; 1' |
-			zzcolunar -z 4
+			zzcolunar -z 4 |
+			zztrim
 		fi
 	fi
 }

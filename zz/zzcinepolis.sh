@@ -10,7 +10,7 @@
 # Desde: 2015-02-22
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzjuntalinhas zzcolunar zztrim zzecho zzutf8 zzpad
+# Requisitos: zzcolunar zzjuntalinhas zzlimpalixo zzminusculas zzpad zzsemacento zzsqueeze zztrim zzunescape zzutf8 zzxml
 # Tags: cinema
 # ----------------------------------------------------------------------------
 zzcinepolis ()
@@ -76,19 +76,29 @@ zzcinepolis ()
 
 	for codigo in $codigos
 	do
-		zzecho -N -l ciano $(grep " ${codigo})" $cache | sed 's/.*) //')
-		zztool dump -u "Mozilla/5.0" "${url}/cinema.php?cc=$codigo" 2>/dev/null |
-		sed -n '/\/[0-9][0-9]\//p;/^ *sala .* horários *$/,/^ *Tweet *$/p' |
-		zztrim -H |
-		sed 's/    */\t/g; s/ *\[.*//; /^ *Tweet *$/d; s/ *[•*] *//; s/\^[A-Z]//g' |
-		awk '{
-			if ($0 ~ /\/[0-9][0-9]\//) { periodo[++i]=$0 }
-			else if ($0 ~ /^sala.*rios$/) { print periodo[++j]; print }
-			else if ($0 ~ /[0-9][0-9]h[0-9][0-9]/) { print }
-			else printf "%s\t", $0
-		}' |
-		zztrim -H |
-		tr -s '\t' '|' |
+		zztool eco $(grep " ${codigo})" $cache | sed 's/.*) //')
+		zztool source -o "ISO-8859-1" -u "Mozilla/5.0" "${url}/cinema.php?cc=$codigo" 2>/dev/null  |
+		zztool texto_em_iso |
+		sed -n '/tabNavigation/,/<\/ul>/p;/tabelahorario/,/<\/table>/p' |
+		zztrim |
+		zzxml --tidy |
+		zzlimpalixo --html |
+		zzxml --tag tr --tag span |
+		zzjuntalinhas -i '<tr' -f '</tr>' -d ' ' |
+		zzjuntalinhas -i '<span' -f '</span>' -d ' ' |
+		sed '
+			s/<td[^>]*>/|/g
+			s/<span [^>]*aria-label="\(Livre\|Legendado\|Dublado\)">/\1/
+			s/<span [^>]*aria-label="\([0-9]\{1,\} anos\)">/\1/
+		' |
+		zzxml --untag |
+		zzunescape --html |
+		sed -n '
+			/^ *| *Tweet.*/,$d
+			2,/sala / { /sala /!d; s/  */|/g; }
+			s/^ *| *//; s/ *| *$//; s/ *| */|/g;
+			p
+		' |
 		while read linha
 		do
 			if zztool grep_var '|' "$linha"
@@ -96,7 +106,7 @@ zzcinepolis ()
 				sala=$(   echo "$linha" | cut -f 1 -d '|')
 				filme=$(  echo "$linha" | cut -f 2 -d '|')
 				censura=$(echo "$linha" | cut -f 3 -d '|')
-				horario=$(echo "$linha" | cut -f 4 -d '|')
+				horario=$(echo "$linha" | cut -f 4,5 -d '|' | tr -d '|' | zzsqueeze)
 				echo "$(zzpad -b 5 "$sala") $(zzpad 50 "$filme") $(zzpad 10 "$censura") $horario"
 			else
 				echo "$linha"
