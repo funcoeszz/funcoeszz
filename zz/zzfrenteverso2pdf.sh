@@ -12,7 +12,7 @@
 #      zzfrenteverso2pdf -rv -d "/tmp/dir_teste"
 #
 # Autor: Lauro Cavalcanti de Sa <laurocdesa (a) gmail com>
-# Desde: 2016-09-10
+# Desde: 2009-09-17
 # Versão: 4
 # Licença: GPLv2
 # ----------------------------------------------------------------------------
