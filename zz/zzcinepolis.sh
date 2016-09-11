@@ -95,11 +95,10 @@ zzcinepolis ()
 		' |
 		zzxml --untag |
 		zzunescape --html |
-		sed -n '
-			/^ *| *Tweet.*/,$d
+		awk '/^ *\|  *Tweet  */ { exit };1' |
+		sed '
 			2,/sala / { /sala /!d; s/  */|/g; }
-#			s/^ *| *//; s/ *| *$//; s/ *| */|/g;
-			p
+			s/^ *| *//; s/ *| *$//; s/ *| */|/g;
 		' |
 		while read linha
 		do
