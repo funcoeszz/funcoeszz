@@ -95,12 +95,12 @@ zzcinepolis ()
 		' |
 		zzxml --untag |
 		zzunescape --html |
-#		sed -n '
-#			/^ *| *Tweet.*/,$d
+		sed -n '
+			/^ *| *Tweet.*/,$d
 #			2,/sala / { /sala /!d; s/  */|/g; }
 #			s/^ *| *//; s/ *| *$//; s/ *| */|/g;
-#			p
-#		' |
+			p
+		' |
 		while read linha
 		do
 			if zztool grep_var '|' "$linha"
