@@ -38,7 +38,7 @@ zzcinepolis ()
 		sed 's/^\([A-Z]\)\(.*\)$/\
 \1\2:/' > $cache
 	fi
-
+return
 	if test $# = 0; then
 		# mostra opções
 		zztool eco "Cidades e cinemas disponíveis:"
@@ -47,7 +47,7 @@ zzcinepolis ()
 	fi
 
 	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztrim | sed 's/ 0/ /g;s/  */_/g')
-return
+
 	codigo=$(
 		cat "$cache" |
 		while read linha
