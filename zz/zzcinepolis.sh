@@ -95,11 +95,11 @@ zzcinepolis ()
 		' |
 		zzxml --untag |
 		zzunescape --html |
-		awk '/^ *\|  *Tweet  */ { exit };1' |
-		sed '
-			2,/sala / { /sala /!d; s/  */|/g; }
-			s/^ *| *//; s/ *| *$//; s/ *| */|/g;
+		awk '
+			/^ *\|  *Tweet  */ { exit };
+			NR==2,/sala / { if ($0 ~ /sala /) { gsub(/  */,"|"); print }}
 		' |
+		sed 's/^ *| *//; s/ *| *$//; s/ *| */|/g;' |
 		while read linha
 		do
 			if zztool grep_var '|' "$linha"
