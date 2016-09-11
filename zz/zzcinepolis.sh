@@ -47,7 +47,7 @@ zzcinepolis ()
 	fi
 
 	cidade=$(echo "$*" | zzsemacento | zzminusculas | zztrim | sed 's/ 0/ /g;s/  */_/g')
-
+return
 	codigo=$(
 		cat "$cache" |
 		while read linha
@@ -57,7 +57,7 @@ zzcinepolis ()
 			echo "$linha" | sed 's/).*//'
 		done
 		)
-return
+
 	# passou código
 	if zztool testa_numero ${cidade}
 	then
