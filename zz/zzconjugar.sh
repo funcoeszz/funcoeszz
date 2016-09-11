@@ -14,7 +14,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-05-09
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Requisitos: zzalinhar zzcolunar zzjuntalinhas zzlblank zzminusculas zzsemacento zzsqueeze zztrim zzutf8 zzxml
 # ----------------------------------------------------------------------------
@@ -45,7 +45,7 @@ zzconjugar ()
 	# Verificando se a palavra confere na pesquisa
 	until test "$resultado" = "$palavra"
 	do
-		conteudo=$(zztool source "$url/verbo-$padrao" | zzutf8 | zzxml --tidy --notag script | sed -n '/<h1/,/Relacionados com /p')
+		conteudo=$(zztool source "$url/verbo-$padrao" | zzutf8 | zzxml --tidy --notag script | sed -n '/<h1/,/ relacionados com /p')
 		resultado=$(echo "$conteudo" | sed -n '2 { s/.* //; p; }' | zzminusculas)
 		test -n "$resultado" || { zztool erro "Palavra não encontrada"; return 1; }
 
@@ -85,7 +85,7 @@ zzconjugar ()
 		ind)
 			zztool eco Indicativo
 			echo "$conteudo" |
-			sed -n '/> Indicativo </,/> Subjuntivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
+			sed -n '/"modoconjuga"> Indicativo </,/> Subjuntivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/<strong/ {print ""; print; next}; /<br / {print ""; next}; {printf $0}' |
 			zzxml --untag |
 			zztrim -H |
@@ -96,7 +96,7 @@ zzconjugar ()
 		sub)
 			zztool eco Subjuntivo
 			echo "$conteudo" |
-			sed -n '/> Subjuntivo </,/> Imperativo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
+			sed -n '/"modoconjuga"> Subjuntivo </,/> Imperativo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/<strong/ {print ""; print; next}; /<br / {print ""; next}; {printf $0}' |
 			zzxml --untag |
 			zztrim -H |
@@ -107,7 +107,7 @@ zzconjugar ()
 		imp)
 			zztool eco Imperativo
 			echo "$conteudo" |
-			sed -n '/> Imperativo </,/> Infinitivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
+			sed -n '/"modoconjuga"> Imperativo </,/> Infinitivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/<strong/ {print ""; print; next}; /<br / {print ""; next}; {printf $0}' |
 			zzxml --untag |
 			zzsqueeze |
@@ -118,7 +118,7 @@ zzconjugar ()
 		inf)
 			zztool eco Infinitivo
 			echo "$conteudo" |
-			sed -n '/"> Infinitivo </,/<h2 / {/^<h[23]/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
+			sed -n '/"modoconjuga"> Infinitivo </,/p>$/ {/^<h[23]/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/<strong/ {print; next}; /<br / {print ""; next}; {printf $0}' |
 			zzxml --untag |
 			zzsqueeze |
