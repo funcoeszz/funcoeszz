@@ -97,7 +97,7 @@ zzcinepolis ()
 		zzunescape --html |
 		sed -n '
 			/^ *| *Tweet.*/,$d
-#			2,/sala / { /sala /!d; s/  */|/g; }
+			2,/sala / { /sala /!d; s/  */|/g; }
 #			s/^ *| *//; s/ *| *$//; s/ *| */|/g;
 			p
 		' |
