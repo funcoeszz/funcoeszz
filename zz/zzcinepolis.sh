@@ -77,10 +77,10 @@ zzcinepolis ()
 
 	for codigo in $codigos
 	do
-		zztool eco $(grep " ${codigo})" $cache | sed 's/.*) //')
+#		zztool eco $(grep " ${codigo})" $cache | sed 's/.*) //')
 		zztool source -o "ISO-8859-1" -u "Mozilla/5.0" "${url}/cinema.php?cc=$codigo" 2>/dev/null  |
 		zztool texto_em_iso |
-#		sed -n '/tabNavigation/,/<\/ul>/p;/tabelahorario/,/<\/table>/p' |
+		sed -n '/tabNavigation/,/<\/ul>/p;/tabelahorario/,/<\/table>/p' |
 		zztrim |
 		zzxml --tidy |
 		zzlimpalixo --html |
