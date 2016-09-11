@@ -1,4 +1,5 @@
-$ zzcinemark 687 | sed '1s/.*/CINEMA/;/^Dia: [0-3][0-9]-[0-1][0-9]-[0-9]\{4\}$/s/.*/DATA/;/[0-2][0-9]h[0-5][0-9]/s/.*/HORARIO/;/^$/s/^/AA/;/[^A-Z[^A-Z]/{s/.*/FILME/;}' | sort | uniq
+$ zzcinemark 687
+$ zzcinemark 687 | sed '1s/.*/CINEMA/;/^Dia: [0-3][0-9]-[0-1][0-9]-[0-9]\{4\}$/s/.*/DATA/;/ \(Livre\|[0-1][0-9] Anos\)$/s/.*/DETALHE/;/[0-2][0-9]h[0-5][0-9]/s/.*/HORARIO/;/^$/s/^/AA/;/[^A-Z[^A-Z]/{s/.*/FILME/;}' | sort | uniq
 AA
 CINEMA
 DATA
