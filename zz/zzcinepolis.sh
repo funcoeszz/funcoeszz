@@ -39,7 +39,7 @@ zzcinepolis ()
 		sed 's/^\([A-Z]\)\(.*\)$/\
 \1\2:/' > $cache
 	fi
-return
+
 	if test $# = 0; then
 		# mostra opções
 		zztool eco "Cidades e cinemas disponíveis:"
