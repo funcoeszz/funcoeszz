@@ -31,7 +31,7 @@ zzcinepolis ()
 	if ! test -s "$cache"
 	then
 		zztool source -u "Mozilla/5.0" "$url" 2>/dev/null |
-		sed -n '/class="amarelo"\|[[:punct:]]cc=/p' |
+		sed -n '/class="amarelo"\|\?cc\=/p' |
 		zzutf8 |
 		sed '/img /d;/>Estreias</d;s/.*"amarelo">//;s/.*cc=/ /;s/".*">/) /' |
 		sed 's/<[^>]*>//' |
