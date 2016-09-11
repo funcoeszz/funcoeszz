@@ -35,7 +35,8 @@ zzcinepolis ()
 		zzutf8 |
 		sed '/img /d;/>Estreias</d;s/.*"amarelo">//;s/.*cc=/ /;s/".*">/) /' |
 		sed 's/<[^>]*>//' |
-		awk '/^[A-Z]/ { print "" }; 1' > $cache
+		sed 's/^\([A-Z]\)\(.*\)$/\
+\1\2:/' > $cache
 	fi
 
 	if test $# = 0; then
@@ -58,7 +59,8 @@ zzcinepolis ()
 		)
 
 	# passou código
-	if zztool testa_numero ${cidade}; then
+	if zztool testa_numero ${cidade}
+	then
 		# testa se código é válido
 		echo "$codigo" | grep "$cidade" >/dev/null && codigos="$cidade"
 	else
@@ -85,19 +87,19 @@ zzcinepolis ()
 		zzxml --tag tr --tag span |
 		zzjuntalinhas -i '<tr' -f '</tr>' -d ' ' |
 		zzjuntalinhas -i '<span' -f '</span>' -d ' ' |
-		sed '
-			s/<td[^>]*>/|/g
-			s/<span [^>]*aria-label="\(Livre\|Legendado\|Dublado\)">/\1/
-			s/<span [^>]*aria-label="\([0-9]\{1,\} anos\)">/\1/
-		' |
+#		sed '
+#			s/<td[^>]*>/|/g
+#			s/<span [^>]*aria-label="\(Livre\|Legendado\|Dublado\)">/\1/
+#			s/<span [^>]*aria-label="\([0-9]\{1,\} anos\)">/\1/
+#		' |
 		zzxml --untag |
 		zzunescape --html |
-		sed -n '
-			/^ *| *Tweet.*/,$d
-			2,/sala / { /sala /!d; s/  */|/g; }
-			s/^ *| *//; s/ *| *$//; s/ *| */|/g;
-			p
-		' |
+#		sed -n '
+#			/^ *| *Tweet.*/,$d
+#			2,/sala / { /sala /!d; s/  */|/g; }
+#			s/^ *| *//; s/ *| *$//; s/ *| */|/g;
+#			p
+#		' |
 		while read linha
 		do
 			if zztool grep_var '|' "$linha"
