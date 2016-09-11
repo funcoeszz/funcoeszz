@@ -97,7 +97,8 @@ zzcinepolis ()
 		zzunescape --html |
 		awk '
 			/^ *\|  *Tweet  */ { exit };
-			NR==2,/sala / { if ($0 ~ /sala /) { gsub(/  */,"|"); print }}
+			NR==2,/sala / { if ($0 ~ /sala /) { gsub(/  */,"|"); print }; next }
+			1
 		' |
 		sed 's/^ *| *//; s/ *| *$//; s/ *| */|/g;' |
 		while read linha
