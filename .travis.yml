@@ -20,7 +20,7 @@ before_install:
   - mv clitest testador
 
 script:
-  - cd testador && ./run zzcinemark.sh zzcinepolis.sh
+  - cd testador && ./run zzcinepolis.sh
 
 notifications:
   email: false

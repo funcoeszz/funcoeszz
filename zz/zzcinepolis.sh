@@ -31,12 +31,11 @@ zzcinepolis ()
 	if ! test -s "$cache"
 	then
 		zztool source -u "Mozilla/5.0" "$url" 2>/dev/null |
-		sed -n '/class="amarelo"\|\?cc\=/p' |
+		sed -n '/class="amarelo"\|\?cc=/p' |
 		zzutf8 |
-		sed '/img /d;/>Estreias</d;s/.*"amarelo">//;s/.*cc\=/ /;s/".*">/) /' |
+		sed '/img /d;/>Estreias</d;s/.*"amarelo">//;s/.*cc=/ /;s/".*">/) /' |
 		sed 's/<[^>]*>//' |
-		sed 's/^\([A-Z]\)\(.*\)$/\
-\1\2:/' > $cache
+		awk '/^[A-Z]/ { print "" }; 1' > $cache
 	fi
 
 	if test $# = 0; then
