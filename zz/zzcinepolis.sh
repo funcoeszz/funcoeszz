@@ -95,6 +95,8 @@ zzcinepolis ()
 		' |
 		zzxml --untag |
 		zzunescape --html |
+		zztrim |
+		zzsqueeze |
 		sed -n '
 			/^ *| *Tweet.*/,$d
 			2,/sala / {
@@ -106,6 +108,7 @@ zzcinepolis ()
 			s/ *| */|/g
 			p
 		' |
+		zztool nl_eof |
 		while read linha
 		do
 			if zztool grep_var '|' "$linha"
