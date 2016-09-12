@@ -31,7 +31,6 @@ zzcinepolis ()
 	if ! test -s "$cache"
 	then
 		zztool source -u "Mozilla/5.0" "$url" 2>/dev/null |
-		# sed -n '/class="amarelo"\|\?cc=/p' |
 		awk '/class="amarelo"/;/\?cc=/' |
 		zzutf8 |
 		sed '/img /d;/>Estreias</d;s/.*"amarelo">//;s/.*cc=/ /;s/".*">/) /' |
@@ -91,21 +90,23 @@ zzcinepolis ()
 		zzunescape --html |
 		sed '
 			s/<td[^>]*>/|/g
-			s/<span [^>]*aria-label="\(Livre\|Legendado\|Dublado\)">/\1/
+			s/<span [^>]*aria-label="Livre">/Livre/
+			s/<span [^>]*aria-label="Legendado">/Legendado/
+			s/<span [^>]*aria-label="Dublado">/Dublado/
 			s/<span [^>]*aria-label="\([0-9]\{1,\} anos\)">/\1/
 		' |
 		zzxml --untag |
 		zztrim |
 		zzsqueeze |
 		sed -n '
-			/^ *| *Tweet.*/,$d
+			/ *[|] *Tweet  */,$d
 			2,/sala / {
 				/sala /!d
 				s/  */|/g
 			}
-			s/^ *| *//
-			s/ *| *$//
-			s/ *| */|/g
+			s/^ *[|] *//
+			s/ *[|] *$//
+			s/ *[|] */|/g
 			p
 		' |
 		zztool nl_eof |
