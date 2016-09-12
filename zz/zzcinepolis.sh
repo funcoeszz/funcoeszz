@@ -88,13 +88,13 @@ zzcinepolis ()
 		zzxml --tag tr --tag span |
 		zzjuntalinhas -i '<tr' -f '</tr>' -d ' ' |
 		zzjuntalinhas -i '<span' -f '</span>' -d ' ' |
+		zzunescape --html |
 		sed '
 			s/<td[^>]*>/|/g
 			s/<span [^>]*aria-label="\(Livre\|Legendado\|Dublado\)">/\1/
 			s/<span [^>]*aria-label="\([0-9]\{1,\} anos\)">/\1/
 		' |
 		zzxml --untag |
-		zzunescape --html |
 		zztrim |
 		zzsqueeze |
 		sed -n '
