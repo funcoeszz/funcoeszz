@@ -95,12 +95,17 @@ zzcinepolis ()
 		' |
 		zzxml --untag |
 		zzunescape --html |
-		awk '
-			/^ *\|  *Tweet  */ { exit };
-			NR==2,/sala / { if ($0 ~ /sala /) { gsub(/  */,"|"); print }; next }
-			1
+		sed -n '
+			/^ *| *Tweet.*/,$d
+			2,/sala / {
+				/sala /!d
+				s/  */|/g
+			}
+			s/^ *| *//
+			s/ *| *$//
+			s/ *| */|/g
+			p
 		' |
-		sed 's/^ *| *//; s/ *| *$//; s/ *| */|/g;' |
 		while read linha
 		do
 			if zztool grep_var '|' "$linha"
@@ -108,7 +113,7 @@ zzcinepolis ()
 				sala=$(   echo "$linha" | cut -f 1 -d '|')
 				filme=$(  echo "$linha" | cut -f 2 -d '|')
 				censura=$(echo "$linha" | cut -f 3 -d '|')
-				horario=$(echo "$linha" | cut -f 4,5 -d '|' | tr -d '|' | zzsqueeze)
+				horario=$(echo "$linha" | zzcut -f 4,5 -d '|')
 				echo "$(zzpad -b 5 "$sala") $(zzpad 50 "$filme") $(zzpad 10 "$censura") $horario"
 			else
 				echo "$linha"
