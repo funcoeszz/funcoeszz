@@ -53,6 +53,7 @@
 # Licença: GPL
 # Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzlimpalixo zzmaiusculas zzsqueeze zztrim zzunescape zzxml
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2016-09-28 Qualidade das informações é duvidosa e imprecisa.
 zzbolsas ()
 {
 	zzzz -h bolsas "$1" && return
