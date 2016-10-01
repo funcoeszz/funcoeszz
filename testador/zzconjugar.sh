@@ -109,7 +109,7 @@ que vós  leiais                se vós  lêsseis                quando vós  le
 que eles leiam                 se eles lessem                 quando eles lerem
 $
 
-$ zzconjugar ir sub def | sed '/extremamente irregular/d'
+$ zzconjugar ir sub def | sed -n '1p;2,/^ *$/p;/Verbo Ir/,${/Verbo/p;/Gerúndio:/p;/Particípio /p;/Infinitivo:/p;/Separação /p;}'
 
 Subjuntivo
 Presente                       Pretérito Imperfeito           Futuro
@@ -124,8 +124,6 @@ Verbo Ir
 Gerúndio: indo
 Particípio passado: ido
 Infinitivo: ir
-Tipo de verbo: irregular, pronominal, de ligação, auxiliar
-Transitividade: transitivo indireto e intransitivo
 Separação silábica: ir
 $
 
