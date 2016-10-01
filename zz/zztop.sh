@@ -23,7 +23,7 @@
 # Desde: 2015-07-19
 # Versão: 2
 # Licença: GPL
-# Requisitos: zztac zzcolunar zzecho zzxml
+# Requisitos: zztac zzcolunar zzecho zzxml zzunescape zztrim
 # ----------------------------------------------------------------------------
 zztop ()
 {
@@ -147,6 +147,9 @@ zztop ()
 		sed '/^[0-9]\{1,\},/d;/googletag/d' |
 		awk '$1 ~ /^[0-9]+$/{print ""};{printf $0"|"}'|
 		sed '1d;s/| -/ -/;s/|$//' |
-		awk -F'|' '{printf "%02d: ", $1; print $2, "(" $3 ")";print "    " $4, "(" $5 ")", $6; print ""}'
+		awk -F'|' '{printf "%02d: ", $1; print $2, "(" $3 ")";print "    " $4, "(" $5 ")", $6; print ""}' |
+		zzunescape --html |
+		zztrim -r |
+		sed 's/ *)/)/g;s/  *(/ (/g'
 	fi
 }
