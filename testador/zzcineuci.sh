@@ -1,5 +1,5 @@
 # Preparação filtro
-$ filtro='1s/^UCI .*/UCI Cinema/;s/ *$//;s/Livre$/Censura/;s/[0-9][0-9] anos$/Censura/;s/Conteúdo Alternativo/Alternativo  /;s/[^ ]*  *Censura/Genero  Censura/;s/Duração(min) */Duracao_Filme  /;s/[0-9]\{1,\}  *Genero/Duracao_Filme  Genero/;s/.*Duracao/Nome_Filme   Duracao/'
+$ filtro='1s/^UCI .*/UCI Cinema/;s/ *$//;s/Livre$/Censura/;s/[0-9][0-9] anos$/Censura/;s/Conteúdo Alternativo/Alternativo  /;s/Comédia Romântica/Comédia  /;s/[^ ]*  *Censura/Genero  Censura/;s/Duração(min) */Duracao_Filme  /;s/[0-9]\{1,\}  *Genero/Duracao_Filme  Genero/;s/.*Duracao/Nome_Filme   Duracao/'
 $
 
 $ zzcineuci | sed '1,2d;s/^[A-Z].*/Cidade/;s/ [0-9][0-9] - UCI [A-Z].*/ 99 - UCI Cinema/;/^$/d' | sort -n | uniq
