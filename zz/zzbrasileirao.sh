@@ -122,7 +122,15 @@ zzbrasileirao ()
 				num_linha=$((num_linha + 1))
 				case $num_linha in
 					[2-5]) zzecho -f verde -l preto "$linha";;
-					[6-9] | 1[0-3])
+					[67])
+						if test "$serie" = "a"
+						then
+							zzecho -f verde -l preto "$linha"
+						else
+							echo "$linha"
+						fi
+					;;
+					[89] | 1[0-5])
 						if test "$serie" = "a"
 						then
 							zzecho -f ciano -l preto "$linha"
