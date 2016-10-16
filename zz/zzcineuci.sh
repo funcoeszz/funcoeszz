@@ -60,6 +60,7 @@ zzcineuci ()
 			tr '[{}],' '\n\n\n\n\n' |
 			sed -n '/"NomeDestaque":/p; /"Duracao":/,/"Censura":/p' |
 			sed 's/.*":"//;s/"//' |
+			sed "s/'//" |
 			awk 'BEGIN { printf "Filme\nDuração(min)\nGênero\nCensura\n" }; 1' |
 			zzcolunar -z 4 |
 			zztrim

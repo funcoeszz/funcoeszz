@@ -106,7 +106,7 @@ zzcinepolis ()
 			}
 			s/^ *[|] *//
 			s/ *[|] *$//
-			s/ *[|] */|/g
+			s/ *[|] */ | /g
 			p
 		' |
 		zztool nl_eof |
@@ -117,7 +117,8 @@ zzcinepolis ()
 				sala=$(   echo "$linha" | cut -f 1 -d '|')
 				filme=$(  echo "$linha" | cut -f 2 -d '|')
 				censura=$(echo "$linha" | cut -f 3 -d '|')
-				horario=$(echo "$linha" | zzcut -f 4,5 -d '|')
+				censura=$(echo "$censura" | sed 's/^ *$/ NC/')
+				horario=$(echo "$linha" | cut -f 4,5 -d '|' | sed 's/ [|] //')
 				echo "$(zzpad -b 5 "$sala") $(zzpad 50 "$filme") $(zzpad 10 "$censura") $horario"
 			else
 				echo "$linha"
