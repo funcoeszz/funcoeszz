@@ -27,4 +27,7 @@ zzuniq ()
 	# Versão SED, mais lenta para arquivos grandes, mas só precisa do SED
 	# PATT: LINHA ATUAL \n LINHA-1 \n LINHA-2 \n ... \n LINHA #1 \n
 	# sed "G ; /^\([^\n]*\)\n\([^\n]*\n\)*\1\n/d ; h ; s/\n.*//" $1
+
+	# Versãp AWK, dica retirada do twitter de @augustohp
+	# zztool file_stdin "$@" | awk '!line[$0]++'
 }
