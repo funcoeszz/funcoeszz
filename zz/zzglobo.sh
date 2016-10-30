@@ -17,7 +17,7 @@ zzglobo ()
 
 	zztool dump -i utf-8 "$url" |
 		sed -n '/Hoje \[[0-9]*[\/-][0-9]*[\/-][0-9]*\]/,/Amanhã .*/p' |
-		sed '$d ; 3,$ { /^ *$/ d; }; /Carregando\.\.\./d; /loading\.\.\./d' |
+		sed '$d ; 3,$ { /^ *$/ d; }; /Carregando\.\.\./d; /loading\.\.\./d; /\[IMG\]/d' |
 		uniq |
 		zztrim
 }
