@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER Aurelio Jargas <verde@aurelio.net>
 
-RUN apt-get update && apt-get install -y bc curl lynx
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y bc curl lynx
 
 COPY . /app
 WORKDIR /app
