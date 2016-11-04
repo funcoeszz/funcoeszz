@@ -20,7 +20,9 @@ before_install:
   - mv clitest testador
 
 script:
-  - cd testador && ./run
+  - if test "$TRAVIS_OS_NAME" = osx;   then cd testador && ./run; fi
+  - if test "$TRAVIS_OS_NAME" = linux; then cd testador && ./run $(ls -1 zz*.sh | grep -xv zzlinux.sh); fi
+  # Exclude zzlinux tests in Linux (see https://github.com/funcoeszz/funcoeszz/issues/355) 
 
 notifications:
   email: false
