@@ -8,7 +8,7 @@
 # Desde: 2013-07-06
 # Versão: 3
 # Licença: GPLv2
-# Requisitos: zzxml zzipinternet zzecho zzminiurl
+# Requisitos: zzxml zzipinternet zzecho zzminiurl zztestar
 # ----------------------------------------------------------------------------
 zzgeoip ()
 {
@@ -23,7 +23,7 @@ zzgeoip ()
 		return 1
 	elif test -n "$1"
 	then
-		zztool -e testa_ip "$1"
+		zztestar -e ip "$1"
 		test $? -ne 0 && zztool -e uso geoip && return 1
 		ip="$1"
 	else

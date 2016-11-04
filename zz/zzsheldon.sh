@@ -9,7 +9,7 @@
 # Desde: 2015-09-25
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzaleatorio zztrim zzjuntalinhas zzlinha zztradutor
+# Requisitos: zzaleatorio zztrim zzjuntalinhas zzlinha zztradutor zzsqueeze zzxml zzutf8
 # ----------------------------------------------------------------------------
 zzsheldon ()
 {
@@ -20,7 +20,14 @@ zzsheldon ()
 	local begin="Quote from the episode"
 	local end="Correct this quote"
 
-	zztool dump ${url}$(zzaleatorio 123) |
+	zztool source ${url}$(zzaleatorio 144) |
+	zzutf8 |
+	sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
+	zzxml --tag p |
+	zzjuntalinhas -i '<p' -f '<.p>' -d ' ' |
+	sed 's/<br \/>/|/g' |
+	zzxml --untag |
+	zzsqueeze |
 	sed -n "/$begin/,/$end/p" |
 	zztrim -H |
 	zzjuntalinhas -i "$begin" -f "$end" -d "|" |
@@ -31,6 +38,7 @@ zzsheldon ()
 		-t | --traduzir ) zztradutor en-pt ;;
 		*) cat - ;;
 		esac |
-	sed "2,$ { /:/!s/^/\t/; s/: /:\t/; }" |
+	zztrim -H |
+	sed "2,$ { /:/!s/^/	/; s/: /:	/; }" |
 	expand -t 10
 }

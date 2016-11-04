@@ -6,7 +6,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzdivisores ()
@@ -21,21 +21,14 @@ zzdivisores ()
 		# http://stackoverflow.com/questions/11699324/
 		echo "$1" |
 		awk '{
-				i=2
 				limits = sqrt($1)
-				while (i <= limits) {
+				for (i=1; i <= limits; i++) {
 					if ($1 % i == 0) {
-						result[i] = i
+						print i
 						ind = $1 / i
-						if (i != ind ) { result[ind] = ind }
+						if (i != ind ) print ind
 					}
-					i++
 				}
-				print 1
-				for (j in result) {
-					print result[j]
-				}
-				print $1
 		}' |
 		sort -n |
 		zztool lines2list | zztool nl_eof

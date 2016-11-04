@@ -32,7 +32,7 @@
 # Desde: 2013-03-05
 # Versão: 13
 # Licença: GPL
-# Requisitos: zzvira
+# Requisitos: zzvira zztestar
 # ----------------------------------------------------------------------------
 zznumero ()
 {
@@ -286,7 +286,7 @@ zznumero ()
 
 		# Número com o "ponto decimal" separando a parte fracionária, sem separador de milhar
 		# Se for padrão 999.999, é considerado um inteiro
-		if test $qtde_p -eq 1 -a $qtde_v -eq 0 && zztool testa_numero_fracionario "$1"
+		if test $qtde_p -eq 1 -a $qtde_v -eq 0 && zztestar numero_fracionario "$1"
 		then
 			if echo "$1" | grep '^[0-9]\{1,3\}\.[0-9]\{3\}$' >/dev/null
 			then
@@ -297,7 +297,7 @@ zznumero ()
 		fi
 
 		# Número com a "vírgula" separando da parte fracionária, sem separador de milhares
-		if test $qtde_v -eq 1 -a $qtde_p -eq 0 && zztool testa_numero_fracionario "$1"
+		if test $qtde_v -eq 1 -a $qtde_p -eq 0 && zztestar numero_fracionario "$1"
 		then
 			numero="$1"
 		fi

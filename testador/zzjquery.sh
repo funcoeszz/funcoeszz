@@ -87,6 +87,7 @@ $ zzjquery --lista css
 .innerWidth
 jQuery.cssHooks
 jQuery.cssNumber
+jQuery.escapeSelector
 .offset
 .outerHeight
 .outerWidth

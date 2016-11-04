@@ -9,6 +9,7 @@
 #   -s: Aguarda o tempo como sleep, sem mostrar o cronômetro.
 #   -p: Usa uma temporização mais precisa, porém usa mais recursos.
 #   --center ou --centro: Mostra o cronomêtro centralizado no terminal.
+#   --teste: Desabilita 'tput' e a centralização.
 #
 # Obs: Máximo de 99 horas.
 #
@@ -24,7 +25,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-01-25
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztimer ()
@@ -32,7 +33,7 @@ zztimer ()
 
 	zzzz -h timer "$1" && return
 
-	local opt str num seg char_para centro
+	local opt str num seg char_para centro no_tput
 	local prec='s'
 
 	# Verificação dos parâmetros
@@ -43,7 +44,7 @@ zztimer ()
 	do
 		case "$1" in
 		-n) opt='n';  shift ;;
-		-x) opt='x';  str=$(echo "$2" | sed 's/.//2g'); shift; shift ;;
+		-x) opt='x';  str=$(echo "$2" | sed 's/\(.\).*/\1/'); shift; shift ;;
 		-y)
 			opt='x';  str="$2"; char_para="$3";
 			if test ${#str} -ne ${#char_para}
@@ -58,12 +59,15 @@ zztimer ()
 		-s) opt='s';  shift ;;
 		-p) prec='p'; shift ;;
 		--center | --centro) centro='1'; shift ;;
+		--teste) no_tput='1'; shift ;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
 	done
 
 	echo "$1" | grep '^[0-9:]\{1,\}$' >/dev/null || { zztool erro "Entrada inválida"; return 1; }
+
+	test -n "$no_tput" || unset centro
 
 	# Separando cada elemento de tempo hora, minutos e segundos
 	# E ajustando minutos e segundos que extrapolem o limite de 60{min,s}
@@ -89,10 +93,10 @@ zztimer ()
 	fi
 
 	# Restaurando terminal
-	tput reset
+	test -z "$no_tput" && tput reset
 
 	# Centralizar?
-	if test -n "$centro"
+	if test -n "$centro" && test -z "$no_tput"
 	then
 		if test -n "$opt"
 		then
@@ -110,7 +114,7 @@ zztimer ()
 		seg=$(date +%S)
 
 		# Marcando ponto para retorno do cursor
-		tput sc
+		test -z "$no_tput" && tput sc
 
 		# Exibindo os números do cronômetro
 		echo "$num" |
@@ -169,7 +173,7 @@ zztimer ()
 		# Reposicionar o cursor
 		if test $num -ge 0
 		then
-			tput rc
+			test -z "$no_tput" && tput rc
 		fi
 	done
 }

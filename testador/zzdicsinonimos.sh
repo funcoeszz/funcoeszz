@@ -47,34 +47,34 @@ $
 
 $ zzdicsinonimos bom
 Bondoso:
-1 clemente, bondoso, benfeitor, piedoso, misericordioso, indulgente, humano, bem-intencionado, caritativo, caridoso, generoso, benévolo, benigno, benevolente.
+1 bondoso, generoso, caridoso, humano, benévolo, benevolente, benigno, bem-intencionado, indulgente, misericordioso, clemente, piedoso, caritativo, benfeitor.
 
 Agradável:
-2 prazeroso, agradável, encantador, afável, aprazível, deleitável, ameno.
+2 agradável, aprazível, afável, encantador, deleitável, prazeroso.
 
 Adequado:
-3 adaptado, acertado, apropriado, conveniente, certo, adequado, próprio, correto, ideal.
+3 adequado, apropriado, conveniente, certo, correto, acertado, próprio, ideal, adaptado.
 
 Educado:
-4 íntegro, sério, virtuoso, nobre, irrepreensível, digno, obediente, educado, justo, disciplinado, bem-criado, honesto, delicado, cortês, gentil, decente, honrado.
+4 educado, cortês, delicado, gentil, honesto, honrado, íntegro, digno, nobre, decente, sério, virtuoso, irrepreensível, bem-criado, justo, disciplinado, obediente.
 
 Competente:
-5 capaz, eficiente, expedito, hábil, apto, competente, habilitado.
+5 competente, capaz, eficiente, expedito, apto, hábil, habilitado.
 
 Saboroso:
-6 saboroso, delicioso, apetitoso, gostoso, deleitoso.
+6 saboroso, delicioso, gostoso, apetitoso, deleitoso.
 
 Bravo:
-7 intrépido, meritório, valente, destemido, bravo, resoluto, impávido.
+7 bravo, destemido, corajoso, intrépido, valente, resoluto, impávido, meritório.
 
 Assegurado:
-8 vantajoso, válido, firme, rendoso, seguro, garantido, considerável, significante, assegurado, favorável, propício, grande, lucrativo, lícito, legal, estável.
+8 assegurado, garantido, seguro, vantajoso, favorável, útil, propício, válido, lícito, legal, firme, estável, significante, grande, considerável, lucrativo, rendoso.
 
 Salutar:
-9 são, saudável, salutar, benéfico, sadio.
+9 salutar, benéfico, saudável, sadio, são, robusto.
 
 Curado:
-10 restabelecido, sarado, curado, recuperado, livre.
+10 curado, sarado, recuperado, restabelecido, livre.
 
 Relacionadas
 bom gosto, bom humor, bom senso
@@ -117,5 +117,5 @@ Maldade:
 11 nocividade, perversidade, malevolência, malfeito, malefício, ruindade, crueldade, maldade, malignidade, perniciosidade.
 
 Relacionadas
-mal-estar, mal-entendido
+foi mal, mal-estar, mal-entendido
 $

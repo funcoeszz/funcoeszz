@@ -14,6 +14,7 @@
 # Licença: GPL
 # Requisitos: zzxml zzunescape
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2016-08-28 Site usa webservice com AJAX :(
 zzjuros ()
 {
 	zzzz -h juros "$1" && return

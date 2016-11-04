@@ -1,19 +1,13 @@
 # Normal
 
 $ zzdicantonimos alto
-1. anão, raso, baixo, pequeno, reduzido, diminuto.
-2. flácido, anão, caído, barato, pequeno, fraco.
-3. módico, vulgar, fraco, leve, insignificante, modesto.
-4. torpe, pior, sórdido, rasteiro, indigno, vil, inferior, lento, razoável.
-5. acessível, cristalino, razoável, compreensível, descomplicado.
-6. sopé, falda, base.
+acessível anão baixo base caído compreensível cristalino descomplicado diminuto falda flácido fraco indigno inferior insignificante leve modesto módico pequeno pior raso rasteiro reduzido sopé sórdido torpe vil
 $
 
 # Palavra com acentos
 
 $ zzdicantonimos folgazão
-1. introvertido, sério, infeliz, tristonho.
-2. rancoroso.
+infeliz introvertido rancoroso sério tristonho
 $
 
 # Palavra não encontrada

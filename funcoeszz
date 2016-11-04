@@ -233,23 +233,6 @@ zztool ()
 			test -n "$erro" && echo "Ano inválido '$1'" >&2
 			return 1
 		;;
-		testa_ano_bissexto)
-			# Testa se $1 é um ano bissexto
-			#
-			# A year is a leap year if it is evenly divisible by 4
-			# ...but not if it's evenly divisible by 100
-			# ...unless it's also evenly divisible by 400
-			# http://timeanddate.com
-			# http://www.delorie.com/gnu/docs/gcal/gcal_34.html
-			# http://en.wikipedia.org/wiki/Leap_year
-			#
-			local y=$1
-			test $((y%4)) -eq 0 && test $((y%100)) -ne 0 || test $((y%400)) -eq 0
-			test $? -eq 0 && return 0
-
-			test -n "$erro" && echo "Ano bissexto inválido '$1'" >&2
-			return 1
-		;;
 		testa_numero)
 			# Testa se $1 é um número positivo
 			echo "$1" | grep '^[0-9]\{1,\}$' >/dev/null && return 0
@@ -259,44 +242,6 @@ zztool ()
 
 			# TODO Usar em *todas* as funções que recebem números
 		;;
-		testa_numero_sinal)
-			# Testa se $1 é um número (pode ter sinal: -2 +2)
-			echo "$1" | grep '^[+-]\{0,1\}[0-9]\{1,\}$' >/dev/null && return 0
-
-			test -n "$erro" && echo "Número inválido '$1'" >&2
-			return 1
-		;;
-		testa_numero_fracionario)
-			# Testa se $1 é um número fracionário (1.234 ou 1,234)
-			# regex: \d+[,.]\d+
-			echo "$1" | grep '^[0-9]\{1,\}[,.][0-9]\{1,\}$' >/dev/null && return 0
-
-			test -n "$erro" && echo "Número inválido '$1'" >&2
-			return 1
-		;;
-		testa_dinheiro)
-			# Testa se $1 é um valor monetário (1.234,56 ou 1234,56)
-			# regex: (  \d{1,3}(\.\d\d\d)+  |  \d+  ),\d\d
-			echo "$1" | grep '^\([0-9]\{1,3\}\(\.[0-9][0-9][0-9]\)\{1,\}\|[0-9]\{1,\}\),[0-9][0-9]$' >/dev/null && return 0
-
-			test -n "$erro" && echo "Valor inválido '$1'" >&2
-			return 1
-		;;
-		testa_binario)
-			# Testa se $1 é um número binário
-			echo "$1" | grep '^[01]\{1,\}$' >/dev/null && return 0
-
-			test -n "$erro" && echo "Número binário inválido '$1'" >&2
-			return 1
-		;;
-		testa_ip)
-			# Testa se $1 é um número IP (nnn.nnn.nnn.nnn)
-			local nnn="\([0-9]\{1,2\}\|1[0-9][0-9]\|2[0-4][0-9]\|25[0-5]\)" # 0-255
-			echo "$1" | grep "^$nnn\.$nnn\.$nnn\.$nnn$" >/dev/null && return 0
-
-			test -n "$erro" && echo "Número IP inválido '$1'" >&2
-			return 1
-		;;
 		testa_data)
 			# Testa se $1 é uma data (dd/mm/aaaa)
 			local d29='\(0[1-9]\|[12][0-9]\)/\(0[1-9]\|1[012]\)'
@@ -305,13 +250,6 @@ zztool ()
 			echo "$1" | grep "^\($d29\|$d30\|$d31\)/[0-9]\{1,4\}$" >/dev/null && return 0
 
 			test -n "$erro" && echo "Data inválida '$1', deve ser dd/mm/aaaa" >&2
-			return 1
-		;;
-		testa_hora)
-			# Testa se $1 é uma hora (hh:mm)
-			echo "$1" | grep "^\(0\{0,1\}[0-9]\|1[0-9]\|2[0-3]\):[0-5][0-9]$" >/dev/null && return 0
-
-			test -n "$erro" && echo "Hora inválida '$1'" >&2
 			return 1
 		;;
 		multi_stdin)
@@ -405,7 +343,7 @@ zztool ()
 			# Estrutura do comando:
 			# zztool <post|dump|source|list|download> [browser] [opções] <url> [dados_post]
 
-			local browser input_charset output_charset output_width user_agent opt_common
+			local browser input_charset output_charset output_width user_agent opt_common nbsp_utf
 
 			# A função pode chamar um navegador específico ou assumir o padrão $ZZBROWSER
 			case "$1" in
@@ -427,6 +365,7 @@ zztool ()
 
 			output_charset="${output_charset:-UTF-8}"
 			output_width="${output_width:-300}"
+			nbsp_utf=$(printf '\302\240')
 
 			# Para POST se não houver ao menos 2 parâmetros (url e dados) interrompe.
 			test "$ferramenta" = 'post' && test $# -lt 2 && return 1
@@ -441,7 +380,6 @@ zztool ()
 				w3m           ) opt_common="-cols ${output_width}  -O ${output_charset}               ${input_charset:+-I} ${input_charset}                    ${user_agent:+-o user_agent=}${user_agent}         -cookie -o follow_redirection=9" ;;
 				elinks        )
 					local aspas='"'
-					local nbsp_utf=$(printf '\302\240')
 					opt_common="-dump-width ${output_width} -dump-charset ${output_charset} ${input_charset:+-eval 'set document.codepage.assume = ${aspas}${input_charset}${aspas}'} ${user_agent:+-eval 'set protocol.http.user_agent = $user_agent'} -no-numbering"
 				;;
 			esac

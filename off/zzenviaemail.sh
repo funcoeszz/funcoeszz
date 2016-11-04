@@ -20,6 +20,7 @@
 # Licença: GPLv2
 # Nota: requer ssmtp
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2016-05-21 comando ssmtp não funciona (veja issue #298)
 zzenviaemail ()
 {
 	zzzz -h enviaemail "$1" && return

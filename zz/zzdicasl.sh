@@ -9,8 +9,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-08
-# Versão: 1
+# Versão: 2
 # Licença: GPL
+# Requisitos: zzutf8
 # ----------------------------------------------------------------------------
 zzdicasl ()
 {
@@ -31,7 +32,7 @@ zzdicasl ()
 	# Faz a consulta e filtra o resultado
 	zztool eco "$url"
 	zztool source "$url" |
-		zztool texto_em_iso |
+		zzutf8 |
 		grep -i $opcao_grep "$*" |
 		sed -n 's@^<LI><A HREF=/arquivo/\([^>]*\)> *\([^ ].*\)</A>@\1@p'
 }

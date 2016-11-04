@@ -4,22 +4,23 @@
 # Pode-se ecoar a saída de erro usando a opção -e antes da categoria.
 #
 #  Categorias:
-#   ano                        =>  Ano válido
-#   ano_bissexto | bissexto    =>  Ano Bissexto
-#   exp | exponencial          =>  Número em notação científica
-#   numero | natural           =>  Número Natural ( inteiro positivo )
-#   numero_sinal | inteiro     =>  Número Inteiro ( positivo ou negativo )
-#   numero_fracionario | real  =>  Número Real ( casas decimais possíveis )
-#   complexo                   =>  Número Complexo ( a+bi )
-#   dinheiro                   =>  Formato Monetário ( 2 casas decimais )
-#   bin | binario              =>  Número Binário ( apenas 0 e 1 )
-#   octal | octadecimal        =>  Número Octal ( de 0 a 7 )
-#   hexa | hexadecimal         =>  Número Hexadecimal ( de 0 a 9 e A até F )
-#   ip                         =>  Endereço de rede IPV4
-#   ip6 | ipv6                 =>  Endereço de rede IPV6
-#   mac                        =>  Código MAC Address válido
-#   data                       =>  Data com formatação válida ( dd/mm/aaa )
-#   hora                       =>  Hora com formatação válida ( hh:mm )
+#   ano                      =>  Ano válido
+#   ano_bissexto | bissexto  =>  Ano Bissexto
+#   exp | exponencial        =>  Número em notação científica
+#   numero | numero_natural  =>  Número Natural ( inteiro positivo )
+#   numero_sinal | inteiro   =>  Número Inteiro ( positivo ou negativo )
+#   numero_fracionario       =>  Número Fracionário ( casas decimais )
+#   numero_real              =>  Número Real ( casas decimais possíveis )
+#   complexo                 =>  Número Complexo ( a+bi )
+#   dinheiro                 =>  Formato Monetário ( 2 casas decimais )
+#   bin | binario            =>  Número Binário ( apenas 0 e 1 )
+#   octal | octadecimal      =>  Número Octal ( de 0 a 7 )
+#   hexa | hexadecimal       =>  Número Hexadecimal ( de 0 a 9 e A até F )
+#   ip                       =>  Endereço de rede IPV4
+#   ip6 | ipv6               =>  Endereço de rede IPV6
+#   mac                      =>  Código MAC Address válido
+#   data                     =>  Data com formatação válida ( dd/mm/aaa )
+#   hora                     =>  Hora com formatação válida ( hh:mm )
 #
 #   Obs.: ano, ano_bissextto e os
 #         números naturais, inteiros e reais sem separador de milhar.
@@ -28,7 +29,7 @@
 # Ex.: zztestar ano 1999
 #      zztestar ip 192.168.1.1
 #      zztestar hexa 4ca9
-#      zztestar real -45,678
+#      zztestar numero_real -45,678
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-03-14
@@ -64,7 +65,7 @@ zztestar ()
 			test $((y%4)) -eq 0 && test $((y%100)) -ne 0 || test $((y%400)) -eq 0
 			test $? -eq 0 && return 0
 
-			test -n "$erro" && zztool erro "Ano bissexto inválido '$1'"
+			test -n "$erro" && zztool erro "Ano bissexto inválido '$2'"
 			return 1
 		;;
 
@@ -73,27 +74,36 @@ zztestar ()
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^[+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}[eE][+-]\{0,1\}[0-9]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Exponencial inválido '$2'"
+			test -n "$erro" && zztool erro "Número exponencial inválido '$2'"
 			return 1
 		;;
 
-		numero | natural) zztool ${erro:+-e} testa_numero "$2" ;;
+		numero | numero_natural) zztool ${erro:+-e} testa_numero "$2" ;;
 
 		numero_sinal | inteiro)
 			# Testa se $2 é um número (pode ter sinal: -2 +2)
 			echo "$2" | grep '^[+-]\{0,1\}[0-9]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Inteiro inválido '$2'"
+			test -n "$erro" && zztool erro "Número inteiro inválido '$2'"
 			return 1
 		;;
 
-		numero_fracionario | real)
+		numero_fracionario)
 			# Testa se $2 é um número fracionário (1.234 ou 1,234)
-			# regex: \d+([,.]\d+)?
+			# regex: \d+[,.]\d+
+			echo "$2" | grep '^[0-9]\{1,\}[,.][0-9]\{1,\}$' >/dev/null && return 0
+
+			test -n "$erro" && zztool erro "Número fracionário inválido '$2'"
+			return 1
+		;;
+
+		numero_real)
+			# Testa se $2 é um número real (1.234; 1,234; -56.789; 123)
+			# regex: [+-]?\d+([,.]\d+)?
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^[+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Real inválido '$2'"
+			test -n "$erro" && zztool erro "Número real inválido '$2'"
 			return 1
 		;;
 
@@ -103,7 +113,7 @@ zztestar ()
 			echo "$2" | sed 's/^-\([.,]\)/-0\1/;s/^\([.,]\)/0\1/' |
 			grep '^\(\([+-]\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}\)\{0,1\}[+-]\)\{0,1\}[0-9]\{1,\}\([,.][0-9]\{1,\}\)\{0,1\}i$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Complexo inválido '$2'"
+			test -n "$erro" && zztool erro "Número complexo inválido '$2'"
 			return 1
 		;;
 
@@ -120,7 +130,7 @@ zztestar ()
 			# Testa se $2 é um número binário
 			echo "$2" | grep '^[01]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Binário inválido '$2'"
+			test -n "$erro" && zztool erro "Número binário inválido '$2'"
 			return 1
 		;;
 
@@ -128,7 +138,7 @@ zztestar ()
 			# Testa se $2 é um número octal
 			echo "$2" | grep '^[0-7]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Octal inválido '$2'"
+			test -n "$erro" && zztool erro "Número octal inválido '$2'"
 			return 1
 		;;
 
@@ -136,7 +146,7 @@ zztestar ()
 			# Testa se $2 é um número hexadecimal
 			echo "$2" | grep '^[0-9A-Fa-f]\{1,\}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "Número Hexadecimal inválido '$2'"
+			test -n "$erro" && zztool erro "Número hexadecimal inválido '$2'"
 			return 1
 		;;
 
@@ -173,10 +183,12 @@ zztestar ()
 
 		mac)
 			# Testa se $2 tem um formato de MAC válido
-			# O MAC poderá ser nos formatos 00:00:00:00:00:00 ou 00-00-00-00-00-00
-			echo "$2" | grep '\([0-9A-Fa-f]\{2\}[:-]\)\{5\}[0-9A-Fa-f]\{2\}' >/dev/null && return 0
+			# O MAC poderá ser nos formatos 00:00:00:00:00:00, 00-00-00-00-00-00 ou 0000.0000.0000
+			echo "$2" | egrep '^([0-9A-Fa-f]{2}-){5}[0-9A-Fa-f]{2}$' >/dev/null && return 0
+			echo "$2" | egrep '^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$' >/dev/null && return 0
+			echo "$2" | egrep '^([0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4}$' >/dev/null && return 0
 
-			test -n "$erro" && zztool erro "MAC Address inválido '$2'"
+			test -n "$erro" && zztool erro "MAC address inválido '$2'"
 			return 1
 		;;
 

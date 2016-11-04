@@ -23,7 +23,7 @@
 # Desde: 2015-07-19
 # Versão: 2
 # Licença: GPL
-# Requisitos: zztac zzcolunar zzecho zzxml
+# Requisitos: zztac zzcolunar zzecho zzxml zzunescape zztrim
 # ----------------------------------------------------------------------------
 zztop ()
 {
@@ -61,7 +61,7 @@ zztop ()
 		-l)
 		# Meses e anos disponíveis, representado por um número sequencial
 			zztool source "${url}/statistics/list" |
-			sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/\t/;p;}' |
+			sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/	/;p;}' |
 			sed '/June 1993$/q' | expand -t 3 |
 			zztac | zzcolunar -w 20 3
 			return 0
@@ -72,7 +72,7 @@ zztop ()
 
 	all_releases=$(
 		zztool source "${url}/statistics/list" |
-		sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/\t/;p;}' |
+		sed -n '/option value/{s/^.*value="//;s/<\/option>$//;s/".*>/	/;p;}' |
 		sed '/June 1993$/q'
 	)
 
@@ -138,14 +138,18 @@ zztop ()
 	then
 		echo "$cache" |
 		sed -n "/dataTable.addRows/{n;p;}" |
-		sed "s/^ *//;s|\\\||g;s/',/\t/g"|
-		tr -d "['," | tr ']' '\n' | expand -t $ntab
+		sed "s/^ *//;s/',/	/g" |
+		tr -d '\\' | tr -d "['," | tr ']' '\n' |
+		expand -t $ntab
 	else
 		echo "$cache" | sed '/<td style=/,/<\/td>/d' |
 		zzxml --tag td --notag thead --untag |
 		sed '/^[0-9]\{1,\},/d;/googletag/d' |
 		awk '$1 ~ /^[0-9]+$/{print ""};{printf $0"|"}'|
 		sed '1d;s/| -/ -/;s/|$//' |
-		awk -F'|' '{printf "%02d: ", $1; print $2, "(" $3 ")";print "    " $4, "(" $5 ")", $6; print ""}'
+		awk -F'|' '{printf "%02d: ", $1; print $2, "(" $3 ")";print "    " $4, "(" $5 ")", $6; print ""}' |
+		zzunescape --html |
+		zztrim -r |
+		sed 's/ *)/)/g;s/  *(/ (/g'
 	fi
 }

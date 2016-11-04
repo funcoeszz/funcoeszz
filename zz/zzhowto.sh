@@ -7,8 +7,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-08-27
-# Versão: 2
+# Versão: 3
 # Licença: GPL
+# Requisitos: zztrim zzxml
 # ----------------------------------------------------------------------------
 zzhowto ()
 {
@@ -33,9 +34,11 @@ zzhowto ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
-		zztool dump "$url" |
-			grep 'text/html' |
-			sed 's/^  *//; s/ [0-9][0-9]:.*//' > "$cache"
+		zztool source "$url" |
+			zzxml --untag |
+			zztrim |
+			fgrep '.html' |
+			sed 's/ [0-9][0-9]:.*//' > "$cache"
 	fi
 
 	# Pesquisa o termo (se especificado)

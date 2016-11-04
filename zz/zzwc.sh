@@ -46,6 +46,7 @@ zzwc ()
 			-C) mb=0  ;;
 			-L) mc=0  ;;
 			-W) mw=0  ;;
+			--) shift; break ;;
 			-*) zztool -e uso wc; return 1 ;;
 			* ) break ;;
 		esac
@@ -57,7 +58,7 @@ zzwc ()
 		tb=0; tl=0; tw=0
 	fi
 
-	conteudo=$(zztool file_stdin "$@" | sed '${ s/$/ /; }')
+	conteudo=$(zztool file_stdin -- "$@" | sed '${ s/$/ /; }')
 
 	# Linhas
 	if test -n "$tl"

@@ -1,5 +1,16 @@
 # Tomando emprestado os arquivos _numeros.txt, _dados.txt e zzmoneylog.in.txt
+# Preparando arquivo de nome incomun
+$ cat _numeros.txt _dados.txt > "-_tmp1"
+$
+
 $ cat _numeros.txt _dados.txt | zzcolunar 3
+1             5             4:quatro:four
+2             1:um:one      5:cinco:five 
+3             2:dois:two   
+4             3:tres:three 
+$
+
+$ zzcolunar 3 -- -_tmp1
 1             5             4:quatro:four
 2             1:um:one      5:cinco:five 
 3             2:dois:two   
@@ -14,6 +25,14 @@ $ cat _numeros.txt _dados.txt | zzcolunar -z 3
 $
 
 $ cat _numeros.txt _dados.txt | zzcolunar -c -z 2
+      1             2      
+      3             4      
+      5         1:um:one   
+ 2:dois:two   3:tres:three 
+4:quatro:four 5:cinco:five 
+$
+
+$ zzcolunar -c -z 2 -- -_tmp1
       1             2      
       3             4      
       5         1:um:one   
@@ -134,4 +153,8 @@ NN Bicho     >.< NN Bicho     >.< NN Bicho     >.< NN Bicho
 05 Cachorro  >.< 12 Elefante  >.< 19 Pavão    
 06 Cabra     >.< 13 Galo      >.< 20 Peru     
 07 Carneiro  >.< 14 Gato      >.< 21 Touro    
+$
+
+# Limpeza
+$ rm -f ./-_tmp1
 $

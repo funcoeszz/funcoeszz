@@ -93,7 +93,7 @@ zzbrasileirao ()
 		if test "$serie" = "c" -o "$serie" = "d"
 		then
 			zztool dump "$url" |
-			sed -n "/Grupo \(A\|B\)/,/Rodada 1/{s/^/_/;s/.*Rodada.*//;s/°/./;p;}" |
+			sed -n "/Grupo [AB] *PG .*/,/Rodada 1 *$/{s/^/_/;s/.*Rodada .*//;s/°/./;p;}" |
 			while read linha
 			do
 				if echo "$linha" | grep -E '[12]\.' >/dev/null
@@ -122,7 +122,15 @@ zzbrasileirao ()
 				num_linha=$((num_linha + 1))
 				case $num_linha in
 					[2-5]) zzecho -f verde -l preto "$linha";;
-					[6-9] | 1[0-3])
+					[67])
+						if test "$serie" = "a"
+						then
+							zzecho -f verde -l preto "$linha"
+						else
+							echo "$linha"
+						fi
+					;;
+					[89] | 1[0-5])
 						if test "$serie" = "a"
 						then
 							zzecho -f ciano -l preto "$linha"

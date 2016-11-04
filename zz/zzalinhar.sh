@@ -33,23 +33,23 @@ zzalinhar ()
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
-		-l | --left | -e | --esqueda)  alinhamento='r' ;;
-		-r | --right | -d | --direita) alinhamento='l' ;;
-		-c | --center | --centro)      alinhamento='c' ;;
-		-j | --justify | --justificar) alinhamento='j' ;;
+		-l | --left | -e | --esqueda)  alinhamento='r'; shift ;;
+		-r | --right | -d | --direita) alinhamento='l'; shift ;;
+		-c | --center | --centro)      alinhamento='c'; shift ;;
+		-j | --justify | --justificar) alinhamento='j'; shift ;;
 		-w | --width | --largura)
 			zztool testa_numero "$2" && largura="$2" || { zztool erro "Largura inválida: $2"; return 1; }
-			shift
+			shift; shift
 		;;
+		--) shift; break ;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
-		shift
 	done
 
 	cache=$(zztool mktemp alinhar)
 
-	zztool file_stdin "$@" > "$cache"
+	zztool file_stdin -- "$@" > "$cache"
 
 	test $(zztrim "$cache" | zzwc -l) -gt 0 || return 1
 

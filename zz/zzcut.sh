@@ -12,7 +12,7 @@
 #
 #  -s          não emite linhas que não contenham delimitadores.
 #
-#  --od TEXTO  usa TEXTO como delimitador da saída
+#  -D TEXTO    usa TEXTO como delimitador da saída
 #              o padrão é usar o delimitador de entrada.
 #
 #  -v          Inverter o sentido, apagando as partes selecionadas.
@@ -46,9 +46,9 @@
 #      zzcut -v -c 3-8 arq.txt  # Exclui do 3º ao 8º caractere
 #      zzcut -f 1,-,3  arq.txt  # 1º campo, toda linha e 3º campo
 #      zzcut -v -f 6-  arq.txt  # Exclui a partir do 6º campo
-#      zzcut -f 8,8,8 -d ";" arq.txt    # 8º campo 3 vezes. Delimitador ";"
-#      zzcut -f 10,6 -d: --od _ arq.txt # 10º e 6º campos, novo delimitador _
-#      zzcut -c 1,d,10 --od: arq.txt    # 1º e 10º caracteres. Delimitador :
+#      zzcut -f 8,8,8 -d ";" arq.txt   # 8º campo 3 vezes. Delimitador ";"
+#      zzcut -f 10,6 -d: -D _ arq.txt  # 10º e 6º campos, novo delimitador _
+#      zzcut -c 1,d,10 -D: arq.txt     # 1º e 10º caracteres. Delimitador :
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-09
@@ -66,6 +66,17 @@ zzcut ()
 
 	local tipo range ofd codscript qtd_campos only_delim inverte sp rlm
 	local delim=$(printf '\t')
+
+	# Recurso para oferecer a oportunidade de aspas serem usadas no delimitador
+	# Usando um caractere não imprimível no lugar da aspas
+	local aspas=$(echo "&zwnj;" | zzunescape --html)
+
+	# Definindo qual delimitador apresenta a aspas pelos dois bits na variável
+	# O primeiro bit define o delimitador na entrada
+	# O segundo bit define o delimitador na saída
+	# 0 = não há aspas no delimitador
+	# 1 = há aspas no delimitador
+	local bit_aspas='00'
 
 	# Opções de linha de comando
 	while test "${1#-}" != "$1"
@@ -104,10 +115,17 @@ zzcut ()
 					delim="$2"
 					shift
 				fi
+
+				# Apenas usa o recurso se houver aspas no delimitador de entrada
+				if zztool grep_var '"' "$delim"
+				then
+					delim=$(echo "$delim" | sed 's/"/'${aspas}'/g')
+					bit_aspas=$(echo "$bit_aspas" | sed 's/^./1/')
+				fi
 				shift
 			;;
-			--od*)
-				ofd="${1#--od}"
+			-D*)
+				ofd="${1#-D}"
 				if test -z "$ofd"
 				then
 					ofd="$2"
@@ -117,6 +135,7 @@ zzcut ()
 			;;
 			# Apenas linha que possuam delimitadores
 			-s) only_delim='1'; shift ;;
+			# Invertendo a seleção
 			-v) inverte='1';    shift ;;
 			* ) break ;;
 		esac
@@ -228,6 +247,12 @@ zzcut ()
 				;;
 				f)
 					ofd="${ofd:-$delim}"
+					# Apenas usa o recurso se houver aspas no delimitador de saída
+					if zztool grep_var '"' "$ofd"
+					then
+						ofd=$(echo "$ofd" | sed 's/"/'${aspas}'/g')
+						bit_aspas=$(echo "$bit_aspas" | sed 's/.$/1/')
+					fi
 
 					if test "$only_delim" = "1"
 					then
@@ -321,6 +346,12 @@ zzcut ()
 	fi
 
 	zztool file_stdin "$@" |
+	if echo "$bit_aspas" | grep '^1' >/dev/null
+	then
+		sed 's/"/'${aspas}'/g'
+	else
+		cat -
+	fi |
 	case "$tipo" in
 		c)
 			sed -n "$codscript" |
@@ -351,5 +382,11 @@ zzcut ()
 				$only_delim $codscript" 2>/dev/null |
 				sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//"
 		;;
-	esac
+	esac |
+	if test "$bit_aspas" != '00'
+	then
+		sed 's/'${aspas}'/"/g'
+	else
+		cat -
+	fi
 }

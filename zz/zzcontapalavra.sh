@@ -24,9 +24,10 @@ zzcontapalavra ()
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
-			-p) inteira=  ;;
-			-i) ignora=1  ;;
-			* ) break     ;;
+			-p) inteira=     ;;
+			-i) ignora=1     ;;
+			--) shift; break ;;
+			* ) break        ;;
 		esac
 		shift
 	done
