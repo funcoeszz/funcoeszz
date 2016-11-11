@@ -2,7 +2,8 @@ language: bash
 
 os:
   - linux
-  - osx
+  # OS X tests are taking too long to run :(
+  # - osx
 
 # Prepare the environment
 addons:
