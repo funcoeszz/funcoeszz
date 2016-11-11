@@ -81,3 +81,5 @@ pipj74x30fEbzbx0rcPEwukL2WKjCA
 $ docker run --rm funcoeszz/zz maiusculas tá funcionando
 TÁ FUNCIONANDO
 ```
+
+**Desenvolvedor:** Para instruções sobre como construir esta imagem, ou como rodar outro tipo de comandos dentro do contêiner, [veja esta wiki](https://github.com/funcoeszz/funcoeszz/wiki/Docker)
