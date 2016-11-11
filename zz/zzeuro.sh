@@ -28,7 +28,7 @@ zzeuro ()
 
 			# faxina
 			s/\[[0-9][0-9]\]//
-			s/\sCAPTION: Dólar comercial/  Compra Venda Variação/
+			s/\sCAPTION: Dólar comercial -/  Compra Venda Variação/
 			s/\s//' |
 		tr ' ' '\t '
 }
