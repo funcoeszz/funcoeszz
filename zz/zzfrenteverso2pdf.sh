@@ -1,6 +1,5 @@
 # ----------------------------------------------------------------------------
 # Combina 2 arquivos, frentes.pdf e versos.pdf, em um único frenteverso.pdf.
-# Nota: requer o programa "pdftk"!
 # Opções:
 #   -rf, --frentesreversas  informa ordem reversa no arquivo frentes.pdf.
 #   -rv, --versosreversos   informa ordem reversa no arquivo versos.pdf.
@@ -15,6 +14,7 @@
 # Desde: 2009-09-17
 # Versão: 4
 # Licença: GPLv2
+# Nota: requer pdftk
 # ----------------------------------------------------------------------------
 zzfrenteverso2pdf ()
 {
