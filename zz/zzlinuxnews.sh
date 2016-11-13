@@ -42,7 +42,7 @@ zzlinuxnews ()
 	# Linux Today
 	if zztool grep_var t "$sites"
 	then
-		url='http://linuxtoday.com/backend/biglt.rss'
+		url='http://www.linuxtoday.com/backend/biglt.rss'
 		echo
 		zztool eco "* Linux Today ($url):"
 		zzfeed -n $n "$url"
