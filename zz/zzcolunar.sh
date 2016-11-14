@@ -141,5 +141,6 @@ zzcolunar ()
 		sed "s/${sep}$//"
 	else
 		cat -
-	fi
+	fi |
+	zztrim -r
 }
