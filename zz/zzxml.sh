@@ -215,7 +215,7 @@ zzxml ()
 			zzjuntalinhas -d "$sep" |
 			sed '
 				:ini
-				/>'$sep'*</ { s/>'$sep'*</>\
+				/>'$sep'*</ { s//>\
 </; t ini ;}
 
 				# quebra linha na abertura da tag
