@@ -14,7 +14,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-05-09
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzalinhar zzcolunar zzjuntalinhas zzlblank zzminusculas zzsemacento zzsqueeze zztrim zzutf8 zzxml
 # ----------------------------------------------------------------------------
@@ -62,9 +62,9 @@ zzconjugar ()
 		zzjuntalinhas -i '<h3'                    -f '</h3>'      -d ' ' |
 		zzjuntalinhas -i '<h4'                    -f '</h4>'      -d ' ' |
 		zzjuntalinhas -i '<strong'                -f '</strong>'  -d ' ' |
-		zzjuntalinhas -i '<span'                  -f '</span>'    -d ' ' |
-		zzjuntalinhas -i '> Gerúndio <'           -f '</span>'    -d ' ' |
-		zzjuntalinhas -i '> Particípio passado <' -f '</span>'    -d ' ' |
+		zzjuntalinhas -i '^<span>'                 -f '^</span>$' -d ' ' |
+		zzjuntalinhas -i '> Gerúndio <'           -f '^</span>'   -d ' ' |
+		zzjuntalinhas -i '> Particípio passado <' -f '^</span>'   -d ' ' |
 		zzjuntalinhas -i '> Infinitivo <'         -f ": $palavra" -d ' ' |
 		zzjuntalinhas -i '<u'                     -f '</u>'       -d ' ' |
 		zzjuntalinhas -i 'Separação silábica:'    -f '</u>'       -d ''
@@ -86,11 +86,15 @@ zzconjugar ()
 		ind)
 			zztool eco Indicativo
 			echo "$conteudo" |
-			sed -n '/"modoconjuga"> Indicativo </,/> Subjuntivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
-			awk '/<strong|tempo-conjugacao-titulo/ {print ""; print; next}; /<br / {print ""; next}; {printf $0}' |
+			sed -n '/"modoconjuga"> Indicativo </,/> Subjuntivo </ { /^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
+			awk '/tempo-conjugacao-titulo/ { printf "\n\n"; print; next }
+				/> tu <|> eles? <|> [nv]ós </ { print "" }
+				/<br / { print ""; next }
+				{ printf $0 }
+			' |
 			zzxml --untag |
 			zztrim -H |
-			awk 'NR % 8 == 3 || NR % 8 == 4 {sub(/  /,"   ")}; NR % 8 == 0 {sub(/  /," ")}; 1' |
+			zzsqueeze |
 			zzcolunar -w 30 3 |
 			zztrim -H
 		;;
@@ -98,10 +102,14 @@ zzconjugar ()
 			zztool eco Subjuntivo
 			echo "$conteudo" |
 			sed -n '/"modoconjuga"> Subjuntivo </,/> Imperativo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
-			awk '/<strong|tempo-conjugacao-titulo/ {print ""; print; next}; /<br / {print ""; next}; {printf $0}' |
+			awk '/tempo-conjugacao-titulo/ { printf "\n\n"; printf $0; next }
+				/> que |> se |> quando / { print "" }
+				/<br / { print ""; next }
+				{ printf $0 }
+			' |
 			zzxml --untag |
 			zztrim -H |
-			awk 'NR % 8 == 3 || NR % 8 == 4 {sub(/  /,"   ")}; NR % 8 == 0 {sub(/  /," ")}; 1' |
+			zzsqueeze |
 			zzcolunar -w 30 3 |
 			zztrim -H
 		;;
@@ -109,10 +117,13 @@ zzconjugar ()
 			zztool eco Imperativo
 			echo "$conteudo" |
 			sed -n '/"modoconjuga"> Imperativo </,/> Infinitivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
-			awk '/<strong|tempo-conjugacao-titulo/ {print ""; print; next}; /<br / {print ""; next}; {printf $0}' |
+			awk '/tempo-conjugacao-titulo/ { printf "\n\n"; print; next }
+				/--|> tu <|> eles? <|> [nv]ós </ { print; next }
+				/<br / { print ""; next }
+				{ printf $0 }
+			' |
 			zzxml --untag |
 			zzsqueeze |
-			awk 'NR % 8 == 4 {sub(/^/,"  ",$NF)}; NR % 8 > 4 && NR % 8 <= 7 {sub(/^/," ",$NF)}; 1' |
 			zzcolunar -r -w 30 2 |
 			zzlblank
 		;;
@@ -120,12 +131,15 @@ zzconjugar ()
 			zztool eco Infinitivo
 			echo "$conteudo" |
 			sed -n '/"modoconjuga"> Infinitivo </,/\/p>$/ {/^<h[23]/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
-			awk '/<strong|tempo-conjugacao-titulo/ {print; next}; /<br / {print ""; next}; {printf $0}' |
+			awk '/> [et]u <|> eles? <|> [nv]ós <|tempo-conjugacao-titulo/ { print; next }
+				/<br / { print ""; next }
+				$0 !~ /^  *$/ { printf $0 }
+			' |
 			zzxml --untag |
 			zzsqueeze |
-			awk 'NR % 8 == 2 || NR % 8 == 3 {sub(/^/,"  ",$NF)}; NR % 8 > 3 && NR % 8 < 7 {sub(/^/," ",$NF)}; 1' |
 			zzalinhar -r -w 30 |
-			zzlblank
+			zzlblank |
+			zztrim -r
 		;;
 		esac
 	done
