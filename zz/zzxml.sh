@@ -211,9 +211,13 @@ zzxml ()
 			#                            </b>
 			#                            </p>
 
-			# Usando um tipo espcial de espaço com zzjuntalinhas
+			# Usando um tipo especial de espaço com zzjuntalinhas
 			zzjuntalinhas -d "$sep" |
 			sed '
+				:ini
+				/>'$sep'*</ { s//>\
+</; t ini ;}
+
 				# quebra linha na abertura da tag
 				s/</\
 </g

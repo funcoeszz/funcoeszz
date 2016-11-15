@@ -356,6 +356,43 @@ $ zzxml --tag 'escape' zzxml.in.xml
 </escape>
 $
 
+$ echo 'Apenas <div>algumas <span><center>Tags</center> justapostas</span></div>' | zzxml --tag center
+<center>
+Tags
+</center>
+$
+
+$ echo 'Apenas <div>algumas <span><center>Tags</center> justapostas</span></div>' | zzxml --tag span
+<span>
+<center>
+Tags
+</center>
+ justapostas
+</span>
+$
+
+$ echo 'Apenas <div>algumas <span><center>Tags</center> justapostas</span></div>' | zzxml --notag center --tag div
+<div>
+algumas 
+<span>
+ justapostas
+</span>
+</div>
+$
+
+$ echo 'Apenas <div>algumas <span><center>Tags</center> justapostas</span></div>' | zzxml --indent
+Apenas 
+<div>
+	algumas 
+	<span>
+		<center>
+			Tags
+		</center>
+		justapostas
+	</span>
+</div>
+$
+
 $ zzxml --tag 'escape' --unescape zzxml.in.xml
 <escape>
 "&'<>
