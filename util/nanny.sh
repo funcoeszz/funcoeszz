@@ -205,7 +205,7 @@ do
 	test -n "$wrong" && printf "%s: %s\n" $f "$wrong" |
 		# Exceções conhecidas
 		# Linha de Requisitos é exceção sempre
-		grep -v '^zz/zz[[:alnum:]]*.sh: # Requisitos:' |
+		egrep -v '^(zz|off)/zz[[:alnum:]]*.sh: # Requisitos:' |
 		grep -v '^zz/zzloteria.sh: # Resultados da quina' |
 		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org' |
 		grep -v '^zz/zzpalpite.sh: # Uso: zzpalpite' |
