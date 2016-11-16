@@ -12,6 +12,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2016-11-16 O comando pkill a substitui (issue #362)
 zzkill ()
 {
 	zzzz -h kill "$1" && return
