@@ -12,6 +12,8 @@ zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
 tmp='./run.tmp'
 tester='bash clitest'
 
+cd "$script_dir"
+
 # Check requirements
 $tester -V > /dev/null || {
 	printf '%s\n' "Ops... Não achei o programa testador: clitest"
