@@ -880,15 +880,16 @@ zzzz ()
 			info_base=$(echo "$ZZBASE" | sed 's/ /, /g')
 
 			# Informações, uma por linha
-			zztool acha '^[^)]*)' "(script) $ZZPATH"
-			zztool acha '^[^)]*)' "( pasta) $ZZDIR"
-			zztool acha '^[^)]*)' "(versão) $ZZVERSAO ($info_utf8)"
-			zztool acha '^[^)]*)' "( cores) $info_cor"
-			zztool acha '^[^)]*)' "(   tmp) $ZZTMP"
-			zztool acha '^[^)]*)' "(bashrc) $info_instalado"
-			zztool acha '^[^)]*)' "( zshrc) $info_instalado_zsh"
-			zztool acha '^[^)]*)' "(  base) $info_base"
-			zztool acha '^[^)]*)' "(  site) $url_site"
+			zztool acha '^[^)]*)' "( script) $ZZPATH"
+			zztool acha '^[^)]*)' "(  pasta) $ZZDIR"
+			zztool acha '^[^)]*)' "( versão) $ZZVERSAO ($info_utf8)"
+			zztool acha '^[^)]*)' "(  cores) $info_cor"
+			zztool acha '^[^)]*)' "(    tmp) $ZZTMP"
+			zztool acha '^[^)]*)' "(browser) $ZZBROWSER"
+			zztool acha '^[^)]*)' "( bashrc) $info_instalado"
+			zztool acha '^[^)]*)' "(  zshrc) $info_instalado_zsh"
+			zztool acha '^[^)]*)' "(   base) $info_base"
+			zztool acha '^[^)]*)' "(   site) $url_site"
 
 			# Lista de todas as funções
 

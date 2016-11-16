@@ -44,14 +44,15 @@ Procurando o comando uniq...
 Verificando a codificação do sistema...
 Verificando a codificação das Funções ZZ...
 $ zzzz | awk '/^\(/ {sub(/\) .*/,")"); gsub(/[0-9]*/,""); print}'
-(script)
-( pasta)
-(versão)
-( cores)
-(   tmp)
-(bashrc)
-( zshrc)
-(  base)
-(  site)
+( script)
+(  pasta)
+( versão)
+(  cores)
+(    tmp)
+(browser)
+( bashrc)
+(  zshrc)
+(   base)
+(   site)
 ((  funções disponíveis ))
 $
