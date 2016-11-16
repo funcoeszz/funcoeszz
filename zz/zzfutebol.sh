@@ -86,6 +86,6 @@ zzfutebol ()
 		campeonato=$(echo $linha | cut -d":" -f 1)
 		time1=$(echo $linha | cut -d":" -f 2)
 		time2=$(echo $linha | cut -d":" -f 3 | zztrim)
-		echo "$(zzpad -r 40 $campeonato) $(zzpad -l 25 $time1) x $time2"
+		echo "$(zzpad -r 45 $campeonato) $(zzpad -l 25 $time1) x $time2"
 	done
 }
