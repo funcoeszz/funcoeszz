@@ -8,9 +8,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-02-22
-# Versão: 2
+# Versão: 3
 # Licença: GPL
-# Requisitos: zzcolunar zzjuntalinhas zzlimpalixo zzminusculas zzpad zzsemacento zzsqueeze zztrim zzunescape zzutf8 zzxml
+# Requisitos: zzdatafmt zzjuntalinhas zzlimpalixo zzminusculas zzpad zzsemacento zzsqueeze zztrim zzunescape zzutf8 zzxml
 # Tags: cinema
 # ----------------------------------------------------------------------------
 zzcinepolis ()
@@ -19,6 +19,7 @@ zzcinepolis ()
 
 	local cache=$(zztool cache cinepolis)
 	local url='http://www.cinepolis.com.br/programacao'
+	local hoje=$(zzdatafmt --iso hoje)
 	local cidade codigo codigos linha sala filme censura horario
 
 	if test "$1" = '--atualiza'
@@ -42,7 +43,11 @@ zzcinepolis ()
 	if test $# = 0; then
 		# mostra opções
 		zztool eco "Cidades e cinemas disponíveis:"
-		zzcolunar 2 $cache
+		cat $cache |
+		tr -s ' ' |
+		sed '/^[A-Z]/ h; /^ [0-9]/ { G; s/\(.*\)\n\(.*\)/\2\1/; }' |
+		grep ': ' |
+		sed 's/Cinépolis // ; s/: \([0-9][0-9]*\)) \(.*\)/ - \2 - \1/'
 		return 0
 	fi
 
@@ -62,7 +67,7 @@ zzcinepolis ()
 	if zztool testa_numero ${cidade}
 	then
 		# testa se código é válido
-		echo "$codigo" | grep "$cidade" >/dev/null && codigos="$cidade"
+		echo "$codigo" | grep -w "$cidade" >/dev/null && codigos="$cidade"
 	else
 		# passou nome da cidade
 		codigos=$(
@@ -78,38 +83,34 @@ zzcinepolis ()
 	for codigo in $codigos
 	do
 		zztool eco $(grep " ${codigo})" $cache | sed 's/.*) //')
-		zztool source -o "ISO-8859-1" -u "Mozilla/5.0" "${url}/cinema.php?cc=$codigo" 2>/dev/null  |
-		zztool texto_em_iso |
-		sed -n '/tabNavigation/,/<\/ul>/p;/tabelahorario/,/<\/table>/p' |
+		zzdatafmt -f 'DD/MM' hoje
+		claquete=$(zztool source "${url}/cinema.php?cc=$codigo" | sed -n "/cod_claquete/{s/.* '//;s/'.*//;p;q;}")
+		zztool post links "${url}/ajax/ajax.conteudo_horarios.php" "cod_horario=${hoje}&cod_cinema=${codigo}&cod_claquete=${claquete}" |
+		zzutf8 |
+		sed -n '/"myTable1"/,/<\/table>/p' |
 		zztrim |
 		zzxml --tidy |
 		zzlimpalixo --html |
-		zzxml --tag tr --tag span |
-		zzjuntalinhas -i '<tr' -f '</tr>' -d ' ' |
-		zzjuntalinhas -i '<span' -f '</span>' -d ' ' |
+		zzjuntalinhas -i '<tr' -f '</tr>' -d '' |
 		zzunescape --html |
 		sed '
-			s/<td[^>]*>/|/g
-			s/<span [^>]*aria-label="Livre">/Livre/
-			s/<span [^>]*aria-label="Legendado">/Legendado/
-			s/<span [^>]*aria-label="Dublado">/Dublado/
-			s/<span [^>]*aria-label="\([0-9]\{1,\} anos\)">/\1/
+			s/<t[dh][^>]*>/|/g
+			s/<span [^>]*aria-label="Livre">/Livre /
+			s/<span [^>]*aria-label="Legendado">/Legendado /
+			s/<span [^>]*aria-label="Dublado">/Dublado /
+			s/<span [^>]*aria-label="\([0-9]\{1,\} anos\)">/\1 /
+			s/:[0-5][0-9]/& /g
 		' |
 		zzxml --untag |
 		zztrim |
 		zzsqueeze |
 		sed -n '
-			/ *[|] *Tweet  */,$d
-			2,/sala / {
-				/sala /!d
-				s/  */|/g
-			}
+			/^ *[|] *$/d
 			s/^ *[|] *//
 			s/ *[|] *$//
 			s/ *[|] */ | /g
 			p
 		' |
-		zztool nl_eof |
 		while read linha
 		do
 			if zztool grep_var '|' "$linha"

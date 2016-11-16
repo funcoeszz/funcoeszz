@@ -5,71 +5,60 @@ $ zzcinepolis Tokyo ;echo $?             #→ --regex ^Uso:.*\n1
 
 # Sem argumentos mostra a lista de cidades/cinemas
 
-$ zzcinepolis | sed 's/  *$//'
+$ zzcinepolis 
 Cidades e cinemas disponíveis:
-                                             26) Cinépolis Jundiaí Shopping
-Barueri - SP:
-8) Cinépolis Iguatemi Alphaville             Macapá - AP:
-22) Cinépolis Parque Barueri                 49) Cinépolis Amapá Garden
-
-Bauru - SP:                                  Manaus - AM:
-34) Cinépolis Nações Bauru                   29) Cinépolis Ponta Negra
-                                             40) Cinépolis Manaus Plaza
-Belém - PA:                                  41) Cinépolis Millennium
-2) Cinépolis Boulevard Belem
-20) Cinépolis Parque Belem                   Marília  - SP:
-                                             43) Cinépolis Marília Shopping
-Belo Horizonte - MG:
-24) Cinépolis Estacao BH                     Natal  - RN:
-                                             31) Cinépolis Natal Shopping
-Blumenau - SC:                               33) Cinépolis Partage Norte Shopping Natal
-10) Cinépolis Norte Shopping
-                                             Ribeirão Preto - SP:
-Campinas - SP:                               1) Cinépolis Santa Úrsula
-14) Cinépolis Campinas Shopping              30) Cinépolis Iguatemi Ribeirão Preto
-
-Campo Grande - MS:                           Rio de Janeiro - RJ:
-13) Cinépolis Norte Sul Plaza                6) Cinépolis Lagoon
-
-Carapicuíba - SP:                            Salvador - BA:
-53) Cinépolis Plaza Shopping Carapicuíba     5) Cinépolis Salvador Norte
-                                             23) Cinépolis Bela Vista
-Cariacica - ES:
-46) Cinépolis Moxuara                        São Bernardo do Campo - SP:
-                                             27) Cinépolis São Bernardo Plaza
-Caxias do Sul - RS:
-12) Cinépolis San Pelegrino                  São Gonçalo - RJ:
-                                             17) Cinépolis São Gonçalo Shopping
-Cuiabá - MT:
-39) Cinépolis Três Américas                  São José do Rio Preto - SP:
-                                             42) Cinépolis Iguatemi São José do Rio Preto
-Curitiba - PR:                               44) Cinépolis Plaza Avenida SJRP
-35) Cinépolis Pátio Batel
-                                             São José/Florianópolis - SC:
-Fortaleza - CE:                              25) Cinépolis Continente Shopping
-37) Cinépolis North Shopping Jóquei
-47) Cinépolis RioMar Fortaleza               São Luís - MA:
-54) Cinépolis Riomar Kennedy                 18) Cinépolis São Luis Shopping
-
-Goiânia - GO:                                São Paulo - SP:
-52) Cinépolis Cerrado                        3) Cinépolis Mais Shopping
-                                             19) Cinépolis Metrô Itaquera
-Guarulhos - SP:                              21) Cinépolis JK Iguatemi
-48) Cinépolis Parque Shopping Maia
-                                             Sorocaba/Votorantim - SP:
-Jaboatão dos Guararapes - PE:                36) Cinépolis Iguatemi Esplanada
-15) Cinépolis Shopping Guararapes
-                                             Teresina - PI:
-João Pessoa - PB:                            50)  Cinépolis Rio Poty
-16) Cinépolis Manaíra Shopping
-51) Cinépolis Mangabeira                     Uberlândia - MG:
-                                             38) Cinépolis Center Shopping Uberlandia
-Jundiaí - SP:
+Barueri - SP - Iguatemi Alphaville - 8
+Barueri - SP - Parque Barueri - 22
+Bauru - SP - Nações Bauru - 34
+Belém - PA - Boulevard Belem - 2
+Belém - PA - Parque Belem - 20
+Belo Horizonte - MG - Estacao BH - 24
+Blumenau - SC - Norte Shopping - 10
+Campinas - SP - Campinas Shopping - 14
+Campo Grande - MS - Norte Sul Plaza - 13
+Carapicuíba - SP - Plaza Shopping Carapicuíba - 53
+Cariacica - ES - Moxuara - 46
+Caxias do Sul - RS - San Pelegrino - 12
+Cuiabá - MT - Três Américas - 39
+Curitiba - PR - Pátio Batel - 35
+Fortaleza - CE - North Shopping Jóquei - 37
+Fortaleza - CE - RioMar Fortaleza - 47
+Fortaleza - CE - Riomar Kennedy - 54
+Goiânia - GO - Cerrado - 52
+Guarulhos - SP - Parque Shopping Maia - 48
+Jaboatão dos Guararapes - PE - Shopping Guararapes  - 15
+João Pessoa - PB - Manaíra Shopping - 16
+João Pessoa - PB - Mangabeira - 51
+Jundiaí - SP - Jundiaí Shopping - 26
+Macapá - AP - Amapá Garden - 49
+Manaus - AM - Ponta Negra - 29
+Manaus - AM - Manaus Plaza - 40
+Manaus - AM - Millennium - 41
+Marília - SP - Marília Shopping - 43
+Natal - RN - Natal Shopping - 31
+Natal - RN - Partage Norte Shopping Natal - 33
+Ribeirão Preto - SP - Santa Úrsula - 1
+Ribeirão Preto - SP - Iguatemi Ribeirão Preto - 30
+Rio de Janeiro - RJ - Lagoon - 6
+Salvador - BA - Salvador Norte - 5
+Salvador - BA - Bela Vista - 23
+São Bernardo do Campo - SP - São Bernardo Plaza - 27
+São Gonçalo - RJ - São Gonçalo Shopping - 17
+São José do Rio Preto - SP - Iguatemi São José do Rio Preto - 42
+São José do Rio Preto - SP - Plaza Avenida SJRP - 44
+São José/Florianópolis - SC - Continente Shopping - 25
+São Luís - MA - São Luis Shopping - 18
+São Paulo - SP - Mais Shopping - 3
+São Paulo - SP - Metrô Itaquera - 19
+São Paulo - SP - JK Iguatemi - 21
+Sorocaba/Votorantim - SP - Iguatemi Esplanada - 36
+Teresina - PI - Rio Poty - 50
+Uberlândia - MG - Center Shopping Uberlandia - 38
 $
 
 # Uso normal, informando número e cidade
 
-$ filtro='2s|[0-3][0-9]/[0-2][0-9] .*|DATA|; 3s/ filme */filme   /; 4,${ s/Legendado  *//;s/Dublado  *//; s/\([0-2][0-9]:[0-5][0-9] *\)\{1,\}$/HORARIO/; s/[0-9][0-9] anos/99 anos/; s/Livre  /99 anos/; s/NC     /99 anos/; s/^ *[0-9]\{1,\} /  9 /; s/9 .* 9/9   FILME   9/; }'
+$ filtro='2s|[0-3][0-9]/[0-2][0-9]|DATA|; 3s/ filme */filme   /; 4,${ s/Legendado  *//;s/Dublado  *//; s/\([0-2][0-9]:[0-5][0-9] *\)\{1,\}$/HORARIO/; s/[0-9][0-9] anos/99 anos/; s/Livre  /99 anos/; s/NC     /99 anos/; s/^ *[0-9]\{1,\} /  9 /; s/9 .* 9/9   FILME   9/; }'
 $ zzcinepolis 17 | sed "$filtro" | uniq
 Cinépolis São Gonçalo Shopping
 DATA
