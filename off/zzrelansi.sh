@@ -8,6 +8,7 @@
 # Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2016-11-16 Fora do escopo do projeto (issue #364)
 zzrelansi ()
 {
 

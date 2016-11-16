@@ -16,6 +16,7 @@
 # Requisitos: zzshuffle
 # Nota: requer gconftool
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2016-11-16 Uso muito restrito: Gnome no Linux (issue #363)
 zzrandbackground ()
 {
 
