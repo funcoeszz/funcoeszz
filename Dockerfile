@@ -2,7 +2,7 @@ FROM debian:jessie
 MAINTAINER Aurelio Jargas <verde@aurelio.net>
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y bc curl lynx && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y bc curl lynx links && \
     rm -rf /var/lib/apt/lists/*
 
 ENV PATH=/app:$PATH \
