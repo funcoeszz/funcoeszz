@@ -44,7 +44,6 @@ ZZCOR_DFT=1                       # colorir mensagens? 1 liga, 0 desliga
 ZZPATH_DFT="/usr/bin/funcoeszz"   # rota absoluta deste arquivo
 ZZDIR_DFT="$HOME/zz"              # rota absoluta do diretório com as funções
 ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
-ZZBROWSER_ALL='lynx links links2 elinks w3m'  # Todos os navegadores possíveis
 #
 #
 ##############################################################################
@@ -78,10 +77,13 @@ test "${ZZPATH#/}" = "$ZZPATH" && ZZPATH="$PWD/${ZZPATH#./}"
 test -n "$ZZDIR" || ZZDIR=$ZZDIR_DFT
 
 # Descobre qual o navegador em modo texto está disponível no sistema
-for ZZBROWSER in $ZZBROWSER_ALL
-do
-	type "$ZZBROWSER" >/dev/null 2>&1 && break
-done
+if test -z "$ZZBROWSER"
+then
+	for ZZBROWSER in lynx links links2 elinks w3m
+	do
+		type "$ZZBROWSER" >/dev/null 2>&1 && break
+	done
+fi
 export ZZBROWSER
 
 #
@@ -91,7 +93,7 @@ ZZCOR="${ZZCOR:-$ZZCOR_DFT}"
 ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}"
 ZZTMP="${ZZTMP%/}/zz"  # prefixo comum a todos os arquivos temporários
 ZZAJUDA="$ZZTMP.ajuda"
-unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT ZZBROWSER_ALL
+unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 
 #
 ### Forçar variáveis via linha de comando
