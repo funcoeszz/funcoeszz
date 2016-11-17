@@ -29,7 +29,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-26
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzminusculas zzmaiusculas zzcapitalize zzseq zztestar
 # ----------------------------------------------------------------------------
@@ -191,7 +191,19 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 				then
 					test $letra = '/' && letra='\/'
 					codigo=$(echo "$caracter" | sed -n "/^[$letra]/p")
-					if test -n $codigo
+					if zztool grep_var / "$letra"
+					then
+						linha0="${linha0}-( ${letra_original} )"
+						linha1=$(awk -v linha="$linha1" 'BEGIN {print linha " 00 00"}')
+						linha2=$(awk -v linha="$linha2" 'BEGIN {print linha " 00 10"}')
+						linha3=$(awk -v linha="$linha3" 'BEGIN {print linha " 01 00"}')
+					elif test $(printf ${letra}) = '\'
+					then
+						linha0=${linha0}'-( '${letra_original}' )'
+						linha1=${linha1}' '$(awk 'BEGIN {print "00 00"}')
+						linha2=${linha2}' '$(awk 'BEGIN {print "01 00"}')
+						linha3=${linha3}' '$(awk 'BEGIN {print "00 10"}')
+					elif test -n "$codigo"
 					then
 						letra_original=$(echo $letra_original | tr '#' ' ')
 						linha0=${linha0}'('${letra_original}')'
@@ -199,19 +211,11 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 						linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6}')
 						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7}')
 					else
-						if test $letra = '\'
-						then
-							linha0=${linha0}'-( '${letra_original}' )'
-							linha1=${linha1}' '$(awk 'BEGIN {print "00 00"}')
-							linha2=${linha2}' '$(awk 'BEGIN {print "01 00"}')
-							linha3=${linha3}' '$(awk 'BEGIN {print "00 10"}')
-						else
-							codigo=$(echo "$caracter_esp" | sed -n "/^[$letra]/p")
-							test ${#codigo} -ge 25 && linha0=${linha0}'-( '${letra_original}' )'|| linha0=${linha0}'('${letra_original}')'
-							linha1=${linha1}' '$(echo $codigo | awk -F'|' '{print $2 $5, $8 $11}')
-							linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6, $9 $12}')
-							linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7, $10 $13}')
-						fi
+						codigo=$(echo "$caracter_esp" | sed -n "/^[$letra]/p")
+						test ${#codigo} -ge 25 && linha0=${linha0}'-( '${letra_original}' )'|| linha0=${linha0}'('${letra_original}')'
+						linha1=${linha1}' '$(echo $codigo | awk -F'|' '{print $2 $5, $8 $11}')
+						linha2=${linha2}' '$(echo $codigo | awk -F'|' '{print $3 $6, $9 $12}')
+						linha3=${linha3}' '$(echo $codigo | awk -F'|' '{print $4 $7, $10 $13}')
 					fi
 				fi
 			done
