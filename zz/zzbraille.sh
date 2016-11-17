@@ -191,7 +191,7 @@ _|0|0|0|1|0|1|0|0|1|0|0|1
 				then
 					test $letra = '/' && letra='\/'
 					codigo=$(echo "$caracter" | sed -n "/^[$letra]/p")
-					if echo "${letra}" | grep '\/' > /dev/null
+					if zztool grep_var / "$letra"
 					then
 						linha0="${linha0}-( ${letra_original} )"
 						linha1=$(awk -v linha="$linha1" 'BEGIN {print linha " 00 00"}')
