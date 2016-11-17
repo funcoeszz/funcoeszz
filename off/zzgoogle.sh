@@ -11,7 +11,7 @@
 # Licença: GPL
 # Requisitos: zztrim
 # ----------------------------------------------------------------------------
-# FIXME: zzgoogle rato roeu roupa rei roma [PPS], [PDF]
+# DESATIVADA: 2016-11-17 Google bloqueia robôs (issue #390)
 zzgoogle ()
 {
 	zzzz -h google "$1" && return
