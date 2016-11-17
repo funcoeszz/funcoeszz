@@ -13,7 +13,7 @@
 #
 # Autor: Thiago Moura Witt <thiago.witt (a) gmail.com> <@thiagowitt>
 # Desde: 2011-07-05
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzdatafmt zzxml zzunescape zztrim
 # Tags: cinema
@@ -148,7 +148,7 @@ zzcinemark ()
 						dia=$(zzdatafmt -f "DD-MM-AAAA" $2)
 					;;
 					# semana (curto)
-					dom | seg | ter | qua | qui | sex | sab)
+					dom | seg | ter | qua | qui | sex | s[aá]b)
 						dia=$(zzdatafmt -f "DD-MM-AAAA" $2)
 					;;
 					# semana (longo)
@@ -184,5 +184,8 @@ zzcinemark ()
 		zztrim |
 		sed -n "/${dia}/,/Dia: /p" | sed '$d' |
 		zzxml --untag | zzunescape --html
+	else
+		zztool erro "Não encontrei o cinema $1"
+		return 1
 	fi
 }
