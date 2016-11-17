@@ -43,16 +43,36 @@ Procurando o comando tr...
 Procurando o comando uniq...
 Verificando a codificação do sistema...
 Verificando a codificação das Funções ZZ...
-$ zzzz | awk '/^\(/ {sub(/\) .*/,")"); gsub(/[0-9]*/,""); print}'
-( script)
-(  pasta)
-( versão)
-(  cores)
-(    tmp)
-(browser)
-( bashrc)
-(  zshrc)
-(   base)
-(   site)
+$ zzzz | grep '(' | tr -d 0-9 | sed 's/) .*/) .../'
+( script) ...
+(  pasta) ...
+( versão) ...
+(  cores) ...
+(    tmp) ...
+(browser) ...
+( bashrc) ...
+(  zshrc) ...
+(   base) ...
+(   site) ...
 ((  funções disponíveis ))
+$
+
+# As variáveis de ambiente devem ser respeitadas
+
+$ ZZCOR=0         zzzz | grep '( *cores)'
+(  cores) não
+$ ZZCOR=1         zzzz | grep '( *cores)' | tr -d '\033' | sed 's/\[[0-9;]*m//g'
+(  cores) sim
+$ ZZDIR=/xxx      zzzz | grep '( *pasta)'
+(  pasta) /xxx
+$ ZZPATH=/xxx     zzzz | grep '( *script)'
+( script) /xxx
+$ ZZBROWSER=lynx  zzzz | grep '( *browser)'
+(browser) lynx
+$ ZZBROWSER=links zzzz | grep '( *browser)'
+(browser) links
+$ ZZBROWSER=w3m   zzzz | grep '( *browser)'
+(browser) w3m
+$ ZZBROWSER=xxx   zzzz | grep '( *browser)'
+(browser) xxx
 $
