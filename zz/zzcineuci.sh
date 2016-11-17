@@ -2,13 +2,12 @@
 # http://www.ucicinemas.com.br
 # Exibe a programação dos cinemas UCI de sua cidade.
 # Se não for passado nenhum parâmetro, são listadas as cidades e cinemas.
-# Uso: zzcineuci [cidade | codigo_cinema]
-# Ex.: zzcineuci recife
-#      zzcineuci 14
+# Uso: zzcineuci [codigo_cinema]
+# Ex.: zzcineuci 14
 #
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2009-05-04
-# Versão: 9
+# Versão: 10
 # Licença: GPL
 # Requisitos: zzunescape zztrim zzcolunar
 # Tags: cinema
@@ -41,14 +40,14 @@ zzcineuci ()
 		zzunescape --html |
 		zztrim |
 		awk '{ if ($0 ~/^[0-9]+$/) {cod=sprintf("%02d",$0);getline; print " " cod " - " $0} else print "\n" $0}' |
+		tr -d '\r' |
 		zztrim -V > "$cache"
 	fi
 
-	if test $# = 0
+	if test $# -eq 0
 	then
-		# mostra opções
-		printf "       Cidades e cinemas disponíveis\n============================================\n"
 		cat "$cache"
+
 	elif zztool testa_numero "$1"
 	then
 		codigo=$(sed 's/^[ 0]*//' "$cache" | grep -o --color=never "^$1 " | tr -d ' ')
@@ -64,6 +63,12 @@ zzcineuci ()
 			awk 'BEGIN { printf "Filme\nDuração(min)\nGênero\nCensura\n" }; 1' |
 			zzcolunar -z 4 |
 			zztrim
+		else
+			zztool erro "Não encontrei o cinema $1"
+			return 1
 		fi
+	else
+		zztool -e uso cineuci
+		return 1
 	fi
 }
