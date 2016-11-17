@@ -78,7 +78,7 @@ zztimer ()
 			seg  = $NF
 			min  = (NF>2?(length($2)?$2:0):(NF==2?(length($1)?$1:0):0))
 			hora = (NF>=3?(length($1)?$1:0):0)
-			print (hora*(60**2)) + (min*60) + seg
+			print (hora*3600) + (min*60) + seg
 		}'
 	)
 
