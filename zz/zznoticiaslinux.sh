@@ -35,7 +35,7 @@ zznoticiaslinux ()
 		url='http://www.vivaolinux.com.br/index.rdf'
 		echo
 		zztool eco "* Viva o Linux ($url):"
-		zzfeed --iso -n $n "$url"
+		zzfeed -n $n "$url"
 	fi
 
 	# Br Linux
