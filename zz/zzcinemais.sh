@@ -22,7 +22,7 @@ zzcinemais ()
 	local url='http://www.cinemais.com.br/programacao'
 
 	cidades=$(
-		zztool source -o "ISO-8859-1" "$url" |
+		zztool source "$url" |
 		zzutf8 |
 		sed -n '/cliclabeProg/,/cliclabeProg/p' |
 		zzxml --notag script --tag li |
@@ -52,7 +52,7 @@ zzcinemais ()
 
 	# Especificando User Agent na opçãp -u "Mozilla/5.0"
 	zzecho -N -l ciano $(echo "$cidades" | grep "^${codigo} - " | sed 's/^[0-9][0-9]* - //')
-	zztool source  -o "ISO-8859-1" -u "Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
+	zztool source -u "Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
 	grep -E '(<td><a href|<td><small|[0-9] a [0-9])' |
 	zzutf8 |
 	zztrim |
