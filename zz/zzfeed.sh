@@ -6,13 +6,11 @@
 # Opções:
 #  -n para limitar o número de resultados (Padrão é 10).
 #  -u para simular navegador Mozilla/Firefox (alguns sites precisam disso).
-#  --iso ou --utf para determinar explicitamente a codificação da origem.
 #
 # Para uso via pipe digite dessa forma: "zzfeed -", mesma forma que o cat.
 #
 # Uso: zzfeed [-n número] URL...
 # Ex.: zzfeed http://aurelio.net/feed/
-#      zzfeed --utf http://aurelio.net/feed/  # O coding é utf-8
 #      zzfeed -n 5 aurelio.net/feed/          # O http:// é opcional
 #      zzfeed aurelio.net funcoeszz.net       # Mostra URL dos feeds
 #      zzfeed -u funcoeszz.net                # UserAgent do lynx diferente
@@ -20,7 +18,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
-# Versão: 10
+# Versão: 11
 # Licença: GPL
 # Requisitos: zzxml zzunescape zztrim zzutf8
 # ----------------------------------------------------------------------------
@@ -28,7 +26,7 @@ zzfeed ()
 {
 	zzzz -h feed "$1" && return
 
-	local url formato tag_mae tmp useragent coding cache
+	local url formato tag_mae tmp useragent cache
 	local limite=10
 
 	# Opções de linha de comando
@@ -37,7 +35,6 @@ zzfeed ()
 		case "$1" in
 		-n) limite=$2; shift ;;
 		-u) useragent='-u "Mozilla/5.0"' ;;
-		--iso | --utf) coding="${1#--}" ;;
 		* ) break ;;
 		esac
 		shift
@@ -100,13 +97,7 @@ zzfeed ()
 		# Baixa e limpa o conteúdo do feed
 		if test "$1" = "-"
 		then
-			zztool file_stdin "$@" |
-			case "$coding" in
-				iso) zztool texto_em_iso ;;
-				utf) zztool texto_em_utf ;;
-				*  ) zzutf8 ;;
-			esac |
-			zzxml --tidy > "$tmp"
+			cat - | zzutf8 | zzxml --tidy > "$tmp"
 		else
 			zztool download $useragent "$url" "$cache"
 			zzutf8 "$cache" | zzxml --tidy > "$tmp"
