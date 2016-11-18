@@ -231,7 +231,7 @@ zzxml ()
 			zzjuntalinhas -i '^<!\[CDATA\[' -f ']]>$' -d '' |
 
 			# Remove linhas em branco (as que adicionamos)
-			sed '/^[[:blank:]]*$/d'
+			sed "/^[[:blank:]$sep]*$/d"
 		else
 			# Espaço antes do fechamento da tag (Recurso usado no script para tag não ambígua)
 			sed 's/ *>/  >/g'
