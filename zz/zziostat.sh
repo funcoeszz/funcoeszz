@@ -2,6 +2,7 @@
 # Monitora a utilização dos discos no Linux.
 #
 # Opções:
+#   -n [número]    Quantidade de medições (padrão = 10; contínuo = 0)
 #   -t [número]    Mostra apenas os discos mais utilizados
 #   -i [segundos]  Intervalo em segundos entre as coletas
 #   -d [discos]    Mostra apenas os discos que começam com a string passada
@@ -17,13 +18,14 @@
 #
 # Uso: zziostat [-t número] [-i segundos] [-d discos] [-o trwT]
 # Ex.: zziostat
+#      zziostat -n 15
 #      zziostat -t 10
 #      zziostat -i 5 -o T
 #      zziostat -d emcpower
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2015-02-17
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # Nota: requer iostat
 # ----------------------------------------------------------------------------
@@ -35,11 +37,18 @@ zziostat ()
 	local delay=2
 	local orderby='t'
 	local disk='sd'
+	local iteration=10
+	local i=0
 
 	# Opcoes de linha de comando
 	while [ "${1#-}" != "$1" ]
 	do
 		case "$1" in
+			-n )
+				shift; iteration=$1
+				zztool testa_numero $iteration || { zztool erro "Número inválido $iteration"; return 1; }
+				test $iteration -eq 0 && unset iteration
+				;;
 			-t )
 				shift; top=$1
 				zztool testa_numero $top || { zztool erro "Número inválido $top"; return 1; }
@@ -73,8 +82,17 @@ zziostat ()
 
 	# Executa o iostat, le a saida e agrupa cada "ciclo de execucao"
 	# -d device apenas, -m mostra saida em MB/s
-	iostat -d -m $delay |
-	while read line; do
+	iostat -d -m $delay $iteration |
+	while read line
+	do
+
+		# Ignorando o cabeçalho do iostat, localizado nas 2 linhas iniciais
+		if test $i -lt 2
+		then
+			i=$((i + 1))
+			continue
+		fi
+
 		# faz o append da linha do iostat
 		if [ "$line" ]; then
 			cycle="$cycle
