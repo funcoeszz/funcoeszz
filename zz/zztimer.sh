@@ -8,10 +8,10 @@
 #   -c: Apenas converte o tempo em segundos.
 #   -s: Aguarda o tempo como sleep, sem mostrar o cronômetro.
 #   -p: Usa uma temporização mais precisa, porém usa mais recursos.
-#   --center ou --centro: Mostra o cronomêtro centralizado no terminal.
-#   --teste: Desabilita 'tput' e a centralização.
+#   --teste: Desabilita centralização (usar depois das opções -n,-x,-y).
 #
 # Obs: Máximo de 99 horas.
+#      Opções -n, -x, -y sempre centralizada na tela, exceto se usar --teste.
 #
 # Uso: zztimer [-c|-s|-n|-x char|-y nums chars] [-p] [[hh:]mm:]ss
 # Ex.: zztimer 90           # Cronomêtro regressivo a partir de 1:30
@@ -25,7 +25,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-01-25
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zztimer ()
@@ -33,7 +33,9 @@ zztimer ()
 
 	zzzz -h timer "$1" && return
 
-	local opt str num seg char_para centro no_tput
+	local opt str num seg char_para centro desl
+	local teste='0'
+	local no_tput='1'
 	local prec='s'
 
 	# Verificação dos parâmetros
@@ -43,10 +45,16 @@ zztimer ()
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
-		-n) opt='n';  shift ;;
-		-x) opt='x';  str=$(echo "$2" | sed 's/\(.\).*/\1/'); shift; shift ;;
+		-n) opt='n'; shift ;;
+		-x)
+			opt='x'
+			str=$(echo "$2" | sed 's/\(.\).*/\1/')
+			shift; shift
+		;;
 		-y)
-			opt='x';  str="$2"; char_para="$3";
+			opt='x'
+			str="$2"
+			char_para="$3";
 			if test ${#str} -ne ${#char_para}
 			then
 				opt='n'
@@ -55,11 +63,10 @@ zztimer ()
 			fi
 			shift; shift; shift
 		;;
-		-c) opt='c';  shift ;;
-		-s) opt='s';  shift ;;
+		-c) opt='c'; no_tput='1' shift ;;
+		-s) opt='s'; no_tput='1'; shift ;;
 		-p) prec='p'; shift ;;
-		--center | --centro) centro='1'; shift ;;
-		--teste) no_tput='1'; shift ;;
+		--teste) teste='1'; shift ;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
@@ -67,7 +74,16 @@ zztimer ()
 
 	echo "$1" | grep '^[0-9:]\{1,\}$' >/dev/null || { zztool erro "Entrada inválida"; return 1; }
 
-	test -n "$no_tput" || unset centro
+	if test $teste -eq 1
+	then
+		no_tput='1'
+		centro='0'
+	else
+		case "$opt" in
+			n|x) no_tput='0'; centro='1' ;;
+			*)   no_tput='1'; centro='0' ;;
+		esac
+	fi
 
 	# Separando cada elemento de tempo hora, minutos e segundos
 	# E ajustando minutos e segundos que extrapolem o limite de 60{min,s}
@@ -85,23 +101,23 @@ zztimer ()
 	if test $1 -lt 360000
 	then
 		num=$1
-		test "$opt" = "c" && { echo $num; return; }
-		test "$opt" = "s" && { echo $1; sleep $num; return; }
+		test "$opt" = "c" && { echo $num;  return; }
+		test "$opt" = "s" && { sleep $num; return; }
 	else
 		zztool erro "Valor $1 muito elevado."
 		return 1
 	fi
 
 	# Restaurando terminal
-	test -z "$no_tput" && tput reset
+	test "$no_tput" -eq 0 && tput reset
 
 	# Centralizar?
-	if test -n "$centro" && test -z "$no_tput"
+	if test "$centro" -eq 1
 	then
 		if test -n "$opt"
 		then
 			tput cup $(tput lines | awk '{print int(($1 - 5) / 2)}') 0
-			centro=$(tput cols | awk '{print int(($1 - 56) / 2)}')
+			desl=$(tput cols | awk '{print int(($1 - 56) / 2)}')
 		else
 			tput cup $(tput lines | awk '{print int($1 / 2)}') $(tput cols | awk '{print int(($1 - 8) / 2)}')
 		fi
@@ -114,11 +130,11 @@ zztimer ()
 		seg=$(date +%S)
 
 		# Marcando ponto para retorno do cursor
-		test -z "$no_tput" && tput sc
+		test "$no_tput" -eq 0 && tput sc
 
 		# Exibindo os números do cronômetro
 		echo "$num" |
-		awk -v formato="$opt" -v desl="$centro" '
+		awk -v formato="$opt" -v desl="$desl" '
 		function formatar(hora,  i, j, space) {
 			space=(length(desl)>0?sprintf("%"desl"s"," "):"")
 			numero[0, 1] = numero[0, 5] = " 0000 "; numero[0, 2] = numero[0, 3] = numero[0, 4] = "0    0"
@@ -173,7 +189,7 @@ zztimer ()
 		# Reposicionar o cursor
 		if test $num -ge 0
 		then
-			test -z "$no_tput" && tput rc
+			test "$no_tput" -eq 0 && tput rc
 		fi
 	done
 }
