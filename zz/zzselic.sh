@@ -19,7 +19,7 @@
 # Desde: 2015-06-07
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8 zzpad zztranspor
+# Requisitos: zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8 zzpad
 # ----------------------------------------------------------------------------
 zzselic ()
 {
@@ -37,8 +37,7 @@ zzselic ()
 	local datas
 	local i
 	local saida
-	local titulo
-	local valor
+	local v1 v2 v3 v4 v5 v6 v7 v8 v9
 
 	# Processa as opções de linha de comando
 	# Todas que não começarem com '-' serão consideradas datas e validadas com zzdata
@@ -189,12 +188,18 @@ zzselic ()
 	then
 		saida=$(
 			echo "$saida" |
-			zztranspor -d ';' -D '|' |
-			while IFS='|' read titulo valor
-			do
-				printf "%s " "$(zzpad 20 $titulo)"
-				echo "$valor" | tr '|' '\t' | expand -t 20
-			done
+			if test "$estatisticas" -eq 0
+			then
+				while IFS=';' read v1 v2
+				do
+					echo "$(zzpad 11 $v1) $v2"
+				done
+			else
+				while IFS=';' read v1 v2 v3 v4 v5 v6 v7 v8 v9
+				do
+					echo "$(zzpad 11 $v1) $(zzpad 13 $v2) $(zzpad 13 $v3) $(zzpad 21 $v4) $(zzpad 6 $v5) $(zzpad 8 $v6) $(zzpad 6 $v7) $(zzpad 14 $v8) $v9"
+				done
+			fi
 		)
 	fi
 
