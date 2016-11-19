@@ -664,7 +664,7 @@ zzzz ()
 			### Todos os comandos necessários estão instalados?
 
 			local comando tipo_comando comandos_faltando
-			local comandos='awk- bc cat chmod- clear- cp cpp- curl cut diff- du- find- fmt grep iconv links- elinks- lynx- mktemp mv od- ps- rm sed sleep sort tail- tr uniq'
+			local comandos='awk bc cat chmod- clear- cp cpp- curl cut diff- du- find- fmt grep iconv links- lynx- mktemp mv od- ps- rm sed sleep sort tail- tr uniq unzip-'
 
 			for comando in $comandos
 			do
