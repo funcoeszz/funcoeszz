@@ -13,12 +13,13 @@
 zznerdcast ()
 {
 	zzzz -h nerdcast "$1" && return
-
-	echo "Carregando lista de nerdcasts..."
-
-	local feed=$(curl -s https://jovemnerd.com.br/feed-nerdcast/)
-
-	echo $feed |
-		grep -ioP "https://nerdcast.jovemnerd.com.br/\w+.mp3" |
-		less
+	
+	curl -s https://jovemnerd.com.br/feed-nerdcast |
+	zzxml --tag title --tag enclosure --tag pubDate |
+	awk '
+		/<title>/{getline;if ($0 ~ /[0-9] - /) printf $0 " | "};
+		/\.mp3"/{printf $2 " | " };
+		/<pubDate>/{getline; print $2,$3,$4}
+	    ' |
+	zzunescape --html
 }
