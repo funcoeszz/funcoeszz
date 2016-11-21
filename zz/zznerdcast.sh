@@ -14,7 +14,7 @@ zznerdcast ()
 {
 	zzzz -h nerdcast "$1" && return
 	
-	curl -s https://jovemnerd.com.br/feed-nerdcast |
+	curl -s https://jovemnerd.com.br/feed-nerdcast/ |
 	zzxml --tag title --tag enclosure --tag pubDate |
 	awk '
 		/<title>/{getline;if ($0 ~ /[0-9] - /) printf $0 " | "};
