@@ -17,9 +17,9 @@
 #
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2015-06-07
-# Versão: 1
+# Versão: 2
 # Licença: GPL
-# Requisitos: zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8
+# Requisitos: zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8 zzpad
 # ----------------------------------------------------------------------------
 zzselic ()
 {
@@ -37,6 +37,7 @@ zzselic ()
 	local datas
 	local i
 	local saida
+	local v1 v2 v3 v4 v5 v6 v7 v8 v9
 
 	# Processa as opções de linha de comando
 	# Todas que não começarem com '-' serão consideradas datas e validadas com zzdata
@@ -148,7 +149,7 @@ zzselic ()
 	# ...se o próximo dia útil estiver no futuro, ele virá no resultado com uma
 	# taxa de -100,00. Exemplo: o usuário fez a consulta num sábado usando como
 	# data final "hoje". O site retornará a segunda-feira com taxa de -100,00
-	saida=$(echo "$saida" | sed '/-100,00/d')
+	saida=$(echo "$saida" | sed '/-100,00/d; s/;$//')
 
 	# ...se o dia útil subsequente à data final estiver no passado, ele será
 	# retornado mesmo não estando no intervalo pedido pelo usuário.
@@ -185,7 +186,21 @@ zzselic ()
 	# Mostrar em colunas ou CSV (como vem do site)?
 	if test "$csv" -eq 0
 	then
-		saida=$(echo "$saida" | column -s\; -t)
+		saida=$(
+			echo "$saida" |
+			if test "$estatisticas" -eq 0
+			then
+				while IFS=';' read v1 v2
+				do
+					echo "$(zzpad 11 $v1) $v2"
+				done
+			else
+				while IFS=';' read v1 v2 v3 v4 v5 v6 v7 v8 v9
+				do
+					echo "$(zzpad 11 $v1) $(zzpad 13 $v2) $(zzpad 13 $v3) $(zzpad 21 $v4) $(zzpad 6 $v5) $(zzpad 8 $v6) $(zzpad 6 $v7) $(zzpad 14 $v8) $v9"
+				done
+			fi
+		)
 	fi
 
 	# Mostra a saída
