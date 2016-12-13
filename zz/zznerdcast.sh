@@ -1,7 +1,5 @@
 # ----------------------------------------------------------------------------
-# Esse é pra quem é fã do nerdcast =D.
-# Um script simples pra listar os nerdcasts em ordem decrescente,
-# e facilitar o link de download.
+# Lista os episódios do podcast NerdCast.
 #
 # Opções para a listagem:
 #   -n <número> - Quantidade de resultados retornados (padrão = 15)
