@@ -27,6 +27,7 @@
 # Desde: 2016-01-25
 # Versão: 5
 # Licença: GPL
+# Requisitos: zzcut
 # ----------------------------------------------------------------------------
 zztimer ()
 {
@@ -48,7 +49,7 @@ zztimer ()
 		-n) opt='n'; shift ;;
 		-x)
 			opt='x'
-			str=$(echo "$2" | sed 's/\(.\).*/\1/')
+			str=$(echo "$2" | zzcut -c 1)
 			shift; shift
 		;;
 		-y)
