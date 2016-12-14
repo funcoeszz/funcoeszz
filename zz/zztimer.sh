@@ -33,9 +33,9 @@ zztimer ()
 
 	zzzz -h timer "$1" && return
 
-	local opt str num seg char_para centro desl
-	local teste='0'
-	local no_tput='1'
+	local opt str num seg char_para centro left_pad
+	local teste=0
+	local no_tput=1
 	local prec='s'
 
 	# Verificação dos parâmetros
@@ -63,10 +63,10 @@ zztimer ()
 			fi
 			shift; shift; shift
 		;;
-		-c) opt='c'; no_tput='1' shift ;;
-		-s) opt='s'; no_tput='1'; shift ;;
+		-c) opt='c'; no_tput=1; shift ;;
+		-s) opt='s'; no_tput=1; shift ;;
 		-p) prec='p'; shift ;;
-		--teste) teste='1'; shift ;;
+		--teste) teste=1; shift ;;
 		-*) zztool erro "Opção inválida: $1"; return 1 ;;
 		*) break;;
 		esac
@@ -76,12 +76,12 @@ zztimer ()
 
 	if test $teste -eq 1
 	then
-		no_tput='1'
-		centro='0'
+		no_tput=1
+		centro=0
 	else
 		case "$opt" in
-			n|x) no_tput='0'; centro='1' ;;
-			*)   no_tput='1'; centro='0' ;;
+			n|x) no_tput=0; centro=1 ;;
+			*)   no_tput=1; centro=0 ;;
 		esac
 	fi
 
@@ -117,7 +117,7 @@ zztimer ()
 		if test -n "$opt"
 		then
 			tput cup $(tput lines | awk '{print int(($1 - 5) / 2)}') 0
-			desl=$(tput cols | awk '{print int(($1 - 56) / 2)}')
+			left_pad=$(tput cols | awk '{print int(($1 - 56) / 2)}')
 		else
 			tput cup $(tput lines | awk '{print int($1 / 2)}') $(tput cols | awk '{print int(($1 - 8) / 2)}')
 		fi
@@ -134,9 +134,9 @@ zztimer ()
 
 		# Exibindo os números do cronômetro
 		echo "$num" |
-		awk -v formato="$opt" -v desl="$desl" '
+		awk -v formato="$opt" -v left_pad="$left_pad" '
 		function formatar(hora,  i, j, space) {
-			space=(length(desl)>0?sprintf("%"desl"s"," "):"")
+			space=(length(left_pad)>0?sprintf("%"left_pad"s"," "):"")
 			numero[0, 1] = numero[0, 5] = " 0000 "; numero[0, 2] = numero[0, 3] = numero[0, 4] = "0    0"
 			numero[1, 1] = " 111  "; numero[1, 2] = numero[1, 3] = numero[1, 4] = "  11  "; numero[1, 5] = "111111"
 			numero[2, 1] = " 2222 "; numero[2, 2] = "    22"; numero[2, 3] = "   22 "; numero[2, 4] = " 22   "; numero[2, 5] = "222222"
