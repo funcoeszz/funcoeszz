@@ -1,6 +1,6 @@
 # Usar no teste a opção --teste para ter retorno visual.
 $ zztimer -c 4:32	#→ 272
-$ zztimer --teste 15
+$ zztimer 15
 00:00:15
 00:00:14
 00:00:13
@@ -17,7 +17,7 @@ $ zztimer --teste 15
 00:00:02
 00:00:01
 00:00:00
-$ zztimer --teste -n 10
+$ zztimer -n --teste 10
  0000   0000          0000   0000          111    0000 
 0    0 0    0   #    0    0 0    0   #      11   0    0
 0    0 0    0        0    0 0    0          11   0    0
@@ -73,7 +73,7 @@ $ zztimer --teste -n 10
 0    0 0    0        0    0 0    0        0    0 0    0
 0    0 0    0   #    0    0 0    0   #    0    0 0    0
  0000   0000          0000   0000          0000   0000 
-$ zztimer --teste -x Z 9
+$ zztimer -x Z --teste 9
  ZZZZ   ZZZZ          ZZZZ   ZZZZ          ZZZZ   ZZZZ 
 Z    Z Z    Z   Z    Z    Z Z    Z   Z    Z    Z Z    Z
 Z    Z Z    Z        Z    Z Z    Z        Z    Z  ZZZZZ
@@ -124,7 +124,7 @@ Z    Z Z    Z   Z    Z    Z Z    Z   Z    Z    Z Z    Z
 Z    Z Z    Z        Z    Z Z    Z        Z    Z Z    Z
 Z    Z Z    Z   Z    Z    Z Z    Z   Z    Z    Z Z    Z
  ZZZZ   ZZZZ          ZZZZ   ZZZZ          ZZZZ   ZZZZ 
-$ zztimer --teste -y 0123456789# OABCDEFGHIJ 9
+$ zztimer -y 0123456789# OABCDEFGHIJ --teste 9
  OOOO   OOOO          OOOO   OOOO          OOOO   IIII 
 O    O O    O   J    O    O O    O   J    O    O I    I
 O    O O    O        O    O O    O        O    O  IIIII
@@ -175,4 +175,35 @@ O    O O    O   J    O    O O    O   J    O    O O    O
 O    O O    O        O    O O    O        O    O O    O
 O    O O    O   J    O    O O    O   J    O    O O    O
  OOOO   OOOO          OOOO   OOOO          OOOO   OOOO 
+$ zztimer -x €←ł --teste 5
+ €€€€   €€€€          €€€€   €€€€          €€€€  €€€€€ 
+€    € €    €   €    €    € €    €   €    €    € €     
+€    € €    €        €    € €    €        €    € €€€€€ 
+€    € €    €   €    €    € €    €   €    €    €      €
+ €€€€   €€€€          €€€€   €€€€          €€€€   €€€€ 
+ €€€€   €€€€          €€€€   €€€€          €€€€     €€ 
+€    € €    €   €    €    € €    €   €    €    €   € € 
+€    € €    €        €    € €    €        €    €  €  € 
+€    € €    €   €    €    € €    €   €    €    € €€€€€€
+ €€€€   €€€€          €€€€   €€€€          €€€€      € 
+ €€€€   €€€€          €€€€   €€€€          €€€€  €€€€€ 
+€    € €    €   €    €    € €    €   €    €    €      €
+€    € €    €        €    € €    €        €    €  €€€€ 
+€    € €    €   €    €    € €    €   €    €    €      €
+ €€€€   €€€€          €€€€   €€€€          €€€€  €€€€€ 
+ €€€€   €€€€          €€€€   €€€€          €€€€   €€€€ 
+€    € €    €   €    €    € €    €   €    €    €     €€
+€    € €    €        €    € €    €        €    €    €€ 
+€    € €    €   €    €    € €    €   €    €    €  €€   
+ €€€€   €€€€          €€€€   €€€€          €€€€  €€€€€€
+ €€€€   €€€€          €€€€   €€€€          €€€€   €€€  
+€    € €    €   €    €    € €    €   €    €    €   €€  
+€    € €    €        €    € €    €        €    €   €€  
+€    € €    €   €    €    € €    €   €    €    €   €€  
+ €€€€   €€€€          €€€€   €€€€          €€€€  €€€€€€
+ €€€€   €€€€          €€€€   €€€€          €€€€   €€€€ 
+€    € €    €   €    €    € €    €   €    €    € €    €
+€    € €    €        €    € €    €        €    € €    €
+€    € €    €   €    €    € €    €   €    €    € €    €
+ €€€€   €€€€          €€€€   €€€€          €€€€   €€€€ 
 $
