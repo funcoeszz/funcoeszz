@@ -1,0 +1,36 @@
+$ mkdir funcoeszz
+$ cd funcoeszz
+~/funcoeszz& echo 'FROM ubuntu:14.04
+
+# Definindo variáveis de ambiente
+
+ENV ZZDIR="/root/funcoeszz/zz"
+ENV ZZOFF=""
+ENV ZZPATH="/root/funcoeszz/funcoeszz"
+
+
+# Caso utilize proxy, descomente a linha abaixo
+#ENV http_proxy="http://127.0.0.1:3128"
+
+
+
+# Instalando o git e bc
+
+RUN apt-get update
+RUN apt-get install -y git bc
+
+# Instalando funcoeszz
+
+# Caso utilize proxy, descomente a linha abaixo
+#RUN git config --global http.proxy $http_proxy
+
+RUN git clone http://github.com/funcoeszz/funcoeszz.git ~/funcoeszz
+RUN cd /root/funcoeszz/ && ./funcoeszz zzzz --bashrc
+RUN $ZZPATH 
+CMD /bin/bash ' > Dockerfile
+~/funcoeszz$ sudo docker build -t fzz . && sudo docker run --name fzz -itd fzz
+~/funcoeszz$ sudo docker exec -it fzz /bin/bash
+root@dbc81109beaf:/# zzcalcula 10+5
+15
+root@dbc81109beaf:/# exit
+~/funcoeszz$ sudo docker stop fzz && sudo docker rm fzz && sudo docker rmi fzz
