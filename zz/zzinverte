@@ -1,11 +1,14 @@
+#!/bin/bash
+ source /usr/bin/funcoeszz   # inclui o ambiente ZZ.
+ ZZPATH=$PWD/chaves.sh       # o PATH desse script
 # ----------------------------------------------------------------------------
 # Inversor de números inteiros.
-# Ex.: zzinverter 1234               # Retorna: 4321
-#      zzinverter -4509               # Retorna: -9054
+# Ex.: zzinverte 1234               # Retorna: 4321
+#      zzinverte -4509               # Retorna: -9054
 #
 # Autor: Rafael Nascimento de Sousa <rafaelsousa2187 (a) gmail com>
 # Desde: 2017-07-03
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzinverte ()
