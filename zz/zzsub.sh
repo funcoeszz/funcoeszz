@@ -18,7 +18,7 @@ zzsub()
 	elif test "$1" -eq 1; then	#Procura e substitui todas as ocorrências
 		echo "$2" | sed s/$3/$4/g
 	else 
-		echo "Uso: [0|1] string fonte, string a ser subst., string substituta"
+		echo "Uso: 0|1 string fonte, string a ser subst., string substituta"
 		echo "Onde 0: 1ª ocorrência; 1: Todas as ocorrências"
 	fi	
 }
