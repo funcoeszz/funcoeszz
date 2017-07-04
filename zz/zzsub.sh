@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Substitui strings dentro de strings maiores.
-# Uso: zzsub [0|1] string fonte, string a ser subst., string substituta 
+# Uso: zzsub 0|1 string fonte, string a ser subst., string substituta 
 # Ex.: zzsub 0 olátchau olá oi			#Retorna: oitchau
 #      zzsub 1 Serelepe e a			#Retorna: Saralapa
 #
