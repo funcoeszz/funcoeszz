@@ -1,7 +1,3 @@
-#!/bin/bash
-
-source /usr/bin/funcoeszz   # inclui o ambiente ZZ
-ZZPATH=$PWD/chaves.sh       # o PATH desse script
 # ----------------------------------------------------------------------------
 # Substitui strings dentro de strings maiores.
 # Uso: zzsub 0|1 string fonte, string a ser subst., string substituta 
