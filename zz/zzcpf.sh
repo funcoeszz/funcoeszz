@@ -13,7 +13,7 @@
 # Desde: 2004-12-23
 # Versão: 3
 # Licença: GPL
-# Requisitos: zzaleatorio
+# Requisitos: zzaleatorio, zzcut
 # ----------------------------------------------------------------------------
 zzcpf ()
 {
@@ -37,11 +37,8 @@ zzcpf ()
                         return 1
                 fi
 
-		# Truque para cada dígito da base ser guardado em $1, $2, $3, ...
-	        set - $(echo "$cpf" | sed 's/./& /g')
-
-		#Captura nono digito do CPF
-		op=$9
+		# Uso da função zzcut para captura do 9o digito
+		op=$(echo "$cpf" | zzcut -c 9)
 
 		#Atribui estado(s) ao qual o CPF pertence
 		case $op in
@@ -115,15 +112,11 @@ zzcpf ()
 		#De 000.00..-00 até 999.99..-99
 		for ((j=0;j<10;j++))
 	        do
-			#Variável auxiliar para comparação de cada situação
-        	        auxiliar=""
-	                for ((k=0;k<9;k++))
-        	        do
-				#Incrementa os valores da vasriável j até termos 'xxx.xxx.xxx' para a comparação
-                	        auxiliar+="$j"
-	                done
+			#Atribuição de variável auxiliar para comparação de cada situação
+        	        auxiliar=$(echo "$base" | sed "s/$j/X/g")
+
 			#Compara o valor atual da variável auxiliar com a base e, caso seja verdadeiro, retorna o erro
-                	if test "$base" = "$auxiliar"
+                	if test "$auxiliar" = "XXXXXXXXX"
 	                then
         	                zztool erro "CPF inválido (não pode conter os 9 primeiros digitos iguais)"
                 	        return 1
