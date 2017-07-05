@@ -2,12 +2,12 @@
 # Cria, valida, formata ou retorna estado(s) federativo de um número de CPF.
 # Obs.: O CPF informado pode estar formatado (pontos e hífen) ou não.
 # Uso: zzcpf [-f] [cpf]
-#      zzcpf [-estado] [cpf]
+#      zzcpf [-e] [cpf]
 # Ex.: zzcpf 123.456.789-09          # valida o CPF informado
 #      zzcpf 12345678909             # com ou sem pontuação
 #      zzcpf                         # gera um CPF válido (aleatório)
 #      zzcpf -f 12345678909          # formata, adicionando pontuação
-#      zzcpf -estado 12345678909     # retorna estado(s) federativo de um número de CPF
+#      zzcpf -e 12345678909          # retorna estado(s) federativo de um número de CPF
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
@@ -25,7 +25,7 @@ zzcpf ()
 	cpf=$(echo "$*" | tr -d -c 0123456789)
 
 	#Retorna estado(s) ao qual o CPF pertence
-	if test "$1" = '-estado'
+	if test "$1" = '-e'
 	then
                 # Se o CPF estiver vazio, define com zero
                 : ${cpf:=0}
@@ -54,7 +54,7 @@ zzcpf ()
 		9) estados="Paraná ou Santa Catarina";;
 		esac
 
-		echo "Local do CPF: $estados"
+		echo "$estados"
 		return 0
 	fi
 
