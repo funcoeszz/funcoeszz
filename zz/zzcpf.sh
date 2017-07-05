@@ -7,7 +7,7 @@
 #      zzcpf 12345678909             # com ou sem pontuação
 #      zzcpf                         # gera um CPF válido (aleatório)
 #      zzcpf -f 12345678909          # formata, adicionando pontuação
-#      zzcpf -e 12345678909          # retorna estado(s) federativo de um número de CPF
+#      zzcpf -e 12345678909          # retorna estado(s) federativos de um número de CPF Válido
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
@@ -30,12 +30,11 @@ zzcpf ()
                 # Se o CPF estiver vazio, define com zero
                 : ${cpf:=0}
 
-                # Faltou ou sobrou algum número...
-                if test ${#cpf} -ne 11
-                then
-                        zztool erro 'CPF inválido (deve ter 11 dígitos)'
-                        return 1
-                fi
+		# Só continua se o CPF for válido
+		if test "$(zzcpf $cpf)" != "CPF válido"
+		then
+			return 1
+		fi
 
 		# Uso da função zzcut para captura do 9o digito
 		op=$(echo "$cpf" | zzcut -c 9)
