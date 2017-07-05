@@ -1,6 +1,3 @@
-#!/bin/bash
- source /usr/bin/funcoeszz   # inclui o ambiente ZZ.
- ZZPATH=$PWD/chaves.sh       # o PATH desse script
 # ----------------------------------------------------------------------------
 # Inversor de números inteiros.
 # Ex.: zzinverte 1234               # Retorna: 4321
@@ -8,7 +5,7 @@
 #
 # Autor: Rafael Nascimento de Sousa <rafaelsousa2187 (a) gmail com>
 # Desde: 2017-07-03
-# Versão: 2
+# Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
 zzinverte ()
@@ -23,12 +20,13 @@ if test $valor -ge 0;
 then
 	while test $valor != 0 #ciclo repete até que valor seja menor que zero. 
 	do
-      	aux=$((aux * 10)) #Ajuda a armazenar os valores que vem do mod(resto da divisão) e a cada ciclo uma casa decimal é acrescentada ao valor.
-        aux=$[$aux + ($valor % 10)] #O auxiliar recebe o valor anterior mais o mod do valor por 10
-        valor=$((valor / 10)) #E ao final de cada ciclo, o valor é dividido por dez até ficar menor que zero.
-    done
+		#Ajuda a armazenar os valores que vem do mod(resto da divisão) e a cada ciclo uma casa decimal é acrescentada ao valor.
+      		aux=$((aux * 10)) 
+        	aux=$[$aux + ($valor % 10)] #O auxiliar recebe o valor anterior mais o mod do valor por 10
+        	valor=$((valor / 10)) #E ao final de cada ciclo, o valor é dividido por dez até ficar menor que zero.
+    	done
 	valor=$aux
-    echo "Resposta: $valor"
+    	echo "Resposta: $valor"
     
 #Caso o valor não seja maior ou igual a zero.    
 else
@@ -36,10 +34,10 @@ else
     valor=$[$valor*(-1)]
     while test $valor != 0
 	do
-      	aux=$((aux * 10))
-        aux=$[$aux + ($valor % 10)]
-        valor=$((valor / 10))
-    done
+      		aux=$((aux * 10))
+        	aux=$[$aux + ($valor % 10)]
+        	valor=$((valor / 10))
+    	done
     #Transforma o valor em negativo.
     valor=$[$aux*(-1)]
     echo "Resposta: $valor"
