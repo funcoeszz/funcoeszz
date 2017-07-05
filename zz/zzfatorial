@@ -1,0 +1,27 @@
+# ----------------------------------------------------------------------------
+# Calcula o fatorial de um numero.
+# Ex.: zzfatorial 5               # Retorna: 120
+#      zzfatorial 6               # Retorna: 720
+#
+# Autor: Lucas Felipe Ferraro Cardoso <ferrarocardoso@gmail.com>
+# Desde: 2017-07-04
+# Versão: 1
+# Licença: GPL
+# ----------------------------------------------------------------------------
+zzfatorial ()
+{
+	zzzz -h fatorial "$1" && return
+	
+
+local num=$1
+local i=1
+local aux=1
+
+while test $i -le $num
+do
+	aux=$((aux*i))
+	i=$((i+1))
+done
+
+echo "$num! = $aux"
+}
