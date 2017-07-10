@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Cria, valida, formata ou retorna estado(s) federativo de um número de CPF.
+# Cria, valida, formata ou retorna estado(s) federativo(s) de um número de CPF.
 # Obs.: O CPF informado pode estar formatado (pontos e hífen) ou não.
 # Uso: zzcpf [-f] [cpf]
 #      zzcpf [-e] [cpf]
@@ -7,7 +7,7 @@
 #      zzcpf 12345678909             # com ou sem pontuação
 #      zzcpf                         # gera um CPF válido (aleatório)
 #      zzcpf -f 12345678909          # formata, adicionando pontuação
-#      zzcpf -e 12345678909          # retorna estado(s) federativos de um número de CPF Válido
+#      zzcpf -e 12345678909          # retorna estado(s) federativo(s) de um número de CPF Válido
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
@@ -19,7 +19,7 @@ zzcpf ()
 {
 	zzzz -h cpf "$1" && return
 
-	local i j k n somatoria digito1 digito2 cpf base op etados auxiliar
+	local i n somatoria digito1 digito2 cpf base op estados auxiliar
 
 	# Remove pontuação do CPF informado, deixando apenas números
 	cpf=$(echo "$*" | tr -d -c 0123456789)
@@ -109,10 +109,10 @@ zzcpf ()
 
 		#Inicia um laço para comparar a base com todas as possíveis situações:
 		#De 000.00..-00 até 999.99..-99
-		for ((j=0;j<10;j++))
+		for ((i=0;i<10;i++))
 	        do
 			#Atribuição de variável auxiliar para comparação de cada situação
-        	        auxiliar=$(echo "$base" | sed "s/$j/X/g")
+        	        auxiliar=$(echo "$base" | sed "s/$i/X/g")
 
 			#Compara o valor atual da variável auxiliar com a base e, caso seja verdadeiro, retorna o erro
                 	if test "$auxiliar" = "XXXXXXXXX"
