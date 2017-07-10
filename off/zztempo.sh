@@ -1,106 +1,112 @@
 # ----------------------------------------------------------------------------
-# http://weather.noaa.gov/
+# Mostra previsão do tempo obtida em http://wttr.in/ por meio do comando curl.
 # Mostra as condições do tempo (clima) em um determinado local.
-# Se nenhum parâmetro for passado, são listados os países disponíveis.
-# Se só o país for especificado, são listadas as suas localidades.
-# As siglas também podem ser usadas, por exemplo SBPA = Porto Alegre.
-# Uso: zztempo <país> <localidade>
-# Ex.: zztempo 'United Kingdom' 'London City Airport'
-#      zztempo brazil 'Curitiba Aeroporto'
-#      zztempo brazil SBPA
+# Se nenhum parâmetro for passado, é apresentada a previsão de Brasília.
+# As siglas de aeroporto também podem ser utilizadas.
+#
+# Parâmetros disponíveis:
+#
+# -l OU --lang OU --lingua
+#    Exibe a previsão em uma das línguas disponíveis: az be bg bs ca cy cs 
+#    da de el eo es et fi fr hi hr hu hy is it  ja jv ka kk ko ky lt lv mk   
+#    ml nl nn pt pl ro ru sk sl sr sr-lat sv sw th tr uk uz vi zh zu
+#
+# -u OU --us
+#    Retorna leitura em unidades USCS - United States customary units - 
+#    Unidades Usuais nos Estados Unidos. Isto é: "°F" para temperatura, 
+#    "mph" para velocidade do vento,  "mi" para visibilidade e "in" para 
+#    precipitação.
+#
+# -v OU --vento
+#    Retorna vento em m/s ao invés de km/h ou mph.
+#
+# -m OU --monocromatico
+#    Nao utiliza comandos de cores no terminal
+#
+# -s OU --simples
+#    Retorna versão curta, com previsão de meio-dia e noite apenas.
+#    Utiliza 63 caracteres de largura contra os 125 da resposta completa.
+#
+# -d OU --dias
+# Determina o número de dias (entre 0 e 3) de previsão apresentados.
+#    -d 0 = apenas tempo atual. Também pode se chamado com -0
+#    -d 1 = tempo atual mais 1 dia. Também pode se chamado com -1
+#    -d 2 = tempo atual mais 2 dias. Também pode se chamado com -2
+#    -d 3 = tempo atual mais 3 dias. Padrão. 
+#
+# Uso: zztempo [parametros] <localidade>
+# Ex.: zztempo 'Sao Paulo'
+#      zztempo cwb
+#      zztempo -d 0 Curitiba
+#      zztempo -2 -l fr -s Miami
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-02-19
-# Versão: 1
+# Versão: 2
 # Licença: GPL
 # ----------------------------------------------------------------------------
-# DESATIVADA: 2016-08-28 Site foi descontinuado (veja issue #333)
 zztempo ()
 {
-	zzzz -h tempo "$1" && return
+    zzzz -h tempo "$1" && return
 
-	local codigo_pais codigo_localidade localidades
-	local pais="$1"
-	local localidade="$2"
-	local cache_paises=$(zztool cache tempo)
-	local cache_localidades=$(zztool cache tempo)
-	local url='http://weather.noaa.gov'
+    # Embrulhamos os principais parametros disponiveis em wttr.in/:help
+    # Em novos comandos "aportuguesados".
 
-	# Se o cache de países está vazio, baixa listagem da Internet
-	if ! test -s "$cache_paises"
-	then
-		zztool source "$url" | sed -n '
-			/="country"/,/\/select/ {
-				s/.*="\([a-zA-Z]*\)">\(.*\) <.*/\1 \2/p
-			}' > "$cache_paises"
-	fi
+    # Inicializa os modificadores com seus valores padrão.
+    local lingua="pt"     # Lingua PT
+    local unidade="m"     # Unidades SI
+    local vento=""        # Vento Km/h
+    local simplificado="" # Previsao completa
+    local dias="3"        # Máximo número de dias de previsão
+    local semcores=""     # Usa terminal colorido
+    
+    #leitura dos parametros de entrada
+    while test "${1#-}" != "$1"
+    do
+        case "$1" in
+        -l | --lang | --lingua)  
+            lingua="$2"; 
+            shift;shift ;;
+        -u | --us) 
+            unidade='u'; 
+            shift ;;
+        -v | --vento)
+            vento='M';
+            shift ;;
+        -s | --simples)
+            simplificado='n';
+            shift ;;
+        -m | --monocromatico)
+            semcores="T";
+            shift;;
+        -d | --dias)
+            if zztool testa_numero "$2"
+            then
+                dias="$2";
+            else
+                zztool erro "Número de dias inválido: $2"; 
+                return 1;
+            fi
+            shift; shift;;
+        -0)
+            dias="0";
+            shift ;;
+        -1)
+            dias="1";
+            shift;;
+        -2)
+            dias="2";
+            shift;;
+        --) shift; break ;;
+        -*) zztool erro "Opção inválida: $1"; return 1 ;;
+        *) break;;
+        esac
+    done
+    
+    
+    # Comando bash proposto pelo site em: "wttr.in/:bash.function"
+    # Chama Previsão de Brasília se outro parâmetro não for passado
 
-	# Se nenhum parâmetro for passado, são listados os países disponíveis
-	if ! test -n "$pais"
-	then
-		sed 's/^[^ ]*  *//' "$cache_paises"
-		return
-	fi
-
-	# Grava o código deste país (BR  Brazil -> BR)
-	codigo_pais=$(grep -i "$1" "$cache_paises" | sed 's/  .*//' | sed 1q)
-
-	# O país existe?
-	if ! test -n "$codigo_pais"
-	then
-		zztool erro "País \"$pais\" não encontrado"
-		return 1
-	fi
-
-	# Se o cache de locais está vazio, baixa listagem da Internet
-	cache_localidades=$cache_localidades.$codigo_pais
-	if ! test -s "$cache_localidades"
-	then
-		zztool source "$url/weather/${codigo_pais}_cc.html" | sed -n '
-			/="cccc"/,/\/select/ {
-				//d
-				s/.*="\([a-zA-Z]*\)">/\1 /p
-			}' > "$cache_localidades"
-	fi
-
-	# Se só o país for especificado, são listadas as localidades deste país
-	if ! test -n "$localidade"
-	then
-		cat "$cache_localidades"
-		return
-	fi
-
-	# Pesquisa nas localidades
-	localidades=$(grep -i "$localidade" "$cache_localidades")
-
-	# A localidade existe?
-	if ! test -n "$localidades"
-	then
-		zztool erro "Localidade \"$localidade\" não encontrada"
-		return 1
-	fi
-
-	# Se mais de uma localidade for encontrada, mostre-as
-	if test $(echo "$localidades" | zztool num_linhas) != 1
-	then
-		echo "$localidades"
-		return 0
-	fi
-
-	# Grava o código do local (SBCO  Porto Alegre -> SBCO)
-	codigo_localidade=$(echo "$localidades" | sed 's/  .*//')
-
-	# Faz a consulta e filtra o resultado
-	zztool dump "$url/weather/current/${codigo_localidade}.html" | sed -n '
-		/Current Weather/,/24 Hour/ {
-			//d
-			/____*/d
-			/----*/d
-			/^ *$/d
-			s/ *$//
-			s/^ *//
-			/Conditions at /d
-			p
-		}' |
-		sed '2,$ s/^/   /'
+    local opcoes=$unidade$vento$simplificado$dias$semcores
+    curl -H "Accept-Language: $lingua" $lingua.wttr.in/"${1:-Brazil}?$opcoes"
 }
