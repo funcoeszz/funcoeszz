@@ -4,30 +4,34 @@
 # Se nenhum parâmetro for passado, é apresentada a previsão de Brasília.
 # As siglas de aeroporto também podem ser utilizadas.
 #
-# Parâmetros disponíveis:
+# Opções:
 #
-# -l OU --lang OU --lingua
+# -l, --lang, --lingua
 #    Exibe a previsão em uma das línguas disponíveis: az be bg bs ca cy cs 
 #    da de el eo es et fi fr hi hr hu hy is it  ja jv ka kk ko ky lt lv mk   
 #    ml nl nn pt pl ro ru sk sl sr sr-lat sv sw th tr uk uz vi zh zu
 #
-# -u OU --us
+# -u, --us
 #    Retorna leitura em unidades USCS - United States customary units - 
 #    Unidades Usuais nos Estados Unidos. Isto é: "°F" para temperatura, 
 #    "mph" para velocidade do vento,  "mi" para visibilidade e "in" para 
 #    precipitação.
 #
-# -v OU --vento
+# -v, --vento
 #    Retorna vento em m/s ao invés de km/h ou mph.
 #
-# -m OU --monocromatico
+# -m, --monocromatico
 #    Nao utiliza comandos de cores no terminal
 #
-# -s OU --simples
+# -s, --simples
 #    Retorna versão curta, com previsão de meio-dia e noite apenas.
 #    Utiliza 63 caracteres de largura contra os 125 da resposta completa.
 #
-# -d OU --dias
+# -c, --completo
+#    Retorna versão completa, com 4 horários ao longo do dia.
+#    Utiliza 125 caracteres de largura.
+#
+# -d, --dias
 # Determina o número de dias (entre 0 e 3) de previsão apresentados.
 #    -d 0 = apenas tempo atual. Também pode se chamado com -0
 #    -d 1 = tempo atual mais 1 dia. Também pode se chamado com -1
@@ -35,7 +39,7 @@
 #    -d 3 = tempo atual mais 3 dias. Padrão. 
 #
 # Uso: zztempo [parametros] <localidade>
-# Ex.: zztempo 'Sao Paulo'
+# Ex.: zztempo 'São Paulo'
 #      zztempo cwb
 #      zztempo -d 0 Curitiba
 #      zztempo -2 -l fr -s Miami
@@ -56,10 +60,18 @@ zztempo ()
     local lingua="pt"     # Lingua PT
     local unidade="m"     # Unidades SI
     local vento=""        # Vento Km/h
-    local simplificado="" # Previsao completa
     local dias="3"        # Máximo número de dias de previsão
     local semcores=""     # Usa terminal colorido
-    
+    local simplificado    # Previsao completa ou simplificada
+
+    #Altera para simplificado se largura do bash não comportar
+    if [ 125 -gt $COLUMNS ]
+    then
+        simplificado="n"   # Previsao simplificada
+    else
+        simplificado=""    # Previsao completa
+    fi
+
     #leitura dos parametros de entrada
     while test "${1#-}" != "$1"
     do
@@ -68,13 +80,16 @@ zztempo ()
             lingua="$2"; 
             shift;shift ;;
         -u | --us) 
-            unidade='u'; 
+            unidade="u"; 
             shift ;;
         -v | --vento)
-            vento='M';
+            vento="M";
             shift ;;
         -s | --simples)
-            simplificado='n';
+            simplificado="n";
+            shift ;;
+        -c | --completo)
+            simplificado="";
             shift ;;
         -m | --monocromatico)
             semcores="T";
@@ -108,5 +123,5 @@ zztempo ()
     # Chama Previsão de Brasília se outro parâmetro não for passado
 
     local opcoes=$unidade$vento$simplificado$dias$semcores
-    curl -H "Accept-Language: $lingua" $lingua.wttr.in/"${1:-Brazil}?$opcoes"
+    curl -s -H "Accept-Language: $lingua" $lingua.wttr.in/"${1:-Brazil}?$opcoes"
 }
