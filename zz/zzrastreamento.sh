@@ -38,6 +38,6 @@ zzrastreamento ()
 			zztrim
 
 		# Linha em branco para separar resultados
-		test $# -gt 1 && echo
+		test $# -gt 1 && echo || :
 	done
 }
