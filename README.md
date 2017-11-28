@@ -20,7 +20,18 @@ Forka nóis e pulla! :)
 https://github.com/funcoeszz/funcoeszz/blob/master/CONTRIBUTING.md
 
 
-## Instalação das Funções ZZ (versão de desenvolvimento)
+## Instalação das Funções ZZ - Versão oficial
+
+A versão oficial das Funções ZZ é [gerada à partir deste repositório](https://github.com/funcoeszz/funcoeszz/tree/master/release) e é lançada de tempos em tempos. Ela traz todas as funções dentro de um único arquivo, e é rápida de carregar em sua shell.
+
+Para instalá-la, basta baixar o arquivão das funções e rodar o comando de instalação. As instruções estão lá no site:
+
+- http://funcoeszz.net/download/
+
+
+## Instalação das Funções ZZ - Versão beta
+
+A versão beta das Funções ZZ roda direto deste repositório do GitHub, com cada função isolada em seu próprio arquivo, dentro da [pasta zz](https://github.com/funcoeszz/funcoeszz/tree/master/zz). É o código mais recente das funções, porém tem um processo de instalação e configuração mais manual, e por serem centenas de arquivos separados, a carga inicial em sua shell demorará mais do que a versão oficial. 
 
 Baixe o repositório para sua máquina:
 
@@ -43,7 +54,7 @@ Confira que as linhas foram adicionadas, e perceba que o PATH atual do script fi
 
 Você precisa adicionar "na mão" mais uma linha lá no `~/.bashrc`, antes do comando `source`, para indicar onde está a pasta com as funções:
 
-    export ZZDIR="/Users/aurelio/funcoeszz/zz"
+    export ZZDIR="$HOME/funcoeszz/zz"
 
 Agora sim, você pode usar as Funções ZZ em toda a sua glória. Abra um novo terminal e divirta-se!
 
