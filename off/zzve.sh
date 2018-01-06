@@ -22,6 +22,7 @@
 # Licença: GPL
 # Requisitos: zzuniq
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2018-01-06 Informação acessível apenas a assinantes no site.
 zzve ()
 {
 	zzzz -h ve "$1" && return
