@@ -58,7 +58,7 @@ zzferiado ()
 	carnaval=$(dirname $(zzcarnaval $ano ) )
 	sextapaixao=$(dirname $(zzsextapaixao $ano ) )
 	corpuschristi=$(dirname $(zzcorpuschristi $ano ) )
-	feriados="01/01:Confraternização Universal $carnaval:Carnaval $sextapaixao:Sexta-ferida da Paixao 21/04:Tiradentes 01/05:Dia do Trabalho $corpuschristi:Corpu Christi 07/09:Independência do Brasil 12/10:Nossa Sra. Aparecida 02/11:Finados 15/11:Proclamação da República 25/12:Natal $ZZFERIADO"
+	feriados="01/01:Confraternização Universal $carnaval:Carnaval $sextapaixao:Sexta-feira da Paixao 21/04:Tiradentes 01/05:Dia do Trabalho $corpuschristi:Corpus Christi 07/09:Independência do Brasil 12/10:Nossa Sra. Aparecida 02/11:Finados 15/11:Proclamação da República 25/12:Natal $ZZFERIADO"
 
 	# Verifica se lista ou nao, caso negativo verifica se a data escolhida é feriado
 	if test "$listar" = "1"; then
