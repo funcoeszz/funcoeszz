@@ -2,9 +2,6 @@
 # http://esporte.uol.com.br/
 # Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B, C ou D.
 # Se for fornecido um numero mostra os jogos da rodada, com resultados.
-# Com argumento -l lista os todos os clubes da série A e B.
-# Se o argumento -l for seguido do nome do clube, lista todos os jogos já
-# ocorridos do clube desde o começo do ano de qualquer campeonato.
 #
 # Nomenclatura:
 #   PG  - Pontos Ganhos
@@ -17,19 +14,17 @@
 #   SG  - Saldo de Gols
 #   (%) - Aproveitamento (pontos)
 #
-# Uso: zzbrasileirao [a|b|c] [numero rodada] ou zzbrasileirao -l [nome clube]
+# Uso: zzbrasileirao [a|b|c|d] [numero rodada]
 # Ex.: zzbrasileirao
 #      zzbrasileirao a
 #      zzbrasileirao b
 #      zzbrasileirao c
 #      zzbrasileirao 27
 #      zzbrasileirao b 12
-#      zzbrasileirao -l
-#      zzbrasileirao -l portuguesa
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 23
+# Versão: 24
 # Licença: GPL
 # Requisitos: zzecho zzpad
 # ----------------------------------------------------------------------------
@@ -37,7 +32,7 @@ zzbrasileirao ()
 {
 	zzzz -h brasileirao "$1" && return
 
-	test $(date +%Y%m%d) -lt 20150509 && { zztool erro "Brasileirão 2015 só a partir de 9 de Maio."; return 1; }
+	test $(date +%Y%m%d) -lt 20180414 && { zztool erro "Campeonato Brasileiro 2018 só a partir de 14 de Abril."; return 1; }
 
 	local rodada serie ano time1 time2 horario linha num_linha
 	local url="http://esporte.uol.com.br/futebol"
@@ -93,10 +88,13 @@ zzbrasileirao ()
 		if test "$serie" = "c" -o "$serie" = "d"
 		then
 			zztool dump "$url" |
-			sed -n "/Grupo [AB] *PG .*/,/Rodada 1 *$/{s/^/_/;s/.*Rodada .*//;s/°/./;p;}" |
+			sed -n "/Grupo [AB][1-9]\{0,2\} *PG .*/,/Rodada 1 *$/{s/^/_/;s/.*Rodada .*//;s/°/./;p;}" |
 			while read linha
 			do
-				if echo "$linha" | grep -E '[12]\.' >/dev/null
+				if echo "$linha" | grep -E '[12]\.' >/dev/null && test "$serie" = "c"
+				then
+					zzecho -f verde -l preto "$linha"
+				elif echo "$linha" | grep '1\.' >/dev/null && test "$serie" = "d"
 				then
 					zzecho -f verde -l preto "$linha"
 				elif echo "$linha" | grep -E '[34]\.' >/dev/null && test "$serie" = "c"
@@ -110,8 +108,13 @@ zzbrasileirao ()
 				fi
 			done |
 			tr -d _
-			zzecho -f verde -l preto " Quartas de Final "
-			test "$serie" = "c" && zzecho -f vermelho -l preto "   Rebaixamento   "
+			if test "$serie" = "c"
+			then
+				zzecho -f verde -l preto " Quartas de Final "
+				zzecho -f vermelho -l preto "   Rebaixamento   "
+			else
+				zzecho -f verde -l preto " Segunda Fase "
+			fi
 		else
 			num_linha=0
 			zztool dump "$url" |
@@ -130,7 +133,7 @@ zzbrasileirao ()
 							echo "$linha"
 						fi
 					;;
-					[89] | 1[0-5])
+					[89] | 1[0-3])
 						if test "$serie" = "a"
 						then
 							zzecho -f ciano -l preto "$linha"
