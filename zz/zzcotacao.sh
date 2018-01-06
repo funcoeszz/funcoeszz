@@ -23,8 +23,8 @@ zzcotacao ()
 		if ($1 == "InfoMoney") next
 		if ( NR == 1 ) printf "%18s  %6s  %6s   %6s\n", "", $2, $3, $4
 		if ( NR >  1 ) {
-			if (NF == 4) printf "%-18s  %6s  %6s  %6s\n", $1, $2, $3, $4
-			if (NF == 5) printf "%-18s  %6s  %6s  %6s\n", $1 " " $2, $3, $4, $5
+			if (NF == 4 && $2 != "n/d" && $3 != "n/d") printf "%-18s  %6s  %6s  %6s\n", $1, $2, $3, $4
+			if (NF == 5 && $3 != "n/d" && $4 != "n/d") printf "%-18s  %6s  %6s  %6s\n", $1 " " $2, $3, $4, $5
 		}
 	}'
 }
