@@ -21,6 +21,7 @@
 # Licença: GPL
 # Requisitos: zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8 zzpad
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2018-01-06 Página do Banco Central usando AJAX.
 zzselic ()
 {
 	zzzz -h selic "$1" && return
