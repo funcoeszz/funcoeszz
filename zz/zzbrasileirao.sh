@@ -2,9 +2,6 @@
 # http://esporte.uol.com.br/
 # Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B, C ou D.
 # Se for fornecido um numero mostra os jogos da rodada, com resultados.
-# Com argumento -l lista os todos os clubes da série A e B.
-# Se o argumento -l for seguido do nome do clube, lista todos os jogos já
-# ocorridos do clube desde o começo do ano de qualquer campeonato.
 #
 # Nomenclatura:
 #   PG  - Pontos Ganhos
@@ -17,15 +14,13 @@
 #   SG  - Saldo de Gols
 #   (%) - Aproveitamento (pontos)
 #
-# Uso: zzbrasileirao [a|b|c] [numero rodada] ou zzbrasileirao -l [nome clube]
+# Uso: zzbrasileirao [a|b|c|d] [numero rodada]
 # Ex.: zzbrasileirao
 #      zzbrasileirao a
 #      zzbrasileirao b
 #      zzbrasileirao c
 #      zzbrasileirao 27
 #      zzbrasileirao b 12
-#      zzbrasileirao -l
-#      zzbrasileirao -l portuguesa
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
@@ -37,7 +32,7 @@ zzbrasileirao ()
 {
 	zzzz -h brasileirao "$1" && return
 
-	test $(date +%Y%m%d) -lt 20150509 && { zztool erro "Brasileirão 2015 só a partir de 9 de Maio."; return 1; }
+	test $(date +%Y%m%d) -lt 20180414 && { zztool erro "Campeonato Brasileiro 2018 só a partir de 14 de Abril."; return 1; }
 
 	local rodada serie ano time1 time2 horario linha num_linha
 	local url="http://esporte.uol.com.br/futebol"
