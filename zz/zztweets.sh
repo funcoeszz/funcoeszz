@@ -65,7 +65,7 @@ zztweets ()
 		zzsqueeze -l |
 		sed '/. added,$/{N;d;}' |
 		awk -v lim=$limite '
-			BEGIN { print "" } 
+			BEGIN { print "" }
 			$0 ~ /^[[:blank:]]*$/ {blanks++};{if(blanks>=lim) exit; print}
 			END { print "" }
 			'
