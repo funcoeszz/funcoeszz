@@ -53,6 +53,7 @@ zzcinemais ()
 	# Especificando User Agent na opçãp -u "Mozilla/5.0"
 	zzecho -N -l ciano $(echo "$cidades" | grep "^${codigo} - " | sed 's/^[0-9][0-9]* - //')
 	zztool source -u "Mozilla/5.0" "${url}/cinema.php?cc=${codigo}" 2>/dev/null |
+	zztool texto_em_iso |
 	grep -E '(<td><a href|<td><small|[0-9] a [0-9])' |
 	zzutf8 |
 	zztrim |
