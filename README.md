@@ -35,7 +35,7 @@ A versão beta das Funções ZZ roda direto deste repositório do GitHub, com ca
 
 Baixe o repositório para sua máquina:
 
-    $ git clone git://github.com/funcoeszz/funcoeszz.git ~/funcoeszz
+    $ git clone https://github.com/funcoeszz/funcoeszz.git ~/funcoeszz
     $ cd ~/funcoeszz
 
 Rode o comando seguinte para adicionar o carregamento das Funções ZZ no final de seu `~/.bashrc`:
