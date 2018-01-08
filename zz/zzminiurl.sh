@@ -8,7 +8,7 @@
 #      zzminiurl https://goo.gl/yz4cb9
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
-# Desde: 2017-11-28
+# Desde: 2010-04-26
 # Versão: 6
 # Licença: GPL
 # ----------------------------------------------------------------------------
