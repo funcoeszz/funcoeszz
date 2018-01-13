@@ -11,8 +11,9 @@
 #
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Desde: 2005-05-20
-# Versão: 4
+# Versão: 5
 # Licença: GPL
+# Requisitos: zzurlencode
 # ----------------------------------------------------------------------------
 zzdicesperanto ()
 {
@@ -71,6 +72,6 @@ zzdicesperanto ()
 
 	pesquisa="$1"
 
-	zztool source "$url/$de_ling/$para_ling/$pesquisa" |
+	zztool source $(zzurlencode -n ':/' "$url/$de_ling/$para_ling/$pesquisa") |
 		sed -n 's/.*class=" phr">\([^<]*\)<.*/\1/p'
 }
