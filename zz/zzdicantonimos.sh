@@ -37,9 +37,6 @@ zzdicantonimos ()
 			s/\.$//
 			p
 		}" |
-		zztool list2lines |
-		sort |
-		uniq |
-		zztool lines2list |
+		awk '/:/ {printf (NR>1?"\n\n":"") $0 "\n"; next}; NF==0 {print ""}; {printf " " $0}' |
 		zztool nl_eof
 }
