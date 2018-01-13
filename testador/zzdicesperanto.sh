@@ -8,9 +8,9 @@ employment
 job
 $
 
-$ zzdicesperanto -p de novo | grep -E -w '(erneut|neue)' | sort
-erneut
+$ zzdicesperanto -p de novo | grep -E -w '(weiter|neue)' | sort
 neue
+weiter
 $
 
 $ zzdicesperanto -d de Frieden | grep -E -w '[Pp]aco'
