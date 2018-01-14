@@ -4,20 +4,27 @@
 # Ex.: zzglobo
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
-# Desde: 2007-11-30
-# Versão: 7
+# Desde: 2017-11-29
+# Versão: 8
 # Licença: GPL
 # Requisitos: zztrim
 # ----------------------------------------------------------------------------
 zzglobo ()
 {
-	zzzz -h globo "$1" && return
+        zzzz -h globo "$1" && return
 
-	local url="http://vejonatv.com.br/programacao/globo-rede.html"
+        local url="http://redeglobo.globo.com/programacao.html"
 
-	zztool dump -i utf-8 "$url" |
-		sed -n '/Hoje \[[0-9]*[\/-][0-9]*[\/-][0-9]*\]/,/Amanhã .*/p' |
-		sed '$d ; 3,$ { /^ *$/ d; }; /Carregando\.\.\./d; /loading\.\.\./d; /\[IMG\]/d' |
-		uniq |
-		zztrim
+        zztool dump -i utf-8 "$url" |
+                sed '/^$/d' |
+                sed -n '/\(Seg\|Ter\|Qua\|Qui\|Sex\|Sab\|Dom\),/p' |
+                zztrim;
+        echo
+        zztool dump -i utf-8 "$url" |
+                sed '/^$/d' |
+                sed 'H;/[0-9][0-9]:[0-9][0-9]/{g;N;s/^\n//p;}; x;s/.*\(\(\n[^\n]*\)\{1\}\)/\1/;x ;d' |
+                sed '/No ar/d' |
+                sed 's/ *\([0-9][0-9]:[0-9][0-9]\)/\1\:/' |
+                sed 'N;s/:\n/: /' |
+                zztrim;
 }
