@@ -9,7 +9,7 @@
 # Desde: 2007-06-25
 # Versão: 4
 # Licença: GPL
-# Requisitos: zztrim zzunescape zzutf8 zzxml zzjuntalinhas
+# Requisitos: zztrim zzunescape zzxml zzjuntalinhas
 # ----------------------------------------------------------------------------
 zzrastreamento ()
 {
