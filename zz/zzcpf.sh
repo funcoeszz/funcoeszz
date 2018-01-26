@@ -1,26 +1,61 @@
 # ----------------------------------------------------------------------------
-# Cria, valida ou formata um número de CPF.
+# Cria, valida, formata ou retorna estado(s) federativo(s) de um número de CPF.
 # Obs.: O CPF informado pode estar formatado (pontos e hífen) ou não.
 # Uso: zzcpf [-f] [cpf]
+#      zzcpf [-e] [cpf]
 # Ex.: zzcpf 123.456.789-09          # valida o CPF informado
 #      zzcpf 12345678909             # com ou sem pontuação
 #      zzcpf                         # gera um CPF válido (aleatório)
 #      zzcpf -f 12345678909          # formata, adicionando pontuação
+#      zzcpf -e 12345678909          # retorna estado(s) federativo(s) de um número de CPF Válido
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
 # Versão: 3
 # Licença: GPL
-# Requisitos: zzaleatorio
+# Requisitos: zzaleatorio, zzcut
 # ----------------------------------------------------------------------------
 zzcpf ()
 {
 	zzzz -h cpf "$1" && return
 
-	local i n somatoria digito1 digito2 cpf base
+	local i n somatoria digito1 digito2 cpf base op estados auxiliar
 
 	# Remove pontuação do CPF informado, deixando apenas números
 	cpf=$(echo "$*" | tr -d -c 0123456789)
+
+	#Retorna estado(s) ao qual o CPF pertence
+	if test "$1" = '-e'
+	then
+                # Se o CPF estiver vazio, define com zero
+                : ${cpf:=0}
+
+		# Só continua se o CPF for válido
+		if test "$(zzcpf $cpf)" != "CPF válido"
+		then
+			return 1
+		fi
+
+		# Uso da função zzcut para captura do 9o digito
+		op=$(echo "$cpf" | zzcut -c 9)
+
+		#Atribui estado(s) ao qual o CPF pertence
+		case $op in
+		0) estados="Rio Grande do Sul";;
+                1) estados="Distrito Federal, Goiás, Mato Grosso, Mato Grosso do Sul ou Tocantins";;
+                2) estados="Amazonas, Pará, Roraima, Amapá, Acre ou Rondônia";;
+                3) estados="Ceará, Maranhão ou Piauí";;
+                4) estados="Paraíba, Pernambuco, Alagoas ou Rio Grande do Norte";;
+                5) estados="Bahia ou Sergipe";;
+                6) estados="Minas Gerais";;
+                7) estados="Rio de Janeiro ou Espírito Santo";;
+                8) estados="São Paulo";;
+		9) estados="Paraná ou Santa Catarina";;
+		esac
+
+		echo "$estados"
+		return 0
+	fi
 
 	# Talvez só precisamos formatar e nada mais?
 	if test "$1" = '-f'
@@ -71,6 +106,22 @@ zzcpf ()
 
 		# Apaga os dois últimos dígitos
 		base="${cpf%??}"
+
+		#Inicia um laço para comparar a base com todas as possíveis situações:
+		#De 000.00..-00 até 999.99..-99
+		for ((i=0;i<10;i++))
+	        do
+			#Atribuição de variável auxiliar para comparação de cada situação
+        	        auxiliar=$(echo "$base" | sed "s/$i/X/g")
+
+			#Compara o valor atual da variável auxiliar com a base e, caso seja verdadeiro, retorna o erro
+                	if test "$auxiliar" = "XXXXXXXXX"
+	                then
+        	                zztool erro "CPF inválido (não pode conter os 9 primeiros digitos iguais)"
+                	        return 1
+	                fi
+        	done
+		#Fim do laço de verificação de digitos repetidos
 	else
 		# Não foi informado nenhum CPF, vamos gerar um escolhendo
 		# nove dígitos aleatoriamente para formar a base
