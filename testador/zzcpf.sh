@@ -99,3 +99,19 @@ $ zzcpf -f	'(1_2=3*4@5+6?0a1.'	#→ 000.123.456-01
 
 # -F: remove símbolos e completa com zeros ao mesmo tempo
 $ zzcpf -F	'(1_2=3*4@5+6?0a1.'	#→ 00012345601
+
+# -q: Modo silencioso
+$ zzcpf -q	123.456.789-09; echo $?	#→ 0
+$ zzcpf -q	123.456.789-12; echo $?	#→ 1
+
+# -e: Identificando o estado
+$ zzcpf -e	21232411647		#→ Minas Gerais
+$ zzcpf -e	55671434432		#→ Paraíba, Pernambuco, Alagoas ou Rio Grande do Norte
+$ zzcpf -e	14522122101		#→ Distrito Federal, Goiás, Mato Grosso, Mato Grosso do Sul ou Tocantins
+$ zzcpf -e	31311775862		#→ São Paulo
+$ zzcpf -e	46545335596		#→ Bahia ou Sergipe
+$ zzcpf -e	71656506360		#→ Ceará, Maranhão ou Piauí
+$ zzcpf -e	33618235283		#→ Amazonas, Pará, Roraima, Amapá, Acre ou Rondônia
+$ zzcpf -e	11341622789		#→ Rio de Janeiro ou Espírito Santo
+$ zzcpf -e	68622361055		#→ Rio Grande do Sul
+$ zzcpf -e	26664841908		#→ Paraná ou Santa Catarina
