@@ -212,8 +212,8 @@ Verbo Intervir
 Gerúndio: intervindo
 Particípio passado: intervindo
 Infinitivo: intervir
-Tipo de verbo: regular
-Transitividade: intransitivo
+Tipo de verbo: irregular
+Transitividade: transitivo indireto e intransitivo
 Separação silábica: in-ter-vir
 
 Indicativo
@@ -236,7 +236,7 @@ eles intervinham               eles intervieram               eles interviriam
 Subjuntivo
 Presente                       Pretérito Imperfeito           Futuro
 que eu intervenha              se eu interviesse              quando eu intervier
-que tu intervenham             se tu interviesses             quando tu intervieres
+que tu intervenhas             se tu interviesses             quando tu intervieres
 que ele intervenha             se ele interviesse             quando ele intervier
 que nós intervenhamos          se nós interviéssemos          quando nós interviermos
 que vós intervenhais           se vós interviésseis           quando vós intervierdes
