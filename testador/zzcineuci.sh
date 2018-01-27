@@ -20,6 +20,9 @@ Belém
 Campo Grande
  20 - UCI Bosque dos Ipês
 
+Canoas
+ 26 - UCI Park Shopping Canoas
+
 Curitiba
  15 - UCI Palladium
  01 - UCI Estação
