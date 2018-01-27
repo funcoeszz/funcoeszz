@@ -20,7 +20,7 @@ zzsheldon ()
 	local begin="Quote from the episode"
 	local end="Correct this quote"
 
-	zztool source ${url}$(zzaleatorio 144) |
+	zztool source ${url}$(zzaleatorio 211) |
 	zzutf8 |
 	sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
 	zzxml --tag p |
