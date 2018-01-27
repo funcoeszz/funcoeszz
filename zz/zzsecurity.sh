@@ -147,22 +147,12 @@ zzsecurity ()
 	# Arch
 	if zztool grep_var arch "$distros"
 	then
-		url="https://wiki.archlinux.org/index.php/CVE"
+		url="https://security.archlinux.org/"
 		echo
 		zztool eco '** Atualizações Archlinux'
 		echo "$url"
 		zztool dump "$url" |
-			sed -n "/^ *CVE-${ano}-[0-9]/{s/templink //;p;}" |
-			$limite
-	fi
-
-	# Mageia
-	if zztool grep_var mageia "$distros"
-	then
-		url='http://advisories.mageia.org/advisories.rss'
-		echo
-		zztool eco '** Atualizações Mageia'
-		echo "$url"
-		zzfeed -n $n "$url"
+			awk '/ AVG-/{++i;print"";sub(/^ */,"")};i>=6{exit}i;' |
+			sed '/AVG.* CVE/ {s/ CVE/\n   CVE/}'
 	fi
 }
