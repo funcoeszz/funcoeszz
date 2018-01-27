@@ -77,7 +77,7 @@ zzconjugar ()
 		def)
 			zztool eco $(echo "$conteudo" | sed -n '2 { s/<[^>]*>//g; s/^ *//; s/ *$//; p; }')
 			echo "$conteudo" |
-			sed '/id="conjugacao"/q' |
+			sed '/intro-v/,/div>/d;/id="conjugacao"/q' |
 			zzxml --untag |
 			sed '1d; s/- /-/; s/ *:/:/;' |
 			zzsqueeze |
