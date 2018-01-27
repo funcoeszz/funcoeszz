@@ -22,7 +22,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-28
-# Versão: 2
+# Versão: 3
 # Licença: GPL
 # Requisitos: zzsemacento zzutf8 zzxml zzsqueeze zzdatafmt zzlinha
 # ----------------------------------------------------------------------------
@@ -82,9 +82,9 @@ zzit ()
 			)
 			zztool eco "$url2"
 			zztool dump "$url2" |
-			sed '1,/^ *Livros$/d; s/ *\(Bibliografia:\)/\
+			sed '1,/^ *\* *Plantão$/d; s/ *\(Bibliografia:\)/\
 \1/' |
-			sed '1,/^ *$/d; /INS: *:INS/,$d; /Outras notícias sobre:/,$d' |
+			sed 's/\[INS: *:INS\]//g; /Outras notícias sobre:/{s///;q;}' |
 			zzsqueeze | fmt -w 120
 		fi
 	else
@@ -101,9 +101,9 @@ zzit ()
 			url2=$(awk -v linha=$num 'NR == linha * 2 -1' | sed 's/">//;s/.*"//;s|\.\./||' | sed "s|^|${url}/|")
 			zztool eco "$url2"
 			zztool dump "$url2" |
-			sed '1,/^ *Livros$/d; s/ *\(Bibliografia:\)/\
+			sed '1,/^ *\* *Plantão$/d; s/ *\(Bibliografia:\)/\
 \1/' |
-			sed '1,/^ *$/d; /INS: *:INS/,$d; /Outras notícias sobre:/,$d' |
+			sed 's/\[INS: *:INS\]//g; /Outras notícias sobre:/{s///;q;}' |
 			zzsqueeze | fmt -w 120
 		fi
 	fi
