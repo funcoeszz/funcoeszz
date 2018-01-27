@@ -1,19 +1,33 @@
 $ zzphp json
-Ds\Deque::jsonSerialize - Returns a representation that can be converted to JSON.
-Ds\Map::jsonSerialize - Returns a representation that can be converted to JSON.
-Ds\Pair::jsonSerialize - Returns a representation that can be converted to JSON.
-Ds\PriorityQueue::jsonSerialize - Returns a representation that can be converted to JSON.
-Ds\Queue::jsonSerialize - Returns a representation that can be converted to JSON.
-Ds\Set::jsonSerialize - Returns a representation that can be converted to JSON.
-Ds\Stack::jsonSerialize - Returns a representation that can be converted to JSON.
-Ds\Vector::jsonSerialize - Returns a representation that can be converted to JSON.
+Ds\Deque::jsonSerialize - Returns a representation that can be converted to JSON
+Ds\Map::jsonSerialize - Returns a representation that can be converted to JSON
+Ds\Pair::jsonSerialize - Returns a representation that can be converted to JSON
+Ds\PriorityQueue::jsonSerialize - Returns a representation that can be converted to JSON
+Ds\Queue::jsonSerialize - Returns a representation that can be converted to JSON
+Ds\Set::jsonSerialize - Returns a representation that can be converted to JSON
+Ds\Stack::jsonSerialize - Returns a representation that can be converted to JSON
+Ds\Vector::jsonSerialize - Returns a representation that can be converted to JSON
 JsonSerializable::jsonSerialize - Specify data which should be serialized to JSON
 json_decode - Decodifica uma string JSON
 json_encode - Retorna a representação JSON de um valor
 json_last_error - Retorna o último erro ocorrido
 json_last_error_msg - Retorna uma string contento a mensagem de erro da ultima chamada de json_encode() ou json_decode()
+MongoDB\BSON\Binary::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\DBPointer::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\Decimal128::jsonSerialize - Returns a representation that can be converted to JSON
 MongoDB\BSON\fromJSON - Returns the BSON representation of a JSON value
-MongoDB\BSON\toJSON - Returns the JSON representation of a BSON value
+MongoDB\BSON\Javascript::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\MaxKey::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\MinKey::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\ObjectId::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\Regex::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\Symbol::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\Timestamp::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\toCanonicalExtendedJSON - Returns the Canonical Extended JSON representation of a BSON value
+MongoDB\BSON\toJSON - Returns the Legacy Extended JSON representation of a BSON value
+MongoDB\BSON\toRelaxedExtendedJSON - Returns the Relaxed Extended JSON representation of a BSON value
+MongoDB\BSON\Undefined::jsonSerialize - Returns a representation that can be converted to JSON
+MongoDB\BSON\UTCDateTime::jsonSerialize - Returns a representation that can be converted to JSON
 $
 
 $ zzphp ^xml_
@@ -43,6 +57,7 @@ $
 
 $ zzphp _pad
 array_pad - Expande um array para um certo comprimento utilizando um determinado valor
+sodium_pad - Add padding data
 str_pad - Preenche uma string para um certo tamanho com outra string
 $
 

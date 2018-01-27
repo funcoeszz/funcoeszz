@@ -80,3 +80,31 @@ $ zzdistro 2014
 24  Deepin        49  KaOS          74  AV Linux      99  Kwheezy
 25  Robolinux     50  Tanglu        75  ArchBang      100 HandyLinux
 $
+
+$ zzdistro 2017
+1   Mint          26  Ubuntu MATE   51  Lakka         76  OpenBSD
+2   Debian        27  FreeBSD       52  KNOPPIX       77  OpenMandriva
+3   Manjaro       28  Tails         53  Alpine        78  BackBox
+4   Ubuntu        29  Peppermint    54  4MLinux       79  Calculate
+5   Antergos      30  Parrot        55  Tiny Core     80  SteamOS
+6   openSUSE      31  Slackware     56  feren         81  Maui
+7   Solus         32  SparkyLinux   57  GhostBSD      82  AUSTRUMI
+8   Fedora        33  Android-x86   58  Bluestar      83  Ubuntu DP
+9   elementary    34  Xubuntu       59  ClearOS       84  Zenwalk
+10  Zorin         35  Ubuntu Budgie 60  DragonFly     85  Container
+11  deepin        36  Ultimate      61  Ubuntu Studio 86  Parabola
+12  TrueOS        37  Bodhi         62  RancherOS     87  Oracle
+13  CentOS        38  ArchBang      63  wattOS        88  Vector
+14  Arch          39  SmartOS       64  Gecko         89  Porteus
+15  PCLinuxOS     40  Devuan        65  Chakra        90  Trisquel
+16  ReactOS       41  Gentoo        66  NuTyX         91  Absolute
+17  Kali          42  KaOS          67  Qubes         92  Salix
+18  Lite          43  Black Lab     68  Revenge       93  SolydXK
+19  antiX         44  Netrunner     69  Voyager       94  Arya
+20  Lubuntu       45  Kubuntu       70  Korora        95  Raspbian
+21  MX Linux      46  ROSA          71  NixOS         96  Emmabuntüs
+22  KDE neon      47  Q4OS          72  Scientific    97  siduction
+23  Mageia        48  Red Hat       73  Clonezilla    98  Robolinux
+24  Puppy         49  Sabayon       74  ExTiX         99  Ubuntu Kylin
+25  LXLE          50  BlackArch     75  Elive         100 LibreELEC
+$

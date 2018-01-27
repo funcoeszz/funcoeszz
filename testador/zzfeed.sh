@@ -31,7 +31,6 @@ $ i='RDF ISO-8859-1' zzfeed http://www.vivaolinux.com.br/index.rdf          #→
 
 $ zzfeed aurelio.net
 http://aurelio.net/feed/
-http://aurelio.net/comments/feed/
 $
 
 # Múltiplos sites, cada lista de feed ganha um "cabeçalho"
@@ -39,10 +38,8 @@ $
 $ zzfeed aurelio.net aurelio.net
 * aurelio.net
 http://aurelio.net/feed/
-http://aurelio.net/comments/feed/
 
 * aurelio.net
 http://aurelio.net/feed/
-http://aurelio.net/comments/feed/
 
 $

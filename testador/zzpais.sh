@@ -36,7 +36,7 @@ $
 $ zzpais l$
 País                                       Capital
 ------------------------------------------ ----------------------------------
-África do Sul                              Pretória, Cape Town, Bloemfontein
+África do Sul                              Pretória, Cidade do Cabo, Bloemfontein
 Brasil                                     Brasília
 Guiné Equatorial                           Malabo
 Israel                                     Jerusalém
@@ -60,7 +60,7 @@ Idioma(s): Japonês
 Jérsia                                     Saint Helier
 Idioma(s): Inglês, Francês, Jersês
 
-Jibuti                                     Jibuti
+Jibuti ou Djibuti                          Jibuti
 Idioma(s): Árabe, Francês
 
 Jordânia                                   Amã

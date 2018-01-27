@@ -50,15 +50,16 @@ Descrição:
 InnoDB suporta as instruções SQL SAVEPOINT, ROLLBACK TO SAVEPOINT, RELEASE SAVEPOINT e a palavra-chave opcional WORK para o ROLLBACK.
 $
 
-$ zzmariadb 18 | sed 's/^ *//'
-Sintaxe:
+$ zzmariadb 18 | sed -n '1,/^Exemplo/{/Exemplo/d;p;}'
+Sintaxe
 
-DROP USER user [, user] ...
+DROP USER [IF EXISTS] user [, user] ...
 
-Descrição:
+Descrição
 
-A instrução DROP USER remove uma ou varias contas MariaDB. Remove filas privilegiadas da conta desde todas as tabelas de permissão. Para usar esta instrução, você deve ter o privilégio global CREATE USER ou o privilégio DELETE para o banco de dados mysql. Cada conta é nomeada usando o mesmo
-formato que na instrução CREATE USER; por exemplo, 'jeffrey'@'localhost'. Se você somente especificar a parte do nome de usuário no nome de conta, uma parte do hostname de '%' será usada. Para informações adicionais sobre especificação de nomes de conta, veja CREATE USER.
+   A instrução DROP USER remove uma ou varias contas MariaDB. Remove filas privilegiadas da conta desde todas as tabelas de permissão. Para usar esta instrução, você deve ter o privilégio global CREATE USER ou o privilégio DELETE para o banco de dados mysql. Cada conta é nomeada usando o mesmo
+   formato que na instrução CREATE USER; por exemplo, 'jeffrey'@'localhost'. Se você somente especificar a parte do nome de usuário no nome de conta, uma parte do hostname de '%' será usada. Para informações adicionais sobre especificação de nomes de conta, veja CREATE USER.
 
-Se alguma das contas de usuário especificadas não existe, aparecerá ERROR 1396 (HY000). Se um erro ocorrer, DROP USER ainda irá suprimir as contas que não resultam em erro.
+   Se alguma das contas de usuário especificadas não existe, aparecerá ERROR 1396 (HY000). Se um erro ocorrer, DROP USER ainda irá suprimir as contas que não resultam em erro.
+
 $
