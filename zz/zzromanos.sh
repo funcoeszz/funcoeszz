@@ -1,7 +1,7 @@
 # ----------------------------------------------------------------------------
-# Conversor de números romanos para indo-arábicos e vice-versa.
+# Conversor de números romanos para hindu-arábicos e vice-versa.
 # Converte corretamente para romanos números até 3999999.
-# Converte corretamente para indo-arábicos números até 4000.
+# Converte corretamente para hindu-arábicos números até 4000.
 #
 # Uso: zzromanos número
 # Ex.: zzromanos 1987                # Retorna: MCMLXXXVII
@@ -57,7 +57,7 @@ zzromanos ()
 	local regex_validacao='^(M{0,4})(C[MD]|D?C{0,3})(X[CL]|L?X{0,3})(I[XV]|V?I{0,3})$'
 
 	# Se nenhum argumento for passado, mostra lista de algarismos romanos
-	# e seus correspondentes indo-arábicos
+	# e seus correspondentes hindu-arábicos
 	if test $# -eq 0
 	then
 		echo "$arabicos_romanos" |
@@ -79,7 +79,7 @@ zzromanos ()
 		}
 
 	# Se é uma string que representa um número romano válido,
-	# converte para indo-arábico
+	# converte para hindu-arábico
 	elif echo "$entrada" | egrep "$regex_validacao" > /dev/null
 	then
 		saida=0
