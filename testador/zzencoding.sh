@@ -38,7 +38,7 @@ $
 
 # vazio
 
-$ zzencoding _vazio.txt
-$ echo | zzencoding	#→ --regex ^(binary)?$
-$ printf '' | zzencoding
+$ zzencoding _vazio.txt		#→ --regex ^(binary)?$
+$ echo | zzencoding			#→ --regex ^(binary)?$
+$ printf '' | zzencoding	#→ --regex ^(binary)?$
 $
