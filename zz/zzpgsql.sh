@@ -10,9 +10,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-11
-# Versão: 3
+# Versão: 4
 # Licença: GPL
-# Requisitos: zzunescape zztrim
+# Requisitos: zzunescape zztrim zzsqueeze
 # ----------------------------------------------------------------------------
 zzpgsql ()
 {
@@ -25,17 +25,17 @@ zzpgsql ()
 	if ! test -s "$cache"
 	then
 		zztool source "${url}/sql-commands.html" |
-		awk '{printf "%s",$0; if ($0 ~ /<\/dt>/) {print ""} }'|
-		zzunescape --html | sed -n '/<dt>/p' | sed 's/  */ /g' |
-		awk -F'"' '{ printf "%3s %s\n", NR, substr($3,2) ":" $2 }' |
-		sed 's/<[^>]*>//g;s/^>/ /g' > $cache
+		awk '/<dt>/,/<\/dt>/{if ($0 ~ /<dt>/) printf "%3s:", ++i; printf $0; if ($0 ~ /<\/dt>/) print ""}' |
+		sed 's/<a href=[^"]*"//;s/\.html">/.html:/;s/<[^>]*>//g;s/: */:/' |
+		zztrim |
+		zzsqueeze > $cache
 	fi
 
 	if test -n "$1"
 	then
 		if zztool testa_numero $1
 		then
-			comando=$(cat $cache | sed -n "/^ *${1} /p" | cut -f2 -d":")
+			comando=$(sed -n "/^ *${1}:/{s///;s/:.*//;p;}" $cache)
 			zztool dump "${url}/${comando}" |
 			awk '
 				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }
@@ -44,9 +44,9 @@ zzpgsql ()
 			sed -n '/^ *[_-][_-][_-][_-]*/,/^ *[_-][_-][_-][_-]*/p' |
 			sed '1d;$d;' | zztrim -V | sed '1s/^ *//;s/        */       /'
 		else
-			grep -i $1 $cache | cut -f1 -d":"
+			grep -i $1 $cache | awk -F: '{printf "%3s %s\n", $1, $3}'
 		fi
 	else
-		cat "$cache" | cut -f1 -d":"
+		cat "$cache" | awk -F: '{printf "%3s %s\n", $1, $3}'
 	fi
 }
