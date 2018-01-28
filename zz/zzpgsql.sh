@@ -12,7 +12,7 @@
 # Desde: 2013-05-11
 # Versão: 4
 # Licença: GPL
-# Requisitos: zzunescape zztrim zzsqueeze
+# Requisitos: zztrim zzsqueeze
 # ----------------------------------------------------------------------------
 zzpgsql ()
 {
