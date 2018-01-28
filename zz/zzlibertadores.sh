@@ -93,7 +93,7 @@ zzlibertadores ()
 	# Fase 1 (Pré-libertadores)
 	case "$1" in
 	1 | pr[eé] | primeira)
-		sed -n '/PRIMEIRA FASE/,/FASE DE GRUPOS/p' "$cache" |
+		sed -n '/PRIMEIRA FASE/,/FASE DE GRUPOS/{/FASE/d; p;}' "$cache" |
 		sed "$sed_mata" |
 		awk "$awk_jogo" |
 		while read linha
@@ -101,7 +101,7 @@ zzlibertadores ()
 			time1=$(  echo $linha | cut -d"|" -f 1 )
 			time2=$(  echo $linha | cut -d"|" -f 2 )
 			horario=$(echo $linha | cut -d"|" -f 3 )
-			echo "$(zzpad -l 28 $time1) X $(zzpad -r 28 $time2) $horario"
+			echo "$(zzpad -l 45 $time1) X $(zzpad -r 45 $time2) $horario"
 		done
 	;;
 	# Fase 2 (Fase de Grupos)
@@ -154,7 +154,7 @@ zzlibertadores ()
 		sed -n "/^ *Grupo $2/,/Grupo /p"  "$cache"|
 		sed '
 			1d; /°/d; /Rodada [2-9]/d;
-			/Classificados para as oitavas de final/,$d
+			/ para as oitavas de final/,$d
 			' |
 		sed "$sed_mata" |
 		awk "$awk_jogo" |
