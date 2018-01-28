@@ -3,9 +3,9 @@
 # Obs.: Cada site tem uma letra identificadora que pode ser passada como
 #       parâmetro, para informar quais sites você quer pesquisar:
 #
-#         B)r Linux            D)iolinux
-#         V)iva o Linux        U)nder linux
-#         E)spírito Livre
+#         B) Br-Linux             C) Canal Tech
+#         D) Diolinux             L) Linux Descomplicado
+#         Z) Linuxbuzz
 #
 # Uso: zznoticiaslinux [sites]
 # Ex.: zznoticiaslinux
@@ -23,20 +23,11 @@ zznoticiaslinux ()
 
 	local url limite
 	local n=5
-	local sites='bdvue'
+	local sites='bcdlz'
 
 	limite="sed ${n}q"
 
 	test -n "$1" && sites="$1"
-
-	# Viva o Linux
-	if zztool grep_var v "$sites"
-	then
-		url='http://www.vivaolinux.com.br/index.rdf'
-		echo
-		zztool eco "* Viva o Linux ($url):"
-		zzfeed -n $n "$url"
-	fi
 
 	# Br Linux
 	if zztool grep_var b "$sites"
@@ -47,12 +38,12 @@ zznoticiaslinux ()
 		zzfeed -n $n "$url"
 	fi
 
-	# UnderLinux
-	if zztool grep_var u "$sites"
+	# Canal Tech
+	if zztool grep_var c "$sites"
 	then
-		url='https://under-linux.org/external.php?do=rss&type=newcontent&sectionid=1&days=120'
+		url='https://canaltech.com.br/rss/linux/'
 		echo
-		zztool eco "* UnderLinux ($url):"
+		zztool eco "* Canal Tech ($url):"
 		zzfeed -n $n "$url"
 	fi
 
@@ -65,13 +56,21 @@ zznoticiaslinux ()
 		zzfeed -n $n "$url"
 	fi
 
-	# Espírito Livre
-	if zztool grep_var e "$sites"
+	# Linux Descomplicado
+	if zztool grep_var l "$sites"
 	then
-		url='http://www.revista.espiritolivre.org/feed/'
+		url='https://www.linuxdescomplicado.com.br/category/noticias/feed'
 		echo
-		zztool eco "* Espírito Livre ($url):"
+		zztool eco "* Linux Descomplicado ($url):"
 		zzfeed -n $n "$url"
 	fi
 
+	# Linuxbuzz
+	if zztool grep_var z "$sites"
+	then
+		url='http://www.linuxbuzz.com.br/feeds/posts/default?alt=rss'
+		echo
+		zztool eco "* Linuxbuzz ($url):"
+		zzfeed -n $n "$url"
+	fi
 }
