@@ -1,8 +1,8 @@
-$ zzrpmfind vim | sed 's/^  [a-z].*\.rpm$/  URL/' | sed 5q
-ftp://rpmfind.net/linux/
-  URL
-  URL
-  URL
-  URL
+$ zzrpmfind sed | sed 's/^\(ht\|f\)tp:.*\.rpm$/URL/;5q'
+URL
+URL
+URL
+URL
+URL
 $ zzrpmfind foobar
 $
