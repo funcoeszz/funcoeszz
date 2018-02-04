@@ -33,6 +33,8 @@ zziostat ()
 {
 	zzzz -h iostat "$1" && return
 
+	which iostat 1>/dev/null 2>&1 || { zztool erro "iostat não instalado"; return 1; }
+
 	local top line cycle tps reads writes totals
 	local delay=2
 	local orderby='t'
