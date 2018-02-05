@@ -89,11 +89,11 @@ D̄C̄C̄C̄X̄X̄X̄V̄ĪĪCMXLVI
 
 $ zzromanos 2897200
 
-M̄M̄D̄C̄C̄C̄X̄C̄V̄MMCC
+M̄M̄D̄C̄C̄C̄X̄C̄V̄ĪĪCC
 
 $ zzromanos 127987
 
-C̄X̄X̄V̄MMCMLXXXVII
+C̄X̄X̄V̄ĪĪCMLXXXVII
 
 $
 
