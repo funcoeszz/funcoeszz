@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------------
 # Conversor de números romanos para indo-arábicos e vice-versa.
+# Converte corretamente para romanos números até 3999.
 # Uso: zzromanos número
 # Ex.: zzromanos 1987                # Retorna: MCMLXXXVII
 #      zzromanos XLIII               # Retorna: 43
