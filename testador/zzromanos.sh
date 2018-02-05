@@ -17,6 +17,13 @@ $ zzromanos
 100	C
 500	D
 1000	M
+4000	ĪV̄
+5000	V̄
+10000	X̄
+50000	Ḹ
+100000	C̄
+500000	D̄
+1000000	M̄
 $
 
 ### 5   ->   V
@@ -76,6 +83,20 @@ $ zzromanos	3000	#→ MMM
 $ zzromanos	3999	#→ MMMCMXCIX
 
 
+$ zzromanos 837946
+
+D̄C̄C̄C̄X̄X̄X̄V̄ĪĪCMXLVI
+
+$ zzromanos 2897200
+
+M̄M̄D̄C̄C̄C̄X̄C̄V̄ĪĪCC
+
+$ zzromanos 127987
+
+C̄X̄X̄V̄ĪĪCMLXXXVII
+
+$
+
 ### V   ->   5
 # Para gerar esta lista de testes:
 # cat zzromanos.in.txt | sed 's/\([0-9]*\):\([A-Z]*\)/\2:\1/g' | sed 's/:/@@#→ /g; s/^/$ zzromanos@/' | tr @ '\t'
@@ -131,6 +152,8 @@ $ zzromanos	MCXI		#→ 1111
 $ zzromanos	MM		#→ 2000
 $ zzromanos	MMM		#→ 3000
 $ zzromanos	MMMCMXCIX	#→ 3999
+$ zzromanos	MMMM	#→ 4000
+$ zzromanos	MMMMDCCCLXXXVIII	#→ 4888
 
 ### v   ->   5
 # Para gerar esta lista de testes:
