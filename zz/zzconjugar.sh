@@ -119,7 +119,7 @@ zzconjugar ()
 			echo "$conteudo" |
 			sed -n '/"modoconjuga"> Imperativo </,/> Infinitivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/tempo-conjugacao-titulo/ { printf "\n\n"; print; next }
-				/--|> tu <|> eles? <|> [nv]ós </ { print; next }
+				/--|> tu <|> eles? <|> vocês? <|> [nv]ós </ { print; next }
 				/<br / { print ""; next }
 				{ printf $0 }
 			' |
