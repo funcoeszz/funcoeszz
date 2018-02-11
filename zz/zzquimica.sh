@@ -57,6 +57,13 @@ zzquimica ()
 			/^<small/   { getline info["orbital"]; gsub(/ /, "-", info["orbital"]) }
 			/^<\/td>/ { print info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
 		' |
+		# Correção para elmentos novos descobertos e recentemente reclassificados
+		sed '
+			s/Ununtrio/Nihonium/; s/Uut/Nh/
+			s/Ununpentio/Moscovium/; s/Uup/Mc/
+			s/Ununséptio/Tennessine/; s/Uus/Ts/
+			s/Ununóctio/Oganesson/; s/Uuo/Og/
+			' |
 		sort -n |
 		while IFS=':' read numero nome simbolo massa orbital familia
 		do
