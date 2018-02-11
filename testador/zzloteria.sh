@@ -1,77 +1,61 @@
 $ zzloteria quina | tr '[0-9]' 'N' | head -3
 quina:
-Concurso NNNN (NN/NN/NNNN)
-   NN   NN   NN   NN   NN
+Concurso: NNNN	(NN/NN/NNNN)
+	NN	NN	NN	NN	NN
 $
 
 $ zzloteria megasena | tr '[0-9]' 'N' | head -3
 megasena:
-Concurso NNNN (NN/NN/NNNN)
-   NN   NN   NN   NN   NN   NN
+Concurso: NNNN	(NN/NN/NNNN)
+	NN	NN	NN	NN	NN	NN
 $
 
-$ zzloteria duplasena | tr '[0-9]' 'N' | sed '/^ *$/d;s/^ *//' | head -6
+$ zzloteria duplasena | tr '[0-9]' 'N' | head -5
 duplasena:
-Concurso NNNN (NN/NN/NNNN)
-Nº sorteio
-NN   NN   NN   NN   NN   NN
-Nº sorteio
-NN   NN   NN   NN   NN   NN
+Concurso: NNNN	(NN/NN/NNNN)
+	NN	NN	NN	NN	NN	NN
+
+	NN	NN	NN	NN	NN	NN
 $
 
-$ zzloteria lotomania | tr '[0-9]' 'N' | head -6 | sed 's/ *$//;s/N  *N/N N/g'
+$ zzloteria lotomania | tr '[0-9]' 'N' | head -9
 lotomania:
-Concurso NNNN (NN/NN/NNNN)
-   NN NN NN NN NN
-   NN NN NN NN NN
-   NN NN NN NN NN
-   NN NN NN NN NN
+Concurso: NNNN	(NN/NN/NNNN)
+	NN	NN	NN	NN	NN
+
+	NN	NN	NN	NN	NN
+
+	NN	NN	NN	NN	NN
+
+	NN	NN	NN	NN	NN
 $
-$ zzloteria lotofacil | tr '[0-9]' 'N' | head -5 | sed 's/ *$//;s/N  *N/N N/g'
+
+$ zzloteria lotofacil | tr '[0-9]' 'N' | head -7
 lotofacil:
-Concurso NNNN (NN/NN/NNNN)
-   NN NN NN NN NN
-   NN NN NN NN NN
-   NN NN NN NN NN
+Concurso: NNNN	(NN/NN/NNNN)
+	NN	NN	NN	NN	NN
+
+	NN	NN	NN	NN	NN
+
+	NN	NN	NN	NN	NN
 $
 
-$ zzloteria federal | tr '[0-9.]' 'N' | sed 's/ *$//;s/º  */º      /;s/  *R\$/   R$/;s/  *\([BV]\)/ \1/g;s/NN*,/NNN,/'
+$ zzloteria federal | tr '[0-9.]' 'N' | sed 's/NN*/N/g'
 federal:
-Concurso NNNNN (NN/NN/NNNN)
+Concurso: N	(N/N/N)
 
-   Destino Bilhete Valor do Prêmio (R$)
-   Nº      NNNNN   R$ NNN,NN
-   Nº      NNNNN   R$ NNN,NN
-   Nº      NNNNN   R$ NNN,NN
-   Nº      NNNNN   R$ NNN,NN
-   Nº      NNNNN   R$ NNN,NN
+	Nº Prêmio	N	R$ N,N
+	Nº Prêmio	N	R$ N,N
+	Nº Prêmio	N	R$ N,N
+	Nº Prêmio	N	R$ N,N
+	Nº Prêmio	N	R$ N,N
 
 $
 
 $ zzloteria timemania | tr '[0-9.]' 'N' | head -3
 timemania:
-Concurso NNN (NN/NN/NNNN)
-   NN   NN   NN   NN   NN   NN   NN
-$
-
-$ zzloteria loteca | tr '[0-9]' 'N' | head -17 | sed 's/Meio/N/;s/^ *N\{1,2\} .*\(N X\)/NN TIME1 N X/; s/X N.* Col\./X N TIME2 Col./;s/ *Jogo *Resultado/Jogo                 Resultado/'
-loteca:
-Concurso NNN (NN/NN/NNNN)
-Jogo                 Resultado
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
-NN TIME1 N X N TIME2 Col. N
+Concurso: NNNN	(NN/NN/NNNN)
+	NN	NN	NN	NN	NN	NN	NN
 $
 
 $ zzloteria loteca 500 | tr '[0-9]' 'N' | head -17 | sed 's/Col. Meio/  Col. N/'
