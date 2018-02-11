@@ -38,10 +38,10 @@ Imperativo
 Imperativo Afirmativo            Imperativo Negativo
                    --                             --
              calca tu                 não calques tu
-           calque ele                 não calque ele
+          calque você                não calque você
         calquemos nós              não calquemos nós
            calcai vós               não calqueis vós
-         calquem eles               não calquem eles
+        calquem vocês              não calquem vocês
 
 Infinitivo
 Infinitivo Pessoal
@@ -59,10 +59,10 @@ Imperativo
 Imperativo Afirmativo            Imperativo Negativo
                    --                             --
              troça tu                  não troces tu
-            troce ele                  não troce ele
+           troce você                 não troce você
          trocemos nós               não trocemos nós
            troçai vós                não troceis vós
-          trocem eles                não trocem eles
+         trocem vocês               não trocem vocês
 $
 
 $ zzconjugar trocar inf
@@ -94,10 +94,10 @@ Imperativo
 Imperativo Afirmativo            Imperativo Negativo
                    --                             --
                 lê tu                   não leias tu
-             leia ele                   não leia ele
+            leia você                  não leia você
           leiamos nós                não leiamos nós
              lede vós                 não leiais vós
-           leiam eles                 não leiam eles
+          leiam vocês                não leiam vocês
 
 Subjuntivo
 Presente                       Pretérito Imperfeito           Futuro
@@ -133,10 +133,10 @@ Imperativo
 Imperativo Afirmativo            Imperativo Negativo
                    --                             --
              impõe tu                não imponhas tu
-          imponha ele                não imponha ele
+         imponha você               não imponha você
        imponhamos nós             não imponhamos nós
           imponde vós              não imponhais vós
-        imponham eles              não imponham eles
+       imponham vocês             não imponham vocês
 
 Indicativo
 Presente                       Pretérito Perfeito             Futuro do Presente
@@ -246,10 +246,10 @@ Imperativo
 Imperativo Afirmativo            Imperativo Negativo
                    --                             --
           intervém tu             não intervenhas tu
-       intervenha ele             não intervenha ele
+      intervenha você            não intervenha você
     intervenhamos nós          não intervenhamos nós
        intervinde vós           não intervenhais vós
-     intervenham eles           não intervenham eles
+    intervenham vocês          não intervenham vocês
 
 Infinitivo
  Infinitivo Pessoal
