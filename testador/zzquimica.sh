@@ -26,9 +26,9 @@ $ zzquimica | grep Família
 81   Tálio         Tl      204,3833     2-8-18-32-18-3     Metal Representativo [Família do Boro] (Sólido)
 82   Chumbo        Pb      207,2        2-8-18-32-18-4     Metal Representativo [Família do Carbono] (Sólido)
 83   Bismuto       Bi      208,9804     2-8-18-32-18-5     Metal Representativo [Família do Nitrogênio] (Sólido)
-113  Ununtrio      Uut     (284)        2-8-18-32-32-18-3  Metal Representativo [Família do Boro] (Desconhecido)
+113  Nihonium      Nh      (284)        2-8-18-32-32-18-3  Metal Representativo [Família do Boro] (Desconhecido)
 114  Fleróvio      Fl      (289)        2-8-18-32-32-18-4  Metal Representativo [Família do Carbono] (Desconhecido)
-115  Ununpentio    Uup     (288)        2-8-18-32-32-18-5  Metal Representativo [Família do Nitrogênio] (Desconhecido)
+115  Moscovium     Mc      (288)        2-8-18-32-32-18-5  Metal Representativo [Família do Nitrogênio] (Desconhecido)
 $ zzquimica | sed 's/^\(.\{26\}\).*/\1/' | sed 's/$/~/'
 N.º  Nome          Símbolo~
 1    Hidrogênio    H      ~
@@ -143,10 +143,10 @@ N.º  Nome          Símbolo~
 110  Darmstádio    Ds     ~
 111  Roentgênio    Rg     ~
 112  Copernício    Cn     ~
-113  Ununtrio      Uut    ~
+113  Nihonium      Nh     ~
 114  Fleróvio      Fl     ~
-115  Ununpentio    Uup    ~
+115  Moscovium     Mc     ~
 116  Livermório    Lv     ~
-117  Ununséptio    Uus    ~
-118  Ununóctio     Uuo    ~
+117  Tennessine    Ts     ~
+118  Oganesson     Og     ~
 $
