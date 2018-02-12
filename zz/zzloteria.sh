@@ -449,7 +449,7 @@ zzloteria ()
 
 					if ! test -e ${cache}.loteca.htm || ! $(zztool dump ${cache}.loteca.htm | grep "^ *$num_con " >/dev/null)
 					then
-						"${cache}.loteca.zip"
+						wget -q -O "${cache}.loteca.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_loteca.zip"
 						$un_zip "${cache}.loteca.zip" "*.HTM" -d "$tmp_dir"
 						mv -f "${tmp_dir}/D_LOTECA.HTM" ${cache}.loteca.htm
 						zzdatafmt --iso hoje >> ${cache}.loteca.htm
