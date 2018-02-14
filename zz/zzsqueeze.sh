@@ -51,11 +51,11 @@ zzsqueeze ()
 			/^[ 	]*$/{ branco++ }
 
 			! /^[ 	]*$/ {
-				if(branco>0) { print ""; branco=0 }
+				if (branco>0) { print ""; branco=0 }
 				print
 			}
 
-			END { if(branco>0) print "" }
+			END { if (branco>0) print "" }
 		'
 	else
 		sed 's/^[ 	]*$//'

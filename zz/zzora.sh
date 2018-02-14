@@ -35,8 +35,8 @@ zzora ()
 			/^[ 	]*$/{ branco++ }
 
 			! /^[ 	]*$/ {
-				if(branco==1) { print ""; branco=0 }
-				else if(branco>1)  {
+				if (branco==1) { print ""; branco=0 }
+				else if (branco>1)  {
 					print "===================================================================================================="
 					print ""; branco=0
 				}
