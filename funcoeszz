@@ -462,7 +462,7 @@ zztool ()
 				then
 					rm -f "${ZZTMP:-XXXX}"*
 					# Restabelecendo zz.ajuda, zz.on, zz.off
-					funcoeszz
+					$ZZPATH
 				else
 					test -n "$3" && id=".$3"
 					test -n "$2" && rm -f "${ZZTMP:-XXXX}.${2#zz}${id}"*
