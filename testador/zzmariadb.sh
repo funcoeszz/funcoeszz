@@ -50,7 +50,7 @@ Descrição:
 InnoDB suporta as instruções SQL SAVEPOINT, ROLLBACK TO SAVEPOINT, RELEASE SAVEPOINT e a palavra-chave opcional WORK para o ROLLBACK.
 $
 
-$ zzmariadb 18 | sed -n '1,/^Exemplo/{/Exemplo/d;p;}'
+$ zzmariadb 18 | sed -n '1,/^Exemplo/{/Exemplo/d;s/^ *D/D/;p;}'
 Sintaxe
 
 DROP USER [IF EXISTS] user [, user] ...
