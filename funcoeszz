@@ -763,7 +763,6 @@ zzzz ()
 
 			if ! grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
 			then
-				# export ZZDIR="$ZZDIR"  # pasta com as funcoes
 				cat - >> "$bashrc" <<-EOS
 
 				# $instal_msg
