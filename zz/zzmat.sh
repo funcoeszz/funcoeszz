@@ -599,7 +599,7 @@ zzmat ()
 		if test $# -eq "4"
 		then
 			zzmat $funcao $2 $3 1 $4
-		elif test $# -eq "5" && zztestar numero_real $2 && zztestar numero_real $3 && zztestar numero_real $4 && zztool grep_var "x" $5 
+		elif test $# -eq "5" && zztestar numero_real $2 && zztestar numero_real $3 && zztestar numero_real $4 && zztool grep_var "x" $5
 		then
 			local equacao numero operacao sequencia num1 num2
 			equacao=$(echo "$5" | sed 's/\[/(/g;s/\]/)/g')
