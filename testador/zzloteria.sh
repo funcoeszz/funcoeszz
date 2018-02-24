@@ -1,16 +1,16 @@
-$ zzloteria quina | tr '[0-9]' 'N' | head -3
+$ zzloteria quina | tr '[0-9]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g;s/?[ ]\{,1\}/NN/g;3s/^\(.\{15\}\).*/\1/'
 quina:
 Concurso: NNNN	(NN/NN/NNNN)
 	NN	NN	NN	NN	NN
 $
 
-$ zzloteria megasena | tr '[0-9]' 'N' | head -3
+$ zzloteria megasena | tr '[0-9]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 megasena:
 Concurso: NNNN	(NN/NN/NNNN)
 	NN	NN	NN	NN	NN	NN
 $
 
-$ zzloteria duplasena | tr '[0-9]' 'N' | head -5
+$ zzloteria duplasena | tr '[0-9]' 'N' | head -5 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 duplasena:
 Concurso: NNNN	(NN/NN/NNNN)
 	NN	NN	NN	NN	NN	NN
@@ -18,7 +18,7 @@ Concurso: NNNN	(NN/NN/NNNN)
 	NN	NN	NN	NN	NN	NN
 $
 
-$ zzloteria lotomania | tr '[0-9]' 'N' | head -9
+$ zzloteria lotomania | tr '[0-9]' 'N' | head -9 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 lotomania:
 Concurso: NNNN	(NN/NN/NNNN)
 	NN	NN	NN	NN	NN
@@ -30,7 +30,7 @@ Concurso: NNNN	(NN/NN/NNNN)
 	NN	NN	NN	NN	NN
 $
 
-$ zzloteria lotofacil | tr '[0-9]' 'N' | head -7
+$ zzloteria lotofacil | tr '[0-9]' 'N' | head -7 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 lotofacil:
 Concurso: NNNN	(NN/NN/NNNN)
 	NN	NN	NN	NN	NN
@@ -52,7 +52,7 @@ Concurso: N	(N/N/N)
 
 $
 
-$ zzloteria timemania | tr '[0-9.]' 'N' | head -3
+$ zzloteria timemania | tr '[0-9.]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 timemania:
 Concurso: NNNN	(NN/NN/NNNN)
 	NN	NN	NN	NN	NN	NN	NN
