@@ -38,7 +38,7 @@ zzdistro ()
 	test -n "$1" && { zztool -e uso distro; return 1; }
 
 	zztool source "$url" | sed '1,/>Rank</d' |
-	awk -F'"' '
+	awk -F '"' '
 		/phr1/ || /<th class="News">[0-9][0-9]?[0-9]?<\/th>/ {
 			printf "%s\t", $3
 			getline
@@ -46,7 +46,7 @@ zzdistro ()
 		}
 	' |
 	sed 's/<[^>]*>//g;s/>//g' |
-	if [ $lista -eq 1 ]
+	if test $lista -eq 1
 	then
 		expand -t 4,18 | zzcolunar -w 60 2
 	else
