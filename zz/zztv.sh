@@ -24,7 +24,7 @@
 # Desde: 2002-02-19
 # Versão: 13
 # Licença: GPL
-# Requisitos: zzunescape zzxml zzcolunar zzpad zzcut zzjuntalinhas zzdatafmt
+# Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzsqueeze zztrim zzunescape zzxml
 # ----------------------------------------------------------------------------
 zztv ()
 {
@@ -43,12 +43,13 @@ zztv ()
 	if ! test -s "$cache"
 	then
 		zztool source "${URL}/categoria/Todos/" |
-		zzxml --tag ul |
-		zzxml --tag a |
-		zzjuntalinhas -i '<a ' -f '</a>' -d ' ' |
-		sed 's,.*canal/\([^"]*\).* [|] \([^<]*\) <.*,\1 \2,' |
-		zzunescape --html |
-		sort > "$cache"
+		sed -n '
+			/<a title="/{s/.*href="//;s/".*//;s|.*/||;p;}
+			/<h2>/{s/^[^>]*>//;s/<.*//;s/\(TCM - \| \(EP\)\?TV\| Channel\)//;s/Esporte Interativo /EI /;p;}
+		' |
+		awk '{printf $0 " "; getline; print}' |
+		sort |
+		zzunescape --html > "$cache"
 	fi
 
 	if test -n "$2"
@@ -63,38 +64,29 @@ zztv ()
 
 		zztool eco $desc
 		zztool source "${URL}/canal/$codigo" |
-		sed -n '/<li class/,/li>/p' |
-		zzxml --tidy |
-		sed -n '/, *[0-9][0-9]/p; /<a /p; /[0-9]h[0-9]/p;' |
-		awk '
-			/href=/ {
-				title=$0; cod=$0;
-				sub(/.*title="/,"", title); sub(/".*/,"",title);
-				sub(/.*href=".*programa\//,"",cod); sub(/-.*/,"",cod)
-			}
-			/[0-9]h[0-9]/ { print $0, title "|" cod }
-			/, *[0-9][0-9]/ { print ""; print }
+		zztrim |
+		sed -n '
+			s/> *$/&|/
+			/subheader/{/<!--/d;s/<.\?li[^>]*>|\?//g;p;}
+			/<a title=/{s|.*/||;s/-.*/|/;p}
+			/lileft/p
+			/<h2>/p
 		' |
+		zzxml --untag |
 		if test "$2" != "semana" -a "$2" != "s"
 		then
-			sed -n "/, $DATA/,/^ *[STQD].*[0-9][0-9]\/[0-9][0-9]/ {
-				/^ *$/d
-				/, $DATA/p
-				/^ *[STQD].*[0-9][0-9]\/[0-9][0-9]/!p
-			}"
+			sed -n "/, ${DATA}$/,/[^|]$/p"
 		else
 			cat -
 		fi |
+		awk '
+			/[0-9]$/{print "";print}
+			/\|/{ printf $0;for (i=1;i<3;i++){getline; printf $0};print "" }' |
+		sed '${/[^|]$/d}' |
+		zztrim |
 		zzunescape --html |
-		while read linhas
-		do
-			if zztool grep_var "|" "$linhas"
-			then
-				echo "$(zzpad 64 $(echo "$linhas" | zzcut -f 1 -d "|"))" Cod: "$(echo "$linhas" | zzcut -f 2 -d "|" | sed 's/-.*//')"
-			else
-				echo "$linhas"
-			fi
-		done
+		awk -F '|' 'NF<=1;NF>1{printf "%-5s %-50s cod: %s\n", $2, $3,$1}'
+
 		return
 	fi
 
@@ -116,23 +108,31 @@ zztv ()
 	then
 		zztool eco $desc
 		zztool source "$URL" |
-		zzxml --tag ul |
-		zzxml --tag a |
-		zzjuntalinhas -i '<a ' -f '</a>' -d ' ' |
-		sed 's/.*title="\([^"]*\)".*> \([0-9]\{1,2\}h[0-9]\{2\}\) <.* [|] \([^<]*\) <.*/\2 \1|\3/' |
+		sed -n '
+			/<a title="/{s/.*title="//;s|".*/|\t|;s/".*//;p;}
+			/<h2>/{s/^[^>]*>//;s/<.*//;s/\(TCM - \| \(EP\)\?TV\| Channel\)//;s/Esporte Interativo /EI /;p;}
+			/progressbar/{s/.*\([0-2][0-9]:[0-5][0-9]\).*/\1/p}
+		' |
+		awk -F '[\t]' '{printf "%s|%s|", $1, $2;getline;printf $0 "|";getline; print}' |
 		zzunescape --html |
-		while read linhas
-		do
-			echo "$(zzpad 64 $(echo "$linhas" | zzcut -f 1 -d "|" | zzcut -c -56)) $(echo "$linhas" | zzcut -f 2 -d "|")"
-		done
+		awk -F '|' '{printf "%5s %-45s %s - %s\n",$4,$1, $2, $3}'
 	elif test "$1" = "cod"
 	then
 		zztool eco "Código: $2"
-		zztool source "$URL" | sed -n '/<span class="tit">/,/Compartilhe:/p' |
-		sed 's/<span class="tit">/Título: /;s/<span class="tit_orig">/Título Original: /' |
-		sed 's/<[^>]*>/ /g;s/amp;//g;s/\&ccedil;/ç/g;s/\&atilde;/ã/g;s/.*str="//;s/";//;s/[\|] //g' |
-		sed 's/^[[:space:]]*/ /g' |
-		sed '/^[[:space:]]*$/d;/document.write/d;/str == ""/d;$d' |
+		zztool source "$URL" |
+		sed -n '/<h1 class/p;/body2/,/div>/p;/var str/p' |
+		zzjuntalinhas -i '<p' -f 'p>' -d ' ' |
+		zzjuntalinhas -i '<script' -f 'script>' -d ' ' |
+		sed '
+			/var str/{s/.*="//;s/".*//;}
+			/<!--/d
+			s_</a>_ | _g
+			s/<br *\/>/\
+/' |
+		zzxml --untag |
+		sed 's/ | $//' |
+		zztrim |
+		zzsqueeze |
 		zzunescape --html
 	fi
 }
