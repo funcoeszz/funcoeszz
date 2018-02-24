@@ -25,7 +25,7 @@ $
 
 # Uso normal, informando o número
 
-$ filtro='/ - [A-Z][A-Z]$/s/.*/CIDADE/;/\/[0-9]\{4\}$/s/.*/DATA/;/[0-2][0-9]h[0-5][0-9]/s/.*/HORARIO/;/^$/s/^/AA/;/[^A-Z][^A-Z]/{s/.*/FILME/;}'
+$ filtro='/ - [A-Z][A-Z]$/s/.*/CIDADE/;/\/[0-9]\{4\}/s/.*/DATA/;/[0-2][0-9]h[0-5][0-9]/s/.*/HORARIO/;/^$/s/^/AA/;/[^A-Z][^A-Z]/{s/.*/FILME/;}'
 $ zzcinemais 9 | sed "$filtro" | sort | uniq
 AA
 CIDADE
