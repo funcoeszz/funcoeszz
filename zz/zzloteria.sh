@@ -131,11 +131,11 @@ zzloteria ()
 					zztrim |
 					awk '
 						NR>1 && NR<=3{printf "\t" $0 "\n\n"}
-						NR>=4 && NR<26{for (i=0;i<3;i++) {if (i!=0) printf $0 "\t"; getline}; print}
+						NR>=4 && NR<26{for (i=0;i<3;i++) {if (i>1) printf $0 "\t"; getline}; print}
 						NR==29{print ""}
 						NR==1 || NR>28' |
-					sed 's/	 / /' |
-					tr -s '\t '
+					tr -s '\t ' |
+					sed 's/	 / /;4s/:[ 	]*/:/;s/^	Time/Time/;s/Time	/&	/'
 				;;
 				federal)
 					zztool source "${url}/${tipo}" |
