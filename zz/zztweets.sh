@@ -10,7 +10,7 @@
 # Desde: 2009-07-30
 # Versão: 10
 # Licença: GPL
-# Requisitos: zzsqueeze
+# Requisitos: zzsqueeze zztrim
 # ----------------------------------------------------------------------------
 zztweets ()
 {
@@ -36,10 +36,12 @@ zztweets ()
 	name=$(echo "$1" | tr -d @)
 	url="${url}/${name}"
 
-	zztool dump $url |
+	LANG=en zztool dump $url |
 		awk '/^ *@/{imp=1;next};imp' |
-		sed -n '/^ *Tweets/,/Back to top/p' |
+		sed -n '/^ *Tweets *$/,/Back to top/p' |
 		sed '1,/^ *More *$/ d
+			/Copy link to Tweet/d;
+			/Embed Tweet/d;
 			/ followed *$/d
 			s/ *(BUTTON) View translation *//
 			/^ *(BUTTON) */d
@@ -57,13 +59,15 @@ zztweets ()
 			/^ *View conversation/d
 			/^ *View more photos and videos$/d
 			/^ *Embedded image permalink$/d
-			/[0-9,]\{1,\} retweets\{0,1\} [0-9,]\{1,\} like/,/[o+] (BUTTON) Embed Tweet/d
+			/[0-9,]\{1,\} retweets\{0,1\} [0-9,]\{1,\} like/d #,/[o+] (BUTTON) Embed Tweet/d
+			/^ *Reply *$/,/^ *More */d
 			/[o+] (BUTTON) /d
 			s/\[DEL: \(.\) :DEL\] /\1/g
-			s/^ *//g
+			s/^[[:blank:]]*//g
 		' |
-		zzsqueeze -l |
 		sed '/. added,$/{N;d;}' |
+		zzsqueeze -l |
+		zztrim |
 		awk -v lim=$limite '
 			BEGIN { print "" }
 			$0 ~ /^[[:blank:]]*$/ {blanks++};{if (blanks>=lim) exit; print}
