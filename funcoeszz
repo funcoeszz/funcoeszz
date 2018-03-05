@@ -74,6 +74,7 @@ test "${0##*/}" = 'bash' -o "${0#-}" != "$0" || ZZPATH="$0"
 test -n "$ZZPATH" || ZZPATH=$ZZPATH_DFT
 test "${ZZPATH#/}" = "$ZZPATH" && ZZPATH="$PWD/${ZZPATH#./}"
 
+test -d ${ZZPATH%/*}/zz && ZZDIR="${ZZPATH%/*}/zz"
 test -n "$ZZDIR" || ZZDIR=$ZZDIR_DFT
 
 # Descobre qual o navegador em modo texto está disponível no sistema
@@ -676,7 +677,7 @@ zzzz ()
 					comando=${comando%-}
 				fi
 
-				printf '%-30s' "Procurando o comando $comando... "
+				printf '%-32s' "Procurando o comando $comando... "
 
 				# Testa se o comando existe
 				if type "$comando" >/dev/null 2>&1
@@ -708,11 +709,11 @@ zzzz ()
 			local cod_sistema='ISO-8859-1'
 			local cod_funcoeszz='ISO-8859-1'
 
-			printf 'Verificando a codificação do sistema... '
+			printf '%-32s' '"Coding" do sistema... '
 			zztool terminal_utf8 && cod_sistema='UTF-8'
 			echo "$cod_sistema"
 
-			printf 'Verificando a codificação das Funções ZZ... '
+			printf '%-32s' '"Coding" das Funcoes ZZ... '
 			test $ZZUTF = 1 && cod_funcoeszz='UTF-8'
 			echo "$cod_funcoeszz"
 
@@ -768,6 +769,7 @@ zzzz ()
 				# $instal_msg
 				export ZZOFF=""  # desligue funcoes indesejadas
 				export ZZPATH="$ZZPATH"  # script
+				export ZZDIR="$ZZDIR"
 				source "\$ZZPATH"
 				EOS
 
@@ -790,6 +792,7 @@ zzzz ()
 
 				# $instal_msg
 				setenv ZZPATH $ZZPATH
+				setenv ZZDIR $ZZDIR
 				source $arquivo_aliases
 				EOS
 
@@ -828,6 +831,7 @@ zzzz ()
 
 				# $instal_msg
 				export ZZPATH=$ZZPATH
+				export ZZDIR=$ZZDIR
 				source $arquivo_aliases
 				EOS
 
