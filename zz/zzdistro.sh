@@ -15,7 +15,7 @@
 # Desde: 2014-06-15
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzcolunar
+# Requisitos: zzcolunar zzxml
 # ----------------------------------------------------------------------------
 zzdistro ()
 {
@@ -38,6 +38,7 @@ zzdistro ()
 	test -n "$1" && { zztool -e uso distro; return 1; }
 
 	zztool source "$url" |
+	zzxml --tidy |
 	sed '1,/>Rank</d' #|
 #	awk -F '"' '
 #		/phr1/ || /<th class="News">[0-9][0-9]?[0-9]?<\/th>/ {
