@@ -21,7 +21,7 @@ zzdistro ()
 {
 	zzzz -h distro "$1" && return
 
-	local url="http://distrowatch.com/"
+	local url="https://distrowatch.com/"
 	local lista=0
 	local meses="1 4
 3 13
@@ -37,20 +37,20 @@ zzdistro ()
 
 	test -n "$1" && { zztool -e uso distro; return 1; }
 
-	wget "$url" -O - -q |
-	sed '1,/>Rank</d' #|
-#	awk -F '"' '
-#		/phr1/ || /<th class="News">[0-9][0-9]?[0-9]?<\/th>/ {
-#			printf "%s\t", $3
-#			getline
-#			printf "%s\thttp://distrowatch.com/%s\n", $5, $4
-#		}
-#	' |
-#	sed 's/<[^>]*>//g;s/>//g' |
-#	if test $lista -eq 1
-#	then
-#		expand -t 4,18 | zzcolunar -w 60 2
-#	else
-#		sed 's/ *http.*//' | expand -t 4 | zzcolunar 4
-#	fi
+	zztool source "$url" |
+	sed '1,/>Rank</d' |
+	awk -F '"' '
+		/phr1/ || /<th class="News">[0-9][0-9]?[0-9]?<\/th>/ {
+			printf "%s\t", $3
+			getline
+			printf "%s\thttp://distrowatch.com/%s\n", $5, $4
+		}
+	' |
+	sed 's/<[^>]*>//g;s/>//g' |
+	if test $lista -eq 1
+	then
+		expand -t 4,18 | zzcolunar -w 60 2
+	else
+		sed 's/ *http.*//' | expand -t 4 | zzcolunar 4
+	fi
 }
