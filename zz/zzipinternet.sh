@@ -15,5 +15,5 @@ zzipinternet ()
 	local url='http://ipaddress.com/'
 
 	# O resultado já vem pronto!
-	zztool dump "$url" | sed -n 's/.*Your IP address is: //p'
+	zztool dump "$url" | sed -n 's/.*Your IP .ddress is: //p'
 }
