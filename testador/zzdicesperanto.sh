@@ -28,7 +28,7 @@ nostalgio
 saŭdado
 $
 
-$ zzdicesperanto esperança | grep  -w 'espero'
+$ zzdicesperanto esperança | grep  -w 'espero' | uniq
 espero
 $
 
