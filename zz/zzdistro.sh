@@ -15,13 +15,13 @@
 # Desde: 2014-06-15
 # Versão: 2
 # Licença: GPL
-# Requisitos: zzcolunar
+# Requisitos: zzcolunar zzxml
 # ----------------------------------------------------------------------------
 zzdistro ()
 {
 	zzzz -h distro "$1" && return
 
-	local url="http://distrowatch.com/"
+	local url="https://distrowatch.com/"
 	local lista=0
 	local meses="1 4
 3 13
@@ -37,8 +37,9 @@ zzdistro ()
 
 	test -n "$1" && { zztool -e uso distro; return 1; }
 
-	zztool source "$url" | sed '1,/>Rank</d' |
-	awk -F'"' '
+	zztool source "$url" |
+	sed '1,/>Rank</d' |
+	awk -F '"' '
 		/phr1/ || /<th class="News">[0-9][0-9]?[0-9]?<\/th>/ {
 			printf "%s\t", $3
 			getline
@@ -46,7 +47,7 @@ zzdistro ()
 		}
 	' |
 	sed 's/<[^>]*>//g;s/>//g' |
-	if [ $lista -eq 1 ]
+	if test $lista -eq 1
 	then
 		expand -t 4,18 | zzcolunar -w 60 2
 	else
