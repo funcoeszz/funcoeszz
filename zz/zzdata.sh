@@ -507,7 +507,13 @@ zzdata ()
 				fi
 
 				# Se o resultado for 29/02 em um ano não-bissexto, muda pra 28/02
-				test $dd -eq 29 -a $mm -eq 2 &&	! zztestar ano_bissexto $yyyy && dd=28
+				if test $mm -eq 2
+				then
+					test $dd -eq 29 && ! zztestar ano_bissexto $yyyy && dd=28
+					test $dd -gt 29 && zztestar ano_bissexto $yyyy && dd=29
+					# Se for 30 ou 31/02 em um ano não bissexto, muda para 01/03
+					test $dd -gt 29 && ! zztestar ano_bissexto $yyyy && { dd=1; mm=3; }
+				fi
 
 				# Restaura o zero dos meses e dias menores que 10
 				test $dd -le 9 && dd="0$dd"
