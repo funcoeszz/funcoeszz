@@ -74,7 +74,8 @@ test "${0##*/}" = 'bash' -o "${0#-}" != "$0" || ZZPATH="$0"
 test -n "$ZZPATH" || ZZPATH=$ZZPATH_DFT
 test "${ZZPATH#/}" = "$ZZPATH" && ZZPATH="$PWD/${ZZPATH#./}"
 
-test -n "$ZZDIR" || ZZDIR=$ZZDIR_DFT
+test -d ${ZZPATH%/*}/zz && ZZDIR="${ZZPATH%/*}/zz"
+test -z "$ZZDIR" && test -d $ZZDIR_DFT && ZZDIR=$ZZDIR_DFT
 
 # Descobre qual o navegador em modo texto está disponível no sistema
 if test -z "$ZZBROWSER"
@@ -762,12 +763,12 @@ zzzz ()
 
 			if ! grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
 			then
-				# export ZZDIR="$ZZDIR"  # pasta com as funcoes
 				cat - >> "$bashrc" <<-EOS
 
 				# $instal_msg
 				export ZZOFF=""  # desligue funcoes indesejadas
 				export ZZPATH="$ZZPATH"  # script
+				export ZZDIR="$ZZDIR"    # pasta zz/
 				source "\$ZZPATH"
 				EOS
 
@@ -789,7 +790,10 @@ zzzz ()
 				cat - >> "$tcshrc" <<-EOS
 
 				# $instal_msg
+				# script
 				setenv ZZPATH $ZZPATH
+				# pasta zz/
+				setenv ZZDIR $ZZDIR
 				source $arquivo_aliases
 				EOS
 
@@ -827,7 +831,10 @@ zzzz ()
 				cat - >> "$zshrc" <<-EOS
 
 				# $instal_msg
+				# script
 				export ZZPATH=$ZZPATH
+				# pasta zz/
+				export ZZDIR=$ZZDIR
 				source $arquivo_aliases
 				EOS
 
