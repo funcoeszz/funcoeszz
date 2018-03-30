@@ -108,11 +108,15 @@ $ zzdata	1	+	29/02/2000		#→ 01/03/2000
 $ zzdata	29/02/2001				#→ Data inválida '29/02/2001', pois 2001 não é um ano bissexto.
 $ zzdata	1	 + 	29/02/2001		#→ Data inválida '29/02/2001', pois 2001 não é um ano bissexto.
 
-# Troca de 29/02 pra 28/02 quando o resultado do delta não é bissexto
+# Troca de 29 pra 28/02 e 30,31/02 para 01/03 quando o resultado do delta não é bissexto
 $ zzdata	29/02/2000	+	1a		#→ 28/02/2001
 $ zzdata	29/02/2000	+	4a		#→ 29/02/2004
+$ zzdata	31/01/2018	+	1m		#→ 01/03/2018
+$ zzdata	30/03/2016	-	1m		#→ 29/02/2016
 
 # delta
+$ zzdata	31/01/2018 + 30d	#→ 02/03/2018
+$ zzdata	31/01/2016 + 30d	#→ 01/03/2016
 $ zzdata	01/01/2000 + 0		#→ 01/01/2000
 $ zzdata	01/01/2000 + 0d		#→ 01/01/2000
 $ zzdata	01/01/2000 + 0m		#→ 01/01/2000
