@@ -49,12 +49,11 @@ Confira que as linhas foram adicionadas, e perceba que o PATH atual do script fi
     $ tail -4 ~/.bashrc
     # Instalacao das Funcoes ZZ (www.funcoeszz.net)
     export ZZOFF=""  # desligue funcoes indesejadas
-    export ZZPATH="/Users/aurelio/funcoeszz/funcoeszz"  # script
+    export ZZPATH="$HOME/funcoeszz/funcoeszz"  # script
+    export ZZDIR="$HOME/funcoeszz/zz"    # pasta zz/
     source "$ZZPATH"
 
-Você precisa adicionar "na mão" mais uma linha lá no `~/.bashrc`, antes do comando `source`, para indicar onde está a pasta com as funções:
-
-    export ZZDIR="$HOME/funcoeszz/zz"
+Confira o arquivo `~/.bashrc`( ou equivalente ), e edite conforme esse modelo adequando as suas configurações se for necessário, de preferência mantendo essa disposição.
 
 Agora sim, você pode usar as Funções ZZ em toda a sua glória. Abra um novo terminal e divirta-se!
 
