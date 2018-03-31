@@ -39,22 +39,25 @@ Obs.: Sem argumentos mostra a tabela completa, senão traduz uma palavra.
 Tipos reconhecidos:
 
  --militar | --radio | --fone | --otan | --icao | --ansi
-                         Alfabeto radiotelefônico internacional
- --romano | --latino     A B C D E F...
- --royal-navy            Marinha Real - Reino Unido, 1914-1918
- --signalese             Primeira Guerra, 1914-1918
- --raf24                 Força Aérea Real - Reino Unido, 1924-1942
- --raf42                 Força Aérea Real - Reino Unido, 1942-1943
- --raf                   Força Aérea Real - Reino Unido, 1943-1956
- --us                    Alfabeto militar norte-americano, 1941-1956
- --portugal              Lugares de Portugal
- --names                 Nomes de pessoas, em inglês
- --lapd                  Polícia de Los Angeles (EUA)
- --morse                 Código Morse
+                                Radiotelefônico internacional
+ --romano | --latino            A B C D E F...
+ --royal-navy | --royal         Marinha Real - Reino Unido, 1914-1918
+ --signalese | --western-front  Primeira Guerra, 1914-1918
+ --raf24                        Força Aérea Real - Reino Unido, 1924-1942
+ --raf42                        Força Aérea Real - Reino Unido, 1942-1943
+ --raf | --raf43                Força Aérea Real - Reino Unido, 1943-1956
+ --us | --us41                  Militar norte-americano, 1941-1956
+ --portugal | --pt              Lugares de Portugal
+ --name | --names               Nomes de pessoas, em inglês
+ --lapd                         Polícia de Los Angeles (EUA)
+ --morse                        Código Morse
+ --german                       Nomes de pessoas, em alemão
+ --all | --todos                Todos os códigos lado a lado
 
 Uso: zzalfabeto [--TIPO] [palavra]
 Ex.: zzalfabeto --militar
    zzalfabeto --militar cambio
+   zzalfabeto --us --german prossiga
 
 .fi
 
@@ -196,62 +199,6 @@ Ex.: zzblist 200.199.198.197
 .fi
 
 
-.SH zzbolsas
-
-.nf
-http://br.finance.yahoo.com
-Pesquisa índices de bolsas e cotações de ações.
-Sem parâmetros mostra a lista de bolsas disponíveis (códigos).
-Com 1 parâmetro:
- -l ou --lista: apenas mostra as bolsas disponíveis e seus nomes.
- --limpa ou --limpar: exclui todos os arquivos de cache.
- commodities: produtos de origem primária nas bolsas.
- taxas_fixas ou moedas: exibe tabela de comparação de câmbio (principais).
- taxas_cruzadas: exibe a tabela cartesiana do câmbio.
- nome_moedas ou moedas_nome: lista códigos e nomes das moedas usadas.
- servicos, economia ou politica: mostra notícias relativas a esse assuntos.
- noticias: junta as notícias de serviços e economia.
- volume: lista ações líderes em volume de negócios na Bovespa.
- alta ou baixa: lista as ações nessa condição na BMFBovespa.
- "código de bolsa ou ação": mostra sua última cotação.
-
-Com 2 parâmetros:
- -l e código de bolsa: lista as ações (códigos).
- --lista e "código de bolsa": lista as ações com nome e última cotação.
- taxas_fixas ou moedas <principais|europa|asia|latina>: exibe tabela de
-comparação de câmbio dessas regiões.
- "código de bolsa" e um texto: pesquisa-o no nome ou código das ações
- disponíveis na bolsa citada.
- "código de bolsa ou ação" e data: pesquisa a cotação no dia.
- noticias e "código de ação": Noticias relativas a essa ação (só Bovespa)
-
-Com 3 parâmetros ou mais:
- "código de bolsa ou ação" e 2 datas: pesquisa as cotações nos dias com
- comparações entre datas e variações da ação ou bolsa pesquisada.
- vs (ou comp) e 2 códigos de bolsas ou ações: faz a comparação entre as duas
-ações ou bolsas. Se houver um quarto parâmetro como uma data faz essa
-comparação na data especificada. Mas não compara ações com bolsas.
-
-Uso: zzbolsas [-l|--lista] [bolsa|ação] [data1|pesquisa] [data2]
-Ex.: zzbolsas                  # Lista das bolsas (códigos)
-   zzbolsas -l               # Lista das bolsas (nomes)
-   zzbolsas -l ^BVSP         # Lista as ações do índice Bovespa (código)
-   zzbolsas --lista ^BVSP    # Lista as ações do índice Bovespa (nomes)
-   zzbolsas ^BVSP loja       # Procura ações com "loja" no nome ou código
-   zzbolsas ^BVSP            # Cotação do índice Bovespa
-   zzbolsas PETR4.SA         # Cotação das ações da Petrobrás
-   zzbolsas PETR4.SA 21/12/2010  # Cotação da Petrobrás nesta data
-   zzbolsas commodities      # Tabela de commodities
-   zzbolsas alta             # Lista ações em altas na Bovespa
-   zzbolsas volume           # Lista ações em alta em volume de negócios
-   zzbolsas taxas_fixas
-   zzbolsas taxas_cruzadas
-   zzbolsas noticias sbsp3.sa    # Noticias recentes no mercado da Sabesp
-   zzbolsas vs petr3.sa vale3.sa # Compara ambas cotações
-
-.fi
-
-
 .SH zzbraille
 
 .nf
@@ -292,9 +239,6 @@ Ex.: zzbraille 'Olá mundo!'
 http://esporte.uol.com.br/
 Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B, C ou D.
 Se for fornecido um numero mostra os jogos da rodada, com resultados.
-Com argumento -l lista os todos os clubes da série A e B.
-Se o argumento -l for seguido do nome do clube, lista todos os jogos já
-ocorridos do clube desde o começo do ano de qualquer campeonato.
 
 Nomenclatura:
 PG  - Pontos Ganhos
@@ -307,15 +251,13 @@ GC  - Gols Contra
 SG  - Saldo de Gols
 (%) - Aproveitamento (pontos)
 
-Uso: zzbrasileirao [a|b|c] [numero rodada] ou zzbrasileirao -l [nome clube]
+Uso: zzbrasileirao [a|b|c|d] [numero rodada]
 Ex.: zzbrasileirao
    zzbrasileirao a
    zzbrasileirao b
    zzbrasileirao c
    zzbrasileirao 27
    zzbrasileirao b 12
-   zzbrasileirao -l
-   zzbrasileirao -l portuguesa
 
 .fi
 
@@ -409,28 +351,14 @@ Ex.: zzcarnaval
 .fi
 
 
-.SH zzcbn
-
-.nf
-http://cbn.globoradio.com.br
-Busca e toca os últimos comentários dos comentaristas da radio CBN.
-Uso: zzcbn [--audio] [num_audio] -c COMENTARISTA [-d data] ou  zzcbn --lista
-Ex.: zzcbn -c max-gehringer -d ontem
-   zzcbn -c juca-kfouri -d 13/05/09
-   zzcbn -c miriam
-   zzcbn --audio 2 -c  mario-sergio-cortella
-
-.fi
-
-
 .SH zzcep
 
 .nf
 http://www.achecep.com.br
 Busca o CEP de qualquer rua de qualquer cidade do país ou vice-versa.
-Pode-se fornecer apenas o CEP, ou o estado com endereço.
-Uso: zzcep <estado endereço | CEP>
-Ex.: zzcep SP Rua Santa Ifigênia
+Pode-se fornecer apenas o CEP, ou o endereço com estado.
+Uso: zzcep <endereço estado| CEP>
+Ex.: zzcep Rua Santa Ifigênia, São Paulo, SP
    zzcep 01310-000
 
 .fi
@@ -462,7 +390,6 @@ Ex.: zzchecamd5 ./ubuntu-8.10.iso f9e0494e91abb2de4929ef6e957f7753
 .SH zzcidade
 
 .nf
-http://pt.wikipedia.org/wiki/Lista_de_munic%C3%ADpios_do_Brasil
 Lista completa com todas as 5.500+ cidades do Brasil, com busca.
 Obs.: Sem argumentos, mostra uma cidade aleatória.
 
@@ -492,48 +419,10 @@ Ex.: zzcinclude stdio
 .nf
 http://www.cinemais.com.br
 Busca horários das sessões dos filmes no site do Cinemais.
-Cidades disponíveis:
-Uberaba                -   9
-Patos de Minas         -  11
-Guaratingueta          -  21
-Anapolis               -  32
-Resende                -  33
-Monte Carlos           -  34
-Juiz de Fora           -  35
+Sem argumento lista as cidades com os códigos dos cinemas.
 
-Uso: zzcinemais [cidade]
-Ex.: zzcinemais milenium
-
-.fi
-
-
-.SH zzcinemark
-
-.nf
-http://cinemark.com.br/programacao
-Exibe a programação dos cinemas Cinemark de sua cidade.
-Sem argumento lista todas as cidades e todas as salas mostrando os códigos.
-Com o cógigo da cidade lista as salas dessa cidade.
-Com o código das salas mostra os filmes do dia.
-Um segundo argumento caso pode ser a data, para listar os filmes desse dia.
-As datas devem ser futuras e conforme a padrão zzdata
-
-Uso: zzcinemark [codigo_cidade | codigo_cinema] [data]
-Ex.: zzcinemark 1            # Lista os cinemas de São Paulo
-   zzcinemark 662 sab      # Filmes de Raposo Shopping no sábado
-
-.fi
-
-
-.SH zzcinepolis
-
-.nf
-http://www.cinepolis.com.br/
-Exibe a programação dos cinemas Cinepólis de sua cidade.
-Se não for passado nenhum parâmetro, são listadas as cidades e cinemas.
-Uso: zzcinepolis [cidade | codigo_cinema]
-Ex.: zzcinepolis barueri
-   zzcinepolis 36
+Uso: zzcinemais [código cidade]
+Ex.: zzcinemais 9
 
 .fi
 
@@ -544,9 +433,8 @@ Ex.: zzcinepolis barueri
 http://www.ucicinemas.com.br
 Exibe a programação dos cinemas UCI de sua cidade.
 Se não for passado nenhum parâmetro, são listadas as cidades e cinemas.
-Uso: zzcineuci [cidade | codigo_cinema]
-Ex.: zzcineuci recife
-   zzcineuci 14
+Uso: zzcineuci [codigo_cinema]
+Ex.: zzcineuci 14
 
 .fi
 
@@ -565,17 +453,39 @@ Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ informado
 .fi
 
 
+.SH zzcodchar
+
+.nf
+Codifica caracteres como entidades HTML e XML (&lt; &#62; ...).
+Entende entidades (&gt;), códigos decimais (&#62;) e hexadecimais (&#x3E;).
+
+Opções: --html/--xml  Codifica caracteres em códigos HTML/XML
+      --hex         Codifica caracteres em códigos hexadecimais
+      --dec         Codifica caracteres em códigos decimais
+      -s            Com essa opção também codifica os espaços
+      --listar      Mostra a listagem completa de codificação
+                    Ou só a listagem da codificação escolhida
+
+Uso: zzcodchar [-s] [--listar cod] [--html|--xml|--dec|--hex] [arquivo(s)]
+Ex.: zzcodchar --html arquivo.xml
+   zzcodchar --hex  arquivo.html
+   cat arquivo.html | zzcodchar --dec
+   zzcodchar --listar html     #  Listagem dos caracteres e códigos html
+
+.fi
+
+
 .SH zzcoin
 
 .nf
-Retorna a cotação de criptomoedas em Reais (bitcoin e litecoins).
-Opções: btc ou bitecoin / ltc ou litecoin.
-Com as opções -a ou --all, várias criptomoedas cotadas em dólar.
-Uso: zzcoin [btc|bitcoin|ltc|litecoin|-a|--all]
+Retorna a cotação de criptomoedas em Reais (Bitcoin, Litecoins ou BCash).
+Opções: btc ou bitecoin (padrão) / ltc ou litecoin / bch ou bcash.
+
+Uso: zzcoin [btc|bitcoin|ltc|litecoin|bch|bcash|-a|--all]
 Ex.: zzcoin
    zzcoin btc
    zzcoin litecoin
-   zzcoin -a
+   zzcoin bch
 
 .fi
 
@@ -604,13 +514,39 @@ As opções -r, --right, -d, --direita alinham as colunas a direita.
 As opções -c, --center, --centro centralizam as colunas.
 A opção -j justifica as colunas.
 
+As opções -H ou --header usa a primeira linha como cabeçalho,
+repetindo-a no início de cada coluna.
+
 As opções -w, --width, --largura seguido de um número,
 determinam a largura que as colunas terão.
 
-Uso: zzcolunar [-n|-z] [-l|-r|-c] [-w <largura>] <colunas> arquivo
+A opção -s seguida de um TEXTO determina o separador de colunas,
+se não for declarado assume por padrão um espaço simples.
+
+Uso: zzcolunar [-n|-z] [-H] [-l|-r|-c|-j] [-w <largura>] <colunas> arquivo
 Ex.: zzcolunar 3 arquivo.txt
    zzcolunar -c -w 20 5 arquivo.txt
    cat arquivo.txt | zzcolunar -z 4
+   zzcolunar --header 3 arquivo.txt
+
+.fi
+
+
+.SH zzconjugar
+
+.nf
+Conjuga verbo em todos os modos.
+E pode-se filtrar pelo modo no segundo argumento:
+ ind => Indicativo
+ sub => Subjuntivo
+ imp => Imperativo
+ inf => Infinitivo
+
+Ou apenas a definição do verbo se o segundo argumento for: def
+
+Uso: zzconjugar verbo [ ind | sub | imp | inf | def ]
+Ex.: zzconjugar correr
+   zzconjugar comer sub
 
 .fi
 
@@ -650,27 +586,56 @@ Ex.: zzcontapalavras arquivo.txt
 .SH zzconverte
 
 .nf
-Faz várias conversões como: caracteres, temperatura e distância.
-       cf = (C)elsius             para (F)ahrenheit
-       fc = (F)ahrenheit          para (C)elsius
-       ck = (C)elsius             para (K)elvin
-       kc = (K)elvin              para (C)elsius
-       fk = (F)ahrenheit          para (K)elvin
-       kf = (K)elvin              para (F)ahrenheit
-       km = (K)Quilômetros        para (M)ilhas
-       mk = (M)ilhas              para (K)Quilômetros
-       db = (D)ecimal             para (B)inário
-       bd = (B)inário             para (D)ecimal
-       cd = (C)aractere           para (D)ecimal
-       dc = (D)ecimal             para (C)aractere
-       hc = (H)exadecimal         para (C)aractere
-       ch = (C)aractere           para (H)exadecimal
-       dh = (D)ecimal             para (H)exadecimal
-       hd = (H)exadecimal         para (D)ecimal
-Uso: zzconverte <cf|fc|ck|kc|fk|kf|mk|km|db|bd|cd|dc|hc|ch|dh|hd> número
+Conversões de caracteres, temperatura, distância, ângulo, grandeza e escala.
+ Opções:
+-p seguido de um número sem espaço:
+   define a precisão dos resultados (casas decimais), o padrão é 2
+-e: Resposta expandida, mais explicativa.
+   Obs: sem essa opção a resposta é curta, apenas o número convertivo.
+
+Temperatura:
+ cf = (C)elsius      => (F)ahrenheit  | fc = (F)ahrenheit  => (C)elsius
+ ck = (C)elsius      => (K)elvin      | kc = (K)elvin      => (C)elsius
+ fk = (F)ahrenheit   => (K)elvin      | kf = (K)elvin      => (F)ahrenheit
+
+Distância:
+ km = (K)Quilômetros => (M)ilhas      | mk = (M)ilhas      => (K)Quilômetros
+ mj = (M)etros       => (J)ardas      | jm = (J)ardas      => (M)etros
+ mp = (M)etros       => (P)és         | pm = (P)és         => (M)etros
+ jp = (J)ardas       => (P)és         | pj = (P)és         => (J)ardas
+
+Ângulo:
+ gr = (G)raus        => (R)adianos    | rg = (R)adianos    => (G)raus
+ ga = (G)raus        => Gr(A)dos      | ag = Gr(A)dos      => (G)raus
+ ra = (R)adianos     => Gr(A)dos      | ar = Gr(A)dos      => (R)adianos
+
+Número:
+ db = (D)ecimal      => (B)inário     | bd = (B)inário     => (D)ecimal
+ dc = (D)ecimal      => (C)aractere   | cd = (C)aractere   => (D)ecimal
+ do = (D)ecimal      => (O)ctal       | od = (O)ctal       => (D)ecimal
+ dh = (D)ecimal      => (H)exadecimal | hd = (H)exadecimal => (D)ecimal
+ hc = (H)exadecimal  => (C)aractere   | ch = (C)aractere   => (H)exadecimal
+ ho = (H)exadecimal  => (O)ctal       | oh = (O)ctal       => (H)exadecimal
+ hb = (H)exadecimal  => (B)inário     | bh = (B)inário     => (H)exadecimal
+ ob = (O)ctal        => (B)inário     | bo = (B)inário     => (O)ctal
+
+Escala:
+ Y => yotta      G => giga       d => deci       p => pico
+ Z => zetta      M => mega       c => centi      f => femto
+ E => exa        K => quilo      m => mili       a => atto
+ P => peta       H => hecto      u => micro      z => zepto
+ T => tera       D => deca       n => nano       y => yocto
+ un => unidade
+
+Uso: zzconverte [-p<número>] [-e] <código(s)> [<código>] número [número ...]
 Ex.: zzconverte cf 5
    zzconverte dc 65
-   zzconverte db 32
+   zzconverte db 32 47 28
+   zzconverte -p9 mp 3  # Converte metros em pés com 9 casas decimais
+   zzconverte G u 32    # Converte 32 gigas em 32000000000000000 micros
+   zzconverte f H 7     # Converte 7 femtos em 0.00000000000000007 hecto
+   zzconverte T 4       # Converte 4 teras em 4000000000000 unidades
+   zzconverte un M 3    # Converte 3 unidades em 0.000003 megas
 
 .fi
 
@@ -713,13 +678,73 @@ Ex.: zzcotacao
 .SH zzcpf
 
 .nf
-Cria, valida ou formata um número de CPF.
+Cria, valida, formata ou retorna o(s) estado(s) de um número de CPF.
 Obs.: O CPF informado pode estar formatado (pontos e hífen) ou não.
-Uso: zzcpf [-f] [cpf]
-Ex.: zzcpf 123.456.789-09          # valida o CPF informado
-   zzcpf 12345678909             # com ou sem pontuação
-   zzcpf                         # gera um CPF válido (aleatório)
-   zzcpf -f 12345678909          # formata, adicionando pontuação
+Uso: zzcpf [-f|-F|-e|-q] [cpf]
+Ex.: zzcpf 123.456.789-09      # valida o CPF informado
+   zzcpf 12345678909         # com ou sem pontuação
+   zzcpf                     # gera um CPF válido (aleatório)
+   zzcpf -f 12345678909      # formata, adicionando pontuação
+   zzcpf -F 12345678909      # desformata, tirando pontuação
+   zzcpf -e 12345678909      # estado(s) de um CPF Válido
+   zzcpf -q 12345678909      # apenas código de retorno, sem mensagens
+
+.fi
+
+
+.SH zzcut
+
+.nf
+Exibe partes selecionadas de linhas de cada ARQUIVO/STDIN na saída padrão.
+É uma emulação do comando cut, com recursos adicionais.
+
+Opções:
+ -c LISTA    seleciona apenas estes caracteres.
+
+ -d DELIM    usa DELIM em vez de TAB (padrão) como delimitador de campo.
+
+ -f LISTA    seleciona somente estes campos; também exibe qualquer
+           linha que não contenha o caractere delimitador.
+
+ -s          não emite linhas que não contenham delimitadores.
+
+ -D TEXTO    usa TEXTO como delimitador da saída
+           o padrão é usar o delimitador de entrada.
+
+ -v          Inverter o sentido, apagando as partes selecionadas.
+
+ Obs.:  1) Se o delimitador da entrada for uma Expressão Regular,
+         é recomendando declarar o delimitador de saída.
+      2) Se o delimitador de entrada for ou possuir:
+          - '\e' (contra-barra), use '\e\e' (1 escape) para cada '\e'.
+          - '/' (barra), use '[/]' (lista em ER) para cada '/'.
+      3) Se o delimitador de saída for ou possuir:
+          - '\e' (contra-barra), use '\e\e\e\e' (3 escapes) para cada '\e'.
+          - '/' (barra), use '\e/' (1 escape) para cada '/'.
+
+ Use uma, e somente uma, das opções -c ou -f.
+ Cada LISTA é feita de um ou vários intervalos separados por vírgulas.
+ Cada intervalo da lista exibe seu trecho, mesmo se for repetido.
+
+ Cada intervalo pode ser:
+ N     caractere ou campo na posição N, começando por 1.
+ N-    Do caractere ou campo na posição N até o fim da linha.
+ N-M   Do caractere ou campo na posição N até a posição M.
+ -M    Do primeiro caractere ou campo até a posição M.
+ -     Do primeiro caractere ou campo até ao fim da linha.
+ N~M   Do caractere ou campo na posição N até o final indo em M saltos.
+ ~M    Do começo até o fim da linha em M saltos de caracteres ou campos.
+ d     Caractere "d", posicionar o delimitador na saida de caracteres.
+
+Uso: zzcut <-c|-f> <número[s]|range> [-d <delimitador>] [-v]
+Ex.: zzcut -c 5,2 arq.txt     # 5º caractere, seguido pelo 2º caractere
+   zzcut -c 7-4,9- arq.txt  # 7º ao 4º e depois do 9º ao fim da linha
+   zzcut -v -c 3-8 arq.txt  # Exclui do 3º ao 8º caractere
+   zzcut -f 1,-,3  arq.txt  # 1º campo, toda linha e 3º campo
+   zzcut -v -f 6-  arq.txt  # Exclui a partir do 6º campo
+   zzcut -f 8,8,8 -d ";" arq.txt   # 8º campo 3 vezes. Delimitador ";"
+   zzcut -f 10,6 -d: -D _ arq.txt  # 10º e 6º campos, novo delimitador _
+   zzcut -c 1,d,10 -D: arq.txt     # 1º e 10º caracteres. Delimitador :
 
 .fi
 
@@ -913,11 +938,11 @@ Ex.: zzdicasl ssh
 .nf
 http://www.babylon.com
 Tradução de uma palavra em inglês para vários idiomas.
-Francês, alemão, japonês, italiano, hebreu, espanhol, holandês e português.
+Francês, alemão, italiano, hebreu, espanhol, holandês e português.
 Se nenhum idioma for informado, o padrão é o português.
-Uso: zzdicbabylon [idioma] palavra   #idioma:dut fre ger heb ita jap ptg spa
+Uso: zzdicbabylon [idioma] palavra   #idiomas: nl fr de he it pt es
 Ex.: zzdicbabylon hardcore
-   zzdicbabylon jap tree
+   zzdicbabylon he tree
 
 .fi
 
@@ -955,17 +980,12 @@ Ex.: zzdicjargon vi
 .nf
 http://www.dicio.com.br
 Dicionário de português.
-Definição de palavras e conjugação verbal
 Fornecendo uma "palavra" como argumento retorna seu significado e sinônimo.
 Se for seguida do termo "def", retorna suas definições.
-Se for seguida do termo "conj", retorna todas as formas de conjugação.
-Pode-se filtrar pelos modos de conjugação, fornecendo após o "conj" o modo
-desejado:
-ind (indicativo), sub (subjuntivo), imp (imperativo), inf (infinitivo)
 
-Uso: zzdicportugues palavra [def|conj [ind|sub|conj|imp|inf]]
+Uso: zzdicportugues palavra [def]
 Ex.: zzdicportugues bolacha
-   zzdicportugues verbo conj sub
+   zzdicportugues comer def
 
 .fi
 
@@ -1007,6 +1027,20 @@ Ex.: zzdistro
    zzdistro 2010  # Ranking em 2010
    zzdistro 3     # Ranking dos últimos 3 meses.
    zzdistro       # Ranking dos últimos 6 meses, com os links.
+
+.fi
+
+
+.SH zzdividirtexto
+
+.nf
+Divide um texto por uma quantidade máxima de palavras por linha.
+Sem argumento a quantidade padrão é 15
+
+Uso: zzdividirtexto [número]
+Ex.: zzdividirtexto 10
+   zzdividirtexto 3 Um texto para servir de exemplo no teste.
+   cat arquivo.txt | zzdividirtexto
 
 .fi
 
@@ -1103,27 +1137,6 @@ Ex.: zzenglish momentum
 .fi
 
 
-.SH zzenviaemail
-
-.nf
-Envia email via ssmtp.
-Opções:
--h, --help     exibe a ajuda.
--v, --verbose  exibe informações para debug durante o processamento.
--V, --version  exibe a versão.
--f, --from     email do remetente.
--t, --to       email dos destinatários (separe com vírgulas, sem espaço).
--c, --cc       email dos destinatários em cópia (vírgulas, sem espaço).
--b, --bcc      emails em cópia oculta (vírgulas, sem espaço).
--s, --subject  o assunto do email.
--e, --mensagem arquivo que contém a mensagem/corpo do email.
-Uso: zzenviaemail -f email -t email [-c email] [-b email] -s assunto -m msg
-Ex.: zzenviaemail -f quem_envia@dominio.com -t quem_recebe@dominio.com \e
-   -s "Teste de e-mail" -m "./arq_msg.eml"
-
-.fi
-
-
 .SH zzestado
 
 .nf
@@ -1155,6 +1168,18 @@ Ex.: zzestado                      # [mostra a lista completa]
 .fi
 
 
+.SH zzexcuse
+
+.nf
+Da uma desculpa comum de desenvolvedor ( em ingles ).
+Com a opção -t ou --traduzir mostra as desculpas traduzidas.
+
+Uso: zzexcuse [-t|--traduzir]
+Ex.: zzexcuse
+
+.fi
+
+
 .SH zzextensao
 
 .nf
@@ -1170,18 +1195,15 @@ Ex.: zzextensao /tmp/arquivo.txt       # resulta em "txt"
 .SH zzfatorar
 
 .nf
-http://www.primos.mat.br
 Fatora um número em fatores primos.
 Com as opções:
---atualiza: atualiza o cache com 10 mil primos (padrão e rápida).
---atualiza-1m: atualiza o cache com 1 milhão de primos (mais lenta).
 --bc: saída apenas da expressão, que pode ser usado no bc, awk ou etc.
 --no-bc: saída apenas do fatoramento.
  por padrão exibe tanto o fatoramento como a expressão.
 
 Se o número for primo, é exibido a mensagem apenas.
 
-Uso: zzfatorar [--atualiza|--atualiza-1m] [--bc|--no-bc] <número>
+Uso: zzfatorar [--bc | --no-bc] <número>
 Ex.: zzfatorar 1458
    zzfatorar --bc 1296
 
@@ -1194,13 +1216,18 @@ Ex.: zzfatorar 1458
 Leitor de Feeds RSS, RDF e Atom.
 Se informar a URL de um feed, são mostradas suas últimas notícias.
 Se informar a URL de um site, mostra a URL do(s) Feed(s).
-Obs.: Use a opção -n para limitar o número de resultados (Padrão é 10).
+
+Opções:
+ -n para limitar o número de resultados (Padrão é 10).
+ -u para simular navegador Mozilla/Firefox (alguns sites precisam disso).
+
 Para uso via pipe digite dessa forma: "zzfeed -", mesma forma que o cat.
 
 Uso: zzfeed [-n número] URL...
 Ex.: zzfeed http://aurelio.net/feed/
    zzfeed -n 5 aurelio.net/feed/          # O http:// é opcional
    zzfeed aurelio.net funcoeszz.net       # Mostra URL dos feeds
+   zzfeed -u funcoeszz.net                # UserAgent do lynx diferente
    cat arquivo.rss | zzfeed -             # Para uso via pipe
 
 .fi
@@ -1264,6 +1291,8 @@ Suporta um argumento que pode ser um dos dias da semana, como:
 Ou um ou dois argumentos para ver resultados do jogos:
 resultado ou placar, que pode ser acompanhado de hoje, ontem, anteontem.
 
+Nos casos dos dias, podem ser usadas datas no formato DD/MM/AAAA.
+
 Um filtro com nome do campeonato, nome do time, ou horário de uma partida.
 
 Uso: zzfutebol [resultado | placar ] [ argumento ]
@@ -1300,18 +1329,6 @@ Ex.: zzglobo
 .fi
 
 
-.SH zzgoogle
-
-.nf
-http://google.com
-Pesquisa no Google diretamente pela linha de comando.
-Uso: zzgoogle [-n <número>] palavra(s)
-Ex.: zzgoogle receita de bolo de abacaxi
-   zzgoogle -n 5 ramones papel higiênico cachorro
-
-.fi
-
-
 .SH zzgravatar
 
 .nf
@@ -1338,18 +1355,6 @@ Ex.: zzgravatar fulano@dominio.com.br
 .fi
 
 
-.SH zzhastebin
-
-.nf
-http://hastebin.com/
-Gera link para arquivos de texto em geral.
-
-Uso: zzhastebin [arquivo]
-Ex.: zzhastebin helloworld.sh
-
-.fi
-
-
 .SH zzhexa2str
 
 .nf
@@ -1358,6 +1363,23 @@ Uso: zzhexa2str [bytes]
 Ex.: zzhexa2str 40 4d 65 6e 74 65 42 69 6e 61 72 69 61   # sem prefixo
    zzhexa2str 0x42 0x69 0x6E                           # com prefixo 0x
    echo 0x42 0x69 0x6E | zzhexa2str
+
+.fi
+
+
+.SH zzhoracerta
+
+.nf
+http://www.worldtimeserver.com
+Mostra a hora certa de um determinado local.
+Se nenhum parâmetro for passado, são listados as localidades disponíveis.
+O parâmetro pode ser tanto a sigla quando o nome da localidade.
+A opção -s realiza a busca somente na sigla.
+Uso: zzhoracerta [-s] local
+Ex.: zzhoracerta rio grande do sul
+   zzhoracerta -s br
+   zzhoracerta rio
+   zzhoracerta us-ny
 
 .fi
 
@@ -1377,23 +1399,6 @@ Ex.: zzhora 8:30 + 17:25        # preciso somar dois horários
    zzhora -r 5:30 - 8:00      # que horas ir dormir para acordar às 5:30?
    zzhora -r agora + 57:00    # e daqui 57 horas, será quando?
    zzhora 1:00 + 2:00 + 3:00 - 4:00 - 0:30   # cálculos múltiplos
-
-.fi
-
-
-.SH zzhoracerta
-
-.nf
-http://www.worldtimeserver.com
-Mostra a hora certa de um determinado local.
-Se nenhum parâmetro for passado, são listados as localidades disponíveis.
-O parâmetro pode ser tanto a sigla quando o nome da localidade.
-A opção -s realiza a busca somente na sigla.
-Uso: zzhoracerta [-s] local
-Ex.: zzhoracerta rio grande do sul
-   zzhoracerta -s br
-   zzhoracerta rio
-   zzhoracerta us-ny
 
 .fi
 
@@ -1424,6 +1429,22 @@ Ex.: zzhorariodeverao
 .fi
 
 
+.SH zzhoroscopo
+
+.nf
+http://m.horoscopovirtual.bol.uol.com.br/horoscopo/
+Consulta o horóscopo do dia.
+Deve ser informado o signo que se deseja obter a previsão.
+
+Signos: aquário, peixes, áries, touro, gêmeos, câncer, leão,
+      virgem, libra, escorpião, sagitário, capricórnio
+
+Uso: zzhoroscopo <signo>
+Ex.: zzhoroscopo sagitário    # exibe a previsão para o signo de sagitário
+
+.fi
+
+
 .SH zzhowto
 
 .nf
@@ -1436,12 +1457,51 @@ Ex.: zzhowto apache
 .fi
 
 
+.SH zzhsort
+
+.nf
+Ordenar palavras ou números horizontalmente.
+Opções:
+-r                              define o sentido da ordenação reversa.
+-d <sep>                        define o separador de campos na entrada.
+-D, --output-delimiter <sep>  define o separador de campos na saída.
+
+O separador na entrada pode ser 1 ou mais caracteres ou uma ER.
+Se não for declarado assume-se espaços em branco como separador.
+Conforme padrão do awk, o default seria FS = "[ \et]+".
+
+Se o separador de saída não for declarado, assume o mesmo da entrada.
+Caso a entrada também não seja declarada assume-se como um espaço.
+Conforme padrão do awk, o default é OFS = " ".
+
+Se o separador da entrada é uma ER, é bom declarar o separador de saída.
+
+Uso: zzhsort [-d <sep>] [-D | --output-delimiter <sep>] <Texto>
+Ex.: zzhsort "isso está desordenado"            # desordenado está isso
+   zzhsort -r -d ":" -D "-" "1:a:z:x:5:o"  # z-x-o-a-5-1
+   cat num.txt | zzhsort -d '[\et:]' --output-delimiter '\et'
+
+.fi
+
+
+.SH zzimc
+
+.nf
+Calcula o valor do IMC correspodente a sua estrutura corporal.
+
+Uso: zzimc <peso_em_KG> <altura_em_metros>
+Ex.: zzimc 108.5 1.73
+
+.fi
+
+
 .SH zziostat
 
 .nf
 Monitora a utilização dos discos no Linux.
 
 Opções:
+-n [número]    Quantidade de medições (padrão = 10; contínuo = 0)
 -t [número]    Mostra apenas os discos mais utilizados
 -i [segundos]  Intervalo em segundos entre as coletas
 -d [discos]    Mostra apenas os discos que começam com a string passada
@@ -1457,6 +1517,7 @@ Obs.: Se não for usada a opção -t, é mostrada a soma da utilização
 
 Uso: zziostat [-t número] [-i segundos] [-d discos] [-o trwT]
 Ex.: zziostat
+   zziostat -n 15
    zziostat -t 10
    zziostat -i 5 -o T
    zziostat -d emcpower
@@ -1467,10 +1528,36 @@ Ex.: zziostat
 .SH zzipinternet
 
 .nf
-http://www.getip.com
 Mostra o seu número IP (externo) na Internet.
 Uso: zzipinternet
 Ex.: zzipinternet
+
+.fi
+
+
+.SH zzit
+
+.nf
+Uma forma de ler o site Inovação Tecnológica.
+Sem opção mostra o resumo da página principal.
+
+Opções podem ser (ano)sub-temas e/ou número:
+
+Sub-temas podem ser:
+eletronica, energia, espaco, informatica, materiais,
+mecanica, meioambiente, nanotecnologia, robotica, plantao.
+ Que podem ser precedido do ano ao qual se quer listar
+
+Se a opção for um número mostra a matéria selecionada,
+seja da página principal ou de um sub-tema.
+
+Uso: zzit [[ano] sub-tema] [número]
+Ex.: zzit                 # Um resumo da página principal
+   zzit espaco          # Um resumo do sub-tem espaço
+   zzit 3               # Exibe a terceira matéria da página principal
+   zzit mecanica 7      # Exibe a sétima matéria do sub-tema mecânica
+   zzit 2003 energia    # Um resumo do sub-tema energia em 2003
+   zzit 2012 plantao 2  # Exibe a 2ª matéria de 2012 no sub-tema plantao
 
 .fi
 
@@ -1537,35 +1624,6 @@ Ex.: zzjuntalinhas arquivo.txt
    zzjuntalinhas -d : -i 10 -f 20 arquivo.txt   # junta linhas 10 a 20
    zzjuntalinhas -d : -i 10 arquivo.txt         # junta linha 10 em diante
    cat /etc/named.conf | zzjuntalinhas -d '' -i '^[a-z]' -f '^}'
-
-.fi
-
-
-.SH zzjuros
-
-.nf
-Mostra a listagem de taxas de juros que o Banco Central acompanha.
-São instituições financeiras, que estão sob a supervisão do Banco Central.
-Com argumento numérico, detalha a listagem solicitada.
-A numeração fica entre 1 e 27
-
-Uso: zzjuros [numero consulta]
-Ex.: zzjuros
-   zzjuros 19  # Mostra as taxas de desconto de cheque para pessoa física.
-
-.fi
-
-
-.SH zzkill
-
-.nf
-Mata processos pelo nome do seu comando de origem.
-Com a opção -n, apenas mostra o que será feito, mas não executa.
-Se nenhum argumento for informado, mostra a lista de processos ativos.
-Uso: zzkill [-n] [comando [comando2 ...]]
-Ex.: zzkill
-   zzkill netscape
-   zzkill netsc soffice startx
 
 .fi
 
@@ -1733,16 +1791,18 @@ Ex.: zzlorem 10
 .SH zzloteria
 
 .nf
-http://www1.caixa.gov.br/loterias
 Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal, timemania e loteca.
 
 Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
+Se o 2º argumento for a palavra "quantidade" ou "qtde" mostra quantas vezes
+ um número foi sorteado. ( Não se aplica para federal e loteca )
 Se nenhum argumento for passado, todas as loterias são mostradas.
 
-Uso: zzloteria [[loteria suportada] concurso]
+Uso: zzloteria [[loterias suportadas] [concurso|[quantidade|qtde]]
 Ex.: zzloteria
    zzloteria quina megasena
    zzloteria loteca 550
+   zzloteria quina qtde
 
 .fi
 
@@ -1760,6 +1820,18 @@ Ex.: zzlua --atualiza        # Força atualização do cache
    zzlua file              # mostra as funções com "file" no nome
    zzlua -d debug.debug    # mostra descrição da função debug.debug
    zzlua ^d                # mostra as funções que começam com d
+
+.fi
+
+
+.SH zzmacvendor
+
+.nf
+Mostra o fabricante do equipamento utilizando o endereço MAC.
+
+Uso: zzmacvendor <MAC Address>
+Ex.: zzmacvendor 88:5A:92:C7:41:40
+   zzmacvendor 88-5A-92-C7-41-40
 
 .fi
 
@@ -1815,23 +1887,24 @@ Em cada função foi colocado um pequeno help um pouco mais detalhado,
 pois ficou muito extenso colocar no help do zzmat apenas.
 
 Funções matemáticas disponíveis.
-Aritméticas:                     Trigonométricas:
- mmc mdc                          sen cos tan
- somatoria produtoria             csc sec cot
- media soma produto               asen acos atan
- log ln
- raiz, pow, potencia ou elevado
+Aritméticas:               | Trigonométricas:
+ mmc    mdc                |  sen   cos   tan
+ media  soma  produto      |  csc   sec   cot
+ log    ln    raiz         |  asen  acos  atan
+ somatoria    produtoria
+ pow, potencia ou elevado
 
-Combinatória:             Sequências:          Funções:
- fat                       pa pa2 pg lucas      area volume r3
- arranjo arranjo_r         fibonacci ou fib     det vetor d2p
- combinacao combinacao_r   tribonacci ou trib
+Combinatória:        | Sequências:          | Funções:
+ fat                 |  pa  pa2  pg  lucas  |  area  volume  r3
+ arranjo  arranjo_r  |  fibonacci  ou fib   |  det   vetor   d2p
+ combinacao          |  tribonacci ou trib
+ combinacao_r        |  mersenne  recaman  collatz
 
-Equações:                  Auxiliares:
- eq2g egr err                converte
- egc egc3p ege               abs int sem_zeros
- newton ou binomio_newton    aleatorio random
- conf_eq                     compara_num
+Equações:                  | Auxiliares:
+ eq2g  egr    err          |  abs  int
+ egc   egc3p  ege          |  sem_zeros
+ newton ou binomio_newton  |  aleatorio  random
+ conf_eq                   |  compara_num
 
 Mais detalhes: zzmat função
 
@@ -1840,6 +1913,21 @@ Ex.: zzmat mmc 8 12
    zzmat media 5[2] 7 4[3]
    zzmat somatoria 3 9 2x+3
    zzmat -p3 sen 60g
+
+.fi
+
+
+.SH zzmcd
+
+.nf
+Cria diretórios e subdiretórios, e muda diretório de trabalho (primeiro).
+
+Opções:
+   -n: Cria os diretórios, mas não muda o diretório de trabalho atual.
+   -s: Apenas simula o comando mkdir com os argumentos
+
+Uso: zzmcd [-n|-s] <dir[/subdir]> [dir[/subdir]]
+Ex.: zzmcd tmp1/tmp2
 
 .fi
 
@@ -1860,12 +1948,13 @@ Ex.: zzmd5 arquivo.txt
 .SH zzminiurl
 
 .nf
-http://migre.me
-Encurta uma URL utilizando o site migre.me.
+Encurta uma URL utilizando o google ("https://goo.gl/").
+Caso a URL já seja encurtada, será exibida a URL completa.
 Obs.: Se a URL não tiver protocolo no início, será colocado http://
 Uso: zzminiurl URL
 Ex.: zzminiurl http://www.funcoeszz.net
    zzminiurl www.funcoeszz.net         # O http:// no início é opcional
+   zzminiurl https://goo.gl/yz4cb9
 
 .fi
 
@@ -1947,18 +2036,6 @@ Ex.: zzmudaprefixo -a "antigo_prefixo" -n "novo_prefixo"
 .fi
 
 
-.SH zznarrativa
-
-.nf
-http://translate.google.com
-Narra frases em português usando o Google Tradutor.
-
-Uso: zznarrativa palavras
-Ex.: zznarrativa regex é legal
-
-.fi
-
-
 .SH zznatal
 
 .nf
@@ -1967,6 +2044,46 @@ A mensagem "Feliz Natal" em vários idiomas.
 Uso: zznatal [palavra]
 Ex.: zznatal                   # busca um idioma aleatório
    zznatal russo             # Feliz Natal em russo
+
+.fi
+
+
+.SH zznerdcast
+
+.nf
+Lista os episódios do podcast NerdCast.
+
+Opções para a listagem:
+-n <número> - Quantidade de resultados retornados (padrão = 15)
+-d <data>   - Filtra por uma data específica.
+-m <mês>    - Filtra por um mês específico. Sem o ano seleciona atual.
+-a <ano>    - Filtra por um ano em específico.
+
+Obs.: No lugar de -d, -m, -a pode usar --data, --mês ou --mes, --ano.
+      Na opção -d, <data> pode ser "hoje", "ontem" e "anteontem".
+      Na opção -n, <número> se for igual a 0, não limita a quantidade.
+
+Opções adicionais são consideradas termos a serem filtrados na consulta.
+
+Uso: zznerdcast [-n <número>| -d <data> | -m <mês>| -a <ano>] [texto]
+Ex.: zznerdcast
+   zznerdcast -n 30
+   zznerdcast -d 28.10.16
+   zznerdcast -m 5/2014
+   zznerdcast -a 2014 Empreendedor
+   zznerdcast Terra
+
+.fi
+
+
+.SH zznomealeatorio
+
+.nf
+Gera um nome aleatório de N caracteres, alternando consoantes e vogais.
+Obs.: Se nenhum parâmetro for passado, gera um nome de 6 caracteres.
+Uso: zznomealeatorio [N]
+Ex.: zznomealeatorio
+   zznomealeatorio 8
 
 .fi
 
@@ -1983,18 +2100,6 @@ Por padrão lista origem e significado.
 Uso: zznome nome [significado|origem|letra|marca|numerologia|tarot|tudo]
 Ex.: zznome maria
    zznome josé origem
-
-.fi
-
-
-.SH zznomealeatorio
-
-.nf
-Gera um nome aleatório de N caracteres, alternando consoantes e vogais.
-Obs.: Se nenhum parâmetro for passado, gera um nome de 6 caracteres.
-Uso: zznomealeatorio [N]
-Ex.: zznomealeatorio
-   zznomealeatorio 8
 
 .fi
 
@@ -2025,12 +2130,13 @@ Busca as últimas notícias sobre Linux em sites nacionais.
 Obs.: Cada site tem uma letra identificadora que pode ser passada como
     parâmetro, para informar quais sites você quer pesquisar:
 
-      B)r Linux            N)otícias linux
-      V)iva o Linux        U)nder linux
+      B) Br-Linux             C) Canal Tech
+      D) Diolinux             L) Linux Descomplicado
+      Z) Linuxbuzz
 
 Uso: zznoticiaslinux [sites]
 Ex.: zznoticiaslinux
-   zznoticiaslinux yn
+   zznoticiaslinux bv
 
 .fi
 
@@ -2042,13 +2148,12 @@ Busca as últimas notícias em sites especializados em segurança.
 Obs.: Cada site tem uma letra identificadora que pode ser passada como
     parâmetro, para informar quais sites você quer pesquisar:
 
-    Linux Security B)rasil    Linux T)oday - Security
-    Linux S)ecurity           Security F)ocus
-    C)ERT/CC
+    C)ERT/CC            Linux T)oday - Security
+    Linux S)ecurity     Security F)ocus
 
 Uso: zznoticiassec [sites]
 Ex.: zznoticiassec
-   zznoticiassec bcf
+   zznoticiassec cft
 
 .fi
 
@@ -2088,24 +2193,11 @@ Ex.: zznumero 12445.78                      # 12.445,78
 .fi
 
 
-.SH zzoperadora
-
-.nf
-http://consultaoperadora.com.br
-Consulta operadora de um número de telefone fixo/celular.
-O formato utilizado é: <DDD><NÚMERO>
-Não utilize espaços, (), -
-Uso: zzoperadora [número]
-Ex.: zzoperadora 1934621026
-
-.fi
-
-
 .SH zzora
 
 .nf
 http://ora-code.com
-Retorna a descrição do erro Oracle (ORA-NNNNN).
+Retorna a descrição do erro Oracle (AAA-99999).
 Uso: zzora numero_erro
 Ex.: zzora 1234
 
@@ -2136,7 +2228,6 @@ Ex.: zzpad -x 'NO' 21 foo     # fooNONONONONONONONONO
 .SH zzpais
 
 .nf
-http://pt.wikipedia.org/wiki/Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais
 Lista os países.
 Opções:
  -a: Todos os países
@@ -2214,17 +2305,6 @@ Ex.: zzphp --atualiza              # Força atualização do cache
 .fi
 
 
-.SH zzpiada
-
-.nf
-http://www.xalexandre.com.br/
-Mostra uma piada diferente cada vez que é chamada.
-Uso: zzpiada
-Ex.: zzpiada
-
-.fi
-
-
 .SH zzplay
 
 .nf
@@ -2284,7 +2364,6 @@ Ex.: zzporta
 .SH zzpronuncia
 
 .nf
-http://www.m-w.com
 Fala a pronúncia correta de uma palavra em inglês.
 Uso: zzpronuncia palavra
 Ex.: zzpronuncia apple
@@ -2319,22 +2398,6 @@ Ex.: zzramones punk
 .fi
 
 
-.SH zzrandbackground
-
-.nf
-Muda aleatoriamente o background do GNOME.
-A opção -l faz o script entrar em loop.
-ATENÇÃO: o caminho deve conter a última / para que funcione:
-/wallpaper/ <- funciona
-/wallpaper  <- não funciona
-
-Uso: zzrandbackground -l <caminho_wallpapers> <segundo>
-Ex.: zzrandbackground /media/wallpaper/
-   zzrandbackground -l /media/wallpaper/ 5
-
-.fi
-
-
 .SH zzrastreamento
 
 .nf
@@ -2347,12 +2410,14 @@ Ex.: zzrastreamento RK995267899BR
 .fi
 
 
-.SH zzrelansi
+.SH zzrepete
 
 .nf
-Coloca um relógio digital (hh:mm:ss) no canto superior direito do terminal.
-Uso: zzrelansi [-s|--stop]
-Ex.: zzrelansi
+Repete um dado texto na quantidade de vezes solicitada.
+Com a opção -l ou --linha cada repetição é uma nova linha.
+
+Uso: zzrepete [-l | --linha] <repetições> <texto>
+Ex.: zzrepete 15 Foo     # FooFooFooFooFooFooFooFooFooFooFooFooFooFooFoo
 
 .fi
 
@@ -2360,7 +2425,10 @@ Ex.: zzrelansi
 .SH zzromanos
 
 .nf
-Conversor de números romanos para indo-arábicos e vice-versa.
+Conversor de números romanos para hindu-arábicos e vice-versa.
+Converte corretamente para romanos números até 3999999.
+Converte corretamente para hindu-arábicos números até 4000.
+
 Uso: zzromanos número
 Ex.: zzromanos 1987                # Retorna: MCMLXXXVII
    zzromanos XLIII               # Retorna: 43
@@ -2397,7 +2465,7 @@ Ex.: zzrot47 texto secreto               # Retorna: E6IE@ D64C6E@
 .nf
 http://rpmfind.net/linux
 Procura por pacotes RPM em várias distribuições de Linux.
-Obs.: A arquitetura padrão de procura é a i386.
+Obs.: A arquitetura padrão de procura é a i586.
 Uso: zzrpmfind pacote [distro] [arquitetura]
 Ex.: zzrpmfind sed
    zzrpmfind lilo mandr i586
@@ -2410,11 +2478,11 @@ Ex.: zzrpmfind sed
 .nf
 Mostra os últimos 5 avisos de segurança de sistemas de Linux/UNIX.
 Suportados:
- Debian, Ubuntu, FreeBSD, NetBSD, Gentoo, Arch, Mandriva, Mageia,
- Slackware, Suse (OpenSuse), RedHat, Fedora.
+ Debian, Ubuntu, FreeBSD, NetBSD, Gentoo, Arch, Mageia,
+ Slackware, Suse, OpenSuse, Fedora.
 Uso: zzsecurity [distros]
 Ex.: zzsecurity
-   zzsecurity mandriva
+   zzsecurity mageia
    zzsecurity debian gentoo
 
 .fi
@@ -2485,6 +2553,18 @@ Ex.: zzsextapaixao
 .fi
 
 
+.SH zzsheldon
+
+.nf
+Exibe aleatoriamente uma frase do Sheldon, do seriado The Big Bang Theory.
+Com a opção -t ou --traduzir mostra os diálogos traduzidos.
+
+Uso: zzsheldon [-t|--traduzir]
+Ex.: zzsheldon
+
+.fi
+
+
 .SH zzshuffle
 
 .nf
@@ -2531,6 +2611,27 @@ Ex.: zzsplit 3 arq.txt  # Separa em 3: arq.txt.1, arq.txt.2, arq.txt.3
    # 3 linhas no arq.txt.1, 4 linhas no arq.txt.2 e 2 linhas no arq.txt.3
    zzsplit -p 2,-3,4 arq.txt   # Separa em 2 arquivos
    # 2 linhas no arq.txt.1, pula 3 linhas e 4 linhas no arq.txt.3
+
+.fi
+
+
+.SH zzsqueeze
+
+.nf
+Reduz vários espaços consecutivos vertical ou horizontalmente em apenas um.
+
+Opções:
+ -l ou --linha: Apenas linhas vazias consecutivas, se reduzem a uma.
+ -c ou --coluna: Espaços consecutivos em cada linha, são unidos em um.
+
+Obs.: Linhas inteiras com espaços ou tabulações,
+     tornam-se linhas de comprimento zero (sem nenhum caractere).
+
+Uso: zzsqueeze [-l|--linha] [-c|--coluna] arquivo
+Ex.: zzsqueeze arquivo.txt
+   zzsqueeze -l arq.txt   # Apenas retira linhas consecutivas em branco.
+   zzsqueeze -c arq.txt   # Transforma em 1 espaço, vários espaços juntos.
+   cat arquivo | zzsqueeze
 
 .fi
 
@@ -2612,15 +2713,118 @@ Ex.: zztac /etc/passwd
 .SH zztempo
 
 .nf
-http://weather.noaa.gov/
+Mostra previsão do tempo obtida em http://wttr.in/ por meio do comando curl.
 Mostra as condições do tempo (clima) em um determinado local.
-Se nenhum parâmetro for passado, são listados os países disponíveis.
-Se só o país for especificado, são listadas as suas localidades.
-As siglas também podem ser usadas, por exemplo SBPA = Porto Alegre.
-Uso: zztempo <país> <localidade>
-Ex.: zztempo 'United Kingdom' 'London City Airport'
-   zztempo brazil 'Curitiba Aeroporto'
-   zztempo brazil SBPA
+Se nenhum parâmetro for passado, é apresentada a previsão de Brasília.
+As siglas de aeroporto também podem ser utilizadas.
+
+Opções:
+
+-l, --lang, --lingua
+ Exibe a previsão em uma das línguas disponíveis: az be bg bs ca cy cs
+ da de el eo es et fi fr hi hr hu hy is it  ja jv ka kk ko ky lt lv mk
+ ml nl nn pt pl ro ru sk sl sr sr-lat sv sw th tr uk uz vi zh zu
+
+-u, --us
+ Retorna leitura em unidades USCS - United States customary units -
+ Unidades Usuais nos Estados Unidos. Isto é: "°F" para temperatura,
+ "mph" para velocidade do vento,  "mi" para visibilidade e "in" para
+ precipitação.
+
+-v, --vento
+ Retorna vento em m/s ao invés de km/h ou mph.
+
+-m, --monocromatico
+ Nao utiliza comandos de cores no terminal
+
+-s, --simples
+ Retorna versão curta, com previsão de meio-dia e noite apenas.
+ Utiliza 63 caracteres de largura contra os 125 da resposta completa.
+
+-c, --completo
+ Retorna versão completa, com 4 horários ao longo do dia.
+ Utiliza 125 caracteres de largura.
+
+-d, --dias
+Determina o número de dias (entre 0 e 3) de previsão apresentados.
+ -d 0 = apenas tempo atual. Também pode se chamado com -0
+ -d 1 = tempo atual mais 1 dia. Também pode se chamado com -1
+ -d 2 = tempo atual mais 2 dias. Também pode se chamado com -2
+ -d 3 = tempo atual mais 3 dias. Padrão.
+
+Uso: zztempo [parametros] <localidade>
+Ex.: zztempo 'São Paulo'
+   zztempo cwb
+   zztempo -d 0 Curitiba
+   zztempo -2 -l fr -s Miami
+
+.fi
+
+
+.SH zztestar
+
+.nf
+Testa a validade do número no tipo de categoria selecionada.
+Nada é ecoado na saída padrão, apenas deve-se analisar o código de retorno.
+Pode-se ecoar a saída de erro usando a opção -e antes da categoria.
+
+ Categorias:
+ano                      =>  Ano válido
+ano_bissexto | bissexto  =>  Ano Bissexto
+exp | exponencial        =>  Número em notação científica
+numero | numero_natural  =>  Número Natural ( inteiro positivo )
+numero_sinal | inteiro   =>  Número Inteiro ( positivo ou negativo )
+numero_fracionario       =>  Número Fracionário ( casas decimais )
+numero_real              =>  Número Real ( casas decimais possíveis )
+complexo                 =>  Número Complexo ( a+bi )
+dinheiro                 =>  Formato Monetário ( 2 casas decimais )
+bin | binario            =>  Número Binário ( apenas 0 e 1 )
+octal | octadecimal      =>  Número Octal ( de 0 a 7 )
+hexa | hexadecimal       =>  Número Hexadecimal ( de 0 a 9 e A até F )
+ip                       =>  Endereço de rede IPV4
+ip6 | ipv6               =>  Endereço de rede IPV6
+mac                      =>  Código MAC Address válido
+data                     =>  Data com formatação válida ( dd/mm/aaa )
+hora                     =>  Hora com formatação válida ( hh:mm )
+
+Obs.: ano, ano_bissextto e os
+      números naturais, inteiros e reais sem separador de milhar.
+
+Uso: zztestar [-e] categoria número
+Ex.: zztestar ano 1999
+   zztestar ip 192.168.1.1
+   zztestar hexa 4ca9
+   zztestar numero_real -45,678
+
+.fi
+
+
+.SH zztimer
+
+.nf
+Mostra um cronômetro regressivo.
+Opções:
+-n: Os números são ampliados para um formato de 5 linhas e 6 colunas.
+-x char: Igual a -n, mas os números são compostos pelo caracter "char".
+-y nums chars: Troca os nums por chars, igual ao comando 'y' no sed.
+   Obs.: nums e chars tem que ter a mesma quantidade de caracteres.
+-c: Apenas converte o tempo em segundos.
+-s: Aguarda o tempo como sleep, sem mostrar o cronômetro.
+-p: Usa uma temporização mais precisa, porém usa mais recursos.
+--teste: Desabilita centralização (usar depois das opções -n,-x,-y).
+
+Obs: Máximo de 99 horas.
+   Opções -n, -x, -y sempre centralizada na tela, exceto se usar --teste.
+
+Uso: zztimer [-c|-s|-n|-x char|-y nums chars] [-p] [[hh:]mm:]ss
+Ex.: zztimer 90           # Cronomêtro regressivo a partir de 1:30
+   zztimer 2:56         # Cronometragem regressiva simples.
+   zztimer -c 2:22      # Exibe o tempo em segundos (no caso 142)
+   zztimer -s 5:34      # Exibe o tempo em segundos e aguarda o tempo.
+   zztimer --centro 20  # Centralizado horizontal e verticalmente
+   zztimer -n 1:7:23    # Formato ampliado do número
+   zztimer -x H 65      # Com números feito pela letra 'H'
+   zztimer -y 0123456789 9876543210 60  # Troca os números
 
 .fi
 
@@ -2628,6 +2832,32 @@ Ex.: zztempo 'United Kingdom' 'London City Airport'
 .SH zztool
 
 .nf
+.fi
+
+
+.SH zztop
+
+.nf
+Lista os 10 computadores mais rápidos do mundo.
+Sem argumentos usa a listagem mais recente.
+Definindo categoria, quantifica os 500 computadores mais rápidos.
+
+Argumentos de ajuda:
+ -c: Exibe categorias possíveis
+ -l: Exibe as listas disponíveis
+
+Argumentos de listagem:
+ [categoria]: Seleciona a categoria desejada.
+ [lista]:     Seleciona a lista, se omitida mostra mais recente.
+Obs: Podem ser usadas em conjunto
+
+Uso: zztop [-c|-l] [categoria] [lista]
+Ex.: zztop             # Lista os 10 mais rápidos.
+   zztop osfam 23    # Famílias de OS em Junho de 2004 ( Virada Linux! )
+   zztop country     # Quantifica por pais entre os 500 mais velozes
+   zztop -c          # Lista as categorias possíveis da listagem
+   zztop -l          # Exibe todas as listas disponíveis
+
 .fi
 
 
@@ -2666,8 +2896,8 @@ Ex.: zztradutor o livro está na mesa    # the book is on the table
 .nf
 Trocar linhas e colunas de um arquivo, fazendo uma simples transposição.
 Opções:
--d, --fs separador   define o separador de campos na entrada.
---ofs separador      define o separador de campos na saída.
+-d <sep>                        define o separador de campos na entrada.
+-D, --output-delimiter <sep>  define o separador de campos na saída.
 
 O separador na entrada pode ser 1 ou mais caracteres ou uma ER.
 Se não for declarado assume-se espaços em branco como separador.
@@ -2679,9 +2909,9 @@ Conforme padrão do awk, o default é OFS = " ".
 
 Se o separador da entrada é uma ER, é bom declarar o separador de saída.
 
-Uso: zztranspor [-d | --fs <separador>] [--ofs <separador>] <arquivo>
-Ex.: zztranspor -d ":" --ofs "-" num.txt
-   sed -n '2,5p' num.txt | zztranspor --fs '[\et:]' --ofs '\et'
+Uso: zztranspor [-d <sep>] [-D | --output-delimiter <sep>] <arquivo>
+Ex.: zztranspor -d ":" --output-delimiter "-" num.txt
+   sed -n '2,5p' num.txt | zztranspor -d '[\et:]' -D '\et'
 
 .fi
 
@@ -2750,7 +2980,8 @@ Opções:
  canais - lista os canais com seus códigos para consulta.
 
  <código canal> - Programação do canal escolhido.
- Obs.: Se for seguido de "semana" ou "s" mostra toda programação semanal.
+ Obs.: Seguido de "semana" ou "s": toda programação das próximas semanas.
+     Se for seguido de uma data, mostra a programação da data informada.
 
  cod <número> - mostra um resumo do programa.
 Obs: número obtido pelas listagens da programação do canal consultado.
@@ -2759,9 +2990,10 @@ Programação corrente:
  doc ou documentario, esportes ou futebol, filmes, infantil, variedades
  series ou seriados, aberta, todos ou agora (padrão).
 
-Uso: zztv <código canal> [semana|s]  ou  zztv cod <número>
+Uso: zztv [<código canal> [s | <DATA>]]  ou  zztv [cod <número> | canais]
 Ex.: zztv CUL          # Programação da TV Cultura
-   zztv cod 3235238
+   zztv fox 31/5     # Programação da Fox na data, se disponível
+   zztv cod 3235238  # Detalhes do programa identificado pelo código
 
 .fi
 
@@ -2771,12 +3003,10 @@ Ex.: zztv CUL          # Programação da TV Cultura
 .nf
 Busca as mensagens mais recentes de um usuário do Twitter.
 Use a opção -n para informar o número de mensagens (padrão é 5, máx 20).
-Com a opção -r após o nome do usuário, lista também tweets respostas.
 
-Uso: zztweets [-n N] username [-r]
+Uso: zztweets [-n N] username
 Ex.: zztweets oreio
    zztweets -n 10 oreio
-   zztweets oreio -r
 
 .fi
 
@@ -2885,39 +3115,16 @@ Ex.: zzutf8 /etc/passwd
 .SH zzvdp
 
 .nf
-http://vidadeprogramador.com.br
+https://vidadeprogramador.com.br
 Mostra o texto das últimas tirinhas de Vida de Programador.
-Se fornecer uma data, mostra a tirinha do dia escolhido.
-Você pode informar a data dd/mm/aaaa ou usar palavras: hoje, (ante)ontem.
-Usando a mesma sintaxe do zzdata
+Sem opção mostra a tirinha mais recente.
+Se a opção for um número, mostra a tirinha que ocupa essa ordem
+Se a opção for 0, mostra todas mais recentes
 
-Uso: zzvdp [data [+|- data|número<d|m|a>]]
-Ex.: zzvdp
-   zzvdp anteontem
-
-.fi
-
-
-.SH zzve
-
-.nf
-Busca vários indicadores econômicos e financeiros, da Valor Econômico.
-As opções são categorizadas conforme segue:
-
-1. Indicadores Financeiros
-2. Índices Macroeconômicos
-3. Mercado Externo
-4. Bolsas
-5. Commodities
-
-Para mais detalhes digite: zzve <número>
-
-moedas       Variações de moedas internacionais
-
-Uso: zzve <opção>
-Ex.: zzve tr         # Tabela de Taxa Referencial, Poupança e TBF.
-   zzve moedas     # Cotações do Dólar, Euro e outras moedas.
-   zzve 3          # Mais detalhes de ajuda sobre "Mercado Externo".
+Uso: zzvdp [número]
+Ex.: zzvdp    # Mostra a tirinha mais recente
+   zzvdp 5  # Mostra a quinta tirinha mais recente
+   zzvdp 0  # Mostra todas as tirinhas mais recentes
 
 .fi
 
@@ -2928,9 +3135,40 @@ Ex.: zzve tr         # Tabela de Taxa Referencial, Poupança e TBF.
 Vira um texto, de trás pra frente (rev) ou de ponta-cabeça.
 Ideia original de: http://www.revfad.com/flip.html (valeu @andersonrizada)
 
-Uso: zzvira [-X] texto
+Uso: zzvira [-X|-E] texto
 Ex.: zzvira Inverte tudo             # odut etrevnI
    zzvira -X De pernas pro ar      # ɹɐ oɹd sɐuɹǝd ǝp
+   zzvira -E De pernas pro ar      # pǝ dǝɹuɐs dɹo ɐɹ
+
+.fi
+
+
+.SH zzwc
+
+.nf
+Contabiliza total de bytes, caracteres, palavras ou linhas de um arquivo.
+Ou exibe tamanho da maior linha em bytes, caracteres ou palavras.
+Opcionalmente exibe as maiores linhas, desse arquivo.
+Também aceita receber dados pela entrada padrão (stdin).
+É uma emulação do comando wc, que não contabiliza '\er' e '\en'.
+
+Opções:
+-c  total de bytes
+-m  total de caracteres
+-l  total de linhas
+-w  total de palavras
+-C, -L, -W  maior linha em bytes, caracteres ou palavras respectivamente
+-p Exibe a maior linha em bytes, caracteres ou palavras,
+   usado junto com as opções -C, -L e -W.
+
+ Se as opções forem omitidas adota -l -w -c por padrão.
+
+Uso: zzwc [-c|-C|-m|-l|-L|-w|-W] [-p] arquivo
+Ex.: echo "12345"       | zzwc -c     # 5
+   printf "abcde"     | zzwc -m     # 5
+   printf "abc\e123"   | zzwc -l     # 2
+   printf "xz\en789\en" | zzwc -L     # 3
+   printf "wk\en456"   | zzwc -M -p  # 456
 
 .fi
 
@@ -3000,5 +3238,5 @@ Ex.: zzzz
 .fi
 
 
-.\" man code generated by txt2tags 2.6.896 (http://txt2tags.org)
+.\" man code generated by txt2tags 2.6 (http://txt2tags.org)
 .\" cmdline: txt2tags manpage.t2t
