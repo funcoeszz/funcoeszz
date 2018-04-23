@@ -3,16 +3,16 @@
 # Use a opção -t ou --traducao para ver a sinopse traduzida pelo Google
 # Translate.
 #
-# Uso:	zzfilme [-t|--traducao] FILME
-# Ex.:	zzfilme matrix
-#		zzfilme 'matrix revolutions'
-#		zzfilme -t 'lord of the rings'
+# Uso:  zzfilme [-t|--traducao] FILME
+# Ex.:  zzfilme matrix
+#       zzfilme 'matrix revolutions'
+#       zzfilme -t 'lord of the rings'
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2018-04-16
-# Versão: 2
+# Versão: 1
 # Licença: GPL
-# Requisitos: zzxml, zztrim, zztradutor, zzecho
+# Requisitos: zzxml zztrim zztradutor zzecho zzcapitalize zzurldecode zzurlencode
 # ----------------------------------------------------------------------------
 zzfilme ()
 {
@@ -59,7 +59,7 @@ zzfilme ()
 		zzecho -n -N -l branco "${tab}Sinopse: " ; echo "$request" | awk -F= '/plot/ {print $2}' |
 		if test "$traducao" -eq 1
 		then
-			 zztradutor en-pt | zztrim
+			zztradutor en-pt | zztrim
 		else
 			cat -
 		fi
