@@ -3,10 +3,10 @@
 # Use a opção -t ou --traducao para ver a sinopse traduzida pelo Google
 # Translate.
 #
-# Uso:  zzfilme [-t|--traducao] FILME
-# Ex.:  zzfilme matrix
-#       zzfilme 'matrix revolutions'
-#       zzfilme -t 'lord of the rings'
+# Uso: zzfilme [-t|--traducao] FILME
+# Ex.: zzfilme matrix
+#      zzfilme 'matrix revolutions'
+#      zzfilme -t 'lord of the rings'
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2018-04-16
