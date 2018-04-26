@@ -8,7 +8,7 @@
 # Desde: 2013-03-19
 # Versão: 4
 # Licença: GPL
-# Requisitos: zjuntalinhas zzsqueeze zztrim zzunescape zzxml
+# Requisitos: zzjuntalinhas zzsqueeze zztrim zzunescape zzxml
 # ----------------------------------------------------------------------------
 zzcotacao ()
 {
