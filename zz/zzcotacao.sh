@@ -6,21 +6,25 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-19
-# Versão: 3
+# Versão: 4
 # Licença: GPL
-# Requisitos: zzsemacento
+# Requisitos: zjuntalinhas zzsqueeze zztrim zzunescape zzxml
 # ----------------------------------------------------------------------------
 zzcotacao ()
 {
 	zzzz -h cotacao "$1" && return
 
 	zztool eco "Infomoney"
-	zztool dump "http://www.infomoney.com.br/mercados/cambio" |
-	sed -n '/REAL VS. MOEDAS/,/mais cota/p' |
-	sed  '1d; $d;/^ *$/d;/n\/d/d;s/\[...png\]/        /' |
-	sed 's/Venda  *Var/Venda Var/;s/\[//g;s/\]//g' |
-	zzsemacento |
-	awk '{
+	zztool source "http://www.infomoney.com.br/mercados/cambio" |
+	sed -n '/<table class="table-general">/,/<\/table>/{/table>/q;p;}' |
+	zzjuntalinhas -i '<tr>' -f '</tr>' |
+	zzxml --untag |
+	zzsqueeze |
+	zztrim |
+	zzunescape --html |
+	awk '
+	/n\/d/ {next}
+	{
 		if ( NR == 1 ) printf "%18s  %6s  %6s   %6s\n", "", $2, $3, $4
 		if ( NR >  1 ) {
 			if (NF == 4) printf "%-18s  %6s  %6s  %6s\n", $1, $2, $3, $4
@@ -28,30 +32,19 @@ zzcotacao ()
 		}
 	}'
 
-	zztool eco "\nUOL - Economia"
+	echo
+	zztool eco "UOL - Economia"
 	# Faz a consulta e filtra o resultado
-	zztool dump 'http://economia.uol.com.br/cotacoes' |
-		tr -s ' ' |
-		sed -n '/Dólar comercial /,/Fonte Thompson Reuters/ {
-			# Linha original:
-			# Dólar com. 2,6203 2,6212 -0,79%
-
-			# faxina
-			/Bovespa/d
-			/\]/d
-			/^[[:blank:]]*$/d
-			/Fonte Thompson Reuters/d
-			s/com\./Comercial/
-			s/tur\./Turismo /
-			s/^[[:blank:]]*//
-			s/[[:blank:]]*$//
-			s/.*Dólar comercial[^0-9]*//
-			s/Variação/Var(%)/
-			s/arg\./Argentino/
-			s/\(.*\) - \(.*\) \{0,1\}\([0-9][0-9]h[0-9][0-9]\)*/\2|\3\
-\1/
-		p
-		}' |
+	zztool source 'http://economia.uol.com.br/cotacoes' |
+	zzxml --tidy |
+	sed -n '/<table class="borda mod-grafico-wide quatro-colunas">/,/table>/p' |
+	zzjuntalinhas -i '<tr>' -f '</tr>' |
+	zzjuntalinhas -i '<thead>' -f '</thead>' |
+	zzjuntalinhas -i '<caption' -f 'caption>' |
+	zzxml --untag |
+	zzsqueeze |
+	zztrim |
+	sed '1s/Dólar //;s/Variação/Var(%)/;s/comercial - //;s/com\./Comercial/;s/tur\./Turismo/;s/arg\./Argentino/;/^Fonte/d;/^Veja/d' |
 		awk '
 		NR==1
 		{
