@@ -24,9 +24,9 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 24
+# Versão: 25
 # Licença: GPL
-# Requisitos: zzecho zzpad
+# Requisitos: zzecho zzjuntalinhas zzpad zzsqueeze zztrim zzxml
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
@@ -54,14 +54,16 @@ zzbrasileirao ()
 	if test -n "$rodada"
 	then
 		zztool testa_numero $rodada || { zztool -e uso brasileirao; return 1; }
-		zztool dump "$url" |
-		sed -n "/Rodada ${rodada}$/,/\(Rodada\|^ *$\)/p" |
-		sed '
-		/Rodada /d
-		s/^ *//
-		/[0-9]h[0-9]/{s/pós[ -]jogo *//; s/\(h[0-9][0-9]\).*/\1/;}
-		s/ [A-Z][A-Z][A-Z]$//
-		s/ *__*//' |
+		zztool source "$url" |
+		zzxml --tidy |
+		sed -n '/<ol class="confrontos">/,/ol>/{/<abbr title="/{s///;s/">//;};/itemprop="location"/{s/">//;s/.*"//};p;}' |
+		sed -n "/^Rodada ${rodada}$/,/Rodada/p" |
+		zzjuntalinhas -i 'class="time' -f '</div>' |
+		zzjuntalinhas -i 'class="info-partida' -f '</div>' |
+		zzxml --untag |
+		zzsqueeze |
+		zztrim |
+		sed 's/pós-jogo //;s/ *[A-Z]\{3\}$//;s/Macapá Macapá/Macapá/;/Rodada/d' |
 		awk '
 			NR % 3 ~ /^[12]$/ {
 				if ($1 ~ /^[0-9-]{1,}$/) {
@@ -75,7 +77,6 @@ zzbrasileirao ()
 				placar[1]="";placar[2]=""
 			}
 		' |
-		sed '/^ *$/d' |
 		while read linha
 		do
 			time1=$(  echo $linha | cut -d"|" -f 1 )
@@ -88,7 +89,7 @@ zzbrasileirao ()
 		if test "$serie" = "c" -o "$serie" = "d"
 		then
 			zztool dump "$url" |
-			sed -n "/Grupo [AB][1-9]\{0,2\} *PG .*/,/Rodada 1 *$/{s/^/_/;s/.*Rodada .*//;s/°/./;p;}" |
+			sed -n "/Grupo [AB]\{0,1\}[1-9]\{0,2\} *PG .*/,/Rodada 1 *$/{s/^/_/;s/.*Rodada .*//;s/°/./;p;}" |
 			while read linha
 			do
 				if echo "$linha" | grep -E '[12]\.' >/dev/null && test "$serie" = "c"
