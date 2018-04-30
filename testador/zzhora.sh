@@ -2,6 +2,17 @@ $ now=$(  date +'%H:%M (0d %kh %Mm)' | sed 's/  / /;s/0\(.m\)/\1/') # %k bugged
 $ now_r=$(date +'%H:%M (hoje)')
 $
 
+$ zzhora 	agora					#→ --eval echo "$now"
+$ zzhora -r	agora					#→ --eval echo "$now_r"
+$ zzhora 	600					#→ 10:00 (0d 10h 0m)
+$ zzhora -r	600					#→ 10:00 (hoje)
+$ zzhora 	240:					#→ 240:00 (10d 0h 0m)
+$ zzhora -r	240:					#→ 00:00 (10 dias)
+$ zzhora 	-600					#→ -10:00 (0d 10h 0m)
+$ zzhora -r	-600					#→ 14:00 (ontem)
+$ zzhora 	-240:					#→ -240:00 (10d 0h 0m)
+$ zzhora -r	-240:					#→ 00:00 (-10 dias)
+
 # Faltando argumentos
 
 $ zzhora 						#→ --regex ^Uso:
@@ -74,17 +85,6 @@ $ zzhora -r	23:00	+	01:01			#→ 00:01 (amanhã)
 $ zzhora -r	23:00	+	24:59			#→ 23:59 (amanhã)
 $ zzhora -r	23:00	+	25:00			#→ 00:00 (2 dias)
 $ zzhora -r	23:00	+	25:01			#→ 00:01 (2 dias)
-
-$ zzhora 	agora					#→ --eval echo "$now"
-$ zzhora -r	agora					#→ --eval echo "$now_r"
-$ zzhora 	600					#→ 10:00 (0d 10h 0m)
-$ zzhora -r	600					#→ 10:00 (hoje)
-$ zzhora 	240:					#→ 240:00 (10d 0h 0m)
-$ zzhora -r	240:					#→ 00:00 (10 dias)
-$ zzhora 	-600					#→ -10:00 (0d 10h 0m)
-$ zzhora -r	-600					#→ 14:00 (ontem)
-$ zzhora 	-240:					#→ -240:00 (10d 0h 0m)
-$ zzhora -r	-240:					#→ 00:00 (-10 dias)
 
 $ zzhora 	01:00	-	00:59			#→ 00:01 (0d 0h 1m)
 $ zzhora 	01:00	-	01:00			#→ 00:00 (0d 0h 0m)
