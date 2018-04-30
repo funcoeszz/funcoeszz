@@ -12,7 +12,7 @@
 # Desde: 2013-05-11
 # Versão: 4
 # Licença: GPL
-# Requisitos: zztrim zzsqueeze
+# Requisitos: zzjuntalinhas zzsqueeze zztrim zzxml
 # ----------------------------------------------------------------------------
 zzpgsql ()
 {
@@ -25,10 +25,12 @@ zzpgsql ()
 	if ! test -s "$cache"
 	then
 		zztool source "${url}/sql-commands.html" |
-		awk '/<dt>/,/<\/dt>/{if ($0 ~ /<dt>/) printf "%3s:", ++i; printf $0; if ($0 ~ /<\/dt>/) print ""}' |
-		sed 's/<a href=[^"]*"//;s/\.html">/.html:/;s/<[^>]*>//g;s/: */:/' |
+		awk '/<dt>/,/<\/dt>/' |
+		zzjuntalinhas -i '<dt>' -f '</dt>' |
+		zzsqueeze |
 		zztrim |
-		zzsqueeze > $cache
+		awk '{sub(/.*sql-/,"sql-");sub(/">/,":");print ++i ":" $0}' |
+		zzxml --untag > $cache
 	fi
 
 	if test -n "$1"
