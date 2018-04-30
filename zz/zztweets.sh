@@ -36,7 +36,7 @@ zztweets ()
 	name=$(echo "$1" | tr -d @)
 	url="${url}/${name}"
 
-	LANG=en zztool dump $url |
+	LANG=en zztool dump -w 600 $url |
 		awk '/^ *@/{imp=1;next};imp' |
 		sed -n '/^ *Tweets *$/,/Back to top/p' |
 		sed '1,/^ *More *$/ d
