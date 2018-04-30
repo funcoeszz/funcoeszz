@@ -124,7 +124,7 @@ zzsecurity ()
 	# Ubuntu
 	if zztool grep_var ubuntu "$distros"
 	then
-		url='http://www.ubuntu.com/usn/rss.xml'
+		url='https://usn.ubuntu.com/rss.xml'
 		echo
 		zztool eco '** Atualizações Ubuntu'
 		echo "$url"
