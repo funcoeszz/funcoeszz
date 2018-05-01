@@ -749,7 +749,7 @@ zzmat ()
 			zztestar numero "$2" && grau="$2"
 			if test -n "$3"
 			then
-				if test '+' = "$3" -o '-' - "$3"
+				if test '+' = "$3" -o '-' = "$3"
 				then
 					sinal="$3"
 					test -n "$4" && num1="$4"
