@@ -17,6 +17,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zzfeed
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzlinuxnews ()
 {

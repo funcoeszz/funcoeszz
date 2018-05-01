@@ -10,6 +10,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzaleatorio zztrim zzjuntalinhas zzlinha zztradutor zzsqueeze zzxml zzutf8
+# Tags: internet, distação
 # ----------------------------------------------------------------------------
 zzsheldon ()
 {

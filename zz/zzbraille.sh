@@ -32,6 +32,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zzminusculas zzmaiusculas zzcapitalize zzseq zztestar
+# Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzbraille ()
 {

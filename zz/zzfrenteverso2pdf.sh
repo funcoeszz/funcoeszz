@@ -14,6 +14,7 @@
 # Desde: 2009-09-17
 # Versão: 4
 # Licença: GPLv2
+# Tags: arquivo, manipulação
 # Nota: requer pdftk
 # ----------------------------------------------------------------------------
 zzfrenteverso2pdf ()

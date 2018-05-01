@@ -10,6 +10,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zztrim zzdividirtexto
+# Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicjargon ()
 {

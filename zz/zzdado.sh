@@ -13,6 +13,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzaleatorio
+# Tags: RANDOM, emulação
 # ----------------------------------------------------------------------------
 zzdado ()
 {

@@ -21,6 +21,7 @@
 # Versão: 11
 # Licença: GPL
 # Requisitos: zzxml zzunescape zztrim zzutf8
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzfeed ()
 {

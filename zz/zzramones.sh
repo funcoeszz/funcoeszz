@@ -11,6 +11,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzlinha
+# Tags: internet, música, distração
 # ----------------------------------------------------------------------------
 zzramones ()
 {

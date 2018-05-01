@@ -13,6 +13,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzcapitalize
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzarrumacidade ()
 {

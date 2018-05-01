@@ -12,6 +12,7 @@
 # Versão: 7
 # Licença: GPL
 # Requisitos: zzcapitalize zzwikipedia zzxml zzpad
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzquimica ()
 {

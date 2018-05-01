@@ -40,6 +40,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zzalinhar zztrim
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzcolunar ()
 {

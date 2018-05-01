@@ -14,6 +14,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zztrim
+# Tags: jogo, consulta
 # ----------------------------------------------------------------------------
 zzbicho ()
 {

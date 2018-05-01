@@ -33,6 +33,7 @@
 # Versão: 13
 # Licença: GPL
 # Requisitos: zzvira zztestar
+# Tags: número, manipulação
 # ----------------------------------------------------------------------------
 zznumero ()
 {

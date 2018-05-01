@@ -11,6 +11,7 @@
 # Versão: 10
 # Licença: GPL
 # Requisitos: zzsqueeze zztrim
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zztweets ()
 {

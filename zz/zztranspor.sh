@@ -23,6 +23,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zztrim
+# Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zztranspor ()
 {

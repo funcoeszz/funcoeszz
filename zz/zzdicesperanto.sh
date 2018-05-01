@@ -14,6 +14,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zzurlencode
+# Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicesperanto ()
 {

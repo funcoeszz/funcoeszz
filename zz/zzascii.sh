@@ -12,6 +12,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zzseq zzcolunar
+# Tags: texto, tabela
 # ----------------------------------------------------------------------------
 zzascii ()
 {

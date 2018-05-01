@@ -20,6 +20,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zztrim zzpad
+# Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzcodchar ()
 {

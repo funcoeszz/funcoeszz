@@ -10,6 +10,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zztestar zzcut zzdominiopais
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzmacvendor ()
 {

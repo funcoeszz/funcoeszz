@@ -25,6 +25,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzsemacento zzutf8 zzxml zzsqueeze zzdatafmt zzlinha
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzit ()
 {

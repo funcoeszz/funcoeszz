@@ -10,6 +10,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzseq zzaleatorio
+# Tags: sugestão
 # ----------------------------------------------------------------------------
 zznomealeatorio ()
 {

@@ -11,6 +11,7 @@
 # Versão: 4
 # Licença: GPLv2
 # Requisitos: zzhora zztestar
+# Tags: tempo, conversão
 # ----------------------------------------------------------------------------
 zzhoramin ()
 {

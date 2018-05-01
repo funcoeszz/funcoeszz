@@ -14,6 +14,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzjuntalinhas
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzlimpalixo ()
 {

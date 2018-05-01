@@ -13,6 +13,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzlinha zztrim zzlimpalixo
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcidade ()
 {

@@ -13,6 +13,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzaleatorio zztrim
+# Tags: screen saver, emulação
 # ----------------------------------------------------------------------------
 zzss ()
 {

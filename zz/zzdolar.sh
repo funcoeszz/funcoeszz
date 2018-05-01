@@ -9,6 +9,7 @@
 # Versão: 8
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzsqueeze zztrim zzxml
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzdolar ()
 {

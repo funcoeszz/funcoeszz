@@ -14,6 +14,7 @@
 # Desde: 2004-03-29
 # Versão: 4
 # Licença: GPL
+# Tags: internet, tempo, consulta
 # ----------------------------------------------------------------------------
 zzhoracerta ()
 {

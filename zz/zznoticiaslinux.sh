@@ -16,6 +16,7 @@
 # Versão: 10
 # Licença: GPL
 # Requisitos: zzfeed
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznoticiaslinux ()
 {

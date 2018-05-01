@@ -8,6 +8,7 @@
 # Versão: 8
 # Licença: GPL
 # Requisitos: zztrim
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzglobo ()
 {

@@ -40,6 +40,7 @@
 # Versão: 15
 # Licença: GPL
 # Requisitos: zzecho zzpad zzdatafmt
+# Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------
 zzlibertadores ()
 {

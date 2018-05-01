@@ -9,6 +9,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zzurldecode
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzora ()
 {

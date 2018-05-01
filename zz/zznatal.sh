@@ -10,6 +10,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzlinha
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznatal ()
 {

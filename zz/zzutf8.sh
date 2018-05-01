@@ -13,6 +13,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzencoding
+# Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzutf8 ()
 {

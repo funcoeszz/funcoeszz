@@ -9,6 +9,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzshuffle zzaleatorio
+# Tags: sugestão
 # ----------------------------------------------------------------------------
 zzsubway ()
 {

@@ -8,6 +8,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zztestar
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzblist ()
 {

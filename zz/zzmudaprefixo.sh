@@ -11,6 +11,7 @@
 # Desde: 2009-09-21
 # Versão: 2
 # Licença: GPLv2
+# Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zzmudaprefixo ()
 {

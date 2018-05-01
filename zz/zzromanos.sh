@@ -12,6 +12,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzmaiusculas zztac
+# Tags: número, conversão
 # ----------------------------------------------------------------------------
 zzromanos ()
 {

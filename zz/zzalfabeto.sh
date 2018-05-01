@@ -30,6 +30,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zzmaiusculas zztrim
+# Tags: texto, tabela
 # ----------------------------------------------------------------------------
 zzalfabeto ()
 {

@@ -13,6 +13,7 @@
 # Versão: 11
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas zztrim
+# Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicportugues ()
 {

@@ -18,6 +18,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzlinha zzpad
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzpais ()
 {

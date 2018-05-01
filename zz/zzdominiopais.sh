@@ -10,6 +10,7 @@
 # Desde: 2000-05-15
 # Versão: 3
 # Licença: GPL
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzdominiopais ()
 {

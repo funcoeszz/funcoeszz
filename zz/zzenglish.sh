@@ -9,6 +9,7 @@
 # Versão: 7
 # Licença: GPL
 # Requisitos: zztrim zzutf8 zzsqueeze
+# Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzenglish ()
 {

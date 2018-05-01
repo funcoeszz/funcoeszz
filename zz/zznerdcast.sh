@@ -26,6 +26,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzdatafmt zzunescape zzxml
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznerdcast ()
 {
