@@ -25,7 +25,7 @@ zzlua ()
 	local padrao="$*"
 
 	# Força atualização da listagem apagando o cache
-	if test "$1" = '--atualiza'
+	if test '--atualiza' = "$1"
 	then
 		zztool atualiza lua
 		shift
@@ -43,7 +43,7 @@ zzlua ()
 		sed '/^ *[4-6]/,/^ *[_-][_-][_-][_-]*$/{/^ *[_-][_-][_-][_-]*$/!d;}' > "$cache"
 	fi
 
-	if test "$1" = '-d' -o "$1" = '--detalhe'
+	if test '-d' = "$1" -o '--detalhe' = "$1"
 	then
 		# Detalhe de uma função específica
 		if test -n "$2"

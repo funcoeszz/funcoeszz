@@ -128,7 +128,7 @@ zzss ()
 		negrito=$(zzaleatorio 1)
 
 		# Podemos usar cores ou não?
-		if test "$ZZCOR" = 1
+		if test 1 = "$ZZCOR"
 		then
 			codigo_cores="$negrito;$cor_fixo$cor_muda"
 			mensagem_colorida="\033[${codigo_cores}m$mensagem\033[m"

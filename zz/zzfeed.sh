@@ -96,7 +96,7 @@ zzfeed ()
 		test $# -gt 1 && zztool eco "* $url"
 
 		# Baixa e limpa o conteúdo do feed
-		if test "$1" = "-"
+		if test '-' = "$1"
 		then
 			cat - | zzutf8 | zzxml --tidy > "$tmp"
 		else

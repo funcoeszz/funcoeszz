@@ -20,7 +20,7 @@ zzcineuci ()
 	local cinema codigo
 	local url="http://www.ucicinemas.com.br"
 
-	if test "$1" = '--atualiza'
+	if test '--atualiza' = "$1"
 	then
 		zztool atualiza cineuci
 		shift

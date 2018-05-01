@@ -17,7 +17,7 @@ zztrocaextensao ()
 	local ext1 ext2 arquivo base novo nao
 
 	# Opções de linha de comando
-	if test "$1" = '-n'
+	if test '-n' = "$1"
 	then
 		nao='[-n] '
 		shift

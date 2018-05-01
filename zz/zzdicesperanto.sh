@@ -36,7 +36,7 @@ zzdicesperanto ()
 						de_ling=$2
 						shift
 
-						if test $de_ling = "eo"
+						if test 'eo' = $de_ling
 						then
 							para_ling="pt"
 						fi

@@ -20,11 +20,11 @@ zzvira ()
 
 	local rasteira
 
-	if test "$1" = '-X'
+	if test '-X' = "$1"
 	then
 		rasteira=1
 		shift
-	elif test "$1" = '-E'
+	elif test '-E' = "$1"
 	then
 		rasteira=2
 		shift

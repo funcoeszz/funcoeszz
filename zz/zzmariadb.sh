@@ -23,7 +23,7 @@ zzmariadb ()
 	local cache=$(zztool cache mariadb)
 	local comando
 
-	if test "$1" = "--atualiza"
+	if test '--atualiza' = "$1"
 	then
 		zztool atualiza mariadb
 		shift

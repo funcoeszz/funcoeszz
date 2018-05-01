@@ -24,7 +24,7 @@ zztweets ()
 	local url="https://twitter.com"
 
 	# Opções de linha de comando
-	if test "$1" = '-n'
+	if test '-n' = "$1"
 	then
 		limite="$2"
 		shift

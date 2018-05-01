@@ -22,7 +22,7 @@ zzlinha ()
 	local arquivo n padrao resultado num_linhas
 
 	# Opções de linha de comando
-	if test "$1" = '-t'
+	if test '-t' = "$1"
 	then
 		padrao="$2"
 		shift

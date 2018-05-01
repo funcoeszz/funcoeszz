@@ -84,10 +84,10 @@ zziostat ()
 
 	# Coluna para ordenacao:
 	# Device tps MB_read/s MB_wrtn/s MB_read MB_wrtn MB_total/s
-	test "$orderby" = "t" && orderby=2
-	test "$orderby" = "r" && orderby=3
-	test "$orderby" = "w" && orderby=4
-	test "$orderby" = "T" && orderby=7
+	test 't' = "$orderby" && orderby=2
+	test 'r' = "$orderby" && orderby=3
+	test 'w' = "$orderby" && orderby=4
+	test 'T' = "$orderby" && orderby=7
 
 	# Executa o iostat, le a saida e agrupa cada "ciclo de execucao"
 	# -d device apenas, -m mostra saida em MB/s

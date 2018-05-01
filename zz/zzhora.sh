@@ -30,7 +30,7 @@ zzhora ()
 	local neg2=0
 
 	# Opções de linha de comando
-	if test "$1" = '-r'
+	if test '-r' = "$1"
 	then
 		relativo=1
 		shift
@@ -106,7 +106,7 @@ zzhora ()
 	hhmm2_orig="$hhmm2"
 
 	# Somente adição e subtração são permitidas
-	if test "$operacao" != '-' -a "$operacao" != '+'
+	if test '-' != "$operacao" -a '+' != "$operacao"
 	then
 		zztool erro "Operação inválida '$operacao'. Deve ser + ou -."
 		return 1

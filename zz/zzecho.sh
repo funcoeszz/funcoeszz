@@ -71,7 +71,7 @@ zzecho ()
 	test -n "$1" || { zztool -e uso echo; return 1; }
 
 	# Mostra códigos ANSI somente quando necessário (e quando ZZCOR estiver ligada)
-	if test "$ZZCOR" != '1' -o "$fundo$letra$negrito$pisca$sublinhado" = ''
+	if test '1' != "$ZZCOR" -o "$fundo$letra$negrito$pisca$sublinhado" = ''
 	then
 		printf -- "$*$quebra_linha"
 	else

@@ -32,7 +32,7 @@ zzseq ()
 	local fim i
 
 	# Se tiver -f, guarda o formato e limpa os argumentos
-	if test "$1" = '-f'
+	if test '-f' = "$1"
 	then
 		formato="$2"
 		shift
