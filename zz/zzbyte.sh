@@ -12,6 +12,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzmaiusculas
+# Tags: número, conversão
 # ----------------------------------------------------------------------------
 zzbyte ()
 {

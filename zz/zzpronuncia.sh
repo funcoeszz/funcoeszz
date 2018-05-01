@@ -8,6 +8,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zzplay zzunescape
+# Tags: internet, aúdio
 # Nota: opcional say
 # ----------------------------------------------------------------------------
 zzpronuncia ()

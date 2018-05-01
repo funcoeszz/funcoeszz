@@ -10,6 +10,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zztrim zzxml
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzhowto ()
 {

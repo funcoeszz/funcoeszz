@@ -22,6 +22,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzdata zzdatafmt zznumero zzhora
+# Tags: data, cálculo
 # ----------------------------------------------------------------------------
 zzdataestelar ()
 {

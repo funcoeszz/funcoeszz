@@ -13,6 +13,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzxml zztrim zztradutor zzecho zzcapitalize zzurldecode zzurlencode
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzfilme ()
 {

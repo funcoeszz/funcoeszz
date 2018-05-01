@@ -11,6 +11,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas zzxml zzjuntalinhas zzcolunar zztrim zzpad
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcep ()
 {

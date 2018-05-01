@@ -16,6 +16,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzdivisores
+# Tags: número, cálculo
 # Nota: opcional factor
 # ----------------------------------------------------------------------------
 zzfatorar ()

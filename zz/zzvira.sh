@@ -12,6 +12,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
+# Tags: rev, emulação
 # ----------------------------------------------------------------------------
 zzvira ()
 {

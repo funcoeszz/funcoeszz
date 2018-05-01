@@ -16,6 +16,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzcolunar
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzdistro ()
 {

@@ -15,6 +15,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzunescape
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzphp ()
 {

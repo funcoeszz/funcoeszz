@@ -15,6 +15,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzfeed
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznoticiassec ()
 {

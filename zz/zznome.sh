@@ -14,6 +14,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznome ()
 {

@@ -20,6 +20,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zztestar
+# Tags: número, cálculo
 # ----------------------------------------------------------------------------
 zzporcento ()
 {

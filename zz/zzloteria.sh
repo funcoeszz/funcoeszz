@@ -17,6 +17,7 @@
 # Versão: 16
 # Licença: GPL
 # Requisitos: zzdatafmt zztrim zzunescape zzxml
+# Tags: internet, jogo, consulta
 # Nota: requer unzip
 # ----------------------------------------------------------------------------
 zzloteria ()

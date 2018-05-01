@@ -15,6 +15,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzaleatorio zzcut
+# Tags: cálculo, consulta, manipulação
 # ----------------------------------------------------------------------------
 zzcpf ()
 {

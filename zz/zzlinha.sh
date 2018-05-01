@@ -13,6 +13,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzaleatorio zztestar
+# Tags: arquivo, RANDOM, sed, emulação
 # ----------------------------------------------------------------------------
 zzlinha ()
 {

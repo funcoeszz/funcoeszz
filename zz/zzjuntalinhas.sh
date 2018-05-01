@@ -23,6 +23,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzdos2unix
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzjuntalinhas ()
 {

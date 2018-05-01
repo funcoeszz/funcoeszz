@@ -9,6 +9,7 @@
 # Versão: 3
 # Licença: GPLv2
 # Requisitos: zzxml zzipinternet zzecho zzminiurl zztestar
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzgeoip ()
 {

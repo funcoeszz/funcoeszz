@@ -12,6 +12,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzaleatorio
+# Tags: cálculo, manipulação
 # ----------------------------------------------------------------------------
 zzcnpj ()
 {

@@ -13,6 +13,7 @@
 # Versão: 12
 # Licença: GPL
 # Requisitos: zzminusculas zzfeed zztac zzdata zzdatafmt
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzsecurity ()
 {

@@ -9,6 +9,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zztrim
+# Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicsinonimos ()
 {

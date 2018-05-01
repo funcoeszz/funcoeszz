@@ -9,6 +9,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzsqueeze zztrim zzunescape zzxml
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcotacao ()
 {

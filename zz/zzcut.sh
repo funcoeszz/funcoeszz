@@ -55,6 +55,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzunescape
+# Tags: cut, emulação
 # ----------------------------------------------------------------------------
 zzcut ()
 {

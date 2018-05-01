@@ -38,6 +38,7 @@
 # Versão: 23
 # Licença: GPL
 # Requisitos: zzcalcula zzseq zzaleatorio zztrim zzconverte zztestar
+# Tags: número, cálculo
 # ----------------------------------------------------------------------------
 zzmat ()
 {

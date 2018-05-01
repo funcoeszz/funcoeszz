@@ -22,6 +22,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzcalcula zzdatafmt zzdos2unix
+# Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzmoneylog ()
 {

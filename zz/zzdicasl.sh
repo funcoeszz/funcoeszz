@@ -12,6 +12,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzutf8
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzdicasl ()
 {

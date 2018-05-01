@@ -19,6 +19,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zztestar
+# Tags: seq, emulação
 # ----------------------------------------------------------------------------
 zzseq ()
 {

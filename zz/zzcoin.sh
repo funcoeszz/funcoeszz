@@ -13,6 +13,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zzminusculas zznumero zzsemacento
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcoin ()
 {

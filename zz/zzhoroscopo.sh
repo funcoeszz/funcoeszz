@@ -14,6 +14,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas zzxml
+# Tags: internet, distração, consulta
 # ----------------------------------------------------------------------------
 zzhoroscopo ()
 {

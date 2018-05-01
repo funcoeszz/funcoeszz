@@ -7,6 +7,7 @@
 # Desde: 2000-06-12
 # Versão: 2
 # Licença: GPL
+# Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zztrocaarquivos ()
 {

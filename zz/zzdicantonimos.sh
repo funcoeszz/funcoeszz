@@ -8,6 +8,7 @@
 # Desde: 2013-04-15
 # Versão: 3
 # Licença: GPL
+# Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicantonimos ()
 {

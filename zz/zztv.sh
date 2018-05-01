@@ -25,6 +25,7 @@
 # Versão: 13
 # Licença: GPL
 # Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzsqueeze zztrim zzunescape zzxml
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zztv ()
 {

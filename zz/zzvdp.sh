@@ -15,6 +15,7 @@
 # Versão: 7
 # Licença: GPL
 # Requisitos: zzunescape zzxml
+# Tags: internet, distração
 # ----------------------------------------------------------------------------
 zzvdp ()
 {

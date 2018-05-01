@@ -27,6 +27,7 @@
 # Versão: 25
 # Licença: GPL
 # Requisitos: zzecho zzjuntalinhas zzpad zzsqueeze zztrim zzxml
+# Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {

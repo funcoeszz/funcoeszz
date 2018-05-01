@@ -10,6 +10,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzseq
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzrepete ()
 {

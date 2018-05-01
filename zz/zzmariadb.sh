@@ -13,6 +13,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento zztrim
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzmariadb ()
 {

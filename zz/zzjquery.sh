@@ -17,6 +17,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zzcapitalize zzlimpalixo zzunescape zzxml
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzjquery ()
 {

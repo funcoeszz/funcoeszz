@@ -10,6 +10,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zztrim zzunescape zzxml zzjuntalinhas
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzrastreamento ()
 {

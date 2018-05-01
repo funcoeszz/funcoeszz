@@ -55,6 +55,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zznumero zztestar
+# Tags: número, conversão
 # ----------------------------------------------------------------------------
 zzconverte ()
 {

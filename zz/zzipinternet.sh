@@ -7,6 +7,7 @@
 # Desde: 2005-09-01
 # Versão: 5
 # Licença: GPL
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzipinternet ()
 {

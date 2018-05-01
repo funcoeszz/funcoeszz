@@ -18,6 +18,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zzextensao zzminusculas zzunescape zzxml
+# Tags: aúdio
 # Nota: (ou) afplay play mplayer cvlc avplay ffplay mpg321 mpg123 ogg123
 # ----------------------------------------------------------------------------
 zzplay ()

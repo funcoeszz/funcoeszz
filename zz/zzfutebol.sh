@@ -30,6 +30,7 @@
 # Versão: 10
 # Licença: GPL
 # Requisitos: zzcut zzdatafmt zzjuntalinhas zzpad zztrim zzxml
+# Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------
 zzfutebol ()
 {
