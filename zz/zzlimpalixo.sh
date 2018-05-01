@@ -26,7 +26,7 @@ zzlimpalixo ()
 	local comentario_fim='\*\/'
 
 	# Para comentários multilinhas: /* ... */
-	if test "$1" = "--multi"
+	if test '--multi' = "$1"
 	then
 		multi=1
 		shift

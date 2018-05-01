@@ -82,7 +82,7 @@ zzlibertadores ()
 	test -n "$1" || { zztool -e uso libertadores; return 1; }
 
 	# Tempo de resposta do site está elevando, usando cache para minimizar efeito
-	test "$1" = "--atualiza" && { zztool cache rm libertadores; shift; }
+	test '--atualiza' = "$1" && { zztool cache rm libertadores; shift; }
 	if ! test -s "$cache" || test $(head -n 1 "$cache") != $(zzdatafmt --iso hoje)
 	then
 		zzdatafmt --iso hoje > "$cache"
@@ -149,7 +149,7 @@ zzlibertadores ()
 	esac
 
 	# Escolhendo o grupo para os jogos
-	if test "$1" = "-g" && zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
+	if test '-g' = "$1" && zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 	then
 		echo "Grupo $2"
 		sed -n "/^ *Grupo $2/,/Grupo /p"  "$cache"|
@@ -170,7 +170,7 @@ zzlibertadores ()
 	fi
 
 	# Mostrando a classificação (Fase de grupos)
-	if test "$1" = "-c" -o "$1" = "-cg" -o "$1" = "-gc"
+	if test '-c' = "$1" -o '-cg' = "$1" -o '-gc' = "$1"
 	then
 		if zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 		then
@@ -195,18 +195,18 @@ zzlibertadores ()
 					if (cor_awk==1) { printf "\033[m\n" } else {print ""}
 				}
 			}'
-			test "$1" = "-cg" -o "$1" = "-gc" && { echo; zzlibertadores -g $2 | sed '1d'; }
+			test '-cg' = "$1" -o '-gc' = "$1" && { echo; zzlibertadores -g $2 | sed '1d'; }
 		else
 			for grupo in 1 2 3 4 5 6 7 8
 			do
 				zzlibertadores -c $grupo -n
-				test "$1" = "-cg" -o "$1" = "-gc" && { echo; zzlibertadores -g $grupo | sed '1d'; }
+				test '-cg' = "$1" -o '-gc' = "$1" && { echo; zzlibertadores -g $grupo | sed '1d'; }
 				echo
 			done
 		fi
 		if test $ZZCOR -eq 1
 		then
-			test "$3" != "-n" && { echo ""; zzecho -f verde -l preto " Oitavas de Final "; }
+			test '-n' != "$3" && { echo ""; zzecho -f verde -l preto " Oitavas de Final "; }
 		fi
 	fi
 }

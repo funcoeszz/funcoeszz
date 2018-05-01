@@ -25,7 +25,7 @@ zzhoracerta ()
 	local url='http://www.worldtimeserver.com'
 
 	# Opções de linha de comando
-	if test "$1" = '-s'
+	if test '-s' = "$1"
 	then
 		shift
 		codigo="$1"

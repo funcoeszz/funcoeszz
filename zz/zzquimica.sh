@@ -86,7 +86,7 @@ zzquimica ()
 		# Se encontrado, pesquisa-o na wikipedia
 		if test ${#elemento} -gt 0
 		then
-			test "$elemento" = "Rádio" -o "$elemento" = "Índio" && elemento="${elemento}_(elemento_químico)"
+			test "$elemento" = 'Rádio' -o "$elemento" = 'Índio' && elemento="${elemento}_(elemento_químico)"
 			zzwikipedia "$elemento"
 		else
 			zztool -e uso quimica

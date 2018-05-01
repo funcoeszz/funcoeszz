@@ -44,7 +44,7 @@ zztestar ()
 	local erro
 
 	# Devo mostrar a mensagem de erro?
-	test "$1" = '-e' && erro=1 && shift
+	test '-e' = "$1" && erro=1 && shift
 
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso testar; return 1; }

@@ -74,7 +74,7 @@ zztv ()
 			/<h2>/p
 		' |
 		zzxml --untag |
-		if test "$2" != "semana" -a "$2" != "s"
+		if test 'semana' != "$2" -a 's' != "$2"
 		then
 			sed -n "/, ${DATA}$/,/[^|]$/p"
 		else
@@ -117,7 +117,7 @@ zztv ()
 		awk -F '[\t]' '{printf "%s|%s|", $1, $2;getline;printf $0 "|";getline; print}' |
 		zzunescape --html |
 		awk -F '|' '{printf "%5s %-45s %s - %s\n",$4,$1, $2, $3}'
-	elif test "$1" = "cod"
+	elif test 'cod' = "$1"
 	then
 		zztool eco "Código: $2"
 		zztool source "$URL" |

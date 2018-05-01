@@ -64,7 +64,7 @@ zzdata ()
 		;;
 		3)
 			# Validação rápida
-			if test "$operacao" != '-' -a "$operacao" != '+'
+			if test '-' != "$operacao" -a '+' != "$operacao"
 			then
 				zztool erro "Operação inválida '$operacao'. Deve ser + ou -."
 				return 1

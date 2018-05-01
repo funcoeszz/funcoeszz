@@ -29,7 +29,7 @@ zzminiurl ()
 	echo "$url" | egrep '^(https?|ftp|mms)://' >/dev/null || url="$prefixo$url"
 
 	# Testa se a URL já é encurtada, se sim, expande, senão, encurta.
-	if test "$urlCompara" == 'bit.ly'
+	if test 'bit.ly' = "$urlCompara"
 	then
 		curl -s ${urlExpansor}=${url} | sed -n '/"long_url"/ {s/.*\(http[^"]*\)".*/\1/g; p; }' && echo
 	else

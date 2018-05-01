@@ -33,7 +33,7 @@ zzjquery ()
 		if test -n "$2"
 		then
 			lista_cat=$(echo "$2" | zzcapitalize)
-			test "$lista_cat" = "Css" && lista_cat="CSS"
+			test 'Css' = "$lista_cat" && lista_cat="CSS"
 			url_aux=$(
 				zztool source "$url" |
 				awk '/<aside/,/aside>/{print}' |
@@ -64,7 +64,7 @@ zzjquery ()
 
 	;;
 	*)
-		test "$1" = "-s" && { sintaxe=1; shift; }
+		test '-s' = "$1" && { sintaxe=1; shift; }
 
 		if test -n "$1"
 		then

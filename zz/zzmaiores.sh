@@ -46,7 +46,7 @@ zzmaiores ()
 		esac
 	done
 
-	if test "$modo" = 'f'
+	if test 'f' = "$modo"
 	then
 		# Usuário só quer ver os arquivos e não diretórios.
 		# Como o 'du' não tem uma opção para isso, usaremos o 'find'.

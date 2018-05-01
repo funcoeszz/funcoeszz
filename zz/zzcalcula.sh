@@ -23,7 +23,7 @@ zzcalcula ()
 	local soma
 
 	# Opção de linha de comando
-	if test "$1" = '--soma'
+	if test '--soma' = "$1"
 	then
 		soma=1
 		shift

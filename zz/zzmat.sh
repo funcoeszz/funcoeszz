@@ -114,7 +114,7 @@ zzmat ()
 	;;
 	int)
 		local num1
-		if test "$2" = "-h"
+		if test '-h' = "$2"
 		then
 			zztool erro " zzmat $funcao: Valor Inteiro"
 			zztool erro " Uso: zzmat $funcao numero"
@@ -130,7 +130,7 @@ zzmat ()
 	;;
 	abs)
 		local num1
-		if test "$2" = "-h"
+		if test '-h' = "$2"
 		then
 			zztool erro " zzmat $funcao: Valor Absoluto"
 			zztool erro " Uso: zzmat $funcao numero"
@@ -351,7 +351,7 @@ zzmat ()
 					num="${num1}*${num2}"
 				else
 					printf " Uso: zzmat %s %s " $funcao $2 >&2
-					test "$2" = "retangulo" && echo "base altura" >&2 || echo "diagonal_maior diagonal_menor" >&2
+					test 'retangulo' = "$2" && echo "base altura" >&2 || echo "diagonal_maior diagonal_menor" >&2
 					return 1
 				fi
 			;;
@@ -396,7 +396,7 @@ zzmat ()
 						icosidodecaedro)     num="(5*sqrt(3)+3*sqrt(5)*sqrt(5+2*sqrt(5)))*${num1}^2";;
 						rombicosidodecaedro) num="(30+sqrt(30*(10+3*sqrt(5)+sqrt(15*(2+2*sqrt(5))))))*${num1}^2";;
 						esac
-					elif test $3 = "truncado" && zztestar numero_real $4
+					elif test 'truncado' = $3 && zztestar numero_real $4
 					then
 						num1=$(echo "$4" | tr ',' '.')
 						case $2 in
@@ -408,7 +408,7 @@ zzmat ()
 						cuboctaedro)     num="12*(2+sqrt(2)+sqrt(3))*${num1}^2";;
 						icosidodecaedro) num="30*(1+sqrt(2*sqrt(4+sqrt(5)+sqrt(15+6*sqrt(6)))))*${num1}^2";;
 						esac
-					elif test $3 = "snub" && zztestar numero_real $4
+					elif test 'snub' = $3 && zztestar numero_real $4
 					then
 						num1=$(echo "$4" | tr ',' '.')
 						case $2 in
@@ -520,7 +520,7 @@ zzmat ()
 						icosidodecaedro)     num="((45+17*sqrt(5))*${num1}^3)/6";;
 						rombicosidodecaedro) num="(60+29*sqrt(5))/3*${num1}^3";;
 						esac
-					elif test $3 = "truncado" && zztestar numero_real $4
+					elif test 'truncado' = $3 && zztestar numero_real $4
 					then
 						num1=$(echo "$4" | tr ',' '.')
 						case $2 in
@@ -532,7 +532,7 @@ zzmat ()
 						cuboctaedro)     num="(22+14*sqrt(2))*${num1}^3";;
 						icosidodecaedro) num="(90+50*sqrt(5))*${num1}^3";;
 						esac
-					elif test $3 = "snub" && zztestar numero_real $4
+					elif test 'snub' = $3 && zztestar numero_real $4
 					then
 						num1=$(echo "$4" | tr ',' '.')
 						case $2 in
@@ -682,7 +682,7 @@ zzmat ()
 		if test $# -eq "2" -o $# -eq "3" && zztestar numero "$2" && test "$2" -ge "1"
 		then
 			local num1 num2
-			if test "$3" = "s"
+			if test 's' = "$3"
 			then
 				num1=$(zzseq $2)
 			else
@@ -749,7 +749,7 @@ zzmat ()
 			zztestar numero "$2" && grau="$2"
 			if test -n "$3"
 			then
-				if test "$3" = "+" -o "$3" = "-"
+				if test '+' = "$3" -o '-' = "$3"
 				then
 					sinal="$3"
 					test -n "$4" && num1="$4"
@@ -892,7 +892,7 @@ zzmat ()
 			zzseq -f '2^%d-1\n' 0 $2 |
 			bc |
 			awk '{ if ($0 ~ /\\$/) { sub(/\\/,""); printf $0 } else { print } }' |
-			if test "s" = "$3"
+			if test 's' = "$3"
 			then
 				zztool lines2list | zztool nl_eof
 			else
@@ -1054,7 +1054,7 @@ zzmat ()
 			local z1=0
 			shift
 
-			test "$1" = "-e" -o "$1" = "-c" && tipo="$1" || tipo="-e"
+			test '-e' = "$1" -o '-c' = "$1" && tipo="$1" || tipo="-e"
 			oper="+"
 			saida=$(echo "$*" | awk '{print $NF}')
 
@@ -1130,7 +1130,7 @@ zzmat ()
 			teta=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '$teta'}' | zzmat -p${precisao} sem_zeros )
 			fi=$(awk 'BEGIN {printf "%.'${precisao}'f\n", '$fi'}' | zzmat -p${precisao} sem_zeros )
 
-			if test "$tipo" = "-c"
+			if test '-c' = "$tipo"
 			then
 				valor=$(echo "sqrt(${valor}^2-$z1^2)" | bc -l |
 					awk '{printf "%.'${precisao}'f\n", $1}' | zzmat -p${precisao} sem_zeros )
@@ -1325,7 +1325,7 @@ zzmat ()
 		local qtde=1
 		local n_temp
 
-		if test "$2" = "-h"
+		if test '-h' = "$2"
 		then
 			echo " zzmat $funcao: Gera um número aleatório."
 			echo " Sem argumentos gera números entre 0 e 1."

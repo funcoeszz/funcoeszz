@@ -31,7 +31,7 @@ zzcnpj ()
 	cnpj=$(echo "$*" | tr -d -c 0123456789)
 
 	# CNPJ válido formatado
-	if test "$1" = '-f'
+	if test '-f' = "$1"
 	then
 		cnpj=$(echo "$cnpj" | sed 's/^0*//')
 
@@ -54,7 +54,7 @@ zzcnpj ()
 	fi
 
 	# CNPJ válido não formatado
-	if test "$1" = '-F'
+	if test '-F' = "$1"
 	then
 
 		if test "${#cnpj}" -eq 0
@@ -77,7 +77,7 @@ zzcnpj ()
 		return 0
 	fi
 
-	test "$1" = '-q' && quieto=1
+	test '-q' = "$1" && quieto=1
 
 	if test -n "$cnpj"
 	then

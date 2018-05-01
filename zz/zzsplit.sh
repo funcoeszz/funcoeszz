@@ -37,7 +37,7 @@ zzsplit ()
 
 	# Quantidade de arquivo a serem separados
 	# Estipulando as quantidades de linhas para cada arquivo de saída
-	if test "$1" = "-p"
+	if test '-p' = "$1"
 	then
 		passos="$2"
 		qtde=$(echo "$passos" | awk -F"," '{ print NF }')
