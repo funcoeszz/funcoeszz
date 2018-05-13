@@ -18,7 +18,7 @@ zzuniq ()
 
 	# Arquivos via STDIN ou argumentos
 	# Dica retirada do twitter de @augustohp
-	# awk '!0' imprime a linha e 
+	# awk '!0' imprime a linha e
 	# awk '!1' ou qq número diferente de 0 não imprime a linha
 	# usando arrays pós-incrementados, colocando a linha como índice,
 	# apenas a primeira ocorrência de uma linha é impressa.

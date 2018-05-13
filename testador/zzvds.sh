@@ -2,7 +2,7 @@ $ zzvds | sed '1s/.*/OK/;2s/^$/Ok/;3,$s/.*/ok/'| uniq
 OK
 Ok
 ok
-$ zzvds s | sed '1s/.*/OK/;2s/^$/Ok/;3,$s/.*/ok/'| uniq
+$ zzvds 3 | sed '1s/.*/OK/;2s/^$/Ok/;3,$s/.*/ok/'| uniq
 OK
 Ok
 ok
