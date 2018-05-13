@@ -54,7 +54,7 @@ zzclassnum ()
 				exp=$(zzmat -p15 log $num 2)
 				if zztestar numero "$exp" && test "$exp" -ge 2
 				then
-					zzdivisores "$exp" | awk 'NF==2 {exit};{exit 1}' && echo 'Wagstaff' 
+					zzdivisores "$exp" | awk 'NF==2 {exit};{exit 1}' && echo 'Wagstaff'
 				fi
 			else
 				# Perfeito/Defectivo/Excessivo

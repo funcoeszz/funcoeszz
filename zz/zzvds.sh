@@ -25,7 +25,10 @@ zzvds ()
 	local sep='------------------------------------------------------------------------------'
 	local ord=1
 
-	zztool testa_numero "$1" && ord=$1
+	if test -n "$1"
+	then
+		zztool testa_numero "$1" && ord=$1 || { zztool -e uso vds; return 1; }
+	fi
 
 	zztool source "$url" |
 	awk '
