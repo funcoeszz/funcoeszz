@@ -47,6 +47,7 @@ zzvds ()
 		awk -v ord=$ord '
 			/----/{i++;next}
 			{ if (i==ord-1) print; if (i==ord) {exit} }
-		'
+		' |
+		zztrim
 	fi
 }
