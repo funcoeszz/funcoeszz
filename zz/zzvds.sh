@@ -39,7 +39,7 @@ zzvds ()
 	zzxml --untag |
 	zzunescape --html |
 	zztrim |
-	sed 's/Transcrição://;/Flagras de Atendimento/d ' |
+	sed 's/Transcrição://;/Flagras de Atendimento/d;/Mais tirinhas sobre/d ' |
 	if test $ord -eq 0
 	then
 		sed "/----/{s//$sep/;}"
