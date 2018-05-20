@@ -61,6 +61,7 @@ zzbrasileirao ()
 		sed -n "/^Rodada ${rodada}$/,/Rodada/p" |
 		zzjuntalinhas -i 'class="time' -f '</div>' |
 		zzjuntalinhas -i 'class="info-partida' -f '</div>' |
+		sed 's/<label class="local">[^>]*>//' |
 		zzxml --untag |
 		zzsqueeze |
 		zztrim |
