@@ -26,7 +26,7 @@ zzdilbert ()
 	local url="http://dilbert.com/"
 
 	zztool source "$url" |
-		awk '/comic-title-name/{print "-------";print};/>Transcript</,/<\/p>/' |
+		awk '/comic-title-name/{print "-------";sub(/></,">Dilbert<");print};/>Transcript</,/<\/p>/' |
 		zzxml --untag |
 		zzunescape --html |
 		sed '
