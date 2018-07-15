@@ -62,7 +62,14 @@ zzcep ()
 		zztrim | tr -s ' ' |
 		while IFS="|" read logradouro bairro cidade cep
 		do
-			echo "$(zzpad 65 $logradouro) $(zzpad 25 $bairro) $(zzpad 30 $cidade) $cep"
+			echo "$cep $(zzpad 65 $logradouro) $(zzpad 25 $bairro) $(zzpad 30 $cidade) $cep"
 		done |
-		zztrim
+		zztrim |
+		if test "$end" -eq 1
+		then
+			sort -n |
+			sed 's/[^[:blank:]]* //'
+		else
+			cat -
+		fi
 }
