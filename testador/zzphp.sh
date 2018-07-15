@@ -16,6 +16,7 @@ MongoDB\BSON\Binary::jsonSerialize - Returns a representation that can be conver
 MongoDB\BSON\DBPointer::jsonSerialize - Returns a representation that can be converted to JSON
 MongoDB\BSON\Decimal128::jsonSerialize - Returns a representation that can be converted to JSON
 MongoDB\BSON\fromJSON - Returns the BSON representation of a JSON value
+MongoDB\BSON\Int64::jsonSerialize - Returns a representation that can be converted to JSON
 MongoDB\BSON\Javascript::jsonSerialize - Returns a representation that can be converted to JSON
 MongoDB\BSON\MaxKey::jsonSerialize - Returns a representation that can be converted to JSON
 MongoDB\BSON\MinKey::jsonSerialize - Returns a representation that can be converted to JSON
