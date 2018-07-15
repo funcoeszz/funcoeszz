@@ -23,7 +23,7 @@ zzporta ()
 	zztool testa_numero $port || port='.'
 
 	zztool source "$url" |
-	awk '/"wikitable"/,/<\/table>/ { sub (/ bgcolor.*>/,">"); print }' |
+	awk '/"wikitable"/,/<\/table>/ { sub (/ bgcolor.*>/,">");sub(/<.?tbody>/,""); print }' |
 	zzjuntalinhas -d '' -i '<tr>' -f '</tr>' |
 	awk -F '</?t[^>]+>' 'BEGIN {OFS="\t"}{ print $3, $5 }' |
 	expand -t 18 |
