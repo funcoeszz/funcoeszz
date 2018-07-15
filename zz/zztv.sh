@@ -110,7 +110,7 @@ zztv ()
 	noticias)                      URL="${URL}/programacao/categoria/Noticias"; flag=1; desc="Notícias";;
 	series | seriados)             URL="${URL}/programacao/categoria/Series"; flag=1; desc="Séries";;
 	variedades)                    URL="${URL}/programacao/categoria/Variedades"; flag=1; desc="Variedades";;
-	cod)                           URL="${URL}/programa/$2"; flag=2;;
+	cod)                           URL="${URL}/programacao/programa/$2"; flag=2;;
 	todos | agora | *)             flag=1; desc="Agora";;
 	esac
 
