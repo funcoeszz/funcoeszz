@@ -176,7 +176,7 @@ zztool ()
 				then
 					cat -
 				else
-					sed "s/$padrao/$esc[${ZZCODIGOCOR}m&$esc[m/g"
+					sed "s/$padrao/${esc}[${ZZCODIGOCOR}m&${esc}[m/g"
 				fi
 		;;
 		grep_var)
