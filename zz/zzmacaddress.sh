@@ -1,17 +1,15 @@
 # ----------------------------------------------------------------------------
 # Mostra os MAC address disponiveis.
-# Uso: zzmacadress
-# Ex.: zzmacadress
+# Uso: zzmacaddress
+# Ex.: zzmacaddress
 #
 # Autor: Adriano Laureano, @sl4ureano
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
-zzmacadress()
+zzmacaddress()
 {
-    zzzz -h macadress "$1" && return
-
-    local MAC=$(ifconfig -a | grep -Po 'HWaddr \K.*$')
-    echo "$MAC"
+    zzzz -h macaddress "$1" && return
+    ifconfig | awk '/ HW|ether / { print $NF }'
     
 }
