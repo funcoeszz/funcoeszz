@@ -4,10 +4,13 @@
 # Ex.: zzmacaddress
 #
 # Autor: Adriano Laureano, @sl4ureano
+# Desde: 2018-10-09
 # Versão: 1
 # Licença: GPL
+# Tags: sistema, consulta
+# Nota: requer ifconfig
 # ----------------------------------------------------------------------------
-zzmacaddress()
+zzmacaddress ()
 {
 	zzzz -h macaddress "$1" && return
 
