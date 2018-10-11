@@ -14,5 +14,5 @@ zzmacaddress ()
 {
 	zzzz -h macaddress "$1" && return
 
-	ifconfig | awk '/ HW|ether / { match($0,"([0-9a-f]{2}:){5}[0-9a-f]{2}"); print substr($0,RSTART, RLENGTH) }'
+	ifconfig | sed -n '/ HW\|ether /{s/.*\(\([0-9A-Fa-f]\{2\}:\)\{5\}[0-9A-Fa-f]\{2\}\).*/\1/;p;}'
 }
