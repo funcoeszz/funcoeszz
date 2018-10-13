@@ -111,13 +111,18 @@ zzbrasileirao ()
 				fi
 			done |
 			tr -d _
-			if test "$serie" = "c"
+
+			if test $ZZCOR -eq 1
 			then
-				zzecho -f verde -l preto " Quartas de Final "
-				zzecho -f vermelho -l preto "   Rebaixamento   "
-			else
-				zzecho -f verde -l preto " Segunda Fase "
+				if test "$serie" = "c"
+				then
+					zzecho -f verde -l preto " Quartas de Final "
+					zzecho -f vermelho -l preto "   Rebaixamento   "
+				else
+					zzecho -f verde -l preto " Segunda Fase "
+				fi
 			fi
+
 		else
 			num_linha=0
 			zztool dump "$url" |
@@ -150,6 +155,8 @@ zzbrasileirao ()
 			done |
 			tr -d _
 
+			if test $ZZCOR -eq 1
+			then
 				echo
 				if test "$serie" = "a"
 				then
@@ -160,6 +167,7 @@ zzbrasileirao ()
 					zzecho -f verde -l preto  "   Série  A    "
 				fi
 				zzecho -f vermelho -l preto   " Rebaixamento  "
+			fi
 
 		fi
 	fi
