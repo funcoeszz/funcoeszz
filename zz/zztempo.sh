@@ -119,6 +119,8 @@ zztempo ()
 		esac
 	done
 
+	# Seguindo a variável ZZCOR quando igual a 0, independende da opção escolhida.
+	[ $ZZCOR -eq 0 ] && semcores="T"
 
 	# Comando bash proposto pelo site em: "wttr.in/:bash.function"
 	# Chama Previsão de Brasília se outro parâmetro não for passado
