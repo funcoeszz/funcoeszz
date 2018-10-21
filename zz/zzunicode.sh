@@ -68,6 +68,7 @@ zzunicode ()
 	else
 		awk -F '"' '/class="symb"/{sub(">","",$9);sub("</a></li>","",$9); print substr($8,5,length($8)-5) "\t" $9 }'
 	fi |
+	sed '/&#[0-9]*;/d' |
 	if test -n "$coluna"
 	then
 		zzcolunar -w 15 $coluna
