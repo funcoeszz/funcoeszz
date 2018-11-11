@@ -1,15 +1,18 @@
 # ----------------------------------------------------------------------------
 # Cria, valida ou formata um número de CNPJ.
 # Obs.: O CNPJ informado pode estar formatado (pontos e hífen) ou não.
-# Uso: zzcnpj [-f] [cnpj]
-# Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ informado
-#      zzcnpj 12345678000195          # com ou sem pontuação
-#      zzcnpj                         # gera um CNPJ válido (aleatório)
-#      zzcnpj -f 12345678000195       # formata, adicionando pontuação
+# Uso: zzcnpj [-f|-F|-c|-q]  [cnpj]
+# Ex.: zzcnpj 12.345.678/0001-95    # valida o CNPJ informado
+#      zzcnpj 12345678000195        # com ou sem pontuação
+#      zzcnpj                       # gera um CNPJ válido (aleatório)
+#      zzcnpj -f 12345678000195     # formata, adicionando pontuação
+#      zzcnpj -F 12345678000195     # desformata, tirando pontuação
+#      zzcnpj -c 12345678000195     # consulta o cnpj, detalhando-o se existir
+#      zzcnpj -q 12345678000195     # apenas código de retorno, sem mensagens
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
-# Versão: 3
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzaleatorio
 # Tags: cálculo, manipulação
@@ -29,6 +32,46 @@ zzcnpj ()
 	# maior de dígitos do CNPJ em relação ao CPF.
 
 	cnpj=$(echo "$*" | tr -d -c 0123456789)
+
+	# API para consultar situação e detalhes da empresa em formato json
+	if test '-c' = "$1"
+	then
+		cnpj=$(echo "$cnpj" | sed 's/^0*//')
+
+		# Só continua se o CNPJ for válido
+		auxiliar=$(zzcnpj $cnpj 2>&1)
+		if test "$auxiliar" != 'CNPJ válido'
+		then
+			zztool erro "$auxiliar"
+			return 1
+		fi
+
+		cnpj=$(printf "%014d" "$cnpj")
+
+		zztool source "https://receitaws.com.br/v1/cnpj/$cnpj" |
+		sed '
+			/^ *[{}]/d
+			/""/d
+			/\[\]/d
+			/{}/d
+			/"billing":/,$d
+			/"code": "00.00-0-00"/,/\]/d
+			/^ *\]/d
+			/ultima.atualizacao/{s/T/ /; s/\.[0-9]\{1,\}Z//;}
+			s/: \[$/:/
+			s/,$//
+			s/"//g
+			s/_/ /' |
+		awk '
+			/(text|qual|nome): / {
+				eol=($1 ~/nome:/?"\n":"")
+				sub(/(text|qual|nome): /,"")
+				printf $0 eol; next
+			}
+			/code: / {print " (" $2 ")" ; next}
+			1'
+		return 0
+	fi
 
 	# CNPJ válido formatado
 	if test '-f' = "$1"
