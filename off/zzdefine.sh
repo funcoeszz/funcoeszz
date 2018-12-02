@@ -23,7 +23,7 @@ zzdefine ()
 	[ "${I% $1 *}" != "$I" ] && L=$1 && shift
 
 	$ZZWWWDUMP -width=78 "http://www.google.com/search?q=define:$1&hl=pt-br&ie=UTF-8&defl=$L" |
-		sed '1, /^ *Web$/ d' |
+		sed '1,/^ *Web$/ d' |
 		sed '/Encontrar definições de imho em:/,$ d' |
 		sed '/Página Inicial do Google/,$ d'
 }
