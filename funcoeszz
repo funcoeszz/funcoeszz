@@ -965,14 +965,14 @@ zzzz ()
 # Passe o arquivo com as funções como parâmetro
 _extrai_ajuda() {
 	# Extrai somente os cabeçalhos, já removendo o # do início
-	sed -n '/^# -----* *$/, /^# -----* *$/ s/^# \{0,1\}//p' "$1" |
+	sed -n '/^# -----* *$/,/^# -----* *$/ s/^# \{0,1\}//p' "$1" |
 		# Agora remove trechos que não podem aparecer na ajuda
 		sed '
 			# Apaga a metadata (Autor, Desde, Versao, etc)
-			/^Autor:/, /^------/ d
+			/^Autor:/,/^------/ d
 
 			# Apaga a linha em branco apos Ex.:
-			/^Ex\.:/, /^------/ {
+			/^Ex\.:/,/^------/ {
 				/^ *$/d
 			}'
 }
