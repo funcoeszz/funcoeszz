@@ -238,10 +238,8 @@ grep -H '^#.*	' zz/*.sh off/*.sh
 
 eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zzzz -h'"
-ok="zztool"
 for f in zz/*.sh  # off/*.sh
 do
-	echo " $ok " | grep " $(basename $f) " >/dev/null && continue
 	grep 'zzzz -h ' $f >/dev/null || echo $f
 done
 
