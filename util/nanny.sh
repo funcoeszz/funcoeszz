@@ -197,6 +197,13 @@ do
 done
 
 eco ----------------------------------------------------------------
+eco "* Funções que citam a si mesmas no campo Requisitos:"
+for f in zz/*.sh off/*.sh
+do
+ grep "^# Requisitos:.*$(basename $f .sh)" $f > /dev/null && echo $f
+done
+
+eco ----------------------------------------------------------------
 eco "* Funções com cabeçalho >78 colunas"
 for f in zz/*.sh off/*.sh
 do
