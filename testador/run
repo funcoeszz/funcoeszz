@@ -38,12 +38,12 @@ EOF
 if test $1 = "internet"
 then
 	# Test internet based files
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" "$internet"
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $internet
 	exitcode=$?
 elif test $1 = "internet_travis"
 then
 	# Test internet based files
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" "$internet_travis"
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $internet_travis
 	exitcode=$?
 elif test $# -gt 0
 then
