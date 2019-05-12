@@ -40,7 +40,7 @@ then
 	# Test internet based files
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" "$internet"
 	exitcode=$?
-if test $1 = "internet_travis"
+elif test $1 = "internet_travis"
 then
 	# Test internet based files
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" "$internet_travis"
