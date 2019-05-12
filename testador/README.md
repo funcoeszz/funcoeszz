@@ -65,6 +65,24 @@ $
 ```
 
 
+Testar TODAS as funções baseadas na internet
+--------------------------------------------
+
+Para testar todas as funções que precisam acessar a internet ( e que tenham a tag internet devidamente apontada na função ), use o argumento internet
+
+```
+$ ./run internet
+Testing file zzblist.sh ..
+Testing file zzbrasileirao.sh ...
+Testing file zzcep.sh .....
+Testing file zzchavepgp.sh ....
+Testing file zzcidade.sh ......
+Testing file zzcoin.sh ....
+...
+$
+```
+
+
 
 Testar TODAS as funções
 -----------------------

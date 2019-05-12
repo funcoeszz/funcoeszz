@@ -4,6 +4,7 @@
 # Usage:
 #   ./run zzsenha.sh zzcores.sh   # test zzsenha and zzcores
 #   ./run                         # run all tests
+#   ./run internet                # run all tests internet based
 #
 # See README.md file for instructions.
 
@@ -31,7 +32,17 @@ cat > "$tmp" <<EOF
 EOF
 
 # Note: To remove the dots ........ change 'dot' to 'none'
-if test $# -gt 0
+if test $1 = "internet"
+then
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $("$zz_root"/util/metadata.sh t |
+		awk '/^zz.* internet/{sub(/zz\//,"");printf " " $1}')
+	exitcode=$?
+elif test $1 = "internet_travis"
+then
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $("$zz_root"/util/metadata.sh t |
+		awk '/^zz.* internet/ && !/(zzdistro|zzlinux)\.sh/{sub("zz/","");printf " " $1}')
+	exitcode=$?
+elif test $# -gt 0
 then
 	# Test specific file(s)
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" "$@"
