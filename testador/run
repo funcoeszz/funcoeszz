@@ -34,11 +34,11 @@ EOF
 # Note: To remove the dots ........ change 'dot' to 'none'
 if test $1 = "internet"
 then
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $("$zz_root"/util/metadata.sh t | awk '/^zz.* internet/{sub(/zz\//,"");printf " " $1}')
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $(awk '/# Tags: .*internet/{sub(/.*\//,"",FILENAME);print FILENAME}' ../zz/zz*.sh)
 	exitcode=$?
 elif test $1 = "internet_travis"
 then
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $("$zz_root"/util/metadata.sh t | awk '/^zz.* internet/ && !/(zzdistro|zzlinux)\.sh/{sub(/zz\//,"");printf " " $1}')
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $(awk '/# Tags: .*internet/{sub(/.*\//,"",FILENAME);print FILENAME}' ../zz/zz*.sh | egrep -v 'zz(linux|distro).sh')
 	exitcode=$?
 elif test $# -gt 0
 then
