@@ -12,6 +12,8 @@ script_dir=$(dirname "$0")
 zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
 tmp='./run.tmp'
 tester='bash clitest'
+internet='zzblist.sh zzbrasileirao.sh zzcep.sh zzchavepgp.sh zzcidade.sh zzcoin.sh zzconfere.sh zzconjugar.sh zzcotacao.sh zzdefinr.sh zzdicantonimos.sh zzdicasl.sh zzdicbabylon.sh zzdicesperanto.sh zzdicjargon.sh zzdicportugues.sh zzdicsinonimos.sh zzdilbert.sh zzdistro.sh zzdolar.sh zzdominiopais.sh zzenglish.sh zzexcuse.sh zzfeed.sh zzfilme.sh zzfutebol.sh zzgeoip.sh zzglobo.sh zzgravatar.sh zzhoracerta.sh zzhoroscopo.sh zzhowto.sh zzipinternet.sh zzit.sh zzjquery.sh zzlibertadores.sh zzlinuxnews.sh zzlinux.sh zzlocale.sh zzloteria.sh zzlua.sh zzmacvendor.sh zzmariadb.sh zzminiurl.sh zznatal.sh zznerdcast.sh zznome.sh zznoticiaslinux.sh zznoticiassec.sh zzora.sh zzpais.sh zzpgsql.sh zzphp.sh zzporta.sh zzpronuncia.sh zzquimica.sh zzramones.sh zzrastreamento.sh zzrpmfind.sh zzsecurity.sh zzsheldon.sh zzsigla.sh zztempo.sh zztop.sh zztradutor.sh zztv.sh zztweets.sh zzvdp.sh zzvds.sh zzwikipedia.sh'
+internet_travis='zzblist.sh zzbrasileirao.sh zzcep.sh zzchavepgp.sh zzcidade.sh zzcoin.sh zzconfere.sh zzconjugar.sh zzcotacao.sh zzdefinr.sh zzdicantonimos.sh zzdicasl.sh zzdicbabylon.sh zzdicesperanto.sh zzdicjargon.sh zzdicportugues.sh zzdicsinonimos.sh zzdilbert.sh zzdolar.sh zzdominiopais.sh zzenglish.sh zzexcuse.sh zzfeed.sh zzfilme.sh zzfutebol.sh zzgeoip.sh zzglobo.sh zzgravatar.sh zzhoracerta.sh zzhoroscopo.sh zzhowto.sh zzipinternet.sh zzit.sh zzjquery.sh zzlibertadores.sh zzlinuxnews.sh zzlocale.sh zzloteria.sh zzlua.sh zzmacvendor.sh zzmariadb.sh zzminiurl.sh zznatal.sh zznerdcast.sh zznome.sh zznoticiaslinux.sh zznoticiassec.sh zzora.sh zzpais.sh zzpgsql.sh zzphp.sh zzporta.sh zzpronuncia.sh zzquimica.sh zzramones.sh zzrastreamento.sh zzrpmfind.sh zzsecurity.sh zzsheldon.sh zzsigla.sh zztempo.sh zztop.sh zztradutor.sh zztv.sh zztweets.sh zzvdp.sh zzvds.sh zzwikipedia.sh'
 
 cd "$script_dir"
 
@@ -32,13 +34,9 @@ cat > "$tmp" <<EOF
 EOF
 
 # Note: To remove the dots ........ change 'dot' to 'none'
-if test $1 = "internet"
+if test $1 = "internet" -o $1 = "internet_travis"
 then
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $(awk '/# Tags: .*internet/{sub(/.*\//,"",FILENAME);print FILENAME}' ../zz/zz*.sh)
-	exitcode=$?
-elif test $1 = "internet_travis"
-then
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $(awk '/# Tags: .*internet/{sub(/.*\//,"",FILENAME);print FILENAME}' ../zz/zz*.sh | egrep -v 'zz(linux|distro).sh')
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" ${!1}
 	exitcode=$?
 elif test $# -gt 0
 then
