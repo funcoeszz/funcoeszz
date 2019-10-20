@@ -24,19 +24,19 @@
 #
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
-# Versão: 25
+# Versão: 26
 # Licença: GPL
-# Requisitos: zzecho zzjuntalinhas zzpad zzsqueeze zztrim zzxml
+# Requisitos: zzecho zzjuntalinhas zzpad zztrim zzxml
 # Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------
 zzbrasileirao ()
 {
 	zzzz -h brasileirao "$1" && return
 
-	test $(date +%Y%m%d) -lt 20180414 && { zztool erro "Campeonato Brasileiro 2018 só a partir de 14 de Abril."; return 1; }
+	test $(date +%Y%m%d) -lt 20190426 && { zztool erro "Campeonato Brasileiro 2018 só a partir de 14 de Abril."; return 1; }
 
-	local rodada serie ano time1 time2 horario linha num_linha
-	local url="http://esporte.uol.com.br/futebol"
+	local rodada serie time1 time2 horario pos time resto cor
+	local url="https://www.gazetaesportiva.com/campeonatos/brasileiro-serie-"
 
 	test $# -gt 2 && { zztool -e uso brasileirao; return 1; }
 
@@ -50,125 +50,81 @@ zzbrasileirao ()
 		zztool testa_numero "$1" && rodada="$1" || { zztool -e uso brasileirao; return 1; }
 	fi
 
-	test "$serie" = "a" && url="${url}/campeonatos/brasileirao/jogos" || url="${url}/campeonatos/serie-${serie}/jogos"
+	url="${url}${serie}/"
 
 	if test -n "$rodada"
 	then
-		zztool testa_numero $rodada || { zztool -e uso brasileirao; return 1; }
-		zztool source "$url" |
-		zzxml --tidy |
-		sed -n '/<ol class="confrontos">/,/ol>/{/<abbr title="/{s///;s/">//;};/itemprop="location"/{s/">//;s/.*"//};p;}' |
-		sed -n "/^Rodada ${rodada}$/,/Rodada/p" |
-		zzjuntalinhas -i 'class="time' -f '</div>' |
-		zzjuntalinhas -i 'class="info-partida' -f '</div>' |
-		sed 's/<label class="local">[^>]*>//' |
-		zzxml --untag |
-		zzsqueeze |
-		zztrim |
-		sed 's/pós-jogo //;s/ *[A-Z]\{3\}$//;s/Macapá Macapá/Macapá/;/Rodada/d' |
-		awk '
-			NR % 3 ~ /^[12]$/ {
-				if ($1 ~ /^[0-9-]{1,}$/) {
-					placar[NR % 3]=$1; $1=""
-				}
-				sub(/^ */,"");sub(/ *$/,"")
-				time[NR % 3]=" " $0 " "
-			}
-			NR % 3 == 0 {
-				sub(/  *$/,""); print time[1] placar[1] "|" placar[2] time[2] "|" $0
-				placar[1]="";placar[2]=""
-			}
-		' |
-		while read linha
-		do
-			time1=$(  echo $linha | cut -d"|" -f 1 )
-			time2=$(  echo $linha | cut -d"|" -f 2 )
-			horario=$(echo $linha | cut -d"|" -f 3 | sed 's/^ *//' )
-			echo "$(zzpad -l 22 $time1) X $(zzpad -r 22 $time2) $horario"
-		done
+		case $serie in
+		a | b | c)
+			printf "$(
+				zztool source $url |
+				awk  '/rodadas\[/{gsub(/"(numero_rodada|equipe_[12])"/,"\n&");print}' |
+				sed  '/"numero_rodada":'${rodada}',/,/"numero_rodada"/!d' |
+				awk -F '[:,]' '/equipe_1/{printf $5 "_" $11 " X "} ; /equipe_2/{printf $11 "_" $5 "\n"}'
+			)" |
+			sed 's/"//g;s/null/ /g' |
+			zztool nl_eof |
+			while IFS="_" read time1 placar time2
+			do
+				echo "$(zzpad -r 22 $time1) $placar $(zzpad -l 22 $time2)"
+			done
+		;;
+		esac
 	else
 		zztool eco $(echo "Série $serie" | tr 'abcd' 'ABCD')
-		if test "$serie" = "c" -o "$serie" = "d"
-		then
-			zztool dump "$url" |
-			sed -n "/Grupo [AB]\{0,1\}[1-9]\{0,2\} *PG .*/,/Rodada 1 *$/{s/^/_/;s/.*Rodada .*//;s/°/./;p;}" |
-			while read linha
-			do
-				if echo "$linha" | grep -E '[12]\.' >/dev/null && test "$serie" = "c"
-				then
-					zzecho -f verde -l preto "$linha"
-				elif echo "$linha" | grep '1\.' >/dev/null && test "$serie" = "d"
-				then
-					zzecho -f verde -l preto "$linha"
-				elif echo "$linha" | grep -E '[34]\.' >/dev/null && test "$serie" = "c"
-				then
-					zzecho -f verde -l preto "$linha"
-				elif echo "$linha" | grep -E '(9\.|10\.)' >/dev/null && test "$serie" = "c"
-				then
-					zzecho -f vermelho -l preto "$linha"
-				else
-					echo "$linha"
-				fi
-			done |
-			tr -d _
-
-			if test $ZZCOR -eq 1
+		zztool source "$url" |
+		sed -n '/<thead/,/table>/{/\(__shield\|thead\|tbody\)/d;s/<tr class="\(.* \)">/\1/;p;}' |
+		zztrim |
+		zzjuntalinhas -d '|' -i '<th' -f 'tr>' |
+		zzxml --untag |
+		sed 's/| *$//' |
+		while IFS='|' read pos time resto
+		do
+			case "$pos" in
+				"GRUPO A")            printf "$pos\n" ;;
+				"GRUPO B"|"GRUPO A"*) printf "\n$pos\n" ;;
+			esac
+			if [ $ZZCOR -eq 1 ]
 			then
-				if test "$serie" = "c"
-				then
-					zzecho -f verde -l preto " Quartas de Final "
-					zzecho -f vermelho -l preto "   Rebaixamento   "
-				else
-					zzecho -f verde -l preto " Segunda Fase "
-				fi
-			fi
-
-		else
-			num_linha=0
-			zztool dump "$url" |
-			sed -n "/^ *Classificação *PG/,/20°/{ s/^/_/; s/°/./; p; }" |
-			while read linha
-			do
-				linha=$(echo "$linha" | awk '{pontos=sprintf("%3d", $NF);sub(/[0-9]+$/,pontos);print}')
-				num_linha=$((num_linha + 1))
-				case $num_linha in
-					[2-5]) zzecho -f verde -l preto "$linha";;
-					[67])
-						if test "$serie" = "a"
-						then
-							zzecho -f verde -l preto "$linha"
-						else
-							echo "$linha"
-						fi
-					;;
-					[89] | 1[0-3])
-						if test "$serie" = "a"
-						then
-							zzecho -f ciano -l preto "$linha"
-						else
-							echo "$linha"
-						fi
-					;;
-					1[89] | 2[01] ) zzecho -f vermelho -l preto "$linha";;
-					*) echo "$linha";;
+				case "$pos" in
+					table__green)  cor='verde' ;;
+					table__orange) cor='ciano' ;;
+					table__red)    cor='vermelho' ;;
+					[0-9]*)        cor="$cor" ;;
+					*)             unset cor ;;
 				esac
-			done |
-			tr -d _
-
-			if test $ZZCOR -eq 1
-			then
-				echo
-				if test "$serie" = "a"
-				then
-					zzecho -f verde -l preto  " Libertadores  "
-					zzecho -f ciano -l preto  " Sul-Americana "
-				elif test "$serie" = "b"
-				then
-					zzecho -f verde -l preto  "   Série  A    "
-				fi
-				zzecho -f vermelho -l preto   " Rebaixamento  "
 			fi
+			if [ -n "$time" ]
+			then
+				case "$cor" in
+					verde|ciano|vermelho) zzecho -f $cor -l preto "$(zzpad 3 $pos) $(zzpad 20 $time) $(echo "$resto" | sed 's/|/\t/g' | expand -t 5)";;
+					*)                    echo "$(zzpad 3 $pos) $(zzpad 20 $time) $(echo "$resto" | sed 's/|/\t/g' | expand -t 5)";;
+				esac
+			fi
+		done
 
+		if test $ZZCOR -eq 1
+		then
+			echo
+			if test "$serie" = "a"
+			then
+				zzecho -f verde -l preto  " Libertadores  "
+				zzecho -f ciano -l preto  " Sul-Americana "
+				zzecho -f vermelho -l preto   " Rebaixamento  "
+			elif test "$serie" = "b"
+			then
+				zzecho -f verde -l preto  "   Série  A    "
+				zzecho -f vermelho -l preto   " Rebaixamento  "
+			elif test "$serie" = "c"
+			then
+				zzecho -f verde -l preto " Quartas de Final "
+				zzecho -f vermelho -l preto "   Rebaixamento   "
+			elif test "$serie" = "d"
+			then
+				zzecho -f verde -l preto "      Segunda Fase       "
+				zzecho -f ciano -l preto  "15 MELHORES CLASSIFICADOS"
+			fi
 		fi
+
 	fi
 }
