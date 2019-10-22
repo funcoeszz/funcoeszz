@@ -19,7 +19,6 @@ zzrastreamento ()
 	test -n "$1" || { zztool -e uso rastreamento; return 1; }
 
 	local url='https://www2.correios.com.br/sistemas/rastreamento/resultado.cfm'
-#	local url='http://www2.correios.com.br/sistemas/rastreamento/resultado_semcontent.cfm?'
 
 	# Para cada código recebido...
 	for codigo
