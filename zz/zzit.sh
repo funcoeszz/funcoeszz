@@ -32,7 +32,7 @@ zzit ()
 
 	zzzz -h it "$1" && return
 
-	local url='http://www.inovacaotecnologica.com.br'
+	local url='https://www.inovacaotecnologica.com.br'
 	ano=$(zzdatafmt -f AAAA hoje)
 	local url2 opcao num
 
@@ -74,7 +74,7 @@ zzit ()
 			zzxml --tidy --tag h2 --untag |
 			awk '{printf "%02d - ",NR};1'
 		else
-			url2=$(
+			url2="${url}/"$(
 				zztool source "$url2" |
 				zzutf8|
 				zzxml --tidy --tag h2 |
@@ -84,7 +84,7 @@ zzit ()
 			)
 			zztool eco "$url2"
 			zztool dump "$url2" |
-			sed '1,/^ *Plantão$/d; s/ *\(Bibliografia:\)/\
+			sed '1,/Plantão *$/d; s/ *\(Bibliografia:\)/\
 \1/' |
 			sed 's/\[INS: *:INS\]//g; /\* Imprimir/{s///;q;}' |
 			zzsqueeze | fmt -w 120
