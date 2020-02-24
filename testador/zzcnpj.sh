@@ -20,6 +20,8 @@ $ zzcnpj 12345678000100			#→ CNPJ inválido (deveria terminar em 95)
 # Números válidos, com ou sem pontuação
 $ zzcnpj 12345678000195			#→ CNPJ válido
 $ zzcnpj 12.345.678/0001-95		#→ CNPJ válido
+$ zzcnpj 07213984000138			#→ CNPJ válido
+$ zzcnpj 07.213.984/0001-38		#→ CNPJ válido
 
 # Qualquer caractere não numérico é removido
 $ zzcnpj '12 345 678 0001 95'		#→ CNPJ válido

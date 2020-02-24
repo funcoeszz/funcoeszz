@@ -33,6 +33,13 @@ zzcnpj ()
 
 	cnpj=$(echo "$*" | tr -d -c 0123456789)
 
+	# Remove os zeros do início (senão é considerado um octal)
+	# somente quando a sequência informada não for composta apenas por zeros
+	if test "$cnpj" != "00000000000000"
+	then
+		cnpj=$(echo "$cnpj" | sed 's/^0*//')
+	fi
+
 	# API para consultar situação e detalhes da empresa em formato json
 	if test '-c' = "$1"
 	then
