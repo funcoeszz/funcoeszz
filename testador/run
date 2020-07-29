@@ -15,6 +15,7 @@ tester='bash clitest'
 
 internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"");printf " " $1}')
 internet_travis=$(echo $internet | sed 's/ zz\(distro\|linux\)\.sh//g')
+# For Travis exceptions, see https://github.com/funcoeszz/funcoeszz/issues/355
 
 cd "$script_dir"
 
