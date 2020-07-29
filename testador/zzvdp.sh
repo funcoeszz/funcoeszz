@@ -9,7 +9,7 @@ ok
 $ zzvdp -h
 
 zzvdp
-http://vidadeprogramador.com.br
+https://vidadeprogramador.com.br
 Mostra o texto das últimas tirinhas de Vida de Programador.
 Sem opção mostra a tirinha mais recente.
 Se a opção for um número, mostra a tirinha que ocupa essa ordem

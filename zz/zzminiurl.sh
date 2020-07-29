@@ -1,14 +1,17 @@
 # ----------------------------------------------------------------------------
-# Encurta uma URL utilizando o site "http://migre.me" ou "http://is.gd".
+# Encurta uma URL utilizando o bit.ly ("https://bit.ly/").
+# Caso a URL já seja encurtada, será exibida a URL completa.
 # Obs.: Se a URL não tiver protocolo no início, será colocado http://
 # Uso: zzminiurl URL
 # Ex.: zzminiurl http://www.funcoeszz.net
 #      zzminiurl www.funcoeszz.net         # O http:// no início é opcional
+#      zzminiurl http://bit.ly/2qysTH4
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2010-04-26
-# Versão: 5
+# Versão: 7
 # Licença: GPL
+# Tags: internet, url
 # ----------------------------------------------------------------------------
 zzminiurl ()
 {
@@ -18,20 +21,18 @@ zzminiurl ()
 
 	local url="$1"
 	local prefixo='http://'
-	local shorturl
+	local urlEncurtador='https://api-ssl.bitly.com/v3/shorten?access_token=f158450fee1fd865e57a85cb466d217f2e355fb9&longUrl'
+	local urlExpansor='https://api-ssl.bitly.com/v3/expand?access_token=f158450fee1fd865e57a85cb466d217f2e355fb9&shortUrl'
+	local urlCompara=$(echo "$url" | sed 's/\(.*\:\/\/\)\(bit\.ly\).*/\2/')
 
-	# Se o usuário não informou o protocolo, adiciona o padrão
+	# Se o usuário não informou o protocolo, adiciona o padrão.
 	echo "$url" | egrep '^(https?|ftp|mms)://' >/dev/null || url="$prefixo$url"
 
-	shorturl=$(zztool source "http://migre.me/api.txt?url=$url" 2>/dev/null)
-
-	if test -n "$shorturl"
+	# Testa se a URL já é encurtada, se sim, expande, senão, encurta.
+	if test 'bit.ly' = "$urlCompara"
 	then
-		echo "$shorturl"
+		curl -s ${urlExpansor}=${url} | sed -n '/"long_url"/ {s/.*\(http[^"]*\)".*/\1/g; p; }' && echo
 	else
-		curl -L -s --data "url=$url" http://is.gd/create.php |
-		grep 'short_url' |
-		grep -o 'value="[^"]*"' |
-		cut -f 2 -d \"
+		curl -s ${urlEncurtador}=${url} | sed 's/.*"url":"\(.*\)","h.*/\1/' && echo
 	fi
 }

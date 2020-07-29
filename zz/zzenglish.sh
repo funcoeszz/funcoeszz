@@ -9,6 +9,7 @@
 # Versão: 7
 # Licença: GPL
 # Requisitos: zztrim zzutf8 zzsqueeze
+# Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzenglish ()
 {
@@ -19,7 +20,7 @@ zzenglish ()
 	local cinza verde amarelo fecha
 	local url="http://www.dict.org/bin/Dict?Form=Dict2&Database=*&Query=$1"
 
-	if test $ZZCOR -eq 1
+	if test 1 -eq $ZZCOR
 	then
 		cinza=$(  printf '\033[0;34m')
 		verde=$(  printf '\033[0;32;1m')

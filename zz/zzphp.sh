@@ -15,6 +15,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzunescape
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzphp ()
 {
@@ -26,13 +27,13 @@ zzphp ()
 	local end funcao
 
 	# Força atualização da listagem apagando o cache
-	if test "$1" = '--atualiza'
+	if test '--atualiza' = "$1"
 	then
 		zztool atualiza php
 		shift
 	fi
 
-	if test "$1" = '-d' -o "$1" = '--detalhe'
+	if test '-d' = "$1" -o '--detalhe' = "$1"
 	then
 		url='http://www.php.net/manual/pt_BR'
 		if test -n "$2"

@@ -15,6 +15,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzminusculas
+# Tags: texto, contagem
 # ----------------------------------------------------------------------------
 zzcontapalavras ()
 {

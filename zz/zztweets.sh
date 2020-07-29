@@ -1,18 +1,17 @@
 # ----------------------------------------------------------------------------
 # Busca as mensagens mais recentes de um usuário do Twitter.
 # Use a opção -n para informar o número de mensagens (padrão é 5, máx 20).
-# Com a opção -r após o nome do usuário, lista também tweets respostas.
 #
-# Uso: zztweets [-n N] username [-r]
+# Uso: zztweets [-n N] username
 # Ex.: zztweets oreio
 #      zztweets -n 10 oreio
-#      zztweets oreio -r
 #
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Desde: 2009-07-30
-# Versão: 9
+# Versão: 10
 # Licença: GPL
-# Requisitos: zzsqueeze
+# Requisitos: zzsqueeze zztrim
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zztweets ()
 {
@@ -25,7 +24,7 @@ zztweets ()
 	local url="https://twitter.com"
 
 	# Opções de linha de comando
-	if test "$1" = '-n'
+	if test '-n' = "$1"
 	then
 		limite="$2"
 		shift
@@ -37,15 +36,16 @@ zztweets ()
 	# Informar o @ é opcional
 	name=$(echo "$1" | tr -d @)
 	url="${url}/${name}"
-	test "$2" = '-r' && url="${url}/with_replies"
 
-	zztool dump $url |
-		sed '1,70 d' |
-		sed -n '/View Tweets/,/Back to top/p' |
-		sed '1d
+	LANG=en zztool dump -w 500 $url |
+		awk '/^ *@/{imp=1;next};imp' |
+		sed -n '/^ *Tweets *$/,/Back to top/p' |
+		sed '1,/^ *More *$/ d
+			/Copy link to Tweet/d;
+			/Embed Tweet/d;
 			/ followed *$/d
 			s/ *(BUTTON) View translation *//
-			/^ *(BUTTON) /d
+			/^ *(BUTTON) */d
 			/ · Details *$/d
 			/ tweeted yet\. *$/d
 			/^   [1-9 ][0-9]\./i \
@@ -60,20 +60,18 @@ zztweets ()
 			/^ *View conversation/d
 			/^ *View more photos and videos$/d
 			/^ *Embedded image permalink$/d
-			/[0-9,]\{1,\} retweets\{0,1\} [0-9,]\{1,\} like/,/[o+] (BUTTON) Embed Tweet/d
+			/[0-9,]\{1,\} retweets\{0,1\} [0-9,]\{1,\} like/d #,/[o+] (BUTTON) Embed Tweet/d
+			/^ *Reply *$/,/^ *More */d
 			/[o+] (BUTTON) /d
 			s/\[DEL: \(.\) :DEL\] /\1/g
-			s/^ *//g
+			s/^[[:blank:]]*//g
 		' |
-		zzsqueeze -l |
 		sed '/. added,$/{N;d;}' |
-		awk -v lim=$limite '$0 ~ /^[[:blank:]]*$/ {blanks++};{if(blanks>lim) exit; print}'
-
-	# Apagando as 70 primeiras linhas usando apenas números,
-	# pois o sed do BSD capota se tentar ler o conteúdo destas
-	# linhas. Leia mais no issue #28.
-
-	# O último sed está destacado, pois seu funcionamento no sed anterior
-	# estava irregular, aplicando o comando apenas em alguns momentos.
-	# Não tenho explicação para isso!
+		zzsqueeze -l |
+		zztrim |
+		awk -v lim=$limite '
+			BEGIN { print "" }
+			$0 ~ /^[[:blank:]]*$/ {blanks++};{if (blanks>=lim) exit; print}
+			END { print "" }
+			'
 }

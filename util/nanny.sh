@@ -197,6 +197,13 @@ do
 done
 
 eco ----------------------------------------------------------------
+eco "* Funções que citam a si mesmas no campo Requisitos:"
+for f in zz/*.sh off/*.sh
+do
+ grep "^# Requisitos:.*$(basename $f .sh)" $f > /dev/null && echo $f
+done
+
+eco ----------------------------------------------------------------
 eco "* Funções com cabeçalho >78 colunas"
 for f in zz/*.sh off/*.sh
 do
@@ -238,10 +245,8 @@ grep -H '^#.*	' zz/*.sh off/*.sh
 
 eco ----------------------------------------------------------------
 eco "* Funções que não usam 'zzzz -h'"
-ok="zztool"
 for f in zz/*.sh  # off/*.sh
 do
-	echo " $ok " | grep " $(basename $f) " >/dev/null && continue
 	grep 'zzzz -h ' $f >/dev/null || echo $f
 done
 
@@ -265,14 +270,12 @@ zzarrumacidade
 zzascii
 zzbeep
 zzbissexto
-zzbolsas
 zzbraille
 zzcalcula
 zzcapitalize
 zzcaracoroa
 zzcarnaval
 zzcidade
-zzcinemark
 zzcineuci
 zzcnpj
 zzcodchar
@@ -290,7 +293,6 @@ zzdos2unix
 zzencoding
 zzestado
 zzexcuse
-zzeuro
 zzferiado
 zzfilme
 zzfoneletra
@@ -312,17 +314,15 @@ zzlinha
 zzlinux
 zzlinuxnews
 zzloteria
-zzloteria2
 zzlua
+zzmacaddress
 zzmaiores
 zzmaiusculas
 zzmariadb
 zzmd5
 zzminusculas
-zzmoeda
 zzmoneylog
 zznatal
-zznoticias
 zznoticiaslinux
 zznoticiassec
 zzpais
@@ -330,11 +330,8 @@ zzpalpite
 zzpascoa
 zzpgsql
 zzphp
-zzpiada
 zzporta
-zzppt
 zzramones
-zzranking
 zzrot13
 zzrot47
 zzsecurity
@@ -347,7 +344,6 @@ zzstr2hexa
 zzsubway
 zztabuada
 zztac
-zztelecine
 zztempo
 zztradutor
 zztranspor
@@ -361,7 +357,6 @@ zzunix2dos
 zzurldecode
 zzurlencode
 zzutf8
-zzvdp
 zzvira
 zzxml
 "

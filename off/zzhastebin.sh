@@ -10,6 +10,7 @@
 # Versão: 1
 # Licença: GPL
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2018-01-27 curl falha, precisa do haste (ruby e xcode)
 zzhastebin ()
 {
 

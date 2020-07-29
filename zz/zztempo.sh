@@ -7,14 +7,14 @@
 # Opções:
 #
 # -l, --lang, --lingua
-#    Exibe a previsão em uma das línguas disponíveis: az be bg bs ca cy cs 
-#    da de el eo es et fi fr hi hr hu hy is it  ja jv ka kk ko ky lt lv mk   
+#    Exibe a previsão em uma das línguas disponíveis: az be bg bs ca cy cs
+#    da de el eo es et fi fr hi hr hu hy is it  ja jv ka kk ko ky lt lv mk
 #    ml nl nn pt pl ro ru sk sl sr sr-lat sv sw th tr uk uz vi zh zu
 #
 # -u, --us
-#    Retorna leitura em unidades USCS - United States customary units - 
-#    Unidades Usuais nos Estados Unidos. Isto é: "°F" para temperatura, 
-#    "mph" para velocidade do vento,  "mi" para visibilidade e "in" para 
+#    Retorna leitura em unidades USCS - United States customary units -
+#    Unidades Usuais nos Estados Unidos. Isto é: "°F" para temperatura,
+#    "mph" para velocidade do vento,  "mi" para visibilidade e "in" para
 #    precipitação.
 #
 # -v, --vento
@@ -36,7 +36,7 @@
 #    -d 0 = apenas tempo atual. Também pode se chamado com -0
 #    -d 1 = tempo atual mais 1 dia. Também pode se chamado com -1
 #    -d 2 = tempo atual mais 2 dias. Também pode se chamado com -2
-#    -d 3 = tempo atual mais 3 dias. Padrão. 
+#    -d 3 = tempo atual mais 3 dias. Padrão.
 #
 # Uso: zztempo [parametros] <localidade>
 # Ex.: zztempo 'São Paulo'
@@ -48,80 +48,84 @@
 # Desde: 2004-02-19
 # Versão: 2
 # Licença: GPL
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zztempo ()
 {
-    zzzz -h tempo "$1" && return
+	zzzz -h tempo "$1" && return
 
-    # Embrulhamos os principais parametros disponiveis em wttr.in/:help
-    # Em novos comandos "aportuguesados".
+	# Embrulhamos os principais parametros disponiveis em wttr.in/:help
+	# Em novos comandos "aportuguesados".
 
-    # Inicializa os modificadores com seus valores padrão.
-    local lingua="pt"     # Lingua PT
-    local unidade="m"     # Unidades SI
-    local vento=""        # Vento Km/h
-    local dias="3"        # Máximo número de dias de previsão
-    local semcores=""     # Usa terminal colorido
-    local simplificado    # Previsao completa ou simplificada
+	# Inicializa os modificadores com seus valores padrão.
+	local lingua="pt"     # Lingua PT
+	local unidade="m"     # Unidades SI
+	local vento=""        # Vento Km/h
+	local dias="3"        # Máximo número de dias de previsão
+	local semcores=""     # Usa terminal colorido
+	local simplificado    # Previsao completa ou simplificada
 
-    #Altera para simplificado se largura do bash não comportar
-    if [ 125 -gt $COLUMNS ]
-    then
-        simplificado="n"   # Previsao simplificada
-    else
-        simplificado=""    # Previsao completa
-    fi
+	#Altera para simplificado se largura do shell não comportar
+	if [ 125 -gt $(tput cols) ]
+	then
+		simplificado="n"   # Previsao simplificada
+	else
+		simplificado=""    # Previsao completa
+	fi
 
-    #leitura dos parametros de entrada
-    while test "${1#-}" != "$1"
-    do
-        case "$1" in
-        -l | --lang | --lingua)  
-            lingua="$2"; 
-            shift;shift ;;
-        -u | --us) 
-            unidade="u"; 
-            shift ;;
-        -v | --vento)
-            vento="M";
-            shift ;;
-        -s | --simples)
-            simplificado="n";
-            shift ;;
-        -c | --completo)
-            simplificado="";
-            shift ;;
-        -m | --monocromatico)
-            semcores="T";
-            shift;;
-        -d | --dias)
-            if zztool testa_numero "$2"
-            then
-                dias="$2";
-            else
-                zztool erro "Número de dias inválido: $2"; 
-                return 1;
-            fi
-            shift; shift;;
-        -0)
-            dias="0";
-            shift ;;
-        -1)
-            dias="1";
-            shift;;
-        -2)
-            dias="2";
-            shift;;
-        --) shift; break ;;
-        -*) zztool erro "Opção inválida: $1"; return 1 ;;
-        *) break;;
-        esac
-    done
-    
-    
-    # Comando bash proposto pelo site em: "wttr.in/:bash.function"
-    # Chama Previsão de Brasília se outro parâmetro não for passado
+	#leitura dos parametros de entrada
+	while test "${1#-}" != "$1"
+	do
+		case "$1" in
+		-l | --lang | --lingua)
+			lingua="$2";
+			shift;shift ;;
+		-u | --us)
+			unidade="u";
+			shift ;;
+		-v | --vento)
+			vento="M";
+			shift ;;
+		-s | --simples)
+			simplificado="n";
+			shift ;;
+		-c | --completo)
+			simplificado="";
+			shift ;;
+		-m | --monocromatico)
+			semcores="T";
+			shift;;
+		-d | --dias)
+			if zztool testa_numero "$2"
+			then
+				dias="$2";
+			else
+				zztool erro "Número de dias inválido: $2";
+				return 1;
+			fi
+			shift; shift;;
+		-0)
+			dias="0";
+			shift ;;
+		-1)
+			dias="1";
+			shift;;
+		-2)
+			dias="2";
+			shift;;
+		--) shift; break ;;
+		-*) zztool erro "Opção inválida: $1"; return 1 ;;
+		*) break;;
+		esac
+	done
 
-    local opcoes=$unidade$vento$simplificado$dias$semcores
-    curl -s -H "Accept-Language: $lingua" $lingua.wttr.in/"${1:-Brazil}?$opcoes"
+	# Seguindo a variável ZZCOR quando igual a 0, independende da opção escolhida.
+	[ $ZZCOR -eq 0 ] && semcores="T"
+
+	# Comando bash proposto pelo site em: "wttr.in/:bash.function"
+	# Chama Previsão de Brasília se outro parâmetro não for passado
+
+	local opcoes="${unidade}${vento}${simplificado}${dias}${semcores}"
+	curl -s -H "Accept-Language: ${lingua}" ${lingua}.wttr.in/"${1:-Brazil}?${opcoes}" |
+	sed '/^Follow /d; /^New feature:/d'
 }

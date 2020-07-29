@@ -5,12 +5,13 @@
 # Se nenhum idioma for informado, o padrão é o português.
 # Uso: zzdicbabylon [idioma] palavra   #idiomas: nl fr de he it pt es
 # Ex.: zzdicbabylon hardcore
-#      zzdicbabylon jap tree
+#      zzdicbabylon he tree
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
 # Versão: 2
 # Licença: GPL
+# Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicbabylon ()
 {
@@ -38,6 +39,9 @@ zzdicbabylon ()
 			s/<[^>]*>//g
 			/^$/d
 			N;s/\n/ /
+			s/<[^>]*>//g
+			s/^ *//
+			s/ *$//
 			s/      / /
 			' |
 		zztool texto_em_utf8

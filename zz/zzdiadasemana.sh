@@ -26,7 +26,7 @@ zzdiadasemana ()
 	# 1=domingo, assim os números são similares aos nomes: 2=segunda
 
 	# Opção de linha de comando
-	if test "$1" = '-n'
+	if test '-n' = "$1"
 	then
 		dias="$dias_n"
 		dias_rev="$dias_n_rev"

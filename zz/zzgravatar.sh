@@ -24,6 +24,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzmd5 zzminusculas zztrim
+# Tags: internet, url
 # ----------------------------------------------------------------------------
 zzgravatar ()
 {

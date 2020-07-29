@@ -25,4 +25,10 @@ $ zzhorariodeverao 2009
 $ zzhorariodeverao 2010
 17/10/2010
 20/02/2011
+$ zzhorariodeverao 2013
+20/10/2013
+16/02/2014
+$ zzhorariodeverao 2017
+15/10/2017
+18/02/2018
 $

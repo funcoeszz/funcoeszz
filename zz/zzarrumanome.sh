@@ -15,7 +15,8 @@
 # Desde: 2001-07-23
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzarrumanome zzminusculas
+# Requisitos: zzminusculas
+# Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zzarrumanome ()
 {

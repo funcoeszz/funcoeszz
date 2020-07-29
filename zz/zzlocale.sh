@@ -9,6 +9,7 @@
 # Desde: 2005-06-30
 # Versão: 2
 # Licença: GPL
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzlocale ()
 {
@@ -19,7 +20,7 @@ zzlocale ()
 	local padrao="$1"
 
 	# Opções de linha de comando
-	if test "$1" = '-c'
+	if test '-c' = "$1"
 	then
 		# Padrão de pesquisa válido para última palavra da linha (código)
 		padrao="$2[^ ]*$"

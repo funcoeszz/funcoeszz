@@ -21,8 +21,9 @@ before_install:
   - mv clitest testador
 
 script:
-  - if test "$TRAVIS_OS_NAME" = osx;   then cd testador && ./run; fi
-  - if test "$TRAVIS_OS_NAME" = linux; then cd testador && ./run $(ls -1 zz*.sh | grep -xv zzlinux.sh); fi
+  #- if test "$TRAVIS_OS_NAME" = osx;   then cd testador && ./run; fi
+  #- if test "$TRAVIS_OS_NAME" = linux; then cd testador && ./run $(ls -1 zz*.sh | egrep -xv 'zz(linux|distro).sh'); fi
+  - if test "$TRAVIS_OS_NAME" = linux; then cd testador && ./run internet_travis; fi
   # Exclude zzlinux tests in Linux (see https://github.com/funcoeszz/funcoeszz/issues/355) 
 
 notifications:

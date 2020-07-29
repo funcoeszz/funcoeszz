@@ -40,6 +40,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zzalinhar zztrim
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzcolunar ()
 {
@@ -90,7 +91,7 @@ zzcolunar ()
 	zzalinhar -w $largura ${alinhamento} |
 	awk -v cols=$colunas -v formato=$formato -v cab=$header -v delim="$sep" '
 
-		NR==1 { if(cab) header = $0 }
+		NR==1 { if (cab) header = $0 }
 
 		{ linha[NR - cab] = $0 }
 

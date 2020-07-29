@@ -13,6 +13,7 @@
 # Versão: 11
 # Licença: GPL
 # Requisitos: zzsemacento zzminusculas zztrim
+# Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicportugues ()
 {
@@ -51,7 +52,7 @@ zzdicportugues ()
 		padrao=${padrao}_${contador}
 	done
 
-	if test "$2" = "def"
+	if test 'def' = "$2"
 	then
 		ini='^Definição de '; fim=' escrit[ao] ao contrário: '
 	fi

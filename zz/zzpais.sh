@@ -18,12 +18,13 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzlinha zzpad
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzpais ()
 {
 	zzzz -h pais "$1" && return
 
-	local url='https://pt.wikipedia.org/wiki/Lista_de_pa%C3%ADses_e_capitais_em_l%C3%ADnguas_locais'
+	local url='https://pt.wikipedia.org/wiki/Lista_de_países_e_capitais_em_línguas_locais'
 	local cache=$(zztool cache pais)
 	local original=0
 	local idioma=0
@@ -36,10 +37,19 @@ zzpais ()
 		sed -n '/class="wikitable"/,/<\/table>/p' |
 		sed '/<th/d;s|</td>|:|g;s|</tr>|--n--|g;s|<br */*>|, |g;s/<[^>]*>//g;s/([^)]*)//g;s/\[.\]//g' |
 		awk '{
-			if ($0 == "--n--"){ print ""}
-			else {printf "%s", $0}
+			gsub(/--n--/,"\n")
+			printf "%s", $0
 		}' |
-		sed 's/, *:/:/g;s/^ *//g;s/ *, *,/,/g;s/ *$//g;s/[,:] *$//g;/Taiuã:/d;/^ *$/d' > "$cache"
+		sed '
+			s/, *:/:/g
+			s/^ *//g
+			s/ *, *,/,/g
+			s/ *$//g
+			s/[,:] *$//g
+			s/ ,/,/g
+			/Taiuã:/d
+			/^ *$/d
+		' > "$cache"
 	fi
 
 	while test "${1#-}" != "$1"
@@ -96,6 +106,7 @@ zzpais ()
 				if (idioma_awk == 1 || original_awk == 1) print ""
 			}'
 	fi |
+	sed 's/ *| */|/g' |
 	while read linha
 	do
 		if zztool grep_var "|" "$linha"
@@ -109,5 +120,5 @@ zzpais ()
 			unset field2
 		fi
 	done |
-	sed 's/  *$//'
+	sed 's/  *$//; s/\([:,]\)  */\1 /g'
 }

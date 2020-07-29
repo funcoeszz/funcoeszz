@@ -12,8 +12,9 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-03-29
-# Versão: 3
+# Versão: 4
 # Licença: GPL
+# Tags: internet, tempo, consulta
 # ----------------------------------------------------------------------------
 zzhoracerta ()
 {
@@ -24,7 +25,7 @@ zzhoracerta ()
 	local url='http://www.worldtimeserver.com'
 
 	# Opções de linha de comando
-	if test "$1" = '-s'
+	if test '-s' = "$1"
 	then
 		shift
 		codigo="$1"
@@ -76,6 +77,11 @@ zzhoracerta ()
 
 	# Faz a consulta e filtra o resultado
 	zztool dump "$url/current_time_in_$localidade.aspx" |
-		grep 'The current time' -B 2 -A 6 |
-		sed '/Time:/d;/^ *$/d; s/^ *//'
+		sed -n '/Current Time in /,/Daylight Saving Time:/{
+			s/Current Time in //
+			/[?:]$/d
+			/^ *$/d
+			s/^ *//
+			p
+		}'
 }

@@ -13,6 +13,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento zztrim
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzmariadb ()
 {
@@ -22,7 +23,7 @@ zzmariadb ()
 	local cache=$(zztool cache mariadb)
 	local comando
 
-	if test "$1" = "--atualiza"
+	if test '--atualiza' = "$1"
 	then
 		zztool atualiza mariadb
 		shift

@@ -19,6 +19,7 @@
 # Desde: 2013-12-05
 # Versão: 1
 # Licença: GPL
+# Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zzjoin ()
 {
@@ -31,11 +32,11 @@ zzjoin ()
 	# Opção -m ou -M, -numero ou -o
 	while test "${1#-}" != "$1"
 	do
-		if test "$1" = "-o"
+		if test '-o' = "$1"
 		then
 			arq_saida="$2"
 			shift
-		elif test "$1" = "-d"
+		elif test '-d' = "$1"
 		then
 			sep="$2"
 			shift
@@ -50,14 +51,14 @@ zzjoin ()
 	for arquivo
 	do
 		# Especificar se vai se orientar pelo arquivo com mais ou menos linhas
-		if test "$tipo" = "m" || test "$tipo" = "M"
+		if test 'm' = "$tipo" || test 'M' = "$tipo"
 		then
 			lin_arq=$(zztool num_linhas "$arquivo")
-			if test "$tipo" = "M" && test $lin_arq -gt $linhas
+			if test 'M' = "$tipo" && test $lin_arq -gt $linhas
 			then
 				linhas=$lin_arq
 			fi
-			if test "$tipo" = "m" && (test $lin_arq -lt $linhas || test $linhas -eq 0)
+			if test 'm' = "$tipo" && (test $lin_arq -lt $linhas || test $linhas -eq 0)
 			then
 				linhas=$lin_arq
 			fi

@@ -13,6 +13,7 @@
 # Versão: 12
 # Licença: GPL
 # Requisitos: zzminusculas zzfeed zztac zzdata zzdatafmt
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzsecurity ()
 {
@@ -67,7 +68,7 @@ zzsecurity ()
 		zztool dump "$url" |
 			sed -n '
 				s/^  *//
-				/^GLSA/, /^$/ !d
+				/^GLSA/,/^$/ !d
 				/[0-9]\{4\}/ {
 					s/\([-0-9]* \) *[a-zA-Z]* *\(.*[^ ]\)  *[0-9][0-9]* *$/\1\2/
 					p
@@ -124,7 +125,7 @@ zzsecurity ()
 	# Ubuntu
 	if zztool grep_var ubuntu "$distros"
 	then
-		url='http://www.ubuntu.com/usn/rss.xml'
+		url='https://usn.ubuntu.com/rss.xml'
 		echo
 		zztool eco '** Atualizações Ubuntu'
 		echo "$url"
@@ -147,22 +148,12 @@ zzsecurity ()
 	# Arch
 	if zztool grep_var arch "$distros"
 	then
-		url="https://wiki.archlinux.org/index.php/CVE"
+		url="https://security.archlinux.org/"
 		echo
 		zztool eco '** Atualizações Archlinux'
 		echo "$url"
 		zztool dump "$url" |
-			sed -n "/^ *CVE-${ano}-[0-9]/{s/templink //;p;}" |
-			$limite
-	fi
-
-	# Mageia
-	if zztool grep_var mageia "$distros"
-	then
-		url='http://advisories.mageia.org/advisories.rss'
-		echo
-		zztool eco '** Atualizações Mageia'
-		echo "$url"
-		zzfeed -n $n "$url"
+			awk '/ AVG-/{++i;print"";sub(/^ */,"")};i>=6{exit}i;' |
+			sed '/AVG.* CVE/ {s/ CVE/\n   CVE/}'
 	fi
 }

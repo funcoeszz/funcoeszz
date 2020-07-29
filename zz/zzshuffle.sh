@@ -9,6 +9,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzaleatorio
+# Tags: shuffle, emulação
 # ----------------------------------------------------------------------------
 zzshuffle ()
 {

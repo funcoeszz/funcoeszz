@@ -13,6 +13,7 @@
 # Requisitos: zzdatafmt zzjuntalinhas zzlimpalixo zzminusculas zzpad zzsemacento zzsqueeze zztrim zzunescape zzutf8 zzxml
 # Tags: cinema
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2018-01-09 Site usando AJAX.
 zzcinepolis ()
 {
 	zzzz -h cinepolis "$1" && return

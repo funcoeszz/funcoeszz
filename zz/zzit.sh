@@ -22,17 +22,19 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-28
-# Versão: 2
+# Versão: 4
 # Licença: GPL
 # Requisitos: zzsemacento zzutf8 zzxml zzsqueeze zzdatafmt zzlinha
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzit ()
 {
 
 	zzzz -h it "$1" && return
 
-	local url='http://www.inovacaotecnologica.com.br'
-	local ano url2 opcao num
+	local url='https://www.inovacaotecnologica.com.br'
+	ano=$(zzdatafmt -f AAAA hoje)
+	local url2 opcao num
 
 	if test -n "$1" && zztool testa_numero $1
 	then
@@ -66,44 +68,25 @@ zzit ()
 	then
 		if test -z "$num"
 		then
-			zztool dump "$url2" |
-			if test "$opcao" = "plantao"
-			then
-				sed -n '/^ *Plantão /,/- Arquivo/{ /^ *\*/!d; s/^ *\* *//; p; }'
-			else
-				sed -n '/^ *Notícias /,/- Arquivo/{ /^ *\*/!d; s/^ *\* *//; p; }'
-			fi |
-			awk '{ printf "%02d - %s\n", NR, $0 }'
+			zztool source "$url2" |
+			zzutf8 |
+			sed '/- Arquivos<\/strong>/,$d' |
+			zzxml --tidy --tag h2 --untag |
+			awk '{printf "%02d - ",NR};1'
 		else
-			url2=$(
-			zztool source "$url2" | zzutf8 |
-			sed -n '/Notícias /,/- Arquivo/{ /^<li>/!d; s/.*="//; s/".*//; p; }' |
-			zzlinha $num
+			url2="${url}/"$(
+				zztool source "$url2" |
+				zzutf8|
+				zzxml --tidy --tag h2 |
+				sed '/<a href/!d;s/.*href="//;s/">//' |
+				zzxml --untag |
+				zzlinha $num
 			)
 			zztool eco "$url2"
 			zztool dump "$url2" |
-			sed '1,/^ *Livros$/d; s/ *\(Bibliografia:\)/\
+			sed '1,/Plantão *$/d; s/ *\(Bibliografia:\)/\
 \1/' |
-			sed '1,/^ *$/d; /INS: *:INS/,$d; /Outras notícias sobre:/,$d' |
-			zzsqueeze | fmt -w 120
-		fi
-	else
-		zztool source "$url2" |
-		zzutf8 |
-		awk '/<div id="manchete">/,/Leia mais/' |
-		zzxml --untag=i --untag=u --untag=b --untag=img |
-		zzxml --tag a |
-		sed '/^<\/a>$/,/^<\/a>$/d;/^ *$/d;/assunto=/{N;d;}' |
-		if test -z "$num"
-		then
-			awk 'NR % 2 == 0 { printf "%02d - %s\n", NR / 2 , $0 }'
-		else
-			url2=$(awk -v linha=$num 'NR == linha * 2 -1' | sed 's/">//;s/.*"//;s|\.\./||' | sed "s|^|${url}/|")
-			zztool eco "$url2"
-			zztool dump "$url2" |
-			sed '1,/^ *Livros$/d; s/ *\(Bibliografia:\)/\
-\1/' |
-			sed '1,/^ *$/d; /INS: *:INS/,$d; /Outras notícias sobre:/,$d' |
+			sed 's/\[INS: *:INS\]//g; /\* Imprimir/{s///;q;}' |
 			zzsqueeze | fmt -w 120
 		fi
 	fi

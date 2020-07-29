@@ -6,29 +6,24 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
-# Versão: 7
+# Versão: 8
 # Licença: GPL
+# Requisitos: zzjuntalinhas zzsqueeze zztrim zzxml
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzdolar ()
 {
 	zzzz -h dolar "$1" && return
 
 	# Faz a consulta e filtra o resultado
-	zztool dump 'http://economia.uol.com.br/cotacoes' |
-		tr -s ' ' |
-		egrep  'Dólar (com\.|tur\.|comercial)' |
-		sed '
-			# Linha original:
-			# Dólar com. 2,6203 2,6212 -0,79%
-
-			# faxina
-			/Bovespa/d
-			s/com\./Comercial/
-			s/  *\(CAPTION: \)\{0,1\}Dólar comercial/  Compra Venda Variação/
-			s/tur\./Turismo /
-			s/^  *Dólar //
-			s/[[:blank:]]*$//
-			s/\(.*\) - \(.*\) \{0,1\}\([0-9][0-9]h[0-9][0-9]\)*/\2|\3\
-\1/' |
-		tr ' |' '\t '
+	zztool source 'http://economia.uol.com.br/cotacoes' |
+	zzxml --tidy |
+	sed -n '/<table class="borda mod-grafico-wide quatro-colunas">/,/table>/p' |
+	zzjuntalinhas -i '<tr>' -f '</tr>' |
+	zzjuntalinhas -i '<caption' -f 'caption>' |
+	zzxml --untag |
+	zzsqueeze |
+	zztrim |
+	sed -n '/Dólar /{s///;s/comercial - //;s/com\./Comercial/;s/tur\./Turismo/;s/ /	/g;p;}' |
+	sed '$s/	/		/;1a \		Compra	Venda	Variação'
 }

@@ -13,7 +13,8 @@
 # Desde: 2016-05-07
 # Versão: 1
 # Licença: GPL
-# Requisitos: zzsemacento zzminusculas zzxml
+# Requisitos: zzsemacento zzminusculas zztrim zzxml
+# Tags: internet, distração, consulta
 # ----------------------------------------------------------------------------
 zzhoroscopo ()
 {
@@ -35,21 +36,14 @@ zzhoroscopo ()
 	# Se o signo informado pelo usuário for válido faz a consulta ao serviço
 	if zztool grep_var $signo "$signos"
 	then
-		# Define as regras para remover tudo que não se refere ao signo desejado
-		local remove_ini='s/^<article><p>//'
-		local remove_fim='s/<\/p><\/article>.*$//'
-
 		# Endereço do serviço de consulta do horóscopo
 		local url="http://m.horoscopovirtual.bol.uol.com.br/horoscopo/$signo"
 
 		# Faz a mágica acontecer
 		zztool source -u 'Mozilla/5.0' "$url" |
-			zzxml --tag 'article' |
-			tr -ds '\t\n\r' ' ' |
-			sed "$remove_ini;$remove_fim" |
+			sed -n '/title-sign/p;/date-sign/{s/&.*//;p;};/text-pred/,/<span/p' |
 			zzxml --untag |
-			zztool nl_eof |
-			awk '{sub(/$/,"\n",$2);gsub(/\. /,".\n ")};1'
+			zztrim
 	else
 		return 1
 	fi

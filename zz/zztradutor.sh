@@ -28,6 +28,7 @@
 # Versão: 13
 # Licença: GPLv2
 # Requisitos: zzxml zzplay zzunescape zzutf8
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zztradutor ()
 {

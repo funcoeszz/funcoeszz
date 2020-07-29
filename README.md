@@ -20,11 +20,22 @@ Forka nóis e pulla! :)
 https://github.com/funcoeszz/funcoeszz/blob/master/CONTRIBUTING.md
 
 
-## Instalação das Funções ZZ (versão de desenvolvimento)
+## Instalação das Funções ZZ - Versão oficial
+
+A versão oficial das Funções ZZ é [gerada à partir deste repositório](https://github.com/funcoeszz/funcoeszz/tree/master/release) e é lançada de tempos em tempos. Ela traz todas as funções dentro de um único arquivo, e é rápida de carregar em sua shell.
+
+Para instalá-la, basta baixar o arquivão das funções e rodar o comando de instalação. As instruções estão lá no site:
+
+- http://funcoeszz.net/download/
+
+
+## Instalação das Funções ZZ - Versão beta
+
+A versão beta das Funções ZZ roda direto deste repositório do GitHub, com cada função isolada em seu próprio arquivo, dentro da [pasta zz](https://github.com/funcoeszz/funcoeszz/tree/master/zz). É o código mais recente das funções, porém tem um processo de instalação e configuração mais manual, e por serem centenas de arquivos separados, a carga inicial em sua shell demorará mais do que a versão oficial. 
 
 Baixe o repositório para sua máquina:
 
-    $ git clone git://github.com/funcoeszz/funcoeszz.git ~/funcoeszz
+    $ git clone https://github.com/funcoeszz/funcoeszz.git ~/funcoeszz
     $ cd ~/funcoeszz
 
 Rode o comando seguinte para adicionar o carregamento das Funções ZZ no final de seu `~/.bashrc`:
@@ -38,12 +49,11 @@ Confira que as linhas foram adicionadas, e perceba que o PATH atual do script fi
     $ tail -4 ~/.bashrc
     # Instalacao das Funcoes ZZ (www.funcoeszz.net)
     export ZZOFF=""  # desligue funcoes indesejadas
-    export ZZPATH="/Users/aurelio/funcoeszz/funcoeszz"  # script
+    export ZZPATH="$HOME/funcoeszz/funcoeszz"  # script
+    export ZZDIR="$HOME/funcoeszz/zz"    # pasta zz/
     source "$ZZPATH"
 
-Você precisa adicionar "na mão" mais uma linha lá no `~/.bashrc`, antes do comando `source`, para indicar onde está a pasta com as funções:
-
-    export ZZDIR="/Users/aurelio/funcoeszz/zz"
+Confira o arquivo `~/.bashrc`( ou equivalente ), e edite conforme esse modelo adequando as suas configurações se for necessário, de preferência mantendo essa disposição.
 
 Agora sim, você pode usar as Funções ZZ em toda a sua glória. Abra um novo terminal e divirta-se!
 

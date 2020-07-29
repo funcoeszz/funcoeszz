@@ -18,6 +18,7 @@
 # Requisitos: zzdatafmt zzxml zzunescape zztrim
 # Tags: cinema
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2018-01-11 - Site também usando javascript
 zzcinemark ()
 {
 	zzzz -h cinemark "$1" && return

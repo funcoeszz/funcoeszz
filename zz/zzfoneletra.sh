@@ -9,6 +9,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzmaiusculas
+# Tags: texto, número, conversão
 # ----------------------------------------------------------------------------
 zzfoneletra ()
 {

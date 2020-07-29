@@ -20,6 +20,7 @@
 # Versão: 6
 # Licença: GPLv2
 # Requisitos: zzseq zztestar
+# Tags: número, tabela
 # ----------------------------------------------------------------------------
 zztabuada ()
 {

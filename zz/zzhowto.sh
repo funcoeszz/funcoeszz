@@ -10,6 +10,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zztrim zzxml
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzhowto ()
 {
@@ -23,7 +24,7 @@ zzhowto ()
 	test -n "$1" || { zztool -e uso howto; return 1; }
 
 	# Força atualização da listagem apagando o cache
-	if test "$1" = '--atualiza'
+	if test '--atualiza' = "$1"
 	then
 		zztool atualiza howto
 		shift

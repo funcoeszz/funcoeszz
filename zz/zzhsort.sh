@@ -25,6 +25,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zztranspor
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzhsort ()
 {

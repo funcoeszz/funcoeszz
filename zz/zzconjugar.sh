@@ -12,11 +12,13 @@
 # Ex.: zzconjugar correr
 #      zzconjugar comer sub
 #
-# Autor: Itamar <itamarnet (a) yahoo com br>
-# Desde: 2016-05-09
-# Versão: 3
+# Autor: Leslie Harlley Watter <leslie (a) watter org>
+# Desde: 2003-08-05
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzalinhar zzcolunar zzjuntalinhas zzlblank zzminusculas zzsemacento zzsqueeze zztrim zzutf8 zzxml
+# Tags: internet, consulta
+# Nota: Colaboração de José Inácio Coelho <jinacio (a) yahoo com>
 # ----------------------------------------------------------------------------
 zzconjugar ()
 {
@@ -77,7 +79,7 @@ zzconjugar ()
 		def)
 			zztool eco $(echo "$conteudo" | sed -n '2 { s/<[^>]*>//g; s/^ *//; s/ *$//; p; }')
 			echo "$conteudo" |
-			sed '/id="conjugacao"/q' |
+			sed '/intro-v/,/div>/d;/id="conjugacao"/q' |
 			zzxml --untag |
 			sed '1d; s/- /-/; s/ *:/:/;' |
 			zzsqueeze |
@@ -118,7 +120,7 @@ zzconjugar ()
 			echo "$conteudo" |
 			sed -n '/"modoconjuga"> Imperativo </,/> Infinitivo </ {/^<h3/d; /^<p/d; /p>$/d; /^<div/d; /div>$/d; p; }' |
 			awk '/tempo-conjugacao-titulo/ { printf "\n\n"; print; next }
-				/--|> tu <|> eles? <|> [nv]ós </ { print; next }
+				/--|> tu <|> eles? <|> vocês? <|> [nv]ós </ { print; next }
 				/<br / { print ""; next }
 				{ printf $0 }
 			' |

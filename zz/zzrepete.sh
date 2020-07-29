@@ -10,6 +10,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzseq
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzrepete ()
 {
@@ -21,7 +22,7 @@ zzrepete ()
 	local linha i qtde
 
 	# Uma repetição por linha
-	if test "$1" = "-l" -o "$1" = "--linha"
+	if test '-l' = "$1" -o '--linha' = "$1"
 	then
 		linha='\n'
 		shift

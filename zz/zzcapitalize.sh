@@ -19,6 +19,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zzminusculas
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzcapitalize ()
 {

@@ -27,11 +27,14 @@
 # Desde: 2015-02-17
 # Versão: 2
 # Licença: GPL
+# Tags: sistema, consulta
 # Nota: requer iostat
 # ----------------------------------------------------------------------------
 zziostat ()
 {
 	zzzz -h iostat "$1" && return
+
+	which iostat 1>/dev/null 2>&1 || { zztool erro "iostat não instalado"; return 1; }
 
 	local top line cycle tps reads writes totals
 	local delay=2
@@ -81,10 +84,10 @@ zziostat ()
 
 	# Coluna para ordenacao:
 	# Device tps MB_read/s MB_wrtn/s MB_read MB_wrtn MB_total/s
-	test "$orderby" = "t" && orderby=2
-	test "$orderby" = "r" && orderby=3
-	test "$orderby" = "w" && orderby=4
-	test "$orderby" = "T" && orderby=7
+	test 't' = "$orderby" && orderby=2
+	test 'r' = "$orderby" && orderby=3
+	test 'w' = "$orderby" && orderby=4
+	test 'T' = "$orderby" && orderby=7
 
 	# Executa o iostat, le a saida e agrupa cada "ciclo de execucao"
 	# -d device apenas, -m mostra saida em MB/s

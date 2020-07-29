@@ -16,6 +16,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzcolunar
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzdistro ()
 {
@@ -28,7 +29,7 @@ zzdistro ()
 6 26
 12 52"
 
-	test "$1" = "-l" && { lista=1; shift; }
+	test '-l' = "$1" && { lista=1; shift; }
 	case $1 in
 	1 | 3 | 6 | 12) url="${url}index.php?dataspan=$(echo "$meses" | awk '$1=='$1' {print $2}')"; shift ;;
 	*)

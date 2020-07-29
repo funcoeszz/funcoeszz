@@ -1,9 +1,9 @@
 $ zzcep Rua Santa Ifigênia
 LOGRADOURO                                                        BAIRRO                    CIDADE/ESTADO                  CEP
-Rua Santa Ifigenia                                                Residencial São Luis      Francisco Morato, SP           07996-000
+Rua Santa Ifigênia - lado par                                     Santa Efigênia            São Paulo, SP                  01207-000
 Rua Santa Ifigênia - lado ímpar                                   Santa Efigênia            São Paulo, SP                  01207-001
 Rua Santa Ifigênia 75                                             Santa Efigênia            São Paulo, SP                  01207-900
-Rua Santa Ifigênia - lado par                                     Santa Efigênia            São Paulo, SP                  01207-000
+Rua Santa Ifigenia                                                Residencial São Luis      Francisco Morato, SP           07996-000
 $
 
 $ zzcep 01310-000

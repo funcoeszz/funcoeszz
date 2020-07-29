@@ -9,6 +9,7 @@
 # Versão: 3
 # Licença: GPLv2
 # Requisitos: zzmd5
+# Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzchecamd5 ()
 {

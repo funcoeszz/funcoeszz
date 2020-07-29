@@ -13,6 +13,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento zzseq zzaleatorio
+# Tags: jogo, distração
 # ----------------------------------------------------------------------------
 zzpalpite ()
 {

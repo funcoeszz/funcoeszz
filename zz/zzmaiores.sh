@@ -12,6 +12,7 @@
 # Desde: 2001-08-28
 # Versão: 1
 # Licença: GPL
+# Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzmaiores ()
 {
@@ -45,7 +46,7 @@ zzmaiores ()
 		esac
 	done
 
-	if test "$modo" = 'f'
+	if test 'f' = "$modo"
 	then
 		# Usuário só quer ver os arquivos e não diretórios.
 		# Como o 'du' não tem uma opção para isso, usaremos o 'find'.

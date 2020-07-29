@@ -33,6 +33,7 @@
 # Versão: 13
 # Licença: GPL
 # Requisitos: zzvira zztestar
+# Tags: número, manipulação
 # ----------------------------------------------------------------------------
 zznumero ()
 {
@@ -128,7 +129,7 @@ zznumero ()
 			n_formato="$2"
 
 			# Sem limites de precisão
-			if test "$2" = "-"
+			if test '-' = "$2"
 			then
 				prec="$2"
 				unset n_formato
@@ -146,12 +147,12 @@ zznumero ()
 
 		--de)
 			# Formato de entrada
-			if test "$2" = "pt" -o "$2" = "pt-br"
+			if test 'pt' = "$2" -o 'pt-br' = "$2"
 			then
 				milhar_de='.'
 				decimal_de=','
 				shift
-			elif test "$2" = "en"
+			elif test 'en' = "$2"
 			then
 				milhar_de=','
 				decimal_de='.'
@@ -162,12 +163,12 @@ zznumero ()
 
 		--para)
 			# Formato de saída
-			if test "$2" = "pt" -o "$2" = "pt-br"
+			if test 'pt' = "$2" -o 'pt-br' = "$2"
 			then
 				milhar_para='.'
 				decimal_para=','
 				shift
-			elif test "$2" = "en"
+			elif test 'en' = "$2"
 			then
 				milhar_para=','
 				decimal_para='.'
@@ -199,8 +200,8 @@ zznumero ()
 		-t | --texto)
 			# Variável para número por extenso
 			# Flag para formato por extenso
-			test "$1" = "-t" && texto=1
-			test "$1" = "--texto" && texto=2
+			test '-t' = "$1" && texto=1
+			test '--texto' = "$1" && texto=2
 			shift
 		;;
 

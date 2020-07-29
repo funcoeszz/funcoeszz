@@ -10,6 +10,7 @@
 # Versão: 9
 # Licença: GPL
 # Requisitos: zztrim
+# Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzstr2hexa ()
 {

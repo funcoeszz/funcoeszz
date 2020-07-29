@@ -74,7 +74,8 @@ test "${0##*/}" = 'bash' -o "${0#-}" != "$0" || ZZPATH="$0"
 test -n "$ZZPATH" || ZZPATH=$ZZPATH_DFT
 test "${ZZPATH#/}" = "$ZZPATH" && ZZPATH="$PWD/${ZZPATH#./}"
 
-test -n "$ZZDIR" || ZZDIR=$ZZDIR_DFT
+test -d ${ZZPATH%/*}/zz && ZZDIR="${ZZPATH%/*}/zz"
+test -z "$ZZDIR" && test -d $ZZDIR_DFT && ZZDIR=$ZZDIR_DFT
 
 # Descobre qual o navegador em modo texto está disponível no sistema
 if test -z "$ZZBROWSER"
@@ -175,7 +176,7 @@ zztool ()
 				then
 					cat -
 				else
-					sed "s/$padrao/$esc[${ZZCODIGOCOR}m&$esc[m/g"
+					sed "s/$padrao/${esc}[${ZZCODIGOCOR}m&${esc}[m/g"
 				fi
 		;;
 		grep_var)
@@ -462,7 +463,7 @@ zztool ()
 				then
 					rm -f "${ZZTMP:-XXXX}"*
 					# Restabelecendo zz.ajuda, zz.on, zz.off
-					funcoeszz
+					$ZZPATH
 				else
 					test -n "$3" && id=".$3"
 					test -n "$2" && rm -f "${ZZTMP:-XXXX}.${2#zz}${id}"*
@@ -762,12 +763,12 @@ zzzz ()
 
 			if ! grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
 			then
-				# export ZZDIR="$ZZDIR"  # pasta com as funcoes
 				cat - >> "$bashrc" <<-EOS
 
 				# $instal_msg
 				export ZZOFF=""  # desligue funcoes indesejadas
 				export ZZPATH="$ZZPATH"  # script
+				export ZZDIR="$ZZDIR"    # pasta zz/
 				source "\$ZZPATH"
 				EOS
 
@@ -789,7 +790,10 @@ zzzz ()
 				cat - >> "$tcshrc" <<-EOS
 
 				# $instal_msg
+				# script
 				setenv ZZPATH $ZZPATH
+				# pasta zz/
+				setenv ZZDIR $ZZDIR
 				source $arquivo_aliases
 				EOS
 
@@ -827,7 +831,10 @@ zzzz ()
 				cat - >> "$zshrc" <<-EOS
 
 				# $instal_msg
+				# script
 				export ZZPATH=$ZZPATH
+				# pasta zz/
+				export ZZDIR=$ZZDIR
 				source $arquivo_aliases
 				EOS
 
@@ -958,14 +965,14 @@ zzzz ()
 # Passe o arquivo com as funções como parâmetro
 _extrai_ajuda() {
 	# Extrai somente os cabeçalhos, já removendo o # do início
-	sed -n '/^# -----* *$/, /^# -----* *$/ s/^# \{0,1\}//p' "$1" |
+	sed -n '/^# -----* *$/,/^# -----* *$/ s/^# \{0,1\}//p' "$1" |
 		# Agora remove trechos que não podem aparecer na ajuda
 		sed '
 			# Apaga a metadata (Autor, Desde, Versao, etc)
-			/^Autor:/, /^------/ d
+			/^Autor:/,/^------/ d
 
 			# Apaga a linha em branco apos Ex.:
-			/^Ex\.:/, /^------/ {
+			/^Ex\.:/,/^------/ {
 				/^ *$/d
 			}'
 }

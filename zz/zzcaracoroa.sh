@@ -8,6 +8,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzaleatorio
+# Tags: RANDOM, emulação
 # ----------------------------------------------------------------------------
 zzcaracoroa ()
 {

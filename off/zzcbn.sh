@@ -13,6 +13,7 @@
 # Licença: GPL
 # Requisitos: zzecho zzplay zzcapitalize zzdatafmt zzxml zzutf8
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2018-01-27 Site usando técnicas AJAX.
 zzcbn ()
 {
 	zzzz -h cbn "$1" && return

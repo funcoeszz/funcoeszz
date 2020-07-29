@@ -29,10 +29,10 @@ $
 
 $ zztop segment 47
 June 2016
-Industry     244
+Industry     245
 Research     111
 Academic     94
-Government   43
+Government   42
 Vendor       7
 Classified   1
 

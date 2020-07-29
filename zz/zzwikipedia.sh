@@ -15,6 +15,7 @@
 # Desde: 2004-10-28
 # Versão: 4
 # Licença: GPL
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzwikipedia ()
 {
@@ -57,6 +58,7 @@ zzwikipedia ()
 			/^  *Please help improve this article/d
 			/^  *Por favor, melhore este artigo/d
 			/^  *—*Encontre fontes: /d
+			/^  *Saltar para a navegação/d
 			/\.svg$/d
 			/^  *Categorias* ocultas*:/,$d
 			/^  *Hidden categories:/,$d

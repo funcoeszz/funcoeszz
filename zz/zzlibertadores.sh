@@ -40,6 +40,7 @@
 # Versão: 15
 # Licença: GPL
 # Requisitos: zzecho zzpad zzdatafmt
+# Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------
 zzlibertadores ()
 {
@@ -81,7 +82,7 @@ zzlibertadores ()
 	test -n "$1" || { zztool -e uso libertadores; return 1; }
 
 	# Tempo de resposta do site está elevando, usando cache para minimizar efeito
-	test "$1" = "--atualiza" && { zztool cache rm libertadores; shift; }
+	test '--atualiza' = "$1" && { zztool cache rm libertadores; shift; }
 	if ! test -s "$cache" || test $(head -n 1 "$cache") != $(zzdatafmt --iso hoje)
 	then
 		zzdatafmt --iso hoje > "$cache"
@@ -93,7 +94,7 @@ zzlibertadores ()
 	# Fase 1 (Pré-libertadores)
 	case "$1" in
 	1 | pr[eé] | primeira)
-		sed -n '/PRIMEIRA FASE/,/FASE DE GRUPOS/p' "$cache" |
+		sed -n '/PRIMEIRA FASE/,/FASE DE GRUPOS/{/FASE/d; p;}' "$cache" |
 		sed "$sed_mata" |
 		awk "$awk_jogo" |
 		while read linha
@@ -101,7 +102,7 @@ zzlibertadores ()
 			time1=$(  echo $linha | cut -d"|" -f 1 )
 			time2=$(  echo $linha | cut -d"|" -f 2 )
 			horario=$(echo $linha | cut -d"|" -f 3 )
-			echo "$(zzpad -l 28 $time1) X $(zzpad -r 28 $time2) $horario"
+			echo "$(zzpad -l 45 $time1) X $(zzpad -r 45 $time2) $horario"
 		done
 	;;
 	# Fase 2 (Fase de Grupos)
@@ -148,13 +149,13 @@ zzlibertadores ()
 	esac
 
 	# Escolhendo o grupo para os jogos
-	if test "$1" = "-g" && zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
+	if test '-g' = "$1" && zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 	then
 		echo "Grupo $2"
 		sed -n "/^ *Grupo $2/,/Grupo /p"  "$cache"|
 		sed '
 			1d; /°/d; /Rodada [2-9]/d;
-			/Classificados para as oitavas de final/,$d
+			/ para as oitavas de final/,$d
 			' |
 		sed "$sed_mata" |
 		awk "$awk_jogo" |
@@ -169,7 +170,7 @@ zzlibertadores ()
 	fi
 
 	# Mostrando a classificação (Fase de grupos)
-	if test "$1" = "-c" -o "$1" = "-cg" -o "$1" = "-gc"
+	if test '-c' = "$1" -o '-cg' = "$1" -o '-gc' = "$1"
 	then
 		if zztool testa_numero $2 && test $2 -le 8  -a $2 -ge 1
 		then
@@ -194,18 +195,18 @@ zzlibertadores ()
 					if (cor_awk==1) { printf "\033[m\n" } else {print ""}
 				}
 			}'
-			test "$1" = "-cg" -o "$1" = "-gc" && { echo; zzlibertadores -g $2 | sed '1d'; }
+			test '-cg' = "$1" -o '-gc' = "$1" && { echo; zzlibertadores -g $2 | sed '1d'; }
 		else
 			for grupo in 1 2 3 4 5 6 7 8
 			do
 				zzlibertadores -c $grupo -n
-				test "$1" = "-cg" -o "$1" = "-gc" && { echo; zzlibertadores -g $grupo | sed '1d'; }
+				test '-cg' = "$1" -o '-gc' = "$1" && { echo; zzlibertadores -g $grupo | sed '1d'; }
 				echo
 			done
 		fi
 		if test $ZZCOR -eq 1
 		then
-			test "$3" != "-n" && { echo ""; zzecho -f verde -l preto " Oitavas de Final "; }
+			test '-n' != "$3" && { echo ""; zzecho -f verde -l preto " Oitavas de Final "; }
 		fi
 	fi
 }

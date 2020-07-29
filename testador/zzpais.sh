@@ -23,7 +23,7 @@ $ zzpais República
 País                                       Capital
 ------------------------------------------ ----------------------------------
 República Centro-Africana                  Bangui
-República Checa                            Praga
+República Checa ou República Tcheca        Praga
 República da China, ou Taiwan              Taipé
 República Popular da China                 Pequim
 República Turca de Chipre do Norte         Nicósia
@@ -36,7 +36,7 @@ $
 $ zzpais l$
 País                                       Capital
 ------------------------------------------ ----------------------------------
-África do Sul                              Pretória, Cape Town, Bloemfontein
+África do Sul                              Pretória, Cidade do Cabo, Bloemfontein
 Brasil                                     Brasília
 Guiné Equatorial                           Malabo
 Israel                                     Jerusalém
@@ -60,7 +60,7 @@ Idioma(s): Japonês
 Jérsia                                     Saint Helier
 Idioma(s): Inglês, Francês, Jersês
 
-Jibuti                                     Jibuti
+Jibuti ou Djibuti                          Jibuti
 Idioma(s): Árabe, Francês
 
 Jordânia                                   Amã

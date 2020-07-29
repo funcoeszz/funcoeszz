@@ -9,6 +9,7 @@
 # Desde: 2001-07-23
 # Versão: 3
 # Licença: GPL
+# Tags: diff, emulação
 # ----------------------------------------------------------------------------
 zzdiffpalavra ()
 {
@@ -89,7 +90,7 @@ zzdiffpalavra ()
 		tr "$n" '\n' |
 
 		# Podemos mostrar cores?
-		if test "$ZZCOR" = 1
+		if test 1 = "$ZZCOR"
 		then
 			# Pinta as linhas antigas de vermelho e as novas de azul
 			esc=$(printf '\033')

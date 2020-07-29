@@ -17,6 +17,7 @@
 # Versão: 3
 # Licença: GPL
 # Requisitos: zzminusculas
+# Tags: arquivo, manipulação
 # Nota: (ou) exiftool exiftime identify
 # ----------------------------------------------------------------------------
 zznomefoto ()

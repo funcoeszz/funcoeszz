@@ -24,6 +24,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zztac zzcolunar zzecho zzxml zzunescape zztrim
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zztop ()
 {

@@ -9,6 +9,7 @@
 # Desde: 2000-12-15
 # Versão: 1
 # Licença: GPL
+# Tags: arquivo, consulta
 # Nota: requer cpp
 # ----------------------------------------------------------------------------
 zzcinclude ()

@@ -14,6 +14,7 @@
 # Desde: 2000-05-04
 # Versão: 3
 # Licença: GPL
+# Tags: número, cálculo
 # ----------------------------------------------------------------------------
 zzcalcula ()
 {
@@ -22,7 +23,7 @@ zzcalcula ()
 	local soma
 
 	# Opção de linha de comando
-	if test "$1" = '--soma'
+	if test '--soma' = "$1"
 	then
 		soma=1
 		shift

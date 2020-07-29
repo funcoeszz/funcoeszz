@@ -1,121 +1,82 @@
-$ zzdicsinonimos certo
-Correto:
-1 verdadeiro, direito, bem, correto.
+$ zzdicsinonimos certo | sed '/:$/d' | tr -d ',.' | zzhsort
+bem correto direito verdadeiro 1
 
-Certeiro:
-2 definido, rigoroso, certeiro, exato, justo, preciso, acurado, acertado.
+acertado acurado certeiro definido exato justo preciso rigoroso 2
 
-Garantido:
-3 axiomático, indiscutível, inevitável, infalível, garantido, incontestável, indubitável, efetivo, claro.
+axiomático claro efetivo garantido incontestável indiscutível indubitável inevitável infalível 3
 
-Combinado:
-4 aprovado, determinado, predeterminado, fixo, ajustado, pactuado, contratado, combinado.
+ajustado aprovado combinado contratado determinado fixo pactuado predeterminado 4
 
-Apropriado:
-5 pertinente, devido, conveniente, adequado, apropriado, próprio.
+adequado apropriado conveniente devido pertinente próprio 5
 
-Convencido:
-6 convicto, convencido, persuadido, seguro.
+convencido convicto persuadido seguro 6
 
-Advérbio:
-7 certamente, com certeza, decerto, por certo, sem dúvida, exatamente, corretamente, isso, precisamente, positivo.
+certamente certeza certo com corretamente decerto dúvida exatamente isso por positivo precisamente sem 7
 
-Pronome indefinido:
-8 algum, qualquer, um.
+algum qualquer um 8
 
 Relacionada
-dar certo
+certo dar
 $
 
+$ zzdicsinonimos errado | sed '/:$/d' | tr -d ',.' | zzhsort
+errôneo falso imperfeito impreciso incorreto inexato inverídico 1
 
+desacertado enganado equivocado 2
 
-$ zzdicsinonimos errado
-Que tem erros:
-1 errôneo, inexato, incorreto, impreciso, inverídico, falso, imperfeito.
+condenável impróprio inaceitável inadequado incivil inconveniente 3
 
-Que está enganado:
-2 enganado, equivocado, desacertado.
-
-Que não é adequado:
-3 incivil, condenável, inaceitável, inadequado, impróprio, inconveniente.
-
-Pessoa que comete muitos enganos:
-4 trapalhão, desastrado, desjeitoso, desajeitado.
+desajeitado desastrado desjeitoso trapalhão 4
 $
 
+$ zzdicsinonimos bom | sed '/:$/d' | tr -d ',.' | zzhsort
+bem-intencionado benevolente benévolo benfeitor benigno bondoso caridoso caritativo clemente generoso humano indulgente misericordioso piedoso 1
 
+afável agradável aprazível deleitável encantador prazeroso 2
 
-$ zzdicsinonimos bom
-Bondoso:
-1 bondoso, generoso, caridoso, humano, benévolo, benevolente, benigno, bem-intencionado, indulgente, misericordioso, clemente, piedoso, caritativo, benfeitor.
+acertado adaptado adequado apropriado certo conveniente correto ideal próprio 3
 
-Agradável:
-2 agradável, aprazível, afável, encantador, deleitável, prazeroso.
+bem-criado cortês decente delicado digno disciplinado educado gentil honesto honrado íntegro irrepreensível justo nobre obediente sério virtuoso 4
 
-Adequado:
-3 adequado, apropriado, conveniente, certo, correto, acertado, próprio, ideal, adaptado.
+apto capaz competente eficiente expedito hábil habilitado 5
 
-Educado:
-4 educado, cortês, delicado, gentil, honesto, honrado, íntegro, digno, nobre, decente, sério, virtuoso, irrepreensível, bem-criado, justo, disciplinado, obediente.
+apetitoso deleitoso delicioso gostoso saboroso 6
 
-Competente:
-5 competente, capaz, eficiente, expedito, apto, hábil, habilitado.
+bravo corajoso destemido impávido intrépido meritório resoluto valente 7
 
-Saboroso:
-6 saboroso, delicioso, gostoso, apetitoso, deleitoso.
+assegurado considerável estável favorável firme garantido grande legal lícito lucrativo propício rendoso seguro significante útil válido vantajoso 8
 
-Bravo:
-7 bravo, destemido, corajoso, intrépido, valente, resoluto, impávido, meritório.
+benéfico robusto sadio salutar são saudável 9
 
-Assegurado:
-8 assegurado, garantido, seguro, vantajoso, favorável, útil, propício, válido, lícito, legal, firme, estável, significante, grande, considerável, lucrativo, rendoso.
-
-Salutar:
-9 salutar, benéfico, saudável, sadio, são, robusto.
-
-Curado:
-10 curado, sarado, recuperado, restabelecido, livre.
+curado livre recuperado restabelecido sarado 10
 
 Relacionadas
-bom gosto, bom humor, bom senso
+bom bom bom gosto humor senso
 $
 
+$ zzdicsinonimos mal | sed '/:$/d' | tr -d ',.' | zzhsort
+defeituosamente desarmoniosamente erradamente ilegalmente inadequadamente incorretamente irregularmente 1
 
+de deficientemente imperfeitamente incompletamente insatisfatoriamente insuficientemente leve pouco rapidamente 2
 
-$ zzdicsinonimos mal
-De modo errado:
-1 erradamente, defeituosamente, ilegalmente, incorretamente, irregularmente, inadequadamente, desarmoniosamente.
+a apenas com custo desfavoravelmente dificilmente dificuldade dificultosamente negativamente penosamente 3
 
-De modo insuficiente:
-2 deficientemente, imperfeitamente, de leve, insatisfatoriamente, rapidamente, pouco, insuficientemente, incompletamente.
+barbaramente bruscamente cruelmente desumanamente duramente grosseiramente impropriamente inconvenientemente indevidamente injustamente rudemente severamente 4
 
-Com dificuldade:
-3 negativamente, dificilmente, penosamente, apenas, a custo, com dificuldade, dificultosamente, desfavoravelmente.
+jamais não nunca 5
 
-De modo indelicado ou cruel:
-4 severamente, duramente, injustamente, rudemente, indevidamente, inconvenientemente, impropriamente, grosseiramente, desumanamente, cruelmente, barbaramente, bruscamente.
+assim logo mal que que que 6
 
-De modo algum:
-5 nunca, jamais, não.
+acidente adversidade azar calamidade dano desastre desdita desfortúnio desgosto desgraça desgraceira desventura estrago fatalidade infelicidade infortúnio lástima má maldição mofina perda prejuízo revés sorte tragédia tribulação 7
 
-Logo que:
-6 assim que, logo que, mal que.
+adoecimento distúrbio doença enfermidade mazela moléstia morbo 8
 
-Desgraça:
-7 lástima, acidente, desgraceira, mofina, desfortúnio, maldição, infelicidade, desventura, revés, tragédia, tribulação, dano, estrago, perda, prejuízo, azar, desgosto, infortúnio, fatalidade, desgraça, desdita, desastre, adversidade, má sorte, calamidade.
+aflição angústia castigo correção dor expiação inquietação mágoa pena pesar punição sofrimento 9
 
-Doença:
-8 adoecimento, doença, enfermidade, moléstia, morbo, mazela, distúrbio.
+defeito deficiência deformidade desvantagem eiva falha fraco fraqueza imperfeição inconveniência mácula mancha pecado problema senão vício 10
 
-Pesar:
-9 aflição, dor, mágoa, angústia, pesar, inquietação, sofrimento, castigo, correção, pena, punição, expiação.
-
-Defeito:
-10 deficiência, desvantagem, mácula, mancha, vício, fraqueza, eiva, senão, falha, fraco, defeito, inconveniência, deformidade, imperfeição, problema, pecado.
-
-Maldade:
-11 nocividade, perversidade, malevolência, malfeito, malefício, ruindade, crueldade, maldade, malignidade, perniciosidade.
+crueldade maldade malefício malevolência malfeito malignidade nocividade perniciosidade perversidade ruindade 11
 
 Relacionadas
-foi mal, mal-estar, mal-entendido
+foi mal mal-entendido mal-estar
 $

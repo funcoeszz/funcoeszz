@@ -22,6 +22,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzcalcula zzdatafmt zzdos2unix
+# Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzmoneylog ()
 {
@@ -66,7 +67,7 @@ zzmoneylog ()
 	fi
 
 	# Consigo ler o arquivo? (Se não for pasta nem STDIN)
-	if ! test -d "$arquivo" && test "$arquivo" != '-'
+	if ! test -d "$arquivo" && test '-' != "$arquivo"
 	then
 		zztool -e arquivo_legivel "$arquivo" || return 1
 	fi

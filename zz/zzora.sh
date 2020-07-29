@@ -9,6 +9,7 @@
 # Versão: 6
 # Licença: GPL
 # Requisitos: zzurldecode
+# Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzora ()
 {
@@ -35,8 +36,8 @@ zzora ()
 			/^[ 	]*$/{ branco++ }
 
 			! /^[ 	]*$/ {
-				if(branco==1) { print ""; branco=0 }
-				else if(branco>1)  {
+				if (branco==1) { print ""; branco=0 }
+				else if (branco>1)  {
 					print "===================================================================================================="
 					print ""; branco=0
 				}

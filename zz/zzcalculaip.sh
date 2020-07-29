@@ -12,6 +12,7 @@
 # Versão: 2
 # Licença: GPL
 # Requisitos: zzconverte zztestar
+# Tags: ip, cálculo
 # ----------------------------------------------------------------------------
 zzcalculaip ()
 {

@@ -21,6 +21,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzpad zztrim zzwc
+# Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzalinhar ()
 {

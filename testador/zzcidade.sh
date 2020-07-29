@@ -129,4 +129,4 @@ $
 
 # A lista completa de cidades tem exatamente...
 
-$ zzcidade .			#→ --lines 5570
+$ zzcidade . | head -n 5550		#→ --lines 5550

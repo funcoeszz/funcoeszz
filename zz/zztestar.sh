@@ -35,6 +35,7 @@
 # Desde: 2016-03-14
 # Versão: 2
 # Licença: GPL
+# Tags: número, teste
 # ----------------------------------------------------------------------------
 zztestar ()
 {
@@ -43,7 +44,7 @@ zztestar ()
 	local erro
 
 	# Devo mostrar a mensagem de erro?
-	test "$1" = '-e' && erro=1 && shift
+	test '-e' = "$1" && erro=1 && shift
 
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso testar; return 1; }
@@ -152,7 +153,7 @@ zztestar ()
 
 		ip)
 			# Testa se $2 é um número IPV4 (nnn.nnn.nnn.nnn)
-			local nnn="\([0-9]\{1,2\}\|1[0-9][0-9]\|2[0-4][0-9]\|25[0-5]\)" # 0-255
+			local nnn="\([0-9]\|[1-9][0-9]\|1[0-9][0-9]\|2[0-4][0-9]\|25[0-5]\)" # 0-255
 			echo "$2" | grep "^$nnn\.$nnn\.$nnn\.$nnn$" >/dev/null && return 0
 
 			test -n "$erro" && zztool erro "Número IP inválido '$2'"

@@ -29,6 +29,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zzpad
+# Tags: utilitário
 # ----------------------------------------------------------------------------
 zzestado ()
 {

@@ -29,6 +29,7 @@
 # Versão: 15
 # Licença: GPL
 # Requisitos: zzjuntalinhas zzuniq zzunescape
+# Tags: parser
 # ----------------------------------------------------------------------------
 zzxml ()
 {

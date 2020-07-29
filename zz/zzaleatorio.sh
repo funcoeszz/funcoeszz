@@ -14,6 +14,7 @@
 # Versão: 5
 # Licença: GPL
 # Requisitos: zzvira
+# Tags: número, RANDOM, emulação
 # ----------------------------------------------------------------------------
 zzaleatorio ()
 {
