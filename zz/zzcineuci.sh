@@ -10,7 +10,7 @@
 # Versão: 10
 # Licença: GPL
 # Requisitos: zzunescape zztrim zzcolunar
-# Tags: cinema
+# Tags: internet, cinema
 # ----------------------------------------------------------------------------
 zzcineuci ()
 {

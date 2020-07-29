@@ -11,7 +11,7 @@
 # Versão: 11
 # Licença: GPLv2
 # Requisitos: zzecho zzjuntalinhas zztrim zzutf8 zzxml
-# Tags: cinema
+# Tags: internet, cinema
 # ----------------------------------------------------------------------------
 zzcinemais ()
 {
