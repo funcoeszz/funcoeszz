@@ -68,7 +68,7 @@ zzmaiores ()
 		resultado=$(
 			find $pastas $recursivo -type f -ls |
 				tr -s ' ' |
-				zzlblank |
+				zztrim -l |
 				cut -d' ' -f7,11- |
 				sed "s/ /$tab/" |
 				sort -nr |
