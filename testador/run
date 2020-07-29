@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 # run - run tests
 #
 # Usage:
 #   ./run zzsenha.sh zzcores.sh   # test zzsenha and zzcores
 #   ./run                         # run all tests
 #   ./run internet                # run all internet based tests
+#   ./run local                   # run all local tests (no internet)
 #
 # See README.md file for instructions.
 
@@ -13,10 +14,12 @@ zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
 tmp='./run.tmp'
 tester='bash clitest'
 
-internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"");printf " " $1}')
-internet_travis=$(echo $internet | sed 's/ zz\(distro\|linux\)\.sh//g')
-
 cd "$script_dir"
+
+internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"");printf $1 "\n"}')
+internet_travis=$(echo "$internet" | grep -E -v '^zz(distro|linux)\.sh$')
+all=$(ls -1 zz*.sh)
+no_internet=$(echo "$all" | grep -F -v -x -f <(echo "$internet"))
 
 # Check requirements
 $tester -V > /dev/null || {
@@ -44,6 +47,11 @@ elif test $1 = "internet_travis"
 then
 	# Test internet based files
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $internet_travis
+	exitcode=$?
+elif test $1 = "local"
+then
+	# Tests that do not need internet
+	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $no_internet
 	exitcode=$?
 elif test $# -gt 0
 then

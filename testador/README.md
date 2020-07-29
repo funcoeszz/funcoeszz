@@ -1,7 +1,7 @@
 Testador das Funções ZZ
 =======================
 
-É preciso garantir que todas as funções estejam sempre funcionando corretamente. Esta não é uma tarefa fácil, já que são mais de 150 funções ao todo, e muitas delas dependem de informações obtidas em websites, que estão em constante mudança.
+É preciso garantir que todas as funções estejam sempre funcionando corretamente. Esta não é uma tarefa fácil, já que são mais de 180 funções ao todo, e muitas delas dependem de informações obtidas em websites, que estão em constante mudança.
 
 O testador automático das Funções ZZ testa o funcionamento de cada função e avisa caso algo esteja errado. Já estão cadastrados mais de 3.000 testes!
 
@@ -65,10 +65,10 @@ $
 ```
 
 
-Testar TODAS as funções baseadas na internet
---------------------------------------------
+Testar TODAS as funções baseadas na internet (ou não)
+-----------------------------------------------------
 
-Para testar todas as funções que precisam acessar a internet ( e que tenham a tag internet devidamente apontada na função ), use o argumento internet
+Para testar todas as funções que precisam acessar a internet:
 
 ```
 $ ./run internet
@@ -82,6 +82,18 @@ Testing file zzcoin.sh ....
 $
 ```
 
+Para testar todas as funções que funcionam sem precisar de acesso à internet:
+
+```
+$ ./run local
+Testing file zzajuda.sh ...
+Testing file zzaleatorio.sh ....
+Testing file zzalfabeto.sh .....................................
+Testing file zzalinhar.sh ........
+Testing file zzansi2html.sh .......
+...
+$
+```
 
 
 Testar TODAS as funções
@@ -315,5 +327,3 @@ O script `run` é apenas um wrapper pequeno, para facilitar a chamada do testado
 O `clitest` é um projeto separado, também criado pelo Aurelio Jargas e também escrito em shell script. Para mais informações sobre o funcionamento do testador, acesse:
 
 * <https://github.com/aureliojargas/clitest>
-
-
