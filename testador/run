@@ -35,12 +35,12 @@ cat > "$tmp" <<EOF
 EOF
 
 # Note: To remove the dots ........ change 'dot' to 'none'
-if test $1 = "internet"
+if test "$1" = "internet"
 then
 	# Test internet based files
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $internet
 	exitcode=$?
-elif test $1 = "internet_travis"
+elif test "$1" = "internet_travis"
 then
 	# Test internet based files
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $internet_travis
