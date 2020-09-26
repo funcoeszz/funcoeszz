@@ -60,6 +60,11 @@ $ zzarrumacidade "florianopolis"                  #→ Florianópolis
 $ zzarrumacidade "virginopolis"                   #→ Virginópolis
 $ zzarrumacidade "caparao"                        #→ Caparaó
 $ zzarrumacidade "sao Francisco"                  #→ São Francisco
+$ zzarrumacidade "sao jose"                       #→ São José
+$ zzarrumacidade "sao jose do sul"                #→ São José do Sul
+
+$ zzarrumacidade "sao lourenco"                   #→ São Lourenço
+$ zzarrumacidade "sao lourenco do oeste"          #→ São Lourenço do Oeste
 # exceção
 $ zzarrumacidade "alto caparao"                   #→ Alto Caparaó
 # ão várias vezes
