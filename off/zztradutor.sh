@@ -30,6 +30,7 @@
 # Requisitos: zzxml zzplay zzunescape zzutf8
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
+DESATIVADA: 2020-12-18 Site usando técnicas AJAX (veja issue #590)
 zztradutor ()
 {
 	zzzz -h tradutor "$1" && return
