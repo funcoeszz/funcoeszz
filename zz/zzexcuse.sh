@@ -1,15 +1,14 @@
 # ----------------------------------------------------------------------------
 # Da uma desculpa comum de desenvolvedor ( em ingles ).
-# Com a opção -t ou --traduzir mostra as desculpas traduzidas.
 #
-# Uso: zzexcuse [-t|--traduzir]
+# Uso: zzexcuse
 # Ex.: zzexcuse
 #
 # Autor: Italo Gonçales, @goncalesi, <italo.goncales (a) gmail com>
 # Desde: 2015-09-26
 # Versão: 2
 # Licença: GPL
-# Requisitos: zztrim zztradutor
+# Requisitos: zztrim
 # Tags: internet, diversão
 # ----------------------------------------------------------------------------
 zzexcuse ()
@@ -20,9 +19,5 @@ zzexcuse ()
 
 	zztool dump "$url" |
 	sed '$d;/Link: /d' |
-	zztrim |
-	case $1 in
-	-t | --traduzir ) zztradutor en-pt ;;
-	*) cat - ;;
-	esac
+	zztrim
 }
