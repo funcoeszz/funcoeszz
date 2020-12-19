@@ -15,7 +15,7 @@
 # Versão: 4
 # Licença: GPL
 # Requisitos: zzaleatorio
-# Tags: cálculo, manipulação
+# Tags: internet, cálculo, manipulação
 # ----------------------------------------------------------------------------
 zzcnpj ()
 {

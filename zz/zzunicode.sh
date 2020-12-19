@@ -14,7 +14,7 @@
 # Versão: 1
 # Licença: GPL
 # Requisitos: zzcolunar zztrim
-# Tags: texto, tabela
+# Tags: internet, texto, tabela
 # ----------------------------------------------------------------------------
 zzunicode ()
 {
