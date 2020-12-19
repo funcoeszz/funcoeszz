@@ -124,6 +124,14 @@ zzarrumacidade ()
 		s/ao /ão /g
 		s/ao$/ão/
 
+        ## Correções de nomes próprios
+        # 'jose' vira 'José'
+        s/[Jj]ose$/José/
+        s/[Jj]ose /José /
+
+        # 'lourenço' vira 'Lourenço'
+        s/enco$/enço/
+        s/enco /enço /g
 
 		### Exceções pontuais:
 
