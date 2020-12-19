@@ -14,13 +14,6 @@ zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
 tmp='./run.tmp'
 tester='bash clitest'
 
-<<<<<<< HEAD
-=======
-internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"");printf " " $1}')
-internet_travis=$(echo $internet | sed 's/ zz\(distro\|linux\)\.sh//g')
-# For Travis exceptions, see https://github.com/funcoeszz/funcoeszz/issues/355
-
->>>>>>> 84b14c7526b4ae21aa4cac3e694f72bc8ab45a22
 cd "$script_dir"
 
 internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"");printf $1 "\n"}')
@@ -45,17 +38,17 @@ cat > "$tmp" <<EOF
 EOF
 
 # Note: To remove the dots ........ change 'dot' to 'none'
-if test $1 = "internet"
+if test "internet" = "$1"
 then
 	# Test internet based files
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $internet
 	exitcode=$?
-elif test $1 = "internet_travis"
+elif test "internet_travis" = "$1"
 then
 	# Test internet based files
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $internet_travis
 	exitcode=$?
-elif test $1 = "local"
+elif test "local" = "$1"
 then
 	# Tests that do not need internet
 	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $no_internet

@@ -288,6 +288,7 @@ zzcpf
 zzdado
 zzdatafmt
 zzdiadasemana
+zzdilbert
 zzdolar
 zzdos2unix
 zzencoding
