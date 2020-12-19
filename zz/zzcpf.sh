@@ -26,6 +26,13 @@ zzcpf ()
 	# Remove pontuação do CPF informado, deixando apenas números
 	cpf=$(echo "$*" | tr -d -c 0123456789)
 
+	# Remove os zeros do início (senão é considerado um octal)
+	# somente quando a sequência informada não for composta apenas por zeros
+	if test "$cpf" != "00000000000"
+	then
+		cpf=$(echo "$cpf" | sed 's/^0*//')
+	fi
+
 	#Retorna estado(s) ao qual o CPF pertence
 	if test '-e' = "$1"
 	then
@@ -64,9 +71,6 @@ zzcpf ()
 	# CPF válido formatado
 	if test '-f' = "$1"
 	then
-		# Remove os zeros do início (senão é considerado um octal)
-		cpf=$(echo "$cpf" | sed 's/^0*//')
-
 		# Só continua se o CPF for válido
 		auxiliar=$(zzcpf $cpf 2>&1)
 		if test "$auxiliar" != 'CPF válido'
@@ -98,9 +102,6 @@ zzcpf ()
 			zzcpf | tr -d -c '0123456789\n'
 			return 0
 		fi
-
-		# Remove os zeros do início (senão é considerado um octal)
-		cpf=$(echo "$cpf" | sed 's/^0*//')
 
 		# Só continua se o CPF for válido
 		auxiliar=$(zzcpf $cpf 2>&1)
@@ -139,17 +140,17 @@ zzcpf ()
 		#Inicia um laço para comparar a base com todas as possíveis situações:
 		#De 000.00..-00 até 999.99..-99
 		for ((i=0;i<10;i++))
-			do
+		do
 			#Atribuição de variável auxiliar para comparação de cada situação
-				auxiliar=$(echo "$base" | sed "s/$i/X/g")
+			auxiliar=$(echo "$base" | sed "s/$i/X/g")
 
 			#Compara o valor atual da variável auxiliar com a base e, caso seja verdadeiro, retorna o erro
-				if test "$auxiliar" = "XXXXXXXXX"
-				then
-					test -n "$quieto" || zztool erro "CPF inválido (não pode conter os 9 primeiros digitos iguais)"
-					return 1
-				fi
-			done
+			if test "$auxiliar" = "XXXXXXXXX"
+			then
+				test -n "$quieto" || zztool erro "CPF inválido (não pode conter os 9 primeiros digitos iguais)"
+				return 1
+			fi
+		done
 		#Fim do laço de verificação de digitos repetidos
 	else
 		# Não foi informado nenhum CPF, vamos gerar um escolhendo
@@ -160,6 +161,9 @@ zzcpf ()
 		done
 		base="$cpf"
 	fi
+
+	# Remove os zeros do início (senão é considerado um octal)
+	# cpf=$(echo "$cpf" | sed 's/^0*//')
 
 	# Truque para cada dígito da base ser guardado em $1, $2, $3, ...
 	set - $(echo "$base" | sed 's/./& /g')
@@ -231,6 +235,7 @@ zzcpf ()
 		echo "$cpf$digito1$digito2" |
 			sed 's/\(...\)\(...\)\(...\)/\1.\2.\3-/' # nnn.nnn.nnn-nn
 	else
+
 		# Esse CPF foi informado pelo usuário.
 		# Compara os verificadores informados com os calculados.
 		if test "${cpf#?????????}" = "$digito1$digito2"
