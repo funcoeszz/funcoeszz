@@ -2,7 +2,7 @@
 $ zzcpf 123456789012		#→ CPF inválido (deve ter 11 dígitos)
 $ zzcpf 987654321987		#→ CPF inválido (deve ter 11 dígitos)
 
-# Apenas números zeros
+# Números repetidos
 $ zzcpf 00000000000			#→ CPF inválido (não pode conter os 9 primeiros digitos iguais)
 $ zzcpf 000.000.000-00		#→ CPF inválido (não pode conter os 9 primeiros digitos iguais)
 $ zzcpf 11111111111			#→ CPF inválido (não pode conter os 9 primeiros digitos iguais)
@@ -14,6 +14,7 @@ $ zzcpf 66666666666			#→ CPF inválido (não pode conter os 9 primeiros digito
 $ zzcpf 77777777777			#→ CPF inválido (não pode conter os 9 primeiros digitos iguais)
 $ zzcpf 88888888888			#→ CPF inválido (não pode conter os 9 primeiros digitos iguais)
 $ zzcpf 99999999999			#→ CPF inválido (não pode conter os 9 primeiros digitos iguais)
+$ zzcpf 00000000099			#→ CPF inválido (não pode conter os 9 primeiros digitos iguais)
 
 # Dígito verificador incorreto
 $ zzcpf 12345678900			#→ CPF inválido (deveria terminar em 09)
@@ -21,6 +22,8 @@ $ zzcpf 12345678900			#→ CPF inválido (deveria terminar em 09)
 # Números válidos, com ou sem pontuação
 $ zzcpf 12345678909			#→ CPF válido
 $ zzcpf 123.456.789-09		#→ CPF válido
+$ zzcpf 07652693098			#→ CPF válido
+$ zzcpf 076.526.930-98		#→ CPF válido
 
 # Qualquer caractere não numérico é removido
 $ zzcpf '123 456 789 09'			#→ CPF válido
