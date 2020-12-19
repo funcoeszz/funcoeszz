@@ -1,30 +1,18 @@
 language: bash
 
-os:
-  - linux
-  # OS X tests are taking too long to run :(
-  # - osx
-
-# Prepare the environment
 addons:
   apt:
     packages:
       - bc
       - links
+
 before_install:
-  # OS X: install packages (||true to avoid Linux fail)
-  - test "$TRAVIS_OS_NAME" = osx && brew update                 || true
-  - test "$TRAVIS_OS_NAME" = osx && brew install --devel elinks || true
-  - test "$TRAVIS_OS_NAME" = osx && brew install links          || true
   - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
   - chmod +x clitest
   - mv clitest testador
 
 script:
-  #- if test "$TRAVIS_OS_NAME" = osx;   then cd testador && ./run; fi
-  #- if test "$TRAVIS_OS_NAME" = linux; then cd testador && ./run $(ls -1 zz*.sh | egrep -xv 'zz(linux|distro).sh'); fi
-  - if test "$TRAVIS_OS_NAME" = linux; then cd testador && ./run internet_travis; fi
-  # Exclude zzlinux tests in Linux (see https://github.com/funcoeszz/funcoeszz/issues/355) 
+  - ./testador/run internet_travis
 
 notifications:
   email: false
