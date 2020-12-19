@@ -16,6 +16,7 @@ tester='bash clitest'
 
 cd "$script_dir"
 
+# For Travis exceptions, see https://github.com/funcoeszz/funcoeszz/issues/355
 internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"");printf $1 "\n"}')
 internet_travis=$(echo "$internet" | grep -E -v '^zz(distro|linux)\.sh$')
 all=$(ls -1 zz*.sh)
