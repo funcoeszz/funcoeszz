@@ -1,61 +1,68 @@
 $ zzloteria quina | tr '[0-9]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g;s/?[ ]\{,1\}/NN/g;3s/^\(.\{15\}\).*/\1/'
 quina:
-Concurso: NNNN	(NN/NN/NNNN)
+Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN
 $
 
 $ zzloteria megasena | tr '[0-9]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 megasena:
-Concurso: NNNN	(NN/NN/NNNN)
+Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN	NN
 $
 
-$ zzloteria duplasena | tr '[0-9]' 'N' | head -5 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
+$ zzloteria duplasena | tr '[0-9]' 'N' | head -6 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 duplasena:
-Concurso: NNNN	(NN/NN/NNNN)
+Concurso NNNN (NN/NN/NNNN)
+
+Nº Sorteio
 	NN	NN	NN	NN	NN	NN
 
-	NN	NN	NN	NN	NN	NN
 $
 
-$ zzloteria lotomania | tr '[0-9]' 'N' | head -9 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
+$ zzloteria lotomania | tr '[0-9]' 'N' | head -6 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 lotomania:
-Concurso: NNNN	(NN/NN/NNNN)
+Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN
-
 	NN	NN	NN	NN	NN
-
 	NN	NN	NN	NN	NN
-
 	NN	NN	NN	NN	NN
 $
 
-$ zzloteria lotofacil | tr '[0-9]' 'N' | head -7 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
+$ zzloteria lotofacil | tr '[0-9]' 'N' | head -5 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 lotofacil:
-Concurso: NNNN	(NN/NN/NNNN)
+Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN
-
 	NN	NN	NN	NN	NN
-
 	NN	NN	NN	NN	NN
 $
 
 $ zzloteria federal | tr '[0-9.]' 'N' | sed 's/NN*/N/g'
 federal:
-Concurso: N	(N/N/N)
-
-	Nº Prêmio	N	R$ N,N
-	Nº Prêmio	N	R$ N,N
-	Nº Prêmio	N	R$ N,N
-	Nº Prêmio	N	R$ N,N
-	Nº Prêmio	N	R$ N,N
+Concurso N (N/N/N)
+Nº	N	N	N,N
+Nº	N	N	N,N
+Nº	N	N	N,N
+Nº	N	N	N,N
+Nº	N	N	N,N
 
 $
 
 $ zzloteria timemania | tr '[0-9.]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
 timemania:
-Concurso: NNNN	(NN/NN/NNNN)
+Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN	NN	NN
+$
+
+$ zzloteria sorte | tr '[0-9]' 'N' | head -n 3
+sorte:
+Concurso NNN (NN/NN/NNNN)
+	NN	NN	NN	NN	NN	NN	NN
+$
+
+$ zzloteria sete | tr '[0-9]' 'N' | head -n 3
+sete:
+Concurso NN (NN/NN/NNNN)
+	N	N	N	N	N	N	N
 $
 
 $ zzloteria loteca 500 | tr '[0-9]' 'N' | head -17 | sed 's/Col. Meio/  Col. N/'
