@@ -1,9 +1,10 @@
 # ----------------------------------------------------------------------------
-# Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal, timemania e loteca.
+# Resultados da quina megasena duplasena lotomania lotofacil federal timemania loteca lotogol sorte sete.
 #
 # Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
 # Se o 2º argumento for a palavra "quantidade" ou "qtde" mostra quantas vezes
-#  um número foi sorteado. ( Não se aplica para federal e loteca )
+#  um número foi sorteado.
+# ( Não se aplica para federal, loteca, lotogol, sorte, sete)
 # Se nenhum argumento for passado, todas as loterias são mostradas.
 #
 # Uso: zzloteria [[loterias suportadas] [concurso|[quantidade|qtde]]
