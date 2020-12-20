@@ -83,22 +83,23 @@ zzloteria ()
 				*) zztool erro "Loteria escolhida inválida\n"; continue ;;
 			esac
 			sed -n '/<h2 class="name color">'${codscript}'/,/APOSTE AGORA/ {
-				/SORTEIO *\|CONCURSO */{s///;p;}
+				/SORTEIO */{s///;p;}
+				/CONCURSO */{s///;p;}
 				/nome-sorteio/p
 				/<div class="nome-sorteio color">/{ n;p; }
-				/time-coracao/{ s/<[^>]*>//; s/ */\t\t/; p; }
+				/time-coracao/{ s/<[^>]*>//; s/ */		/; p; }
 				/<li/p
 				/<table class="result /,/table>/p
 				/Ganhadores/,/footer/p
-				/[Aa]cumulado\|Arrecada/,/R\$/{ s/R\$/ & /;p; }
+				/[Aa]cumulado/,/R\$/{ s/R\$/ & /;p; }
+				/Arrecada/,/R\$/{ s/R\$/ & /;p; }
 			}' "$cache" |
 			uniq |
 			awk 'NR==1{sorteio=$0;next};NR==2{printf "Concurso " $0; print " ("sorteio")"};/<a /{next};/<li /{printf "\t" $0 (++i%'$qtde'==0?"\n":"");next};NR>2' |
-			#zzjuntalinhas -i 'Acumula\|Arrecada' -f 'R\$' |
 			zzjuntalinhas -i ' class="tr"' -f 'div>' |
 			zzjuntalinhas -i '<tr' -f 'tr>' |
 			zzxml --untag |
-			sed 's/Faixa.*mio//;/Ver Rateio/d;/Arrecada.*total/{n;q;};s/\t \+/\t/;s/\t\+/\t/g;s/\tX\t/ X /;/ACUMULOU/d' |
+			sed 's/Faixa.*mio//;/Ver Rateio/d;/Arrecada.*total/{n;q;};s/	 \{1,\}/	/;s/	\{1,\}/	/g;s/	X	/ X /;/ACUMULOU/d' |
 			awk '/[Aa]cumulado|Arrecada/{print ""};1' |
 			case "$tipo" in
 				duplasena) awk 'NR > 7 && NR < 16 && NF==0 {next};/Sorteio$/{printf "\n" $0 "\n";next};/Sena/ && NR>10{printf "\n"};1' ;;
