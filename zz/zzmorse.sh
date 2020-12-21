@@ -1,10 +1,9 @@
-#!/bin/bash
 # ----------------------------------------------------------------------------
 # Conversor de código morse.
 #
 # Uso: zzmorse [string]
-# Ex.: zzaleatorio alfredo
-#      zzaleatorio ... --- ...
+# Ex.: zzmorse alfredo
+#      zzmorse ... --- ...
 #
 # Autor: Alfredo Casanova <atcasanova (a) gmail com>
 # Desde: 2018-04-26
