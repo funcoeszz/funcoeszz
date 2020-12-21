@@ -21,6 +21,7 @@ $ zzcinemais
 37 - Araxá - MG
 38 - Lorena - SP
 39 - Jardim Norte - Juiz de Fora - MG
+40 - Drive-in - Uberlândia - MG
 $
 
 # Uso normal, informando o número
