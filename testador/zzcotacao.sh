@@ -1,18 +1,11 @@
-$ zzcotacao | sed 's/[0-9],[0-9]\{3\}/9.999/g;s|  n/d|9.999|g;s/[+_]/ /g;s/-/ /g;s/[0-9],[0-9]\{2\}/9.99/g;5q'
+$ zzcotacao | sed 's/[0-9],[0-9]\{3,\}/9.999/g;s/0/9.999/g;s|  n/d|9.999|g;s/[+_]/ /g;s/-//g;s/[0-9],[0-9]\{2\}/9.99/g;9q' | sed 's/  *9.999/\t9.999/g'
 Infomoney
                     Compra   Venda   Var(%)
-Dólar Comercial      9.999   9.999    9.99
-Dólar Turismo        9.999   9.999    9.99
-Dólar PTAX800        9.999   9.999    9.99
-$
-
-$ zzcotacao | sed -n '/UOL /,$ {s|[0-3][0-9]/[0-1][0-9]/[0-9]\{4\}|DATA|;s/[0-2][0-9]h[0-5][0-9]/HORA/ ;s/[0-9],[0-9]\{4\}/9.9999/g;s/[+_]/ /g;s/-/ /g;s/  *[0-9],[0-9]\{1,\}%/   9.99%/g;p;}'
-UOL   Economia
-DATA HORA
-                    Compra   Venda   Var(%)
-Dólar Comercial     9.9999  9.9999   9.99%
-Dólar Turismo       9.9999  9.9999   9.99%
-Euro                9.9999  9.9999   9.99%
-Libra               9.9999  9.9999   9.99%
-Pesos Argentino     9.9999  9.9999   9.99%
+Peso Argentino	9.999	9.999	9.999
+Dólar Australiano	9.999	9.999	9.999
+Dólar Canadense	9.999	9.999	9.999
+Franco Suíço          9.99	9.999	9.999
+Dólar Comercial	9.999	9.999	9.999
+Dólar Turismo	9.999	9.999	9.999
+Euro	9.999	9.999	9.999
 $
