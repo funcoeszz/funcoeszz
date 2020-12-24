@@ -13,8 +13,6 @@ zzipinternet ()
 {
 	zzzz -h ipinternet "$1" && return
 
-	local url='http://ipaddress.com/'
-
 	# O resultado já vem pronto!
-	zztool source "$url" | sed -n '/My IPv4 Address/{s/<[^>]*>//g;s/.*ss//;p;}'
+	zztool source 'http://api.ipaddress.com/myip' | zztool nl_eof
 }
