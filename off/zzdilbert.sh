@@ -12,6 +12,7 @@
 # Requisitos: zztrim zzunescape zzxml
 # Tags: internet, distração
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2020-12-24 Transcrição da tirinha não está mais disponível.
 zzdilbert ()
 {
 	zzzz -h dilbert "$1" && return
