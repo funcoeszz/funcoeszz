@@ -89,7 +89,7 @@ zzconfere ()
 	codregex=$(
 		zzloteria $tipo $num |
 		case "$tipo" in
-			quina | megasena | timemaniai | sorte)
+			quina | megasena | timemania | sorte)
 				sed '3!d;s/^[[:blank:]]*/\\</;s/[[:blank:]]\{1,\}/\\>\|\\</g;s/$/\\> /'
 			;;
 			duplasena)
