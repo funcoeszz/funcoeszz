@@ -46,7 +46,7 @@ zzloteria ()
 	then
 		echo "$(zzdatafmt --iso hoje) $(zzhoramin)" > "$cache"
 		zztool source "$url" >> "$cache"
-		shift
+		return
 	else
 		unset num_con
 		test -n "$1" && tipos="$*"
