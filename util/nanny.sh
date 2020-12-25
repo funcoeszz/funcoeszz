@@ -215,7 +215,7 @@ do
 		egrep -v '^(zz|off)/zz[[:alnum:]]*.sh: # Requisitos:' |
 		grep -v '^zz/zzloteria.sh: # Resultados da quina' |
 		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org' |
-		grep -v '^zz/zzpalpite.sh: # Uso: zzpalpite' |
+		egrep -v '# .*loteca.?$' |
 		grep -v '^zz/zzxml.sh: # Uso: zzxml'
 done
 

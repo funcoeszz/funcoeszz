@@ -1,16 +1,16 @@
 # ----------------------------------------------------------------------------
 # Palpites de jogos para várias loterias: quina, megasena, lotomania, etc.
 # Aqui está a lista completa de todas as loterias suportadas:
-# quina, megasena, duplasena, lotomania, lotofácil, timemania, federal, loteca
+# quina, megasena, duplasena, lotomania, lotofácil, timemania, sorte, federal, loteca
 #
-# Uso: zzpalpite [quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|loteca]
+# Uso: zzpalpite [quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|sorte|loteca]
 # Ex.: zzpalpite
 #      zzpalpite megasena
 #      zzpalpite megasena federal lotofacil
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-06-03
-# Versão: 5
+# Versão: 6
 # Licença: GPL
 # Requisitos: zzminusculas zzsemacento zzseq zzaleatorio
 # Tags: jogo, distração
@@ -21,7 +21,7 @@ zzpalpite ()
 
 	local tipo num posicao numeros palpites inicial final i
 	local qtde=0
-	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
+	local tipos='quina megasena duplasena lotomania lotofacil federal timemania sorte loteca'
 
 	# Escolhe as loteria
 	test -n "$1" && tipos=$(echo "$*" | zzminusculas | zzsemacento)
@@ -68,6 +68,11 @@ zzpalpite ()
 				inicial=1
 				final=80
 				qtde=10
+			;;
+			sorte)
+				inicial=1
+				final=31
+				qtde=7
 			;;
 			loteca)
 				i=1
