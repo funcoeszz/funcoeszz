@@ -11,6 +11,7 @@
 # Licença: GPL
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2020-12-22 Site foi descontinuado (veja issue #599)
 zzdefinr ()
 {
 	zzzz -h definr "$1" && return
