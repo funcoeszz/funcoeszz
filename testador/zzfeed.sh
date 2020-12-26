@@ -29,17 +29,33 @@ $ i='RDF ISO-8859-1' zzfeed http://www.vivaolinux.com.br/index.rdf          #→
 
 # Informa um site para obter o endereço de seus feeds
 
-$ zzfeed aurelio.net
-http://aurelio.net/feed/
+$ zzfeed feedly.com
+http://blog.feedly.com/feed/
 $
 
 # Múltiplos sites, cada lista de feed ganha um "cabeçalho"
 
-$ zzfeed aurelio.net aurelio.net
-* aurelio.net
-http://aurelio.net/feed/
+$ zzfeed feedly.com feedly.com
+* feedly.com
+http://blog.feedly.com/feed/
 
-* aurelio.net
-http://aurelio.net/feed/
+* feedly.com
+http://blog.feedly.com/feed/
 
+$
+
+# Site que a URL pro feed não contém o domínio: href="/feed/"
+
+$ zzfeed aurelio.net
+/feed/
+$
+
+# Site inexistente
+
+$ zzfeed funcoeszz-not-found.net
+$
+
+# Site sem feeds
+
+$ zzfeed google.com
 $
