@@ -15,7 +15,7 @@ zzclassnum ()
 {
 	zzzz -h classnum "$1" && return
 
-	local num exp nbc
+	local num exp nbc np
 
 	# Verificação dos parâmetros
 	test -n "$1" && zztestar numero "$1" || { zztool -e uso classnum; return 1; }
@@ -50,6 +50,7 @@ zzclassnum ()
 			# Wagstaff
 			if test $? -eq 0
 			then
+				np=1
 				num=$(echo "$1 * 3 - 1" | bc)
 				exp=$(zzmat -p15 log $num 2)
 				if zztestar numero "$exp" && test "$exp" -ge 2
@@ -129,7 +130,12 @@ zzclassnum ()
 		zztestar numero "$num" && echo 'Dodecagonal'
 
 		# Palíndromo ou Omirp
-		test "$1" == $(zzvira "$1") && echo 'Palíndromo' || zzdivisores $(zzvira "$1") 2>/dev/null | awk 'NF==2 {print "Omirp"}'
+		if test "$1" == $(zzvira "$1")
+		then
+			echo 'Palíndromo'
+		else
+			test 1 -eq ${np:-0} && zzdivisores $(zzvira "$1") 2>/dev/null | awk 'NF==2 {print "Omirp"}'
+		fi
 
 	fi
 }
