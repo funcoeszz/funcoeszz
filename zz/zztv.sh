@@ -22,9 +22,9 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
-# Versão: 13
+# Versão: 14
 # Licença: GPL
-# Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzsqueeze zztrim zzunescape zzxml
+# Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzpad zzsqueeze zztrim zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zztv ()
@@ -127,15 +127,28 @@ zztv ()
 		else
 			zztool source "$URL"
 		fi |
-		sed -n '
-			/<a title="/{s/.*title="//;s|".*/|\t|;s/".*//;p;}
-			/<h2>/{s/^[^>]*>//;s/<.*//;s/\(TCM - \| \(EP\)\?TV\| Channel\)//;s/Esporte Interativo /EI /;p;}
-			/progressbar/{s/.*\([0-2][0-9]:[0-5][0-9]\).*/\1/p}
-		' |
-		awk -F '[\t]' '{printf "%s|%s|", $1, $2;getline;printf $0 "|";getline; print}' |
+		zzxml --tag h2 --tag h3 |
+		if test "$desc" = "Agora"
+		then
+			awk '/\/h3>/{print;next};{printf $0 "|"}' |
+			sed -n '/<h2>/p'
+		else
+			awk '/\/h[23]>/{print;next};{printf $0 "|"}'
+		fi |
+		zzxml --untag |
 		zzunescape --html |
-		awk -F '|' '{printf "%5s %-45s %s - %s\n",$4,$1, $2, $3}' |
-		sort -n
+		tr -s '|' |
+		if test "$desc" = "Agora"
+		then
+			awk -F '|' '{print $3 "|" $2 "|" $5}' |
+			while IFS='|' read hora canal programa
+			do
+				echo "$hora  $(zzpad 27 $canal) $programa"
+			done |
+			sort -n
+		else
+			awk -F '|' 'NF==3{printf (NR>1?"\n":"") $2 "\n"};NF>3{print "    " $2, $(NF-1)}'
+		fi
 	elif test 'cod' = "$1"
 	then
 		zztool eco "Código: $2"
