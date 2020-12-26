@@ -8,7 +8,7 @@ jQuery( selector [, context ] )
 selector
 A string containing a selector expression
 context
-A DOM Element, Document, or jQuery to use as context
+A DOM Element, Document, jQuery or selector to use as context
 
 jQuery( element )
 element

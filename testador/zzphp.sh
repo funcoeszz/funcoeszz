@@ -67,7 +67,7 @@ str_pad
 (PHP 4 >= 4.0.1, PHP 5, PHP 7)
 str_pad — Preenche uma string para um certo tamanho com outra string
 Descrição
-string str_pad ( string $input , int $pad_length [, string $pad_string [, int $pad_type ]] )
+str_pad ( string $input , int $pad_length [, string $pad_string [, int $pad_type ]] ) : string
 Esta função retorna a string input preenchida na esquerda, direita ou ambos os lados até o tamanho especificado. Se o parâmetro opcional pad_string não for indicado, input é preenchido com espaços, se não é preenchido com os caracteres de pad_string até o limite.
 O parâmetro opcional pad_type pode ser STR_PAD_RIGHT (preencher a direita), STR_PAD_LEFT (preencher a esquerda), ou STR_PAD_BOTH (preencher de ambos os lados). If pad_type não for especificado é assumido que seja STR_PAD_RIGHT.
 Se o valor de pad_length é negativo ou menor do que o tamanho da string , não há nenhum preenchimento.

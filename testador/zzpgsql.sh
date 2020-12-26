@@ -19,8 +19,10 @@ NNN ALTER OPERATOR — change the definition of an operator
 NNN ALTER OPERATOR CLASS — change the definition of an operator class
 NNN ALTER OPERATOR FAMILY — change the definition of an operator family
 NNN ALTER POLICY — change the definition of a row level security policy
+NNN ALTER PROCEDURE — change the definition of a procedure
 NNN ALTER PUBLICATION — change the definition of a publication
 NNN ALTER ROLE — change a database role
+NNN ALTER ROUTINE — change the definition of a routine
 NNN ALTER RULE — change the definition of a rule
 NNN ALTER SCHEMA — change the definition of a schema
 NNN ALTER SEQUENCE — change the definition of a sequence generator
