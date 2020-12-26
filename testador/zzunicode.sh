@@ -1,5 +1,5 @@
 $ zzunicode | head -n 10
-  1 - 0020 a 007F - Basic Latin
+  1 - 0000 a 007F - Basic Latin
   2 - 0080 a 00FF - Latin-1 Supplement
   3 - 0100 a 017F - Latin Extended-A
   4 - 0180 a 024F - Latin Extended-B
