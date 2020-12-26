@@ -40,7 +40,7 @@ País                                       Capital
 Brasil                                     Brasília
 Guiné Equatorial                           Malabo
 Israel                                     Jerusalém
-Ilhas Marechal                             Majuro
+Ilhas Marshall                             Majuro
 Nepal                                      Catmandu
 Ossétia do Sul                             Tskhinval
 Portugal                                   Lisboa
