@@ -7,5 +7,5 @@ Uso: zzexcuse
 Ex.: zzexcuse
 
 $
-$ zzexcuse | zzwc -l	#→ 1
-$ zzexcuse -t | zzwc -l	#→ 1
+$ zzexcuse | zzwc -l	#=> 1
+$ zzexcuse -t | zzwc -l	#=> 1

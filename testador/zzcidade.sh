@@ -1,6 +1,6 @@
 # Sem argumentos, mostra uma cidade alatória
 
-$ zzcidade			#→ --regex ^[A-ZÁÂÉÓ].* \([A-Z][A-Z]\)$
+$ zzcidade			#=> --regex ^[A-ZÁÂÉÓ].* \([A-Z][A-Z]\)$
 
 # Com argumento, procura pelo texto
 
@@ -129,4 +129,4 @@ $
 
 # A lista completa de cidades tem exatamente...
 
-$ zzcidade . | head -n 5550		#→ --lines 5550
+$ zzcidade . | head -n 5550		#=> --lines 5550

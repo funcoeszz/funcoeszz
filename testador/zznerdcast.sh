@@ -1,6 +1,6 @@
-$ zznerdcast | wc -l	#→ 45
-$ zznerdcast -n 13 | wc -l	#→ 39
-$ zznerdcast  -x 2	#→ --regex ^Uso:
+$ zznerdcast | wc -l	#=> 45
+$ zznerdcast -n 13 | wc -l	#=> 39
+$ zznerdcast  -x 2	#=> --regex ^Uso:
 $ zznerdcast  -d 4/3/2016
 NerdCast 506 - Cegos, nerds e loucos 2 | 04 Mar 2016
 https://nerdcast.jovemnerd.com.br/nerdcast_506_cegos_nerds_loucos_2.mp3

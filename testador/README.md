@@ -210,11 +210,11 @@ $
 Testes avançados
 ----------------
 
-Há um formato especial para embutir "inline" o resultado do comando, ou seja, na mesma linha do próprio comando. Basta usar o marcador `#→` no final do comando e colocar o resultado logo após.
+Há um formato especial para embutir "inline" o resultado do comando, ou seja, na mesma linha do próprio comando. Basta usar o marcador `#=>` no final do comando e colocar o resultado logo após.
 
 ```
-$ echo "foo"             #→ foo
-$ echo $((10 + 2))       #→ 12
+$ echo "foo"             #=> foo
+$ echo $((10 + 2))       #=> 12
 ```
 
 Isso é o equivalente a:
@@ -230,37 +230,37 @@ $
 A vantagem de usar esse formato é que fica mais fácil de enxergar o resultado quando há uma série de testes que retornem valores simples, de uma única linha:
 
 ```
-$ zzarrumacidade "SP"         #→ São Paulo
-$ zzarrumacidade "RJ"         #→ Rio de Janeiro
-$ zzarrumacidade "BH"         #→ Belo Horizonte
-$ zzarrumacidade "BSB"        #→ Brasília
-$ zzarrumacidade "RIO"        #→ Rio de Janeiro
-$ zzarrumacidade "SAMPA"      #→ São Paulo
-$ zzarrumacidade "FLORIPA"    #→ Florianópolis
+$ zzarrumacidade "SP"         #=> São Paulo
+$ zzarrumacidade "RJ"         #=> Rio de Janeiro
+$ zzarrumacidade "BH"         #=> Belo Horizonte
+$ zzarrumacidade "BSB"        #=> Brasília
+$ zzarrumacidade "RIO"        #=> Rio de Janeiro
+$ zzarrumacidade "SAMPA"      #=> São Paulo
+$ zzarrumacidade "FLORIPA"    #=> Florianópolis
 ```
 
 Agora, o bom mesmo, é que também é possível usar "opções" neste formato, para mudar a maneira como o teste será executado e avaliado.
 
 ```
-$ head /etc/passwd            #→ --lines 10
+$ head /etc/passwd            #=> --lines 10
 ```
 
 Com `--lines`, o teste passará se o resultado do comando tiver exatamente o número de linhas informado. Use esta opção quando o texto do resultado for variável e imprevisível, porém o seu número de linhas é sempre constante. Exemplos: [zzlinuxnews.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzlinuxnews.sh), [zzsecurity.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzsecurity.sh).
 
 ```
-$ tac /etc/passwd | tac       #→ --file /etc/passwd
+$ tac /etc/passwd | tac       #=> --file /etc/passwd
 ```
 
 Com `--file`, o teste passará se o resultado do comando for exatamente igual ao conteúdo do arquivo informado. Use testes desse tipo quando o resultado for um texto estruturado, ou em um formato específico, que seja mais cômodo guardar num arquivo externo. Exemplos: [zzcores.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzcores.sh), [zztabuada.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zztabuada.sh), [zzunicode2ascii.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzunicode2ascii.sh).
 
 ```
-$ echo $((2 + 10))            #→ --regex ^\d+$
+$ echo $((2 + 10))            #=> --regex ^\d+$
 ```
 
 Com `--regex`, o teste passará se a(s) linha(s) do resultado casar com a [expressão regular](http://aurelio.net/regex/) informada (padrão super-poderoso `Perl`). Use testes desse tipo quando o resultado for variável, mas com um padrão conhecido, que você pode casar com uma regex. Exemplos: [zzdado.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzdado.sh), [zzipinternet.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzipinternet.sh), [zzsenha.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzsenha.sh).
 
 ```
-$ pwd                         #→ --eval echo $PWD
+$ pwd                         #=> --eval echo $PWD
 ```
 
 Com `--eval`, o teste passará se o resultado do comando for exatamente igual ao resultado do comando informado. É útil principalmente para expandir o valor de variáveis com guardam o resultado, ou parte dele. Exemplos: [zzmaiusculas.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzmaiusculas.sh), [zzdata.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzdata.sh), [zzgravatar.sh](https://github.com/funcoeszz/funcoeszz/tree/master/testador/zzgravatar.sh).
@@ -296,7 +296,7 @@ $
 O mesmo teste, no formato inline, fica:
 
 ```
-$ grep ^root /etc/passwd > /dev/null; echo $?   #→ 0
+$ grep ^root /etc/passwd > /dev/null; echo $?   #=> 0
 ```
 
 Pode usar variáveis à vontade, filtrar o resultado com outros comandos, enfim, usar a linha de comando em todo seu potencial.
@@ -314,7 +314,7 @@ Se precisar de arquivos temporários, basta criá-los. O padrão do testador é 
 ```
 $ cut -f 1 zzunicode2ascii.in.txt > _tmp1
 $ cut -f 2 zzunicode2ascii.in.txt > _tmp2
-$ zzunicode2ascii _tmp1   #→ --file _tmp2
+$ zzunicode2ascii _tmp1   #=> --file _tmp2
 $ rm -f _tmp[12]
 ```
 

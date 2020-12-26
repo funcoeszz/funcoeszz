@@ -55,6 +55,6 @@ País:       Sweden
 $
 
 # Erro
-$ zzmacvendor 44:74:6C:e3-ff-a8	#→ MAC address inválido '44:74:6C:e3-ff-a8'
-$ zzmacvendor A3-A9-89-G0-23-14	#→ MAC address inválido 'A3-A9-89-G0-23-14'
-$ zzmacvendor B802430DF0AD	#→ MAC address inválido 'B802430DF0AD'
+$ zzmacvendor 44:74:6C:e3-ff-a8	#=> MAC address inválido '44:74:6C:e3-ff-a8'
+$ zzmacvendor A3-A9-89-G0-23-14	#=> MAC address inválido 'A3-A9-89-G0-23-14'
+$ zzmacvendor B802430DF0AD	#=> MAC address inválido 'B802430DF0AD'

@@ -19,14 +19,14 @@ $
 
 # HTML
 
-$ zzunescape --html _tmp2        #→ --file _tmp1
-$ zzunescape --html _tmp3        #→ --file _tmp1
-$ zzunescape --html _tmp4        #→ --file _tmp1
-$ zzunescape --html -- -_tmp2    #→ --file _tmp1
+$ zzunescape --html _tmp2        #=> --file _tmp1
+$ zzunescape --html _tmp3        #=> --file _tmp1
+$ zzunescape --html _tmp4        #=> --file _tmp1
+$ zzunescape --html -- -_tmp2    #=> --file _tmp1
 
 # XML
 
-$ zzunescape --xml  _tmp5        #→ """ &&& ''' <<< >>>
+$ zzunescape --xml  _tmp5        #=> """ &&& ''' <<< >>>
 
 # Faxina
 

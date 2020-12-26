@@ -14,13 +14,13 @@ $
 
 # Uso incorreto
 
-$ zzdiffpalavra			#→ --regex ^Uso:
-$ zzdiffpalavra	_tmp1		#→ --regex ^Uso:
+$ zzdiffpalavra			#=> --regex ^Uso:
+$ zzdiffpalavra	_tmp1		#=> --regex ^Uso:
 
 # Arquivo não existente
 
-$ zzdiffpalavra	_fake_	_tmp2_	#→ Não consegui ler o arquivo _fake_
-$ zzdiffpalavra	_tmp1	_fake_	#→ Não consegui ler o arquivo _fake_
+$ zzdiffpalavra	_fake_	_tmp2_	#=> Não consegui ler o arquivo _fake_
+$ zzdiffpalavra	_tmp1	_fake_	#=> Não consegui ler o arquivo _fake_
 
 # Nenhuma diferença
 
