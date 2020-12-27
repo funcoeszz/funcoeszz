@@ -12,7 +12,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-03-29
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Tags: internet, tempo, consulta
 # ----------------------------------------------------------------------------
@@ -77,8 +77,10 @@ zzhoracerta ()
 
 	# Faz a consulta e filtra o resultado
 	zztool dump "$url/current_time_in_$localidade.aspx" |
-		sed -n '/Current Time in /,/Daylight Saving Time:/{
+		sed -n '/Current Time in /,/^UTC/{
 			s/Current Time in //
+			/^\[social\]$/d
+			/^What Time Is It/d
 			/[?:]$/d
 			/^ *$/d
 			s/^ *//
