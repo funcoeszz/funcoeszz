@@ -8,12 +8,14 @@
 # Desde: 2013-03-19
 # Versão: 5
 # Licença: GPL
-# Requisitos: zzjuntalinhas zzsqueeze zztrim zzunescape zzxml
+# Requisitos: zzjuntalinhas zznumero zzpad zzsqueeze zztrim zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcotacao ()
 {
 	zzzz -h cotacao "$1" && return
+
+	local moeda compra venda var
 
 	zztool eco "Infomoney"
 	zztool source "http://www.infomoney.com.br/mercados/cambio" |
@@ -23,13 +25,22 @@ zzcotacao ()
 	zzsqueeze |
 	zztrim |
 	zzunescape --html |
-	awk '
+	awk ' BEGIN {OFS="|"}
 	/n\/d/ {next}
 	{
-		if ( NR == 1 ) printf "%18s  %6s  %6s   %6s\n", "", $2, $3, $4
+		if ( NR == 1 ) print $1, $2, $3, $4
 		if ( NR >  1 ) {
-			if (NF == 4) printf "%-18s  %6s  %6s  %6s\n", $1, $2, $3, $4
-			if (NF == 5) printf "%-18s  %6s  %6s  %6s\n", $1 " " $2, $3, $4, $5
+			if (NF == 4) print $1, $2, $3, $4
+			if (NF == 5) print $1 " " $2, $3, $4, $5
 		}
-	}'
+	}' |
+	while IFS='|' read moeda compra venda var
+	do
+		if test 'Moeda' = "$moeda"
+		then
+			printf "$(zzpad 17 ' ')\t$(zzpad 6 $compra)\t$(zzpad 6 $venda)\t$(zzpad 6 $var | sed 's/%/&&/')\n"
+		else
+			printf "$(zzpad 17 $moeda)\t$(zznumero -f '%.3f' $compra)\t$(zznumero -f '%.3f' $venda)\t$(zznumero -f '%.3f' $var)\n"
+		fi
+	done
 }
