@@ -1,4 +1,4 @@
-$ zzdilbert -x #→ --regex ^Uso:
+$ zzdilbert -x #=> --regex ^Uso:
 $ zzdilbert | awk '/-------/{print "OK";next};/:/{print "ok";next};{print "Ok"}' | awk '!line[$0]++'
 OK
 Ok

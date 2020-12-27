@@ -1,37 +1,37 @@
 # Erro: vazio
 
-$ zzseq				#→ --regex ^Uso:
+$ zzseq				#=> --regex ^Uso:
 
 # Erro: float com ponto
 
-$ zzseq	1.0			#→ Número inteiro inválido '1.0'
-$ zzseq	1.0	1		#→ Número inteiro inválido '1.0'
-$ zzseq	1.0	1	1	#→ Número inteiro inválido '1.0'
-$ zzseq	1	1.0		#→ Número inteiro inválido '1.0'
-$ zzseq	1	1.0	1	#→ Número inteiro inválido '1.0'
-$ zzseq	1	1	1.0	#→ Número inteiro inválido '1.0'
+$ zzseq	1.0			#=> Número inteiro inválido '1.0'
+$ zzseq	1.0	1		#=> Número inteiro inválido '1.0'
+$ zzseq	1.0	1	1	#=> Número inteiro inválido '1.0'
+$ zzseq	1	1.0		#=> Número inteiro inválido '1.0'
+$ zzseq	1	1.0	1	#=> Número inteiro inválido '1.0'
+$ zzseq	1	1	1.0	#=> Número inteiro inválido '1.0'
 
 # Erro: float com vírgula
 
-$ zzseq	1,0			#→ Número inteiro inválido '1,0'
-$ zzseq	1,0	1		#→ Número inteiro inválido '1,0'
-$ zzseq	1,0	1	1	#→ Número inteiro inválido '1,0'
-$ zzseq	1	1,0		#→ Número inteiro inválido '1,0'
-$ zzseq	1	1,0	1	#→ Número inteiro inválido '1,0'
-$ zzseq	1	1	1,0	#→ Número inteiro inválido '1,0'
+$ zzseq	1,0			#=> Número inteiro inválido '1,0'
+$ zzseq	1,0	1		#=> Número inteiro inválido '1,0'
+$ zzseq	1,0	1	1	#=> Número inteiro inválido '1,0'
+$ zzseq	1	1,0		#=> Número inteiro inválido '1,0'
+$ zzseq	1	1,0	1	#=> Número inteiro inválido '1,0'
+$ zzseq	1	1	1,0	#=> Número inteiro inválido '1,0'
 
 # Erro: string
 
-$ zzseq	x			#→ Número inteiro inválido 'x'
-$ zzseq	x	1		#→ Número inteiro inválido 'x'
-$ zzseq	x	1	1	#→ Número inteiro inválido 'x'
-$ zzseq	1	x		#→ Número inteiro inválido 'x'
-$ zzseq	1	x	1	#→ Número inteiro inválido 'x'
-$ zzseq	1	1	x	#→ Número inteiro inválido 'x'
+$ zzseq	x			#=> Número inteiro inválido 'x'
+$ zzseq	x	1		#=> Número inteiro inválido 'x'
+$ zzseq	x	1	1	#=> Número inteiro inválido 'x'
+$ zzseq	1	x		#=> Número inteiro inválido 'x'
+$ zzseq	1	x	1	#=> Número inteiro inválido 'x'
+$ zzseq	1	1	x	#=> Número inteiro inválido 'x'
 
 # Erro: passo zero
 
-$ zzseq	1	0	1	#→ O passo não pode ser zero.
+$ zzseq	1	0	1	#=> O passo não pode ser zero.
 
 # Desce
 
@@ -289,8 +289,8 @@ $
 # Formato
 # Nota: Usando --regex para casar linhas sem \n no final
 
-$ zzseq -f Z       5     #→ --regex ^ZZZZZ$
-$ zzseq -f '%d'    5     #→ --regex ^12345$
-$ zzseq -f '%d:'   5     #→ --regex ^1:2:3:4:5:$
-$ zzseq -f '<%d>'  5     #→ --regex ^<1><2><3><4><5>$
-$ zzseq -f '%.4d,' 5     #→ --regex ^0001,0002,0003,0004,0005,$
+$ zzseq -f Z       5     #=> --regex ^ZZZZZ$
+$ zzseq -f '%d'    5     #=> --regex ^12345$
+$ zzseq -f '%d:'   5     #=> --regex ^1:2:3:4:5:$
+$ zzseq -f '<%d>'  5     #=> --regex ^<1><2><3><4><5>$
+$ zzseq -f '%.4d,' 5     #=> --regex ^0001,0002,0003,0004,0005,$

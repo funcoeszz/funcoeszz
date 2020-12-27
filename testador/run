@@ -42,26 +42,26 @@ EOF
 if test "internet" = "$1"
 then
 	# Test internet based files
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $internet
+	$tester --progress dot --pre-flight ". $tmp" $internet
 	exitcode=$?
 elif test "internet_travis" = "$1"
 then
 	# Test internet based files
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $internet_travis
+	$tester --progress dot --pre-flight ". $tmp" $internet_travis
 	exitcode=$?
 elif test "local" = "$1"
 then
 	# Tests that do not need internet
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" $no_internet
+	$tester --progress dot --pre-flight ". $tmp" $no_internet
 	exitcode=$?
 elif test $# -gt 0
 then
 	# Test specific file(s)
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" "$@"
+	$tester --progress dot --pre-flight ". $tmp" "$@"
 	exitcode=$?
 else
 	# Test all files
-	$tester --inline-prefix '#→ ' --progress dot --pre-flight ". $tmp" zz*.sh
+	$tester --progress dot --pre-flight ". $tmp" zz*.sh
 	exitcode=$?
 fi
 

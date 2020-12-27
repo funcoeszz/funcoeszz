@@ -7,10 +7,10 @@ $ cat _dados.txt | sed 's/.*/   	       	/' > _tmp4	# só brancos
 $ cat _tmp1 _tmp1 _tmp1 > _tmp5					# testa o uniq
 $
 
-$ zzlimpalixo	_tmp1		#→ --file _tmp3
-$ zzlimpalixo	_tmp.vim	#→ --file _tmp3
+$ zzlimpalixo	_tmp1		#=> --file _tmp3
+$ zzlimpalixo	_tmp.vim	#=> --file _tmp3
 $ zzlimpalixo	_tmp4
-$ zzlimpalixo	_tmp5		#→ --file _tmp3
+$ zzlimpalixo	_tmp5		#=> --file _tmp3
 
 # Faxina
 $ rm -f _tmp[1-5] _tmp.vim

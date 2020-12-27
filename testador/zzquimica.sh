@@ -1,4 +1,4 @@
-$ zzquimica                             #→ --lines 119
+$ zzquimica                             #=> --lines 119
 $ zzquimica | head
 N.º  Nome          Símbolo Massa        Orbital            Classificação (Estado)
 1    Hidrogênio    H       1,00794      1                  Não Metal (Gasoso)

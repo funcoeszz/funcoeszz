@@ -86,4 +86,4 @@ $
 
 # Sem argumentos mostra a tabuada de 1 a 9
 
-$ zztabuada		#→ --file zztabuada.out.txt
+$ zztabuada		#=> --file zztabuada.out.txt

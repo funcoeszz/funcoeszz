@@ -30,5 +30,5 @@ $ zzfatorar 56877
 56877 = 3 * 18959
 $
 
-$ zzfatorar 167                         #→ 167 é um número primo.
-$ zzfatorar 1871                        #→ 1871 é um número primo.
+$ zzfatorar 167                         #=> 167 é um número primo.
+$ zzfatorar 1871                        #=> 1871 é um número primo.

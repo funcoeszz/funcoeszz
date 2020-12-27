@@ -1,4 +1,4 @@
-$ zztop | zzwc -l	#→ 31
+$ zztop | zzwc -l	#=> 31
 $ zztop -c
 vendor        Vendors
 app           Application Area

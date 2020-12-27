@@ -1,108 +1,108 @@
 # Erros
 
-$ zzporcento			#→ --regex ^Uso:
-$ zzporcento	100	-1	#→ Número inválido '-1'
-$ zzporcento	-1	100	#→ Número inválido '-1'
-$ zzporcento	100	+1	#→ Número inválido '+1'
-$ zzporcento	+1	100	#→ Número inválido '+1'
-$ zzporcento	100	X	#→ Número inválido 'X'
-$ zzporcento	X	100	#→ Número inválido 'X'
+$ zzporcento			#=> --regex ^Uso:
+$ zzporcento	100	-1	#=> Número inválido '-1'
+$ zzporcento	-1	100	#=> Número inválido '-1'
+$ zzporcento	100	+1	#=> Número inválido '+1'
+$ zzporcento	+1	100	#=> Número inválido '+1'
+$ zzporcento	100	X	#=> Número inválido 'X'
+$ zzporcento	X	100	#=> Número inválido 'X'
 
-$ zzporcento	1	.5%	#→ O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5.
-$ zzporcento	1	X%	#→ O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5.
+$ zzporcento	1	.5%	#=> O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5.
+$ zzporcento	1	X%	#=> O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5.
 
 ### valor1 valor2
 
 # inteiros
-$ zzporcento	100	0			#→ 0%
+$ zzporcento	100	0			#=> 0%
 
 # XXX ^ 0,00% ?
-$ zzporcento	100	1			#→ 1,00%
-$ zzporcento	100	10			#→ 10,00%
-$ zzporcento	100	50			#→ 50,00%
-$ zzporcento	100	100			#→ 100,00%
-$ zzporcento	100	200			#→ 200,00%
-$ zzporcento	100	1000			#→ 1000,00%
+$ zzporcento	100	1			#=> 1,00%
+$ zzporcento	100	10			#=> 10,00%
+$ zzporcento	100	50			#=> 50,00%
+$ zzporcento	100	100			#=> 100,00%
+$ zzporcento	100	200			#=> 200,00%
+$ zzporcento	100	1000			#=> 1000,00%
 
 # float
-$ zzporcento	100,0	10			#→ 10,00%
-$ zzporcento	100,00	10			#→ 10,00%
-$ zzporcento	100,000	10			#→ 10,00%
-$ zzporcento	100	10,0			#→ 10,00%
-$ zzporcento	100	10,00			#→ 10,00%
-$ zzporcento	100	10,000			#→ 10,00%
-$ zzporcento	100,0	10,0			#→ 10,00%
-$ zzporcento	100,00	10,00			#→ 10,00%
-$ zzporcento	100,000	10,000			#→ 10,00%
+$ zzporcento	100,0	10			#=> 10,00%
+$ zzporcento	100,00	10			#=> 10,00%
+$ zzporcento	100,000	10			#=> 10,00%
+$ zzporcento	100	10,0			#=> 10,00%
+$ zzporcento	100	10,00			#=> 10,00%
+$ zzporcento	100	10,000			#=> 10,00%
+$ zzporcento	100,0	10,0			#=> 10,00%
+$ zzporcento	100,00	10,00			#=> 10,00%
+$ zzporcento	100,000	10,000			#=> 10,00%
 
 # float com ponto
-$ zzporcento	100.0	10			#→ 10.00%
-$ zzporcento	100.00	10			#→ 10.00%
-$ zzporcento	100.000	10			#→ 10.00%
-$ zzporcento	100	10.0			#→ 10.00%
-$ zzporcento	100	10.00			#→ 10.00%
-$ zzporcento	100	10.000			#→ 10.00%
-$ zzporcento	100.0	10.0			#→ 10.00%
-$ zzporcento	100.00	10.00			#→ 10.00%
-$ zzporcento	100.000	10.000			#→ 10.00%
+$ zzporcento	100.0	10			#=> 10.00%
+$ zzporcento	100.00	10			#=> 10.00%
+$ zzporcento	100.000	10			#=> 10.00%
+$ zzporcento	100	10.0			#=> 10.00%
+$ zzporcento	100	10.00			#=> 10.00%
+$ zzporcento	100	10.000			#=> 10.00%
+$ zzporcento	100.0	10.0			#=> 10.00%
+$ zzporcento	100.00	10.00			#=> 10.00%
+$ zzporcento	100.000	10.000			#=> 10.00%
 
 # float/float o segundo separador ganha
-$ zzporcento	100.0	10,0			#→ 10,00%
-$ zzporcento	100,0	10.0			#→ 10.00%
+$ zzporcento	100.0	10,0			#=> 10,00%
+$ zzporcento	100,0	10.0			#=> 10.00%
 
 # dinheiro
-$ zzporcento	1.000,00	100		#→ 10,00%
-$ zzporcento	10000		1.000,00	#→ 10,00%
-$ zzporcento	10.000,00	1.000,00	#→ 10,00%
-$ zzporcento	100.000,00	10.000,00	#→ 10,00%
-$ zzporcento	1.000.000,00	100.000,00	#→ 10,00%
-$ zzporcento	10.000.000,00	1.000.000,00	#→ 10,00%
-$ zzporcento	100.000.000,00	10.000.000,00	#→ 10,00%
+$ zzporcento	1.000,00	100		#=> 10,00%
+$ zzporcento	10000		1.000,00	#=> 10,00%
+$ zzporcento	10.000,00	1.000,00	#=> 10,00%
+$ zzporcento	100.000,00	10.000,00	#=> 10,00%
+$ zzporcento	1.000.000,00	100.000,00	#=> 10,00%
+$ zzporcento	10.000.000,00	1.000.000,00	#=> 10,00%
+$ zzporcento	100.000.000,00	10.000.000,00	#=> 10,00%
 
 ### valor1 porcentagem
 
 # inteiro
-$ zzporcento	100		20%	#→ 20
+$ zzporcento	100		20%	#=> 20
 
 # primeiro inteiro e % float: escala=2 e vírgula
-$ zzporcento	100		2.5%	#→ 2,50
-$ zzporcento	100		2,5%	#→ 2,50
+$ zzporcento	100		2.5%	#=> 2,50
+$ zzporcento	100		2,5%	#=> 2,50
 
 # escala e vírgula do primeiro
-$ zzporcento	100,00		2.5%	#→ 2,50
-$ zzporcento	100,00		2,5%	#→ 2,50
+$ zzporcento	100,00		2.5%	#=> 2,50
+$ zzporcento	100,00		2,5%	#=> 2,50
 
 # dinheiro com pontos
-$ zzporcento	1.234.567,89	25%	#→ 308641,97
+$ zzporcento	1.234.567,89	25%	#=> 308641,97
 
 # adição do zero em caso de resultado .123
-$ zzporcento	1,00		1%	#→ 0,01
+$ zzporcento	1,00		1%	#=> 0,01
 
 ### valor1 +porcentagem
 
 # inteiro
-$ zzporcento	100		+20%	#→ 120
-$ zzporcento	100		-20%	#→ 80
+$ zzporcento	100		+20%	#=> 120
+$ zzporcento	100		-20%	#=> 80
 
 # primeiro inteiro e % float: escala=2 e vírgula
-$ zzporcento	100		+2.5%	#→ 102,50
-$ zzporcento	100		+2,5%	#→ 102,50
-$ zzporcento	100		-2.5%	#→ 97,50
-$ zzporcento	100		-2,5%	#→ 97,50
+$ zzporcento	100		+2.5%	#=> 102,50
+$ zzporcento	100		+2,5%	#=> 102,50
+$ zzporcento	100		-2.5%	#=> 97,50
+$ zzporcento	100		-2,5%	#=> 97,50
 
 # escala e vírgula do primeiro
-$ zzporcento	100,00		+2.5%	#→ 102,50
-$ zzporcento	100,00		+2,5%	#→ 102,50
-$ zzporcento	100,00		-2.5%	#→ 97,50
-$ zzporcento	100,00		-2,5%	#→ 97,50
+$ zzporcento	100,00		+2.5%	#=> 102,50
+$ zzporcento	100,00		+2,5%	#=> 102,50
+$ zzporcento	100,00		-2.5%	#=> 97,50
+$ zzporcento	100,00		-2,5%	#=> 97,50
 
 # dinheiro com pontos
-$ zzporcento	1.234.567,89	+25%	#→ 1543209,86
-$ zzporcento	1.234.567,89	-25%	#→ 925925,92
+$ zzporcento	1.234.567,89	+25%	#=> 1543209,86
+$ zzporcento	1.234.567,89	-25%	#=> 925925,92
 
 # adição do zero em caso de resultado .123
-$ zzporcento	1,00		+1%	#→ 1,01
-$ zzporcento	1,00		-1%	#→ 0,99
+$ zzporcento	1,00		+1%	#=> 1,01
+$ zzporcento	1,00		-1%	#=> 0,99
 
 ### valor1
 

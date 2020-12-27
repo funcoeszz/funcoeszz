@@ -4,10 +4,10 @@ Não consegui ler o arquivo quina.txt
 Quantidade da apostas válidas para quina incorretas
 $
 
-$ zzconfere quina --apostas _tmp1               #→ Não consegui ler o arquivo _tmp1
+$ zzconfere quina --apostas _tmp1               #=> Não consegui ler o arquivo _tmp1
 
 # Quantidade de apostas numericas insuficientes
-$ zzconfere quina -c 4500 12 25 36 27 aa        #→ Quantidade da apostas válidas para quina incorretas
+$ zzconfere quina -c 4500 12 25 36 27 aa        #=> Quantidade da apostas válidas para quina incorretas
 
 # Quantidade de apostas em excesso
 $ zzconfere quina -c 4500 1 7 12 21 25 27 30 35 36 42 48 51 53 56 59 62 75

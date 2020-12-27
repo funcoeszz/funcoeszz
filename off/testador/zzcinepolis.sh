@@ -1,7 +1,7 @@
 # Uso incorreto
 
-$ zzcinepolis 99    ;echo $?             #→ --regex ^Uso:.*\n1
-$ zzcinepolis Tokyo ;echo $?             #→ --regex ^Uso:.*\n1
+$ zzcinepolis 99    ;echo $?             #=> --regex ^Uso:.*\n1
+$ zzcinepolis Tokyo ;echo $?             #=> --regex ^Uso:.*\n1
 
 # Sem argumentos mostra a lista de cidades/cinemas
 
