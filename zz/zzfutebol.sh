@@ -56,6 +56,12 @@ zzfutebol ()
 	do
 		echo "$(zzdatafmt $data) $hora $(zzpad -e 24 $time1) $(zzpad -a 14 $placar) $(zzpad 24 $time2) $campeonato"
 	done |
+	if test "$pagina" = 'proximos_jogos.php'
+	then
+		grep --color=never ' vs '
+	else
+		cat -
+	fi |
 	case "$1" in
 		hoje | amanh[aã] | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado | domingo | ontem | anteontem | [0-3][0-9]/[01][0-9]/20[1-9][0-9])
 			grep --color=never -e $(zzdatafmt -f 'DD/MM/AA' $1)
