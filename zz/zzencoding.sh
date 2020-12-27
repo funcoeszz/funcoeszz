@@ -13,7 +13,7 @@
 # Licença: GPL
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
-zzencoding ()
+zzencoding()
 {
 	zzzz -h encoding "$1" && return
 

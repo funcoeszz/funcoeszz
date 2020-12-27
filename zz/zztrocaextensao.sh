@@ -10,33 +10,35 @@
 # Licença: GPL
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
-zztrocaextensao ()
+zztrocaextensao()
 {
 	zzzz -h trocaextensao "$1" && return
 
 	local ext1 ext2 arquivo base novo nao
 
 	# Opções de linha de comando
-	if test '-n' = "$1"
-	then
+	if test '-n' = "$1"; then
 		nao='[-n] '
 		shift
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$3" || { zztool -e uso trocaextensao; return 1; }
+	test -n "$3" || {
+		zztool -e uso trocaextensao
+		return 1
+	}
 
 	# Guarda as extensões informadas
 	ext1="$1"
 	ext2="$2"
-	shift; shift
+	shift
+	shift
 
 	# Tiro no pé? Não, obrigado
 	test "$ext1" = "$ext2" && return
 
 	# Para cada arquivo que o usuário informou...
-	for arquivo
-	do
+	for arquivo; do
 		# O arquivo existe?
 		zztool -e arquivo_legivel "$arquivo" || continue
 
@@ -50,8 +52,7 @@ zztrocaextensao ()
 		echo "$nao$arquivo -> $novo"
 
 		# Se não tiver -n, vamos renomear o arquivo
-		if test ! -n "$nao"
-		then
+		if test ! -n "$nao"; then
 			# Não sobrescreve arquivos já existentes
 			zztool -e arquivo_vago "$novo" || return
 

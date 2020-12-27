@@ -15,7 +15,7 @@
 # Requisitos: zzminusculas zznumero zzsemacento
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzcoin ()
+zzcoin()
 {
 	zzzz -h coin "$1" && return
 
@@ -25,27 +25,27 @@ zzcoin ()
 
 	# Se não informou moeda válida, termina
 	case "$moeda_informada" in
-		btc | bitcoin )
+		btc | bitcoin)
 			# Monta URL a ser consultada
 			url="${url}/BTC/ticker/"
 			zztool dump "$url" |
-			sed 's/.*"last": *"//;s/", *"buy.*//' |
-			zznumero -m
-		;;
-		ltc | litecoin )
+				sed 's/.*"last": *"//;s/", *"buy.*//' |
+				zznumero -m
+			;;
+		ltc | litecoin)
 			# Monta URL a ser consultada
 			url="${url}/LTC/ticker/"
 			zztool dump "$url" |
-			sed 's/.*"last": *"//;s/", *"buy.*//' |
-			zznumero -m
-		;;
-		bch | bcash )
+				sed 's/.*"last": *"//;s/", *"buy.*//' |
+				zznumero -m
+			;;
+		bch | bcash)
 			# Monta URL a ser consultada
 			url="${url}/BCH/ticker/"
 			zztool dump "$url" |
-			sed 's/.*"last": *"//;s/", *"buy.*//' |
-			zznumero -m
-		;;
-		* ) return 1;;
+				sed 's/.*"last": *"//;s/", *"buy.*//' |
+				zznumero -m
+			;;
+		*) return 1 ;;
 	esac
 }

@@ -12,7 +12,7 @@
 # Requisitos: zzlinha
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zznatal ()
+zznatal()
 {
 	zzzz -h natal "$1" && return
 
@@ -21,14 +21,13 @@ zznatal ()
 	local padrao=$1
 
 	# Se o cache está vazio, baixa listagem da Internet
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool dump "$url" | sed '
 			1,10d
 			77,179d
 			s/^  *//
 			s/^(/Chinês  &/
-			s/  */: /' > "$cache"
+			s/  */: /' >"$cache"
 	fi
 
 	# Mostra uma linha qualquer (com o padrão, se informado)

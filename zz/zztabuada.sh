@@ -22,7 +22,7 @@
 # Requisitos: zzseq zztestar
 # Tags: número, tabela
 # ----------------------------------------------------------------------------
-zztabuada ()
+zztabuada()
 {
 	zzzz -h tabuada "$1" && return
 
@@ -32,47 +32,41 @@ zztabuada ()
 
 	case "$#" in
 		1 | 2)
-			if zztestar numero_sinal "$1"
-			then
-				if zztool testa_numero "$2" && test $2 -le 99
-				then
+			if zztestar numero_sinal "$1"; then
+				if zztool testa_numero "$2" && test $2 -le 99; then
 					numeros=$(zzseq -f '%d ' 0 $2)
 				fi
 
-				for i in $numeros
-				do
-					if test $i -eq 0 && ! zztool testa_numero "$1"
-					then
-						printf '%d x %-2d = %d\n' "$1" "$i" $(($1*$i)) | sed 's/= 0/=  0/'
+				for i in $numeros; do
+					if test $i -eq 0 && ! zztool testa_numero "$1"; then
+						printf '%d x %-2d = %d\n' "$1" "$i" $(($1 * $i)) | sed 's/= 0/=  0/'
 					else
-						printf '%d x %-2d = %d\n' "$1" "$i" $(($1*$i))
+						printf '%d x %-2d = %d\n' "$1" "$i" $(($1 * $i))
 					fi
 				done
 			else
 				zztool -e uso tabuada
 				return 1
 			fi
-		;;
+			;;
 		0)
-			for i in 1 4 7
-			do
+			for i in 1 4 7; do
 				echo "$linha"
-				echo "| Tabuada do $i | Tabuada do $((i+1)) | Tabuada do $((i+2)) |"
+				echo "| Tabuada do $i | Tabuada do $((i + 1)) | Tabuada do $((i + 2)) |"
 				echo "$linha"
-				for j in 0 1 2 3 4 5 6 7 8 9 10
-				do
-					printf '| %d x %-2d = %-3d ' "$i"     "$j" $((i*j))
-					printf '| %d x %-2d = %-3d ' $((i+1)) "$j" $(((i+1)*j))
-					printf '| %d x %-2d = %-3d ' $((i+2)) "$j" $(((i+2)*j))
+				for j in 0 1 2 3 4 5 6 7 8 9 10; do
+					printf '| %d x %-2d = %-3d ' "$i" "$j" $((i * j))
+					printf '| %d x %-2d = %-3d ' $((i + 1)) "$j" $(((i + 1) * j))
+					printf '| %d x %-2d = %-3d ' $((i + 2)) "$j" $(((i + 2) * j))
 					printf '|\n'
 				done
 				echo "$linha"
 				echo
 			done | sed '$d'
-		;;
+			;;
 		*)
 			zztool -e uso tabuada
 			return 1
-		;;
+			;;
 	esac
 }

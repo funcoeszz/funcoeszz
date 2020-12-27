@@ -11,34 +11,38 @@
 # Requisitos: zztestar
 # Tags: cálculo
 # ----------------------------------------------------------------------------
-zzimc ()
+zzimc()
 {
 
 	zzzz -h imc "$1" && return
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso imc; return 1; }
-	test -n "$2" || { zztool -e uso imc; return 1; }
+	test -n "$1" || {
+		zztool -e uso imc
+		return 1
+	}
+	test -n "$2" || {
+		zztool -e uso imc
+		return 1
+	}
 
-	local PESO=`echo "$1" | tr "," "."`
-	local ALTURA=`echo "$2" | tr "," "."`
+	local PESO=$(echo "$1" | tr "," ".")
+	local ALTURA=$(echo "$2" | tr "," ".")
 
-	if ! ( zztestar numero_real "$PESO" )
-	then
+	if ! (zztestar numero_real "$PESO"); then
 
 		zztool erro "Valor inserido para o peso está inválido, favor verificar!"
 		return 1
 	fi
 
-	if ! ( zztestar numero_real "$ALTURA" )
-	then
+	if ! (zztestar numero_real "$ALTURA"); then
 
 		zztool erro "Valor inserido para a altura está inválido, favor verificar!"
 		return 1
 	fi
 
 	echo "scale=2;$PESO / ( $ALTURA^2 )" | bc |
-	awk '{
+		awk '{
 		if ($1 >= 40 ) {print "IMC: "$1" - OBESIDADE GRAU III"}
 		if ($1 < 40 && $1 >= 35) {print "IMC: "$1" - OBESIDADE GRAU II"}
 		if ($1 < 35 && $1 >= 30) {print "IMC: "$1" - OBESIDADE GRAU I"}

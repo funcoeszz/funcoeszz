@@ -13,7 +13,7 @@
 # Requisitos: zzlinha
 # Tags: internet, música, distração
 # ----------------------------------------------------------------------------
-zzramones ()
+zzramones()
 {
 	zzzz -h ramones "$1" && return
 
@@ -22,8 +22,7 @@ zzramones ()
 	local padrao=$1
 
 	# Se o cache está vazio, baixa listagem da Internet
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool download "$url" "$cache"
 	fi
 

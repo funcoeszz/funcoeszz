@@ -11,7 +11,7 @@
 # Licença: GPL
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzunicode2ascii ()
+zzunicode2ascii()
 {
 	zzzz -h unicode2ascii "$1" && return
 

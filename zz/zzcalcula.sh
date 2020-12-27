@@ -16,22 +16,20 @@
 # Licença: GPL
 # Tags: número, cálculo
 # ----------------------------------------------------------------------------
-zzcalcula ()
+zzcalcula()
 {
 	zzzz -h calcula "$1" && return
 
 	local soma
 
 	# Opção de linha de comando
-	if test '--soma' = "$1"
-	then
+	if test '--soma' = "$1"; then
 		soma=1
 		shift
 	fi
 
 	# A opção --soma só lê dados da STDIN, não deve ter argumentos
-	if test -n "$soma" -a $# -gt 0
-	then
+	if test -n "$soma" -a $# -gt 0; then
 		zztool -e uso calcula
 		return 1
 	fi
@@ -39,8 +37,8 @@ zzcalcula ()
 	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |
 
-	# Limpeza nos dados para chegarem bem no bc
-	sed '
+		# Limpeza nos dados para chegarem bem no bc
+		sed '
 		# Espaços só atrapalham (tab+espaço)
 		s/[	 ]//g
 
@@ -48,10 +46,9 @@ zzcalcula ()
 		s/\.\([0-9][0-9][0-9]\)/\1/g
 		' |
 
-	# Temos dados multilinha para serem somados?
-	if test -n "$soma"
-	then
-		sed '
+		# Temos dados multilinha para serem somados?
+		if test -n "$soma"; then
+			sed '
 			# Remove linhas em branco
 			/^$/d
 
@@ -60,21 +57,21 @@ zzcalcula ()
 
 			# Se o primeiro da lista tiver sinal + dá erro no bc
 			1 s/^+//' |
-		# Junta as linhas num única tripa, exemplo: 5+7-3+1-2
-		#tr -d '\n'
-		paste -s -d ' ' - | sed 's/ //g'
-	else
-		cat -
-	fi |
+				# Junta as linhas num única tripa, exemplo: 5+7-3+1-2
+				#tr -d '\n'
+				paste -s -d ' ' - | sed 's/ //g'
+		else
+			cat -
+		fi |
 
-	# O resultado deve ter somente duas casas decimais
-	sed 's/^/scale=2;/' |
+		# O resultado deve ter somente duas casas decimais
+		sed 's/^/scale=2;/' |
 
-	# Entrada de números com vírgulas ou pontos, saída sempre com vírgulas
-	sed y/,/./ | bc | sed y/./,/ |
+		# Entrada de números com vírgulas ou pontos, saída sempre com vírgulas
+		sed y/,/./ | bc | sed y/./,/ |
 
-	# Adiciona separador de milhares
-	sed '
+		# Adiciona separador de milhares
+		sed '
 		s/\([0-9]\)\([0-9][0-9][0-9]\)$/\1.\2/
 
 		:loop

@@ -11,21 +11,23 @@
 # Requisitos: zztrim zzutf8 zzsqueeze
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
-zzenglish ()
+zzenglish()
 {
 	zzzz -h english "$1" && return
 
-	test -n "$1" || { zztool -e uso english; return 1; }
+	test -n "$1" || {
+		zztool -e uso english
+		return 1
+	}
 
 	local cinza verde amarelo fecha
 	local url="http://www.dict.org/bin/Dict?Form=Dict2&Database=*&Query=$1"
 
-	if test 1 -eq $ZZCOR
-	then
-		cinza=$(  printf '\033[0;34m')
-		verde=$(  printf '\033[0;32;1m')
+	if test 1 -eq $ZZCOR; then
+		cinza=$(printf '\033[0;34m')
+		verde=$(printf '\033[0;32;1m')
 		amarelo=$(printf '\033[0;33;1m')
-		fecha=$(  printf '\033[m')
+		fecha=$(printf '\033[m')
 	fi
 
 	zztool dump "$url" | zzutf8 |

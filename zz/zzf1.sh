@@ -23,19 +23,30 @@
 # Requisitos: zzpad zztrim zzxml
 # Tags: internet, corrida, consulta
 # ----------------------------------------------------------------------------
-zzf1 ()
+zzf1()
 {
 	zzzz -h f1 "$1" && return
 
 	local pontos piloto nac1 construtor nac2 ano opt fopt
 
-	while test -n "$1"
-	do
+	while test -n "$1"; do
 		case $1 in
-			-p) opt='driver'; shift ;;
-			-c) opt='constructor'; shift ;;
-			[0-9][0-9][0-9][0-9]) ano="$1"; shift ;;
-			-*) zztool -e uso f1; return 1 ;;
+			-p)
+				opt='driver'
+				shift
+				;;
+			-c)
+				opt='constructor'
+				shift
+				;;
+			[0-9][0-9][0-9][0-9])
+				ano="$1"
+				shift
+				;;
+			-*)
+				zztool -e uso f1
+				return 1
+				;;
 			*) break ;;
 		esac
 	done
@@ -43,8 +54,7 @@ zzf1 ()
 	ano="${ano:-current}"
 	opt="${opt:-driver constructor}"
 
-	for fopt in $opt
-	do
+	for fopt in $opt; do
 		# Pilotos e/ou Construtores
 		zztool source "https://ergast.com/api/f1/${ano}/${fopt}Standings" |
 			zztrim |
@@ -66,20 +76,18 @@ zzf1 ()
 			}' |
 			zzxml --untag |
 			case $fopt in
-			driver)
-				sed 's/|/ /2' |
-				while IFS='|' read pontos piloto nac1 construtor nac2
-				do
-					echo "$(zzpad -e 5 $pontos)  $(zzpad 25 $piloto) $(zzpad 15 $construtor)  $nac1"
-				done
-			;;
-			constructor)
-				while IFS='|' read pontos construtor nac2
-				do
-					echo "$(zzpad -e 5 $pontos)  $(zzpad 15 $construtor)  $nac2"
-				done
-			;;
+				driver)
+					sed 's/|/ /2' |
+						while IFS='|' read pontos piloto nac1 construtor nac2; do
+							echo "$(zzpad -e 5 $pontos)  $(zzpad 25 $piloto) $(zzpad 15 $construtor)  $nac1"
+						done
+					;;
+				constructor)
+					while IFS='|' read pontos construtor nac2; do
+						echo "$(zzpad -e 5 $pontos)  $(zzpad 15 $construtor)  $nac2"
+					done
+					;;
 			esac
-			echo
-		done
+		echo
+	done
 }

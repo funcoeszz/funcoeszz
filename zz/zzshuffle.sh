@@ -11,7 +11,7 @@
 # Requisitos: zzaleatorio
 # Tags: shuffle, emulação
 # ----------------------------------------------------------------------------
-zzshuffle ()
+zzshuffle()
 {
 	zzzz -h shuffle "$1" && return
 
@@ -23,8 +23,7 @@ zzshuffle ()
 		# Um número aleatório é colocado no início de cada linha,
 		# depois o sort ordena numericamente, bagunçando a ordem
 		# original. Então os números são removidos.
-		while read linha
-		do
+		while read linha; do
 			echo "$(zzaleatorio) $linha"
 		done |
 		sort |

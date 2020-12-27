@@ -24,7 +24,7 @@
 # Requisitos: zzcalcula zzdatafmt zzdos2unix
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
-zzmoneylog ()
+zzmoneylog()
 {
 	zzzz -h moneylog "$1" && return
 
@@ -35,24 +35,40 @@ zzmoneylog ()
 	test $# -eq 0 && data=$(zzdatafmt -f AAAA-MM hoje)
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-			-t | --tag    ) shift; tag="$1";;
-			-d | --data   ) shift; data="$1";;
-			-v | --valor  ) shift; valor="$1";;
-			-a | --arquivo) shift; arquivo="$1";;
-			--total) total=1;;
-			--) shift; break;;
-			-*) zztool erro "Opção inválida $1"; return 1;;
-			*) break;;
+			-t | --tag)
+				shift
+				tag="$1"
+				;;
+			-d | --data)
+				shift
+				data="$1"
+				;;
+			-v | --valor)
+				shift
+				valor="$1"
+				;;
+			-a | --arquivo)
+				shift
+				arquivo="$1"
+				;;
+			--total) total=1 ;;
+			--)
+				shift
+				break
+				;;
+			-*)
+				zztool erro "Opção inválida $1"
+				return 1
+				;;
+			*) break ;;
 		esac
 		shift
 	done
 
 	# O-oh
-	if test -z "$arquivo"
-	then
+	if test -z "$arquivo"; then
 		zztool erro 'Ops, não sei onde encontrar seu arquivo de dados do Moneylog.'
 		zztool erro 'Use a variável $ZZMONEYLOG para indicar o caminho.'
 		zztool erro
@@ -67,8 +83,7 @@ zzmoneylog ()
 	fi
 
 	# Consigo ler o arquivo? (Se não for pasta nem STDIN)
-	if ! test -d "$arquivo" && test '-' != "$arquivo"
-	then
+	if ! test -d "$arquivo" && test '-' != "$arquivo"; then
 		zztool -e arquivo_legivel "$arquivo" || return 1
 	fi
 
@@ -76,8 +91,7 @@ zzmoneylog ()
 	# Formata (se necessário) a data informada.
 	# A data não é validada, assim o usuário pode fazer pesquisas parciais,
 	# ou ainda usar expressões regulares, exemplo: 2011-0[123].
-	if test -n "$data"
-	then
+	if test -n "$data"; then
 		# Para facilitar a vida, alguns formatos comuns são mapeados
 		# para o formato do moneylog. Assim, para pesquisar o mês
 		# de janeiro do 2011, pode-se fazer: 2011-01 ou 1/2011.
@@ -85,34 +99,33 @@ zzmoneylog ()
 			# m/aaaa -> aaaa-mm
 			[1-9]/[12][0-9][0-9][0-9])
 				data=$(zzdatafmt -f "AAAA-MM" 01/$data)
-			;;
+				;;
 			# mm/aaaa -> aaaa-mm
 			[01][0-9]/[12][0-9][0-9][0-9])
 				data=$(zzdatafmt -f "AAAA-MM" 01/$data)
-			;;
+				;;
 			# data com barras -> aaaa-mm-dd
 			*/*)
 				data=$(zzdatafmt -f "AAAA-MM-DD" $data)
-			;;
+				;;
 			# apelidos especiais zzmoneylog
 			ano)
 				data=$(zzdatafmt -f "AAAA" hoje)
-			;;
+				;;
 			mes | mês)
 				data=$(zzdatafmt -f "AAAA-MM" hoje)
-			;;
+				;;
 			dia)
 				data=$(zzdatafmt -f "AAAA-MM-DD" hoje)
-			;;
+				;;
 			# apelidos comuns: hoje, ontem, anteontem, etc
 			[a-z]*)
 				data=$(zzdatafmt -f "AAAA-MM-DD" $data)
-			;;
+				;;
 		esac
 
 		# Deu pau no case?
-		if test $? -ne 0
-		then
+		if test $? -ne 0; then
 			zztool erro "$data" # Mensagem de erro
 			return 1
 		fi
@@ -122,8 +135,7 @@ zzmoneylog ()
 	# É necessário formatar um pouco o texto do usuário para a pesquisa
 	# ficar mais poderosa, pois o formato do Moneylog é bem flexível.
 	# Assim o usuário não precisa se preocupar com as pequenas diferenças.
-	if test -n "$valor"
-	then
+	if test -n "$valor"; then
 		valor=$(echo "$valor" | sed '
 			# Escapa o símbolo de recorrência: * vira [*]
 			s|[*]|[*]|g
@@ -150,8 +162,7 @@ zzmoneylog ()
 	# ou de vários TXT. Os IFs seguintes filtrarão estes dados conforme
 	# as opções escolhidas pelo usuário.
 
-	if test -d "$arquivo"
-	then
+	if test -d "$arquivo"; then
 		cat "$arquivo"/*.txt
 	else
 		cat "$arquivo" |
@@ -159,45 +170,41 @@ zzmoneylog ()
 			sed '/^<!DOCTYPE/,/<pre id="data">/ d'
 	fi |
 
-	# Remove linhas em branco.
-	# Comentários são mantidos, pois podem ser úteis na pesquisa
-	zzdos2unix | sed '/^[	 ]*$/ d' |
+		# Remove linhas em branco.
+		# Comentários são mantidos, pois podem ser úteis na pesquisa
+		zzdos2unix | sed '/^[	 ]*$/ d' |
 
-	# Filtro: data
-	if test -n "$data"
-	then
-		grep "^[^	]*$data"
-	else
-		cat -
-	fi |
+		# Filtro: data
+		if test -n "$data"; then
+			grep "^[^	]*$data"
+		else
+			cat -
+		fi |
 
-	# Filtro: valor
-	if test -n "$valor"
-	then
-		grep -i "^[^	]*	$valor"
-	else
-		cat -
-	fi |
+		# Filtro: valor
+		if test -n "$valor"; then
+			grep -i "^[^	]*	$valor"
+		else
+			cat -
+		fi |
 
-	# Filtro: tag
-	if test -n "$tag"
-	then
-		grep -i "^[^	]*	[^	]*	[^|]*$tag[^|]*|"
-	else
-		cat -
-	fi |
+		# Filtro: tag
+		if test -n "$tag"; then
+			grep -i "^[^	]*	[^	]*	[^|]*$tag[^|]*|"
+		else
+			cat -
+		fi |
 
-	# Filtro geral, aplicado na linha toda (default=.)
-	grep -i "${*:-.}" |
+		# Filtro geral, aplicado na linha toda (default=.)
+		grep -i "${*:-.}" |
 
-	# Ordena o resultado por data
-	sort -n |
+		# Ordena o resultado por data
+		sort -n |
 
-	# Devo mostrar somente o total ou o resultado da busca?
-	if test -n "$total"
-	then
-		cut -f 2 | zzcalcula --soma
-	else
-		cat -
-	fi
+		# Devo mostrar somente o total ou o resultado da busca?
+		if test -n "$total"; then
+			cut -f 2 | zzcalcula --soma
+		else
+			cat -
+		fi
 }

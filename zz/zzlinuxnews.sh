@@ -19,7 +19,7 @@
 # Requisitos: zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzlinuxnews ()
+zzlinuxnews()
 {
 	zzzz -h linuxnews "$1" && return
 
@@ -32,8 +32,7 @@ zzlinuxnews ()
 	test -n "$1" && sites="$1"
 
 	# Slashdot
-	if zztool grep_var s "$sites"
-	then
+	if zztool grep_var s "$sites"; then
 		url='http://rss.slashdot.org/Slashdot/slashdot'
 		echo
 		zztool eco "* SlashDot ($url):"
@@ -41,8 +40,7 @@ zzlinuxnews ()
 	fi
 
 	# Linux Today
-	if zztool grep_var t "$sites"
-	then
+	if zztool grep_var t "$sites"; then
 		url='http://www.linuxtoday.com/backend/biglt.rss'
 		echo
 		zztool eco "* Linux Today ($url):"
@@ -50,8 +48,7 @@ zzlinuxnews ()
 	fi
 
 	# LWN
-	if zztool grep_var w "$sites"
-	then
+	if zztool grep_var w "$sites"; then
 		url='http://lwn.net/headlines/newrss'
 		echo
 		zztool eco "* Linux Weekly News - ($url):"
@@ -59,8 +56,7 @@ zzlinuxnews ()
 	fi
 
 	# OS News
-	if zztool grep_var o "$sites"
-	then
+	if zztool grep_var o "$sites"; then
 		url='http://www.osnews.com/files/recent.xml'
 		echo
 		zztool eco "* OS News - ($url):"
@@ -68,8 +64,7 @@ zzlinuxnews ()
 	fi
 
 	# LXer Linux News
-	if zztool grep_var x "$sites"
-	then
+	if zztool grep_var x "$sites"; then
 		url='http://lxer.com/module/newswire/headlines.rss'
 		echo
 		zztool eco "*  LXer Linux News- ($url):"
@@ -77,8 +72,7 @@ zzlinuxnews ()
 	fi
 
 	# Linux Insider
-	if zztool grep_var i "$sites"
-	then
+	if zztool grep_var i "$sites"; then
 		url='http://www.linuxinsider.com/perl/syndication/rssfull.pl'
 		echo
 		zztool eco "* Linux Insider - ($url):"
@@ -86,8 +80,7 @@ zzlinuxnews ()
 	fi
 
 	# Linux Journal
-	if zztool grep_var j "$sites"
-	then
+	if zztool grep_var j "$sites"; then
 		url='http://feeds.feedburner.com/linuxjournalcom'
 		echo
 		zztool eco "* Linux Journal - ($url):"
@@ -95,8 +88,7 @@ zzlinuxnews ()
 	fi
 
 	# Linux News
-	if zztool grep_var n "$sites"
-	then
+	if zztool grep_var n "$sites"; then
 		url='https://www.linux.com/feeds/all-content'
 		echo
 		zztool eco "* Linux News - ($url):"

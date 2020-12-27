@@ -10,14 +10,13 @@
 # Licença: GPL
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
-zzmaiusculas ()
+zzmaiusculas()
 {
 	zzzz -h maiusculas "$1" && return
 
 	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |
-
-	sed '
+		sed '
 		y/abcdefghijklmnopqrstuvwxyz/ABCDEFGHIJKLMNOPQRSTUVWXYZ/
 		y/àáâãäåèéêëìíîïòóôõöùúûüçñ/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ/'
 }

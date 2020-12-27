@@ -25,21 +25,32 @@
 # Requisitos: zzdos2unix
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
-zzjuntalinhas ()
+zzjuntalinhas()
 {
 	zzzz -h juntalinhas "$1" && return
 
-	local separador=$(printf '\t')  # tab
+	local separador=$(printf '\t') # tab
 	local inicio='1'
 	local fim='$'
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-			-d           ) separador="$2"; shift; shift;;
-			-i | --inicio) inicio="$2"   ; shift; shift;;
-			-f | --fim   ) fim="$2"      ; shift; shift;;
+			-d)
+				separador="$2"
+				shift
+				shift
+				;;
+			-i | --inicio)
+				inicio="$2"
+				shift
+				shift
+				;;
+			-f | --fim)
+				fim="$2"
+				shift
+				shift
+				;;
 			*) break ;;
 		esac
 	done

@@ -13,19 +13,21 @@
 # Requisitos: zzsqueeze zztrim
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zztweets ()
+zztweets()
 {
 	zzzz -h tweets "$1" && return
 
-	test -n "$1" || { zztool -e uso tweets; return 1; }
+	test -n "$1" || {
+		zztool -e uso tweets
+		return 1
+	}
 
 	local name
 	local limite=5
 	local url="https://twitter.com"
 
 	# Opções de linha de comando
-	if test '-n' = "$1"
-	then
+	if test '-n' = "$1"; then
 		limite="$2"
 		shift
 		shift

@@ -57,13 +57,16 @@
 # Requisitos: zzunescape
 # Tags: cut, emulação
 # ----------------------------------------------------------------------------
-zzcut ()
+zzcut()
 {
 
 	zzzz -h cut "$1" && return
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso cut; return 1; }
+	test -n "$1" || {
+		zztool -e uso cut
+		return 1
+	}
 
 	local tipo range ofd codscript qtd_campos only_delim inverte sp rlm
 	local delim=$(printf '\t')
@@ -80,87 +83,93 @@ zzcut ()
 	local bit_aspas='00'
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			-c*)
 				# Caracter
-				test -n "$tipo" && { zztool erro "Somente um tipo de lista pode ser especificado"; return 1; }
+				test -n "$tipo" && {
+					zztool erro "Somente um tipo de lista pode ser especificado"
+					return 1
+				}
 				tipo='c'
 				range="${1#-c}"
-				if test -z "$range"
-				then
+				if test -z "$range"; then
 					range="$2"
 					shift
 				fi
 				shift
-			;;
+				;;
 			-f*)
 				# Campo
-				test -n "$tipo" && { zztool erro "Somente um tipo de lista pode ser especificado"; return 1; }
+				test -n "$tipo" && {
+					zztool erro "Somente um tipo de lista pode ser especificado"
+					return 1
+				}
 				tipo='f'
 				range="${1#-f}"
-				if test -z "$range"
-				then
+				if test -z "$range"; then
 					range="$2"
 					shift
 				fi
 				shift
-			;;
+				;;
 			-d*)
 				# Definindo delimitador para opção campo
 				unset delim
 				delim="${1#-d}"
-				if test -z "$delim"
-				then
+				if test -z "$delim"; then
 					delim="$2"
 					shift
 				fi
 
 				# Apenas usa o recurso se houver aspas no delimitador de entrada
-				if zztool grep_var '"' "$delim"
-				then
+				if zztool grep_var '"' "$delim"; then
 					delim=$(echo "$delim" | sed 's/"/'${aspas}'/g')
 					bit_aspas=$(echo "$bit_aspas" | sed 's/^./1/')
 				fi
 				shift
-			;;
+				;;
 			-D*)
 				ofd="${1#-D}"
-				if test -z "$ofd"
-				then
+				if test -z "$ofd"; then
 					ofd="$2"
 					shift
 				fi
 				shift
-			;;
+				;;
 			# Apenas linha que possuam delimitadores
-			-s) only_delim='1'; shift ;;
+			-s)
+				only_delim='1'
+				shift
+				;;
 			# Invertendo a seleção
-			-v) inverte='1';    shift ;;
-			* ) break ;;
+			-v)
+				inverte='1'
+				shift
+				;;
+			*) break ;;
 		esac
 	done
 
 	# Um tipo de lista é mandatório
-	test -z "$tipo" && { zztool erro "Deve-se especificar uma lista de caracteres ou campos"; return 1; }
+	test -z "$tipo" && {
+		zztool erro "Deve-se especificar uma lista de caracteres ou campos"
+		return 1
+	}
 
 	# O range é mandatório, seja qual for o tipo
 	# O range só pode ser composto de números [0-9], traço [-], til [~], vírgula [,]  ou "d"
-	if test -n "$range"
-	then
-		if echo "${range#=}" | grep -E '^[d0-9,~-]{1,}$' 2>/dev/null >/dev/null
-		then
+	if test -n "$range"; then
+		if echo "${range#=}" | grep -E '^[d0-9,~-]{1,}$' 2>/dev/null >/dev/null; then
 			range=$(echo "${range#=}" | sed 's/[^,]d//g;s/d[^,]//g;s/,,*/,/g;s/^,//;s/,$//')
 
 			case "$tipo" in
 				c)
-					if test "$inverte" = '1'
-					then
+					if test "$inverte" = '1'; then
 						sp=$(echo "&thinsp;" | zzunescape --html)
 						codscript=$(
 							echo "$range" | zztool list2lines | sort -n |
-							awk -v tsp="$sp" '
+								awk -v tsp="$sp" '
 								# Apagar linha toda
 								/^-$/ { print "s/.*//";exit }
 								# Apagar desde o início da linha até um caractere
@@ -199,7 +208,8 @@ zzcut ()
 						ofd="${ofd:-$delim}"
 						rlm=$(echo "&rlm;" | zzunescape --html)
 
-						qtd_campos=$(echo "$range" |
+						qtd_campos=$(
+							echo "$range" |
 								awk -F "," '{
 									while(NF){
 										if ($NF ~ /^[0-9]*~[0-9]+$/ || $NF ~ /^[0-9]*-[0-9]*$/ || $NF ~ /^[d0-9]+$/) i++
@@ -207,11 +217,11 @@ zzcut ()
 									}
 									print i
 								}'
-							)
+						)
 
 						codscript=$(
 							echo "$range" |
-							awk -F "," -v ofs="$ofd" -v rlm="$rlm" 'BEGIN {print "h;"} {
+								awk -F "," -v ofs="$ofd" -v rlm="$rlm" 'BEGIN {print "h;"} {
 								for (i=1; i<=NF; i++) {
 									# Apenas um número, um caractere
 									if ($i ~ /^[0-9]+$/) print "g;" ($i>1 ? "s/^.\\{1,"$i-1"\\}//;" : "" ) "s/^\\(.\\).*/\\1/;p"
@@ -245,26 +255,23 @@ zzcut ()
 							}'
 						)
 					fi
-				;;
+					;;
 				f)
 					ofd="${ofd:-$delim}"
 					# Apenas usa o recurso se houver aspas no delimitador de saída
-					if zztool grep_var '"' "$ofd"
-					then
+					if zztool grep_var '"' "$ofd"; then
 						ofd=$(echo "$ofd" | sed 's/"/'${aspas}'/g')
 						bit_aspas=$(echo "$bit_aspas" | sed 's/.$/1/')
 					fi
 
-					if test "$only_delim" = "1"
-					then
+					if test "$only_delim" = "1"; then
 						only_delim=$(zztool endereco_sed "$delim")
 					fi
 
-					if test "$inverte" = '1'
-					then
+					if test "$inverte" = '1'; then
 						codscript=$(
 							echo "$range" | zztool list2lines | sort -n |
-							awk -v ofs="$ofd" 'BEGIN { print "BEGIN { OFS=\"" ofs "\" } { " }
+								awk -v ofs="$ofd" 'BEGIN { print "BEGIN { OFS=\"" ofs "\" } { " }
 								{
 								# Apenas um número, um campo
 								if ($1 ~ /^[0-9]+$/) { print "$" $1 "=\"\""}
@@ -298,8 +305,8 @@ zzcut ()
 						)
 					else
 						codscript=$(
-						echo "$range" |
-						awk -F"," -v ofs="$ofd" '{
+							echo "$range" |
+								awk -F"," -v ofs="$ofd" '{
 							printf "{ printf "
 							for (i=1; i<=NF; i++) {
 								# Apenas um número, um campo
@@ -334,33 +341,33 @@ zzcut ()
 							}
 							printf "; print \"\" }"
 						}' 2>/dev/null
-					)
-				fi
-				;;
+						)
+					fi
+					;;
 			esac
 
 		else
-			zztool erro "Formato inválido para a lista de caracteres ou campos"; return 1
+			zztool erro "Formato inválido para a lista de caracteres ou campos"
+			return 1
 		fi
 	else
-		zztool erro "Deve-se definir pelo menos um range de caracteres ou campos"; return 1
+		zztool erro "Deve-se definir pelo menos um range de caracteres ou campos"
+		return 1
 	fi
 
 	zztool file_stdin "$@" |
-	if echo "$bit_aspas" | grep '^1' >/dev/null
-	then
-		sed 's/"/'${aspas}'/g'
-	else
-		cat -
-	fi |
-	case "$tipo" in
-		c)
-			sed -n "$codscript" |
-			if test "$inverte" = '1'
-			then
-				sed "s/$sp//g"
-			else
-				sed "
+		if echo "$bit_aspas" | grep '^1' >/dev/null; then
+			sed 's/"/'${aspas}'/g'
+		else
+			cat -
+		fi |
+		case "$tipo" in
+			c)
+				sed -n "$codscript" |
+					if test "$inverte" = '1'; then
+						sed "s/$sp//g"
+					else
+						sed "
 				/$rlm/ {
 					:ini
 					s/\(.*\)$rlm\(.\)/\2\1$rlm/
@@ -368,11 +375,11 @@ zzcut ()
 					s/$rlm//g
 				}
 				" |
-				awk -v div="${qtd_campos:-1}" '{ printf $0 }; NR % div == 0 { print ""}'
-			fi
-		;;
-		f)
-			awk -F "$delim" -v tsp="$inverte" "
+							awk -v div="${qtd_campos:-1}" '{ printf $0 }; NR % div == 0 { print ""}'
+					fi
+				;;
+			f)
+				awk -F "$delim" -v tsp="$inverte" "
 				function ate_fim (ini, sep, salto,  saida) {
 						for (i=ini; i<=NF; i+=salto) {
 							if (tsp == 1) { \$i=\"\" }
@@ -381,13 +388,12 @@ zzcut ()
 						if (tsp != 1) return saida
 				}
 				$only_delim $codscript" 2>/dev/null |
-				sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//"
-		;;
-	esac |
-	if test "$bit_aspas" != '00'
-	then
-		sed 's/'${aspas}'/"/g'
-	else
-		cat -
-	fi
+					sed "s/\(${ofd}\)\{2,\}/${ofd}/g;s/^${ofd}//;s/${ofd}$//"
+				;;
+		esac |
+		if test "$bit_aspas" != '00'; then
+			sed 's/'${aspas}'/"/g'
+		else
+			cat -
+		fi
 }

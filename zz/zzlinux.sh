@@ -10,7 +10,7 @@
 # Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzlinux ()
+zzlinux()
 {
 	zzzz -h linux "$1" && return
 

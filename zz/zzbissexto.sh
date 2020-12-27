@@ -12,7 +12,7 @@
 # Requisitos: zztestar
 # Tags: data
 # ----------------------------------------------------------------------------
-zzbissexto ()
+zzbissexto()
 {
 	zzzz -h bissexto "$1" && return
 
@@ -24,8 +24,7 @@ zzbissexto ()
 	# Validação
 	zztool -e testa_ano "$ano" || return 1
 
-	if zztestar ano_bissexto "$ano"
-	then
+	if zztestar ano_bissexto "$ano"; then
 		echo "$ano é bissexto"
 	else
 		echo "$ano não é bissexto"

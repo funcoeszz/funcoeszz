@@ -27,49 +27,52 @@
 # Requisitos: zztranspor
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
-zzhsort ()
+zzhsort()
 {
 	zzzz -h hsort "$1" && return
 
 	local sep ofs direcao
 
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			-d)
-			# Separador de campos na entrada
+				# Separador de campos na entrada
 				sep="-d $2"
 				shift
 				shift
-			;;
+				;;
 			-D | --output-delimiter)
-			# Separador de campos na saída
+				# Separador de campos na saída
 				ofs="-D $2"
 				shift
 				shift
-			;;
+				;;
 			-r)
-			# Ordenar decrescente
+				# Ordenar decrescente
 				direcao="-r"
 				shift
-			;;
-			--) shift; break;;
-			-*) zztool -e uso hsort; return 1;;
-			*) break;;
+				;;
+			--)
+				shift
+				break
+				;;
+			-*)
+				zztool -e uso hsort
+				return 1
+				;;
+			*) break ;;
 		esac
 	done
 
 	zztool multi_stdin "$@" |
-	while read linha
-	do
-		if test -z "$linha"
-		then
-			echo
-		else
-			echo "$linha" |
-			zztranspor $sep |
-			sort -n $direcao |
-			zztranspor $sep $ofs
-		fi
-	done
+		while read linha; do
+			if test -z "$linha"; then
+				echo
+			else
+				echo "$linha" |
+					zztranspor $sep |
+					sort -n $direcao |
+					zztranspor $sep $ofs
+			fi
+		done
 }

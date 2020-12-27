@@ -13,17 +13,19 @@
 # Licença: GPL
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
-zzdividirtexto ()
+zzdividirtexto()
 {
 	zzzz -h dividirtexto "$1" && return
 
 	local palavras=15
 
 	# Definindo a quantidade de palavras por linha
-	if zztool testa_numero "$1"
-	then
+	if zztool testa_numero "$1"; then
 		# Tamanho zero não vale!
-		test "$1" -eq 0 && { zztool uso dividirtexto; return 1; }
+		test "$1" -eq 0 && {
+			zztool uso dividirtexto
+			return 1
+		}
 
 		palavras=$1
 		shift

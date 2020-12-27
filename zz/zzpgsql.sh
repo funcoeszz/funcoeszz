@@ -15,7 +15,7 @@
 # Requisitos: zzjuntalinhas zzsqueeze zztrim zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzpgsql ()
+zzpgsql()
 {
 	zzzz -h pgsql "$1" && return
 
@@ -23,29 +23,26 @@ zzpgsql ()
 	local cache=$(zztool cache pgsql)
 	local comando
 
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool source "${url}/sql-commands.html" |
-		awk '/<dt>/,/<\/dt>/' |
-		zzjuntalinhas -i '<dt>' -f '</dt>' |
-		zzsqueeze |
-		zztrim |
-		awk '{sub(/.*sql-/,"sql-");sub(/">/,":");print ++i ":" $0}' |
-		zzxml --untag > $cache
+			awk '/<dt>/,/<\/dt>/' |
+			zzjuntalinhas -i '<dt>' -f '</dt>' |
+			zzsqueeze |
+			zztrim |
+			awk '{sub(/.*sql-/,"sql-");sub(/">/,":");print ++i ":" $0}' |
+			zzxml --untag >$cache
 	fi
 
-	if test -n "$1"
-	then
-		if zztool testa_numero $1
-		then
+	if test -n "$1"; then
+		if zztool testa_numero $1; then
 			comando=$(sed -n "/^ *${1}:/{s///;s/:.*//;p;}" $cache)
 			zztool dump "${url}/${comando}" |
-			awk '
+				awk '
 				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }
 				$0 !~ /^$/  { for (i=1;i<=branco;i++) { print "" }; print ; branco = 0 }
 			' |
-			sed -n '/^ *[_-][_-][_-][_-]*/,/^ *[_-][_-][_-][_-]*/p' |
-			sed '1d;$d;' | zztrim -V | sed '1s/^ *//;s/        */       /'
+				sed -n '/^ *[_-][_-][_-][_-]*/,/^ *[_-][_-][_-][_-]*/p' |
+				sed '1d;$d;' | zztrim -V | sed '1s/^ *//;s/        */       /'
 		else
 			grep -i $1 $cache | awk -F: '{printf "%3s %s\n", $1, $3}'
 		fi

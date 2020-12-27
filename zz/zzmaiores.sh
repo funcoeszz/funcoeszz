@@ -15,7 +15,7 @@
 # Requisitos: zztrim
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
-zzmaiores ()
+zzmaiores()
 {
 	zzzz -h maiores "$1" && return
 
@@ -23,40 +23,38 @@ zzmaiores ()
 	local limite=10
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			-n)
 				limite=$2
-				shift; shift
-			;;
+				shift
+				shift
+				;;
 			-f)
 				modo='f'
 				shift
 				# Até queria fazer um -d também para diretórios somente,
 				# mas o du sempre mostra os arquivos quando está recursivo
 				# e o find não mostra o tamanho total dos diretórios...
-			;;
+				;;
 			-r)
 				recursivo=1
 				shift
-			;;
+				;;
 			*)
 				break
-			;;
+				;;
 		esac
 	done
 
-	if test 'f' = "$modo"
-	then
+	if test 'f' = "$modo"; then
 		# Usuário só quer ver os arquivos e não diretórios.
 		# Como o 'du' não tem uma opção para isso, usaremos o 'find'.
 
 		# Se forem várias pastas, compõe a lista glob: {um,dois,três}
 		# Isso porque o find não aceita múltiplos diretórios sem glob.
 		# Caso contrário tenta $1 ou usa a pasta corrente "."
-		if test -n "$2"
-		then
+		if test -n "$2"; then
 			pastas=$(echo {$*} | tr -s ' ' ',')
 		else
 			pastas=${1:-.}
@@ -80,8 +78,7 @@ zzmaiores ()
 		# para que funcionasse com o ponto e sem argumentos,
 		# mas no fim é mais fácil chamar a função de novo...
 		pastas="$@"
-		if test -z "$pastas" -o "$pastas" = '.'
-		then
+		if test -z "$pastas" -o "$pastas" = '.'; then
 			zzmaiores ${recursivo:+-r} -n $limite * .[^.]*
 			return
 

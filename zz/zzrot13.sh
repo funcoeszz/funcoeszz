@@ -11,14 +11,14 @@
 # Licença: GPL
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzrot13 ()
+zzrot13()
 {
 	zzzz -h rot13 "$1" && return
 
 	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |
 
-	# Um tr faz tudo, é uma tradução letra a letra
-	# Obs.: Dados do tr entre colchetes para funcionar no Solaris
-	tr '[a-zA-Z]' '[n-za-mN-ZA-M]'
+		# Um tr faz tudo, é uma tradução letra a letra
+		# Obs.: Dados do tr entre colchetes para funcionar no Solaris
+		tr '[a-zA-Z]' '[n-za-mN-ZA-M]'
 }

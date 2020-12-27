@@ -13,7 +13,7 @@
 # Requisitos: zzdata zzpascoa
 # Tags: data
 # ----------------------------------------------------------------------------
-zzsextapaixao ()
+zzsextapaixao()
 {
 	zzzz -h sextapaixao "$1" && return
 

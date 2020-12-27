@@ -50,7 +50,7 @@
 # Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zztempo ()
+zztempo()
 {
 	zzzz -h tempo "$1" && return
 
@@ -58,64 +58,79 @@ zztempo ()
 	# Em novos comandos "aportuguesados".
 
 	# Inicializa os modificadores com seus valores padrão.
-	local lingua="pt"     # Lingua PT
-	local unidade="m"     # Unidades SI
-	local vento=""        # Vento Km/h
-	local dias="3"        # Máximo número de dias de previsão
-	local semcores=""     # Usa terminal colorido
-	local simplificado    # Previsao completa ou simplificada
+	local lingua="pt"  # Lingua PT
+	local unidade="m"  # Unidades SI
+	local vento=""     # Vento Km/h
+	local dias="3"     # Máximo número de dias de previsão
+	local semcores=""  # Usa terminal colorido
+	local simplificado # Previsao completa ou simplificada
 
 	#Altera para simplificado se largura do shell não comportar
-	if [ 125 -gt $(tput cols) ]
-	then
-		simplificado="n"   # Previsao simplificada
+	if [ 125 -gt $(tput cols) ]; then
+		simplificado="n" # Previsao simplificada
 	else
-		simplificado=""    # Previsao completa
+		simplificado="" # Previsao completa
 	fi
 
 	#leitura dos parametros de entrada
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-		-l | --lang | --lingua)
-			lingua="$2";
-			shift;shift ;;
-		-u | --us)
-			unidade="u";
-			shift ;;
-		-v | --vento)
-			vento="M";
-			shift ;;
-		-s | --simples)
-			simplificado="n";
-			shift ;;
-		-c | --completo)
-			simplificado="";
-			shift ;;
-		-m | --monocromatico)
-			semcores="T";
-			shift;;
-		-d | --dias)
-			if zztool testa_numero "$2"
-			then
-				dias="$2";
-			else
-				zztool erro "Número de dias inválido: $2";
-				return 1;
-			fi
-			shift; shift;;
-		-0)
-			dias="0";
-			shift ;;
-		-1)
-			dias="1";
-			shift;;
-		-2)
-			dias="2";
-			shift;;
-		--) shift; break ;;
-		-*) zztool erro "Opção inválida: $1"; return 1 ;;
-		*) break;;
+			-l | --lang | --lingua)
+				lingua="$2"
+				shift
+				shift
+				;;
+			-u | --us)
+				unidade="u"
+				shift
+				;;
+			-v | --vento)
+				vento="M"
+				shift
+				;;
+			-s | --simples)
+				simplificado="n"
+				shift
+				;;
+			-c | --completo)
+				simplificado=""
+				shift
+				;;
+			-m | --monocromatico)
+				semcores="T"
+				shift
+				;;
+			-d | --dias)
+				if zztool testa_numero "$2"; then
+					dias="$2"
+				else
+					zztool erro "Número de dias inválido: $2"
+					return 1
+				fi
+				shift
+				shift
+				;;
+			-0)
+				dias="0"
+				shift
+				;;
+			-1)
+				dias="1"
+				shift
+				;;
+			-2)
+				dias="2"
+				shift
+				;;
+			--)
+				shift
+				break
+				;;
+			-*)
+				zztool erro "Opção inválida: $1"
+				return 1
+				;;
+			*) break ;;
 		esac
 	done
 
@@ -127,5 +142,5 @@ zztempo ()
 
 	local opcoes="${unidade}${vento}${simplificado}${dias}${semcores}"
 	curl -s -H "Accept-Language: ${lingua}" ${lingua}.wttr.in/"${1:-Brazil}?${opcoes}" |
-	sed '/^Follow /d; /^New feature:/d'
+		sed '/^Follow /d; /^New feature:/d'
 }

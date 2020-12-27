@@ -30,11 +30,14 @@
 # Tags: sistema, consulta
 # Nota: requer iostat
 # ----------------------------------------------------------------------------
-zziostat ()
+zziostat()
 {
 	zzzz -h iostat "$1" && return
 
-	which iostat 1>/dev/null 2>&1 || { zztool erro "iostat não instalado"; return 1; }
+	which iostat 1>/dev/null 2>&1 || {
+		zztool erro "iostat não instalado"
+		return 1
+	}
 
 	local top line cycle tps reads writes totals
 	local delay=2
@@ -44,40 +47,40 @@ zziostat ()
 	local i=0
 
 	# Opcoes de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-			-n )
+			-n)
 				shift
 				iteration=$1
 				zztool -e testa_numero $iteration || return 1
 				test $iteration -eq 0 && unset iteration
 				;;
-			-t )
+			-t)
 				shift
 				top=$1
 				zztool -e testa_numero $top || return 1
 				;;
-			-i )
+			-i)
 				shift
 				delay=$1
 				zztool -e testa_numero $delay || return 1
 				;;
-			-d )
+			-d)
 				shift
 				disk=$1
 				;;
-			-o )
+			-o)
 				shift
 				orderby=$1
-				if ! echo $orderby | grep -qs '^[rwtT]$'
-				then
+				if ! echo $orderby | grep -qs '^[rwtT]$'; then
 					zztool erro "Opção inválida '$orderby'"
 					return 1
 				fi
 				;;
-			* )
-				zztool erro "Opção inválida $1"; return 1;;
+			*)
+				zztool erro "Opção inválida $1"
+				return 1
+				;;
 		esac
 		shift
 	done
@@ -92,45 +95,41 @@ zziostat ()
 	# Executa o iostat, le a saida e agrupa cada "ciclo de execucao"
 	# -d device apenas, -m mostra saida em MB/s
 	iostat -d -m $delay $iteration |
-	while read line
-	do
+		while read line; do
 
-		# Ignorando o cabeçalho do iostat, localizado nas 2 linhas iniciais
-		if test $i -lt 2
-		then
-			i=$((i + 1))
-			continue
-		fi
-
-		# faz o append da linha do iostat
-		if test -n "$line"
-		then
-			cycle="$cycle
-$line"
-		# se for line for vazio, terminou de ler o ciclo de saida do iostat
-		# mostra a saida conforme opcoes usadas
-		else
-			if test -n "$top"
-			then
-				clear
-				date '+%d/%m/%y - %H:%M:%S'
-				echo 'Device:            tps    MB_read/s    MB_wrtn/s    MB_read    MB_wrtn        MB_total/s'
-				echo "$cycle" |
-					sed -n "/^${disk}[a-zA-Z]\+[[:blank:]]/p" |
-					awk '{print $0"         "$3+$4}' |
-					sort -k $orderby -r -n |
-					head -$top
-			else
-				cycle=$(echo "$cycle" | sed -n "/^${disk}[a-zA-Z]\+[[:blank:]]/p")
-				tps=$(echo "$cycle" | awk '{ sum += $2 } END { print sum }')
-				reads=$(echo "$cycle" | awk '{ sum += $3 } END { print sum }')
-				writes=$(echo "$cycle" | awk '{ sum += $4 } END { print sum }')
-				totals=$(echo $reads $writes | awk '{print $1+$2}')
-				echo "$(date '+%d/%m/%y - %H:%M:%S') TPS = $tps; Read = $reads MB/s; Write = $writes MB/s ; Total = $totals MB/s"
+			# Ignorando o cabeçalho do iostat, localizado nas 2 linhas iniciais
+			if test $i -lt 2; then
+				i=$((i + 1))
+				continue
 			fi
 
-			# zera ciclo
-			cycle=''
-		fi
-	done
+			# faz o append da linha do iostat
+			if test -n "$line"; then
+				cycle="$cycle
+$line"
+			# se for line for vazio, terminou de ler o ciclo de saida do iostat
+			# mostra a saida conforme opcoes usadas
+			else
+				if test -n "$top"; then
+					clear
+					date '+%d/%m/%y - %H:%M:%S'
+					echo 'Device:            tps    MB_read/s    MB_wrtn/s    MB_read    MB_wrtn        MB_total/s'
+					echo "$cycle" |
+						sed -n "/^${disk}[a-zA-Z]\+[[:blank:]]/p" |
+						awk '{print $0"         "$3+$4}' |
+						sort -k $orderby -r -n |
+						head -$top
+				else
+					cycle=$(echo "$cycle" | sed -n "/^${disk}[a-zA-Z]\+[[:blank:]]/p")
+					tps=$(echo "$cycle" | awk '{ sum += $2 } END { print sum }')
+					reads=$(echo "$cycle" | awk '{ sum += $3 } END { print sum }')
+					writes=$(echo "$cycle" | awk '{ sum += $4 } END { print sum }')
+					totals=$(echo $reads $writes | awk '{print $1+$2}')
+					echo "$(date '+%d/%m/%y - %H:%M:%S') TPS = $tps; Read = $reads MB/s; Write = $writes MB/s ; Total = $totals MB/s"
+				fi
+
+				# zera ciclo
+				cycle=''
+			fi
+		done
 }

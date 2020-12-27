@@ -11,7 +11,7 @@
 # Licença: GPL
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzhexa2str ()
+zzhexa2str()
 {
 	zzzz -h hexa2str "$1" && return
 
@@ -27,8 +27,7 @@ zzhexa2str ()
 		sed 's/^0x//' |
 
 		# hexa -> str
-		while read hexa
-		do
+		while read hexa; do
 			printf "\\x$hexa"
 		done
 

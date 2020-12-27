@@ -12,17 +12,19 @@
 # Requisitos: zztrim zzunescape zzxml zzjuntalinhas
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzrastreamento ()
+zzrastreamento()
 {
 	zzzz -h rastreamento "$1" && return
 
-	test -n "$1" || { zztool -e uso rastreamento; return 1; }
+	test -n "$1" || {
+		zztool -e uso rastreamento
+		return 1
+	}
 
 	local url='https://www2.correios.com.br/sistemas/rastreamento/resultado.cfm'
 
 	# Para cada código recebido...
-	for codigo
-	do
+	for codigo; do
 		# Só mostra o código se houver mais de um
 		test $# -gt 1 && zztool eco "**** $codigo"
 

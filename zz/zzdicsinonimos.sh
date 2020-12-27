@@ -11,18 +11,17 @@
 # Requisitos: zztrim
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
-zzdicsinonimos ()
+zzdicsinonimos()
 {
 
 	zzzz -h dicsinonimos "$1" && return
 
 	local url='http://www.sinonimos.com.br/busca.php'
 	local palavra="$*"
-	local parametro_busca=$( echo "$palavra" | sed "$ZZSEDURL" )
+	local parametro_busca=$(echo "$palavra" | sed "$ZZSEDURL")
 
 	# Verifica se recebeu parâmetros
-	if test -z "$1"
-	then
+	if test -z "$1"; then
 		zztool -e uso dicsinonimos
 		return 1
 	fi

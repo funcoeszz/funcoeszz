@@ -16,7 +16,7 @@
 # Licença: GPL
 # Tags: internet, tempo, consulta
 # ----------------------------------------------------------------------------
-zzhoracerta ()
+zzhoracerta()
 {
 	zzzz -h horacerta "$1" && return
 
@@ -25,8 +25,7 @@ zzhoracerta ()
 	local url='http://www.worldtimeserver.com'
 
 	# Opções de linha de comando
-	if test '-s' = "$1"
-	then
+	if test '-s' = "$1"; then
 		shift
 		codigo="$1"
 	else
@@ -36,38 +35,33 @@ zzhoracerta ()
 	# Se o cache está vazio, baixa listagem da Internet
 	# De: <li><a href="current_time_in_AR-JY.aspx">Jujuy</a></li>
 	# Para: AR-JY -- Jujuy
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool source "$url/country.html" |
 			grep 'current_time_in_' |
-			sed 's/.*_time_in_// ; s/\.aspx">/ -- / ; s/<.*//' > "$cache"
+			sed 's/.*_time_in_// ; s/\.aspx">/ -- / ; s/<.*//' >"$cache"
 	fi
 
 	# Se nenhum parâmetro for passado, são listados os países disponíveis
-	if ! test -n "$localidade$codigo"
-	then
+	if ! test -n "$localidade$codigo"; then
 		cat "$cache"
 		return
 	fi
 
 	# Faz a pesquisa por codigo ou texto
-	if test -n "$codigo"
-	then
+	if test -n "$codigo"; then
 		localidades=$(grep -i "^[^ ]*$codigo" "$cache")
 	else
 		localidades=$(grep -i "$localidade" "$cache")
 	fi
 
 	# Se mais de uma localidade for encontrada, mostre-as
-	if test $(echo "$localidades" | zztool num_linhas) != 1
-	then
+	if test $(echo "$localidades" | zztool num_linhas) != 1; then
 		echo "$localidades"
 		return
 	fi
 
 	# A localidade existe?
-	if ! test -n "$localidades"
-	then
+	if ! test -n "$localidades"; then
 		zztool erro "Localidade \"$localidade$codigo\" não encontrada"
 		return 1
 	fi

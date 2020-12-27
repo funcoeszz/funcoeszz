@@ -14,19 +14,18 @@
 # Requisitos: zzdata zzdiadasemana zzdatafmt zzcapitalize
 # Tags: data, cálculo
 # ----------------------------------------------------------------------------
-zzdiasuteis ()
+zzdiasuteis()
 {
 	zzzz -h diasuteis "$1" && return
 
 	local data dias dia1 semanas avulsos ini fim hoje mes ano
 	local avulsos_uteis=0
-	local uteis="0111110"  # D S T Q Q S S
+	local uteis="0111110" # D S T Q Q S S
 	local data1="$1"
 	local data2="$2"
 
 	# Verificação dos parâmetros
-	if test $# -eq 0
-	then
+	if test $# -eq 0; then
 		# Sem argumentos, calcula para o mês atual
 		# Exemplo para fev/2013: zzdiasuteis 01/02/2013 28/02/2013
 		hoje=$(zzdata hoje)
@@ -37,8 +36,7 @@ zzdiasuteis ()
 		echo "$mes de $ano tem $(zzdiasuteis $data1 $data2) dias úteis."
 		return 0
 
-	elif test $# -ne 2
-	then
+	elif test $# -ne 2; then
 		zztool -e uso diasuteis
 		return 1
 	fi
@@ -51,10 +49,9 @@ zzdiasuteis ()
 	dias=$(zzdata $data2 - $data1)
 
 	# O usuário inverteu a ordem das datas?
-	if test $dias -lt 0
-	then
+	if test $dias -lt 0; then
 		# Tudo bem, a gente desinverte.
-		dias=$((0 - $dias))  # abs()
+		dias=$((0 - $dias)) # abs()
 		data=$data1
 		data1=$data2
 		data2=$data
@@ -65,7 +62,7 @@ zzdiasuteis ()
 	dias=$((dias + 1))
 
 	# Qual dia da semana cai a data inicial?
-	dia1=$(zzdiadasemana -n $data1)  # 1=domingo
+	dia1=$(zzdiadasemana -n $data1) # 1=domingo
 
 	# Quantas semanas e quantos dias avulsos?
 	semanas=$((dias / 7))
@@ -80,15 +77,15 @@ zzdiasuteis ()
 	# usadas no cut e traduzem este recorte. Por fim, removo os
 	# zeros e conto quantos 1's sobraram, que são os dias úteis.
 	#
-	if test $avulsos -gt 0
-	then
+	if test $avulsos -gt 0; then
 		ini=$dia1
 		fim=$(($dia1 + $avulsos - 1))
 		avulsos_uteis=$(
 			echo "$uteis$uteis" |
-			cut -c $ini-$fim |
-			tr -d 0)
-		avulsos_uteis=${#avulsos_uteis}  # wc -c
+				cut -c $ini-$fim |
+				tr -d 0
+		)
+		avulsos_uteis=${#avulsos_uteis} # wc -c
 	fi
 
 	# Com os dados na mão, basta calcular

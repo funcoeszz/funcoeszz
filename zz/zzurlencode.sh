@@ -20,7 +20,7 @@
 # Requisitos: zzmaiusculas
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzurlencode ()
+zzurlencode()
 {
 	zzzz -h urlencode "$1" && return
 
@@ -29,16 +29,14 @@ zzurlencode ()
 	# RFC 3986, unreserved - Estes nunca devem ser convertidos (exceto se --all)
 	local nao_converter='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_.~-'
 
-	while test -n "$1"
-	do
+	while test -n "$1"; do
 		case "$1" in
 			-t | --todos | -a | --all)
 				nao_converter=''
 				shift
-			;;
+				;;
 			-n)
-				if test -z "$2"
-				then
+				if test -z "$2"; then
 					zztool erro 'Faltou informar o valor da opção -n'
 					return 1
 				fi
@@ -46,32 +44,38 @@ zzurlencode ()
 				nao_converter="$nao_converter$2"
 				shift
 				shift
-			;;
-			--) shift; break;;
-			-*) zztool erro "Opção inválida: $1"; return 1;;
-			*) break;;
+				;;
+			--)
+				shift
+				break
+				;;
+			-*)
+				zztool erro "Opção inválida: $1"
+				return 1
+				;;
+			*) break ;;
 		esac
 	done
 
 	# Codifica todos os caracteres, sem exceção
 	# foo → %66%6F%6F
 	resultado=$(
-		if test -n "$1"
-		then printf %s "$*"  # texto via argumentos
-		else cat -           # texto via STDIN
+		if test -n "$1"; then
+			printf %s "$*" # texto via argumentos
+		else
+			cat - # texto via STDIN
 		fi |
-		# Usa o comando od para descobrir o valor hexa de cada caractere.
-		# É portável e suporta UTF-8, decompondo cada caractere em seus bytes.
-		od -v -A n -t x1 |
-		# Converte os números hexa para o formato %HH, sem espaços
-		tr -d ' \n\t' |
-		sed 's/../%&/g' |
-		zzmaiusculas
+			# Usa o comando od para descobrir o valor hexa de cada caractere.
+			# É portável e suporta UTF-8, decompondo cada caractere em seus bytes.
+			od -v -A n -t x1 |
+			# Converte os números hexa para o formato %HH, sem espaços
+			tr -d ' \n\t' |
+			sed 's/../%&/g' |
+			zzmaiusculas
 	)
 
 	# Há caracteres protegidos, que não devem ser convertidos?
-	if test -n "$nao_converter"
-	then
+	if test -n "$nao_converter"; then
 		# Desfaz a conversão de alguns caracteres (usando magia)
 		#
 		# Um sed é aplicado no resultado original "desconvertendo"

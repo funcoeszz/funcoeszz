@@ -51,7 +51,7 @@
 # Requisitos: zzdata zzminusculas zznumero zzdiadasemana
 # Tags: data
 # ----------------------------------------------------------------------------
-zzdatafmt ()
+zzdatafmt()
 {
 	zzzz -h datafmt "$1" && return
 
@@ -78,58 +78,59 @@ zzdatafmt ()
 	semanas="$semana_pt"
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			--en)
 				meses=$meses_en
 				semanas=$semana_en
 				test -n "$fmt" || fmt='MES, DD AAAA'
 				shift
-			;;
+				;;
 			--it)
 				meses=$meses_it
 				semanas=$semana_it
 				test -n "$fmt" || fmt='DD da MES AAAA'
 				shift
-			;;
+				;;
 			--es)
 				meses=$meses_es
 				semanas=$semana_es
 				test -n "$fmt" || fmt='DD de MES de AAAA'
 				shift
-			;;
+				;;
 			--pt)
 				meses=$meses_pt
 				semanas=$semana_pt
 				test -n "$fmt" || fmt='DD de MES de AAAA'
 				shift
-			;;
+				;;
 			--ptt)
 				meses=$meses_pt
 				semanas=$semana_pt
 				test -n "$fmt" || fmt='DIA de MES de ANO'
 				shift
-			;;
+				;;
 			--de)
 				meses=$meses_de
 				semanas=$semana_de
 				test -n "$fmt" || fmt='DD. MES AAAA'
 				shift
-			;;
+				;;
 			--fr)
 				meses=$meses_fr
 				semanas=$semana_fr
 				test -n "$fmt" || fmt='Le DD MES AAAA'
 				shift
-			;;
+				;;
 			--iso)
-				fmt="AAAA-MM-DD"; shift;;
+				fmt="AAAA-MM-DD"
+				shift
+				;;
 			-f)
 				fmt="$2"
 				shift
 				shift
-			;;
+				;;
 			*) break ;;
 		esac
 	done
@@ -143,16 +144,16 @@ zzdatafmt ()
 		# apelidos
 		hoje | ontem | anteontem | amanh[ãa] | today | yesterday | tomorrow)
 			data=$(zzdata "$data")
-		;;
+			;;
 		# semana (curto)
 		dom | seg | ter | qua | qui | sex | sab)
 			data=$(zzdata "$data")
-		;;
+			;;
 		# semana (longo)
 		domingo | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado)
 			data=$(zzdata "$data")
-		;;
-		# data possivelmente em formato textual
+			;;
+			# data possivelmente em formato textual
 		*[A-Za-z]*)
 			# 31 de janeiro de 2013
 			# 31 de jan de 2013
@@ -171,24 +172,24 @@ zzdatafmt ()
 				awk '{for (i=1;i<=NF;i++){ if (substr($i,1,3) == substr("'$mes'",1,3) ) printf "%02d\n", i}}')
 			zztool testa_numero "$mm" && data=$(echo "$data" | sed "s/$mes/$mm/")
 			unset mes mm
-		;;
+			;;
 		# aaaa-mm-dd (ISO)
 		????-??-??)
 			data=$(echo "$data" | sed 's|\(....\)-\(..\)-\(..\)|\3/\2/\1|')
-		;;
+			;;
 		# d-m-a, d-m
 		# d.m.a, d.m
 		*-* | *.*)
 			data=$(echo "$data" | tr .- //)
-		;;
+			;;
 		# ddmmaaaa
 		[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])
 			data=$(echo "$data" | sed 's|.|&/|4 ; s|.|&/|2')
-		;;
+			;;
 		# ddmmaa
 		[0-9][0-9][0-9][0-9][0-9][0-9])
 			data=$(echo "$data" | sed 's|.|&/|4 ; s|.|&/|2')
-		;;
+			;;
 	esac
 
 	### Aqui só chegam datas com a barra / como delimitador
@@ -201,15 +202,14 @@ zzdatafmt ()
 		[0-9]/[0-9] | [0-9][0-9]/[0-9] | [0-9]/[0-9][0-9] | [0-9][0-9]/[0-9][0-9])
 			ano_atual=$(zzdata hoje | cut -d / -f 3)
 			data="$data/$ano_atual"
-		;;
+			;;
 	esac
 
 	### Aqui só chegam datas completas, com os três elementos: n/n/n
 	### Devo acertar o padding delas pra nn/nn/nnnn
 
 	# Valida o formato da data
-	if ! echo "$data" | grep '^[0-9][0-9]\{0,1\}/[0-9][0-9]\{0,1\}/[0-9]\{1,4\}$' >/dev/null
-	then
+	if ! echo "$data" | grep '^[0-9][0-9]\{0,1\}/[0-9][0-9]\{0,1\}/[0-9]\{1,4\}$' >/dev/null; then
 		zztool erro "Erro: Data em formato desconhecido '$data_orig'"
 		return 1
 	fi
@@ -221,19 +221,19 @@ zzdatafmt ()
 
 	# Faz padding nos valores
 	case "$ano" in
-		?         ) aaaa="200$ano";;  # 2000-2009
-		[0-3][0-9]) aaaa="20$ano";;   # 2000-2039
-		[4-9][0-9]) aaaa="19$ano";;   # 1940-1999
-		???       ) aaaa="0$ano";;    # 0000-0999
-		????      ) aaaa="$ano";;
+		?) aaaa="200$ano" ;;         # 2000-2009
+		[0-3][0-9]) aaaa="20$ano" ;; # 2000-2039
+		[4-9][0-9]) aaaa="19$ano" ;; # 1940-1999
+		???) aaaa="0$ano" ;;         # 0000-0999
+		????) aaaa="$ano" ;;
 	esac
 	case "$mes" in
-		?)  mm="0$mes";;
-		??) mm="$mes";;
+		?) mm="0$mes" ;;
+		??) mm="$mes" ;;
 	esac
 	case "$dia" in
-		?)  dd="0$dia";;
-		??) dd="$dia";;
+		?) dd="0$dia" ;;
+		??) dd="$dia" ;;
 	esac
 
 	# Ok, agora a data está no formato correto: dd/mm/aaaa
@@ -243,10 +243,10 @@ zzdatafmt ()
 	zztool -e testa_data "$data" || return 1
 
 	# O usuário especificou um formato novo?
-	if test -n "$fmt"
-	then
+	if test -n "$fmt"; then
 		aaaa="${data##*/}"
-		mm="${data#*/}"; mm="${mm%/*}"
+		mm="${data#*/}"
+		mm="${mm%/*}"
 		dd="${data%%/*}"
 		aa="${aaaa#??}"
 		a="${aa#0}"
@@ -259,31 +259,66 @@ zzdatafmt ()
 		sss=$(echo "$semana" | sed 's/\(...\).*/\1/')
 
 		# Percorre o formato e vai expandindo, da esquerda para a direita
-		while test -n "$fmt"
-		do
+		while test -n "$fmt"; do
 			# Atenção à ordem das opções do case: AAAA -> AAA -> AA
 			# Sempre do maior para o menor para evitar matches parciais
 			case "$fmt" in
 				SEMANA*)
 					printf %s "$semana"
-					fmt="${fmt#SEMANA}";;
-				SSS*  ) printf %s "$sss"; fmt="${fmt#SSS}";;
-				ANO*  )
+					fmt="${fmt#SEMANA}"
+					;;
+				SSS*)
+					printf %s "$sss"
+					fmt="${fmt#SSS}"
+					;;
+				ANO*)
 					printf "$(zznumero --texto $aaaa)"
-					fmt="${fmt#ANO}";;
-				DIA*  )
+					fmt="${fmt#ANO}"
+					;;
+				DIA*)
 					printf "$(zznumero --texto $dd)"
-					fmt="${fmt#DIA}";;
-				MES*  ) printf %s "$mes" ; fmt="${fmt#MES}";;
-				AAAA* ) printf %s "$aaaa"; fmt="${fmt#AAAA}";;
-				AA*   ) printf %s "$aa"  ; fmt="${fmt#AA}";;
-				A*    ) printf %s "$a"   ; fmt="${fmt#A}";;
-				MMM*  ) printf %s "$mmm" ; fmt="${fmt#MMM}";;
-				MM*   ) printf %s "$mm"  ; fmt="${fmt#MM}";;
-				M*    ) printf %s "$m"   ; fmt="${fmt#M}";;
-				DD*   ) printf %s "$dd"  ; fmt="${fmt#DD}";;
-				D*    ) printf %s "$d"   ; fmt="${fmt#D}";;
-				*     ) printf %c "$fmt" ; fmt="${fmt#?}";;  # 1char
+					fmt="${fmt#DIA}"
+					;;
+				MES*)
+					printf %s "$mes"
+					fmt="${fmt#MES}"
+					;;
+				AAAA*)
+					printf %s "$aaaa"
+					fmt="${fmt#AAAA}"
+					;;
+				AA*)
+					printf %s "$aa"
+					fmt="${fmt#AA}"
+					;;
+				A*)
+					printf %s "$a"
+					fmt="${fmt#A}"
+					;;
+				MMM*)
+					printf %s "$mmm"
+					fmt="${fmt#MMM}"
+					;;
+				MM*)
+					printf %s "$mm"
+					fmt="${fmt#MM}"
+					;;
+				M*)
+					printf %s "$m"
+					fmt="${fmt#M}"
+					;;
+				DD*)
+					printf %s "$dd"
+					fmt="${fmt#DD}"
+					;;
+				D*)
+					printf %s "$d"
+					fmt="${fmt#D}"
+					;;
+				*)
+					printf %c "$fmt"
+					fmt="${fmt#?}"
+					;; # 1char
 			esac
 		done
 		echo

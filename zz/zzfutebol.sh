@@ -31,7 +31,7 @@
 # Requisitos: zzdatafmt zzjuntalinhas zzpad zzsqueeze zztrim zzutf8 zzxml
 # Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------
-zzfutebol ()
+zzfutebol()
 {
 
 	zzzz -h futebol "$1" && return
@@ -40,28 +40,30 @@ zzfutebol ()
 	local data hora time1 placar time2 campeonato
 
 	case "$1" in
-		resultado | placar) pagina='ultimos_resultados.php'; shift;;
-		ontem | anteontem)  pagina='ultimos_resultados.php' ;;
+		resultado | placar)
+			pagina='ultimos_resultados.php'
+			shift
+			;;
+		ontem | anteontem) pagina='ultimos_resultados.php' ;;
 	esac
 
 	zztool source "${url}/${pagina}" |
-	zzutf8 |
-	zzxml --tidy |
-	zzjuntalinhas -i '<td' -f 'td>' -d ' ' |
-	zzxml --untag |
-	zztrim |
-	zzsqueeze |
-	awk '/h2h/ {for(i=1;i<=7;i++) {getline; if(i!=6) printf $0 ";" (i==7?"\n":"") }}' |
-	while IFS=';' read data hora time1 placar time2 campeonato
-	do
-		echo "$(zzdatafmt $data) $hora $(zzpad -e 24 $time1) $(zzpad -a 14 $placar) $(zzpad 24 $time2) $campeonato"
-	done |
-	case "$1" in
-		hoje | amanh[aã] | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado | domingo | ontem | anteontem | [0-3][0-9]/[01][0-9]/20[1-9][0-9])
-			grep --color=never -e $(zzdatafmt -f 'DD/MM/AA' $1)
-			;;
-		*)
-			grep --color=never -i "${1:-.}"
-			;;
-	esac
+		zzutf8 |
+		zzxml --tidy |
+		zzjuntalinhas -i '<td' -f 'td>' -d ' ' |
+		zzxml --untag |
+		zztrim |
+		zzsqueeze |
+		awk '/h2h/ {for(i=1;i<=7;i++) {getline; if(i!=6) printf $0 ";" (i==7?"\n":"") }}' |
+		while IFS=';' read data hora time1 placar time2 campeonato; do
+			echo "$(zzdatafmt $data) $hora $(zzpad -e 24 $time1) $(zzpad -a 14 $placar) $(zzpad 24 $time2) $campeonato"
+		done |
+		case "$1" in
+			hoje | amanh[aã] | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado | domingo | ontem | anteontem | [0-3][0-9]/[01][0-9]/20[1-9][0-9])
+				grep --color=never -e $(zzdatafmt -f 'DD/MM/AA' $1)
+				;;
+			*)
+				grep --color=never -i "${1:-.}"
+				;;
+		esac
 }

@@ -31,7 +31,7 @@
 # Requisitos: zzcut
 # Tags: tempo
 # ----------------------------------------------------------------------------
-zztimer ()
+zztimer()
 {
 
 	zzzz -h timer "$1" && return
@@ -42,51 +42,90 @@ zztimer ()
 	local prec='s'
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso timer; return 1; }
+	test -n "$1" || {
+		zztool -e uso timer
+		return 1
+	}
 
 	# Opções de exibição dos números
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-		--centro) opt='m'; shift ;;
-		-n) opt='n'; shift ;;
-		-x)
-			opt='x'
-			str=$(echo "$2" | zzcut -c 1)
-			shift; shift
-		;;
-		-y)
-			opt='x'
-			str="$2"
-			char_para="$3";
-			if test ${#str} -ne ${#char_para}
-			then
+			--centro)
+				opt='m'
+				shift
+				;;
+			-n)
 				opt='n'
-				unset str
-				unset char_para
-			fi
-			shift; shift; shift
-		;;
-		-c) opt='c'; no_tput=1; shift ;;
-		-s) opt='s'; no_tput=1; shift ;;
-		-p) prec='p'; shift ;;
-		--teste) teste=1; shift ;;
-		-*) zztool erro "Opção inválida: $1"; return 1 ;;
-		*) break;;
+				shift
+				;;
+			-x)
+				opt='x'
+				str=$(echo "$2" | zzcut -c 1)
+				shift
+				shift
+				;;
+			-y)
+				opt='x'
+				str="$2"
+				char_para="$3"
+				if test ${#str} -ne ${#char_para}; then
+					opt='n'
+					unset str
+					unset char_para
+				fi
+				shift
+				shift
+				shift
+				;;
+			-c)
+				opt='c'
+				no_tput=1
+				shift
+				;;
+			-s)
+				opt='s'
+				no_tput=1
+				shift
+				;;
+			-p)
+				prec='p'
+				shift
+				;;
+			--teste)
+				teste=1
+				shift
+				;;
+			-*)
+				zztool erro "Opção inválida: $1"
+				return 1
+				;;
+			*) break ;;
 		esac
 	done
 
-	echo "$1" | grep '^[0-9:]\{1,\}$' >/dev/null || { zztool erro "Entrada inválida"; return 1; }
+	echo "$1" | grep '^[0-9:]\{1,\}$' >/dev/null || {
+		zztool erro "Entrada inválida"
+		return 1
+	}
 
-	if test $teste -eq 1
-	then
+	if test $teste -eq 1; then
 		no_tput=1
 		centro=0
 	else
 		case "$opt" in
-			n|x) no_tput=0; centro=1 ;;
-			m)   no_tput=0; centro=1; unset opt ;;
-			*)   no_tput=1; centro=0 ;;
+			n | x)
+				no_tput=0
+				centro=1
+				;;
+			m)
+				no_tput=0
+				centro=1
+				unset opt
+				;;
+			*)
+				no_tput=1
+				centro=0
+				;;
 		esac
 	fi
 
@@ -94,7 +133,7 @@ zztimer ()
 	# E ajustando minutos e segundos que extrapolem o limite de 60{min,s}
 	set - $(
 		echo "$1" |
-		awk -F ':' '
+			awk -F ':' '
 		{
 			seg  = $NF
 			min  = (NF>2?(length($2)?$2:0):(NF==2?(length($1)?$1:0):0))
@@ -103,11 +142,16 @@ zztimer ()
 		}'
 	)
 
-	if test $1 -lt 360000
-	then
+	if test $1 -lt 360000; then
 		num=$1
-		test "$opt" = "c" && { echo $num;  return; }
-		test "$opt" = "s" && { sleep $num; return; }
+		test "$opt" = "c" && {
+			echo $num
+			return
+		}
+		test "$opt" = "s" && {
+			sleep $num
+			return
+		}
 	else
 		zztool erro "Valor $1 muito elevado."
 		return 1
@@ -117,10 +161,8 @@ zztimer ()
 	test "$no_tput" -eq 0 && tput reset
 
 	# Centralizar?
-	if test "$centro" -eq 1
-	then
-		if test -n "$opt"
-		then
+	if test "$centro" -eq 1; then
+		if test -n "$opt"; then
 			tput cup $(tput lines | awk '{print int(($1 - 5) / 2)}') 0
 			left_pad=$(tput cols | awk '{print int(($1 - 56) / 2)}')
 		else
@@ -128,8 +170,7 @@ zztimer ()
 		fi
 	fi
 
-	while test $num -ge 0
-	do
+	while test $num -ge 0; do
 
 		# Definindo segundo atual
 		seg=$(date +%S)
@@ -139,7 +180,7 @@ zztimer ()
 
 		# Exibindo os números do cronômetro
 		echo "$num" |
-		awk -v formato="$opt" -v left_pad="$left_pad" '
+			awk -v formato="$opt" -v left_pad="$left_pad" '
 		function formatar(hora,  i, j, space) {
 			space=(length(left_pad)>0?sprintf("%"left_pad"s"," "):"")
 			numero[0, 1] = numero[0, 5] = " 0000 "; numero[0, 2] = numero[0, 3] = numero[0, 4] = "0    0"
@@ -166,34 +207,30 @@ zztimer ()
 			else
 				printf "%02d:%02d:%02d\n", hh, mm, ss
 		}' |
-		if test -n "$str"
-		then
-			if test "${#char_para}" -gt 0
-			then
-				sed "y/$str/$char_para/"
+			if test -n "$str"; then
+				if test "${#char_para}" -gt 0; then
+					sed "y/$str/$char_para/"
+				else
+					sed "s/[0-9#]/$str/g"
+				fi
 			else
-				sed "s/[0-9#]/$str/g"
+				cat -
 			fi
-		else
-			cat -
-		fi
 
 		# Temporizar ( p = mais preciso / s = usando sleep )
-		if test "$prec" = 'p'
-		then
+		if test "$prec" = 'p'; then
 			# Mais preciso, mas sobrecarrega o processamento
-			while test "$seg" = $(date +%S);do :;done
+			while test "$seg" = $(date +%S); do :; done
 		else
 			# Menos preciso, porém mais leve ( padrão )
 			sleep 1
 		fi
 
 		# Decrementar o contador
-		num=$((num-1))
+		num=$((num - 1))
 
 		# Reposicionar o cursor
-		if test $num -ge 0
-		then
+		if test $num -ge 0; then
 			test "$no_tput" -eq 0 && tput rc
 		fi
 	done

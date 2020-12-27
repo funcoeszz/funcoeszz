@@ -26,7 +26,7 @@
 # Requisitos: zzmd5 zzminusculas zztrim
 # Tags: internet, url
 # ----------------------------------------------------------------------------
-zzgravatar ()
+zzgravatar()
 {
 	zzzz -h gravatar "$1" && return
 
@@ -37,56 +37,55 @@ zzgravatar ()
 	# http://www.gravatar.com/avatar/e583bca48acb877efd4a29229bf7927f?size=96&default=mm
 
 	local email default extra codigo
-	local tamanho=80  # padrão caso não informado é 80
+	local tamanho=80 # padrão caso não informado é 80
 	local tamanho_maximo=512
 	local defaults="mm:identicon:monsterid:wavatar:retro"
 	local url='http://www.gravatar.com/avatar/'
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			-t | --tamanho)
 				tamanho="$2"
 				extra="$extra&size=$tamanho"
 				shift
 				shift
-			;;
+				;;
 			-d | --default)
 				default="$2"
 				extra="$extra&default=$default"
 				shift
 				shift
-			;;
+				;;
 			*)
 				break
-			;;
+				;;
 		esac
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso gravatar; return 1; }
+	test -n "$1" || {
+		zztool -e uso gravatar
+		return 1
+	}
 
 	# Guarda o email informado, sempre em minúsculas
 	email=$(zztrim "$1" | zzminusculas)
 
 	# Foi passado um número mesmo?
-	if ! zztool testa_numero "$tamanho" || test "$tamanho" = 0
-	then
+	if ! zztool testa_numero "$tamanho" || test "$tamanho" = 0; then
 		zztool erro "Número inválido para a opção -t: $tamanho"
 		return 1
 	fi
 
 	# Temos uma limitação de tamanho
-	if test $tamanho -gt $tamanho_maximo
-	then
+	if test $tamanho -gt $tamanho_maximo; then
 		zztool erro "O tamanho máximo para a imagem é $tamanho_maximo"
 		return 1
 	fi
 
 	# O default informado é válido?
-	if test -n "$default" && ! zztool grep_var ":$default:"  ":$defaults:"
-	then
+	if test -n "$default" && ! zztool grep_var ":$default:" ":$defaults:"; then
 		zztool erro "Valor inválido para a opção -d: '$default'"
 		return 1
 	fi
@@ -95,8 +94,7 @@ zzgravatar ()
 	codigo=$(printf "$email" | zzmd5)
 
 	# Verifica o hash e o coloca na URL
-	if test -n "$codigo"
-	then
+	if test -n "$codigo"; then
 		url="$url$codigo"
 	else
 		zztool erro "Houve um erro na geração do código MD5 do email"
@@ -104,8 +102,7 @@ zzgravatar ()
 	fi
 
 	# Adiciona as opções extras na URL
-	if test -n "$extra"
-	then
+	if test -n "$extra"; then
 		url="$url?${extra#&}"
 	fi
 

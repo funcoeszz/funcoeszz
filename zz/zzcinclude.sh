@@ -12,14 +12,17 @@
 # Tags: arquivo, consulta
 # Nota: requer cpp
 # ----------------------------------------------------------------------------
-zzcinclude ()
+zzcinclude()
 {
 	zzzz -h cinclude "$1" && return
 
 	local arquivo="$1"
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso cinclude; return 1; }
+	test -n "$1" || {
+		zztool -e uso cinclude
+		return 1
+	}
 
 	# Se não começar com / (caminho relativo), coloca path padrão
 	test "${arquivo#/}" = "$arquivo" && arquivo="/usr/include/$arquivo.h"

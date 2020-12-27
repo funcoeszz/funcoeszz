@@ -14,7 +14,7 @@
 # Licença: GPL
 # Tags: texto, contagem
 # ----------------------------------------------------------------------------
-zzcontapalavra ()
+zzcontapalavra()
 {
 	zzzz -h contapalavra "$1" && return
 
@@ -22,19 +22,24 @@ zzcontapalavra ()
 	local inteira=1
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-			-p) inteira=     ;;
-			-i) ignora=1     ;;
-			--) shift; break ;;
-			* ) break        ;;
+			-p) inteira= ;;
+			-i) ignora=1 ;;
+			--)
+				shift
+				break
+				;;
+			*) break ;;
 		esac
 		shift
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso contapalavra; return 1; }
+	test -n "$1" || {
+		zztool -e uso contapalavra
+		return 1
+	}
 
 	padrao=$1
 	shift

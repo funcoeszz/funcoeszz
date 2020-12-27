@@ -32,7 +32,7 @@
 # Requisitos: zzmaiusculas zztrim
 # Tags: texto, tabela
 # ----------------------------------------------------------------------------
-zzalfabeto ()
+zzalfabeto()
 {
 	zzzz -h alfabeto "$1" && return
 
@@ -78,70 +78,103 @@ Y:Yankee:Yellow:Yorker:Yorker:Yoke/Yorker:Yoke:Yoke:York:Yaakov:Young:-.--:Ypsil
 Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--..:Zacharias/Zurich"
 
 	# Escolhe o(s) alfabeto(s) a ser(em) utilizado(s)
-	while test "${1#--}" != "$1"
-	do
+	while test "${1#--}" != "$1"; do
 		case "$1" in
 			--militar | --radio | --fone | --telefone | --otan | --nato | --icao | --itu | --imo | --faa | --ansi)
-				coluna=2 ; shift ;;
-			--romano | --latino           ) coluna=1     ; shift ;;
-			--royal | --royal-navy        ) coluna=3     ; shift ;;
-			--signalese | --western-front ) coluna=4     ; shift ;;
-			--raf24                       ) coluna=5     ; shift ;;
-			--raf42                       ) coluna=6     ; shift ;;
-			--raf43 | --raf               ) coluna=7     ; shift ;;
-			--us41 | --us                 ) coluna=8     ; shift ;;
-			--pt | --portugal             ) coluna=9     ; shift ;;
-			--name | --names              ) coluna=10    ; shift ;;
-			--lapd                        ) coluna=11    ; shift ;;
-			--morse                       ) coluna=12    ; shift ;;
-			--german                      ) coluna=13    ; shift ;;
-			--all | --todos               )
+				coluna=2
+				shift
+				;;
+			--romano | --latino)
+				coluna=1
+				shift
+				;;
+			--royal | --royal-navy)
+				coluna=3
+				shift
+				;;
+			--signalese | --western-front)
+				coluna=4
+				shift
+				;;
+			--raf24)
+				coluna=5
+				shift
+				;;
+			--raf42)
+				coluna=6
+				shift
+				;;
+			--raf43 | --raf)
+				coluna=7
+				shift
+				;;
+			--us41 | --us)
+				coluna=8
+				shift
+				;;
+			--pt | --portugal)
+				coluna=9
+				shift
+				;;
+			--name | --names)
+				coluna=10
+				shift
+				;;
+			--lapd)
+				coluna=11
+				shift
+				;;
+			--morse)
+				coluna=12
+				shift
+				;;
+			--german)
+				coluna=13
+				shift
+				;;
+			--all | --todos)
 				colunas='1 12 2 3 4 5 6 7 8 10 11 13 9'
 				coluna="0"
 				shift
 				break
-			;;
+				;;
 			*) break ;;
 		esac
 		colunas=$(echo "$colunas $coluna" | zztrim | tr -s ' ,')
 	done
 
-	if test "$colunas" != "$coluna" -a -n "$colunas"
-	then
+	if test "$colunas" != "$coluna" -a -n "$colunas"; then
 		cab='ROMANO MILITAR ROYAL-NAVY SIGNALESE RAF24 RAF42 RAF US PORTUGAL NAMES LAPD MORSE GERMAN'
 		tam='8 14 12 11 9 14 20 9 0 11 9 7 18'
 
 		# Colocando portugal, quando presente, na última coluna sempre
 		# devido a presença dos caracteres especiais nos nomes
-		if zztool grep_var 9 "$colunas"
-		then
+		if zztool grep_var 9 "$colunas"; then
 			colunas=$(echo "$colunas" | zztrim | tr -d 9)' 9'
 			colunas=$(echo "$colunas" | tr -s ' ')
 		fi
 
 		# Definindo cabeçalho e espaçamento
 		cab=$(echo "$cab" | tr ' ' ':' | awk -v colunas="$colunas" "$awk_code")
-		tam=$(echo "$tam" | tr ' ' ':' | awk -v colunas="$colunas" "$awk_code" |
-			awk '{ if (NF > 1){ tot=$1;for(i=2;i<=NF;i++) { printf tot ","; tot+=$i } } } END {print ++tot}'
+		tam=$(
+			echo "$tam" | tr ' ' ':' | awk -v colunas="$colunas" "$awk_code" |
+				awk '{ if (NF > 1){ tot=$1;for(i=2;i<=NF;i++) { printf tot ","; tot+=$i } } } END {print ++tot}'
 		)
 
 	fi
 
-	if test -n "$1"
-	then
+	if test -n "$1"; then
 		# Texto informado, vamos fazer a conversão
 		# Deixa uma letra por linha e procura seu código equivalente
 		echo "$*" |
 			zzmaiusculas |
 			sed 's/./&\
 /g' |
-			while IFS='' read -r char
-			do
+			while IFS='' read -r char; do
 				letra=$(echo "$char" | sed 's/[^A-Z]//g;s/[ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑÐ£Ø§Ý]//g')
-				if test -n "$letra"
-				then
+				if test -n "$letra"; then
 					echo "$dados" | grep "^$letra" |
-					awk -v colunas="${colunas:-$coluna}" "$awk_code"
+						awk -v colunas="${colunas:-$coluna}" "$awk_code"
 				else
 					test -n "$char" && echo "$char"
 				fi
@@ -149,8 +182,8 @@ Z:Zulu:Zebra:Zebra:Zebra:Zebra:Zebra:Zebra:Zulmira:Zebedee:Zebra:--..:Zacharias/
 	else
 		# Apenas mostre a tabela
 		echo "$dados" |
-		awk -v colunas="${colunas:-$coluna}" "$awk_code"
+			awk -v colunas="${colunas:-$coluna}" "$awk_code"
 	fi |
-	awk -v cab="$cab" "$awk_code" | tr ' ' '\t' |
-	expand -t "${tam:-8}" | zztrim
+		awk -v cab="$cab" "$awk_code" | tr ' ' '\t' |
+		expand -t "${tam:-8}" | zztrim
 }

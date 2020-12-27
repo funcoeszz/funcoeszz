@@ -13,7 +13,7 @@
 # Requisitos: zzdata zzpascoa
 # Tags: data
 # ----------------------------------------------------------------------------
-zzcarnaval ()
+zzcarnaval()
 {
 	zzzz -h carnaval "$1" && return
 

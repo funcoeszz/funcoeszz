@@ -14,18 +14,16 @@
 # Requisitos: zzsemacento zzminusculas
 # Tags: rev, emulação
 # ----------------------------------------------------------------------------
-zzvira ()
+zzvira()
 {
 	zzzz -h vira "$1" && return
 
 	local rasteira
 
-	if test '-X' = "$1"
-	then
+	if test '-X' = "$1"; then
 		rasteira=1
 		shift
-	elif test '-E' = "$1"
-	then
+	elif test '-E' = "$1"; then
 		rasteira=2
 		shift
 	fi
@@ -33,26 +31,23 @@ zzvira ()
 	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |
 
-	# Vira o texto de trás pra frente (rev)
-	if test -z "$rasteira" || test "$rasteira" -ne 2
-	then
-		sed '
+		# Vira o texto de trás pra frente (rev)
+		if test -z "$rasteira" || test "$rasteira" -ne 2; then
+			sed '
 		/\n/!G
 		s/\(.\)\(.*\n\)/&\2\1/
 		//D
 		s/.//'
-	else
-		cat -
-	fi |
-
-	if test -n "$rasteira"
-	then
-		zzsemacento |
-		zzminusculas |
-			sed 'y@abcdefghijklmnopqrstuvwxyz._!?(){}<>@ɐqɔpǝɟƃɥıɾʞlɯuodbɹsʇnʌʍxʎz˙‾¡¿)(}{><@' |
-			sed "y/'/,/" |
-			sed 's/\[/X/g ; s/]/[/g ; s/X/]/g'
-	else
-		cat -
-	fi
+		else
+			cat -
+		fi |
+		if test -n "$rasteira"; then
+			zzsemacento |
+				zzminusculas |
+				sed 'y@abcdefghijklmnopqrstuvwxyz._!?(){}<>@ɐqɔpǝɟƃɥıɾʞlɯuodbɹsʇnʌʍxʎz˙‾¡¿)(}{><@' |
+				sed "y/'/,/" |
+				sed 's/\[/X/g ; s/]/[/g ; s/X/]/g'
+		else
+			cat -
+		fi
 }

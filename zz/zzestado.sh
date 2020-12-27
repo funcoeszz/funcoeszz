@@ -31,7 +31,7 @@
 # Requisitos: zzpad
 # Tags: utilitário
 # ----------------------------------------------------------------------------
-zzestado ()
+zzestado()
 {
 	zzzz -h estado "$1" && return
 
@@ -67,18 +67,16 @@ SP:São Paulo:sao-paulo:São Paulo
 SE:Sergipe:sergipe:Aracaju
 TO:Tocantins:tocantins:Palmas"
 
-
 	case "$1" in
-		--sigla  ) echo "$dados" | cut -d : -f 1 ;;
-		--nome   ) echo "$dados" | cut -d : -f 2 ;;
-		--slug   ) echo "$dados" | cut -d : -f 3 ;;
+		--sigla) echo "$dados" | cut -d : -f 1 ;;
+		--nome) echo "$dados" | cut -d : -f 2 ;;
+		--slug) echo "$dados" | cut -d : -f 3 ;;
 		--capital) echo "$dados" | cut -d : -f 4 ;;
 
 		--formato)
 			fmt="$2"
 			echo "$dados" |
-				while IFS=':' read sigla nome slug capital
-				do
+				while IFS=':' read sigla nome slug capital; do
 					resultado=$(printf %s "$fmt" | sed "
 						s/{sigla}/$sigla/g
 						s/{nome}/$nome/g
@@ -87,14 +85,14 @@ TO:Tocantins:tocantins:Palmas"
 					")
 					printf "$resultado"
 				done
-		;;
+			;;
 		--python | --py)
-			sigla=$(  zzestado --formato "'{sigla}', "   | sed 's/, $//')
-			nome=$(   zzestado --formato "'{nome}', "    | sed 's/, $//')
+			sigla=$(zzestado --formato "'{sigla}', " | sed 's/, $//')
+			nome=$(zzestado --formato "'{nome}', " | sed 's/, $//')
 			capital=$(zzestado --formato "'{capital}', " | sed 's/, $//')
 
-			printf   'siglas = [%s]\n\n' "$sigla"
-			printf    'nomes = [%s]\n\n' "$nome"
+			printf 'siglas = [%s]\n\n' "$sigla"
+			printf 'nomes = [%s]\n\n' "$nome"
 			printf 'capitais = [%s]\n\n' "$capital"
 
 			echo 'estados = {'
@@ -104,14 +102,14 @@ TO:Tocantins:tocantins:Palmas"
 			echo 'estados = {'
 			zzestado --formato "  '{sigla}': ('{nome}', '{capital}', '{slug}'),\n"
 			echo '}'
-		;;
+			;;
 		--php)
-			sigla=$(  zzestado --formato '"{sigla}", '   | sed 's/, $//')
-			nome=$(   zzestado --formato '"{nome}", '    | sed 's/, $//')
+			sigla=$(zzestado --formato '"{sigla}", ' | sed 's/, $//')
+			nome=$(zzestado --formato '"{nome}", ' | sed 's/, $//')
 			capital=$(zzestado --formato '"{capital}", ' | sed 's/, $//')
 
-			printf   '$siglas = array(%s);\n\n' "$sigla"
-			printf    '$nomes = array(%s);\n\n' "$nome"
+			printf '$siglas = array(%s);\n\n' "$sigla"
+			printf '$nomes = array(%s);\n\n' "$nome"
 			printf '$capitais = array(%s);\n\n' "$capital"
 
 			echo '$estados = array('
@@ -121,14 +119,14 @@ TO:Tocantins:tocantins:Palmas"
 			echo '$estados = array('
 			zzestado --formato '  "{sigla}" => array("{nome}", "{capital}", "{slug}"),\n'
 			echo ');'
-		;;
+			;;
 		--javascript | --js)
-			sigla=$(  zzestado --formato "'{sigla}', "   | sed 's/, $//')
-			nome=$(   zzestado --formato "'{nome}', "    | sed 's/, $//')
+			sigla=$(zzestado --formato "'{sigla}', " | sed 's/, $//')
+			nome=$(zzestado --formato "'{nome}', " | sed 's/, $//')
 			capital=$(zzestado --formato "'{capital}', " | sed 's/, $//')
 
-			printf   'var siglas = [%s];\n\n' "$sigla"
-			printf    'var nomes = [%s];\n\n' "$nome"
+			printf 'var siglas = [%s];\n\n' "$sigla"
+			printf 'var nomes = [%s];\n\n' "$nome"
 			printf 'var capitais = [%s];\n\n' "$capital"
 
 			echo 'var estados = {'
@@ -138,29 +136,28 @@ TO:Tocantins:tocantins:Palmas"
 			echo 'var estados = {'
 			zzestado --formato "  {sigla}: ['{nome}', '{capital}', '{slug}'],\n" | sed '$ s/,$//'
 			echo '}'
-		;;
+			;;
 		--html)
 			echo '<select>'
 			zzestado --formato '  <option value="{sigla}">{sigla} - {nome}</option>\n'
 			echo '</select>'
-		;;
+			;;
 		--xml)
 			echo '<estados>'
 			zzestado --formato '\t<uf sigla="{sigla}">\n\t\t<nome>{nome}</nome>\n\t\t<capital>{capital}</capital>\n\t\t<slug>{slug}</slug>\n\t</uf>\n'
 			echo '</estados>'
-		;;
+			;;
 		--url)
 			zzestado --formato 'http://foo.{sigla}.gov.br\n' | tr '[A-Z]' '[a-z]'
-		;;
+			;;
 		--url2)
 			zzestado --formato 'http://foo.com.br/{slug}/\n'
-		;;
+			;;
 		*)
 			echo "$dados" |
-				while IFS=':' read sigla nome slug capital
-				do
+				while IFS=':' read sigla nome slug capital; do
 					echo "$sigla    $(zzpad 22 $nome) $capital"
 				done
-		;;
+			;;
 	esac
 }

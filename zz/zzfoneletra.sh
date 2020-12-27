@@ -11,7 +11,7 @@
 # Requisitos: zzmaiusculas
 # Tags: texto, número, conversão
 # ----------------------------------------------------------------------------
-zzfoneletra ()
+zzfoneletra()
 {
 	zzzz -h foneletra "$1" && return
 
@@ -19,5 +19,5 @@ zzfoneletra ()
 	zztool multi_stdin "$@" |
 		zzmaiusculas |
 		sed y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/22233344455566677778889999/
-		# Um Sed faz tudo, é uma tradução letra a letra
+	# Um Sed faz tudo, é uma tradução letra a letra
 }

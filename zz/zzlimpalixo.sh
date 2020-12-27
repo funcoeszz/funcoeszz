@@ -16,7 +16,7 @@
 # Requisitos: zzjuntalinhas
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
-zzlimpalixo ()
+zzlimpalixo()
 {
 	zzzz -h limpalixo "$1" && return
 
@@ -26,8 +26,7 @@ zzlimpalixo ()
 	local comentario_fim='\*\/'
 
 	# Para comentários multilinhas: /* ... */
-	if test '--multi' = "$1"
-	then
+	if test '--multi' = "$1"; then
 		multi=1
 		shift
 	fi
@@ -35,40 +34,81 @@ zzlimpalixo ()
 	# Reconhecimento de comentários
 	# Incluida opção de escolher o tipo, pois o arquivo pode vir via pipe, e não seria possível reconhecer a extensão do arquivo
 	case "$1" in
-		*.vim | *.vimrc*)                    comentario='"';;
-		--vim)                               comentario='"';   shift;;
-		*.asp)                               comentario="'";;
-		--asp)                               comentario="'";   shift;;
-		*.asm)                               comentario=';';;
-		--asm)                               comentario=';';   shift;;
-		*.ada | *.sql | *.e)                 comentario='--';;
-		--ada | --sql | --e)                 comentario='--';  shift;;
-		*.bat)                               comentario='rem';;
-		--bat)                               comentario='rem'; shift;;
-		*.tex)                               comentario='%';;
-		--tex)                               comentario='%';   shift;;
-		*.c | *.css)                         multi=1;;
-		--c | --css)                         multi=1;shift;;
-		*.html | *.htm | *.xml)              comentario_ini='<!--'; comentario_fim='-->'; multi=1;;
-		--html | --htm | --xml)              comentario_ini='<!--'; comentario_fim='-->'; multi=1; shift;;
-		*.jsp)                               comentario_ini='<%--'; comentario_fim='-->'; multi=1;;
-		--jsp)                               comentario_ini='<%--'; comentario_fim='-->'; multi=1; shift;;
-		*.cc | *.d | *.js | *.php | *.scala) comentario='\/\/';;
-		--cc | --d | --js | --php | --scala) comentario='\/\/'; shift;;
+		*.vim | *.vimrc*) comentario='"' ;;
+		--vim)
+			comentario='"'
+			shift
+			;;
+		*.asp) comentario="'" ;;
+		--asp)
+			comentario="'"
+			shift
+			;;
+		*.asm) comentario=';' ;;
+		--asm)
+			comentario=';'
+			shift
+			;;
+		*.ada | *.sql | *.e) comentario='--' ;;
+		--ada | --sql | --e)
+			comentario='--'
+			shift
+			;;
+		*.bat) comentario='rem' ;;
+		--bat)
+			comentario='rem'
+			shift
+			;;
+		*.tex) comentario='%' ;;
+		--tex)
+			comentario='%'
+			shift
+			;;
+		*.c | *.css) multi=1 ;;
+		--c | --css)
+			multi=1
+			shift
+			;;
+		*.html | *.htm | *.xml)
+			comentario_ini='<!--'
+			comentario_fim='-->'
+			multi=1
+			;;
+		--html | --htm | --xml)
+			comentario_ini='<!--'
+			comentario_fim='-->'
+			multi=1
+			shift
+			;;
+		*.jsp)
+			comentario_ini='<%--'
+			comentario_fim='-->'
+			multi=1
+			;;
+		--jsp)
+			comentario_ini='<%--'
+			comentario_fim='-->'
+			multi=1
+			shift
+			;;
+		*.cc | *.d | *.js | *.php | *.scala) comentario='\/\/' ;;
+		--cc | --d | --js | --php | --scala)
+			comentario='\/\/'
+			shift
+			;;
 	esac
 
 	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
 
-	# Junta os comentários multilinhas
-	if test $multi -eq 1
-	then
-		zzjuntalinhas -i "$comentario_ini" -f "$comentario_fim" |
-		sed "/^[[:blank:]]*${comentario_ini}/d"
+		# Junta os comentários multilinhas
+		if test $multi -eq 1; then
+			zzjuntalinhas -i "$comentario_ini" -f "$comentario_fim" |
+				sed "/^[[:blank:]]*${comentario_ini}/d"
 
-	else
-		cat -
-	fi |
+		else
+			cat -
+		fi |
 
 		# Remove comentários e linhas em branco
 		sed "

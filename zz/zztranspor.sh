@@ -25,33 +25,32 @@
 # Requisitos: zztrim
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
-zztranspor ()
+zztranspor()
 {
 	zzzz -h transpor "$1" && return
 
 	local sep ofs
 
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			-d)
-			# Separador de campos no arquivo de entrada
+				# Separador de campos no arquivo de entrada
 				sep="$2"
 				shift
 				shift
-			;;
+				;;
 			-D | --output-delimiter)
-			# Separador de campos na saída
+				# Separador de campos na saída
 				ofs="$2"
 				shift
 				shift
-			;;
-			*) break;;
+				;;
+			*) break ;;
 		esac
 	done
 
 	zztool file_stdin "$@" |
-	awk -v sep_awk="$sep" -v ofs_awk="$ofs" '
+		awk -v sep_awk="$sep" -v ofs_awk="$ofs" '
 	BEGIN {
 		# Definindo o separador de campo na entrada do awk
 		if (length(sep_awk)>0)

@@ -17,7 +17,7 @@
 # Requisitos: zzminusculas
 # Tags: texto, contagem
 # ----------------------------------------------------------------------------
-zzcontapalavras ()
+zzcontapalavras()
 {
 	zzzz -h contapalavras "$1" && return
 
@@ -26,21 +26,20 @@ zzcontapalavras ()
 	local limite='$'
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			-i)
 				ignore_case=1
 				shift
-			;;
+				;;
 			-n)
 				limite="$2"
 				shift
 				shift
-			;;
+				;;
 			*)
 				break
-			;;
+				;;
 		esac
 	done
 
@@ -54,8 +53,7 @@ zzcontapalavras ()
 		tr -s ' ' '\n' |
 
 		# Converte tudo pra minúsculas?
-		if test -n "$ignore_case"
-		then
+		if test -n "$ignore_case"; then
 			zzminusculas
 		else
 			cat -

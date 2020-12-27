@@ -11,11 +11,14 @@
 # Requisitos: zzurldecode
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzora ()
+zzora()
 {
 	zzzz -h ora "$1" && return
 
-	test $# -ne 1 && { zztool -e uso ora; return 1; } # deve receber apenas um argumento
+	test $# -ne 1 && {
+		zztool -e uso ora
+		return 1
+	}                                       # deve receber apenas um argumento
 	zztool -e testa_numero "$1" || return 1 # e este argumento deve ser numérico
 
 	local link
@@ -23,16 +26,15 @@ zzora ()
 	local cod=$(printf "%05d" $1)
 
 	zztool source "${url}=${cod}" |
-	sed -n "/to_URL.*-${cod}/{s/.*name=//;s/\">.*//;p;}" |
-	zzurldecode |
-	while read link
-	do
-		zztool dump "$link" |
-		sed -n "/^ *[A-Z0-9]\{1,\}-$cod/,/-[0-9]\{5\}[^0-9]/p" |
-		sed '/___/,$d; 2,${ /-[0-9]\{5\}[^0-9]/d; }' |
-		sed '1s/^ *//; 2,$s/^  */  /'
-		echo
-	done | awk '
+		sed -n "/to_URL.*-${cod}/{s/.*name=//;s/\">.*//;p;}" |
+		zzurldecode |
+		while read link; do
+			zztool dump "$link" |
+				sed -n "/^ *[A-Z0-9]\{1,\}-$cod/,/-[0-9]\{5\}[^0-9]/p" |
+				sed '/___/,$d; 2,${ /-[0-9]\{5\}[^0-9]/d; }' |
+				sed '1s/^ *//; 2,$s/^  */  /'
+			echo
+		done | awk '
 			/^[ 	]*$/{ branco++ }
 
 			! /^[ 	]*$/ {

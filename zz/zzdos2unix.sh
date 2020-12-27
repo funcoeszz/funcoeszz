@@ -11,16 +11,15 @@
 # Licença: GPL
 # Tags: arquivo, conversão
 # ----------------------------------------------------------------------------
-zzdos2unix ()
+zzdos2unix()
 {
 	zzzz -h dos2unix "$1" && return
 
 	local arquivo tmp
-	local control_m=$(printf '\r')  # ^M, CR, \r
+	local control_m=$(printf '\r') # ^M, CR, \r
 
 	# Sem argumentos, lê/grava em STDIN/STDOUT
-	if test $# -eq 0
-	then
+	if test $# -eq 0; then
 		sed "s/$control_m*$//"
 
 		# Facinho, terminou já
@@ -32,18 +31,16 @@ zzdos2unix ()
 
 	# Usuário passou uma lista de arquivos
 	# Os arquivos serão sobrescritos, todo cuidado é pouco
-	for arquivo
-	do
+	for arquivo; do
 		# O arquivo existe?
 		zztool -e arquivo_legivel "$arquivo" || continue
 
 		# Remove o \r
 		cp "$arquivo" "$tmp" &&
-		sed "s/$control_m*$//" "$tmp" > "$arquivo"
+			sed "s/$control_m*$//" "$tmp" >"$arquivo"
 
 		# Segurança
-		if test $? -ne 0
-		then
+		if test $? -ne 0; then
 			zztool erro "Ops, algum erro ocorreu em $arquivo"
 			zztool erro "Seu arquivo original está guardado em $tmp"
 			return 1

@@ -17,7 +17,7 @@
 # Requisitos: zzjuntalinhas zztrim zzunescape zzxml
 # Tags: internet, distração
 # ----------------------------------------------------------------------------
-zzvds ()
+zzvds()
 {
 	zzzz -h vds "$1" && return
 
@@ -25,29 +25,30 @@ zzvds ()
 	local sep='------------------------------------------------------------------------------'
 	local ord=1
 
-	if test -n "$1"
-	then
-		zztool testa_numero "$1" && ord=$1 || { zztool -e uso vds; return 1; }
+	if test -n "$1"; then
+		zztool testa_numero "$1" && ord=$1 || {
+			zztool -e uso vds
+			return 1
+		}
 	fi
 
 	zztool source "$url" |
-	awk '
+		awk '
 		/titulopost/,/<\/h2>/
 		/Transcrição:/,/hidden/{print;if ($0 ~ /hidden/) printf "----\n\n"}
 	' |
-	zzjuntalinhas -i '<h2' -f 'h2>'|
-	zzxml --untag |
-	zzunescape --html |
-	zztrim |
-	sed 's/Transcrição://;/Flagras de Atendimento/d;/Mais tirinhas sobre/d ' |
-	if test $ord -eq 0
-	then
-		sed "/----/{s//$sep/;}"
-	else
-		awk -v ord=$ord '
+		zzjuntalinhas -i '<h2' -f 'h2>' |
+		zzxml --untag |
+		zzunescape --html |
+		zztrim |
+		sed 's/Transcrição://;/Flagras de Atendimento/d;/Mais tirinhas sobre/d ' |
+		if test $ord -eq 0; then
+			sed "/----/{s//$sep/;}"
+		else
+			awk -v ord=$ord '
 			/----/{i++;next}
 			{ if (i==ord-1) print; if (i==ord) {exit} }
 		' |
-		zztrim
-	fi
+				zztrim
+		fi
 }

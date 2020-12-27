@@ -27,7 +27,7 @@
 # Licença: GPL
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
-zzmix ()
+zzmix()
 {
 	zzzz -h mix "$1" && return
 
@@ -37,14 +37,11 @@ zzmix ()
 	local tipo=1
 
 	# Opção -m ou -M, -numero ou -o
-	while test "${1#-}" != "$1"
-	do
-		if test '-o' = "$1"
-		then
+	while test "${1#-}" != "$1"; do
+		if test '-o' = "$1"; then
 			arq_saida="$2"
 			shift
-		elif test '-p' = "$1"
-		then
+		elif test '-p' = "$1"; then
 			passos="$2"
 			shift
 		else
@@ -53,39 +50,43 @@ zzmix ()
 		shift
 	done
 
-	test -n "$2" || { zztool -e uso mix; return 1; }
+	test -n "$2" || {
+		zztool -e uso mix
+		return 1
+	}
 
-	for arquivo
-	do
+	for arquivo; do
 		# Especificar se vai se orientar pelo arquivo com mais ou menos linhas
-		if test 'm' = "$tipo" || test 'M' = "$tipo"
-		then
+		if test 'm' = "$tipo" || test 'M' = "$tipo"; then
 			lin_arq=$(zztool num_linhas "$arquivo")
-			if test 'M' = "$tipo" && test $lin_arq -gt $linhas
-			then
+			if test 'M' = "$tipo" && test $lin_arq -gt $linhas; then
 				linhas=$lin_arq
 				arq_ref=$arquivo
 			fi
-			if test 'm' = "$tipo" && (test $lin_arq -lt $linhas || test $linhas -eq 0)
-			then
+			if test 'm' = "$tipo" && (test $lin_arq -lt $linhas || test $linhas -eq 0); then
 				linhas=$lin_arq
 				arq_ref=$arquivo
 			fi
 		fi
 
 		# Verifica se arquivos são legíveis
-		zztool arquivo_legivel "$arquivo" || { zztool erro "Um ou mais arquivos inexistentes ou ilegíveis."; return 1; }
+		zztool arquivo_legivel "$arquivo" || {
+			zztool erro "Um ou mais arquivos inexistentes ou ilegíveis."
+			return 1
+		}
 	done
 
 	# Se opção é um numero, o arquivo base para as linhas é o mesmo da posição equivalente
-	if zztool testa_numero $tipo && test $tipo -le $#
-	then
+	if zztool testa_numero $tipo && test $tipo -le $#; then
 		arq_ref=$(awk -v arg=$tipo 'BEGIN { print ARGV[arg] }' $* 2>/dev/null)
 		linhas=$(zztool num_linhas "$arq_ref")
 	fi
 
 	# Sem quantidade de linhas mínima não há mistura.
-	test "$linhas" -eq 0 && { zztool erro "Não há linhas para serem \"mixadas\"."; return 1; }
+	test "$linhas" -eq 0 && {
+		zztool erro "Não há linhas para serem \"mixadas\"."
+		return 1
+	}
 
 	# Onde a "mixagem" ocorre efetivamente.
 	awk -v linhas_awk=$linhas -v passos_awk="$passos" -v arq_ref_awk="$arq_ref" -v saida_awk="$arq_saida" '

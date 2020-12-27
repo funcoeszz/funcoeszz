@@ -11,7 +11,7 @@
 # Requisitos: zzaleatorio zztrim zzjuntalinhas zzlinha zzsqueeze zzxml zzutf8
 # Tags: internet, distação
 # ----------------------------------------------------------------------------
-zzsheldon ()
+zzsheldon()
 {
 	zzzz -h sheldon "$1" && return
 
@@ -21,20 +21,20 @@ zzsheldon ()
 	local end="Correct this quote"
 
 	zztool source ${url}$(zzaleatorio 262) |
-	zzutf8 |
-	sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
-	zzxml --tag p |
-	zzjuntalinhas -i '<p' -f '<.p>' -d ' ' |
-	sed 's/<br \/>/|/g' |
-	zzxml --untag |
-	zzsqueeze |
-	sed -n "/$begin/,/$end/p" |
-	zztrim -H |
-	zzjuntalinhas -i "$begin" -f "$end" -d "|" |
-	zzlinha |
-	tr '|' '\n' |
-	sed "/$end/d;s/$begin/Episode -/;/^[[:blank:]]*$/d" |
-	zztrim -H |
-	sed "2,$ { /:/!s/^/	/; s/: /:	/; }" |
-	expand -t 10
+		zzutf8 |
+		sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
+		zzxml --tag p |
+		zzjuntalinhas -i '<p' -f '<.p>' -d ' ' |
+		sed 's/<br \/>/|/g' |
+		zzxml --untag |
+		zzsqueeze |
+		sed -n "/$begin/,/$end/p" |
+		zztrim -H |
+		zzjuntalinhas -i "$begin" -f "$end" -d "|" |
+		zzlinha |
+		tr '|' '\n' |
+		sed "/$end/d;s/$begin/Episode -/;/^[[:blank:]]*$/d" |
+		zztrim -H |
+		sed "2,$ { /:/!s/^/	/; s/: /:	/; }" |
+		expand -t 10
 }

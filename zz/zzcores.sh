@@ -10,18 +10,15 @@
 # Licença: GPL
 # Tags: cores, tabela
 # ----------------------------------------------------------------------------
-zzcores ()
+zzcores()
 {
 	zzzz -h cores "$1" && return
 
 	local frente fundo negrito cor
 
-	for frente in 0 1 2 3 4 5 6 7
-	do
-		for negrito in '' ';1' # alterna entre linhas sem e com negrito
-		do
-			for fundo in 0 1 2 3 4 5 6 7
-			do
+	for frente in 0 1 2 3 4 5 6 7; do
+		for negrito in '' ';1'; do # alterna entre linhas sem e com negrito
+			for fundo in 0 1 2 3 4 5 6 7; do
 				# Compõe o par de cores: NN;NN
 				cor="4$fundo;3$frente"
 

@@ -13,7 +13,7 @@
 # Licença: GPL
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
-zzdicbabylon ()
+zzdicbabylon()
 {
 	zzzz -h dicbabylon "$1" && return
 
@@ -22,11 +22,13 @@ zzdicbabylon ()
 	local tab=$(printf %b '\t')
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso dicbabylon; return 1; }
+	test -n "$1" || {
+		zztool -e uso dicbabylon
+		return 1
+	}
 
 	# O primeiro argumento é um idioma?
-	if test "${idiomas% $1 *}" != "$idiomas"
-	then
+	if test "${idiomas% $1 *}" != "$idiomas"; then
 		idioma=$1
 		shift
 	fi

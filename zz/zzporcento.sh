@@ -22,7 +22,7 @@
 # Requisitos: zztestar
 # Tags: número, cálculo
 # ----------------------------------------------------------------------------
-zzporcento ()
+zzporcento()
 {
 	zzzz -h porcento "$1" && return
 
@@ -34,7 +34,10 @@ zzporcento ()
 	local tabela='200 150 125 100 90 80 75 70 60 50 40 30 25 20 15 10 9 8 7 6 5 4 3 2 1'
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso porcento; return 1; }
+	test -n "$1" || {
+		zztool -e uso porcento
+		return 1
+	}
 
 	# Remove os pontos dos dinheiros para virarem fracionários (1.234,00 > 1234,00)
 	zztestar dinheiro "$valor1" && valor1=$(echo "$valor1" | sed 's/\.//g')
@@ -43,8 +46,7 @@ zzporcento ()
 	### Vamos analisar o primeiro valor
 
 	# Número fracionário (1.2345 ou 1,2345)
-	if zztestar numero_fracionario "$valor1"
-	then
+	if zztestar numero_fracionario "$valor1"; then
 		separador=$(echo "$valor1" | tr -d 0-9)
 		escala=$(echo "$valor1" | sed 's/.*[.,]//')
 		escala="${#escala}"
@@ -60,8 +62,7 @@ zzporcento ()
 	### Vamos analisar o segundo valor
 
 	# O segundo argumento é uma porcentagem
-	if test $# -eq 2 && zztool grep_var % "$valor2"
-	then
+	if test $# -eq 2 && zztool grep_var % "$valor2"; then
 		# O valor da porcentagem é guardado sem o caractere %
 		porcentagem=$(echo "$valor2" | tr -d %)
 
@@ -69,29 +70,25 @@ zzporcento ()
 		porcentagem=$(echo "$porcentagem" | sed 'y/,/./')
 
 		# Há um sinal no início?
-		if test "${porcentagem#[+-]}" != "$porcentagem"
-		then
-			sinal=$(printf %c $porcentagem)  # pega primeiro char
-			porcentagem=${porcentagem#?}     # remove primeiro char
+		if test "${porcentagem#[+-]}" != "$porcentagem"; then
+			sinal=$(printf %c $porcentagem) # pega primeiro char
+			porcentagem=${porcentagem#?}    # remove primeiro char
 		fi
 
 		# Porcentagem fracionada
-		if zztestar numero_fracionario "$porcentagem"
-		then
+		if zztestar numero_fracionario "$porcentagem"; then
 			# Se o valor é inteiro (escala=0) e a porcentagem fracionária,
 			# é preciso forçar uma escala para que o resultado apareça correto.
 			test $escala -eq 0 && escala=2 valor1="$valor1.00"
 
 		# Porcentagem inteira ou erro
-		elif ! zztool testa_numero "$porcentagem"
-		then
+		elif ! zztool testa_numero "$porcentagem"; then
 			zztool erro "O valor da porcentagem deve ser um número. Exemplos: 2 ou 2,5."
 			return 1
 		fi
 
 	# O segundo argumento é um número
-	elif test $# -eq 2
-	then
+	elif test $# -eq 2; then
 		# Ao mostrar a porcentagem entre dois números, a escala é fixa
 		escala=2
 
@@ -99,8 +96,7 @@ zzporcento ()
 		# Sempre usar o ponto como separador interno (para os cálculos)
 
 		# Número fracionário
-		if zztestar numero_fracionario "$valor2"
-		then
+		if zztestar numero_fracionario "$valor2"; then
 			separador=$(echo "$valor2" | tr -d 0-9)
 			valor2=$(echo "$valor2" | sed 'y/,/./')
 
@@ -113,29 +109,23 @@ zzporcento ()
 	# Ok. Dados coletados, analisados e formatados. Agora é hora dos cálculos.
 
 	# Mostra tabela
-	if test $# -eq 1
-	then
-		for i in $tabela
-		do
+	if test $# -eq 1; then
+		for i in $tabela; do
 			printf "%s%%\t%s\n" $i $(echo "scale=$escala; $valor1*$i/100" | bc)
 		done
 
 	# Mostra porcentagem
-	elif test $# -eq 2
-	then
+	elif test $# -eq 2; then
 		# Mostra a porcentagem relativa entre dois números
-		if ! zztool grep_var % "$valor2"
-		then
+		if ! zztool grep_var % "$valor2"; then
 			echo "scale=$escala; $valor2*100/$valor1" | bc | sed 's/$/%/'
 
 		# valor + n% é igual a…
-		elif test "$sinal" = '+'
-		then
+		elif test "$sinal" = '+'; then
 			echo "scale=$escala; $valor1+$valor1*$porcentagem/100" | bc
 
 		# valor - n% é igual a…
-		elif test "$sinal" = '-'
-		then
+		elif test "$sinal" = '-'; then
 			echo "scale=$escala; $valor1-$valor1*$porcentagem/100" | bc
 
 		# n% do valor é igual a…
@@ -153,6 +143,6 @@ zzporcento ()
 		fi
 	fi |
 
-	# Assegura 0.123 (em vez de .123) e restaura o separador original
-	sed "s/^\./0./; y/./$separador/"
+		# Assegura 0.123 (em vez de .123) e restaura o separador original
+		sed "s/^\./0./; y/./$separador/"
 }

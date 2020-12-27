@@ -28,7 +28,7 @@
 # Requisitos: zzdatafmt zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zznerdcast ()
+zznerdcast()
 {
 	zzzz -h nerdcast "$1" && return
 
@@ -38,47 +38,48 @@ zznerdcast ()
 	local data
 
 	# Opções de linha de comando
-	while  test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-		-n)
-			if zztool testa_numero "$2"
-			then
-				limite="$2"
-				test "$limite" -eq 0 && limite='$'
+			-n)
+				if zztool testa_numero "$2"; then
+					limite="$2"
+					test "$limite" -eq 0 && limite='$'
+					shift
+				fi
 				shift
-			fi
-			shift
-		;;
-		-d | --data)
-			data=$(zzdatafmt --en -f "DD MMM AAAA" "$2" 2>/dev/null)
-			if test -n "$data"
-			then
-				unset limite
+				;;
+			-d | --data)
+				data=$(zzdatafmt --en -f "DD MMM AAAA" "$2" 2>/dev/null)
+				if test -n "$data"; then
+					unset limite
+					shift
+				fi
 				shift
-			fi
-			shift
-		;;
-		-m | --m[eê]s)
-			data=$(zzdatafmt --en -f "MMM AAAA" "1/$2" 2>/dev/null)
-			if test -n "$data"
-			then
-				unset limite
+				;;
+			-m | --m[eê]s)
+				data=$(zzdatafmt --en -f "MMM AAAA" "1/$2" 2>/dev/null)
+				if test -n "$data"; then
+					unset limite
+					shift
+				fi
 				shift
-			fi
-			shift
-		;;
-		-a | --ano)
-			data=$(zzdatafmt --en -f "AAAA" "1/1/$2" 2>/dev/null)
-			if test -n "$data"
-			then
-				unset limite
+				;;
+			-a | --ano)
+				data=$(zzdatafmt --en -f "AAAA" "1/1/$2" 2>/dev/null)
+				if test -n "$data"; then
+					unset limite
+					shift
+				fi
 				shift
-			fi
-			shift
-		;;
-		--) shift; break ;;
-		-*) zztool -e uso nerdcast; return 1 ;;
+				;;
+			--)
+				shift
+				break
+				;;
+			-*)
+				zztool -e uso nerdcast
+				return 1
+				;;
 		esac
 	done
 
@@ -87,30 +88,28 @@ zznerdcast ()
 	filtro=$(zztool endereco_sed "$filtro")
 
 	# Usa o cache se existir e estiver atualizado, senão baixa um novo.
-	if ! test -s "$cache" || test $(head -n 1 "$cache") != $(zzdatafmt --iso hoje)
-	then
-		zzdatafmt --iso hoje > "$cache"
+	if ! test -s "$cache" || test $(head -n 1 "$cache") != $(zzdatafmt --iso hoje); then
+		zzdatafmt --iso hoje >"$cache"
 
 		zztool source "https://jovemnerd.com.br/feed-nerdcast/" |
-		zzxml --tag title --tag enclosure --tag pubDate |
-		awk '
+			zzxml --tag title --tag enclosure --tag pubDate |
+			awk '
 			/<title>/{ getline; if ($0 ~ /[0-9a-z] - /) printf $0 " | "}
 			/\.mp3"/{ printf $2 " | " }
 			/<pubDate>/{ getline; print $2,$3,$4 }
 			' |
-		sed '/url="/ { s///;s/"//; }' |
-		zzunescape --html >> "$cache"
+			sed '/url="/ { s///;s/"//; }' |
+			zzunescape --html >>"$cache"
 	fi
 
 	# Filtra pelo assunto
 	# Filtra por data ou quantidade
 	# E formata  saída
 	sed -n "1d;${filtro}p" "$cache" |
-	if test -n "$data"
-	then
-		grep "${data}$"
-	else
-		sed "${limite}q"
-	fi |
-	awk -F ' [|] ' '/[|]/ { print $1,"|",$3; print $2; print "" }'
+		if test -n "$data"; then
+			grep "${data}$"
+		else
+			sed "${limite}q"
+		fi |
+		awk -F ' [|] ' '/[|]/ { print $1,"|",$3; print $2; print "" }'
 }

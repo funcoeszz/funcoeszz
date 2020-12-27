@@ -17,7 +17,7 @@
 # Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzwikipedia ()
+zzwikipedia()
 {
 	zzzz -h wikipedia "$1" && return
 
@@ -25,14 +25,16 @@ zzwikipedia ()
 	local idioma='pt'
 
 	# Se o idioma foi informado, guarda-o, retirando o hífen
-	if test "${1#-}" != "$1"
-	then
+	if test "${1#-}" != "$1"; then
 		idioma="${1#-}"
 		shift
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso wikipedia; return 1; }
+	test -n "$1" || {
+		zztool -e uso wikipedia
+		return 1
+	}
 
 	# Faz a consulta e filtra o resultado, paginando
 	url="http://$idioma.wikipedia.org/wiki/"

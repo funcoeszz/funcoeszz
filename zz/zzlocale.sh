@@ -11,7 +11,7 @@
 # Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzlocale ()
+zzlocale()
 {
 	zzzz -h locale "$1" && return
 
@@ -20,19 +20,20 @@ zzlocale ()
 	local padrao="$1"
 
 	# Opções de linha de comando
-	if test '-c' = "$1"
-	then
+	if test '-c' = "$1"; then
 		# Padrão de pesquisa válido para última palavra da linha (código)
 		padrao="$2[^ ]*$"
 		shift
 	fi
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso locale; return 1; }
+	test -n "$1" || {
+		zztool -e uso locale
+		return 1
+	}
 
 	# Se o cache está vazio, baixa listagem da Internet
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool download "$url" "$cache"
 	fi
 

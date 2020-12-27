@@ -20,7 +20,7 @@
 # Licença: GPL
 # Tags: squeeze, emulação
 # ----------------------------------------------------------------------------
-zzsqueeze ()
+zzsqueeze()
 {
 	zzzz -h squeeze "$1" && return
 
@@ -28,27 +28,36 @@ zzsqueeze ()
 	local coluna=1
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-			-l | --linha  ) shift; coluna=0;;
-			-c | --coluna ) shift; linha=0;;
-			--) shift; break;;
-			-*) zztool -e uso squeeze; return 1;;
-			*) break;;
+			-l | --linha)
+				shift
+				coluna=0
+				;;
+			-c | --coluna)
+				shift
+				linha=0
+				;;
+			--)
+				shift
+				break
+				;;
+			-*)
+				zztool -e uso squeeze
+				return 1
+				;;
+			*) break ;;
 		esac
 	done
 
 	zztool file_stdin "$@" |
-	if test $coluna -eq 1
-	then
-		tr -s '[:blank:]' ' '
-	else
-		cat -
-	fi |
-	if test $linha -eq 1
-	then
-		awk '
+		if test $coluna -eq 1; then
+			tr -s '[:blank:]' ' '
+		else
+			cat -
+		fi |
+		if test $linha -eq 1; then
+			awk '
 			/^[ 	]*$/{ branco++ }
 
 			! /^[ 	]*$/ {
@@ -58,7 +67,7 @@ zzsqueeze ()
 
 			END { if (branco>0) print "" }
 		'
-	else
-		sed 's/^[ 	]*$//'
-	fi
+		else
+			sed 's/^[ 	]*$//'
+		fi
 }

@@ -19,7 +19,7 @@
 # Licença: GPL
 # Tags: echo, emulação
 # ----------------------------------------------------------------------------
-zzecho ()
+zzecho()
 {
 	zzzz -h echo "$1" && return
 
@@ -27,52 +27,59 @@ zzecho ()
 	local quebra_linha='\n'
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			-l | --letra)
 				case "$2" in
 					# Permite versões femininas também (--letra preta)
-					pret[oa]       ) letra=';30' ;;
-					vermelh[oa]    ) letra=';31' ;;
-					verde          ) letra=';32' ;;
-					amarel[oa]     ) letra=';33' ;;
-					azul           ) letra=';34' ;;
-					rox[oa] | rosa ) letra=';35' ;;
-					cian[oa]       ) letra=';36' ;;
-					branc[oa]      ) letra=';37' ;;
-					*) zztool -e uso echo; return 1 ;;
+					pret[oa]) letra=';30' ;;
+					vermelh[oa]) letra=';31' ;;
+					verde) letra=';32' ;;
+					amarel[oa]) letra=';33' ;;
+					azul) letra=';34' ;;
+					rox[oa] | rosa) letra=';35' ;;
+					cian[oa]) letra=';36' ;;
+					branc[oa]) letra=';37' ;;
+					*)
+						zztool -e uso echo
+						return 1
+						;;
 				esac
 				shift
-			;;
+				;;
 			-f | --fundo)
 				case "$2" in
-					preto       ) fundo='40' ;;
-					vermelho    ) fundo='41' ;;
-					verde       ) fundo='42' ;;
-					amarelo     ) fundo='43' ;;
-					azul        ) fundo='44' ;;
-					roxo | rosa ) fundo='45' ;;
-					ciano       ) fundo='46' ;;
-					branco      ) fundo='47' ;;
-					*) zztool -e uso echo; return 1 ;;
+					preto) fundo='40' ;;
+					vermelho) fundo='41' ;;
+					verde) fundo='42' ;;
+					amarelo) fundo='43' ;;
+					azul) fundo='44' ;;
+					roxo | rosa) fundo='45' ;;
+					ciano) fundo='46' ;;
+					branco) fundo='47' ;;
+					*)
+						zztool -e uso echo
+						return 1
+						;;
 				esac
 				shift
-			;;
-			-N | --negrito    ) negrito=';1'    ;;
-			-p | --pisca      ) pisca=';5'      ;;
-			-s | --sublinhado ) sublinhado=';4' ;;
-			-n | --nao-quebra ) quebra_linha='' ;;
+				;;
+			-N | --negrito) negrito=';1' ;;
+			-p | --pisca) pisca=';5' ;;
+			-s | --sublinhado) sublinhado=';4' ;;
+			-n | --nao-quebra) quebra_linha='' ;;
 			*) break ;;
 		esac
 		shift
 	done
 
-	test -n "$1" || { zztool -e uso echo; return 1; }
+	test -n "$1" || {
+		zztool -e uso echo
+		return 1
+	}
 
 	# Mostra códigos ANSI somente quando necessário (e quando ZZCOR estiver ligada)
-	if test '1' != "$ZZCOR" -o "$fundo$letra$negrito$pisca$sublinhado" = ''
-	then
+	if test '1' != "$ZZCOR" -o "$fundo$letra$negrito$pisca$sublinhado" = ''; then
 		printf -- "$*$quebra_linha"
 	else
 		printf -- "\033[$fundo$letra$negrito$pisca${sublinhado}m$*\033[m$quebra_linha"

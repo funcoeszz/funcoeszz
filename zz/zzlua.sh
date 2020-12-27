@@ -16,7 +16,7 @@
 # Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzlua ()
+zzlua()
 {
 	zzzz -h lua "$1" && return
 
@@ -25,41 +25,36 @@ zzlua ()
 	local padrao="$*"
 
 	# Força atualização da listagem apagando o cache
-	if test '--atualiza' = "$1"
-	then
+	if test '--atualiza' = "$1"; then
 		zztool atualiza lua
 		shift
 	fi
 
 	# Se o cache está vazio, baixa listagem da Internet
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool dump "$url" |
-		awk '
+			awk '
 				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }
 				$0 !~ /^$/  { for (i=1;i<=branco;i++) { print "" }; print ; branco = 0 }
 			' |
-		sed -n '/^ *4\.1/,/^ *6/p' |
-		sed '/^ *[4-6]/,/^ *[_-][_-][_-][_-]*$/{/^ *[_-][_-][_-][_-]*$/!d;}' > "$cache"
+			sed -n '/^ *4\.1/,/^ *6/p' |
+			sed '/^ *[4-6]/,/^ *[_-][_-][_-][_-]*$/{/^ *[_-][_-][_-][_-]*$/!d;}' >"$cache"
 	fi
 
-	if test '-d' = "$1" -o '--detalhe' = "$1"
-	then
+	if test '-d' = "$1" -o '--detalhe' = "$1"; then
 		# Detalhe de uma função específica
-		if test -n "$2"
-		then
+		if test -n "$2"; then
 			sed -n "/  *$2/,/^ *[_-][_-][_-][_-]*$/p" "$cache" |
-			sed '/^ *[_-][_-][_-][_-]*$/d' | sed '$ { /^ *$/ d; }'
+				sed '/^ *[_-][_-][_-][_-]*$/d' | sed '$ { /^ *$/ d; }'
 		fi
-	elif test -n "$padrao"
-	then
+	elif test -n "$padrao"; then
 		# Busca a(s) função(ões)
 		sed -n '/^ *[_-][_-][_-][_-]*$/,/^ *[a-z_]/p' "$cache" |
-		sed '/^ *[_-][_-][_-][_-]*$/d;/^ *$/d;s/^  //g;s/\([^ ]\) .*$/\1/g' |
-		grep -h -i -- "$padrao"
+			sed '/^ *[_-][_-][_-][_-]*$/d;/^ *$/d;s/^  //g;s/\([^ ]\) .*$/\1/g' |
+			grep -h -i -- "$padrao"
 	else
 		# Lista todas as funções
 		sed -n '/^ *[_-][_-][_-][_-]*$/,/^ *[a-z_]/p' "$cache" |
-		sed '/^ *[_-][_-][_-][_-]*$/d;/^ *$/d;s/\([^ ]\) .*$/\1/g'
+			sed '/^ *[_-][_-][_-][_-]*$/d;/^ *$/d;s/\([^ ]\) .*$/\1/g'
 	fi
 }

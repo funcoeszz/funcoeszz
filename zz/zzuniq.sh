@@ -12,7 +12,7 @@
 # Licença: GPL
 # Tags: uniq, emulação
 # ----------------------------------------------------------------------------
-zzuniq ()
+zzuniq()
 {
 	zzzz -h uniq "$1" && return
 

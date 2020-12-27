@@ -15,7 +15,7 @@
 # Requisitos: zzminusculas zzsemacento zztrim
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzmariadb ()
+zzmariadb()
 {
 	zzzz -h mariadb "$1" && return
 
@@ -23,24 +23,20 @@ zzmariadb ()
 	local cache=$(zztool cache mariadb)
 	local comando
 
-	if test '--atualiza' = "$1"
-	then
+	if test '--atualiza' = "$1"; then
 		zztool atualiza mariadb
 		shift
 	fi
 
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool dump "${url}/mariadb-brazilian-portuguese/" |
 			sed -n '/^\( *\* \)\{0,1\}[A-Z]\{4,\}/p' |
 			sed 's/  *\* *//' |
-			awk '{print NR, $0}'> "$cache"
+			awk '{print NR, $0}' >"$cache"
 	fi
 
-	if test -n "$1"
-	then
-		if zztool testa_numero "$1"
-		then
+	if test -n "$1"; then
+		if zztool testa_numero "$1"; then
 			comando=$(
 				sed -n "${1}p" "$cache" |
 					sed "

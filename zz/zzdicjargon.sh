@@ -12,7 +12,7 @@
 # Requisitos: zztrim zzdividirtexto
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
-zzdicjargon ()
+zzdicjargon()
 {
 	zzzz -h dicjargon "$1" && return
 
@@ -22,16 +22,18 @@ zzdicjargon ()
 	local padrao=$(echo "$*" | sed 's/ /-/g')
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso dicjargon; return 1; }
+	test -n "$1" || {
+		zztool -e uso dicjargon
+		return 1
+	}
 
 	# Se o cache está vazio, baixa listagem da Internet
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool list "$url/go01.html" |
 			sed '
 				#/^ *[0-9][0-9]*\. /!d
 				s@.*/html/@@
-				/^[A-Z0]\//!d' > "$cache"
+				/^[A-Z0]\//!d' >"$cache"
 	fi
 
 	achei=$(grep -i "$padrao" $cache)
@@ -39,15 +41,13 @@ zzdicjargon ()
 
 	test -n "$achei" || return
 
-	if test $num -gt 1
-	then
+	if test $num -gt 1; then
 		mais=$achei
 		achei2=$(echo "$achei" | grep -w "$padrao" | sed 1q)
 		test -n "$achei2" && achei="$achei2" && num=1
 	fi
 
-	if test $num -eq 1
-	then
+	if test $num -eq 1; then
 		zztool dump -w 500 "$url/$achei" |
 			awk '
 				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }

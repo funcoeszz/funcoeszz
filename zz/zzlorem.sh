@@ -11,7 +11,7 @@
 # Licença: GPL
 # Tags: texto, teste
 # ----------------------------------------------------------------------------
-zzlorem ()
+zzlorem()
 {
 
 	# Comando especial das funcoes ZZ
@@ -41,21 +41,18 @@ Sed ac tempor nulla. Nunc eget nunc sit amet magna porta malesuada. Vivamus phar
 
 In gravida, neque a mattis tincidunt, velit arcu cursus nisi, eu blandit risus ligula eget ligula. Aenean faucibus tincidunt bibendum. Nulla nec urna lorem. Suspendisse non lorem in sapien cursus dignissim interdum non ligula. Suspendisse potenti. Sed rutrum libero ut odio varius a condimentum nulla commodo. Etiam in eros diam, vel lobortis nibh. Aliquam quam felis, blandit sit amet placerat non, tristique sit amet nisi. Pellentesque sit amet magna rutrum odio varius volutpat. Quisque consequat, elit ac blandit varius, turpis odio pellentesque urna, eu ultricies elit quam eget elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nam vel sem sem, vitae vehicula tortor. Etiam ut dui diam. Duis id libero nunc, pharetra bibendum tellus. Praesent accumsan tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et."
 
-	if test "$#" -ne 1
-	then
+	if test "$#" -ne 1; then
 
 		# Se nao for passado um numero de palavras, exibe o texto todo
 		echo $TEXTO
 
-	elif zztool testa_numero "$1"
-	then
+	elif zztool testa_numero "$1"; then
 
 		# Se o parametro for maior e igual a 1000, repete os múltiplos de 1000.
 		contador=$(($1 / 1000))
-		while test $contador -gt 0
-		do
+		while test $contador -gt 0; do
 			echo $TEXTO
-			contador=$(($contador -1))
+			contador=$(($contador - 1))
 		done
 
 		# Se o resto do parâmetro for maior que zero, corta o texto no local certo, até esse limite ou ponto.

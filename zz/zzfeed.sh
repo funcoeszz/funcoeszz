@@ -23,7 +23,7 @@
 # Requisitos: zzxml zzunescape zztrim zzutf8
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzfeed ()
+zzfeed()
 {
 	zzzz -h feed "$1" && return
 
@@ -31,22 +31,26 @@ zzfeed ()
 	local limite=10
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-		-n) limite=$2; shift ;;
-		-u) useragent='-u "Mozilla/5.0"' ;;
-		* ) break ;;
+			-n)
+				limite=$2
+				shift
+				;;
+			-u) useragent='-u "Mozilla/5.0"' ;;
+			*) break ;;
 		esac
 		shift
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso feed; return 1; }
+	test -n "$1" || {
+		zztool -e uso feed
+		return 1
+	}
 
 	# Verificação básica
-	if ! zztool testa_numero "$limite"
-	then
+	if ! zztool testa_numero "$limite"; then
 		zztool erro "Número inválido para a opção -n: $limite"
 		return 1
 	fi
@@ -90,32 +94,28 @@ zzfeed ()
 	cache=$(zztool mktemp feed)
 
 	# Para cada URL que o usuário informou...
-	for url
-	do
+	for url; do
 		# Só mostra a url se houver mais de uma
 		test $# -gt 1 && zztool eco "* $url"
 
 		# Baixa e limpa o conteúdo do feed
-		if test '-' = "$1"
-		then
-			cat - | zzutf8 | zzxml --tidy > "$tmp"
+		if test '-' = "$1"; then
+			cat - | zzutf8 | zzxml --tidy >"$tmp"
 		else
 			zztool download $useragent "$url" "$cache"
-			zzutf8 "$cache" | zzxml --tidy > "$tmp"
+			zzutf8 "$cache" | zzxml --tidy >"$tmp"
 		fi
 
 		# Tenta identificar o formato: <feed> é Atom, <rss> é RSS
 		formato=$(grep -e '^<feed[ >]' -e '^<rss[ >]' -e '^<rdf[:>]' "$tmp")
 
 		# Afinal, isso é um feed ou não?
-		if test -n "$formato"
-		then
+		if test -n "$formato"; then
 			### É um feed, vamos mostrar as últimas notícias.
 			# Atom ou RSS, as manchetes estão sempre na tag <title>,
 			# que por sua vez está dentro de <item> ou <entry>.
 
-			if zztool grep_var '<feed' "$formato"
-			then
+			if zztool grep_var '<feed' "$formato"; then
 				tag_mae='entry'
 			else
 				tag_mae='item'

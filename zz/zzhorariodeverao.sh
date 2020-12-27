@@ -13,7 +13,7 @@
 # Requisitos: zzcarnaval zzdata zzdiadasemana
 # Tags: data
 # ----------------------------------------------------------------------------
-zzhorariodeverao ()
+zzhorariodeverao()
 {
 	zzzz -h horariodeverao "$1" && return
 
@@ -28,8 +28,7 @@ zzhorariodeverao ()
 	zztool -e testa_ano "$ano" || return 1
 
 	# Só de 2008 em diante...
-	if test "$ano" -lt 2008
-	then
+	if test "$ano" -lt 2008; then
 		zztool erro 'Antes de 2008 não havia regra fixa para o horário de verão'
 		return 1
 	fi
@@ -37,19 +36,18 @@ zzhorariodeverao ()
 	# Encontra os dias de início e término do horário de verão.
 	# Sei que o algoritmo não é eficiente, mas é simples de entender.
 	#
-	for dia in $dias_3a_semana
-	do
+	for dia in $dias_3a_semana; do
 		data="$dia/10/$ano"
 		test $(zzdiadasemana $data) = 'domingo' && inicio="$data"
 
-		data="$dia/02/$((ano+1))"
+		data="$dia/02/$((ano + 1))"
 		test $(zzdiadasemana $data) = 'domingo' && fim="$data"
 	done
 
 	# Exceção à regra: Se o domingo de término do horário de verão
 	# coincidir com o Carnaval, adia o término para o próximo domingo.
 	#
-	domingo_carnaval=$(zzdata $(zzcarnaval $((ano+1)) ) - 2)
+	domingo_carnaval=$(zzdata $(zzcarnaval $((ano + 1))) - 2)
 	test "$fim" = "$domingo_carnaval" && fim=$(zzdata $fim + 7)
 
 	# Datas calculadas, basta mostrar o resultado

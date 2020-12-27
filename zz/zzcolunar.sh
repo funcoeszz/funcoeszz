@@ -42,11 +42,14 @@
 # Requisitos: zzalinhar zztrim
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
-zzcolunar ()
+zzcolunar()
 {
 	zzzz -h colunar "$1" && return
 
-	test -n "$1" || { zztool -e uso colunar; return 1; }
+	test -n "$1" || {
+		zztool -e uso colunar
+		return 1
+	}
 
 	local formato='n'
 	local alinhamento='-l'
@@ -55,41 +58,73 @@ zzcolunar ()
 	local sep=' '
 	local colunas
 
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-		-[nN])                         formato='n';      shift ;;
-		-[zZ])                         formato='z';      shift ;;
-		-H | --header)                 header=1;         shift ;;
-		-l | --left | -e | --esqueda)  alinhamento='-l'; shift ;;
-		-r | --right | -d | --direita) alinhamento='-r'; shift ;;
-		-c | --center | --centro)      alinhamento='-c'; shift ;;
-		-j)                            alinhamento='-j'; shift ;;
-		-s)                            sep="$2";  shift; shift ;;
-		-w | --width | --largura)
-			zztool testa_numero "$2" && largura="$2" || { zztool erro "Largura inválida: $2"; return 1; }
-			shift
-			shift
-		;;
-		--) shift; break;;
-		-*) zztool erro "Opção inválida: $1"; return 1 ;;
-		*) break;;
+			-[nN])
+				formato='n'
+				shift
+				;;
+			-[zZ])
+				formato='z'
+				shift
+				;;
+			-H | --header)
+				header=1
+				shift
+				;;
+			-l | --left | -e | --esqueda)
+				alinhamento='-l'
+				shift
+				;;
+			-r | --right | -d | --direita)
+				alinhamento='-r'
+				shift
+				;;
+			-c | --center | --centro)
+				alinhamento='-c'
+				shift
+				;;
+			-j)
+				alinhamento='-j'
+				shift
+				;;
+			-s)
+				sep="$2"
+				shift
+				shift
+				;;
+			-w | --width | --largura)
+				zztool testa_numero "$2" && largura="$2" || {
+					zztool erro "Largura inválida: $2"
+					return 1
+				}
+				shift
+				shift
+				;;
+			--)
+				shift
+				break
+				;;
+			-*)
+				zztool erro "Opção inválida: $1"
+				return 1
+				;;
+			*) break ;;
 		esac
 	done
 
-	if zztool testa_numero "$1"
-	then
+	if zztool testa_numero "$1"; then
 		colunas="$1"
 		shift
 	else
-		zztool erro "Quantidade de colunas inválidas";
+		zztool erro "Quantidade de colunas inválidas"
 		zztool -e uso colunar
 		return 1
 	fi
 
 	zztool file_stdin "$@" |
-	zzalinhar -w $largura ${alinhamento} |
-	awk -v cols=$colunas -v formato=$formato -v cab=$header -v delim="$sep" '
+		zzalinhar -w $largura ${alinhamento} |
+		awk -v cols=$colunas -v formato=$formato -v cab=$header -v delim="$sep" '
 
 		NR==1 { if (cab) header = $0 }
 
@@ -137,11 +172,10 @@ zzcolunar ()
 			}
 		}
 	' | zztrim -V |
-	if test "$sep" != ' '
-	then
-		sed "s/${sep}$//"
-	else
-		cat -
-	fi |
-	zztrim -r
+		if test "$sep" != ' '; then
+			sed "s/${sep}$//"
+		else
+			cat -
+		fi |
+		zztrim -r
 }

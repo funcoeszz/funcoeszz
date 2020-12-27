@@ -11,19 +11,19 @@
 # Requisitos: zzjuntalinhas zzsqueeze zztrim zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzcotacao ()
+zzcotacao()
 {
 	zzzz -h cotacao "$1" && return
 
 	zztool eco "Infomoney"
 	zztool source "http://www.infomoney.com.br/mercados/cambio" |
-	sed -n '/<thead/,/thead>/p;/<tbody/,/tbody>/{ s/ *</</g;p;}' |
-	zzjuntalinhas -i '<tr>' -f '</tr>' |
-	zzxml --untag |
-	zzsqueeze |
-	zztrim |
-	zzunescape --html |
-	awk '
+		sed -n '/<thead/,/thead>/p;/<tbody/,/tbody>/{ s/ *</</g;p;}' |
+		zzjuntalinhas -i '<tr>' -f '</tr>' |
+		zzxml --untag |
+		zzsqueeze |
+		zztrim |
+		zzunescape --html |
+		awk '
 	/n\/d/ {next}
 	{
 		if ( NR == 1 ) printf "%18s  %6s  %6s   %6s\n", "", $2, $3, $4

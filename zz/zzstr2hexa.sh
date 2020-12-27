@@ -12,7 +12,7 @@
 # Requisitos: zztrim
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzstr2hexa ()
+zzstr2hexa()
 {
 	zzzz -h str2hexa "$1" && return
 
@@ -21,8 +21,7 @@ zzstr2hexa ()
 
 	# String vem como argumento ou STDIN?
 	# Nota: não use zztool multi_stdin, adiciona \n no final do argumento
-	if test $# -ne 0
-	then
+	if test $# -ne 0; then
 		string="$*"
 	else
 		string=$(cat /dev/stdin)
@@ -30,10 +29,8 @@ zzstr2hexa ()
 
 	# Loop a cada caractere, e o printf o converte para hexa
 	printf %s "$string" |
-		while IFS= read -r -n 1 caractere
-		do
-			if test "$caractere" = "$nl"
-			then
+		while IFS= read -r -n 1 caractere; do
+			if test "$caractere" = "$nl"; then
 				# Exceção para contornar um bug:
 				#   printf %x 'c retorna 0 quando c=\n
 				printf '0a '

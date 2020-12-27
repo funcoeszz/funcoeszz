@@ -16,7 +16,7 @@
 # Licença: GPL
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzunescape ()
+zzunescape()
 {
 	zzzz -h unescape "$1" && return
 
@@ -294,18 +294,20 @@ zzunescape ()
 	"
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			--html)
 				filtro="$filtro$html"
 				shift
-			;;
+				;;
 			--xml)
 				filtro="$filtro$xml"
 				shift
-			;;
-			--) shift; break ;;
+				;;
+			--)
+				shift
+				break
+				;;
 			*) break ;;
 		esac
 	done

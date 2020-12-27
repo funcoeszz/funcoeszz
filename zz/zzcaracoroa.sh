@@ -10,7 +10,7 @@
 # Requisitos: zzaleatorio
 # Tags: RANDOM, emulação
 # ----------------------------------------------------------------------------
-zzcaracoroa ()
+zzcaracoroa()
 {
 
 	# Comando especial das funcoes ZZ
@@ -20,8 +20,7 @@ zzcaracoroa ()
 	local NUM="$(zzaleatorio 1)"
 
 	# Verifica o numero gerado e exibe o resultado
-	if test $NUM -eq 0
-	then
+	if test $NUM -eq 0; then
 		echo "Cara"
 	else
 		echo "Coroa"

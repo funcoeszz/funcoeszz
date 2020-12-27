@@ -17,7 +17,7 @@
 # Requisitos: zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zznoticiassec ()
+zznoticiassec()
 {
 	zzzz -h noticiassec "$1" && return
 
@@ -30,8 +30,7 @@ zznoticiassec ()
 	test -n "$1" && sites="$1"
 
 	# Linux Security
-	if zztool grep_var s "$sites"
-	then
+	if zztool grep_var s "$sites"; then
 		url='http://www.linuxsecurity.com/linuxsecurity_advisories.rdf'
 		echo
 		zztool eco "* Linux Security ($url):"
@@ -39,8 +38,7 @@ zznoticiassec ()
 	fi
 
 	# CERT/CC
-	if zztool grep_var c "$sites"
-	then
+	if zztool grep_var c "$sites"; then
 		url='http://www.us-cert.gov/channels/techalerts.rdf'
 		echo
 		zztool eco "* CERT/CC ($url):"
@@ -48,8 +46,7 @@ zznoticiassec ()
 	fi
 
 	# Linux Today - Security
-	if zztool grep_var t "$sites"
-	then
+	if zztool grep_var t "$sites"; then
 		url='http://feeds.feedburner.com/linuxtoday/linux/'
 		echo
 		zztool eco "* Linux Today - Security ($url):"
@@ -57,8 +54,7 @@ zznoticiassec ()
 	fi
 
 	# Security Focus
-	if zztool grep_var f "$sites"
-	then
+	if zztool grep_var f "$sites"; then
 		url='http://www.securityfocus.com/bid/'
 		echo
 		zztool eco "* SecurityFocus Vulns Archive ($url):"

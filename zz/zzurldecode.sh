@@ -12,14 +12,14 @@
 # Licença: GPL
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzurldecode ()
+zzurldecode()
 {
 	zzzz -h urldecode "$1" && return
 
 	# Converte os %HH para \xHH, que são expandidos pelo printf %b
 	printf '%b\n' $(
 		zztool multi_stdin "$@" |
-		sed 's/%\([0-9A-Fa-f]\{2\}\)/\\x\1/g'
+			sed 's/%\([0-9A-Fa-f]\{2\}\)/\\x\1/g'
 	)
 
 }

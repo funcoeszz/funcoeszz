@@ -26,36 +26,43 @@
 # Licença: GPL
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
-zzsplit ()
+zzsplit()
 {
 	zzzz -h split "$1" && return
 
 	local passos=1
 	local qtde=0
 
-	test -n "$1" || { zztool -e uso split; return 1; }
+	test -n "$1" || {
+		zztool -e uso split
+		return 1
+	}
 
 	# Quantidade de arquivo a serem separados
 	# Estipulando as quantidades de linhas para cada arquivo de saída
-	if test '-p' = "$1"
-	then
+	if test '-p' = "$1"; then
 		passos="$2"
 		qtde=$(echo "$passos" | awk -F"," '{ print NF }')
 		shift
 		shift
 	fi
 	# Estipilando a quantidade de arquivos de saída diretamente
-	if zztool testa_numero $1
-	then
+	if zztool testa_numero $1; then
 		qtde=$1
 		shift
 	fi
 
 	# Garantindo separar em 2 arquivos ou mais
-	test "$qtde" -gt "1" || { zztool -e uso split; return 1; }
+	test "$qtde" -gt "1" || {
+		zztool -e uso split
+		return 1
+	}
 
 	# Conferindo se arquivo existe e é legível
-	zztool arquivo_legivel "$1" || { zztool -e uso split; return 1; }
+	zztool arquivo_legivel "$1" || {
+		zztool -e uso split
+		return 1
+	}
 
 	# Onde a "separação" ocorre efetivamente.
 	awk -v qtde_awk=$qtde -v passos_awk="$passos" '

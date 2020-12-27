@@ -17,7 +17,7 @@
 # Requisitos: zzaleatorio
 # Tags: internet, cálculo, manipulação
 # ----------------------------------------------------------------------------
-zzcnpj ()
+zzcnpj()
 {
 	zzzz -h cnpj "$1" && return
 
@@ -35,20 +35,17 @@ zzcnpj ()
 
 	# Remove os zeros do início (senão é considerado um octal)
 	# somente quando a sequência informada não for composta apenas por zeros
-	if test "$cnpj" != "00000000000000"
-	then
+	if test "$cnpj" != "00000000000000"; then
 		cnpj=$(echo "$cnpj" | sed 's/^0*//')
 	fi
 
 	# API para consultar situação e detalhes da empresa em formato json
-	if test '-c' = "$1"
-	then
+	if test '-c' = "$1"; then
 		cnpj=$(echo "$cnpj" | sed 's/^0*//')
 
 		# Só continua se o CNPJ for válido
 		auxiliar=$(zzcnpj $cnpj 2>&1)
-		if test "$auxiliar" != 'CNPJ válido'
-		then
+		if test "$auxiliar" != 'CNPJ válido'; then
 			zztool erro "$auxiliar"
 			return 1
 		fi
@@ -56,7 +53,7 @@ zzcnpj ()
 		cnpj=$(printf "%014d" "$cnpj")
 
 		zztool source "https://receitaws.com.br/v1/cnpj/$cnpj" |
-		sed '
+			sed '
 			/^ *[{}]/d
 			/""/d
 			/\[\]/d
@@ -69,7 +66,7 @@ zzcnpj ()
 			s/,$//
 			s/"//g
 			s/_/ /' |
-		awk '
+			awk '
 			/(text|qual|nome): / {
 				eol=($1 ~/nome:/?"\n":"")
 				sub(/(text|qual|nome): /,"")
@@ -81,14 +78,12 @@ zzcnpj ()
 	fi
 
 	# CNPJ válido formatado
-	if test '-f' = "$1"
-	then
+	if test '-f' = "$1"; then
 		cnpj=$(echo "$cnpj" | sed 's/^0*//')
 
 		# Só continua se o CNPJ for válido
 		auxiliar=$(zzcnpj $cnpj 2>&1)
-		if test "$auxiliar" != 'CNPJ válido'
-		then
+		if test "$auxiliar" != 'CNPJ válido'; then
 			zztool erro "$auxiliar"
 			return 1
 		fi
@@ -104,11 +99,9 @@ zzcnpj ()
 	fi
 
 	# CNPJ válido não formatado
-	if test '-F' = "$1"
-	then
+	if test '-F' = "$1"; then
 
-		if test "${#cnpj}" -eq 0
-		then
+		if test "${#cnpj}" -eq 0; then
 			zzcnpj | tr -d -c '0123456789\n'
 			return 0
 		fi
@@ -117,8 +110,7 @@ zzcnpj ()
 
 		# Só continua se o CNPJ for válido
 		auxiliar=$(zzcnpj $cnpj 2>&1)
-		if test "$auxiliar" != 'CNPJ válido'
-		then
+		if test "$auxiliar" != 'CNPJ válido'; then
 			zztool erro "$auxiliar"
 			return 1
 		fi
@@ -129,35 +121,30 @@ zzcnpj ()
 
 	test '-q' = "$1" && quieto=1
 
-	if test -n "$cnpj"
-	then
+	if test -n "$cnpj"; then
 		# CNPJ do usuário
 		cnpj=$(printf %014d "$cnpj")
 
-		if test ${#cnpj} -ne 14
-		then
+		if test ${#cnpj} -ne 14; then
 			test -n "$quieto" || zztool erro 'CNPJ inválido (deve ter 14 dígitos)'
 			return 1
 		fi
 
 		base="${cnpj%??}"
 
-		for ((i=0;i<13;i++))
-			do
-				auxiliar=$(echo "$base" | sed "s/$i/X/g")
-				if test "$auxiliar" = "XXXXXXXXXXXX"
-				then
-					test -n "$quieto" || zztool erro "CNPJ inválido (não pode conter os 12 primeiros digitos iguais)"
-					return 1
-				fi
-			done
+		for ((i = 0; i < 13; i++)); do
+			auxiliar=$(echo "$base" | sed "s/$i/X/g")
+			if test "$auxiliar" = "XXXXXXXXXXXX"; then
+				test -n "$quieto" || zztool erro "CNPJ inválido (não pode conter os 12 primeiros digitos iguais)"
+				return 1
+			fi
+		done
 		#Fim do laço de verificação de digitos repetidos
 
 	else
 		# CNPJ gerado aleatoriamente
 
-		while test ${#cnpj} -lt 8
-		do
+		while test ${#cnpj} -lt 8; do
 			cnpj="$cnpj$(zzaleatorio 8)"
 		done
 
@@ -170,8 +157,7 @@ zzcnpj ()
 	set - $(echo "$base" | sed 's/./& /g')
 
 	somatoria=0
-	for i in 5 4 3 2 9 8 7 6 5 4 3 2
-	do
+	for i in 5 4 3 2 9 8 7 6 5 4 3 2; do
 		n="$1"
 		somatoria=$((somatoria + (i * n)))
 		shift
@@ -185,8 +171,7 @@ zzcnpj ()
 	set - $(echo "$base" | sed 's/./& /g')
 
 	somatoria=0
-	for i in 6 5 4 3 2 9 8 7 6 5 4 3 2
-	do
+	for i in 6 5 4 3 2 9 8 7 6 5 4 3 2; do
 		n="$1"
 		somatoria=$((somatoria + (i * n)))
 		shift
@@ -197,13 +182,11 @@ zzcnpj ()
 	test $digito2 -ge 10 && digito2=0
 
 	# Mostra ou valida o CNPJ
-	if test ${#cnpj} -eq 12
-	then
+	if test ${#cnpj} -eq 12; then
 		echo "$cnpj$digito1$digito2" |
 			sed 's|\(..\)\(...\)\(...\)\(....\)|\1.\2.\3/\4-|'
 	else
-		if test "${cnpj#????????????}" = "$digito1$digito2"
-		then
+		if test "${cnpj#????????????}" = "$digito1$digito2"; then
 			test -n "$quieto" || echo 'CNPJ válido'
 		else
 			# Boa ação do dia: mostrar quais os verificadores corretos

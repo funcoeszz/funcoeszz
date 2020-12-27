@@ -18,30 +18,31 @@
 # Requisitos: zzminusculas
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
-zzarrumanome ()
+zzarrumanome()
 {
 	zzzz -h arrumanome "$1" && return
 
 	local arquivo caminho antigo novo recursivo pastas nao i
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-			-d) pastas=1    ;;
+			-d) pastas=1 ;;
 			-r) recursivo=1 ;;
 			-n) nao="[-n] " ;;
-			* ) break       ;;
+			*) break ;;
 		esac
 		shift
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso arrumanome; return 1; }
+	test -n "$1" || {
+		zztool -e uso arrumanome
+		return 1
+	}
 
 	# Para cada arquivo que o usuário informou...
-	for arquivo
-	do
+	for arquivo; do
 		# Tira a barra no final do nome da pasta
 		test "$arquivo" != / && arquivo=${arquivo%/}
 
@@ -49,8 +50,7 @@ zzarrumanome ()
 		test -f "$arquivo" -o -d "$arquivo" || continue
 
 		# Se for uma pasta...
-		if test -d "$arquivo"
-		then
+		if test -d "$arquivo"; then
 			# Arruma arquivos de dentro dela (-r)
 			test "${recursivo:-0}" -eq 1 &&
 				zzarrumanome -r ${pastas:+-d} ${nao:+-n} "$arquivo"/*
@@ -69,9 +69,9 @@ zzarrumanome ()
 		# $novo é o nome arrumado com a magia negra no Sed
 		novo=$(
 			echo "$antigo" |
-			tr -s '\t ' ' ' |  # Squeeze: TABs e espaços viram um espaço
-			zzminusculas |
-			sed -e "
+				tr -s '\t ' ' ' | # Squeeze: TABs e espaços viram um espaço
+				zzminusculas |
+				sed -e "
 				# Remove aspas
 				s/[\"']//g
 
@@ -101,8 +101,7 @@ zzarrumanome ()
 		)
 
 		# Se der problema com a codificação, é o y/// do Sed anterior quem estoura
-		if test $? -ne 0
-		then
+		if test $? -ne 0; then
 			zztool erro "Ops. Problemas com a codificação dos caracteres."
 			zztool erro "O arquivo original foi preservado: $arquivo"
 			return 1
@@ -113,12 +112,10 @@ zzarrumanome ()
 
 		# Se já existir um arquivo/pasta com este nome, vai
 		# colocando um número no final, até o nome ser único.
-		if test -e "$caminho/$novo"
-		then
+		if test -e "$caminho/$novo"; then
 			i=1
-			while test -e "$caminho/$novo.$i"
-			do
-				i=$((i+1))
+			while test -e "$caminho/$novo.$i"; do
+				i=$((i + 1))
 			done
 			novo="$novo.$i"
 		fi

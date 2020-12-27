@@ -10,18 +10,17 @@
 # Licença: GPL
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
-zzdicantonimos ()
+zzdicantonimos()
 {
 
 	zzzz -h dicantonimos "$1" && return
 
 	local url='http://www.antonimos.com.br/busca.php'
 	local palavra="$*"
-	local palavra_busca=$( echo "$palavra" | sed "$ZZSEDURL" )
+	local palavra_busca=$(echo "$palavra" | sed "$ZZSEDURL")
 
 	# Verifica se recebeu parâmetros
-	if test -z "$1"
-	then
+	if test -z "$1"; then
 		zztool -e uso dicantonimos
 		return 1
 	fi

@@ -12,7 +12,7 @@
 # Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzdominiopais ()
+zzdominiopais()
 {
 	zzzz -h dominiopais "$1" && return
 
@@ -23,26 +23,26 @@ zzdominiopais ()
 	local arquivo
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso dominiopais; return 1; }
+	test -n "$1" || {
+		zztool -e uso dominiopais
+		return 1
+	}
 
 	# Se o padrão inicia com ponto, retira-o e casa somente códigos
-	if test "${padrao#.}" != "$padrao"
-	then
+	if test "${padrao#.}" != "$padrao"; then
 		padrao="^${padrao#.}"
 	fi
 
 	# Se já temos o arquivo de dados no sistema, tudo certo
 	# Senão, baixa da internet
-	if test -f "$sistema"
-	then
+	if test -f "$sistema"; then
 		arquivo="$sistema"
 	else
 		arquivo="$cache"
 
 		# Se o cache está vazio, baixa listagem da Internet
-		if ! test -s "$cache"
-		then
-			zztool dump "$url" > "$cache"
+		if ! test -s "$cache"; then
+			zztool dump "$url" >"$cache"
 		fi
 	fi
 

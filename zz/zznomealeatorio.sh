@@ -12,7 +12,7 @@
 # Requisitos: zzseq zzaleatorio
 # Tags: sugestão
 # ----------------------------------------------------------------------------
-zznomealeatorio ()
+zznomealeatorio()
 {
 	zzzz -h nomealeatorio "$1" && return
 
@@ -39,10 +39,8 @@ zznomealeatorio ()
 	# Gera nome aleatório com $entrada caracteres. Alterna consoantes e
 	# vogais. Algoritmo baseado na função randomName() do código da
 	# página http://geradordenomes.com
-	for contador in $(zzseq "$entrada")
-	do
-		if test $((contador%2)) -eq 1
-		then
+	for contador in $(zzseq "$entrada"); do
+		if test $((contador % 2)) -eq 1; then
 			lista="$consoantes"
 		else
 			lista="$vogais"

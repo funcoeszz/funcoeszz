@@ -15,7 +15,7 @@
 # Requisitos: zzlinha zztrim zzlimpalixo
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzcidade ()
+zzcidade()
 {
 	zzzz -h cidade "$1" && return
 
@@ -24,18 +24,16 @@ zzcidade ()
 	local padrao="$*"
 
 	# Se o cache está vazio, baixa listagem da Internet
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		# Exemplo:^     * Aracaju (SE)
 		zztool dump "$url" |
-		sed -n '/A\[/,/Ver também\[/p' |
-		sed '/[•*]/!d;s//\
+			sed -n '/A\[/,/Ver também\[/p' |
+			sed '/[•*]/!d;s//\
 /g;' | zztrim | zzlimpalixo |
-		LC_ALL=C sort > "$cache"
+			LC_ALL=C sort >"$cache"
 	fi
 
-	if test -z "$padrao"
-	then
+	if test -z "$padrao"; then
 		# Mostra uma cidade qualquer
 		zzlinha -t . "$cache"
 	else

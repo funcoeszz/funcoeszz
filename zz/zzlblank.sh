@@ -19,29 +19,36 @@
 # Licença: GPL
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
-zzlblank ()
+zzlblank()
 {
 	zzzz -h lblank "$1" && return
 
 	local tipo_blank=0
 	local tab_spa=4
 
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-			-s) tipo_blank=1; shift;;
-			-t) tipo_blank=2; shift;;
-			* ) break;;
+			-s)
+				tipo_blank=1
+				shift
+				;;
+			-t)
+				tipo_blank=2
+				shift
+				;;
+			*) break ;;
 		esac
 	done
 
-	if test -n $1
-	then
-		zztool testa_numero $1 && { tab_spa=$1; shift; }
+	if test -n $1; then
+		zztool testa_numero $1 && {
+			tab_spa=$1
+			shift
+		}
 	fi
 
 	zztool file_stdin "$@" |
-	awk -v tipo=$tipo_blank '
+		awk -v tipo=$tipo_blank '
 		function subs() {
 			if (tipo == 2) { sub(/^\t*/, "", $0) }
 			else { sub(/^ */, "", $0) }

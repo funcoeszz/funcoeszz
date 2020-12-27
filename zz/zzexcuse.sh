@@ -11,13 +11,13 @@
 # Requisitos: zztrim
 # Tags: internet, diversão
 # ----------------------------------------------------------------------------
-zzexcuse ()
+zzexcuse()
 {
 	zzzz -h excuse "$1" && return
 
 	local url='http://programmingexcuses.com/'
 
 	zztool dump "$url" |
-	sed '$d;/Link: /d' |
-	zztrim
+		sed '$d;/Link: /d' |
+		zztrim
 }

@@ -12,7 +12,7 @@
 # Requisitos: zzunescape zztrim zzcolunar
 # Tags: internet, cinema
 # ----------------------------------------------------------------------------
-zzcineuci ()
+zzcineuci()
 {
 	zzzz -h cineuci "$1" && return
 
@@ -20,49 +20,44 @@ zzcineuci ()
 	local cinema codigo
 	local url="http://www.ucicinemas.com.br"
 
-	if test '--atualiza' = "$1"
-	then
+	if test '--atualiza' = "$1"; then
 		zztool atualiza cineuci
 		shift
 	fi
 
 	# Cidades e código cinemas e cinemas
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool source "${url}/cinemas" |
-		sed -n '
+			sed -n '
 			1,/<content>/d
 			/class="cinemas / { s/.*_//;s/".*//;n; p; }
 			/Avatar/ { s|.*Avatar/||; s|/Avatar\..*||; p; }
 			/strong/,/strong/ { /strong/d; p; }
 			/<\/content>/q
 		' |
-		zzunescape --html |
-		zztrim |
-		awk '{ if ($0 ~/^[0-9]+$/) {cod=sprintf("%02d",$0);getline; print " " cod " - " $0} else print "\n" $0}' |
-		tr -d '\r' |
-		zztrim -V > "$cache"
+			zzunescape --html |
+			zztrim |
+			awk '{ if ($0 ~/^[0-9]+$/) {cod=sprintf("%02d",$0);getline; print " " cod " - " $0} else print "\n" $0}' |
+			tr -d '\r' |
+			zztrim -V >"$cache"
 	fi
 
-	if test $# -eq 0
-	then
+	if test $# -eq 0; then
 		cat "$cache"
 
-	elif zztool testa_numero "$1"
-	then
+	elif zztool testa_numero "$1"; then
 		codigo=$(sed 's/^[ 0]*//' "$cache" | grep -o --color=never "^$1 " | tr -d ' ')
 		cinema=$(sed 's/^[ 0]*//' "$cache" | grep --color=never "^$1 " | sed 's/.* - //' | zztrim)
-		if test -n "$codigo"
-		then
+		if test -n "$codigo"; then
 			zztool eco "$cinema"
 			zztool source "${url}/api/Filmes/ListarFilmes/cinemas/${codigo}" |
-			tr '[{}],' '\n\n\n\n\n' |
-			sed -n '/"NomeDestaque":/p; /"Duracao":/,/"Censura":/p' |
-			sed 's/.*":"//;s/"//' |
-			sed "s/'//" |
-			awk 'BEGIN { printf "Filme\nDuração(min)\nGênero\nCensura\n" }; 1' |
-			zzcolunar -z 4 |
-			zztrim
+				tr '[{}],' '\n\n\n\n\n' |
+				sed -n '/"NomeDestaque":/p; /"Duracao":/,/"Censura":/p' |
+				sed 's/.*":"//;s/"//' |
+				sed "s/'//" |
+				awk 'BEGIN { printf "Filme\nDuração(min)\nGênero\nCensura\n" }; 1' |
+				zzcolunar -z 4 |
+				zztrim
 		else
 			zztool erro "Não encontrei o cinema $1"
 			return 1

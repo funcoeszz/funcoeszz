@@ -14,7 +14,7 @@
 # Requisitos: zzdata
 # Tags: data
 # ----------------------------------------------------------------------------
-zzdiadasemana ()
+zzdiadasemana()
 {
 	zzzz -h diadasemana "$1" && return
 
@@ -26,8 +26,7 @@ zzdiadasemana ()
 	# 1=domingo, assim os números são similares aos nomes: 2=segunda
 
 	# Opção de linha de comando
-	if test '-n' = "$1"
-	then
+	if test '-n' = "$1"; then
 		dias="$dias_n"
 		dias_rev="$dias_n_rev"
 		shift
@@ -50,13 +49,13 @@ zzdiadasemana ()
 	# o dia zero. O número será negativo se o ano for inferior a 1970.
 	#
 	delta=$(zzdata $data)
-	dia=$(( ${delta#-} % 7))  # remove o sinal negativo (se tiver)
+	dia=$((${delta#-} % 7)) # remove o sinal negativo (se tiver)
 
 	# Se a data é anterior a 01/01/1970, conta os dias ao contrário
 	test $delta -lt 0 && dias="$dias_rev"
 
 	# O cut tem índice inicial um e não zero, por isso dia+1
 	echo "$dias" |
-		cut -d ' ' -f $((dia+1)) |
+		cut -d ' ' -f $((dia + 1)) |
 		sed 's/-/-feira/'
 }

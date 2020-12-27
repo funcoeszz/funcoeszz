@@ -11,7 +11,7 @@
 # Licença: GPL
 # Tags: diff, emulação
 # ----------------------------------------------------------------------------
-zzdiffpalavra ()
+zzdiffpalavra()
 {
 	zzzz -h diffpalavra "$1" && return
 
@@ -19,7 +19,10 @@ zzdiffpalavra ()
 	local n=$(printf '\a')
 
 	# Verificação dos parâmetros
-	test $# -ne 2 && { zztool -e uso diffpalavra; return 1; }
+	test $# -ne 2 && {
+		zztool -e uso diffpalavra
+		return 1
+	}
 
 	# Verifica se os arquivos existem
 	zztool -e arquivo_legivel "$1" || return 1
@@ -29,8 +32,8 @@ zzdiffpalavra ()
 	tmp2=$(zztool mktemp diffpalavra)
 
 	# Deixa uma palavra por linha e marca o início de parágrafos
-	sed "s/^[[:blank:]]*$/$n$n/;" "$1" | tr ' ' '\n' > "$tmp1"
-	sed "s/^[[:blank:]]*$/$n$n/;" "$2" | tr ' ' '\n' > "$tmp2"
+	sed "s/^[[:blank:]]*$/$n$n/;" "$1" | tr ' ' '\n' >"$tmp1"
+	sed "s/^[[:blank:]]*$/$n$n/;" "$2" | tr ' ' '\n' >"$tmp2"
 
 	# Usa o diff para comparar as diferenças e formata a saída,
 	# agrupando as palavras para facilitar a leitura do resultado
@@ -90,8 +93,7 @@ zzdiffpalavra ()
 		tr "$n" '\n' |
 
 		# Podemos mostrar cores?
-		if test 1 = "$ZZCOR"
-		then
+		if test 1 = "$ZZCOR"; then
 			# Pinta as linhas antigas de vermelho e as novas de azul
 			esc=$(printf '\033')
 			sed "

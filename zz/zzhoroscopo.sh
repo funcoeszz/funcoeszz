@@ -16,13 +16,12 @@
 # Requisitos: zzsemacento zzminusculas zztrim zzxml
 # Tags: internet, distração, consulta
 # ----------------------------------------------------------------------------
-zzhoroscopo ()
+zzhoroscopo()
 {
 	zzzz -h horoscopo "$1" && return
 
 	# Verifica se o usuário informou um possível signo
-	if test -z "$1"
-	then
+	if test -z "$1"; then
 		zztool -e uso horoscopo
 		return 1
 	fi
@@ -34,8 +33,7 @@ zzhoroscopo ()
 	local signos='aquario peixes aries touro gemeos cancer leao virgem libra escorpiao sagitario capricornio'
 
 	# Se o signo informado pelo usuário for válido faz a consulta ao serviço
-	if zztool grep_var $signo "$signos"
-	then
+	if zztool grep_var $signo "$signos"; then
 		# Endereço do serviço de consulta do horóscopo
 		local url="http://m.horoscopovirtual.bol.uol.com.br/horoscopo/$signo"
 

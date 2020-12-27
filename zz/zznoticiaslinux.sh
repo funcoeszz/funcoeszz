@@ -18,7 +18,7 @@
 # Requisitos: zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zznoticiaslinux ()
+zznoticiaslinux()
 {
 	zzzz -h noticiaslinux "$1" && return
 
@@ -31,8 +31,7 @@ zznoticiaslinux ()
 	test -n "$1" && sites="$1"
 
 	# Br Linux
-	if zztool grep_var b "$sites"
-	then
+	if zztool grep_var b "$sites"; then
 		url='http://br-linux.org/feed/'
 		echo
 		zztool eco "* BR-Linux ($url):"
@@ -40,8 +39,7 @@ zznoticiaslinux ()
 	fi
 
 	# Canal Tech
-	if zztool grep_var c "$sites"
-	then
+	if zztool grep_var c "$sites"; then
 		url='https://canaltech.com.br/rss/linux/'
 		echo
 		zztool eco "* Canal Tech ($url):"
@@ -49,8 +47,7 @@ zznoticiaslinux ()
 	fi
 
 	# Diolinux
-	if zztool grep_var d "$sites"
-	then
+	if zztool grep_var d "$sites"; then
 		url='http://www.diolinux.com.br/feeds/posts/default/'
 		echo
 		zztool eco "* Diolinux ($url):"
@@ -58,8 +55,7 @@ zznoticiaslinux ()
 	fi
 
 	# Linux Descomplicado
-	if zztool grep_var l "$sites"
-	then
+	if zztool grep_var l "$sites"; then
 		url='https://www.linuxdescomplicado.com.br/category/noticias/feed'
 		echo
 		zztool eco "* Linux Descomplicado ($url):"
@@ -67,8 +63,7 @@ zznoticiaslinux ()
 	fi
 
 	# Linuxbuzz
-	if zztool grep_var z "$sites"
-	then
+	if zztool grep_var z "$sites"; then
 		url='http://www.linuxbuzz.com.br/feeds/posts/default?alt=rss'
 		echo
 		zztool eco "* Linuxbuzz ($url):"

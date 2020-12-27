@@ -27,7 +27,7 @@
 # Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzpad zzsqueeze zztrim zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zztv ()
+zztv()
 {
 	zzzz -h tv "$1" && return
 
@@ -41,131 +41,157 @@ zztv ()
 	# 2 = Detalhes do programa através do código
 	local flag=0
 
-	if ! test -s "$cache" || head -n 1 "$cache" | grep -q -v 'programacao'
-	then
+	if ! test -s "$cache" || head -n 1 "$cache" | grep -q -v 'programacao'; then
 		# Links das categorias
 		zztool source "$URL" |
-		sed -n '/categoria/{s/" .*//;s/.*"//;p;}' > "$cache"
+			sed -n '/categoria/{s/" .*//;s/.*"//;p;}' >"$cache"
 
 		# Lista de canais
 		fgrep '/programacao/' "$cache" |
-		while read linhas
-		do
-			zztool source "${URL}${linhas}"
-		done |
-		sed -n '
+			while read linhas; do
+				zztool source "${URL}${linhas}"
+			done |
+			sed -n '
 			/<a title="/{s/.*href="//;s/".*//;s|.*/||;p;}
 			/<h2>/{s/^[^>]*>//;s/<.*//;s/\(TCM - \| \(EP\)\?TV\| Channel\)//;s/Esporte Interativo /EI /;p;}
 		' |
-		awk '{printf $0 " "; getline; print}' |
-		sort |
-		zzunescape --html >> "$cache"
+			awk '{printf $0 " "; getline; print}' |
+			sort |
+			zzunescape --html >>"$cache"
 	fi
 
-	if test -n "$2"
-	then
+	if test -n "$2"; then
 		DATA=$(zzdatafmt -f 'DD\/MM' "$2" 2>/dev/null || echo "$DATA")
 	fi
 
-	if test -n "$1" && grep -i "^$1" $cache >/dev/null 2>/dev/null
-	then
+	if test -n "$1" && grep -i "^$1" $cache >/dev/null 2>/dev/null; then
 		codigo=$(grep -i "^$1" $cache | sed "s/ .*//")
 		desc=$(grep -i "^$1" $cache | sed "s/^[A-Z0-9]\{3\} *//")
 
 		zztool eco $desc
 		zztool source "${URL}/programacao/canal/$codigo" |
-		zztrim |
-		sed -n '
+			zztrim |
+			sed -n '
 			s/> *$/&|/
 			/subheader/{/<!--/d;s/<.\?li[^>]*>|\?//g;p;}
 			/<a title=/{s|.*/||;s/-.*/|/;p}
 			/lileft/p
 			/<h2>/p
 		' |
-		zzxml --untag |
-		if test 'semana' != "$2" -a 's' != "$2"
-		then
-			sed -n "/, ${DATA}$/,/[^|]$/p"
-		else
-			cat -
-		fi |
-		awk '
+			zzxml --untag |
+			if test 'semana' != "$2" -a 's' != "$2"; then
+				sed -n "/, ${DATA}$/,/[^|]$/p"
+			else
+				cat -
+			fi |
+			awk '
 			/[0-9]$/{print "";print}
 			/\|/{ printf $0;for (i=1;i<3;i++){getline; printf $0};print "" }' |
-		sed '${/[^|]$/d}' |
-		zztrim |
-		zzunescape --html |
-		awk -F '|' 'NF<=1;NF>1{printf "%-5s %-50s cod: %s\n", $2, $3,$1}'
+			sed '${/[^|]$/d}' |
+			zztrim |
+			zzunescape --html |
+			awk -F '|' 'NF<=1;NF>1{printf "%-5s %-50s cod: %s\n", $2, $3,$1}'
 
 		return
 	fi
 
 	case "$1" in
-	canais) fgrep -v '/programacao/' "$cache" | zzcolunar 4;;
-	aberta)                        URL="${URL}/programacao/categoria/Aberta"; flag=1; desc="Aberta";;
-	doc | documentario)            URL="${URL}/programacao/categoria/Documentarios"; flag=1; desc="Documentários";;
-	esporte | esportes | futebol)  URL="${URL}/programacao/categoria/Esportes"; flag=1; desc="Esportes";;
-	filmes)                        URL="${URL}/programacao/categoria/Filmes"; flag=1; desc="Filmes";;
-	infantil)                      URL="${URL}/programacao/categoria/Infantil"; flag=1; desc="Infantil";;
-	noticias)                      URL="${URL}/programacao/categoria/Noticias"; flag=1; desc="Notícias";;
-	series | seriados)             URL="${URL}/programacao/categoria/Series"; flag=1; desc="Séries";;
-	variedades)                    URL="${URL}/programacao/categoria/Variedades"; flag=1; desc="Variedades";;
-	cod)                           URL="${URL}/programacao/programa/$2"; flag=2;;
-	todos | agora | *)             flag=1; desc="Agora";;
+		canais) fgrep -v '/programacao/' "$cache" | zzcolunar 4 ;;
+		aberta)
+			URL="${URL}/programacao/categoria/Aberta"
+			flag=1
+			desc="Aberta"
+			;;
+		doc | documentario)
+			URL="${URL}/programacao/categoria/Documentarios"
+			flag=1
+			desc="Documentários"
+			;;
+		esporte | esportes | futebol)
+			URL="${URL}/programacao/categoria/Esportes"
+			flag=1
+			desc="Esportes"
+			;;
+		filmes)
+			URL="${URL}/programacao/categoria/Filmes"
+			flag=1
+			desc="Filmes"
+			;;
+		infantil)
+			URL="${URL}/programacao/categoria/Infantil"
+			flag=1
+			desc="Infantil"
+			;;
+		noticias)
+			URL="${URL}/programacao/categoria/Noticias"
+			flag=1
+			desc="Notícias"
+			;;
+		series | seriados)
+			URL="${URL}/programacao/categoria/Series"
+			flag=1
+			desc="Séries"
+			;;
+		variedades)
+			URL="${URL}/programacao/categoria/Variedades"
+			flag=1
+			desc="Variedades"
+			;;
+		cod)
+			URL="${URL}/programacao/programa/$2"
+			flag=2
+			;;
+		todos | agora | *)
+			flag=1
+			desc="Agora"
+			;;
 	esac
 
-	if test $flag -eq 1
-	then
+	if test $flag -eq 1; then
 		zztool eco $desc
-		if test "$desc" = "Agora"
-		then
+		if test "$desc" = "Agora"; then
 			fgrep '/programacao/' "$cache" |
-			while read linhas
-			do
-				zztool source "${URL}${linhas}"
-			done
+				while read linhas; do
+					zztool source "${URL}${linhas}"
+				done
 		else
 			zztool source "$URL"
 		fi |
-		zzxml --tag h2 --tag h3 |
-		if test "$desc" = "Agora"
-		then
-			awk '/\/h3>/{print;next};{printf $0 "|"}' |
-			sed -n '/<h2>/p'
-		else
-			awk '/\/h[23]>/{print;next};{printf $0 "|"}'
-		fi |
-		zzxml --untag |
-		zzunescape --html |
-		tr -s '|' |
-		if test "$desc" = "Agora"
-		then
-			awk -F '|' '{print $3 "|" $2 "|" $5}' |
-			while IFS='|' read hora canal programa
-			do
-				echo "$hora  $(zzpad 27 $canal) $programa"
-			done |
-			sort -n
-		else
-			awk -F '|' 'NF==3{printf (NR>1?"\n":"") $2 "\n"};NF>3{print "    " $2, $(NF-1)}'
-		fi
-	elif test 'cod' = "$1"
-	then
+			zzxml --tag h2 --tag h3 |
+			if test "$desc" = "Agora"; then
+				awk '/\/h3>/{print;next};{printf $0 "|"}' |
+					sed -n '/<h2>/p'
+			else
+				awk '/\/h[23]>/{print;next};{printf $0 "|"}'
+			fi |
+			zzxml --untag |
+			zzunescape --html |
+			tr -s '|' |
+			if test "$desc" = "Agora"; then
+				awk -F '|' '{print $3 "|" $2 "|" $5}' |
+					while IFS='|' read hora canal programa; do
+						echo "$hora  $(zzpad 27 $canal) $programa"
+					done |
+					sort -n
+			else
+				awk -F '|' 'NF==3{printf (NR>1?"\n":"") $2 "\n"};NF>3{print "    " $2, $(NF-1)}'
+			fi
+	elif test 'cod' = "$1"; then
 		zztool eco "Código: $2"
 		zztool source "$URL" |
-		sed -n '/<h1 class/p;/body2/,/div>/p;/var str/p' |
-		zzjuntalinhas -i '<p' -f 'p>' -d ' ' |
-		zzjuntalinhas -i '<script' -f 'script>' -d ' ' |
-		sed '
+			sed -n '/<h1 class/p;/body2/,/div>/p;/var str/p' |
+			zzjuntalinhas -i '<p' -f 'p>' -d ' ' |
+			zzjuntalinhas -i '<script' -f 'script>' -d ' ' |
+			sed '
 			/var str/{s/.*="//;s/".*//;}
 			/<!--/d
 			s_</a>_ | _g
 			s/<br *\/>/\
 /' |
-		zzxml --untag |
-		sed 's/ | $//' |
-		zztrim |
-		zzsqueeze |
-		zzunescape --html
+			zzxml --untag |
+			sed 's/ | $//' |
+			zztrim |
+			zzsqueeze |
+			zzunescape --html
 	fi
 }

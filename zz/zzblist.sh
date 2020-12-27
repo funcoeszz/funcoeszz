@@ -10,7 +10,7 @@
 # Requisitos: zztestar
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzblist ()
+zzblist()
 {
 	zzzz -h blist "$1" && return
 
@@ -18,14 +18,17 @@ zzblist ()
 	local ip="$1"
 	local lista
 
-	test -n "$1" || { zztool -e uso blist; return 1; }
+	test -n "$1" || {
+		zztool -e uso blist
+		return 1
+	}
 
 	zztestar -e ip "$ip" || return 1
 
 	lista=$(
 		zztool dump "${URL}${ip}" |
-		grep 'Listed' |
-		sed '
+			grep 'Listed' |
+			sed '
 			# Elimina falsos-positivos
 			/ahbl\.org/d
 			/shlink\.org/d
@@ -36,8 +39,7 @@ zzblist ()
 		'
 	)
 
-	if test "$(echo "$lista" | sed '/^ *$/d' | zztool num_linhas)" -eq 0
-	then
+	if test "$(echo "$lista" | sed '/^ *$/d' | zztool num_linhas)" -eq 0; then
 		zztool eco "O IP não está em nenhuma blacklist"
 	else
 		zztool eco "O IP está na(s) seguinte(s) blacklist"

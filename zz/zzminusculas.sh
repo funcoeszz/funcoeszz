@@ -10,14 +10,13 @@
 # Licença: GPL
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzminusculas ()
+zzminusculas()
 {
 	zzzz -h minusculas "$1" && return
 
 	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |
-
-	sed '
+		sed '
 		y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/
 		y/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ/àáâãäåèéêëìíîïòóôõöùúûüçñ/'
 }

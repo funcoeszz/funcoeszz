@@ -13,7 +13,7 @@
 # Licença: GPL
 # Tags: utilitário, emulação
 # ----------------------------------------------------------------------------
-zzbeep ()
+zzbeep()
 {
 	zzzz -h beep "$1" && return
 
@@ -26,18 +26,16 @@ zzbeep ()
 	}
 
 	# Para cada quantidade informada pelo usuário...
-	for minutos in $*
-	do
+	for minutos in $*; do
 		# Aguarda o tempo necessário
 		printf "Vou bipar em $minutos minutos... "
-		sleep $((minutos*60))
+		sleep $((minutos * 60))
 
 		# Ajusta o beep para toque longo (Linux modo texto)
 		printf '\033[11;900]'
 
 		# Alterna entre duas freqüências, simulando uma sirene (Linux)
-		for frequencia in 500 400 500 400
-		do
+		for frequencia in 500 400 500 400; do
 			printf "\033[10;$frequencia]\a"
 			sleep 1
 		done

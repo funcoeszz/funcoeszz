@@ -13,11 +13,14 @@
 # Licença: GPL
 # Tags: internet, url
 # ----------------------------------------------------------------------------
-zzminiurl ()
+zzminiurl()
 {
 	zzzz -h miniurl "$1" && return
 
-	test -n "$1" || { zztool -e uso miniurl; return 1; }
+	test -n "$1" || {
+		zztool -e uso miniurl
+		return 1
+	}
 
 	local url="$1"
 	local prefixo='http://'
@@ -29,8 +32,7 @@ zzminiurl ()
 	echo "$url" | egrep '^(https?|ftp|mms)://' >/dev/null || url="$prefixo$url"
 
 	# Testa se a URL já é encurtada, se sim, expande, senão, encurta.
-	if test 'bit.ly' = "$urlCompara"
-	then
+	if test 'bit.ly' = "$urlCompara"; then
 		curl -s ${urlExpansor}=${url} | sed -n '/"long_url"/ {s/.*\(http[^"]*\)".*/\1/g; p; }' && echo
 	else
 		curl -s ${urlEncurtador}=${url} | sed 's/.*"url":"\(.*\)","h.*/\1/' && echo

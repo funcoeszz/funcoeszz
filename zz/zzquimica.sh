@@ -14,7 +14,7 @@
 # Requisitos: zzcapitalize zzwikipedia zzxml zzpad
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzquimica ()
+zzquimica()
 {
 
 	zzzz -h quimica "$1" && return
@@ -23,13 +23,12 @@ zzquimica ()
 	local cache=$(zztool cache quimica)
 
 	# Se o cache está vazio, baixa listagem da Internet
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool source "http://www.tabelaperiodicacompleta.com/" |
-		awk '/class="elemento/,/<\/td>/{print}'|
-		zzxml --untag=br | zzxml --tidy |
-		sed '/id="57-71"/,/<\/td>/d;/id="89-103"/,/<\/td>/d' |
-		awk 'BEGIN {print "N.º:Nome:Símbolo:Massa:Orbital:Classificação (estado)"; OFS=":" }
+			awk '/class="elemento/,/<\/td>/{print}' |
+			zzxml --untag=br | zzxml --tidy |
+			sed '/id="57-71"/,/<\/td>/d;/id="89-103"/,/<\/td>/d' |
+			awk 'BEGIN {print "N.º:Nome:Símbolo:Massa:Orbital:Classificação (estado)"; OFS=":" }
 			/^<td /     {
 				info["familia"] = $5
 					sub(/ao/, "ão", info["familia"])
@@ -58,24 +57,21 @@ zzquimica ()
 			/^<small/   { getline info["orbital"]; gsub(/ /, "-", info["orbital"]) }
 			/^<\/td>/ { print info["numero"], info["nome"], info["simbolo"], info["massa"], info["orbital"], info["familia"] " (" info["estado"] ")" }
 		' |
-		# Correção para elmentos novos descobertos e recentemente reclassificados
-		sed '
+			# Correção para elmentos novos descobertos e recentemente reclassificados
+			sed '
 			s/Ununtrio/Nihonium/; s/Uut/Nh/
 			s/Ununpentio/Moscovium/; s/Uup/Mc/
 			s/Ununséptio/Tennessine/; s/Uus/Ts/
 			s/Ununóctio/Oganesson/; s/Uuo/Og/
 			' |
-		sort -n |
-		while IFS=':' read numero nome simbolo massa orbital familia
-		do
-			echo "$(zzpad 4 $numero) $(zzpad 13 $nome) $(zzpad 7 $simbolo) $(zzpad 12 $massa) $(zzpad 18 $orbital) $familia"
-		done > "$cache"
+			sort -n |
+			while IFS=':' read numero nome simbolo massa orbital familia; do
+				echo "$(zzpad 4 $numero) $(zzpad 13 $nome) $(zzpad 7 $simbolo) $(zzpad 12 $massa) $(zzpad 18 $orbital) $familia"
+			done >"$cache"
 	fi
 
-	if test -n "$1"
-	then
-		if zztool testa_numero "$1"
-		then
+	if test -n "$1"; then
+		if zztool testa_numero "$1"; then
 			# Testando se forneceu o número atômico
 			elemento=$(awk ' $1 ~ /'$1'/ { print $2 }' "$cache")
 		else
@@ -84,8 +80,7 @@ zzquimica ()
 		fi
 
 		# Se encontrado, pesquisa-o na wikipedia
-		if test ${#elemento} -gt 0
-		then
+		if test ${#elemento} -gt 0; then
 			test "$elemento" = 'Rádio' -o "$elemento" = 'Índio' && elemento="${elemento}_(elemento_químico)"
 			zzwikipedia "$elemento"
 		else

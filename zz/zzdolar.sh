@@ -11,7 +11,7 @@
 # Requisitos: zzcotacao
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzdolar ()
+zzdolar()
 {
 	zzzz -h dolar "$1" && return
 

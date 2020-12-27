@@ -15,43 +15,37 @@
 # Requisitos: zzaleatorio zztestar
 # Tags: arquivo, RANDOM, sed, emulação
 # ----------------------------------------------------------------------------
-zzlinha ()
+zzlinha()
 {
 	zzzz -h linha "$1" && return
 
 	local arquivo n padrao resultado num_linhas
 
 	# Opções de linha de comando
-	if test '-t' = "$1"
-	then
+	if test '-t' = "$1"; then
 		padrao="$2"
 		shift
 		shift
 	fi
 
 	# Talvez o $1 é o número da linha desejada?
-	if zztestar numero_sinal "$1"
-	then
+	if zztestar numero_sinal "$1"; then
 		n="$1"
 		shift
 	fi
 
 	# Se informado um ou mais arquivos, eles existem?
-	for arquivo in "$@"
-	do
+	for arquivo in "$@"; do
 		zztool -e arquivo_legivel "$arquivo" || return 1
 	done
 
-	if test -n "$n"
-	then
+	if test -n "$n"; then
 		# Se foi informado um número, mostra essa linha.
 		# Nota: Suporte a múltiplos arquivos ou entrada padrão (STDIN)
-		for arquivo in "${@:--}"
-		do
+		for arquivo in "${@:--}"; do
 			# Usando cat para ler do arquivo ou da STDIN
 			cat "$arquivo" |
-				if test "$n" -lt 0
-				then
+				if test "$n" -lt 0; then
 					tail -n "${n#-}" | sed 1q
 				else
 					sed -n "${n}p"

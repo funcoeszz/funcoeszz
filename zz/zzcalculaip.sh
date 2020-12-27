@@ -14,7 +14,7 @@
 # Requisitos: zzconverte zztestar
 # Tags: ip, cálculo
 # ----------------------------------------------------------------------------
-zzcalculaip ()
+zzcalculaip()
 {
 	zzzz -h calculaip "$1" && return
 
@@ -23,19 +23,20 @@ zzcalculaip ()
 	local i ip1 ip2 ip3 ip4 nm1 nm2 nm3 nm4 componente
 
 	# Verificação dos parâmetros
-	test $# -eq 0 -o $# -gt 2 && { zztool -e uso calculaip; return 1; }
+	test $# -eq 0 -o $# -gt 2 && {
+		zztool -e uso calculaip
+		return 1
+	}
 
 	# Obtém a máscara da rede (netmask)
-	if zztool grep_var / "$1"
-	then
+	if zztool grep_var / "$1"; then
 		endereco=${1%/*}
 		mascara="${1#*/}"
 	else
 		endereco=$1
 
 		# Use a máscara informada pelo usuário ou a máscara padrão
-		if test $# -gt 1
-		then
+		if test $# -gt 1; then
 			mascara=$2
 		else
 			# A máscara padrão é determinada pela RFC 1918 (valeu jonerworm)
@@ -46,13 +47,13 @@ zzcalculaip ()
 			#   192.168.0.0 - 192.168.255.255 (192.168/16 prefix)
 			#
 			case "$1" in
-				10.*        ) mascara=8  ;;
+				10.*) mascara=8 ;;
 				172.1[6-9].*) mascara=12 ;;
-				172.2?.*    ) mascara=12 ;;
-				172.3[01].* ) mascara=12 ;;
-				192.168.*   ) mascara=16 ;;
-				127.*       ) mascara=8  ;;
-				*           ) mascara=24 ;;
+				172.2?.*) mascara=12 ;;
+				172.3[01].*) mascara=12 ;;
+				192.168.*) mascara=16 ;;
+				127.*) mascara=8 ;;
+				*) mascara=24 ;;
 			esac
 		fi
 	fi
@@ -60,8 +61,9 @@ zzcalculaip ()
 	# Verificações básicas
 	if ! (
 		zztestar ip $mascara || (
-		zztool testa_numero $mascara && test $mascara -le 32))
-	then
+			zztool testa_numero $mascara && test $mascara -le 32
+		)
+	); then
 		zztool erro "Máscara inválida: $mascara"
 		return 1
 	fi
@@ -72,8 +74,7 @@ zzcalculaip ()
 	set - $(echo $mascara | tr . ' ')
 
 	# Máscara no formato NN
-	if test $# -eq 1
-	then
+	if test $# -eq 1; then
 		# Converte de decimal para binário
 		# Coloca N números 1 grudados '1111111' (N=$1)
 		# e completa com zeros à direita até 32, com pontos:
@@ -81,20 +82,18 @@ zzcalculaip ()
 		mascara=$(printf "%$1s" 1 | tr ' ' 1)
 		mascara=$(
 			printf '%-32s' $mascara |
-			tr ' ' 0 |
-			sed 's/./&./24 ; s/./&./16 ; s/./&./8'
+				tr ' ' 0 |
+				sed 's/./&./24 ; s/./&./16 ; s/./&./8'
 		)
 	fi
 
 	# Conversão de decimal para binário nos componentes do IP e netmask
-	for i in 1 2 3 4
-	do
+	for i in 1 2 3 4; do
 		componente=$(echo $endereco | cut -d'.' -f $i)
 		eval ip$i=$(printf '%08d' $(zzconverte db $componente))
 
 		componente=$(echo $mascara | cut -d'.' -f $i)
-		if test -n "$2"
-		then
+		if test -n "$2"; then
 			eval nm$i=$(printf '%08d' $(zzconverte db $componente))
 		else
 			eval nm$i=$componente
@@ -105,8 +104,8 @@ zzcalculaip ()
 	mascara_binario=$nm1$nm2$nm3$nm4
 	if ! (
 		zztestar binario $mascara_binario &&
-		test ${#mascara_binario} -eq 32)
-	then
+			test ${#mascara_binario} -eq 32
+	); then
 		zztool erro 'Máscara inválida'
 		return 1
 	fi
@@ -118,14 +117,13 @@ zzcalculaip ()
 	echo "End. IP  : $endereco"
 	echo "Mascara  : $mascara_ip = $mascara_decimal"
 
-	rede=$(( ((2#$ip1$ip2$ip3$ip4)) & ((2#$nm1$nm2$nm3$nm4)) ))
+	rede=$((((2#$ip1$ip2$ip3$ip4)) & ((2#$nm1$nm2$nm3$nm4))))
 	i=$(echo $nm1$nm2$nm3$nm4 | tr 01 10)
-	broadcast=$(($rede | ((2#$i)) ))
+	broadcast=$(($rede | ((2#$i))))
 
 	# Cálculo do endereço de rede
 	endereco=""
-	for i in 1 2 3 4
-	do
+	for i in 1 2 3 4; do
 		ip1=$((rede & 255))
 		rede=$((rede >> 8))
 		endereco="$ip1.$endereco"
@@ -135,8 +133,7 @@ zzcalculaip ()
 
 	# Cálculo do endereço de broadcast
 	endereco=''
-	for i in 1 2 3 4
-	do
+	for i in 1 2 3 4; do
 		ip1=$((broadcast & 255))
 		broadcast=$((broadcast >> 8))
 		endereco="$ip1.$endereco"

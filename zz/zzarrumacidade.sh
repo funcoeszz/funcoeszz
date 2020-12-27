@@ -15,7 +15,7 @@
 # Requisitos: zzcapitalize
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
-zzarrumacidade ()
+zzarrumacidade()
 {
 	zzzz -h arrumacidade "$1" && return
 

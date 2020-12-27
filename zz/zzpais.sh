@@ -20,7 +20,7 @@
 # Requisitos: zzlinha zzpad
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzpais ()
+zzpais()
 {
 	zzzz -h pais "$1" && return
 
@@ -31,16 +31,15 @@ zzpais ()
 	local padrao linha field1 field2
 
 	# Se o cache está vazio, baixa-o da Internet
-	if ! test -s "$cache"
-	then
+	if ! test -s "$cache"; then
 		zztool source "$url" |
-		sed -n '/class="wikitable"/,/<\/table>/p' |
-		sed '/<th/d;s|</td>|:|g;s|</tr>|--n--|g;s|<br */*>|, |g;s/<[^>]*>//g;s/([^)]*)//g;s/\[.\]//g' |
-		awk '{
+			sed -n '/class="wikitable"/,/<\/table>/p' |
+			sed '/<th/d;s|</td>|:|g;s|</tr>|--n--|g;s|<br */*>|, |g;s/<[^>]*>//g;s/([^)]*)//g;s/\[.\]//g' |
+			awk '{
 			gsub(/--n--/,"\n")
 			printf "%s", $0
 		}' |
-		sed '
+			sed '
 			s/, *:/:/g
 			s/^ *//g
 			s/ *, *,/,/g
@@ -49,28 +48,35 @@ zzpais ()
 			s/ ,/,/g
 			/Taiuã:/d
 			/^ *$/d
-		' > "$cache"
+		' >"$cache"
 	fi
 
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			# Mostra idioma
-			-i) idioma=1; shift;;
+			-i)
+				idioma=1
+				shift
+				;;
 			# Mostra nome e capital do país no idioma nativo
-			-o) original=1; shift;;
+			-o)
+				original=1
+				shift
+				;;
 			# Lista todos os países
-			-a) padrao='.'; shift;;
-			*) break;;
+			-a)
+				padrao='.'
+				shift
+				;;
+			*) break ;;
 		esac
 	done
 
 	test "${#padrao}" -eq 0 && padrao="$*"
-	if test -z "$padrao"
-	then
+	if test -z "$padrao"; then
 		# Mostra um país qualquer
 		zzlinha -t . "$cache" |
-		awk -v idioma_awk="$idioma" -v original_awk="$original" '
+			awk -v idioma_awk="$idioma" -v original_awk="$original" '
 			BEGIN {
 				FS=":"
 				if (original_awk == 0) {
@@ -91,7 +97,7 @@ zzpais ()
 		padrao=$(echo $padrao | sed 's/\$$/:.*:.*:.*:.*\$/')
 		padrao=$(echo $padrao | sed 's/[^$]$/&.*:.*:.*:.*:.*/')
 		grep -h -i -- "$padrao" "$cache" |
-		awk -v idioma_awk="$idioma" -v original_awk="$original" '
+			awk -v idioma_awk="$idioma" -v original_awk="$original" '
 			BEGIN {FS=":"}
 			{	if (NR==1 && original_awk == 0) {
 					printf "%s|%s\n", "País", "Capital"
@@ -106,19 +112,17 @@ zzpais ()
 				if (idioma_awk == 1 || original_awk == 1) print ""
 			}'
 	fi |
-	sed 's/ *| */|/g' |
-	while read linha
-	do
-		if zztool grep_var "|" "$linha"
-		then
-			field1=$(echo "$linha" | cut -f1 -d '|')
-			field2=$(echo "$linha" | cut -f2 -d '|')
-			echo "$(zzpad 42 $field1) $field2"
-		else
-			echo "$linha"
-			unset field1
-			unset field2
-		fi
-	done |
-	sed 's/  *$//; s/\([:,]\)  */\1 /g'
+		sed 's/ *| */|/g' |
+		while read linha; do
+			if zztool grep_var "|" "$linha"; then
+				field1=$(echo "$linha" | cut -f1 -d '|')
+				field2=$(echo "$linha" | cut -f2 -d '|')
+				echo "$(zzpad 42 $field1) $field2"
+			else
+				echo "$linha"
+				unset field1
+				unset field2
+			fi
+		done |
+		sed 's/  *$//; s/\([:,]\)  */\1 /g'
 }

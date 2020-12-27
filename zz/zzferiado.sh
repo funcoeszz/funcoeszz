@@ -15,7 +15,7 @@
 # Requisitos: zzcarnaval zzcorpuschristi zzdiadasemana zzsextapaixao zzsemacento
 # Tags: data
 # ----------------------------------------------------------------------------
-zzferiado ()
+zzferiado()
 {
 	zzzz -h feriado "$1" && return
 
@@ -26,8 +26,7 @@ zzferiado ()
 	hoje=$(date '+%d/%m/%Y')
 
 	# Verifica se foi passado o parâmetro -l
-	if test '-l' = "$1"
-	then
+	if test '-l' = "$1"; then
 		# Se não for passado $2 pega o ano atual
 		ano=${2:-$(basename $hoje)}
 
@@ -56,38 +55,36 @@ zzferiado ()
 	# Para feriados Estaduais ou regionais Existe a variável de
 	# ambiente ZZFERIADO que pode ser configurada no $HOME/.bashrc e
 	# colocar as datas com dd/mm:descricao
-	carnaval=$(dirname $(zzcarnaval $ano ) )
-	sextapaixao=$(dirname $(zzsextapaixao $ano ) )
-	corpuschristi=$(dirname $(zzcorpuschristi $ano ) )
+	carnaval=$(dirname $(zzcarnaval $ano))
+	sextapaixao=$(dirname $(zzsextapaixao $ano))
+	corpuschristi=$(dirname $(zzcorpuschristi $ano))
 	feriados="01/01:Confraternização Universal $carnaval:Carnaval $sextapaixao:Sexta-feira da Paixao 21/04:Tiradentes 01/05:Dia do Trabalho $corpuschristi:Corpus Christi 07/09:Independência do Brasil 12/10:Nossa Sra. Aparecida 02/11:Finados 15/11:Proclamação da República 25/12:Natal $ZZFERIADO"
 
 	# Verifica se lista ou nao, caso negativo verifica se a data escolhida é feriado
-	if test '1' = "$listar"
-	then
+	if test '1' = "$listar"; then
 
 		# Pega os dados, coloca 1 por linha, inverte dd/mm para mm/dd,
 		# ordena, inverte mm/dd para dd/mm
 		echo $feriados |
-		sed 's# \([0-3]\)#~\1#g' |
-		tr '~' '\n' |
-		sed 's#^\(..\)/\(..\)#\2/\1#g' |
-		sort -n |
-		sed 's#^\(..\)/\(..\)#\2/\1#g' |
-		while read linha; do
-			dia=$(echo $linha | cut -d: -f1)
-			diasemana=$(zzdiadasemana $dia/$ano | zzsemacento)
-			descricao=$(echo $linha | cut -d: -f2)
-			printf "%s %-15s %s\n" "$dia" "$diasemana" "$descricao" |
-				sed 's/terca-feira/terça-feira/ ; s/ sabado / sábado /'
-			# ^ Estou tirando os acentos do dia da semana e depois recolocando
-			# pois o printf não lida direito com acentos. O %-15s não fica
-			# exatamente com 15 caracteres quando há acentos.
-		done
+			sed 's# \([0-3]\)#~\1#g' |
+			tr '~' '\n' |
+			sed 's#^\(..\)/\(..\)#\2/\1#g' |
+			sort -n |
+			sed 's#^\(..\)/\(..\)#\2/\1#g' |
+			while read linha; do
+				dia=$(echo $linha | cut -d: -f1)
+				diasemana=$(zzdiadasemana $dia/$ano | zzsemacento)
+				descricao=$(echo $linha | cut -d: -f2)
+				printf "%s %-15s %s\n" "$dia" "$diasemana" "$descricao" |
+					sed 's/terca-feira/terça-feira/ ; s/ sabado / sábado /'
+				# ^ Estou tirando os acentos do dia da semana e depois recolocando
+				# pois o printf não lida direito com acentos. O %-15s não fica
+				# exatamente com 15 caracteres quando há acentos.
+			done
 	else
 		# Verifica se a data está dentro da lista de feriados
 		# e imprime o resultado
-		if zztool grep_var "$data" "$feriados"
-		then
+		if zztool grep_var "$data" "$feriados"; then
 			echo "É feriado: $data/$ano"
 		else
 			echo "Não é feriado: $data/$ano"

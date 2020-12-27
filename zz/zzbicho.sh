@@ -16,19 +16,18 @@
 # Requisitos: zztrim
 # Tags: jogo, consulta
 # ----------------------------------------------------------------------------
-zzbicho ()
+zzbicho()
 {
 	zzzz -h bicho "$1" && return
 
 	# Verificação dos parâmetros: se há $1, ele deve ser 'g' ou um número
-	if test $# -gt 0 && test 'g' != "$1" && ! zztool testa_numero "$1"
-	then
+	if test $# -gt 0 && test 'g' != "$1" && ! zztool testa_numero "$1"; then
 		zztool -e uso bicho
 		return 1
 	fi
 
 	echo "$*" |
-	awk '{
+		awk '{
 		grupo[01]="Avestruz"
 		grupo[02]="Águia"
 		grupo[03]="Burro"

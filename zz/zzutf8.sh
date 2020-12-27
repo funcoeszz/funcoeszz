@@ -15,7 +15,7 @@
 # Requisitos: zzencoding
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzutf8 ()
+zzutf8()
 {
 	zzzz -h utf8 "$1" && return
 
@@ -23,7 +23,7 @@ zzutf8 ()
 	local tmp=$(zztool mktemp utf8)
 
 	# Guarda o texto de entrada
-	zztool file_stdin "$@" > "$tmp"
+	zztool file_stdin "$@" >"$tmp"
 
 	# Qual a sua codificação atual?
 	encoding=$(zzencoding "$tmp")
@@ -33,17 +33,17 @@ zzutf8 ()
 		# Encoding já compatível com UTF-8, nada a fazer
 		utf-8 | us-ascii)
 			cat "$tmp"
-		;;
+			;;
 
-		# Arquivo vazio ou encoding desconhecido, não mexe
-		'' | unknown* | binary )
+			# Arquivo vazio ou encoding desconhecido, não mexe
+		'' | unknown* | binary)
 			cat "$tmp"
-		;;
+			;;
 
 		# Encoding detectado, converte pra UTF-8
 		*)
 			iconv -f "$encoding" -t utf-8 "$tmp"
-		;;
+			;;
 	esac
 
 	rm -f "$tmp"

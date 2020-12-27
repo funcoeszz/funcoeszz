@@ -10,18 +10,20 @@
 # Licença: GPL
 # Tags: número, cálculo
 # ----------------------------------------------------------------------------
-zzdivisores ()
+zzdivisores()
 {
 	zzzz -h divisores "$1" && return
 
-	test -n "$1" || { zztool -e uso divisores; return 1; }
+	test -n "$1" || {
+		zztool -e uso divisores
+		return 1
+	}
 
-	if zztool testa_numero "$1" && test $1 -ge 2
-	then
+	if zztool testa_numero "$1" && test $1 -ge 2; then
 		# Código adaptado a partir da solução em:
 		# http://stackoverflow.com/questions/11699324/
 		echo "$1" |
-		awk '{
+			awk '{
 				limits = sqrt($1)
 				for (i=1; i <= limits; i++) {
 					if ($1 % i == 0) {
@@ -31,8 +33,8 @@ zzdivisores ()
 					}
 				}
 		}' |
-		sort -n |
-		zztool lines2list | zztool nl_eof
+			sort -n |
+			zztool lines2list | zztool nl_eof
 	else
 		# Se não for um número válido.
 		zztool erro "Apenas números naturais maiores ou iguais a 2."

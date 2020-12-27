@@ -16,7 +16,7 @@
 # Requisitos: zzvira
 # Tags: número, RANDOM, emulação
 # ----------------------------------------------------------------------------
-zzaleatorio ()
+zzaleatorio()
 {
 	zzzz -h aleatorio "$1" && return
 
@@ -33,14 +33,16 @@ zzaleatorio ()
 
 	# Verificações básicas
 	zztool testa_numero "$inicio" || return 1
-	zztool testa_numero "$fim"    || return 1
+	zztool testa_numero "$fim" || return 1
 
 	# Se ambos são iguais, retorna o próprio número
-	test "$inicio" = "$fim" && { echo "$fim"; return 0; }
+	test "$inicio" = "$fim" && {
+		echo "$fim"
+		return 0
+	}
 
 	# Se o primeiro é maior, inverte a posição
-	if test "$inicio" -gt "$fim"
-	then
+	if test "$inicio" -gt "$fim"; then
 		v_temp="$inicio"
 		inicio="$fim"
 		fim="$v_temp"
@@ -55,19 +57,17 @@ zzaleatorio ()
 	# Se não estiver disponível, usa o tempo em nanosegundos
 	zztool testa_numero $v_temp || v_temp=$(date +%N)
 
-	if zztool testa_numero $v_temp
-	then
+	if zztool testa_numero $v_temp; then
 		# Se um dos casos acima atenderem, gera o número aleatório
 		echo "$(zzvira $v_temp) $inicio $fim" | awk '{ srand($1); printf "%.0f\n", $2 + rand()*($3 - $2) }'
 	else
 		# Se existir o cache e o tempo em segundos é o mesmo do atual, aguarda um segundo
-		if test -s "$cache"
-		then
+		if test -s "$cache"; then
 			test $(cat "$cache") = $(date +%s) && sleep 1
 		fi
 
 		# Cria o cache incondicionalmente nesse caso
-		echo $(date +%s) > "$cache"
+		echo $(date +%s) >"$cache"
 
 		# Gera o número aleatório
 		echo "$inicio $fim" | awk '{ srand(); printf "%.0f\n", $1 + rand()*($2 - $1) }'

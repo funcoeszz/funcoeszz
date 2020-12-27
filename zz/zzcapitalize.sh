@@ -21,7 +21,7 @@
 # Requisitos: zzminusculas
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
-zzcapitalize ()
+zzcapitalize()
 {
 	zzzz -h capitalize "$1" && return
 
@@ -31,19 +31,18 @@ zzcapitalize ()
 	local soh_primeira=0
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			-1)
 				soh_primeira=1
 				shift
-			;;
+				;;
 			-w)
 				# Escapa a " pra não dar problema no sed adiante
 				extra=$(echo "$2" | sed 's/"/\\"/g')
 				shift
 				shift
-			;;
+				;;
 			*) break ;;
 		esac
 	done

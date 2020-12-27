@@ -11,22 +11,24 @@
 # Licença: GPLv2
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
-zzextensao ()
+zzextensao()
 {
 	zzzz -h extensao "$1" && return
 
 	# Declara variaveis.
 	local nome_arquivo extensao arquivo
 
-	test -n "$1" || { zztool -e uso extensao; return 1; }
-
+	test -n "$1" || {
+		zztool -e uso extensao
+		return 1
+	}
 
 	arquivo="$1"
 
 	# Extrai a extensao.
-	nome_arquivo=`echo "$arquivo" | awk 'BEGIN { FS = "/" } END { print $NF }'`
-	extensao=`echo "$nome_arquivo" | awk 'BEGIN { FS = "." } END { print $NF }'`
-	if test "$extensao" = "$nome_arquivo" -o ".$extensao" = "$nome_arquivo" ; then
+	nome_arquivo=$(echo "$arquivo" | awk 'BEGIN { FS = "/" } END { print $NF }')
+	extensao=$(echo "$nome_arquivo" | awk 'BEGIN { FS = "." } END { print $NF }')
+	if test "$extensao" = "$nome_arquivo" -o ".$extensao" = "$nome_arquivo"; then
 		extensao=""
 	fi
 

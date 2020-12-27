@@ -17,7 +17,7 @@
 # Requisitos: zzunescape
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzphp ()
+zzphp()
 {
 	zzzz -h php "$1" && return
 
@@ -27,39 +27,34 @@ zzphp ()
 	local end funcao
 
 	# Força atualização da listagem apagando o cache
-	if test '--atualiza' = "$1"
-	then
+	if test '--atualiza' = "$1"; then
 		zztool atualiza php
 		shift
 	fi
 
-	if test '-d' = "$1" -o '--detalhe' = "$1"
-	then
+	if test '-d' = "$1" -o '--detalhe' = "$1"; then
 		url='http://www.php.net/manual/pt_BR'
-		if test -n "$2"
-		then
+		if test -n "$2"; then
 			funcao=$(echo "$2" | sed 's/ .*//')
 			end=$(cat "$cache" | grep -h -i -- "^$funcao " | cut -f 2 -d"|")
 			# Prevenir casos como do zlib://
 			funcao=$(echo "$funcao" | sed 's|//||g')
 			test $? -eq 0 && zztool dump "${url}/${end}" |
-			sed -n "/^ *${funcao}/,/add a note add a note/{p; /add a note/q; }" |
-			sed '$d; /[_-][_-][_-][_-]*$/,$d; s/        */       /'
+				sed -n "/^ *${funcao}/,/add a note add a note/{p; /add a note/q; }" |
+				sed '$d; /[_-][_-][_-][_-]*$/,$d; s/        */       /'
 		fi
 	else
 		# Se o cache está vazio, baixa listagem da Internet
-		if ! test -s "$cache"
-		then
+		if ! test -s "$cache"; then
 			# Formato do arquivo:
 			# nome da função - descrição da função : link correspondente
 			zztool source "$url" | sed -n '/class="index"/p' |
-			awk -F'"' '{print substr($5,2) "|" $2}' |
-			sed 's/<[^>]*>//g' |
-			zzunescape --html > "$cache"
+				awk -F'"' '{print substr($5,2) "|" $2}' |
+				sed 's/<[^>]*>//g' |
+				zzunescape --html >"$cache"
 		fi
 
-		if test -n "$padrao"
-		then
+		if test -n "$padrao"; then
 			# Busca a(s) função(ões)
 			cat "$cache" | cut -f 1 -d"|" | grep -h -i -- "$padrao"
 		else

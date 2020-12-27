@@ -14,7 +14,7 @@
 # Requisitos: zzmaiusculas zztac
 # Tags: número, conversão
 # ----------------------------------------------------------------------------
-zzromanos ()
+zzromanos()
 {
 	zzzz -h romanos "$1" && return
 
@@ -59,42 +59,37 @@ zzromanos ()
 
 	# Se nenhum argumento for passado, mostra lista de algarismos romanos
 	# e seus correspondentes hindu-arábicos
-	if test $# -eq 0
-	then
+	if test $# -eq 0; then
 		echo "$arabicos_romanos" |
-		egrep '[15]|4000:' | tr -d '\t' | tr : '\t' |
-		zztac
+			egrep '[15]|4000:' | tr -d '\t' | tr : '\t' |
+			zztac
 
 	# Se é um número inteiro positivo, transforma para número romano
-	elif zztool testa_numero "$entrada" && test "$entrada" -lt 4000000
-	then
-		echo "$arabicos_romanos" | { while IFS=: read arabico romano
-		do
-			while test "$entrada" -ge "$arabico"
-			do
-				saida="$saida$romano"
-				entrada=$((entrada-arabico))
+	elif zztool testa_numero "$entrada" && test "$entrada" -lt 4000000; then
+		echo "$arabicos_romanos" | {
+			while IFS=: read arabico romano; do
+				while test "$entrada" -ge "$arabico"; do
+					saida="$saida$romano"
+					entrada=$((entrada - arabico))
+				done
 			done
-		done
-		test "$1" -ge 4000 && printf "\n$saida\n\n" || echo "$saida"
+			test "$1" -ge 4000 && printf "\n$saida\n\n" || echo "$saida"
 		}
 
 	# Se é uma string que representa um número romano válido,
 	# converte para hindu-arábico
-	elif echo "$entrada" | egrep "$regex_validacao" > /dev/null
-	then
+	elif echo "$entrada" | egrep "$regex_validacao" >/dev/null; then
 		saida=0
 		# Baseado em http://diveintopython.org/unit_testing/stage_4.html
-		echo "$arabicos_romanos" | { while IFS=: read arabico romano
-		do
-			comprimento="${#romano}"
-			while test "$(echo "$entrada" | cut -c$indice-$((indice+comprimento-1)))" = "$romano"
-			do
-				indice=$((indice+comprimento))
-				saida=$((saida+arabico))
+		echo "$arabicos_romanos" | {
+			while IFS=: read arabico romano; do
+				comprimento="${#romano}"
+				while test "$(echo "$entrada" | cut -c$indice-$((indice + comprimento - 1)))" = "$romano"; do
+					indice=$((indice + comprimento))
+					saida=$((saida + arabico))
+				done
 			done
-		done
-		echo "$saida"
+			echo "$saida"
 		}
 
 	# Se não é inteiro posivo ou string que representa número romano válido,

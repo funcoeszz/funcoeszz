@@ -20,7 +20,7 @@
 # Tags: arquivo, manipulação
 # Nota: (ou) exiftool exiftime identify
 # ----------------------------------------------------------------------------
-zznomefoto ()
+zznomefoto()
 {
 	zzzz -h nomefoto "$1" && return
 
@@ -30,56 +30,55 @@ zznomefoto ()
 	local digitos=3
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
 			-p)
 				prefixo="$2"
-				shift; shift
-			;;
+				shift
+				shift
+				;;
 			-i)
 				i=$2
-				shift; shift
-			;;
+				shift
+				shift
+				;;
 			-d)
 				digitos=$2
-				shift; shift
-			;;
+				shift
+				shift
+				;;
 			-n)
 				nao='[-n] '
 				shift
-			;;
+				;;
 			--dropbox)
 				dropbox=1
 				shift
-			;;
-			* ) break ;;
+				;;
+			*) break ;;
 		esac
 	done
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso nomefoto; return 1; }
+	test -n "$1" || {
+		zztool -e uso nomefoto
+		return 1
+	}
 
-	if ! zztool testa_numero "$digitos"
-	then
+	if ! zztool testa_numero "$digitos"; then
 		zztool erro "Número inválido para a opção -d: $digitos"
 		return 1
 	fi
-	if ! zztool testa_numero "$i"
-	then
+	if ! zztool testa_numero "$i"; then
 		zztool erro "Número inválido para a opção -i: $i"
 		return 1
 	fi
-	if test "$dropbox" = 1
-	then
-		if which "exiftool" >/dev/null 2>&1
-		then
+	if test "$dropbox" = 1; then
+		if which "exiftool" >/dev/null 2>&1; then
 			exif_cmd=1
-		elif which "exiftime" >/dev/null 2>&1
-		then
+		elif which "exiftime" >/dev/null 2>&1; then
 			exif_cmd=2
-		elif which "identify" >/dev/null 2>&1
-		then
+		elif which "identify" >/dev/null 2>&1; then
 			exif_cmd=3
 		else
 			zztool erro "A opção --dropbox requer o comando 'exiftool', 'exiftime' ou 'identify', instale um deles."
@@ -90,8 +89,7 @@ zznomefoto ()
 	fi
 
 	# Para cada arquivo que o usuário informou...
-	for arquivo
-	do
+	for arquivo; do
 		# O arquivo existe?
 		zztool -e arquivo_legivel "$arquivo" || continue
 
@@ -99,8 +97,7 @@ zznomefoto ()
 		contagem=$(printf "%0${digitos}d" $i)
 
 		# Se tiver extensão, guarda para restaurar depois
-		if zztool grep_var . "$arquivo"
-		then
+		if zztool grep_var . "$arquivo"; then
 			extensao=".${arquivo##*.}"
 		else
 			extensao=
@@ -115,19 +112,20 @@ zznomefoto ()
 		# Outra opção seria o campo CreateDate. Veja mais informações em:
 		# http://www.sno.phy.queensu.ca/~phil/exiftool/TagNames/EXIF.html
 		#
-		if test "$dropbox" = 1
-		then
+		if test "$dropbox" = 1; then
 			# Extrai a data+hora em que a foto foi tirada conforme o comamdo disponível no sistema
 			case $exif_cmd in
 				1) exif_info=$(exiftool -s -S -DateTimeOriginal -d '%Y-%m-%d %H.%M.%S' "$arquivo") ;;
 				2)
 					exif_info=$(exiftime -tg "$arquivo" 2>/dev/null |
-					awk -F':' '{print $2 "-" $3 "-" $4 "." $5 "." $6}' |
-					sed 's/^ *//') ;;
+						awk -F':' '{print $2 "-" $3 "-" $4 "." $5 "." $6}' |
+						sed 's/^ *//')
+					;;
 				3)
 					exif_info=$(identify -verbose "$arquivo" |
-					awk -F':' '/DateTimeOriginal/ {print $3 "-" $4 "-" $5 "." $6 "." $7}' |
-					sed 's/^ *//') ;;
+						awk -F':' '/DateTimeOriginal/ {print $3 "-" $4 "-" $5 "." $6 "." $7}' |
+						sed 's/^ *//')
+					;;
 			esac
 
 			# A extensão do arquivo é em minúsculas
@@ -136,15 +134,13 @@ zznomefoto ()
 			novo="$exif_info$extensao"
 
 			# Será que deu problema na execução do comando?
-			if test -z "$exif_info"
-			then
+			if test -z "$exif_info"; then
 				echo "Ignorando $arquivo (não possui dados EXIF)"
 				continue
 			fi
 
 			# Se o arquivo já está com o nome OK, ignore-o
-			if test "$novo" = "$arquivo"
-			then
+			if test "$novo" = "$arquivo"; then
 				echo "Arquivo $arquivo já está com o nome correto (nada a fazer)"
 				continue
 			fi
@@ -152,8 +148,7 @@ zznomefoto ()
 		# Renomeação normal
 		else
 			# O nome começa com o prefixo, se informado pelo usuário
-			if test -n "$prefixo"
-			then
+			if test -n "$prefixo"; then
 				nome=$prefixo
 
 			# Se não tiver prefixo, usa o nome base do arquivo original,
@@ -170,8 +165,7 @@ zznomefoto ()
 		# Mostra na tela a mudança
 		previa="$nao$arquivo -> $novo"
 
-		if test "$novo" = "$arquivo"
-		then
+		if test "$novo" = "$arquivo"; then
 			# Ops, o arquivo novo tem o mesmo nome do antigo
 			echo "$previa" | sed "s/^\[-n\]/[-ERRO-]/"
 		else
@@ -179,11 +173,10 @@ zznomefoto ()
 		fi
 
 		# Atualiza a contagem (Ah, sério?)
-		i=$((i+1))
+		i=$((i + 1))
 
 		# Se não tiver -n, vamos renomear o arquivo
-		if ! test -n "$nao"
-		then
+		if ! test -n "$nao"; then
 			# Não sobrescreve arquivos já existentes
 			zztool -e arquivo_vago "$novo" || return
 

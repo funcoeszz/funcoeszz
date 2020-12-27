@@ -14,7 +14,7 @@
 # Requisitos: zzjuntalinhas
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzporta ()
+zzporta()
 {
 	zzzz -h porta "$1" && return
 
@@ -23,11 +23,11 @@ zzporta ()
 	zztool testa_numero $port || port='.'
 
 	zztool source "$url" |
-	awk '/"wikitable"/,/<\/table>/ { sub (/ bgcolor.*>/,">");sub(/<.?tbody>/,""); print }' |
-	zzjuntalinhas -d '' -i '<tr>' -f '</tr>' |
-	awk -F '</?t[^>]+>' 'BEGIN {OFS="\t"}{ print $3, $5 }' |
-	expand -t 18 |
-	sed '
+		awk '/"wikitable"/,/<\/table>/ { sub (/ bgcolor.*>/,">");sub(/<.?tbody>/,""); print }' |
+		zzjuntalinhas -d '' -i '<tr>' -f '</tr>' |
+		awk -F '</?t[^>]+>' 'BEGIN {OFS="\t"}{ print $3, $5 }' |
+		expand -t 18 |
+		sed '
 		1d
 		# Retira os links
 		s/<[^>]*>//g
@@ -36,5 +36,5 @@ zzporta ()
 			/^[[:blank:]]*$/d
 			/\/IP /d
 		}' |
-	awk 'NR==1;NR>1 && /'$port'/'
+		awk 'NR==1;NR>1 && /'$port'/'
 }

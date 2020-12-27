@@ -14,7 +14,7 @@
 # Requisitos: zzutf8
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzdicasl ()
+zzdicasl()
 {
 	zzzz -h dicasl "$1" && return
 
@@ -28,7 +28,10 @@ zzdicasl ()
 	}
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso dicasl; return 1; }
+	test -n "$1" || {
+		zztool -e uso dicasl
+		return 1
+	}
 
 	# Faz a consulta e filtra o resultado
 	zztool eco "$url"

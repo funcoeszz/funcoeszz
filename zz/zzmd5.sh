@@ -13,25 +13,22 @@
 # Tags: hash, cálculo, emulação
 # Nota: (ou) md5 md5sum
 # ----------------------------------------------------------------------------
-zzmd5 ()
+zzmd5()
 {
 	zzzz -h md5 "$1" && return
 
 	local tab=$(printf '\t')
 
 	# Testa se o comando existe
-	if which md5 >/dev/null 2>&1
-	then
+	if which md5 >/dev/null 2>&1; then
 		comando="md5"
 
-	elif which md5sum >/dev/null 2>&1
-	then
+	elif which md5sum >/dev/null 2>&1; then
 		comando="md5sum"
 	else
 		zztool erro "Erro: Não encontrei um comando para cálculo MD5 em seu sistema"
 		return 1
 	fi
-
 
 	##### Diferenças na saída dos comandos
 	###
@@ -72,7 +69,6 @@ zzmd5 ()
 	###
 	### Considero que a saída da zzmd5 é a mais limpa e fácil de extrair
 	### os dados usando ferramentas Unix.
-
 
 	# Executa o comando do cálculo MD5 e formata a saída conforme
 	# explicado no comentário anterior: HASH ou HASH-Tab-Arquivo

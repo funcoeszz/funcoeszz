@@ -13,7 +13,7 @@
 # Requisitos: zzdata zzpascoa
 # Tags: data
 # ----------------------------------------------------------------------------
-zzcorpuschristi ()
+zzcorpuschristi()
 {
 	zzzz -h corpuschristi "$1" && return
 

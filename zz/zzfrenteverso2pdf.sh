@@ -17,7 +17,7 @@
 # Tags: arquivo, manipulação
 # Nota: requer pdftk
 # ----------------------------------------------------------------------------
-zzfrenteverso2pdf ()
+zzfrenteverso2pdf()
 {
 	zzzz -h frenteverso2pdf "$1" && return
 
@@ -35,27 +35,36 @@ zzfrenteverso2pdf ()
 
 	# Determina o diretorio que estao os arquivos a serem mesclados.
 	# Opcoes de linha de comando
-	while test $# -ge 1
-	do
+	while test $# -ge 1; do
 		case "$1" in
 			-rf | --frentesreversas) sinal_frente="-" ;;
 			-rv | --versosreversos) sinal_verso="-" ;;
 			-d | --diretorio)
-				test -n "$2" || { zztool -e uso frenteverso2pdf; return 1; }
+				test -n "$2" || {
+					zztool -e uso frenteverso2pdf
+					return 1
+				}
 				dir=$2
 				shift
 				;;
 			-v | --verbose)
 				set -x
 				;;
-			--) shift; break ;;
-			*) { zztool -e uso frenteverso2pdf; set +x; return 1; } ;;
+			--)
+				shift
+				break
+				;;
+			*) {
+				zztool -e uso frenteverso2pdf
+				set +x
+				return 1
+			} ;;
 		esac
 		shift
 	done
 
 	# Verifica se os arquivos existem.
-	if test ! -s "$dir/$arq_frentes" -o ! -s "$dir/$arq_versos" ; then
+	if test ! -s "$dir/$arq_frentes" -o ! -s "$dir/$arq_versos"; then
 		zztool erro "ERRO: Um dos arquivos $dir/$arq_frentes ou $dir/$arq_versos nao existe!"
 		return 1
 	fi
@@ -67,27 +76,27 @@ zzfrenteverso2pdf ()
 	fi
 
 	# Determina o numero de paginas de cada arquivo.
-	n_frentes=`pdftk "$dir/$arq_frentes" dump_data | grep "NumberOfPages" | cut -d" " -f2`
-	n_versos=`pdftk "$dir/$arq_versos" dump_data | grep "NumberOfPages" | cut -d" " -f2`
+	n_frentes=$(pdftk "$dir/$arq_frentes" dump_data | grep "NumberOfPages" | cut -d" " -f2)
+	n_versos=$(pdftk "$dir/$arq_versos" dump_data | grep "NumberOfPages" | cut -d" " -f2)
 
 	# Verifica a compatibilidade do numero de paginas entre os dois arquivos.
-	dif=`expr $n_frentes - $n_versos`
-	if test $dif -lt 0 -o $dif -gt 1 ; then
+	dif=$(expr $n_frentes - $n_versos)
+	if test $dif -lt 0 -o $dif -gt 1; then
 		echo "CUIDADO: O numero de paginas dos arquivos nao parecem compativeis!"
 	fi
 
 	# Cria ordenacao das paginas.
-	if test "$sinal_frente" = "-" ; then
-		ini_frente=`expr $n_frentes + 1`
+	if test "$sinal_frente" = "-"; then
+		ini_frente=$(expr $n_frentes + 1)
 	fi
-	if test "$sinal_verso" = "-" ; then
-		ini_verso=`expr $n_versos + 1`
+	if test "$sinal_verso" = "-"; then
+		ini_verso=$(expr $n_versos + 1)
 	fi
 
-	while test $n_pag -le $n_frentes ; do
-		n_pag_frente=`expr $ini_frente $sinal_frente $n_pag`
+	while test $n_pag -le $n_frentes; do
+		n_pag_frente=$(expr $ini_frente $sinal_frente $n_pag)
 		numberlist="$numberlist A$n_pag_frente"
-		n_pag_verso=`expr $ini_verso $sinal_verso $n_pag`
+		n_pag_verso=$(expr $ini_verso $sinal_verso $n_pag)
 		if test $n_pag -le $n_versos; then
 			numberlist="$numberlist B$n_pag_verso"
 		fi

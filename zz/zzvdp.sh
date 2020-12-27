@@ -17,7 +17,7 @@
 # Requisitos: zzunescape zzxml
 # Tags: internet, distração
 # ----------------------------------------------------------------------------
-zzvdp ()
+zzvdp()
 {
 	zzzz -h vdp "$1" && return
 
@@ -25,32 +25,33 @@ zzvdp ()
 	local sep='------------------------------------------------------------------------------'
 	local ord=1
 
-	if test -n "$1"
-	then
-		zztool testa_numero "$1" && ord=$1 || { zztool -e uso vdp; return 1; }
+	if test -n "$1"; then
+		zztool testa_numero "$1" && ord=$1 || {
+			zztool -e uso vdp
+			return 1
+		}
 	fi
 
 	zztool source "$url" |
-	awk '
+		awk '
 		/^ *<div.*data-title="/{titulo=$0}
 		/<div class="transcription">/ {print titulo}
 		/<div class="transcription">/,/<\/div>/
 	' |
-	sed '
+		sed '
 		/^ *<div.*data-title="/{s/.*data-title="//;s/".*//;}
 		/"transcription"/s/.*//
 		s/<\/div>/----/
 		' |
-	zzunescape --html |
-	zzxml --untag |
-	if test $ord -eq 0
-	then
-		sed "/----/{s//$sep/;}"
-	else
-		awk -v ord=$ord '
+		zzunescape --html |
+		zzxml --untag |
+		if test $ord -eq 0; then
+			sed "/----/{s//$sep/;}"
+		else
+			awk -v ord=$ord '
 			/----/{i++;next}
 			{ if (i==ord-1) print; if (i==ord) {exit} }
 		'
-	fi
+		fi
 
 }

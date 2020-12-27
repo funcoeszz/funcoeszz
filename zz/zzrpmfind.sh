@@ -12,7 +12,7 @@
 # Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzrpmfind ()
+zzrpmfind()
 {
 	zzzz -h rpmfind "$1" && return
 
@@ -22,7 +22,10 @@ zzrpmfind ()
 	local arquitetura=${3:-i586}
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso rpmfind; return 1; }
+	test -n "$1" || {
+		zztool -e uso rpmfind
+		return 1
+	}
 
 	# Faz a consulta e filtra o resultado
 	resultado=$(
@@ -31,8 +34,7 @@ zzrpmfind ()
 			sort
 	)
 
-	if test -n "$resultado"
-	then
+	if test -n "$resultado"; then
 		echo "$resultado"
 	fi
 }

@@ -9,7 +9,7 @@
 # Licença: GPL
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
-zztrocaarquivos ()
+zztrocaarquivos()
 {
 	zzzz -h trocaarquivos "$1" && return
 
@@ -17,7 +17,10 @@ zztrocaarquivos ()
 	local tmp=$(zztool mktemp trocaarquivos)
 
 	# Verificação dos parâmetros
-	test $# -eq 2 || { zztool -e uso trocaarquivos; return 1; }
+	test $# -eq 2 || {
+		zztool -e uso trocaarquivos
+		return 1
+	}
 
 	# Verifica se os arquivos existem
 	zztool -e arquivo_legivel "$1" || return
@@ -27,9 +30,9 @@ zztrocaarquivos ()
 	test "$1" = "$2" && return
 
 	# A dança das cadeiras
-	cat "$2"   > "$tmp"
-	cat "$1"   > "$2"
-	cat "$tmp" > "$1"
+	cat "$2" >"$tmp"
+	cat "$1" >"$2"
+	cat "$tmp" >"$1"
 
 	# E foi
 	rm -f "$tmp"

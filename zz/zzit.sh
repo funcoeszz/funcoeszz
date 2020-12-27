@@ -27,7 +27,7 @@
 # Requisitos: zzsemacento zzutf8 zzxml zzsqueeze zzdatafmt zzlinha
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzit ()
+zzit()
 {
 
 	zzzz -h it "$1" && return
@@ -36,10 +36,8 @@ zzit ()
 	ano=$(zzdatafmt -f AAAA hoje)
 	local url2 opcao num
 
-	if test -n "$1" && zztool testa_numero $1
-	then
-		if test "$1" -ge 2001 -a "$1" -le $(zzdatafmt -f AAAA hoje)
-		then
+	if test -n "$1" && zztool testa_numero $1; then
+		if test "$1" -ge 2001 -a "$1" -le $(zzdatafmt -f AAAA hoje); then
 			ano=$1
 			shift
 		fi
@@ -47,47 +45,44 @@ zzit ()
 
 	opcao=$(echo "$1" | zzsemacento)
 	case "$opcao" in
-		eletronica | energia | espaco | informatica | materiais | mecanica | meioambiente | nanotecnologia | robotica | plantao )
-			if test -n "$ano"
-			then
-				if test "$opcao" = "meioambiente" -a "$ano" -eq 2001
-				then
+		eletronica | energia | espaco | informatica | materiais | mecanica | meioambiente | nanotecnologia | robotica | plantao)
+			if test -n "$ano"; then
+				if test "$opcao" = "meioambiente" -a "$ano" -eq 2001; then
 					return
 				fi
 				url2="$url/noticias/${opcao}_${ano}.html"
 			else
 				url2="$url/noticias/assuntos.php?assunto=$opcao"
 			fi
-			shift ;;
-		* )	url2="$url/index.php" ;;
+			shift
+			;;
+		*) url2="$url/index.php" ;;
 	esac
 
 	zztool testa_numero $1 && num=$1
 
-	if test -n "$ano"
-	then
-		if test -z "$num"
-		then
+	if test -n "$ano"; then
+		if test -z "$num"; then
 			zztool source "$url2" |
-			zzutf8 |
-			sed '/- Arquivos<\/strong>/,$d' |
-			zzxml --tidy --tag h2 --untag |
-			awk '{printf "%02d - ",NR};1'
+				zzutf8 |
+				sed '/- Arquivos<\/strong>/,$d' |
+				zzxml --tidy --tag h2 --untag |
+				awk '{printf "%02d - ",NR};1'
 		else
 			url2="${url}/"$(
 				zztool source "$url2" |
-				zzutf8|
-				zzxml --tidy --tag h2 |
-				sed '/<a href/!d;s/.*href="//;s/">//' |
-				zzxml --untag |
-				zzlinha $num
+					zzutf8 |
+					zzxml --tidy --tag h2 |
+					sed '/<a href/!d;s/.*href="//;s/">//' |
+					zzxml --untag |
+					zzlinha $num
 			)
 			zztool eco "$url2"
 			zztool dump "$url2" |
-			sed '1,/Plantão *$/d; s/ *\(Bibliografia:\)/\
+				sed '1,/Plantão *$/d; s/ *\(Bibliografia:\)/\
 \1/' |
-			sed 's/\[INS: *:INS\]//g; /\* Imprimir/{s///;q;}' |
-			zzsqueeze | fmt -w 120
+				sed 's/\[INS: *:INS\]//g; /\* Imprimir/{s///;q;}' |
+				zzsqueeze | fmt -w 120
 		fi
 	fi
 }

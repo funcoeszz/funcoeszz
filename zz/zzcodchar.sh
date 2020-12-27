@@ -22,7 +22,7 @@
 # Requisitos: zztrim zzpad
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzcodchar ()
+zzcodchar()
 {
 	zzzz -h codchar "$1" && return
 
@@ -286,45 +286,47 @@ s/♦/\&	diams	#x2666	#9830	;/g;
 "
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-			-s) cods="$cods$codspace";shift;;
-			--html|--xml)
-				codsed=$(echo "$cods" | awk 'BEGIN {FS="\t"};{print $1 $2 $5}');
+			-s)
+				cods="$cods$codspace"
 				shift
-			;;
+				;;
+			--html | --xml)
+				codsed=$(echo "$cods" | awk 'BEGIN {FS="\t"};{print $1 $2 $5}')
+				shift
+				;;
 			--hex)
-				codsed=$(echo "$cods" | awk 'BEGIN {FS="\t"};{print $1 $3 $5}');
+				codsed=$(echo "$cods" | awk 'BEGIN {FS="\t"};{print $1 $3 $5}')
 				shift
-			;;
+				;;
 			--dec)
-				codsed=$(echo "$cods" | awk 'BEGIN {FS="\t"};{print $1 $4 $5}');
+				codsed=$(echo "$cods" | awk 'BEGIN {FS="\t"};{print $1 $4 $5}')
 				shift
-			;;
+				;;
 			--listar)
 				printf '%s' 'char'
 				case $2 in
-				html|xml|hex|dec) printf '\t%b\n' "$2";;
-				*) printf '%b' ' html        hex         dec\n';;
+					html | xml | hex | dec) printf '\t%b\n' "$2" ;;
+					*) printf '%b' ' html        hex         dec\n' ;;
 				esac
 				echo "$cods" |
-				zztrim |
-				sed 's|s/||; s|	;/g;||; s|/\\&||; ${ s| |"&"|; }' |
-				case $2 in
-				html|xml) sed 's/	/	\&/;s/	#.*/;/;$s/" "/ /';;
-				hex)      sed 's/	.*#x/	\&#x/;s/	[#0-9]*$/;/;$s/" "/ /';;
-				dec)      sed 's/	.*	/	\&/;s/$/;/;$s/" "/ /';;
-				*)
-					sed 's/	/	\&/g;s/	/;	/2g;s/$/;/' |
-					while read char html hex dec
-					do
-						echo "$(zzpad 4 $char) $(zzpad 11 $html) $(zzpad 11 $hex) $dec"
-					done |
-					sed '$s/"  *"  */     /;s/;	&/;      \&/'
-				esac
+					zztrim |
+					sed 's|s/||; s|	;/g;||; s|/\\&||; ${ s| |"&"|; }' |
+					case $2 in
+						html | xml) sed 's/	/	\&/;s/	#.*/;/;$s/" "/ /' ;;
+						hex) sed 's/	.*#x/	\&#x/;s/	[#0-9]*$/;/;$s/" "/ /' ;;
+						dec) sed 's/	.*	/	\&/;s/$/;/;$s/" "/ /' ;;
+						*)
+							sed 's/	/	\&/g;s/	/;	/2g;s/$/;/' |
+								while read char html hex dec; do
+									echo "$(zzpad 4 $char) $(zzpad 11 $html) $(zzpad 11 $hex) $dec"
+								done |
+								sed '$s/"  *"  */     /;s/;	&/;      \&/'
+							;;
+					esac
 				return
-			;;
+				;;
 			*) break ;;
 		esac
 	done

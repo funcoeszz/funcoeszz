@@ -20,7 +20,7 @@
 # Requisitos: zzaleatorio
 # Tags: sugestão
 # ----------------------------------------------------------------------------
-zzsenha ()
+zzsenha()
 {
 	zzzz -h senha "$1" && return
 
@@ -28,16 +28,24 @@ zzsenha ()
 	local n=8
 	local alpha='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 	local num='0123456789'
-	local pro='-/:;()$&@.,?!'  # teclado do iPhone, exceto aspas
-	local lista="$alpha$num"   # senha padrão: letras e números
+	local pro='-/:;()$&@.,?!' # teclado do iPhone, exceto aspas
+	local lista="$alpha$num"  # senha padrão: letras e números
 
 	# Opções de linha de comando
-	while test "${1#-}" != "$1"
-	do
+	while test "${1#-}" != "$1"; do
 		case "$1" in
-			-p | --pro ) shift; lista="$alpha$num$pro";;
-			-n | --num ) shift; lista="$num";;
-			-u | --uniq) shift; uniq=1;;
+			-p | --pro)
+				shift
+				lista="$alpha$num$pro"
+				;;
+			-n | --num)
+				shift
+				lista="$num"
+				;;
+			-u | --uniq)
+				shift
+				uniq=1
+				;;
 			*) break ;;
 		esac
 	done
@@ -49,8 +57,7 @@ zzsenha ()
 	zztool -e testa_numero "$n" || return 1
 
 	# Quando não se repete caracteres, há uma limitação de tamanho
-	if test -n "$uniq" -a "$n" -gt "${#lista}"
-	then
+	if test -n "$uniq" -a "$n" -gt "${#lista}"; then
 		zztool erro "O tamanho máximo desse tipo de senha é ${#lista}"
 		return 1
 	fi
@@ -60,9 +67,8 @@ zzsenha ()
 	# posição dentro de $lista. A letra dessa posição é mostrada na
 	# tela. Caso --uniq seja usado, a letra é removida de $lista,
 	# para que não seja reutilizada.
-	while test "$n" -ne 0
-	do
-		n=$((n-1))
+	while test "$n" -ne 0; do
+		n=$((n - 1))
 		posicao=$(zzaleatorio 1 ${#lista})
 		letra=$(printf "$lista" | cut -c "$posicao")
 		test -n "$uniq" && lista=$(echo "$lista" | tr -d "$letra")

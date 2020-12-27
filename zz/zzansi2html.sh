@@ -14,18 +14,18 @@
 # Licença: GPL
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzansi2html ()
+zzansi2html()
 {
 	zzzz -h ansi2html "$1" && return
 
 	local esc=$(printf '\033')
-	local control_m=$(printf '\r')  # ^M, CR, \r
+	local control_m=$(printf '\r') # ^M, CR, \r
 
 	# Arquivos via STDIN ou argumentos
 	zztool file_stdin "$@" |
 
-	# Limpeza inicial do texto
-	sed "
+		# Limpeza inicial do texto
+		sed "
 		# No Mac, o ESC[K aparece depois de cada código de cor ao usar
 		# o grep --color. Exemplo: ^[[1;33m^[[Kamarelo^[[m^[[K
 		# Esse código serve pra apagar até o fim da linha, então neste
@@ -36,23 +36,23 @@ zzansi2html ()
 		s/$control_m*$//
 	" |
 
-	# Um único sed toma conta de toda a tarefa de conversão.
-	#
-	# Esta função cria um SPAN dentro do outro, sem fechar, pois os códigos ANSI
-	# são cumulativos: abrir um novo não desliga os anteriores.
-	#    echo -e '\e[4mFOO\e[33mBAR'  # BAR é amarelo *e* sublinhado
-	#
-	# No CSS, o text-decoration é cumulativo para sub-elementos (FF, Safari), veja:
-	# <span style=text-decoration:underline>FOO<span style=text-decoration:none>BAR
-	# O BAR também vai aparecer sublinhado, o 'none' no SPAN filho não o desliga.
-	# Por isso é preciso uma outra tática para desligar sublinhado e blink.
-	#
-	# Uma alternativa seria fechar todos os SPANs no ^[0m, mas é difícil no sed
-	# saber quantos SPANs estão abertos (multilinha). A solução foi usar DIVs,
-	# que ao serem fechados desligam todos os SPANs anteriores.
-	#    ^[0m  -->  </div><div style="display:inline">
-	#
-	sed "
+		# Um único sed toma conta de toda a tarefa de conversão.
+		#
+		# Esta função cria um SPAN dentro do outro, sem fechar, pois os códigos ANSI
+		# são cumulativos: abrir um novo não desliga os anteriores.
+		#    echo -e '\e[4mFOO\e[33mBAR'  # BAR é amarelo *e* sublinhado
+		#
+		# No CSS, o text-decoration é cumulativo para sub-elementos (FF, Safari), veja:
+		# <span style=text-decoration:underline>FOO<span style=text-decoration:none>BAR
+		# O BAR também vai aparecer sublinhado, o 'none' no SPAN filho não o desliga.
+		# Por isso é preciso uma outra tática para desligar sublinhado e blink.
+		#
+		# Uma alternativa seria fechar todos os SPANs no ^[0m, mas é difícil no sed
+		# saber quantos SPANs estão abertos (multilinha). A solução foi usar DIVs,
+		# que ao serem fechados desligam todos os SPANs anteriores.
+		#    ^[0m  -->  </div><div style="display:inline">
+		#
+		sed "
 		# Engloba o código na tag PRE para preservar espaços
 		1 i\\
 <pre style=\"background:#000;color:#FFF\"><div style=\"display:inline\">

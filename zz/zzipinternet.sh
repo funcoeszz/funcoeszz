@@ -9,7 +9,7 @@
 # Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzipinternet ()
+zzipinternet()
 {
 	zzzz -h ipinternet "$1" && return
 

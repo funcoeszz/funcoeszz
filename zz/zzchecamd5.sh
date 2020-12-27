@@ -11,7 +11,7 @@
 # Requisitos: zzmd5
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
-zzchecamd5 ()
+zzchecamd5()
 {
 
 	# Variaveis locais
@@ -21,13 +21,13 @@ zzchecamd5 ()
 	zzzz -h checamd5 "$1" && return
 
 	# Faltou argumento mostrar como se usa a zzchecamd5
-	if test $# != "2";then
+	if test $# != "2"; then
 		zztool -e uso checamd5
 		return 1
 	fi
 
 	# Foi passado o caminho errado do arquivo
-	if test ! -f $1 ;then
+	if test ! -f $1; then
 		zztool erro "Nao foi encontrado: $1"
 		return 1
 	fi

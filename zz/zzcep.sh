@@ -13,7 +13,7 @@
 # Requisitos: zzsemacento zzminusculas zzxml zzjuntalinhas zzcolunar zztrim zzpad
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-zzcep ()
+zzcep()
 {
 	zzzz -h cep "$1" && return
 
@@ -21,11 +21,13 @@ zzcep ()
 	local url='http://cep.guiamais.com.br'
 
 	# Verificação dos parâmetros
-	test -n "$1" || { zztool -e uso cep; return 1; }
+	test -n "$1" || {
+		zztool -e uso cep
+		return 1
+	}
 
 	# Testando se parametro é o CEP
-	if echo "$1" | grep -E '^[0-9]{5}-[0-9]{3}$' > /dev/null
-	then
+	if echo "$1" | grep -E '^[0-9]{5}-[0-9]{3}$' >/dev/null; then
 		end=0
 		cepend="$1"
 	else
@@ -36,10 +38,8 @@ zzcep ()
 	# A primeira página ou endereço das várias páginas
 	pagina1=$(zztool source "${url}/busca?word=${cepend}")
 
-	if echo "$pagina1" | grep 'sr-only' >/dev/null
-	then
-		for pages in $(echo "$pagina1" | grep 'sr-only' | sed 's/.*href="//;s/".*//')
-		do
+	if echo "$pagina1" | grep 'sr-only' >/dev/null; then
+		for pages in $(echo "$pagina1" | grep 'sr-only' | sed 's/.*href="//;s/".*//'); do
 			zztool source "$pages"
 		done
 	else
@@ -50,25 +50,22 @@ zzcep ()
 		zzjuntalinhas -i '<th' -f '</th>' -d ' ' |
 		sed 's|> </a>|> - </a>|g' |
 		zzxml --untag |
-		if test "$end" -eq 1
-		then
+		if test "$end" -eq 1; then
 			awk 'NR % 5 != 4' |
-			zzcolunar -s '|' -z 4
+				zzcolunar -s '|' -z 4
 		else
 			awk 'NR % 5 != 4 && NR % 5 != 0' |
-			zzcolunar -s '|' -z 3
+				zzcolunar -s '|' -z 3
 		fi |
 		sed '2,$ { /LOGRADOURO/d; }' |
 		zztrim | tr -s ' ' |
-		while IFS="|" read logradouro bairro cidade cep
-		do
+		while IFS="|" read logradouro bairro cidade cep; do
 			echo "$cep $(zzpad 65 $logradouro) $(zzpad 25 $bairro) $(zzpad 30 $cidade) $cep"
 		done |
 		zztrim |
-		if test "$end" -eq 1
-		then
+		if test "$end" -eq 1; then
 			sort -n |
-			sed 's/[^[:blank:]]* //'
+				sed 's/[^[:blank:]]* //'
 		else
 			cat -
 		fi

@@ -11,7 +11,7 @@
 # Requisitos: zzshuffle zzaleatorio
 # Tags: sugestão
 # ----------------------------------------------------------------------------
-zzsubway ()
+zzsubway()
 {
 	zzzz -h subway "$1" && return
 
@@ -31,8 +31,8 @@ zzsubway ()
 
 	echo "$cardapio" | while read linha; do
 		quantidade=$(echo "$linha" | cut -d : -f 1 | tr -d '\t')
-		categoria=$( echo "$linha" | cut -d : -f 2)
-		opcoes=$(    echo "$linha" | cut -d : -f 3- | tr : '\n')
+		categoria=$(echo "$linha" | cut -d : -f 2)
+		opcoes=$(echo "$linha" | cut -d : -f 3- | tr : '\n')
 
 		# Que tipo de ingrediente mostraremos agora? Recheio? Pão? Tamanho? ...
 		printf "%s\t: " "$categoria"
@@ -40,8 +40,7 @@ zzsubway ()
 		# Quantos ingredientes opcionais colocaremos no pão?
 		# O asterisco indica "qualquer quantidade", então é escolhido um
 		# número qualquer dentre as opções disponíveis.
-		if test "$quantidade" = '*'
-		then
+		if test "$quantidade" = '*'; then
 			quantidade=$(echo "$opcoes" | zztool num_linhas)
 			quantidade=$(zzaleatorio 1 $quantidade)
 		fi

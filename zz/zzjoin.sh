@@ -21,7 +21,7 @@
 # Licença: GPL
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
-zzjoin ()
+zzjoin()
 {
 	zzzz -h join "$1" && return
 
@@ -30,14 +30,11 @@ zzjoin ()
 	local tipo=1
 
 	# Opção -m ou -M, -numero ou -o
-	while test "${1#-}" != "$1"
-	do
-		if test '-o' = "$1"
-		then
+	while test "${1#-}" != "$1"; do
+		if test '-o' = "$1"; then
 			arq_saida="$2"
 			shift
-		elif test '-d' = "$1"
-		then
+		elif test '-d' = "$1"; then
 			sep="$2"
 			shift
 		else
@@ -46,37 +43,41 @@ zzjoin ()
 		shift
 	done
 
-	test -n "$2" || { zztool -e uso join; return 1; }
+	test -n "$2" || {
+		zztool -e uso join
+		return 1
+	}
 
-	for arquivo
-	do
+	for arquivo; do
 		# Especificar se vai se orientar pelo arquivo com mais ou menos linhas
-		if test 'm' = "$tipo" || test 'M' = "$tipo"
-		then
+		if test 'm' = "$tipo" || test 'M' = "$tipo"; then
 			lin_arq=$(zztool num_linhas "$arquivo")
-			if test 'M' = "$tipo" && test $lin_arq -gt $linhas
-			then
+			if test 'M' = "$tipo" && test $lin_arq -gt $linhas; then
 				linhas=$lin_arq
 			fi
-			if test 'm' = "$tipo" && (test $lin_arq -lt $linhas || test $linhas -eq 0)
-			then
+			if test 'm' = "$tipo" && (test $lin_arq -lt $linhas || test $linhas -eq 0); then
 				linhas=$lin_arq
 			fi
 		fi
 
 		# Verifica se arquivos são legíveis
-		zztool arquivo_legivel "$arquivo" || { zztool erro "Um ou mais arquivos inexistentes ou ilegíveis."; return 1; }
+		zztool arquivo_legivel "$arquivo" || {
+			zztool erro "Um ou mais arquivos inexistentes ou ilegíveis."
+			return 1
+		}
 	done
 
 	# Se opção é um numero, o arquivo base para as linhas é o mesmo da posição equivalente
-	if zztool testa_numero $tipo && test $tipo -le $#
-	then
+	if zztool testa_numero $tipo && test $tipo -le $#; then
 		arquivo=$(awk -v arg=$tipo 'BEGIN { print ARGV[arg] }' $* 2>/dev/null)
 		linhas=$(zztool num_linhas "$arquivo")
 	fi
 
 	# Sem quantidade de linhas mínima não há junção.
-	test "$linhas" -eq 0 && { zztool erro "Não há linhas para serem \"juntadas\"."; return 1; }
+	test "$linhas" -eq 0 && {
+		zztool erro "Não há linhas para serem \"juntadas\"."
+		return 1
+	}
 
 	# Onde a "junção" ocorre efetivamente.
 	awk -v linhas_awk=$linhas -v saida_awk="$arq_saida" -v sep_awk="$sep" '

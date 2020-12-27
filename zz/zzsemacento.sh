@@ -10,15 +10,15 @@
 # Licença: GPL
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
-zzsemacento ()
+zzsemacento()
 {
 	zzzz -h semacento "$1" && return
 
 	# Dados via STDIN ou argumentos
 	zztool multi_stdin "$@" |
 
-	# Remove acentos
-	sed '
+		# Remove acentos
+		sed '
 		y/àáâãäåèéêëìíîïòóôõöùúûü/aaaaaaeeeeiiiiooooouuuu/
 		y/ÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜ/AAAAAAEEEEIIIIOOOOOUUUU/
 		y/çÇñÑß¢Ðð£Øø§µÝý¥¹²³ªº/cCnNBcDdLOoSuYyY123ao/
