@@ -61,7 +61,7 @@ zzunicode ()
 	fi
 
 	zztool source "${url}${bloco}" |
-	sed -n '/class="symbols-grid__symbol"\|data-template/{s/^ *//;s/ *$//;s/<div [^>]*>//g;s/<\/div>//g;s/U+//;p;}' |
+	sed -n '/class="symbols-grid__symbol"/{s/^ *//;s/ *$//;s/<div [^>]*>//g;s/<\/div>//g;s/U+//;p;};/data-template/{s/^ *//;s/ *$//;p;}' |
 	zzunescape --html |
 	sed 's/","url":.*//;s/.*"title":"/title:/' |
 	zzlimpalixo |
