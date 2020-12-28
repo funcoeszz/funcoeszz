@@ -74,9 +74,9 @@ zzit ()
 			zzxml --tidy --tag h2 --untag |
 			awk '{printf "%02d - ",NR};1'
 		else
-			url2="${url}/"$(
+			url2=$(
 				zztool source "$url2" |
-				zzutf8|
+				zzutf8 |
 				zzxml --tidy --tag h2 |
 				sed '/<a href/!d;s/.*href="//;s/">//' |
 				zzxml --untag |
@@ -87,7 +87,8 @@ zzit ()
 			sed '1,/Plantão *$/d; s/ *\(Bibliografia:\)/\
 \1/' |
 			sed 's/\[INS: *:INS\]//g; /\* Imprimir/{s///;q;}' |
-			zzsqueeze | fmt -w 120
+			zzsqueeze |
+			fmt -w 120
 		fi
 	fi
 }
