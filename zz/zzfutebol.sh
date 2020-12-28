@@ -56,7 +56,7 @@ zzfutebol ()
 	do
 		echo "$(zzdatafmt $data) $hora $(zzpad -e 24 $time1) $(zzpad -a 14 $placar) $(zzpad 24 $time2) $campeonato"
 	done |
-	if test "$pagina" = 'proximos_jogos.php'
+	if test 'proximos_jogos.php' = "$pagina"
 	then
 		grep --color=never ' vs '
 	else
