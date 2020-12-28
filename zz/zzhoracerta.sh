@@ -14,6 +14,7 @@
 # Desde: 2004-03-29
 # Versão: 5
 # Licença: GPL
+# Requisitos: zzjuntalinhas zztrim zzxml
 # Tags: internet, tempo, consulta
 # ----------------------------------------------------------------------------
 zzhoracerta ()
@@ -76,14 +77,15 @@ zzhoracerta ()
 	localidade=$(echo "$localidades" | sed 's/ .*//')
 
 	# Faz a consulta e filtra o resultado
-	zztool dump "$url/current_time_in_$localidade.aspx" |
-		sed -n '/Current Time in /,/^UTC/{
+	zztool source "$url/current_time_in_$localidade.aspx" |
+		sed -n '/Current Time in /,/^ *<\/p>/p' |
+		zztrim |
+		zzxml --untag |
+		sed '
 			s/Current Time in //
-			/^\[social\]$/d
 			/^What Time Is It/d
-			/[?:]$/d
 			/^ *$/d
 			s/^ *//
-			p
-		}'
+		' |
+		zzjuntalinhas -i 5 -f 8 -d ' '
 }
