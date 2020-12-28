@@ -94,12 +94,18 @@ zzloteria ()
 				/[Aa]cumulado/,/R\$/{ s/R\$/ & /;p; }
 				/Arrecada/,/R\$/{ s/R\$/ & /;p; }
 			}' "$cache" |
+			if test "$codscript" = 'Super'
+			then
+				awk 'NR<15 && /<li /{ sub(/<li /,"<li l=\042" NR "\042") };1'
+			else
+				cat -
+			fi |
 			uniq |
 			awk 'NR==1{sorteio=$0;next};NR==2{printf "Concurso " $0; print " ("sorteio")"};/<a /{next};/<li /{printf "\t" $0 (++i%'$qtde'==0?"\n":"");next};NR>2' |
 			zzjuntalinhas -i ' class="tr"' -f 'div>' |
 			zzjuntalinhas -i '<tr' -f 'tr>' |
 			zzxml --untag |
-			sed 's/Faixa.*mio//;/Ver Rateio/d;/Arrecada.*total/{n;q;};s/	 \{1,\}/	/;s/	\{1,\}/	/g;s/	X	/ X /;/ACUMULOU/d' |
+			sed 's/Faixa.*mio//;/Ver Rateio/d;/Arrecada.*total/{n;q;};s/	 \{1,\}/	/;s/	\{1,\}/	/g;s/	X	/ X /;s/ACUMULOU.*//' |
 			awk '/[Aa]cumulado|Arrecada/{print ""};1' |
 			case "$tipo" in
 				duplasena) awk 'NR > 7 && NR < 16 && NF==0 {next};/Sorteio$/{printf "\n" $0 "\n";next};/Sena/ && NR>10{printf "\n"};1' ;;
