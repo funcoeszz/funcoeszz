@@ -25,6 +25,9 @@ NerdCast 352 - A Ciência dos Super-Herois | 01 Mar 2013
 https://nerdcast.jovemnerd.com.br/nerdcast_352_ciencia_herois.mp3
 
 $ zznerdcast -- -H
+NerdCast 657 - A Ciência dos Super-Heróis 3 | 25 Jan 2019
+https://nerdcast.jovemnerd.com.br/nerdcast_657_ciencia_dos_super_herois_3.mp3
+
 NerdCast 490 - O Ultra-Humano | 05 Nov 2015
 https://nerdcast.jovemnerd.com.br/nerdcast_490_ultra_humano.mp3
 
