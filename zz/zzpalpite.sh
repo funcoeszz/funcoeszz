@@ -79,7 +79,7 @@ zzpalpite ()
 				zztool eco $tipo:
 				if test 'sete' = "$tipo"
 				then
-					zzaleatorio 1111111 10000000 | sed '/10000000/s/.//;s/./& /g;s/^/ /;s/ $//'
+					zzaleatorio 10000000 19999999 | sed 's/.//;s/./& /g;s/^/ /;s/ $//'
 				else
 					while test "$i" -le "14"
 					do
