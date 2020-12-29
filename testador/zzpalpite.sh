@@ -61,6 +61,9 @@ timemania:
 sorte:
  99 99 99 99 99 99 99
 
+sete:
+ 9 9 9 9 9 9 9
+
 loteca:
  Jogo 99: Coluna ...
  Jogo 99: Coluna ...
