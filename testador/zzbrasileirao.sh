@@ -1,3 +1,3 @@
-$ zzbrasileirao   | zzwc -l	#=> 22
-$ zzbrasileirao b | zzwc -l	#=> 22
-$ zzbrasileirao c | zzwc -l	#=> 26
+$ zzbrasileirao   | zzwc -l	#=> 27
+$ zzbrasileirao b | zzwc -l	#=> 26
+$ zzbrasileirao c | zzwc -l	#=> 47
