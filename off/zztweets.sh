@@ -13,7 +13,7 @@
 # Requisitos: zzsqueeze zztrim
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
-# DESATIVADA: 2020-12-28, Site não aceita mais navegadores em modo texto.
+# DESATIVADA: 2020-12-28 Site não aceita mais navegadores em modo texto.
 zztweets ()
 {
 	zzzz -h tweets "$1" && return
