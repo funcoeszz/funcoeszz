@@ -44,8 +44,14 @@ zzpgsql ()
 				$0  ~ /^$/  { branco++; if (branco == 3) { print "----------"; branco = 0 } }
 				$0 !~ /^$/  { for (i=1;i<=branco;i++) { print "" }; print ; branco = 0 }
 			' |
-			sed -n '/^ *[_-][_-][_-][_-]*/,/^ *[_-][_-][_-][_-]*/p' |
-			sed '1d;$d;' | zztrim -V | sed '1s/^ *//;s/        */       /'
+			sed -n '/^ *[_-][_-][_-][_-]*$/,/^ *[_-][_-][_-][_-]*$/p' |
+			sed '1d;$d;' |
+			zztrim -V |
+			sed '
+				1s/^ *//
+				s/        */       /
+				/.*Prev \{1,\} Up \{1,\}Next/,$d
+			'
 		else
 			grep -i $1 $cache | awk -F: '{printf "%3s %s\n", $1, $3}'
 		fi

@@ -52,24 +52,28 @@ NNN ROLLBACK PREPARED — cancel a transaction that was earlier prepared for two
 $
 
 $ zzpgsql 48 | sed '/^ *$/d; s/^ *//'
-COMMIT
-COMMIT — commit the current transaction
+CLOSE
+CLOSE — close a cursor
 Synopsis
-COMMIT [ WORK | TRANSACTION ]
+CLOSE { name | ALL }
 Description
-COMMIT commits the current transaction. All changes made by the transaction become visible to others and are guaranteed to be durable if a crash occurs.
+CLOSE frees the resources associated with an open cursor. After the cursor is closed, no subsequent operations are allowed on it. A cursor should be closed when it is no longer needed.
+Every non-holdable open cursor is implicitly closed when a transaction is terminated by COMMIT or ROLLBACK. A holdable cursor is implicitly closed if the transaction that created it aborts via ROLLBACK. If the creating transaction successfully commits, the holdable cursor remains open until
+an explicit CLOSE is executed, or the client disconnects.
 Parameters
-WORK
-TRANSACTION
-Optional key words. They have no effect.
+name
+The name of an open cursor to close.
+ALL
+Close all open cursors.
 Notes
-Use ROLLBACK to abort a transaction.
-Issuing COMMIT when not inside a transaction does no harm, but it will provoke a warning message.
+PostgreSQL does not have an explicit OPEN cursor statement; a cursor is considered open when it is declared. Use the DECLARE statement to declare a cursor.
+You can see all available cursors by querying the pg_cursors system view.
+If a cursor is closed after a savepoint which is later rolled back, the CLOSE is not rolled back; that is, the cursor remains closed.
 Examples
-To commit the current transaction and make all changes permanent:
-COMMIT;
+Close the cursor liahona:
+CLOSE liahona;
 Compatibility
-The SQL standard only specifies the two forms COMMIT and COMMIT WORK. Otherwise, this command is fully conforming.
+CLOSE is fully conforming with the SQL standard. CLOSE ALL is a PostgreSQL extension.
 See Also
-BEGIN, ROLLBACK
+DECLARE, FETCH, MOVE
 $
