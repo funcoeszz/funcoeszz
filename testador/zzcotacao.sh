@@ -7,5 +7,7 @@ Dólar Canadense  	9.999	9.999	9.999
 Franco Suíço     	9.999	9.999	9.999
 Dólar Comercial  	9.999	9.999	9.999
 Dólar Turismo    	9.999	9.999	9.999
+Euro             	9.999	9.999	9.999
+Libra Esterlina  	9.999	9.999	9.999
 Iene             	9.999	9.999	9.999
 $
