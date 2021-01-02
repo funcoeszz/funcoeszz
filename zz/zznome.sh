@@ -26,7 +26,7 @@ zznome ()
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso nome; return 1; }
 
-	curl -k -L -s "$url/nomes/?q=$nome" |
+	zztool source "${url}/nomes/${nome}.htm" |
 		zzutf8 |
 		awk '
 			/<h2>Significado d/{next}
@@ -38,12 +38,20 @@ zznome ()
 		case "$2" in
 			origem     ) sed -n '/Qual a origem do nome /{s/Qual a o/O/;p;}' ;;
 			significado) sed -n '/Qual o significado do nome /{s/Qual o s/S/p;}' ;;
-			letra      ) sed -n '/Analise da Primeira Letra do Nome:/,/Sua marca no mundo!/{/Sua marca no mundo!/d;p;}' ;;
-			marca      ) sed -n '/Sua marca no mundo!/,/Significado - Numerologia - Expressão/{/Significado - Numerologia - Expressão/d;p;}' ;;
-			numerologia) sed -n '/Significado - Numerologia - Expressão/,/ - Arcanos do Tarot/{/Arcanos do Tarot/d;p;}' ;;
-			tarot      ) sed -n '/ - Arcanos do Tarot/,/VEJA TAMBÉM/{/VEJA TAMBÉM/d;p;}' ;;
-			tudo       ) sed -n '/Qual a origem do nome /,/VEJA TAMBÉM/{/VEJA TAMBÉM/d;p;}' ;;
-			*          ) sed -n '/Qual \(a origem\|o significado\) do nome /p' ;;
+			letra      ) sed -n '/ - Analise da Primeira Letra do Nome:/,/<h3>/{/<h3/d;p;}' ;;
+			marca      )
+				sed -n '
+					/ - Analise da Primeira Letra do Nome:/,/Significado - Numerologia - Expressão / {
+						/<h3>/,$!d
+						/<h3>/ i Sua Marca no Mundo
+						/Significado - Numerologia - Expressão /d
+						p
+					}
+				' ;;
+			numerologia) sed -n '/Significado - Numerologia - Expressão /,/ - Arcanos do Tarot/{/ - Arcanos do Tarot/d;p;}' ;;
+			tarot      ) sed -n '/ - Arcanos do Tarot/,/<hr \/>/{/<hr \/>/d;p;}' ;;
+			tudo       ) sed -n '/Qual a origem do nome /,/VOCE SABIA QUE.../{/<hr \/>/d;/VOCE SABIA QUE.../d;p;}' ;;
+			*          ) sed -n '/Qual a origem do nome /p;/Qual o significado do nome /p' ;;
 		esac |
 		zzxml --untag |
 		tr -s '\t' '\n' |
