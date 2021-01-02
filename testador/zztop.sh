@@ -1,4 +1,4 @@
-$ zztop | zzwc -l	#=> 41
+$ zztop	#=> --lines 41
 
 $ zztop -i 345 -f 180
 Uso: zztop [-l] [-i número] [-f número] [lista]
