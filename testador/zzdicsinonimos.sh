@@ -29,29 +29,16 @@ condenável impróprio inaceitável inadequado incivil inconveniente 3
 desajeitado desastrado desjeitoso trapalhão 4
 $
 
-$ zzdicsinonimos bom | sed '/:$/d' | tr -d ',.' | zzhsort
-bem-intencionado benevolente benévolo benfeitor benigno bondoso caridoso caritativo clemente generoso humano indulgente misericordioso piedoso 1
+$ zzdicsinonimos honesto | sed '/:$/d' | tr -d ',.' | zzhsort
+bom correto decente digno direito distinto educado escrupuloso honrado íntegro probo reto 1
 
-afável agradável aprazível deleitável encantador prazeroso 2
+aberto espontâneo franco lhano natural sincero veraz verdadeiro 2
 
-acertado adaptado adequado apropriado certo conveniente correto ideal próprio 3
+capaz consciencioso imparcial justo responsável sério 3
 
-bem-criado cortês decente delicado digno disciplinado educado gentil honesto honrado íntegro irrepreensível justo nobre obediente sério virtuoso 4
+aceitável adequado apropriado conveniente razoável regular satisfatório 4
 
-apto capaz competente eficiente expedito hábil habilitado 5
-
-apetitoso deleitoso delicioso gostoso saboroso 6
-
-bravo corajoso destemido impávido intrépido meritório resoluto valente 7
-
-assegurado considerável estável favorável firme garantido grande legal lícito lucrativo propício rendoso seguro significante útil válido vantajoso 8
-
-benéfico robusto sadio salutar são saudável 9
-
-curado livre recuperado restabelecido sarado 10
-
-Relacionadas
-bom bom bom gosto humor senso
+casto decoroso imaculado modesto pudico puro recatado virtuoso 5
 $
 
 $ zzdicsinonimos mal | sed '/:$/d' | tr -d ',.' | zzhsort
