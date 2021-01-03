@@ -10,7 +10,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 12
+# Versão: 13
 # Licença: GPL
 # Requisitos: zzminusculas zzfeed zztac zzdata zzdatafmt
 # Tags: internet, consulta
@@ -22,7 +22,7 @@ zzsecurity ()
 	local url limite distros
 	local n=5
 	local ano=$(date '+%Y')
-	local distros='debian freebsd gentoo slackware suse opensuse ubuntu arch mageia netbsd fedora'
+	local distros='debian freebsd gentoo slackware ubuntu arch mageia netbsd fedora'
 
 	limite="sed ${n}q"
 
@@ -31,15 +31,12 @@ zzsecurity ()
 	# Debian
 	if zztool grep_var debian "$distros"
 	then
-		url='http://www.debian.org'
+		url='http://www.debian.org/security'
 		echo
 		zztool eco '** Atualizações Debian'
 		echo "$url"
 		zztool dump "$url" |
-			sed -n '
-				/Security Advisories/,/_______/ {
-					/\[[0-9]/ s/^ *//p
-				}' |
+			sed -n '/\[[0-9]/ s/^ *//p' |
 			$limite
 	fi
 
@@ -48,9 +45,12 @@ zzsecurity ()
 	then
 		echo
 		zztool eco '** Atualizações Slackware'
-		url="http://www.slackware.com/security/list.php?l=slackware-security&y=$ano"
+		url="http://www.slackware.com/security/list.php?l=slackware-security"
 		echo "$url"
-		zztool dump "$url" |
+		for sl_ano in $ano $((ano-1))
+		do
+			zztool dump "${url}&y=${sl_ano}"
+		done |
 			sed '
 				/[0-9]\{4\}-[0-9][0-9]/!d
 				s/\[sla.*ty\]//
@@ -73,29 +73,6 @@ zzsecurity ()
 					s/\([-0-9]* \) *[a-zA-Z]* *\(.*[^ ]\)  *[0-9][0-9]* *$/\1\2/
 					p
 				}' |
-			$limite
-	fi
-
-	# Suse
-	if zztool grep_var suse "$distros" || zztool grep_var opensuse "$distros"
-	then
-		echo
-		zztool eco '** Atualizações Suse'
-		url='https://www.suse.com/support/update/'
-		echo "$url"
-		zztool dump "$url" |
-			grep 'SUSE-SU' |
-			sed 's/^.*\(SUSE-SU\)/ \1/;s/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
-			$limite
-
-		echo
-		zztool eco '** Atualizações Opensuse'
-		url="http://lists.opensuse.org/opensuse-updates/$(zzdata hoje - 1m | zzdatafmt -f AAAA-MM) http://lists.opensuse.org/opensuse-updates/$(zzdatafmt -f AAAA-MM hoje)"
-		echo "$url"
-		zztool dump $url |
-			grep 'SUSE-SU' |
-			sed 's/^ *\* //;s/ [0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT/,/;s/  *$//' |
-			zztac |
 			$limite
 	fi
 
