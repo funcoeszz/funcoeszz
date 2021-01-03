@@ -258,115 +258,116 @@ do
 	fgrep "zzzz -h $(basename $f .sh | sed 's/^zz//') \"\$1\" && return" $f >/dev/null || echo $f
 done
 
-eco ----------------------------------------------------------------
-eco "* Funções que não usam 'zztool uso'"
-# As seguintes não precisam pois é válido chamá-las sem argumentos
-ok="
-zzaleatorio
-zzalfabeto
-zzalinhar
-zzansi2html
-zzarrumacidade
-zzascii
-zzbeep
-zzbissexto
-zzbraille
-zzcalcula
-zzcapitalize
-zzcaracoroa
-zzcarnaval
-zzcidade
-zzcineuci
-zzcnpj
-zzcodchar
-zzcoin
-zzcontapalavras
-zzcores
-zzcorpuschristi
-zzcotacao
-zzcpf
-zzdado
-zzdatafmt
-zzdiadasemana
-zzdilbert
-zzdolar
-zzdos2unix
-zzencoding
-zzestado
-zzexcuse
-zzferiado
-zzfilme
-zzfoneletra
-zzfutebol
-zzglobo
-zzhexa2str
-zzhoracerta
-zzhoramin
-zzhorariodeverao
-zziostat
-zzipinternet
-zzit
-zzjquery
-zzjuntalinhas
-zzlblank
-zzlembrete
-zzlibertadores
-zzlimpalixo
-zzlinha
-zzlinux
-zzlinuxnews
-zzloteria
-zzlua
-zzmacaddress
-zzmaiores
-zzmaiusculas
-zzmariadb
-zzmd5
-zzminusculas
-zzmoneylog
-zznatal
-zznoticiaslinux
-zznoticiassec
-zzpais
-zzpalpite
-zzpascoa
-zzpgsql
-zzphp
-zzporta
-zzramones
-zzrot13
-zzrot47
-zzsecurity
-zzsemacento
-zzsenha
-zzsextapaixao
-zzsheldon
-zzshuffle
-zzstr2hexa
-zzsubway
-zztabuada
-zztac
-zztempo
-zztradutor
-zztranspor
-zztrim
-zztv
-zztwitter
-zzunescape
-zzunicode2ascii
-zzuniq
-zzunix2dos
-zzurldecode
-zzurlencode
-zzutf8
-zzvira
-zzxml
-"
-for f in zz/*.sh  # off/*.sh
-do
-	echo "$ok" | grep -x "$(basename $f .sh)" >/dev/null && continue
-	grep -E 'zztool( -e)? uso ' $f >/dev/null || echo $f
-done
+### Desativada, o 'zztool uso' está ausente da maioria das funções
+# eco ----------------------------------------------------------------
+# eco "* Funções que não usam 'zztool uso'"
+# # As seguintes não precisam pois é válido chamá-las sem argumentos
+# ok="
+# zzaleatorio
+# zzalfabeto
+# zzalinhar
+# zzansi2html
+# zzarrumacidade
+# zzascii
+# zzbeep
+# zzbissexto
+# zzbraille
+# zzcalcula
+# zzcapitalize
+# zzcaracoroa
+# zzcarnaval
+# zzcidade
+# zzcineuci
+# zzcnpj
+# zzcodchar
+# zzcoin
+# zzcontapalavras
+# zzcores
+# zzcorpuschristi
+# zzcotacao
+# zzcpf
+# zzdado
+# zzdatafmt
+# zzdiadasemana
+# zzdilbert
+# zzdolar
+# zzdos2unix
+# zzencoding
+# zzestado
+# zzexcuse
+# zzferiado
+# zzfilme
+# zzfoneletra
+# zzfutebol
+# zzglobo
+# zzhexa2str
+# zzhoracerta
+# zzhoramin
+# zzhorariodeverao
+# zziostat
+# zzipinternet
+# zzit
+# zzjquery
+# zzjuntalinhas
+# zzlblank
+# zzlembrete
+# zzlibertadores
+# zzlimpalixo
+# zzlinha
+# zzlinux
+# zzlinuxnews
+# zzloteria
+# zzlua
+# zzmacaddress
+# zzmaiores
+# zzmaiusculas
+# zzmariadb
+# zzmd5
+# zzminusculas
+# zzmoneylog
+# zznatal
+# zznoticiaslinux
+# zznoticiassec
+# zzpais
+# zzpalpite
+# zzpascoa
+# zzpgsql
+# zzphp
+# zzporta
+# zzramones
+# zzrot13
+# zzrot47
+# zzsecurity
+# zzsemacento
+# zzsenha
+# zzsextapaixao
+# zzsheldon
+# zzshuffle
+# zzstr2hexa
+# zzsubway
+# zztabuada
+# zztac
+# zztempo
+# zztradutor
+# zztranspor
+# zztrim
+# zztv
+# zztwitter
+# zzunescape
+# zzunicode2ascii
+# zzuniq
+# zzunix2dos
+# zzurldecode
+# zzurlencode
+# zzutf8
+# zzvira
+# zzxml
+# "
+# for f in zz/*.sh  # off/*.sh
+# do
+# 	echo "$ok" | grep -x "$(basename $f .sh)" >/dev/null && continue
+# 	grep -E 'zztool( -e)? uso ' $f >/dev/null || echo $f
+# done
 
 eco ----------------------------------------------------------------
 eco "* Funções com o nome errado em 'zztool uso'"
