@@ -22,7 +22,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-28
-# Versão: 4
+# Versão: 5
 # Licença: GPL
 # Requisitos: zzsemacento zzutf8 zzxml zzsqueeze zzdatafmt zzlinha
 # Tags: internet, consulta
@@ -33,8 +33,7 @@ zzit ()
 	zzzz -h it "$1" && return
 
 	local url='https://www.inovacaotecnologica.com.br'
-	ano=$(zzdatafmt -f AAAA hoje)
-	local url2 opcao num
+	local url2 opcao num ano
 
 	if test -n "$1" && zztool testa_numero $1
 	then
@@ -57,6 +56,7 @@ zzit ()
 				url2="$url/noticias/${opcao}_${ano}.html"
 			else
 				url2="$url/noticias/assuntos.php?assunto=$opcao"
+				ano=$(zzdatafmt -f AAAA hoje)
 			fi
 			shift ;;
 		* )	url2="$url/index.php" ;;
@@ -64,31 +64,30 @@ zzit ()
 
 	zztool testa_numero $1 && num=$1
 
-	if test -n "$ano"
+	if test -n "$num"
 	then
-		if test -z "$num"
-		then
+		url2=$(
 			zztool source "$url2" |
 			zzutf8 |
-			sed '/- Arquivos<\/strong>/,$d' |
-			zzxml --tidy --tag h2 --untag |
-			awk '{printf "%02d - ",NR};1'
-		else
-			url2=$(
-				zztool source "$url2" |
-				zzutf8 |
-				zzxml --tidy --tag h2 |
-				sed '/<a href/!d;s/.*href="//;s/">//' |
-				zzxml --untag |
-				zzlinha $num
-			)
-			zztool eco "$url2"
-			zztool dump "$url2" |
-			sed '1,/Plantão *$/d; s/ *\(Bibliografia:\)/\
+			zzxml --tidy --tag h2 |
+			sed '/<a href/!d;s/.*href="//;s/">//' |
+			zzxml --untag |
+			zzlinha $num
+		)
+		zztool grep_var 'noticias' "${url}/${url2#*/}" && url2="${url}/${url2#*/}" || url2="${url}/noticias/${url2#*/}"
+		zztool eco "${url2}"
+		zztool dump "${url2}" |
+		sed '1,/Plantão *$/d; s/ *\(Bibliografia:\)/\
 \1/' |
-			sed 's/\[INS: *:INS\]//g; /\* Imprimir/{s///;q;}' |
-			zzsqueeze |
-			fmt -w 120
-		fi
+		sed 's/\[INS: *:INS\]//g; /\* Imprimir/{s///;q;}' |
+		zzsqueeze |
+		fmt -w 120
+		return
 	fi
+
+	zztool source "$url2" |
+	zzutf8 |
+	zzxml --tidy --tag h2 --untag |
+	awk '{printf "%02d - ",NR};1'
+
 }
