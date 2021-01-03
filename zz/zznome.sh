@@ -51,7 +51,7 @@ Sua Marca no Mundo
 				' ;;
 			numerologia) sed -n '/Significado - Numerologia - Expressão /,/ - Arcanos do Tarot/{/ - Arcanos do Tarot/d;p;}' ;;
 			tarot      ) sed -n '/ - Arcanos do Tarot/,/<hr \/>/{/<hr \/>/d;p;}' ;;
-			tudo       ) sed -n '/Qual a origem do nome /,/VOCE SABIA QUE.../{/<hr \/>/d;/VOCE SABIA QUE.../d;p;}' ;;
+			tudo       ) sed -n '/Qual a origem do nome /,/VOCE SABIA QUE\.\.\./{/<hr \/>/d;/VOCE SABIA QUE\.\.\./d;p;}' ;;
 			*          ) sed -n '/Qual a origem do nome /p;/Qual o significado do nome /p' ;;
 		esac |
 		zzxml --untag |
