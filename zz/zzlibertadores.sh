@@ -5,7 +5,7 @@
 #  P   - Pontos Ganhos
 #  J   - Jogos
 #
-# Obs.: Se usar a opção for --atualiza, o cache usado é renovado.
+# Obs.: Se usar a opção --atualiza, o cache usado é renovado.
 #
 # Uso: zzlibertadores
 # Ex.: zzlibertadores            # Classificação dos grupos e jogos mata-mata.
