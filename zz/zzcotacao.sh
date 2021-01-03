@@ -26,7 +26,6 @@ zzcotacao ()
 	zztrim |
 	zzunescape --html |
 	awk ' BEGIN {OFS="|"}
-	/n\/d/ {next}
 	{
 		if ( NR == 1 ) print $1, $2, $3, $4
 		if ( NR >  1 ) {
