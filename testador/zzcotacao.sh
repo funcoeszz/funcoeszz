@@ -1,4 +1,4 @@
-$ zzcotacao | sed 's/-\{0,1\}[0-9]\{1,\}[,.][0-9]\{3,\}/9.999/g'
+$ zzcotacao | sed 's/-\{0,1\}[0-9]\{1,\}[,.][0-9]\{3,\}/9.999/g;s/Euro             		/Euro             	9.999	9.999/;s/Libra Esterlina  		/Libra Esterlina  	9.999	9.999/'
 Infomoney
                  	Compra	Venda 	Var(%)
 Peso Argentino   	9.999	9.999	9.999
