@@ -43,7 +43,8 @@ zznome ()
 				sed -n '
 					/ - Analise da Primeira Letra do Nome:/,/Significado - Numerologia - Expressão / {
 						/<h3>/,$!d
-						/<h3>/ i Sua Marca no Mundo
+						/<h3>/ i \
+Sua Marca no Mundo
 						/Significado - Numerologia - Expressão /d
 						p
 					}
