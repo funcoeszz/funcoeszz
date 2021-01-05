@@ -106,3 +106,7 @@ $ zzcnpj -F	'(1_2=3*4@5+6?0a1.'	#=> 00000012345601
 # -q: Modo silencioso
 $ zzcnpj -q	12345678000195; echo $?	#=> 0
 $ zzcnpj -q	12345678000123; echo $?	#=> 1
+
+# Consultando um CNPJ
+$ zzcnpj -c 27865757000102	#=> --lines 20
+$ zzcnpj -c 33041260102595	#=> --lines 7
