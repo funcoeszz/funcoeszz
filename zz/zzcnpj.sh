@@ -56,27 +56,24 @@ zzcnpj ()
 		cnpj=$(printf "%014d" "$cnpj")
 
 		zztool source "https://receitaws.com.br/v1/cnpj/$cnpj" |
+		zztool nl_eof |
+		tr '{}[]' '\n' |
 		sed '
-			/^ *[{}]/d
-			/""/d
-			/\[\]/d
-			/{}/d
-			/"billing":/,$d
-			/"code": "00.00-0-00"/,/\]/d
-			/^ *\]/d
-			/ultima.atualizacao/{s/T/ /; s/\.[0-9]\{1,\}Z//;}
-			s/: \[$/:/
-			s/,$//
-			s/"//g
-			s/_/ /' |
-		awk '
-			/(text|qual|nome): / {
-				eol=($1 ~/nome:/?"\n":"")
-				sub(/(text|qual|nome): /,"")
-				printf $0 eol; next
-			}
-			/code: / {print " (" $2 ")" ; next}
-			1'
+			/"qsa"/d
+			/"qual"/d
+			/^[ ,]*$/d
+			/"billing"/,$d
+			s/^,//
+			s/","/"	"/g
+		' |
+		tr '\t' '\n' |
+		sed '
+			/"code"/d
+			/"atividades_secundarias"/,/"situacao"/ { /"situacao"/!d; }
+			1{ N; s/:.*:/:/;}
+			s/["_]/ /g
+			3,${/: *$/d;}
+		'
 		return 0
 	fi
 
