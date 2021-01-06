@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# http://www.achecep.com.br
 # Busca o CEP de qualquer rua de qualquer cidade do país ou vice-versa.
 # Pode-se fornecer apenas o CEP, ou o endereço com estado.
 # Uso: zzcep <endereço estado| CEP>
