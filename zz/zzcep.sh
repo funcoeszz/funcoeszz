@@ -16,8 +16,8 @@ zzcep ()
 {
 	zzzz -h cep "$1" && return
 
-	local end cepend pagina1 pages ultima url2
-	local url='http://cep.guiamais.com.br'
+	local end cepend pagina1 pages ultima url2 logradouro bairro cidade cep
+	local url='https://cep.guiamais.com.br'
 
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso cep; return 1; }
@@ -60,7 +60,8 @@ zzcep ()
 			zzcolunar -s '|' -z 3
 		fi |
 		sed '2,$ { /LOGRADOURO/d; }' |
-		zztrim | tr -s ' ' |
+		zztrim |
+		tr -s ' ' |
 		while IFS="|" read logradouro bairro cidade cep
 		do
 			echo "$cep $(zzpad 65 $logradouro) $(zzpad 25 $bairro) $(zzpad 30 $cidade) $cep"
