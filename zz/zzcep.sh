@@ -17,7 +17,7 @@ zzcep ()
 {
 	zzzz -h cep "$1" && return
 
-	local end cepend pagina1 pages
+	local end cepend pagina1 pages ultima url2
 	local url='http://cep.guiamais.com.br'
 
 	# Verificação dos parâmetros
@@ -38,9 +38,11 @@ zzcep ()
 
 	if echo "$pagina1" | grep 'sr-only' >/dev/null
 	then
-		for pages in $(echo "$pagina1" | grep 'sr-only' | sed 's/.*href="//;s/".*//')
+		ultima=$(echo "$pagina1" | sed -n '/<ul/,/ul>/{/\/busca\//{$d;s/.*page=//;s/".*//;p;}}' | sort -n | tail -n 1)
+		url2=$(echo "$pagina1" | sed -n '/<ul/,/ul>/{/\/busca\//{s/.*href="//;s/page=.*/page=/;p;q;}}')
+		for pages in $(seq $ultima)
 		do
-			zztool source "$pages"
+			zztool source "${url}${url2}${pages}"
 		done
 	else
 		echo "$pagina1"
