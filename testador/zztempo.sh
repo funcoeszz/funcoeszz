@@ -5,7 +5,7 @@
 #   ― (   ) ―   ← 2 km/h       
 #      `-’      10 km          
 #     /   \     0.0 mm   
-$ zztempo -0 -m -l pt curitiba | sed '1 s/[Cc]uritiba.*$/Curitiba/g; 2,3 d; s/[0-9][0-9]*/9/g; s/[.-]9\+//g; s/^ .\{15\}//g; s/[↖|↗|↘|↙|←|↑|→|↓]/↑/g; s/ *$//'
+$ zztempo -0 -m -l pt curitiba | sed '1 s/[Cc]uritiba.*$/Curitiba/g; 2,3 d;s/\.\.//; s/[0-9][0-9]*/9/g; s/[.-]9\+//g; s/^ .\{15\}//g; s/[↖|↗|↘|↙|←|↑|→|↓]/↑/g; s/ *$//'
 Previsão do tempo para: Curitiba
 9 °C
 ↑ 9 km/h
