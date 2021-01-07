@@ -49,7 +49,6 @@ zzpgsql ()
 			sed "1,/${texto}/{/${texto}/!d};$d;" |
 			zztrim -V |
 			sed '
-				#1s/^ *//
 				s/        */       /
 				/^ *[_-][_-][_-][_-]*$/d
 				/.*Prev \{1,\} Up \{1,\}Next/,$d
