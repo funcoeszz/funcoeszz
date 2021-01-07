@@ -19,7 +19,7 @@ zzmariadb ()
 {
 	zzzz -h mariadb "$1" && return
 
-	local url='https://kb.askmonty.org/pt-br'
+	local url='https://mariadb.com/kb/pt-br'
 	local cache=$(zztool cache mariadb)
 	local comando
 
