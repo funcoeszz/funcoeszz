@@ -1,16 +1,16 @@
-$ zzloteria quina | tr '[0-9]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g;s/?[ ]\{,1\}/NN/g;3s/^\(.\{15\}\).*/\1/'
+$ zzloteria quina | tr '[0-9]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s|Hoje|NN/NN/NNNN|;s/?[ ]\{,1\}/NN/g;s/?[ ]\{,1\}/NN/g;3s/^\(.\{15\}\).*/\1/'
 quina:
 Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN
 $
 
-$ zzloteria megasena | tr '[0-9]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
+$ zzloteria megasena | tr '[0-9]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s|Hoje|NN/NN/NNNN|;s/?[ ]\{,1\}/NN/g'
 megasena:
 Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN	NN
 $
 
-$ zzloteria duplasena | tr '[0-9]' 'N' | head -6 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
+$ zzloteria duplasena | tr '[0-9]' 'N' | head -6 | sed 's|()|(NN/NN/NNNN)|;s|Hoje|NN/NN/NNNN|;s/?[ ]\{,1\}/NN/g;s/ *Nº/Nº/'
 duplasena:
 Concurso NNNN (NN/NN/NNNN)
 
@@ -19,7 +19,7 @@ Nº Sorteio
 
 $
 
-$ zzloteria lotomania | tr '[0-9]' 'N' | head -6 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
+$ zzloteria lotomania | tr '[0-9]' 'N' | head -6 | sed 's|()|(NN/NN/NNNN)|;s|Hoje|NN/NN/NNNN|;s/?[ ]\{,1\}/NN/g'
 lotomania:
 Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN
@@ -28,7 +28,7 @@ Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN
 $
 
-$ zzloteria lotofacil | tr '[0-9]' 'N' | head -5 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
+$ zzloteria lotofacil | tr '[0-9]' 'N' | head -5 | sed 's|()|(NN/NN/NNNN)|;s|Hoje|NN/NN/NNNN|;s/?[ ]\{,1\}/NN/g'
 lotofacil:
 Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN
@@ -36,7 +36,7 @@ Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN
 $
 
-$ zzloteria federal | tr '[0-9.]' 'N' | sed 's/NN*/N/g'
+$ zzloteria federal | tr '[0-9.]' 'N' | sed 's/NN*/N/g;s|Hoje|N/N/N|'
 federal:
 Concurso N (N/N/N)
 Nº	N	N	N,N
@@ -47,19 +47,19 @@ Nº	N	N	N,N
 
 $
 
-$ zzloteria timemania | tr '[0-9.]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s/?[ ]\{,1\}/NN/g'
+$ zzloteria timemania | tr '[0-9.]' 'N' | head -3 | sed 's|()|(NN/NN/NNNN)|;s|Hoje|NN/NN/NNNN|;s/?[ ]\{,1\}/NN/g'
 timemania:
 Concurso NNNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN	NN	NN
 $
 
-$ zzloteria sorte | tr '[0-9]' 'N' | head -n 3
+$ zzloteria sorte | tr '[0-9]' 'N' | sed 's|Hoje|NN/NN/NNNN|'| head -n 3
 sorte:
 Concurso NNN (NN/NN/NNNN)
 	NN	NN	NN	NN	NN	NN	NN
 $
 
-$ zzloteria sete | tr '[0-9]' 'N' | head -n 3
+$ zzloteria sete | tr '[0-9]' 'N' | sed 's|Hoje|NN/NN/NNNN|'| head -n 3
 sete:
 Concurso NN (NN/NN/NNNN)
 	N	N	N	N	N	N	N
