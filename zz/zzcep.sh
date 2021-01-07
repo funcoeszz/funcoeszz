@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# http://www.achecep.com.br
+# https://cep.guiamais.com.br 
 # Busca o CEP de qualquer rua de qualquer cidade do país ou vice-versa.
 # Pode-se fornecer apenas o CEP, ou o endereço com estado.
 # Uso: zzcep <endereço estado| CEP>
@@ -17,8 +17,8 @@ zzcep ()
 {
 	zzzz -h cep "$1" && return
 
-	local end cepend pagina1 pages
-	local url='http://cep.guiamais.com.br'
+	local end cepend pagina1 pages ultima url2 logradouro bairro cidade cep
+	local url='https://cep.guiamais.com.br'
 
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso cep; return 1; }
@@ -38,9 +38,11 @@ zzcep ()
 
 	if echo "$pagina1" | grep 'sr-only' >/dev/null
 	then
-		for pages in $(echo "$pagina1" | grep 'sr-only' | sed 's/.*href="//;s/".*//')
+		ultima=$(echo "$pagina1" | sed -n '/<ul/,/ul>/{/\/busca\//{$d;s/.*page=//;s/".*//;p;}}' | sort -n | tail -n 1)
+		url2=$(echo "$pagina1" | sed -n '/<ul/,/ul>/{/\/busca\//{s/.*href="//;s/page=.*/page=/;p;q;}}')
+		for pages in $(seq $ultima)
 		do
-			zztool source "$pages"
+			zztool source "${url}${url2}${pages}"
 		done
 	else
 		echo "$pagina1"
@@ -59,7 +61,8 @@ zzcep ()
 			zzcolunar -s '|' -z 3
 		fi |
 		sed '2,$ { /LOGRADOURO/d; }' |
-		zztrim | tr -s ' ' |
+		zztrim |
+		tr -s ' ' |
 		while IFS="|" read logradouro bairro cidade cep
 		do
 			echo "$cep $(zzpad 65 $logradouro) $(zzpad 25 $bairro) $(zzpad 30 $cidade) $cep"
