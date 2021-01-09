@@ -41,7 +41,9 @@ zzhoroscopo ()
 
 		# Faz a mágica acontecer
 		zztool source -u 'Mozilla/5.0' "$url" |
-			sed -n '/title-sign/p;/date-sign/{s/&.*//;p;};/text-pred/,/<span/p' |
+			sed -n '
+				/name-sign/p
+				/<p class="text-pred">/,/<\/p>/ { />Compartilhar</!p; }' |
 			zzxml --untag |
 			zztrim
 	else
