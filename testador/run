@@ -18,7 +18,7 @@ cd "$script_dir"
 
 # For Travis exceptions, see https://github.com/funcoeszz/funcoeszz/issues/355
 internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"");printf $1 "\n"}')
-internet_travis=$(echo "$internet" | grep -E -v '^zz(distro|linux)\.sh$')
+internet_travis=$(echo "$internet" | grep -E -v '^zz(distro|linux|chavepgp)\.sh$')
 all=$(ls -1 zz*.sh)
 no_internet=$(echo "$all" | grep -F -v -x -f <(echo "$internet"))
 
