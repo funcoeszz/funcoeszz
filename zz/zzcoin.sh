@@ -6,7 +6,7 @@
 # Ex.: zzcoin       # Lista todas as criptomoedas disponíveis
 #      zzcoin -a    # Cotação de todas as criptomoedas da lista
 #      zzcoin btc   # Cotação do Bitcoin
-#      zzcoin lc    # Cotação do Litecoin
+#      zzcoin ltc   # Cotação do Litecoin
 #      zzcoin eth   # Cotação do Ethereum
 #
 # Autor: Tárcio Zemel <tarciozemel (a) gmail com>

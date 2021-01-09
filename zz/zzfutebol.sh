@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# http://esporte.uol.com.br/futebol/agenda-de-jogos
+# https://www.ogol.com.br
 # Mostra todos os jogos de futebol marcados para os próximos dias.
 # Ou os resultados de jogos recentes.
 # Além de mostrar os times que jogam, o script também mostra o dia,

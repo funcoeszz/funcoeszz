@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# http://esporte.uol.com.br/
+# https://www.ogol.com.br
 # Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B ou C.
 #
 # Nomenclatura:
