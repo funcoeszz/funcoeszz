@@ -51,7 +51,13 @@ zzfutebol ()
 	zzxml --untag |
 	zztrim |
 	zzsqueeze |
-	awk '/h2h/ {for(i=1;i<=7;i++) {getline; if(i!=6) printf $0 ";" (i==7?"\n":"") }}' |
+	awk '/h2h/ {
+		for (i=1;i<=7;i++) {
+			getline
+			if(i==2 && $0 !~ /[012][0-9]:[0-5][0-9]/) { printf " n/d ;"; i++ }
+			if(i!=6) printf $0 ";" (i==7?"\n":"")
+		}
+	}' |
 	while IFS=';' read data hora time1 placar time2 campeonato
 	do
 		echo "$(zzdatafmt $data) $hora $(zzpad -e 24 $time1) $(zzpad -a 14 $placar) $(zzpad 24 $time2) $campeonato"
