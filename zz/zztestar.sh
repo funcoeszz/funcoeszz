@@ -167,8 +167,9 @@ zztestar ()
 			{
 				if ( $0 ~ /^:[^:]/ )      { exit 1 }
 				if ( $0 ~ /:::/  )        { exit 1 }
-				if ( $0 ~ /:$/ )          { exit 1 }
+				if ( $0 ~ /[^:]:$/ )      { exit 1 }
 				if ( NF<8 && $0 !~ /::/ ) { exit 1 }
+				if ( $0 ~ /::.+::/ )      { exit 1 }
 				if ( NF>8 )               { exit 1 }
 				if ( NF<=8 ) {
 					for (i=1; i<=NF; i++) {
