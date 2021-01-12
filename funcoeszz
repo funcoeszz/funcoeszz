@@ -766,10 +766,13 @@ zzzz ()
 				cat - >> "$bashrc" <<-EOS
 
 				# $instal_msg
-				export ZZOFF=""  # desligue funcoes indesejadas
-				export ZZPATH="$ZZPATH"  # script
-				export ZZDIR="$ZZDIR"    # pasta zz/
-				source "\$ZZPATH"
+				zzon(){
+				    export ZZPATH="$ZZPATH"  # script
+				    export ZZDIR="$ZZDIR"  # pasta zz/
+				    printf "Carregando as funcoeszz... "
+				    source "\$ZZPATH"
+				    echo OK
+				}
 				EOS
 
 				echo 'Feito!'
