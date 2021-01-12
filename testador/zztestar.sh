@@ -64,6 +64,11 @@ $ zztestar ip6 2001:bce4:::1; echo $?	#=> 1
 $ zztestar ip6 2001:bce4::1:; echo $?	#=> 1
 $ zztestar ip6 fee::2; echo $?	#=> 0
 
+$ zztestar ip6 2001:bce4:5641:3412:341:45ae::; echo $?	#=> 0
+$ zztestar ip6 ::fe32:65; echo $?	#=> 0
+$ zztestar ip6 2001::3412:341::65; echo $?	#=> 1
+$ zztestar ip6 2001:0:0:3412::fe32:65; echo $?	#=> 0
+
 # mac
 $ zztestar mac 00:19:B9:FB:E2:57; echo $?	#=> 0
 $ zztestar mac 00-88-14-4D-4C-FB; echo $?	#=> 0
