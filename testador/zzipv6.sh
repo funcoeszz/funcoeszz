@@ -56,13 +56,25 @@ IP Range:           4274:e571:4bad:a056:0000:0000:0000:0000 - 4274:e571:4bad:a05
 $
 
 $ zzipv6 2612:2D6B:CA05::CFF4:E246 130
-Uso: zzipv6 IPv6 [subnet]
+Comprimento do prefixo (subnet) fora do range: 1 - 128.
 $
 
 $ zzipv6 D0F:8B2F:71DG:6781:C875:507E:94E7:3D31
-Uso: zzipv6 IPv6 [subnet]
+Número IPV6 inválido 'D0F:8B2F:71DG:6781:C875:507E:94E7:3D31'
 $
 
 $ zzipv6 AFA7::BF43:C9D4::5FE1
+Número IPV6 inválido 'AFA7::BF43:C9D4::5FE1'
+$
+
+$ zzipv6
+Uso: zzipv6 IPv6 [subnet]
+$
+
+$ zzipv6 D0FD:CEC5:8B53:51F:3381:CF33:BBF0:D6A/12 24
+Uso: zzipv6 IPv6 [subnet]
+$
+
+$ zzipv6 AC49:54F8:31BF:1E81:1CFC:B1B5:7608:F4F5 64 112
 Uso: zzipv6 IPv6 [subnet]
 $

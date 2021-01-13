@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Consulta os endereços de rede a partir do IPv6 e do comprimento do prefixo (subnet).
+# Consulta os endereços de rede de IPv6 e do comprimento do prefixo (subnet).
 # Obs.: Se não especificado, será usado o comprimento do prefixo de 64.
 #       O comprimento do prefixo é um número entre 1 e 128.
 #
@@ -31,19 +31,20 @@ zzipv6 ()
 	then
 		ipv6="${1%/*}"
 		subnet="${1#*/}"
+		test $# -gt 1 && { zztool -e uso ipv6; return 1; }
 	else
 		ipv6="$1"
 		test $# -gt 1 && subnet="$2"
 	fi
 
 	# Validando ipv6
-	zztestar ipv6 "$ipv6" || { zztool -e uso ipv6; return 1; }
+	zztestar -e ipv6 "$ipv6" || return 1
 	# Terminando ou começando com :: acrescenta um 0
 	ipv6=$(echo "$ipv6" | sed 's/^::/0&/; s/::$/&0/')
 
 	# Validando subnet
-	zztestar numero $subnet || { zztool -e uso ipv6; return 1; }
-	test $subnet -gt 0 -a $subnet -le 128 || { zztool -e uso ipv6; return 1; }
+	zztestar numero $subnet || { zztool erro "Número do comprimento do prefixo (subnet) inválido."; return 1; }
+	test $subnet -gt 0 -a $subnet -le 128 || { zztool erro "Comprimento do prefixo (subnet) fora do range: 1 - 128."; return 1; }
 
 	# Consultando
 	curl -L -s "${url}?c6subnet=${subnet}&c6ip=${ipv6}&ctype=ipv6&printit=0&x=54&y=18" |
