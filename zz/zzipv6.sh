@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Consulta os endereços de rede a partir do IPv6 e do comprimento do prefixo.
+# Consulta os endereços de rede a partir do IPv6 e do comprimento do prefixo (subnet).
 # Obs.: Se não especificado, será usado o comprimento do prefixo de 64.
 #       O comprimento do prefixo é um número entre 1 e 128.
 #
