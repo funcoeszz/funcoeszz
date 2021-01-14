@@ -73,7 +73,7 @@ zzlibertadores ()
 		/ver jogos/d
 		/|Classificação|/d
 		$d
-	'|
+	' |
 	awk -F '|' '
 		NF>1 {print}
 		$1 ~ /Libertadores|Grupo|Oitavas|Quartas|Semi|Final/ {
@@ -85,6 +85,8 @@ zzlibertadores ()
 	awk -F'|' '
 		NF==7 { printf "%25s %-5s %-25s %-12s %-12s\n", $2, $3, $4, $5, $6; next }
 		NF==6 { printf "%1s %-25s %-2s %-2s\n", $2, $3, $4, $5; next }
+		NF==9 { printf "%25s %-5s %-25s %-12s\n", $3, $4, $5, $2; next }
+		NF>1  { next }
 		1
 	'
 }
