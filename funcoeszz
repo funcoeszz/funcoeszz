@@ -32,8 +32,8 @@ ZZUTF=1
 #      $ZZTMPDIR   - Diretório para armazenar arquivos temporários
 #      $ZZOFF      - Lista das funções que você não quer carregar
 #
-# Nota: Se você é paranóico com segurança, configure a ZZTMPDIR para
-#       um diretório dentro do seu HOME.
+# Nota: Para ter privacidade em uma máquina compartilhada, configure a
+#       ZZTMPDIR para um diretório dentro do seu HOME.
 #
 ### Configuração fixa neste arquivo (hardcoded)
 #
@@ -766,10 +766,13 @@ zzzz ()
 				cat - >> "$bashrc" <<-EOS
 
 				# $instal_msg
-				export ZZOFF=""  # desligue funcoes indesejadas
-				export ZZPATH="$ZZPATH"  # script
-				export ZZDIR="$ZZDIR"    # pasta zz/
-				source "\$ZZPATH"
+				zzon(){
+				    export ZZPATH="$ZZPATH"  # script
+				    export ZZDIR="$ZZDIR"  # pasta zz/
+				    printf "Carregando as funcoeszz... "
+				    source "\$ZZPATH"
+				    echo OK
+				}
 				EOS
 
 				echo 'Feito!'
