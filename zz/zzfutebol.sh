@@ -70,7 +70,7 @@ zzfutebol ()
 	fi |
 	case "$1" in
 		hoje | amanh[aã] | segunda | ter[cç]a | quarta | quinta | sexta | s[aá]bado | domingo | ontem | anteontem | [0-3][0-9]/[01][0-9]/20[1-9][0-9])
-			grep --color=never -e $(zzdatafmt -f 'DD/MM/AA' $1)
+			grep --color=never -e $(zzdatafmt -f 'DD/MM/AAAA' $1)
 			;;
 		*)
 			grep --color=never -i "${1:-.}"
