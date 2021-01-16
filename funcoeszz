@@ -8,7 +8,7 @@
 #              Thobias Salazar Trevisan <thobias (a) thobias org>
 # DESCRIÇÃO  : Funções de uso geral para o shell Bash, que buscam
 #              informações em arquivos locais e fontes na Internet
-# LICENÇA    : GPLv2
+# LICENÇA    : GPL-2.0-only
 # CHANGELOG  : http://www.funcoeszz.net/changelog.html
 #
 ZZVERSAO=dev
