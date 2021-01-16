@@ -45,9 +45,8 @@ for f in zz/*.sh off/*.sh; do grep "^$(basename $f .sh) " $f >/dev/null || echo 
 
 eco ----------------------------------------------------------------
 eco "* Funções com o cabeçalho mal formatado"
-for f in zz/*.sh off/*.sh
+for f in zz/*.sh
 do
-	echo "$f" | grep 'zzcorrida' > /dev/null && continue
 	wrong=$(sed -n '
 
 		# Script sed que vai lendo o cabeçalho linha a linha e
@@ -74,7 +73,6 @@ do
 			/^# Autor: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Desde: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Versão: /     { s/^/Deveria vir depois dos exemplos -- /p; q; }
-			# /^# Licença: /    { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Requisitos: / { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Tags: /       { s/^/Deveria vir depois dos exemplos -- /p; q; }
 
@@ -107,8 +105,6 @@ do
 			/^# Desde: /! { s/^/Esperava Desde: …, veio /p; q; }
 			n
 			/^# Versão: / ! { s/^/Esperava Versão: …, veio /p; q; }
-			n
-			#/^# Licença: /! { s/^/Esperava Licença: …, veio /p; q; }
 			n
 
 			# Mais campos opcionais no final
