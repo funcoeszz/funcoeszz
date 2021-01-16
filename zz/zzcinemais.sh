@@ -9,7 +9,6 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-08-25
 # Versão: 11
-# Licença: GPLv2
 # Requisitos: zzecho zzjuntalinhas zztrim zzutf8 zzxml
 # Tags: internet, cinema
 # ----------------------------------------------------------------------------

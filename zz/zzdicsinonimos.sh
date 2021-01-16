@@ -7,7 +7,6 @@
 # Autor: gabriell nascimento <gabriellhrn (a) gmail com>
 # Desde: 2013-04-15
 # Versão: 3
-# Licença: GPL
 # Requisitos: zztrim
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------

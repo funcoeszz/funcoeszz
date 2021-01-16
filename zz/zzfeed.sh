@@ -19,7 +19,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
 # Versão: 11
-# Licença: GPL
 # Requisitos: zzxml zzunescape zztrim zzutf8
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

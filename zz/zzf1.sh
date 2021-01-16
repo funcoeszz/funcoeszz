@@ -19,7 +19,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2020-12-26
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzpad zztrim zzxml
 # Tags: internet, corrida, consulta
 # ----------------------------------------------------------------------------

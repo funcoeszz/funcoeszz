@@ -21,7 +21,6 @@
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
 # Versão: 27
-# Licença: GPL
 # Requisitos: zzecho zzjuntalinhas zzpad zzxml
 # Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------

@@ -10,7 +10,6 @@
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2010-04-26
 # Versão: 7
-# Licença: GPL
 # Tags: internet, url
 # ----------------------------------------------------------------------------
 zzminiurl ()

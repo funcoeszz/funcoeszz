@@ -16,7 +16,6 @@
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2013-03-19
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzmaiusculas
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------

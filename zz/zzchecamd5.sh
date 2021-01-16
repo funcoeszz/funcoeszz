@@ -7,7 +7,6 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-10-31
 # Versão: 3
-# Licença: GPLv2
 # Requisitos: zzmd5
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------

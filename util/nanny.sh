@@ -74,7 +74,7 @@ do
 			/^# Autor: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Desde: /      { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Versão: /     { s/^/Deveria vir depois dos exemplos -- /p; q; }
-			/^# Licença: /    { s/^/Deveria vir depois dos exemplos -- /p; q; }
+			# /^# Licença: /    { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Requisitos: / { s/^/Deveria vir depois dos exemplos -- /p; q; }
 			/^# Tags: /       { s/^/Deveria vir depois dos exemplos -- /p; q; }
 
@@ -108,7 +108,7 @@ do
 			n
 			/^# Versão: / ! { s/^/Esperava Versão: …, veio /p; q; }
 			n
-			/^# Licença: /! { s/^/Esperava Licença: …, veio /p; q; }
+			#/^# Licença: /! { s/^/Esperava Licença: …, veio /p; q; }
 			n
 
 			# Mais campos opcionais no final
@@ -174,11 +174,10 @@ do
 done
 
 eco ----------------------------------------------------------------
-eco "* Funções com conteúdo inválido no campo Licença:"
-for f in zz/*.sh off/*.sh
+eco "* Funções com o campo inválido Licença:"
+for f in zz/*.sh
 do
-	wrong=$(grep '^# Licença:' $f | egrep -v '^# Licença: (GPL(v2)?|MIT)$')
-	# Se alguém quiser usar outra licença, basta adicionar aqui ^
+	wrong=$(grep '^# Licença:' $f)
 	test -n "$wrong" && echo "$f: $wrong"
 done
 

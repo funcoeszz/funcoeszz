@@ -10,7 +10,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-04-24
 # Versão: 1
-# Licença: GPL
 # Tags: utilitário, emulação
 # ----------------------------------------------------------------------------
 zzbeep ()

@@ -11,7 +11,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzlinha zztrim zzlimpalixo
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

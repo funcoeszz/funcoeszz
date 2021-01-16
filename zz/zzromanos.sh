@@ -10,7 +10,6 @@
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2011-07-19
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzmaiusculas zztac
 # Tags: número, conversão
 # ----------------------------------------------------------------------------

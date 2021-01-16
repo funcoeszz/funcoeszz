@@ -27,7 +27,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-01-25
 # Versão: 5
-# Licença: GPL
 # Requisitos: zzcut
 # Tags: tempo
 # ----------------------------------------------------------------------------

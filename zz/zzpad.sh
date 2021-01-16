@@ -17,7 +17,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-05-18
 # Versão: 5
-# Licença: GPL
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzpad ()

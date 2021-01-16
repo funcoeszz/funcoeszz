@@ -13,7 +13,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-06
 # Versão: 3
-# Licença: GPL
 # Requisitos: zzunescape
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

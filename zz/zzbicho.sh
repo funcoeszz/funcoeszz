@@ -12,7 +12,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-08-27
 # Versão: 4
-# Licença: GPL
 # Requisitos: zztrim
 # Tags: jogo, consulta
 # ----------------------------------------------------------------------------

@@ -23,7 +23,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-28
 # Versão: 5
-# Licença: GPL
 # Requisitos: zzsemacento zzutf8 zzxml zzsqueeze zzdatafmt zzlinha
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

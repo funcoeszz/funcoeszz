@@ -9,7 +9,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-24
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzcarnaval zzdata zzdiadasemana
 # Tags: data
 # ----------------------------------------------------------------------------

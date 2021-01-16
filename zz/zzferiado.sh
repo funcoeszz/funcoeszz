@@ -11,7 +11,6 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-11-21
 # Versão: 6
-# Licença: GPLv2
 # Requisitos: zzcarnaval zzcorpuschristi zzdiadasemana zzsextapaixao zzsemacento
 # Tags: data
 # ----------------------------------------------------------------------------

@@ -21,7 +21,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-02
 # Versão: 3
-# Licença: GPL
 # Requisitos: zzdos2unix
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------

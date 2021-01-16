@@ -24,7 +24,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-11-01
 # Versão: 3
-# Licença: GPL
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zzmix ()

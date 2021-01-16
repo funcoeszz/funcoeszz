@@ -13,7 +13,6 @@
 # Autor: Lauro Cavalcanti de Sa <laurocdesa (a) gmail com>
 # Desde: 2009-09-17
 # Versão: 4
-# Licença: GPLv2
 # Tags: arquivo, manipulação
 # Nota: requer pdftk
 # ----------------------------------------------------------------------------

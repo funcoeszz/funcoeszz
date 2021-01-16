@@ -7,7 +7,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-19
 # Versão: 5
-# Licença: GPL
 # Requisitos: zzjuntalinhas zznumero zzpad zzsqueeze zztrim zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

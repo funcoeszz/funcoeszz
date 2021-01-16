@@ -34,11 +34,6 @@ case "$1" in
 		sed "s/:# Versão: /$tab/" |
 		sed "s/\(.*\)$tab\(.*\)/\2$tab\1/"
 	;;
-	licen[cç]a | l)
-		grep '# Licença:' zz/*.sh off/*.sh |
-		sed "s/:# Licença: /$tab/" |
-		sed "s/\(.*\)$tab\(.*\)/\2$tab\1/"
-	;;
 	requisitos | r)
 		IFS=':'
 		grep '# Requisitos:' zz/*.sh off/*.sh |

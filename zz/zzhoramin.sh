@@ -9,7 +9,6 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-12-05
 # Versão: 4
-# Licença: GPLv2
 # Requisitos: zzhora zztestar
 # Tags: tempo, conversão
 # ----------------------------------------------------------------------------

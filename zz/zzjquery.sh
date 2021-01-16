@@ -15,7 +15,6 @@
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
 # Desde: 2007-12-04
 # Versão: 5
-# Licença: GPL
 # Requisitos: zzcapitalize zzlimpalixo zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

@@ -13,7 +13,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-07-13
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

@@ -12,7 +12,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-04-24
 # Versão: 3
-# Licença: GPL
 # Requisitos: zzjuntalinhas
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------

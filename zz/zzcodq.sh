@@ -12,7 +12,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2021-01-07
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzcolunar zzcut zzjuntalinhas zzmaiusculas zzwc zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

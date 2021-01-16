@@ -7,7 +7,6 @@
 # Autor: Luciano ES
 # Desde: 2008-09-07
 # Versão: 7
-# Licença: GPL
 # Requisitos: zztrim zzutf8 zzsqueeze
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------

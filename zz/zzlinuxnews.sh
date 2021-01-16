@@ -15,7 +15,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
 # Versão: 7
-# Licença: GPL
 # Requisitos: zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

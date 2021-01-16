@@ -10,7 +10,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2015-03-21
 # Versão: 1
-# Licença: GPL
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzencoding ()

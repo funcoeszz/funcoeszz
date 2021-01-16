@@ -34,7 +34,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-03-14
 # Versão: 2
-# Licença: GPL
 # Tags: número, teste
 # ----------------------------------------------------------------------------
 zztestar ()

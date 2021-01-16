@@ -16,7 +16,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzaleatorio
 # Tags: sugestão
 # ----------------------------------------------------------------------------

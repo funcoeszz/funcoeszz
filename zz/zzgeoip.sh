@@ -7,7 +7,6 @@
 # Autor: Alexandre Magno <alexandre.mbm (a) gmail com>
 # Desde: 2013-07-06
 # Versão: 3
-# Licença: GPLv2
 # Requisitos: zzxml zzipinternet zzecho zzminiurl zztestar
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

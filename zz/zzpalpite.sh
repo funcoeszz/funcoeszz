@@ -11,7 +11,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-06-03
 # Versão: 6
-# Licença: GPL
 # Requisitos: zzaleatorio zzminusculas zzsemacento zzseq zzaleatorio
 # Tags: jogo, distração
 # ----------------------------------------------------------------------------

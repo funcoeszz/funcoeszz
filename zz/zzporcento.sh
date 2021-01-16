@@ -18,7 +18,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-12-11
 # Versão: 6
-# Licença: GPL
 # Requisitos: zztestar
 # Tags: número, cálculo
 # ----------------------------------------------------------------------------

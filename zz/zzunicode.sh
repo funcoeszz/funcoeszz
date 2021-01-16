@@ -12,7 +12,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-10-13
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzcolunar zzlimpalixo zztrim zzunescape
 # Tags: internet, texto, tabela
 # ----------------------------------------------------------------------------

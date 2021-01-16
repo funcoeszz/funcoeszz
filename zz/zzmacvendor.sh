@@ -8,7 +8,6 @@
 # Autor: Rafael S. Guimaraes, www.rafaelguimaraes.net
 # Desde: 2016-02-03
 # Versão: 3
-# Licença: GPL
 # Requisitos: zztestar zzcut zzdominiopais
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

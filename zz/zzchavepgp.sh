@@ -8,7 +8,6 @@
 # Autor: Rodrigo Missiaggia
 # Desde: 2001-10-01
 # Versão: 1
-# Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzchavepgp ()

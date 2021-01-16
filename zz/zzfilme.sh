@@ -8,7 +8,6 @@
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2018-04-16
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzxml zztrim zzecho zzcapitalize zzurldecode zzurlencode
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

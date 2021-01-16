@@ -9,7 +9,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-02-22
 # Versão: 3
-# Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzrpmfind ()

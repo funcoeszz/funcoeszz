@@ -17,7 +17,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-09-24
 # Versão: 1
-# Licença: GPL
 # Tags: squeeze, emulação
 # ----------------------------------------------------------------------------
 zzsqueeze ()

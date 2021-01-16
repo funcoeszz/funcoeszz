@@ -8,7 +8,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-07-23
 # Versão: 3
-# Licença: GPL
 # Tags: diff, emulação
 # ----------------------------------------------------------------------------
 zzdiffpalavra ()

@@ -13,7 +13,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzaleatorio zzcut
 # Tags: cálculo, consulta, manipulação
 # ----------------------------------------------------------------------------

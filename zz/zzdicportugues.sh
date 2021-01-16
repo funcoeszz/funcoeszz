@@ -11,7 +11,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-02-26
 # Versão: 11
-# Licença: GPL
 # Requisitos: zzsemacento zzminusculas zztrim
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
