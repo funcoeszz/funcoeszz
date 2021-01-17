@@ -17,7 +17,6 @@
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-17
 # Versão: 2
-# Licença: GPLv2
 # Nota: requer ssmtp
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2016-05-21 comando ssmtp não funciona (veja issue #298)

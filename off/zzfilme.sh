@@ -6,7 +6,6 @@
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2008-01-03
 # Versão: 3
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-22 Cada dia da semana agora é um link para uma nova URL
 zzfilme ()

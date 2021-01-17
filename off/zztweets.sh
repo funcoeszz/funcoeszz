@@ -9,7 +9,6 @@
 # Autor: Eri Ramos Bastos <bastos.eri (a) gmail.com>
 # Desde: 2009-07-30
 # Versão: 10
-# Licença: GPL
 # Requisitos: zzsqueeze zztrim
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

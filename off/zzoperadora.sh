@@ -8,7 +8,6 @@
 # Autor: Mauricio Calligaris <mauriciocalligaris@gmail.com>
 # Desde: 2013-06-19
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzutf8
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2016-09-03 Site usam AJAX, impossível consultar :(

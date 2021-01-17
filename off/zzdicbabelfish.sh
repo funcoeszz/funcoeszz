@@ -18,7 +18,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-22 O Babelfish, virou Yahoo, depois Bing. zzdicbing?
 zzdicbabelfish ()

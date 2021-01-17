@@ -8,7 +8,6 @@
 # Autor: Felipe Nascimento Silva Pena <felipensp (a) gmail com>
 # Desde: 2007-12-04
 # Versão: 2
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-28 Parou de funcionar (issue #60)
 zzdelicious ()

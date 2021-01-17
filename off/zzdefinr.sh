@@ -8,7 +8,6 @@
 # Autor: Felipe Arruda <felipemiguel (a) gmail com>
 # Desde: 2008-08-15
 # Versão: 1
-# Licença: GPL
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2020-12-22 Site foi descontinuado (veja issue #599)

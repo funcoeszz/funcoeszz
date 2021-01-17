@@ -45,7 +45,7 @@ for f in zz/*.sh off/*.sh; do grep "^$(basename $f .sh) " $f >/dev/null || echo 
 
 eco ----------------------------------------------------------------
 eco "* Funções com o cabeçalho mal formatado"
-for f in zz/*.sh
+for f in zz/*.sh off/*.sh
 do
 	wrong=$(sed -n '
 
@@ -222,7 +222,7 @@ grep -H '^#.*	' zz/*.sh off/*.sh
 #
 # eco ----------------------------------------------------------------
 # eco "* Funções com campo desconhecido"
-# campos='Obs\.|Opções|Uso|Ex\.|Autor|Desde|Versão|Licença|Requisitos|Nota'
+# campos='Obs\.|Opções|Uso|Ex\.|Autor|Desde|Versão|Requisitos|Nota'
 # for f in zz/*.sh off/*.sh
 # do
 # 	wrong=$(

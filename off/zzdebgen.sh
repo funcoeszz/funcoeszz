@@ -31,7 +31,6 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2012-04-08
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzecho
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-28 Parou de funcionar (issue #50)

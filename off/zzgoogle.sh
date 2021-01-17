@@ -8,7 +8,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-04-03
 # Versão: 3
-# Licença: GPL
 # Requisitos: zztrim
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2016-11-17 Google bloqueia robôs (issue #390)

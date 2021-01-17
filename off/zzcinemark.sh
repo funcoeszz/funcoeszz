@@ -14,7 +14,6 @@
 # Autor: Thiago Moura Witt <thiago.witt (a) gmail.com> <@thiagowitt>
 # Desde: 2011-07-05
 # Versão: 3
-# Licença: GPL
 # Requisitos: zzdatafmt zzxml zzunescape zztrim
 # Tags: cinema
 # ----------------------------------------------------------------------------

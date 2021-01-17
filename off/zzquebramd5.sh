@@ -6,7 +6,6 @@
 # Autor: Fernando Mercês <fernando (a) mentebinaria.com.br>
 # Desde: 2012-02-24
 # Versão: 2
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-27 Aparentemente não está funcionando (issue #29)
 zzquebramd5 ()

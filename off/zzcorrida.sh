@@ -16,15 +16,12 @@
 #   Truck Series (Nascar): nascar2 ou truck_series
 #   Nationwide Series (Nascar): nascar3 ou nationwide
 #
-# Uso: zzcorrida <f1|indy|gp2|truck|truck_sul|stock|rali>
-# Uso: zzcorrida <moto|moto_gp|moto2|moto3>
-# Uso: zzcorrida <nascar|sprint_cup|nascar2|truck_series|nascar3|nationwide>
+# Uso: zzcorrida <código da corrida>
 # Ex.: zzcorrida truck
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-11-02
 # Versão: 7
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2014-04-20 O site encerrou e sem um substituto equivalente.
 zzcorrida ()

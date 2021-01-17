@@ -6,7 +6,6 @@
 # Autor: Arkanon <arkanon (a) lsd org br>
 # Desde: 2009-09-17
 # Versão: 2
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2016-11-16 Fora do escopo do projeto (issue #364)
 zzrelansi ()
