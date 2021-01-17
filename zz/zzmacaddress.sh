@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# Mostra os MAC address disponiveis.
+# Mostra os MAC address disponíveis.
 # Uso: zzmacaddress
 # Ex.: zzmacaddress
 #
