@@ -23,7 +23,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
 # Versão: 14
-# Licença: GPL
 # Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzpad zzsqueeze zztrim zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

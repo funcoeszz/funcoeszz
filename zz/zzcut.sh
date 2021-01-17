@@ -53,7 +53,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-09
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzunescape
 # Tags: cut, emulação
 # ----------------------------------------------------------------------------

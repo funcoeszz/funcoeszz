@@ -13,7 +13,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-05-07
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzjuntalinhas zztrim zzunescape zzxml
 # Tags: internet, distração
 # ----------------------------------------------------------------------------

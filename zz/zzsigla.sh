@@ -8,7 +8,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-02-21
 # Versão: 3
-# Licença: GPL
 # Requisitos: zztrim
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------

@@ -7,7 +7,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-06-12
 # Versão: 2
-# Licença: GPL
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzmaiusculas ()

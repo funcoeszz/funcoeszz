@@ -15,7 +15,6 @@
 # Autor: Leslie Harlley Watter <leslie (a) watter org>
 # Desde: 2003-08-05
 # Versão: 5
-# Licença: GPL
 # Requisitos: zzalinhar zzcolunar zzjuntalinhas zzlblank zzminusculas zzsemacento zzsqueeze zztrim zzutf8 zzxml
 # Tags: internet, consulta
 # Nota: Colaboração de José Inácio Coelho <jinacio (a) yahoo com>

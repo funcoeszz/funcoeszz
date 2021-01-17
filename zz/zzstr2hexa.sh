@@ -8,7 +8,6 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2012-03-30
 # Versão: 9
-# Licença: GPL
 # Requisitos: zztrim
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------

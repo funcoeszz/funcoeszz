@@ -26,7 +26,6 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
 # Versão: 13
-# Licença: GPLv2
 # Requisitos: zzxml zzplay zzunescape zzutf8
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

@@ -8,7 +8,6 @@
 # Autor: Marcelo Subtil Marçal
 # Desde: 2001-12-14
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-27 Hoje o comando whois pega domínios .br (issue #37)
 zzwhoisbr ()

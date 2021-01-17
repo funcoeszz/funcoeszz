@@ -16,7 +16,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-05-18
 # Versão: 17
-# Licença: GPL
 # Requisitos: zzdatafmt zzjuntalinhas zzhoramin zzsqueeze zzunescape zzxml
 # Tags: internet, jogo, consulta
 # Nota: requer unzip

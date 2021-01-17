@@ -7,7 +7,6 @@
 # Autor: Jonas Gentina, <jgentina (a) gmail com>
 # Desde: 2015-09-25
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzaleatorio zztrim zzjuntalinhas zzlinha zzsqueeze zzxml zzutf8
 # Tags: internet, distação
 # ----------------------------------------------------------------------------

@@ -30,7 +30,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-26
 # Versão: 6
-# Licença: GPL
 # Requisitos: zzminusculas zzmaiusculas zzcapitalize zzseq zztestar
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------

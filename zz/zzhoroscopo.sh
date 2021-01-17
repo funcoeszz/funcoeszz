@@ -12,7 +12,6 @@
 # Autor: Juliano Fernandes, http://julianofernandes.com.br
 # Desde: 2016-05-07
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzsemacento zzminusculas zztrim zzxml
 # Tags: internet, distração, consulta
 # ----------------------------------------------------------------------------

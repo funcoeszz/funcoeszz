@@ -7,7 +7,6 @@
 # Autor: Eustáquio Rangel "TaQ" <eustaquiorangel (a) yahoo com>
 # Desde: 2004-11-05
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-22 URL e dados ok, mas o filtro precisa ser refeito.
 zzystock ()

@@ -11,7 +11,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-03-30
 # Versão: 1
-# Licença: GPL
 # Tags: diretório, emulação
 # ----------------------------------------------------------------------------
 zzmcd ()

@@ -10,7 +10,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-24
 # Versão: 1
-# Licença: GPL
 # Tags: tac, emulação
 # ----------------------------------------------------------------------------
 zztac ()

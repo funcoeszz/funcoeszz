@@ -10,7 +10,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-11-15
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzjuntalinhas
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

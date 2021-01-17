@@ -16,7 +16,6 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
 # Versão: 3
-# Licença: GPL
 # Tags: echo, emulação
 # ----------------------------------------------------------------------------
 zzecho ()

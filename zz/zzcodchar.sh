@@ -18,7 +18,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-12-07
 # Versão: 3
-# Licença: GPL
 # Requisitos: zztrim zzpad
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------

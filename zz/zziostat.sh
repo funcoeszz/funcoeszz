@@ -26,7 +26,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2015-02-17
 # Versão: 2
-# Licença: GPL
 # Tags: sistema, consulta
 # Nota: requer iostat
 # ----------------------------------------------------------------------------

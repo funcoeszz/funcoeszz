@@ -11,7 +11,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
 # Versão: 13
-# Licença: GPL
 # Requisitos: zzminusculas zzfeed zztac
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

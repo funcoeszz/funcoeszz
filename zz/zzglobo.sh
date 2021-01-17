@@ -6,7 +6,6 @@
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2017-11-29
 # Versão: 9
-# Licença: GPL
 # Requisitos: zztv
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

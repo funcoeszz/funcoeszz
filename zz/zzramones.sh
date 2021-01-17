@@ -9,7 +9,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-07-24
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzlinha
 # Tags: internet, música, distração
 # ----------------------------------------------------------------------------

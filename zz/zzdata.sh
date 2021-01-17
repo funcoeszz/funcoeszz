@@ -25,7 +25,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-02-07
 # Versão: 5
-# Licença: GPL
 # Requisitos: zztestar
 # Tags: data, cálculo
 # ----------------------------------------------------------------------------

@@ -38,7 +38,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-04-24
 # Versão: 5
-# Licença: GPL
 # Requisitos: zzalinhar zztrim
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------

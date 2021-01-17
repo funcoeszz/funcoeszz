@@ -8,7 +8,6 @@
 # Autor: Rodrigo Stulzer Lopes, www.stulzer.net
 # Desde: 2001-08-09
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2008-03-01 Agora a consulta é travada com CAPTCHA
 zzirpf ()

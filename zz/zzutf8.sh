@@ -11,7 +11,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2015-03-21
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzencoding
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------

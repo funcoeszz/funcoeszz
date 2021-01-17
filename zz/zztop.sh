@@ -29,7 +29,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-07-19
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzcolunar zzjuntalinhas zzsqueeze zztac zztrim zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

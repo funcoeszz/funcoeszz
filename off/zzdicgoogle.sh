@@ -15,7 +15,6 @@
 # Autor: Rodrigo Bernardo Pimentel <rbp (a) isnomore net>
 # Desde: 2003-12-20
 # Versão: 3
-# Licença: GPL
 # Nota: Colaboração de Humberto Sartini <betinho_pg (a) yahoo com br>
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-22 Filtro quebrado. Substituída pela zztradutor.

@@ -13,7 +13,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzaleatorio
 # Tags: internet, cálculo, manipulação
 # ----------------------------------------------------------------------------

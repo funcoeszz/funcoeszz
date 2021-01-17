@@ -11,7 +11,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-09-02
 # Versão: 3
-# Licença: GPL
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzansi2html ()

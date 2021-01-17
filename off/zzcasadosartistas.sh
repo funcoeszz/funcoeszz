@@ -7,7 +7,6 @@
 # Autor: Aurélio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-18
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2002-10-30 O programa acabou.
 zzcasadosartistas ()

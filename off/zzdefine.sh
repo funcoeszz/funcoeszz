@@ -9,7 +9,6 @@
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Desde: 2005-05-23
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-28 Parou de funcionar (issue #53)
 zzdefine ()

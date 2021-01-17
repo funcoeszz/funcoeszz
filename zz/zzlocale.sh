@@ -8,7 +8,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2005-06-30
 # Versão: 2
-# Licença: GPL
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzlocale ()

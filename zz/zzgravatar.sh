@@ -22,7 +22,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-06
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzmd5 zzminusculas zztrim
 # Tags: internet, url
 # ----------------------------------------------------------------------------

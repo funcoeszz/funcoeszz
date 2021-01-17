@@ -10,7 +10,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-22
 # Versão: 7
-# Licença: GPL
 # Requisitos: zzcapitalize zzwikipedia zzxml zzpad
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

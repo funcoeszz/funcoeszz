@@ -7,7 +7,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
 # Versão: 9
-# Licença: GPL
 # Requisitos: zzcotacao
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

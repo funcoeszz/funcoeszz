@@ -8,7 +8,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-08-27
 # Versão: 3
-# Licença: GPL
 # Requisitos: zztrim zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

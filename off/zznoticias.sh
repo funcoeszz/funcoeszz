@@ -9,7 +9,6 @@
 # Autor: Frederico Freire Boaventura <anonymous (a) galahad com br>
 # Desde: 2005-04-02
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-22 URL parece ok, mas o filtro está quebrado.
 zznoticias ()

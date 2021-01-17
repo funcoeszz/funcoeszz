@@ -28,7 +28,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-07-23
 # Versão: 6
-# Licença: GPL
 # Requisitos: zzmaiusculas zztrim
 # Tags: texto, tabela
 # ----------------------------------------------------------------------------

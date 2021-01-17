@@ -12,7 +12,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-04-22
 # Versão: 5
-# Licença: GPL
 # Requisitos: zzsemacento zzminusculas zztrim zzutf8 zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

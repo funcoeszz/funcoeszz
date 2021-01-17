@@ -12,7 +12,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org - revisado por Itamar
 # Desde: 2002-04-23
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzsemacento
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-26 URL ainda existe, mas não retorna nada. [issue #31]

@@ -31,7 +31,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-11-25
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzhsort zzloteria
 # Tags: internet, jogo, consulta
 # ----------------------------------------------------------------------------

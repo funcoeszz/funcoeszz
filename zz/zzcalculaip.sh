@@ -10,7 +10,6 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzconverte zztestar
 # Tags: ip, cálculo
 # ----------------------------------------------------------------------------

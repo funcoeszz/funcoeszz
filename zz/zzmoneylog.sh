@@ -20,7 +20,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-25
 # Versão: 1
-# Licença: GPL
 # Requisitos: zzcalcula zzdatafmt zzdos2unix
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------

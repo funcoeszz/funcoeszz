@@ -12,7 +12,6 @@
 # Autor: Tárcio Zemel <tarciozemel (a) gmail com>
 # Desde: 2014-03-24
 # Versão: 7
-# Licença: GPL
 # Requisitos: zzmaiusculas zznumero zzpad zzsemacento zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

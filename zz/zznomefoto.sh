@@ -15,7 +15,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-11-10
 # Versão: 3
-# Licença: GPL
 # Requisitos: zzminusculas
 # Tags: arquivo, manipulação
 # Nota: (ou) exiftool exiftime identify

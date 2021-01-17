@@ -13,7 +13,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
 # Versão: 3
-# Licença: GPL
 # Tags: número, cálculo
 # ----------------------------------------------------------------------------
 zzcalcula ()

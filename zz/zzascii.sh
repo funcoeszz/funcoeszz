@@ -10,7 +10,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-12-06
 # Versão: 6
-# Licença: GPL
 # Requisitos: zzseq zzcolunar
 # Tags: texto, tabela
 # ----------------------------------------------------------------------------

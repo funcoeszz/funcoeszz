@@ -10,7 +10,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-20
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzdata zzdiadasemana zzdatafmt zzcapitalize
 # Tags: data, cálculo
 # ----------------------------------------------------------------------------

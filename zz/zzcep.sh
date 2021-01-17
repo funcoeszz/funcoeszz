@@ -9,7 +9,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-11-08
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzsemacento zzminusculas zzxml zzjuntalinhas zzcolunar zztrim zzpad
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------

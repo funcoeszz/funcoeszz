@@ -14,7 +14,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
 # Versão: 16
-# Licença: GPL
 # Requisitos: zzdatafmt zzjuntalinhas zzlimpalixo zzunescape zzxml
 # Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------

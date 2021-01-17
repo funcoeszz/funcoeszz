@@ -50,7 +50,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
 # Versão: 25
-# Licença: GPL
 # Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzlimpalixo zzmaiusculas zzsqueeze zztrim zzunescape zzxml
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2016-09-28 Qualidade das informações é duvidosa e imprecisa.

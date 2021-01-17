@@ -7,7 +7,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-05-12
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzdivisores zzmat zztestar zzvira
 # Tags: número
 # ----------------------------------------------------------------------------

@@ -7,7 +7,6 @@
 # Autor: Kyller Costa Gorgônio <kyllercg (a) gmail com>
 # Desde: 2006-01-10
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-28 Parou de funcionar (issue #64)
 zzeuro ()

@@ -7,7 +7,6 @@
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2008-12-29
 # Versão: 3
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2016-04-14 Site inativo
 zzpiada ()

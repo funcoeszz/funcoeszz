@@ -9,7 +9,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-22
 # Versão: 3
-# Licença: GPL
 # Tags: arquivo, utilitário
 # ----------------------------------------------------------------------------
 zzlembrete ()

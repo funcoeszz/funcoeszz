@@ -7,7 +7,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-15
 # Versão: 1
-# Licença: GPL
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zztrocaextensao ()
