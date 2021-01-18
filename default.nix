@@ -24,11 +24,11 @@ let
     # Deixa os binários dependentes acessíveis
     PATH=$PATH:${pkgs.lib.makeBinPath deps}
     # Permite configurar suporte a cor pelo parâmetro do pacote
-    ZZCOR_DFT=${toString ZZCOR_DFT}
+    export ZZCOR=${toString ZZCOR_DFT}
     # Onde estão as funções?
-    ZZDIR_DFT="${drv}/opt/funcoeszz/zz"
+    export ZZDIR="${drv}/opt/funcoeszz/zz"
     # Chama o script com os parâmetros que vierem
-    ${drv}/opt/funcoeszz/funcoeszz $*
+    ${drv}/opt/funcoeszz/funcoeszz "$@"
   '';
 in pkgs.stdenv.mkDerivation {
   name = "funcoeszz";
@@ -41,7 +41,7 @@ in pkgs.stdenv.mkDerivation {
       echo Gerando script $fn
       bin=$out/bin/$fn
       echo '#!/usr/bin/env ${pkgs.bash}/bin/bash' >> $bin
-      echo "${mainbin} $fn %" | sed 's;%;$*;g' >> $bin
+      echo "${mainbin} $fn %" | sed 's;%;"$@";g' >> $bin
       chmod +x $bin
     done
     # Link do comando zz que engloba todos os outros
@@ -49,7 +49,6 @@ in pkgs.stdenv.mkDerivation {
     # Manpage
     mkdir -p $out/share/man/man1
     cp ${drv}/opt/funcoeszz/manpage/manpage.man $out/share/man/man1/funcoeszz.1
-    # shellcheck acusa os $* mas a minha intenção é exatamente deixar os argumentos expandirem
-    # ${pkgs.shellcheck}/bin/shellcheck -s bash $out/bin/*
+    ${pkgs.shellcheck}/bin/shellcheck -s bash $out/bin/*
   '';
 }
