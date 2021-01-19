@@ -7,6 +7,7 @@
 # Uso: zzajuda [--lista|--uso]
 # Ex.: zzajuda
 #      zzajuda --lista
+#      zzajuda zzdata
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
@@ -16,13 +17,8 @@ zzajuda ()
 	zzzz -h ajuda "$1" && return
 
 	local zzcor_pager
-
-	if test ! -r "$ZZAJUDA"
-	then
-		echo "Ops! Não encontrei o texto de ajuda em '$ZZAJUDA'." >&2
-		echo "Para recriá-lo basta executar o script 'funcoeszz' sem argumentos." >&2
-		return
-	fi
+	local nome
+	local path
 
 	case "$1" in
 		--uso)
@@ -50,6 +46,26 @@ zzajuda ()
 				grep ^zz |
 				sort |
 				zztool acha '^zz[^ ]*'
+		;;
+		zz*)
+			# Extrai o texto de ajuda do cabeçalho das funções
+			# Passe o arquivo com as funções como parâmetro
+			nome="$1"
+			path="$ZZPATH/$nome"
+			# Extrai somente os cabeçalhos, já removendo o # do início
+			sed -n '/^# -----* *$/,/^# -----* *$/ s/^# \{0,1\}//p' "$path" |
+				# Agora remove trechos que não podem aparecer na ajuda
+				sed '
+					# Apaga a metadata (Autor, Desde, Versao, etc)
+					/^Autor:/,/^------/ d
+
+					# Apaga a linha em branco apos Ex.:
+					/^Ex\.:/,/^------/ {
+						/^ *$/d
+					}' |
+				# Insere o nome da função na segunda linha
+				sed "2 { h; s/.*/$nome/; G; }" |
+				zztool acha $nome
 		;;
 		*)
 			# Desliga cores para os paginadores antigos
