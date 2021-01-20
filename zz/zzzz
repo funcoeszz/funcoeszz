@@ -142,7 +142,7 @@ zzzz ()
 			echo "$cod_sistema"
 
 			printf 'Verificando a codificação das Funções ZZ... '
-			test $ZZUTF = 1 && cod_funcoeszz='UTF-8'
+			cod_funcoeszz='UTF-8'
 			echo "$cod_funcoeszz"
 
 			# Se um dia precisar de um teste direto no arquivo:
