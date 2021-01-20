@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# zzajuda
-# Mostra uma tela de ajuda com explicação e sintaxe de todas as funções.
+# Mostra o texto de ajuda da função informada (ou de todas).
 # Opções: --lista  lista de todas as funções, com sua descrição
 #         --uso    resumo de todas as funções, com a sintaxe de uso
-# Uso: zzajuda [--lista|--uso]
-# Ex.: zzajuda
+# Uso: zzajuda [--lista|--uso] [nome-da-função]
+# Ex.: zzajuda            # mostra a ajuda de todas as funções
+#      zzajuda zzdata     # mostra a ajuda da zzdata
 #      zzajuda --lista
-#      zzajuda zzdata
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
@@ -16,34 +15,27 @@ zzajuda ()
 {
 	zzzz -h ajuda "$1" && return
 
-	local zzcor_pager
+	local descricao
 	local nome
 	local path
+	local separador
+	local zzcor_pager
 
 	case "$1" in
 		--uso)
 			# Lista com sintaxe de uso, basta pescar as linhas Uso:
-			sed -n 's/^Uso: zz/zz/p' "$ZZAJUDA" |
+			sed -n 's/^# Uso: zz/zz/p' "$ZZPATH"/zz* |
 				sort |
 				zztool acha '^zz[^ ]*'
 		;;
 		--lista)
-			# Lista de todas as funções no formato: nome descrição
-			grep -A2 ^zz "$ZZAJUDA" |
-				grep -v ^http |
-				sed '
-					/^zz/ {
-						# Padding: o nome deve ter 17 caracteres
-						# Maior nome: zzfrenteverso2pdf
-						:pad
-						s/^.\{1,16\}$/& /
-						t pad
 
-						# Junta a descricao (proxima linha)
-						N
-						s/\n/ /
-					}' |
-				grep ^zz |
+			cd "$ZZPATH"
+			for nome in zz*
+			do
+				descricao=$(zzajuda $nome | grep -v ^http | sed -n 2p)
+				printf '%-17s%s\n' $nome "$descricao"
+			done |
 				sort |
 				zztool acha '^zz[^ ]*'
 		;;
@@ -52,27 +44,35 @@ zzajuda ()
 			# Passe o arquivo com as funções como parâmetro
 			nome="$1"
 			path="$ZZPATH/$nome"
+
 			# Extrai somente os cabeçalhos, já removendo o # do início
 			sed -n '/^# -----* *$/,/^# -----* *$/ s/^# \{0,1\}//p' "$path" |
-				# Agora remove trechos que não podem aparecer na ajuda
-				sed '
+				sed "
+					# Insere o nome da funcao na primeira linha
+					1 s/.*/$nome/
+
 					# Apaga a metadata (Autor, Desde, Versao, etc)
-					/^Autor:/,/^------/ d
+					/^Autor:/,$ d
 
 					# Apaga a linha em branco apos Ex.:
-					/^Ex\.:/,/^------/ {
+					/^Ex\.:/,$ {
 						/^ *$/d
-					}' |
-				# Insere o nome da função na segunda linha
-				sed "2 { h; s/.*/$nome/; G; }" |
+					}" |
 				zztool acha $nome
 		;;
 		*)
+			# Linha separadora, com 77 hífens (7x11)
+			separador=$(echo '-------' | sed 's/.*/&&&&&&&&&&&/')
+
 			# Desliga cores para os paginadores antigos
 			test "$PAGER" = 'less' -o "$PAGER" = 'more' && zzcor_pager=0
 
 			# Mostra a ajuda de todas as funções, paginando
-			cat "$ZZAJUDA" |
+			for path in "$ZZPATH"/zz*
+			do
+				echo "$separador"
+				zzajuda "${path##*/}"  # basename
+			done |
 				ZZCOR=${zzcor_pager:-$ZZCOR} zztool acha 'zz[a-z0-9]\{2,\}' |
 				${PAGER:-less -r}
 		;;
