@@ -16,7 +16,7 @@ tab=$(echo -e '\t')
 case "$1" in
 	autor | a)
 		IFS="$tab"
-		grep '# Autor:' zz/*.sh off/*.sh |
+		grep '# Autor:' zz/* off/*.sh |
 		sed "s/:# Autor: /$tab/" |
 		while read funcao meta
 		do
@@ -24,19 +24,19 @@ case "$1" in
 		done
 	;;
 	desde | d)
-		grep '# Desde:' zz/*.sh off/*.sh |
+		grep '# Desde:' zz/* off/*.sh |
 		sed "s/:# Desde: /$tab/" |
 		sed "s/\(.*\)$tab\(.*\)/\2$tab\1/" |
 		sort
 	;;
 	vers[aã]o | v)
-		grep '# Versão:' zz/*.sh off/*.sh |
+		grep '# Versão:' zz/* off/*.sh |
 		sed "s/:# Versão: /$tab/" |
 		sed "s/\(.*\)$tab\(.*\)/\2$tab\1/"
 	;;
 	requisitos | r)
 		IFS=':'
-		grep '# Requisitos:' zz/*.sh off/*.sh |
+		grep '# Requisitos:' zz/* off/*.sh |
 		sed "s/:# Requisitos: /:/" |
 		while read funcao meta
 		do
@@ -45,7 +45,7 @@ case "$1" in
 	;;
 	tags | t)
 		IFS=':'
-		grep '# Tags:' zz/*.sh off/*.sh |
+		grep '# Tags:' zz/* off/*.sh |
 		sed "s/:# Tags: /:/" |
 		while read funcao meta
 		do
@@ -54,7 +54,7 @@ case "$1" in
 	;;
 	nota | n)
 		IFS=':'
-		grep '^# Nota: \(requer \|opcional \|(ou) \)' zz/*.sh off/*.sh |
+		grep '^# Nota: \(requer \|opcional \|(ou) \)' zz/* off/*.sh |
 		sed "s/:# Nota: /:/" |
 		while read funcao meta
 		do
