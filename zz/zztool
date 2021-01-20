@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------------
-# zztool
 # Miniferramentas para auxiliar as funções.
 # Uso: zztool [-e] ferramenta [argumentos]
 # Ex.: zztool grep_var foo $var
@@ -232,8 +231,17 @@ zztool ()
 
 			# A função pode chamar um navegador específico ou assumir o padrão $ZZBROWSER
 			case "$1" in
-				lynx | links | links2 | elinks | w3m) browser="$1"; shift  ;;
-				*                                   ) browser="$ZZBROWSER" ;;
+				lynx | links | links2 | elinks | w3m)
+					browser="$1"
+					shift
+				;;
+				*)
+					# Descobre qual o navegador em modo texto está disponível no sistema
+					for browser in lynx links links2 elinks w3m
+					do
+						type "$browser" >/dev/null 2>&1 && break
+					done
+				;;
 			esac
 
 			# Parâmetros que podem ser modificados na linha de comando.
