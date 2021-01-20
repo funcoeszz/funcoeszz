@@ -30,38 +30,33 @@ $tester -V > /dev/null || {
 	exit 1
 }
 
-# Create temporary file with ZZ init in full paths
-cat > "$tmp" <<EOF
-. "$zz_root"/funcoeszz \\
-	--cor 0 \\
-	--path "$zz_root"/funcoeszz \\
-	--dir  "$zz_root"/zz
-EOF
+export ZZCOR=0
+export ZZPATH="$zz_root"/zz
 
 # Note: To remove the dots ........ change 'dot' to 'none'
 if test "internet" = "$1"
 then
 	# Test internet based files
-	$tester --progress dot --pre-flight ". $tmp" $internet
+	$tester --progress dot $internet
 	exitcode=$?
 elif test "internet_travis" = "$1"
 then
 	# Test internet based files
-	$tester --progress dot --pre-flight ". $tmp" $internet_travis
+	$tester --progress dot $internet_travis
 	exitcode=$?
 elif test "local" = "$1"
 then
 	# Tests that do not need internet
-	$tester --progress dot --pre-flight ". $tmp" $no_internet
+	$tester --progress dot $no_internet
 	exitcode=$?
 elif test $# -gt 0
 then
 	# Test specific file(s)
-	$tester --progress dot --pre-flight ". $tmp" "$@"
+	$tester --progress dot "$@"
 	exitcode=$?
 else
 	# Test all files
-	$tester --progress dot --pre-flight ". $tmp" zz*.sh
+	$tester --progress dot zz*.sh
 	exitcode=$?
 fi
 
