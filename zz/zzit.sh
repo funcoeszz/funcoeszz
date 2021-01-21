@@ -23,7 +23,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-28
 # Versão: 5
-# Requisitos: zzsemacento zzutf8 zzxml zzsqueeze zzdatafmt zzlinha
+# Requisitos: zzzz zztool zzsemacento zzutf8 zzxml zzsqueeze zzdatafmt zzlinha
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzit ()

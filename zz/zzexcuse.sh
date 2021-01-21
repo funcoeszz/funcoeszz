@@ -7,7 +7,7 @@
 # Autor: Italo Gonçales, @goncalesi, <italo.goncales (a) gmail com>
 # Desde: 2015-09-26
 # Versão: 2
-# Requisitos: zztrim
+# Requisitos: zzzz zztool zztrim
 # Tags: internet, diversão
 # ----------------------------------------------------------------------------
 zzexcuse ()

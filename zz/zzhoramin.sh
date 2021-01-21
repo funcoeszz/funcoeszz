@@ -9,7 +9,7 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-12-05
 # Versão: 4
-# Requisitos: zzhora zztestar
+# Requisitos: zzzz zzhora zztestar
 # Tags: tempo, conversão
 # ----------------------------------------------------------------------------
 zzhoramin ()

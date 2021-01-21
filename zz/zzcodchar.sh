@@ -18,7 +18,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-12-07
 # Versão: 3
-# Requisitos: zztrim zzpad
+# Requisitos: zzzz zztool zztrim zzpad
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzcodchar ()

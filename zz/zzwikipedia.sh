@@ -14,6 +14,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-10-28
 # Versão: 4
+# Requisitos: zzzz zztool
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzwikipedia ()

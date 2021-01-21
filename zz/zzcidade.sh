@@ -11,7 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
 # Versão: 4
-# Requisitos: zzlinha zztrim zzlimpalixo
+# Requisitos: zzzz zztool zzlinha zztrim zzlimpalixo
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcidade ()

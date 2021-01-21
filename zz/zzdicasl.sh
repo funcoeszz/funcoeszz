@@ -10,7 +10,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-08
 # Versão: 2
-# Requisitos: zzutf8
+# Requisitos: zzzz zztool zzutf8
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzdicasl ()

@@ -7,6 +7,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-11
 # Versão: 1
+# Requisitos: zzzz
 # Tags: cores, tabela
 # ----------------------------------------------------------------------------
 zzcores ()

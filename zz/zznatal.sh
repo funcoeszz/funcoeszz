@@ -8,7 +8,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
 # Versão: 1
-# Requisitos: zzlinha
+# Requisitos: zzzz zztool zzlinha
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznatal ()

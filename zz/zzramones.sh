@@ -9,7 +9,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-07-24
 # Versão: 1
-# Requisitos: zzlinha
+# Requisitos: zzzz zztool zzlinha
 # Tags: internet, música, distração
 # ----------------------------------------------------------------------------
 zzramones ()

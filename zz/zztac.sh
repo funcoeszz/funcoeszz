@@ -10,6 +10,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-24
 # Versão: 1
+# Requisitos: zzzz zztool
 # Tags: tac, emulação
 # ----------------------------------------------------------------------------
 zztac ()

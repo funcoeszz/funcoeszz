@@ -11,7 +11,7 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-11-21
 # Versão: 6
-# Requisitos: zzcarnaval zzcorpuschristi zzdiadasemana zzsextapaixao zzsemacento
+# Requisitos: zzzz zztool zzcarnaval zzcorpuschristi zzdiadasemana zzsextapaixao zzsemacento
 # Tags: data
 # ----------------------------------------------------------------------------
 zzferiado ()

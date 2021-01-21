@@ -11,7 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-28
 # Versão: 1
-# Requisitos: zztrim
+# Requisitos: zzzz zztrim
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzmaiores ()

@@ -11,7 +11,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-05-11
 # Versão: 4
-# Requisitos: zzjuntalinhas zzsqueeze zztrim zzxml
+# Requisitos: zzzz zztool zzjuntalinhas zzsqueeze zztrim zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzpgsql ()

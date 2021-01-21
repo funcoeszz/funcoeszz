@@ -8,7 +8,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-02-21
 # Versão: 3
-# Requisitos: zztrim
+# Requisitos: zzzz zztool zztrim
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzsigla ()

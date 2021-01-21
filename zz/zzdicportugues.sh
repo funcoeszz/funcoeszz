@@ -11,7 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-02-26
 # Versão: 11
-# Requisitos: zzsemacento zzminusculas zztrim
+# Requisitos: zzzz zztool zzsemacento zzminusculas zztrim
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicportugues ()

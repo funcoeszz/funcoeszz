@@ -6,7 +6,7 @@
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2008-10-16
 # Versão: 5
-# Requisitos: zztestar
+# Requisitos: zzzz zztool zztestar
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzblist ()

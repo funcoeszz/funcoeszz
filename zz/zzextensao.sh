@@ -8,6 +8,7 @@
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2009-09-21
 # Versão: 3
+# Requisitos: zzzz zztool
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzextensao ()

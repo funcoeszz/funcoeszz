@@ -7,7 +7,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-05-12
 # Versão: 2
-# Requisitos: zzdivisores zzmat zztestar zzvira
+# Requisitos: zzzz zztool zzdivisores zzmat zztestar zzvira
 # Tags: número
 # ----------------------------------------------------------------------------
 zzclassnum ()

@@ -11,7 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
 # Versão: 2
-# Requisitos: zzaleatorio zztestar
+# Requisitos: zzzz zztool zzaleatorio zztestar
 # Tags: arquivo, RANDOM, sed, emulação
 # ----------------------------------------------------------------------------
 zzlinha ()

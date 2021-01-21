@@ -13,7 +13,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-07-13
 # Versão: 4
-# Requisitos: zzfeed
+# Requisitos: zzzz zztool zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznoticiassec ()

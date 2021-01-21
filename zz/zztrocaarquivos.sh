@@ -6,6 +6,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-06-12
 # Versão: 2
+# Requisitos: zzzz zztool
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zztrocaarquivos ()

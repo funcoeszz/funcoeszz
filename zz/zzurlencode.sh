@@ -16,7 +16,7 @@
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2013-03-19
 # Versão: 4
-# Requisitos: zzmaiusculas
+# Requisitos: zzzz zztool zzmaiusculas
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzurlencode ()

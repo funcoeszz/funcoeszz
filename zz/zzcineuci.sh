@@ -8,7 +8,7 @@
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2009-05-04
 # Versão: 10
-# Requisitos: zzunescape zztrim zzcolunar
+# Requisitos: zzzz zztool zzunescape zztrim zzcolunar
 # Tags: internet, cinema
 # ----------------------------------------------------------------------------
 zzcineuci ()

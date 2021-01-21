@@ -14,7 +14,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-07-23
 # Versão: 1
-# Requisitos: zzminusculas
+# Requisitos: zzzz zztool zzminusculas
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zzarrumanome ()

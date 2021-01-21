@@ -6,7 +6,7 @@
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2017-11-29
 # Versão: 9
-# Requisitos: zztv
+# Requisitos: zzzz zztv
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzglobo ()

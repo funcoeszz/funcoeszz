@@ -6,6 +6,7 @@
 # Autor: Adriano Laureano, @sl4ureano
 # Desde: 2018-10-09
 # Versão: 2
+# Requisitos: zzzz zztool
 # Tags: sistema, consulta
 # Nota: (ou) ip ifconfig
 # ----------------------------------------------------------------------------

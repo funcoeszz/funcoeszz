@@ -24,7 +24,7 @@
 # Autor: Diogo Alexsander Cavilha <diogocavilha (a) gmail com>
 # Desde: 2016-09-19
 # Versão: 2
-# Requisitos: zzdatafmt zzunescape zzxml
+# Requisitos: zzzz zztool zzdatafmt zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznerdcast ()

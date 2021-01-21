@@ -12,7 +12,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-04-22
 # Versão: 5
-# Requisitos: zzsemacento zzminusculas zztrim zzutf8 zzxml
+# Requisitos: zzzz zztool zzsemacento zzminusculas zztrim zzutf8 zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznome ()

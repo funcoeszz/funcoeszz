@@ -8,7 +8,7 @@
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2018-04-16
 # Versão: 1
-# Requisitos: zzxml zztrim zzecho zzcapitalize zzurldecode zzurlencode
+# Requisitos: zzzz zztool zzxml zztrim zzecho zzcapitalize zzurldecode zzurlencode
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzfilme ()

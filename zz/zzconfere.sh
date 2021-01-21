@@ -31,7 +31,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-11-25
 # Versão: 2
-# Requisitos: zzhsort zzloteria
+# Requisitos: zzzz zztool zzhsort zzloteria
 # Tags: internet, jogo, consulta
 # ----------------------------------------------------------------------------
 zzconfere ()

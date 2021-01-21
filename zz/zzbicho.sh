@@ -12,7 +12,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-08-27
 # Versão: 4
-# Requisitos: zztrim
+# Requisitos: zzzz zztool zztrim
 # Tags: jogo, consulta
 # ----------------------------------------------------------------------------
 zzbicho ()

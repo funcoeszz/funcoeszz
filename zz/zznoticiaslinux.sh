@@ -14,7 +14,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
 # Versão: 11
-# Requisitos: zzfeed
+# Requisitos: zzzz zztool zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznoticiaslinux ()

@@ -19,7 +19,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2020-12-26
 # Versão: 1
-# Requisitos: zzpad zztrim zzxml
+# Requisitos: zzzz zztool zzpad zztrim zzxml
 # Tags: internet, corrida, consulta
 # ----------------------------------------------------------------------------
 zzf1 ()

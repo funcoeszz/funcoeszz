@@ -9,7 +9,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-11-08
 # Versão: 4
-# Requisitos: zzsemacento zzminusculas zzxml zzjuntalinhas zzcolunar zztrim zzpad
+# Requisitos: zzzz zztool zzsemacento zzminusculas zzxml zzjuntalinhas zzcolunar zztrim zzpad
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcep ()

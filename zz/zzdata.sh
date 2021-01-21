@@ -25,7 +25,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-02-07
 # Versão: 5
-# Requisitos: zztestar
+# Requisitos: zzzz zztool zztestar
 # Tags: data, cálculo
 # ----------------------------------------------------------------------------
 zzdata ()

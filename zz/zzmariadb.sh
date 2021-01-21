@@ -11,7 +11,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-07-03
 # Versão: 4
-# Requisitos: zzminusculas zzsemacento zztrim
+# Requisitos: zzzz zztool zzminusculas zzsemacento zztrim
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzmariadb ()

@@ -10,7 +10,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-03-01
 # Versão: 1
-# Requisitos: zzmaiusculas
+# Requisitos: zzzz zztool zzmaiusculas
 # Tags: número, conversão
 # ----------------------------------------------------------------------------
 zzbyte ()

@@ -13,7 +13,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
 # Versão: 4
-# Requisitos: zzaleatorio
+# Requisitos: zzzz zztool zzaleatorio
 # Tags: internet, cálculo, manipulação
 # ----------------------------------------------------------------------------
 zzcnpj ()

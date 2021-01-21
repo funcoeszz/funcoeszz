@@ -53,7 +53,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-02-09
 # Versão: 4
-# Requisitos: zzunescape
+# Requisitos: zzzz zztool zzunescape
 # Tags: cut, emulação
 # ----------------------------------------------------------------------------
 zzcut ()

@@ -12,7 +12,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2021-01-07
 # Versão: 1
-# Requisitos: zzcolunar zzcut zzjuntalinhas zzmaiusculas zzwc zzxml
+# Requisitos: zzzz zztool zzcolunar zzcut zzjuntalinhas zzmaiusculas zzwc zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcodq ()

@@ -11,7 +11,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2021-01-13
 # Versão: 1
-# Requisitos: zzjuntalinhas zztestar zzxml
+# Requisitos: zzzz zztool zzjuntalinhas zztestar zzxml
 # Tags: internet, ip
 # ----------------------------------------------------------------------------
 zzipv6 ()

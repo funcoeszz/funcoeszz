@@ -13,7 +13,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
 # Versão: 4
-# Requisitos: zzaleatorio zzcut
+# Requisitos: zzzz zztool zzaleatorio zzcut
 # Tags: cálculo, consulta, manipulação
 # ----------------------------------------------------------------------------
 zzcpf ()

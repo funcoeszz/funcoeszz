@@ -10,6 +10,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-04-12
 # Versão: 1
+# Requisitos: zzzz zztool
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzdividirtexto ()

@@ -7,7 +7,7 @@
 # Autor: Alexandre Magno <alexandre.mbm (a) gmail com>
 # Desde: 2013-07-06
 # Versão: 3
-# Requisitos: zzxml zzipinternet zzecho zzminiurl zztestar
+# Requisitos: zzzz zztool zzxml zzipinternet zzecho zzminiurl zztestar
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzgeoip ()

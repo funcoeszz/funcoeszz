@@ -28,7 +28,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-07-23
 # Versão: 6
-# Requisitos: zzmaiusculas zztrim
+# Requisitos: zzzz zztool zzmaiusculas zztrim
 # Tags: texto, tabela
 # ----------------------------------------------------------------------------
 zzalfabeto ()

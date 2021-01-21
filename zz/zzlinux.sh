@@ -7,6 +7,7 @@
 # Autor: Diogo Gullit <guuuuuuuuuullit (a) yahoo com br>
 # Desde: 2008-05-01
 # Versão: 2
+# Requisitos: zzzz zztool
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzlinux ()

@@ -7,6 +7,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-06-12
 # Versão: 2
+# Requisitos: zzzz zztool
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzmaiusculas ()
