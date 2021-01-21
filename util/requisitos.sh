@@ -44,6 +44,12 @@ do
 			echo "$f: Função lista a si própria como requisito"
 	done
 
+	# REQUISITO REPETIDO
+	echo $requisitos | tr ' ' '\n' | sort | uniq -d | while read repetida
+	do
+		echo "$f: Requisito repetido: $repetida"
+	done
+
 	# SOBRANDO
 	# Funções listadas em Requisitos: mas não utilizadas
 	for req in $requisitos
