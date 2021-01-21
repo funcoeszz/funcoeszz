@@ -3,10 +3,11 @@
 # Aurelio Jargas
 #
 # Mostra quando uma função está faltando ou sobrando na linha Requisitos:
-# 
+#
 # $ ./requisitos.sh
 # zzcarnaval: # Requisitos: zzpascoa
 # zzfeed: Função listada mas não utilizada: zzbeep
+# zzdata.sh: Função lista a si própria como requisito
 #
 
 cd $(dirname "$0") || exit 1
@@ -34,6 +35,14 @@ do
 		egrep -v 'zztool|zzzz' |
 		sort |
 		uniq)
+
+	# REQUER A SI MESMA
+	# Não faz sentido uma função colocar a si mesma como requisito
+	for req in $requisitos
+	do
+		test "$req.sh" = "$f" &&
+			echo "$f: Função lista a si própria como requisito"
+	done
 
 	# SOBRANDO
 	# Funções listadas em Requisitos: mas não utilizadas
