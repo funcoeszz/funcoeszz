@@ -11,7 +11,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-06-03
 # Versão: 6
-# Requisitos: zzaleatorio zzminusculas zzsemacento zzseq zzaleatorio
+# Requisitos: zzaleatorio zzminusculas zzsemacento zzseq
 # Tags: jogo, distração
 # ----------------------------------------------------------------------------
 zzpalpite ()
