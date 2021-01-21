@@ -8,7 +8,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-08-27
 # Versão: 3
-# Requisitos: zztrim zzxml
+# Requisitos: zzzz zztool zztrim zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzhowto ()

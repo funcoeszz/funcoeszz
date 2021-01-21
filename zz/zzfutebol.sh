@@ -27,7 +27,7 @@
 # Autor: Jefferson Fausto Vaz (www.faustovaz.com)
 # Desde: 2014-04-08
 # Versão: 11
-# Requisitos: zzdatafmt zzjuntalinhas zzpad zzsqueeze zztrim zzutf8 zzxml
+# Requisitos: zzzz zztool zzdatafmt zzjuntalinhas zzpad zzsqueeze zztrim zzutf8 zzxml
 # Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------
 zzfutebol ()

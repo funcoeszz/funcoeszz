@@ -12,7 +12,7 @@
 # Autor: Tárcio Zemel <tarciozemel (a) gmail com>
 # Desde: 2014-03-24
 # Versão: 7
-# Requisitos: zzmaiusculas zznumero zzpad zzsemacento zzxml
+# Requisitos: zzzz zztool zzmaiusculas zznumero zzpad zzsemacento zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcoin ()

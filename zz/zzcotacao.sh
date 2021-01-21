@@ -7,7 +7,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-19
 # Versão: 5
-# Requisitos: zzjuntalinhas zznumero zzpad zzsqueeze zztrim zzunescape zzxml
+# Requisitos: zzzz zztool zzjuntalinhas zznumero zzpad zzsqueeze zztrim zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcotacao ()

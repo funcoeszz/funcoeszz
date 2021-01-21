@@ -8,6 +8,7 @@
 # Autor: Fernando Mercês <fernando (a) mentebinaria.com.br>
 # Desde: 2012-02-24
 # Versão: 3
+# Requisitos: zzzz zztool
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzhexa2str ()

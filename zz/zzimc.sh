@@ -7,7 +7,7 @@
 # Autor: Rafael Araújo <rafaelaraujosilva (a) gmail com>
 # Desde: 2015-10-30
 # Versão: 1
-# Requisitos: zztestar
+# Requisitos: zzzz zztool zztestar
 # Tags: cálculo
 # ----------------------------------------------------------------------------
 zzimc ()

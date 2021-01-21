@@ -10,7 +10,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2010-05-24
 # Versão: 3
-# Requisitos: zzsemacento zzminusculas
+# Requisitos: zzzz zztool zzsemacento zzminusculas
 # Tags: rev, emulação
 # ----------------------------------------------------------------------------
 zzvira ()

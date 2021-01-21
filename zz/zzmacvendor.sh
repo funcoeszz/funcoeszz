@@ -8,7 +8,7 @@
 # Autor: Rafael S. Guimaraes, www.rafaelguimaraes.net
 # Desde: 2016-02-03
 # Versão: 3
-# Requisitos: zztestar zzcut zzdominiopais
+# Requisitos: zzzz zztool zztestar zzcut zzdominiopais
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzmacvendor ()

@@ -21,7 +21,7 @@
 # Autor: Alexandre Brodt Fernandes, www.xalexandre.com.br
 # Desde: 2011-05-28
 # Versão: 27
-# Requisitos: zzecho zzjuntalinhas zzpad zzxml
+# Requisitos: zzzz zztool zzecho zzjuntalinhas zzpad zzxml
 # Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------
 zzbrasileirao ()

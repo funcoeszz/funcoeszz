@@ -10,7 +10,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
 # Versão: 2
-# Requisitos: zzconverte zztestar
+# Requisitos: zzzz zztool zzconverte zztestar
 # Tags: ip, cálculo
 # ----------------------------------------------------------------------------
 zzcalculaip ()

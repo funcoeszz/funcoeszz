@@ -8,7 +8,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-04-12
 # Versão: 1
-# Requisitos: zzseq
+# Requisitos: zzzz zztool zzseq
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzrepete ()

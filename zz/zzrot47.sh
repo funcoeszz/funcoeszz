@@ -8,6 +8,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-07-23
 # Versão: 1
+# Requisitos: zzzz zztool
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzrot47 ()

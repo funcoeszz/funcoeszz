@@ -18,7 +18,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2021-01-04
 # Versão: 1
-# Requisitos: zzcut zzjuntalinhas zzpad zzsqueeze zzunescape zzutf8 zzwc zzxml
+# Requisitos: zzzz zztool zzcut zzjuntalinhas zzpad zzsqueeze zzunescape zzutf8 zzwc zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzconstantes ()

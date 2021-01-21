@@ -15,7 +15,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
 # Versão: 7
-# Requisitos: zzfeed
+# Requisitos: zzzz zztool zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzlinuxnews ()

@@ -8,6 +8,7 @@
 # Autor: Rodrigo Missiaggia
 # Desde: 2001-10-01
 # Versão: 1
+# Requisitos: zzzz zztool
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzchavepgp ()

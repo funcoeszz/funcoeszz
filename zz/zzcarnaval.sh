@@ -9,7 +9,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-23
 # Versão: 1
-# Requisitos: zzdata zzpascoa
+# Requisitos: zzzz zztool zzdata zzpascoa
 # Tags: data
 # ----------------------------------------------------------------------------
 zzcarnaval ()

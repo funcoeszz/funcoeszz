@@ -17,6 +17,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-09-24
 # Versão: 1
+# Requisitos: zzzz zztool
 # Tags: squeeze, emulação
 # ----------------------------------------------------------------------------
 zzsqueeze ()

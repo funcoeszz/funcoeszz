@@ -14,7 +14,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2021-01-06
 # Versão: 1
-# Requisitos: zzjuntalinhas zzminusculas zzpad zzsemacento zztrim zzxml
+# Requisitos: zzzz zztool zzjuntalinhas zzminusculas zzpad zzsemacento zztrim zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzddd ()

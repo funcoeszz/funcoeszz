@@ -14,7 +14,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-17
 # Versão: 16
-# Requisitos: zzdatafmt zzjuntalinhas zzlimpalixo zzunescape zzxml
+# Requisitos: zzzz zztool zzdatafmt zzjuntalinhas zzlimpalixo zzunescape zzxml
 # Tags: internet, futebol, consulta
 # ----------------------------------------------------------------------------
 zzlibertadores ()

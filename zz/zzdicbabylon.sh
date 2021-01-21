@@ -10,6 +10,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
 # Versão: 2
+# Requisitos: zzzz zztool
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicbabylon ()

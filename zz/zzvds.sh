@@ -13,7 +13,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-05-07
 # Versão: 1
-# Requisitos: zzjuntalinhas zztrim zzunescape zzxml
+# Requisitos: zzzz zztool zzjuntalinhas zztrim zzunescape zzxml
 # Tags: internet, distração
 # ----------------------------------------------------------------------------
 zzvds ()

@@ -34,6 +34,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-03-14
 # Versão: 2
+# Requisitos: zzzz zztool
 # Tags: número, teste
 # ----------------------------------------------------------------------------
 zztestar ()

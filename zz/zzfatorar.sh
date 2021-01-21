@@ -14,7 +14,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-14
 # Versão: 4
-# Requisitos: zzjuntalinhas zzdivisores
+# Requisitos: zzzz zztool zzjuntalinhas zzdivisores
 # Tags: número, cálculo
 # Nota: opcional factor
 # ----------------------------------------------------------------------------

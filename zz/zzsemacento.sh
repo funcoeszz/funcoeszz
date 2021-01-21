@@ -7,6 +7,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2010-05-24
 # Versão: 1
+# Requisitos: zzzz zztool
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzsemacento ()

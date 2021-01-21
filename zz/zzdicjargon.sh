@@ -8,7 +8,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
 # Versão: 2
-# Requisitos: zztrim zzdividirtexto
+# Requisitos: zzzz zztool zztrim zzdividirtexto
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicjargon ()

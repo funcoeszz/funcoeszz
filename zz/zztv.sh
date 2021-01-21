@@ -23,7 +23,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-02-19
 # Versão: 14
-# Requisitos: zzcolunar zzdatafmt zzjuntalinhas zzpad zzsqueeze zztrim zzunescape zzxml
+# Requisitos: zzzz zztool zzcolunar zzdatafmt zzjuntalinhas zzpad zzsqueeze zztrim zzunescape zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zztv ()

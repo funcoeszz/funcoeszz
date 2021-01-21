@@ -7,6 +7,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
 # Versão: 6
+# Requisitos: zzzz zztool
 # Tags: número, cálculo
 # ----------------------------------------------------------------------------
 zzdivisores ()

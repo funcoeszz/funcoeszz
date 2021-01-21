@@ -27,7 +27,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-01-25
 # Versão: 5
-# Requisitos: zzcut
+# Requisitos: zzzz zztool zzcut
 # Tags: tempo
 # ----------------------------------------------------------------------------
 zztimer ()

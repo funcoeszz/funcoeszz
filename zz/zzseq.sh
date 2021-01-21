@@ -17,7 +17,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-12-06
 # Versão: 1
-# Requisitos: zztestar
+# Requisitos: zzzz zztool zztestar
 # Tags: seq, emulação
 # ----------------------------------------------------------------------------
 zzseq ()

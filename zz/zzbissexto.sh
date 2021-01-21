@@ -8,7 +8,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-21
 # Versão: 1
-# Requisitos: zztestar
+# Requisitos: zzzz zztool zztestar
 # Tags: data
 # ----------------------------------------------------------------------------
 zzbissexto ()

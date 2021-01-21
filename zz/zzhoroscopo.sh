@@ -12,7 +12,7 @@
 # Autor: Juliano Fernandes, http://julianofernandes.com.br
 # Desde: 2016-05-07
 # Versão: 1
-# Requisitos: zzsemacento zzminusculas zztrim zzxml
+# Requisitos: zzzz zztool zzsemacento zzminusculas zztrim zzxml
 # Tags: internet, distração, consulta
 # ----------------------------------------------------------------------------
 zzhoroscopo ()

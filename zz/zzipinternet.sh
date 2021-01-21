@@ -6,6 +6,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
 # Versão: 6
+# Requisitos: zzzz zztool
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzipinternet ()

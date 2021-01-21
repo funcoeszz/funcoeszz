@@ -9,7 +9,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-24
 # Versão: 1
-# Requisitos: zzcarnaval zzdata zzdiadasemana
+# Requisitos: zzzz zztool zzcarnaval zzdata zzdiadasemana
 # Tags: data
 # ----------------------------------------------------------------------------
 zzhorariodeverao ()

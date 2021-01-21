@@ -13,7 +13,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-03-29
 # Versão: 5
-# Requisitos: zzjuntalinhas zztrim zzxml
+# Requisitos: zzzz zztool zzjuntalinhas zztrim zzxml
 # Tags: internet, tempo, consulta
 # ----------------------------------------------------------------------------
 zzhoracerta ()

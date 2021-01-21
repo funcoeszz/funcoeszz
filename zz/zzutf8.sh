@@ -11,7 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2015-03-21
 # Versão: 2
-# Requisitos: zzencoding
+# Requisitos: zzzz zztool zzencoding
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzutf8 ()

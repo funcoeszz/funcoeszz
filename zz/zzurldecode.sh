@@ -9,6 +9,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-03-14
 # Versão: 2
+# Requisitos: zzzz zztool
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzurldecode ()

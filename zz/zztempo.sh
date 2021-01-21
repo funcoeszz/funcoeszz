@@ -47,6 +47,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-02-19
 # Versão: 2
+# Requisitos: zzzz zztool
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zztempo ()

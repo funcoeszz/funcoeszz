@@ -11,7 +11,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
 # Versão: 13
-# Requisitos: zzminusculas zzfeed zztac
+# Requisitos: zzzz zztool zzminusculas zzfeed zztac
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzsecurity ()
