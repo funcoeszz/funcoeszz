@@ -129,6 +129,8 @@ done
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-03-01
+# Versão: 1
+# Requisitos: zzzz
 # ----------------------------------------------------------------------------
 zztool ()
 {
@@ -507,6 +509,8 @@ zztool ()
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
+# Versão: 1
+# Requisitos: zzzz zztool
 # ----------------------------------------------------------------------------
 zzajuda ()
 {
@@ -575,6 +579,8 @@ zzajuda ()
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-01-07
+# Versão: 1
+# Requisitos: zztool zzajuda
 # ----------------------------------------------------------------------------
 zzzz ()
 {
