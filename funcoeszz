@@ -1003,12 +1003,17 @@ test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 > "$ZZTMP.on"
 > "$ZZTMP.off"
 
+# Lista de funções a desligar: uma por linha, com prefixo zz, exceto ZZBASE
+zz_off=$(
+	echo "$ZZOFF" |
+	zztool list2lines |
+	sed 's/^zz// ; s/^/zz/' |
+	egrep -v "$(echo "$ZZBASE" | sed 's/ /|/g')"
+)
+
 # A pasta das funções existe?
 if test -n "$ZZDIR" -a -d "$ZZDIR"
 then
-	# Melhora a lista off: um por linha, sem prefixo zz
-	zz_off=$(echo "$ZZOFF" | zztool list2lines | sed 's/^zz//')
-
 	# Primeiro salva a lista de funções disponíveis
 	for zz_arquivo in "${ZZDIR%/}"/zz*
 	do
@@ -1019,7 +1024,7 @@ then
 			zz_nome="${zz_nome%.sh}"     # remove extensão
 
 			# O usuário desativou esta função?
-			echo "$zz_off" | grep "^${zz_nome#zz}$" >/dev/null ||
+			echo "$zz_off" | grep "^$zz_nome$" >/dev/null ||
 				# Tudo certo, essa vai ser carregada
 				echo "$zz_nome"
 		fi
@@ -1110,17 +1115,8 @@ echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
 # Todas as funções já foram carregadas por estarem dentro deste arquivo.
 # Agora faremos o desligamento "manual" das funções ZZOFF.
 #
-if test -z "$ZZDIR" -a -n "$ZZOFF"
+if test -z "$ZZDIR" -a -n "$zz_off"
 then
-
-	# Lista de funções a desligar: uma por linha, com prefixo zz, exceto ZZBASE
-	zz_off=$(
-		echo "$ZZOFF" |
-		zztool list2lines |
-		sed 's/^zz// ; s/^/zz/' |
-		egrep -v "$(echo "$ZZBASE" | sed 's/ /|/g')"
-	)
-
 	# Desliga todas em uma só linha (note que não usei aspas)
 	unset zz_off
 
