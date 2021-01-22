@@ -132,6 +132,8 @@ done
 # ----------------------------------------------------------------------------
 zztool ()
 {
+	zzzz -h tool "$1" && return
+
 	local erro ferramenta
 
 	# Devo mostrar a mensagem de erro?
