@@ -10,7 +10,7 @@ with builtins; # funções como toString
   "w3m" = pkgs.w3m;
 }.${browserName} }:
 let
-  ZZCOR_DFT = if color then 1 else 0;
+  ZZCOR = if color then 1 else 0;
   drv = pkgs.stdenv.mkDerivation {
     name = "funcoeszz-source";
     src = ./.;
@@ -24,7 +24,7 @@ let
     # Deixa os binários dependentes acessíveis
     PATH=$PATH:${pkgs.lib.makeBinPath deps}
     # Permite configurar suporte a cor pelo parâmetro do pacote
-    export ZZCOR=${toString ZZCOR_DFT}
+    export ZZCOR=${toString ZZCOR}
     # Onde estão as funções?
     export ZZDIR="${drv}/opt/funcoeszz/zz"
     # Chama o script com os parâmetros que vierem
@@ -50,5 +50,8 @@ in pkgs.stdenv.mkDerivation {
     mkdir -p $out/share/man/man1
     cp ${drv}/opt/funcoeszz/manpage/manpage.man $out/share/man/man1/funcoeszz.1
     ${pkgs.shellcheck}/bin/shellcheck -s bash $out/bin/*
+    # Referencia ao repo na saída
+    mkdir -p $out/opt
+    ln -s ${drv}/opt/funcoeszz $out/opt/funcoeszz
   '';
 }
