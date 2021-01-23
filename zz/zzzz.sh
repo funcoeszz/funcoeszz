@@ -17,7 +17,7 @@
 zzzz ()
 {
 	local nome_func arg_func padrao func
-	local info_instalado info_instalado_zsh info_cor info_utf8 info_base versao_remota
+	local info_instalado info_instalado_zsh info_cor info_utf8 versao_remota
 	local arquivo_aliases
 	local n_on n_off
 	local bashrc="$HOME/.bashrc"
@@ -248,12 +248,6 @@ zzzz ()
 				echo "alias zz$func 'funcoeszz zz$func'" >> "$arquivo_aliases"
 			done
 
-			# alias para funcoes base
-			for func in $(ZZCOR=0 zzzz | grep 'base)' | sed 's/(.*)//; s/,//g')
-			do
-				echo "alias $func='funcoeszz $func'" >> "$arquivo_aliases"
-			done
-
 			echo
 			echo "Aliases atualizados no $arquivo_aliases"
 		;;
@@ -289,12 +283,6 @@ zzzz ()
 				echo "alias zz$func='funcoeszz zz$func'" >> "$arquivo_aliases"
 			done
 
-			# alias para funcoes base
-			for func in $(ZZCOR=0 zzzz | grep 'base)' | sed 's/(.*)//; s/,//g')
-			do
-				echo "alias $func='funcoeszz $func'" >> "$arquivo_aliases"
-			done
-
 			echo
 			echo "Aliases atualizados no $arquivo_aliases"
 		;;
@@ -323,9 +311,6 @@ zzzz ()
 				info_instalado_zsh='não instalado'
 			fi
 
-			# Formata funções essenciais
-			info_base=$(echo "$ZZBASE" | sed 's/ /, /g')
-
 			# Informações, uma por linha
 			zztool acha '^[^)]*)' "( script) $ZZPATH"
 			zztool acha '^[^)]*)' "(  pasta) $ZZDIR"
@@ -335,7 +320,6 @@ zzzz ()
 			zztool acha '^[^)]*)' "(browser) $ZZBROWSER"
 			zztool acha '^[^)]*)' "( bashrc) $info_instalado"
 			zztool acha '^[^)]*)' "(  zshrc) $info_instalado_zsh"
-			zztool acha '^[^)]*)' "(   base) $info_base"
 			zztool acha '^[^)]*)' "(   site) $url_site"
 
 			# Lista de todas as funções
@@ -346,7 +330,6 @@ zzzz ()
 			then
 				set |
 					sed -n '/^zz[a-z0-9]/ s/ *().*//p' |
-					egrep -v "$(echo "$ZZBASE" | sed 's/ /|/g')" |
 					sort > "$ZZTMP.on"
 			fi
 

@@ -60,7 +60,6 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 # shellcheck disable=SC2034
 ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
 ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
-ZZBASE='zzajuda zztool zzzz'  # Funções essenciais, guardadas neste script
 
 #
 ### Truques para descobrir a localização deste arquivo no sistema
@@ -162,12 +161,11 @@ _extrai_ajuda() {
 > "$ZZTMP.on"
 > "$ZZTMP.off"
 
-# Lista de funções a desligar: uma por linha, com prefixo zz, exceto ZZBASE
+# Lista de funções a desligar: uma por linha, com prefixo zz
 zz_off=$(
 	echo "$ZZOFF" |
 	tr -s '\t ' '\n' |
-	sed 's/^zz// ; s/^/zz/' |
-	egrep -v "$(echo "$ZZBASE" | sed 's/ /|/g')"
+	sed 's/^zz// ; s/^/zz/'
 )
 
 # A pasta das funções existe?
