@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# zzajuda
 # Mostra uma tela de ajuda com explicação e sintaxe de todas as funções.
 # Opções: --lista  lista de todas as funções, com sua descrição
 #         --uso    resumo de todas as funções, com a sintaxe de uso

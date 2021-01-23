@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# zztool
 # Miniferramentas para auxiliar as funções.
 # Uso: zztool [-e] ferramenta [argumentos]
 # Ex.: zztool grep_var foo $var

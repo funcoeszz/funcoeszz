@@ -1,5 +1,4 @@
 # ----------------------------------------------------------------------------
-# zzzz
 # Mostra informações sobre as funções, como versão e localidade.
 # Opções: --atualiza  baixa a versão mais nova das funções
 #         --teste     testa se a codificação e os pré-requisitos estão OK

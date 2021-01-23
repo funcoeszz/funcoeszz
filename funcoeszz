@@ -142,9 +142,6 @@ _extrai_ajuda() {
 # Limpa conteúdo do arquivo de ajuda
 > "$ZZAJUDA"
 
-# Salva o texto de ajuda das funções deste arquivo
-test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
-
 
 ##############################################################################
 #
@@ -168,7 +165,7 @@ test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 # Lista de funções a desligar: uma por linha, com prefixo zz, exceto ZZBASE
 zz_off=$(
 	echo "$ZZOFF" |
-	zztool list2lines |
+	tr -s '\t ' '\n' |
 	sed 's/^zz// ; s/^/zz/' |
 	egrep -v "$(echo "$ZZBASE" | sed 's/ /|/g')"
 )
