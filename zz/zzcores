@@ -10,9 +10,11 @@
 # Versão: 1
 # Tags: cores, tabela
 # ----------------------------------------------------------------------------
+# type zzcores
 zzcores ()
 {
-	zzzz -h cores "$1" && return
+	# zzzz -h cores "$1" && return
+	case "$1" in -h|--help) zzajuda zzcores; return;; esac
 
 	local frente fundo negrito cor
 
@@ -32,4 +34,17 @@ zzcores ()
 		done
 	done
 }
-zzcores "$@"
+# type zzcores
+# zzzz -h zzcores "$@" || zzcores "$@"
+# zzzz --init zzcores "$@" || #&& zzcores "$@"
+#^executavel, nao funcao
+
+# case "$1" in
+# 	-h | --help) zzajuda zzcores;;
+# 	--source) :;;
+# 	*) zzcores "$@"
+# esac
+
+test "$0" = 'bash' || zzcores "$@"
+
+# não é pro usuário dar source diretamente nesse arquivo. vai dar zika se as demais zz estiverem no path dele. aí o único use-case é o core sa zz dando source, aí posso passar um --source pra identificar (ou até mesmo remover a linha que chama a função, whatever)

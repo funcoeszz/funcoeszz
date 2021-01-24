@@ -27,6 +27,45 @@ zzzz ()
 	local instal_msg='Instalacao das Funcoes ZZ (www.funcoeszz.net)'
 
 	case "$1" in
+		--load)
+			# if called `zzzz` (all functions already in PATH)
+			# export PATH="$HOME/zz:$PATH"
+			for zz_func in $all_executables_with_zz
+			do
+				# check if this is indeed a zz (grep zz or something)
+				# remove the last line (call to the function)
+				# source it
+				# make help database magic
+			done
+
+			# if called `bash zz/zzzz`
+			# I need a way to get the PWD
+		;;
+		--init)
+			# Retorna zero se a execução da função original deve continuar
+			# Retorna um caso não haja mais nada a fazer
+			# ^mas daí vai ficar retorno um na shell do cara
+			shift
+			echo "init: $@"
+
+			nome_func=$1
+			primeiro_argumento=$2
+
+			# Trata opções globais que funcionam para todas as funções
+			case "$primeiro_argumento" in
+				-h | --help)
+					zzajuda $nome_func
+				;;
+				--version) :;;
+				*)
+					type zzcores
+					hash -r
+					type zzcores
+					# Chama a função informada
+					# "$@"
+				;;
+			esac
+		;;
 
 		# Atenção: Prepare-se para viajar um pouco que é meio complicado :)
 		#
