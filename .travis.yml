@@ -12,6 +12,7 @@ before_install:
   - mv clitest testador
 
 script:
+  - ./testador/run funcoeszz.md
   - ./testador/run internet_travis
 
 notifications:
