@@ -11,8 +11,8 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-10-13
-# Versão: 2
-# Requisitos: zzzz zztool zzcolunar zzlimpalixo zztrim zzunescape
+# Versão: 3
+# Requisitos: zzzz zztool zzcolunar zztrim
 # Tags: internet, texto, tabela
 # ----------------------------------------------------------------------------
 zzunicode ()
@@ -60,16 +60,13 @@ zzunicode ()
 	fi
 
 	zztool source "${url}${bloco}" |
-	sed -n '/class="symbols-grid__symbol"/{s/^ *//;s/ *$//;s/<div [^>]*>//g;s/<\/div>//g;s/U+//;p;};/data-template/{s/^ *//;s/ *$//;p;}' |
-	zzunescape --html |
-	sed 's/","url":.*//;s/.*"title":"/title:/' |
-	zzlimpalixo |
-	if test "$nome" -eq 1
-	then
-		awk '/title:/ { sub(/title:/,""); nome=$0; next }; { print $2 "\t" $1 "\t" nome }'
-	else
-		awk '!/title:/ { print $2 "\t" $1 }'
-	fi |
+	sed -n '/<li.*character-list__item/,/li>/{/data-symbol/,/href/p;}' |
+	awk '{
+		sub(/.*="/,""); sub(/".*/,"")
+		if (NR%3==0) { sub(/\/en\//,""); sub(/\//,""); print }
+		else printf $0 ";"
+	}' |
+	awk -F ';' -v a_nome=$nome '{ print $3 "\t" $1 (a_nome==1? "\t" $2:"") }' |
 	if test -n "$coluna"
 	then
 		zzcolunar -w 15 $coluna
