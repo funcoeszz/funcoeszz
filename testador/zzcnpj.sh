@@ -109,4 +109,4 @@ $ zzcnpj -q	12345678000123; echo $?	#=> 1
 
 # Consultando um CNPJ
 $ zzcnpj -c 27865757000102	#=> --lines 20
-$ zzcnpj -c 33041260102595	#=> --lines 7
+$ zzcnpj -c 33041260102595	#=> --lines 20
