@@ -195,16 +195,15 @@ eco ----------------------------------------------------------------
 eco "* Funções com cabeçalho >78 colunas"
 for f in zz/*.sh off/*.sh
 do
-	wrong=$(grep '^# ' $f | egrep '^.{79}' | grep -v DESATIVADA:)
-
-	test -n "$wrong" && printf "%s: %s\n" $f "$wrong" |
-		# Exceções conhecidas
-		# Linha de Requisitos é exceção sempre
-		egrep -v '^(zz|off)/zz[[:alnum:]]*.sh: # Requisitos:' |
-		grep -v '^zz/zzloteria.sh: # Resultados da quina' |
-		grep -v '^zz/zzpais.sh: # http://pt.wikipedia.org' |
-		egrep -v '# .*loteca.?$' |
-		grep -v '^zz/zzxml.sh: # Uso: zzxml'
+	grep '^# ' $f | egrep '^.{79}' |
+		grep -v DESATIVADA: |
+		grep -v '^# Requisitos:' |
+		# Insere o path do arquivo no início da linha
+		sed "s|^|$f: |" |
+		# Exceções pontuais
+		grep -v '^zz/zzloteria\.sh: # Resultados da quina' |
+		grep -v '^zz/zzpalpite\.sh: # quina, megasena,' |
+		grep -v '^zz/zzpalpite\.sh: # Uso: zzpalpite'
 done
 
 eco ----------------------------------------------------------------
