@@ -10,18 +10,18 @@ $
 
 # Sem argumentos mostra a lista de cidades/cinemas
 
-$ zzcinemais
+$ zzcinemais | tr -d -c '[0-9A-Za-z -]\n'
 9 - Uberaba  - MG
 11 - Patos de Minas - MG
-21 - Guaratinguetá - SP
-32 - Anápolis - GO
+21 - Guaratinguet - SP
+32 - Anpolis - GO
 34 - Montes Claros - MG
 35 - Shop. Alameda - Juiz de Fora - MG
 36 - Ituiutaba - MG
-37 - Araxá - MG
+37 - Arax - MG
 38 - Lorena - SP
 39 - Jardim Norte - Juiz de Fora - MG
-40 - Drive-in - Uberlândia - MG
+40 - Drive-in - Uberlndia - MG
 $
 
 # Uso normal, informando o número
