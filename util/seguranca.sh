@@ -6,7 +6,7 @@
 
 # TODO receber arquivo individual via argumentos
 
-cd $(dirname "$0") || exit 1
+cd "$(dirname "$0")" || exit 1
 cd ..
 
 eco() { echo -e "\033[36;1m$*\033[m"; }

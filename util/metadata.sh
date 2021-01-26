@@ -8,7 +8,7 @@
 # Ex.: metadata.sh autor
 #      metadata.sh versao
 
-cd $(dirname "$0")
+cd "$(dirname "$0")"
 cd ..
 
 tab=$(echo -e '\t')
@@ -20,7 +20,7 @@ case "$1" in
 		sed "s/:# Autor: /$tab/" |
 		while read funcao meta
 		do
-			printf "%-25s %s\n" $funcao $meta
+			printf '%-25s %s\n' "$funcao" "$meta"
 		done
 	;;
 	desde | d)
@@ -40,7 +40,7 @@ case "$1" in
 		sed "s/:# Requisitos: /:/" |
 		while read funcao meta
 		do
-			printf "%-25s %s\n" $funcao $meta
+			printf '%-25s %s\n' "$funcao" "$meta"
 		done
 	;;
 	tags | t)
@@ -49,7 +49,7 @@ case "$1" in
 		sed "s/:# Tags: /:/" |
 		while read funcao meta
 		do
-			printf "%-25s %s\n" $funcao $meta
+			printf '%-25s %s\n' "$funcao" "$meta"
 		done
 	;;
 	nota | n)
@@ -58,7 +58,7 @@ case "$1" in
 		sed "s/:# Nota: /:/" |
 		while read funcao meta
 		do
-			printf "%-25s %s\n" $funcao $meta
+			printf '%-25s %s\n' "$funcao" "$meta"
 		done
 	;;
 esac

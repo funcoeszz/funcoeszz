@@ -1,7 +1,7 @@
 #!/bin/bash
 # Listar dependências e dependentes de cada função
 #
-	cd $(dirname "$0") || exit 1
+	cd "$(dirname "$0")" || exit 1
 
 	if test "$1" = "zztool" -o "$1" = "tool"
 	then
@@ -52,4 +52,4 @@
 		fi |
 		sed 's/--//'
 	fi |
-	fmt -s -w $(tput cols)
+	fmt -s -w "$(tput cols)"
