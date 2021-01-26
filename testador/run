@@ -54,6 +54,12 @@ then
 	# Tests that do not need internet
 	$tester --progress dot --pre-flight ". $tmp" $no_internet
 	exitcode=$?
+elif test "funcoeszz.md" = "$1"
+then
+	# Test the core: funcoeszz
+	echo "zz_root=$zz_root" > $tmp  # inject $zz_root into the test env
+	$tester --progress dot --pre-flight ". $tmp" funcoeszz.md
+	exitcode=$?
 elif test $# -gt 0
 then
 	# Test specific file(s)
