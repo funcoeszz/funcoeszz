@@ -31,6 +31,7 @@ zzbrasileirao ()
 	local serie pos time resto cor
 	local cache=$(zztool cache brasileirao)
 	local url='https://www.ogol.com.br/'
+	local tab="$(printf '\t')"
 
 	test $# -gt 2 && { zztool -e uso brasileirao; return 1; }
 
@@ -118,11 +119,11 @@ zzbrasileirao ()
 		if test -n "$time"
 		then
 			case "$cor" in
-				verde|ciano|vermelho) zzecho -f $cor -l preto "$(zzpad 3 $pos) $(zzpad 20 $time) $(echo "$resto" | sed 's/|/\t/g' | expand -t 5)";;
+				verde|ciano|vermelho) zzecho -f $cor -l preto "$(zzpad 3 $pos) $(zzpad 20 $time) $(echo "$resto" | sed "s/|/${tab}/g" | expand -t 5)";;
 				*)
 					if zztool testa_numero "$pos" || test "#" == "$pos"
 					then
-						echo "$(zzpad 3 $pos) $(zzpad 20 $time) $(echo "$resto" | sed 's/|/\t/g' | expand -t 5)"
+						echo "$(zzpad 3 $pos) $(zzpad 20 $time) $(echo "$resto" | sed "s/|/${tab}/g" | expand -t 5)"
 					else
 						echo "${pos}|${time}|${resto}" | sed 's/|F|G|/|/g;s/Ida|Volta|/|||&/;s/&nbsp;/ /g' | awk -F '|' '{ printf "%25s %-5s %-25s %-12s %-12s\n", $1, $2, $3, $4, $5 }'
 					fi
