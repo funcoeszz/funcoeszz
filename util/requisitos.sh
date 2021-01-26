@@ -24,9 +24,9 @@ do
 	# Quais as funções usadas por esta zz?
 	encontradas=$(
 		grep -v '^[ 	]*#' $f |
-		grep 'zz[a-z]' |
+		grep '\bzz[a-z]' |
 		grep -v '()$' |
-		egrep -o 'zz[a-z0-9]+' |
+		egrep -o '\bzz[a-z0-9]+\b' |
 		sort |
 		uniq)
 
@@ -65,6 +65,11 @@ do
 			do
 				# Uma função usar ela mesma está OK
 				test $funcao.sh = $f && continue
+
+				# Ignora falsos positivos
+				test $f = zzzz.sh && case "$funcao" in
+					zzcshrc | zzzshrc) continue;;
+				esac
 
 				echo $requisitos | grep -w $funcao >/dev/null ||
 					echo "$f: # Requisitos: $funcao"

@@ -5,12 +5,7 @@
 cd $(dirname "$0")
 
 # List of all functions
-base="\
-zzajuda
-zztool
-zzzz"
-other=$(ls -1 ../zz/ | sed 's/\.sh$//; s|.*/||')
-all=$(printf "$base\n$other" | sort)
+all=$(ls -1 ../zz/ | sed 's/\.sh$//; s|.*/||' | sort)
 
 # List of already tested functions
 tested=$(ls -1 zz*.sh | sed 's/\.sh$//' | sort)

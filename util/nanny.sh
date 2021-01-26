@@ -241,6 +241,7 @@ eco ----------------------------------------------------------------
 eco "* Funções cuja chamada 'zzzz -h' está incorreta"
 for f in zz/*.sh  # off/*.sh
 do
+	test "$f" = zz/zzzz.sh && continue  # zzzz lida com seu próprio -h
 	# zzzz -h cores $1 && return
 	fgrep "zzzz -h $(basename $f .sh | sed 's/^zz//') \"\$1\" && return" $f >/dev/null || echo $f
 done
@@ -271,7 +272,9 @@ grep '$ZZTMP' zz/*.sh off/*.sh | grep -v '"'
 # https://github.com/funcoeszz/funcoeszz/wiki/Arquivos-Temporarios
 eco ----------------------------------------------------------------
 eco "* Funções que usaram nome inválido em \$ZZTMP.nome"
-grep '$ZZTMP' zz/*.sh | egrep -v '^zz/zz([^.]*)\.sh:.*\$ZZTMP\.\1'
+grep '$ZZTMP' zz/*.sh | egrep -v '^zz/zz([^.]*)\.sh:.*\$ZZTMP\.\1' |
+	# Exceções conhecidas
+	egrep -v '^zz/zz(tool|zz)\.sh:'
 
 
 
