@@ -1,0 +1,12 @@
+# https://github.com/koalaman/shellcheck/blob/master/shellcheck.1.md#rc-files
+
+# Disabled checks
+# ---------------
+#
+# SC2001: See if you can use ${variable//search/replace} instead.
+#      -> We prefer sed, and we avoid bash2+ variable expansions for portability
+#
+# SC2016: Expressions don't expand in single quotes, use double quotes for that.
+#      -> We know when to use single quotes :)
+#
+disable=SC2001,SC2016
