@@ -80,9 +80,11 @@ zzsecurity ()
 	then
 		echo
 		zztool eco '** Atualizações FreeBSD'
-		url='http://www.freebsd.org/security/advisories.rdf'
+		url='https://www.freebsd.org/security/advisories'
 		echo "$url"
-		zzfeed -n $n "$url"
+		zztool dump "$url" |
+			sed -n '/Data.*Advisory name/,${/Data/d;s/^[[:blank:]]*//;p;}' |
+			$limite
 	fi
 
 	# NetBSD
