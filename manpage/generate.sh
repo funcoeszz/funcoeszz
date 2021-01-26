@@ -16,7 +16,7 @@ cd "$(dirname "$0")" || exit 1
 
 # The all-in-one script is *way* faster to load
 echo "Generating funcoeszz script..."
-ZZOFF= ZZDIR=../zz ../funcoeszz --tudo-em-um > $zz
+ZZOFF='' ZZDIR=../zz ../funcoeszz --tudo-em-um > $zz
 chmod +x $zz
 
 (
