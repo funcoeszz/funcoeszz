@@ -11,19 +11,19 @@ cd "$(dirname "$0")" || exit 1
 cd ../zz
 
 ../funcoeszz tool eco "Linha que inicia com um espaço"
-grep '^ ' * |
+grep '^ ' ./* |
 	grep -v -E '^zz(google|palpite)'  # caso válido, sed multilinha
 
 ../funcoeszz tool eco "Linha com Tab e espaço misturados"
-grep '	 ' * |
+grep '	 ' ./* |
 	# [\t ]: Dentro de colchetes, é regex
 	grep -Fv '[	 ]' |
 	# Em sed para substituição
 	grep -Fv "sed 's"
 
 ../funcoeszz tool eco "Linha com Tabs ou espaços inúteis no final"
-grep '[^ 	][ 	]\{1,\}$' * |
+grep '[^ 	][ 	]\{1,\}$' ./* |
 	grep -v '^zzxml.sh:.*Foo $'  # exceção, usado num comentário
 
 ../funcoeszz tool eco "Linhas vazias, mas com brancos"
-grep -E '^[	 ]+$' *
+grep -E '^[	 ]+$' ./*
