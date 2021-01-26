@@ -10,9 +10,9 @@
 # zzdata.sh: Função lista a si própria como requisito
 #
 
-cd "$(dirname "$0")" || exit 1
+cd "$(dirname "$0")/.." || exit 1  # go to repo root
+cd zz || exit 1
 
-cd ../zz
 for f in zz*
 do
 	# Caso especial, já tratado, pode ignorar

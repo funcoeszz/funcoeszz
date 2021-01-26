@@ -6,9 +6,8 @@
 # Procura por espaços em branco em lugares errados.
 
 
-cd "$(dirname "$0")" || exit 1
-
-cd ../zz
+cd "$(dirname "$0")/.." || exit 1  # go to repo root
+cd zz || exit 1
 
 ../funcoeszz tool eco "Linha que inicia com um espaço"
 grep '^ ' ./* |

@@ -8,8 +8,7 @@
 # Ex.: metadata.sh autor
 #      metadata.sh versao
 
-cd "$(dirname "$0")"
-cd ..
+cd "$(dirname "$0")/.." || exit 1  # go to repo root
 
 tab=$(echo -e '\t')
 

@@ -15,8 +15,8 @@
 #     $
 
 
-cd "$(dirname "$0")" || exit 1
-cd ../zz
+cd "$(dirname "$0")/.." || exit 1  # go to repo root
+cd zz || exit 1
 
 grep_var() {  # $1 está presente em $2?
 	test "${2#*$1}" != "$2"
@@ -40,4 +40,3 @@ do
 done |
 sort |
 uniq
-
