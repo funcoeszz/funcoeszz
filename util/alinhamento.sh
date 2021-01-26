@@ -17,9 +17,9 @@ grep '^ ' * |
 ../funcoeszz tool eco "Linha com Tab e espaço misturados"
 grep '	 ' * |
 	# [\t ]: Dentro de colchetes, é regex
-	fgrep -v '[	 ]' |
+	grep -Fv '[	 ]' |
 	# Em sed para substituição
-	fgrep -v "sed 's"
+	grep -Fv "sed 's"
 
 ../funcoeszz tool eco "Linha com Tabs ou espaços inúteis no final"
 grep '[^ 	][ 	]\{1,\}$' * |

@@ -243,7 +243,7 @@ for f in zz/*.sh  # off/*.sh
 do
 	test "$f" = zz/zzzz.sh && continue  # zzzz lida com seu próprio -h
 	# zzzz -h cores $1 && return
-	fgrep "zzzz -h $(basename "$f" .sh | sed 's/^zz//') \"\$1\" && return" "$f" >/dev/null || echo "$f"
+	grep -F "zzzz -h $(basename "$f" .sh | sed 's/^zz//') \"\$1\" && return" "$f" >/dev/null || echo "$f"
 done
 
 eco ----------------------------------------------------------------
