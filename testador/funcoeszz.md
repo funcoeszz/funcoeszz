@@ -123,3 +123,7 @@ $ zzmaiusculas funciona
 FUNCIONA
 $
 ```
+
+## symlink
+
+TODO

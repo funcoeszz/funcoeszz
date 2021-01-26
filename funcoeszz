@@ -61,6 +61,19 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
 ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
 
+# symlink (TODO explain this)
+test -L "$0" &&
+case "$(basename "$0")" in
+	zz?*)
+		zz_func="$(basename "$0")"
+		core_path="$(realpath "$0" 2> /dev/null || readlink -f "$0" 2> /dev/null)"
+		# TODO be more BSD/Mac-friendly
+		"${core_path:?Não consegui achar pra onde aponta o symlink :(}" $zz_func "$@"
+		exit $?
+	;;
+esac
+
+
 #
 ### Truques para descobrir a localização deste arquivo no sistema
 #
