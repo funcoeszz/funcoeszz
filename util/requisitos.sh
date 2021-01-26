@@ -39,7 +39,7 @@ do
 	done
 
 	# REQUISITO REPETIDO
-	echo "$requisitos" | tr ' ' '\n' | sort | uniq -d | while read repetida
+	echo "$requisitos" | tr ' ' '\n' | sort | uniq -d | while read -r repetida
 	do
 		echo "$f: Requisito repetido: $repetida"
 	done
@@ -61,7 +61,7 @@ do
 	if test -n "$encontradas"
 	then
 		echo "$encontradas" |
-			while read funcao
+			while read -r funcao
 			do
 				# Uma função usar ela mesma está OK
 				test "$funcao.sh" = "$f" && continue

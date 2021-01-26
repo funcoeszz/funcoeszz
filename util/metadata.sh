@@ -18,7 +18,7 @@ case "$1" in
 		IFS="$tab"
 		grep '# Autor:' zz/*.sh off/*.sh |
 		sed "s/:# Autor: /$tab/" |
-		while read funcao meta
+		while read -r funcao meta
 		do
 			printf '%-25s %s\n' "$funcao" "$meta"
 		done
@@ -38,7 +38,7 @@ case "$1" in
 		IFS=':'
 		grep '# Requisitos:' zz/*.sh off/*.sh |
 		sed "s/:# Requisitos: /:/" |
-		while read funcao meta
+		while read -r funcao meta
 		do
 			printf '%-25s %s\n' "$funcao" "$meta"
 		done
@@ -47,7 +47,7 @@ case "$1" in
 		IFS=':'
 		grep '# Tags:' zz/*.sh off/*.sh |
 		sed "s/:# Tags: /:/" |
-		while read funcao meta
+		while read -r funcao meta
 		do
 			printf '%-25s %s\n' "$funcao" "$meta"
 		done
@@ -56,7 +56,7 @@ case "$1" in
 		IFS=':'
 		grep '^# Nota: \(requer \|opcional \|(ou) \)' zz/*.sh off/*.sh |
 		sed "s/:# Nota: /:/" |
-		while read funcao meta
+		while read -r funcao meta
 		do
 			printf '%-25s %s\n' "$funcao" "$meta"
 		done

@@ -33,7 +33,7 @@ do
 		grep "^zz" |
 
 		# Any of these are missing in the original list?
-		while read required
+		while read -r required
 		do
 			grep_var " $required " " $* " || echo "$required"
 		done
