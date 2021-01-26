@@ -73,7 +73,7 @@ zzbrasileirao ()
 	zzxml --tidy |
 	if test 'C' = "$serie"
 	then
-		sed -n '/Grupo /,/table>/p;/ Fase/p'
+		sed -n '/^Final *$/,/table>/p;/^Grupo /,/table>/p;/ Fase/p;'
 	else
 		sed -n '/Classifica/,/table>/p'
 	fi |
@@ -93,6 +93,7 @@ zzbrasileirao ()
 		sed 's/|P|/|#|Time|P|/'
 	fi |
 	sed 's/^|//;s/| *$//;s/a$/ /' |
+	awk 'NR==1 && /Final/ {next};1' |
 	while IFS='|' read pos time resto
 	do
 		unset cor
@@ -114,14 +115,23 @@ zzbrasileirao ()
 				c)   test "$pos" -ge 9  && cor='vermelho' ;;
 			esac
 		fi
-		if [ -n "$time" ]
+		if test -n "$time"
 		then
 			case "$cor" in
 				verde|ciano|vermelho) zzecho -f $cor -l preto "$(zzpad 3 $pos) $(zzpad 20 $time) $(echo "$resto" | sed 's/|/\t/g' | expand -t 5)";;
-				*)                    echo "$(zzpad 3 $pos) $(zzpad 20 $time) $(echo "$resto" | sed 's/|/\t/g' | expand -t 5)";;
+				*)
+					if zztool testa_numero "$pos" || test "#" == "$pos"
+					then
+						echo "$(zzpad 3 $pos) $(zzpad 20 $time) $(echo "$resto" | sed 's/|/\t/g' | expand -t 5)"
+					else
+						echo "${pos}|${time}|${resto}" | sed 's/|F|G|/|/g;s/Ida|Volta|/|||&/;s/&nbsp;/ /g' | awk -F '|' '{ printf "%25s %-5s %-25s %-12s %-12s\n", $1, $2, $3, $4, $5 }'
+					fi
+				;;
 			esac
 		else
-			zztool grep_var ' Fase' "$pos" && zzecho -l amarelo "$pos" || echo "$pos $time $resto"
+			zztool grep_var ' Fase' "$pos" && zzecho -l amarelo "$pos" && continue
+			zztool grep_var 'Final' "$pos" && zzecho -l amarelo "$pos" && continue
+			echo "$pos"
 		fi
 	done
 
