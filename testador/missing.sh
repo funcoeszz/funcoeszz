@@ -5,7 +5,8 @@
 cd $(dirname "$0")
 
 # All zz functions have a counterpart in the test directory?
-for zz_func in ../zz/*
+for zz_path in ../zz/*
 do
-	test -f $(basename $zz_func) || echo "$zz_func"
+	zz_file=$(basename "$zz_path")
+	test -f "$zz_file" || echo "$zz_file"
 done
