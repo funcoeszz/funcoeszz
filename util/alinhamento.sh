@@ -26,4 +26,4 @@ grep '[^ 	][ 	]\{1,\}$' * |
 	grep -v '^zzxml.sh:.*Foo $'  # exceção, usado num comentário
 
 ../funcoeszz tool eco "Linhas vazias, mas com brancos"
-egrep '^[	 ]+$' *
+grep -E '^[	 ]+$' *
