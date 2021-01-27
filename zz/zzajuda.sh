@@ -20,14 +20,14 @@ zzajuda ()
 	case "$1" in
 		--uso)
 			# Lista com sintaxe de uso, basta pescar as linhas Uso:
-			echo "$ZZAJUDA" |
+			_zzajuda |
 				sed -n 's/^Uso: zz/zz/p' |
 				sort |
 				zztool acha '^zz[^ ]*'
 		;;
 		--lista)
 			# Lista de todas as funções no formato: nome descrição
-			echo "$ZZAJUDA" |
+			_zzajuda |
 				grep -A2 ^zz |
 				grep -v ^http |
 				sed '
@@ -51,7 +51,7 @@ zzajuda ()
 			test "$PAGER" = 'less' -o "$PAGER" = 'more' && zzcor_pager=0
 
 			# Mostra a ajuda de todas as funções, paginando
-			echo "$ZZAJUDA" |
+			_zzajuda |
 				ZZCOR=${zzcor_pager:-$ZZCOR} zztool acha 'zz[a-z0-9]\{2,\}' |
 				${PAGER:-less -r}
 		;;

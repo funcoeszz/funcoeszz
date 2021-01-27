@@ -77,7 +77,7 @@ zzzz ()
 				# Um xunxo bonito: filtra o conteúdo da $ZZAJUDA, mostrando
 				# apenas a função informada.
 				echo
-				echo "$ZZAJUDA" |
+				_zzajuda |
 					sed -n "/^zz$nome_func$/,/^----*$/ {
 						s/^----*$//
 						p

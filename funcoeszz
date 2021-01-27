@@ -286,10 +286,15 @@ then
 	rm "$zz_ajuda_tmp.2"
 fi
 
-# Guarda todo o texto de ajuda em uma variável de ambiente e remove o
-# arquivo temporário
-export ZZAJUDA=$(cat "$zz_ajuda_tmp")
-rm "$zz_ajuda_tmp"
+# Guarda todo o texto de ajuda em uma função "escondida" chamada _zzajuda
+(
+	echo "_zzajuda() { cat <<'EOF'"
+	cat "$zz_ajuda_tmp"
+	echo EOF
+	echo '}'
+) > "$zz_ajuda_tmp.2"
+source "$zz_ajuda_tmp.2"
+rm "$zz_ajuda_tmp" "$zz_ajuda_tmp.2"
 
 ### Carregamento terminado, funções já estão disponíveis
 
