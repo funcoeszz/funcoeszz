@@ -17,23 +17,18 @@ zzajuda ()
 
 	local zzcor_pager
 
-	if test ! -r "$ZZAJUDA"
-	then
-		echo "Ops! Não encontrei o texto de ajuda em '$ZZAJUDA'." >&2
-		echo "Para recriá-lo basta executar o script 'funcoeszz' sem argumentos." >&2
-		return
-	fi
-
 	case "$1" in
 		--uso)
 			# Lista com sintaxe de uso, basta pescar as linhas Uso:
-			sed -n 's/^Uso: zz/zz/p' "$ZZAJUDA" |
+			echo "$ZZAJUDA" |
+				sed -n 's/^Uso: zz/zz/p' |
 				sort |
 				zztool acha '^zz[^ ]*'
 		;;
 		--lista)
 			# Lista de todas as funções no formato: nome descrição
-			grep -A2 ^zz "$ZZAJUDA" |
+			echo "$ZZAJUDA" |
+				grep -A2 ^zz |
 				grep -v ^http |
 				sed '
 					/^zz/ {
@@ -56,7 +51,7 @@ zzajuda ()
 			test "$PAGER" = 'less' -o "$PAGER" = 'more' && zzcor_pager=0
 
 			# Mostra a ajuda de todas as funções, paginando
-			cat "$ZZAJUDA" |
+			echo "$ZZAJUDA" |
 				ZZCOR=${zzcor_pager:-$ZZCOR} zztool acha 'zz[a-z0-9]\{2,\}' |
 				${PAGER:-less -r}
 		;;
