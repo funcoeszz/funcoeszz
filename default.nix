@@ -25,10 +25,9 @@ let
     PATH=$PATH:${pkgs.lib.makeBinPath deps}
     # Permite configurar suporte a cor pelo parâmetro do pacote
     export ZZCOR=${toString ZZCOR}
-    # Onde estão as funções?
-    export ZZDIR="${drv}/opt/funcoeszz/zz"
     # Chama o script com os parâmetros que vierem
-    ${drv}/opt/funcoeszz/funcoeszz "$@"
+    # shellcheck disable=SC2086
+    exec ${drv}/opt/funcoeszz/funcoeszz "$(basename $0)" "$@"
   '';
 in pkgs.stdenv.mkDerivation {
   name = "funcoeszz";
@@ -36,16 +35,16 @@ in pkgs.stdenv.mkDerivation {
   installPhase = ''
     # Criar a pasta dos binários
     mkdir -p $out/bin
-    # Cada um dos utilitários tem seu script de entrypoint que consequentemente vira um comando sem ter que mexer na bashrc, e pode ser instalado globalmente
-    for fn in $(ls -1 ${drv}/opt/funcoeszz/zz | sed 's;.sh$;;g'); do
-      echo Gerando script $fn
-      bin=$out/bin/$fn
-      echo '#!/usr/bin/env ${pkgs.bash}/bin/bash' >> $bin
-      echo "${mainbin} $fn %" | sed 's;%;"$@";g' >> $bin
-      chmod +x $bin
-    done
     # Link do comando zz que engloba todos os outros
     ln -s ${mainbin} $out/bin/zz
+    # Cada um dos utilitários tem seu script de entrypoint que consequentemente vira um comando sem ter que mexer na bashrc, e pode ser instalado globalmente
+    pushd $out/bin
+      for fn in $(ls -1 ${drv}/opt/funcoeszz/zz | sed 's;.sh$;;g'); do
+        echo Gerando script $fn
+        ln -s "$out/bin/zz" "$fn" # Essa abordagem usa um script que encapsula e expõe as opções e dependências
+        # ln -s "${drv}/opt/funcoeszz/funcoeszz" "$fn" # Essa abordagem funciona, porém as dependências não vão aparecer para o script
+      done
+    popd
     # Manpage
     mkdir -p $out/share/man/man1
     cp ${drv}/opt/funcoeszz/manpage/manpage.man $out/share/man/man1/funcoeszz.1
