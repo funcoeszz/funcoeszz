@@ -41,7 +41,7 @@ zzddd ()
 		dddend="$1"
 	else
 		end=1
-		dddend=$(echo "$*" | zzsemacento | zzminusculas | sed "s/, */-/g;$ZZSEDURL")
+		dddend=$(echo "$*" | zzsemacento | zzminusculas | sed 's/, */-/g' | zztool sedurl)
 	fi
 
 	# A primeira página ou endereço das várias páginas

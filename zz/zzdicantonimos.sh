@@ -17,7 +17,7 @@ zzdicantonimos ()
 
 	local url='http://www.antonimos.com.br/busca.php'
 	local palavra="$*"
-	local palavra_busca=$( echo "$palavra" | sed "$ZZSEDURL" )
+	local palavra_busca=$( echo "$palavra" | zztool sedurl )
 
 	# Verifica se recebeu parâmetros
 	if test -z "$1"

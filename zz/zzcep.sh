@@ -29,7 +29,7 @@ zzcep ()
 		cepend="$1"
 	else
 		end=1
-		cepend=$(echo "$*" | zzsemacento | zzminusculas | sed "s/, */-/g;$ZZSEDURL")
+		cepend=$(echo "$*" | zzsemacento | zzminusculas | sed 's/, */-/g' | zztool sedurl)
 	fi
 
 	# A primeira página ou endereço das várias páginas
