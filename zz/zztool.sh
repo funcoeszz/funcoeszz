@@ -195,6 +195,10 @@ zztool ()
 				echo "$texto" | sed 's:/:\\\/:g ; s:.*:/&/:'
 			fi
 		;;
+		sedurl)
+			# Formata a url para ser utilizada
+			sed 's| |+|g;s|&|%26|g;s|@|%40|g'
+		;;
 		terminal_utf8)
 			echo "$LC_ALL $LC_CTYPE $LANG" | grep -i utf >/dev/null
 		;;

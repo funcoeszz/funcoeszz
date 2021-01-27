@@ -17,7 +17,7 @@ zzdicsinonimos ()
 
 	local url='http://www.sinonimos.com.br/busca.php'
 	local palavra="$*"
-	local parametro_busca=$( echo "$palavra" | sed "$ZZSEDURL" )
+	local parametro_busca=$( echo "$palavra" | zztool sedurl )
 
 	# Verifica se recebeu parâmetros
 	if test -z "$1"
