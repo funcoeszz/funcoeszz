@@ -140,6 +140,9 @@ _extrai_ajuda() {
 # Limpa conteúdo do arquivo de ajuda
 > "$ZZAJUDA"
 
+# Salva o texto de ajuda das funções inclusas neste arquivo
+# (presentes na versão tudo-em-um)
+test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 
 ##############################################################################
 #
