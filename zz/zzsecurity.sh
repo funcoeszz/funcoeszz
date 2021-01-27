@@ -11,7 +11,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
 # Versão: 13
-# Requisitos: zzzz zztool zzminusculas zzfeed zztac
+# Requisitos: zzzz zztool zzjuntalinhas zzminusculas zzfeed zzsqueeze zztac zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzsecurity ()
@@ -130,8 +130,14 @@ zzsecurity ()
 		echo
 		zztool eco '** Atualizações Archlinux'
 		echo "$url"
-		zztool dump "$url" |
-			awk '/ AVG-/{++i;print"";sub(/^ */,"")};i>=6{exit}i;' |
-			sed '/AVG.* CVE/ {s/ CVE/\n   CVE/}'
+		zztool source "$url" |
+			sed -n '/<table/,/table>/p' |
+			zzjuntalinhas -i '<td' -f 'td>' -d ' ' |
+			zzjuntalinhas -i '<tr' -f 'tr>' -d '|' |
+			zzxml --untag |
+			zzsqueeze |
+			awk -F '|' '/AVG-/{sub(/^ */,"");gsub(/ *\| */,"|"); print $1 "\t" $(NF-7) " " $(NF-6) "\t" $(NF-4) " " $(NF-3)}' |
+			expand -t 10,47 |
+			$limite
 	fi
 }
