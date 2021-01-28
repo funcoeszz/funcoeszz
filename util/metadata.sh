@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # 2010-12-22
 # Aurelio Marinho Jargas
 #

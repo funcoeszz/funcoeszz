@@ -40,10 +40,11 @@ ZZUTF=1
 # A configuração também pode ser feita diretamente neste arquivo, se você
 # puder fazer alterações nele.
 #
-ZZCOR_DFT=1                       # colorir mensagens? 1 liga, 0 desliga
-ZZPATH_DFT="/usr/bin/funcoeszz"   # rota absoluta deste arquivo
-ZZDIR_DFT="$HOME/zz"              # rota absoluta do diretório com as funções
-ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
+ME=$(realpath $(realpath $0))          # caminho para este script, $0 pode ser um symlink em caminho relativo
+ZZCOR_DFT=1                            # colorir mensagens? 1 liga, 0 desliga
+ZZDIR_DFT="$(dirname $ME)"             # rota absoluta do diretorio com as funcoes
+ZZPATH_DFT="$ZZDIR_DFT/zz"             # rota absoluta deste arquivo
+ZZTMPDIR_DFT="${TMPDIR:-/tmp}"         # diretório temporário
 #
 #
 ##############################################################################
@@ -59,6 +60,11 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 
 # shellcheck disable=SC2034
 ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
+
+# Lidando com os comandos se for chamado por link simbólico ala busybox
+if [ $(basename "$0") != "funcoeszz" ] && [ "$0" != "clitest" ]; then
+    exec "$(realpath $0)" $(basename "$0") "$@"
+fi
 
 #
 ### Truques para descobrir a localização deste arquivo no sistema
@@ -295,7 +301,6 @@ unset zz_nome
 unset zz_off
 unset zz_sed
 unset -f _extrai_ajuda
-
 
 ##----------------------------------------------------------------------------
 ## Lidando com a chamada pelo executável
