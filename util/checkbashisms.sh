@@ -9,7 +9,7 @@
 # Man page:
 # http://manpages.ubuntu.com/manpages/lucid/man1/checkbashisms.1.html
 
-cd $(dirname "$0")
+cd "$(dirname "$0")"
 cd ..
 
 eco() { echo -e "\033[36;1m$*\033[m"; }
@@ -17,9 +17,9 @@ eco() { echo -e "\033[36;1m$*\033[m"; }
 for f in zz/*
 do
 	eco ----------------------------------------------------------------
-	eco $f
+	eco "$f"
 	echo '#!/bin/sh' > _tmp
-	cat $f >> _tmp
+	cat "$f" >> _tmp
 	util/checkbashisms.pl -n --extra _tmp
 done
 rm _tmp

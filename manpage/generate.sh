@@ -12,7 +12,7 @@
 zz=./funcoeszz.tmp
 out=manpage.t2t
 
-cd $(dirname "$0") || exit 1
+cd "$(dirname "$0")" || exit 1
 
 # The all-in-one script is *way* faster to load
 echo "Generating funcoeszz script..."
@@ -33,11 +33,11 @@ echo "Funções ZZ
 export ZZCOR=0
 for func in $("$zz" zzajuda --lista | cut -d ' ' -f 1)
 do
-	echo $func >&2  # informative
-	
+	echo "$func" >&2  # informative
+
 	echo "= $func =[$func]"
 	echo '```'
-	"$zz" $func -h | sed 1,2d
+	"$zz" "$func" -h | sed 1,2d
 	echo '```'
 done
 

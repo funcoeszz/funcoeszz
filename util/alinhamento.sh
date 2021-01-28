@@ -6,7 +6,7 @@
 # Procura por espaços em branco em lugares errados.
 
 
-cd $(dirname "$0") || exit 1
+cd "$(dirname "$0")" || exit 1
 
 cd ../zz
 

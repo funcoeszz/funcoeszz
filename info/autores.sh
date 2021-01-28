@@ -1,7 +1,7 @@
 #!/bin/bash
 # Listar e datar as funcoeszz e seus autores
 #
-	cd $(dirname "$0") || exit 1
+	cd "$(dirname "$0")" || exit 1
 
 	dir='zz'
 	case "$1" in

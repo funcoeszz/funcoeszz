@@ -10,20 +10,20 @@
 # zzdata.sh: Função lista a si própria como requisito
 #
 
-cd $(dirname "$0") || exit 1
+cd "$(dirname "$0")" || exit 1
 
 cd ../zz
 for f in zz*
 do
 	# Caso especial, já tratado, pode ignorar
-	test $f = 'zzdictodos.sh' && continue
+	test "$f" = 'zzdictodos.sh' && continue
 
 	# Quais as funções já listadas em Requisitos:?
-	requisitos=$(sed -n 's/^# Requisitos://p' $f)
+	requisitos=$(sed -n 's/^# Requisitos://p' "$f")
 
 	# Quais as funções usadas por esta zz?
 	encontradas=$(
-		grep -v '^[ 	]*#' $f |
+		grep -v '^[ 	]*#' "$f" |
 		grep '\bzz[a-z]' |
 		grep -v '()$' |
 		egrep -o '\bzz[a-z0-9]+\b' |
@@ -39,7 +39,7 @@ do
 	done
 
 	# REQUISITO REPETIDO
-	echo $requisitos | tr ' ' '\n' | sort | uniq -d | while read repetida
+	echo "$requisitos" | tr ' ' '\n' | sort | uniq -d | while read repetida
 	do
 		echo "$f: Requisito repetido: $repetida"
 	done
@@ -49,10 +49,10 @@ do
 	for req in $requisitos
 	do
 		# Se o requisito não for uma função zz, ignore
-		echo $req | grep ^zz >/dev/null ||
+		echo "$req" | grep ^zz >/dev/null ||
 			{ echo "$f: $req não é uma funcão zz, registre em 'Notas'" ; continue; }
 
-		echo "$encontradas" | grep -w $req >/dev/null ||
+		echo "$encontradas" | grep -w "$req" >/dev/null ||
 			echo "$f: Função listada mas não utilizada: $req"
 	done
 
@@ -64,14 +64,14 @@ do
 			while read funcao
 			do
 				# Uma função usar ela mesma está OK
-				test $funcao.sh = $f && continue
+				test "$funcao.sh" = "$f" && continue
 
 				# Ignora falsos positivos
-				test $f = zzzz.sh && case "$funcao" in
+				test "$f" = zzzz.sh && case "$funcao" in
 					zzcshrc | zzzshrc) continue;;
 				esac
 
-				echo $requisitos | grep -w $funcao >/dev/null ||
+				echo "$requisitos" | grep -w "$funcao" >/dev/null ||
 					echo "$f: # Requisitos: $funcao"
 			done
 	fi

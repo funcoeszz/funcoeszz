@@ -15,7 +15,7 @@
 #     $
 
 
-cd $(dirname "$0") || exit 1
+cd "$(dirname "$0")" || exit 1
 cd ../zz
 
 grep_var() {  # $1 está presente em $2?
