@@ -58,7 +58,6 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 #
 
 # shellcheck disable=SC2034
-ZZSEDURL='s| |+|g;s|&|%26|g;s|@|%40|g'
 ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
 
 #

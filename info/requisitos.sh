@@ -27,3 +27,4 @@ cd "$(dirname "$0")/.." || exit 1  # go to repo root
 	sed 's/--//'
 } |
 fmt -s -w "$(tput cols)"
+

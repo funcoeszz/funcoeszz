@@ -22,7 +22,7 @@ zzcinemais ()
 
 	cidades=$(
 		zztool source "$url" |
-		zzutf8 |
+		zztool texto_em_iso |
 		sed -n '/cliclabeProg/,/cliclabeProg/p' |
 		zzxml --notag script --tag li |
 		zztrim |
