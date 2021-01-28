@@ -16,6 +16,7 @@ zztool ()
 	zzzz -h tool "$1" && return
 
 	local erro ferramenta
+	local cor='36;1'  # ciano (vide saída da zzcores)
 
 	# Devo mostrar a mensagem de erro?
 	test "$1" = '-e' && erro=1 && shift
@@ -40,7 +41,7 @@ zztool ()
 			then
 				printf "%b\n" "$*"
 			else
-				printf "%b\n" "\033[${ZZCODIGOCOR}m$*\033[m"
+				printf "%b\n" "\033[${cor}m$*\033[m"
 			fi
 		;;
 		erro)
@@ -59,7 +60,7 @@ zztool ()
 				then
 					cat -
 				else
-					sed "s/$padrao/${esc}[${ZZCODIGOCOR}m&${esc}[m/g"
+					sed "s/$padrao/${esc}[${cor}m&${esc}[m/g"
 				fi
 		;;
 		grep_var)
