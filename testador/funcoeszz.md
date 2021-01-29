@@ -123,3 +123,49 @@ $ zzmaiusculas funciona
 FUNCIONA
 $
 ```
+
+## Opção --tudo-em-um
+
+Quando se usa a opção `--tudo-em-um`, uma cópia do arquivo principal `funcoeszz` é gerada, porém com todas as funções das pasta `zz` embutidas dentro dele. Este arquivo gerado é o que usamos quando queremos lançar uma versão nova das Funções ZZ.
+
+Gerar o arquivo é fácil, basta usar a opção e mais nada:
+
+```console
+$ $zz_root/funcoeszz --tudo-em-um > tudo-em-um
+$
+```
+
+Será que todas todas as funções disponíveis foram de fato inseridas no arquivo gerado?
+
+```console
+$ ls -1 $zz_root/zz/ | sed 's/\.sh$//' | sort > originais.txt
+$ grep '^zz.* ()$' tudo-em-um | cut -d ' ' -f 1 | sort > incluidas.txt
+$ diff originais.txt incluidas.txt
+$
+```
+
+Será que a ajuda está funcionando?
+
+```console
+$ bash tudo-em-um zzcalcula -h | grep '^Uso:' | wc -l
+1
+$
+```
+
+Ao gerar a versão tudo-em-um, se existir a variável `$ZZOFF`, ela deve ser respeitada: as funções listadas ali não devem fazer parte do arquivo gerado.
+
+```console
+$ ZZOFF="zzcalcula zzxml" $zz_root/funcoeszz --tudo-em-um > tudo-em-um-off
+$ grep '^zz.* ()$' tudo-em-um-off | cut -d ' ' -f 1 | sort > incluidas.txt
+$ diff originais.txt incluidas.txt | grep '^<'
+< zzcalcula
+< zzxml
+$
+```
+
+Remove todos os arquivos criados pelos testes:
+
+```console
+$ rm tudo-em-um tudo-em-um-off originais.txt incluidas.txt
+$
+```
