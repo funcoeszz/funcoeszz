@@ -56,11 +56,6 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 # Não altere nada aqui.
 #
 #
-
-# shellcheck disable=SC2034
-ZZCODIGOCOR='36;1'            # use zzcores para ver os códigos
-
-#
 ### Truques para descobrir a localização deste arquivo no sistema
 #
 # Se a chamada foi pelo executável, o arquivo é o $0.
