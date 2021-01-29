@@ -26,7 +26,7 @@ do
 		grep -v '^[ 	]*#' "$f" |
 		grep '\bzz[a-z]' |
 		grep -v '()$' |
-		egrep -o '\bzz[a-z0-9]+\b' |
+		grep -Eo '\bzz[a-z0-9]+\b' |
 		sort |
 		uniq)
 

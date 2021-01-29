@@ -14,7 +14,7 @@ eco() { echo -e "\033[36;1m$*\033[m"; }
 
 eco ----------------------------------------------------------------
 eco "* Funções que não são UTF-8"
-file --mime zz/*.sh off/*.sh | egrep -vi 'utf-8'
+file --mime zz/*.sh off/*.sh | grep -vi 'utf-8'
 
 eco ----------------------------------------------------------------
 eco "* Funções com nome de arquivo inválido"
@@ -120,7 +120,7 @@ done
 
 eco ----------------------------------------------------------------
 eco "* Funções cuja linha separadora é estranha"
-for f in zz/*.sh off/*.sh; do test "$(egrep -c '^# -{76}$' "$f")" = 2 || echo "$f"; done
+for f in zz/*.sh off/*.sh; do test "$(grep -Ec '^# -{76}$' "$f")" = 2 || echo "$f"; done
 
 eco ----------------------------------------------------------------
 eco "* Funções com a descrição sem ponto final"
@@ -149,7 +149,7 @@ eco ----------------------------------------------------------------
 eco "* Funções com conteúdo inválido no campo Autor:"
 for f in zz/*.sh off/*.sh
 do
-	wrong=$(grep '^# Autor:' "$f" | egrep -v '^# Autor: [^ ].*$')
+	wrong=$(grep '^# Autor:' "$f" | grep -Ev '^# Autor: [^ ].*$')
 	test -n "$wrong" && echo "$f: $wrong"
 done
 
@@ -157,7 +157,7 @@ eco ----------------------------------------------------------------
 eco "* Funções com a data inválida no campo Desde:"
 for f in zz/*.sh off/*.sh
 do
-	wrong=$(grep '^# Desde:' "$f" | egrep -v '^# Desde: [0-9]{4}-[0-9]{2}-[0-9]{2}$')
+	wrong=$(grep '^# Desde:' "$f" | grep -Ev '^# Desde: [0-9]{4}-[0-9]{2}-[0-9]{2}$')
 	test -n "$wrong" && echo "$f: $wrong"
 done
 
@@ -165,7 +165,7 @@ eco ----------------------------------------------------------------
 eco "* Funções com número inválido no campo Versão: (deve ser decimal)"
 for f in zz/*.sh  #off/*.sh
 do
-	wrong=$(grep '^# Versão:' "$f" | egrep -v '^# Versão: [0-9][0-9]?$')
+	wrong=$(grep '^# Versão:' "$f" | grep -Ev '^# Versão: [0-9][0-9]?$')
 	test -n "$wrong" && echo "$f: $wrong"
 done
 
@@ -195,7 +195,7 @@ eco ----------------------------------------------------------------
 eco "* Funções com cabeçalho >78 colunas"
 for f in zz/*.sh off/*.sh
 do
-	grep '^# ' "$f" | egrep '^.{79}' |
+	grep '^# ' "$f" | grep -E '^.{79}' |
 		grep -v DESATIVADA: |
 		grep -v '^# Requisitos:' |
 		# Insere o path do arquivo no início da linha
@@ -218,10 +218,10 @@ grep -H '^#.*	' zz/*.sh off/*.sh
 # for f in zz/*.sh off/*.sh
 # do
 # 	wrong=$(
-# 		egrep '^# [A-Z][a-z.]+: ' "$f" |
+# 		grep -E '^# [A-Z][a-z.]+: ' "$f" |
 # 		cut -d : -f 1 |
 # 		sed 's/^# //' |
-# 		egrep -v "$campos" |
+# 		grep -Ev "$campos" |
 # 		sed 1q)  # só mostra o primeiro pra não poluir
 # 	test -n "$wrong" && echo "$f: $wrong"
 # done
@@ -243,14 +243,14 @@ for f in zz/*.sh  # off/*.sh
 do
 	test "$f" = zz/zzzz.sh && continue  # zzzz lida com seu próprio -h
 	# zzzz -h cores $1 && return
-	fgrep "zzzz -h $(basename "$f" .sh | sed 's/^zz//') \"\$1\" && return" "$f" >/dev/null || echo "$f"
+	grep -F "zzzz -h $(basename "$f" .sh | sed 's/^zz//') \"\$1\" && return" "$f" >/dev/null || echo "$f"
 done
 
 eco ----------------------------------------------------------------
 eco "* Funções com o nome errado em 'zztool uso'"
 for f in zz/*.sh  # off/*.sh
 do
-	wrong=$(grep -E 'zztool( -e)? uso ' "$f" | grep -vE "zztool( -e)? uso $(basename "$f" .sh | sed 's/^zz//')")
+	wrong=$(grep -E 'zztool( -e)? uso ' "$f" | grep -Ev "zztool( -e)? uso $(basename "$f" .sh | sed 's/^zz//')")
 	test -n "$wrong" && echo "$f"  # && echo "$wrong"
 done
 
@@ -259,7 +259,7 @@ eco "* Funções desativadas sem data e motivo para o desligamento"
 for f in off/*.sh
 do
 	# # DESATIVADA: 2002-10-30 O programa acabou.
-	egrep '^# DESATIVADA: [0-9]{4}-[0-9]{2}-[0-9]{2} .{10,}' "$f" >/dev/null || echo "$f"
+	grep -E '^# DESATIVADA: [0-9]{4}-[0-9]{2}-[0-9]{2} .{10,}' "$f" >/dev/null || echo "$f"
 done
 
 
@@ -272,13 +272,13 @@ grep '$ZZTMP' zz/*.sh off/*.sh | grep -v '"'
 # https://github.com/funcoeszz/funcoeszz/wiki/Arquivos-Temporarios
 eco ----------------------------------------------------------------
 eco "* Funções que usaram nome inválido em \$ZZTMP.nome"
-grep '$ZZTMP' zz/*.sh | egrep -v '^zz/zz([^.]*)\.sh:.*\$ZZTMP\.\1' |
+grep '$ZZTMP' zz/*.sh | grep -Ev '^zz/zz([^.]*)\.sh:.*\$ZZTMP\.\1' |
 	# Exceções conhecidas
-	egrep -v '^zz/zz(tool|zz)\.sh:'
+	grep -Ev '^zz/zz(tool|zz)\.sh:'
 
 
 
 # Outros:
 #
 # Verifica (visualmente) se há Uso: no texto de ajuda de todas as funções
-# cat $ZZTMP.ajuda | egrep '^zz[^ ]*$|^Uso:' | sed 'N;s/\n/ - /'
+# cat $ZZTMP.ajuda | grep -E '^zz[^ ]*$|^Uso:' | sed 'N;s/\n/ - /'

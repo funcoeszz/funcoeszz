@@ -17,13 +17,13 @@ grep '^ ' * |
 ../funcoeszz tool eco "Linha com Tab e espaço misturados"
 grep '	 ' * |
 	# [\t ]: Dentro de colchetes, é regex
-	fgrep -v '[	 ]' |
+	grep -Fv '[	 ]' |
 	# Em sed para substituição
-	fgrep -v "sed 's"
+	grep -Fv "sed 's"
 
 ../funcoeszz tool eco "Linha com Tabs ou espaços inúteis no final"
 grep '[^ 	][ 	]\{1,\}$' * |
 	grep -v '^zzxml.sh:.*Foo $'  # exceção, usado num comentário
 
 ../funcoeszz tool eco "Linhas vazias, mas com brancos"
-egrep '^[	 ]+$' *
+grep -E '^[	 ]+$' *
