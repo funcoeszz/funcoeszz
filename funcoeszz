@@ -86,7 +86,6 @@ export ZZBROWSER
 ZZCOR="${ZZCOR:-$ZZCOR_DFT}"
 ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}"
 ZZTMP="${ZZTMP%/}/zz"  # prefixo comum a todos os arquivos temporários
-ZZAJUDA="$ZZTMP.ajuda"
 unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 
 #
@@ -102,42 +101,9 @@ do
 	esac
 done
 
-
-##############################################################################
-#
-# A linha seguinte é usada pela opção --tudo-em-um
+# A linha seguinte é usada para gerar a versão tudo-em-um, não remova
 #@
 
-
-##############################################################################
-#
-#                             Texto de ajuda
-#                             --------------
-#
-#
-
-# Função temporária para extrair o texto de ajuda do cabeçalho das funções
-# Passe o arquivo com as funções como parâmetro
-_extrai_ajuda() {
-	# Extrai somente os cabeçalhos, já removendo o # do início
-	sed -n '/^# -----* *$/,/^# -----* *$/ s/^# \{0,1\}//p' "$1" |
-		# Agora remove trechos que não podem aparecer na ajuda
-		sed '
-			# Apaga a metadata (Autor, Desde, Versao, etc)
-			/^Autor:/,/^------/ d
-
-			# Apaga a linha em branco apos Ex.:
-			/^Ex\.:/,/^------/ {
-				/^ *$/d
-			}'
-}
-
-# Limpa conteúdo do arquivo de ajuda
-> "$ZZAJUDA"
-
-# Salva o texto de ajuda das funções inclusas neste arquivo
-# (presentes na versão tudo-em-um)
-test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 
 ##############################################################################
 #
@@ -146,143 +112,83 @@ test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 #
 # O carregamento é feito em dois passos para ficar mais robusto:
 # 1. Obtenção da lista completa de funções, ativadas e desativadas.
-# 2. Carga de cada função ativada, salvando o texto de ajuda.
-#
-# Com a opção --tudo-em-um, o passo 2 é alterado para mostrar o conteúdo
-# da função em vez de carregá-la.
+# 2. Carga de cada função ativada.
 #
 
 ### Passo 1
 
-# Limpa arquivos temporários que guardam as listagens
-> "$ZZTMP.on"
-> "$ZZTMP.off"
+#### ZZOFF é sempre algo só setado pelo usuário
+#### ZZON é sempre setado no te1 pelo make-release
+#### ZZON sempre defaulta pra zz/* na versão git
+#### ZZON também pode ser definido pelo usuário
+#### ZZON fica no env do usuário no caso de `source funcoeszz`
+#### zzzz precisa considerar ZZON e ZZOFF pra mostrar a lista de funções
+#### se o usuário atualizar ZZON ou ZZOFF na shell atual, basta rodar o core de novo
 
-# Lista de funções a desligar: uma por linha, com prefixo zz
+
+
+# FIXME usar ZZON pro te1 não funciona, pois nesse ponto ele já carregou todas as funções
+# Ah, e o ZZON do usuário será sobrescrito pelo ZZON que o make-release.sh cria
+# o make-release poderia setar o ZZON somente se ainda não estivesse setado
+# ou setar também um ZZTODAS=$ZZON. Com ZZALL eu consigo dar unset em tudo que é ALL exceto o que é ON (e depois vem o unset $zz_off normal). off sempre tem precedência.
+# teria que ter um código pra e na hora de respeitar o zzoff
+# teria que ter um ZZON exclusivo da make-release, que o ZZON do usuário poderia sobrescrever
+
+# XXX sem o prefixo zz
+test -z "$ZZON" -a -n "$ZZDIR" -a -d "$ZZDIR" &&
+	ZZON="$(cd "$ZZDIR"; ls -1 zz* | sed 's/^zz// ; s/\.sh$//')"
+
+# echo ON: $ZZON
+# echo OFF: $ZZOFF
+
+
+# Normaliza listas ON e OFF: uma por linha, sempre com prefixo zz
 zz_off=$(
-	echo "$ZZOFF" |
-	tr -s '\t ' '\n' |
-	sed 's/^zz// ; s/^/zz/'
+	test -n "$ZZOFF" &&
+		echo "$ZZOFF" |
+			tr -s '\t ' '\n' |
+			sed 's/^zz// ; s/^/zz/'
+)
+zz_on=$(
+	test -n "$ZZON" &&
+		echo "$ZZON" |
+			tr -s '\t ' '\n' |
+			sed 's/^zz// ; s/^/zz/' |
+			while read -r zz_nome
+			do
+				# Remove da lista ON caso a função esteja listada em OFF
+				echo "$zz_off" | grep -Fx "$zz_nome" > /dev/null || echo "$zz_nome"
+			done
 )
 
-# A pasta das funções existe?
-if test -n "$ZZDIR" -a -d "$ZZDIR"
-then
-	# Primeiro salva a lista de funções disponíveis
-	for zz_arquivo in "${ZZDIR%/}"/zz*
-	do
-		# Só ativa funções que podem ser lidas
-		if test -r "$zz_arquivo"
-		then
-			zz_nome="${zz_arquivo##*/}"  # remove path
-			zz_nome="${zz_nome%.sh}"     # remove extensão
-
-			# O usuário desativou esta função?
-			echo "$zz_off" | grep "^$zz_nome$" >/dev/null ||
-				# Tudo certo, essa vai ser carregada
-				echo "$zz_nome"
-		fi
-	done >> "$ZZTMP.on"
-
-	# Lista das funções desativadas (OFF = Todas - ON)
-	(
-	cd "$ZZDIR" &&
-	ls -1 zz* |
-		sed 's/\.sh$//' |
-		grep -v -f "$ZZTMP.on"
-	) >> "$ZZTMP.off"
-fi
-
-# echo ON ; cat "$ZZTMP.on"  | zztool lines2list
-# echo OFF; cat "$ZZTMP.off" | zztool lines2list
-# exit
+# echo ON: $zz_on
+# echo OFF: $zz_off
+# exit 0
 
 ### Passo 2
 
-# Vamos juntar todas as funções em um único arquivo?
-if test "$1" = '--tudo-em-um'
+### Modo zz/*
+# É necessário carregar agora todas as funções ligadas
+if test -n "$ZZDIR"
 then
-	# Verifica se a pasta das funções existe
-	if test -z "$ZZDIR" -o ! -d "$ZZDIR"
-	then
-		(
-		echo "Ops! Não encontrei as funções na pasta '$ZZDIR'."
-		echo 'Informe a localização correta na variável $ZZDIR.'
-		echo
-		echo 'Exemplo: export ZZDIR="$HOME/zz"'
-		) >&2
-		exit 1
-		# Posso usar exit porque a chamada é pelo executável, e não source
-	fi
-
-	# Primeira metade deste arquivo, até #@
-	sed '/^#@$/q' "$ZZPATH"
-
-	# Mostra cada função (ativa), inserindo seu nome na linha 2 do cabeçalho
-	while read zz_nome
+	# Carregamento das funções ativas na shell atual
+	for zz_nome in $zz_on
 	do
-		zz_arquivo="${ZZDIR%/}"/$zz_nome.sh
-
-		sed 1q "$zz_arquivo"
-		echo "# $zz_nome"
-		sed 1d "$zz_arquivo"
-
-		# Linha em branco separadora
-		# Também garante quebra se faltar \n na última linha da função
-		echo
-	done < "$ZZTMP.on"
-
-	# Desliga suporte ao diretório de funções
-	echo
-	echo 'ZZDIR='
-
-	# Segunda metade deste arquivo, depois de #@
-	sed '1,/^#@$/d' "$ZZPATH"
-
-	# Tá feito, simbora.
-	exit 0
+		zz_arquivo="$ZZDIR/$zz_nome.sh"
+		test -r "$zz_arquivo" && source "$zz_arquivo"
+	done
 fi
 
-# Carregamento das funções ativas, salvando texto de ajuda
-while read zz_nome
-do
-	zz_arquivo="${ZZDIR%/}"/$zz_nome.sh
-
-	# Pula o carregamento dessa função se o arquivo não existir
-	test -r "$zz_arquivo" || continue
-
-	# Inclui a função na shell atual
-	. "$zz_arquivo"
-
-	# Extrai o texto de ajuda
-	_extrai_ajuda "$zz_arquivo" |
-		# Insere o nome da função na segunda linha
-		sed "2 { h; s/.*/$zz_nome/; G; }"
-
-done < "$ZZTMP.on" >> "$ZZAJUDA"
-
-# Separador final do arquivo, com exatamente 77 hífens (7x11)
-echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
-
-
-# Modo --tudo-em-um
+### Modo tudo-em-um
 # Todas as funções já foram carregadas por estarem dentro deste arquivo.
 # Agora faremos o desligamento "manual" das funções ZZOFF.
-#
-if test -z "$ZZDIR" -a -n "$zz_off"
+# Desliga todas em uma só linha (note que não usei aspas)
+test -n "$zz_off" && unset $zz_off
+
+if test -z "$zz_on"
 then
-	# Desliga todas em uma só linha (note que não usei aspas)
-	unset $zz_off
-
-	# Agora apaga os textos da ajuda, montando um script em sed e aplicando
-	# Veja issue 5 para mais detalhes:
-	# https://github.com/funcoeszz/funcoeszz/issues/5
-	zz_sed=$(echo "$zz_off" | sed 's@.*@/^&$/,/^----*$/d;@')  # /^zzfoo$/,/^----*$/d
-	cp "$ZZAJUDA" "$ZZAJUDA.2" &&
-	sed "$zz_sed" "$ZZAJUDA.2" > "$ZZAJUDA"
-	rm "$ZZAJUDA.2"
+	echo "XXX nenhuma função disponível. Estranho..."
 fi
-
 
 ### Carregamento terminado, funções já estão disponíveis
 
@@ -291,8 +197,7 @@ fi
 unset zz_arquivo
 unset zz_nome
 unset zz_off
-unset zz_sed
-unset -f _extrai_ajuda
+unset zz_on
 
 
 ##----------------------------------------------------------------------------

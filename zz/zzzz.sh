@@ -74,15 +74,9 @@ zzzz ()
 			# Se o usuário informou a opção de ajuda, mostre o texto
 			if test '-h' = "$arg_func" -o '--help' = "$arg_func"
 			then
-				# Um xunxo bonito: filtra a saída da zzajuda, mostrando
-				# apenas a função informada.
 				echo
-				ZZCOR=0 zzajuda |
-					sed -n "/^zz$nome_func$/,/^----*$/ {
-						s/^----*$//
-						p
-					}" |
-					zztool acha zz$nome_func
+				zzajuda zz$nome_func | zztool acha zz$nome_func
+				echo
 				return 0
 			else
 
