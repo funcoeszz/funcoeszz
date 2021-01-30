@@ -124,14 +124,16 @@ FUNCIONA
 $
 ```
 
-## Opção --tudo-em-um
+## Versão tudo-em-um
 
-Quando se usa a opção `--tudo-em-um`, uma cópia do arquivo principal `funcoeszz` é gerada, porém com todas as funções das pasta `zz` embutidas dentro dele. Este arquivo gerado é o que usamos quando queremos lançar uma versão nova das Funções ZZ.
+Quando se usa o script `release/make-release.sh`, uma cópia do arquivo principal `funcoeszz` é gerada, porém com todas as funções das pasta `zz` embutidas dentro dele. Este arquivo gerado é o que usamos quando queremos lançar uma versão nova das Funções ZZ.
 
-Gerar o arquivo é fácil, basta usar a opção e mais nada:
+Gerar o arquivo é fácil:
 
 ```console
-$ $zz_root/funcoeszz --tudo-em-um > tudo-em-um
+$ $zz_root/release/make-release.sh | head -n 1
+Gerando arquivo tudo-em-um das Funções ZZ, versão 'dev'
+$ tudo_em_um="$zz_root/release/funcoeszz-dev.sh"
 $
 ```
 
@@ -139,7 +141,7 @@ Será que todas todas as funções disponíveis foram de fato inseridas no arqui
 
 ```console
 $ ls -1 $zz_root/zz/ | sed 's/\.sh$//' | sort > originais.txt
-$ grep '^zz.* ()$' tudo-em-um | cut -d ' ' -f 1 | sort > incluidas.txt
+$ grep '^zz.* ()$' "$tudo_em_um" | cut -d ' ' -f 1 | sort > incluidas.txt
 $ diff originais.txt incluidas.txt
 $
 ```
@@ -147,7 +149,7 @@ $
 Será que a ajuda está funcionando?
 
 ```console
-$ bash tudo-em-um zzcalcula -h | grep '^Uso:' | wc -l
+$ bash "$tudo_em_um" zzcalcula -h | grep '^Uso:' | wc -l
 1
 $
 ```
@@ -155,8 +157,9 @@ $
 Ao gerar a versão tudo-em-um, se existir a variável `$ZZOFF`, ela deve ser respeitada: as funções listadas ali não devem fazer parte do arquivo gerado.
 
 ```console
-$ ZZOFF="zzcalcula zzxml" $zz_root/funcoeszz --tudo-em-um > tudo-em-um-off
-$ grep '^zz.* ()$' tudo-em-um-off | cut -d ' ' -f 1 | sort > incluidas.txt
+$ ZZOFF="zzcalcula zzxml" $zz_root/release/make-release.sh | head -n 1
+Gerando arquivo tudo-em-um das Funções ZZ, versão 'dev'
+$ grep '^zz.* ()$' "$tudo_em_um" | cut -d ' ' -f 1 | sort > incluidas.txt
 $ diff originais.txt incluidas.txt | grep '^<'
 < zzcalcula
 < zzxml
@@ -166,6 +169,6 @@ $
 Remove todos os arquivos criados pelos testes:
 
 ```console
-$ rm tudo-em-um tudo-em-um-off originais.txt incluidas.txt
+$ rm "$tudo_em_um" originais.txt incluidas.txt
 $
 ```

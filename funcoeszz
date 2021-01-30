@@ -102,10 +102,7 @@ do
 	esac
 done
 
-
-##############################################################################
-#
-# A linha seguinte é usada pela opção --tudo-em-um
+# A linha seguinte é usada para gerar a versão tudo-em-um, não remova
 #@
 
 
@@ -147,10 +144,6 @@ test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 # O carregamento é feito em dois passos para ficar mais robusto:
 # 1. Obtenção da lista completa de funções, ativadas e desativadas.
 # 2. Carga de cada função ativada, salvando o texto de ajuda.
-#
-# Com a opção --tudo-em-um, o passo 2 é alterado para mostrar o conteúdo
-# da função em vez de carregá-la.
-#
 
 ### Passo 1
 
@@ -199,50 +192,6 @@ fi
 
 ### Passo 2
 
-# Vamos juntar todas as funções em um único arquivo?
-if test "$1" = '--tudo-em-um'
-then
-	# Verifica se a pasta das funções existe
-	if test -z "$ZZDIR" -o ! -d "$ZZDIR"
-	then
-		(
-		echo "Ops! Não encontrei as funções na pasta '$ZZDIR'."
-		echo 'Informe a localização correta na variável $ZZDIR.'
-		echo
-		echo 'Exemplo: export ZZDIR="$HOME/zz"'
-		) >&2
-		exit 1
-		# Posso usar exit porque a chamada é pelo executável, e não source
-	fi
-
-	# Primeira metade deste arquivo, até #@
-	sed '/^#@$/q' "$ZZPATH"
-
-	# Mostra cada função (ativa), inserindo seu nome na linha 2 do cabeçalho
-	while read -r zz_nome
-	do
-		zz_arquivo="${ZZDIR%/}"/$zz_nome.sh
-
-		sed 1q "$zz_arquivo"
-		echo "# $zz_nome"
-		sed 1d "$zz_arquivo"
-
-		# Linha em branco separadora
-		# Também garante quebra se faltar \n na última linha da função
-		echo
-	done < "$ZZTMP.on"
-
-	# Desliga suporte ao diretório de funções
-	echo
-	echo 'ZZDIR='
-
-	# Segunda metade deste arquivo, depois de #@
-	sed '1,/^#@$/d' "$ZZPATH"
-
-	# Tá feito, simbora.
-	exit 0
-fi
-
 # Carregamento das funções ativas, salvando texto de ajuda
 while read -r zz_nome
 do
@@ -265,7 +214,7 @@ done < "$ZZTMP.on" >> "$ZZAJUDA"
 echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
 
 
-# Modo --tudo-em-um
+# Modo tudo-em-um
 # Todas as funções já foram carregadas por estarem dentro deste arquivo.
 # Agora faremos o desligamento "manual" das funções ZZOFF.
 #
