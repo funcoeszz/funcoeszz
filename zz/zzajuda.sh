@@ -17,13 +17,6 @@ zzajuda ()
 
 	local zzcor_pager
 
-	if test ! -r "$ZZAJUDA"
-	then
-		echo "Ops! Não encontrei o texto de ajuda em '$ZZAJUDA'." >&2
-		echo "Para recriá-lo basta executar o script 'funcoeszz' sem argumentos." >&2
-		return
-	fi
-
 	case "$1" in
 		--uso)
 			# Lista com sintaxe de uso, basta pescar as linhas Uso:
@@ -50,6 +43,28 @@ zzajuda ()
 				grep ^zz |
 				sort |
 				zztool acha '^zz[^ ]*'
+		;;
+#@ajuda
+		zz*)
+			# Mostra o nome da função na primeira linha do help
+			echo "$1"
+
+			cat "${ZZDIR}/$1.sh" |
+				# Extrai somente os cabeçalhos, já removendo o # do início
+				sed -n '
+					/^# -----* *$/,/^# -----* *$/ {
+						//d
+						s/^# \{0,1\}//p
+					}' |
+				# Agora remove trechos que não podem aparecer na ajuda
+				sed '
+					# Apaga a metadata (Autor, Desde, Versao, etc)
+					/^Autor:/,$ d
+
+					# Apaga a linha em branco apos Ex.:
+					/^Ex\.:/,$ {
+						/^ *$/d
+					}'
 		;;
 		*)
 			# Desliga cores para os paginadores antigos
