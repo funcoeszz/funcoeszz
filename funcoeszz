@@ -117,75 +117,78 @@ done
 
 ### Passo 1
 
-# Limpa arquivos temporários que guardam as listagens
-> "$ZZTMP.on"
-> "$ZZTMP.off"
+#### ZZOFF é sempre algo só setado pelo usuário
+#### ZZON é sempre setado no te1 pelo make-release
+#### ZZON sempre defaulta pra zz/* na versão git
+#### ZZON também pode ser definido pelo usuário
+#### ZZON fica no env do usuário no caso de `source funcoeszz`
+#### zzzz precisa considerar ZZON e ZZOFF pra mostrar a lista de funções
+#### se o usuário atualizar ZZON ou ZZOFF na shell atual, basta rodar o core de novo
 
-# Lista de funções a desligar: uma por linha, com prefixo zz
+
+
+# FIXME usar ZZON pro te1 não funciona, pois nesse ponto ele já carregou todas as funções
+# Ah, e o ZZON do usuário será sobrescrito pelo ZZON que o make-release.sh cria
+# o make-release poderia setar o ZZON somente se ainda não estivesse setado
+# ou setar também um ZZTODAS=$ZZON. Com ZZALL eu consigo dar unset em tudo que é ALL exceto o que é ON (e depois vem o unset $zz_off normal). off sempre tem precedência.
+# teria que ter um código pra e na hora de respeitar o zzoff
+# teria que ter um ZZON exclusivo da make-release, que o ZZON do usuário poderia sobrescrever
+
+# XXX sem o prefixo zz
+test -z "$ZZON" -a -n "$ZZDIR" -a -d "$ZZDIR" &&
+	ZZON="$(cd "$ZZDIR"; ls -1 zz* | sed 's/^zz// ; s/\.sh$//')"
+
+# echo ON: $ZZON
+# echo OFF: $ZZOFF
+
+
+# Normaliza listas ON e OFF: uma por linha, sempre com prefixo zz
 zz_off=$(
-	echo "$ZZOFF" |
-	tr -s '\t ' '\n' |
-	sed 's/^zz// ; s/^/zz/'
+	test -n "$ZZOFF" &&
+		echo "$ZZOFF" |
+			tr -s '\t ' '\n' |
+			sed 's/^zz// ; s/^/zz/'
+)
+zz_on=$(
+	test -n "$ZZON" &&
+		echo "$ZZON" |
+			tr -s '\t ' '\n' |
+			sed 's/^zz// ; s/^/zz/' |
+			while read -r zz_nome
+			do
+				# Remove da lista ON caso a função esteja listada em OFF
+				echo "$zz_off" | grep -Fx "$zz_nome" > /dev/null || echo "$zz_nome"
+			done
 )
 
-# A pasta das funções existe?
-if test -n "$ZZDIR" -a -d "$ZZDIR"
-then
-	# Primeiro salva a lista de funções disponíveis
-	for zz_arquivo in "${ZZDIR%/}"/zz*
-	do
-		# Só ativa funções que podem ser lidas
-		if test -r "$zz_arquivo"
-		then
-			zz_nome="${zz_arquivo##*/}"  # remove path
-			zz_nome="${zz_nome%.sh}"     # remove extensão
-
-			# O usuário desativou esta função?
-			echo "$zz_off" | grep "^$zz_nome$" >/dev/null ||
-				# Tudo certo, essa vai ser carregada
-				echo "$zz_nome"
-		fi
-	done >> "$ZZTMP.on"
-
-	# Lista das funções desativadas (OFF = Todas - ON)
-	(
-	cd "$ZZDIR" &&
-	ls -1 zz* |
-		sed 's/\.sh$//' |
-		grep -v -f "$ZZTMP.on"
-	) >> "$ZZTMP.off"
-fi
-
-# echo ON ; cat "$ZZTMP.on"  | zztool lines2list
-# echo OFF; cat "$ZZTMP.off" | zztool lines2list
-# exit
+# echo ON: $zz_on
+# echo OFF: $zz_off
+# exit 0
 
 ### Passo 2
 
-# Carregamento das funções ativas, salvando texto de ajuda
-while read zz_nome
-do
-	zz_arquivo="${ZZDIR%/}"/$zz_nome.sh
-
-	# Pula o carregamento dessa função se o arquivo não existir
-	test -r "$zz_arquivo" || continue
-
-	# Inclui a função na shell atual
-	. "$zz_arquivo"
-
-done < "$ZZTMP.on"
-
-
-# Modo tudo-em-um
-# Todas as funções já foram carregadas por estarem dentro deste arquivo.
-# Agora faremos o desligamento "manual" das funções ZZOFF.
-#
-if test -z "$ZZDIR" -a -n "$zz_off"
+### Modo zz/*
+# É necessário carregar agora todas as funções ligadas
+if test -n "$ZZDIR"
 then
-	# Desliga todas em uma só linha (note que não usei aspas)
-	unset $zz_off
+	# Carregamento das funções ativas na shell atual
+	for zz_nome in $zz_on
+	do
+		zz_arquivo="$ZZDIR/$zz_nome.sh"
+		test -r "$zz_arquivo" && source "$zz_arquivo"
+	done
 fi
 
+### Modo tudo-em-um
+# Todas as funções já foram carregadas por estarem dentro deste arquivo.
+# Agora faremos o desligamento "manual" das funções ZZOFF.
+# Desliga todas em uma só linha (note que não usei aspas)
+test -n "$zz_off" && unset $zz_off
+
+if test -z "$zz_on"
+then
+	echo "XXX nenhuma função disponível. Estranho..."
+fi
 
 ### Carregamento terminado, funções já estão disponíveis
 
@@ -194,6 +197,7 @@ fi
 unset zz_arquivo
 unset zz_nome
 unset zz_off
+unset zz_on
 
 
 ##----------------------------------------------------------------------------

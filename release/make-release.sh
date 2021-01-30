@@ -24,7 +24,7 @@ ZZDIR="$zzdir"
 
 # Load all ZZ functions because we need zzajuda in save_help_text() and
 # using `$core zzajuda` there is too slow and expensive
-source "$core"
+# source "$core"
 
 save_help_text() {
 	local zz_nome="$1"
@@ -32,7 +32,8 @@ save_help_text() {
 	{
 		echo
 		echo "$zz_nome) cat <<'EOT'"
-		zzajuda "$zz_nome"
+		# zzajuda "$zz_nome"
+		ZZON="zzzz zztool zzajuda" "$core" zzajuda "$zz_nome"
 		echo EOT
 		echo ';;'
 
@@ -45,6 +46,7 @@ save_help_text() {
 	sed '/^#@$/q' "$core"
 	echo
 
+	zzon=''
 	# Mostra cada função, inserindo seu nome na linha 2 do cabeçalho
 	for zz_arquivo in "${zzdir}"/zz*
 	do
@@ -59,12 +61,16 @@ save_help_text() {
 		echo
 
 		save_help_text "$zz_nome"
+		zzon="$zzon $zz_nome"
 	done
 
 	# Desliga suporte ao diretório de funções, forçando que esta seja a
 	# versão tudo-em-um
 	echo
 	echo 'ZZDIR='
+
+	# Registra a lista completa de todas as funções incluídas
+	echo "ZZON=\"${zzon# }\""
 
 	# Segunda metade do core, depois de #@
 	sed '1,/^#@$/d' "$core"
