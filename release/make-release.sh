@@ -20,9 +20,10 @@ echo
 	echo
 
 	# Mostra cada função, inserindo seu nome na linha 2 do cabeçalho
-	for zz_arquivo in "${zzdir}"/zz*
+	"$core" zzzz lista ligadas |
+	while read -r zz_nome
 	do
-		zz_nome=$(basename "$zz_arquivo" .sh)
+		zz_arquivo="$zzdir/$zz_nome.sh"
 
 		sed 1q "$zz_arquivo"
 		echo "# $zz_nome"
