@@ -5,13 +5,15 @@
 #         --bashrc    instala as funções no ~/.bashrc
 #         --tcshrc    instala as funções no ~/.tcshrc
 #         --zshrc     instala as funções no ~/.zshrc
-# Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc]
+#         --listar X  lista as funções (X pode ser todas|ligadas|desligadas)
+# Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc|--listar X]
 # Ex.: zzzz
 #      zzzz --teste
+#      zzzz --listar ligadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-01-07
-# Versão: 1
+# Versão: 2
 # Requisitos: zztool zzajuda
 # ----------------------------------------------------------------------------
 zzzz ()
@@ -20,6 +22,7 @@ zzzz ()
 	local info_instalado info_instalado_zsh info_cor info_utf8 versao_remota
 	local arquivo_aliases
 	local n_on n_off
+	local todas ligadas desligadas
 	local bashrc="$HOME/.bashrc"
 	local tcshrc="$HOME/.tcshrc"
 	local zshrc="$HOME/.zshrc"
@@ -285,6 +288,39 @@ zzzz ()
 
 			echo
 			echo "Aliases atualizados no $arquivo_aliases"
+		;;
+
+		--listar)
+			case "$2" in
+				desligadas)
+					if test -r "$ZZTMP.off"
+					then
+						cat "$ZZTMP.off"
+					else
+						echo "Erro: Não consegui obter a lista de funções desativadas." >&2
+						echo "Para recriá-la, basta executar o script 'funcoeszz' sem argumentos." >&2
+					fi
+				;;
+				ligadas)
+					if test -r "$ZZTMP.on"
+					then
+						cat "$ZZTMP.on"
+					else
+						echo "Erro: Não consegui obter a lista de funções disponíveis." >&2
+						echo "Para recriá-la, basta executar o script 'funcoeszz' sem argumentos." >&2
+					fi
+				;;
+				todas)
+					{
+						zzzz --listar desligadas
+						zzzz --listar ligadas
+					} | sort | uniq
+				;;
+				*)
+					echo "zzzz $1: Argumento inválido '$2'" >&2
+					return 1
+				;;
+			esac
 		;;
 
 		# Mostra informações sobre as funções
