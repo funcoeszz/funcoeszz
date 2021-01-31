@@ -219,7 +219,7 @@ then
 	sed '/^#@$/q' "$ZZPATH"
 
 	# Mostra cada função (ativa), inserindo seu nome na linha 2 do cabeçalho
-	while read zz_nome
+	while read -r zz_nome
 	do
 		zz_arquivo="${ZZDIR%/}"/$zz_nome.sh
 
@@ -244,7 +244,7 @@ then
 fi
 
 # Carregamento das funções ativas, salvando texto de ajuda
-while read zz_nome
+while read -r zz_nome
 do
 	zz_arquivo="${ZZDIR%/}"/$zz_nome.sh
 

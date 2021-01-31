@@ -9,8 +9,7 @@
 # Man page:
 # http://manpages.ubuntu.com/manpages/lucid/man1/checkbashisms.1.html
 
-cd "$(dirname "$0")"
-cd ..
+cd "$(dirname "$0")/.." || exit 1  # go to repo root
 
 eco() { echo -e "\033[36;1m$*\033[m"; }
 

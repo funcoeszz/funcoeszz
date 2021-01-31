@@ -8,7 +8,7 @@ cd "$(dirname "$0")/.." || exit 1  # go to repo root
 	requisitos=$(grep 'Requisitos: ' zz/*.sh | sed 's|.*/||;s/\.sh.*:/:/')
 
 	echo "$fzz" |
-	while read arq
+	while read -r arq
 	do
 		unset dependentes
 		echo "$arq"
@@ -27,4 +27,3 @@ cd "$(dirname "$0")/.." || exit 1  # go to repo root
 	sed 's/--//'
 } |
 fmt -s -w "$(tput cols)"
-

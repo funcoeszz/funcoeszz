@@ -10,9 +10,9 @@
 # zzdata.sh: Função lista a si própria como requisito
 #
 
-cd "$(dirname "$0")" || exit 1
+cd "$(dirname "$0")/.." || exit 1  # go to repo root
+cd zz || exit 1
 
-cd ../zz
 for f in zz*
 do
 	# Caso especial, já tratado, pode ignorar
@@ -39,7 +39,7 @@ do
 	done
 
 	# REQUISITO REPETIDO
-	echo "$requisitos" | tr ' ' '\n' | sort | uniq -d | while read repetida
+	echo "$requisitos" | tr ' ' '\n' | sort | uniq -d | while read -r repetida
 	do
 		echo "$f: Requisito repetido: $repetida"
 	done
@@ -61,7 +61,7 @@ do
 	if test -n "$encontradas"
 	then
 		echo "$encontradas" |
-			while read funcao
+			while read -r funcao
 			do
 				# Uma função usar ela mesma está OK
 				test "$funcao.sh" = "$f" && continue
