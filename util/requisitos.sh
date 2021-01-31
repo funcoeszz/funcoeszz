@@ -66,7 +66,10 @@ do
 				# Uma função usar ela mesma está OK
 				test "$funcao.sh" = "$f" && continue
 
-				# Ignora falsos positivos
+				# Falso-positivo: zzcores é mencionada em um comentário
+				test "$f" = zztool.sh && test "$funcao" = zzcores && continue
+
+				# Falso-positivo: estes são nomes de arquivos
 				test "$f" = zzzz.sh && case "$funcao" in
 					zzcshrc | zzzshrc) continue;;
 				esac
