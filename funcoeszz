@@ -86,7 +86,6 @@ export ZZBROWSER
 ZZCOR="${ZZCOR:-$ZZCOR_DFT}"
 ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}"
 ZZTMP="${ZZTMP%/}/zz"  # prefixo comum a todos os arquivos temporários
-ZZAJUDA="$ZZTMP.ajuda"
 unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 
 #
@@ -111,42 +110,12 @@ done
 
 ##############################################################################
 #
-#                             Texto de ajuda
-#                             --------------
-#
-#
-
-# Função temporária para extrair o texto de ajuda do cabeçalho das funções
-# Passe o arquivo com as funções como parâmetro
-_extrai_ajuda() {
-	# Extrai somente os cabeçalhos, já removendo o # do início
-	sed -n '/^# -----* *$/,/^# -----* *$/ s/^# \{0,1\}//p' "$1" |
-		# Agora remove trechos que não podem aparecer na ajuda
-		sed '
-			# Apaga a metadata (Autor, Desde, Versao, etc)
-			/^Autor:/,/^------/ d
-
-			# Apaga a linha em branco apos Ex.:
-			/^Ex\.:/,/^------/ {
-				/^ *$/d
-			}'
-}
-
-# Limpa conteúdo do arquivo de ajuda
-> "$ZZAJUDA"
-
-# Salva o texto de ajuda das funções inclusas neste arquivo
-# (presentes na versão tudo-em-um)
-test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
-
-##############################################################################
-#
 #                    Carregamento das funções do $ZZDIR
 #                    ----------------------------------
 #
 # O carregamento é feito em dois passos para ficar mais robusto:
 # 1. Obtenção da lista completa de funções, ativadas e desativadas.
-# 2. Carga de cada função ativada, salvando o texto de ajuda.
+# 2. Carga de cada função ativada.
 #
 # Com a opção --tudo-em-um, o passo 2 é alterado para mostrar o conteúdo
 # da função em vez de carregá-la.
@@ -254,16 +223,7 @@ do
 	# Inclui a função na shell atual
 	. "$zz_arquivo"
 
-	# Extrai o texto de ajuda
-	_extrai_ajuda "$zz_arquivo" |
-		# Insere o nome da função na segunda linha
-		sed "2 { h; s/.*/$zz_nome/; G; }"
-
-done < "$ZZTMP.on" >> "$ZZAJUDA"
-
-# Separador final do arquivo, com exatamente 77 hífens (7x11)
-echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
-
+done < "$ZZTMP.on"
 
 # Modo --tudo-em-um
 # Todas as funções já foram carregadas por estarem dentro deste arquivo.
@@ -273,14 +233,6 @@ if test -z "$ZZDIR" -a -n "$zz_off"
 then
 	# Desliga todas em uma só linha (note que não usei aspas)
 	unset $zz_off
-
-	# Agora apaga os textos da ajuda, montando um script em sed e aplicando
-	# Veja issue 5 para mais detalhes:
-	# https://github.com/funcoeszz/funcoeszz/issues/5
-	zz_sed=$(echo "$zz_off" | sed 's@.*@/^&$/,/^----*$/d;@')  # /^zzfoo$/,/^----*$/d
-	cp "$ZZAJUDA" "$ZZAJUDA.2" &&
-	sed "$zz_sed" "$ZZAJUDA.2" > "$ZZAJUDA"
-	rm "$ZZAJUDA.2"
 fi
 
 
@@ -291,8 +243,6 @@ fi
 unset zz_arquivo
 unset zz_nome
 unset zz_off
-unset zz_sed
-unset -f _extrai_ajuda
 
 
 ##----------------------------------------------------------------------------
