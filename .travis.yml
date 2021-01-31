@@ -12,6 +12,7 @@ before_install:
   - mv clitest testador
 
 script:
+  - ./util/requisitos.sh
   - ./testador/run funcoeszz.md
   - ./testador/run internet_travis
 
