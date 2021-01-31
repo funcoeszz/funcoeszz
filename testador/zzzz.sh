@@ -66,23 +66,12 @@ $ zzzz | grep '(' | tr -d 0-9 | sed 's/) .*/) .../'
 ((  funções disponíveis ))
 $
 
-# Lista de funções desligadas só aparece no final, não nas disponíveis.
-# Nestes testes foi criada uma pasta ZZTMPDIR alternativa para gerar os
-# arquivos .on e .off sem bagunçar os "oficiais".
+# Lista de funções desligadas só aparece no final, não nas disponíveis
 
-$ zzzz_tmp="/tmp/testador-zzzz-$$"
-$ mkdir "$zzzz_tmp"
-$ ZZTMPDIR="$zzzz_tmp" ZZOFF="zzdata zzcores" ../funcoeszz
-$ cat "$zzzz_tmp/zz.off"
-zzcores
-zzdata
-$ ZZTMP="$zzzz_tmp/zz" zzzz | tail -n 2
+$ ZZOFF="zzdata zzcores" zzzz | tail -n 2
 (( 2 funções desativadas ))
 cores, data
-$ ZZTMP="$zzzz_tmp/zz" zzzz | sed -n '/disponíveis/,/^$/ p' | grep -E '\b(cores|data),'
-$ rm "$zzzz_tmp"/zz*
-$ rmdir "$zzzz_tmp"
-$ unset zzzz_tmp
+$ ZZOFF="zzdata zzcores" zzzz | sed -n '/disponíveis/,/^$/ p' | grep -E '\b(cores|data),'
 $
 
 # As variáveis de ambiente devem ser respeitadas
