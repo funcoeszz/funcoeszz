@@ -32,7 +32,7 @@ $tester -V > /dev/null || {
 
 # Create temporary file with ZZ init in full paths
 cat > "$tmp" <<EOF
-. "$zz_root"/funcoeszz \\
+ZZOFF='' . "$zz_root"/funcoeszz \\
 	--cor 0 \\
 	--path "$zz_root"/funcoeszz \\
 	--dir  "$zz_root"/zz
