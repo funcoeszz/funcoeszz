@@ -12,7 +12,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-01-07
 # Versão: 1
-# Requisitos: zztool zzajuda
+# Requisitos: zztool
 # ----------------------------------------------------------------------------
 zzzz ()
 {
@@ -74,10 +74,10 @@ zzzz ()
 			# Se o usuário informou a opção de ajuda, mostre o texto
 			if test '-h' = "$arg_func" -o '--help' = "$arg_func"
 			then
-				# Um xunxo bonito: filtra a saída da zzajuda, mostrando
+				# Um xunxo bonito: filtra o conteúdo da $ZZAJUDA, mostrando
 				# apenas a função informada.
 				echo
-				ZZCOR=0 zzajuda |
+				echo "$ZZAJUDA" |
 					sed -n "/^zz$nome_func$/,/^----*$/ {
 						s/^----*$//
 						p

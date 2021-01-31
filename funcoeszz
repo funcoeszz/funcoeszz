@@ -86,7 +86,6 @@ export ZZBROWSER
 ZZCOR="${ZZCOR:-$ZZCOR_DFT}"
 ZZTMP="${ZZTMPDIR:-$ZZTMPDIR_DFT}"
 ZZTMP="${ZZTMP%/}/zz"  # prefixo comum a todos os arquivos temporários
-ZZAJUDA="$ZZTMP.ajuda"
 unset ZZCOR_DFT ZZPATH_DFT ZZDIR_DFT ZZTMPDIR_DFT
 
 #
@@ -132,8 +131,10 @@ _extrai_ajuda() {
 			}'
 }
 
+zz_ajuda_tmp="$ZZTMP.ajuda"
+
 # Limpa conteúdo do arquivo de ajuda
-> "$ZZAJUDA"
+> "$zz_ajuda_tmp"
 
 # Salva o texto de ajuda das funções inclusas neste arquivo
 # (presentes na versão tudo-em-um)
@@ -259,10 +260,10 @@ do
 		# Insere o nome da função na segunda linha
 		sed "2 { h; s/.*/$zz_nome/; G; }"
 
-done < "$ZZTMP.on" >> "$ZZAJUDA"
+done < "$ZZTMP.on" >> "$zz_ajuda_tmp"
 
 # Separador final do arquivo, com exatamente 77 hífens (7x11)
-echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
+echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$zz_ajuda_tmp"
 
 
 # Modo --tudo-em-um
@@ -278,11 +279,15 @@ then
 	# Veja issue 5 para mais detalhes:
 	# https://github.com/funcoeszz/funcoeszz/issues/5
 	zz_sed=$(echo "$zz_off" | sed 's@.*@/^&$/,/^----*$/d;@')  # /^zzfoo$/,/^----*$/d
-	cp "$ZZAJUDA" "$ZZAJUDA.2" &&
-	sed "$zz_sed" "$ZZAJUDA.2" > "$ZZAJUDA"
-	rm "$ZZAJUDA.2"
+	cp "$zz_ajuda_tmp" "$zz_ajuda_tmp.2" &&
+	sed "$zz_sed" "$zz_ajuda_tmp.2" > "$zz_ajuda_tmp"
+	rm "$zz_ajuda_tmp.2"
 fi
 
+# Guarda todo o texto de ajuda em uma variável de ambiente e remove o
+# arquivo temporário
+export ZZAJUDA=$(cat "$zz_ajuda_tmp")
+rm "$zz_ajuda_tmp"
 
 ### Carregamento terminado, funções já estão disponíveis
 
