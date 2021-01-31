@@ -5,13 +5,15 @@
 #         --bashrc    instala as funções no ~/.bashrc
 #         --tcshrc    instala as funções no ~/.tcshrc
 #         --zshrc     instala as funções no ~/.zshrc
-# Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc]
+#         --listar X  lista as funções (X pode ser todas|ligadas|desligadas)
+# Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc|--listar X]
 # Ex.: zzzz
 #      zzzz --teste
+#      zzzz --listar ligadas
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-01-07
-# Versão: 1
+# Versão: 2
 # Requisitos: zztool zzajuda
 # ----------------------------------------------------------------------------
 zzzz ()
@@ -20,6 +22,7 @@ zzzz ()
 	local info_instalado info_instalado_zsh info_cor info_utf8 versao_remota
 	local arquivo_aliases
 	local n_on n_off
+	local todas ligadas desligadas
 	local bashrc="$HOME/.bashrc"
 	local tcshrc="$HOME/.tcshrc"
 	local zshrc="$HOME/.zshrc"
@@ -285,6 +288,78 @@ zzzz ()
 
 			echo
 			echo "Aliases atualizados no $arquivo_aliases"
+		;;
+
+		--listar)
+			case "$2" in
+				todas)
+					# Se tem ZZDIR: lista zz/*
+					if test -n "$ZZDIR"
+					then
+						if ! test -d "$ZZDIR"
+						then
+							echo "ERRO: Diretório não encontrado: ZZDIR=$ZZDIR" >&2
+							return 1
+						fi
+
+						# Lista todos os arquivos de funções, removendo o path e
+						# a extensão .sh
+						ls -1 "${ZZDIR}"/zz* |
+							sed 's,.*/,, ; s/\.sh$//' |
+							sort
+
+					# Se tem ZZPATH: grep ^zz no arquivo tudo-em-um
+					elif test -n "$ZZPATH"
+					then
+						if ! test -r "$ZZPATH"
+						then
+							echo "ERRO: Não consigo ler o arquivo: ZZPATH=$ZZPATH" >&2
+							return 1
+						fi
+
+						grep -E '^zz[a-z0-9]+ ()' "$ZZPATH" |
+							sed 's/ *().*//' |
+							sort
+
+					# Sem ZZDIR nem ZZPATH, então não temos uma fonte confiável
+					# de informação. Como alternativa, lista as funções zz*
+					# carregadas na shell atual.
+					# FIXME: Pode ter falsos-positivos.
+					else
+						set |
+							grep -E '^zz[a-z0-9]+ ()' |
+							sed 's/ *().*//' |
+							sort
+					fi
+				;;
+				desligadas)
+					# Mostra uma função por linha, com o prefixo zz
+					echo "$ZZOFF" |
+						zztool list2lines |
+						sed 's/^zz// ; s/^/zz/' |
+						sort
+				;;
+				ligadas)
+					desligadas=$(zzzz --listar desligadas)
+					todas=$(zzzz --listar todas)
+
+					if test -z "$desligadas"
+					then
+						echo "$todas"
+					else
+						echo "$todas" |
+						while read -r func
+						do
+							echo "$desligadas" | grep -x "$func" > /dev/null ||
+								echo "$func"
+						done
+					fi
+				;;
+				*)
+					echo "zzzz $1: Argumento inválido '$2'" >&2
+					return 1
+				;;
+			esac
 		;;
 
 		# Mostra informações sobre as funções

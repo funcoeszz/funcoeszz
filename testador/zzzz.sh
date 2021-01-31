@@ -7,9 +7,11 @@ Opções: --atualiza  baixa a versão mais nova das funções
         --bashrc    instala as funções no ~/.bashrc
         --tcshrc    instala as funções no ~/.tcshrc
         --zshrc     instala as funções no ~/.zshrc
-Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc]
+        --listar X  lista as funções (X pode ser todas|ligadas|desligadas)
+Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc|--listar X]
 Ex.: zzzz
      zzzz --teste
+     zzzz --listar ligadas
 
 $
 
@@ -101,4 +103,60 @@ $ ZZBROWSER=w3m   zzzz | grep '( *browser)'
 (browser) w3m
 $ ZZBROWSER=xxx   zzzz | grep '( *browser)'
 (browser) xxx
+$
+
+### Testes da opção --listar
+
+# Obtendo a lista completa de funções na pasta zz
+
+$ zz_root='..'
+$ ls -1 $zz_root/zz/ | sed 's/\.sh$//' | sort > ls.txt
+$
+
+# Quando não há funções desligadas: ls zz/* == todas == ligadas
+
+$ ZZOFF='' zzzz --listar todas > todas.txt
+$ diff ls.txt todas.txt
+$ ZZOFF='' zzzz --listar ligadas > ligadas.txt
+$ diff todas.txt ligadas.txt
+$ ZZOFF='' zzzz --listar desligadas
+$
+
+# Com funções desligadas, as listas ligadas/desligadas mudam
+
+$ ZZOFF='zzdata zzcores' zzzz --listar todas > todas.txt
+$ diff ls.txt todas.txt
+$ ZZOFF='zzdata zzcores' zzzz --listar ligadas > ligadas.txt
+$ diff todas.txt ligadas.txt | grep '^[<>]'
+< zzcores
+< zzdata
+$ ZZOFF='zzdata zzcores' zzzz --listar desligadas
+zzcores
+zzdata
+$
+
+# No modo tudo-em-um, contamos apenas com ZZPATH (sem ZZDIR)
+
+$ ZZOFF='' $zz_root/funcoeszz --tudo-em-um > te1.sh
+$ ZZOFF='zzdata zzcores' ZZDIR='' ZZPATH="$PWD/te1.sh" bash te1.sh zzzz --listar ligadas > ligadas.txt
+$ diff ls.txt ligadas.txt | grep '^[<>]'
+< zzcores
+< zzdata
+$ rm te1.sh
+$
+
+# Ainda no modo tudo-em-um, porém agora sem ZZDIR nem ZZPATH. Para obter
+# a lista de todas as funções, vemos quais funções nomeadas `zz*` estão
+# definidas na shell atual (não é perfeito, mas quebra um galho).
+
+$ ZZOFF='zzdata zzcores' ZZDIR='' ZZPATH='' zzzz --listar ligadas > ligadas.txt
+$ diff ls.txt ligadas.txt | grep '^[<>]'
+< zzcores
+< zzdata
+$
+
+# Faxina
+
+$ unset zz_root
+$ rm {ls,todas,ligadas}.txt
 $
