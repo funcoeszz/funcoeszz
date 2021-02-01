@@ -78,4 +78,7 @@ do
 					echo "$f: # Requisitos: $funcao"
 			done
 	fi
-done
+done | {
+	# Garante que o exit code é 1 se este script produzir qualquer output
+	! grep .
+}
