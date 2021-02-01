@@ -398,50 +398,28 @@ zzzz ()
 			zztool acha '^[^)]*)' "(   site) $url_site"
 
 			# Lista de todas as funções
+			ligadas=$(zzzz --listar ligadas)
+			desligadas=$(zzzz --listar desligadas)
 
-			# Sem $ZZDIR, provavelmente usando --tudo-em-um
-			# Tentarei obter a lista de funções carregadas na shell atual
-			if test -z "$ZZDIR"
-			then
-				set |
-					sed -n '/^zz[a-z0-9]/ s/ *().*//p' |
-					sort > "$ZZTMP.on"
-			fi
+			echo
+			n_on=$(echo "$ligadas" | zztool num_linhas)
+			zztool eco "(( $n_on funções disponíveis ))"
+			echo "$ligadas" |
+				sed 's/^zz//' |
+				zztool lines2list |
+				sed 's/ /, /g' |
+				fmt -w 70
 
-			if test -r "$ZZTMP.on"
+			if test -n "$desligadas"
 			then
 				echo
-				n_on=$(zztool num_linhas "$ZZTMP.on")
-				zztool eco "(( $n_on funções disponíveis ))"
-				cat "$ZZTMP.on" |
-					sed 's/^zz//' |
-					zztool lines2list |
-					sed 's/ /, /g' |
-					fmt -w 70
-			else
-				echo
-				echo "Não consegui obter a lista de funções disponíveis."
-				echo "Para recriá-la basta executar o script 'funcoeszz' sem argumentos."
-			fi
-
-			# Só mostra se encontrar o arquivo...
-			if test -r "$ZZTMP.off"
-			then
-				# ...e se ele tiver ao menos uma zz
-				grep zz "$ZZTMP.off" >/dev/null || return
-
-				echo
-				n_off=$(zztool num_linhas "$ZZTMP.off")
+				n_off=$(echo "$desligadas" | zztool num_linhas)
 				zztool eco "(( $n_off funções desativadas ))"
-				cat "$ZZTMP.off" |
+				echo "$desligadas" |
 					sed 's/^zz//' |
 					zztool lines2list |
 					sed 's/ /, /g' |
 					fmt -w 70
-			else
-				echo
-				echo "Não consegui obter a lista de funções desativadas."
-				echo "Para recriá-la basta executar o script 'funcoeszz' sem argumentos."
 			fi
 		;;
 	esac
