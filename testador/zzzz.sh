@@ -107,49 +107,94 @@ $
 
 ### Testes da opção --listar
 
+# Setup inicial
+
+$ ZZTMP_ORIG="$ZZTMP"
+$ ZZTMPDIR_ORIG="$ZZTMPDIR"
+$ zz_root='..'
+$ zzzz_tmp="/tmp/testador-zzzz-$$"
+$ mkdir "$zzzz_tmp"
+$ export ZZTMP="$zzzz_tmp/zz"
+$ export ZZTMPDIR="$zzzz_tmp"
+$
+
 # Obtendo a lista completa de funções na pasta zz
 
-$ zz_root='..'
 $ ls -1 $zz_root/zz/ | sed 's/\.sh$//' | sort > ls.txt
 $
 
-# Quando não há funções desligadas: ls zz/* == todas == ligadas
+# Testes chamando o core diretamente
+#
+# Note como:
+# - '--listar desligadas' é diretamente relacionada à ZZOFF
+# - as funções em ZZOFF podem ter ou não o prefixo zz
+# - a saída do comando é ordenada alfabeticamente
 
-$ ZZOFF='' zzzz --listar todas > todas.txt
-$ diff ls.txt todas.txt
-$ ZZOFF='' zzzz --listar ligadas > ligadas.txt
-$ diff todas.txt ligadas.txt
-$ ZZOFF='' zzzz --listar desligadas
-$
-
-# Com funções desligadas, as listas ligadas/desligadas mudam
-
-$ ZZOFF='zzdata zzcores' zzzz --listar todas > todas.txt
-$ diff ls.txt todas.txt
-$ ZZOFF='zzdata zzcores' zzzz --listar ligadas > ligadas.txt
-$ diff todas.txt ligadas.txt | grep '^[<>]'
-< zzcores
-< zzdata
-$ ZZOFF='zzdata zzcores' zzzz --listar desligadas
+$ ZZOFF='' $zz_root/funcoeszz zzzz --listar desligadas
+$ ZZOFF='data cores' $zz_root/funcoeszz zzzz --listar desligadas
 zzcores
 zzdata
-$
-
-# No modo tudo-em-um, contamos apenas com ZZPATH (sem ZZDIR)
-
-$ ZZOFF='' $zz_root/funcoeszz --tudo-em-um > te1.sh
-$ ZZOFF='zzdata zzcores' ZZDIR='' ZZPATH="$PWD/te1.sh" bash te1.sh zzzz --listar ligadas > ligadas.txt
+$ ZZOFF='zzdata zzcores' $zz_root/funcoeszz zzzz --listar desligadas
+zzcores
+zzdata
+$ ZZOFF='zzdata zzcores' $zz_root/funcoeszz zzzz --listar ligadas > ligadas.txt
+$ ZZOFF='zzdata zzcores' $zz_root/funcoeszz zzzz --listar todas > todas.txt
+$ diff ls.txt todas.txt
 $ diff ls.txt ligadas.txt | grep '^[<>]'
 < zzcores
 < zzdata
-$ rm te1.sh
 $
 
-# Ainda no modo tudo-em-um, porém agora sem ZZDIR nem ZZPATH. Para obter
-# a lista de todas as funções, vemos quais funções nomeadas `zz*` estão
-# definidas na shell atual (não é perfeito, mas quebra um galho).
+# Testes usando `source` no core
+# Quando não há funções desligadas: ls zz/* == todas == ligadas
 
-$ ZZOFF='zzdata zzcores' ZZDIR='' ZZPATH='' zzzz --listar ligadas > ligadas.txt
+$ ZZOFF='' source $zz_root/funcoeszz
+$ zzzz --listar todas > todas.txt
+$ zzzz --listar ligadas > ligadas.txt
+$ zzzz --listar desligadas  # saída vazia
+$ diff ls.txt todas.txt
+$ diff ls.txt ligadas.txt
+$
+
+# Testes usando `source` no core
+# Com funções desligadas, as listas ligadas/desligadas mudam
+
+$ ZZOFF='zzdata zzcores' source $zz_root/funcoeszz
+$ zzzz --listar todas > todas.txt
+$ zzzz --listar ligadas > ligadas.txt
+$ zzzz --listar desligadas
+zzcores
+zzdata
+$ diff ls.txt todas.txt
+$ diff ls.txt ligadas.txt | grep '^[<>]'
+< zzcores
+< zzdata
+$
+
+# Testes chamando o script tudo-em-um
+
+$ $zz_root/funcoeszz --tudo-em-um > te1.sh
+$ ZZOFF='zzdata zzcores' bash te1.sh zzzz --listar todas > todas.txt
+$ ZZOFF='zzdata zzcores' bash te1.sh zzzz --listar ligadas > ligadas.txt
+$ ZZOFF='zzdata zzcores' bash te1.sh zzzz --listar desligadas
+zzcores
+zzdata
+$ diff ls.txt todas.txt
+$ diff ls.txt ligadas.txt | grep '^[<>]'
+< zzcores
+< zzdata
+$
+
+# Testes usando `source` no script tudo-em-um
+
+$ $zz_root/funcoeszz --tudo-em-um > te1.sh
+$ ZZOFF='zzdata zzcores' ZZPATH='te1.sh' source te1.sh
+$ zzzz --listar todas > todas.txt
+$ zzzz --listar ligadas > ligadas.txt
+$ zzzz --listar desligadas
+zzcores
+zzdata
+$ diff ls.txt todas.txt
 $ diff ls.txt ligadas.txt | grep '^[<>]'
 < zzcores
 < zzdata
@@ -157,6 +202,12 @@ $
 
 # Faxina
 
+$ ZZTMP="$ZZTMP_ORIG"
+$ ZZTMPDIR="$ZZTMPDIR_ORIG"
+$ unset ZZTMP_ORIG
+$ unset ZZTMPDIR_ORIG
 $ unset zz_root
-$ rm {ls,todas,ligadas}.txt
+$ rm {ls,todas,ligadas}.txt te1.sh
+$ rm "$zzzz_tmp"/zz*
+$ rmdir "$zzzz_tmp"
 $
