@@ -172,14 +172,12 @@ $
 
 ## Testes da geração dos arquivos `.on` e `.off`
 
-Toda vez que o core é chamado, ele computa a lista de todas as funções disponíveis e a lista das funções possivelmente desligadas pelo usuário via variável `ZZOFF`. É com base nessas listas que o core decide se deve carregar ou não cada função, bem como gerar seu texto de ajuda.
+Toda vez que o core é chamado, seja a versão git a versão tudo-em-um, ele computa a lista de todas as funções disponíveis e a lista das funções possivelmente desligadas pelo usuário via variável `ZZOFF`. É com base nessas listas que o core decide se deve carregar ou não cada função, bem como gerar seu texto de ajuda. A saída do comando `zzzz`, que mostra quais as funções ligadas e desligadas, também depende destas listas.
 
 São gerados dois arquivos:
 
 - `$ZZTMP.on` - Lista de todas as funções ligadas
 - `$ZZTMP.off` - Lista de todas as funções desligadas
-
-> IMPORTANTE: Na versão tudo-em-um, estes arquivos são criados, porém estão sempre vazios. Isso acontece porque a variável `ZZDIR` é requisito para a obtenção da lista de funções disponíveis, e essa variável não existe na versão tudo-em-um.
 
 Os testes seguintes chamam o core de maneiras diferentes, com e sem `ZZOFF`, para assegurar-se de que estes arquivos estão sendo gerados como esperado.
 
@@ -190,6 +188,7 @@ Os testes seguintes chamam o core de maneiras diferentes, com e sem `ZZOFF`, par
 Para que os testes não alterem o conteúdo dos arquivos `.on` e `.off` já existentes, todos eles serão executados em uma pasta `ZZTMPDIR` nova, exclusiva dos testes.
 
 ```console
+$ zz_root=.  # XXX remover
 $ ZZTMP_ORIG="$ZZTMP"
 $ ZZTMPDIR_ORIG="$ZZTMPDIR"
 $ my_tmp="$zz_root/testador/tmp.$$"
@@ -207,10 +206,10 @@ $ chmod +x "$my_tmp/tudo-em-um.sh"
 $
 ```
 
-Obtendo a lista completa de funções na pasta zz. Note que não é feito um `sort` nessa lista, pois no core também é usada a ordem original retornada pelo `ls`.
+Obtendo a lista completa de funções na pasta zz:
 
 ```console
-$ ls -1 $zz_root/zz/ | sed 's/\.sh$//' > todas.txt
+$ ls -1 $zz_root/zz/ | sed 's/\.sh$//' | sort > todas.txt
 $
 ```
 
@@ -310,17 +309,13 @@ $
 
 ### Chamando o tudo-em-um diretamente
 
-Agora na versão tudo-em-um, é diferente. Ela não usa os arquivos `.on` e `.off`, e tudo o que faz é **sempre gerá-los com conteúdo vazio**.
-
-A versão tudo-em-um possui seu próprio mecanismo para desligar funções baseadas na `ZZOFF`, e isso já foi testado previamente aqui neste arquivo, no tópico "Opção --tudo-em-um".
-
 > Nota: Em todos os testes seguintes da tudo-em-um, a variável `ZZDIR` é zerada, para evitar influência dessa variável nos testes, caso o usuário já a tenha definida e exportada em sua shell atual.
 
 Sem `ZZOFF`:
 
 ```console
 $ ZZOFF='' ZZDIR='' "$my_tmp/tudo-em-um.sh"
-$ cat $ZZTMP.on
+$ diff todas.txt $ZZTMP.on
 $ cat $ZZTMP.off
 $ rm $ZZTMP.{on,off}
 $
@@ -330,8 +325,14 @@ Com `ZZOFF`:
 
 ```console
 $ ZZOFF='zzxml cores data data 404' ZZDIR='' "$my_tmp/tudo-em-um.sh"
-$ cat $ZZTMP.on
+$ diff todas.txt $ZZTMP.on | grep '^[<>]' | head
+< zzcores
+< zzdata
+< zzxml
 $ cat $ZZTMP.off
+zzcores
+zzdata
+zzxml
 $ rm $ZZTMP.{on,off}
 $
 ```
@@ -342,7 +343,7 @@ Sem `ZZOFF`:
 
 ```console
 $ ZZOFF='' ZZDIR='' bash "$my_tmp/tudo-em-um.sh"
-$ cat $ZZTMP.on
+$ diff todas.txt $ZZTMP.on
 $ cat $ZZTMP.off
 $ rm $ZZTMP.{on,off}
 $
@@ -352,8 +353,14 @@ Com `ZZOFF`:
 
 ```console
 $ ZZOFF='zzxml cores data data 404' ZZDIR='' bash "$my_tmp/tudo-em-um.sh"
-$ cat $ZZTMP.on
+$ diff todas.txt $ZZTMP.on | grep '^[<>]' | head
+< zzcores
+< zzdata
+< zzxml
 $ cat $ZZTMP.off
+zzcores
+zzdata
+zzxml
 $ rm $ZZTMP.{on,off}
 $
 ```
@@ -367,7 +374,7 @@ Sem `ZZOFF`:
 ```console
 $ echo "ZZOFF='' ZZDIR='' ZZPATH='$my_tmp/tudo-em-um.sh' source '$my_tmp/tudo-em-um.sh'" > foo
 $ source foo
-$ cat $ZZTMP.on
+$ diff todas.txt $ZZTMP.on
 $ cat $ZZTMP.off
 $ rm $ZZTMP.{on,off}
 $
@@ -377,8 +384,14 @@ Com `ZZOFF`:
 
 ```console
 $ ZZOFF='zzxml cores data data 404' ZZDIR='' ZZPATH="$my_tmp/tudo-em-um.sh" source "$my_tmp/tudo-em-um.sh"
-$ cat $ZZTMP.on
+$ diff todas.txt $ZZTMP.on | grep '^[<>]' | head
+< zzcores
+< zzdata
+< zzxml
 $ cat $ZZTMP.off
+zzcores
+zzdata
+zzxml
 $ rm $ZZTMP.{on,off}
 $
 ```

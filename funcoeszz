@@ -55,6 +55,7 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 # Variáveis auxiliares usadas pelas Funções ZZ.
 # Não altere nada aqui.
 #
+test -n "$ZZDEBUG" && env | grep ^ZZ
 #
 ### Truques para descobrir a localização deste arquivo no sistema
 #
@@ -102,6 +103,8 @@ do
 	esac
 done
 
+test -n "$ZZDEBUG" && echo && env | grep ^ZZ
+# ^pq ZZDIR não aparece aqui?
 
 ##############################################################################
 #
@@ -145,7 +148,7 @@ test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 #                    ----------------------------------
 #
 # O carregamento é feito em dois passos para ficar mais robusto:
-# 1. Obtenção da lista completa de funções, ativadas e desativadas.
+# 1. Obtenção da lista completa de funções ativadas e desativadas.
 # 2. Carga de cada função ativada, salvando o texto de ajuda.
 #
 # Com a opção --tudo-em-um, o passo 2 é alterado para mostrar o conteúdo
@@ -154,47 +157,75 @@ test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 
 ### Passo 1
 
-# Limpa arquivos temporários que guardam as listagens
-> "$ZZTMP.on"
-> "$ZZTMP.off"
-
-# Lista de funções a desligar: uma por linha, com prefixo zz
-zz_off=$(
-	echo "$ZZOFF" |
-	tr -s '\t ' '\n' |
-	sed 's/^zz// ; s/^/zz/'
+# Gera a lista (ordenada alfabeticamente) de todas as funções disponíveis.
+#
+# - Na versão git (com $ZZDIR), são todas as funções dentro da pasta $ZZDIR.
+#
+# - Na versão tudo-em-um (sem $ZZDIR, com $ZZPATH), faz um grep no próprio
+#   arquivo tudo-em-um para encontrar as funções.
+#
+# Esta variável $_zz_todas só é usada para ajudar a compor as listas de funções
+# ligadas e desligadas, depois ela é removida da shell.
+echo ZZPATH=$ZZPATH
+echo ZZDIR=$ZZDIR
+_zz_todas=$(
+	# Versão git
+	if test -d "$ZZDIR"
+	then
+		for zz_arquivo in "$ZZDIR"/zz*.sh
+		do
+			test -r "$zz_arquivo" && basename "$zz_arquivo" .sh
+		done
+	# Versão tudo-em-um
+	elif test -r "$ZZPATH"
+	then
+		grep -E '^zz[a-z0-9]+ ()' "$ZZPATH" |
+			sed 's/ *().*//'
+	else
+		echo "funcoeszz: Erro: Não consegui obter a lista de funções disponíveis." >&2
+		echo "* Versão oficial: defina a variável ZZPATH com a localização deste script" >&2
+		echo "* Versão git: defina a variável ZZDIR com a localização da pasta 'zz'" >&2
+	fi | sort
 )
 
-# A pasta das funções existe?
-if test -n "$ZZDIR" -a -d "$ZZDIR"
-then
-	# Primeiro salva a lista de funções disponíveis
-	for zz_arquivo in "${ZZDIR%/}"/zz*
-	do
-		# Só ativa funções que podem ser lidas
-		if test -r "$zz_arquivo"
-		then
-			zz_nome="${zz_arquivo##*/}"  # remove path
-			zz_nome="${zz_nome%.sh}"     # remove extensão
+# Gera a lista (preliminar) de funções desligadas ($ZZTMP.off)
+#
+# O usuário pode definir a variável ZZOFF para desligar funções. Basta listar
+# uma ou mais funções, separadas por espaços, com o sem o prefixo zz. Exemplo:
+#
+#     export ZZOFF='zzxml cores data data 404'
+#
+# O arquivo resultante guardará essa lista com uma função por linha, sempre com
+# o prefixo zz, ordenada alfabeticamente e sem linhas duplicadas:
+#
+#     zz404
+#     zzcores
+#     zzdata
+#     zzxml
+#
+# - Note que neste passo não há validação se existe alguma função com estes
+#   nomes, isso acontecerá logo adiante.
+# - Se $ZZOFF não estiver definida, o arquivo resultante será vazio (por isso
+#   usa printf e não echo).
+printf "$ZZOFF" |
+	tr -s '\t ' '\n' |
+	sed 's/^zz// ; s/^/zz/' |
+	sort |
+	uniq > "$ZZTMP.off"
 
-			# O usuário desativou esta função?
-			echo "$zz_off" | grep "^$zz_nome$" >/dev/null ||
-				# Tudo certo, essa vai ser carregada
-				echo "$zz_nome"
-		fi
-	done >> "$ZZTMP.on"
+# Funções ligadas = todas - off
+# Funções desligadas = todas - on
+echo "$_zz_todas" | comm -2 -3 - "$ZZTMP.off" > "$ZZTMP.on"
+echo "$_zz_todas" | comm -2 -3 - "$ZZTMP.on" > "$ZZTMP.off"
+unset _zz_todas
 
-	# Lista das funções desativadas (OFF = Todas - ON)
-	(
-	cd "$ZZDIR" &&
-	ls -1 zz* |
-		sed 's/\.sh$//' |
-		grep -v -f "$ZZTMP.on"
-	) >> "$ZZTMP.off"
-fi
+# ^ O arquivo $ZZTMP.off foi reescrito neste passo para remover de seu conteúdo
+# as funções que não existem. Isso é necessário pois até então seu conteúdo era
+# derivado de $ZZOFF, definida pelo usuário (então pode ter qualquer coisa).
 
-# echo ON ; cat "$ZZTMP.on"  | zztool lines2list
-# echo OFF; cat "$ZZTMP.off" | zztool lines2list
+# Debug:
+# echo ON  $(cat "$ZZTMP.on"); echo
+# echo OFF $(cat "$ZZTMP.off")
 # exit
 
 ### Passo 2
@@ -269,15 +300,15 @@ echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
 # Todas as funções já foram carregadas por estarem dentro deste arquivo.
 # Agora faremos o desligamento "manual" das funções ZZOFF.
 #
-if test -z "$ZZDIR" -a -n "$zz_off"
+if test -z "$ZZDIR" -a -s "$ZZTMP.off"
 then
 	# Desliga todas em uma só linha (note que não usei aspas)
-	unset $zz_off
+	unset $(cat "$ZZTMP.off")
 
 	# Agora apaga os textos da ajuda, montando um script em sed e aplicando
 	# Veja issue 5 para mais detalhes:
 	# https://github.com/funcoeszz/funcoeszz/issues/5
-	zz_sed=$(echo "$zz_off" | sed 's@.*@/^&$/,/^----*$/d;@')  # /^zzfoo$/,/^----*$/d
+	zz_sed=$(sed 's@.*@/^&$/,/^----*$/d;@' "$ZZTMP.off")  # /^zzfoo$/,/^----*$/d
 	cp "$ZZAJUDA" "$ZZAJUDA.2" &&
 	sed "$zz_sed" "$ZZAJUDA.2" > "$ZZAJUDA"
 	rm "$ZZAJUDA.2"
@@ -290,7 +321,6 @@ fi
 # Nota: prefixo zz_ para não conflitar com variáveis da shell atual
 unset zz_arquivo
 unset zz_nome
-unset zz_off
 unset zz_sed
 unset -f _extrai_ajuda
 
