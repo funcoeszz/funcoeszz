@@ -166,8 +166,8 @@ test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 #
 # Esta variável $_zz_todas só é usada para ajudar a compor as listas de funções
 # ligadas e desligadas, depois ela é removida da shell.
-echo ZZPATH=$ZZPATH
-echo ZZDIR=$ZZDIR
+# echo ZZPATH=$ZZPATH
+# echo ZZDIR=$ZZDIR
 _zz_todas=$(
 	# Versão git
 	if test -d "$ZZDIR"

@@ -188,7 +188,7 @@ Os testes seguintes chamam o core de maneiras diferentes, com e sem `ZZOFF`, par
 Para que os testes não alterem o conteúdo dos arquivos `.on` e `.off` já existentes, todos eles serão executados em uma pasta `ZZTMPDIR` nova, exclusiva dos testes.
 
 ```console
-$ zz_root=.  # XXX remover
+# $ zz_root=.  # XXX remover
 $ ZZTMP_ORIG="$ZZTMP"
 $ ZZTMPDIR_ORIG="$ZZTMPDIR"
 $ my_tmp="$zz_root/testador/tmp.$$"
@@ -372,9 +372,8 @@ $
 Sem `ZZOFF`:
 
 ```console
-$ echo "ZZOFF='' ZZDIR='' ZZPATH='$my_tmp/tudo-em-um.sh' source '$my_tmp/tudo-em-um.sh'" > foo
-$ source foo
-$ diff todas.txt $ZZTMP.on
+$ ZZOFF='' ZZDIR='' ZZPATH="$my_tmp/tudo-em-um.sh" source "$my_tmp/tudo-em-um.sh"
+$ diff todas.txt $ZZTMP.on | head
 $ cat $ZZTMP.off
 $ rm $ZZTMP.{on,off}
 $
