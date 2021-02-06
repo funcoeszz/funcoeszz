@@ -207,10 +207,10 @@ $ chmod +x "$my_tmp/tudo-em-um.sh"
 $
 ```
 
-Obtendo a lista completa de funções na pasta zz:
+Obtendo a lista completa de funções na pasta zz. Note que não é feito um `sort` nessa lista, pois no core também é usada a ordem original retornada pelo `ls`.
 
 ```console
-$ ls -1 $zz_root/zz/ | sed 's/\.sh$//' | sort > todas.txt
+$ ls -1 $zz_root/zz/ | sed 's/\.sh$//' > todas.txt
 $
 ```
 
