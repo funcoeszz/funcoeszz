@@ -99,7 +99,7 @@ $
 
 ## ZZOFF para desativar funções
 
-A variável `$ZZOFF` pode ser definida com uma lista de nomes de Funções ZZ (separadas por espaços em branco). As funções dessa lista serão ignoradas durante o carregamento de todas as funções, é como se não existissem.
+A variável `$ZZOFF` pode ser definida com uma lista de nomes de Funções ZZ (separadas por espaços em branco). As funções dessa lista serão ignoradas **durante o carregamento de todas as funções**, é como se não existissem.
 
 Este teste verifica se a `$ZZOFF` está funcionando quando chama-se o script principal normalmente, como um executável:
 
@@ -121,8 +121,12 @@ $ zzcalcula 10+5 2>&1 | sed 's/.*zzcalcula/zzcalcula/'
 zzcalcula: command not found
 $ zzmaiusculas funciona
 FUNCIONA
+$ ZZOFF=zzmaiusculas zzmaiusculas funciona
+FUNCIONA
 $
 ```
+
+> O último teste do bloco anterior demonstra o que foi destacado no primeiro parágrafo deste tópico: a variável `ZZOFF` só é levada em conta quando se executa o core, e não quando uma função é chamada diretamente.
 
 ## Opção --tudo-em-um
 
