@@ -26,7 +26,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-03-10
 # Versão: 1
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: contagem, emulação
 # ----------------------------------------------------------------------------
 zzwc ()

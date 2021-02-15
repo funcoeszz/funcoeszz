@@ -15,8 +15,8 @@
 #     $
 
 
-cd $(dirname "$0") || exit 1
-cd ../zz
+cd "$(dirname "$0")/.." || exit 1  # go to repo root
+cd zz || exit 1
 
 grep_var() {  # $1 está presente em $2?
 	test "${2#*$1}" != "$2"
@@ -33,11 +33,10 @@ do
 		grep "^zz" |
 
 		# Any of these are missing in the original list?
-		while read required
+		while read -r required
 		do
 			grep_var " $required " " $* " || echo "$required"
 		done
 done |
 sort |
 uniq
-

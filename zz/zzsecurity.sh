@@ -10,9 +10,8 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 12
-# Licença: GPL
-# Requisitos: zzminusculas zzfeed zztac zzdata zzdatafmt
+# Versão: 13
+# Requisitos: zzzz zztool zzjuntalinhas zzminusculas zzfeed zzsqueeze zztac zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzsecurity ()
@@ -22,7 +21,7 @@ zzsecurity ()
 	local url limite distros
 	local n=5
 	local ano=$(date '+%Y')
-	local distros='debian freebsd gentoo slackware suse opensuse ubuntu arch mageia netbsd fedora'
+	local distros='debian freebsd gentoo slackware ubuntu arch mageia netbsd fedora'
 
 	limite="sed ${n}q"
 
@@ -31,15 +30,12 @@ zzsecurity ()
 	# Debian
 	if zztool grep_var debian "$distros"
 	then
-		url='http://www.debian.org'
+		url='http://www.debian.org/security'
 		echo
 		zztool eco '** Atualizações Debian'
 		echo "$url"
 		zztool dump "$url" |
-			sed -n '
-				/Security Advisories/,/_______/ {
-					/\[[0-9]/ s/^ *//p
-				}' |
+			sed -n '/\[[0-9]/ s/^ *//p' |
 			$limite
 	fi
 
@@ -48,9 +44,12 @@ zzsecurity ()
 	then
 		echo
 		zztool eco '** Atualizações Slackware'
-		url="http://www.slackware.com/security/list.php?l=slackware-security&y=$ano"
+		url="http://www.slackware.com/security/list.php?l=slackware-security"
 		echo "$url"
-		zztool dump "$url" |
+		for sl_ano in $ano $((ano-1))
+		do
+			zztool dump "${url}&y=${sl_ano}"
+		done |
 			sed '
 				/[0-9]\{4\}-[0-9][0-9]/!d
 				s/\[sla.*ty\]//
@@ -76,37 +75,16 @@ zzsecurity ()
 			$limite
 	fi
 
-	# Suse
-	if zztool grep_var suse "$distros" || zztool grep_var opensuse "$distros"
-	then
-		echo
-		zztool eco '** Atualizações Suse'
-		url='https://www.suse.com/support/update/'
-		echo "$url"
-		zztool dump "$url" |
-			grep 'SUSE-SU' |
-			sed 's/^.*\(SUSE-SU\)/ \1/;s/\(.*\) \([A-Z].. .., ....\)$/\2\1/ ; s/  *$//' |
-			$limite
-
-		echo
-		zztool eco '** Atualizações Opensuse'
-		url="http://lists.opensuse.org/opensuse-updates/$(zzdata hoje - 1m | zzdatafmt -f AAAA-MM) http://lists.opensuse.org/opensuse-updates/$(zzdatafmt -f AAAA-MM hoje)"
-		echo "$url"
-		zztool dump $url |
-			grep 'SUSE-SU' |
-			sed 's/^ *\* //;s/ [0-9][0-9]:[0-9][0-9]:[0-9][0-9] GMT/,/;s/  *$//' |
-			zztac |
-			$limite
-	fi
-
 	# FreeBSD
 	if zztool grep_var freebsd "$distros"
 	then
 		echo
 		zztool eco '** Atualizações FreeBSD'
-		url='http://www.freebsd.org/security/advisories.rdf'
+		url='https://www.freebsd.org/security/advisories'
 		echo "$url"
-		zzfeed -n $n "$url"
+		zztool dump "$url" |
+			sed -n '/Data.*Advisory name/,${/Data/d;s/^[[:blank:]]*//;p;}' |
+			$limite
 	fi
 
 	# NetBSD
@@ -152,8 +130,14 @@ zzsecurity ()
 		echo
 		zztool eco '** Atualizações Archlinux'
 		echo "$url"
-		zztool dump "$url" |
-			awk '/ AVG-/{++i;print"";sub(/^ */,"")};i>=6{exit}i;' |
-			sed '/AVG.* CVE/ {s/ CVE/\n   CVE/}'
+		zztool source "$url" |
+			sed -n '/<table/,/table>/p' |
+			zzjuntalinhas -i '<td' -f 'td>' -d ' ' |
+			zzjuntalinhas -i '<tr' -f 'tr>' -d '|' |
+			zzxml --untag |
+			zzsqueeze |
+			awk -F '|' '/AVG-/{sub(/^ */,"");gsub(/ *\| */,"|"); print $1 "\t" $(NF-7) " " $(NF-6) "\t" $(NF-4) " " $(NF-3)}' |
+			expand -t 10,47 |
+			$limite
 	fi
 }

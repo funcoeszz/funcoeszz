@@ -13,7 +13,6 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-03-29
 # Versão: 2
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2015-02-24 Site foi descontinuado (veja issue #160)
 zzmoeda ()

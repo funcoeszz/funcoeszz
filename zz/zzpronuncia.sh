@@ -6,8 +6,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-04-10
 # Versão: 5
-# Licença: GPL
-# Requisitos: zzplay zzunescape
+# Requisitos: zzzz zztool zzplay zzunescape
 # Tags: internet, aúdio
 # Nota: opcional say
 # ----------------------------------------------------------------------------

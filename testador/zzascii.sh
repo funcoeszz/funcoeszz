@@ -1,10 +1,10 @@
 # erro
-$ zzascii a        ;echo $?             #→ --regex ^Uso:.*\n1
-$ zzascii -1       ;echo $?             #→ --regex ^Uso:.*\n1
-$ zzascii 0        ;echo $?             #→ --regex ^Uso:.*\n1
-$ zzascii 10 a     ;echo $?             #→ --regex ^Uso:.*\n1
-$ zzascii 10 -1    ;echo $?             #→ --regex ^Uso:.*\n1
-$ zzascii 10 0     ;echo $?             #→ --regex ^Uso:.*\n1
+$ zzascii a        ;echo $?             #=> --regex ^Uso:.*\n1
+$ zzascii -1       ;echo $?             #=> --regex ^Uso:.*\n1
+$ zzascii 0        ;echo $?             #=> --regex ^Uso:.*\n1
+$ zzascii 10 a     ;echo $?             #=> --regex ^Uso:.*\n1
+$ zzascii 10 -1    ;echo $?             #=> --regex ^Uso:.*\n1
+$ zzascii 10 0     ;echo $?             #=> --regex ^Uso:.*\n1
 
 # max
 $ zzascii 1000     ;echo $?

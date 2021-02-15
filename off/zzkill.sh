@@ -10,7 +10,6 @@
 # Autor: Ademar de Souza Reis Jr.
 # Desde: 2000-05-15
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2016-11-16 O comando pkill a substitui (issue #362)
 zzkill ()

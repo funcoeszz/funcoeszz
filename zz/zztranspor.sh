@@ -21,8 +21,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-09-03
 # Versão: 1
-# Licença: GPL
-# Requisitos: zztrim
+# Requisitos: zzzz zztool zztrim
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zztranspor ()

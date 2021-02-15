@@ -1,1 +1,1 @@
-$ zzdado  #→ --regex ^[1-6]$
+$ zzdado  #=> --regex ^[1-6]$

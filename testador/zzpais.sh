@@ -19,17 +19,10 @@ Zâmbia                                     Lusaca
 Zimbábue                                   Harare
 $
 
-$ zzpais República
+$ zzpais Democrática
 País                                       Capital
 ------------------------------------------ ----------------------------------
-República Centro-Africana                  Bangui
-República Checa ou República Tcheca        Praga
-República da China, ou Taiwan              Taipé
-República Popular da China                 Pequim
-República Turca de Chipre do Norte         Nicósia
-República do Congo                         Brazavile
 República Democrática do Congo             Quinxasa
-República Dominicana                       São Domingos
 República Árabe Saariana Democrática       El Aiune
 $
 
@@ -40,7 +33,7 @@ País                                       Capital
 Brasil                                     Brasília
 Guiné Equatorial                           Malabo
 Israel                                     Jerusalém
-Ilhas Marechal                             Majuro
+Ilhas Marshall                             Majuro
 Nepal                                      Catmandu
 Ossétia do Sul                             Tskhinval
 Portugal                                   Lisboa

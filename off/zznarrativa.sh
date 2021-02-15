@@ -8,7 +8,6 @@
 # Autor: Kl0nEz <kl0nez (a) wifi org br>
 # Desde: 2011-08-23
 # Versão: 4
-# Licença: GPLv2
 # Requisitos: zzplay
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2016-02-15 Apenas para usuário autenticado ( Veja issue #231 )

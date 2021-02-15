@@ -1,18 +1,18 @@
 # ----------------------------------------------------------------------------
-# Retorna a cotação de criptomoedas em Reais (Bitcoin, Litecoins ou BCash).
-# Opções: btc ou bitecoin (padrão) / ltc ou litecoin / bch ou bcash.
+# Retorna a cotação de criptomoedas em Reais (Bitcoin, Litecoins, etc.).
+# Com o argumento -a ou --all mostra a cotação de todas as criptomoedas.
 #
-# Uso: zzcoin [btc|bitcoin|ltc|litecoin|bch|bcash|-a|--all]
-# Ex.: zzcoin
-#      zzcoin btc
-#      zzcoin litecoin
-#      zzcoin bch
+# Uso: zzcoin [criptomoeda| -a | --all]
+# Ex.: zzcoin       # Lista todas as criptomoedas disponíveis
+#      zzcoin -a    # Cotação de todas as criptomoedas da lista
+#      zzcoin btc   # Cotação do Bitcoin
+#      zzcoin ltc   # Cotação do Litecoin
+#      zzcoin eth   # Cotação do Ethereum
 #
 # Autor: Tárcio Zemel <tarciozemel (a) gmail com>
 # Desde: 2014-03-24
-# Versão: 6
-# Licença: GPL
-# Requisitos: zzminusculas zznumero zzsemacento
+# Versão: 7
+# Requisitos: zzzz zztool zzmaiusculas zznumero zzpad zzsemacento zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcoin ()
@@ -20,32 +20,53 @@ zzcoin ()
 	zzzz -h coin "$1" && return
 
 	# Variáveis gerais
-	local moeda_informada=$(echo "${1:-btc}" | zzminusculas | zzsemacento)
-	local url="https://www.mercadobitcoin.net/api"
+	local moeda_informada moeda
+	local url="https://www.mercadobitcoin.com.br"
+	local moedas=$(zztool source "${url}/api-doc/" |
+		zzxml --tidy |
+		sed -n '
+			/<div class="tab domain">/,/div>/{
+				/div>/q
+				/<[^>]*>/d
+				p
+			}
+		' |
+		awk '
+			!/ : /  { coin = $1; next }
+			!/None/ { print coin $0 }
+		')
 
-	# Se não informou moeda válida, termina
-	case "$moeda_informada" in
-		btc | bitcoin )
-			# Monta URL a ser consultada
-			url="${url}/BTC/ticker/"
-			zztool dump "$url" |
-			sed 's/.*"last": *"//;s/", *"buy.*//' |
-			zznumero -m
+	if test -n "$1"
+	then
+		case "$1" in
+		-a | --all)
+			# Todas as criptomoedas
+			for moeda_informada in $(echo "${moedas}" | sed 's/ *:.*//' | zztool lines2list)
+			do
+				moeda=$(echo "$moedas" | awk -F ' : ' ' /'${moeda_informada}'/ {print $2 "(" $1 ")"}')
+				echo "$(zzpad 31 ${moeda}): $(zzcoin ${moeda_informada})"
+			done
+			return
 		;;
-		ltc | litecoin )
-			# Monta URL a ser consultada
-			url="${url}/LTC/ticker/"
-			zztool dump "$url" |
-			sed 's/.*"last": *"//;s/", *"buy.*//' |
-			zznumero -m
+		*)
+			moeda_informada=$(echo "${1}" | zzmaiusculas | zzsemacento)
+
+			if zztool grep_var "|${moeda_informada}|" $(echo "|${moedas}" | sed 's/ *:.*//' | tr '\n' '|')
+			then
+				# Uma criptomoeda específica
+				zztool dump "${url}/api/${moeda_informada}/ticker/" |
+				sed 's/.*"last": *"//;s/", *"buy.*//' |
+				zznumero -m
+
+			else
+				# Se não informou moeda válida, termina
+				zztool -e uso coin
+				return
+			fi
 		;;
-		bch | bcash )
-			# Monta URL a ser consultada
-			url="${url}/BCH/ticker/"
-			zztool dump "$url" |
-			sed 's/.*"last": *"//;s/", *"buy.*//' |
-			zznumero -m
-		;;
-		* ) return 1;;
-	esac
+		esac
+	else
+		# Listando as moedas disponíveis
+		echo "$moedas"
+	fi
 }

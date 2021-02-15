@@ -36,8 +36,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2011-01-19
 # Versão: 23
-# Licença: GPL
-# Requisitos: zzcalcula zzseq zzaleatorio zztrim zzconverte zztestar
+# Requisitos: zzzz zztool zzcalcula zzseq zzaleatorio zztrim zzconverte zztestar
 # Tags: número, cálculo
 # ----------------------------------------------------------------------------
 zzmat ()

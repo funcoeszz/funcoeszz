@@ -4,7 +4,7 @@
 #
 # Gera a versão ISO-8859-1 (latin-1) das Funções ZZ
 
-cd $(dirname "$0") || exit 1
+cd "$(dirname "$0")" || exit 1
 
 # Cadê o arquivo de entrada?
 if test -z "$1"

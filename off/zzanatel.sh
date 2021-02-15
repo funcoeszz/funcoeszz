@@ -7,7 +7,6 @@
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2005-04-14
 # Versão: 2
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2013-02-28 Parou de funcionar (issue #48)
 zzanatel ()

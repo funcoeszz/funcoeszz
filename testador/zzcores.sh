@@ -1,1 +1,1 @@
-$ zzcores  #→ --file zzcores.out.ansi
+$ zzcores  #=> --file zzcores.out.ansi

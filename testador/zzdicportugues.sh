@@ -60,7 +60,7 @@ Cheia de raiva, de fúria; furiosa: ficou louca com a traição.
 substantivo feminino Condição temporária de loucura; falta de sanidade mental.
 Etimologia (origem da palavra louca). Feminino de louco, de origem controversa.
 
-Louca é sinônimo de: doida, maluca, furiosa, louco
+Louca é sinônimo de: doida, maluca, furiosa, louco, insensata, apaixonada
 $
 
 $ zzdicportugues louça

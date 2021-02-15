@@ -11,8 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
 # Versão: 4
-# Licença: GPL
-# Requisitos: zzlinha zztrim zzlimpalixo
+# Requisitos: zzzz zztool zzlinha zztrim zzlimpalixo
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzcidade ()
@@ -26,12 +25,15 @@ zzcidade ()
 	# Se o cache está vazio, baixa listagem da Internet
 	if ! test -s "$cache"
 	then
+		# Colocando Brasília manualmente, pois não está na lista do site.
+		echo 'Brasília (DF)' > "$cache"
+
 		# Exemplo:^     * Aracaju (SE)
 		zztool dump "$url" |
 		sed -n '/A\[/,/Ver também\[/p' |
 		sed '/[•*]/!d;s//\
 /g;' | zztrim | zzlimpalixo |
-		LC_ALL=C sort > "$cache"
+		LC_ALL=C sort >> "$cache"
 	fi
 
 	if test -z "$padrao"

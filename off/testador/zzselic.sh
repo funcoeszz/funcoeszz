@@ -58,7 +58,7 @@ Número inválido '01-jan-2015'
 $
 
 # Opções desconhecidas não devem ser aceitas
-$ zzselic -t hoje #→ --regex ^Opção
+$ zzselic -t hoje #=> --regex ^Opção
 $
 
 # O site do BC não informa a taxa antes de 04/06/1986

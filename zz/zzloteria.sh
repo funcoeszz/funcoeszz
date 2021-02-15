@@ -1,9 +1,10 @@
 # ----------------------------------------------------------------------------
-# Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal, timemania e loteca.
+# Resultados da quina megasena duplasena lotomania lotofacil federal timemania loteca lotogol sorte sete.
 #
 # Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
 # Se o 2º argumento for a palavra "quantidade" ou "qtde" mostra quantas vezes
-#  um número foi sorteado. ( Não se aplica para federal e loteca )
+#  um número foi sorteado.
+# ( Não se aplica para federal, loteca, lotogol, sorte, sete)
 # Se nenhum argumento for passado, todas as loterias são mostradas.
 #
 # Uso: zzloteria [[loterias suportadas] [concurso|[quantidade|qtde]]
@@ -14,9 +15,8 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-05-18
-# Versão: 16
-# Licença: GPL
-# Requisitos: zzdatafmt zztrim zzunescape zzxml
+# Versão: 17
+# Requisitos: zzzz zztool zzdatafmt zzjuntalinhas zzhoramin zzsqueeze zzunescape zzxml
 # Tags: internet, jogo, consulta
 # Nota: requer unzip
 # ----------------------------------------------------------------------------
@@ -24,9 +24,9 @@ zzloteria ()
 {
 	zzzz -h loteria "$1" && return
 
-	local tipo num_con qtde
-	local url='https://confiraloterias.com.br'
-	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
+	local tipo num_con qtde codscript
+	local url='https://www.sorteonline.com.br/todas/resultados'
+	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca lotogol sorte sete'
 	local cache=$(zztool cache loteria)
 	local tab=$(printf '\t')
 	local un_zip='unzip -q -a -C -o'
@@ -41,6 +41,11 @@ zzloteria ()
 	then
 		tipos=$1
 		num_con=0
+	elif test '--atualiza' = "$1"
+	then
+		echo "$(zzdatafmt --iso hoje) $(zzhoramin)" > "$cache"
+		zztool source "$url" >> "$cache"
+		return
 	else
 		unset num_con
 		test -n "$1" && tipos="$*"
@@ -56,130 +61,59 @@ zzloteria ()
 		zztool eco "${tipo}:"
 		if ! test -n "$num_con"
 		then
+			if ! test -e "$cache" || test $(sed -n '1{s/ .*//;p;}' "$cache") != $(zzdatafmt --iso hoje) || test $(sed -n '1{s/.* //;p;}' "$cache") -lt 1200 -a $(zzhoramin) -gt 1200
+			then
+				zzloteria --atualiza
+			fi
+
 			# Resultados mais recentes das loterias selecionadas.
 			case "$tipo" in
-				quina)
-					zztool source "${url}/${tipo}" |
-					sed -n 's/</\t</g;/title_detail/p;/_gji _Uii/p;/class="table"/,/<\/table>/p;/.cumulado/p' |
-					zzxml --untag |
-					zzunescape --html |
-					zztrim |
-					awk 'NR==2{printf "\t" $0 "\n\n"}; NR>=4 && NR<19{for (i=0;i<3;i++) {if (i!=0) printf $0 "\t"; getline}; print}; NR==20{print ""}; NR==1 || NR>19' |
-					sed 's/	 / /' |
-					tr -s '\t'
-				;;
-				megasena)
-					zztool source "${url}/${tipo}" |
-					sed -n 's/</\t</g;/title_detail/p;/_gji _Uii/p;/class="table"/,/<\/table>/p;/.cumulado/p' |
-					zzxml --untag |
-					zzunescape --html |
-					zztrim |
-					awk 'NR==2{printf "\t" $0 "\n\n"}; NR>=4 && NR<15{for (i=0;i<3;i++) {if (i!=0) printf $0 "\t"; getline}; print}; NR==16{print ""}; NR==1 || NR>15' |
-					sed 's/	 / /' |
-					tr -s '\t'
-				;;
-				duplasena)
-					zztool source "${url}/${tipo}" |
-					sed -n 's/</\t</g;/title_detail/p;/ Sorteio/p;/_gji _Uii/p;/class="table"/,/<\/table>/p;/.cumulado/p' |
-					zzxml --untag |
-					zzunescape --html |
-					zztrim |
-					awk '
-						NR==2 || NR==4{printf "\t" $0 "\n\n"}
-						(NR>=7 && NR<23) || (NR>=25 && NR<41) {for (i=0;i<3;i++) {if (i!=0) printf $0 "\t"; getline}; print}
-						NR==5 || NR==23 || NR==41 {print ""}
-						NR==1 || NR==5 || NR==23 || NR==41
-					' |
-					sed 's/	 / /' |
-					tr -s '\t'
-				;;
-				lotomania)
-					zztool source "${url}/${tipo}" |
-					sed -n 's/</\t</g;/title_detail/p;/_gji _Uii/p;/class="table"/,/<\/table>/p;/.cumulado/p' |
-					zzxml --untag |
-					zzunescape --html |
-					zztrim |
-					awk '
-						# NR==2{printf $0 "\n\n"}
-						NR==2{for (i=1;i<=16;i+=5) printf "\t" $i "\t" $(i+1) "\t" $(i+2) "\t" $(i+3) "\t" $(i+4) "\n\n"}
-						NR>=4 && NR<31{for (i=0;i<3;i++) {if (i!=0) printf $0 "\t"; getline}; print}
-						NR==31{print ""}
-						NR==1 || NR>31
-					' |
-					sed 's/	 / /;1,2s/ 	/ /g' |
-					tr -s '\t'
-				;;
-				lotofacil)
-					zztool source "${url}/${tipo}" |
-					sed -n 's/</\t</g;/title_detail/p;/_gji _Uii/p;/class="table"/,/<\/table>/p;/.cumulado/p' |
-					zzxml --untag |
-					zzunescape --html |
-					zztrim |
-					awk '
-						# NR==2{printf $0 "\n\n"}
-						NR==2{for (i=1;i<=11;i+=5) printf "\t" $i "\t" $(i+1) "\t" $(i+2) "\t" $(i+3) "\t" $(i+4) "\n\n"}
-						NR>=4 && NR<23{for (i=0;i<3;i++) {if (i!=0) printf $0 "\t"; getline}; print}
-						NR==24{print ""}
-						NR==1 || NR>23' |
-					sed 's/	 / /' |
-					tr -s '\t'
-				;;
-				timemania)
-					zztool source "${url}/${tipo}" |
-					sed -n 's/</\t</g;/title_detail/p;/_gji _Uii/p;/class="table"/,/<\/table>/p;/.cumulado/p' |
-					zzxml --untag |
-					zzunescape --html |
-					zztrim |
-					awk '
-						NR>1 && NR<=3{printf "\t" $0 "\n\n"}
-						NR>=4 && NR<26{for (i=0;i<3;i++) {if (i>1) printf $0 "\t"; getline}; print}
-						NR==29{print ""}
-						NR==1 || NR>28' |
-					tr -s '\t ' |
-					sed 's/	 / /;4s/:[ 	]*/:/;s/^	Time/Time/;s/Time	/&	/'
-				;;
-				federal)
-					zztool source "${url}/${tipo}" |
-					sed -n 's/</\t</g;/title_detail/p;/quina_text_color/p' |
-					zzxml --untag | zztrim | awk 'NR==3{print ""};NR>7{exit};NR>2 {printf "\t" $0 "\n"}; NR==2' |
-					sed 's/ 	/	/g' |
-					tr -s '\t'
-				;;
-				loteca)
-					if ! test -e ${cache}.loteca.htm || test $(zzdatafmt --iso hoje) != $(tail -n 1 ${cache}.loteca.htm)
-					then
-						wget -q -O "${cache}.loteca.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_loteca.zip"
-						$un_zip "${cache}.loteca.zip" "*.HTM" -d "$tmp_dir" 2>/dev/null
-						mv -f "${tmp_dir}/D_LOTECA.HTM" ${cache}.loteca.htm
-						zzdatafmt --iso hoje >> ${cache}.loteca.htm
-						rm -f ${cache}.loteca.zip
-					fi
-					zztool dump ${cache}.loteca.htm |
-					grep -E --color=never '^  *[0-9]+ ' |
-					tail -n 1 |
-					awk '{
-						print "Concurso", $1, "(" $2 ")"
-						print " Jogo   Resultado"
-						printf "  1    %8s\n", "Col. " ($(NF-15)=="x"?"Meio":$(NF-15))
-						printf "  2    %8s\n", "Col. " ($(NF-14)=="x"?"Meio":$(NF-14))
-						printf "  3    %8s\n", "Col. " ($(NF-13)=="x"?"Meio":$(NF-13))
-						printf "  4    %8s\n", "Col. " ($(NF-12)=="x"?"Meio":$(NF-12))
-						printf "  5    %8s\n", "Col. " ($(NF-11)=="x"?"Meio":$(NF-11))
-						printf "  6    %8s\n", "Col. " ($(NF-10)=="x"?"Meio":$(NF-10))
-						printf "  7    %8s\n", "Col. " ($(NF-9)=="x"?"Meio":$(NF-9))
-						printf "  8    %8s\n", "Col. " ($(NF-8)=="x"?"Meio":$(NF-8))
-						printf "  9    %8s\n", "Col. " ($(NF-7)=="x"?"Meio":$(NF-7))
-						printf " 10    %8s\n", "Col. " ($(NF-6)=="x"?"Meio":$(NF-6))
-						printf " 11    %8s\n", "Col. " ($(NF-5)=="x"?"Meio":$(NF-5))
-						printf " 12    %8s\n", "Col. " ($(NF-4)=="x"?"Meio":$(NF-4))
-						printf " 13    %8s\n", "Col. " ($(NF-3)=="x"?"Meio":$(NF-3))
-						printf " 14    %8s\n", "Col. " ($(NF-2)=="x"?"Meio":$(NF-2))
-						print ""
-						printf "  14 pts.\t%s\t%s\n", ($3==0?"Nao houve acertador":$3), ($3==0?"":"R$ " $(NF-21))
-						printf "  13 pts.\t%s\t%s\n", $(NF-18), "R$ " $(NF-17)
-					}'
-				;;
+				quina)     codscript='Quina'; qtde=5;;
+				megasena)  codscript='Mega'; qtde=6;;
+				duplasena) codscript='Dupla'; qtde=6;;
+				lotomania) codscript='Lotomania'; qtde=5;;
+				lotofacil) codscript='Lotof'; qtde=5;;
+				timemania) codscript='Timemania'; qtde=7;;
+				federal)   codscript='Loteria'; qtde=5;;
+				loteca)    codscript='Loteca'; qtde=5;;
+				lotogol)   codscript='Lotogol'; qtde=5;;
+				sorte)     codscript='Dia'; qtde=7;;
+				sete)      codscript='Super'; qtde=7;;
+				*) zztool erro "Loteria escolhida inválida\n"; continue ;;
 			esac
+			sed -n '/<h2 class="name color">'${codscript}'/,/APOSTE AGORA/ {
+				/SORTEIO */{s///;p;}
+				/CONCURSO */{s///;p;}
+				/nome-sorteio/p
+				/<div class="nome-sorteio color">/{ n;p; }
+				/time-coracao/{ s/<[^>]*>//; s/ */		/; p; }
+				/<li/p
+				/<table class="result /,/table>/p
+				/Ganhadores/,/footer/p
+				/[Aa]cumulado/,/R\$/{ s/R\$/ & /;p; }
+				/Arrecada/,/R\$/{ s/R\$/ & /;p; }
+			}' "$cache" |
+			if test "$codscript" = 'Super'
+			then
+				awk 'NR<15 && /<li /{ sub(/<li /,"<li l=\042" NR "\042") };1'
+			else
+				cat -
+			fi |
+			uniq |
+			awk 'NR==1{sorteio=$0;next};NR==2{printf "Concurso " $0; print " ("sorteio")"};/<a /{next};/<li /{printf "\t" $0 (++i%'$qtde'==0?"\n":"");next};NR>2' |
+			zzjuntalinhas -i ' class="tr"' -f 'div>' |
+			zzjuntalinhas -i '<tr' -f 'tr>' |
+			zzxml --untag |
+			sed 's/Faixa.*mio//;/Ver Rateio/d;/Arrecada.*total/{n;q;};s/	 \{1,\}/	/;s/	\{1,\}/	/g;s/	X	/ X /;s/ACUMULOU.*//' |
+			awk '/[Aa]cumulado|Arrecada/{print ""};1' |
+			case "$tipo" in
+				duplasena) awk 'NR > 7 && NR < 16 && NF==0 {next};/Sorteio$/{printf "\n" $0 "\n";next};/Sena/ && NR>10{printf "\n"};1' ;;
+				federal)   awk 'NR > 2 && NR < 12 && NR %2 == 1 {milhar[(NR-1)/2]=$0};NR==1; NR > 12 && NR < 18 {print $1 "\t" milhar[++i] "\t" $3 "\t" $4 }' ;;
+				loteca)    awk -F '\t' 'NR > 1 && NR < 16 {sub(/^ */,"");printf "%s %22s  %s  %s\n", $1, $2, $3, $4;next};1' ;;
+				*) cat -;;
+			esac |
+			zzunescape --html |
+			zzsqueeze -l
 			echo
 		else
 			# Resultados históricos das loterias selecionadas.
@@ -188,8 +122,8 @@ zzloteria ()
 					if ! test -e ${cache}.lotomania.htm || ! $(zztool dump ${cache}.lotomania.htm | grep "^ *$num_con " >/dev/null)
 					then
 						wget -q -O "${cache}.lotomania.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotoma.zip"
-						$un_zip "${cache}.lotomania.zip" "*.HTM" -d "$tmp_dir" 2>/dev/null
-						mv -f "${tmp_dir}/D_LOTMAN.HTM" ${cache}.lotomania.htm
+						$un_zip "${cache}.lotomania.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
+						mv -f "${tmp_dir}/d_lotman.htm" ${cache}.lotomania.htm
 						rm -f ${cache}.lotomania.zip
 					fi
 					zztool dump ${cache}.lotomania.htm |
@@ -228,8 +162,8 @@ zzloteria ()
 					if ! test -e ${cache}.lotofacil.htm || ! $(zztool dump ${cache}.lotofacil.htm | grep "^ *$num_con " >/dev/null)
 					then
 						wget -q -O "${cache}.lotofacil.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip"
-						$un_zip "${cache}.lotofacil.zip" "*.HTM" -d "$tmp_dir" 2>/dev/null
-						mv -f "${tmp_dir}/D_LOTFAC.HTM" ${cache}.lotofacil.htm
+						$un_zip "${cache}.lotofacil.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
+						mv -f "${tmp_dir}/d_lotfac.htm" ${cache}.lotofacil.htm
 						rm -f ${cache}.lotofacil.zip
 					fi
 					zztool dump ${cache}.lotofacil.htm |
@@ -298,8 +232,8 @@ zzloteria ()
 					if ! test -e ${cache}.duplasena.htm || ! $(zztool dump ${cache}.duplasena.htm | grep "^ *$num_con " >/dev/null)
 					then
 						wget -q -O "${cache}.duplasena.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_dplsen.zip"
-						$un_zip "${cache}.duplasena.zip" "*.HTM" -d "$tmp_dir" 2>/dev/null
-						mv -f "${tmp_dir}/D_DPLSEN.HTM" ${cache}.duplasena.htm
+						$un_zip "${cache}.duplasena.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
+						mv -f "${tmp_dir}/d_dplsen.htm" ${cache}.duplasena.htm
 						rm -f ${cache}.duplasena.zip
 					fi
 					zztool dump ${cache}.duplasena.htm |
@@ -347,8 +281,8 @@ zzloteria ()
 					if ! test -e ${cache}.quina.htm || ! $(zztool dump ${cache}.quina.htm | grep "^ *$num_con " >/dev/null)
 					then
 						wget -q -O "${cache}.quina.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_quina.zip"
-						$un_zip "${cache}.quina.zip" "*.HTM" -d "$tmp_dir" 2>/dev/null
-						mv -f "${tmp_dir}/D_QUINA.HTM" ${cache}.quina.htm
+						$un_zip "${cache}.quina.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
+						mv -f "${tmp_dir}/d_quina.htm" ${cache}.quina.htm
 						rm -f ${cache}.quina.zip
 					fi
 					zztool dump ${cache}.quina.htm |
@@ -388,8 +322,8 @@ zzloteria ()
 					if ! test -e ${cache}.federal.htm || ! $(zztool dump ${cache}.federal.htm | grep "^[ 0]*$num_con " >/dev/null)
 					then
 						wget -q -O "${cache}.federal.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_federa.zip"
-						$un_zip "${cache}.federal.zip" "*.HTM" -d "$tmp_dir" 2>/dev/null
-						mv -f "${tmp_dir}/D_LOTFED.HTM" ${cache}.federal.htm
+						$un_zip "${cache}.federal.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
+						mv -f "${tmp_dir}/d_lotfed.htm" ${cache}.federal.htm
 						rm -f ${cache}.federal.zip
 					fi
 					zztool dump ${cache}.federal.htm |
@@ -408,8 +342,8 @@ zzloteria ()
 					if ! test -e ${cache}.timemania.htm || ! $(zztool dump ${cache}.timemania.htm | grep "^ *$num_con " >/dev/null)
 					then
 						wget -q -O "${cache}.timemania.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_timasc.zip"
-						$un_zip "${cache}.timemania.zip" "*.HTM" -d "$tmp_dir" 2>/dev/null
-						mv -f "${tmp_dir}/D_TIMASC.HTM" ${cache}.timemania.htm
+						$un_zip "${cache}.timemania.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
+						mv -f "${tmp_dir}/d_timasc.htm" ${cache}.timemania.htm
 						rm -f ${cache}.timemania.zip
 					fi
 					zztool dump ${cache}.timemania.htm |
@@ -451,8 +385,8 @@ zzloteria ()
 					if ! test -e ${cache}.loteca.htm || ! $(zztool dump ${cache}.loteca.htm | grep "^ *$num_con " >/dev/null)
 					then
 						wget -q -O "${cache}.loteca.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_loteca.zip"
-						$un_zip "${cache}.loteca.zip" "*.HTM" -d "$tmp_dir"
-						mv -f "${tmp_dir}/D_LOTECA.HTM" ${cache}.loteca.htm
+						$un_zip "${cache}.loteca.zip" "*.htm" -d "$tmp_dir"
+						mv -f "${tmp_dir}/d_loteca.htm" ${cache}.loteca.htm
 						zzdatafmt --iso hoje >> ${cache}.loteca.htm
 						rm -f ${cache}.loteca.zip
 					fi

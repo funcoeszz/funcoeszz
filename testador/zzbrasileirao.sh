@@ -1,3 +1,3 @@
-$ zzbrasileirao   | zzwc -l	#→ 22
-$ zzbrasileirao b | zzwc -l	#→ 22
-$ zzbrasileirao c | zzwc -l	#→ 26
+$ zzbrasileirao		#=> --lines 23
+$ zzbrasileirao b	#=> --lines 23
+$ zzbrasileirao c | sed -n '/Grupo A/,$p'	#=> --lines 25

@@ -13,8 +13,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-25
 # Versão: 7
-# Licença: GPL
-# Requisitos: zzunescape zzxml
+# Requisitos: zzzz zztool zzunescape zzxml
 # Tags: internet, distração
 # ----------------------------------------------------------------------------
 zzvdp ()

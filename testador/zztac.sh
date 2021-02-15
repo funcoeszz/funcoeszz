@@ -27,4 +27,4 @@ $ cat _numeros.txt | zztac
 3
 2
 1
-$ cat _numeros.txt | zztac | zztac   #→ --file _numeros.txt
+$ cat _numeros.txt | zztac | zztac   #=> --file _numeros.txt

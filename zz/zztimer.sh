@@ -5,6 +5,7 @@
 #   -x char: Igual a -n, mas os números são compostos pelo caracter "char".
 #   -y nums chars: Troca os nums por chars, igual ao comando 'y' no sed.
 #      Obs.: nums e chars tem que ter a mesma quantidade de caracteres.
+#   --centro: Centraliza tanto horizontal como verticalmente
 #   -c: Apenas converte o tempo em segundos.
 #   -s: Aguarda o tempo como sleep, sem mostrar o cronômetro.
 #   -p: Usa uma temporização mais precisa, porém usa mais recursos.
@@ -26,8 +27,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-01-25
 # Versão: 5
-# Licença: GPL
-# Requisitos: zzcut
+# Requisitos: zzzz zztool zzcut
 # Tags: tempo
 # ----------------------------------------------------------------------------
 zztimer ()
@@ -47,6 +47,7 @@ zztimer ()
 	while test "${1#-}" != "$1"
 	do
 		case "$1" in
+		--centro) opt='m'; shift ;;
 		-n) opt='n'; shift ;;
 		-x)
 			opt='x'
@@ -83,6 +84,7 @@ zztimer ()
 	else
 		case "$opt" in
 			n|x) no_tput=0; centro=1 ;;
+			m)   no_tput=0; centro=1; unset opt ;;
 			*)   no_tput=1; centro=0 ;;
 		esac
 	fi

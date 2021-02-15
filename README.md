@@ -4,8 +4,9 @@ Funções ZZ é uma coletânea com mais de 180 miniaplicativos de utilidades div
 
 - Website: http://funcoeszz.net
 - GitHub: https://github.com/funcoeszz/funcoeszz
-- Grupo: http://br.groups.yahoo.com/group/zztabtab/
+- Wiki: https://github.com/funcoeszz/funcoeszz/wiki
 - Twitter: https://twitter.com/Funcoes_ZZ
+- Licença: [GPL-2.0-only](https://spdx.org/licenses/GPL-2.0-only.html)
 
 
 ## Lista de colaboradores

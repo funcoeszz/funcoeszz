@@ -6,15 +6,13 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
 # Versão: 6
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzipinternet ()
 {
 	zzzz -h ipinternet "$1" && return
 
-	local url='http://ipaddress.com/'
-
 	# O resultado já vem pronto!
-	zztool source "$url" | sed -n '/My IPv4 Address/{s/<[^>]*>//g;s/.*ss//;p;}'
+	zztool source 'http://api.ipaddress.com/myip' | zztool nl_eof
 }

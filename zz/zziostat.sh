@@ -26,7 +26,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2015-02-17
 # Versão: 2
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: sistema, consulta
 # Nota: requer iostat
 # ----------------------------------------------------------------------------

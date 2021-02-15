@@ -1,15 +1,13 @@
 # ----------------------------------------------------------------------------
 # Exibe aleatoriamente uma frase do Sheldon, do seriado The Big Bang Theory.
-# Com a opção -t ou --traduzir mostra os diálogos traduzidos.
 #
-# Uso: zzsheldon [-t|--traduzir]
+# Uso: zzsheldon
 # Ex.: zzsheldon
 #
 # Autor: Jonas Gentina, <jgentina (a) gmail com>
 # Desde: 2015-09-25
 # Versão: 2
-# Licença: GPL
-# Requisitos: zzaleatorio zztrim zzjuntalinhas zzlinha zztradutor zzsqueeze zzxml zzutf8
+# Requisitos: zzzz zztool zzaleatorio zztrim zzjuntalinhas zzlinha zzsqueeze zzxml zzutf8
 # Tags: internet, distação
 # ----------------------------------------------------------------------------
 zzsheldon ()
@@ -21,7 +19,7 @@ zzsheldon ()
 	local begin="Quote from the episode"
 	local end="Correct this quote"
 
-	zztool source ${url}$(zzaleatorio 211) |
+	zztool source ${url}$(zzaleatorio 262) |
 	zzutf8 |
 	sed 's/Correct this quote/<p>Correct this quote<\/p>/g' |
 	zzxml --tag p |
@@ -35,10 +33,6 @@ zzsheldon ()
 	zzlinha |
 	tr '|' '\n' |
 	sed "/$end/d;s/$begin/Episode -/;/^[[:blank:]]*$/d" |
-	case $1 in
-		-t | --traduzir ) zztradutor en-pt ;;
-		*) cat - ;;
-		esac |
 	zztrim -H |
 	sed "2,$ { /:/!s/^/	/; s/: /:	/; }" |
 	expand -t 10

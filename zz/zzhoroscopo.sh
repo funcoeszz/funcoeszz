@@ -12,8 +12,7 @@
 # Autor: Juliano Fernandes, http://julianofernandes.com.br
 # Desde: 2016-05-07
 # Versão: 1
-# Licença: GPL
-# Requisitos: zzsemacento zzminusculas zztrim zzxml
+# Requisitos: zzzz zztool zzsemacento zzminusculas zztrim zzxml
 # Tags: internet, distração, consulta
 # ----------------------------------------------------------------------------
 zzhoroscopo ()
@@ -41,7 +40,9 @@ zzhoroscopo ()
 
 		# Faz a mágica acontecer
 		zztool source -u 'Mozilla/5.0' "$url" |
-			sed -n '/title-sign/p;/date-sign/{s/&.*//;p;};/text-pred/,/<span/p' |
+			sed -n '
+				/name-sign/p
+				/<p class="text-pred">/,/<\/p>/ { />Compartilhar</!p; }' |
 			zzxml --untag |
 			zztrim
 	else

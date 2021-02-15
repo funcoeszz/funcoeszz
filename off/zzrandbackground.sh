@@ -12,7 +12,6 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-12-12
 # Versão: 1
-# Licença: GPLv2
 # Requisitos: zzshuffle
 # Nota: requer gconftool
 # ----------------------------------------------------------------------------

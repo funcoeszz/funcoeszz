@@ -1,18 +1,14 @@
 # ----------------------------------------------------------------------------
 # Busca informações sobre o filme desejado.
-# Use a opção -t ou --traducao para ver a sinopse traduzida pelo Google
-# Translate.
 #
-# Uso: zzfilme [-t|--traducao] FILME
+# Uso: zzfilme FILME
 # Ex.: zzfilme matrix
 #      zzfilme 'matrix revolutions'
-#      zzfilme -t 'lord of the rings'
 #
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2018-04-16
 # Versão: 1
-# Licença: GPL
-# Requisitos: zzxml zztrim zztradutor zzecho zzcapitalize zzurldecode zzurlencode
+# Requisitos: zzzz zztool zzxml zztrim zzecho zzcapitalize zzurldecode zzurlencode
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzfilme ()
@@ -25,19 +21,7 @@ zzfilme ()
 	local tab=$(printf '\t')
 	local api='https://www.omdbapi.com/?apikey=2c30e4db&type=movie&r=xml&plot=full&t'
 
-	while test -n "$1"
-	do
-		case "$1" in
-			-t | --traducao)
-				traducao=1
-				shift
-			;;
-			*)
-				local filme=$(zzurlencode $1)
-				shift
-			;;
-		esac
-	done
+	local filme=$(zzurlencode $*)
 
 	local request=$(zztool source "${api}=${filme}" | zzxml --tag movie --indent | sed 's/\("\) /\1\n/g ; s/<movie // ; s/\/>// ; s/"//g' | zztrim)
 	filme=$(zzurldecode $filme)
@@ -57,12 +41,6 @@ zzfilme ()
 		zzecho -n -N -l branco "${tab}Atores principais: "; echo "$request" | awk -F= '/actors/ {print $2}'
 		zzecho -n -N -l branco "${tab}País: "; echo "$request" | awk -F= '/country/ {print $2}'
 		zzecho -n -N -l branco "${tab}Nota: "; echo "$request" | awk -F= '/imdbRating/ {print $2}'
-		zzecho -n -N -l branco "${tab}Sinopse: " ; echo "$request" | awk -F= '/plot/ {print $2}' |
-		if test "$traducao" -eq 1
-		then
-			zztradutor en-pt | zztrim
-		else
-			cat -
-		fi
+		zzecho -n -N -l branco "${tab}Sinopse: " ; echo "$request" | awk -F= '/plot/ {print $2}'
 	fi
 }

@@ -7,8 +7,7 @@
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2005-11-03
 # Versão: 6
-# Licença: GPL
-# Requisitos: zzurldecode
+# Requisitos: zzzz zztool zzurldecode
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzora ()

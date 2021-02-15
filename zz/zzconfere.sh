@@ -3,12 +3,13 @@
 # quina, megasena, duplasena, lotomania, lotofácil e timemania.
 #
 # Opções:
-#   quina:                Confere o concurso da quina.
-#   megasena:             Confere o concurso da megasena.
-#   duplasena:            Confere o concurso da duplasena.
-#   lotomania:            Confere o concurso da lotomania.
-#   lotofacil:            Confere o concurso da lotofácil.
-#   timemania:            Confere o concurso da timemania.
+#   quina:                Confere o concurso da Quina.
+#   megasena:             Confere o concurso da Megasena.
+#   duplasena:            Confere o concurso da Duplasena.
+#   lotomania:            Confere o concurso da Lotomania.
+#   lotofacil:            Confere o concurso da Lotofácil.
+#   timemania:            Confere o concurso da Timemania.
+#   sorte:                Confere o concurso do Dia da Sorte.
 #   -c <número>:          Consulta o concurso especificado em número.
 #   --apostas <arquivo>:  Arquivo onde estão as apostas feitas.
 #
@@ -29,9 +30,8 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-11-25
-# Versão: 1
-# Licença: GPL
-# Requisitos: zzhsort zzloteria
+# Versão: 2
+# Requisitos: zzzz zztool zzhsort zzloteria
 # Tags: internet, jogo, consulta
 # ----------------------------------------------------------------------------
 zzconfere ()
@@ -45,7 +45,7 @@ zzconfere ()
 
 	# Identificando qual loteria a ser conferida
 	case "$1" in
-	quina | megasena | duplasena | lotomania | lotof[aá]cil | timemania ) tipo="$1";;
+	quina | megasena | duplasena | lotomania | lotof[aá]cil | timemania | sorte ) tipo="$1";;
 	*) zztool -e uso confere; return 1;;
 	esac
 	shift
@@ -68,6 +68,7 @@ zzconfere ()
 		lotof[aá]cil)         min=6;  max=15 ;;
 		timemania)            min=10; max=10 ;;
 		lotomania)            min=50; max=50 ;;
+		sorte)                min=7;  max=15 ;;
 	esac
 
 	# Definindo as apostas passadas por argumento
@@ -87,14 +88,14 @@ zzconfere ()
 	codregex=$(
 		zzloteria $tipo $num |
 		case "$tipo" in
-			quina | megasena | timemania)
+			quina | megasena | timemania | sorte)
 				sed '3!d;s/^[[:blank:]]*/\\</;s/[[:blank:]]\{1,\}/\\>\|\\</g;s/$/\\> /'
 			;;
 			duplasena)
 				sed 's/^[[:blank:]]*/\\</;s/[[:blank:]]\{1,\}/\\>\|\\</g;s/$/\\> /' |
 				if test -z "$num"
 				then
-					sed -n '3p;5p;'
+					sed -n '5p;13p;'
 				else
 					sed -n '5p;8p;'
 				fi
@@ -111,12 +112,7 @@ zzconfere ()
 			;;
 			lotof[aá]cil)
 				sed 's/^[[:blank:]]*/\\</;s/[[:blank:]]\{1,\}/\\>\|\\</g;s/$/\\>/' |
-				if test -z "$num"
-				then
-					sed -n ';3p;5p;7p;'
-				else
-					sed -n '3,5p'
-				fi |
+				sed -n '3,5p' |
 				tr '\n' '|'
 			;;
 		esac |

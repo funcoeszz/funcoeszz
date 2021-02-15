@@ -8,7 +8,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-02-22
 # Versão: 2
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: arquivo, conversão
 # ----------------------------------------------------------------------------
 zzdos2unix ()

@@ -26,10 +26,10 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-09-02
 # Versão: 13
-# Licença: GPLv2
 # Requisitos: zzxml zzplay zzunescape zzutf8
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2020-12-18 Site usando técnicas AJAX (veja issue #590)
 zztradutor ()
 {
 	zzzz -h tradutor "$1" && return

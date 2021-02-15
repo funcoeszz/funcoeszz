@@ -12,8 +12,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-13
 # Versão: 5
-# Licença: GPL
-# Requisitos: zzvira
+# Requisitos: zzzz zztool zzvira
 # Tags: número, RANDOM, emulação
 # ----------------------------------------------------------------------------
 zzaleatorio ()

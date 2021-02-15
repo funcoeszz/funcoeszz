@@ -9,7 +9,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-23
 # Versão: 1
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: data
 # ----------------------------------------------------------------------------
 zzpascoa ()

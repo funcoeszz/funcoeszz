@@ -14,9 +14,8 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2002-11-07
-# Versão: 6
-# Licença: GPL
-# Requisitos: zzfeed
+# Versão: 7
+# Requisitos: zzzz zztool zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzlinuxnews ()
@@ -79,7 +78,7 @@ zzlinuxnews ()
 	# Linux Insider
 	if zztool grep_var i "$sites"
 	then
-		url='http://www.linuxinsider.com/perl/syndication/rssfull.pl'
+		url='https://linuxinsider.com/feed/'
 		echo
 		zztool eco "* Linux Insider - ($url):"
 		zzfeed -n $n "$url"

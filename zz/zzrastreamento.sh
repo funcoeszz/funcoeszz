@@ -8,8 +8,7 @@
 # Autor: Frederico Freire Boaventura <anonymous (a) galahad com br>
 # Desde: 2007-06-25
 # Versão: 4
-# Licença: GPL
-# Requisitos: zztrim zzunescape zzxml zzjuntalinhas
+# Requisitos: zzzz zztool zztrim zzunescape zzxml zzjuntalinhas
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzrastreamento ()

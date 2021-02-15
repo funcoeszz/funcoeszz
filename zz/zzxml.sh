@@ -27,8 +27,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-03
 # Versão: 15
-# Licença: GPL
-# Requisitos: zzjuntalinhas zzuniq zzunescape
+# Requisitos: zzzz zztool zzjuntalinhas zzuniq zzunescape
 # Tags: parser
 # ----------------------------------------------------------------------------
 zzxml ()

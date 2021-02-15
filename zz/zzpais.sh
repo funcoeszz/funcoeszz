@@ -16,8 +16,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-29
 # Versão: 4
-# Licença: GPL
-# Requisitos: zzlinha zzpad
+# Requisitos: zzzz zztool zzlinha zzpad
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzpais ()

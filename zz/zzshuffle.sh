@@ -7,8 +7,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-06-19
 # Versão: 1
-# Licença: GPL
-# Requisitos: zzaleatorio
+# Requisitos: zzzz zztool zzaleatorio
 # Tags: shuffle, emulação
 # ----------------------------------------------------------------------------
 zzshuffle ()

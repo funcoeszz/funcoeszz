@@ -1,18 +1,17 @@
 # ----------------------------------------------------------------------------
 # Palpites de jogos para várias loterias: quina, megasena, lotomania, etc.
 # Aqui está a lista completa de todas as loterias suportadas:
-# quina, megasena, duplasena, lotomania, lotofácil, timemania, federal, loteca
+# quina, megasena, duplasena, lotomania, lotofácil, timemania, sorte, sete, federal, loteca
 #
-# Uso: zzpalpite [quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|loteca]
+# Uso: zzpalpite [quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|sorte|sete|loteca]
 # Ex.: zzpalpite
 #      zzpalpite megasena
 #      zzpalpite megasena federal lotofacil
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2012-06-03
-# Versão: 5
-# Licença: GPL
-# Requisitos: zzminusculas zzsemacento zzseq zzaleatorio
+# Versão: 6
+# Requisitos: zzzz zztool zzaleatorio zzminusculas zzsemacento zzseq
 # Tags: jogo, distração
 # ----------------------------------------------------------------------------
 zzpalpite ()
@@ -21,7 +20,7 @@ zzpalpite ()
 
 	local tipo num posicao numeros palpites inicial final i
 	local qtde=0
-	local tipos='quina megasena duplasena lotomania lotofacil federal timemania loteca'
+	local tipos='quina megasena duplasena lotomania lotofacil federal timemania sorte sete loteca'
 
 	# Escolhe as loteria
 	test -n "$1" && tipos=$(echo "$*" | zzminusculas | zzsemacento)
@@ -69,14 +68,24 @@ zzpalpite ()
 				final=80
 				qtde=10
 			;;
-			loteca)
+			sorte)
+				inicial=1
+				final=31
+				qtde=7
+			;;
+			loteca | sete)
 				i=1
 				zztool eco $tipo:
-				while test "$i" -le "14"
-				do
-					printf " Jogo %0.2d: Coluna %d\n" $i $(zzaleatorio 0 2) | sed 's/ 0$/ do Meio/g'
-					i=$((i + 1))
-				done
+				if test 'sete' = "$tipo"
+				then
+					zzaleatorio 10000000 19999999 | sed 's/.//;s/./& /g;s/^/ /;s/ $//'
+				else
+					while test "$i" -le "14"
+					do
+						printf " Jogo %0.2d: Coluna %d\n" $i $(zzaleatorio 0 2) | sed 's/ 0$/ do Meio/g'
+						i=$((i + 1))
+					done
+				fi
 				echo
 				qtde=0
 				unset num posicao numeros palpites inicial final i

@@ -7,7 +7,6 @@
 # Autor: Leslie Harlley Watter <leslie (a) watter org>
 # Desde: 2003-08-05
 # Versão: 2
-# Licença: GPL
 # Nota: Colaboração de José Inácio Coelho <jinacio (a) yahoo com>
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-22 "This domain is for sale." :(

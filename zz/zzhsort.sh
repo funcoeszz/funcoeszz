@@ -23,8 +23,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-10-07
 # Versão: 2
-# Licença: GPL
-# Requisitos: zztranspor
+# Requisitos: zzzz zztool zztranspor
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzhsort ()

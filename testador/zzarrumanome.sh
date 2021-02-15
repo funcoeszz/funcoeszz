@@ -43,10 +43,10 @@ $ cd - > /dev/null
 $
 
 # Erros
-$ zzarrumanome                                    #→ --regex ^Uso:
-$ zzarrumanome -n                                 #→ --regex ^Uso:
-$ zzarrumanome -n -d                              #→ --regex ^Uso:
-$ zzarrumanome -n -r                              #→ --regex ^Uso:
+$ zzarrumanome                                    #=> --regex ^Uso:
+$ zzarrumanome -n                                 #=> --regex ^Uso:
+$ zzarrumanome -n -d                              #=> --regex ^Uso:
+$ zzarrumanome -n -r                              #=> --regex ^Uso:
 
 # File not found: no error, just ignore
 $ zzarrumanome -n XXnotfoundXX

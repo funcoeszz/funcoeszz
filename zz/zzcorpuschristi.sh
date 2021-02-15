@@ -9,8 +9,7 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-11-21
 # Versão: 1
-# Licença: GPL
-# Requisitos: zzdata zzpascoa
+# Requisitos: zzzz zztool zzdata zzpascoa
 # Tags: data
 # ----------------------------------------------------------------------------
 zzcorpuschristi ()

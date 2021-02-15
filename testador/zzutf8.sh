@@ -20,8 +20,8 @@ $
 
 # UTF-8 → UTF-8 (nada muda)
 
-$ zzutf8 zzascii.sh               #→ --file zzascii.sh
-$ cat zzascii.sh | zzutf8         #→ --file zzascii.sh
+$ zzutf8 zzascii.sh               #=> --file zzascii.sh
+$ cat zzascii.sh | zzutf8         #=> --file zzascii.sh
 $ printf 'bênção\n' | zzutf8
 bênção
 $ printf 'bênção'   | zzutf8 ; echo
@@ -30,8 +30,8 @@ $
 
 # US-ASCII → UTF-8 (nada muda)
 
-$ zzutf8 _numeros.txt             #→ --file _numeros.txt
-$ cat _numeros.txt | zzutf8       #→ --file _numeros.txt
+$ zzutf8 _numeros.txt             #=> --file _numeros.txt
+$ cat _numeros.txt | zzutf8       #=> --file _numeros.txt
 $ printf 'foo\n' | zzutf8
 foo
 $ printf 'foo'   | zzutf8 ; echo
@@ -40,8 +40,8 @@ $
 
 # vazio (nada muda)
 
-$ zzutf8 _vazio.txt               #→ --file _vazio.txt
-$ cat _vazio.txt | zzutf8         #→ --file _vazio.txt
+$ zzutf8 _vazio.txt               #=> --file _vazio.txt
+$ cat _vazio.txt | zzutf8         #=> --file _vazio.txt
 $ echo | zzutf8
 
 $ printf '' | zzutf8

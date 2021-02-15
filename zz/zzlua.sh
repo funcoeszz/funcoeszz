@@ -13,7 +13,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-09
 # Versão: 2
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzlua ()

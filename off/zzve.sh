@@ -19,7 +19,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-07-28
 # Versão: 4
-# Licença: GPL
 # Requisitos: zzuniq
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2018-01-06 Informação acessível apenas a assinantes no site.

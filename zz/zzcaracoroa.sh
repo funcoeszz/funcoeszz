@@ -6,8 +6,7 @@
 # Autor: Angelito M. Goulart, www.angelitomg.com
 # Desde: 2012-12-06
 # Versão: 1
-# Licença: GPL
-# Requisitos: zzaleatorio
+# Requisitos: zzzz zzaleatorio
 # Tags: RANDOM, emulação
 # ----------------------------------------------------------------------------
 zzcaracoroa ()

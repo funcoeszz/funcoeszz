@@ -13,8 +13,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-07
 # Versão: 1
-# Licença: GPL
-# Requisitos: zzminusculas
+# Requisitos: zzzz zztool zzminusculas
 # Tags: texto, contagem
 # ----------------------------------------------------------------------------
 zzcontapalavras ()

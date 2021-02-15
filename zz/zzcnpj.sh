@@ -13,9 +13,8 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
 # Versão: 4
-# Licença: GPL
-# Requisitos: zzaleatorio
-# Tags: cálculo, manipulação
+# Requisitos: zzzz zztool zzaleatorio
+# Tags: internet, cálculo, manipulação
 # ----------------------------------------------------------------------------
 zzcnpj ()
 {
@@ -33,6 +32,13 @@ zzcnpj ()
 
 	cnpj=$(echo "$*" | tr -d -c 0123456789)
 
+	# Remove os zeros do início (senão é considerado um octal)
+	# somente quando a sequência informada não for composta apenas por zeros
+	if test "$cnpj" != "00000000000000"
+	then
+		cnpj=$(echo "$cnpj" | sed 's/^0*//')
+	fi
+
 	# API para consultar situação e detalhes da empresa em formato json
 	if test '-c' = "$1"
 	then
@@ -49,27 +55,24 @@ zzcnpj ()
 		cnpj=$(printf "%014d" "$cnpj")
 
 		zztool source "https://receitaws.com.br/v1/cnpj/$cnpj" |
+		zztool nl_eof |
+		tr '{}[]' '\n' |
 		sed '
-			/^ *[{}]/d
-			/""/d
-			/\[\]/d
-			/{}/d
-			/"billing":/,$d
-			/"code": "00.00-0-00"/,/\]/d
-			/^ *\]/d
-			/ultima.atualizacao/{s/T/ /; s/\.[0-9]\{1,\}Z//;}
-			s/: \[$/:/
-			s/,$//
-			s/"//g
-			s/_/ /' |
-		awk '
-			/(text|qual|nome): / {
-				eol=($1 ~/nome:/?"\n":"")
-				sub(/(text|qual|nome): /,"")
-				printf $0 eol; next
-			}
-			/code: / {print " (" $2 ")" ; next}
-			1'
+			/"qsa"/d
+			/"qual"/d
+			/^[ ,]*$/d
+			/"billing"/,$d
+			s/^,//
+			s/","/"	"/g
+		' |
+		tr '\t' '\n' |
+		sed '
+			/"code"/d
+			/"atividades_secundarias"/,/"situacao"/ { /"situacao"/!d; }
+			1{ N; s/:.*:/:/;}
+			s/["_]/ /g
+			3,${/: *$/d;}
+		'
 		return 0
 	fi
 

@@ -8,10 +8,10 @@ $
 
 # Erros
 
-$ zztrocapalavra				#→ --regex ^Uso:
-$ zztrocapalavra	dois			#→ --regex ^Uso:
-$ zztrocapalavra	dois	DOIS		#→ --regex ^Uso:
-$ zztrocapalavra	dois	DOIS	_fake_	#→ Não consegui ler o arquivo _fake_
+$ zztrocapalavra				#=> --regex ^Uso:
+$ zztrocapalavra	dois			#=> --regex ^Uso:
+$ zztrocapalavra	dois	DOIS		#=> --regex ^Uso:
+$ zztrocapalavra	dois	DOIS	_fake_	#=> Não consegui ler o arquivo _fake_
 
 # Troca simples
 

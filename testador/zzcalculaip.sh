@@ -1,19 +1,19 @@
-$ zzcalculaip					#→ --regex ^Uso:
+$ zzcalculaip					#=> --regex ^Uso:
 
-$ zzcalculaip	a				#→ Número IP inválido 'a'
-$ zzcalculaip	0.0.0				#→ Número IP inválido '0.0.0'
-$ zzcalculaip	0.0				#→ Número IP inválido '0.0'
-$ zzcalculaip	0				#→ Número IP inválido '0'
-$ zzcalculaip	0.0.0.256			#→ Número IP inválido '0.0.0.256'
+$ zzcalculaip	a				#=> Número IP inválido 'a'
+$ zzcalculaip	0.0.0				#=> Número IP inválido '0.0.0'
+$ zzcalculaip	0.0				#=> Número IP inválido '0.0'
+$ zzcalculaip	0				#=> Número IP inválido '0'
+$ zzcalculaip	0.0.0.256			#=> Número IP inválido '0.0.0.256'
 
-$ zzcalculaip	10.0.0.0	a		#→ Máscara inválida: a
-$ zzcalculaip	10.0.0.0	-1		#→ Máscara inválida: -1
-$ zzcalculaip	10.0.0.0	33		#→ Máscara inválida: 33
-$ zzcalculaip	10.0.0.0	0.0.0		#→ Máscara inválida: 0.0.0
-$ zzcalculaip	10.0.0.0	0.0		#→ Máscara inválida: 0.0
-$ zzcalculaip	10.0.0.0	0.0.0.256	#→ Máscara inválida: 0.0.0.256
-$ zzcalculaip	10.0.0.0/33			#→ Máscara inválida: 33
-$ zzcalculaip	10.0.0.0/0.0.0.256		#→ Máscara inválida: 0.0.0.256
+$ zzcalculaip	10.0.0.0	a		#=> Máscara inválida: a
+$ zzcalculaip	10.0.0.0	-1		#=> Máscara inválida: -1
+$ zzcalculaip	10.0.0.0	33		#=> Máscara inválida: 33
+$ zzcalculaip	10.0.0.0	0.0.0		#=> Máscara inválida: 0.0.0
+$ zzcalculaip	10.0.0.0	0.0		#=> Máscara inválida: 0.0
+$ zzcalculaip	10.0.0.0	0.0.0.256	#=> Máscara inválida: 0.0.0.256
+$ zzcalculaip	10.0.0.0/33			#=> Máscara inválida: 33
+$ zzcalculaip	10.0.0.0/0.0.0.256		#=> Máscara inválida: 0.0.0.256
 
 # Máscara padrão RFC 1918
 $ zzcalculaip 10.0.0.0

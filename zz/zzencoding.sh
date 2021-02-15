@@ -10,7 +10,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2015-03-21
 # Versão: 1
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzencoding ()

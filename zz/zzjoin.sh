@@ -18,7 +18,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-12-05
 # Versão: 1
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: arquivo, manipulação
 # ----------------------------------------------------------------------------
 zzjoin ()
