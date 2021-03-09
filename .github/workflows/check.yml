@@ -10,13 +10,51 @@ jobs:
       - uses: actions/checkout@v2
       - run: ./util/requisitos.sh
 
-  test:
-    runs-on: ubuntu-latest
+  test-ubuntu-16:
+    runs-on: ubuntu-16.04
     steps:
       - uses: actions/checkout@v2
 
       - name: Install dependencies (apt)
-        run: sudo apt-get install bc links
+        run: sudo apt-get install links
+
+      - name: Install clitest
+        run: |
+          curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
+          chmod +x clitest
+          mv clitest testador
+
+      - name: Run the tests
+        run: |
+          ./testador/run funcoeszz.md
+          ./testador/run internet_travis
+
+  test-ubuntu-18:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies (apt)
+        run: sudo apt-get install links
+
+      - name: Install clitest
+        run: |
+          curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
+          chmod +x clitest
+          mv clitest testador
+
+      - name: Run the tests
+        run: |
+          ./testador/run funcoeszz.md
+          ./testador/run internet_travis
+
+  test-ubuntu-20:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies (apt)
+        run: sudo apt-get install links
 
       - name: Install clitest
         run: |
