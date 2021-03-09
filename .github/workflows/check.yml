@@ -1,0 +1,30 @@
+# https://docs.github.com/en/actions/reference
+
+name: Check
+on: push
+jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: ./util/requisitos.sh
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies (apt)
+        run: sudo apt-get install bc links
+
+      - name: Install clitest
+        run: |
+          curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
+          chmod +x clitest
+          mv clitest testador
+
+      - name: Run the tests
+        run: |
+          ./testador/run funcoeszz.md
+          ./testador/run internet_travis
