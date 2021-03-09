@@ -16,7 +16,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install dependencies (apt)
-        run: sudo apt-get install links
+        run: |
+          sudo apt-get install bc links
+          ./funcoeszz zzzz --teste
 
       - name: Install clitest
         run: |
@@ -35,7 +37,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install dependencies (apt)
-        run: sudo apt-get install links
+        run: |
+          sudo apt-get install links
+          ./funcoeszz zzzz --teste
 
       - name: Install clitest
         run: |
@@ -54,7 +58,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install dependencies (apt)
-        run: sudo apt-get install links
+        run: |
+          sudo apt-get install links
+          ./funcoeszz zzzz --teste
 
       - name: Install clitest
         run: |
