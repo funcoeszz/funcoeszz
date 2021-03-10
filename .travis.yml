@@ -6,11 +6,6 @@ addons:
       - bc
       - links
 
-before_install:
-  - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
-  - chmod +x clitest
-  - mv clitest testador
-
 script:
   - ./util/requisitos.sh
   - ./testador/run funcoeszz.md
