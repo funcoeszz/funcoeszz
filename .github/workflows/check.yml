@@ -47,6 +47,14 @@ jobs:
           chmod +x clitest
           mv clitest testador
 
+      # debug
+      - run: uname -a
+      - run: env
+      - run: id
+      - run: pwd
+      - run: which sed
+      - run: sed --version
+
       - name: Run the tests
         run: |
           ./testador/run funcoeszz.md
