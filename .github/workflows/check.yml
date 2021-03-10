@@ -54,6 +54,10 @@ jobs:
       - run: pwd
       - run: which sed
       - run: sed --version
+      - run: ./funcoeszz zzzz
+      - run: ./funcoeszz zzconjugar comemorar def || true
+      - run: ./funcoeszz zzloteria federal 2500 || true
+      - run: ./funcoeszz zznerdcast | wc -l || true
 
       - name: Run the tests
         run: |
