@@ -143,6 +143,42 @@ $ zztool multi_stdin ok
 ok
 $
 
+# list2lines
+
+$ echo ' a  b  c ' | zztool list2lines
+a
+b
+c
+$ echo ' a,  b,  c ' | zztool list2lines
+a
+b
+c
+$ echo ' a;  b;  c ' | zztool list2lines
+a
+b
+c
+$ zztool list2lines ' a   b   c '
+a
+b
+c
+$ zztool list2lines ' a,  b,  c '
+a
+b
+c
+$ zztool list2lines ' a;  b;  c ' 
+a
+b
+c
+$ zztool list2lines  a   b   c
+a
+b
+c
+$ zztool list2lines  a,  b,  c 
+a
+b
+c
+$
+
 # nl_eof
 
 $ printf 'abc' | zztool nl_eof
