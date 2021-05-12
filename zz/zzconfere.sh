@@ -88,10 +88,10 @@ zzconfere ()
 	codregex=$(
 		zzloteria $tipo $num |
 		case "$tipo" in
-			quina | megasena | timemania | sorte)
+			(quina | megasena | timemania | sorte)
 				sed '3!d;s/^[[:blank:]]*/\\</;s/[[:blank:]]\{1,\}/\\>\|\\</g;s/$/\\> /'
 			;;
-			duplasena)
+			(duplasena)
 				sed 's/^[[:blank:]]*/\\</;s/[[:blank:]]\{1,\}/\\>\|\\</g;s/$/\\> /' |
 				if test -z "$num"
 				then
@@ -100,7 +100,7 @@ zzconfere ()
 					sed -n '5p;8p;'
 				fi
 			;;
-			lotomania)
+			(lotomania)
 				sed 's/^[[:blank:]]*/\\</;s/[[:blank:]]\{1,\}/\\>\|\\</g;s/$/\\>/' |
 				if test -z "$num"
 				then
@@ -110,7 +110,7 @@ zzconfere ()
 				fi |
 				tr '\n' '|'
 			;;
-			lotof[aá]cil)
+			(lotof[aá]cil)
 				sed 's/^[[:blank:]]*/\\</;s/[[:blank:]]\{1,\}/\\>\|\\</g;s/$/\\>/' |
 				sed -n '3,5p' |
 				tr '\n' '|'
