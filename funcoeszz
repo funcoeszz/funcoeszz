@@ -56,15 +56,51 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 # Não altere nada aqui.
 #
 #
+
 ### Truques para descobrir a localização deste arquivo no sistema
-#
-# Se a chamada foi pelo executável, o arquivo é o $0.
-# Senão, tenta usar a variável de ambiente ZZPATH, definida pelo usuário.
-# Caso não exista, usa o local padrão ZZPATH_DFT.
-# Finalmente, força que ZZPATH seja uma rota absoluta.
-#
-test "${0##*/}" = 'bash' -o "${0#-}" != "$0" || ZZPATH="$0"
+
+# 1. Resolução do parâmetro $0:
+# https://github.com/aureliojargas/livro-shell/issues/2#issuecomment-830872380
+
+# 1.1. "bash arquivo.sh" vs. "source arquivo.sh" 
+# (https://superuser.com/a/176788/42896)
+
+# Quando o arquivo de script é executado com "bash arquivo.sh",
+# (ou com "./arquivo.sh", caso tenha permissão de execução),
+# o valor do parâmetro $0 é o nome do arquivo.
+# (Neste caso é o valor de $ZZPATH que queremos)
+
+# A outra forma de executar o arquivo de script é usando "source arquivo.sh".
+# Nesta outra forma, o valor de $0 depende do tipo de shell sendo executado.
+
+# 1.2 login shell vs. non-login shell
+# Todo terminal (shell) é do tipo login shell, ou non-login shell.
+
+# O login shell ocorre a cada janela de terminal local aberta,
+# ou a cada conexão a um terminal remoto (ssh).
+# Neste caso, o valor de $0 é o nome do terminal, com hífen:
+# (i.e. "-bash", ou outro tipo de terminal (sh, etc.))
+# (detalhes em https://unix.stackexchange.com/a/128983/8632)
+
+# Quaisquer novos terminais abertos nestes terminais inicial são non-login.
+# (i.e. chamar "bash" em um prompt, ou "sudo su" etc.)
+# Neste caso, o valor de $0 após isto é o nome do terminal, sem hífen:
+# (i.e. "bash", etc.)
+
+# Então, precisamos identificar:
+# Se o valor de $0 é o nome do terminal,
+# ou
+# Se o valor de $0 é prefixado por hífen
+# (isto só acontece com o nome do terminal,
+# por isso não precisamos testar pelo nome do terminal novamente)
+
+# Se o valor for um desses, assumimos que já existe um $ZZPATH configurado.
+test "${0##*/}" = 'bash' -o "${0#-}" != "$0" ||
+  # Caso contrário, bingo, é o $ZZPATH q queremos
+  ZZPATH="$0"
+# 2. Se a variável $ZZPATH não foi inicializada, usamos um valor padrão.
 test -n "$ZZPATH" || ZZPATH=$ZZPATH_DFT
+# 3. Finalmente, força que ZZPATH seja uma rota absoluta.
 test "${ZZPATH#/}" = "$ZZPATH" && ZZPATH="$PWD/${ZZPATH#./}"
 
 test -d "${ZZPATH%/*}/zz" && ZZDIR="${ZZPATH%/*}/zz"
