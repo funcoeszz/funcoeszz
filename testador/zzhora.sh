@@ -1,24 +1,33 @@
 $ now=$(  date +'%H:%M (0d %kh %Mm)' | sed 's/  / /;s/0\(.m\)/\1/') # %k bugged
-$ now_r=$(date +'%H:%M (hoje)')
+$ now_hour=$(date +'%H:%M')
+$ hoje=$(date +'hoje: %d/%m/%Y')
+$ ontem=$(date -d "-1days" +'ontem: %d/%m/%Y')
+$ amanha=$(date -d "+1days" +'amanhã: %d/%m/%Y')
+$ depois_de_amanha=$(date -d "+2days" +'depois de amanhã: %d/%m/%Y')
+$ anteontem=$(date -d "-2days" +'anteontem: %d/%m/%Y')
+$ now_mais_10d=$(date -d "+10days" +'10 dias: %d/%m/%Y')
+$ now_menos_10d=$(date -d "-10days" +'-10 dias: %d/%m/%Y')
 $
 
-$ zzhora 	agora					#=> --eval echo "$now"
-$ zzhora -r	agora					#=> --eval echo "$now_r"
+$ zzhora agora						#=> --eval echo "$now"
+$ zzhora -r	agora					#=> --eval echo "$now_hour ($hoje)"
 $ zzhora 	600					#=> 10:00 (0d 10h 0m)
-$ zzhora -r	600					#=> 10:00 (hoje)
+$ zzhora -r	600					#=> --eval echo "10:00 ($hoje)"
 $ zzhora 	240:					#=> 240:00 (10d 0h 0m)
-$ zzhora -r	240:					#=> 00:00 (10 dias)
+$ zzhora -r	240:					#=> --eval echo "00:00 ($now_mais_10d)"
 $ zzhora 	-600					#=> -10:00 (0d 10h 0m)
-$ zzhora -r	-600					#=> 14:00 (ontem)
+$ zzhora -r	-600					#=> --eval echo "14:00 ($ontem)"
 $ zzhora 	-240:					#=> -240:00 (10d 0h 0m)
-$ zzhora -r	-240:					#=> 00:00 (-10 dias)
+$ zzhora -r	-240:					#=> --eval echo "00:00 ($now_menos_10d)"
 
 # Faltando argumentos
 
 $ zzhora 						#=> --regex ^Uso:
 $ zzhora -r						#=> --regex ^Uso:
+$ zzhora -r	01:00	02:00	#=> --regex ^Uso:
 $ zzhora 	01:00	+	02:00	+		#=> --regex ^Uso:
 $ zzhora 01:00	+	02:00	+	03:00	+	#=> --regex ^Uso:
+$ zzhora 	01:00	02:00	#=> --regex ^Uso:
 
 # Hora inválida
 
@@ -28,63 +37,61 @@ $ zzhora 	12:foo					#=> Horário inválido '12:foo', deve ser HH:MM
 $ zzhora 	agora	+	foo			#=> Horário inválido 'foo', deve ser HH:MM
 $ zzhora 	agora	+	foo:12			#=> Horário inválido 'foo:12', deve ser HH:MM
 $ zzhora 	agora	+	12:foo			#=> Horário inválido '12:foo', deve ser HH:MM
-
-# Este próximo teste tem uma linha em branco indesejada no resultado.
-# Como há 3 horários e a função sempre lida de dois em dois, ela faz
-# chamadas recursivas para si mesma. Assim, fica complicado remover esta
-# linha adicional. Então, neste caso, é melhor deixar assim mesmo.
-$ zzhora 	01:00	+	02:00	+	foo
-Horário inválido 'foo', deve ser HH:MM
-
-$
+$ zzhora 	01:00	+	02:00	+	foo	#=> Horário inválido 'foo', deve ser HH:MM
 
 # Operação inválida
 
 $ zzhora 	agora	/	'8:00'			#=> Operação inválida '/'. Deve ser + ou -.
 $ zzhora -r	agora	/	'8:00'			#=> Operação inválida '/'. Deve ser + ou -.
-$ zzhora 	01:00	02:00				#=> Operação inválida '02:00'. Deve ser + ou -.
-$ zzhora -r	01:00	02:00				#=> Operação inválida '02:00'. Deve ser + ou -.
 $ zzhora 	01:00	+	02:00	03:00		#=> --regex ^Uso:
 
 # Opção -r e cálculos múltiplos
-
-$ zzhora -r	01:00	+	02:00	03:00		#=> A opção -r não suporta cálculos múltiplos
-$ zzhora -r	01:00	+	02:00	+		#=> A opção -r não suporta cálculos múltiplos
-$ zzhora -r	01:00	+	02:00	+	03:00	#=> A opção -r não suporta cálculos múltiplos
+$ zzhora -r	10	+	20	+	03:00	#=> --eval echo "03:30 ($hoje)"
+$ zzhora -r	01:00	+	02:00	+	03:00	#=> --eval echo "06:00 ($hoje)"
+$ zzhora -r	24:00	+	01:00	+	02:00	+	03:00	#=> --eval echo "06:00 ($amanha)"
+$ zzhora -r	48:00	+	01:00	+	02:00	+	03:00	#=> --eval echo "06:00 ($depois_de_amanha)"
+$ zzhora -r	-24:00	+	01:00	+	02:00	+	03:00	#=> --eval echo "06:00 ($ontem)"
+$ zzhora -r	-48:00	+	01:00	+	02:00	+	03:00	#=> --eval echo "06:00 ($anteontem)"
+$ zzhora -r	-48:00	+	01:00	+	02:00	+	03:00	#=> --eval echo "06:00 ($anteontem)"
+$ zzhora -r	-47:00	-	00:59	+	00:01	#=> --eval echo "00:02 ($anteontem)"
+$ zzhora -r	240:00	+	00:59	+	00:01	#=> --eval echo "01:00 ($now_mais_10d)"
+$ zzhora -r	-240:00	+	00:59	+	00:01	#=> --eval echo "01:00 ($now_menos_10d)"
 
 # Faltando pedaços (completa com valor default=0)
 
-$ zzhora -r	1:00	-	0:59			#=> 00:01 (hoje)
+$ minute_value="00:01 ($hoje)"
+$ hour_value="01:00 ($hoje)"
+$ zzhora -r	1:00	-	0:59			#=> --eval echo "$minute_value"
 $ zzhora 	1:00	-	0:59			#=> 00:01 (0d 0h 1m)
-$ zzhora -r	:02	-	:01			#=> 00:01 (hoje)
+$ zzhora -r	:02	-	:01			#=> --eval echo "$minute_value"
 $ zzhora 	:02	-	:01			#=> 00:01 (0d 0h 1m)
-$ zzhora -r	:2	-	:1			#=> 00:01 (hoje)
+$ zzhora -r	:2	-	:1			#=> --eval echo "$minute_value"
 $ zzhora 	:2	-	:1			#=> 00:01 (0d 0h 1m)
-$ zzhora -r	2	-	1			#=> 00:01 (hoje)
+$ zzhora -r	2	-	1			#=> --eval echo "$minute_value"
 $ zzhora 	2	-	1			#=> 00:01 (0d 0h 1m)
-$ zzhora -r	02	-	01			#=> 00:01 (hoje)
+$ zzhora -r	02	-	01			#=> --eval echo "$minute_value"
 $ zzhora 	02	-	01			#=> 00:01 (0d 0h 1m)
-$ zzhora -r	02:	-	01:			#=> 01:00 (hoje)
+$ zzhora -r	02:	-	01:			#=> --eval echo "$hour_value"
 $ zzhora 	02:	-	01:			#=> 01:00 (0d 1h 0m)
-$ zzhora -r	2:	-	1:			#=> 01:00 (hoje)
+$ zzhora -r	2:	-	1:			#=> --eval echo "$hour_value"
 $ zzhora 	2:	-	1:			#=> 01:00 (0d 1h 0m)
 
-$ zzhora -r	01:00	-	00:59			#=> 00:01 (hoje)
-$ zzhora -r	01:00	-	01:00			#=> 00:00 (hoje)
-$ zzhora -r	01:00	-	01:01			#=> 23:59 (ontem)
-$ zzhora -r	01:00	-	02:00			#=> 23:00 (ontem)
+$ zzhora -r	01:00	-	00:59			#=> --eval echo "00:01 ($hoje)"
+$ zzhora -r	01:00	-	01:00			#=> --eval echo "00:00 ($hoje)"
+$ zzhora -r	01:00	-	01:01			#=> --eval echo "23:59 ($ontem)"
+$ zzhora -r	01:00	-	02:00			#=> --eval echo "23:00 ($ontem)"
 
-$ zzhora -r	01:00	-	24:59			#=> 00:01 (ontem)
-$ zzhora -r	01:00	-	25:00			#=> 00:00 (ontem)
-$ zzhora -r	01:00	-	25:01			#=> 23:59 (anteontem)
+$ zzhora -r	01:00	-	24:59			#=> --eval echo "00:01 ($ontem)"
+$ zzhora -r	01:00	-	25:00			#=> --eval echo "00:00 ($ontem)"
+$ zzhora -r	01:00	-	25:01			#=> --eval echo "23:59 ($anteontem)"
 
-$ zzhora -r	23:00	+	00:59			#=> 23:59 (hoje)
-$ zzhora -r	23:00	+	01:00			#=> 00:00 (amanhã)
-$ zzhora -r	23:00	+	01:01			#=> 00:01 (amanhã)
+$ zzhora -r	23:00	+	00:59			#=> --eval echo "23:59 ($hoje)"
+$ zzhora -r	23:00	+	01:00			#=> --eval echo "00:00 ($amanha)"
+$ zzhora -r	23:00	+	01:01			#=> --eval echo "00:01 ($amanha)"
 
-$ zzhora -r	23:00	+	24:59			#=> 23:59 (amanhã)
-$ zzhora -r	23:00	+	25:00			#=> 00:00 (2 dias)
-$ zzhora -r	23:00	+	25:01			#=> 00:01 (2 dias)
+$ zzhora -r	23:00	+	24:59			#=> --eval echo "23:59 ($amanha)"
+$ zzhora -r	23:00	+	25:00			#=> --eval echo "00:00 ($depois_de_amanha)"
+$ zzhora -r	23:00	+	25:01			#=> --eval echo "00:01 ($depois_de_amanha)"
 
 $ zzhora 	01:00	-	00:59			#=> 00:01 (0d 0h 1m)
 $ zzhora 	01:00	-	01:00			#=> 00:00 (0d 0h 0m)
