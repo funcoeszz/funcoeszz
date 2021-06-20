@@ -19,7 +19,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2015-03-05
 # Versão: 3
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: trim, emulação
 # ----------------------------------------------------------------------------
 zztrim ()

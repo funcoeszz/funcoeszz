@@ -162,11 +162,11 @@ CESP6.SA       CESP - Cia Energetica de Sao Paulo
 SBSP3.SA       Companhia de Saneamento Basico do Estado de Sao Paulo
 $
 
-$ zzbolsas commodities     #→ --lines 18
-$ zzbolsas moedas          #→ --lines 18
-$ zzbolsas moedas latina   #→ --lines 14
-$ zzbolsas moedas europa   #→ --lines 16
-$ zzbolsas taxas_cruzadas  #→ --lines 9
-$ zzbolsas volume | head -n 90          #→ --lines 90
-$ zzbolsas alta | head -n 90            #→ --lines 90
-$ zzbolsas baixa | head -n 90           #→ --lines 90
+$ zzbolsas commodities     #=> --lines 18
+$ zzbolsas moedas          #=> --lines 18
+$ zzbolsas moedas latina   #=> --lines 14
+$ zzbolsas moedas europa   #=> --lines 16
+$ zzbolsas taxas_cruzadas  #=> --lines 9
+$ zzbolsas volume | head -n 90          #=> --lines 90
+$ zzbolsas alta | head -n 90            #=> --lines 90
+$ zzbolsas baixa | head -n 90           #=> --lines 90

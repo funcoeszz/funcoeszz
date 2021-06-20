@@ -1,3 +1,3 @@
 $ lower='abcdefghijklmnopqrstuvwxyzàáâãäåèéêëìíîïòóôõöùúûüçñ'
 $ upper='ABCDEFGHIJKLMNOPQRSTUVWXYZÀÁÂÃÄÅÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÇÑ'
-$ zzmaiusculas "$lower"	#→ --eval echo "$upper"
+$ zzmaiusculas "$lower"	#=> --eval echo "$upper"

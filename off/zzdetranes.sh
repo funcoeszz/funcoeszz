@@ -6,7 +6,6 @@
 # Autor: Kl0nEz <kl0nez (a) wifi org br>
 # Desde: 2005-02-23
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-22 O endereço está retornando um IFRAME.
 zzdetranes ()

@@ -51,4 +51,4 @@ $
 
 # Sem argumentos
 
-$ zzdicantonimos        #→ --regex ^Uso:
+$ zzdicantonimos        #=> --regex ^Uso:

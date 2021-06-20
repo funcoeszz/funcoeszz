@@ -9,7 +9,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2015-02-22
 # Versão: 3
-# Licença: GPL
 # Requisitos: zzdatafmt zzjuntalinhas zzlimpalixo zzminusculas zzpad zzsemacento zzsqueeze zztrim zzunescape zzutf8 zzxml
 # Tags: cinema
 # ----------------------------------------------------------------------------

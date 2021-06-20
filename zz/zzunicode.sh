@@ -11,10 +11,9 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2018-10-13
-# Versão: 1
-# Licença: GPL
-# Requisitos: zzcolunar zztrim
-# Tags: texto, tabela
+# Versão: 3
+# Requisitos: zzzz zztool zzcolunar zztrim
+# Tags: internet, texto, tabela
 # ----------------------------------------------------------------------------
 zzunicode ()
 {
@@ -61,14 +60,13 @@ zzunicode ()
 	fi
 
 	zztool source "${url}${bloco}" |
-	zztrim |
-	if test "$nome" -eq 1
-	then
-		awk -F '"' '/class="symb"/{sub(">","",$9);sub("</a></li>","",$9);print substr($8,5,length($8)-5) "\t" $9 "\t" $6}'
-	else
-		awk -F '"' '/class="symb"/{sub(">","",$9);sub("</a></li>","",$9); print substr($8,5,length($8)-5) "\t" $9 }'
-	fi |
-	sed '/&#[0-9]*;/d' |
+	sed -n '/<li.*character-list__item/,/li>/{/data-symbol/,/href/p;}' |
+	awk '{
+		sub(/.*="/,""); sub(/".*/,"")
+		if (NR%3==0) { sub(/\/en\//,""); sub(/\//,""); print }
+		else printf $0 ";"
+	}' |
+	awk -F ';' -v a_nome=$nome '{ print $3 "\t" $1 (a_nome==1? "\t" $2:"") }' |
 	if test -n "$coluna"
 	then
 		zzcolunar -w 15 $coluna

@@ -10,8 +10,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-10-24
 # Versão: 3
-# Licença: GPL
-# Requisitos: zzdata
+# Requisitos: zzzz zztool zzdata
 # Tags: data
 # ----------------------------------------------------------------------------
 zzdiadasemana ()

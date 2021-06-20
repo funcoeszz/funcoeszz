@@ -17,8 +17,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
 # Versão: 5
-# Licença: GPL
-# Requisitos: zzminusculas
+# Requisitos: zzzz zztool zzminusculas
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzcapitalize ()

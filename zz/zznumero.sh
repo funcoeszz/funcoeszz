@@ -31,8 +31,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
 # Versão: 13
-# Licença: GPL
-# Requisitos: zzvira zztestar
+# Requisitos: zzzz zztool zzvira zztestar
 # Tags: número, manipulação
 # ----------------------------------------------------------------------------
 zznumero ()

@@ -9,7 +9,6 @@
 # Autor: Lauro Cavalcanti de Sa <lauro (a) ecdesa com>
 # Desde: 2010-01-28
 # Versão: 20100128
-# Licença: GPLv2
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2011-05-24 Funcionalidades implementadas na zzdatafmt.
 zzdatabarras ()

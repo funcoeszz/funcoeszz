@@ -1,5 +1,5 @@
 # Usar no teste a opção --teste para ter retorno visual.
-$ zztimer -c 4:32	#→ 272
+$ zztimer -c 4:32	#=> 272
 $ zztimer 15
 00:00:15
 00:00:14

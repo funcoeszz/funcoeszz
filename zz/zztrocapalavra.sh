@@ -7,7 +7,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2000-05-04
 # Versão: 2
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zztrocapalavra ()

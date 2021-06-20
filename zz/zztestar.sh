@@ -34,7 +34,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-03-14
 # Versão: 2
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: número, teste
 # ----------------------------------------------------------------------------
 zztestar ()
@@ -167,8 +167,9 @@ zztestar ()
 			{
 				if ( $0 ~ /^:[^:]/ )      { exit 1 }
 				if ( $0 ~ /:::/  )        { exit 1 }
-				if ( $0 ~ /:$/ )          { exit 1 }
+				if ( $0 ~ /[^:]:$/ )      { exit 1 }
 				if ( NF<8 && $0 !~ /::/ ) { exit 1 }
+				if ( $0 ~ /::.+::/ )      { exit 1 }
 				if ( NF>8 )               { exit 1 }
 				if ( NF<=8 ) {
 					for (i=1; i<=NF; i++) {

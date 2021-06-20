@@ -1,6 +1,5 @@
 .TH "Funções ZZ" 1 "" ""
 
-
 .SH zzajuda
 
 .nf
@@ -236,12 +235,11 @@ Ex.: zzbraille 'Olá mundo!'
 .SH zzbrasileirao
 
 .nf
-http://esporte.uol.com.br/
-Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B, C ou D.
-Se for fornecido um numero mostra os jogos da rodada, com resultados.
+https://www.ogol.com.br
+Mostra a tabela atualizada do Campeonato Brasileiro - Série A, B ou C.
 
 Nomenclatura:
-PG  - Pontos Ganhos
+P   - Pontos Ganhos
 J   - Jogos
 V   - Vitórias
 E   - Empates
@@ -249,15 +247,12 @@ D   - Derrotas
 GP  - Gols Pró
 GC  - Gols Contra
 SG  - Saldo de Gols
-(%) - Aproveitamento (pontos)
 
-Uso: zzbrasileirao [a|b|c|d] [numero rodada]
+Uso: zzbrasileirao [a|b|c]
 Ex.: zzbrasileirao
    zzbrasileirao a
    zzbrasileirao b
    zzbrasileirao c
-   zzbrasileirao 27
-   zzbrasileirao b 12
 
 .fi
 
@@ -354,7 +349,7 @@ Ex.: zzcarnaval
 .SH zzcep
 
 .nf
-http://www.achecep.com.br
+https://cep.guiamais.com.br
 Busca o CEP de qualquer rua de qualquer cidade do país ou vice-versa.
 Pode-se fornecer apenas o CEP, ou o endereço com estado.
 Uso: zzcep <endereço estado| CEP>
@@ -439,16 +434,30 @@ Ex.: zzcineuci 14
 .fi
 
 
+.SH zzclassnum
+
+.nf
+Classifica um número inteiro e positivo.
+
+Uso: zzclassnum <número>
+Ex.: zzclassnum 1999
+
+.fi
+
+
 .SH zzcnpj
 
 .nf
 Cria, valida ou formata um número de CNPJ.
 Obs.: O CNPJ informado pode estar formatado (pontos e hífen) ou não.
-Uso: zzcnpj [-f] [cnpj]
-Ex.: zzcnpj 12.345.678/0001-95      # valida o CNPJ informado
-   zzcnpj 12345678000195          # com ou sem pontuação
-   zzcnpj                         # gera um CNPJ válido (aleatório)
-   zzcnpj -f 12345678000195       # formata, adicionando pontuação
+Uso: zzcnpj [-f|-F|-c|-q]  [cnpj]
+Ex.: zzcnpj 12.345.678/0001-95    # valida o CNPJ informado
+   zzcnpj 12345678000195        # com ou sem pontuação
+   zzcnpj                       # gera um CNPJ válido (aleatório)
+   zzcnpj -f 12345678000195     # formata, adicionando pontuação
+   zzcnpj -F 12345678000195     # desformata, tirando pontuação
+   zzcnpj -c 12345678000195     # consulta o cnpj, detalhando-o se existir
+   zzcnpj -q 12345678000195     # apenas código de retorno, sem mensagens
 
 .fi
 
@@ -475,17 +484,34 @@ Ex.: zzcodchar --html arquivo.xml
 .fi
 
 
+.SH zzcodq
+
+.nf
+Exibe a lista do Código Internacional Q e suas descrições.
+Sem argumento só lista os código.
+Com a opção --desc mostra a pergunta relacionada.
+Com o código como argumento exibe sua descrição completa.
+
+Uso: zzcodq [--desc | código Q]
+Ex.: zzcodq           # Lista todos os códigos apenas.
+   zzcodq --desc    # Lista todos os códigos com a pergunta associada.
+   zzcodq qra       # Detalhes da pergunta e resposta para QRA
+
+.fi
+
+
 .SH zzcoin
 
 .nf
-Retorna a cotação de criptomoedas em Reais (Bitcoin, Litecoins ou BCash).
-Opções: btc ou bitecoin (padrão) / ltc ou litecoin / bch ou bcash.
+Retorna a cotação de criptomoedas em Reais (Bitcoin, Litecoins, etc.).
+Com o argumento -a ou --all mostra a cotação de todas as criptomoedas.
 
-Uso: zzcoin [btc|bitcoin|ltc|litecoin|bch|bcash|-a|--all]
-Ex.: zzcoin
-   zzcoin btc
-   zzcoin litecoin
-   zzcoin bch
+Uso: zzcoin [criptomoeda| -a | --all]
+Ex.: zzcoin       # Lista todas as criptomoedas disponíveis
+   zzcoin -a    # Cotação de todas as criptomoedas da lista
+   zzcoin btc   # Cotação do Bitcoin
+   zzcoin ltc   # Cotação do Litecoin
+   zzcoin eth   # Cotação do Ethereum
 
 .fi
 
@@ -532,6 +558,41 @@ Ex.: zzcolunar 3 arquivo.txt
 .fi
 
 
+.SH zzconfere
+
+.nf
+Confere os resultados de loterias.
+quina, megasena, duplasena, lotomania, lotofácil e timemania.
+
+Opções:
+quina:                Confere o concurso da Quina.
+megasena:             Confere o concurso da Megasena.
+duplasena:            Confere o concurso da Duplasena.
+lotomania:            Confere o concurso da Lotomania.
+lotofacil:            Confere o concurso da Lotofácil.
+timemania:            Confere o concurso da Timemania.
+sorte:                Confere o concurso do Dia da Sorte.
+-c <número>:          Consulta o concurso especificado em número.
+--apostas <arquivo>:  Arquivo onde estão as apostas feitas.
+
+Se a opção -c não for usada, consulta o último concurso da loteria.
+
+Se não for definido o arquivo de apostas, assume-se um arquivo com mesmo
+nome da loteria com extensão ".txt" no diretório atual ou,
+as apostas vierem como argumentos adicionais
+com a quantidade mínima a cada loteria.
+
+ Obs.: No arquivo usado deve haver uma aposta por linha apenas.
+
+Uso: zzconfere  <loterias> [-c <número>] [--apostas <arquivo> | [num1] ... ]
+Ex.: zzconfere megasena -c 1270
+   zzconfere lotofácil --apostas /tmp/meus_palpites.txt
+   zzconfere lotomania -c 550 numeros.csv
+   zzconfere quina 07 12 15 28 33 45
+
+.fi
+
+
 .SH zzconjugar
 
 .nf
@@ -547,6 +608,28 @@ Ou apenas a definição do verbo se o segundo argumento for: def
 Uso: zzconjugar verbo [ ind | sub | imp | inf | def ]
 Ex.: zzconjugar correr
    zzconjugar comer sub
+
+.fi
+
+
+.SH zzconstantes
+
+.nf
+Lista constantes matemáticas e físicas e unidades do SI.
+Argumentos:
+-m: Apenas constantes matemáticas.
+-f: Apenas constantes físicas.
+-s: Unidades usadas no SI (Sistema Internacional de Unidades).
+-a: Dados astronômicos do Sol, Terra e Lua.
+-p: Unidades de Planck.
+
+Obs.: Sem argumentos, mostra todas as listas.
+    Se usar mais de um argumento considera apenas o último.
+
+Uso: zzconstantes [-m|-f|-s|-a|-p]
+Ex.: zzconstantes         # lista completa
+   zzconstantes -f      # lista as constates físicas somente
+   zzconstantes -m -a   # lista as dados astronômicos somente
 
 .fi
 
@@ -868,14 +951,20 @@ Ex.: zzdatafmt 2011-12-31                 # 31/12/2011
 .fi
 
 
-.SH zzdefinr
+.SH zzddd
 
 .nf
-http://definr.com
-Busca o significado de um termo, palavra ou expressão no site Definr.
-Uso: zzdefinr termo
-Ex.: zzdefinr headphone
-   zzdefinr in force
+Busca o DDD de qualquer cidade do país ou vice-versa.
+Pode-se fornecer apenas o DDD, cidade ou estado.
+
+Usando o argumento -i a pesquisa altera para DDI,
+podendo fornecer apenas o DDI ou o país.
+
+Uso: zzddd <DDD | Cidade | Estado>
+Ex.: zzddd 19
+   zzddd Xique-Xique
+   zzddd -i Brunei
+   zzddd -i 75
 
 .fi
 
@@ -1059,7 +1148,7 @@ Ex.: zzdivisores 1400
 .SH zzdolar
 
 .nf
-http://economia.uol.com.br/cotacoes
+http://www.infomoney.com.br
 Busca a cotação do dia do dólar (comercial, turismo).
 Uso: zzdolar
 Ex.: zzdolar
@@ -1172,9 +1261,8 @@ Ex.: zzestado                      # [mostra a lista completa]
 
 .nf
 Da uma desculpa comum de desenvolvedor ( em ingles ).
-Com a opção -t ou --traduzir mostra as desculpas traduzidas.
 
-Uso: zzexcuse [-t|--traduzir]
+Uso: zzexcuse
 Ex.: zzexcuse
 
 .fi
@@ -1188,6 +1276,29 @@ Obs.: Caso o arquivo não possua extensão, retorna vazio "".
 Uso: zzextensao arquivo
 Ex.: zzextensao /tmp/arquivo.txt       # resulta em "txt"
    zzextensao /tmp/arquivo           # resulta em ""
+
+.fi
+
+
+.SH zzf1
+
+.nf
+Mostra a classificação de pilotos e construtores da F1.
+
+Opções:
+-p: Mostra apenas a classificação por pilotos.
+-c: Mostra apenas a classificação por construtores.
+ano: Seleciona o ano da classificação.
+
+Sem as opções -p e -c mostra ambos.
+Sem escolher um ano espefífico, exibe o mais atual.
+
+Uso: zzf1 [-p|-c] [ano]
+Ex.: zzf1
+   zzf1 -p        # Mais recente classificação de pilotos.
+   zzf1 -c        # Mais recente classificação de construtores.
+   zzf1 2017      # Classificação de pilotos e construtores em 2017.
+   zzf1 -p 2015   # Classificação de pilotos em 2015.
 
 .fi
 
@@ -1248,6 +1359,18 @@ Ex.: zzferiado 25/12/2008
 .fi
 
 
+.SH zzfilme
+
+.nf
+Busca informações sobre o filme desejado.
+
+Uso: zzfilme FILME
+Ex.: zzfilme matrix
+   zzfilme 'matrix revolutions'
+
+.fi
+
+
 .SH zzfoneletra
 
 .nf
@@ -1279,7 +1402,7 @@ Ex.: zzfrenteverso2pdf
 .SH zzfutebol
 
 .nf
-http://esporte.uol.com.br/futebol/agenda-de-jogos
+https://www.ogol.com.br
 Mostra todos os jogos de futebol marcados para os próximos dias.
 Ou os resultados de jogos recentes.
 Além de mostrar os times que jogam, o script também mostra o dia,
@@ -1300,7 +1423,6 @@ Ex.: zzfutebol                 # Todas as partidas nos próximos dias.
    zzfutebol hoje            # Partidas que acontecem hoje.
    zzfutebol sabado          # Partidas que acontecem no sábado.
    zzfutebol libertadores    # Próximas partidas da Libertadores.
-   zzfutebol 21h             # Partidas que começam entre 21 e 22h.
    zzfutebol resultado       # Placar dos jogos já ocorridos.
    zzfutebol placar ontem    # Placar dos jogos de ontem.
    zzfutebol placar espanhol # Placar dos jogos do Campeonato Espanhol.
@@ -1535,6 +1657,21 @@ Ex.: zzipinternet
 .fi
 
 
+.SH zzipv6
+
+.nf
+Consulta os endereços de rede de IPv6 e do comprimento do prefixo (subnet).
+Obs.: Se não especificado, será usado o comprimento do prefixo de 64.
+    O comprimento do prefixo é um número entre 1 e 128.
+
+Uso: zzipv6 IPv6 [subnet]
+Ex.: zzipv6 fe80::4fae:e655:afc3:7d20 56
+   zzipv6 fe80:3cde:7d20:e655::afc3:/127
+   zzipv6 4fae:afc3:0:0:fe80:e655:3cde:7d20
+
+.fi
+
+
 .SH zzit
 
 .nf
@@ -1665,40 +1802,16 @@ Ex.: zzlembrete                      # Mostra todos
 
 .nf
 Mostra a classificação e jogos do torneio Libertadores da América.
-Opções:
- <número> | <fase>: Mostra jogos da fase selecionada
- fases: pre ou primeira, grupos ou segunda, oitavas
- -g <número>: Jogos da segunda fase do grupo selecionado
- -c [número]: Mostra a classificação, nos grupos da segunda fase
- -cg <número> ou -gc <número>: Classificação e jogos do grupo selecionado.
-
-As fases podem ser:
- pré, pre, primeira ou 1, para a fase pré-libertadores
- grupos, segunda ou 2, para a fase de grupos da libertadores
- oitavas ou 3
- quartas ou 4
- semi, semi-final ou 5
- final ou 6
 
 Nomenclatura:
- PG  - Pontos Ganhos
+ P   - Pontos Ganhos
  J   - Jogos
- V   - Vitórias
- E   - Empates
- D   - Derrotas
- GP  - Gols Pró
- GC  - Gols Contra
- SG  - Saldo de Gols
- (%) - Aproveitamento (pontos)
 
-Obs.: Se a opção for --atualiza, o cache usado é renovado
+Obs.: Se usar a opção --atualiza, o cache usado é renovado.
 
-Uso: zzlibertadores [ fase | -c [número] | -g <número> ]
-Ex.: zzlibertadores 2     # Jogos da Fase 2 (Grupos)
-   zzlibertadores -g 5  # Jogos do grupo 5 da fase 2
-   zzlibertadores -c    # Classificação de todos os grupos
-   zzlibertadores -c 3  # Classificação no grupo 3
-   zzlibertadores -cg 7 # Classificação e jogos do grupo 7
+Uso: zzlibertadores
+Ex.: zzlibertadores            # Classificação dos grupos e jogos mata-mata.
+   zzlibertadores --atualiza # Atualiza o cache.
 
 .fi
 
@@ -1791,11 +1904,12 @@ Ex.: zzlorem 10
 .SH zzloteria
 
 .nf
-Resultados da quina, megasena, duplasena, lotomania, lotofácil, federal, timemania e loteca.
+Resultados da quina megasena duplasena lotomania lotofacil federal timemania loteca lotogol sorte sete.
 
 Se o 2º argumento for um número, pesquisa o resultado filtrando o concurso.
 Se o 2º argumento for a palavra "quantidade" ou "qtde" mostra quantas vezes
- um número foi sorteado. ( Não se aplica para federal e loteca )
+ um número foi sorteado.
+( Não se aplica para federal, loteca, lotogol, sorte, sete)
 Se nenhum argumento for passado, todas as loterias são mostradas.
 
 Uso: zzloteria [[loterias suportadas] [concurso|[quantidade|qtde]]
@@ -1820,6 +1934,16 @@ Ex.: zzlua --atualiza        # Força atualização do cache
    zzlua file              # mostra as funções com "file" no nome
    zzlua -d debug.debug    # mostra descrição da função debug.debug
    zzlua ^d                # mostra as funções que começam com d
+
+.fi
+
+
+.SH zzmacaddress
+
+.nf
+Mostra os MAC address disponiveis.
+Uso: zzmacaddress
+Ex.: zzmacaddress
 
 .fi
 
@@ -1948,13 +2072,13 @@ Ex.: zzmd5 arquivo.txt
 .SH zzminiurl
 
 .nf
-Encurta uma URL utilizando o google ("https://goo.gl/").
+Encurta uma URL utilizando o bit.ly ("https://bit.ly/").
 Caso a URL já seja encurtada, será exibida a URL completa.
 Obs.: Se a URL não tiver protocolo no início, será colocado http://
 Uso: zzminiurl URL
 Ex.: zzminiurl http://www.funcoeszz.net
    zzminiurl www.funcoeszz.net         # O http:// no início é opcional
-   zzminiurl https://goo.gl/yz4cb9
+   zzminiurl http://bit.ly/2qysTH4
 
 .fi
 
@@ -2250,9 +2374,9 @@ Ex.: zzpais              # mostra um pais qualquer
 .nf
 Palpites de jogos para várias loterias: quina, megasena, lotomania, etc.
 Aqui está a lista completa de todas as loterias suportadas:
-quina, megasena, duplasena, lotomania, lotofácil, timemania, federal, loteca
+quina, megasena, duplasena, lotomania, lotofácil, timemania, sorte, sete, federal, loteca
 
-Uso: zzpalpite [quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|loteca]
+Uso: zzpalpite [quina|megasena|duplasena|lotomania|lotofacil|federal|timemania|sorte|sete|loteca]
 Ex.: zzpalpite
    zzpalpite megasena
    zzpalpite megasena federal lotofacil
@@ -2557,9 +2681,8 @@ Ex.: zzsextapaixao
 
 .nf
 Exibe aleatoriamente uma frase do Sheldon, do seriado The Big Bang Theory.
-Com a opção -t ou --traduzir mostra os diálogos traduzidos.
 
-Uso: zzsheldon [-t|--traduzir]
+Uso: zzsheldon
 Ex.: zzsheldon
 
 .fi
@@ -2808,6 +2931,7 @@ Opções:
 -x char: Igual a -n, mas os números são compostos pelo caracter "char".
 -y nums chars: Troca os nums por chars, igual ao comando 'y' no sed.
    Obs.: nums e chars tem que ter a mesma quantidade de caracteres.
+--centro: Centraliza tanto horizontal como verticalmente
 -c: Apenas converte o tempo em segundos.
 -s: Aguarda o tempo como sleep, sem mostrar o cronômetro.
 -p: Usa uma temporização mais precisa, porém usa mais recursos.
@@ -2838,55 +2962,32 @@ Ex.: zztimer 90           # Cronomêtro regressivo a partir de 1:30
 .SH zztop
 
 .nf
-Lista os 10 computadores mais rápidos do mundo.
-Sem argumentos usa a listagem mais recente.
-Definindo categoria, quantifica os 500 computadores mais rápidos.
+Lista os computadores mais rápidos do mundo entre os 500 disponíveis.
+Por padrão lista os 10 primeiros da listagem mais atual.
+
+Pode-se pedir pela posição:
+-i <número>: listando a partir dessa posição em diante.
+-f <número>: listando até essa posição.
 
 Argumentos de ajuda:
- -c: Exibe categorias possíveis
  -l: Exibe as listas disponíveis
+ -g: Exibe a lista por Eficiência Energética
+ -p: Exibe a lista por Gradiente de Conjugado de Alta Performance
 
 Argumentos de listagem:
- [categoria]: Seleciona a categoria desejada.
  [lista]:     Seleciona a lista, se omitida mostra mais recente.
-Obs: Podem ser usadas em conjunto
 
-Uso: zztop [-c|-l] [categoria] [lista]
-Ex.: zztop             # Lista os 10 mais rápidos.
-   zztop osfam 23    # Famílias de OS em Junho de 2004 ( Virada Linux! )
-   zztop country     # Quantifica por pais entre os 500 mais velozes
-   zztop -c          # Lista as categorias possíveis da listagem
-   zztop -l          # Exibe todas as listas disponíveis
+Sem argumentos usa a listagem mais recente.
 
-.fi
-
-
-.SH zztradutor
-
-.nf
-http://translate.google.com
-Google Tradutor, para traduzir frases para vários idiomas.
-Caso não especificado o idioma, a tradução será português -> inglês.
-Use a opção -l ou --lista para ver todos os idiomas disponíveis.
-Use a opção -a ou --audio para ouvir a frase na voz feminina do google.
-
-Alguns idiomas populares são:
-   pt = português         fr = francês
-   en = inglês            it = italiano
-   es = espanhol          de = alemão
-
-Uso: zztradutor [de-para] palavras
-Ex.: zztradutor o livro está na mesa    # the book is on the table
-   zztradutor pt-en livro             # book
-   zztradutor pt-es livro             # libro
-   zztradutor pt-de livro             # Buch
-   zztradutor de-pt Buch              # livro
-   zztradutor de-es Buch              # Libro
-   cat arquivo | zztradutor           # Traduz o conteúdo do arquivo
-   zztradutor --lista                 # Lista todos os idiomas
-   zztradutor --lista eslo            # Procura por "eslo" nos idiomas
-   zztradutor --audio                 # Gera um arquivo OUT.WAV
-   echo "teste" | zztradutor          # test
+Uso: zztop [-l] [-g|-h] [-i número] [-f número] [lista]
+Ex.: zztop               # Lista os 10 mais rápidos ( mais atuais ).
+   zztop 23            # Lista os 10 mais rápidos em Junho de 2004
+   zztop -g            # Ordenando por eficiência energética
+   zztop -p            # Ordenado por alta performance
+   zztop -i 5          # Lista do 5º ao 10º mais rápido
+   zztop -f 270        # Lista os 270 mais rápidos
+   zztop -i 2 -f 5 40  # Lista do 2º ao 5º de Novembro 2012
+   zztop -l            # Exibe todas as listas disponíveis
 
 .fi
 
@@ -2998,19 +3099,6 @@ Ex.: zztv CUL          # Programação da TV Cultura
 .fi
 
 
-.SH zztweets
-
-.nf
-Busca as mensagens mais recentes de um usuário do Twitter.
-Use a opção -n para informar o número de mensagens (padrão é 5, máx 20).
-
-Uso: zztweets [-n N] username
-Ex.: zztweets oreio
-   zztweets -n 10 oreio
-
-.fi
-
-
 .SH zzunescape
 
 .nf
@@ -3036,6 +3124,22 @@ Converte caracteres Unicode (UTF-8) para seus similares ASCII (128).
 Uso: zzunicode2ascii [arquivo(s)]
 Ex.: zzunicode2ascii arquivo.txt
    cat arquivo.txt | zzunicode2ascii
+
+.fi
+
+
+.SH zzunicode
+
+.nf
+Mostra a tabela Unicode com todos os caracteres imprimíveis.
+Opções:
+-n: Exibe o nome do caractere.
+-c <número>: Define a divisão da lista em colunas.
+
+Uso: zzunicode [-n|-c <número>] [número]
+Ex.: zzunicode           # Exibe a lista de todas as classes de caracretes
+   zzunicode -n 42     # Exibe os caracteres com código e nome
+   zzunicode -c 4 24   # Exibe os caracteres em 4 colunas
 
 .fi
 
@@ -3125,6 +3229,23 @@ Uso: zzvdp [número]
 Ex.: zzvdp    # Mostra a tirinha mais recente
    zzvdp 5  # Mostra a quinta tirinha mais recente
    zzvdp 0  # Mostra todas as tirinhas mais recentes
+
+.fi
+
+
+.SH zzvds
+
+.nf
+https://vidadesuporte.com.br
+Mostra o texto das últimas tirinhas de Vida de Suporte.
+Sem opção mostra a tirinha mais recente.
+Se a opção for um número, mostra a tirinha que ocupa essa ordem
+Se a opção for 0, mostra todas mais recentes
+
+Uso: zzvds [número]
+Ex.: zzvds    # Mostra a tirinha mais recente
+   zzvds 5  # Mostra a quinta tirinha mais recente
+   zzvds 0  # Mostra todas as tirinhas mais recentes
 
 .fi
 
@@ -3238,5 +3359,3 @@ Ex.: zzzz
 .fi
 
 
-.\" man code generated by txt2tags 2.6 (http://txt2tags.org)
-.\" cmdline: txt2tags manpage.t2t

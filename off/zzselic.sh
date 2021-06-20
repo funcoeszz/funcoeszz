@@ -18,7 +18,6 @@
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2015-06-07
 # Versão: 2
-# Licença: GPL
 # Requisitos: zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8 zzpad
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2018-01-06 Página do Banco Central usando AJAX.

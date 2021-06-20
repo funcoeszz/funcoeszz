@@ -11,6 +11,10 @@ Uso: zzzz [--atualiza|--teste|--bashrc|--tcshrc|--zshrc]
 Ex.: zzzz
      zzzz --teste
 
+$
+
+# Testa a opção --teste
+
 $ zzzz --teste | sed 's/\.\.\. .*/.../;/Atenção/,/^Talvez/d;/^ *$/d'
 Procurando o comando awk...
 Procurando o comando bc...
@@ -43,6 +47,10 @@ Procurando o comando uniq...
 Procurando o comando unzip...
 Verificando a codificação do sistema...
 Verificando a codificação das Funções ZZ...
+$
+
+# Testa saída da zzzz sem argumentos
+
 $ zzzz | grep '(' | tr -d 0-9 | sed 's/) .*/) .../'
 ( script) ...
 (  pasta) ...
@@ -52,9 +60,27 @@ $ zzzz | grep '(' | tr -d 0-9 | sed 's/) .*/) .../'
 (browser) ...
 ( bashrc) ...
 (  zshrc) ...
-(   base) ...
 (   site) ...
 ((  funções disponíveis ))
+$
+
+# Lista de funções desligadas só aparece no final, não nas disponíveis.
+# Nestes testes foi criada uma pasta ZZTMPDIR alternativa para gerar os
+# arquivos .on e .off sem bagunçar os "oficiais".
+
+$ zzzz_tmp="/tmp/testador-zzzz-$$"
+$ mkdir "$zzzz_tmp"
+$ ZZTMPDIR="$zzzz_tmp" ZZOFF="zzdata zzcores" ../funcoeszz
+$ cat "$zzzz_tmp/zz.off"
+zzcores
+zzdata
+$ ZZTMP="$zzzz_tmp/zz" zzzz | tail -n 2
+(( 2 funções desativadas ))
+cores, data
+$ ZZTMP="$zzzz_tmp/zz" zzzz | sed -n '/disponíveis/,/^$/ p' | grep -E '\b(cores|data),'
+$ rm "$zzzz_tmp"/zz*
+$ rmdir "$zzzz_tmp"
+$ unset zzzz_tmp
 $
 
 # As variáveis de ambiente devem ser respeitadas

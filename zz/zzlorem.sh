@@ -8,7 +8,7 @@
 # Autor: Angelito M. Goulart, www.angelitomg.com
 # Desde: 2012-12-11
 # Versão: 3
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: texto, teste
 # ----------------------------------------------------------------------------
 zzlorem ()

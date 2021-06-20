@@ -19,8 +19,10 @@ NNN ALTER OPERATOR — change the definition of an operator
 NNN ALTER OPERATOR CLASS — change the definition of an operator class
 NNN ALTER OPERATOR FAMILY — change the definition of an operator family
 NNN ALTER POLICY — change the definition of a row level security policy
+NNN ALTER PROCEDURE — change the definition of a procedure
 NNN ALTER PUBLICATION — change the definition of a publication
 NNN ALTER ROLE — change a database role
+NNN ALTER ROUTINE — change the definition of a routine
 NNN ALTER RULE — change the definition of a rule
 NNN ALTER SCHEMA — change the definition of a schema
 NNN ALTER SEQUENCE — change the definition of a sequence generator
@@ -49,25 +51,11 @@ NNN PREPARE TRANSACTION — prepare the current transaction for two-phase commit
 NNN ROLLBACK PREPARED — cancel a transaction that was earlier prepared for two-phase commit
 $
 
-$ zzpgsql 48 | sed '/^ *$/d; s/^ *//'
-COMMIT
-COMMIT — commit the current transaction
+$ zzpgsql 48 | sed '/^ *$/d; s/^ *//' | head -n 6
+CLOSE
+CLOSE — close a cursor
 Synopsis
-COMMIT [ WORK | TRANSACTION ]
+CLOSE { name | ALL }
 Description
-COMMIT commits the current transaction. All changes made by the transaction become visible to others and are guaranteed to be durable if a crash occurs.
-Parameters
-WORK
-TRANSACTION
-Optional key words. They have no effect.
-Notes
-Use ROLLBACK to abort a transaction.
-Issuing COMMIT when not inside a transaction does no harm, but it will provoke a warning message.
-Examples
-To commit the current transaction and make all changes permanent:
-COMMIT;
-Compatibility
-The SQL standard only specifies the two forms COMMIT and COMMIT WORK. Otherwise, this command is fully conforming.
-See Also
-BEGIN, ROLLBACK
+CLOSE frees the resources associated with an open cursor. After the cursor is closed, no subsequent operations are allowed on it. A cursor should be closed when it is no longer needed.
 $

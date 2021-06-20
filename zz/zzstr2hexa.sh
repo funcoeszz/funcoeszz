@@ -8,8 +8,7 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2012-03-30
 # Versão: 9
-# Licença: GPL
-# Requisitos: zztrim
+# Requisitos: zzzz zztool zztrim
 # Tags: texto, conversão
 # ----------------------------------------------------------------------------
 zzstr2hexa ()

@@ -9,9 +9,8 @@
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-08-25
 # Versão: 11
-# Licença: GPLv2
-# Requisitos: zzecho zzjuntalinhas zztrim zzutf8 zzxml
-# Tags: cinema
+# Requisitos: zzzz zztool zzecho zzjuntalinhas zztrim zzutf8 zzxml
+# Tags: internet, cinema
 # ----------------------------------------------------------------------------
 zzcinemais ()
 {
@@ -23,7 +22,7 @@ zzcinemais ()
 
 	cidades=$(
 		zztool source "$url" |
-		zzutf8 |
+		zztool texto_em_iso |
 		sed -n '/cliclabeProg/,/cliclabeProg/p' |
 		zzxml --notag script --tag li |
 		zztrim |

@@ -4,8 +4,8 @@ zzdatafmt.sh
 zzansi2html.out.html
 zztimer.sh
 zztestar.sh
+zzf1.sh
 zzdata.sh
-zzconverte.sh
 zzconjugar.sh
 zzascii.sh
 $

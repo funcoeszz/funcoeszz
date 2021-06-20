@@ -7,7 +7,6 @@
 # Autor: Cesar Gimenes <crgimenes (a) terra com br>
 # Desde: 2005-11-03
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-22 URL não encontrada (404)
 zzranking ()

@@ -47,8 +47,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2011-05-24
 # Versão: 11
-# Licença: GPL
-# Requisitos: zzdata zzminusculas zznumero zzdiadasemana
+# Requisitos: zzzz zztool zzdata zzminusculas zznumero zzdiadasemana
 # Tags: data
 # ----------------------------------------------------------------------------
 zzdatafmt ()

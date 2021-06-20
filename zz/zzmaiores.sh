@@ -11,7 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-28
 # Versão: 1
-# Licença: GPL
+# Requisitos: zzzz zztrim
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzmaiores ()
@@ -68,6 +68,7 @@ zzmaiores ()
 		resultado=$(
 			find $pastas $recursivo -type f -ls |
 				tr -s ' ' |
+				zztrim -l |
 				cut -d' ' -f7,11- |
 				sed "s/ /$tab/" |
 				sort -nr |

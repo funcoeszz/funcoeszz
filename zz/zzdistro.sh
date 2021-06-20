@@ -14,8 +14,7 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2014-06-15
 # Versão: 2
-# Licença: GPL
-# Requisitos: zzcolunar
+# Requisitos: zzzz zztool zzcolunar
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzdistro ()

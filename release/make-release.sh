@@ -4,7 +4,7 @@
 #
 # Gera a versão tudo-em-um para o público
 
-cd $(dirname "$0") || exit 1
+cd "$(dirname "$0")" || exit 1
 
 core="../funcoeszz"
 zzdir="../zz"

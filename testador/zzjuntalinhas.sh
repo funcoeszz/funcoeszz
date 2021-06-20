@@ -14,10 +14,10 @@ $
 
 # -d
 
-$ zzjuntalinhas	-d	''	_numeros.txt	#→ 12345
-$ zzjuntalinhas	-d	@	_numeros.txt	#→ 1@2@3@4@5
-$ zzjuntalinhas	-d	::	_numeros.txt	#→ 1::2::3::4::5
-$ zzjuntalinhas	 -d	'{ }'	_numeros.txt	#→ 1{ }2{ }3{ }4{ }5
+$ zzjuntalinhas	-d	''	_numeros.txt	#=> 12345
+$ zzjuntalinhas	-d	@	_numeros.txt	#=> 1@2@3@4@5
+$ zzjuntalinhas	-d	::	_numeros.txt	#=> 1::2::3::4::5
+$ zzjuntalinhas	 -d	'{ }'	_numeros.txt	#=> 1{ }2{ }3{ }4{ }5
 
 # Números e $
 

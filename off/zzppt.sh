@@ -7,7 +7,6 @@
 # Autor: Vinícius Venâncio Leite <vv.leite (a) gmail com>
 # Desde: 2007-11-30
 # Versão: 1.1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-22 URL funciona, mas não traz datas ou agenda.
 zzppt ()

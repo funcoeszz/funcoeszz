@@ -11,8 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2013-02-21
 # Versão: 3
-# Licença: GPL
-# Requisitos: zzcapitalize
+# Requisitos: zzzz zztool zzcapitalize
 # Tags: texto, manipulação
 # ----------------------------------------------------------------------------
 zzarrumacidade ()
@@ -124,6 +123,14 @@ zzarrumacidade ()
 		s/ao /ão /g
 		s/ao$/ão/
 
+		## Correções de nomes próprios
+		# 'jose' vira 'José'
+		s/[Jj]ose$/José/
+		s/[Jj]ose /José /
+
+		# 'lourenço' vira 'Lourenço'
+		s/enco$/enço/
+		s/enco /enço /g
 
 		### Exceções pontuais:
 

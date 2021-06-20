@@ -8,7 +8,7 @@
 # Autor: Rodrigo Missiaggia
 # Desde: 2001-10-01
 # Versão: 1
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzchavepgp ()
@@ -16,7 +16,7 @@ zzchavepgp ()
 	zzzz -h chavepgp "$1" && return
 
 	local url='http://pgp.mit.edu:11371'
-	local padrao=$(echo $* | sed "$ZZSEDURL")
+	local padrao=$(echo $* | zztool sedurl)
 
 	# Verificação dos parâmetros
 	test -n "$1" || { zztool -e uso chavepgp; return 1; }

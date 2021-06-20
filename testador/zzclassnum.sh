@@ -21,6 +21,7 @@ $
 $ zzclassnum 2
 Par
 Primo
+Primorial
 Oblongo
 Palíndromo
 $
@@ -57,6 +58,7 @@ $ zzclassnum 13
 Ímpar
 Primo
 Estrela
+Omirp
 $
 
 $ zzclassnum 18
@@ -110,6 +112,7 @@ $ zzclassnum 37
 Primo
 Hexagonal Centrado
 Estrela
+Omirp
 $
 
 $ zzclassnum 55
@@ -243,6 +246,7 @@ $ zzclassnum 1657
 Ímpar
 Primo
 Hexagonal Centrado
+Omirp
 $
 
 $ zzclassnum 3025
@@ -297,6 +301,12 @@ Primo
 Mersenne
 $
 
+$ zzclassnum 9699690
+Par
+Excessivo
+Primorial
+$
+
 $ zzclassnum 2863311531
 Ímpar
 Jacobsthal
@@ -307,11 +317,4 @@ $ zzclassnum 4294967297
 Ímpar
 Defectivo
 Fermat
-$
-
-$ zzclassnum 2932031007403
-Ímpar
-Jacobsthal
-Primo
-Wagstaff
 $

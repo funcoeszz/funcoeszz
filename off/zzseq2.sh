@@ -8,7 +8,6 @@
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2009-10-04
 # Versão: 1
-# Licença: GPL
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2010-12-21 Funcionalidades implementadas na zzseq original.
 zzseq2 ()

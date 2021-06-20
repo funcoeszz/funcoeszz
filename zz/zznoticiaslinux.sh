@@ -13,9 +13,8 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-12-17
-# Versão: 10
-# Licença: GPL
-# Requisitos: zzfeed
+# Versão: 11
+# Requisitos: zzzz zztool zzfeed
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zznoticiaslinux ()
@@ -51,7 +50,7 @@ zznoticiaslinux ()
 	# Diolinux
 	if zztool grep_var d "$sites"
 	then
-		url='http://www.diolinux.com.br/feeds/posts/default/'
+		url='http://www.diolinux.com.br/feed'
 		echo
 		zztool eco "* Diolinux ($url):"
 		zzfeed -n $n "$url"

@@ -10,8 +10,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-08
 # Versão: 2
-# Licença: GPL
-# Requisitos: zzutf8
+# Requisitos: zzzz zztool zzutf8
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzdicasl ()

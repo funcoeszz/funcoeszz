@@ -11,8 +11,7 @@
 # Autor: Angelito M. Goulart, www.angelitomg.com
 # Desde: 2012-12-05
 # Versão: 2
-# Licença: GPL
-# Requisitos: zzaleatorio
+# Requisitos: zzzz zztool zzaleatorio
 # Tags: RANDOM, emulação
 # ----------------------------------------------------------------------------
 zzdado ()

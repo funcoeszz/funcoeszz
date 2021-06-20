@@ -11,7 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-10-02
 # Versão: 1
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: texto, contagem
 # ----------------------------------------------------------------------------
 zzcontapalavra ()

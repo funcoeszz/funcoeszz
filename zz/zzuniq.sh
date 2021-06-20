@@ -9,7 +9,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2002-06-22
 # Versão: 3
-# Licença: GPL
+# Requisitos: zzzz zztool
 # Tags: uniq, emulação
 # ----------------------------------------------------------------------------
 zzuniq ()

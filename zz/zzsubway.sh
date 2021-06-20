@@ -7,8 +7,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2008-12-02
 # Versão: 1
-# Licença: GPL
-# Requisitos: zzshuffle zzaleatorio
+# Requisitos: zzzz zztool zzshuffle zzaleatorio
 # Tags: sugestão
 # ----------------------------------------------------------------------------
 zzsubway ()

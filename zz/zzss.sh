@@ -11,8 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2003-06-12
 # Versão: 1
-# Licença: GPL
-# Requisitos: zzaleatorio zztrim
+# Requisitos: zzzz zztool zzaleatorio zztrim
 # Tags: screen saver, emulação
 # ----------------------------------------------------------------------------
 zzss ()

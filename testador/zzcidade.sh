@@ -1,6 +1,6 @@
 # Sem argumentos, mostra uma cidade alatória
 
-$ zzcidade			#→ --regex ^[A-ZÁÂÉÓ].* \([A-Z][A-Z]\)$
+$ zzcidade			#=> --regex ^[A-ZÁÂÉÓ].* \([A-Z][A-Z]\)$
 
 # Com argumento, procura pelo texto
 
@@ -100,7 +100,7 @@ Riachão do Dantas (SE)
 Ribeirópolis (SE)
 Rosário do Catete (SE)
 Salgado (SE)
-Santa Luzia do Itanhy (SE)
+Santa Luzia do Itanhi (SE)
 Santa Rosa de Lima (SE)
 Santana do São Francisco (SE)
 Santo Amaro das Brotas (SE)
@@ -129,4 +129,4 @@ $
 
 # A lista completa de cidades tem exatamente...
 
-$ zzcidade . | head -n 5550		#→ --lines 5550
+$ zzcidade . | head -n 5550		#=> --lines 5550

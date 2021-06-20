@@ -18,8 +18,7 @@
 # Autor: Kl0nEz <kl0nez (a) wifi org br>
 # Desde: 2011-08-23
 # Versão: 6
-# Licença: GPLv2
-# Requisitos: zzseq zztestar
+# Requisitos: zzzz zztool zzseq zztestar
 # Tags: número, tabela
 # ----------------------------------------------------------------------------
 zztabuada ()

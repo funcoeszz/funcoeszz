@@ -12,8 +12,7 @@
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Desde: 2005-05-20
 # Versão: 5
-# Licença: GPL
-# Requisitos: zzurlencode
+# Requisitos: zzzz zztool zzurlencode
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicesperanto ()

@@ -8,9 +8,8 @@
 # Autor: Rodrigo Pereira da Cunha <rodrigopc (a) gmail.com>
 # Desde: 2009-05-04
 # Versão: 10
-# Licença: GPL
-# Requisitos: zzunescape zztrim zzcolunar
-# Tags: cinema
+# Requisitos: zzzz zztool zzunescape zztrim zzcolunar
+# Tags: internet, cinema
 # ----------------------------------------------------------------------------
 zzcineuci ()
 {

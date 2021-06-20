@@ -10,7 +10,6 @@
 # Autor: Rafael Machado Casali <rmcasali (a) gmail com>
 # Desde: 2009-04-16
 # Versão: 8
-# Licença: GPL
 # Requisitos: zzecho zzplay zzcapitalize zzdatafmt zzxml zzutf8
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2018-01-27 Site usando técnicas AJAX.

@@ -20,7 +20,6 @@
 # Autor: Aurélio Marinho Jargas, www.aurelio.net, modificada por Lauro de Sá
 # Desde: 2010-05-26
 # Versão: 20091010
-# Licença: GPLv2
 # ----------------------------------------------------------------------------
 # DESATIVADA: 2011-05-19 Funcionalidades implementadas na zzdata original.
 zzdata2 ()

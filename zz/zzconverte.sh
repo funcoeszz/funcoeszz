@@ -53,8 +53,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2003-10-02
 # Versão: 6
-# Licença: GPL
-# Requisitos: zznumero zztestar
+# Requisitos: zzzz zztool zznumero zztestar
 # Tags: número, conversão
 # ----------------------------------------------------------------------------
 zzconverte ()
