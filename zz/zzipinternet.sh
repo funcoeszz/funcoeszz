@@ -5,7 +5,6 @@
 # Ex.: zzipinternet
 #      zzipinternet -6
 #
-#
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
 # Versão: 7
@@ -23,7 +22,6 @@ zzipinternet ()
 		zztool source 'https://api64.ipify.org' | zztool nl_eof
 	else
 		# Retorna IPv4
-		# O resultado já vem pronto!
 		zztool source 'http://api.ipaddress.com/myip' | zztool nl_eof
 	fi
 }
