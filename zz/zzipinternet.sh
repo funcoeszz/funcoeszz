@@ -17,7 +17,7 @@ zzipinternet ()
 	zzzz -h ipinternet "$1" && return
 
 	# Verifica parametro para ipv6
-	if test '-6' = "$1" 
+	if test 'x-6' = "x$1" 
 	then
 		# Retorna IPv6
 		zztool source 'https://api64.ipify.org' | zztool nl_eof
@@ -27,4 +27,3 @@ zzipinternet ()
 		zztool source 'http://api.ipaddress.com/myip' | zztool nl_eof
 	fi
 }
-
