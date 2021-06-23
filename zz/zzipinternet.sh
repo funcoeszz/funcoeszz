@@ -1,9 +1,12 @@
 # ----------------------------------------------------------------------------
 # Mostra o seu número IP (externo) na Internet.
-# Com argumento '-6' mostra o IPv6 externo.
-# Uso: zzipinternet [-6]
+# Aceita os argumentos '--v6', '--v4' (ou ambos) para exibir o IPv6 ou IPv4.
+# Com '--v64' retorna o IPv6 externo se existir, senão retorna o IPv4.
+# Uso: zzipinternet [--v6|--v4|--v64]
 # Ex.: zzipinternet
-#      zzipinternet -6
+#      zzipinternet --v6
+#      zzipinternet --v64
+#      zzipinternet --v6 --v4
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
@@ -15,13 +18,26 @@ zzipinternet ()
 {
 	zzzz -h ipinternet "$1" && return
 
-	# Verifica parametro para ipv6
-	if test 'x-6' = "x$1" 
+	# Sem parâmetros seta IPv4 :
+	if test $# -eq 0
 	then
-		# Retorna IPv6
-		zztool source 'https://api64.ipify.org' | zztool nl_eof
-	else
-		# Retorna IPv4
-		zztool source 'http://api.ipaddress.com/myip' | zztool nl_eof
+		set -- --v4
 	fi
+
+	#leitura dos parametros de entrada
+	while test $# -gt 0
+	do
+		case "$1" in
+		--v6)
+			zztool source https://api6.ipify.org | zztool nl_eof;
+			shift;;
+		--v64)
+			zztool source https://api64.ipify.org | zztool nl_eof;
+			shift;;
+		--v4)
+			zztool source https://api4.ipify.org | zztool nl_eof;
+			shift;;
+		*) zztool erro "Opção inválida: $1"; return 1 ;;
+		esac
+	done
 }
