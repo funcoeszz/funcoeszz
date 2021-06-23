@@ -29,15 +29,20 @@ zzipinternet ()
 	do
 		case "$1" in
 		--v6)
+			# se houver, IPv6, senão vazio:
 			zztool source https://api6.ipify.org | zztool nl_eof;
 			shift;;
 		--v64)
+			# se houver, IPv6, senão IPv4:
 			zztool source https://api64.ipify.org | zztool nl_eof;
 			shift;;
 		--v4)
+			# se houver, IPv4, senão vazio:
 			zztool source https://api4.ipify.org | zztool nl_eof;
 			shift;;
-		*) zztool erro "Opção inválida: $1"; return 1 ;;
+		*) 
+			# parametro inválido:
+			zztool erro "Opção inválida: $1"; return 1 ;;
 		esac
 	done
 }
