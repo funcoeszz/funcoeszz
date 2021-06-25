@@ -23,20 +23,29 @@ zzipinternet ()
 	elif test $# -gt 1
 	then
 		zztool erro "Utilizar no máximo 1 argumento."
-		return 1
+		return 3
 	fi
 
 	# Verifica parametro de entrada 
 	case "$1" in 
 	-6)
 		# Retorna IPv6 se houver, senão vazio.
-		zztool source 'https://api6.ipify.org' | zztool nl_eof;;
+		local ip=$(zztool source 'https://api6.ipify.org');;
 	-4)
 		# Retorna IPv4 se houver, senão vazio.
-		zztool source 'https://api4.ipify.org' | zztool nl_eof;;
+		local ip=$(zztool source 'https://api4.ipify.org');;
 	*)
 		# parametro inválido:
 		zztool erro "Opção inválida: $1"; 
 		return 2;;
 	esac
+
+	# Se recebemos $ip vazio, retorna error code 1.
+	if test $(echo -n $ip | wc -c) -eq 0
+	then
+		return 1
+	else
+		# Sem erros. Retorna IP recebido
+		echo $ip | zztool nl_eof
+	fi
 }
