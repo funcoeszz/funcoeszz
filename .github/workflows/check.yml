@@ -81,6 +81,8 @@ jobs:
           mv clitest testador
 
       - name: Run the tests
+        env:
+          TERM: xterm  # fix da zztempo
         run: |
-          python3 -c 'from subprocess import run; run(["./testador/run funcoeszz.md"], shell=True)'
-          python3 -c 'from subprocess import run; run(["./testador/run internet_travis"], shell=True)'
+          python3 -c 'from subprocess import run; run(["./testador/run funcoeszz.md"], shell=True, check=True)'
+          python3 -c 'from subprocess import run; run(["./testador/run internet_travis"], shell=True, check=True)'
