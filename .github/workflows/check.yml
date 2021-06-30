@@ -80,6 +80,12 @@ jobs:
         run: |
           python3 -c 'from subprocess import run; run(["./testador/run zztempo.sh"], shell=True, check=True)'
 
+      - name: zzconfere
+        env:
+          ZZTMPDIR: /home/runner/work
+        run: |
+          python3 -c 'from subprocess import run; run(["./testador/run zzconfere.sh"], shell=True, check=True)'
+
       - name: Run the tests
         env:
           TERM: xterm  # fix da zztempo
