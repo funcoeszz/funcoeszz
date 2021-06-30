@@ -74,6 +74,12 @@ jobs:
           chmod +x clitest
           mv clitest testador
 
+      - name: zztempo
+        env:
+          TERM: xterm  # fix da zztempo
+        run: |
+          python3 -c 'from subprocess import run; run(["./testador/run zztempo.sh"], shell=True, check=True)'
+
       - name: Run the tests
         env:
           TERM: xterm  # fix da zztempo
