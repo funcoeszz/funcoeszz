@@ -48,12 +48,6 @@ jobs:
           mv clitest testador
 
       # debug
-      - run: uname -a
-      - run: env
-      - run: id
-      - run: pwd
-      - run: which sed
-      - run: sed --version
       - run: ./funcoeszz zzzz
       - run: ./funcoeszz zzconjugar comemorar def || true
       - run: ./funcoeszz zzloteria federal 2500 || true
