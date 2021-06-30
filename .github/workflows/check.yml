@@ -75,6 +75,7 @@ jobs:
           mv clitest testador
 
       - name: zztempo
+        continue-on-error: true
         env:
           TERM: xterm  # fix da zztempo
         run: |
