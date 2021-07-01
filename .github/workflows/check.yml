@@ -82,6 +82,7 @@ jobs:
           python3 -c 'from subprocess import run; run(["./testador/run zztempo.sh"], shell=True, check=True)'
 
       - name: zzconfere
+        continue-on-error: true
         env:
           ZZTMPDIR: /home/runner/work
         run: |
