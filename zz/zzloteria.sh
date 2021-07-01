@@ -281,7 +281,8 @@ zzloteria ()
 					if ! test -e ${cache}.quina.htm || ! $(zztool dump ${cache}.quina.htm | grep "^ *$num_con " >/dev/null)
 					then
 						wget -q -O "${cache}.quina.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_quina.zip"
-						$un_zip "${cache}.quina.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
+						$un_zip "${cache}.quina.zip" "*.htm" -d "$tmp_dir" #2>/dev/null
+                        ls -la "$tmp_dir"
 						mv -f "${tmp_dir}/d_quina.htm" ${cache}.quina.htm
 						rm -f ${cache}.quina.zip
 					fi
