@@ -13,8 +13,9 @@ before_install:
 
 script:
   - ./util/requisitos.sh
+  - ./testador/run zzloteria.sh
   - ./testador/run funcoeszz.md
-  - ./testador/run internet_travis
+# - ./testador/run internet_travis
 
 notifications:
   email: false
