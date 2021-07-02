@@ -13,6 +13,7 @@ before_install:
 
 script:
   - ./util/requisitos.sh
+  - ./util/nanny.sh
   - ./testador/run funcoeszz.md
   - ./testador/run internet_travis
 
