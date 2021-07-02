@@ -30,7 +30,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2013-03-05
-# Versão: 13
+# Versão: 14
 # Requisitos: zzzz zztool zzvira zztestar
 # Tags: número, manipulação
 # ----------------------------------------------------------------------------
@@ -232,9 +232,9 @@ zznumero ()
 	n_temp=$(echo "$n_temp" | sed 's/^\([.,]\)/0\1/')
 
 	# Verificando se a entrada é apenas numérica, incluindo ponto (.) e vírgula (,)
-	test $(printf -- "$n_temp" | tr -d [+0-9.,-] | wc -m) -eq 0 || return 1
+	test $(printf -- "$n_temp" | tr -d '[+0-9.,-]' | wc -m) -eq 0 || return 1
 	# Verificando se há números
-	test $(printf -- "$n_temp" | tr -d -c [0-9] | wc -m) -gt 0 || return 1
+	test $(printf -- "$n_temp" | tr -d -c '[0-9]' | wc -m) -gt 0 || return 1
 	set - $n_temp
 
 	# Armazenando o sinal, se presente
