@@ -108,5 +108,49 @@ $ zzcnpj -q	12345678000195; echo $?	#=> 0
 $ zzcnpj -q	12345678000123; echo $?	#=> 1
 
 # Consultando um CNPJ
-$ zzcnpj -c 27865757000102	#=> --lines 20
-$ zzcnpj -c 33041260102595	#=> --lines 20
+
+$ zzcnpj -c 33041260102595
+ atividade principal : Comércio varejista especializado de eletrodomésticos e equipamentos de áudio e vídeo 
+ data situacao : 08/08/2012 
+ tipo : FILIAL 
+ nome : VIA VAREJO S/A 
+ uf : SP 
+ telefone : (11) 4225-6555 
+ email : setorfiscal.csc@viavarejo.com.br 
+ situacao : ATIVA 
+ bairro : PIRAJUSSARA 
+ logradouro : EST DO CAMPO LIMPO 
+ numero : 3935 
+ cep : 05.787-000 
+ municipio : SAO PAULO 
+ porte : DEMAIS 
+ abertura : 08/08/2012 
+ natureza juridica : 204-6 - Sociedade Anônima Aberta 
+ cnpj : 33.041.260/1025-95 
+ ultima atualizacao : 2021-03-07T22:06:47.958Z 
+ status : OK 
+ capital social : 0.00 
+$
+
+$ zzcnpj -c 27865757000102
+ atividade principal : Atividades de televisão aberta 
+ data situacao : 03/11/2005 
+ tipo : MATRIZ 
+ nome : GLOBO COMUNICACAO E PARTICIPACOES S/A 
+ uf : RJ 
+ telefone : (21) 2155-4551/ (21) 2155-4552 
+ situacao : ATIVA 
+ bairro : JARDIM BOTANICO 
+ logradouro : R LOPES QUINTAS 
+ numero : 303 
+ cep : 22.460-901 
+ municipio : RIO DE JANEIRO 
+ porte : DEMAIS 
+ abertura : 31/01/1986 
+ natureza juridica : 205-4 - Sociedade Anônima Fechada 
+ fantasia : TV/REDE/CANAIS/G2C+GLOBO SOMLIVRE GLOBO.COM GLOBOPLAY 
+ cnpj : 27.865.757/0001-02 
+ ultima atualizacao : 2021-06-29T23:24:56.960Z 
+ status : OK 
+ capital social : 6983568523.86 
+$
