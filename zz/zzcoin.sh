@@ -1,15 +1,15 @@
 # ----------------------------------------------------------------------------
 # Retorna a cotação de criptomoedas em Reais (Bitcoin, Litecoins, etc.).
 #
-# Uso: zzcoin [criptomoeda]
-# Ex.: zzcoin       # Lista todas as criptomoedas disponíveis
-#      zzcoin btc   # Cotação do Bitcoin
-#      zzcoin ltc   # Cotação do Litecoin
-#      zzcoin eth   # Cotação do Ethereum
+# Uso: zzcoin [criptomoeda ...]
+# Ex.: zzcoin              # Lista todas as criptomoedas disponíveis
+#      zzcoin btc          # Cotação do Bitcoin
+#      zzcoin ltc          # Cotação do Litecoin
+#      zzcoin btc ltc eth  # Cotação do Bitcoin, Litecoin e Ethereum
 #
 # Autor: Tárcio Zemel <tarciozemel (a) gmail com>
 # Desde: 2014-03-24
-# Versão: 8
+# Versão: 9
 # Requisitos: zzzz zztool zzmaiusculas zznumero zzsemacento
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ zzcoin ()
 	zzzz -h coin "$1" && return
 
 	# Variáveis gerais
-	local moeda_informada
+	local moeda
 	local url="https://www.mercadobitcoin.com.br"
 
 	# https://www.mercadobitcoin.com.br/api-doc/
@@ -80,28 +80,31 @@ zzcoin ()
 		ZRX : 0x
 	"
 
-	if test -n "$1"
+	if test $# -eq 0
 	then
-		case "$1" in
-		*)
-			moeda_informada=$(echo "${1}" | zzmaiusculas | zzsemacento)
+		# Lista as moedas disponíveis
+		echo "$moedas" | tr -d '\t' | grep .
+		return 0
+	fi
 
-			if zztool grep_var "$moeda_informada :" "$moedas"
-			then
-				# Uma criptomoeda específica
-				zztool dump "${url}/api/${moeda_informada}/ticker/" |
+	while test $# -gt 0
+	do
+		moeda=$(echo "$1" | zzmaiusculas | zzsemacento)
+
+		if zztool grep_var "$moeda :" "$moedas"
+		then
+			# Mostra a cotação de uma criptomoeda específica
+			printf '%s: ' $moeda
+			zztool dump "${url}/api/${moeda}/ticker/" |
 				sed 's/.*"last": *"//;s/", *"buy.*//' |
 				zznumero -m
 
-			else
-				# Se não informou moeda válida, termina
-				zztool erro "Moeda desconhecida: $1"
-				return 1
-			fi
-		;;
-		esac
-	else
-		# Listando as moedas disponíveis
-		echo "$moedas" | tr -d '\t' | grep .
-	fi
+		else
+			# Se não informou moeda válida, termina
+			zztool erro "Moeda desconhecida: $1"
+			return 1
+		fi
+
+		shift
+	done
 }
