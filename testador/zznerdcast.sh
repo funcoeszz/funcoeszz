@@ -40,12 +40,6 @@ https://nerdcast.jovemnerd.com.br/nerdcast_352_ciencia_herois.mp3
 NerdCast 181 - Nerdcast para Não-Humanos | 02 Oct 2009
 https://nerdcast.jovemnerd.com.br/nerdcast_181_alienigenas.mp3
 
-NerdCast 22 - Super-Homem nos quadrinhos | 13 Jul 2006
-https://nerdcast.jovemnerd.com.br/nerdcast_022_supermanHQ.mp3
-
-NerdCast 01 - Super-Homem: Herói americano ou do mundo? | 02 Apr 2006
-https://nerdcast.jovemnerd.com.br/001_SupermanReturns.mp3
-
 $ zznerdcast HaloCast
 HaloCast 3 - HaloCast 3 | 22 Dec 2015
 https://nerdcast.jovemnerd.com.br/halocast_03.mp3
