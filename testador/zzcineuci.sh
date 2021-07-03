@@ -21,7 +21,7 @@ Campo Grande
  20 - UCI Bosque dos Ipês
 
 Canoas
- 26 - UCI Park Shopping Canoas
+ 26 - UCI ParkShopping Canoas
 
 Curitiba
  15 - UCI Palladium
@@ -40,11 +40,11 @@ Manaus
 Recife
  14 - UCI Kinoplex Plaza Casa Forte Shopping
  22 - UCI Kinoplex De Lux Shopping Recife
- 04 - UCI Kinoplex Recife Shopping
+ 04 - UCI Kinoplex Shopping Recife
  05 - UCI Kinoplex Shopping Tacaruna
 
 Ribeirão Preto
- 02 - UCI Ribeirão
+ 02 - UCI RibeirãoShopping
 
 Rio de Janeiro
  11 - UCI Kinoplex NorteShopping

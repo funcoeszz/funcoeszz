@@ -1,37 +1,25 @@
-$ zzdicesperanto -d pt -p eo função | grep -E -w '(funkcio|ofico)' | sort
+$ zzdicesperanto -d pt -p eo função
 funkcio
 ofico
-$
-
-$ zzdicesperanto -p en trabalho | grep -E -w '(job|employment)' | sort
-employment
-job
-$
-
-$ zzdicesperanto -p de novo | grep -E -w '(weiter|neue)' | sort
-neue
-weiter
-$
-
-$ zzdicesperanto -d de Frieden | grep -E -w '[Pp]aco'
-paco
-Paco
-$
-
-$ zzdicesperanto -p de vitória | grep -E -w '(Sieg|Triumph)' | sort
-Sieg
-Triumph
-$
-
-$ zzdicesperanto saudade | grep -E -w '(nostalgio|saŭdado)' | sort
+Funkcio
+Funkciteorio
+$ zzdicesperanto -p en astronauta
+astronaut
+spaceman
+cosmonaut
+$ zzdicesperanto -p de bola
+Ball
+Kugel
+Fußball
+$ zzdicesperanto -d de Eis
+glacio
+glaciaĵo
+$ zzdicesperanto saudade
 nostalgio
 saŭdado
-$
-
-$ zzdicesperanto esperança | grep  -w 'espero' | uniq
+sopiro
+$ zzdicesperanto esperança
 espero
-$
-
-$ zzdicesperanto -d en never | grep  -w 'neniam'
-neniam
+$ zzdicesperanto -d en planet
+planedo
 $

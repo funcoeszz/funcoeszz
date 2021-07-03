@@ -10,7 +10,7 @@
 #
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2004-12-23
-# Versão: 13
+# Versão: 14
 # Requisitos: zzzz zztool zzjuntalinhas zzminusculas zzfeed zzsqueeze zztac zzxml
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ zzsecurity ()
 		url='https://www.freebsd.org/security/advisories'
 		echo "$url"
 		zztool dump "$url" |
-			sed -n '/Data.*Advisory name/,${/Data/d;s/^[[:blank:]]*//;p;}' |
+			sed -n '/Dat[ae].*Advisory name/,${/Dat[ae]/d;s/^[[:blank:]]*//;p;}' |
 			$limite
 	fi
 

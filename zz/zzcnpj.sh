@@ -12,7 +12,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-12-23
-# Versão: 4
+# Versão: 5
 # Requisitos: zzzz zztool zzaleatorio
 # Tags: internet, cálculo, manipulação
 # ----------------------------------------------------------------------------
@@ -58,7 +58,6 @@ zzcnpj ()
 		zztool nl_eof |
 		tr '{}[]' '\n' |
 		sed '
-			/"qsa"/d
 			/"qual"/d
 			/^[ ,]*$/d
 			/"billing"/,$d
