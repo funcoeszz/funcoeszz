@@ -181,7 +181,7 @@ $ zzf1 1984
    34  Renault          French
  25.5  Williams         British
    16  Toleman          British
-   11  Alfa Romeo       Italian
+   11  Alfa Romeo       Swiss
     6  Arrows           British
     3  Ligier           French
     2  Osella           Italian
