@@ -8,7 +8,7 @@ $ zzipinternet -6 #=> --regex (^$|^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0
 # Testa muitos argumentos (error code 3).
 $ zzipinternet -4 -6; echo $?
 Utilizar no máximo 1 argumento.
-3
+5
 $
 
 # Testa argumento inválido (error code 2).
