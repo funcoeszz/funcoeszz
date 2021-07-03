@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------------
-# http://glosbe.com
+# https://glosbe.com
 # Dicionário de Esperanto em inglês, português e alemão.
 # Possui busca por palavra nas duas direções. O padrão é português-esperanto.
 #
@@ -11,8 +11,8 @@
 #
 # Autor: Fernando Aires <fernandoaires (a) gmail com>
 # Desde: 2005-05-20
-# Versão: 5
-# Requisitos: zzzz zztool zzurlencode
+# Versão: 6
+# Requisitos: zzzz zztool zzuniq zzurlencode zzxml
 # Tags: internet, dicionário
 # ----------------------------------------------------------------------------
 zzdicesperanto ()
@@ -73,5 +73,6 @@ zzdicesperanto ()
 	pesquisa="$1"
 
 	zztool source $(zzurlencode -n ':/' "$url/$de_ling/$para_ling/$pesquisa") |
-		sed -n 's/.*class=" phr">\([^<]*\)<.*/\1/p'
+		zzxml --tag h3 --untag |
+		zzuniq
 }
