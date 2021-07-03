@@ -366,15 +366,18 @@ then
 				    http://funcoeszz.net
 
 			FIM
+			exit 0
 		;;
 
 		# Mostra a versão das funções
 		-v | --version)
 			echo "Funções ZZ v$ZZVERSAO"
+			exit 0
 		;;
 
 		-*)
-			echo "Opção inválida '$1' (tente --help)"
+			echo "Opção inválida '$1' (tente --help)" >&2
+			exit 1
 		;;
 
 		# Chama a função informada em $1, caso ela exista
@@ -392,11 +395,13 @@ then
 			then
 				shift
 				$zz_func "$@"
+				zz_exit_code=$?
 			else
-				echo "Função inexistente '$zz_func' (tente --help)"
+				echo "Função inexistente '$zz_func' (tente --help)" >&2
 			fi
 
 			unset zz_func
+			exit $zz_exit_code
 		;;
 	esac
 fi
