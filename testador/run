@@ -24,9 +24,8 @@ no_internet=$(echo "$all" | grep -F -v -x -f <(echo "$internet"))
 
 # Check requirements
 $tester -V > /dev/null || {
-	printf '%s\n' "Ops... Não achei o programa testador: clitest"
-	printf '%s\n' 'Baixe-o deste endereço:'
-	printf '%s\n' 'https://raw.github.com/aureliojargas/clitest/master/clitest'
+	printf '%s\n' 'Ops... Não achei o programa testador.'
+	printf '%s\n' 'Para resolver, execute: make testador/clitest'
 	exit 1
 }
 

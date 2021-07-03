@@ -7,14 +7,11 @@ addons:
       - links
 
 before_install:
-  - curl -sOL https://raw.githubusercontent.com/aureliojargas/clitest/master/clitest
-  - chmod +x clitest
-  - mv clitest testador
+  - make testador/clitest
 
 script:
-  - ./util/requisitos.sh
-  - ./util/nanny.sh
-  - ./testador/run funcoeszz.md
+  - make lint
+  - make test-core
   - ./testador/run internet_travis
 
 notifications:
