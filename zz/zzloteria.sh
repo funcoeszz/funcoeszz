@@ -15,7 +15,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-05-18
-# Versão: 17
+# Versão: 18
 # Requisitos: zzzz zztool zzdatafmt zzjuntalinhas zzhoramin zzsqueeze zzunescape zzxml
 # Tags: internet, jogo, consulta
 # Nota: requer unzip
@@ -31,6 +31,11 @@ zzloteria ()
 	local tab=$(printf '\t')
 	local un_zip='unzip -q -a -C -o'
 	local tmp_dir="${ZZTMP%/*}"
+
+
+	# Essa URL feiosa está no final da página
+	# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena
+	local url_historico_megasena='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbwMPI0sDBxNXAOMwrzCjA0sjIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wNnUwNHfxcnSwBgIDUyhCvA5EawAjxsKckMjDDI9FQE-F4ca/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K8DBC0QPVN93KQ10G1/res/id=historicoHTML/c=cacheLevelPage/=/'
 
 	# Caso o segundo argumento seja um numero, filtra pelo concurso equivalente
 	if zztool testa_numero "$2"
@@ -195,17 +200,19 @@ zzloteria ()
 						}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
 					fi
 				;;
+
 				megasena)
-					if ! test -e ${cache}.mega.htm || ! $(zztool dump ${cache}.megasena.htm | grep "^ *$num_con " >/dev/null)
+					# Cria ou atualiza o cache, caso necessário
+					if ! test -e "${cache}.megasena.htm" ||
+						! $(zztool dump "${cache}.megasena.htm" | grep "^ *$num_con " >/dev/null)
 					then
-						wget -q -O "${cache}.megasena.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_mgsasc.zip"
-						$un_zip "${cache}.megasena.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
-						mv -f "${tmp_dir}/d_megasc.htm" ${cache}.megasena.htm
-						rm -f ${cache}.megasena.zip
+						wget -q -O "${cache}.megasena.htm" "$url_historico_megasena"
 					fi
-					zztool dump ${cache}.megasena.htm |
+
+					# Trata o argumento 'quantidade'
 					if test 0 = "$num_con"
 					then
+						zztool dump "${cache}.megasena.htm" |
 						awk '
 						BEGIN { printf "## QTD\t## QTD\t## QTD\n" }
 						$2 ~ /[0-9]\/[0-9][0-9]\/[0-9]/ { for (i=3;i<9;i++) numeros[$i]++ }
@@ -216,18 +223,41 @@ zzloteria ()
 							}
 						}
 						' | expand -t 10
+
+					# Trata argumento numérico (pesquisa resultado histórico)
 					else
+						zztool dump "${cache}.megasena.htm" |
 						grep "^ *$num_con " 2>/dev/null |
+						# Exemplos saída do grep anterior:
+						#
+						# Com cidade (num_con=1111):
+						#    1111 MESQUITA, RJ 23/09/2009 004 009 025 032 033 043 1 52 5266 2.100.928,15 21.932,77 309,39
+						# Sem cidade (num_con=100):
+						#    100 01/02/1998 014 029 030 046 048 051 0 56 3600 0,00 15.930,48 247,32
+						#
+						# A cidade não aparece no resultado, podemos removê-la.
+						# Para fazer isso de uma maneira mais simples, o próximo
+						# grep só pega os dados a partir do terceiro campo
+						# (data) e o sed logo em seguida recoloca o número do
+						# concurso no início da linha.
+						grep -E -o '[0-9]{2}/[0-9]{2}/[0-9]{4} .*' |
+						sed "s/^/$num_con /" |
+
+						# Neste ponto, a linha com os dados está assim:
+						# 100 01/02/1998 014 029 030 046 048 051 0 56 3600 0,00 15.930,48 247,32
 						awk '{
 							print "Concurso", $1, "(" $2 ")"
 							printf "%4s %4s %4s %4s %4s %4s\n", $3, $4, $5, $6, $7, $8
 							print ""
-							printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador!":$10), ($10==0?"":"R$ " $(NF-8))
-							printf "   Quina \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
-							printf "   Quadra\t%s\t%s\n", $(NF-5), "R$ " $(NF-4)
-						}' | expand -t 15,25,35
+							printf "   Sena  \t%s\t%s\n", $9, "R$ " $12
+							printf "   Quina \t%s\t%s\n", $10, "R$ " $13
+							printf "   Quadra\t%s\t%s\n", $11, "R$ " $14
+						}' | expand -t 15,25,35 |
+						# Dezenas vêm com 3 dígitos, muda pra 2. Exemplo: 012 -> 12
+						sed '2s/ 0/  /g'
 					fi
 				;;
+
 				duplasena)
 					if ! test -e ${cache}.duplasena.htm || ! $(zztool dump ${cache}.duplasena.htm | grep "^ *$num_con " >/dev/null)
 					then
