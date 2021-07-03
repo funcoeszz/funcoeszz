@@ -12,6 +12,7 @@
 # Requisitos: zzzz zztool zzecho zzjuntalinhas zztrim zzutf8 zzxml
 # Tags: internet, cinema
 # ----------------------------------------------------------------------------
+# DESATIVADA: 2021-07-03 Site mudou, quebrou tudo.
 zzcinemais ()
 {
 	zzzz -h cinemais "$1" && return
