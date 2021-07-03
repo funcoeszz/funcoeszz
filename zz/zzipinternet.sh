@@ -41,11 +41,11 @@ zzipinternet ()
 	esac
 
 	# Se recebemos $ip vazio, retorna error code 1.
-	if test $(echo -n $ip | wc -c) -eq 0
+	if test -z "$ip"
 	then
 		return 1
 	else
 		# Sem erros. Retorna IP recebido
-		echo $ip | zztool nl_eof
+		echo $ip
 	fi
 }
