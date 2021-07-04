@@ -139,6 +139,10 @@ zztool ()
 			test -n "$erro" && echo "Data inválida '$1', deve ser dd/mm/aaaa" >&2
 			return 1
 		;;
+
+		# IMPORTANTE
+		# Em vez de adicionar outras ferramentas testa_* aqui, confira a zztestar.
+
 		multi_stdin)
 			# Mostra na tela os argumentos *ou* a STDIN, nesta ordem
 			# Útil para funções/comandos aceitarem dados das duas formas:
