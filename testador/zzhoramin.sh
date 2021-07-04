@@ -10,3 +10,6 @@ $ zzhoramin -0:01	#=> -1
 $ zzhoramin -1:00	#=> -60
 $ zzhoramin -1:01	#=> -61
 $ zzhoramin -01:01	#=> -61
+$ zzhoramin foo
+Hora inválida 'foo'
+$
