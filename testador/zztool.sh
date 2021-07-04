@@ -140,10 +140,14 @@ $ zztool testa_ipv4 3...3               ; echo $?  #=> 1
 $ zztool testa_ipv6 1200:0000:AB00:1234:0000:2552:7777:1313  ; echo $?  #=> 0
 $ zztool testa_ipv6 21DA:D3:0:2F3B:2AA:FF:FE28:9C5A          ; echo $?  #=> 0
 $ zztool testa_ipv6 FE80:0000:0000:0000:0202:B3FF:FE1E:8329  ; echo $?  #=> 0
+$ zztool testa_ipv6 FE80::0202:B3FF:FE1E:8329                ; echo $?  #=> 0
 
 # testa_ipv6: números inválidos
 
 $ zztool testa_ipv6 1200:0000:AB00:1234:O000:2552:7777:1313  ; echo $?  #=> 1
+$ zztool testa_ipv6 FE80::0202:B3FF:FE1E::8329               ; echo $?  #=> 1
+$ zztool testa_ipv6 127.0.0.1                                ; echo $?  #=> 1
+$ zztool testa_ipv6 ""                                       ; echo $?  #=> 1
 
 # endereco_sed
 

@@ -19,44 +19,36 @@ zzipinternet ()
 
 	local ip
 
-	# Sem parâmetros seta IPv4 :
-	if test $# -eq 0
-	then
-		set -- -4
-	elif test $# -gt 1
+	if test $# -gt 1
 	then
 		zztool erro "Utilizar no máximo 1 argumento."
-		return 5
+		return 1
 	fi
 
-	# Verifica parametro de entrada 
-	case "$1" in 
-	-6)
-		# Retorna IPv6 se houver, senão vazio.
-		ip=$(zztool source 'https://api6.ipify.org')
-
-		# Para IPv6 invalido retorna error code 4
-		test -z "$ip" || zztool -e testa_ipv6 $ip || return 4
+	# Determina versão de ip desejada. 
+	case "$1" in
+		-4 | "")
+			versao=4
 		;;
-	-4)
-		# Retorna IPv4 se houver, senão vazio.
-		ip=$(zztool source 'https://api4.ipify.org')
-
-		# Para IPv4 invalido retorna error code 3
-		test -z "$ip" || zztool -e testa_ipv4 $ip || return 3
+		-6)
+			versao=6
 		;;
-	*)
-		# parametro inválido:
-		zztool erro "Opção inválida: $1"; 
-		return 2;;
+		*)
+			zztool erro "Opção inválida: $1";
+			return 1
+		;;
 	esac
 
-	# Se recebemos $ip vazio, retorna error code 1.
-	if test -z "$ip"
-	then
-		return 1
-	else
-		# Sem erros. Retorna IP recebido
-		echo $ip
-	fi
+	ip=$(zztool source "https://api${versao}.ipify.org")
+
+	# IP vazio, não detectado. Pode ser o caso de pedir IPv6 numa
+	# máquina onde somente IPv4 está configurado. Retorna 1 para o
+	# usuário poder encadear: zzipinternet 6 || zzipinternet 4
+	test -z "$ip" && return 1
+
+	# Valida se é um IP mesmo ou se veio outra coisa
+	zztool -e testa_ipv${versao} $ip || return 1
+
+	# Sem erros. Retorna IP recebido
+	echo $ip
 }
