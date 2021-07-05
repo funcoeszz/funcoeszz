@@ -49,7 +49,7 @@ zzipinternet ()
 	# Valida se é um IP mesmo ou se veio outra coisa
 	if ! zztestar ipv${versao} $ip
 	then
-		echo "IPv${versao} inválido: $ip"
+		zztool erro "IPv${versao} inválido: $ip";
 		return 1
 	fi
 
