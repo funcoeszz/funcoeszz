@@ -25,7 +25,7 @@ zzipinternet ()
 		return 1
 	fi
 
-	# Determina versão de ip desejada. 
+	# Determina versão de ip desejada.
 	case "$1" in
 		-4 | "")
 			versao=4
@@ -54,5 +54,5 @@ zzipinternet ()
 	fi
 
 	# Sem erros. Retorna IP recebido
-	echo $ip
+	echo "$ip"
 }
