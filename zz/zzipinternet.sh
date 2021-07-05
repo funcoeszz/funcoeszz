@@ -47,7 +47,11 @@ zzipinternet ()
 	test -z "$ip" && return 1
 
 	# Valida se é um IP mesmo ou se veio outra coisa
-	zztool -e testa_ipv${versao} $ip || return 1
+	if ! zztestar ipv${versao} $ip
+	then
+		echo "IPv${versao} inválido: $ip"
+		return 1
+	fi
 
 	# Sem erros. Retorna IP recebido
 	echo $ip

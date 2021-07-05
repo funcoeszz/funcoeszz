@@ -113,42 +113,6 @@ $ zztool testa_data +31/12/2000		; echo $?  #=> 1
 $ zztool testa_data 31/12/2000+		; echo $?  #=> 1
 $ zztool testa_data +31/12/2000+	; echo $?  #=> 1
 
-# testa_ipv4: números validos
-
-$ zztool testa_ipv4 127.0.0.1           ; echo $?  #=> 0
-$ zztool testa_ipv4 0.0.0.0             ; echo $?  #=> 0
-$ zztool testa_ipv4 255.255.255.255     ; echo $?  #=> 0
-$ zztool testa_ipv4 9.19.199.249        ; echo $?  #=> 0
-
-# testa_ipv4: números invalidos
-
-$ zztool testa_ipv4 127.0.0.256         ; echo $?  #=> 1
-$ zztool testa_ipv4 127.0.0.260         ; echo $?  #=> 1
-$ zztool testa_ipv4 127.0.0.300         ; echo $?  #=> 1
-$ zztool testa_ipv4 1.1.1.01            ; echo $?  #=> 1
-$ zztool testa_ipv4 ...                 ; echo $?  #=> 1
-$ zztool testa_ipv4 ""                  ; echo $?  #=> 1
-$ zztool testa_ipv4 30.168.1.255.1      ; echo $?  #=> 1
-$ zztool testa_ipv4 127.1               ; echo $?  #=> 1
-$ zztool testa_ipv4 192.168.1.256       ; echo $?  #=> 1
-$ zztool testa_ipv4 -1.2.3.4            ; echo $?  #=> 1
-$ zztool testa_ipv4 1.1.1.1.            ; echo $?  #=> 1
-$ zztool testa_ipv4 3...3               ; echo $?  #=> 1
-
-# testa_ipv6: números válidos
-
-$ zztool testa_ipv6 1200:0000:AB00:1234:0000:2552:7777:1313  ; echo $?  #=> 0
-$ zztool testa_ipv6 21DA:D3:0:2F3B:2AA:FF:FE28:9C5A          ; echo $?  #=> 0
-$ zztool testa_ipv6 FE80:0000:0000:0000:0202:B3FF:FE1E:8329  ; echo $?  #=> 0
-$ zztool testa_ipv6 FE80::0202:B3FF:FE1E:8329                ; echo $?  #=> 0
-
-# testa_ipv6: números inválidos
-
-$ zztool testa_ipv6 1200:0000:AB00:1234:O000:2552:7777:1313  ; echo $?  #=> 1
-$ zztool testa_ipv6 FE80::0202:B3FF:FE1E::8329               ; echo $?  #=> 1
-$ zztool testa_ipv6 127.0.0.1                                ; echo $?  #=> 1
-$ zztool testa_ipv6 ""                                       ; echo $?  #=> 1
-
 # endereco_sed
 
 $ zztool endereco_sed $		#=> $

@@ -139,21 +139,6 @@ zztool ()
 			test -n "$erro" && echo "Data inválida '$1', deve ser dd/mm/aaaa" >&2
 			return 1
 		;;
-		testa_ipv4)
-			# Testa se $1 é um número IPv4 válido.
-			echo "$1" | grep -E "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])$" >/dev/null && return 0
-
-			test -n "$erro" && echo "IPv4 inválido '$1'" >&2
-			return 1
-		;;
-		testa_ipv6)
-			# Testa se $1 é um número IPv6 válido.
-			# https://stackoverflow.com/questions/53497/regular-expression-that-matches-valid-ipv6-addresses
-			echo "$1" | grep -E "^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$" >/dev/null && return 0
-
-			test -n "$erro" && echo "IPv6 inválido '$1'" >&2
-			return 1
-		;;
 		multi_stdin)
 			# Mostra na tela os argumentos *ou* a STDIN, nesta ordem
 			# Útil para funções/comandos aceitarem dados das duas formas:
