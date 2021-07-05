@@ -10,7 +10,7 @@
 # Autor: Thobias Salazar Trevisan, www.thobias.org
 # Desde: 2005-09-01
 # Versão: 7
-# Requisitos: zzzz zztool
+# Requisitos: zzzz zztool zztestar
 # Tags: internet, consulta
 # ----------------------------------------------------------------------------
 zzipinternet ()
