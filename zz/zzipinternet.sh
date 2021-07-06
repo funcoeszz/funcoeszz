@@ -47,7 +47,7 @@ zzipinternet ()
 	test -z "$ip" && return 1
 
 	# Valida se é um IP mesmo ou se veio outra coisa
-	zztestar -e ipv${versao} $ip || return 1
+	zztestar -e ipv${versao} "$ip" || return 1
 
 	# Sem erros. Retorna IP recebido
 	echo "$ip"
