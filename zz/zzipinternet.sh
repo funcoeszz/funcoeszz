@@ -17,7 +17,7 @@ zzipinternet ()
 {
 	zzzz -h ipinternet "$1" && return
 
-	local ip
+	local ip versao
 
 	if test $# -gt 1
 	then
