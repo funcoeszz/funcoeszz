@@ -4,6 +4,7 @@ clitest_url = https://raw.githubusercontent.com/aureliojargas/clitest/master/cli
 .PHONY: clean lint test test-core test-local test-internet
 
 lint:
+	./util/alinhamento.sh
 	./util/requisitos.sh
 	./util/nanny.sh
 
