@@ -173,7 +173,7 @@ zztool ()
 		list2lines)
 			# Limpa lista dos argumentos *ou* a STDIN e retorna um item por linha
 			# Lista: um dois três | um, dois, três | um;dois;três
-			zztool multi_stdin "$@" | 
+			zztool multi_stdin "$@" |
 				sed 's/[;,]/ /g' |
 				tr -s '\t' ' ' |
 				tr ' ' '\n' |
