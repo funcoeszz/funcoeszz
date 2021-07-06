@@ -49,11 +49,28 @@ $ zztestar hexa 5dg8; echo $?	#=> 1
 $ zztestar hexa 456i; echo $?	#=> 1
 
 # ip
-$ zztestar ip 192.168.0.32; echo $?	#=> 0
-$ zztestar ip 127.0.0.1; echo $?	#=> 0
-$ zztestar ip 208.80.152.130; echo $?	#=> 0
-$ zztestar ip 172.31.255.255; echo $?	#=> 0
-$ zztestar ip 192.168.0.434; echo $?	#=> 1
+$ zztestar ip 192.168.0.32    ; echo $? #=> 0
+$ zztestar ip 127.0.0.1       ; echo $? #=> 0
+$ zztestar ip 208.80.152.130  ; echo $? #=> 0
+$ zztestar ip 172.31.255.255  ; echo $? #=> 0
+$ zztestar ip 192.168.0.434   ; echo $? #=> 1
+$ zztestar ip 0.0.0.0         ; echo $? #=> 0
+$ zztestar ip 255.255.255.255 ; echo $? #=> 0
+$ zztestar ip 9.19.199.249    ; echo $? #=> 0
+$ zztestar ip 127.0.0.256     ; echo $? #=> 1
+$ zztestar ip 127.0.0.260     ; echo $? #=> 1
+$ zztestar ip 127.0.0.300     ; echo $? #=> 1
+$ zztestar ip 1.1.1.01        ; echo $? #=> 1
+$ zztestar ip ...             ; echo $? #=> 1
+$ zztestar ip ""              ; echo $? #=> 1
+$ zztestar ip 30.168.1.255.1  ; echo $? #=> 1
+$ zztestar ip 127.1           ; echo $? #=> 1
+$ zztestar ip 192.168.1.256   ; echo $? #=> 1
+$ zztestar ip -1.2.3.4        ; echo $? #=> 1
+$ zztestar ip 1.1.1.1.        ; echo $? #=> 1
+$ zztestar ip 3...3           ; echo $? #=> 1
+$ zztestar ip4 127.0.0.1      ; echo $? #=> 0
+$ zztestar ipv4 127.0.0.1     ; echo $? #=> 0
 
 # ipv6
 $ zztestar ip6 2001:bce4:5641:3412:341:45ae:fe32:65; echo $?	#=> 0
@@ -68,6 +85,16 @@ $ zztestar ip6 2001:bce4:5641:3412:341:45ae::; echo $?	#=> 0
 $ zztestar ip6 ::fe32:65; echo $?	#=> 0
 $ zztestar ip6 2001::3412:341::65; echo $?	#=> 1
 $ zztestar ip6 2001:0:0:3412::fe32:65; echo $?	#=> 0
+
+$ zztestar ip6 1200:0000:AB00:1234:0000:2552:7777:1313  ; echo $?  #=> 0
+$ zztestar ip6 21DA:D3:0:2F3B:2AA:FF:FE28:9C5A          ; echo $?  #=> 0
+$ zztestar ip6 FE80:0000:0000:0000:0202:B3FF:FE1E:8329  ; echo $?  #=> 0
+$ zztestar ip6 FE80::0202:B3FF:FE1E:8329                ; echo $?  #=> 0
+$ zztestar ip6 1200:0000:AB00:1234:O000:2552:7777:1313  ; echo $?  #=> 1
+$ zztestar ip6 FE80::0202:B3FF:FE1E::8329               ; echo $?  #=> 1
+$ zztestar ip6 127.0.0.1                                ; echo $?  #=> 1
+$ zztestar ip6 ""                                       ; echo $?  #=> 1
+$ zztestar ipv6 1200:0000:AB00:1234:0000:2552:7777:1313 ; echo $?  #=> 0
 
 # mac
 $ zztestar mac 00:19:B9:FB:E2:57; echo $?	#=> 0

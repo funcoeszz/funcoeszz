@@ -16,7 +16,7 @@
 #   bin | binario            =>  Número Binário ( apenas 0 e 1 )
 #   octal | octadecimal      =>  Número Octal ( de 0 a 7 )
 #   hexa | hexadecimal       =>  Número Hexadecimal ( de 0 a 9 e A até F )
-#   ip                       =>  Endereço de rede IPV4
+#   ip | ip4 | ipv4          =>  Endereço de rede IPV4
 #   ip6 | ipv6               =>  Endereço de rede IPV6
 #   mac                      =>  Código MAC Address válido
 #   data                     =>  Data com formatação válida ( dd/mm/aaa )
@@ -33,7 +33,7 @@
 #
 # Autor: Itamar <itamarnet (a) yahoo com br>
 # Desde: 2016-03-14
-# Versão: 2
+# Versão: 3
 # Requisitos: zzzz zztool
 # Tags: número, teste
 # ----------------------------------------------------------------------------
@@ -151,7 +151,7 @@ zztestar ()
 			return 1
 		;;
 
-		ip)
+		ip | ip4 | ipv4)
 			# Testa se $2 é um número IPV4 (nnn.nnn.nnn.nnn)
 			local nnn="\([0-9]\|[1-9][0-9]\|1[0-9][0-9]\|2[0-4][0-9]\|25[0-5]\)" # 0-255
 			echo "$2" | grep "^$nnn\.$nnn\.$nnn\.$nnn$" >/dev/null && return 0
