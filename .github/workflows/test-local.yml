@@ -1,0 +1,663 @@
+name: Test no internet
+on: push
+jobs:
+  zzajuda:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzajuda.sh
+  zzaleatorio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzaleatorio.sh
+  zzalfabeto:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzalfabeto.sh
+  zzalinhar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzalinhar.sh
+  zzansi2html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzansi2html.sh
+  zzarrumacidade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzarrumacidade.sh
+  zzarrumanome:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzarrumanome.sh
+  zzascii:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzascii.sh
+  zzbeep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzbeep.sh
+  zzbicho:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzbicho.sh
+  zzbissexto:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzbissexto.sh
+  zzbyte:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzbyte.sh
+  zzcalculaip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcalculaip.sh
+  zzcalcula:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcalcula.sh
+  zzcapitalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcapitalize.sh
+  zzcaracoroa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcaracoroa.sh
+  zzcarnaval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcarnaval.sh
+  zzchecamd5:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzchecamd5.sh
+  zzcinclude:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcinclude.sh
+  zzclassnum:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzclassnum.sh
+  zzcodchar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcodchar.sh
+  zzcolunar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcolunar.sh
+  zzcontapalavra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcontapalavra.sh
+  zzcontapalavras:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcontapalavras.sh
+  zzconverte:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzconverte.sh
+  zzcores:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcores.sh
+  zzcorpuschristi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcorpuschristi.sh
+  zzcpf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcpf.sh
+  zzcut:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzcut.sh
+  zzdado:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdado.sh
+  zzdataestelar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdataestelar.sh
+  zzdatafmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdatafmt.sh
+  zzdata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdata.sh
+  zzdiadasemana:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdiadasemana.sh
+  zzdiasuteis:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdiasuteis.sh
+  zzdiffpalavra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdiffpalavra.sh
+  zzdividirtexto:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdividirtexto.sh
+  zzdivisores:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdivisores.sh
+  zzdos2unix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzdos2unix.sh
+  zzecho:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzecho.sh
+  zzencoding:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzencoding.sh
+  zzestado:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzestado.sh
+  zzextensao:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzextensao.sh
+  zzfatorar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzfatorar.sh
+  zzferiado:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzferiado.sh
+  zzfoneletra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzfoneletra.sh
+  zzhexa2str:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzhexa2str.sh
+  zzhoramin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzhoramin.sh
+  zzhorariodeverao:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzhorariodeverao.sh
+  zzhora:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzhora.sh
+  zzhsort:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzhsort.sh
+  zzimc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzimc.sh
+  zzjoin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzjoin.sh
+  zzjuntalinhas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzjuntalinhas.sh
+  zzlblank:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzlblank.sh
+  zzlembrete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzlembrete.sh
+  zzlimpalixo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzlimpalixo.sh
+  zzlinha:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzlinha.sh
+  zzlorem:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzlorem.sh
+  zzmacaddress:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzmacaddress.sh
+  zzmaiores:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzmaiores.sh
+  zzmaiusculas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzmaiusculas.sh
+  zzmat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzmat.sh
+  zzmcd:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzmcd.sh
+  zzmd5:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzmd5.sh
+  zzminusculas:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzminusculas.sh
+  zzmix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzmix.sh
+  zzmoneylog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzmoneylog.sh
+  zzmudaprefixo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzmudaprefixo.sh
+  zznomealeatorio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zznomealeatorio.sh
+  zznomefoto:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zznomefoto.sh
+  zznumero:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zznumero.sh
+  zzpad:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzpad.sh
+  zzpalpite:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzpalpite.sh
+  zzpascoa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzpascoa.sh
+  zzporcento:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzporcento.sh
+  zzrepete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzrepete.sh
+  zzromanos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzromanos.sh
+  zzrot13:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzrot13.sh
+  zzrot47:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzrot47.sh
+  zzsemacento:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzsemacento.sh
+  zzsenha:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzsenha.sh
+  zzseq:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzseq.sh
+  zzsextapaixao:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzsextapaixao.sh
+  zzshuffle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzshuffle.sh
+  zzsplit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzsplit.sh
+  zzsqueeze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzsqueeze.sh
+  zzstr2hexa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzstr2hexa.sh
+  zzsubway:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzsubway.sh
+  zztabuada:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztabuada.sh
+  zztac:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztac.sh
+  zztestar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztestar.sh
+  zztimer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztimer.sh
+  zztool:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztool.sh
+  zztranspor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztranspor.sh
+  zztrim:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztrim.sh
+  zztrocaarquivos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztrocaarquivos.sh
+  zztrocaextensao:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztrocaextensao.sh
+  zztrocapalavra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zztrocapalavra.sh
+  zzunescape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzunescape.sh
+  zzunicode2ascii:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzunicode2ascii.sh
+  zzuniq:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzuniq.sh
+  zzunix2dos:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzunix2dos.sh
+  zzurldecode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzurldecode.sh
+  zzurlencode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzurlencode.sh
+  zzutf8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzutf8.sh
+  zzvira:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzvira.sh
+  zzwc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzwc.sh
+  zzxml:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzxml.sh
+  zzzz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run zzzz.sh

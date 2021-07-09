@@ -21,6 +21,8 @@ internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"
 internet_travis=$(echo "$internet" | grep -E -v '^zz(distro|linux|chavepgp)\.sh$')
 all=$(ls -1 zz*.sh)
 no_internet=$(echo "$all" | grep -F -v -x -f <(echo "$internet"))
+# For GitHub Actions exceptions, see https://github.com/funcoeszz/funcoeszz/pull/739
+no_internet_gh_actions=$(echo "$no_internet" | grep -E -v '^zz(braille)\.sh$')
 
 # Check requirements
 $tester -V > /dev/null || {
@@ -52,6 +54,11 @@ elif test "local" = "$1"
 then
 	# Tests that do not need internet
 	$tester --progress dot --pre-flight ". $tmp" $no_internet
+	exitcode=$?
+elif test "local-gh-actions" = "$1"
+then
+	# Tests that do not need internet, to be run in GitHub Actions
+	$tester --progress dot --pre-flight ". $tmp" $no_internet_gh_actions
 	exitcode=$?
 elif test "funcoeszz.md" = "$1"
 then
