@@ -1,6 +1,6 @@
 # ----------------------------------------------------------------------------
 # Mudança de diretório com histórico de mudanças acessível por menu.
-# Funcionamento idêntico à função embutida cd, com a diferença que, 
+# Funcionamento idêntico à função embutida cd, com a diferença que,
 # quando chamada sem parâmetros, exibe um menu selecionável
 # a partir do histórico de mudanças.
 #
@@ -20,7 +20,7 @@ zzcd() {
 	zzcd_auxiliar() {
 		local numdir="$1"
 		local dirs="$2"
-		# Display de $(dirs -v) tem um espaço inicial 
+		# Display de $(dirs -v) tem um espaço inicial
 		# e dois espaços antes do diretório
 		local numdir="$(grep -E "^ $numdir  " <<<"$dirs" | cut -d ' ' -f 2)"
 		# Omitindo erro de pilha vazia
@@ -30,20 +30,21 @@ zzcd() {
 	local dirs="$(dirs -v)"
 
 	# Exibição de menu de navegação quando não há parâmetros
-	if [ $# -eq 0 ]; then
-    local numlinhas=$(wc -l <<< "$dirs")
+	if test $# -eq 0
+	then
+		local numlinhas=$(wc -l <<< "$dirs")
 
 		# Histórico com apenas uma linha é vazio (representa diretório atual)
-		[ $numlinhas -eq 1 ] && return 0;
+		test $numlinhas -eq 1 && return 0
 
 		echo "$dirs"
 		echo -n "Ir para número: "
 		read numdir
 
 		# Se desistiu (i.e. teclou enter) retorna sem erro
-		[ "$numdir" = "" ] && return 0; 
+		test "$numdir" = "" && return 0
 
-		# Validando número de linha inteiro 
+		# Validando número de linha inteiro
 		# https://stackoverflow.com/a/61835747/152016
 		if ! (( 10#$numdir >= 0 )) 2>/dev/null; then
 			echo "Número de linha inválido: $numdir" >&2
@@ -54,7 +55,7 @@ zzcd() {
 			echo "Número de linha inválido: $numdir" >&2
 			return 1
 		fi
-		
+
 		zzcd_auxiliar "$numdir" "$dirs"
 	else
 		# Resolvendo diretório com realpath (não expandir links simbólicos)
