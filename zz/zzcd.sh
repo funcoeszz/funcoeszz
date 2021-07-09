@@ -18,21 +18,26 @@ zzcd() {
 	# Função auxiliar que muda para um diretório exibido em $(dirs -v),
 	# a partir de um parâmetro de pesquisa
 	zzcd_auxiliar() {
-		local numdir="$1"
-		local dirs="$2"
+		local dirs numdir
+
+		numdir="$1"
+		dirs="$2"
 		# Display de $(dirs -v) tem um espaço inicial
 		# e dois espaços antes do diretório
-		local numdir="$(grep -E "^ $numdir  " <<<"$dirs" | cut -d ' ' -f 2)"
+		numdir="$(grep -E "^ $numdir  " <<<"$dirs" | cut -d ' ' -f 2)"
 		# Omitindo erro de pilha vazia
 		pushd "+$numdir" 2>&1 >/dev/null
 	}
 
-	local dirs="$(dirs -v)"
+	local dirs numlinhas
+	local diretorio dir_existente numdir_existente
+
+	dirs="$(dirs -v)"
 
 	# Exibição de menu de navegação quando não há parâmetros
 	if test $# -eq 0
 	then
-		local numlinhas=$(wc -l <<< "$dirs")
+		numlinhas=$(wc -l <<< "$dirs")
 
 		# Histórico com apenas uma linha é vazio (representa diretório atual)
 		test $numlinhas -eq 1 && return 0
@@ -46,12 +51,14 @@ zzcd() {
 
 		# Validando número de linha inteiro
 		# https://stackoverflow.com/a/61835747/152016
-		if ! (( 10#$numdir >= 0 )) 2>/dev/null; then
+		if ! (( 10#$numdir >= 0 )) 2>/dev/null
+		then
 			echo "Número de linha inválido: $numdir" >&2
 			return 1
 		fi
 		# Validando número de linha no intervalo correto.
-		if [ $numdir -lt 0 -o $numdir -ge $numlinhas ]; then
+		if test $numdir -lt 0 -o $numdir -ge $numlinhas
+		then
 			echo "Número de linha inválido: $numdir" >&2
 			return 1
 		fi
@@ -59,12 +66,13 @@ zzcd() {
 		zzcd_auxiliar "$numdir" "$dirs"
 	else
 		# Resolvendo diretório com realpath (não expandir links simbólicos)
-		local diretorio="$(realpath -s "$1")"
+		diretorio="$(realpath -s "$1")"
 
 		# Teste de existência de histórico (toda a linha)
-		local dir_existente="$(grep -E "^ \d+  $diretorio$" <<< "$dirs")"
-		if [ "$dir_existente" ]; then
-			local numdir_existente=$(grep -oE "^ \d+" <<< "$dir_existente")
+		dir_existente="$(grep -E "^ \d+  $diretorio$" <<< "$dirs")"
+		if test "$dir_existente"
+		then
+			numdir_existente=$(grep -oE "^ \d+" <<< "$dir_existente")
 			zzcd_auxiliar $numdir_existente "$dirs"
 		else
 			# Senão pushd do diretório para armazenar histórico, omitindo output
