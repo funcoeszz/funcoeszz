@@ -213,5 +213,7 @@ zzhora ()
 	test $mm -le 9 && mm="0$mm"
 	test $hh_dia -le 9 && hh_dia="0$hh_dia"
 
+	unset zzhora_minutos_auxiliar
+	unset zzhora_soma_auxiliar
 	echo "$negativo$hh:$mm (${dias}d ${horas_do_dia}h ${minutos}m)"
 }
