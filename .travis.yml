@@ -10,7 +10,6 @@ before_install:
   - make testador/clitest
 
 script:
-  - make lint
   - make test-core
   - ./testador/run internet_travis
 
