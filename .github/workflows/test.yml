@@ -1,0 +1,10 @@
+# https://docs.github.com/en/actions/reference
+
+name: Test
+on: push
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make test-core
