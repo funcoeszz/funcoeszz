@@ -10,15 +10,9 @@ jobs:
       - uses: actions/checkout@v2
       - run: make test-core
 
-  zzbissexto:
+  local:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: make testador/clitest
-      - run: ./testador/run zzbissexto.sh
-  zzbraille:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: make testador/clitest
-      - run: ./testador/run zzbraille.sh
+      - run: ./testador/run local-gh-actions
