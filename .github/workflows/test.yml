@@ -14,4 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: make test-local
+      #- run: make test-local
+      - run: ./testador/run zzbissexto.sh
+      - run: ./testador/run zzbraille.sh
