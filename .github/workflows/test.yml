@@ -15,5 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       #- run: make test-local
+      - run: make testador/clitest
       - run: ./testador/run zzbissexto.sh
       - run: ./testador/run zzbraille.sh
