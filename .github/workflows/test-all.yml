@@ -1,0 +1,42 @@
+name: Test
+on: push
+jobs:
+  all:
+    runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        abc:
+          - a
+          - b
+          - c
+          - d
+          - e
+          - f
+          - g
+          - h
+          - i
+          - j
+          - k
+          - l
+          - m
+          - n
+          - o
+          - p
+          - q
+          - r
+          - s
+          - t
+          - u
+          - v
+          - w
+          - x
+          - y
+          - z
+    steps:
+      - uses: actions/checkout@v3
+      - run: make testador/clitest
+
+      # Using env to avoid the gotcha with the trapped SIGPIPE:
+      # https://github.com/aureliojargas/github-actions-sandbox/pull/4
+      - run: env --default-signal=PIPE ./testador/run zz${{ matrix.abc }}*.sh
