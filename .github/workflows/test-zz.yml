@@ -1,0 +1,208 @@
+name: Test
+on: push
+jobs:
+  all:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        zz:
+          # Para gerar esta lista no Vim:
+          # :r!ls -1 ../../testador/zz*.sh | grep -v zzbraille | sort | sed 's,.*/,,; s/\.sh$//; s/^/          - /'
+          - zzajuda
+          - zzaleatorio
+          - zzalfabeto
+          - zzalinhar
+          - zzansi2html
+          - zzarrumacidade
+          - zzarrumanome
+          - zzascii
+          - zzbeep
+          - zzbicho
+          - zzbissexto
+          - zzblist
+          - zzbrasileirao
+          - zzbyte
+          - zzcalculaip
+          - zzcalcula
+          - zzcapitalize
+          - zzcaracoroa
+          - zzcarnaval
+          - zzcep
+          - zzchavepgp
+          - zzchecamd5
+          - zzcidade
+          - zzcinclude
+          - zzcineuci
+          - zzclassnum
+          - zzcnpj
+          - zzcodchar
+          - zzcodq
+          - zzcoin
+          - zzcolunar
+          - zzconfere
+          - zzconjugar
+          - zzconstantes
+          - zzcontapalavra
+          - zzcontapalavras
+          - zzconverte
+          - zzcores
+          - zzcorpuschristi
+          - zzcotacao
+          - zzcpf
+          - zzcut
+          - zzdado
+          - zzdataestelar
+          - zzdatafmt
+          - zzdata
+          - zzddd
+          - zzdiadasemana
+          - zzdiasuteis
+          - zzdicantonimos
+          - zzdicasl
+          - zzdicbabylon
+          - zzdicesperanto
+          - zzdicjargon
+          - zzdicportugues
+          - zzdicsinonimos
+          - zzdiffpalavra
+          - zzdistro
+          - zzdividirtexto
+          - zzdivisores
+          - zzdolar
+          - zzdominiopais
+          - zzdos2unix
+          - zzecho
+          - zzencoding
+          - zzenglish
+          - zzestado
+          - zzexcuse
+          - zzextensao
+          - zzf1
+          - zzfatorar
+          - zzfeed
+          - zzferiado
+          - zzfilme
+          - zzfoneletra
+          - zzfutebol
+          - zzgeoip
+          - zzglobo
+          - zzgravatar
+          - zzhexa2str
+          - zzhoracerta
+          - zzhoramin
+          - zzhorariodeverao
+          - zzhora
+          - zzhoroscopo
+          - zzhowto
+          - zzhsort
+          - zzimc
+          - zzipinternet
+          - zzipv6
+          - zzit
+          - zzjoin
+          - zzjquery
+          - zzjuntalinhas
+          - zzlblank
+          - zzlembrete
+          - zzlibertadores
+          - zzlimpalixo
+          - zzlinha
+          - zzlinuxnews
+          - zzlinux
+          - zzlocale
+          - zzlorem
+          - zzloteria
+          - zzlua
+          - zzmacaddress
+          - zzmacvendor
+          - zzmaiores
+          - zzmaiusculas
+          - zzmariadb
+          - zzmat
+          - zzmcd
+          - zzmd5
+          - zzminiurl
+          - zzminusculas
+          - zzmix
+          - zzmoneylog
+          - zzmudaprefixo
+          - zznatal
+          - zznerdcast
+          - zznomealeatorio
+          - zznomefoto
+          - zznome
+          - zznoticiaslinux
+          - zznoticiassec
+          - zznumero
+          - zzora
+          - zzpad
+          - zzpais
+          - zzpalpite
+          - zzpascoa
+          - zzpgsql
+          - zzphp
+          - zzporcento
+          - zzporta
+          - zzpronuncia
+          - zzquimica
+          - zzramones
+          - zzrastreamento
+          - zzrepete
+          - zzromanos
+          - zzrot13
+          - zzrot47
+          - zzrpmfind
+          - zzsecurity
+          - zzsemacento
+          - zzsenha
+          - zzseq
+          - zzsextapaixao
+          - zzsheldon
+          - zzshuffle
+          - zzsigla
+          - zzsplit
+          - zzsqueeze
+          - zzstr2hexa
+          - zzsubway
+          - zztabuada
+          - zztac
+          - zztempo
+          - zztestar
+          - zztimer
+          - zztool
+          - zztop
+          - zztranspor
+          - zztrim
+          - zztrocaarquivos
+          - zztrocaextensao
+          - zztrocapalavra
+          - zztv
+          - zzunescape
+          - zzunicode2ascii
+          - zzunicode
+          - zzuniq
+          - zzunix2dos
+          - zzurldecode
+          - zzurlencode
+          - zzutf8
+          - zzvdp
+          - zzvds
+          - zzvira
+          - zzwc
+          - zzwikipedia
+          - zzxml
+          - zzzz
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Required by `zztool dump`, used by many internet-crawler functions
+      - run: sudo apt-get install w3m
+
+      # Using Python to avoid the gotcha with the trapped SIGPIPE:
+      # https://github.com/aureliojargas/github-actions-sandbox/pull/4
+      - run: |
+          cmd = "./testador/run ${{ matrix.zz }}.sh"
+          import subprocess; subprocess.run(cmd, shell=True, check=True)
+        shell: python
