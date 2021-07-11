@@ -1,0 +1,16 @@
+name: Test
+on: push
+jobs:
+  no-internet:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        zz:
+          - zzajuda
+          - zzaleatorio
+          - zzalfabeto
+    steps:
+      - uses: actions/checkout@v2
+      - run: make testador/clitest
+      - run: ./testador/run ${{ matrix.zz }}.sh
