@@ -16,18 +16,19 @@ tester='bash clitest'
 
 cd "$script_dir"
 
+# Download clitest if necessary
+$tester -V > /dev/null || {
+	make -C .. testador/clitest || {
+		printf '%s\n' 'Erro ao instalar o programa testador (clitest)'
+		exit 1
+	}
+}
+
 # For Travis exceptions, see https://github.com/funcoeszz/funcoeszz/issues/355
 internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"");printf $1 "\n"}')
 internet_travis=$(echo "$internet" | grep -E -v '^zz(distro|linux|chavepgp)\.sh$')
 all=$(ls -1 zz*.sh)
 no_internet=$(echo "$all" | grep -F -v -x -f <(echo "$internet"))
-
-# Check requirements
-$tester -V > /dev/null || {
-	printf '%s\n' 'Ops... Não achei o programa testador.'
-	printf '%s\n' 'Para resolver, execute: make testador/clitest'
-	exit 1
-}
 
 # Create temporary file with ZZ init in full paths
 cat > "$tmp" <<EOF
