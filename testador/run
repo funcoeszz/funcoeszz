@@ -8,6 +8,7 @@
 #   ./run local                   # run all local tests (no internet)
 #
 # See README.md file for instructions.
+# See util/lista.sh for a list of available function groups.
 
 tests_dir=$(dirname "$0")
 zz_root=$(cd "$tests_dir"; cd ..; pwd)  # handles absolute and relative
@@ -32,32 +33,7 @@ ZZOFF='' . "$zz_root"/funcoeszz \\
 	--dir  "$zz_root"/zz
 EOF
 
-lista() {
-	# We're already inside the tests dir
-	local tests_available=$(ls zz*.sh | sed 's/\.sh$//')
-
-	# Filter the results to only contain the functions which already
-	# have tests available
-	"$zz_root/util/lista.sh" $1 |
-		grep -F -x -f <(echo "$tests_available") |
-
-		# We need filenames, not function names
-		sed 's/$/.sh/'
-}
-
 case "$1" in
-	all | todas | "")
-		tests="$(lista todas)"
-	;;
-	internet)
-		tests="$(lista internet)"
-	;;
-	internet_travis | travis)
-		tests="$(lista travis)"
-	;;
-	local | no-internet)
-		tests="$(lista no-internet)"
-	;;
 	core | funcoeszz.md)
 		# inject $zz_root into the test env
 		echo "zz_root=$zz_root" > $tmp
@@ -65,7 +41,28 @@ case "$1" in
 		tests=funcoeszz.md
 	;;
 	*)
-		tests="$@"
+		# Is $1 a special identifier for a group of functions?
+		# Examples: all, internet, local
+		function_names=$("$zz_root/util/lista.sh" "$1" 2>/dev/null || true)
+
+		if test -n "$function_names"
+		then
+			# Ok, we have a list of available functions based on the
+			# user argument. Now we need to filter that list to contain
+			# only the functions that have actual tests. Also, the
+			# resulting list must be filenames (zzfoo.sh), not function
+			# names (zzfoo).
+			all_test_files=$(ls zz*.sh)  # we're already in the test dir
+			tests=$(
+				echo "$function_names" |
+					sed 's/$/.sh/' |
+					grep -F -x -f <(echo "$all_test_files")
+			)
+		else
+			# User argument is unknown. Maybe it contains test
+			# filenames. Let's try them directly.
+			tests="$@"
+		fi
 	;;
 esac
 
