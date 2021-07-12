@@ -9,12 +9,12 @@
 #
 # See README.md file for instructions.
 
-script_dir=$(dirname "$0")
-zz_root=$(cd "$script_dir"; cd ..; pwd)  # handles absolute and relative
+tests_dir=$(dirname "$0")
+zz_root=$(cd "$tests_dir"; cd ..; pwd)  # handles absolute and relative
 tmp='./run.tmp'
 tester='bash clitest'
 
-cd "$script_dir"
+cd "$tests_dir"
 
 # Download clitest if necessary
 $tester -V > /dev/null || {
@@ -24,12 +24,6 @@ $tester -V > /dev/null || {
 	}
 }
 
-# For Travis exceptions, see https://github.com/funcoeszz/funcoeszz/issues/355
-internet=$("$zz_root"/util/metadata.sh tags | awk '/^zz.* internet/{sub(/zz\//,"");printf $1 "\n"}')
-internet_travis=$(echo "$internet" | grep -E -v '^zz(distro|linux|chavepgp)\.sh$')
-all=$(ls -1 zz*.sh)
-no_internet=$(echo "$all" | grep -F -v -x -f <(echo "$internet"))
-
 # Create temporary file with ZZ init in full paths
 cat > "$tmp" <<EOF
 ZZOFF='' . "$zz_root"/funcoeszz \\
@@ -38,38 +32,47 @@ ZZOFF='' . "$zz_root"/funcoeszz \\
 	--dir  "$zz_root"/zz
 EOF
 
+lista() {
+	# We're already inside the tests dir
+	local tests_available=$(ls zz*.sh | sed 's/\.sh$//')
+
+	# Filter the results to only contain the functions which already
+	# have tests available
+	"$zz_root/util/lista.sh" $1 |
+		grep -F -x -f <(echo "$tests_available") |
+
+		# We need filenames, not function names
+		sed 's/$/.sh/'
+}
+
+case "$1" in
+	all | todas | "")
+		tests="$(lista todas)"
+	;;
+	internet)
+		tests="$(lista internet)"
+	;;
+	internet_travis | travis)
+		tests="$(lista travis)"
+	;;
+	local | no-internet)
+		tests="$(lista no-internet)"
+	;;
+	core | funcoeszz.md)
+		# inject $zz_root into the test env
+		echo "zz_root=$zz_root" > $tmp
+
+		tests=funcoeszz.md
+	;;
+	*)
+		tests="$@"
+	;;
+esac
+
+# Run the tests
 # Note: To remove the dots ........ change 'dot' to 'none'
-if test "internet" = "$1"
-then
-	# Test internet based files
-	$tester --progress dot --pre-flight ". $tmp" $internet
-	exitcode=$?
-elif test "internet_travis" = "$1"
-then
-	# Test internet based files
-	$tester --progress dot --pre-flight ". $tmp" $internet_travis
-	exitcode=$?
-elif test "local" = "$1"
-then
-	# Tests that do not need internet
-	$tester --progress dot --pre-flight ". $tmp" $no_internet
-	exitcode=$?
-elif test "funcoeszz.md" = "$1"
-then
-	# Test the core: funcoeszz
-	echo "zz_root=$zz_root" > $tmp  # inject $zz_root into the test env
-	$tester --progress dot --pre-flight ". $tmp" funcoeszz.md
-	exitcode=$?
-elif test $# -gt 0
-then
-	# Test specific file(s)
-	$tester --progress dot --pre-flight ". $tmp" "$@"
-	exitcode=$?
-else
-	# Test all files
-	$tester --progress dot --pre-flight ". $tmp" zz*.sh
-	exitcode=$?
-fi
+$tester --progress dot --pre-flight ". $tmp" $tests
+exitcode=$?
 
 rm "$tmp"
 exit "$exitcode"
