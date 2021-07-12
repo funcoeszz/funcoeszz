@@ -128,7 +128,7 @@ zzcd() {
 				indice=$(grep -oE "^ \d+" <<< "$dir_existente")
 				zzcd_auxiliar $indice "$dirs"
 			else
-				pushd $diretorio >/dev/null
+				pushd "$diretorio" >/dev/null
 			fi
 		fi
 	fi
