@@ -39,7 +39,7 @@ case "$1" in
             grep -F -v -x -f <(./util/lista.sh internet)
     ;;
 
-    travis)
+    travis | internet_travis)
         ./util/lista.sh internet |
             # Why? https://github.com/funcoeszz/funcoeszz/issues/355
             grep -E -v '^zz(distro|linux|chavepgp)$'
@@ -53,13 +53,13 @@ case "$1" in
 
         echo $internet + $no_internet = $all
         test "$((internet + no_internet))" -eq "$all" || {
-            echo FAIL
+            echo FAIL >&2
             exit 1
         }
     ;;
 
     *)
-        echo "Invalid argument: $1"
+        echo "Invalid argument: $1" >&2
         exit 1
     ;;
 esac
