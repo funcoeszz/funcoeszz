@@ -196,12 +196,9 @@ zzloteria ()
 					fi
 				;;
 				megasena)
-					if ! test -e ${cache}.mega.htm || ! $(zztool dump ${cache}.megasena.htm | grep "^ *$num_con " >/dev/null)
+					if ! test -e ${cache}.megasena.htm || ! $(zztool dump ${cache}.megasena.htm | grep "^ *$num_con " >/dev/null)
 					then
-						wget -q -O "${cache}.megasena.zip" "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_mgsasc.zip"
-						$un_zip "${cache}.megasena.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
-						mv -f "${tmp_dir}/d_megasc.htm" ${cache}.megasena.htm
-						rm -f ${cache}.megasena.zip
+						wget -q -O "${cache}.megasena.htm" 'http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbwMPI0sDBxNXAOMwrzCjA0sjIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wNnUwNHfxcnSwBgIDUyhCvA5EawAjxsKckMjDDI9FQE-F4ca/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K8DBC0QPVN93KQ10G1/res/id=historicoHTML/c=cacheLevelPage/=/'
 					fi
 					zztool dump ${cache}.megasena.htm |
 					if test 0 = "$num_con"
@@ -217,15 +214,23 @@ zzloteria ()
 						}
 						' | expand -t 10
 					else
+						#    1111 MESQUITA, RJ 23/09/2009 004 009 025 032 033 043 1 52 5266 2.100.928,15 21.932,77 309,39
+						# Cidade pode não ter
 						grep "^ *$num_con " 2>/dev/null |
+						sed '
+							# Remove a cidade do segundo campo (pode ser vazio)
+							s/^\( *[0-9][0-9]* \)\([^\/]*\)\{0,1\}\([0-9][0-9]\/[0-9][0-9]\/[0-9][0-9]\)/\1\3/
+						' |
 						awk '{
 							print "Concurso", $1, "(" $2 ")"
 							printf "%4s %4s %4s %4s %4s %4s\n", $3, $4, $5, $6, $7, $8
 							print ""
-							printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador!":$10), ($10==0?"":"R$ " $(NF-8))
-							printf "   Quina \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
-							printf "   Quadra\t%s\t%s\n", $(NF-5), "R$ " $(NF-4)
-						}' | expand -t 15,25,35
+							printf "   Sena  \t%s\t%s\n", $9, "R$ " $12
+							printf "   Quina \t%s\t%s\n", $10, "R$ " $13
+							printf "   Quadra\t%s\t%s\n", $11, "R$ " $14
+						}' | expand -t 15,25,35 |
+						# Dezenas vêm com 3 dígitos, muda pra 2. Exemplo: 012 -> 12
+						sed '2s/ 0/  /g'
 					fi
 				;;
 				duplasena)
