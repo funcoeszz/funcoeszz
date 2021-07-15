@@ -34,7 +34,9 @@ check "Linha com Tab e espaço misturados" "$(
 	# [\t ]: Dentro de colchetes, é regex
 	grep -Fv '[	 ]' |
 	# Em sed para substituição
-	grep -Fv "sed 's"
+	grep -Fv "sed 's" |
+	# Falso-positivo: regex com espaços e tabs
+	grep -v '^zz/zzloteria.sh:.*s/'
 )"
 
 check "Linha com Tabs ou espaços inúteis no final" "$(
