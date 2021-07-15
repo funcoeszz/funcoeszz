@@ -104,7 +104,8 @@ zzloteria ()
 
 		# Se o arquivo de cache não existir, crie-o
 		# Se o arquivo existir, porém não tiver o concurso desejado, atualize-o
-		if ! test -e ${cache}.${tipo}.htm || ! $(zztool dump ${cache}.${tipo}.htm | grep "$filtro" >/dev/null)
+		if ! test -e ${cache}.${tipo}.htm ||
+			! $(zztool dump ${cache}.${tipo}.htm | grep "$filtro" >/dev/null)
 		then
 			wget -q -O "${cache}.${tipo}.zip" "$url_historico"
 			$un_zip "${cache}.${tipo}.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
@@ -118,7 +119,9 @@ zzloteria ()
 	}
 
 	zzloteria_resultado_mais_recente() {
-		if ! test -e "$cache" || test $(sed -n '1{s/ .*//;p;}' "$cache") != $(zzdatafmt --iso hoje) || test $(sed -n '1{s/.* //;p;}' "$cache") -lt 1200 -a $(zzhoramin) -gt 1200
+		if ! test -e "$cache" ||
+			test $(sed -n '1{s/ .*//;p;}' "$cache") != $(zzdatafmt --iso hoje) ||
+			test $(sed -n '1{s/.* //;p;}' "$cache") -lt 1200 -a $(zzhoramin) -gt 1200
 		then
 			zzloteria --atualiza
 		fi
@@ -136,6 +139,7 @@ zzloteria ()
 			sorte)     codscript='Dia'; qtde=7;;
 			sete)      codscript='Super'; qtde=7;;
 		esac
+
 		sed -n '/<h2 class="name color">'${codscript}'/,/APOSTE AGORA/ {
 			/SORTEIO */{s///;p;}
 			/CONCURSO */{s///;p;}
@@ -159,13 +163,31 @@ zzloteria ()
 		zzjuntalinhas -i ' class="tr"' -f 'div>' |
 		zzjuntalinhas -i '<tr' -f 'tr>' |
 		zzxml --untag |
-		sed 's/Faixa.*mio//;/Ver Rateio/d;/Arrecada.*total/{n;q;};s/	 \{1,\}/	/;s/	\{1,\}/	/g;s/	X	/ X /;s/ACUMULOU.*//' |
+		sed '
+			s/Faixa.*mio//
+			/Ver Rateio/d
+			/Arrecada.*total/{
+				n
+				q
+			}
+			s/	 \{1,\}/	/
+			s/	\{1,\}/	/g
+			s/	X	/ X /
+			s/ACUMULOU.*//' |
 		awk '/[Aa]cumulado|Arrecada/{print ""};1' |
 		case "$tipo" in
-			duplasena) awk 'NR > 7 && NR < 16 && NF==0 {next};/Sorteio$/{printf "\n" $0 "\n";next};/Sena/ && NR>10{printf "\n"};1' ;;
-			federal)   awk 'NR > 2 && NR < 12 && NR %2 == 1 {milhar[(NR-1)/2]=$0};NR==1; NR > 12 && NR < 18 {print $1 "\t" milhar[++i] "\t" $3 "\t" $4 }' ;;
-			loteca)    awk -F '\t' 'NR > 1 && NR < 16 {sub(/^ */,"");printf "%s %22s  %s  %s\n", $1, $2, $3, $4;next};1' ;;
-			*) cat -;;
+			duplasena)
+				awk 'NR > 7 && NR < 16 && NF==0 {next};/Sorteio$/{printf "\n" $0 "\n";next};/Sena/ && NR>10{printf "\n"};1'
+			;;
+			federal)
+				awk 'NR > 2 && NR < 12 && NR %2 == 1 {milhar[(NR-1)/2]=$0};NR==1; NR > 12 && NR < 18 {print $1 "\t" milhar[++i] "\t" $3 "\t" $4 }'
+			;;
+			loteca)
+				awk -F '\t' 'NR > 1 && NR < 16 {sub(/^ */,"");printf "%s %22s  %s  %s\n", $1, $2, $3, $4;next};1'
+			;;
+			*)
+				cat -
+			;;
 		esac |
 		zzunescape --html |
 		zzsqueeze -l
@@ -192,7 +214,8 @@ zzloteria ()
 						printf "%02d %d\t%02d %d\t%02d %d\t%02d %d\n", i, numeros[num], i+25, numeros[i+25], i+50, numeros[i+50], i+75, numeros[i+75]
 					}
 				}
-				' | expand -t 10
+				' |
+				expand -t 10
 			;;
 
 			lotofacil)
@@ -205,7 +228,8 @@ zzloteria ()
 						printf "%02d %d\n", i, numeros[num]
 					}
 				}
-				' | expand -t 10
+				' |
+				expand -t 10
 			;;
 
 			megasena)
@@ -218,7 +242,8 @@ zzloteria ()
 						printf "%02d %d\t%02d %d\t%02d %d\n", i, numeros[num], i+20, numeros[i+20], i+40, numeros[i+40]
 					}
 				}
-				' | expand -t 10
+				' |
+				expand -t 10
 			;;
 
 			duplasena)
@@ -237,7 +262,8 @@ zzloteria ()
 						printf "%02d %d\t%02d %d\t%02d %d\t%02d %d\n", i, numeros1[num], i+25, numeros1[i+25], i, numeros2[num], i+25, numeros2[i+25]
 					}
 				}
-				' | expand -t 10
+				' |
+				expand -t 10
 			;;
 
 			quina)
@@ -250,7 +276,8 @@ zzloteria ()
 						printf "%02d %d\t%02d %d\t%02d %d\t%02d %d\n", i, numeros[num], i+20, numeros[i+20], i+40, numeros[i+40], i+60, numeros[i+60]
 					}
 				}
-				' | expand -t 10
+				' |
+				expand -t 10
 			;;
 
 			timemania)
@@ -263,7 +290,8 @@ zzloteria ()
 						printf "%02d %d\t%02d %d\t%02d %d\t%02d %d\n", i, numeros[num], i+20, numeros[i+20], i+40, numeros[i+40], i+60, numeros[i+60]
 					}
 				}
-				' | expand -t 10
+				' |
+				expand -t 10
 			;;
 		esac
 	}
@@ -277,7 +305,7 @@ zzloteria ()
 			lotomania)
 				grep "^ *$num_con " 2>/dev/null |
 				tr -d '[A-Z]' |
-				awk ' {
+				awk '{
 					print "Concurso", $1, "(" $2 ")"
 					comando="sort -n | paste -d _ - - - - -"
 					for (i=3;i<23;i++) {print $i | comando }
@@ -290,7 +318,9 @@ zzloteria ()
 					printf "17 pts.\t%s\t%s\n", $(NF-16+i), "R$ " $(NF-10+i)
 					printf "16 pts.\t%s\t%s\n", $(NF-15+i), "R$ " $(NF-9+i)
 					printf " 0 pts.\t%s\t%s\n", ($(NF-14+i)==0?"Nao houve acertador!":$(NF-14+i)), ($(NF-14+i)==0?"":"R$ " $(NF-8+i))
-				}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
+				}' |
+				sed '/^[0-9 ]/s/^/   /;s/_/     /g' |
+				expand -t 5,15,25
 			;;
 
 			lotofacil)
@@ -306,7 +336,9 @@ zzloteria ()
 					printf "13 pts.\t%s\t%s\n", $(NF-10), "R$ " $(NF-5)
 					printf "12 pts.\t%s\t%s\n", $(NF-9), "R$ " $(NF-4)
 					printf "11 pts.\t%s\t%s\n", $(NF-8), "R$ " $(NF-3)
-				}' | sed '/^[0-9 ]/s/^/   /;s/_/     /g' | expand -t 5,15,25
+				}' |
+				sed '/^[0-9 ]/s/^/   /;s/_/     /g' |
+				expand -t 5,15,25
 			;;
 
 			megasena)
@@ -318,7 +350,8 @@ zzloteria ()
 					printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador!":$10), ($10==0?"":"R$ " $(NF-8))
 					printf "   Quina \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
 					printf "   Quadra\t%s\t%s\n", $(NF-5), "R$ " $(NF-4)
-				}' | expand -t 15,25,35
+				}' |
+				expand -t 15,25,35
 			;;
 
 			duplasena)
@@ -340,7 +373,8 @@ zzloteria ()
 					printf "   Sena  \t%s\t%s\n", ($(NF-9)==0?"Nao houve acertador":$(NF-9)), ($(NF-9)==0?"":"R$ " $(NF-8))
 					printf "   Quina \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
 					printf "   Quadra\t%s\t%s\n", $(NF-5), "R$ " $(NF-4)
-				}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g'
+				}' |
+				sed '/^[0-9][0-9]/s/^/   /;s/_/   /g'
 			;;
 
 			quina)
@@ -354,7 +388,9 @@ zzloteria ()
 					printf "   Quina \t%s\t%s\n", ($9==0?"Nao houve acertador":$9), ($9==0?"":"R$ " $(NF-10))
 					printf "   Quadra\t%s\t%s\n", $(NF-9), "R$ " $(NF-8)
 					printf "   Terno \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
-				}' | sed '/^[0-9][0-9]/s/^/   /;s/_/   /g' | expand -t 15,25,35
+				}' |
+				sed '/^[0-9][0-9]/s/^/   /;s/_/   /g' |
+				expand -t 15,25,35
 			;;
 
 			federal)
@@ -384,7 +420,8 @@ zzloteria ()
 					printf "   4 pts.\t%s\t%s\n", $(NF-10), "R$ " $(NF-4)
 					printf "   3 pts.\t%s\t%s\n", $(NF-9), "R$ " $(NF-3)
 					printf "\n   Time: %s\t\n\t%s\t%s\n", $10, $(NF-8),  "R$ " $(NF-2)
-				}' | expand -t 15,25,35
+				}' |
+				expand -t 15,25,35
 			;;
 
 			loteca)
