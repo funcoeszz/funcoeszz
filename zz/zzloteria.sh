@@ -73,6 +73,10 @@ zzloteria ()
 				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena
 				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbwMPI0sDBxNXAOMwrzCjA0sjIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wNnUwNHfxcnSwBgIDUyhCvA5EawAjxsKckMjDDI9FQE-F4ca/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K8DBC0QPVN93KQ10G1/res/id=historicoHTML/c=cacheLevelPage/=/'
 			;;
+			duplasena)
+				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/duplasena
+				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/duplasena/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbwMPI0sDBxNXAOMwrzCjA2cDIAKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wNnUwNHfxcnSwBgIDUyhCvA5EawAjxsKckMjDDI9FQGgnyPS/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC420O6/res/id=historicoHTML/c=cacheLevelPage/=/'
+			;;
 			quina)
 				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/quina
 				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/quina/!ut/p/a1/jc69DoIwAATgZ_EJepS2wFgoaUswsojYxXQyTfgbjM9vNS4Oordd8l1yxJGBuNnfw9XfwjL78dmduIikhYFGA0tzSFZ3tG_6FCmP4BxBpaVhWQuA5RRWlUZlxR6w4r89vkTi1_5E3CfRXcUhD6osEAHA32Dr4gtsfFin44Bgdw9WWSwj/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC420O4/res/id=historicoHTML/c=cacheLevelPage/=/'
@@ -367,15 +371,18 @@ zzloteria ()
 					for (i=15;i>9;i--) {print $(NF-i) | comando }
 					close(comando)
 					printf "\n  1º Sorteio\n"
-					printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador":$10), ($10==0?"":"R$ " $(NF-22))
+					printf "   Sena  \t%s\t%s\n", ($10), "R$ " $(NF-24)
 					printf "   Quina \t%s\t%s\n", $(NF-21), "R$ " $(NF-20)
-					printf "   Quadra\t%s\t%s\n", $(NF-19), "R$ " $(NF-19)
+					printf "   Quadra\t%s\t%s\n", $(NF-19), "R$ " $(NF-18)
 					printf "\n  2º Sorteio\n"
-					printf "   Sena  \t%s\t%s\n", ($(NF-9)==0?"Nao houve acertador":$(NF-9)), ($(NF-9)==0?"":"R$ " $(NF-8))
+					printf "   Sena  \t%s\t%s\n", $(NF-9), "R$ " $(NF-8)
 					printf "   Quina \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
 					printf "   Quadra\t%s\t%s\n", $(NF-5), "R$ " $(NF-4)
 				}' |
-				sed '/^[0-9][0-9]/s/^/   /;s/_/   /g'
+				sed '/^[0-9][0-9]/s/^/   /;s/_/   /g' |
+
+				# Dezenas vêm com 3 dígitos, muda pra 2. Exemplo: 012 -> 12
+				sed '4s/ 0/ /g; 7s/ 0/ /g'
 			;;
 
 			quina)

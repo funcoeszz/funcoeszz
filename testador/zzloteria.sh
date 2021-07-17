@@ -103,7 +103,7 @@ Concurso 02500 (11/01/1989)
 
 $
 
-$ zzloteria duplasena 1000
+$ zzloteria duplasena 1000 2>&1 | grep -v ^Aguarde
 duplasena:
 Concurso 1000 (06/09/2011)
 
@@ -114,9 +114,9 @@ Concurso 1000 (06/09/2011)
    03   13   31   32   36   39
 
   1º Sorteio
-   Sena  	Nao houve acertador	
+   Sena  	0	R$ 0,00
    Quina 	55	R$ 2.224,60
-   Quadra	2368	R$ 2368
+   Quadra	2368	R$ 49,20
 
   2º Sorteio
    Sena  	1	R$ 163.137,83
