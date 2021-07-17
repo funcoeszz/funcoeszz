@@ -60,45 +60,22 @@ zzloteria ()
 	}
 
 	zzloteria_atualiza_cache_historico() {
-		local datafile
 		local url_historico
 		local filtro="^ *$num_con "
 
 		# A federal pode iniciar com zero no numero do concurso
 		test 'federal' = "$tipo" && filtro="^[ 0]*$num_con "
 
+		# URLs feiosas para acesso aos dados históricos. Geralmente esta
+		# URL está em um link no fim da página principal da loteria.
 		case $tipo in
-			lotomania)
-				datafile="d_lotman.htm"
-				url_historico="http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotoma.zip"
-			;;
-			lotofacil)
-				datafile="d_lotfac.htm"
-				url_historico="http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_lotfac.zip"
-			;;
 			megasena)
-				datafile="d_megasc.htm"
-				url_historico="http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_mgsasc.zip"
+				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena
+				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbwMPI0sDBxNXAOMwrzCjA0sjIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wNnUwNHfxcnSwBgIDUyhCvA5EawAjxsKckMjDDI9FQE-F4ca/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K8DBC0QPVN93KQ10G1/res/id=historicoHTML/c=cacheLevelPage/=/'
 			;;
-			duplasena)
-				datafile="d_dplsen.htm"
-				url_historico="http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_dplsen.zip"
-			;;
-			quina)
-				datafile="d_quina.htm"
-				url_historico="http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_quina.zip"
-			;;
-			federal)
-				datafile="d_lotfed.htm"
-				url_historico="http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_federa.zip"
-			;;
-			timemania)
-				datafile="d_timasc.htm"
-				url_historico="http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_timasc.zip"
-			;;
-			loteca)
-				datafile="d_loteca.htm"
-				url_historico="http://www1.caixa.gov.br/loterias/_arquivos/loterias/d_loteca.zip"
+			*)
+				zztool erro "Desculpe, no momento não suportamos dados históricos para $tipo."
+				return 1
 			;;
 		esac
 
@@ -107,10 +84,8 @@ zzloteria ()
 		if ! test -e "${cache}.${tipo}.htm" ||
 			! zztool dump "${cache}.${tipo}.htm" | grep "$filtro" >/dev/null
 		then
-			wget -q -O "${cache}.${tipo}.zip" "$url_historico"
-			$un_zip "${cache}.${tipo}.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
-			mv -f "${tmp_dir}/${datafile}" ${cache}.${tipo}.htm
-			rm -f ${cache}.${tipo}.zip
+			echo "Aguarde, atualizando o cache local para $tipo..." >&2
+			wget -q -O "${cache}.${tipo}.htm" "$url_historico"
 
 			# A loteca tem esse tratamento adicional, mas não sei o porquê
 			if test 'loteca' = "$tipo"
@@ -345,15 +320,35 @@ zzloteria ()
 
 			megasena)
 				grep "^ *$num_con " 2>/dev/null |
+				# Exemplos saída do grep anterior:
+				#
+				# Com cidade (num_con=1111):
+				#    1111 MESQUITA, RJ 23/09/2009 004 009 025 032 033 043 1 52 5266 2.100.928,15 21.932,77 309,39
+				# Sem cidade (num_con=100):
+				#    100 01/02/1998 014 029 030 046 048 051 0 56 3600 0,00 15.930,48 247,32
+				#
+				# A cidade não aparece no resultado, podemos removê-la.
+				# Para fazer isso de uma maneira mais simples, o próximo
+				# grep só pega os dados a partir do terceiro campo
+				# (data) e o sed logo em seguida recoloca o número do
+				# concurso no início da linha.
+				grep -E -o '[0-9]{2}/[0-9]{2}/[0-9]{4} .*' |
+				sed "s/^/$num_con /" |
+
+				# Neste ponto, a linha com os dados está assim:
+				# 100 01/02/1998 014 029 030 046 048 051 0 56 3600 0,00 15.930,48 247,32
 				awk '{
 					print "Concurso", $1, "(" $2 ")"
 					printf "%4s %4s %4s %4s %4s %4s\n", $3, $4, $5, $6, $7, $8
 					print ""
-					printf "   Sena  \t%s\t%s\n", ($10==0?"Nao houve acertador!":$10), ($10==0?"":"R$ " $(NF-8))
-					printf "   Quina \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
-					printf "   Quadra\t%s\t%s\n", $(NF-5), "R$ " $(NF-4)
+					printf "   Sena  \t%s\t%s\n", $9, "R$ " $12
+					printf "   Quina \t%s\t%s\n", $10, "R$ " $13
+					printf "   Quadra\t%s\t%s\n", $11, "R$ " $14
 				}' |
-				expand -t 15,25,35
+				expand -t 15,25,35 |
+
+				# Dezenas vêm com 3 dígitos, muda pra 2. Exemplo: 012 -> 12
+				sed '2s/ 0/  /g'
 			;;
 
 			duplasena)

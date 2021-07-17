@@ -136,7 +136,11 @@ Concurso 3000 (20/09/2012)
 
 $
 
-$ zzloteria megasena 1111
+# Testa o resultado histórico da megasena em dois casos diferentes:
+# quando há uma cidade informada no segundo campo dos dados oficiais
+# (concurso 1111) e quando não há (concurso 100)
+
+$ zzloteria megasena 1111 2>&1 | grep -v ^Aguarde
 megasena:
 Concurso 1111 (23/09/2009)
   04   09   25   32   33   43
@@ -144,6 +148,15 @@ Concurso 1111 (23/09/2009)
    Sena        1         R$ 2.100.928,15
    Quina       52        R$ 21.932,77
    Quadra      5266      R$ 309,39
+
+$ zzloteria megasena 100
+megasena:
+Concurso 100 (01/02/1998)
+  14   29   30   46   48   51
+
+   Sena        0         R$ 0,00
+   Quina       56        R$ 15.930,48
+   Quadra      3600      R$ 247,32
 
 $
 
