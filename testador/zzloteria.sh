@@ -61,7 +61,7 @@ $
 
 $ zzloteria sete | tr '[0-9]' 'N' | sed 's|Hoje|NN/NN/NNNN|'| head -n 3
 sete:
-Concurso NN (NN/NN/NNNN)
+Concurso NNN (NN/NN/NNNN)
 	N	N	N	N	N	N	N
 $
 
