@@ -14,7 +14,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2004-05-18
-# Versão: 18
+# Versão: 19
 # Requisitos: zzzz zztool zzdatafmt zzjuntalinhas zzhoramin zzsemacento zzsqueeze zzunescape zzxml
 # Tags: internet, jogo, consulta
 # Nota: requer unzip
@@ -104,8 +104,8 @@ zzloteria ()
 
 		# Se o arquivo de cache não existir, crie-o
 		# Se o arquivo existir, porém não tiver o concurso desejado, atualize-o
-		if ! test -e ${cache}.${tipo}.htm ||
-			! $(zztool dump ${cache}.${tipo}.htm | grep "$filtro" >/dev/null)
+		if ! test -e "${cache}.${tipo}.htm" ||
+			! zztool dump "${cache}.${tipo}.htm" | grep "$filtro" >/dev/null
 		then
 			wget -q -O "${cache}.${tipo}.zip" "$url_historico"
 			$un_zip "${cache}.${tipo}.zip" "*.htm" -d "$tmp_dir" 2>/dev/null
@@ -113,8 +113,10 @@ zzloteria ()
 			rm -f ${cache}.${tipo}.zip
 
 			# A loteca tem esse tratamento adicional, mas não sei o porquê
-			test 'loteca' = "$tipo" &&
+			if test 'loteca' = "$tipo"
+			then
 				zzdatafmt --iso hoje >> ${cache}.${tipo}.htm
+			fi
 		fi
 	}
 
