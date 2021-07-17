@@ -125,12 +125,12 @@ Concurso 1000 (06/09/2011)
 
 $
 
-$ zzloteria quina 3000
+$ zzloteria quina 3000 2>&1 | grep -v ^Aguarde
 quina:
 Concurso 3000 (20/09/2012)
    02   21   31   37   57
 
-   Quina       Nao houve acertador 
+   Quina       0         R$ 0,00
    Quadra      54        R$ 6.681,90
    Terno       4528      R$ 113,83
 

@@ -73,6 +73,10 @@ zzloteria ()
 				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena
 				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbwMPI0sDBxNXAOMwrzCjA0sjIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wNnUwNHfxcnSwBgIDUyhCvA5EawAjxsKckMjDDI9FQE-F4ca/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K8DBC0QPVN93KQ10G1/res/id=historicoHTML/c=cacheLevelPage/=/'
 			;;
+			quina)
+				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/quina
+				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/quina/!ut/p/a1/jc69DoIwAATgZ_EJepS2wFgoaUswsojYxXQyTfgbjM9vNS4Oordd8l1yxJGBuNnfw9XfwjL78dmduIikhYFGA0tzSFZ3tG_6FCmP4BxBpaVhWQuA5RRWlUZlxR6w4r89vkTi1_5E3CfRXcUhD6osEAHA32Dr4gtsfFin44Bgdw9WWSwj/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC420O4/res/id=historicoHTML/c=cacheLevelPage/=/'
+			;;
 			*)
 				zztool erro "Desculpe, no momento não suportamos dados históricos para $tipo."
 				return 1
@@ -382,12 +386,15 @@ zzloteria ()
 					for (i=3;i<8;i++) {print $i | comando }
 					close(comando)
 					print ""
-					printf "   Quina \t%s\t%s\n", ($9==0?"Nao houve acertador":$9), ($9==0?"":"R$ " $(NF-10))
+					printf "   Quina \t%s\t%s\n", ($9), "R$ " $(NF-10)
 					printf "   Quadra\t%s\t%s\n", $(NF-9), "R$ " $(NF-8)
 					printf "   Terno \t%s\t%s\n", $(NF-7), "R$ " $(NF-6)
 				}' |
 				sed '/^[0-9][0-9]/s/^/   /;s/_/   /g' |
-				expand -t 15,25,35
+				expand -t 15,25,35 |
+
+				# Dezenas vêm com 3 dígitos, muda pra 2. Exemplo: 012 -> 12
+				sed '2s/ 0/ /g'
 			;;
 
 			federal)
