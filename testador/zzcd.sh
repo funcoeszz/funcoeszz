@@ -43,4 +43,4 @@ $ zzcd /usr/local && zzcd 100 >/dev/null #=> Número de linha inválido: 100
 $ zzcd /nada/batata #=> Diretório inválido: /nada/batata
 
 # links simbólicos para diretórios não são expandidos
-$ ln -s /etc $HOME/teste && zzcd $HOME/teste && zzcd / && zzcd 1 >/dev/null && echo $PWD && rm $HOME/teste #=> --eval echo $HOME/teste
+$ ln -s /etc $ZZTMP.zzcd && zzcd $ZZTMP.zzcd && zzcd / && zzcd 1 >/dev/null && echo $PWD && rm $ZZTMP.zzcd #=> --eval echo $ZZTMP.zzcd
