@@ -10,33 +10,36 @@
 # com histórico, para o índice correspondente listado no item 1. acima
 #
 # Uso: zzcd [ -i | [diretório ou índice do diretório no histórico] ]
+# Ex.: zzcd /usr/local/bin, ou zzcd [ índice ], ou zzcd -i
 #
 # Autor: Nilo César Teixeira (nilo.teixeira@gmail.com)
 # Desde: 2021-07-07
 # Versão: 1
-# Requisitos: dirs, pushd
+# Requisitos: dirs pushd
 # Tags: cd, mudança de diretórios, histórico, menu de diretórios
 # ----------------------------------------------------------------------------
-
-zzcd() {
+zzcd ()
+{
 
 	# Função auxiliar que muda para um diretório exibido em $(dirs -v),
 	# a partir de um parâmetro de pesquisa
-	zzcd_auxiliar() {
+	zzcd_auxiliar ()
+	{
 		local dirs numdir
 
 		numdir="$1"
 		dirs="$2"
 		# Display de $(dirs -v) tem um espaço inicial
 		# e dois espaços antes do diretório
-		numdir="$(grep -E "^ $numdir  " <<<"$dirs" | cut -d ' ' -f 2)"
+		numdir="$(echo "$dirs" | grep -E "^ $numdir  " | cut -d ' ' -f 2)"
 		# Omitindo erro de pilha vazia
 		pushd "+$numdir" 2>&1 >/dev/null
 	}
 
 	# Função auxiliar que valida número de diretório no intervalo de índices
 	# do histórico de mudanças.
-	zzcd_valida_numlinha() {
+	zzcd_valida_numlinha ()
+	{
 		local numdir numlinhas
 		numdir="$1"
 		numlinhas="$2"
@@ -69,7 +72,7 @@ zzcd() {
 	fi
 
 	dirs="$(dirs -v)"
-	numlinhas=$(wc -l <<< "$dirs")
+	numlinhas=$(echo "$dirs" | wc -l)
 
 	# Exibição de menu de navegação quando não há parâmetros
 	if test $# -eq 0
