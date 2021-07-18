@@ -69,6 +69,10 @@ zzloteria ()
 		# URLs feiosas para acesso aos dados históricos. Geralmente esta
 		# URL está em um link no fim da página principal da loteria.
 		case $tipo in
+			lotofacil)
+				# https://www.loterias.caixa.gov.br/wps/portal/loterias/landing/lotofacil
+				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/lotofacil/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbz8vTxNDRy9_Y2NQ13CDA0sTIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wBmoxN_FydLAGAgNTKEK8DkRrACPGwpyQyMMMj0VAcySpRM!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC42046/res/id=historicoHTML/c=cacheLevelPage/=/'
+			;;
 			megasena)
 				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena
 				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/megasena/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbwMPI0sDBxNXAOMwrzCjA0sjIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wNnUwNHfxcnSwBgIDUyhCvA5EawAjxsKckMjDDI9FQE-F4ca/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K8DBC0QPVN93KQ10G1/res/id=historicoHTML/c=cacheLevelPage/=/'
@@ -333,14 +337,17 @@ zzloteria ()
 					for (i=3;i<18;i++) {print $i | comando }
 					close(comando)
 					print ""
-					printf "15 pts.\t%s\t%s\n", ($19==0?"Nao houve acertador!":$19), ($19==0?"":"R$ " $(NF-7))
+					printf "15 pts.\t%s\t%s\n", $19, "R$ " $(NF-7)
 					printf "14 pts.\t%s\t%s\n", $(NF-11), "R$ " $(NF-6)
 					printf "13 pts.\t%s\t%s\n", $(NF-10), "R$ " $(NF-5)
 					printf "12 pts.\t%s\t%s\n", $(NF-9), "R$ " $(NF-4)
 					printf "11 pts.\t%s\t%s\n", $(NF-8), "R$ " $(NF-3)
 				}' |
 				sed '/^[0-9 ]/s/^/   /;s/_/     /g' |
-				expand -t 5,15,25
+				expand -t 5,15,25 |
+
+				# Dezenas vêm com 3 dígitos, muda pra 2. Exemplo: 012 -> 12
+				sed '2,4 s/ 0/ /g'
 			;;
 
 			megasena)

@@ -191,14 +191,14 @@ Concurso 750 (18/08/2007)
 
 $
 
-$ zzloteria lotofacil 1099
+$ zzloteria lotofacil 1099 2>&1 | grep -v ^Aguarde
 lotofacil:
 Concurso 1099 (25/08/2014)
    02     03     06     07     08
    11     12     13     14     16
    21     22     23     24     25
 
-   15 pts.     Nao houve acertador! 
+   15 pts.     0         R$ 0,00
    14 pts.     445       R$ 1.278,83
    13 pts.     13926     R$ 15,00
    12 pts.     204099    R$ 6,00
