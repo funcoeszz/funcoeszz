@@ -85,6 +85,10 @@ zzloteria ()
 				# https://www.loterias.caixa.gov.br/wps/portal/loterias/landing/federal
 				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/federal/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbz8vTxNDRy9_Y2NQ13CDA0MzIAKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wBmoxN_FydLAGAgNTKEK8DkRrACPGwpyQyMMMj0VAYe29yM!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0KGAB50QMU0UQ6S10G0/res/id=historicoHTML/c=cacheLevelPage/=/'
 			;;
+			timemania)
+				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/timemania
+				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/timemania/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbz8vTxNDRy9_Y2NQ13CDA1MzIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wBmoxN_FydLAGAgNTKEK8DkRrACPGwpyQyMMMj0VASrq9qk!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC42047/res/id=historicoHTML/c=cacheLevelPage/=/'
+			;;
 			*)
 				zztool erro "Desculpe, no momento não suportamos dados históricos para $tipo."
 				return 1
@@ -498,12 +502,12 @@ zzloteria ()
 					print "Concurso", $1, "(" $2 ")"
 					printf "%5s %4s %4s %4s %4s %4s %4s\n", $3, $4, $5, $6, $7, $8, $9
 					print ""
-					printf "   7 pts.\t%s\t%s\n", ($12==0?"Nao houve acertador!":$12), ($12==0?"":"R$ " $(NF-7))
+					printf "   7 pts.\t%s\t%s\n", $12, "R$ " $(NF-7)
 					printf "   6 pts.\t%s\t%s\n", $(NF-12), "R$ " $(NF-6)
 					printf "   5 pts.\t%s\t%s\n", $(NF-11), "R$ " $(NF-5)
 					printf "   4 pts.\t%s\t%s\n", $(NF-10), "R$ " $(NF-4)
 					printf "   3 pts.\t%s\t%s\n", $(NF-9), "R$ " $(NF-3)
-					printf "\n   Time: %s\t\n\t%s\t%s\n", $10, $(NF-8),  "R$ " $(NF-2)
+					printf "\n   Time: %s\n\t%s\t%s\n", $10, $(NF-8), "R$ " $(NF-2)
 				}' |
 				expand -t 15,25,35
 			;;

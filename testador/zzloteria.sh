@@ -85,10 +85,20 @@ Concurso NNN (NN/NN/NNNN)
  NN      Col. N
 $
 
-$ zzloteria timemania 600 | tr '[0-9]' 'N' | head -3
+$ zzloteria timemania 600 2>&1 | grep -v ^Aguarde
 timemania:
-Concurso NNN (NN/NN/NNNN)
-   NN   NN   NN   NN   NN   NN   NN
+Concurso 600 (15/07/2014)
+dezena1 dezena2 dezena3 dezena4 dezena5 dezena6 dezena7
+
+   7 pts.      0         R$ 0,00
+   6 pts.      12        R$ 8.895,15
+   5 pts.      288       R$ 529,47
+   4 pts.      4886      R$ 6,00
+   3 pts.      42593     R$ 2,00
+
+   Time: YPIRANGA/AP
+               6417      R$ 5,00
+
 $
 
 $ zzloteria federal 2500 2>&1 | grep -v ^Aguarde
