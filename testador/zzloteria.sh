@@ -91,15 +91,15 @@ Concurso NNN (NN/NN/NNNN)
    NN   NN   NN   NN   NN   NN   NN
 $
 
-$ zzloteria federal 2500
+$ zzloteria federal 2500 2>&1 | grep -v ^Aguarde
 federal:
-Concurso 02500 (11/01/1989)
+Concurso 2500 (11/01/1989)
 
-   1º Premio     66069   R$ 200.000,00
-   2º Premio     77589   R$ 8.000,00
-   3º Premio     60325   R$ 5.000,00
-   4º Premio     03547   R$ 4.000,00
-   5º Premio     48642   R$ 2.000,00
+   1º Premio     66069   R$ 200000.00
+   2º Premio     77589   R$ 8000.00
+   3º Premio     60325   R$ 5000.00
+   4º Premio     03547   R$ 4000.00
+   5º Premio     48642   R$ 2000.00
 
 $
 

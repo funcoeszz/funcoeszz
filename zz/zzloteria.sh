@@ -63,8 +63,8 @@ zzloteria ()
 		local url_historico
 		local filtro="^ *$num_con "
 
-		# A federal pode iniciar com zero no numero do concurso
-		test 'federal' = "$tipo" && filtro="^[ 0]*$num_con "
+		# A federal é um JSON, precisa de um filtro diferente
+		test 'federal' = "$tipo" && filtro="\"numero\":$num_con,"
 
 		# URLs feiosas para acesso aos dados históricos. Geralmente esta
 		# URL está em um link no fim da página principal da loteria.
@@ -80,6 +80,10 @@ zzloteria ()
 			quina)
 				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/quina
 				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/quina/!ut/p/a1/jc69DoIwAATgZ_EJepS2wFgoaUswsojYxXQyTfgbjM9vNS4Oordd8l1yxJGBuNnfw9XfwjL78dmduIikhYFGA0tzSFZ3tG_6FCmP4BxBpaVhWQuA5RRWlUZlxR6w4r89vkTi1_5E3CfRXcUhD6osEAHA32Dr4gtsfFin44Bgdw9WWSwj/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC420O4/res/id=historicoHTML/c=cacheLevelPage/=/'
+			;;
+			federal)
+				# https://www.loterias.caixa.gov.br/wps/portal/loterias/landing/federal
+				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/federal/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbz8vTxNDRy9_Y2NQ13CDA0MzIAKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wBmoxN_FydLAGAgNTKEK8DkRrACPGwpyQyMMMj0VAYe29yM!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0KGAB50QMU0UQ6S10G0/res/id=historicoHTML/c=cacheLevelPage/=/'
 			;;
 			*)
 				zztool erro "Desculpe, no momento não suportamos dados históricos para $tipo."
@@ -284,7 +288,12 @@ zzloteria ()
 	zzloteria_resultado_historico() {
 		zzloteria_atualiza_cache_historico || return 1
 
-		zztool dump "${cache}.${tipo}.htm" |
+		if test 'federal' = "$tipo"
+		then
+			cat "${cache}.${tipo}.htm"  # é na verdade um JSON
+		else
+			zztool dump "${cache}.${tipo}.htm"
+		fi |
 		case "$tipo" in
 
 			lotomania)
@@ -405,17 +414,81 @@ zzloteria ()
 			;;
 
 			federal)
-				# A federal pode iniciar com zero no numero do concurso
-				grep "^[ 0]*$num_con " 2>/dev/null |
+				# O resultado não é um HTML, mas sim um JSON. Poderíamos
+				# usar o `jq` para fazer o parsing, mas não é comum as
+				# pessoas o terem instalado. Em vez disso, vamos fazer
+				# uma extração de dados em shell mesmo e torcer para que
+				# a CEF não mude o formato do JSON.
+
+				# Como o JSON não tem quebra de linhas (é uma enorme
+				# linha única com todos os dados), primeiro deixaremos
+				# somente um concurso por linha.
+				sed 's/{"tipoJogo":"LOTERIA_FEDERAL"/\
+&/g' |
+
+				# Agora pega somente a linha do concurso desejado
+				grep -F "\"numero\":$num_con," |
+
+				# Para a posteridade, aqui está um exemplo da linha
+				# completa em toda a sua glória de 1350+ caracteres
+				# (concurso 2500):
+				#
+				# {"tipoJogo":"LOTERIA_FEDERAL","numero":2500,"nomeMunicipioUFSorteio":"","dataApuracao":"11/01/1989","valorArrecadado":0.00,"valorEstimadoProximoConcurso":0.00,"valorAcumuladoProximoConcurso":0.00,"valorAcumuladoConcursoEspecial":0.00,"valorAcumuladoConcurso_0_5":0.00,"acumulado":true,"indicadorConcursoEspecial":1,"dezenasSorteadasOrdemSorteio":["066069","077589","060325","003547","048642"],"numeroJogo":10,"nomeTimeCoracaoMesSorte":"                 ","tipoPublicacao":3,"observacao":"","localSorteio":"                                        ","dataProximoConcurso":null,"numeroConcursoAnterior":0,"numeroConcursoProximo":2501,"valorTotalPremioFaixaUm":0,"numeroConcursoFinal_0_5":0,"mensagem":null,"listaResultadoEquipeEsportiva":null,"listaMunicipioUFGanhadores":[],"listaRateioPremio":[{"faixa":1,"numeroDeGanhadores":0,"valorPremio":200000.00,"descricaoFaixa":"1 acertos"},{"faixa":2,"numeroDeGanhadores":0,"valorPremio":8000.00,"descricaoFaixa":"2 acertos"},{"faixa":3,"numeroDeGanhadores":0,"valorPremio":5000.00,"descricaoFaixa":"3 acertos"},{"faixa":4,"numeroDeGanhadores":0,"valorPremio":4000.00,"descricaoFaixa":"4 acertos"},{"faixa":5,"numeroDeGanhadores":0,"valorPremio":2000.00,"descricaoFaixa":"5 acertos"}],"listaDezenas":["066069","077589","060325","003547","048642"],"listaDezenasSegundoSorteio":null,"id":null},
+
+				grep -E -o \
+					-e '"numero":[0-9]+' \
+					-e '"dataApuracao":"[^"]+"' \
+					-e '"dezenasSorteadasOrdemSorteio":\[[^]]+\]' \
+					-e '"valorPremio":[^,]+' |
+
+				# Usando `grep -o` e múltiplos patterns, conseguimos
+				# extrair os dados desejados, em uma linha para cada
+				# match:
+				#
+				# "numero":2500
+				# "dataApuracao":"11/01/1989"
+				# "dezenasSorteadasOrdemSorteio":["066069","077589","060325","003547","048642"]
+				# "valorPremio":200000.00
+				# "valorPremio":8000.00
+				# "valorPremio":5000.00
+				# "valorPremio":4000.00
+				# "valorPremio":2000.00
+
+				# Faremos agora uma limpeza pra deixar somente os dados
+				cut -d : -f 2 |
+				tr '[]",' ' ' |
+
+				# Este é o resultado:
+				#
+				# 2500
+				#  11/01/1989
+				#   066069   077589   060325   003547   048642
+				# 200000.00
+				# 8000.00
+				# 5000.00
+				# 4000.00
+				# 2000.00
+
+				# Tira o zero inicial dos números sorteados
+				sed 's/ 0//g' |
+
+				# E agora podemos finalmente deixar tudo em uma única
+				# linha, para o awk fazer a festa com ela
+				tr '\n' ' ' |
 				awk '{
 					print "Concurso", $1, "(" $2 ")"
 					print ""
+
 					printf "   1º Premio     %s   %s\n", $3, "R$ " $8
 					printf "   2º Premio     %s   %s\n", $4, "R$ " $9
 					printf "   3º Premio     %s   %s\n", $5, "R$ " $10
 					printf "   4º Premio     %s   %s\n", $6, "R$ " $11
 					printf "   5º Premio     %s   %s\n", $7, "R$ " $12
 				}'
+
+				# XXX O ideal seria formatar os valores em reais com a
+				# zznumero, mas não sei como chamar ela de dentro do
+				# awk. Fica para uma melhoria futura.
 			;;
 
 			timemania)
