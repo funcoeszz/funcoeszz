@@ -65,24 +65,28 @@ Concurso NNN (NN/NN/NNNN)
 	N	N	N	N	N	N	N
 $
 
-$ zzloteria loteca 500 | tr '[0-9]' 'N' | head -17 | sed 's/Col. Meio/  Col. N/'
+$ zzloteria loteca 500 2>&1 | grep -v ^Aguarde
 loteca:
-Concurso NNN (NN/NN/NNNN)
+Concurso 500 (05/03/2012)
  Jogo   Resultado
-  N      Col. N
-  N      Col. N
-  N      Col. N
-  N      Col. N
-  N      Col. N
-  N      Col. N
-  N      Col. N
-  N      Col. N
-  N      Col. N
- NN      Col. N
- NN      Col. N
- NN      Col. N
- NN      Col. N
- NN      Col. N
+  1    Col. coluna01
+  2    Col. coluna02
+  3    Col. coluna03
+  4    Col. coluna04
+  5    Col. coluna05
+  6    Col. coluna06
+  7    Col. coluna07
+  8    Col. coluna08
+  9    Col. coluna09
+ 10    Col. coluna10
+ 11    Col. coluna11
+ 12    Col. coluna12
+ 13    Col. coluna13
+ 14    Col. coluna14
+
+  14 pts.	93	R$ 9.644,55
+  13 pts.	2969	R$ 43,83
+
 $
 
 $ zzloteria timemania 600 2>&1 | grep -v ^Aguarde

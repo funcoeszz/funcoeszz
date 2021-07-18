@@ -89,6 +89,10 @@ zzloteria ()
 				# http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/timemania
 				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/timemania/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbz8vTxNDRy9_Y2NQ13CDA1MzIEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wBmoxN_FydLAGAgNTKEK8DkRrACPGwpyQyMMMj0VASrq9qk!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC42047/res/id=historicoHTML/c=cacheLevelPage/=/'
 			;;
+			loteca)
+				# https://www.loterias.caixa.gov.br/wps/portal/loterias/landing/loteca
+				url_historico='http://www.loterias.caixa.gov.br/wps/portal/loterias/landing/loteca/!ut/p/a1/04_Sj9CPykssy0xPLMnMz0vMAfGjzOLNDH0MPAzcDbz8vTxNDRy9_Y2NQ13CDA3cDYEKIoEKnN0dPUzMfQwMDEwsjAw8XZw8XMwtfQ0MPM2I02-AAzgaENIfrh-FqsQ9wBmoxN_FydLAGAgNTKEK8DkRrACPGwpyQyMMMj0VAbNnwlU!/dl5/d5/L2dBISEvZ0FBIS9nQSEh/pw/Z7_HGK818G0K85260Q5OIRSC420O7/res/id=historicoHTML/c=cacheLevelPage/=/'
+			;;
 			*)
 				zztool erro "Desculpe, no momento não suportamos dados históricos para $tipo."
 				return 1
@@ -513,7 +517,10 @@ zzloteria ()
 			;;
 
 			loteca)
-				grep "^ *$num_con " 2>/dev/null |
+				# O resultado vem quebrado em 3 linhas, junta tudo numa
+				# só e então formata com o awk
+				grep -A 2 "^ *$num_con " 2>/dev/null |
+				tr '\n' ' ' |
 				awk '{
 					print "Concurso", $1, "(" $2 ")"
 					print " Jogo   Resultado"
@@ -532,8 +539,8 @@ zzloteria ()
 					printf " 13    %8s\n", "Col. " ($(NF-3)=="x"?"Meio":$(NF-3))
 					printf " 14    %8s\n", "Col. " ($(NF-2)=="x"?"Meio":$(NF-2))
 					print ""
-					printf "  14 pts.\t%s\t%s\n", ($3==0?"Nao houve acertador":$3), ($3==0?"":"R$ " $(NF-21))
-					printf "  13 pts.\t%s\t%s\n", $(NF-18), "R$ " $(NF-17)
+					printf "  14 pts.\t%s\t%s\n", $3, "R$ " $(NF-22)
+					printf "  13 pts.\t%s\t%s\n", $(NF-19), "R$ " $(NF-18)
 				}'
 			;;
 		esac
