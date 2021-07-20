@@ -16,7 +16,7 @@
 # Desde: 2021-07-07
 # Versão: 1
 # Requisitos: zzzz zztool
-# Tags: cd, mudança de diretórios, histórico, menu de diretórios
+# Tags: cd, diretório, sistema, utilitário
 # ----------------------------------------------------------------------------
 zzcd ()
 {
