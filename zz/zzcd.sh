@@ -10,7 +10,9 @@
 # com histórico, para o índice correspondente listado no item 1. acima
 #
 # Uso: zzcd [ -i | [diretório ou índice do diretório no histórico] ]
-# Ex.: zzcd /usr/local/bin, ou zzcd [ índice ], ou zzcd -i
+# Ex.: zzcd /usr/local/bin
+#      zzcd 2    # vá para o diretório número 2 da lista
+#      zzcd -i   # use o modo interativo
 #
 # Autor: Nilo César Teixeira (nilo.teixeira@gmail.com)
 # Desde: 2021-07-07
