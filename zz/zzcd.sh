@@ -35,7 +35,7 @@ zzcd ()
 		# e dois espaços antes do diretório
 		numdir="$(echo "$dirs" | grep -E "^ $numdir  " | cut -d ' ' -f 2)"
 		# Omitindo erro de pilha vazia
-		pushd "+$numdir" 2>&1 >/dev/null
+		pushd "+$numdir" >/dev/null 2>&1 
 	}
 
 	# Função auxiliar que valida número de diretório no intervalo de índices
