@@ -127,10 +127,10 @@ zzcd ()
 			dir_existente="${diretorio/$HOME/\~}"
 
 			# Teste de existência de histórico (toda a linha)
-			dir_existente="$(grep -E "^ \d+  $dir_existente$" <<< "$dirs")"
+			dir_existente="$(echo "$dirs" | grep -E "^ \d+  $dir_existente$")"
 			if test "$dir_existente"
 			then
-				indice=$(grep -oE "^ \d+" <<< "$dir_existente")
+				indice=$(echo "$dir_existente" | grep -oE "^ \d+")
 				zzcd_auxiliar $indice "$dirs"
 			else
 				pushd "$diretorio" >/dev/null
