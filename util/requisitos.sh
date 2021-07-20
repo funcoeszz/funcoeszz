@@ -50,7 +50,7 @@ do
 	do
 		# Se o requisito não for uma função zz, ignore
 		echo "$req" | grep ^zz >/dev/null ||
-			{ echo "$f: $req não é uma funcão zz, registre em 'Notas'" ; continue; }
+			{ echo "$f: $req não é uma função ZZ, registre em 'Nota:'" ; continue; }
 
 		echo "$encontradas" | grep -w "$req" >/dev/null ||
 			echo "$f: Função listada mas não utilizada: $req"
