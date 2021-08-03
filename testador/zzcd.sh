@@ -44,3 +44,6 @@ $ zzcd /nada/batata #=> Diretório inválido: /nada/batata
 
 # links simbólicos para diretórios não são expandidos
 $ ln -s /etc $ZZTMP.zzcd && zzcd $ZZTMP.zzcd && zzcd / && zzcd 1 >/dev/null && echo $PWD && rm $ZZTMP.zzcd #=> --eval echo $ZZTMP.zzcd
+
+# zzcd funciona para índices maiores do que 10
+$ for i in {1..11}; do mkdir -p "/tmp/tmp_dir_$i"; zzcd "/tmp/tmp_dir_$i"; done && zzcd 11 && echo $PWD && for i in {1..11}; do rmdir "/tmp/tmp_dir_$i"; done #=> /tmp/tmp_dir_11

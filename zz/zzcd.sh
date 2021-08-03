@@ -31,9 +31,10 @@ zzcd ()
 
 		numdir="$1"
 		dirs="$2"
-		# Display de $(dirs -v) tem um espaço inicial
+		# Display de $(dirs -v) tem um espaço inicial para 0-9
 		# e dois espaços antes do diretório
-		numdir="$(echo "$dirs" | grep -E "^ $numdir  " | cut -d ' ' -f 2)"
+		# (removi o espaço inicial para normalizar o tratamento)
+		numdir="$(echo "$dirs" | sed 's/^ //g' | grep -E "^$numdir  " | cut -d ' ' -f 1)"
 		# Omitindo erro de pilha vazia
 		pushd "+$numdir" >/dev/null 2>&1 
 	}
