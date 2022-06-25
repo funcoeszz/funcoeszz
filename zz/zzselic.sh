@@ -141,7 +141,7 @@ zzselic ()
 	if test "$csv" -eq 0
 	then
 		saida=$(
-			echo -e "$saida" |
+			echo "$saida" |
 				while IFS=';' read v1 v2
 				do
 					echo "$(zzpad 11 $v1) $v2"
