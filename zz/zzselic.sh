@@ -129,12 +129,12 @@ zzselic ()
 
 	# Anualiza as taxas e reinsere o cabeçalho
 	saida=$(
+		echo 'Data;Taxa (%a.a.)'
 		echo "$saida" |
 			while IFS=';' read v1 v2
 			do
 				echo "$v1;"$(echo "scale=10;((1+($v2*1/100))^252-1)*100" | bc | zznumero -f '%.2f')
-			done |
-			sed '1 i\Data;Taxa (%a.a.)'
+      done
 	)
 
 	# Mostrar em colunas ou CSV (como vem do site)?
