@@ -22,7 +22,7 @@ zzselic ()
 {
 	zzzz -h selic "$1" && return
 
-	local url='http://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados?formato=csv'
+	local url='http://api.bcb.gov.br/dados/serie/bcdata.sgs.1178/dados?formato=csv'
 	local query='&dataInicial=DI&dataFinal=DF'
 
 	local csv=0
@@ -124,17 +124,15 @@ zzselic ()
 	# Substitui 'DI' e 'DF' na query pela data inicial e final
 	query=$(echo "$query" | sed "s|DI|$(zzurlencode $data_inicial)|; s|DF|$(zzurlencode $data_final)|")
 
-	# Faz a consulta ao site do BC, limpa a saída e remove o cabeçalho
-	saida=$(zztool source "$url$query" | zzutf8 | zzdos2unix | sed 's/"//g; s/,/./g; 1d')
+	# Faz a consulta ao site do BC, limpa a saída e remove o cabeçalho.
+	#
+	# O cabeçalho original é apenas "data";"valor".
+	saida=$(zztool source "$url$query" | zzutf8 | zzdos2unix | sed 's/"//g; 1d')
 
-	# Anualiza as taxas e reinsere o cabeçalho
+	# Insere um cabeçalho mais informativo
 	saida=$(
 		echo 'Data;Taxa (%a.a.)'
-		echo "$saida" |
-			while IFS=';' read v1 v2
-			do
-				echo "$v1;"$(echo "scale=10;((1+($v2*1/100))^252-1)*100" | bc | zznumero -f '%.2f')
-      done
+		echo "$saida"
 	)
 
 	# Mostrar em colunas ou CSV (como vem do site)?
