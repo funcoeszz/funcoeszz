@@ -1,7 +1,9 @@
 # https://docs.github.com/en/actions/reference
 
 name: Test
-on: push
+on:
+  push:
+  pull_request:
 jobs:
 
   core:

@@ -1,7 +1,9 @@
 # https://docs.github.com/en/actions/reference
 
 name: Lint
-on: push
+on:
+  push:
+  pull_request:
 jobs:
   lint:
     runs-on: ubuntu-latest
