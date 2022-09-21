@@ -16,7 +16,7 @@
 # Autor: Guilherme Magalhães Gall <gmgall (a) gmail com>
 # Desde: 2015-06-07
 # Versão: 3
-# Requisitos: zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8 zzpad
+# Requisitos: zzzz zztool zzdata zzdiadasemana zzdos2unix zzferiado zzurlencode zzutf8 zzpad
 # Tags: internet
 # ----------------------------------------------------------------------------
 zzselic ()
