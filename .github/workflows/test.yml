@@ -7,22 +7,19 @@ on:
 jobs:
 
   core:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
       - run: make test-core
 
   internet:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
 
       # Required by `zztool dump`, used by many internet-crawler functions
       - run: sudo apt-get install links
 
-      # Using Python to avoid the gotcha with the trapped SIGPIPE:
+      # Using env to avoid the gotcha with the trapped SIGPIPE:
       # https://github.com/aureliojargas/github-actions-sandbox/pull/4
-      - run: |
-          cmd = "./testador/run internet"
-          import subprocess; subprocess.run(cmd, shell=True, check=True)
-        shell: python
+      - run: env --default-signal=PIPE ./testador/run internet
