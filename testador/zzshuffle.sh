@@ -1,8 +1,6 @@
 # Preparação
 $ seq 5 > _tmp1
-$
 $ zzshuffle _tmp1 > _tmp2
-$
 $ zzshuffle _tmp1 > _tmp3
 $
 
