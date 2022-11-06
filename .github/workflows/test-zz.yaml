@@ -6,12 +6,6 @@ on:
   pull_request:
 jobs:
 
-  core:
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v2
-      - run: make test-core
-
   internet:
     runs-on: ubuntu-22.04
     steps:

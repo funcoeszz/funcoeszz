@@ -1,0 +1,13 @@
+# https://docs.github.com/en/actions/reference
+
+name: Test
+on:
+  push:
+  pull_request:
+jobs:
+
+  core:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: make test-core
