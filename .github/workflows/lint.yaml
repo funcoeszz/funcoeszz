@@ -9,3 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: make lint
+
+    # Dedup job runs on maintainer PRs ('push' and 'pull_request' events match)
+    if:
+      github.event_name == 'push' ||
+      github.event.pull_request.head.repo.full_name != github.repository
