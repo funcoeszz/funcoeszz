@@ -8,7 +8,8 @@
 # Exemplos:
 #    lista.sh            # lista todas as funções
 #    lista.sh internet   # lista somente as que usam internet
-#    lista.sh local      # lista somente as que nãousam internet
+#    lista.sh local      # lista somente as que não usam internet
+#    lista.sh testadas   # lista somente as que possuem testes
 
 cd "$(dirname "$0")/.." || exit 1  # go to repo root
 
@@ -22,6 +23,12 @@ function zzname_from_path() {
 case "$1" in
     all | todas | "")
         ls -1 zz/zz*.sh |
+            zzname_from_path |
+            sort
+    ;;
+
+    testadas)
+        ls -1 testador/zz*.sh |
             zzname_from_path |
             sort
     ;;
