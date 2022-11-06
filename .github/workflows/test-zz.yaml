@@ -14,7 +14,8 @@ jobs:
 
       # Using env to avoid the gotcha with the trapped SIGPIPE:
       # https://github.com/aureliojargas/github-actions-sandbox/pull/4
-      - run: env --default-signal=PIPE ./testador/run internet
+      - run: env --default-signal=PIPE ./testador/run zzchavepgp.sh
+        continue-on-error: true
 
     # Dedup job runs on maintainer PRs ('push' and 'pull_request' events match)
     if:
