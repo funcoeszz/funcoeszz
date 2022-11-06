@@ -1,9 +1,8 @@
-# https://docs.github.com/en/actions/reference
+# https://docs.github.com/en/actions
 
-name: Lint
-on:
-  push:
-  pull_request:
+name: GHA
+on: [push, pull_request]
+
 jobs:
   lint:
     runs-on: ubuntu-latest

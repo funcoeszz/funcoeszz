@@ -1,12 +1,10 @@
-# https://docs.github.com/en/actions/reference
+# https://docs.github.com/en/actions
 
-name: Test
-on:
-  push:
-  pull_request:
+name: GHA
+on: [push, pull_request]
+
 jobs:
-
-  internet:
+  test-internet:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
