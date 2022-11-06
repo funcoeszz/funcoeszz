@@ -179,6 +179,21 @@ b
 c
 $
 
+# lines2json
+
+$ printf '1\n2\n3\n4\n' | zztool lines2json
+["1",
+"2",
+"3",
+"4"]
+$ echo foo | zztool lines2json
+["foo"]
+$ echo | zztool lines2json
+[""]
+$ echo 'escapes: " " \ \' | zztool lines2json
+["escapes: \" \" \\ \\"]
+$
+
 # nl_eof
 
 $ printf 'abc' | zztool nl_eof

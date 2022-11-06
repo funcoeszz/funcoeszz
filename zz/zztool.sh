@@ -186,6 +186,23 @@ zztool ()
 				tr '\n' ' ' |
 				sed 's/^ // ; s/ $//'
 		;;
+		lines2json)
+			# Recebe linhas em STDIN e converte para um array JSON
+			sed '
+				# Escapa possíveis \ e " na linha: a\b"c -> a\\b\"c
+				s/[\"]/\\&/g
+
+				# Coloca aspas ao redor da linha: foo -> "foo"
+				s/.*/"&"/
+
+				# Coloca a vírgula no final (exceto na última linha): "foo" -> "foo",
+				$! s/$/,/
+
+				# Coloca [ e ] na primeira e última linha, respectivamente
+				1 s/^/[/
+				$ s/$/]/
+			'
+		;;
 		endereco_sed)
 			# Formata um texto para ser usado como endereço no sed.
 			# Números e $ não são alterados, resto fica /entre barras/
