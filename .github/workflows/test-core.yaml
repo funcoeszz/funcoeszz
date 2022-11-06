@@ -1,0 +1,16 @@
+# https://docs.github.com/en/actions
+
+name: GHA
+on: [push, pull_request]
+
+jobs:
+  test-core:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: make test-core
+
+    # Dedup job runs on maintainer PRs ('push' and 'pull_request' events match)
+    if:
+      github.event_name == 'push' ||
+      github.event.pull_request.head.repo.full_name != github.repository

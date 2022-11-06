@@ -1,0 +1,16 @@
+# https://docs.github.com/en/actions
+
+name: GHA
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make lint
+
+    # Dedup job runs on maintainer PRs ('push' and 'pull_request' events match)
+    if:
+      github.event_name == 'push' ||
+      github.event.pull_request.head.repo.full_name != github.repository
