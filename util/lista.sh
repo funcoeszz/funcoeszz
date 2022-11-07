@@ -46,11 +46,6 @@ case "$1" in
             grep -F -v -x -f <(./util/lista.sh internet)
     ;;
 
-    travis | internet_travis)
-        ./util/lista.sh internet |
-            # Why? https://github.com/funcoeszz/funcoeszz/issues/355
-            grep -E -v '^zz(distro|linux|chavepgp)$'
-
     ci | github-actions)
         # Somente as funções sem acesso à internet são testadas no CI
         # https://github.com/funcoeszz/funcoeszz/issues/756
