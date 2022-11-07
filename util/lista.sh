@@ -50,6 +50,14 @@ case "$1" in
         ./util/lista.sh internet |
             # Why? https://github.com/funcoeszz/funcoeszz/issues/355
             grep -E -v '^zz(distro|linux|chavepgp)$'
+
+    ci | github-actions)
+        # Somente as funções sem acesso à internet são testadas no CI
+        # https://github.com/funcoeszz/funcoeszz/issues/756
+        ./util/lista.sh testadas |
+            grep -F -v -x -f <(./util/lista.sh internet) |
+            grep -F -v -x zzbraille
+            # ^ https://github.com/funcoeszz/funcoeszz/issues/760
     ;;
 
     # Just to make sure we're doing it right
