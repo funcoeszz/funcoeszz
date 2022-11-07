@@ -1,22 +1,14 @@
 # https://docs.github.com/en/actions
 
 name: test-zz
-on: [push, pull_request]
+on: pull_request
 
 jobs:
-  test-internet:
+  test-zz:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
 
-      # Required by `zztool dump`, used by many internet-crawler functions
-      - run: sudo apt-get install links
-
       # Using env to avoid the gotcha with the trapped SIGPIPE:
       # https://github.com/aureliojargas/github-actions-sandbox/pull/4
-      - run: env --default-signal=PIPE ./testador/run internet
-
-    # Dedup job runs on maintainer PRs ('push' and 'pull_request' events match)
-    if:
-      github.event_name == 'push' ||
-      github.event.pull_request.head.repo.full_name != github.repository
+      - run: env --default-signal=PIPE ./testador/run ci
