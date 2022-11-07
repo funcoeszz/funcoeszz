@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions
 
-name: GHA
+name: lint
 on: [push, pull_request]
 
 jobs:

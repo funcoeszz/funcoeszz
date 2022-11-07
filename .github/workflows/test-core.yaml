@@ -1,6 +1,6 @@
 # https://docs.github.com/en/actions
 
-name: GHA
+name: test-core
 on: [push, pull_request]
 
 jobs:
