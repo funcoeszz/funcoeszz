@@ -1,14 +1,38 @@
 # https://docs.github.com/en/actions
+# https://michaelheap.com/dynamic-matrix-generation-github-actions/
 
 name: test-zz
 on: pull_request
 
 jobs:
-  test-zz:
+  build-matrix:
+    # Sets a one-line JSON array with all the function names to be
+    # tested. The next job will use this to populate the matrix and
+    # create dynamic jobs.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: set-matrix
+        run: >
+          echo "::set-output name=zz::$(
+          ./util/lista.sh ci |
+          ./funcoeszz tool lines2json |
+          tr -d '\n'
+          )"
+    outputs:
+      zz: ${{ steps.set-matrix.outputs.zz }}
+
+  test:
+    # This job will in fact spawn more than 100 parallel jobs (not all
+    # of them at the same time, there's a cap), one for each function.
+    needs: build-matrix
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        zz: ${{ fromJson(needs.build-matrix.outputs.zz) }}
     steps:
       - uses: actions/checkout@v3
 
       # Using env to avoid the gotcha with the trapped SIGPIPE:
       # https://github.com/aureliojargas/github-actions-sandbox/pull/4
-      - run: env --default-signal=PIPE ./testador/run ci
+      - run: env --default-signal=PIPE ./testador/run ${{ matrix.zz }}.sh
