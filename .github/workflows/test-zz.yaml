@@ -1,14 +1,29 @@
 # https://docs.github.com/en/actions
+# https://michaelheap.com/dynamic-matrix-generation-github-actions/
 
 name: test-zz
 on: pull_request
 
 jobs:
+  build-matrix:
+    # Sets a JSON... XXX
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: set-matrix
+        run: echo "::set-output name=zz::$(./util/lista.sh ci | ./funcoeszz tool lines2json | tr -d '\n')"
+    outputs:
+      zz: ${{ steps.set-matrix.outputs.zz }}
+
   test-zz:
+    needs: build-matrix
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        zz: ${{ fromJson(needs.build-matrix.outputs.zz) }}
     steps:
       - uses: actions/checkout@v3
 
       # Using env to avoid the gotcha with the trapped SIGPIPE:
       # https://github.com/aureliojargas/github-actions-sandbox/pull/4
-      - run: env --default-signal=PIPE ./testador/run ci
+      - run: env --default-signal=PIPE ./testador/run ${{ matrix.zz }}.sh
