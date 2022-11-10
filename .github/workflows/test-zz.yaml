@@ -1,22 +1,36 @@
 # https://docs.github.com/en/actions
+# https://michaelheap.com/dynamic-matrix-generation-github-actions/
+# https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#environment-files
 
 name: test-zz
-on: [push, pull_request]
+on: pull_request
 
 jobs:
-  test-internet:
+  build-matrix:
+    # Sets a one-line JSON array with all the function names to be
+    # tested. The next job will use this to populate the matrix and
+    # create dynamic jobs.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: set-matrix
+        run: >
+          echo "zzs=$(./util/lista.sh ci | ./funcoeszz tool lines2json | tr -d '\n')"
+          >> $GITHUB_OUTPUT
+    outputs:
+      zzs: ${{ steps.set-matrix.outputs.zzs }}
+
+  test:
+    # This job will in fact spawn more than 100 parallel jobs (not all
+    # of them at the same time, there's a cap), one for each function.
+    needs: build-matrix
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        zz: ${{ fromJson(needs.build-matrix.outputs.zzs) }}
     steps:
       - uses: actions/checkout@v3
 
-      # Required by `zztool dump`, used by many internet-crawler functions
-      - run: sudo apt-get install links
-
       # Using env to avoid the gotcha with the trapped SIGPIPE:
       # https://github.com/aureliojargas/github-actions-sandbox/pull/4
-      - run: env --default-signal=PIPE ./testador/run internet
-
-    # Dedup job runs on maintainer PRs ('push' and 'pull_request' events match)
-    if:
-      github.event_name == 'push' ||
-      github.event.pull_request.head.repo.full_name != github.repository
+      - run: env --default-signal=PIPE ./testador/run ${{ matrix.zz }}.sh
