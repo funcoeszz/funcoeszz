@@ -1,0 +1,20 @@
+h::----------------------------------------------------------------------------
+h:ajuda:zzajuda
+h:ajuda:Mostra uma tela de ajuda com explicação e sintaxe de todas as funções.
+h:ajuda:Opções: --lista  lista de todas as funções, com sua descrição
+h:ajuda:        --uso    resumo de todas as funções, com a sintaxe de uso
+h:ajuda:Uso: zzajuda [--lista|--uso]
+h:ajuda:Ex.: zzajuda
+h:ajuda:     zzajuda --lista
+h::----------------------------------------------------------------------------
+h:aleatorio:zzaleatorio
+h:aleatorio:Gera um número aleatório.
+h:aleatorio:Sem argumentos, comporta-se igual a $RANDOM.
+h:aleatorio:Apenas um argumento, número entre 0 e o valor fornecido.
+h:aleatorio:Com dois argumentos, número entre esses limites informados.
+h:aleatorio:
+h:aleatorio:Uso: zzaleatorio [número] [número]
+h:aleatorio:Ex.: zzaleatorio 10
+h:aleatorio:     zzaleatorio 5 15
+h:aleatorio:     zzaleatorio
+h::----------------------------------------------------------------------------

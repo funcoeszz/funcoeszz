@@ -1,0 +1,4 @@
+{
+    "shellcheck.enable": false,
+    "cSpell.enabled": false
+}

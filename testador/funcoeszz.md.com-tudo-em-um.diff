@@ -1,0 +1,30 @@
+191d190
+< $ zz_root=.  # XXX remover
+298c297
+< $ diff todas.txt $ZZTMP.on | grep '^[<>]'
+---
+> $ diff todas.txt $ZZTMP.on | grep '^[<>]' | head
+316c315
+< $ diff todas.txt $ZZTMP.on
+---
+> $ diff todas.txt $ZZTMP.on | head
+326c325
+< $ diff todas.txt $ZZTMP.on | grep '^[<>]'
+---
+> $ diff todas.txt $ZZTMP.on | grep '^[<>]' | head
+344c343
+< $ diff todas.txt $ZZTMP.on
+---
+> $ diff todas.txt $ZZTMP.on | head
+354c353
+< $ diff todas.txt $ZZTMP.on | grep '^[<>]'
+---
+> $ diff todas.txt $ZZTMP.on | grep '^[<>]' | head
+375c374
+< $ diff todas.txt $ZZTMP.on
+---
+> $ diff todas.txt $ZZTMP.on | head
+385c384
+< $ diff todas.txt $ZZTMP.on | grep '^[<>]'
+---
+> $ diff todas.txt $ZZTMP.on | grep '^[<>]' | head

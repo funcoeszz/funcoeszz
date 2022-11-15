@@ -1,0 +1,3811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="generator" content=
+"HTML Tidy for HTML5 for FreeBSD version 5.7.28">
+<meta charset="utf-8">
+<meta name="description" content=
+"FreeBSD is an operating system used to power modern servers, desktops, and embedded platforms.">
+<meta name="keywords" content="FreeBSD, BSD, UNIX, open source">
+<meta name="copyright" content="1995-2020 The FreeBSD Foundation">
+<title>FreeBSD Security Advisories | The FreeBSD Project</title>
+<link rel="shortcut icon" href=
+"https://www.freebsd.org/favicon.ico">
+<link rel="stylesheet" href=
+"https://www.freebsd.org/css/fixed.css">
+<link rel="search" type="application/opensearchdescription+xml"
+href="https://www.freebsd.org/opensearch/man.xml" title=
+"FreeBSD Man Pages">
+<link rel="search" type="application/opensearchdescription+xml"
+href=
+"https://www.freebsd.org/opensearch/man-freebsd-release-ports.xml"
+title="FreeBSD + Ports Manual Pages">
+<link rel="search" type="application/opensearchdescription+xml"
+href="https://www.freebsd.org/opensearch/ports.xml" title=
+"FreeBSD Ports and Packages Collection">
+<link rel="search" type="application/opensearchdescription+xml"
+href="https://www.freebsd.org/opensearch/message-id.xml" title=
+"FreeBSD Mailing List Message-ID Search">
+<link rel="search" type="application/opensearchdescription+xml"
+href="https://www.freebsd.org/opensearch/markmail.xml" title=
+"FreeBSD Mailing List Search by MarkMail">
+<script src="https://www.freebsd.org/js/google.js"></script>
+</head>
+<body>
+<div id="container">
+<header>
+<div><a href="https://www.freebsd.org/" title="FreeBSD"><img src=
+"https://www.freebsd.org/images/logo-red.png" alt=
+"FreeBSD The Power to Serve"></a></div>
+<div id="headerlogoright">
+<div class="donate"><a href=
+"https://www.FreeBSDFoundation.org/donate/" title=
+"Donate to FreeBSD">Donate to FreeBSD</a></div>
+<div id="search">
+<form method="get" id="search-form" action=
+"https://duckduckgo.com/" onsubmit=
+"document.getElementById('words').value+=' site:FreeBSD.org'" name=
+"search-form"><input type="hidden" name="ka" value="v">
+<input type="hidden" name="kt" value="v"> <input type="hidden"
+name="kh" value="1"> <input type="hidden" name="kj" value="r2">
+<input id="words" name="q" type="text" size="20" maxlength="255"
+onfocus="if( this.value==this.defaultValue ) this.value='';" value=
+"Search" placeholder="Search"> <span>&nbsp;</span> <input id=
+"submit" name="submit" type="submit" value="Search"></form>
+</div>
+</div>
+</header>
+<nav>
+<ul class="first">
+<li><a href="/">Home</a></li>
+</ul>
+<ul>
+<li><a href="https://www.freebsd.org/about/">About</a>
+<ul>
+<li><a href=
+"https://www.freebsd.org/projects/newbies/">Introduction</a></li>
+<li><a href="https://www.freebsd.org/features/">Features</a></li>
+<li><a href="https://www.freebsd.org/advocacy/">Advocacy</a></li>
+<li><a href="https://www.freebsd.org/marketing/">Marketing</a></li>
+<li><a href="https://www.freebsd.org/privacy/">Privacy
+Policy</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://www.freebsd.org/where/">Get FreeBSD</a>
+<ul>
+<li><a href="https://www.freebsd.org/releases/">Release
+Information</a></li>
+<li><a href="https://www.freebsd.org/releng/">Release
+Engineering</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://docs.FreeBSD.org/en/">Documentation</a>
+<ul>
+<li><a href="https://docs.FreeBSD.org/en/books/faq/">FAQ</a></li>
+<li><a href=
+"https://docs.FreeBSD.org/en/books/handbook/">Handbook</a></li>
+<li><a href=
+"https://docs.FreeBSD.org/en/books/porters-handbook/">Porter's
+Handbook</a></li>
+<li><a href=
+"https://docs.FreeBSD.org/en/books/developers-handbook/">Developer's
+Handbook</a></li>
+<li><a href=
+"https://docs.FreeBSD.org/en/articles/committers-guide">Committer's
+Guide</a></li>
+<li><a href="https://www.FreeBSD.org/cgi/man.cgi">Manual
+Pages</a></li>
+<li><a href="https://papers.freebsd.org/">Presentations and
+Papers</a></li>
+<li><a href=
+"https://docs.FreeBSD.org/en/books/fdp-primer/">Documentation
+Project Primer</a></li>
+<li><a href="https://docs.FreeBSD.org/en/">All Books and
+Articles</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://www.freebsd.org/community/">Community</a>
+<ul>
+<li><a href=
+"https://www.freebsd.org/community/mailinglists/">Mailing
+Lists</a></li>
+<li><a href="https://forums.FreeBSD.org">Forums</a></li>
+<li><a href="https://www.freebsd.org/usergroups/">User
+Groups</a></li>
+<li><a href="https://www.freebsd.org/events/">Events</a></li>
+<li><a href="http://freebsdjournal.com">FreeBSD Journal</a></li>
+<li><a href=
+"http://serverfault.com/questions/tagged/freebsd">Q&amp;A
+(external)</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://www.freebsd.org/projects/">Developers</a>
+<ul>
+<li><a href="https://wiki.FreeBSD.org/IdeasPage">Project
+Ideas</a></li>
+<li><a href="https://cgit.FreeBSD.org">Git Repository</a></li>
+<li><a href="https://svnweb.FreeBSD.org">Subversion
+Repository</a></li>
+<li><a href="https://github.com/freebsd">GitHub Mirror</a></li>
+<li><a href="https://reviews.FreeBSD.org">Code Review
+(Phabricator)</a></li>
+<li><a href="https://wiki.FreeBSD.org">Wiki</a></li>
+<li><a href="https://ci.FreeBSD.org">Continuous Integration
+Service</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://www.freebsd.org/support/">Support</a>
+<ul>
+<li><a href="https://www.freebsd.org/commercial/">Vendors</a></li>
+<li><a href="https://www.freebsd.org/security/">Security
+Information</a></li>
+<li><a href="https://bugs.FreeBSD.org/search/">Bug Reports</a></li>
+<li><a href="https://www.freebsd.org/support/">Submitting Bug
+Reports</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><a href="https://www.freebsdfoundation.org/">Foundation</a>
+<ul>
+<li><a href="https://www.freebsdfoundation.org/donate/">Monetary
+Donations</a></li>
+<li><a href="https://www.freebsd.org/donations/">Hardware
+Donations</a></li>
+</ul>
+</li>
+</ul>
+</nav>
+<main>
+<div id="content">
+<div id="sidewrap">
+<div id="sidenav">
+<ul>
+<li><a href="https://www.freebsd.org/support">Support</a></li>
+<li><a href="https://www.freebsd.org/commercial">Vendors</a>
+<ul>
+<li><a href=
+"https://www.freebsd.org/commercial/software_bycat/">Software</a></li>
+<li><a href=
+"https://www.freebsd.org/commercial/hardware/">Hardware</a></li>
+<li><a href=
+"https://www.freebsd.org/commercial/consult_bycat/">Consulting</a></li>
+<li><a href="https://www.freebsd.org/commercial/isp/">Internet
+Service Providers</a></li>
+<li><a href=
+"https://www.freebsd.org/commercial/misc/">Miscellaneous</a></li>
+</ul>
+</li>
+<li><a href="https://www.freebsd.org/security">Security
+Information</a>
+<ul>
+<li><a href=
+"https://www.freebsd.org/security/advisories/">Advisories</a></li>
+<li><a href="https://www.freebsd.org/security/notices/">Errata
+Notices</a></li>
+<li><a href="https://www.freebsd.org/security/">Supported
+Releases</a></li>
+<li><a href=
+"https://www.freebsd.org/security/unsupported/">Unsupported
+Releases</a></li>
+<li><a href=
+"https://docs.FreeBSD.org/en/books/handbook/#security-advisories">How
+to read FreeBSD Security Advisories</a></li>
+<li><a href="https://www.freebsd.org/security/charter/">Charter for
+the Security Officer and Team</a></li>
+</ul>
+</li>
+<li><a href="https://www.freebsd.org/support/bugreports/">Bug
+Reports</a>
+<ul>
+<li><a href="https://bugs.FreeBSD.org/submit/">Submit a Problem
+Report</a></li>
+</ul>
+</li>
+<li><a href="https://www.freebsd.org/support/webresources/">Web
+Resources</a></li>
+</ul>
+</div>
+</div>
+<div id="contentwrap">
+<h1>FreeBSD Security Advisories</h1>
+<div class="paragraph">
+<p>This web page contains a list of released FreeBSD Security
+Advisories. See the <a href="../">FreeBSD Security Information</a>
+page for general security information about FreeBSD.</p>
+</div>
+<div class="paragraph">
+<p>Issues affecting the FreeBSD Ports Collection are covered in
+<a href="http://vuxml.freebsd.org/">the FreeBSD VuXML
+document</a>.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Date</th>
+<th>Advisory name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="txtdate">2021-05-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:12.libradius.asc">
+FreeBSD-SA-21:12.libradius</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-05-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:11.smap.asc">
+FreeBSD-SA-21:11.smap</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-04-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:10.jail_mount.asc">
+FreeBSD-SA-21:10.jail_mount</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-04-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:09.accept_filter.asc">
+FreeBSD-SA-21:09.accept_filter</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-04-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:08.vm.asc">
+FreeBSD-SA-21:08.vm</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-03-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:07.openssl.asc">
+FreeBSD-SA-21:07.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-02-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:06.xen.asc">
+FreeBSD-SA-21:06.xen</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-02-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:05.jail_chdir.asc">
+FreeBSD-SA-21:05.jail_chdir</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-02-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:04.jail_remove.asc">
+FreeBSD-SA-21:04.jail_remove</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-02-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:03.pam_login_access.asc">
+FreeBSD-SA-21:03.pam_login_access</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-01-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:02.xenoom.asc">
+FreeBSD-SA-21:02.xenoom</a></td>
+</tr>
+<tr>
+<td class="txtdate">2021-01-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-21:01.fsdisclosure.asc">
+FreeBSD-SA-21:01.fsdisclosure</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-12-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:33.openssl.asc">
+FreeBSD-SA-20:33.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-12-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:32.rtsold.asc">
+FreeBSD-SA-20:32.rtsold</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-12-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:31.icmp6.asc">
+FreeBSD-SA-20:31.icmp6</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-09-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:30.ftpd.asc">
+FreeBSD-SA-20:30.ftpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-09-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:29.bhyve_svm.asc">
+FreeBSD-SA-20:29.bhyve_svm</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-09-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:28.bhyve_vmcs.asc">
+FreeBSD-SA-20:28.bhyve_vmcs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-09-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:27.ure.asc">
+FreeBSD-SA-20:27.ure</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-09-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:26.dhclient.asc">
+FreeBSD-SA-20:26.dhclient</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-09-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:25.sctp.asc">
+FreeBSD-SA-20:25.sctp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-09-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:24.ipv6.asc">
+FreeBSD-SA-20:24.ipv6</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-08-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:23.sendmsg.asc">
+FreeBSD-SA-20:23.sendmsg</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-08-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:22.sqlite.asc">
+FreeBSD-SA-20:22.sqlite</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-08-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:21.usb_net.asc">
+FreeBSD-SA-20:21.usb_net</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-07-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:20.ipv6.asc">
+FreeBSD-SA-20:20.ipv6</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-07-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:19.unbound.asc">
+FreeBSD-SA-20:19.unbound</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-07-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:18.posix_spawnp.asc">
+FreeBSD-SA-20:18.posix_spawnp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-06-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:17.usb.asc">
+FreeBSD-SA-20:17.usb</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-05-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:16.cryptodev.asc">
+FreeBSD-SA-20:16.cryptodev</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-05-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:15.cryptodev.asc">
+FreeBSD-SA-20:15.cryptodev</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-05-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:14.sctp.asc">
+FreeBSD-SA-20:14.sctp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-05-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:13.libalias.asc">
+FreeBSD-SA-20:13.libalias</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-05-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:12.libalias.asc">
+FreeBSD-SA-20:12.libalias</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-04-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:11.openssl.asc">
+FreeBSD-SA-20:11.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-04-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:10.ipfw.asc">
+FreeBSD-SA-20:10.ipfw</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-03-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:09.ntp.asc">
+FreeBSD-SA-20:09.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-03-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:08.jail.asc">
+FreeBSD-SA-20:08.jail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-03-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:07.epair.asc">
+FreeBSD-SA-20:07.epair</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-03-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:06.if_ixl_ioctl.asc">
+FreeBSD-SA-20:06.if_ixl_ioctl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-03-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:05.if_oce_ioctl.asc">
+FreeBSD-SA-20:05.if_oce_ioctl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-03-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:04.tcp.asc">
+FreeBSD-SA-20:04.tcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-01-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:03.thrmisc.asc">
+FreeBSD-SA-20:03.thrmisc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-01-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:02.ipsec.asc">
+FreeBSD-SA-20:02.ipsec</a></td>
+</tr>
+<tr>
+<td class="txtdate">2020-01-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-20:01.libfetch.asc">
+FreeBSD-SA-20:01.libfetch</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-11-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:26.mcu.asc">
+FreeBSD-SA-19:26.mcu</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-11-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:25.mcepsc.asc">
+FreeBSD-SA-19:25.mcepsc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-08-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:24.mqueuefs.asc">
+FreeBSD-SA-19:24.mqueuefs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-08-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:23.midi.asc">
+FreeBSD-SA-19:23.midi</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-08-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:22.mbuf.asc">
+FreeBSD-SA-19:22.mbuf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-08-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:21.bhyve.asc">
+FreeBSD-SA-19:21.bhyve</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-08-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:20.bsnmp.asc">
+FreeBSD-SA-19:20.bsnmp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-08-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:19.mldv2.asc">
+FreeBSD-SA-19:19.mldv2</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-08-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:18.bzip2.asc">
+FreeBSD-SA-19:18.bzip2</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-07-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:17.fd.asc">
+FreeBSD-SA-19:17.fd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-07-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:16.bhyve.asc">
+FreeBSD-SA-19:16.bhyve</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-07-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:15.mqueuefs.asc">
+FreeBSD-SA-19:15.mqueuefs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-07-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:14.freebsd32.asc">
+FreeBSD-SA-19:14.freebsd32</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-07-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:13.pts.asc">
+FreeBSD-SA-19:13.pts</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-07-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:12.telnet.asc">
+FreeBSD-SA-19:12.telnet</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-07-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:11.cd_ioctl.asc">
+FreeBSD-SA-19:11.cd_ioctl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-07-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:10.ufs.asc">
+FreeBSD-SA-19:10.ufs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-07-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:09.iconv.asc">
+FreeBSD-SA-19:09.iconv</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-06-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:08.rack.asc">
+FreeBSD-SA-19:08.rack</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-05-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:07.mds.asc">
+FreeBSD-SA-19:07.mds</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-05-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:06.pf.asc">
+FreeBSD-SA-19:06.pf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-05-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:05.pf.asc">
+FreeBSD-SA-19:05.pf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-05-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:04.ntp.asc">
+FreeBSD-SA-19:04.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-05-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:03.wpa.asc">
+FreeBSD-SA-19:03.wpa</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-02-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:02.fd.asc">
+FreeBSD-SA-19:02.fd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2019-02-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-19:01.syscall.asc">
+FreeBSD-SA-19:01.syscall</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-12-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:15.bootpd.asc">
+FreeBSD-SA-18:15.bootpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-12-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:14.bhyve.asc">
+FreeBSD-SA-18:14.bhyve</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-11-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:13.nfs.asc">
+FreeBSD-SA-18:13.nfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-09-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:12.elf.asc">
+FreeBSD-SA-18:12.elf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-08-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:11.hostapd.asc">
+FreeBSD-SA-18:11.hostapd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-08-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:10.ip.asc">
+FreeBSD-SA-18:10.ip</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-08-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:09.l1tf.asc">
+FreeBSD-SA-18:09.l1tf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-08-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:08.tcp.asc">
+FreeBSD-SA-18:08.tcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-06-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:07.lazyfpu.asc">
+FreeBSD-SA-18:07.lazyfpu</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-05-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:06.debugreg.asc">
+FreeBSD-SA-18:06.debugreg</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-04-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:05.ipsec.asc">
+FreeBSD-SA-18:05.ipsec</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-04-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:04.vt.asc">
+FreeBSD-SA-18:04.vt</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-03-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:03.speculative_execution.asc">
+FreeBSD-SA-18:03.speculative_execution</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-03-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:02.ntp.asc">
+FreeBSD-SA-18:02.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2018-03-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-18:01.ipsec.asc">
+FreeBSD-SA-18:01.ipsec</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-12-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:12.openssl.asc">
+FreeBSD-SA-17:12.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-11-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:11.openssl.asc">
+FreeBSD-SA-17:11.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-11-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:10.kldstat.asc">
+FreeBSD-SA-17:10.kldstat</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-11-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:09.shm.asc">
+FreeBSD-SA-17:09.shm</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-11-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:08.ptrace.asc">
+FreeBSD-SA-17:08.ptrace</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-10-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:07.wpa.asc">
+FreeBSD-SA-17:07.wpa</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-08-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:06.openssh.asc">
+FreeBSD-SA-17:06.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-07-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:05.heimdal.asc">
+FreeBSD-SA-17:05.heimdal</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-04-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:04.ipfilter.asc">
+FreeBSD-SA-17:04.ipfilter</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-04-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:03.ntp.asc">
+FreeBSD-SA-17:03.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-02-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:02.openssl.asc">
+FreeBSD-SA-17:02.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2017-01-11</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-17:01.openssh.asc">
+FreeBSD-SA-17:01.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-12-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:39.ntp.asc">
+FreeBSD-SA-16:39.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-12-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:38.bhyve.asc">
+FreeBSD-SA-16:38.bhyve</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-12-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:37.libc.asc">
+FreeBSD-SA-16:37.libc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-12-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:36.telnetd.asc">
+FreeBSD-SA-16:36.telnetd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-11-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:35.openssl.asc">
+FreeBSD-SA-16:35.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-11-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:34.bind.asc">
+FreeBSD-SA-16:34.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-11-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:33.openssh.asc">
+FreeBSD-SA-16:33.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-10-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:32.bhyve.asc">
+FreeBSD-SA-16:32.bhyve</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-10-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:31.libarchive.asc">
+FreeBSD-SA-16:31.libarchive</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-10-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:30.portsnap.asc">
+FreeBSD-SA-16:30.portsnap</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-10-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:29.bspatch.asc">
+FreeBSD-SA-16:29.bspatch</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-10-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:28.bind.asc">
+FreeBSD-SA-16:28.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-10-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:27.openssl.asc">
+FreeBSD-SA-16:27.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-09-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:26.openssl.asc">
+FreeBSD-SA-16:26.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-07-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:25.bspatch.asc">
+FreeBSD-SA-16:25.bspatch</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-06-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:24.ntp.asc">
+FreeBSD-SA-16:24.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-05-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:23.libarchive.asc">
+FreeBSD-SA-16:23.libarchive</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-05-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:22.libarchive.asc">
+FreeBSD-SA-16:22.libarchive</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-05-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:21.43bsd.asc">
+FreeBSD-SA-16:21.43bsd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-05-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:20.linux.asc">
+FreeBSD-SA-16:20.linux</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-05-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:19.sendmsg.asc">
+FreeBSD-SA-16:19.sendmsg</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-05-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:18.atkbd.asc">
+FreeBSD-SA-16:18.atkbd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-05-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:17.openssl.asc">
+FreeBSD-SA-16:17.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-04-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:16.ntp.asc">
+FreeBSD-SA-16:16.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-03-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:15.sysarch.asc">
+FreeBSD-SA-16:15.sysarch</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-03-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:14.openssh.asc">
+FreeBSD-SA-16:14.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-03-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:13.bind.asc">
+FreeBSD-SA-16:13.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-03-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:12.openssl.asc">
+FreeBSD-SA-16:12.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:11.openssl.asc">
+FreeBSD-SA-16:11.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:10.linux.asc">
+FreeBSD-SA-16:10.linux</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:09.ntp.asc">
+FreeBSD-SA-16:09.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:08.bind.asc">
+FreeBSD-SA-16:08.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:07.openssh.asc">
+FreeBSD-SA-16:07.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:06.bsnmpd.asc">
+FreeBSD-SA-16:06.bsnmpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:05.tcp.asc">
+FreeBSD-SA-16:05.tcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:04.linux.asc">
+FreeBSD-SA-16:04.linux</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:03.linux.asc">
+FreeBSD-SA-16:03.linux</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:02.ntp.asc">
+FreeBSD-SA-16:02.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2016-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-16:01.sctp.asc">
+FreeBSD-SA-16:01.sctp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-12-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:27.bind.asc">
+FreeBSD-SA-15:27.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-12-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:26.openssl.asc">
+FreeBSD-SA-15:26.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-10-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:25.ntp.asc">
+FreeBSD-SA-15:25.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-09-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:24.rpcbind.asc">
+FreeBSD-SA-15:24.rpcbind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-09-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:23.bind.asc">
+FreeBSD-SA-15:23.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-08-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:22.openssh.asc">
+FreeBSD-SA-15:22.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-08-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:21.amd64.asc">
+FreeBSD-SA-15:21.amd64</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-08-18</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:20.expat.asc">
+FreeBSD-SA-15:20.expat</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-08-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:19.routed.asc">
+FreeBSD-SA-15:19.routed</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-08-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:18.bsdpatch.asc">
+FreeBSD-SA-15:18.bsdpatch</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-07-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:17.bind.asc">
+FreeBSD-SA-15:17.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-07-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:16.openssh.asc">
+FreeBSD-SA-15:16.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-07-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:15.tcp.asc">
+FreeBSD-SA-15:15.tcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-07-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:14.bsdpatch.asc">
+FreeBSD-SA-15:14.bsdpatch</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-07-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:13.tcp.asc">
+FreeBSD-SA-15:13.tcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-07-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:12.openssl.asc">
+FreeBSD-SA-15:12.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-07-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:11.bind.asc">
+FreeBSD-SA-15:11.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-06-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:10.openssl.asc">
+FreeBSD-SA-15:10.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-04-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:09.ipv6.asc">
+FreeBSD-SA-15:09.ipv6</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-04-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:08.bsdinstall.asc">
+FreeBSD-SA-15:08.bsdinstall</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-04-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:07.ntp.asc">
+FreeBSD-SA-15:07.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-03-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:06.openssl.asc">
+FreeBSD-SA-15:06.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-02-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:05.bind.asc">
+FreeBSD-SA-15:05.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-02-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:04.igmp.asc">
+FreeBSD-SA-15:04.igmp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-01-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:03.sctp.asc">
+FreeBSD-SA-15:03.sctp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-01-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:02.kmem.asc">
+FreeBSD-SA-15:02.kmem</a></td>
+</tr>
+<tr>
+<td class="txtdate">2015-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-15:01.openssl.asc">
+FreeBSD-SA-15:01.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-12-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:31.ntp.asc">
+FreeBSD-SA-14:31.ntp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-12-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:30.unbound.asc">
+FreeBSD-SA-14:30.unbound</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-12-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:29.bind.asc">
+FreeBSD-SA-14:29.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-12-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:28.file.asc">
+FreeBSD-SA-14:28.file</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-12-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:27.stdio.asc">
+FreeBSD-SA-14:27.stdio</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-11-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:26.ftp.asc">
+FreeBSD-SA-14:26.ftp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-11-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:25.setlogin.asc">
+FreeBSD-SA-14:25.setlogin</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-11-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:24.sshd.asc">
+FreeBSD-SA-14:24.sshd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-10-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:23.openssl.asc">
+FreeBSD-SA-14:23.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-10-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:22.namei.asc">
+FreeBSD-SA-14:22.namei</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-10-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:21.routed.asc">
+FreeBSD-SA-14:21.routed</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-10-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:20.rtsold.asc">
+FreeBSD-SA-14:20.rtsold</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-09-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:19.tcp.asc">
+FreeBSD-SA-14:19.tcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-09-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:18.openssl.asc">
+FreeBSD-SA-14:18.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-07-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:17.kmem.asc">
+FreeBSD-SA-14:17.kmem</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-06-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:16.file.asc">
+FreeBSD-SA-14:16.file</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-06-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:15.iconv.asc">
+FreeBSD-SA-14:15.iconv</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-06-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:14.openssl.asc">
+FreeBSD-SA-14:14.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-06-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:13.pam.asc">
+FreeBSD-SA-14:13.pam</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-06-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:12.ktrace.asc">
+FreeBSD-SA-14:12.ktrace</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-06-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:11.sendmail.asc">
+FreeBSD-SA-14:11.sendmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-05-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:10.openssl.asc">
+FreeBSD-SA-14:10.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-04-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:09.openssl.asc">
+FreeBSD-SA-14:09.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-04-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:08.tcp.asc">
+FreeBSD-SA-14:08.tcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-04-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:07.devfs.asc">
+FreeBSD-SA-14:07.devfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-04-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:06.openssl.asc">
+FreeBSD-SA-14:06.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-04-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:05.nfsserver.asc">
+FreeBSD-SA-14:05.nfsserver</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:04.bind.asc">
+FreeBSD-SA-14:04.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:03.openssl.asc">
+FreeBSD-SA-14:03.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:02.ntpd.asc">
+FreeBSD-SA-14:02.ntpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2014-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-14:01.bsnmpd.asc">
+FreeBSD-SA-14:01.bsnmpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-11-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:14.openssh.asc">
+FreeBSD-SA-13:14.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-09-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:13.nullfs.asc">
+FreeBSD-SA-13:13.nullfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-09-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:12.ifioctl.asc">
+FreeBSD-SA-13:12.ifioctl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-09-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:11.sendfile.asc">
+FreeBSD-SA-13:11.sendfile</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-08-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:10.sctp.asc">
+FreeBSD-SA-13:10.sctp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-08-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:09.ip_multicast.asc">
+FreeBSD-SA-13:09.ip_multicast</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-07-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:08.nfsserver.asc">
+FreeBSD-SA-13:08.nfsserver</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-07-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:07.bind.asc">
+FreeBSD-SA-13:07.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-06-18</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:06.mmap.asc">
+FreeBSD-SA-13:06.mmap</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-04-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:05.nfsserver.asc">
+FreeBSD-SA-13:05.nfsserver</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-04-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:04.bind.asc">
+FreeBSD-SA-13:04.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-04-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:03.openssl.asc">
+FreeBSD-SA-13:03.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-02-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:02.libc.asc">
+FreeBSD-SA-13:02.libc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2013-02-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-13:01.bind.asc">
+FreeBSD-SA-13:01.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2012-11-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-12:08.linux.asc">
+FreeBSD-SA-12:08.linux</a></td>
+</tr>
+<tr>
+<td class="txtdate">2012-11-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-12:07.hostapd.asc">
+FreeBSD-SA-12:07.hostapd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2012-11-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-12:06.bind.asc">
+FreeBSD-SA-12:06.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2012-08-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-12:05.bind.asc">
+FreeBSD-SA-12:05.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2012-06-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-12:04.sysret.asc">
+FreeBSD-SA-12:04.sysret</a></td>
+</tr>
+<tr>
+<td class="txtdate">2012-06-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-12:03.bind.asc">
+FreeBSD-SA-12:03.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2012-05-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-12:02.crypt.asc">
+FreeBSD-SA-12:02.crypt</a></td>
+</tr>
+<tr>
+<td class="txtdate">2012-05-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-12:01.openssl.asc">
+FreeBSD-SA-12:01.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-12-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:10.pam.asc">
+FreeBSD-SA-11:10.pam</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-12-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:09.pam_ssh.asc">
+FreeBSD-SA-11:09.pam_ssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-12-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:08.telnetd.asc">
+FreeBSD-SA-11:08.telnetd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-12-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:07.chroot.asc">
+FreeBSD-SA-11:07.chroot</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-12-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:06.bind.asc">
+FreeBSD-SA-11:06.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-09-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:05.unix.asc">
+FreeBSD-SA-11:05.unix</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-09-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:04.compress.asc">
+FreeBSD-SA-11:04.compress</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-09-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:03.bind.asc">
+FreeBSD-SA-11:03.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-05-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:02.bind.asc">
+FreeBSD-SA-11:02.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2011-04-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-11:01.mountd.asc">
+FreeBSD-SA-11:01.mountd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-11-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:10.openssl.asc">
+FreeBSD-SA-10:10.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-11-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:09.pseudofs.asc">
+FreeBSD-SA-10:09.pseudofs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-09-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:08.bzip2.asc">
+FreeBSD-SA-10:08.bzip2</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-07-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:07.mbuf.asc">
+FreeBSD-SA-10:07.mbuf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-05-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:06.nfsclient.asc">
+FreeBSD-SA-10:06.nfsclient</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-05-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:05.opie.asc">
+FreeBSD-SA-10:05.opie</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-05-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:04.jail.asc">
+FreeBSD-SA-10:04.jail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-01-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:03.zfs.asc">
+FreeBSD-SA-10:03.zfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-01-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:02.ntpd.asc">
+FreeBSD-SA-10:02.ntpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2010-01-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-10:01.bind.asc">
+FreeBSD-SA-10:01.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-12-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:17.freebsd-update.asc">
+FreeBSD-SA-09:17.freebsd-update</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-12-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:16.rtld.asc">
+FreeBSD-SA-09:16.rtld</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-12-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:15.ssl.asc">
+FreeBSD-SA-09:15.ssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-10-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:14.devfs.asc">
+FreeBSD-SA-09:14.devfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-10-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:13.pipe.asc">
+FreeBSD-SA-09:13.pipe</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-07-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:12.bind.asc">
+FreeBSD-SA-09:12.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-06-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:11.ntpd.asc">
+FreeBSD-SA-09:11.ntpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-06-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:10.ipv6.asc">
+FreeBSD-SA-09:10.ipv6</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-06-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:09.pipe.asc">
+FreeBSD-SA-09:09.pipe</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-04-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:08.openssl.asc">
+FreeBSD-SA-09:08.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-04-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:07.libc.asc">
+FreeBSD-SA-09:07.libc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-03-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:06.ktimer.asc">
+FreeBSD-SA-09:06.ktimer</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-02-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:05.telnetd.asc">
+FreeBSD-SA-09:05.telnetd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-01-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:04.bind.asc">
+FreeBSD-SA-09:04.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-01-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:03.ntpd.asc">
+FreeBSD-SA-09:03.ntpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-01-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:02.openssl.asc">
+FreeBSD-SA-09:02.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2009-01-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-09:01.lukemftpd.asc">
+FreeBSD-SA-09:01.lukemftpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-12-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:13.protosw.asc">
+FreeBSD-SA-08:13.protosw</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-12-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:12.ftpd.asc">
+FreeBSD-SA-08:12.ftpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-11-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:11.arc4random.asc">
+FreeBSD-SA-08:11.arc4random</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-10-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:10.nd6.asc">
+FreeBSD-SA-08:10.nd6</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-09-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:09.icmp6.asc">
+FreeBSD-SA-08:09.icmp6</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-09-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:08.nmount.asc">
+FreeBSD-SA-08:08.nmount</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-09-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:07.amd64.asc">
+FreeBSD-SA-08:07.amd64</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-07-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:06.bind.asc">
+FreeBSD-SA-08:06.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-04-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:05.openssh.asc">
+FreeBSD-SA-08:05.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-02-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:04.ipsec.asc">
+FreeBSD-SA-08:04.ipsec</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-02-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:03.sendfile.asc">
+FreeBSD-SA-08:03.sendfile</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:02.libc.asc">
+FreeBSD-SA-08:02.libc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2008-01-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-08:01.pty.asc">
+FreeBSD-SA-08:01.pty</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-11-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:10.gtar.asc">
+FreeBSD-SA-07:10.gtar</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-11-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:09.random.asc">
+FreeBSD-SA-07:09.random</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-10-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:08.openssl.asc">
+FreeBSD-SA-07:08.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-08-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:07.bind.asc">
+FreeBSD-SA-07:07.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-08-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:06.tcpdump.asc">
+FreeBSD-SA-07:06.tcpdump</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-07-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:05.libarchive.asc">
+FreeBSD-SA-07:05.libarchive</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-05-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:04.file.asc">
+FreeBSD-SA-07:04.file</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-04-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:03.ipv6.asc">
+FreeBSD-SA-07:03.ipv6</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-02-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:02.bind.asc">
+FreeBSD-SA-07:02.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2007-01-11</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-07:01.jail.asc">
+FreeBSD-SA-07:01.jail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-12-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:26.gtar.asc">
+FreeBSD-SA-06:26.gtar</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-12-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:25.kmem.asc">
+FreeBSD-SA-06:25.kmem</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-11-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:24.libarchive.asc">
+FreeBSD-SA-06:24.libarchive</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-09-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:22.openssh.asc">
+FreeBSD-SA-06:22.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-09-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:23.openssl.asc">
+FreeBSD-SA-06:23.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-09-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:21.gzip.asc">
+FreeBSD-SA-06:21.gzip</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-09-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:20.bind.asc">
+FreeBSD-SA-06:20.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-09-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:19.openssl.asc">
+FreeBSD-SA-06:19.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-08-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:18.ppp.asc">
+FreeBSD-SA-06:18.ppp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-06-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:17.sendmail.asc">
+FreeBSD-SA-06:17.sendmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-05-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:16.smbfs.asc">
+FreeBSD-SA-06:16.smbfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-05-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:15.ypserv.asc">
+FreeBSD-SA-06:15.ypserv</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-04-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:14.fpu.asc">
+FreeBSD-SA-06:14.fpu</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-03-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:13.sendmail.asc">
+FreeBSD-SA-06:13.sendmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-03-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:12.opie.asc">
+FreeBSD-SA-06:12.opie</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-03-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:11.ipsec.asc">
+FreeBSD-SA-06:11.ipsec</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-03-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:10.nfs.asc">
+FreeBSD-SA-06:10.nfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-03-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:09.openssh.asc">
+FreeBSD-SA-06:09.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-02-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:08.sack.asc">
+FreeBSD-SA-06:08.sack</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-01-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:07.pf.asc">
+FreeBSD-SA-06:07.pf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-01-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:06.kmem.asc">
+FreeBSD-SA-06:06.kmem</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-01-18</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:05.80211.asc">
+FreeBSD-SA-06:05.80211</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-01-11</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:04.ipfw.asc">
+FreeBSD-SA-06:04.ipfw</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-01-11</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:03.cpio.asc">
+FreeBSD-SA-06:03.cpio</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-01-11</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:02.ee.asc">
+FreeBSD-SA-06:02.ee</a></td>
+</tr>
+<tr>
+<td class="txtdate">2006-01-11</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-06:01.texindex.asc">
+FreeBSD-SA-06:01.texindex</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-10-11</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:21.openssl.asc">
+FreeBSD-SA-05:21.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-09-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:20.cvsbug.asc">
+FreeBSD-SA-05:20.cvsbug</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-07-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:19.ipsec.asc">
+FreeBSD-SA-05:19.ipsec</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-07-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:18.zlib.asc">
+FreeBSD-SA-05:18.zlib</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-07-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:17.devfs.asc">
+FreeBSD-SA-05:17.devfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-07-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:16.zlib.asc">
+FreeBSD-SA-05:16.zlib</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-06-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:15.tcp.asc">
+FreeBSD-SA-05:15.tcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-06-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:14.bzip2.asc">
+FreeBSD-SA-05:14.bzip2</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-06-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:13.ipfw.asc">
+FreeBSD-SA-05:13.ipfw</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-06-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:12.bind9.asc">
+FreeBSD-SA-05:12.bind9</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-06-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:11.gzip.asc">
+FreeBSD-SA-05:11.gzip</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-06-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:10.tcpdump.asc">
+FreeBSD-SA-05:10.tcpdump</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-05-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:09.htt.asc">
+FreeBSD-SA-05:09.htt</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-05-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:08.kmem.asc">
+FreeBSD-SA-05:08.kmem</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-05-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:07.ldt.asc">
+FreeBSD-SA-05:07.ldt</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-05-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:06.iir.asc">
+FreeBSD-SA-05:06.iir</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-04-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:05.cvs.asc">
+FreeBSD-SA-05:05.cvs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-04-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:04.ifconf.asc">
+FreeBSD-SA-05:04.ifconf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-04-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:03.amd64.asc">
+FreeBSD-SA-05:03.amd64</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-04-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:02.sendfile.asc">
+FreeBSD-SA-05:02.sendfile</a></td>
+</tr>
+<tr>
+<td class="txtdate">2005-03-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-05:01.telnet.asc">
+FreeBSD-SA-05:01.telnet</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-12-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:17.procfs.asc">
+FreeBSD-SA-04:17.procfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-11-18</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:16.fetch.asc">
+FreeBSD-SA-04:16.fetch</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-10-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:15.syscons.asc">
+FreeBSD-SA-04:15.syscons</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-09-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:14.cvs.asc">
+FreeBSD-SA-04:14.cvs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-06-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:13.linux.asc">
+FreeBSD-SA-04:13.linux</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-06-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:12.jailroute.asc">
+FreeBSD-SA-04:12.jailroute</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-05-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:11.msync.asc">
+FreeBSD-SA-04:11.msync</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-05-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:10.cvs.asc">
+FreeBSD-SA-04:10.cvs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-05-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:09.kadmind.asc">
+FreeBSD-SA-04:09.kadmind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-05-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:08.heimdal.asc">
+FreeBSD-SA-04:08.heimdal</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-04-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:07.cvs.asc">
+FreeBSD-SA-04:07.cvs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-03-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:06.ipv6.asc">
+FreeBSD-SA-04:06.ipv6</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-03-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:05.openssl.asc">
+FreeBSD-SA-04:05.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-03-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:04.tcp.asc">
+FreeBSD-SA-04:04.tcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-02-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:03.jail.asc">
+FreeBSD-SA-04:03.jail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-02-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:02.shmat.asc">
+FreeBSD-SA-04:02.shmat</a></td>
+</tr>
+<tr>
+<td class="txtdate">2004-01-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-04:01.mksnap_ffs.asc">
+FreeBSD-SA-04:01.mksnap_ffs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-11-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:19.bind.asc">
+FreeBSD-SA-03:19.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-10-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:15.openssh.asc">
+FreeBSD-SA-03:15.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-10-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:18.openssl.asc">
+FreeBSD-SA-03:18.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-10-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:17.procfs.asc">
+FreeBSD-SA-03:17.procfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-10-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:16.filedesc.asc">
+FreeBSD-SA-03:16.filedesc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-09-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:14.arp.asc">
+FreeBSD-SA-03:14.arp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-09-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:13.sendmail.asc">
+FreeBSD-SA-03:13.sendmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-09-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:12.openssh.asc">
+FreeBSD-SA-03:12.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-08-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:11.sendmail.asc">
+FreeBSD-SA-03:11.sendmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-08-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:10.ibcs2.asc">
+FreeBSD-SA-03:10.ibcs2</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-08-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:09.signal.asc">
+FreeBSD-SA-03:09.signal</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-08-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:08.realpath.asc">
+FreeBSD-SA-03:08.realpath</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-04-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SN-03:02.asc">FreeBSD-SN-03:02</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-04-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SN-03:01.asc">FreeBSD-SN-03:01</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-03-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:07.sendmail.asc">
+FreeBSD-SA-03:07.sendmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-03-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:06.openssl.asc">
+FreeBSD-SA-03:06.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-03-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:05.xdr.asc">
+FreeBSD-SA-03:05.xdr</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-03-03</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:04.sendmail.asc">
+FreeBSD-SA-03:04.sendmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-02-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:03.syncookies.asc">
+FreeBSD-SA-03:03.syncookies</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-02-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:02.openssl.asc">
+FreeBSD-SA-03:02.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-02-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-03:01.cvs.asc">
+FreeBSD-SA-03:01.cvs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2003-01-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:44.filedesc.asc">
+FreeBSD-SA-02:44.filedesc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-11-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:43.bind.asc">
+FreeBSD-SA-02:43.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-11-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:41.smrsh.asc">
+FreeBSD-SA-02:41.smrsh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-11-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:42.resolv.asc">
+FreeBSD-SA-02:42.resolv</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-11-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:40.kadmind.asc">
+FreeBSD-SA-02:40.kadmind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-10-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SN-02:06.asc">FreeBSD-SN-02:06</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-09-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:39.libkvm.asc">
+FreeBSD-SA-02:39.libkvm</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-08-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SN-02:05.asc">FreeBSD-SN-02:05</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-08-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:38.signed-error.asc">
+FreeBSD-SA-02:38.signed-error</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-08-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:37.kqueue.asc">
+FreeBSD-SA-02:37.kqueue</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-08-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:36.nfs.asc">
+FreeBSD-SA-02:36.nfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-08-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:35.ffs.asc">
+FreeBSD-SA-02:35.ffs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-08-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:33.openssl.asc">
+FreeBSD-SA-02:33.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-08-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:34.rpc.asc">
+FreeBSD-SA-02:34.rpc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-07-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:32.pppd.asc">
+FreeBSD-SA-02:32.pppd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-07-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:31.openssh.asc">
+FreeBSD-SA-02:31.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-07-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:30.ktrace.asc">
+FreeBSD-SA-02:30.ktrace</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-07-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:29.tcpdump.asc">
+FreeBSD-SA-02:29.tcpdump</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-06-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:28.resolv.asc">
+FreeBSD-SA-02:28.resolv</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-06-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SN-02:04.asc">FreeBSD-SN-02:04</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-05-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:27.rc.asc">
+FreeBSD-SA-02:27.rc</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-05-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:26.accept.asc">
+FreeBSD-SA-02:26.accept</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-05-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SN-02:03.asc">FreeBSD-SN-02:03</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-05-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:25.bzip2.asc">
+FreeBSD-SA-02:25.bzip2</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-05-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:24.k5su.asc">
+FreeBSD-SA-02:24.k5su</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-05-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SN-02:02.asc">FreeBSD-SN-02:02</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-04-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:23.stdio.asc">
+FreeBSD-SA-02:23.stdio</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-04-18</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:22.mmap.asc">
+FreeBSD-SA-02:22.mmap</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-04-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:21.tcpip.asc">
+FreeBSD-SA-02:21.tcpip</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-04-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:20.syncache.asc">
+FreeBSD-SA-02:20.syncache</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-03-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SN-02:01.asc">FreeBSD-SN-02:01</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-03-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:19.squid.asc">
+FreeBSD-SA-02:19.squid</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-03-18</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:18.zlib.asc">
+FreeBSD-SA-02:18.zlib</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:17.mod_frontpage.asc">
+FreeBSD-SA-02:17.mod_frontpage</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:16.netscape.asc">
+FreeBSD-SA-02:16.netscape</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:15.cyrus-sasl.asc">
+FreeBSD-SA-02:15.cyrus-sasl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:14.pam-pgsql.asc">
+FreeBSD-SA-02:14.pam-pgsql</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-03-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:13.openssh.asc">
+FreeBSD-SA-02:13.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-02-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:12.squid.asc">
+FreeBSD-SA-02:12.squid</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-02-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:11.snmp.asc">
+FreeBSD-SA-02:11.snmp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-02-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:10.rsync.asc">
+FreeBSD-SA-02:10.rsync</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-02-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:09.fstatfs.asc">
+FreeBSD-SA-02:09.fstatfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-01-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:08.exec.asc">
+FreeBSD-SA-02:08.exec</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-01-18</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:07.k5su.asc">
+FreeBSD-SA-02:07.k5su</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-01-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:06.sudo.asc">
+FreeBSD-SA-02:06.sudo</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-01-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:05.pine.asc">
+FreeBSD-SA-02:05.pine</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-01-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:04.mutt.asc">
+FreeBSD-SA-02:04.mutt</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-01-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:03.mod_auth_pgsql.asc">
+FreeBSD-SA-02:03.mod_auth_pgsql</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-01-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:02.pw.asc">
+FreeBSD-SA-02:02.pw</a></td>
+</tr>
+<tr>
+<td class="txtdate">2002-01-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-02:01.pkg_add.asc">
+FreeBSD-SA-02:01.pkg_add</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-12-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:64.wu-ftpd.asc">
+FreeBSD-SA-01:64.wu-ftpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-12-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:63.openssh.asc">
+FreeBSD-SA-01:63.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-10-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:62.uucp.asc">
+FreeBSD-SA-01:62.uucp</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-10-08</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:61.squid.asc">
+FreeBSD-SA-01:61.squid</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-09-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:60.procmail.asc">
+FreeBSD-SA-01:60.procmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-09-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:59.rmuser.asc">
+FreeBSD-SA-01:59.rmuser</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-08-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:58.lpd.asc">
+FreeBSD-SA-01:58.lpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-08-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:57.sendmail.asc">
+FreeBSD-SA-01:57.sendmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-08-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:56.tcp_wrappers.asc">
+FreeBSD-SA-01:56.tcp_wrappers</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-08-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:55.procfs.asc">
+FreeBSD-SA-01:55.procfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-08-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:54.ports-telnetd.asc">
+FreeBSD-SA-01:54.ports-telnetd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-08-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:53.ipfw.asc">
+FreeBSD-SA-01:53.ipfw</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-08-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:52.fragment.asc">
+FreeBSD-SA-01:52.fragment</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:51.openssl.asc">
+FreeBSD-SA-01:51.openssl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:50.windowmaker.asc">
+FreeBSD-SA-01:50.windowmaker</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:49.telnetd.asc">
+FreeBSD-SA-01:49.telnetd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:48.tcpdump.asc">
+FreeBSD-SA-01:48.tcpdump</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:47.xinetd.asc">
+FreeBSD-SA-01:47.xinetd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:46.w3m.asc">
+FreeBSD-SA-01:46.w3m</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:45.samba.asc">
+FreeBSD-SA-01:45.samba</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:44.gnupg.asc">
+FreeBSD-SA-01:44.gnupg</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:43.fetchmail.asc">
+FreeBSD-SA-01:43.fetchmail</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:42.signal.asc">
+FreeBSD-SA-01:42.signal</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-07-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:41.hanterm.asc">
+FreeBSD-SA-01:41.hanterm</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-06-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:40.fts.asc">
+FreeBSD-SA-01:40.fts</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-05-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:39.tcp-isn.asc">
+FreeBSD-SA-01:39.tcp-isn</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-04-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:38.sudo.asc">
+FreeBSD-SA-01:38.sudo</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-04-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:37.slrn.asc">
+FreeBSD-SA-01:37.slrn</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-04-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:36.samba.asc">
+FreeBSD-SA-01:36.samba</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-04-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:35.licq.asc">
+FreeBSD-SA-01:35.licq</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-04-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:34.hylafax.asc">
+FreeBSD-SA-01:34.hylafax</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-04-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:33.ftpd-glob.asc">
+FreeBSD-SA-01:33.ftpd-glob</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-04-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:32.ipfilter.asc">
+FreeBSD-SA-01:32.ipfilter</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-04-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:31.ntpd.asc">
+FreeBSD-SA-01:31.ntpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-03-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:30.ufs-ext2fs.asc">
+FreeBSD-SA-01:30.ufs-ext2fs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:29.rwhod.asc">
+FreeBSD-SA-01:29.rwhod</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:28.timed.asc">
+FreeBSD-SA-01:28.timed</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:27.cfengine.asc">
+FreeBSD-SA-01:27.cfengine</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:26.interbase.asc">
+FreeBSD-SA-01:26.interbase</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:23.icecast.asc">
+FreeBSD-SA-01:23.icecast</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-02-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:25.kerberosIV.asc">
+FreeBSD-SA-01:25.kerberosIV</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-02-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:24.ssh.asc">
+FreeBSD-SA-01:24.ssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-02-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:22.dc20ctrl.asc">
+FreeBSD-SA-01:22.dc20ctrl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-02-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:21.ja-elvis.asc">
+FreeBSD-SA-01:21.ja-elvis</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-02-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:20.mars_nwe.asc">
+FreeBSD-SA-01:20.mars_nwe</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-02-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:19.ja-klock.asc">
+FreeBSD-SA-01:19.ja-klock</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:18.bind.asc">
+FreeBSD-SA-01:18.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:17.exmh.asc">
+FreeBSD-SA-01:17.exmh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:16.mysql.asc">
+FreeBSD-SA-01:16.mysql</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:15.tinyproxy.asc">
+FreeBSD-SA-01:15.tinyproxy</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:14.micq.asc">
+FreeBSD-SA-01:14.micq</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:13.sort.asc">
+FreeBSD-SA-01:13.sort</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:12.periodic.asc">
+FreeBSD-SA-01:12.periodic</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:11.inetd.asc">
+FreeBSD-SA-01:11.inetd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:10.bind.asc">
+FreeBSD-SA-01:10.bind</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:09.crontab.asc">
+FreeBSD-SA-01:09.crontab</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:08.ipfw.asc">
+FreeBSD-SA-01:08.ipfw</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:07.xfree86.asc">
+FreeBSD-SA-01:07.xfree86</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:06.zope.asc">
+FreeBSD-SA-01:06.zope</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:05.stunnel.asc">
+FreeBSD-SA-01:05.stunnel</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:04.joe.asc">
+FreeBSD-SA-01:04.joe</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:03.bash1.asc">
+FreeBSD-SA-01:03.bash1</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:02.syslog-ng.asc">
+FreeBSD-SA-01:02.syslog-ng</a></td>
+</tr>
+<tr>
+<td class="txtdate">2001-01-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-01:01.openssh.asc">
+FreeBSD-SA-01:01.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-12-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:81.ethereal.asc">
+FreeBSD-SA-00:81.ethereal</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-12-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:80.halflifeserver.asc">
+FreeBSD-SA-00:80.halflifeserver</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-12-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:79.oops.asc">
+FreeBSD-SA-00:79.oops</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-12-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:78.bitchx.asc">
+FreeBSD-SA-00:78.bitchx</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-12-18</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:77.procfs.asc">
+FreeBSD-SA-00:77.procfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:76.tcsh-csh.asc">
+FreeBSD-SA-00:76.tcsh-csh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:75.php.asc">
+FreeBSD-SA-00:75.php</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:74.gaim.asc">
+FreeBSD-SA-00:74.gaim</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:73.thttpd.asc">
+FreeBSD-SA-00:73.thttpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:72.curl.asc">
+FreeBSD-SA-00:72.curl</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:71.mgetty.asc">
+FreeBSD-SA-00:71.mgetty</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:70.ppp-nat.asc">
+FreeBSD-SA-00:70.ppp-nat</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:69.telnetd.asc">
+FreeBSD-SA-00:69.telnetd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:68.ncurses.asc">
+FreeBSD-SA-00:68.ncurses</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:67.gnupg.asc">
+FreeBSD-SA-00:67.gnupg</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:66.netscape.asc">
+FreeBSD-SA-00:66.netscape</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:65.xfce.asc">
+FreeBSD-SA-00:65.xfce</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:64.global.asc">
+FreeBSD-SA-00:64.global</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:63.getnameinfo.asc">
+FreeBSD-SA-00:63.getnameinfo</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-11-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:62.top.asc">
+FreeBSD-SA-00:62.top</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-10-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:61.tcpdump.asc">
+FreeBSD-SA-00:61.tcpdump</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-10-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:60.boa.asc">
+FreeBSD-SA-00:60.boa</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-10-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:59.pine.asc">
+FreeBSD-SA-00:59.pine</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-10-30</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:58.chpass.asc">
+FreeBSD-SA-00:58.chpass</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-10-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:57.muh.asc">
+FreeBSD-SA-00:57.muh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-10-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:56.lprng.asc">
+FreeBSD-SA-00:56.lprng</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-10-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:55.xpdf.asc">
+FreeBSD-SA-00:55.xpdf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-10-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:54.fingerd.asc">
+FreeBSD-SA-00:54.fingerd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-10-06</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:52.tcp-iss.asc">
+FreeBSD-SA-00:52.tcp-iss</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-09-27</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:53.catopen.asc">
+FreeBSD-SA-00:53.catopen</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-09-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:51.mailman.asc">
+FreeBSD-SA-00:51.mailman</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-09-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:50.listmanager.asc">
+FreeBSD-SA-00:50.listmanager</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-09-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:49.eject.asc">
+FreeBSD-SA-00:49.eject</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-09-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:48.xchat.asc">
+FreeBSD-SA-00:48.xchat</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-09-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:47.pine.asc">
+FreeBSD-SA-00:47.pine</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-09-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:46.screen.asc">
+FreeBSD-SA-00:46.screen</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-31</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:45.esound.asc">
+FreeBSD-SA-00:45.esound</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:44.xlock.asc">
+FreeBSD-SA-00:44.xlock</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:43.brouted.asc">
+FreeBSD-SA-00:43.brouted</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:42.linux.asc">
+FreeBSD-SA-00:42.linux</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:41.elf.asc">
+FreeBSD-SA-00:41.elf</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:40.mopd.asc">
+FreeBSD-SA-00:40.mopd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:39.netscape.asc">
+FreeBSD-SA-00:39.netscape</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:38.zope.asc">
+FreeBSD-SA-00:38.zope</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:37.cvsweb.asc">
+FreeBSD-SA-00:37.cvsweb</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:36.ntop.asc">
+FreeBSD-SA-00:36.ntop</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:35.proftpd.asc">
+FreeBSD-SA-00:35.proftpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-08-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:34.dhclient.asc">
+FreeBSD-SA-00:34.dhclient</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-07-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:33.kerberosIV.asc">
+FreeBSD-SA-00:33.kerberosIV</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-07-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:32.bitchx.asc">
+FreeBSD-SA-00:32.bitchx</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-07-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:31.canna.asc">
+FreeBSD-SA-00:31.canna</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-07-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:30.openssh.asc">
+FreeBSD-SA-00:30.openssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-07-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:29.wu-ftpd.asc">
+FreeBSD-SA-00:29.wu-ftpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-07-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:28.majordomo.asc">
+FreeBSD-SA-00:28.majordomo</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-07-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:27.XFree86-4.asc">
+FreeBSD-SA-00:27.XFree86-4</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-07-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:26.popper.asc">
+FreeBSD-SA-00:26.popper</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-07-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:24.libedit.asc">
+FreeBSD-SA-00:24.libedit</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-06-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:23.ip-options.asc">
+FreeBSD-SA-00:23.ip-options</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-06-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:25.alpha-random.asc">
+FreeBSD-SA-00:25.alpha-random</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-06-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:22.apsfilter.asc">
+FreeBSD-SA-00:22.apsfilter</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-06-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:21.ssh.asc">
+FreeBSD-SA-00:21.ssh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-05-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:20.krb5.asc">
+FreeBSD-SA-00:20.krb5</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-05-23</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:19.semconfig.asc">
+FreeBSD-SA-00:19.semconfig</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-05-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:18.gnapster.knapster.asc">
+FreeBSD-SA-00:18.gnapster.knapster</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-05-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:17.libmytinfo.asc">
+FreeBSD-SA-00:17.libmytinfo</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-05-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:16.golddig.asc">
+FreeBSD-SA-00:16.golddig</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-04-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:15.imap-uw.asc">
+FreeBSD-SA-00:15.imap-uw</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-04-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:14.imap-uw.asc">
+FreeBSD-SA-00:14.imap-uw</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-04-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:13.generic-nqs.asc">
+FreeBSD-SA-00:13.generic-nqs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-04-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:12.healthd.asc">
+FreeBSD-SA-00:12.healthd</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-04-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:11.ircii.asc">
+FreeBSD-SA-00:11.ircii</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-03-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:10.orville-write.asc">
+FreeBSD-SA-00:10.orville-write</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-03-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:09.mtr.asc">
+FreeBSD-SA-00:09.mtr</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-03-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:08.lynx.asc">
+FreeBSD-SA-00:08.lynx</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-03-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:07.mh.asc">
+FreeBSD-SA-00:07.mh</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-03-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:06.htdig.asc">
+FreeBSD-SA-00:06.htdig</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-02-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:05.mysql.asc">
+FreeBSD-SA-00:05.mysql</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-02-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:04.delegate.asc">
+FreeBSD-SA-00:04.delegate</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-02-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:03.asmon.asc">
+FreeBSD-SA-00:03.asmon</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-01-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:02.procfs.asc">
+FreeBSD-SA-00:02.procfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">2000-01-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-00:01.make.asc">
+FreeBSD-SA-00:01.make</a></td>
+</tr>
+<tr>
+<td class="txtdate">1999-09-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-99:06.amd.asc">
+FreeBSD-SA-99:06.amd</a></td>
+</tr>
+<tr>
+<td class="txtdate">1999-09-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-99:05.fts.asc">
+FreeBSD-SA-99:05.fts</a></td>
+</tr>
+<tr>
+<td class="txtdate">1999-09-15</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-99:04.core.asc">
+FreeBSD-SA-99:04.core</a></td>
+</tr>
+<tr>
+<td class="txtdate">1999-09-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-99:03.ftpd.asc">
+FreeBSD-SA-99:03.ftpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">1999-09-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-99:02.profil.asc">
+FreeBSD-SA-99:02.profil</a></td>
+</tr>
+<tr>
+<td class="txtdate">1999-09-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-99:01.chflags.asc">
+FreeBSD-SA-99:01.chflags</a></td>
+</tr>
+<tr>
+<td class="txtdate">1998-11-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-98:08.fragment.asc">
+FreeBSD-SA-98:08.fragment</a></td>
+</tr>
+<tr>
+<td class="txtdate">1998-10-13</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-98:07.rst.asc">
+FreeBSD-SA-98:07.rst</a></td>
+</tr>
+<tr>
+<td class="txtdate">1998-06-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-98:06.icmp.asc">
+FreeBSD-SA-98:06.icmp</a></td>
+</tr>
+<tr>
+<td class="txtdate">1998-06-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-98:05.nfs.asc">
+FreeBSD-SA-98:05.nfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">1998-06-02</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-98:04.mmap.asc">
+FreeBSD-SA-98:04.mmap</a></td>
+</tr>
+<tr>
+<td class="txtdate">1998-05-14</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-98:03.ttcp.asc">
+FreeBSD-SA-98:03.ttcp</a></td>
+</tr>
+<tr>
+<td class="txtdate">1998-03-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-98:02.mmap.asc">
+FreeBSD-SA-98:02.mmap</a></td>
+</tr>
+<tr>
+<td class="txtdate">1997-12-09</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-97:06.f00f.asc">
+FreeBSD-SA-97:06.f00f</a></td>
+</tr>
+<tr>
+<td class="txtdate">1997-12-01</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-98:01.land.asc">
+FreeBSD-SA-98:01.land</a></td>
+</tr>
+<tr>
+<td class="txtdate">1997-10-29</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-97:05.open.asc">
+FreeBSD-SA-97:05.open</a></td>
+</tr>
+<tr>
+<td class="txtdate">1997-08-19</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-97:04.procfs.asc">
+FreeBSD-SA-97:04.procfs</a></td>
+</tr>
+<tr>
+<td class="txtdate">1997-04-07</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-97:03.sysinstall.asc">
+FreeBSD-SA-97:03.sysinstall</a></td>
+</tr>
+<tr>
+<td class="txtdate">1997-03-26</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-97:02.lpd.asc">
+FreeBSD-SA-97:02.lpd</a></td>
+</tr>
+<tr>
+<td class="txtdate">1997-02-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-97:01.setlocale.asc">
+FreeBSD-SA-97:01.setlocale</a></td>
+</tr>
+<tr>
+<td class="txtdate">1997-01-18</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:21.talkd.asc">
+FreeBSD-SA-96:21.talkd</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-12-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:20.stack-overflow.asc">
+FreeBSD-SA-96:20.stack-overflow</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-12-10</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:19.modstat.asc">
+FreeBSD-SA-96:19.modstat</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-11-25</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:18.lpr.asc">
+FreeBSD-SA-96:18.lpr</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-07-16</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:17.rzsz.asc">
+FreeBSD-SA-96:17.rzsz</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-07-12</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:16.rdist.asc">
+FreeBSD-SA-96:16.rdist</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-07-04</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:15.ppp.asc">
+FreeBSD-SA-96:15.ppp</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-06-28</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:12.perl.asc">
+FreeBSD-SA-96:12.perl</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-06-24</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:14.ipfw.asc">
+FreeBSD-SA-96:14.ipfw</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-06-05</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:13.comsat.asc">
+FreeBSD-SA-96:13.comsat</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-05-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:11.man.asc">
+FreeBSD-SA-96:11.man</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-05-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:10.mount_union.asc">
+FreeBSD-SA-96:10.mount_union</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-05-17</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:09.vfsload.asc">
+FreeBSD-SA-96:09.vfsload</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-04-22</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:02.apache.asc">
+FreeBSD-SA-96:02.apache</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-04-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:08.syslog.asc">
+FreeBSD-SA-96:08.syslog</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-04-21</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:01.sliplogin.asc">
+FreeBSD-SA-96:01.sliplogin</a></td>
+</tr>
+<tr>
+<td class="txtdate">1996-04-20</td>
+<td><a href=
+"https://www.freebsd.org/security/advisories/FreeBSD-SA-96:03.sendmail-suggestion.asc">
+FreeBSD-SA-96:03.sendmail-suggestion</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<footer><a href="https://www.freebsd.org/copyright/">Legal
+Notices</a> | © 1995-2021 The FreeBSD Project All rights reserved.
+The mark FreeBSD is a registered trademark of The FreeBSD
+Foundation and is used by The FreeBSD Project with the permission
+of <a href=
+"https://www.freebsdfoundation.org/legal/trademark-usage-terms-and-conditions/">
+The FreeBSD Foundation</a>. <a href=
+"https://www.freebsd.org/mailto/">Contact</a></footer>
+</div>
+</body>
+</html>

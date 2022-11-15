@@ -1,0 +1,34 @@
+lentos:
+zzalinhar -j
+zzalfabeto
+zzcolunar
+zzcarnaval 1
+zzcarnaval 10
+
+zzdata:
+				# Ano -> dias
+				while :
+				do
+					# Sim, os anos bissextos são levados em conta!
+					dias_ano=365
+---->				zztestar ano_bissexto $y && dias_ano=366
+quantos bissextos tem entre duas datas?
+https://stackoverflow.com/a/4587611/1623438
+$ zzbissexto 2000 2020
+5
+
+					# Vai somando (ou subtraindo) até chegar no ano corrente
+					test $y -eq $yyyy && break
+					dias=$(($dias $op $dias_ano))
+					y=$(($y $op 1))
+				done
+
+
+https://pt.wikipedia.org/wiki/Ano_bissexto
+não faz sentido detectar antes de uma data específica, o resultado será errado
+Calendário Gregoriano
+$ano > 1582
+`cal` usa 3 Sept 1752 https://man7.org/linux/man-pages/man1/cal.1.html
+
+é bissexto? cal 2 2020 | grep -q 29
+páscoa: ncal -e 2020 (bsd cal only)
