@@ -14,9 +14,9 @@
 cd "$(dirname "$0")/.." || exit 1  # go to repo root
 
 function zzname_from_path() {
-    while read path
+    while read -r path
     do
-        basename $path .sh
+        basename "$path" .sh
     done
 }
 
@@ -61,7 +61,7 @@ case "$1" in
         internet=$(./util/lista.sh internet | wc -l)
         no_internet=$(./util/lista.sh no-internet | wc -l)
 
-        echo $internet + $no_internet = $all
+        echo "$internet + $no_internet = $all"
         test "$((internet + no_internet))" -eq "$all" || {
             echo FAIL >&2
             exit 1
