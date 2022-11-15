@@ -8,3 +8,7 @@ disable=SC2001
 # SC2016: Expressions don't expand in single quotes, use double quotes for that.
 # Sabemos como usar as aspas simples :)
 disable=SC2016
+
+# SC2012: Use find instead of ls to better handle non-alphanumeric filenames.
+# Geralmente usamos `ls zz/*.sh | ...`, então não há problema.
+disable=SC2012

@@ -9,7 +9,7 @@ lint: shellcheck
 	./util/nanny.sh
 
 shellcheck:
-	shellcheck manpage/*.sh release/*.sh
+	shellcheck info/*.sh manpage/*.sh release/*.sh
 
 test: test-core test-local test-internet
 
