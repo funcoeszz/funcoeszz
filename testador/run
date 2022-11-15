@@ -40,6 +40,10 @@ case "$1" in
 
 		tests=funcoeszz.md
 	;;
+	zzdatafmt-doctester.sh)
+		tester=doctester
+		tests="$@"
+	;;
 	*)
 		# Is $1 a special identifier for a group of functions?
 		# Examples: all, internet, local
@@ -68,7 +72,16 @@ esac
 
 # Run the tests
 # Note: To remove the dots ........ change 'dot' to 'none'
-$tester --progress dot --pre-flight ". $tmp" $tests
+if test "$tester" = doctester
+then
+	echo "$ source $tmp" > foo
+	echo '$' >> foo
+	cat $tests >> foo
+	$tester foo
+	rm foo
+else
+	$tester --progress dot --pre-flight ". $tmp" $tests
+fi
 exitcode=$?
 
 rm "$tmp"
