@@ -46,6 +46,7 @@ zzhoramin ()
 	mm="${mm:-0}"
 
 	# faz o cálculo
+	# shellcheck disable=SC2035
 	mintotal=$(($hh * 60 $operacao $mm))
 
 	# Tcharã!!!!

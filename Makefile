@@ -12,6 +12,7 @@ lint: shellcheck
 # verificações mais simples de arrumar. São elas:
 # - egrep/fgrep -> grep -E/-F
 # - read -r
+# - * -> ./* pra evitar conflito de glob com -arquivos --estranhos
 shellcheck:
 	shellcheck funcoeszz testador/run \
 		info/*.sh \
@@ -20,7 +21,8 @@ shellcheck:
 		util/*.sh
 	shellcheck zz/*.sh --shell=bash \
 		--include SC2196,SC2197 \
-		--include SC2162
+		--include SC2162 \
+		--include SC2035
 
 test: test-core test-local test-internet
 

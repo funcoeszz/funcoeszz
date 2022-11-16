@@ -81,6 +81,8 @@ zzmaiores ()
 		pastas="$@"
 		if test -z "$pastas" -o "$pastas" = '.'
 		then
+			# Não dá pra usar ./* em vez de * senão ele aparece no resultado
+			# shellcheck disable=SC2035
 			zzmaiores ${recursivo:+-r} -n $limite * .[^.]*
 			return
 
