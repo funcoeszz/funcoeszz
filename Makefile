@@ -3,10 +3,17 @@ clitest_url = https://raw.githubusercontent.com/aureliojargas/clitest/master/cli
 
 .PHONY: clean lint test test-core test-local test-internet
 
-lint:
+lint: shellcheck
 	./util/alinhamento.sh
 	./util/requisitos.sh
 	./util/nanny.sh
+
+shellcheck:
+	shellcheck funcoeszz testador/run \
+		info/*.sh \
+		manpage/*.sh \
+		release/*.sh \
+		util/*.sh
 
 test: test-core test-local test-internet
 
@@ -25,4 +32,4 @@ $(clitest):
 	chmod +x $(clitest)
 
 clean:
-	rm -f $(clitest)
+	rm -f $(clitest) release/funcoeszz-dev.sh

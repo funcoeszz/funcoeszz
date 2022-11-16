@@ -61,7 +61,7 @@ ZZTMPDIR_DFT="${TMPDIR:-/tmp}"    # diretório temporário
 # 1. Resolução do parâmetro $0:
 # https://github.com/aureliojargas/livro-shell/issues/2#issuecomment-830872380
 
-# 1.1. "bash arquivo.sh" vs. "source arquivo.sh" 
+# 1.1. "bash arquivo.sh" vs. "source arquivo.sh"
 # (https://superuser.com/a/176788/42896)
 
 # Quando o arquivo de script é executado com "bash arquivo.sh",
@@ -168,7 +168,7 @@ _extrai_ajuda() {
 }
 
 # Limpa conteúdo do arquivo de ajuda
-> "$ZZAJUDA"
+: > "$ZZAJUDA"
 
 # Salva o texto de ajuda das funções inclusas neste arquivo
 # (presentes na versão tudo-em-um)
@@ -190,8 +190,8 @@ test -r "$ZZPATH" && _extrai_ajuda "$ZZPATH" >> "$ZZAJUDA"
 ### Passo 1
 
 # Limpa arquivos temporários que guardam as listagens
-> "$ZZTMP.on"
-> "$ZZTMP.off"
+: > "$ZZTMP.on"
+: > "$ZZTMP.off"
 
 # Lista de funções a desligar: uma por linha, com prefixo zz
 zz_off=$(
@@ -287,6 +287,7 @@ do
 	test -r "$zz_arquivo" || continue
 
 	# Inclui a função na shell atual
+	# shellcheck disable=SC1090
 	. "$zz_arquivo"
 
 	# Extrai o texto de ajuda
@@ -307,6 +308,7 @@ echo '-------' | sed 's/.*/&&&&&&&&&&&/' >> "$ZZAJUDA"
 if test -z "$ZZDIR" -a -n "$zz_off"
 then
 	# Desliga todas em uma só linha (note que não usei aspas)
+	# shellcheck disable=SC2086
 	unset $zz_off
 
 	# Agora apaga os textos da ajuda, montando um script em sed e aplicando

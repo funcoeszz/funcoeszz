@@ -32,6 +32,7 @@ check "Funções que não são UTF-8" "$(
 )"
 
 check "Funções com nome de arquivo inválido" "$(
+	# shellcheck disable=SC2010
 	ls -1 zz/*.sh off/*.sh |
 	grep -v '/zz[a-z0-9]*\.sh$'
 )"
@@ -39,6 +40,7 @@ check "Funções com nome de arquivo inválido" "$(
 check "Funções com erro ao importar (source)" "$(
 	for f in zz/*.sh off/*.sh
 	do
+		# shellcheck disable=SC1090
 		(source "$f" 2>&1)
 	done
 )"

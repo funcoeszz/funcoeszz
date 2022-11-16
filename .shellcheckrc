@@ -1,12 +1,14 @@
 # https://github.com/koalaman/shellcheck/blob/master/shellcheck.1.md#rc-files
 
-# Disabled checks
-# ---------------
-#
 # SC2001: See if you can use ${variable//search/replace} instead.
-#      -> We prefer sed, and we avoid bash2+ variable expansions for portability
-#
+# Preferimos usar o sed, alem de evitar expansões de variaveis do bash2+ por
+# questões de portabilidade.
+disable=SC2001
+
 # SC2016: Expressions don't expand in single quotes, use double quotes for that.
-#      -> We know when to use single quotes :)
-#
-disable=SC2001,SC2016
+# Sabemos como usar as aspas simples :)
+disable=SC2016
+
+# SC2012: Use find instead of ls to better handle non-alphanumeric filenames.
+# Geralmente usamos `ls zz/*.sh | ...`, então não há problema.
+disable=SC2012
