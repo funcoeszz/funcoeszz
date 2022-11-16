@@ -226,20 +226,10 @@ zztool ()
 			echo "$LC_ALL $LC_CTYPE $LANG" | grep -i utf >/dev/null
 		;;
 		texto_em_iso)
-			if test $ZZUTF = 1
-			then
-				iconv -f iso-8859-1 -t utf-8 /dev/stdin
-			else
-				cat -
-			fi
+			iconv -f iso-8859-1 -t utf-8 /dev/stdin
 		;;
 		texto_em_utf8)
-			if test $ZZUTF != 1
-			then
-				iconv -f utf-8 -t iso-8859-1 /dev/stdin
-			else
-				cat -
-			fi
+			cat -
 		;;
 		mktemp)
 			# Cria um arquivo temporário de nome único, usando $1.
