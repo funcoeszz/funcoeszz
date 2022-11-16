@@ -14,6 +14,7 @@ lint: shellcheck
 # - read -r
 # - * -> ./* pra evitar conflito de glob com -arquivos --estranhos
 # - cd || exit
+# - foo= -> foo=''
 shellcheck:
 	shellcheck funcoeszz testador/run \
 		info/*.sh \
@@ -24,7 +25,8 @@ shellcheck:
 		--include SC2196,SC2197 \
 		--include SC2162 \
 		--include SC2035 \
-		--include SC2164
+		--include SC2164 \
+		--include SC1007
 
 test: test-core test-local test-internet
 
