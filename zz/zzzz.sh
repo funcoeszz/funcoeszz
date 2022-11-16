@@ -144,27 +144,25 @@ zzzz ()
 
 			### Tudo certo com a codificação do sistema e das ZZ?
 
-			local cod_sistema='ISO-8859-1'
-			local cod_funcoeszz='ISO-8859-1'
+			local cod_sistema='Nao UTF-8 :('  # deixe sem acentos
 
 			printf 'Verificando a codificação do sistema... '
 			zztool terminal_utf8 && cod_sistema='UTF-8'
 			echo "$cod_sistema"
 
 			printf 'Verificando a codificação das Funções ZZ... '
-			test $ZZUTF = 1 && cod_funcoeszz='UTF-8'
-			echo "$cod_funcoeszz"
+			echo "UTF-8"  # só temos essa versão agora
 
 			# Se um dia precisar de um teste direto no arquivo:
 			# sed 1d "$ZZPATH" | file - | grep UTF-8
 
-			if test "$cod_sistema" != "$cod_funcoeszz"
+			if test "$cod_sistema" != "UTF-8"
 			then
 				# Deixar sem acentuação mesmo, pois eles não vão aparecer
 				echo
 				zztool eco "**Atencao**"
 				echo 'Ha uma incompatibilidade de codificacao.'
-				echo "Baixe as Funcoes ZZ versao $cod_sistema."
+				echo "As Funcoes ZZ so funcionam corretamente em sistemas UTF-8."
 			fi
 		;;
 
@@ -183,9 +181,6 @@ zzzz ()
 			# Compara e faz o download
 			if test "$ZZVERSAO" != "$versao_remota"
 			then
-				# Vamos baixar a versão ISO-8859-1?
-				test $ZZUTF != '1' && url_exe="${url_exe}-iso"
-
 				printf 'Baixando a versão nova... '
 				zztool download "$url_exe" "funcoeszz-$versao_remota"
 				echo 'PRONTO!'
@@ -292,8 +287,8 @@ zzzz ()
 			# As funções estão configuradas para usar cores?
 			test "$ZZCOR" = '1' && info_cor='sim' || info_cor='não'
 
-			# A codificação do arquivo das funções é UTF-8?
-			test "$ZZUTF" = 1 && info_utf8='UTF-8' || info_utf8='ISO-8859-1'
+			# A codificação do arquivo das funções é UTF-8? Sim, sempre.
+			info_utf8='UTF-8'
 
 			# As funções estão instaladas no bashrc?
 			if grep "^[^#]*${ZZPATH:-zzpath_vazia}" "$bashrc" >/dev/null 2>&1
