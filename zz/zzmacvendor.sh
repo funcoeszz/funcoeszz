@@ -31,7 +31,7 @@ zzmacvendor ()
 	tr -s ' "' '  ' |
 	zzcut -f 1,3,6 -d "|" | tr '|' '\n' |
 	sed '2{s/,[^,]*$//;}' |
-	while read linha
+	while read -r linha
 	do
 		if test -z "$fab"
 		then

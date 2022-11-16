@@ -66,7 +66,7 @@ zzddd ()
 		tr -s ' ' |
 		awk '/Saiba como ligar/{print "";next};{printf $0 "|"}' |
 		sed '2,${/DDD/d;}' |
-		while IFS="|" read ddd cidade estado
+		while IFS="|" read -r ddd cidade estado
 		do
 			echo "$(zzpad 3 $ddd) $(zzpad 40 $cidade) $estado"
 		done |

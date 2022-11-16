@@ -32,7 +32,7 @@ zzcotacao ()
 			if (NF == 5) print $1 " " $2, $3, $4, $5
 		}
 	}' |
-	while IFS='|' read moeda compra venda var
+	while IFS='|' read -r moeda compra venda var
 	do
 		if test 'Moeda' = "$moeda"
 		then

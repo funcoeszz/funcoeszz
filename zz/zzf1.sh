@@ -67,13 +67,13 @@ zzf1 ()
 			case $fopt in
 			driver)
 				sed 's/|/ /2' |
-				while IFS='|' read pontos piloto nac1 construtor nac2
+				while IFS='|' read -r pontos piloto nac1 construtor nac2
 				do
 					echo "$(zzpad -e 5 $pontos)  $(zzpad 25 $piloto) $(zzpad 15 $construtor)  $nac1"
 				done
 			;;
 			constructor)
-				while IFS='|' read pontos construtor nac2
+				while IFS='|' read -r pontos construtor nac2
 				do
 					echo "$(zzpad -e 5 $pontos)  $(zzpad 15 $construtor)  $nac2"
 				done

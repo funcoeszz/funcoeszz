@@ -48,7 +48,7 @@ zztv ()
 
 		# Lista de canais
 		grep -F '/programacao/' "$cache" |
-		while read linhas
+		while read -r linhas
 		do
 			zztool source "${URL}${linhas}"
 		done |
@@ -119,7 +119,7 @@ zztv ()
 		if test "$desc" = "Agora"
 		then
 			grep -F '/programacao/' "$cache" |
-			while read linhas
+			while read -r linhas
 			do
 				zztool source "${URL}${linhas}"
 			done
@@ -140,7 +140,7 @@ zztv ()
 		if test "$desc" = "Agora"
 		then
 			awk -F '|' '{print $3 "|" $2 "|" $5}' |
-			while IFS='|' read hora canal programa
+			while IFS='|' read -r hora canal programa
 			do
 				echo "$hora  $(zzpad 27 $canal) $programa"
 			done |

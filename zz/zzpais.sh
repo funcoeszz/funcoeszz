@@ -106,7 +106,7 @@ zzpais ()
 			}'
 	fi |
 	sed 's/ *| */|/g' |
-	while read linha
+	while read -r linha
 	do
 		if zztool grep_var "|" "$linha"
 		then

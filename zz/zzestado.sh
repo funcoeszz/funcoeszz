@@ -76,7 +76,7 @@ TO:Tocantins:tocantins:Palmas"
 		--formato)
 			fmt="$2"
 			echo "$dados" |
-				while IFS=':' read sigla nome slug capital
+				while IFS=':' read -r sigla nome slug capital
 				do
 					resultado=$(printf %s "$fmt" | sed "
 						s/{sigla}/$sigla/g
@@ -156,7 +156,7 @@ TO:Tocantins:tocantins:Palmas"
 		;;
 		*)
 			echo "$dados" |
-				while IFS=':' read sigla nome slug capital
+				while IFS=':' read -r sigla nome slug capital
 				do
 					echo "$sigla    $(zzpad 22 $nome) $capital"
 				done

@@ -125,7 +125,7 @@ zzconfere ()
 		echo "$palpite"
 	else
 		# Quando os números apostados estão listado em um arquivo
-		while read palpite
+		while read -r palpite
 		do
 			echo "$palpite" |
 			sed 's/^[^0-9]*//;s/[^0-9]$//;s/[^0-9]\{1,\}/ /g'

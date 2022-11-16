@@ -62,7 +62,7 @@ zzfatorar ()
 			zzdivisores $1 |
 			tr ' ' '\n' |
 			sed '1d; $!{ /.\{1,\}[024568]$/d; }' |
-			while read linha
+			while read -r linha
 			do
 				zzdivisores $linha | awk 'NF==2 {print $2}'
 			done > "$cache"

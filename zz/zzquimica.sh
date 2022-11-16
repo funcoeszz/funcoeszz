@@ -65,7 +65,7 @@ zzquimica ()
 			s/Ununóctio/Oganesson/; s/Uuo/Og/
 			' |
 		sort -n |
-		while IFS=':' read numero nome simbolo massa orbital familia
+		while IFS=':' read -r numero nome simbolo massa orbital familia
 		do
 			echo "$(zzpad 4 $numero) $(zzpad 13 $nome) $(zzpad 7 $simbolo) $(zzpad 12 $massa) $(zzpad 18 $orbital) $familia"
 		done > "$cache"

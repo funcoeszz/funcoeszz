@@ -86,7 +86,7 @@ zzplay ()
 				sed '/^[[:blank:]]*$/d;/^#/d;s/^[[:blank:]]*//g' "$1" |
 				awk 'BEGIN { print "[playlist]" } { print "File" NR "=" $0 }' |
 				sed 's/%\([0-9A-F][0-9A-F]\)/\\\\x\1/g' |
-				while read linha
+				while read -r linha
 				do
 					printf "%b\n" "$linha"
 				done >> $cache
@@ -96,7 +96,7 @@ zzplay ()
 				sed '/^[[:blank:]]*$/d;s/^[[:blank:]]*//g' | sed 's|file://||g' |
 				awk 'BEGIN { print "[playlist]" } { print "File" NR "=" $0 }' |
 				sed 's/%\([0-9A-F][0-9A-F]\)/\\\\x\1/g' |
-				while read linha
+				while read -r linha
 				do
 					printf "%b\n" "$linha"
 				done >> $cache
@@ -105,7 +105,7 @@ zzplay ()
 				zzxml --indent --tag ref "$1" | zzunescape --html | sed '/^[[:blank:]]*$/d' |
 				awk -F'""' 'BEGIN { print "[playlist]" } { print "File" NR "=" $2 }' |
 				sed 's/%\([0-9A-F][0-9A-F]\)/\\\\x\1/g' |
-				while read linha
+				while read -r linha
 				do
 					printf "%b\n" "$linha"
 				done >> $cache

@@ -95,7 +95,7 @@ zzbrasileirao ()
 	fi |
 	sed 's/^|//;s/| *$//;s/a$/ /' |
 	awk 'NR==1 && /Final/ {next};1' |
-	while IFS='|' read pos time resto
+	while IFS='|' read -r pos time resto
 	do
 		unset cor
 		zztool grep_var 'Grupo' "$pos" && echo '--------------------------------'

@@ -28,7 +28,7 @@ zzsubway ()
 	1:molho:mostarda e mel:cebola agridoce:barbecue:parmesão:chipotle:mostarda:maionese
 	*:tempero:sal:vinagre:azeite de oliva:pimenta calabresa:pimenta do reino"
 
-	echo "$cardapio" | while read linha; do
+	echo "$cardapio" | while read -r linha; do
 		quantidade=$(echo "$linha" | cut -d : -f 1 | tr -d '\t')
 		categoria=$( echo "$linha" | cut -d : -f 2)
 		opcoes=$(    echo "$linha" | cut -d : -f 3- | tr : '\n')

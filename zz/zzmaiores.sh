@@ -101,7 +101,7 @@ zzmaiores ()
 	fi
 	# TODO é K (nem é, só se usar -k -- conferir no SF) se vier do du e bytes se do find
 	echo "$resultado"
-	# | while read tamanho arquivo
+	# | while read -r tamanho arquivo
 	# do
 	# 		echo -e "$(zzbyte $tamanho)\t$arquivo"
 	# done

@@ -141,7 +141,7 @@ zzselic ()
 	then
 		saida=$(
 			echo "$saida" |
-				while IFS=';' read v1 v2
+				while IFS=';' read -r v1 v2
 				do
 					echo "$(zzpad 11 $v1) $v2"
 				done

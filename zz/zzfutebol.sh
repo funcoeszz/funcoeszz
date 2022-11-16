@@ -57,7 +57,7 @@ zzfutebol ()
 			if(i!=6) printf $0 ";" (i==7?"\n":"")
 		}
 	}' |
-	while IFS=';' read data hora time1 placar time2 campeonato
+	while IFS=';' read -r data hora time1 placar time2 campeonato
 	do
 		echo "$(zzdatafmt $data) $hora $(zzpad -e 24 $time1) $(zzpad -a 14 $placar) $(zzpad 24 $time2) $campeonato"
 	done |

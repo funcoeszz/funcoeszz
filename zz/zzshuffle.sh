@@ -22,7 +22,7 @@ zzshuffle ()
 		# Um número aleatório é colocado no início de cada linha,
 		# depois o sort ordena numericamente, bagunçando a ordem
 		# original. Então os números são removidos.
-		while read linha
+		while read -r linha
 		do
 			echo "$(zzaleatorio) $linha"
 		done |

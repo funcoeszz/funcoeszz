@@ -11,6 +11,7 @@ lint: shellcheck
 # Na segunda chamada, estamos indo aos poucos nas zz/*.sh, ligando somente as
 # verificações mais simples de arrumar. São elas:
 # - egrep/fgrep -> grep -E/-F
+# - read -r
 shellcheck:
 	shellcheck funcoeszz testador/run \
 		info/*.sh \
@@ -18,7 +19,8 @@ shellcheck:
 		release/*.sh \
 		util/*.sh
 	shellcheck zz/*.sh --shell=bash \
-		--include SC2196,SC2197
+		--include SC2196,SC2197 \
+		--include SC2162
 
 test: test-core test-local test-internet
 
