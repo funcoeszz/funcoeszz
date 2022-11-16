@@ -26,7 +26,7 @@ zzminiurl ()
 	local urlCompara=$(echo "$url" | sed 's/\(.*\:\/\/\)\(bit\.ly\).*/\2/')
 
 	# Se o usuário não informou o protocolo, adiciona o padrão.
-	echo "$url" | egrep '^(https?|ftp|mms)://' >/dev/null || url="$prefixo$url"
+	echo "$url" | grep -E '^(https?|ftp|mms)://' >/dev/null || url="$prefixo$url"
 
 	# Testa se a URL já é encurtada, se sim, expande, senão, encurta.
 	if test 'bit.ly' = "$urlCompara"
