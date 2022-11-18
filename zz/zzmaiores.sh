@@ -10,7 +10,7 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-28
-# Versão: 1
+# Versão: 2
 # Requisitos: zzzz zztrim
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
@@ -39,6 +39,11 @@ zzmaiores ()
 			-r)
 				recursivo=1
 				shift
+			;;
+			--)
+				# Fim das opções, o que vem depois é só nomes de arquivos
+				shift
+				break
 			;;
 			*)
 				break
@@ -81,9 +86,7 @@ zzmaiores ()
 		pastas="$@"
 		if test -z "$pastas" -o "$pastas" = '.'
 		then
-			# Não dá pra usar ./* em vez de * senão ele aparece no resultado
-			# shellcheck disable=SC2035
-			zzmaiores ${recursivo:+-r} -n $limite * .[^.]*
+			zzmaiores ${recursivo:+-r} -n $limite -- * .[^.]*
 			return
 
 		fi
