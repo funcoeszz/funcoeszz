@@ -62,7 +62,7 @@ zzcep ()
 		sed '2,$ { /LOGRADOURO/d; }' |
 		zztrim |
 		tr -s ' ' |
-		while IFS="|" read logradouro bairro cidade cep
+		while IFS="|" read -r logradouro bairro cidade cep
 		do
 			echo "$cep $(zzpad 65 $logradouro) $(zzpad 25 $bairro) $(zzpad 30 $cidade) $cep"
 		done |

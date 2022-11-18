@@ -27,7 +27,7 @@ zzhexa2str ()
 		sed 's/^0x//' |
 
 		# hexa -> str
-		while read hexa
+		while read -r hexa
 		do
 			printf "\\x$hexa"
 		done

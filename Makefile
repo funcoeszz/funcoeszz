@@ -8,12 +8,25 @@ lint: shellcheck
 	./util/requisitos.sh
 	./util/nanny.sh
 
+# Na segunda chamada, estamos indo aos poucos nas zz/*.sh, ligando somente as
+# verificações mais simples de arrumar. São elas:
+# - egrep/fgrep -> grep -E/-F
+# - read -r
+# - * -> ./* pra evitar conflito de glob com -arquivos --estranhos
+# - cd || exit
+# - foo= -> foo=''
 shellcheck:
 	shellcheck funcoeszz testador/run \
 		info/*.sh \
 		manpage/*.sh \
 		release/*.sh \
 		util/*.sh
+	shellcheck zz/*.sh --shell=bash \
+		--include SC2196,SC2197 \
+		--include SC2162 \
+		--include SC2035 \
+		--include SC2164 \
+		--include SC1007
 
 test: test-core test-local test-internet
 

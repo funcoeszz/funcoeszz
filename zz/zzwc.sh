@@ -102,7 +102,7 @@ zzwc ()
 	then
 		maior=$(
 		echo "$conteudo" |
-		while read linha
+		while read -r linha
 		do
 			printf "%s" "$linha" |
 			if test -n "$mb"

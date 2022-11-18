@@ -316,7 +316,7 @@ s/♦/\&	diams	#x2666	#9830	;/g;
 				dec)      sed 's/	.*	/	\&/;s/$/;/;$s/" "/ /';;
 				*)
 					sed 's/	/	\&/g;s/	/;	/2g;s/$/;/' |
-					while read char html hex dec
+					while read -r char html hex dec
 					do
 						echo "$(zzpad 4 $char) $(zzpad 11 $html) $(zzpad 11 $hex) $dec"
 					done |

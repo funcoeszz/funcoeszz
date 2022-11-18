@@ -26,6 +26,7 @@ jobs:
     needs: build-matrix
     runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false  # always run all jobs, regardless of failures
       matrix:
         zz: ${{ fromJson(needs.build-matrix.outputs.zzs) }}
     steps:

@@ -37,7 +37,7 @@ zzhowto ()
 		zztool source "$url" |
 			zzxml --untag |
 			zztrim |
-			fgrep '.html' |
+			grep -F '.html' |
 			sed 's/ [0-9][0-9]:.*//' > "$cache"
 	fi
 

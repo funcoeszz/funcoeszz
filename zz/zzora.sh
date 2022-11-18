@@ -24,7 +24,7 @@ zzora ()
 	zztool source "${url}=${cod}" |
 	sed -n "/to_URL.*-${cod}/{s/.*name=//;s/\">.*//;p;}" |
 	zzurldecode |
-	while read link
+	while read -r link
 	do
 		zztool dump "$link" |
 		sed -n "/^ *[A-Z0-9]\{1,\}-$cod/,/-[0-9]\{5\}[^0-9]/p" |

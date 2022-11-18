@@ -10,8 +10,8 @@
 #
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-28
-# Versão: 1
-# Requisitos: zzzz zztrim
+# Versão: 2
+# Requisitos: zzzz zztool zztrim
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzmaiores ()
@@ -39,6 +39,15 @@ zzmaiores ()
 			-r)
 				recursivo=1
 				shift
+			;;
+			--)
+				# Fim das opções, o que vem depois é só nomes de arquivos
+				shift
+				break
+			;;
+			-*)
+				zztool erro "Opção inválida $1"
+				return 1
 			;;
 			*)
 				break
@@ -81,7 +90,7 @@ zzmaiores ()
 		pastas="$@"
 		if test -z "$pastas" -o "$pastas" = '.'
 		then
-			zzmaiores ${recursivo:+-r} -n $limite * .[^.]*
+			zzmaiores ${recursivo:+-r} -n $limite -- * .[^.]*
 			return
 
 		fi
@@ -101,7 +110,7 @@ zzmaiores ()
 	fi
 	# TODO é K (nem é, só se usar -k -- conferir no SF) se vier do du e bytes se do find
 	echo "$resultado"
-	# | while read tamanho arquivo
+	# | while read -r tamanho arquivo
 	# do
 	# 		echo -e "$(zzbyte $tamanho)\t$arquivo"
 	# done

@@ -72,7 +72,7 @@ zzferiado ()
 		sed 's#^\(..\)/\(..\)#\2/\1#g' |
 		sort -n |
 		sed 's#^\(..\)/\(..\)#\2/\1#g' |
-		while read linha; do
+		while read -r linha; do
 			dia=$(echo $linha | cut -d: -f1)
 			diasemana=$(zzdiadasemana $dia/$ano | zzsemacento)
 			descricao=$(echo $linha | cut -d: -f2)

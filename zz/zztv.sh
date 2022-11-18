@@ -47,8 +47,8 @@ zztv ()
 		sed -n '/categoria/{s/" .*//;s/.*"//;p;}' > "$cache"
 
 		# Lista de canais
-		fgrep '/programacao/' "$cache" |
-		while read linhas
+		grep -F '/programacao/' "$cache" |
+		while read -r linhas
 		do
 			zztool source "${URL}${linhas}"
 		done |
@@ -100,7 +100,7 @@ zztv ()
 	fi
 
 	case "$1" in
-	canais) fgrep -v '/programacao/' "$cache" | zzcolunar 4;;
+	canais) grep -Fv '/programacao/' "$cache" | zzcolunar 4;;
 	aberta)                        URL="${URL}/programacao/categoria/Aberta"; flag=1; desc="Aberta";;
 	doc | documentario)            URL="${URL}/programacao/categoria/Documentarios"; flag=1; desc="Documentários";;
 	esporte | esportes | futebol)  URL="${URL}/programacao/categoria/Esportes"; flag=1; desc="Esportes";;
@@ -118,8 +118,8 @@ zztv ()
 		zztool eco $desc
 		if test "$desc" = "Agora"
 		then
-			fgrep '/programacao/' "$cache" |
-			while read linhas
+			grep -F '/programacao/' "$cache" |
+			while read -r linhas
 			do
 				zztool source "${URL}${linhas}"
 			done
@@ -140,7 +140,7 @@ zztv ()
 		if test "$desc" = "Agora"
 		then
 			awk -F '|' '{print $3 "|" $2 "|" $5}' |
-			while IFS='|' read hora canal programa
+			while IFS='|' read -r hora canal programa
 			do
 				echo "$hora  $(zzpad 27 $canal) $programa"
 			done |

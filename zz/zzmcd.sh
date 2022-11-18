@@ -48,6 +48,7 @@ zzmcd ()
 	esac
 
 	# Desloca-se ao primeiro diretório criado no último nivel possível
+	# shellcheck disable=SC2164
 	test -d "$1" && test -z "$opt" && cd "$1"
 	return $erro
 }

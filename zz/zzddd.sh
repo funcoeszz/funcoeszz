@@ -47,7 +47,7 @@ zzddd ()
 	# A primeira página ou endereço das várias páginas
 	pagina1=$(zztool source "${url}/busca?word=${dddend}")
 
-	if echo "$pagina1" | fgrep 'nav_pagination">' >/dev/null
+	if echo "$pagina1" | grep -F 'nav_pagination">' >/dev/null
 	then
 		ultima=$(echo "$pagina1" | sed -n '/nav_pagination">/,/ul>/{/\/busca\//{$d;s/.*page=//;s/".*//;p;}}' | sort -n | tail -n 1)
 		url2=$(echo "$pagina1" | sed -n '/nav_pagination">/,/ul>/{/\/busca\//{s/.*href="//;s/page=.*/page=/;p;q;}}')
@@ -66,7 +66,7 @@ zzddd ()
 		tr -s ' ' |
 		awk '/Saiba como ligar/{print "";next};{printf $0 "|"}' |
 		sed '2,${/DDD/d;}' |
-		while IFS="|" read ddd cidade estado
+		while IFS="|" read -r ddd cidade estado
 		do
 			echo "$(zzpad 3 $ddd) $(zzpad 40 $cidade) $estado"
 		done |

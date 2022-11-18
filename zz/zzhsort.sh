@@ -59,7 +59,7 @@ zzhsort ()
 	done
 
 	zztool multi_stdin "$@" |
-	while read linha
+	while read -r linha
 	do
 		if test -z "$linha"
 		then

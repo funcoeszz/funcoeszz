@@ -61,13 +61,13 @@ zzromanos ()
 	if test $# -eq 0
 	then
 		echo "$arabicos_romanos" |
-		egrep '[15]|4000:' | tr -d '\t' | tr : '\t' |
+		grep -E '[15]|4000:' | tr -d '\t' | tr : '\t' |
 		zztac
 
 	# Se é um número inteiro positivo, transforma para número romano
 	elif zztool testa_numero "$entrada" && test "$entrada" -lt 4000000
 	then
-		echo "$arabicos_romanos" | { while IFS=: read arabico romano
+		echo "$arabicos_romanos" | { while IFS=: read -r arabico romano
 		do
 			while test "$entrada" -ge "$arabico"
 			do
@@ -80,11 +80,11 @@ zzromanos ()
 
 	# Se é uma string que representa um número romano válido,
 	# converte para hindu-arábico
-	elif echo "$entrada" | egrep "$regex_validacao" > /dev/null
+	elif echo "$entrada" | grep -E "$regex_validacao" > /dev/null
 	then
 		saida=0
 		# Baseado em http://diveintopython.org/unit_testing/stage_4.html
-		echo "$arabicos_romanos" | { while IFS=: read arabico romano
+		echo "$arabicos_romanos" | { while IFS=: read -r arabico romano
 		do
 			comprimento="${#romano}"
 			while test "$(echo "$entrada" | cut -c$indice-$((indice+comprimento-1)))" = "$romano"

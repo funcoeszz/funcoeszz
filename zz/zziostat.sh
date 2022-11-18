@@ -92,7 +92,7 @@ zziostat ()
 	# Executa o iostat, le a saida e agrupa cada "ciclo de execucao"
 	# -d device apenas, -m mostra saida em MB/s
 	iostat -d -m $delay $iteration |
-	while read line
+	while read -r line
 	do
 
 		# Ignorando o cabeçalho do iostat, localizado nas 2 linhas iniciais

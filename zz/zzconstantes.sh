@@ -53,7 +53,7 @@ zzconstantes ()
 		zzunescape --html |
 		zzcut -f 1-3 -s -d '_' |
 		sed 's/\([0-9]\) \([0-9]\)/\1\2/g;' |
-		while IFS='_' read a b c
+		while IFS='_' read -r a b c
 		do
 			if test 'i' == "$a"
 			then
@@ -84,7 +84,7 @@ zzconstantes ()
 		sed 's/_[_[:space:] ]\{1,\}/_/g;s/^_*//;s/_*$//;/Adaptado do/d;/retirados/d' |
 		zzsqueeze |
 		sed 's/\([0-9]\) \([0-9]\)/\1\2/g;s/&#1013;/ϵ/' |
-		while IFS='_' read a b c d e
+		while IFS='_' read -r a b c d e
 		do
 			if test -z "$b"
 			then
