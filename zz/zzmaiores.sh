@@ -11,7 +11,7 @@
 # Autor: Aurelio Marinho Jargas, www.aurelio.net
 # Desde: 2001-08-28
 # Versão: 2
-# Requisitos: zzzz zztrim
+# Requisitos: zzzz zztool zztrim
 # Tags: arquivo, consulta
 # ----------------------------------------------------------------------------
 zzmaiores ()
@@ -44,6 +44,10 @@ zzmaiores ()
 				# Fim das opções, o que vem depois é só nomes de arquivos
 				shift
 				break
+			;;
+			-*)
+				zztool erro "Opção inválida $1"
+				return 1
 			;;
 			*)
 				break
