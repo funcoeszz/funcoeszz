@@ -8,7 +8,7 @@
 #
 # Autor: Marcell S. Martini <marcellmartini (a) gmail com>
 # Desde: 2008-12-05
-# Versão: 4
+# Versão: 5
 # Requisitos: zzzz zzhora zztestar
 # Tags: tempo, conversão
 # ----------------------------------------------------------------------------
@@ -21,10 +21,15 @@ zzhoramin ()
 
 	operacao='+'
 
-	# Testa se o parâmetro passado é uma hora valida
-	if ! zztestar hora "${1#-}"; then
+	if test $# -eq 0
+	then
+		# Nenhuma hora informada, usa a hora atual
 		hora=$(zzhora agora | cut -d ' ' -f 1)
 	else
+		# Valida a hora informada
+		# (note que o possível sinal de menos é removido)
+		zztestar -e hora "${1#-}" || return 1
+
 		hora="$1"
 	fi
 
